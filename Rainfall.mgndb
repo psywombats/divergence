@@ -1,1 +1,1 @@
-{	"name": "Rainfall database",	"data": "data/",}
+{	"name": "Rainfall database",	"data": "/data",	"schema": "/RainfallSchema"}
