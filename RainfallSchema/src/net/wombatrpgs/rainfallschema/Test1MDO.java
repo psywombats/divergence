@@ -6,12 +6,14 @@
  */
 package net.wombatrpgs.rainfallschema;
 
+import net.wombatrpgs.mgns.core.BaseSchema;
 import net.wombatrpgs.mgns.core.Annotations.*;
 
 /**
  * Just testin'
  */
-public class Test1MDO {
+@Path("junk/child/")
+public class Test1MDO extends BaseSchema {
 	
 	@DisplayName("Herp.")
 	@Desc("descript text goes here.")

@@ -1,1 +1,5 @@
-{	"name": "Rainfall database",	"data": "/data",	"schema": "/RainfallSchema"}
+{
+	"name" : "Rainfall database",
+	"data" : "data",
+	"schema" : "RainfallSchema.jar"
+}
