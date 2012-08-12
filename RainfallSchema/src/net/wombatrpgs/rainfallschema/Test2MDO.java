@@ -6,14 +6,14 @@
  */
 package net.wombatrpgs.rainfallschema;
 
-import net.wombatrpgs.mgns.core.BaseSchema;
+import net.wombatrpgs.mgns.core.Schema;
 import net.wombatrpgs.mgns.core.Annotations.*;
 
 /**
  * Test object
  */
 @Path("junk/")
-public class Test2MDO extends BaseSchema {
+public class Test2MDO extends Schema {
 	
 	@DisplayName("Test String")
 	@Desc("Description of the test string.")

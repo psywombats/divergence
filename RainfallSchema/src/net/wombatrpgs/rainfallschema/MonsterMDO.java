@@ -6,14 +6,14 @@
  */
 package net.wombatrpgs.rainfallschema;
 
-import net.wombatrpgs.mgns.core.BaseSchema;
+import net.wombatrpgs.mgns.core.Schema;
 import net.wombatrpgs.mgns.core.Annotations.*;
 
 /**
  * Another test schema...
  */
 @Path("junk/")
-public class MonsterMDO extends BaseSchema {
+public class MonsterMDO extends Schema {
 	
 	@Desc("Visible name of the monster")
 	public String monsterName;
