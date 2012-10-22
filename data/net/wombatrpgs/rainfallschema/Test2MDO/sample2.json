@@ -1,8 +1,0 @@
-{
-	"key" : "sample2",
-	"name" : "Sample2 .json",
-	"description" : "Used in the first MGNSE tests",
-	"subfolder" : "testdir/sub/",
-	"test" : "text 2",
-	"test2" : 188
-}
