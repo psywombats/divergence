@@ -1,5 +1,5 @@
 {
 	"name" : "Rainfall database",
 	"data" : "data",
-	"schema" : "RainfallSchema.jar"
+	"schema" : "jar/RainfallSchema.jar"
 }
