@@ -1,0 +1,16 @@
+{
+	"key" : "my_map_1",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"herpaderp" : "welp2.map",
+	"mapType" : "TYPE_TWO",
+	"links" : [
+		{
+			"herpaderp" : "THREEE"
+		},
+		{
+			"herpaderp" : "hurfdurf"
+		}
+	]
+}

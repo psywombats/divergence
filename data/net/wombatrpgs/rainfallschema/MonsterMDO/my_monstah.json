@@ -1,0 +1,11 @@
+{
+	"key" : "my_monstah",
+	"subfolder" : "",
+	"name" : "MY_MONSTER",
+	"description" : "don't touch",
+	"monsterName" : "Ye Olde Monster",
+	"bestiaryEntry" : "\"A very stupid beast, it seems to have escaped its laboratory\"",
+	"mhp" : 60,
+	"gold" : 0,
+	"summonedMonster" : "my_monstah"
+}

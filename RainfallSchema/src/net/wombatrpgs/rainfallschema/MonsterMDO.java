@@ -23,10 +23,10 @@ public class MonsterMDO extends Schema {
 	public String bestiaryEntry;
 	
 	@Desc("Maximum health of monster")
-	public int mhp;
+	public Integer mhp;
 	
 	@Desc("Gold dropped when killed")
-	public int gold;
+	public Integer gold;
 	
 	@Desc("Monster that this monster can summon via special attack, or none if no special")
 	@Nullable

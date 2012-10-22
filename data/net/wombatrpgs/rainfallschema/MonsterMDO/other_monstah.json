@@ -1,0 +1,11 @@
+{
+	"key" : "other_monstah",
+	"subfolder" : "",
+	"name" : "MY_MONSTER2",
+	"description" : "",
+	"monsterName" : "monster 2",
+	"bestiaryEntry" : "test monster",
+	"mhp" : 60,
+	"gold" : 0,
+	"summonedMonster" : "None"
+}

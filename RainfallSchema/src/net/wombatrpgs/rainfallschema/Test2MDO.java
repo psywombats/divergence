@@ -20,5 +20,9 @@ public class Test2MDO extends Schema {
 //	@DefaultValue("hahahaha default")
 //	@Nullable(true)
 	public String test;
+	
+	@DisplayName("Test Integer")
+	@Desc("Description of the test number.")
+	public Integer test2;
 
 }
