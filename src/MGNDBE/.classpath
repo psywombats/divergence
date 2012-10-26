@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/jackson-annotations-2.0.4.jar" sourcepath="/jackson-annotations/src/main"/>
+	<classpathentry kind="lib" path="lib/jackson-core-2.0.4.jar" sourcepath="/jackson-core/src/main"/>
+	<classpathentry kind="lib" path="lib/jackson-databind-2.0.4.jar" sourcepath="/jackson-databind/src/main"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/MGNSchema"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
