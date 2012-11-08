@@ -6,6 +6,12 @@
  */
 package net.wombatrpgs.mgne.global;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import net.wombatrpgs.mgne.data.DataLoader;
+import net.wombatrpgs.mgne.data.Database;
+import net.wombatrpgs.mgne.data.DirectoryDataLoader;
+
 /**
  * GLOBAL - THE GLOBAL CLASS. It's a big giant class that's just "there" and
  * holds references to all those other lesser global classes. Singleton pattern
@@ -16,14 +22,27 @@ package net.wombatrpgs.mgne.global;
 public class Global {
 	
 	public static DataLoader dataLoader;
+	
+	/** The class used to load file resources */
 	public static FileLoader fileLoader;
+	
+	/** Error-reporting dispatcher */
 	public static Reporter reporter;
 	
+	/** Jackson object mapper for schema */
+	public static ObjectMapper mapper;
+	
+	/** Storage container for data entries */
+	public static Database data;
+	
 	/* Ho shit a static initializer... let's make some singletons! */
+	// TODO: dependency list, some INIT CODE
 	static {
-		dataLoader = new DataLoader();
+		dataLoader = new DirectoryDataLoader();
 		fileLoader = new FileLoader();
 		reporter = new DebugReporter();
+		mapper = new ObjectMapper();
+		data = new Database();
 	}
 
 }

@@ -29,6 +29,13 @@ public interface Reporter {
 	public void warn(String warning);
 	
 	/**
+	 * Warn clone if an error should be handled.
+	 * @param 	error		Descripting of the problem
+	 * @param 	e			The exception generated
+	 */
+	public void warn(String error, Exception e);
+	
+	/**
 	 * This is the function to call when shit hits the fan. Recover if possible,
 	 * but log anything that's probably fatal here.
 	 * @param error		The error that occurred

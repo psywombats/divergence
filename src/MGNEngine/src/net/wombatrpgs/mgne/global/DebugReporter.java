@@ -56,4 +56,13 @@ public class DebugReporter implements Reporter {
 		e.printStackTrace();
 	}
 
+	/**
+	 * @see net.wombatrpgs.mgne.global.Reporter#warn(java.lang.String, java.lang.Exception)
+	 */
+	@Override
+	public void warn(String error, Exception e) {
+		warn(error);
+		e.printStackTrace();
+	}
+
 }

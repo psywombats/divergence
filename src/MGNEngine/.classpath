@@ -11,5 +11,8 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/jogg-0.0.7.jar"/>
 	<classpathentry kind="lib" path="lib/jorbis-0.0.15.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-annotations-2.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-core-2.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-databind-2.0.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
