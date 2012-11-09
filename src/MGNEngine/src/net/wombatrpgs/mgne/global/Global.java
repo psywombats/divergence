@@ -35,9 +35,14 @@ public class Global {
 	/** Storage container for data entries */
 	public static Database data;
 	
-	/* Ho shit a static initializer... let's make some singletons! */
-	// TODO: dependency list, some INIT CODE
-	static {
+	/** True if global has been initialized yet */
+	public static boolean initialized;
+	
+	/**
+	 * Call in test suites that use global. This is the same thing as the old
+	 * static initializer method.
+	 */
+	public static void setupGlobalForTesting() {
 		dataLoader = new DirectoryDataLoader();
 		fileLoader = new FileLoader();
 		reporter = new DebugReporter();

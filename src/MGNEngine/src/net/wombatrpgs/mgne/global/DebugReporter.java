@@ -36,7 +36,7 @@ public class DebugReporter implements Reporter {
 	 */
 	@Override
 	public void err(String error) {
-		System.out.println("ERROR: " + error);
+		System.err.println("ERROR: " + error);
 	}
 
 	/**

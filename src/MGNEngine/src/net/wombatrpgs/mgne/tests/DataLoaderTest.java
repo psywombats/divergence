@@ -26,10 +26,6 @@ public class DataLoaderTest {
 		DataLoader loader = new DirectoryDataLoader();
 		List<MainSchema> schema = loader.loadData("res/data");
 		Global.data.addData(schema);
-		for (Schema s : schema) {
-			System.out.println(s.toString());
-		}
-		System.out.println(Global.data.getEntryByKey("what").description);
 	}
 
 }

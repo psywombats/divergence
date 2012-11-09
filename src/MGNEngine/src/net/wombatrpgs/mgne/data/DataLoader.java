@@ -66,6 +66,14 @@ public abstract class DataLoader {
 	}
 	
 	/**
+	 * Loads the data then dumps it.
+	 * @param dataDirectory
+	 */
+	public void addToDatabase(String dataDirectory) {
+		Global.data.addData(loadData(dataDirectory));
+	}
+	
+	/**
 	 * Gets the counter used by the preloading scheme for use in loading bars.
 	 * @return	The preloader's update counter
 	 */

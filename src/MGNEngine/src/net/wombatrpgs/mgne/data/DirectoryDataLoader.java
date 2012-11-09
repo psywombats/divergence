@@ -37,6 +37,7 @@ public class DirectoryDataLoader extends DataLoader {
 	 */
 	@Override
 	protected void setDirectory(String dataDirectory) {
+		Global.reporter.inform("Now reading from " + dataDirectory);
 		readingDirectory = new File(dataDirectory);
 		if (!readingDirectory.exists()) {
 			Global.reporter.err("Tried to read data from a non-existant directory");
@@ -60,7 +61,8 @@ public class DirectoryDataLoader extends DataLoader {
 	 * @param 	toLoad		The file to actually load
 	 */
 	protected void loadFile(File toLoad) {
-		preloaded.add(new PreloadedData(getSchemaByFile(toLoad), readFile(toLoad)));	
+		preloaded.add(new PreloadedData(getSchemaByFile(toLoad), readFile(toLoad)));
+		Global.reporter.inform("Loaded database entry " + toLoad);
 	}
 	
 	/**

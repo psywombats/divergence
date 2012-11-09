@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/MGNEngine"/>
+	<classpathentry kind="lib" path="/MGNEngine/lib/jackson-annotations-2.0.4.jar"/>
+	<classpathentry kind="lib" path="/MGNEngine/lib/jackson-core-2.0.4.jar"/>
+	<classpathentry kind="lib" path="/MGNEngine/lib/jackson-databind-2.0.4.jar"/>
+	<classpathentry kind="lib" path="/MGNEngine/lib/jogg-0.0.7.jar"/>
+	<classpathentry kind="lib" path="/MGNEngine/lib/jorbis-0.0.15.jar"/>
+	<classpathentry kind="lib" path="/MGNEngine/lib/lwjgl.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/Users/aking_2/rainfall/src/MGNEngine/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/MGNEngine/lib/slick-util.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/RainfallSchema"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/MGNSchema"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
