@@ -8,7 +8,6 @@ package net.wombatrpgs.mgne.data;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
@@ -139,12 +138,7 @@ public class DirectoryDataLoader extends DataLoader {
 	 */
 	protected static String readFile(File source) {
 		FileInputStream stream;
-		try {
-			stream = new FileInputStream(source);
-		} catch (FileNotFoundException e) {
-			Global.reporter.err("Couldn't find a source data file " + source);
-			return null;
-		}
+		stream = Global.fileLoader.getFileStream(source.getPath());
 		try {
 			FileChannel fc = stream.getChannel();
 			MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());

@@ -19,6 +19,7 @@ public class FileReaderTest {
 	 * @param args Unused
 	 */
 	public static void main(String[] args) {
+		Global.setupGlobalForTesting();
 		Scanner sc = new Scanner(Global.fileLoader.getStream("res/test/strings.txt"));
 		while (sc.hasNextLine()) {
 			Global.reporter.inform(sc.nextLine());

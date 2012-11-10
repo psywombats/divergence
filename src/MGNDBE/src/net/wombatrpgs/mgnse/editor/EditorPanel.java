@@ -195,6 +195,7 @@ public class EditorPanel extends JPanel {
 			Global.instance().warn("Couldn't find a valid panel for: " + field.getType());
 			return;
 		}
+		Global.instance().debug("Generated a panel " + panel.getClass().getCanonicalName());
 		
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;

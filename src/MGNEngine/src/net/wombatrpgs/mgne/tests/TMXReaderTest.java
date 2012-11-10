@@ -17,6 +17,7 @@ import tiled.io.TMXMapReader;
 public class TMXReaderTest {
 	
 	public static void main(String args[]) {
+		Global.setupGlobalForTesting();
 		TMXMapReader reader = new TMXMapReader();
 		Map testMap = null;
 		try {

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="assets"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl.jar" sourcepath="libs/gdx-backend-lwjgl-sources.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl-natives.jar"/>
+	<classpathentry kind="lib" path="libs/gdx-natives.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/rainfall-libgdx"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/MGNEngine"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/MGNSchema"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/RainfallSchema"/>
+	<classpathentry kind="lib" path="libs/jackson-annotations-2.0.4.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-core-2.0.4.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-databind-2.0.4.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

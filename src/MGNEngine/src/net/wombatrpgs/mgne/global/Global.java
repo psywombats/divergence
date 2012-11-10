@@ -24,7 +24,7 @@ public class Global {
 	public static DataLoader dataLoader;
 	
 	/** The class used to load file resources */
-	public static FileLoader fileLoader;
+	public static SimpleFileLoader fileLoader;
 	
 	/** Error-reporting dispatcher */
 	public static Reporter reporter;
@@ -44,7 +44,7 @@ public class Global {
 	 */
 	public static void setupGlobalForTesting() {
 		dataLoader = new DirectoryDataLoader();
-		fileLoader = new FileLoader();
+		fileLoader = new SimpleFileLoader();
 		reporter = new DebugReporter();
 		mapper = new ObjectMapper();
 		data = new Database();
