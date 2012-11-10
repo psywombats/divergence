@@ -1,0 +1,2 @@
+Run this script to convert everything in the maps folder to usable map format
+and export them to the game's res/maps folder.
