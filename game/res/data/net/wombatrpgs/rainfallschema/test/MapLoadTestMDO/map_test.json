@@ -1,0 +1,7 @@
+{
+	"key" : "map_test",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "Singleton for map testing -- edit this schema to change the map loaded",
+	"map" : "blockbound.tmx"
+}

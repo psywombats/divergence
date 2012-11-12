@@ -11,6 +11,7 @@ import java.lang.reflect.Field;
 import javax.swing.JTextField;
 
 import net.wombatrpgs.mgns.core.Schema;
+import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgnse.Global;
 
 /**
@@ -31,6 +32,9 @@ public class StringField extends FieldPanel {
 		super(parent, field);
 		//TODO: alter this so that the editor correctly consumes screen space
 		input = new JTextField(75);
+		if (defaultData == null && source.isAnnotationPresent(DefaultValue.class)) {
+			defaultData = source.getAnnotation(DefaultValue.class).value();
+		}
 		input.setText(defaultData);
 		input.getDocument().addDocumentListener(this);
 		addConstrained(input);

@@ -40,7 +40,7 @@ public class ReferenceField extends FieldPanel {
 			input.addItem("None");
 		}
 		for (int i = 0; i < node.getChildCount(); i++) {
-			input.addItem(((SchemaNode) node.getChildAt(i)).getObjectName());
+			recursivelyAdd((SchemaNode) node.getChildAt(i));
 		}
 		if (defaultData != null && !defaultData.equals("")) {
 			// TODO: verify it exists
@@ -59,6 +59,16 @@ public class ReferenceField extends FieldPanel {
 			source.set(s, input.getSelectedItem());
 		} catch (Exception e) {
 			Global.instance().err("There was some reflection fuckup??", e);
+		}
+	}
+	
+	protected void recursivelyAdd(SchemaNode node) {
+		if (node.isLeaf()) {
+			input.addItem(node.getObjectName());
+		} else {
+			for (int i = 0; i < node.getChildCount(); i++) {
+				recursivelyAdd((SchemaNode) node.getChildAt(i));
+			}
 		}
 	}
 

@@ -44,7 +44,9 @@ public class FileField extends FieldPanel {
 			input.addItem("None");
 		}
 		for (File f : dir.listFiles()) {
-			input.addItem(f.getName());
+			if (f.isFile()) {
+				input.addItem(f.getName());
+			}
 		}
 		if (defaultData != null && !defaultData.equals("")) {
 			if (!selectString(defaultData)) {

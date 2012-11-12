@@ -4,9 +4,10 @@ import net.wombatrpgs.mgne.data.Database;
 import net.wombatrpgs.mgne.data.DirectoryDataLoader;
 import net.wombatrpgs.mgne.global.DebugReporter;
 import net.wombatrpgs.mgne.global.SimpleFileLoader;
-import net.wombatrpgs.mgne.global.Global;
-import net.wombatrpgs.rainfallschema.WindowDataMDO;
+import net.wombatrpgs.rainfall.RGlobal;
+import net.wombatrpgs.rainfallschema.settings.WindowDataMDO;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,14 +24,15 @@ public class Main {
 	public static void main(String[] args) {
 		
 		// TODO: set up a loading bar or something
-		Global.reporter = new DebugReporter();
-		Global.fileLoader = new SimpleFileLoader();
-		Global.dataLoader = new DirectoryDataLoader();
-		Global.mapper = new ObjectMapper();
-		Global.data = new Database();
-		Global.dataLoader.addToDatabase("res/data");
+		RGlobal.reporter = new DebugReporter();
+		RGlobal.fileLoader = new SimpleFileLoader();
+		RGlobal.dataLoader = new DirectoryDataLoader();
+		RGlobal.mapper = new ObjectMapper();
+		RGlobal.data = new Database();
+		RGlobal.dataLoader.addToDatabase("res/data");
+		RGlobal.assetManager = new AssetManager();
 		
-		WindowDataMDO data = (WindowDataMDO) Global.data.getEntryByKey("window_data");
+		WindowDataMDO data = (WindowDataMDO) RGlobal.data.getEntryByKey("window_data");
 		
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = data.windowName;

@@ -1,32 +1,27 @@
 package net.wombatrpgs.rainfall;
 
-import net.wombatrpgs.mgne.global.Global;
-import net.wombatrpgs.rainfallschema.MapLoadTestMDO;
+import net.wombatrpgs.rainfall.graphics.Anim;
+import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
+import net.wombatrpgs.rainfallschema.test.MapLoadTestMDO;
+import net.wombatrpgs.rainfallschema.test.SpriteRenderTestMDO;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.TileMapRendererLoader.TileMapParameter;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.tiled.TileMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class RainfallGame implements ApplicationListener {
 	private OrthographicCamera camera;
-//	private SpriteBatch batch;
-//	private Texture texture;
-//	private Sprite sprite;
-	private AssetManager assetManager = new AssetManager();
 	private TileMapRenderer mapRenderer;
 	private String mapName;
 	private Rectangle glViewport;
+	private Anim anim;
+	private AnimationMDO animMDO;
 	
 	@Override
 	public void create() {		
@@ -37,32 +32,22 @@ public class RainfallGame implements ApplicationListener {
 		camera.position.set(w/2, h/2, 0);
 		glViewport = new Rectangle(0, 0, w, h);
 		
-//		batch = new SpriteBatch();
-//		
-//		texture = new Texture(Gdx.files.internal("data/libgdx.png"));
-//		texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-//		
-//		TextureRegion region = new TextureRegion(texture, 0, 0, 512, 275);
-//		
-//		sprite = new Sprite(region);
-//		sprite.setSize(0.9f, 0.9f * sprite.getHeight() / sprite.getWidth());
-//		sprite.setOrigin(sprite.getWidth()/2, sprite.getHeight()/2);
-//		sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
+		SpriteRenderTestMDO testMDO = (SpriteRenderTestMDO) RGlobal.data.getEntryByKey("anim_test");
+		animMDO = (AnimationMDO) RGlobal.data.getEntryByKey(testMDO.anim);
+		RGlobal.reporter.inform("We're trying to load from " + RGlobal.SPRITES_DIR + animMDO.file);	
+		RGlobal.assetManager.load(RGlobal.SPRITES_DIR + animMDO.file, Texture.class);
 		
-		MapLoadTestMDO mdo = (MapLoadTestMDO) Global.data.getEntryByKey("map_test");
-		System.out.println("We're trying to load a " + mdo.map);
-	
-		TileMapParameter tileMapParameter = new TileMapParameter("res/maps/", 8, 8);
-		mapName = "res/maps/" + mdo.map;
-		assetManager.load("res/maps/" + mdo.map, TileMapRenderer.class, tileMapParameter);
+		MapLoadTestMDO mapMDO = (MapLoadTestMDO) RGlobal.data.getEntryByKey("map_test");
+		TileMapParameter tileMapParameter = new TileMapParameter(RGlobal.MAPS_DIR, 8, 8);
+		mapName = RGlobal.MAPS_DIR + mapMDO.map;
+		RGlobal.reporter.inform("We're trying to load from " + mapName);
+		RGlobal.assetManager.load(mapName, TileMapRenderer.class, tileMapParameter);
+
 	}
 
 	@Override
 	public void dispose() {
-//		batch.dispose();
-//		texture.dispose();
-		assetManager.unload(mapName);
-		assetManager.dispose();
+		
 	}
 
 	@Override
@@ -80,17 +65,16 @@ public class RainfallGame implements ApplicationListener {
 			System.out.println("FPS: " + (1/Gdx.graphics.getDeltaTime()));
 		}
 
-		if (assetManager.update()) {
+		if (RGlobal.assetManager.update()) {
 			if (mapRenderer == null) {
-				mapRenderer = assetManager.get(mapName, TileMapRenderer.class);
+				mapRenderer = RGlobal.assetManager.get(mapName, TileMapRenderer.class);
+			}
+			if (anim == null) {
+				anim = new Anim(animMDO);
 			}
 			mapRenderer.render(camera);
+			anim.render();
 		}
-		
-//		batch.setProjectionMatrix(camera.combined);
-//		batch.begin();
-//		sprite.draw(batch);
-//		batch.end();
 	}
 
 	@Override

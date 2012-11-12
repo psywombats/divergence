@@ -71,7 +71,11 @@ public class SchemaNode extends DefaultMutableTreeNode {
 	public String getObjectName() {
 		// TODO: get this working correctly for fuck's sake
 		// right now it just returns the filename minus the .json
-		return getName().substring(0, getName().indexOf('.'));
+		if (getName().contains(".")) {
+			return getName().substring(0, getName().indexOf('.'));
+		} else {
+			return getName();
+		}
 	}
 
 }

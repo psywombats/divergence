@@ -89,7 +89,7 @@ public abstract class FieldPanel extends JPanel implements DocumentListener, Act
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = gridYIndex;
-		c.fill = GridBagConstraints.HORIZONTAL;
+		//c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
 		c.anchor = GridBagConstraints.FIRST_LINE_START;
 		c.ipady = 2;

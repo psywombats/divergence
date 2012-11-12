@@ -1,0 +1,13 @@
+{
+	"key" : "waldsworth_down",
+	"subfolder" : "charas/",
+	"name" : "",
+	"description" : "debug chara",
+	"file" : "waldsworth.png",
+	"frameCount" : 4,
+	"frameWidth" : 32,
+	"frameHeight" : 64,
+	"offX" : 0,
+	"offY" : 192,
+	"animSpeed" : 4
+}

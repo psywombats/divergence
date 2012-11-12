@@ -58,7 +58,11 @@ public class Database {
 	 * @return			The entry with that key
 	 */
 	public MainSchema getEntryByKey(String key) {
-		return keyShelf.get(key);
+		MainSchema result = keyShelf.get(key);
+		if (result == null) {
+			Global.reporter.warn("Couldn't find an entry for key: " + key);
+		}
+		return result;
 	}
 	
 	/**

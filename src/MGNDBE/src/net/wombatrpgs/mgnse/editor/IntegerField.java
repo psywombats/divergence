@@ -12,6 +12,7 @@ import java.text.NumberFormat;
 import javax.swing.JFormattedTextField;
 
 import net.wombatrpgs.mgns.core.Schema;
+import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgnse.Global;
 
 /**
@@ -34,7 +35,9 @@ public class IntegerField extends FieldPanel {
 		if (defaultData != null) {
 			input.setText(defaultData.toString());
 		} else {
-			input.setText("");
+			if (source.isAnnotationPresent(DefaultValue.class)) {
+				input.setText(source.getAnnotation(DefaultValue.class).value());
+			}
 		}
 		input.setColumns(10);
 		input.getDocument().addDocumentListener(this);
