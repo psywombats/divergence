@@ -7,22 +7,26 @@
 package net.wombatrpgs.rainfall.graphics;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.rainfall.RGlobal;
+import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 
 /**
  * Give MDO, receive animation. Animation is a filmstrip made of frames from a
  * spritesheet. They can be merged together to produce a character sprite.
  */
+@Deprecated
 public class Anim implements Renderable {
 	
 	protected AnimationMDO mdo;
 	
+	protected MapObject parent;
 	protected Animation anim;
 	protected Texture spritesheet;
 	protected SpriteBatch batch;
@@ -35,9 +39,11 @@ public class Anim implements Renderable {
 	 * Creates a new animation, supposedly ready to render. Make sure the
 	 * relevant file has been loaded from the asset manager first.
 	 * @param 	mdo		The data necessary for crafting an animation
+	 * @param	parent	The map object this anim is tied to
 	 */
-	public Anim(AnimationMDO mdo) {
+	public Anim(AnimationMDO mdo, MapObject parent) {
 		this.mdo = mdo;
+		this.parent = parent;
 		spritesheet = RGlobal.assetManager.get(RGlobal.SPRITES_DIR+mdo.file, Texture.class);
 		frames = new TextureRegion[mdo.frameCount];
 		for (int i = 0; i < mdo.frameCount; i++) {
@@ -53,14 +59,14 @@ public class Anim implements Renderable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render()
+	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render(OrthographicCamera)
 	 */
 	@Override
-	public void render() {
+	public void render(OrthographicCamera camera) {
 		time += Gdx.graphics.getDeltaTime();
 		currentFrame = anim.getKeyFrame(time, true);
 		batch.begin();
-		batch.draw(currentFrame, 512, 256);
+		batch.draw(currentFrame, parent.getX(), parent.getY());
 		batch.end();
 	}
 	

@@ -7,9 +7,10 @@
 package net.wombatrpgs.rainfallschema.test;
 
 import net.wombatrpgs.mgns.core.Annotations.Desc;
-import net.wombatrpgs.mgns.core.Annotations.FileLink;
 import net.wombatrpgs.mgns.core.Annotations.Path;
+import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
+import net.wombatrpgs.rainfallschema.maps.MapMDO;
 
 /**
  * Load up and test a map.
@@ -18,7 +19,7 @@ import net.wombatrpgs.mgns.core.MainSchema;
 public class MapLoadTestMDO extends MainSchema {
 	
 	@Desc("The test map to load")
-	@FileLink("maps")
+	@SchemaLink(MapMDO.class)
 	public String map;
 
 }

@@ -68,7 +68,7 @@ public class MainFrame extends JFrame {
 		revertAllItem.setEnabled(enabled);
 	}
 	
-	/** @param True if the delete menu should be enabled, false otherwise */
+	/** @param enabled True if the delete menu should be enabled, else false */
 	public void setDeleteEnable(boolean enabled) {
 		deleteItem.setEnabled(enabled);
 	}
@@ -218,7 +218,6 @@ public class MainFrame extends JFrame {
 	/**
 	 * Asks the user if they REALLY WANT TO QUIT. Returns the result of their
 	 * choice with a default message box.
-	 * @param parent The parent JFrame
 	 * @return User's selection: 0 is yes, 1 is no, 2 is cancel
 	 */
 	public int promptUnsaved() {
@@ -233,7 +232,7 @@ public class MainFrame extends JFrame {
 	
 	/**
 	 * Prompts the user to pick from a list of schema.
-	 * @param allSchema All the schema classes to choose from, in choice format
+	 * @param itemList All the schema classes to choose from, in choice format
 	 * for sorting reasons and stuff
 	 * @return Which one the user chose, null if canceled
 	 */

@@ -5,12 +5,12 @@
  <tileset firstgid="31" name="upper" tileheight="32" tilewidth="32">
   <image height="128" source="tilesets/test/upper.PNG" trans="b5a5d5" width="256"/>
  </tileset>
- <layer height="15" name="Tile Layer 1" width="20">
+ <layer height="15" name="Tile Layer 1" width="20"><properties><property name="layer" value="0"/><property name="layer" value="0"/><property name="layer" value="1"/></properties>
   <data compression="zlib" encoding="base64">
    eJwTYWBgEBnFQwIzAjETEDNTyTx2IOYAYk4qmccLxHxAzD8IwmoUD08MAPeTFwU=
   </data>
  </layer>
- <layer height="15" name="Tile Layer 2" width="20">
+ <layer height="15" name="Tile Layer 2" width="20"><properties><property name="layer" value="1"/><property name="layer" value="1"/><property name="layer" value="0"/></properties>
   <data compression="zlib" encoding="base64">
    eJxjYBg4oExl87SpbN5gBKNhhgADERaj4T+wAAAOTQE5
   </data>

@@ -66,38 +66,32 @@ public class Database {
 	}
 	
 	/**
+	 * Fetches the entry with the supplied key from the database, then casts it
+	 * to the appropriate type for you. How convenient!
+	 * @param 	<T>		The type of schema expected
+	 * @param 	key		The key of the schema
+	 * @param 	clazz	The type of schema expected
+	 * @return			The schema with that key of that type
+	 */
+	@SuppressWarnings("unchecked")
+	public <T extends MainSchema> T getEntryFor(String key, Class<T> clazz) {
+		MainSchema candidate = getEntryByKey(key);
+		T result = null;
+		try {
+			result = (T) candidate;
+		} catch (ClassCastException e) {
+			Global.reporter.err("Wrong class for " + key, e);
+		}
+		return result;
+	}
+	
+	/**
 	 * Fetches all entries that are of the specified schema class.
 	 * @param 	clazz	The class that the entries must be
 	 * @return			All entries of that class
 	 */
 	public List<MainSchema> getEntriesByClass(Class<? extends MainSchema> clazz) {
 		return classShelf.get(clazz);
-	}
-	
-	/**
-	 * Fetches the single object of that class that exists in the database. 
-	 * @param <T>		The type of entry to fetch
-	 * @param clazz		The schema of the entry to fetch
-	 * @return			The singleton entry
-	 */
-	@SuppressWarnings("unchecked")
-	public <T> T getSingleton(Class<T> clazz) {
-		List<MainSchema> currentList = classShelf.get(clazz);
-		if (currentList == null) {
-			Global.reporter.err("No singleton found for " + clazz);
-			return null;
-		}
-		if (currentList.size() != 1) {
-			Global.reporter.warn("Expected exactly one instance of " + clazz +
-					" in database, found " + currentList.size());
-		}
-		MainSchema result = currentList.get(0);
-		try {
-			return (T) result;
-		} catch (ClassCastException e) {
-			Global.reporter.err("Singleton wasn't of expected type " + clazz);
-			return null;
-		}
 	}
 
 }

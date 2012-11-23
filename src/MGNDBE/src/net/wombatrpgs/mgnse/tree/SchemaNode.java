@@ -28,7 +28,6 @@ public class SchemaNode extends DefaultMutableTreeNode {
 	 * Creates a new file node that represents a data object
 	 * @param file The file this node represents
 	 * @param schema The class that this file fills
-	 * @param isFolder True if the represented node should be a folder in this
 	 * tree system.
 	 */
 	public SchemaNode(File file, Class<? extends MainSchema> schema) {

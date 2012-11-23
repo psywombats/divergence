@@ -5,12 +5,49 @@
  <tileset firstgid="31" name="upper" tileheight="32" tilewidth="32">
   <image height="128" source="tilesets/test/upper.PNG" trans="b5a5d5" width="256"/>
  </tileset>
- <layer height="15" name="Tile Layer 1" width="20">
+ <layer height="15" name="Tile Layer 1" width="20"><properties><property name="layer" value="2"/></properties>
   <data compression="zlib" encoding="base64">
    eJwTYWBgEBnFQwIzAjETEDNTyTx2IOYAYk4qmccLxHxAzD8IwmoUD08MAPeTFwU=
   </data>
  </layer>
- <layer height="15" name="Tile Layer 2" width="20">
+ <objectgroup height="15" name="Object Layer 1" width="20"><properties><property name="layer" value="1"/></properties>
+  <object height="32" name="Waldy" type="event" width="32" x="352" y="288">
+   <properties>
+    <property name="key" value="waldsworth_event"/>
+   </properties>
+  </object>
+  <object height="32" name="Waldy" type="event" width="32" x="288" y="288">
+   <properties>
+    <property name="key" value="waldsworth_event"/>
+   </properties>
+  </object>
+  <object height="32" name="Waldy" type="event" width="32" x="224" y="288">
+   <properties>
+    <property name="key" value="waldsworth_event"/>
+   </properties>
+  </object>
+  <object height="32" name="Waldy" type="event" width="32" x="160" y="288">
+   <properties>
+    <property name="key" value="waldsworth_event"/>
+   </properties>
+  </object>
+  <object height="32" name="Waldy" type="event" width="32" x="416" y="320">
+   <properties>
+    <property name="key" value="waldsworth_event"/>
+   </properties>
+  </object>
+  <object height="32" name="Waldy" type="event" width="32" x="544" y="320">
+   <properties>
+    <property name="key" value="waldsworth_event"/>
+   </properties>
+  </object>
+  <object height="32" name="Waldy" type="event" width="32" x="64" y="256">
+   <properties>
+    <property name="key" value="waldsworth_event"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer height="15" name="Tile Layer 2" width="20"><properties><property name="layer" value="0"/></properties>
   <data compression="zlib" encoding="base64">
    eJxjYBg4oExl87SpbN5gBKNhhgADERaj4T+wAAAOTQE5
   </data>
