@@ -58,7 +58,7 @@ public class EditorPanel extends JPanel {
 	
 	/** @return True if this panel has unsaved changes */
 	public boolean isDirty() { return this.dirty; }
-	/** @param True if this panel has unsaved changes */
+	/** @param dirty True if this panel has unsaved changes */
 	public void setDirty(boolean dirty) { this.dirty = dirty; logic.notifyDirty(this); }
 	/** @return The file this schema writes to */
 	public File getFile() { return this.file; }

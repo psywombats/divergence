@@ -75,8 +75,8 @@ public class DirAnim implements Renderable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Renderable#
-	 * render(com.badlogic.gdx.graphics.OrthographicCamera)
+	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render
+	 * (com.badlogic.gdx.graphics.OrthographicCamera)
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
@@ -86,5 +86,7 @@ public class DirAnim implements Renderable {
 		TextureRegion currentFrame = anim.getKeyFrame(time, true);
 		parent.renderLocal(camera, currentFrame);
 	}
+
+	
 
 }
