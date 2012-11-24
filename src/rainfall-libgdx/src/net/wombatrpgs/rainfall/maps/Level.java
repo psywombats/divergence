@@ -9,6 +9,7 @@ package net.wombatrpgs.rainfall.maps;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.TileMapRendererLoader.TileMapParameter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,6 +19,7 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
 
+import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Renderable;
 import net.wombatrpgs.rainfallschema.maps.EventMDO;
@@ -46,12 +48,7 @@ public class Level implements Renderable {
 	 * @param 	mdo		Info about the level to generate
 	 */
 	public Level(MapMDO mdo) {
-		TileMapParameter tileMapParameter = new TileMapParameter(
-				RGlobal.MAPS_DIR, TILES_TO_CULL, TILES_TO_CULL);
 		mapName = RGlobal.MAPS_DIR + mdo.map;
-		RGlobal.reporter.inform("We're trying to load from " + mapName);
-		RGlobal.assetManager.load(mapName, TileMapRenderer.class, tileMapParameter);
-		
 		batch = new SpriteBatch();
 	}
 	
@@ -72,25 +69,6 @@ public class Level implements Renderable {
 	public void render(OrthographicCamera camera) {
 		if (RGlobal.assetManager.isLoaded(mapName)) {
 		
-			// make a new renderer if we need one
-			if (renderer == null) {
-				renderer = RGlobal.assetManager.get(mapName, TileMapRenderer.class);
-				map = renderer.getMap();
-				objects = new ArrayList<List<MapObject>>();
-				
-				// each object group represents a new layer
-				for (TiledObjectGroup group : map.objectGroups) {
-					List<MapObject> list = new ArrayList<MapObject>();
-					objects.add(list);
-					
-					// load up all ingame objects from the database
-					for (TiledObject object : group.objects) {
-						String mdoName = object.properties.get("key");
-						EventMDO eventMdo = (EventMDO) RGlobal.data.getEntryByKey(mdoName);
-						list.add(new Event(this, eventMdo, object.x, object.y));
-					}
-				}
-			}
 			// TODO: this can be optimized if it's taking too long... profile it
 			int atTile = 0;			// tile layer we're rendering
 			int atObject = 0;		// object layer we're rendering
@@ -110,6 +88,49 @@ public class Level implements Renderable {
 				}
 				rendered++;
 			}
+		} else {
+			Global.reporter.warn("Map assets not loaded for " + mapName);
+		}
+	}
+	
+	/**
+	 * Queues up all the assets required to render this level in the resource
+	 * manager. Does not actually load them. The level should be initialized
+	 * first, but this should happen in the constructor.
+	 */
+	public void queueRequiredAssets(AssetManager manager) {
+		TileMapParameter tileMapParameter = new TileMapParameter(
+				RGlobal.MAPS_DIR, TILES_TO_CULL, TILES_TO_CULL);
+		RGlobal.reporter.inform("We're trying to load from " + mapName);
+		RGlobal.assetManager.load(mapName, TileMapRenderer.class, tileMapParameter);
+		
+		for (List<MapObject> layer : objects) {
+			for (MapObject object : layer) {
+				object.queueRequiredAssets(manager);
+			}
+		}
+	}
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing()
+	 */
+	@Override
+	public void postProcessing() {
+		renderer = RGlobal.assetManager.get(mapName, TileMapRenderer.class);
+		map = renderer.getMap();
+		objects = new ArrayList<List<MapObject>>();
+		
+		// each object group represents a new layer
+		for (TiledObjectGroup group : map.objectGroups) {
+			List<MapObject> list = new ArrayList<MapObject>();
+			objects.add(list);
+			
+			// load up all ingame objects from the database
+			for (TiledObject object : group.objects) {
+				String mdoName = object.properties.get("key");
+				EventMDO eventMdo = (EventMDO) RGlobal.data.getEntryByKey(mdoName);
+				list.add(new Event(this, eventMdo, object.x, object.y));
+			}
 		}
 	}
 	
@@ -119,7 +140,7 @@ public class Level implements Renderable {
 	 * @param 	layerIndex	The layer to render's offset
 	 */
 	protected void renderTiles(OrthographicCamera camera, int layerIndex) {
-		renderer.render(camera, layerIndex);
+		renderer.render(camera, new int[] {layerIndex});
 	}
 	
 	/**

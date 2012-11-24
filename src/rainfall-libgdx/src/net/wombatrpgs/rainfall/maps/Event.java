@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.rainfall.maps;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.rainfall.RGlobal;
@@ -37,12 +38,33 @@ public class Event extends MapObject {
 		}
 	}
 
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render
+	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 */
 	@Override
 	public void render(OrthographicCamera camera) {
 		if (appearance != null) {
 			appearance.render(camera);
 			camera.update();
 		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		appearance.queueRequiredAssets(manager);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing()
+	 */
+	@Override
+	public void postProcessing() {
+		appearance.postProcessing();
 	}
 
 }

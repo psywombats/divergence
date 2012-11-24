@@ -1,0 +1,107 @@
+/**
+ *  ScreenStack.java
+ *  Created on Nov 23, 2012 5:53:16 PM for project rainfall-libgdx
+ *  Author: psy_wombats
+ *  Contact: psy_wombats@wombatrpgs.net
+ */
+package net.wombatrpgs.rainfall.core;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.badlogic.gdx.graphics.OrthographicCamera;
+
+import net.wombatrpgs.mgne.global.Global;
+
+/**
+ * A bunch of screens stacked on top of each other that make up the game
+ * environment. Only one should exist per game, probably in the globals
+ * manager. This is the object that should be rendering every frame regardless
+ * of whatever the hell else is going on.
+ */
+public class ScreenStack {
+	
+	private List<GameScreen> screens;
+	
+	/**
+	 * Creates and initializes a new empty stack of screens.
+	 */
+	public ScreenStack() {
+		screens = new ArrayList<GameScreen>();
+	}
+	
+	/**
+	 * Pushes a screen to the top of the screen stack. Corrects the z-value of
+	 * the screen such that it's on the top.
+	 * @param	screen		The screen to put on top
+	 */
+	public void push(GameScreen screen) {
+		if (screens.size() == 0) {
+			screens.add(screen);
+		} else {
+			GameScreen oldTop = screens.get(0);
+			screen.setZ(oldTop.z - 1);
+			screens.add(0, screen);
+			sortStack();
+		}
+	}
+	
+	/**
+	 * Removes the top screen from the stack. Does not alter z-values.
+	 * @return				The screen evicted from the top
+	 */
+	public GameScreen pop() {
+		if (screens.size() == 0) {
+			Global.reporter.warn("No screens left in the stack, but popping.");
+			return null;
+		} else {
+			GameScreen oldTop = screens.get(0);
+			screens.remove(oldTop);
+			return oldTop;
+		}
+	}
+	
+	/**
+	 * Inserts a screen before another on the stack. Adjusts the z-values
+	 * accordingly.
+	 * @param 	toInsert	The screen to insert
+	 * @param 	reference	The screen to insert before
+	 */
+	public void insertBefore(GameScreen toInsert, GameScreen reference) {
+		if (!screens.contains(reference)) {
+			Global.reporter.warn("Stack did not contain " + reference);
+		} else {
+			float beforeZ = reference.getZ();
+			int beforeIndex = screens.indexOf(reference);
+			if (beforeIndex == screens.size() - 1) {
+				// this item is the last on the stack
+			} else {
+				float afterZ = screens.get(beforeIndex + 1).getZ();
+				toInsert.setZ((afterZ+beforeZ) / 2);
+				screens.add(beforeIndex, toInsert);
+				sortStack();
+			}
+		}
+	}
+	
+	/**
+	 * Renders the top screen on the stack.
+	 * @param	camera			The camera to render with
+	 */
+	public void render(OrthographicCamera camera) {
+		if (screens.size() == 0) {
+			Global.reporter.warn("No screens in stack, but told to render");
+		} else {
+			screens.get(0).render(camera);
+		}
+	}
+	
+	/**
+	 * Sorts the stack of game screens by their z-value.
+	 */
+	private void sortStack() {
+		Collections.sort(screens);
+	}
+
+}

@@ -10,8 +10,10 @@ import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.RGlobal;
 import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
+import net.wombatrpgs.rainfallschema.test.SpriteRenderTestMDO;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -41,21 +43,6 @@ public class DirAnim implements Renderable {
 		this.mdo = mdo;
 		this.parent = parent;
 		moving = false;
-		String filename = RGlobal.SPRITES_DIR+mdo.file;
-		if (RGlobal.assetManager.isLoaded(filename)) {
-			spritesheet = RGlobal.assetManager.get(filename, Texture.class);
-			frames = new TextureRegion[mdo.frameCount];
-			for (int i = 0; i < mdo.frameCount; i++) {
-				frames[i] = new TextureRegion(spritesheet,
-						mdo.offX + mdo.frameWidth * i,
-						mdo.offY,
-						mdo.frameWidth,
-						mdo.frameHeight);
-			}
-			anim = new Animation(1.0f/mdo.frameCount, frames);
-		} else {
-			Global.reporter.warn("Spritesheet not loaded: " + filename);
-		}
 	}
 	
 	/**
@@ -87,6 +74,37 @@ public class DirAnim implements Renderable {
 		parent.renderLocal(camera, currentFrame);
 	}
 
-	
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.Renderable#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		AnimationMDO animMDO = RGlobal.data.getEntryFor(mdo.file, AnimationMDO.class);
+		RGlobal.reporter.inform("We're trying to load from " + RGlobal.SPRITES_DIR + animMDO.file);	
+		RGlobal.assetManager.load(RGlobal.SPRITES_DIR + animMDO.file, Texture.class);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing()
+	 */
+	@Override
+	public void postProcessing() {
+		String filename = RGlobal.SPRITES_DIR+mdo.file;
+		if (RGlobal.assetManager.isLoaded(filename)) {
+			spritesheet = RGlobal.assetManager.get(filename, Texture.class);
+			frames = new TextureRegion[mdo.frameCount];
+			for (int i = 0; i < mdo.frameCount; i++) {
+				frames[i] = new TextureRegion(spritesheet,
+						mdo.offX + mdo.frameWidth * i,
+						mdo.offY,
+						mdo.frameWidth,
+						mdo.frameHeight);
+			}
+			anim = new Animation(1.0f/mdo.frameCount, frames);
+		} else {
+			Global.reporter.warn("Spritesheet not loaded: " + filename);
+		}
+	}
 
 }

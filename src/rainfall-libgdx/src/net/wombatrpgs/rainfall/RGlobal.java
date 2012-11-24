@@ -25,6 +25,9 @@ public class RGlobal extends Global {
 	/** Manages all in-game assets */
 	public static AssetManager assetManager;
 	
+	/** The stack of screeeeeeens */
+	public static net.wombatrpgs.rainfall.core.ScreenStack screens;
+	
 	/**
 	 * Can't override static methods, so this thing will have to do.
 	 */

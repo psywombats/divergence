@@ -7,6 +7,7 @@
 package net.wombatrpgs.rainfall.graphics;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -68,6 +69,16 @@ public class Anim implements Renderable {
 		batch.begin();
 		batch.draw(currentFrame, parent.getX(), parent.getY());
 		batch.end();
+	}
+
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		// deprecated
+	}
+
+	@Override
+	public void postProcessing() {
+		// deprecated
 	}
 	
 }

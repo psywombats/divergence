@@ -12,6 +12,7 @@ import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 /**
@@ -61,4 +62,25 @@ public class FourDir implements Renderable {
 		animations[currentDir.ordinal()].render(camera);
 	}
 
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.Renderable#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		for (Dir dir : Dir.values()) {
+			animations[dir.ordinal()].queueRequiredAssets(manager);
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing()
+	 */
+	@Override
+	public void postProcessing() {
+		for (Dir dir : Dir.values()) {
+			animations[dir.ordinal()].postProcessing();
+		}
+	}
+	
 }
