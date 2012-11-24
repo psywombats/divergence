@@ -106,7 +106,8 @@ public class Level implements Renderable {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing()
+	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
 	public void postProcessing(AssetManager manager) {
