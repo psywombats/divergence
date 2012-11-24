@@ -9,6 +9,9 @@ package net.wombatrpgs.rainfall;
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mgne.global.Global;
+import net.wombatrpgs.rainfall.core.ScreenStack;
+import net.wombatrpgs.rainfall.io.DefaultKeymap;
+import net.wombatrpgs.rainfall.io.Keymap;
 
 /**
  * Rainfall's version of the MGNDB global.
@@ -28,11 +31,16 @@ public class RGlobal extends Global {
 	/** The stack of screeeeeeens */
 	public static net.wombatrpgs.rainfall.core.ScreenStack screens;
 	
+	/** Current mapper of the keyys */
+	public static Keymap keymap;
+	
 	/**
 	 * Can't override static methods, so this thing will have to do.
 	 */
 	public static void setupRGlobalForTesting() {
 		RGlobal.assetManager = new AssetManager();
+		RGlobal.screens = new ScreenStack();
+		RGlobal.keymap = new DefaultKeymap();
 		Global.setupGlobalForTesting();
 	}
 

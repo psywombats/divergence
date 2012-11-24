@@ -32,16 +32,20 @@ public abstract class GameScreen implements CommandListener,
 	/** The thing to draw if this canvas is visible */
 	protected Renderable canvas;
 	/** Depth, lower values are rendered last */
-	protected float z = 0;
+	protected float z;
 	/** If true, layers with higher z won't be rendered */
 	protected boolean transparent;
+	
+	private boolean initialized;
 	
 	/**
 	 * Creates a new game screen. Remember to call intialize when done setting
 	 * things up yourself.
 	 */
 	public GameScreen() {
-		
+		transparent = false;
+		initialized = false;
+		z = 0;
 	}
 	
 	/**
@@ -75,6 +79,14 @@ public abstract class GameScreen implements CommandListener,
 	}
 	
 	/**
+	 * Gets the command parser used on this screen. Usually only used by engine.
+	 * @return				The command parser used on this screen
+	 */
+	public CommandMap getCommandContext() {
+		return commandContext;
+	}
+	
+	/**
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override
@@ -94,6 +106,9 @@ public abstract class GameScreen implements CommandListener,
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
+		if (!initialized) {
+			Global.reporter.warn("Forgot to intialize screen " + this);
+		}
 		canvas.render(camera);
 	}
 
@@ -110,8 +125,8 @@ public abstract class GameScreen implements CommandListener,
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing()
 	 */
 	@Override
-	public void postProcessing() {
-		canvas.postProcessing();
+	public void postProcessing(AssetManager manager) {
+		canvas.postProcessing(manager);
 	}
 
 	/**
@@ -124,7 +139,9 @@ public abstract class GameScreen implements CommandListener,
 		}
 		if (commandContext == null) {
 			Global.reporter.warn("No command context for screen " + this);
+			commandContext.registerListener(this);
 		}
+		initialized = true;
 	}
 
 }

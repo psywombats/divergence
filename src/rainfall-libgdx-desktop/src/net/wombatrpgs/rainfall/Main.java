@@ -5,6 +5,8 @@ import net.wombatrpgs.mgne.data.DirectoryDataLoader;
 import net.wombatrpgs.mgne.global.DebugReporter;
 import net.wombatrpgs.mgne.global.SimpleFileLoader;
 import net.wombatrpgs.rainfall.RGlobal;
+import net.wombatrpgs.rainfall.core.ScreenStack;
+import net.wombatrpgs.rainfall.io.DefaultKeymap;
 import net.wombatrpgs.rainfallschema.settings.WindowDataMDO;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -31,6 +33,8 @@ public class Main {
 		RGlobal.data = new Database();
 		RGlobal.dataLoader.addToDatabase("res/data");
 		RGlobal.assetManager = new AssetManager();
+		RGlobal.screens = new ScreenStack();
+		RGlobal.keymap = new DefaultKeymap();
 		
 		WindowDataMDO data = (WindowDataMDO) RGlobal.data.getEntryByKey("window_data");
 		

@@ -32,6 +32,6 @@ public interface Renderable {
 	 * Perform all other necessary post-processing when the renderable assets
 	 * are loaded. Called before the first render and after asset loading.
 	 */
-	public void postProcessing();
+	public void postProcessing(AssetManager manager);
 
 }

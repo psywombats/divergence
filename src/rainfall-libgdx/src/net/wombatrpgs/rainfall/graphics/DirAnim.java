@@ -10,7 +10,6 @@ import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.RGlobal;
 import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
-import net.wombatrpgs.rainfallschema.test.SpriteRenderTestMDO;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -80,16 +79,14 @@ public class DirAnim implements Renderable {
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		AnimationMDO animMDO = RGlobal.data.getEntryFor(mdo.file, AnimationMDO.class);
-		RGlobal.reporter.inform("We're trying to load from " + RGlobal.SPRITES_DIR + animMDO.file);	
-		RGlobal.assetManager.load(RGlobal.SPRITES_DIR + animMDO.file, Texture.class);
+		RGlobal.assetManager.load(RGlobal.SPRITES_DIR + mdo.file, Texture.class);
 	}
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing()
 	 */
 	@Override
-	public void postProcessing() {
+	public void postProcessing(AssetManager manager) {
 		String filename = RGlobal.SPRITES_DIR+mdo.file;
 		if (RGlobal.assetManager.isLoaded(filename)) {
 			spritesheet = RGlobal.assetManager.get(filename, Texture.class);
@@ -102,6 +99,7 @@ public class DirAnim implements Renderable {
 						mdo.frameHeight);
 			}
 			anim = new Animation(1.0f/mdo.frameCount, frames);
+			Global.reporter.inform("Loaded and processed spritesheet " + filename);
 		} else {
 			Global.reporter.warn("Spritesheet not loaded: " + filename);
 		}

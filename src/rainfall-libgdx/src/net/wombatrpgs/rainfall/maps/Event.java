@@ -63,8 +63,8 @@ public class Event extends MapObject {
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing()
 	 */
 	@Override
-	public void postProcessing() {
-		appearance.postProcessing();
+	public void postProcessing(AssetManager manager) {
+		appearance.postProcessing(manager);
 	}
 
 }

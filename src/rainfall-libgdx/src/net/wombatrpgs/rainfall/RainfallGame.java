@@ -1,8 +1,6 @@
 package net.wombatrpgs.rainfall;
 
-import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfallschema.maps.MapMDO;
-import net.wombatrpgs.rainfallschema.test.MapLoadTestMDO;
+import net.wombatrpgs.rainfall.test.TestScreen;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -13,7 +11,6 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 public class RainfallGame implements ApplicationListener {
 	private OrthographicCamera camera;
-	private Level map;
 	private Rectangle glViewport;
 	
 	@Override
@@ -25,9 +22,7 @@ public class RainfallGame implements ApplicationListener {
 		camera.position.set(w/2, h/2, 0);
 		glViewport = new Rectangle(0, 0, w, h);
 		
-		MapLoadTestMDO mapTestMDO = (MapLoadTestMDO) RGlobal.data.getEntryByKey("map_test");
-		MapMDO mapMDO = (MapMDO) RGlobal.data.getEntryByKey(mapTestMDO.map);
-		map = new Level(mapMDO);
+		RGlobal.screens.push(new TestScreen());
 	}
 
 	@Override

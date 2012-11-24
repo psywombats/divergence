@@ -103,19 +103,13 @@ public class Level implements Renderable {
 				RGlobal.MAPS_DIR, TILES_TO_CULL, TILES_TO_CULL);
 		RGlobal.reporter.inform("We're trying to load from " + mapName);
 		RGlobal.assetManager.load(mapName, TileMapRenderer.class, tileMapParameter);
-		
-		for (List<MapObject> layer : objects) {
-			for (MapObject object : layer) {
-				object.queueRequiredAssets(manager);
-			}
-		}
 	}
 	
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing()
 	 */
 	@Override
-	public void postProcessing() {
+	public void postProcessing(AssetManager manager) {
 		renderer = RGlobal.assetManager.get(mapName, TileMapRenderer.class);
 		map = renderer.getMap();
 		objects = new ArrayList<List<MapObject>>();
@@ -130,6 +124,31 @@ public class Level implements Renderable {
 				String mdoName = object.properties.get("key");
 				EventMDO eventMdo = (EventMDO) RGlobal.data.getEntryByKey(mdoName);
 				list.add(new Event(this, eventMdo, object.x, object.y));
+			}
+		}
+	}
+	
+	/**
+	 * Same as the rendering asset queuing, but for a second round of map object
+	 * assets.
+	 * @param 	manager			The manager to queue the object in
+	 */
+	public void queueMapObjectAssets(AssetManager manager) {
+		for (List<MapObject> layer : objects) {
+			for (MapObject object : layer) {
+				object.queueRequiredAssets(manager);
+			}
+		}
+	}
+	
+	/**
+	 * Finish processing the map object loaded previously.
+	 * @param 	manager			The manager the map assets were loaded in
+	 */
+	public void postProcessingMapObjects(AssetManager manager) {
+		for (List<MapObject> layer : objects) {
+			for (MapObject object : layer) {
+				object.postProcessing(manager);
 			}
 		}
 	}

@@ -77,9 +77,9 @@ public class FourDir implements Renderable {
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing()
 	 */
 	@Override
-	public void postProcessing() {
+	public void postProcessing(AssetManager manager) {
 		for (Dir dir : Dir.values()) {
-			animations[dir.ordinal()].postProcessing();
+			animations[dir.ordinal()].postProcessing(manager);
 		}
 	}
 	

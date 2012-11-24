@@ -77,7 +77,7 @@ public class Anim implements Renderable {
 	}
 
 	@Override
-	public void postProcessing() {
+	public void postProcessing(AssetManager manager) {
 		// deprecated
 	}
 	

@@ -13,6 +13,7 @@ import java.util.List;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.mgne.global.Global;
+import net.wombatrpgs.rainfall.RGlobal;
 
 /**
  * A bunch of screens stacked on top of each other that make up the game
@@ -45,6 +46,7 @@ public class ScreenStack {
 			screens.add(0, screen);
 			sortStack();
 		}
+		focus(screen);
 	}
 	
 	/**
@@ -57,33 +59,36 @@ public class ScreenStack {
 			return null;
 		} else {
 			GameScreen oldTop = screens.get(0);
-			screens.remove(oldTop);
+			unfocus(oldTop);
+			if (screens.size() > 0) {
+				focus(screens.get(0));
+			}
 			return oldTop;
 		}
 	}
 	
-	/**
-	 * Inserts a screen before another on the stack. Adjusts the z-values
-	 * accordingly.
-	 * @param 	toInsert	The screen to insert
-	 * @param 	reference	The screen to insert before
-	 */
-	public void insertBefore(GameScreen toInsert, GameScreen reference) {
-		if (!screens.contains(reference)) {
-			Global.reporter.warn("Stack did not contain " + reference);
-		} else {
-			float beforeZ = reference.getZ();
-			int beforeIndex = screens.indexOf(reference);
-			if (beforeIndex == screens.size() - 1) {
-				// this item is the last on the stack
-			} else {
-				float afterZ = screens.get(beforeIndex + 1).getZ();
-				toInsert.setZ((afterZ+beforeZ) / 2);
-				screens.add(beforeIndex, toInsert);
-				sortStack();
-			}
-		}
-	}
+//	/**
+//	 * Inserts a screen before another on the stack. Adjusts the z-values
+//	 * accordingly.
+//	 * @param 	toInsert	The screen to insert
+//	 * @param 	reference	The screen to insert before
+//	 */
+//	public void insertBefore(GameScreen toInsert, GameScreen reference) {
+//		if (!screens.contains(reference)) {
+//			Global.reporter.warn("Stack did not contain " + reference);
+//		} else {
+//			float beforeZ = reference.getZ();
+//			int beforeIndex = screens.indexOf(reference);
+//			if (beforeIndex == screens.size() - 1) {
+//				// this item is the last on the stack
+//			} else {
+//				float afterZ = screens.get(beforeIndex + 1).getZ();
+//				toInsert.setZ((afterZ+beforeZ) / 2);
+//				screens.add(beforeIndex, toInsert);
+//				sortStack();
+//			}
+//		}
+//	}
 	
 	/**
 	 * Renders the top screen on the stack.
@@ -102,6 +107,25 @@ public class ScreenStack {
 	 */
 	private void sortStack() {
 		Collections.sort(screens);
+	}
+	
+	/**
+	 * Called whenever a screen gains focus.
+	 * @param	 screen			The screen that gained focus
+	 */
+	private void focus(GameScreen screen) {
+		screen.onFocusGained();
+		RGlobal.keymap.registerListener(screen.getCommandContext());
+	}
+	
+	/**
+	 * Called whenever a screen loses focus.
+	 * @param 	screen			The screen that lost focus
+	 */
+	private void unfocus(GameScreen screen) {
+		screen.onFocusLost();
+		screens.remove(screen);
+		RGlobal.keymap.unregisterListener(screen.getCommandContext());
 	}
 
 }
