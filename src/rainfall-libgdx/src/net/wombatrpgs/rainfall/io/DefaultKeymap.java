@@ -19,6 +19,7 @@ public class DefaultKeymap extends Keymap {
 	
 	private Map<Integer, InputButton> map;
 	private Map<InputButton, Integer> backmap;
+	private Map<InputButton, Boolean> state;
 	
 	/**
 	 * Creates and initializes the default keymap.
@@ -46,6 +47,11 @@ public class DefaultKeymap extends Keymap {
 		for (Object key : map.keySet()) {
 			backmap.put(map.get(key), (Integer) key);
 		}
+		
+		state = new HashMap<InputButton, Boolean>();
+		for (InputButton button : InputButton.values()) {
+			state.put(button, false);
+		}
 	}
 
 	/**
@@ -54,7 +60,10 @@ public class DefaultKeymap extends Keymap {
 	@Override
 	public boolean keyDown(int keycode) {
 		if (map.containsKey(keycode)) {
-			this.signal(map.get(keycode), true);
+			if (!state.get(map.get(keycode))) {
+				state.put(map.get(keycode), true);
+				this.signal(map.get(keycode), true);
+			}
 		}
 		return super.keyDown(keycode);
 	}
@@ -65,7 +74,10 @@ public class DefaultKeymap extends Keymap {
 	@Override
 	public boolean keyUp(int keycode) {
 		if (map.containsKey(keycode)) {
-			this.signal(map.get(keycode), false);
+			if (state.get(map.get(keycode))) {
+				state.put(map.get(keycode), false);
+				this.signal(map.get(keycode), false);
+			}
 		}
 		return super.keyUp(keycode);
 	}
@@ -75,7 +87,7 @@ public class DefaultKeymap extends Keymap {
 	 */
 	@Override
 	public boolean isButtonDown(InputButton button) {
-		return Gdx.input.isButtonPressed(backmap.get(button));
+		return Gdx.input.isKeyPressed(backmap.get(button));
 	}
 
 	/**

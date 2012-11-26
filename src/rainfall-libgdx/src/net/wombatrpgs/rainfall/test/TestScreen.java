@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.rainfall.test;
 
-import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.core.GameScreen;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.io.InputCommand;
@@ -47,7 +46,7 @@ public class TestScreen extends GameScreen {
 	 */
 	@Override
 	public void onCommand(InputCommand command) {
-		Global.reporter.inform("Command received: " + command);
+		//Global.reporter.inform("Command received: " + command);
 		
 		// start move
 		if (command.equals(InputCommand.MOVE_START_DOWN)) {

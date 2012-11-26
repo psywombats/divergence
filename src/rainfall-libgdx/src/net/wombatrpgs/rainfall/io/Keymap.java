@@ -21,6 +21,7 @@ import com.badlogic.gdx.InputProcessor;
 public abstract class Keymap implements InputProcessor {
 	
 	private List<ButtonListener> listeners;
+	@SuppressWarnings("unused")
 	private Map<InputButton, Boolean> snapshot;
 	
 	/**
@@ -64,16 +65,15 @@ public abstract class Keymap implements InputProcessor {
 	 * happened in the meantime.
 	 */
 	public final void onResume() {
-		Map<InputButton, Boolean> newState = takeSnapshot();
-		for (InputButton button : InputButton.values()) {
-			if (newState.get(button) && !snapshot.get(button)) {
-				replicateButtonDown(button);
-			}
-			if (!newState.get(button) && snapshot.get(button)) {
-				replicateButtonUp(button);
-			}
-			System.out.println(button+" was "+snapshot.get(button)+" now "+newState.get(button));
-		}
+//		Map<InputButton, Boolean> newState = takeSnapshot();
+//		for (InputButton button : InputButton.values()) {
+//			if (newState.get(button) && !snapshot.get(button)) {
+//				replicateButtonDown(button);
+//			}
+//			if (!newState.get(button) && snapshot.get(button)) {
+//				replicateButtonUp(button);
+//			}
+//		}
 	}
 	
 	/**
@@ -109,6 +109,9 @@ public abstract class Keymap implements InputProcessor {
 		Map<InputButton, Boolean> snapshot = new HashMap<InputButton, Boolean>();
 		for (InputButton button : InputButton.values()) {
 			snapshot.put(button, isButtonDown(button));
+			if (isButtonDown(button)) {
+				System.out.println(button + " was down");
+			}
 		}
 		return snapshot;
 	}

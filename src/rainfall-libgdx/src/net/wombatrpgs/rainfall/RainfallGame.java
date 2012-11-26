@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Rectangle;
 public class RainfallGame implements ApplicationListener, FocusListener {
 	
 	private FocusReporter focusReporter;
+	private boolean paused;
 	
 	private OrthographicCamera camera;
 	private Rectangle glViewport;
@@ -27,6 +28,7 @@ public class RainfallGame implements ApplicationListener, FocusListener {
 		super();
 		focusReporter.registerListener(this);
 		this.focusReporter = focusReporter;
+		paused = false;
 	}
 	
 	@Override
@@ -52,15 +54,19 @@ public class RainfallGame implements ApplicationListener, FocusListener {
 		
 		focusReporter.update();
 		
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
-		// camera
-		GL10 gl = Gdx.graphics.getGL10();
-		gl.glViewport((int) glViewport.x, (int) glViewport.y,
-				(int) glViewport.width, (int) glViewport.height);
-		camera.update();
-		camera.apply(gl);
+		if (!paused) {
+			Gdx.gl.glClearColor(0, 0, 0, 1);
+			Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+			
+			// camera
+			GL10 gl = Gdx.graphics.getGL10();
+			gl.glViewport((int) glViewport.x, (int) glViewport.y,
+					(int) glViewport.width, (int) glViewport.height);
+			camera.update();
+			camera.apply(gl);
+			
+			RGlobal.screens.render(camera);
+		}
 	}
 
 	/**
@@ -77,6 +83,7 @@ public class RainfallGame implements ApplicationListener, FocusListener {
 	 */
 	@Override
 	public void pause() {
+		paused = true;
 		RGlobal.keymap.onPause();
 	}
 
@@ -85,6 +92,7 @@ public class RainfallGame implements ApplicationListener, FocusListener {
 	 */
 	@Override
 	public void resume() {
+		paused = false;
 		RGlobal.keymap.onResume();
 	}
 

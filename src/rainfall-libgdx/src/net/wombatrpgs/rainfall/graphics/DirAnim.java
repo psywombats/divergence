@@ -56,7 +56,6 @@ public class DirAnim implements Renderable {
 	 * Call when this animation begins to move.
 	 */
 	public void startMoving() {
-		if (!moving) time = 0;
 		moving = true;
 	}
 	
@@ -64,6 +63,7 @@ public class DirAnim implements Renderable {
 	 * Call when this animation stops moving.
 	 */
 	public void stopMoving() {
+		time = 0;
 		moving = false;
 	}
 
