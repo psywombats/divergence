@@ -1,6 +1,8 @@
 package net.wombatrpgs.rainfall;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.io.FocusListener;
+import net.wombatrpgs.rainfall.io.FocusReporter;
 import net.wombatrpgs.rainfall.test.TestScreen;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -9,9 +11,23 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 
-public class RainfallGame implements ApplicationListener {
+public class RainfallGame implements ApplicationListener, FocusListener {
+	
+	private FocusReporter focusReporter;
+	
 	private OrthographicCamera camera;
 	private Rectangle glViewport;
+	
+	/**
+	 * Creates a new game. Requires a few setup tools that are platform
+	 * dependant.
+	 * @param 	focusReporter		The thing that tells if focus is lost
+	 */
+	public RainfallGame(FocusReporter focusReporter) {
+		super();
+		focusReporter.registerListener(this);
+		this.focusReporter = focusReporter;
+	}
 	
 	@Override
 	public void create() {		
@@ -33,6 +49,9 @@ public class RainfallGame implements ApplicationListener {
 
 	@Override
 	public void render() {		
+		
+		focusReporter.update();
+		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
@@ -42,8 +61,6 @@ public class RainfallGame implements ApplicationListener {
 				(int) glViewport.width, (int) glViewport.height);
 		camera.update();
 		camera.apply(gl);
-
-		RGlobal.screens.render(camera);
 	}
 
 	/**
@@ -60,8 +77,7 @@ public class RainfallGame implements ApplicationListener {
 	 */
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-		
+		RGlobal.keymap.onPause();
 	}
 
 	/**
@@ -69,8 +85,23 @@ public class RainfallGame implements ApplicationListener {
 	 */
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
-		
+		RGlobal.keymap.onResume();
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.io.FocusListener#onFocusLost()
+	 */
+	@Override
+	public void onFocusLost() {
+		pause();
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.io.FocusListener#onFocusGained()
+	 */
+	@Override
+	public void onFocusGained() {
+		resume();
 	}
 
 }

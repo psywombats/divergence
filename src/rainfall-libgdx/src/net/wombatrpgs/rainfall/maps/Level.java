@@ -133,6 +133,7 @@ public class Level implements Renderable {
 				} else {
 					newEvent = new MapEvent(this, eventMdo, object.x, object.y);
 				}
+				Global.reporter.inform("Loaded event with key " + eventMdo.key);
 				list.add(newEvent);
 			}
 		}

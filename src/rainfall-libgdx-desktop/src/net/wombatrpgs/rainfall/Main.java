@@ -46,6 +46,6 @@ public class Main {
 		cfg.width = data.defaultWidth;
 		cfg.height = data.defaultHeight;
 		
-		new LwjglApplication(new RainfallGame(), cfg);
+		new LwjglApplication(new RainfallGame(new DesktopFocusReporter()), cfg);
 	}
 }

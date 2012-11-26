@@ -9,6 +9,7 @@ package net.wombatrpgs.rainfall.io;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
 /**
@@ -17,12 +18,14 @@ import com.badlogic.gdx.Input.Keys;
 public class DefaultKeymap extends Keymap {
 	
 	private Map<Integer, InputButton> map;
+	private Map<InputButton, Integer> backmap;
 	
 	/**
 	 * Creates and initializes the default keymap.
 	 */
 	public DefaultKeymap() {
 		map = new HashMap<Integer, InputButton>();
+		backmap = new HashMap<InputButton, Integer>();
 		
 		// movamant
 		map.put(Keys.UP, 		InputButton.UP);
@@ -37,6 +40,12 @@ public class DefaultKeymap extends Keymap {
 		map.put(Keys.V, 		InputButton.BUTTON_4);
 		map.put(Keys.S, 		InputButton.BUTTON_5);
 		map.put(Keys.D, 		InputButton.BUTTON_6);
+		
+		map.put(Keys.ESCAPE, 	InputButton.MENU);
+		
+		for (Object key : map.keySet()) {
+			backmap.put(map.get(key), (Integer) key);
+		}
 	}
 
 	/**
@@ -60,7 +69,31 @@ public class DefaultKeymap extends Keymap {
 		}
 		return super.keyUp(keycode);
 	}
-	
-	
 
+	/**
+	 * @see net.wombatrpgs.rainfall.io.Keymap#isButtonDown(net.wombatrpgs.rainfall.io.InputButton)
+	 */
+	@Override
+	public boolean isButtonDown(InputButton button) {
+		return Gdx.input.isButtonPressed(backmap.get(button));
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.io.Keymap#replicateButtonUp
+	 * (net.wombatrpgs.rainfall.io.InputButton)
+	 */
+	@Override
+	protected void replicateButtonUp(InputButton button) {
+		keyUp(backmap.get(button));
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.io.Keymap#replicateButtonDown
+	 * (net.wombatrpgs.rainfall.io.InputButton)
+	 */
+	@Override
+	protected void replicateButtonDown(InputButton button) {
+		keyDown(backmap.get(button));
+	}
+	
 }

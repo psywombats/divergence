@@ -7,7 +7,9 @@
 package net.wombatrpgs.rainfall.io;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.wombatrpgs.mgne.global.Global;
 
@@ -19,6 +21,7 @@ import com.badlogic.gdx.InputProcessor;
 public abstract class Keymap implements InputProcessor {
 	
 	private List<ButtonListener> listeners;
+	private Map<InputButton, Boolean> snapshot;
 	
 	/**
 	 * Creates and intializes a new keymap.
@@ -49,6 +52,31 @@ public abstract class Keymap implements InputProcessor {
 	}
 	
 	/**
+	 * Called by the game when focus is lost. Fires events that should've
+	 * happened in the meantime.
+	 */
+	public final void onPause() {
+		snapshot = takeSnapshot();
+	}
+	
+	/**
+	 * Called by the game when focus is regained. Fires events that should've
+	 * happened in the meantime.
+	 */
+	public final void onResume() {
+		Map<InputButton, Boolean> newState = takeSnapshot();
+		for (InputButton button : InputButton.values()) {
+			if (newState.get(button) && !snapshot.get(button)) {
+				replicateButtonDown(button);
+			}
+			if (!newState.get(button) && snapshot.get(button)) {
+				replicateButtonUp(button);
+			}
+			System.out.println(button+" was "+snapshot.get(button)+" now "+newState.get(button));
+		}
+	}
+	
+	/**
 	 * Signal that a meta-button was pressed to whatever's listening for it.
 	 * @param 	button		The meta-button that was pushed
 	 * @param	down		True if button was pressed down, false if released
@@ -71,6 +99,41 @@ public abstract class Keymap implements InputProcessor {
 		signal(button, true);
 		signal(button, false);
 	}
+	
+	/**
+	 * Takes a snapshot of the current button state. Button's state is on or
+	 * off. This is useful when focus is lost.
+	 * @return					A mapping from buttons to true if pressed
+	 */
+	protected final Map<InputButton, Boolean> takeSnapshot() {
+		Map<InputButton, Boolean> snapshot = new HashMap<InputButton, Boolean>();
+		for (InputButton button : InputButton.values()) {
+			snapshot.put(button, isButtonDown(button));
+		}
+		return snapshot;
+	}
+	
+	/**
+	 * Polling input method. Returns true if the input is currently down. In the
+	 * case of buttons that fire in pulses, it's safe to always return false.
+	 * @param 	button			The button to check if down
+	 * @return					True if that button is down, false otherwise
+	 */
+	public abstract boolean isButtonDown(InputButton button);
+	
+	/**
+	 * Fire whatever would've happened to cause this button to come up. It
+	 * probably happened while focus was lost.
+	 * @param 	button			The button whose state changed while paused
+	 */
+	protected abstract void replicateButtonUp(InputButton button);
+	
+	/**
+	 * Fire whatever would've happened to cause this button to come down. It
+	 * probably happened while focus was lost.
+	 * @param 	button			The button whose state changed while paused
+	 */
+	protected abstract void replicateButtonDown(InputButton button);
 
 	/**
 	 * Override if needed by the specific keymapping.
