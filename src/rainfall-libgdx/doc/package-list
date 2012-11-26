@@ -1,5 +1,4 @@
 net.wombatrpgs.mgne.data
-net.wombatrpgs.mgne.game
 net.wombatrpgs.mgne.global
 net.wombatrpgs.mgne.tests
 net.wombatrpgs.mgns.core
@@ -11,8 +10,6 @@ net.wombatrpgs.mgnse.schema
 net.wombatrpgs.mgnse.tree
 net.wombatrpgs.rainfall
 net.wombatrpgs.rainfall.graphics
-net.wombatrpgs.rainfall.io
-net.wombatrpgs.rainfall.maps
 net.wombatrpgs.rainfallschema.graphics
 net.wombatrpgs.rainfallschema.maps
 net.wombatrpgs.rainfallschema.settings
