@@ -13,10 +13,15 @@ package net.wombatrpgs.rainfall.io;
  */
 public enum InputCommand {
 
-	MOVE_UP,
-	MOVE_DOWN,
-	MOVE_LEFT,
-	MOVE_RIGHT,
+	MOVE_START_UP,
+	MOVE_START_DOWN,
+	MOVE_START_LEFT,
+	MOVE_START_RIGHT,
+	
+	MOVE_STOP_UP,
+	MOVE_STOP_DOWN,
+	MOVE_STOP_LEFT,
+	MOVE_STOP_RIGHT,
 	
 	INTENT_CONFIRM,
 	INTENT_CANCEL,

@@ -7,7 +7,7 @@
 package net.wombatrpgs.rainfall.graphics;
 
 import net.wombatrpgs.mgne.global.Global;
-import net.wombatrpgs.rainfall.RGlobal;
+import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 
@@ -55,9 +55,16 @@ public class DirAnim implements Renderable {
 	/**
 	 * Call when this animation begins to move.
 	 */
-	public void setMoving() {
+	public void startMoving() {
 		if (!moving) time = 0;
 		moving = true;
+	}
+	
+	/**
+	 * Call when this animation stops moving.
+	 */
+	public void stopMoving() {
+		moving = false;
 	}
 
 	/**
@@ -100,7 +107,6 @@ public class DirAnim implements Renderable {
 						mdo.frameHeight);
 			}
 			anim = new Animation(1.0f/mdo.frameCount, frames);
-			Global.reporter.inform("Loaded and processed spritesheet " + filename);
 		} else {
 			Global.reporter.warn("Spritesheet not loaded: " + filename);
 		}

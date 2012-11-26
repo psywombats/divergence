@@ -4,12 +4,12 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfall;
+package net.wombatrpgs.rainfall.core;
 
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mgne.global.Global;
-import net.wombatrpgs.rainfall.core.ScreenStack;
+import net.wombatrpgs.rainfall.characters.Hero;
 import net.wombatrpgs.rainfall.io.DefaultKeymap;
 import net.wombatrpgs.rainfall.io.Keymap;
 
@@ -33,6 +33,12 @@ public class RGlobal extends Global {
 	
 	/** Current mapper of the keyys */
 	public static Keymap keymap;
+	
+	/** All magic numbers and stuff */
+	public static Constants constants;
+	
+	/** My hero~~~~ <3 <3 <3 (the player's physical representation */
+	public static Hero hero;
 	
 	/**
 	 * Can't override static methods, so this thing will have to do.

@@ -13,7 +13,6 @@ import java.util.List;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.mgne.global.Global;
-import net.wombatrpgs.rainfall.RGlobal;
 
 /**
  * A bunch of screens stacked on top of each other that make up the game

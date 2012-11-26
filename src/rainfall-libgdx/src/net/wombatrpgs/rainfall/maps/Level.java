@@ -20,7 +20,8 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
 
 import net.wombatrpgs.mgne.global.Global;
-import net.wombatrpgs.rainfall.RGlobal;
+import net.wombatrpgs.rainfall.characters.Hero;
+import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Renderable;
 import net.wombatrpgs.rainfallschema.maps.EventMDO;
 import net.wombatrpgs.rainfallschema.maps.MapMDO;
@@ -124,7 +125,15 @@ public class Level implements Renderable {
 			for (TiledObject object : group.objects) {
 				String mdoName = object.properties.get("key");
 				EventMDO eventMdo = (EventMDO) RGlobal.data.getEntryByKey(mdoName);
-				list.add(new Event(this, eventMdo, object.x, object.y));
+				MapEvent newEvent;
+				if (eventMdo.key.equals("hero_event")) {
+					Hero hero = new Hero(this, eventMdo, object.x, object.y);
+					RGlobal.hero = hero;
+					newEvent = hero;
+				} else {
+					newEvent = new MapEvent(this, eventMdo, object.x, object.y);
+				}
+				list.add(newEvent);
 			}
 		}
 	}

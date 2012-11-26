@@ -22,9 +22,9 @@
     <property name="key" value="waldsworth_event"/>
    </properties>
   </object>
-  <object name="Waldy" type="event" x="224" y="288" width="32" height="32">
+  <object name="Hero" type="event" x="224" y="288" width="32" height="32">
    <properties>
-    <property name="key" value="waldsworth_event"/>
+    <property name="key" value="hero_event"/>
    </properties>
   </object>
   <object name="Waldy" type="event" x="160" y="288" width="32" height="32">

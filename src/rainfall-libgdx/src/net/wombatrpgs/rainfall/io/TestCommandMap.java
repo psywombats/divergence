@@ -17,21 +17,28 @@ import java.util.Map;
 public class TestCommandMap extends CommandMap {
 	
 	// stopgap solution - every key is mapped to one command
-	private Map<InputButton, InputCommand> map;
+	private Map<InputButton, InputCommand> downMap;
+	private Map<InputButton, InputCommand> upMap;
 	
 	/**
 	 * Creates and initializes the default command map. Should probably only
 	 * need to be created once but w/e.
 	 */
 	public TestCommandMap() {
-		map = new HashMap<InputButton, InputCommand>();
+		downMap = new HashMap<InputButton, InputCommand>();
+		upMap = new HashMap<InputButton, InputCommand>();
 		
-		map.put(InputButton.BUTTON_1, 	InputCommand.INTENT_CONFIRM);
-		map.put(InputButton.BUTTON_2, 	InputCommand.INTENT_CANCEL);
-		map.put(InputButton.DOWN, 		InputCommand.MOVE_DOWN);
-		map.put(InputButton.LEFT, 		InputCommand.MOVE_LEFT);
-		map.put(InputButton.RIGHT, 		InputCommand.MOVE_RIGHT);
-		map.put(InputButton.UP, 		InputCommand.MOVE_UP);
+		downMap.put(InputButton.BUTTON_1, 	InputCommand.INTENT_CONFIRM);
+		downMap.put(InputButton.BUTTON_2, 	InputCommand.INTENT_CANCEL);
+		downMap.put(InputButton.DOWN, 		InputCommand.MOVE_START_DOWN);
+		downMap.put(InputButton.LEFT, 		InputCommand.MOVE_START_LEFT);
+		downMap.put(InputButton.RIGHT, 		InputCommand.MOVE_START_RIGHT);
+		downMap.put(InputButton.UP, 		InputCommand.MOVE_START_UP);
+		
+		upMap.put(InputButton.DOWN, 		InputCommand.MOVE_STOP_DOWN);
+		upMap.put(InputButton.LEFT, 		InputCommand.MOVE_STOP_LEFT);
+		upMap.put(InputButton.RIGHT, 		InputCommand.MOVE_STOP_RIGHT);
+		upMap.put(InputButton.UP, 			InputCommand.MOVE_STOP_UP);
 	}
 
 	/**
@@ -40,8 +47,8 @@ public class TestCommandMap extends CommandMap {
 	 */
 	@Override
 	public void onButtonPressed(InputButton button) {
-		if (map.containsKey(button)) {
-			this.signal(map.get(button));
+		if (downMap.containsKey(button)) {
+			this.signal(downMap.get(button));
 		}
 	}
 
@@ -51,7 +58,9 @@ public class TestCommandMap extends CommandMap {
 	 */
 	@Override
 	public void onButtonReleased(InputButton button) {
-		// derpdederr nothing for now
+		if (upMap.containsKey(button)) {
+			this.signal(upMap.get(button));
+		}
 	}
 
 }

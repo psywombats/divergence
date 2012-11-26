@@ -139,6 +139,7 @@ public abstract class GameScreen implements CommandListener,
 		}
 		if (commandContext == null) {
 			Global.reporter.warn("No command context for screen " + this);
+		} else {
 			commandContext.registerListener(this);
 		}
 		initialized = true;

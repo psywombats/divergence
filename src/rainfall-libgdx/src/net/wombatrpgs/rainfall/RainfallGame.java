@@ -1,5 +1,6 @@
 package net.wombatrpgs.rainfall;
 
+import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.test.TestScreen;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -7,7 +8,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.utils.TimeUtils;
 
 public class RainfallGame implements ApplicationListener {
 	private OrthographicCamera camera;
@@ -22,12 +22,13 @@ public class RainfallGame implements ApplicationListener {
 		camera.position.set(w/2, h/2, 0);
 		glViewport = new Rectangle(0, 0, w, h);
 		
+		Gdx.input.setInputProcessor(RGlobal.keymap);
 		RGlobal.screens.push(new TestScreen());
 	}
 
 	@Override
 	public void dispose() {
-		
+		RGlobal.assetManager.dispose();
 	}
 
 	@Override
@@ -41,22 +42,35 @@ public class RainfallGame implements ApplicationListener {
 				(int) glViewport.width, (int) glViewport.height);
 		camera.update();
 		camera.apply(gl);
-		if (TimeUtils.millis() % 50 == 0) {
-			System.out.println("FPS: " + (1/Gdx.graphics.getDeltaTime()));
-		}
 
 		RGlobal.screens.render(camera);
 	}
 
+	/**
+	 * @see com.badlogic.gdx.ApplicationListener#resize(int, int)
+	 */
 	@Override
 	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
+		
 	}
 
+	/**
+	 * @see com.badlogic.gdx.ApplicationListener#pause()
+	 */
 	@Override
 	public void pause() {
+		// TODO Auto-generated method stub
+		
 	}
 
+	/**
+	 * @see com.badlogic.gdx.ApplicationListener#resume()
+	 */
 	@Override
 	public void resume() {
+		// TODO Auto-generated method stub
+		
 	}
+
 }

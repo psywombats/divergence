@@ -6,8 +6,8 @@
  */
 package net.wombatrpgs.rainfall.graphics;
 
-import net.wombatrpgs.rainfall.RGlobal;
-import net.wombatrpgs.rainfall.maps.Dir;
+import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
@@ -24,7 +24,7 @@ public class FourDir implements Renderable {
 	protected FourDirMDO mdo;
 	protected MapObject parent;
 	protected DirAnim[] animations;
-	protected Dir currentDir;
+	protected Direction currentDir;
 	
 	/**
 	 * Constructs and splices a 4dir.
@@ -34,7 +34,7 @@ public class FourDir implements Renderable {
 	public FourDir(FourDirMDO mdo, MapObject parent) {
 		this.mdo = mdo;
 		this.parent = parent;
-		currentDir = Dir.DOWN;
+		currentDir = Direction.DOWN;
 		sliceAnimations();
 	}
 
@@ -42,14 +42,14 @@ public class FourDir implements Renderable {
 	 * Populates the array of animations.
 	 */
 	protected void sliceAnimations() {
-		animations = new DirAnim[Dir.values().length];
-		animations[Dir.DOWN.ordinal()] = new DirAnim(
+		animations = new DirAnim[Direction.values().length];
+		animations[Direction.DOWN.ordinal()] = new DirAnim(
 				RGlobal.data.getEntryFor(mdo.downAnim, AnimationMDO.class), parent);
-		animations[Dir.UP.ordinal()] = new DirAnim(
+		animations[Direction.UP.ordinal()] = new DirAnim(
 				RGlobal.data.getEntryFor(mdo.upAnim, AnimationMDO.class), parent);
-		animations[Dir.LEFT.ordinal()] = new DirAnim(
+		animations[Direction.LEFT.ordinal()] = new DirAnim(
 				RGlobal.data.getEntryFor(mdo.leftAnim, AnimationMDO.class), parent);
-		animations[Dir.RIGHT.ordinal()] = new DirAnim(
+		animations[Direction.RIGHT.ordinal()] = new DirAnim(
 				RGlobal.data.getEntryFor(mdo.rightAnim, AnimationMDO.class), parent);
 	}
 
@@ -68,7 +68,7 @@ public class FourDir implements Renderable {
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		for (Dir dir : Dir.values()) {
+		for (Direction dir : Direction.values()) {
 			animations[dir.ordinal()].queueRequiredAssets(manager);
 		}
 	}
@@ -79,9 +79,25 @@ public class FourDir implements Renderable {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager) {
-		for (Dir dir : Dir.values()) {
+		for (Direction dir : Direction.values()) {
 			animations[dir.ordinal()].postProcessing(manager);
 		}
+	}
+	
+	/**
+	 * Starts moving in the indicated direction.
+	 * @param 	dir			The new direction to move in
+	 */
+	public void startMoving(Direction dir) {
+		currentDir = dir;
+		animations[currentDir.ordinal()].startMoving();
+	}
+	
+	/**
+	 * Halts all animation movement.
+	 */
+	public void stopMoving() {
+		animations[currentDir.ordinal()].stopMoving();
 	}
 	
 }

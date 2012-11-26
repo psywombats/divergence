@@ -9,7 +9,7 @@ package net.wombatrpgs.rainfall.maps;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import net.wombatrpgs.rainfall.RGlobal;
+import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.FourDir;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
 import net.wombatrpgs.rainfallschema.maps.EventMDO;
@@ -17,7 +17,7 @@ import net.wombatrpgs.rainfallschema.maps.EventMDO;
 /**
  * Any object static object on a Tiled map is an Event.
  */
-public class Event extends MapObject {
+public class MapEvent extends MapObject {
 	
 	protected EventMDO mdo;
 	protected FourDir appearance;
@@ -29,7 +29,7 @@ public class Event extends MapObject {
 	 * @param 	x		The x-coord of the event (in pixels)
 	 * @param 	y		The y-coord of the event (in pixels)
 	 */
-	public Event(Level parent, EventMDO mdo, int x, int y) {
+	public MapEvent(Level parent, EventMDO mdo, int x, int y) {
 		super(parent, x, y);
 		this.mdo = mdo;
 		if (mdo.appearance != null) {
@@ -66,6 +66,35 @@ public class Event extends MapObject {
 	@Override
 	public void postProcessing(AssetManager manager) {
 		appearance.postProcessing(manager);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#setVelocity(float, float)
+	 */
+	@Override
+	public void setVelocity(float vx, float vy) {
+		if (appearance != null && (vx != this.vx || vy != this.vy)) {
+			if (vx == 0 && vy == 0) {
+				appearance.stopMoving();
+			} else {
+				Direction newDir;
+				if (Math.abs(vx) > Math.abs(vy)) {
+					if (vx > 0) {
+						newDir = Direction.RIGHT;
+					} else {
+						newDir = Direction.LEFT;
+					}
+				} else {
+					if (vy > 0) {
+						newDir = Direction.DOWN;
+					} else {
+						newDir = Direction.UP;
+					}
+				}
+				appearance.startMoving(newDir);
+			}
+		}
+		super.setVelocity(vx, vy);
 	}
 
 }
