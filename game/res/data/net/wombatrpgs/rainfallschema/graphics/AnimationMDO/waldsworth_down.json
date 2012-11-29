@@ -9,5 +9,9 @@
 	"frameHeight" : 64,
 	"offX" : 0,
 	"offY" : 192,
-	"animSpeed" : 4
+	"animSpeed" : 4,
+	"hit1x" : 8,
+	"hit1y" : 48,
+	"hit2x" : 24,
+	"hit2y" : 64
 }

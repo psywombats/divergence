@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.rainfallschema.graphics;
 
+import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
@@ -33,5 +34,10 @@ public class FourDirMDO extends MainSchema {
 	@Desc("Left-facing animation")
 	@SchemaLink(AnimationMDO.class)
 	public String leftAnim;
+	
+	@Desc("Excess height - the pixels at the top of the sprite that can be " +
+			"walked under (in pixels)")
+	@DefaultValue("0")
+	public Integer excessHeight;
 
 }

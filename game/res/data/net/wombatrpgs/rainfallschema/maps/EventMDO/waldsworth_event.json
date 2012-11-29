@@ -3,5 +3,6 @@
 	"subfolder" : "blockbound/",
 	"name" : "",
 	"description" : "test chara",
-	"appearance" : "waldsworth_4dir"
+	"appearance" : "waldsworth_4dir",
+	"collision" : "ANIMATION_SPECIFIC_RECTANGLE"
 }

@@ -9,6 +9,10 @@ package net.wombatrpgs.rainfall.maps;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
+import net.wombatrpgs.mgne.global.Global;
+import net.wombatrpgs.rainfall.collisions.CollisionResult;
+import net.wombatrpgs.rainfall.collisions.Hitbox;
+import net.wombatrpgs.rainfall.collisions.NoHitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.FourDir;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
@@ -79,13 +83,13 @@ public class MapEvent extends MapObject {
 			} else {
 				Direction newDir;
 				if (Math.abs(vx) > Math.abs(vy)) {
-					if (vx > 0) {
+					if (vx * Direction.RIGHT.getVector().x> 0) {
 						newDir = Direction.RIGHT;
 					} else {
 						newDir = Direction.LEFT;
 					}
 				} else {
-					if (vy > 0) {
+					if (vy * Direction.DOWN.getVector().y > 0) {
 						newDir = Direction.DOWN;
 					} else {
 						newDir = Direction.UP;
@@ -96,5 +100,61 @@ public class MapEvent extends MapObject {
 		}
 		super.setVelocity(vx, vy);
 	}
+	
+	/**
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(MapObject other) {
+		if (other.y < y) {
+			return -1;
+		} else if (other.y > y) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#getHitbox()
+	 */
+	@Override
+	public Hitbox getHitbox() {
+		switch (mdo.collision) {
+		case ANIMATION_SPECIFIC_RECTANGLE:
+			return appearance.getHitbox();
+		case SOMETHING_ELSE_TELL_PSY_RIGHT_AWAY:
+			Global.reporter.warn("Got a hitbox for something totally weird");
+			return NoHitbox.getInstance();
+		case NONE:
+			return NoHitbox.getInstance();
+		default:
+			Global.reporter.warn("No hitbox setting found on " + this);
+			return NoHitbox.getInstance();
+		}
+	}
+
+	/**
+	 * This default implementation moves us out of collision.
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#onCollide
+	 * (net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 */
+	@Override
+	public void onCollide(MapObject other, CollisionResult result) {
+		if (!other.isOverlappingAllowed() && !this.isOverlappingAllowed()) {
+			// resolve the collision!!
+			// flip if we're not primary
+			if (this.getHitbox() == result.collide2) {
+				result.mtvX *= -1;
+				result.mtvY *= -1;
+			}
+			this.x += result.mtvX;
+			this.y += result.mtvY;
+		}
+	}
+
+	/** @see net.wombatrpgs.rainfall.maps.MapObject#isOverlappingAllowed() */
+	@Override
+	public boolean isOverlappingAllowed() { return false; }
 
 }

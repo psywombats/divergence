@@ -7,7 +7,10 @@
 package net.wombatrpgs.rainfall.maps;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.TileMapRendererLoader.TileMapParameter;
@@ -21,6 +24,7 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
 
 import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.characters.Hero;
+import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Renderable;
 import net.wombatrpgs.rainfallschema.maps.EventMDO;
@@ -42,6 +46,7 @@ public class Level implements Renderable {
 	protected TiledMap map;
 	protected SpriteBatch batch;
 	protected List<List<MapObject>> objects; // sorted by layer
+	protected Map<MapObject, Integer> layerMap; // each object's later
 	protected String mapName;
 	
 	/**
@@ -115,8 +120,10 @@ public class Level implements Renderable {
 		renderer = RGlobal.assetManager.get(mapName, TileMapRenderer.class);
 		map = renderer.getMap();
 		objects = new ArrayList<List<MapObject>>();
+		layerMap = new HashMap<MapObject, Integer>();
 		
 		// each object group represents a new layer
+		int layerIndex = 0;
 		for (TiledObjectGroup group : map.objectGroups) {
 			List<MapObject> list = new ArrayList<MapObject>();
 			objects.add(list);
@@ -127,15 +134,19 @@ public class Level implements Renderable {
 				EventMDO eventMdo = (EventMDO) RGlobal.data.getEntryByKey(mdoName);
 				MapEvent newEvent;
 				if (eventMdo.key.equals("hero_event")) {
-					Hero hero = new Hero(this, eventMdo, object.x, object.y);
+					Hero hero = new Hero(this, eventMdo, object.x, 
+							map.height*map.tileHeight-object.y);
 					RGlobal.hero = hero;
 					newEvent = hero;
 				} else {
-					newEvent = new MapEvent(this, eventMdo, object.x, object.y);
+					newEvent = new MapEvent(this, eventMdo, object.x, 
+							map.height*map.tileHeight-object.y);
 				}
+				layerMap.put(newEvent, layerIndex);
 				Global.reporter.inform("Loaded event with key " + eventMdo.key);
 				list.add(newEvent);
 			}
+			layerIndex += 1;
 		}
 	}
 	
@@ -165,6 +176,27 @@ public class Level implements Renderable {
 	}
 	
 	/**
+	 * Adjusts an event on the level based on its collisions. This usually
+	 * involves moving it out of said collisions.
+	 * @param event
+	 */
+	public void applyPhysicalCorrections(MapEvent event) {
+		if (!layerMap.containsKey(event)) {
+			Global.reporter.warn("Event not in layer index: " + event);
+			return;
+		}
+		int layerIndex = layerMap.get(event);
+		for (MapObject other : objects.get(layerIndex)) {
+			if (other != event) {
+				CollisionResult result = event.getHitbox().isColliding(other.getHitbox());
+				if (result.isColliding) {
+					event.onCollide(other, result);
+				}
+			}
+		}
+	}
+	
+	/**
 	 * Renders an individual tile layer to the screen.
 	 * @param 	camera		The camera used to affect the screen
 	 * @param 	layerIndex	The layer to render's offset
@@ -179,6 +211,8 @@ public class Level implements Renderable {
 	 * @param 	objectIndex	The layer to render's offset
 	 */
 	protected void renderObjects(OrthographicCamera camera, int objectIndex) {
+		// TODO: this can be optimized
+		Collections.sort(objects.get(objectIndex));
 		batch.begin();
 		for (MapObject object : objects.get(objectIndex)) {
 			object.render(camera);

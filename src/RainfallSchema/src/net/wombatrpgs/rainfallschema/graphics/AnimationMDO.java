@@ -9,6 +9,7 @@ package net.wombatrpgs.rainfallschema.graphics;
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.FileLink;
+import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.MainSchema;
 
@@ -43,8 +44,23 @@ public class AnimationMDO extends MainSchema {
 	public Integer offY;
 	
 	@Desc("Animation speed (in frames per second)")
-	@DefaultValue("4")
 	public Integer animSpeed;
 	
-
+	@Desc("Hitbox upper left X - defaults to 0, only used if event has a hitbox")
+	@Nullable
+	public Integer hit1x;
+	
+	@Desc("Hitbox upper left Y - defaults to 0, only used if event has a hitbox")
+	@Nullable
+	public Integer hit1y;
+	
+	@Desc("Hitbox lower right X - defaults to frame width, only used if event has a hitbox")
+	@Nullable
+	public Integer hit2x;
+	
+	@Desc("Hitbox lower right Y - defaults to frame height, only used if event has a hitbox")
+	@Nullable
+	public Integer hit2y;
+	
+	
 }

@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.rainfall.characters;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
+
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfallschema.maps.EventMDO;
 
@@ -24,5 +26,17 @@ public class Hero extends Character {
 	public Hero(Level parent, EventMDO mdo, int x, int y) {
 		super(parent, mdo, x, y);
 	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapEvent#render
+	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 */
+	@Override
+	public void render(OrthographicCamera camera) {
+		super.render(camera);
+		this.parent.applyPhysicalCorrections(this);
+	}
+	
+	
 
 }

@@ -7,6 +7,8 @@
 package net.wombatrpgs.rainfall.graphics;
 
 import net.wombatrpgs.mgne.global.Global;
+import net.wombatrpgs.rainfall.collisions.Hitbox;
+import net.wombatrpgs.rainfall.collisions.RectHitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
@@ -26,6 +28,7 @@ public class DirAnim implements Renderable {
 	protected AnimationMDO mdo;
 	protected Animation anim;
 	protected MapObject parent;
+	protected Hitbox box;
 	protected Texture spritesheet;
 	protected TextureRegion[] frames;
 	
@@ -42,6 +45,11 @@ public class DirAnim implements Renderable {
 		this.mdo = mdo;
 		this.parent = parent;
 		moving = false;
+		if (mdo.hit1x == null) mdo.hit1x = 0;
+		if (mdo.hit1y == null) mdo.hit1y = 0;
+		if (mdo.hit2x == null) mdo.hit2x = mdo.frameWidth;
+		if (mdo.hit2y == null) mdo.hit2y = mdo.frameHeight;
+		box = new RectHitbox(parent, mdo.hit1x, mdo.hit1y, mdo.hit2x, mdo.hit2y);
 	}
 	
 	/**
@@ -110,6 +118,14 @@ public class DirAnim implements Renderable {
 		} else {
 			Global.reporter.warn("Spritesheet not loaded: " + filename);
 		}
+	}
+	
+	/**
+	 * Gets the database-defined hitbox of this animation. Usually a rect.
+	 * @return				The hitbox used by this anim
+	 */
+	public Hitbox getHitbox() {
+		return box;
 	}
 
 }

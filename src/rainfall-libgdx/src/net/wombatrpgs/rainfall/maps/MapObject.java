@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import net.wombatrpgs.rainfall.collisions.CollisionResult;
+import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Renderable;
 
@@ -18,7 +20,7 @@ import net.wombatrpgs.rainfall.graphics.Renderable;
  * All objects that appear in Tiled maps that are not tiles extend this class.
  * This includes both characters and events. 
  */
-public abstract class MapObject implements Renderable, Positionable {
+public abstract class MapObject implements Renderable, PositionSetable, Comparable<MapObject> {
 	
 	/** Level this object exists on */
 	protected Level parent;
@@ -46,11 +48,47 @@ public abstract class MapObject implements Renderable, Positionable {
 	/** @see net.wombatrpgs.rainfall.maps.Positionable#getY() */
 	@Override
 	public int getY() { return Math.round(y); }
+	
+	/** @see net.wombatrpgs.rainfall.maps.PositionSetable#setX(int) */
+	@Override
+	public void setX(int x) { this.x = x; }
+
+	/** @see net.wombatrpgs.rainfall.maps.PositionSetable#setY(int) */
+	@Override
+	public void setY(int y) { this.y = y; }
 
 	/** @see net.wombatrpgs.rainfall.maps.Positionable#getBatch() */
 	@Override
 	public SpriteBatch getBatch() { return parent.getBatch(); }
+
+	/**
+	 * Gets the hitbox associated with this map object at this point in time.
+	 * It's abstract so that events with different animations can return the
+	 * appropriate object for each call.
+	 * @return				The hitbox being used at the moment, never null
+	 */
+	public abstract Hitbox getHitbox();
 	
+	/**
+	 * Called when this object is colliding with another event in the wild. If
+	 * this is true, unless you move out of collision, it'll be called every
+	 * frame. So if you want to have a hitbox but not be a physical entity
+	 * really, then don't respond to this method. There should be some sort of
+	 * double dispatch here really. Maybe.
+	 * @param 	other		The other object involved in the collision
+	 * @param	result		Info about the collision
+	 */
+	public abstract void onCollide(MapObject other, CollisionResult result);
+	
+	/**
+	 * Determine whether overlapping with this object in general is allowed.
+	 * This is sort of a physicsy thing. Allowing it implies no physical presence
+	 * on the map, even if this object has a hitbox. Disallowing it is usually a
+	 * signal that collisions need to be resolvled.
+	 * @return				True if overlapping with this object is okay
+	 */
+	public abstract boolean isOverlappingAllowed();
+
 	/**
 	 * Updates the velocity of this map object.
 	 * @param 	vx			The new x-velocity of the object, in pixels/second
@@ -69,7 +107,10 @@ public abstract class MapObject implements Renderable, Positionable {
 	 */
 	public void renderLocal(OrthographicCamera camera, TextureRegion sprite) {
 		
-		parent.getBatch().draw(sprite, x, parent.getHeightPixels() - y);
+		parent.getBatch().draw(
+				sprite, 
+				x + Gdx.graphics.getWidth()/2 - camera.position.x, 
+				y + Gdx.graphics.getHeight()/2 - camera.position.y);
 		
 		float elapsed = Gdx.graphics.getDeltaTime();
 		float real = 1.0f / elapsed;

@@ -6,5 +6,6 @@
 	"upAnim" : "waldsworth_up",
 	"rightAnim" : "waldsworth_right",
 	"downAnim" : "waldsworth_down",
-	"leftAnim" : "waldsworth_left"
+	"leftAnim" : "waldsworth_left",
+	"excessHeight" : 48
 }

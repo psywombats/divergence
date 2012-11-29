@@ -6,12 +6,14 @@
  */
 package net.wombatrpgs.rainfallschema.maps;
 
+import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
+import net.wombatrpgs.rainfallschema.maps.data.HitboxType;
 
 /**
  * An interactive component on the map is called an "Event." (it's an entity,
@@ -24,5 +26,9 @@ public class EventMDO extends MainSchema {
 	@SchemaLink(FourDirMDO.class)
 	@Nullable
 	public String appearance;
+	
+	@Desc("Collision type")
+	@DefaultValue("NONE")
+	public HitboxType collision;
 
 }

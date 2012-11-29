@@ -36,8 +36,7 @@ public class RainfallGame implements ApplicationListener, FocusListener {
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		
-		camera = new OrthographicCamera(w, h);
-		camera.position.set(w/2, h/2, 0);
+		Gdx.graphics.setVSync(true);
 		glViewport = new Rectangle(0, 0, w, h);
 		
 		Gdx.input.setInputProcessor(RGlobal.keymap);
@@ -59,11 +58,12 @@ public class RainfallGame implements ApplicationListener, FocusListener {
 			Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 			
 			// camera
-			GL10 gl = Gdx.graphics.getGL10();
-			gl.glViewport((int) glViewport.x, (int) glViewport.y,
-					(int) glViewport.width, (int) glViewport.height);
+			if (camera == null) {
+				createCamera();
+			}
+			camera.position.x = RGlobal.hero.getX();
+			camera.position.y = RGlobal.hero.getY();
 			camera.update();
-			camera.apply(gl);
 			
 			RGlobal.screens.render(camera);
 		}
@@ -110,6 +110,22 @@ public class RainfallGame implements ApplicationListener, FocusListener {
 	@Override
 	public void onFocusGained() {
 		resume();
+	}
+	
+	/**
+	 * Camera creation, called once.
+	 */
+	private void createCamera() {
+		float w = Gdx.graphics.getWidth();
+		float h = Gdx.graphics.getHeight();
+		
+		camera = new OrthographicCamera(w, h);
+		camera.update();
+		GL10 gl = Gdx.graphics.getGL10();
+		gl.glViewport((int) glViewport.x, (int) glViewport.y,
+				(int) glViewport.width, (int) glViewport.height);
+		camera.update();
+		camera.apply(gl);
 	}
 
 }

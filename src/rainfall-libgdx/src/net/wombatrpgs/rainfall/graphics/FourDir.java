@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.rainfall.graphics;
 
+import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.MapObject;
@@ -98,6 +99,15 @@ public class FourDir implements Renderable {
 	 */
 	public void stopMoving() {
 		animations[currentDir.ordinal()].stopMoving();
+	}
+	
+	/**
+	 * Gets the hitbox of the current facing. Usually a rectangle... at least,
+	 * that's what's in the database at the moment.
+	 * @return				The hitbox of the current facing, 99.9% rect
+	 */
+	public Hitbox getHitbox() {
+		return animations[currentDir.ordinal()].getHitbox();
 	}
 	
 }
