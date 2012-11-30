@@ -7,7 +7,6 @@
 package net.wombatrpgs.rainfall.maps;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,16 +16,17 @@ import com.badlogic.gdx.assets.loaders.TileMapRendererLoader.TileMapParameter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.tiled.TileMapRenderer;
-import com.badlogic.gdx.graphics.g2d.tiled.TiledLayer;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
 
 import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.characters.Hero;
-import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Renderable;
+import net.wombatrpgs.rainfall.maps.layers.GridLayer;
+import net.wombatrpgs.rainfall.maps.layers.Layer;
+import net.wombatrpgs.rainfall.maps.layers.ObjectLayer;
 import net.wombatrpgs.rainfallschema.maps.EventMDO;
 import net.wombatrpgs.rainfallschema.maps.MapMDO;
 
@@ -45,7 +45,9 @@ public class Level implements Renderable {
 	protected TileMapRenderer renderer;
 	protected TiledMap map;
 	protected SpriteBatch batch;
-	protected List<List<MapObject>> objects; // sorted by layer
+	protected List<Layer> layers; // all object and tile layers in order
+	protected List<ObjectLayer> objectLayers;
+	protected List<GridLayer> tileLayers;
 	protected Map<MapObject, Integer> layerMap; // each object's later
 	protected String mapName;
 	
@@ -66,6 +68,12 @@ public class Level implements Renderable {
 	
 	/** @return The height of this map, in pixels */
 	public int getHeightPixels() { return map.height * map.tileHeight; }
+	
+	/** @return The class used to render this level */
+	public TileMapRenderer getRenderer() { return renderer; }
+	
+	/** @return The underlying TMX map */
+	public TiledMap getMap() { return map; }
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render(
@@ -74,25 +82,8 @@ public class Level implements Renderable {
 	@Override
 	public void render(OrthographicCamera camera) {
 		if (RGlobal.assetManager.isLoaded(mapName)) {
-		
-			// TODO: this can be optimized if it's taking too long... profile it
-			int atTile = 0;			// tile layer we're rendering
-			int atObject = 0;		// object layer we're rendering
-			int target = map.layers.size() + map.objectGroups.size() - 1;
-			int rendered = 0;		// total objects rendered so far
-			while (rendered < target) {
-				TiledLayer candidate = map.layers.get(atTile);
-				
-				// we're either rendering a tiled layer or an object layer
-				if (Integer.valueOf(target-rendered).toString().equals(
-						candidate.properties.get("layer"))) {
-					renderTiles(camera, atTile);
-					atTile++;
-				} else {
-					renderObjects(camera, atObject);
-					atObject++;
-				}
-				rendered++;
+			for (Renderable layer : layers) {
+				layer.render(camera);
 			}
 		} else {
 			Global.reporter.warn("Map assets not loaded for " + mapName);
@@ -119,14 +110,15 @@ public class Level implements Renderable {
 	public void postProcessing(AssetManager manager) {
 		renderer = RGlobal.assetManager.get(mapName, TileMapRenderer.class);
 		map = renderer.getMap();
-		objects = new ArrayList<List<MapObject>>();
+		layers = new ArrayList<Layer>();
+		objectLayers = new ArrayList<ObjectLayer>();
+		tileLayers = new ArrayList<GridLayer>();
 		layerMap = new HashMap<MapObject, Integer>();
 		
 		// each object group represents a new layer
 		int layerIndex = 0;
 		for (TiledObjectGroup group : map.objectGroups) {
-			List<MapObject> list = new ArrayList<MapObject>();
-			objects.add(list);
+			List<MapObject> objects = new ArrayList<MapObject>();
 			
 			// load up all ingame objects from the database
 			for (TiledObject object : group.objects) {
@@ -144,9 +136,33 @@ public class Level implements Renderable {
 				}
 				layerMap.put(newEvent, layerIndex);
 				Global.reporter.inform("Loaded event with key " + eventMdo.key);
-				list.add(newEvent);
+				objects.add(newEvent);
 			}
+			
+			objectLayers.add(layerIndex, new ObjectLayer(this, objects));
 			layerIndex += 1;
+		}
+		
+		for (int i = 0; i < map.layers.size(); i++) {
+			tileLayers.add(i, new GridLayer(this, map.layers.get(i), i));
+		}
+		
+		// sort the layers by their original index
+		int atTile = 0;			// tile layer we're adding
+		int atObject = 0;		// object layer we're adding
+		int target = map.layers.size() + map.objectGroups.size();
+		int added = 0;			// total layers added
+		while (added < target) {
+			if (atTile < map.layers.size() && 
+					Integer.valueOf(target-added-1).toString().equals(
+					map.layers.get(atTile).properties.get("layer"))) {
+				layers.add(tileLayers.get(atTile));
+				atTile++;
+			} else {
+				layers.add(objectLayers.get(atObject));
+				atObject++;
+			}
+			added++;
 		}
 	}
 	
@@ -156,10 +172,8 @@ public class Level implements Renderable {
 	 * @param 	manager			The manager to queue the object in
 	 */
 	public void queueMapObjectAssets(AssetManager manager) {
-		for (List<MapObject> layer : objects) {
-			for (MapObject object : layer) {
-				object.queueRequiredAssets(manager);
-			}
+		for (Renderable layer : layers) {
+			layer.queueRequiredAssets(manager);
 		}
 	}
 	
@@ -168,10 +182,8 @@ public class Level implements Renderable {
 	 * @param 	manager			The manager the map assets were loaded in
 	 */
 	public void postProcessingMapObjects(AssetManager manager) {
-		for (List<MapObject> layer : objects) {
-			for (MapObject object : layer) {
-				object.postProcessing(manager);
-			}
+		for (Renderable layer : layers) {
+			layer.postProcessing(manager);
 		}
 	}
 	
@@ -186,38 +198,21 @@ public class Level implements Renderable {
 			return;
 		}
 		int layerIndex = layerMap.get(event);
-		for (MapObject other : objects.get(layerIndex)) {
-			if (other != event) {
-				CollisionResult result = event.getHitbox().isColliding(other.getHitbox());
-				if (result.isColliding) {
-					event.onCollide(other, result);
+		ObjectLayer activeLayer = objectLayers.get(layerIndex);
+		activeLayer.applyPhysicalCorrections(event);
+		for (int i = 0; i < layers.size(); i++) {
+			Layer layer = layers.get(i);
+			if (layer == activeLayer) {
+				if (i == 0) {
+					Global.reporter.warn("Applying layer collisions to an object on " +
+							"the bottom of the level: " + event);
+					return;
+				}
+				for (int j = i-1; j >= 0; j--) {
+					layers.get(j).applyPhysicalCorrections(event);
 				}
 			}
 		}
-	}
-	
-	/**
-	 * Renders an individual tile layer to the screen.
-	 * @param 	camera		The camera used to affect the screen
-	 * @param 	layerIndex	The layer to render's offset
-	 */
-	protected void renderTiles(OrthographicCamera camera, int layerIndex) {
-		renderer.render(camera, new int[] {layerIndex});
-	}
-	
-	/**
-	 * Renders an individual object layer to the screen.
-	 * @param 	camera		The camera used to draw to the screen
-	 * @param 	objectIndex	The layer to render's offset
-	 */
-	protected void renderObjects(OrthographicCamera camera, int objectIndex) {
-		// TODO: this can be optimized
-		Collections.sort(objects.get(objectIndex));
-		batch.begin();
-		for (MapObject object : objects.get(objectIndex)) {
-			object.render(camera);
-		}
-		batch.end();
 	}
 
 }

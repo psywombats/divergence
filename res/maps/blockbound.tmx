@@ -5,10 +5,25 @@
  </tileset>
  <tileset firstgid="31" name="upper" tilewidth="32" tileheight="32">
   <image source="tilesets/test/upper.PNG" trans="b5a5d5" width="256" height="128"/>
+  <tile id="4">
+   <properties>
+    <property name="impassable" value=""/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="impassable" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Tile Layer 1" width="20" height="15">
   <data encoding="base64" compression="zlib">
    eJwTYWBgEBnFQwIzAjETEDNTyTx2IOYAYk4qmccLxHxAzD8IwmoUD08MAPeTFwU=
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="20" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBg4oExl87SpbN5gBKNhhgADERaj4T+wAAAOTQE5
   </data>
  </layer>
  <objectgroup name="Object Layer 1" width="20" height="15">
@@ -48,9 +63,4 @@
    </properties>
   </object>
  </objectgroup>
- <layer name="Tile Layer 2" width="20" height="15">
-  <data encoding="base64" compression="zlib">
-   eJxjYBg4oExl87SpbN5gBKNhhgADERaj4T+wAAAOTQE5
-  </data>
- </layer>
 </map>

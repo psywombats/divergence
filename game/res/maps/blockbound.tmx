@@ -4,13 +4,28 @@
  </tileset>
  <tileset firstgid="31" name="upper" tileheight="32" tilewidth="32">
   <image height="128" source="tilesets/test/upper.PNG" trans="b5a5d5" width="256"/>
+  <tile id="4">
+   <properties>
+    <property name="impassable" value=""/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="impassable" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <layer height="15" name="Tile Layer 1" width="20"><properties><property name="layer" value="2"/></properties>
   <data compression="zlib" encoding="base64">
    eJwTYWBgEBnFQwIzAjETEDNTyTx2IOYAYk4qmccLxHxAzD8IwmoUD08MAPeTFwU=
   </data>
  </layer>
- <objectgroup height="15" name="Object Layer 1" width="20"><properties><property name="layer" value="1"/></properties>
+ <layer height="15" name="Tile Layer 2" width="20"><properties><property name="layer" value="1"/></properties>
+  <data compression="zlib" encoding="base64">
+   eJxjYBg4oExl87SpbN5gBKNhhgADERaj4T+wAAAOTQE5
+  </data>
+ </layer>
+ <objectgroup height="15" name="Object Layer 1" width="20"><properties><property name="layer" value="0"/></properties>
   <object height="32" name="Waldy" type="event" width="32" x="352" y="288">
    <properties>
     <property name="key" value="waldsworth_event"/>
@@ -47,9 +62,4 @@
    </properties>
   </object>
  </objectgroup>
- <layer height="15" name="Tile Layer 2" width="20"><properties><property name="layer" value="0"/></properties>
-  <data compression="zlib" encoding="base64">
-   eJxjYBg4oExl87SpbN5gBKNhhgADERaj4T+wAAAOTQE5
-  </data>
- </layer>
 </map>

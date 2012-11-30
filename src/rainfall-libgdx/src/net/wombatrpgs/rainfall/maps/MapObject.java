@@ -60,6 +60,12 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	/** @see net.wombatrpgs.rainfall.maps.Positionable#getBatch() */
 	@Override
 	public SpriteBatch getBatch() { return parent.getBatch(); }
+	
+	/** @param x The offset to add to x */
+	public void moveX(int x) { this.x += x; }
+	
+	/** @param x The offset to add to x */
+	public void moveY(int y) { this.y += y; }
 
 	/**
 	 * Gets the hitbox associated with this map object at this point in time.

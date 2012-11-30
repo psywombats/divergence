@@ -18,6 +18,7 @@ public interface Positionable {
 	/** @return The y-coord (in pixels) of this object */
 	public int getY();
 	
+	// TODO: this is ugly and should be separated out
 	/** @return The batch to render the associated graphics with */
 	public SpriteBatch getBatch();
 

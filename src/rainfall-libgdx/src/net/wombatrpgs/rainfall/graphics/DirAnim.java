@@ -49,7 +49,7 @@ public class DirAnim implements Renderable {
 		if (mdo.hit1y == null) mdo.hit1y = 0;
 		if (mdo.hit2x == null) mdo.hit2x = mdo.frameWidth;
 		if (mdo.hit2y == null) mdo.hit2y = mdo.frameHeight;
-		box = new RectHitbox(parent, mdo.hit1x, mdo.hit1y, mdo.hit2x, mdo.hit2y);
+		box = new RectHitbox(parent, mdo.hit1x, mdo.frameHeight-mdo.hit2y, mdo.hit2x, mdo.frameHeight-mdo.hit1y);
 	}
 	
 	/**
