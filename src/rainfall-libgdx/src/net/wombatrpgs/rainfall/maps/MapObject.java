@@ -64,7 +64,7 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	/** @param x The offset to add to x */
 	public void moveX(int x) { this.x += x; }
 	
-	/** @param x The offset to add to x */
+	/** @param y The offset to add to x */
 	public void moveY(int y) { this.y += y; }
 
 	/**
