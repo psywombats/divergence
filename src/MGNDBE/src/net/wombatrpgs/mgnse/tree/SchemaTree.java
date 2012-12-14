@@ -168,7 +168,8 @@ public class SchemaTree extends JTree {
 		this.setModel(new DefaultTreeModel(tree));
 		map = new HashMap<Class<? extends MainSchema>, SchemaNode>();
 		for (Class<? extends MainSchema> schemaClass : schema) {
-			map.put(schemaClass, getNodeByPath(tree, getSchemaDisplayPath(schemaClass), true));
+			map.put(schemaClass, getNodeByPath(tree,
+					getSchemaDisplayPath(schemaClass), schemaClass));
 		}
 		this.expandPath(new TreePath(tree.getPath()));
 		Global.instance().setSchemaMap(map);
@@ -204,18 +205,30 @@ public class SchemaTree extends JTree {
 	}
 	
 	/**
+	 * Returns the selected class. The selection could be either an individual
+	 * schema or a lot of schema but this returns their class either way. Could
+	 * return null if a bigger folder is selected.
+	 * @return
+	 */
+	public Class<? extends MainSchema> getSelectedClass() {
+		SchemaNode node = (SchemaNode) getLastSelectedPathComponent();
+		if (node == null) return null;
+		return node.getSchema();
+	}
+	
+	/**
 	 * Adds a single data object. Does not auto-validate.
 	 * @param data The data file to add from
 	 * @return The node that was created
 	 */
 	public SchemaNode addDataEntry(File data) {
 		Class<? extends MainSchema> schema = getSchemaByFile(data);
-		SchemaNode parent = getNodeByPath(tree, getSchemaDisplayPath(schema), false);
+		SchemaNode parent = getNodeByPath(tree, getSchemaDisplayPath(schema), null);
 		if (parent == null) {
 			Global.instance().err("Couldn't find schema for " + data.getName(),
 					new DatabaseEntrySchemaException(data.getName()));
 		}
-		parent = getNodeByPath(parent, getDataSubdir(data), true);
+		parent = getNodeByPath(parent, getDataSubdir(data), schema);
 		SchemaNode node = new SchemaNode(data, schema);
 		if (!schema.isAnnotationPresent(ExcludeFromTree.class)) {
 			parent.add(node);
@@ -277,10 +290,12 @@ public class SchemaTree extends JTree {
 	/**
 	 * Gets a schema node from the internal tree.
 	 * @param base Base node to look from
-	 * @param create True if the element should be created if it doesn't exist
 	 * @param path The path to the required element (display, not file/class)
+	 * @param creationClass The class to use to create new nodes, null if no new
+	 * nodes should be created
 	 */
-	private SchemaNode getNodeByPath(SchemaNode base, String path, boolean create) {
+	private SchemaNode getNodeByPath(SchemaNode base, String path, 
+			Class<? extends MainSchema> creationClass) {
 		if (path.equals("")) return base;
 		String[] pathParts = path.split("/");
 		for (String part : pathParts) {
@@ -293,8 +308,9 @@ public class SchemaTree extends JTree {
 				}
 			}
 			if (child == null) {
-				if (create) {
+				if (creationClass != null) {
 					child = new SchemaNode(part);
+					child.setSchema(creationClass);
 					base.add(child);
 				} else {
 					return null;

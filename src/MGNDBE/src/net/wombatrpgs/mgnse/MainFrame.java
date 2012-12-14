@@ -234,9 +234,14 @@ public class MainFrame extends JFrame {
 	 * Prompts the user to pick from a list of schema.
 	 * @param itemList All the schema classes to choose from, in choice format
 	 * for sorting reasons and stuff
+	 * @param defaultChoice The choice selected by default
 	 * @return Which one the user chose, null if canceled
 	 */
-	public SchemaChoice promptChooseSchema(ArrayList<SchemaChoice> itemList) {
+	public SchemaChoice promptChooseSchema(ArrayList<SchemaChoice> itemList,
+			SchemaChoice defaultChoice) {
+		if (defaultChoice == null) {
+			defaultChoice = itemList.get(0);
+		}
 		SchemaChoice choice = (SchemaChoice) JOptionPane.showInputDialog(
 				this,
 				"Select a schema for the new database entry:",
@@ -244,7 +249,7 @@ public class MainFrame extends JFrame {
                 JOptionPane.PLAIN_MESSAGE,
                 null,
                 itemList.toArray(),
-                itemList.get(0));
+                defaultChoice);
 		return choice;
 	}
 	

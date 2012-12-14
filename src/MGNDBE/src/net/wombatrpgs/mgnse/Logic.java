@@ -201,14 +201,19 @@ public class Logic {
 	 */
 	public void newEntry() {
 		ArrayList<SchemaChoice> itemList = new ArrayList<SchemaChoice>();
+		SchemaChoice defaultChoice = null;
 		for (Class<? extends MainSchema> schemaClass : tree.getSchema()) {
 			String name = schemaClass.getSimpleName();
 			if (schemaClass.isAnnotationPresent(Annotations.Path.class)) {
 				name = schemaClass.getAnnotation(Annotations.Path.class).value() + name;
 			}
-			itemList.add(new SchemaChoice(schemaClass, name));
+			SchemaChoice choice = new SchemaChoice(schemaClass, name);
+			if (tree.getSelectedClass() == schemaClass) {
+				defaultChoice = choice;
+			}
+			itemList.add(choice);
 		}
-		SchemaChoice choice = parent.promptChooseSchema(itemList);
+		SchemaChoice choice = parent.promptChooseSchema(itemList, defaultChoice);
 		if (choice != null) {
 			newEntry(choice.schema);
 		}
