@@ -33,6 +33,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import net.wombatrpgs.mgns.core.Annotations;
+import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgnse.Global;
 import net.wombatrpgs.mgnse.exception.DatabaseEntrySchemaException;
@@ -147,6 +148,8 @@ public class SchemaTree extends JTree {
 					Class<?> rawClass = cl.loadClass(className);
 					if (!MainSchema.class.isAssignableFrom(rawClass)) {
 						Global.instance().debug("Class doesn't extend main schema: " + rawClass);
+					} else if (rawClass.isAnnotationPresent(ExcludeFromTree.class)){
+						Global.instance().debug("Ignored schema file due to exclude " + rawClass);
 					} else {
 						Class<? extends MainSchema> schemaClass = (Class<? extends MainSchema>) rawClass;
 						schema.add(schemaClass);
@@ -214,7 +217,11 @@ public class SchemaTree extends JTree {
 		}
 		parent = getNodeByPath(parent, getDataSubdir(data), true);
 		SchemaNode node = new SchemaNode(data, schema);
-		parent.add(node);
+		if (!schema.isAnnotationPresent(ExcludeFromTree.class)) {
+			parent.add(node);
+		} else {
+			Global.instance().debug("Ignored due to annotation: " + schema);
+		}
 		Global.instance().debug("Loaded object " + data.getName() + " as a " + schema.getName());
 		return node;
 	}

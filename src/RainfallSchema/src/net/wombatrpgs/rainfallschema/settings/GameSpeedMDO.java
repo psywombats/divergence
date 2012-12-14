@@ -23,5 +23,8 @@ public class GameSpeedMDO extends MainSchema {
 	@Desc("The speed, in pixels/second, that the hero walks at. No " +
 			"acceleration or related terms are taken into account right now")
 	public Integer heroWalkRate;
+	
+	@Desc("The speed, in  pixels/second, that the hero runs at")
+	public Integer heroRunRate;
 
 }
