@@ -31,7 +31,7 @@ public class IntegerField extends FieldPanel {
 	 */
 	public IntegerField(EditorPanel parent, Integer defaultData, Field field, Schema schema) {
 		super(parent, field);
-		input = new JFormattedTextField(NumberFormat.getNumberInstance());
+		input = new JFormattedTextField(NumberFormat.getIntegerInstance());
 		if (defaultData != null) {
 			input.setText(defaultData.toString());
 		} else {

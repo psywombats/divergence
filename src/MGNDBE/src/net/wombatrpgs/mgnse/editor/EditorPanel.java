@@ -191,6 +191,8 @@ public class EditorPanel extends JPanel {
 			panel = new StringField(this, (String) data, field, schema);
 		} else if (Integer.class.isAssignableFrom(field.getType())) {
 			panel = new IntegerField(this, (Integer) data, field, schema);
+		} else if (Float.class.isAssignableFrom(field.getType())) {
+			panel = new FloatField(this, (Float) data, field, schema);
 		} else {
 			Global.instance().warn("Couldn't find a valid panel for: " + field.getType());
 			return;
