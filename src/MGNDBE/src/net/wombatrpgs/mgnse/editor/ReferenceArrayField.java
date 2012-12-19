@@ -7,6 +7,7 @@
 package net.wombatrpgs.mgnse.editor;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 
@@ -59,10 +60,12 @@ public class ReferenceArrayField extends ArrayField<JComboBox<String>> {
 	@Override
 	protected JComboBox<String> genInput() {
 		Class<? extends MainSchema> schema = source.getAnnotation(SchemaLink.class).value();
-		SchemaNode node = Global.instance().getSchemaMap().get(schema);
+		ArrayList<SchemaNode> nodes = Global.instance().getImplementers(schema);
 		JComboBox<String> input = new JComboBox<String>();
-		for (int i = 0; i < node.getChildCount(); i++) {
-			input.addItem(((SchemaNode) node.getChildAt(i)).getObjectName());
+		for (SchemaNode node : nodes) {
+			for (int i = 0; i < node.getChildCount(); i++) {
+				input.addItem(((SchemaNode) node.getChildAt(i)).getObjectName());
+			}
 		}
 		return input;
 	}

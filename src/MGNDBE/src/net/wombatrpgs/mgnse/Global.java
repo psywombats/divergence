@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.wombatrpgs.mgns.core.MainSchema;
+import net.wombatrpgs.mgns.core.Schema;
 import net.wombatrpgs.mgnse.io.PerfectPrinter;
 import net.wombatrpgs.mgnse.tree.SchemaNode;
 
@@ -64,6 +65,22 @@ public class Global {
 	public void setSchemaMap(HashMap<Class<? extends MainSchema>, SchemaNode> map) { this.map = map; }
 	/** @return A map from schema to their nodes */
 	public HashMap<Class<? extends MainSchema>, SchemaNode> getSchemaMap() { return this.map; }
+	
+	/**
+	 * Returns all nodes that correspond to schema that subclass the supplied
+	 * schema class. Useful for a semi-inheritance thing.
+	 * @param superClass The big class to get inheritors of
+	 * @return A list of all nodes with inheriting classes (maybe empty)
+	 */
+	public ArrayList<SchemaNode> getImplementers(Class<? extends Schema> superClass) {
+		ArrayList<SchemaNode> implementers = new ArrayList<SchemaNode>();
+		for (Class<? extends Schema> subClass : map.keySet()) {
+			if (superClass.isAssignableFrom(subClass)) {
+				implementers.add(map.get(subClass));
+			}
+		}
+		return implementers;
+	}
 	
 	/**
 	 * Handles some error in a user-friendly way.

@@ -103,7 +103,7 @@ public abstract class FieldPanel extends JPanel implements DocumentListener, Act
 	 * @param input The child component to add
 	 */
 	protected void addConstrained(JComponent input) {
-		add(input, generateConstraints());
+		this.add(input, generateConstraints());
 	}
 	
 	/**

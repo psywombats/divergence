@@ -148,11 +148,8 @@ public class SchemaTree extends JTree {
 					Class<?> rawClass = cl.loadClass(className);
 					if (!MainSchema.class.isAssignableFrom(rawClass)) {
 						Global.instance().debug("Class doesn't extend main schema: " + rawClass);
-					} else if (rawClass.isAnnotationPresent(ExcludeFromTree.class)){
-						Global.instance().debug("Ignored schema file due to exclude " + rawClass);
 					} else {
-						Class<? extends MainSchema> schemaClass = (Class<? extends MainSchema>) rawClass;
-						schema.add(schemaClass);
+						schema.add((Class<? extends MainSchema>) rawClass);
 					}
 				} catch (ClassNotFoundException e) {
 					Global.instance().err("Couldn't find a class?" + className, e);
@@ -168,8 +165,12 @@ public class SchemaTree extends JTree {
 		this.setModel(new DefaultTreeModel(tree));
 		map = new HashMap<Class<? extends MainSchema>, SchemaNode>();
 		for (Class<? extends MainSchema> schemaClass : schema) {
-			map.put(schemaClass, getNodeByPath(tree,
-					getSchemaDisplayPath(schemaClass), schemaClass));
+			if (schemaClass.isAnnotationPresent(ExcludeFromTree.class)){
+				Global.instance().debug("Ignored schema file due to exclude " + schemaClass);
+			} else {
+				map.put(schemaClass, getNodeByPath(tree,
+						getSchemaDisplayPath(schemaClass), schemaClass));
+			}
 		}
 		this.expandPath(new TreePath(tree.getPath()));
 		Global.instance().setSchemaMap(map);

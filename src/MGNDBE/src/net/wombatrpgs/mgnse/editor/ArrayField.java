@@ -63,6 +63,9 @@ public abstract class ArrayField<T extends JComponent> extends FieldPanel implem
 			Global.instance().warn("Couldn't find a removable for " + contents);
 		} else {
 			inputs.remove(toRemove);
+			this.remove(toRemove);
+			parent.revalidate();
+			revalidate();
 		}
 	}
 	
