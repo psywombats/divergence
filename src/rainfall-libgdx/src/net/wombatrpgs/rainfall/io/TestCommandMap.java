@@ -9,6 +9,9 @@ package net.wombatrpgs.rainfall.io;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.wombatrpgs.rainfallschema.io.data.InputButton;
+import net.wombatrpgs.rainfallschema.io.data.InputCommand;
+
 /**
  * The default mapping of virtual keys to commands. This is a test map,
  * basically, and command maps probably need to be swapped in and out depending
@@ -28,8 +31,8 @@ public class TestCommandMap extends CommandMap {
 		downMap = new HashMap<InputButton, InputCommand>();
 		upMap = new HashMap<InputButton, InputCommand>();
 		
-		downMap.put(InputButton.BUTTON_1, 	InputCommand.INTENT_CONFIRM);
-		downMap.put(InputButton.BUTTON_2, 	InputCommand.INTENT_CANCEL);
+		downMap.put(InputButton.BUTTON_1, 	InputCommand.ACTION_1);
+		downMap.put(InputButton.BUTTON_2, 	InputCommand.ACTION_2);
 		downMap.put(InputButton.DOWN, 		InputCommand.MOVE_START_DOWN);
 		downMap.put(InputButton.LEFT, 		InputCommand.MOVE_START_LEFT);
 		downMap.put(InputButton.RIGHT, 		InputCommand.MOVE_START_RIGHT);
@@ -43,7 +46,7 @@ public class TestCommandMap extends CommandMap {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.io.ButtonListener#onButtonPressed
-	 * (net.wombatrpgs.rainfall.io.InputButton)
+	 * (net.wombatrpgs.rainfallschema.io.data.InputButton)
 	 */
 	@Override
 	public void onButtonPressed(InputButton button) {
@@ -54,7 +57,7 @@ public class TestCommandMap extends CommandMap {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.io.ButtonListener#onButtonReleased
-	 * (net.wombatrpgs.rainfall.io.InputButton)
+	 * (net.wombatrpgs.rainfallschema.io.data.InputButton)
 	 */
 	@Override
 	public void onButtonReleased(InputButton button) {

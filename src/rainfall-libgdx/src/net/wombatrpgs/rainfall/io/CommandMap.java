@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.wombatrpgs.mgne.global.Global;
+import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 
 /**
  * Okay, this is a little weird, but this maps virtual button presses to command

@@ -9,6 +9,8 @@ package net.wombatrpgs.rainfall.io;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.wombatrpgs.rainfallschema.io.data.InputButton;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
@@ -83,7 +85,7 @@ public class DefaultKeymap extends Keymap {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.io.Keymap#isButtonDown(net.wombatrpgs.rainfall.io.InputButton)
+	 * @see net.wombatrpgs.rainfall.io.Keymap#isButtonDown(net.wombatrpgs.rainfallschema.io.data.InputButton)
 	 */
 	@Override
 	public boolean isButtonDown(InputButton button) {
@@ -92,7 +94,7 @@ public class DefaultKeymap extends Keymap {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.io.Keymap#replicateButtonUp
-	 * (net.wombatrpgs.rainfall.io.InputButton)
+	 * (net.wombatrpgs.rainfallschema.io.data.InputButton)
 	 */
 	@Override
 	protected void replicateButtonUp(InputButton button) {
@@ -101,7 +103,7 @@ public class DefaultKeymap extends Keymap {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.io.Keymap#replicateButtonDown
-	 * (net.wombatrpgs.rainfall.io.InputButton)
+	 * (net.wombatrpgs.rainfallschema.io.data.InputButton)
 	 */
 	@Override
 	protected void replicateButtonDown(InputButton button) {

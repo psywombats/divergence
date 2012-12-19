@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.rainfall.io;
 
+import net.wombatrpgs.rainfallschema.io.data.InputButton;
+
 /**
  * Listens to meta-buttons. Simple use of observer pattern. Listeners can expect
  * that meta-buttons that may be analog or discrete (as opposed to up-down

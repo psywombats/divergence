@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.rainfall.io;
 
+import net.wombatrpgs.rainfallschema.io.data.InputCommand;
+
 /**
  * Anything that listens to intentions and commands from the player. These
  * generally have a whole set of command mappings and key mappings set up

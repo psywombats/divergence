@@ -7,6 +7,7 @@
 package net.wombatrpgs.mgnse.editor;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 
@@ -34,13 +35,15 @@ public class ReferenceField extends FieldPanel {
 	public ReferenceField(EditorPanel parent, String defaultData, Field field) {
 		super(parent, field);
 		Class<? extends MainSchema> schema = field.getAnnotation(SchemaLink.class).value();
-		SchemaNode node = Global.instance().getSchemaMap().get(schema);
+		ArrayList<SchemaNode> nodes = Global.instance().getImplementers(schema);
 		input = new JComboBox<String>();
 		if (source.isAnnotationPresent(Nullable.class)) {
 			input.addItem("None");
 		}
-		for (int i = 0; i < node.getChildCount(); i++) {
-			recursivelyAdd((SchemaNode) node.getChildAt(i));
+		for (SchemaNode node : nodes) {
+			for (int i = 0; i < node.getChildCount(); i++) {
+				recursivelyAdd((SchemaNode) node.getChildAt(i));
+			}
 		}
 		if (defaultData != null && !defaultData.equals("")) {
 			// TODO: verify it exists

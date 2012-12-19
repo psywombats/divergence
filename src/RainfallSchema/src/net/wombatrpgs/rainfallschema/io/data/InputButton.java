@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfall.io;
+package net.wombatrpgs.rainfallschema.io.data;
 
 /**
  * An order that the player gives to the game via their input device. Sort of

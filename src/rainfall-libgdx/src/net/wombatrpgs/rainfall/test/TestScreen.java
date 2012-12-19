@@ -8,10 +8,10 @@ package net.wombatrpgs.rainfall.test;
 
 import net.wombatrpgs.rainfall.core.GameScreen;
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.io.InputCommand;
 import net.wombatrpgs.rainfall.io.TestCommandMap;
 import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
+import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 import net.wombatrpgs.rainfallschema.maps.MapMDO;
 import net.wombatrpgs.rainfallschema.test.MapLoadTestMDO;
 
@@ -42,7 +42,7 @@ public class TestScreen extends GameScreen {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.io.CommandListener#onCommand
-	 * (net.wombatrpgs.rainfall.io.InputCommand)
+	 * (net.wombatrpgs.rainfallschema.io.data.InputCommand)
 	 */
 	@Override
 	public void onCommand(InputCommand command) {

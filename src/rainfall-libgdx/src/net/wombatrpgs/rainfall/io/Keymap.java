@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.wombatrpgs.mgne.global.Global;
+import net.wombatrpgs.rainfallschema.io.data.InputButton;
 
 import com.badlogic.gdx.InputProcessor;
 

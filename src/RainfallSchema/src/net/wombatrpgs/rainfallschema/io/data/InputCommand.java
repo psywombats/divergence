@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfall.io;
+package net.wombatrpgs.rainfallschema.io.data;
 
 /**
  * A command represents an intention of the player, as demonstrated by their
@@ -25,5 +25,8 @@ public enum InputCommand {
 	
 	INTENT_CONFIRM,
 	INTENT_CANCEL,
+	
+	ACTION_1,
+	ACTION_2,
 	
 }
