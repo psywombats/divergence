@@ -19,6 +19,6 @@ import net.wombatrpgs.rainfallschema.hero.data.MovesetEntrySchema;
 public class MovesetSchema extends MainSchema {
 	
 	@InlineSchema(MovesetEntrySchema.class)
-	public String[] moves;
+	public MovesetEntrySchema[] moves;
 
 }

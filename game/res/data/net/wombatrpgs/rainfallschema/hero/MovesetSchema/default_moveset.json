@@ -1,7 +1,16 @@
 {
 	"key" : "default_moveset",
 	"subfolder" : "",
-	"name" : null,
-	"description" : null,
-	"moves" : null
+	"name" : "",
+	"description" : "",
+	"moves" : [
+		{
+			"move" : "basic_dash",
+			"command" : "ACTION_1"
+		},
+		{
+			"move" : "basic_roll",
+			"command" : "ACTION_2"
+		}
+	]
 }
