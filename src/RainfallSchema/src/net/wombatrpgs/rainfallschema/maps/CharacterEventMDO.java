@@ -20,7 +20,7 @@ import net.wombatrpgs.rainfallschema.maps.data.HitboxType;
  * but let's pretend, okay?)
  */
 @Path("maps/")
-public class EventMDO extends MainSchema {
+public class CharacterEventMDO extends MainSchema {
 	
 	@Desc("Appearance")
 	@SchemaLink(FourDirMDO.class)

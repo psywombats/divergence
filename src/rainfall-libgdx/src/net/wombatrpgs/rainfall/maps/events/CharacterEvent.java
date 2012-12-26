@@ -4,42 +4,54 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfall.maps;
+package net.wombatrpgs.rainfall.maps.events;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.mgne.global.Global;
-import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.NoHitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.FourDir;
+import net.wombatrpgs.rainfall.maps.DirVector;
+import net.wombatrpgs.rainfall.maps.Direction;
+import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
-import net.wombatrpgs.rainfallschema.maps.EventMDO;
+import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
+import net.wombatrpgs.rainfallschema.settings.GameSpeedMDO;
 
 /**
- * Any object static object on a Tiled map is an Event.
+ * A character event is an event with an MDO and an animation that looks kind of
+ * like a character.
  */
-public class MapEvent extends MapObject {
+public class CharacterEvent extends MapEvent {
 	
-	protected EventMDO mdo;
+	protected CharacterEventMDO mdo;
 	protected FourDir appearance;
 
 	/**
-	 * Creates a new event with the specified data at the specified coords.
+	 * Creates a new char event with the specified data at the specified coords.
 	 * @param	parent	The parent level of the event
 	 * @param 	mdo		The data to create the event with
 	 * @param 	x		The x-coord of the event (in pixels)
 	 * @param 	y		The y-coord of the event (in pixels)
 	 */
-	public MapEvent(Level parent, EventMDO mdo, int x, int y) {
+	public CharacterEvent(Level parent, CharacterEventMDO mdo, float x, float y) {
 		super(parent, x, y);
 		this.mdo = mdo;
 		if (mdo.appearance != null) {
 			FourDirMDO dirMDO = (FourDirMDO) RGlobal.data.getEntryByKey(mdo.appearance);
 			appearance = new FourDir(dirMDO, this);
 		}
+	}
+	
+	/**
+	 * Creates a new character event with the specified data at the origin.
+	 * @param 	parent	The parent level of the event
+	 */
+	protected CharacterEvent(Level parent) {
+		super(parent);
 	}
 
 	/**
@@ -100,20 +112,6 @@ public class MapEvent extends MapObject {
 		}
 		super.setVelocity(vx, vy);
 	}
-	
-	/**
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
-	@Override
-	public int compareTo(MapObject other) {
-		if (other.y < y) {
-			return -1;
-		} else if (other.y > y) {
-			return 1;
-		} else {
-			return 0;
-		}
-	}
 
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.MapObject#getHitbox()
@@ -134,27 +132,43 @@ public class MapEvent extends MapObject {
 		}
 	}
 
-	/**
-	 * This default implementation moves us out of collision.
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#onCollide
-	 * (net.wombatrpgs.rainfall.collisions.CollisionResult)
-	 */
-	@Override
-	public void onCollide(MapObject other, CollisionResult result) {
-		if (!other.isOverlappingAllowed() && !this.isOverlappingAllowed()) {
-			// resolve the collision!!
-			// flip if we're not primary
-			if (this.getHitbox() == result.collide2) {
-				result.mtvX *= -1;
-				result.mtvY *= -1;
-			}
-			this.x += result.mtvX;
-			this.y += result.mtvY;
-		}
-	}
-
 	/** @see net.wombatrpgs.rainfall.maps.MapObject#isOverlappingAllowed() */
 	@Override
 	public boolean isOverlappingAllowed() { return false; }
+	
+	/**
+	 * Start moving in a particular direction. Does not switch immediately to
+	 * that direction but rather adds some speed in that direction based on hero
+	 * walk rate.
+	 * @param 	dir			The direction to move in
+	 */
+	public void startMove(Direction dir) {
+		addMoveComponent(dir.getVector());
+	}
+
+	/**
+	 * Stop moving in a particular direction. Does not switch immediately to
+	 * that direction but rather adds some speed in that direction based on hero
+	 * walk rate.
+	 * @param 	dir			The direction to cancel velocity in 
+	 */
+	public void stopMove(Direction dir) {
+		DirVector vec = dir.getVector();
+		vec.x *= -1;
+		vec.y *= -1;
+		addMoveComponent(vec);
+	}
+	
+	/**
+	 * The character starts moving in the specified direction. Uses its built-in
+	 * speed. (but right now it just takes it from the speed mdo)
+	 * @param 	vector			The vector direction to start moving in
+	 */
+	protected void addMoveComponent(DirVector vector) {
+		GameSpeedMDO mdo = RGlobal.data.getEntryFor("game_speed", GameSpeedMDO.class);
+		float newX = this.vx + vector.x * mdo.heroWalkRate;
+		float newY = this.vy + vector.y * mdo.heroWalkRate;
+		this.setVelocity(newX, newY);
+	}
 
 }

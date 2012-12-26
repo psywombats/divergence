@@ -5,17 +5,7 @@
  </tileset>
  <tileset firstgid="31" name="upper" tilewidth="32" tileheight="32">
   <image source="tilesets/test/upper.PNG" trans="b5a5d5" width="256" height="128"/>
-  <tile id="3">
-   <properties>
-    <property name="impassable" value=""/>
-   </properties>
-  </tile>
   <tile id="4">
-   <properties>
-    <property name="impassable" value=""/>
-   </properties>
-  </tile>
-  <tile id="11">
    <properties>
     <property name="impassable" value=""/>
    </properties>
@@ -25,73 +15,53 @@
     <property name="impassable" value=""/>
    </properties>
   </tile>
-  <tile id="18">
-   <properties>
-    <property name="impassable" value=""/>
-   </properties>
-  </tile>
-  <tile id="20">
-   <properties>
-    <property name="impassable" value=""/>
-   </properties>
-  </tile>
-  <tile id="26">
-   <properties>
-    <property name="impassable" value=""/>
-   </properties>
-  </tile>
  </tileset>
  <layer name="Tile Layer 1" width="20" height="15">
   <data encoding="base64" compression="zlib">
-   eJwTYWBgEBnFdMfSZOhhBGImIGbGYR66mZYEzGMHYg4g5kQzAx2D5IShGJ95vEDMB8T8VHIftcNvFA99DACGyReh
+   eJwTYWBgEBnFQwIzAjETEDNTyTx2IOYAYk4gFkbC+PQY4pHjBWI+IOYnwQ2E7CXkHlzuo5Z5uPQRG16kmEdJXNLCPHRMjTRHKQYAVZYXKQ==
   </data>
  </layer>
  <layer name="Tile Layer 2" width="20" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBg4oExl87SpbN5gBKNhNrBgNPwHFgAAg1YA6w==
+   eJyTZ2BgUABiRSCWx8FGBrjEYUAdiDWAWBMPGwaUcYiTC7SpYMZgB8pEqlMiUh2xYaZFpDp6AmLDglhATFgMhJ20BsYU6kXGtDQTBABbaQbj
   </data>
  </layer>
  <objectgroup name="Object Layer 1" width="20" height="15">
-  <object name="Waldy" type="event" x="352" y="288" width="32" height="32">
+  <object name="Waldy" type="event" x="544" y="128" width="32" height="32">
    <properties>
     <property name="key" value="waldsworth_event"/>
    </properties>
   </object>
-  <object name="Waldy" type="event" x="288" y="288" width="32" height="32">
+  <object name="Waldy" type="event" x="512" y="128" width="32" height="32">
    <properties>
     <property name="key" value="waldsworth_event"/>
    </properties>
   </object>
-  <object name="Hero" type="event" x="224" y="288" width="32" height="32">
-   <properties>
-    <property name="key" value="hero_event"/>
-   </properties>
-  </object>
-  <object name="Waldy" type="event" x="160" y="288" width="32" height="32">
+  <object name="Waldy" type="event" x="544" y="160" width="32" height="32">
    <properties>
     <property name="key" value="waldsworth_event"/>
    </properties>
   </object>
-  <object name="Waldy" type="event" x="416" y="320" width="32" height="32">
+  <object name="Waldy" type="event" x="512" y="96" width="32" height="32">
    <properties>
     <property name="key" value="waldsworth_event"/>
    </properties>
   </object>
-  <object name="Waldy" type="event" x="544" y="320" width="32" height="32">
+  <object name="Waldy" type="event" x="544" y="96" width="32" height="32">
    <properties>
     <property name="key" value="waldsworth_event"/>
    </properties>
   </object>
-  <object name="Waldy" type="event" x="64" y="256" width="32" height="32">
+  <object name="Waldy" type="event" x="512" y="160" width="32" height="32">
    <properties>
     <property name="key" value="waldsworth_event"/>
    </properties>
   </object>
-  <object name="tele" type="teleport" x="608" y="192" width="32" height="32">
+  <object name="tele" type="teleport" x="0" y="256" width="32" height="32">
    <properties>
-    <property name="id" value="blockbound2"/>
-    <property name="x" value="1"/>
-    <property name="y" value="8"/>
+    <property name="id" value="sample_map"/>
+    <property name="x" value="18"/>
+    <property name="y" value="6"/>
    </properties>
   </object>
  </objectgroup>
