@@ -1,9 +1,0 @@
-{
-	"key" : "basic_dash",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "psy's sample move",
-	"cooldown" : 1,
-	"targetMult" : 200,
-	"acceleration" : 100.0
-}
