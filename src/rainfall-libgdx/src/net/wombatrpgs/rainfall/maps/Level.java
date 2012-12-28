@@ -21,13 +21,12 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
 
 import net.wombatrpgs.mgne.global.Global;
-import net.wombatrpgs.rainfall.characters.Hero;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Renderable;
+import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.maps.layers.GridLayer;
 import net.wombatrpgs.rainfall.maps.layers.Layer;
 import net.wombatrpgs.rainfall.maps.layers.ObjectLayer;
-import net.wombatrpgs.rainfallschema.maps.EventMDO;
 import net.wombatrpgs.rainfallschema.maps.MapMDO;
 
 /**
@@ -68,6 +67,12 @@ public class Level implements Renderable {
 	
 	/** @return The height of this map, in pixels */
 	public int getHeightPixels() { return map.height * map.tileHeight; }
+	
+	/** @return The width of this map, in tiles */
+	public int getWidth() { return map.width; }
+	
+	/** @return The height of this map, in tiles */
+	public int getHeight() { return map.height; }
 	
 	/** @return The class used to render this level */
 	public TileMapRenderer getRenderer() { return renderer; }
@@ -122,20 +127,8 @@ public class Level implements Renderable {
 			
 			// load up all ingame objects from the database
 			for (TiledObject object : group.objects) {
-				String mdoName = object.properties.get("key");
-				EventMDO eventMdo = (EventMDO) RGlobal.data.getEntryByKey(mdoName);
-				MapEvent newEvent;
-				if (eventMdo.key.equals("hero_event")) {
-					Hero hero = new Hero(this, eventMdo, object.x, 
-							map.height*map.tileHeight-object.y);
-					RGlobal.hero = hero;
-					newEvent = hero;
-				} else {
-					newEvent = new MapEvent(this, eventMdo, object.x, 
-							map.height*map.tileHeight-object.y);
-				}
+				MapEvent newEvent = MapEvent.createEvent(this, object);
 				layerMap.put(newEvent, layerIndex);
-				Global.reporter.inform("Loaded event with key " + eventMdo.key);
 				objects.add(newEvent);
 			}
 			
@@ -204,8 +197,8 @@ public class Level implements Renderable {
 			Layer layer = layers.get(i);
 			if (layer == activeLayer) {
 				if (i == 0) {
-					Global.reporter.warn("Applying layer collisions to an object on " +
-							"the bottom of the level: " + event);
+					Global.reporter.warn("Applying layer collisions to an " +
+							"object on the bottom of the level: " + event);
 					return;
 				}
 				for (int j = i-1; j >= 0; j--) {
@@ -213,6 +206,35 @@ public class Level implements Renderable {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Teleports the hero off of this map and makes preparations for hero
+	 * control no longer on the map.
+	 */
+	public void teleportOff() {
+		RGlobal.hero.parent = null;
+		for (ObjectLayer layer : objectLayers) {
+			if (layer.contains(RGlobal.hero)) {
+				layer.remove(RGlobal.hero);
+			}
+		}
+	}
+	
+	/**
+	 * Welcome a new arrival to this map! The hero! This is specifically made to
+	 * transfer control to this level and plop the hero event down at (x,y)
+	 * @param 	x				The x-coord to teleport to (in pixels)
+	 * @param	y				The y-coord to teleport to (in pixels)
+	 */
+	public void teleportOn(int tileX, int tileY) {
+		// TODO: don't forget about z
+		RGlobal.hero.parent = this;
+		RGlobal.hero.x = tileX * map.tileWidth;
+		RGlobal.hero.y = tileY * map.tileHeight;
+		RGlobal.screens.getLevelScreen().setCanvas(this);
+		objectLayers.get(0).add(RGlobal.hero);
+		layerMap.put(RGlobal.hero, 0);
 	}
 
 }

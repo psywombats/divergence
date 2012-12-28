@@ -7,7 +7,7 @@
 package net.wombatrpgs.rainfall.maps.layers;
 
 import net.wombatrpgs.rainfall.graphics.Renderable;
-import net.wombatrpgs.rainfall.maps.MapEvent;
+import net.wombatrpgs.rainfall.maps.events.MapEvent;
 
 /**
  * A layer in a map, either a grid layer or an object layer. It's how Tiled

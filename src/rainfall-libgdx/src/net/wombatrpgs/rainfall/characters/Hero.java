@@ -8,13 +8,16 @@ package net.wombatrpgs.rainfall.characters;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
+import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfallschema.maps.EventMDO;
+import net.wombatrpgs.rainfall.maps.MapObject;
+import net.wombatrpgs.rainfall.maps.events.CharacterEvent;
+import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
 
 /**
  * Placeholder class for the protagonist player.
  */
-public class Hero extends Character {
+public class Hero extends CharacterEvent {
 
 	/**
 	 * Placeholder constructor
@@ -23,12 +26,31 @@ public class Hero extends Character {
 	 * @param x
 	 * @param y
 	 */
-	public Hero(Level parent, EventMDO mdo, int x, int y) {
+	public Hero(Level parent, CharacterEventMDO mdo, int x, int y) {
 		super(parent, mdo, x, y);
+	}
+	
+	/**
+	 * This default implementation moves us out of collision.
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#onCollide
+	 * (net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 */
+	@Override
+	public void onCollide(MapObject other, CollisionResult result) {
+		if (!other.isOverlappingAllowed() && !this.isOverlappingAllowed()) {
+			// resolve the collision!!
+			// flip if we're not primary
+			if (this.getHitbox() == result.collide2) {
+				result.mtvX *= -1;
+				result.mtvY *= -1;
+			}
+			this.x += result.mtvX;
+			this.y += result.mtvY;
+		}
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapEvent#render
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#render
 	 * (com.badlogic.gdx.graphics.OrthographicCamera)
 	 */
 	@Override
@@ -36,7 +58,5 @@ public class Hero extends Character {
 		super.render(camera);
 		this.parent.applyPhysicalCorrections(this);
 	}
-	
-	
 
 }

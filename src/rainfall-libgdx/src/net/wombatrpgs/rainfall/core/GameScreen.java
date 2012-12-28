@@ -129,6 +129,14 @@ public abstract class GameScreen implements CommandListener,
 	public void postProcessing(AssetManager manager) {
 		canvas.postProcessing(manager);
 	}
+	
+	/**
+	 * Changes the screen's canvas.
+	 * @param 	newCanvas			The new renderable canvas
+	 */
+	public void setCanvas(Renderable newCanvas) {
+		this.canvas = newCanvas;
+	}
 
 	/**
 	 * Run some final safety checks and finish initialization. Call once during

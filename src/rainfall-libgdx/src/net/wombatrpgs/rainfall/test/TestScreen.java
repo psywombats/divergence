@@ -10,9 +10,7 @@ import net.wombatrpgs.rainfall.core.GameScreen;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.io.TestCommandMap;
 import net.wombatrpgs.rainfall.maps.Direction;
-import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
-import net.wombatrpgs.rainfallschema.maps.MapMDO;
 import net.wombatrpgs.rainfallschema.test.MapLoadTestMDO;
 
 /**
@@ -20,22 +18,13 @@ import net.wombatrpgs.rainfallschema.test.MapLoadTestMDO;
  */
 public class TestScreen extends GameScreen {
 	
-	private Level map;
-	
 	public TestScreen() {
 		MapLoadTestMDO mapTestMDO = (MapLoadTestMDO) RGlobal.data.getEntryByKey("map_test");
-		MapMDO mapMDO = (MapMDO) RGlobal.data.getEntryByKey(mapTestMDO.map);
-		map = new Level(mapMDO);
-		map.queueRequiredAssets(RGlobal.assetManager);
-		while (!RGlobal.assetManager.update());
-		map.postProcessing(RGlobal.assetManager);
-		map.queueMapObjectAssets(RGlobal.assetManager);
-		while (!RGlobal.assetManager.update());
-		map.postProcessingMapObjects(RGlobal.assetManager);
+		this.canvas = RGlobal.levelManager.getLevel(mapTestMDO.map);
 		
+		RGlobal.screens.registerLevelScreen(this);
 		commandContext = new TestCommandMap();
 		z = 0;
-		canvas = map;
 		
 		init();
 	}

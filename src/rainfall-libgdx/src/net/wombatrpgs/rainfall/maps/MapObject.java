@@ -35,10 +35,18 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	 * @param 	x			The x-coord in pixels of this object on the map
 	 * @param 	y			The y-coord in pixels of this object on the map
 	 */
-	public MapObject(Level parent, int x, int y) {
+	public MapObject(Level parent, float x, float y) {
 		this.x = x;
 		this.y = y;
 		this.parent = parent;
+	}
+	
+	/**
+	 * Creates a new map object for a given level at the origin.
+	 * @param 	parent		The level this map object is on
+	 */
+	protected MapObject(Level parent) {
+		this(parent, 0, 0);
 	}
 
 	/** @see net.wombatrpgs.rainfall.maps.Positionable#getX() */
@@ -66,6 +74,21 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	
 	/** @param y The offset to add to x */
 	public void moveY(int y) { this.y += y; }
+	
+	/**
+	 * Sorts map objects based on z-depth.
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(MapObject other) {
+		if (other.getY() < y) {
+			return -1;
+		} else if (other.getY() > y) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
 
 	/**
 	 * Gets the hitbox associated with this map object at this point in time.

@@ -17,8 +17,8 @@ import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.collisions.RectHitbox;
 import net.wombatrpgs.rainfall.graphics.Renderable;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfall.maps.MapEvent;
 import net.wombatrpgs.rainfall.maps.Positionable;
+import net.wombatrpgs.rainfall.maps.events.MapEvent;
 
 /**
  * A layer of tiles that is part of a level. It's named "grid" so as to not
@@ -74,7 +74,7 @@ public class GridLayer extends Layer implements Renderable {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.layers.Layer#applyPhysicalCorrections
-	 * (net.wombatrpgs.rainfall.maps.MapEvent)
+	 * (net.wombatrpgs.rainfall.maps.events.MapEvent)
 	 */
 	@Override
 	public void applyPhysicalCorrections(MapEvent event) {

@@ -12,6 +12,7 @@ import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.characters.Hero;
 import net.wombatrpgs.rainfall.io.DefaultKeymap;
 import net.wombatrpgs.rainfall.io.Keymap;
+import net.wombatrpgs.rainfall.maps.LevelManager;
 
 /**
  * Rainfall's version of the MGNDB global.
@@ -39,6 +40,9 @@ public class RGlobal extends Global {
 	
 	/** My hero~~~~ <3 <3 <3 (the player's physical representation */
 	public static Hero hero;
+	
+	/** Stores all of our levels */
+	public static LevelManager levelManager;
 	
 	/**
 	 * Can't override static methods, so this thing will have to do.
