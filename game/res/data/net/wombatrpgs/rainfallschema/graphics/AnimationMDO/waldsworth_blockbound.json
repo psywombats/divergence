@@ -1,0 +1,17 @@
+{
+	"key" : "waldsworth_blockbound",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"file" : "block.png",
+	"frameCount" : 1,
+	"frameWidth" : 32,
+	"frameHeight" : 64,
+	"offX" : 0,
+	"offY" : 0,
+	"animSpeed" : 1,
+	"hit1x" : 0,
+	"hit1y" : 32,
+	"hit2x" : 32,
+	"hit2y" : 64
+}

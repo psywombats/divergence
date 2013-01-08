@@ -15,17 +15,26 @@
    </properties>
   </tile>
  </tileset>
- <layer height="15" name="Tile Layer 1" width="20"><properties><property name="layer" value="2"/></properties>
+ <layer height="15" name="Tile Layer 1" width="20">
+  <properties>
+   <property name="z" value="0"/>
+  <property name="layer" value="2"/></properties>
   <data compression="zlib" encoding="base64">
    eJwTYWBgEBnFQwIzAjETEDNTyTx2IOYAYk4gFkbC+PQY4pHjBWI+IOYnwQ2E7CXkHlzuo5Z5uPQRG16kmEdJXNLCPHRMjTRHKQYAVZYXKQ==
   </data>
  </layer>
- <layer height="15" name="Tile Layer 2" width="20"><properties><property name="layer" value="1"/></properties>
+ <layer height="15" name="Tile Layer 2" width="20">
+  <properties>
+   <property name="z" value=".5"/>
+  <property name="layer" value="1"/></properties>
   <data compression="zlib" encoding="base64">
    eJyTZ2BgUABiRSCWx8FGBrjEYUAdiDWAWBMPGwaUcYiTC7SpYMZgB8pEqlMiUh2xYaZFpDp6AmLDglhATFgMhJ20BsYU6kXGtDQTBABbaQbj
   </data>
  </layer>
- <objectgroup height="15" name="Object Layer 1" width="20"><properties><property name="layer" value="0"/></properties>
+ <objectgroup height="15" name="Object Layer 1" width="20">
+  <properties>
+   <property name="z" value=".5"/>
+  <property name="layer" value="0"/></properties>
   <object height="32" name="Waldy" type="event" width="32" x="544" y="128">
    <properties>
     <property name="key" value="waldsworth_event"/>

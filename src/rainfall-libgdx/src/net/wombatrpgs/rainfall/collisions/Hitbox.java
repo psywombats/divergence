@@ -24,6 +24,26 @@ public abstract class Hitbox {
 		this.parent = parent;
 	}
 	
+	/** @return the x-coord (in pixels) where this hitbox begins */
+	public int getX() { return parent.getX(); }
+	
+	/** @return the y-coord (in pixels) where this hitbox begins */
+	public int getY() { return parent.getY(); }
+	
+	/**
+	 * Gets the width of this hitbox, that is, the distance between the point
+	 * farthest to the left and the point farthest to the right.
+	 * @return					The width of this hitbox
+	 */
+	public abstract int getWidth();
+	
+	/**
+	 * Gets the height of this hitbox, that is, the distance between the point
+	 * farthest to the top and the point farthest to the bottom.
+	 * @return					The height of this hitbox
+	 */
+	public abstract int getHeight();
+	
 	/**
 	 * Decide if this hitbox collides with the other hitbox via any means
 	 * necessary. This should most likely be heavily optimized, as every event
@@ -36,7 +56,7 @@ public abstract class Hitbox {
 	
 	/**
 	 * Double-dispatch: collision detection for rectangles.
-	 * @param 	other			The rect to chekc against
+	 * @param 	other			The rect to check against
 	 * @return					The result of the collision test
 	 */
 	public abstract CollisionResult isCollidingRect(RectHitbox other);

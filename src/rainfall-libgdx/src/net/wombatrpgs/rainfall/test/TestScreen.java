@@ -10,6 +10,7 @@ import net.wombatrpgs.rainfall.core.GameScreen;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.io.TestCommandMap;
 import net.wombatrpgs.rainfall.maps.Direction;
+import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 import net.wombatrpgs.rainfallschema.test.MapLoadTestMDO;
 
@@ -18,9 +19,12 @@ import net.wombatrpgs.rainfallschema.test.MapLoadTestMDO;
  */
 public class TestScreen extends GameScreen {
 	
+	protected Level map;
+	
 	public TestScreen() {
 		MapLoadTestMDO mapTestMDO = (MapLoadTestMDO) RGlobal.data.getEntryByKey("map_test");
-		this.canvas = RGlobal.levelManager.getLevel(mapTestMDO.map);
+		this.map = RGlobal.levelManager.getLevel(mapTestMDO.map);
+		this.canvas = map;
 		
 		RGlobal.screens.registerLevelScreen(this);
 		commandContext = new TestCommandMap();
@@ -35,7 +39,7 @@ public class TestScreen extends GameScreen {
 	 */
 	@Override
 	public void onCommand(InputCommand command) {
-		//Global.reporter.inform("Command received: " + command);
+		//RGlobal.reporter.inform("Command received: " + command);
 		
 		// start move
 		if (command.equals(InputCommand.MOVE_START_DOWN)) {
@@ -58,6 +62,8 @@ public class TestScreen extends GameScreen {
 		} else if (command.equals(InputCommand.MOVE_STOP_UP)) {
 			RGlobal.hero.stopMove(Direction.UP);
 		}
+		
+		RGlobal.hero.act(command, map);
 	}
 
 	/**

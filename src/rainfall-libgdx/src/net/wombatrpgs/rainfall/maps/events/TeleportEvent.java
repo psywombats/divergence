@@ -33,7 +33,8 @@ public class TeleportEvent extends MapEvent {
 
 	/**
 	 * Creates a new teleport for the supplied parent level using coordinates
-	 * inferred from the tiled object.
+	 * inferred from the tiled object. Called from the superclass's factory
+	 * method.
 	 * @param 	parent		The parent levelt to make teleport for
 	 * @param 	object		The object to infer coords from
 	 */
@@ -66,7 +67,7 @@ public class TeleportEvent extends MapEvent {
 		super.onCollide(other, result);
 		parent.teleportOff();
 		Level map = RGlobal.levelManager.getLevel(mapID);
-		map.teleportOn(targetX, map.getHeight() - targetY - 1);
+		map.teleportOn(targetX, map.getHeight() - targetY - 1, parent.getZ(other));
 	}
 	
 }

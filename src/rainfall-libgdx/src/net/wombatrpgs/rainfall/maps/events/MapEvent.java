@@ -30,6 +30,7 @@ public abstract class MapEvent extends MapObject {
 	/* these event types are defined in objecttypes.xml */
 	protected static String EVENT_TYPE = "event";
 	protected static String TELEPORT_TYPE = "teleport";
+	protected static String Z_TELEPORT_TYPE = "z-teleport";
 	
 	/**
 	 * Creates a new map event for the level at the specified coords.
@@ -47,6 +48,14 @@ public abstract class MapEvent extends MapObject {
 	 */
 	protected MapEvent(Level parent) {
 		super(parent);
+	}
+	
+	/**
+	 * Creates a blank map event associated with no map. Assumes the subclass
+	 * will do something interesting in its constructor.
+	 */
+	protected MapEvent() {
+		// tsilb
 	}
 	
 	/**
@@ -111,14 +120,36 @@ public abstract class MapEvent extends MapObject {
 	public boolean isOverlappingAllowed() {
 		return true;
 	}
-
+	
+	/**
+	 * Handles an entry from the map and turns it into the relevant event(s).
+	 * @param 	parent			The parent level to add events to
+	 * @param 	object			The tiled object to create events from
+	 * @param 	layerIndex		The index of the layer of the source event
+	 */
+	public static void handleData(Level parent, TiledObject object, int layerIndex) {
+		if (EVENT_TYPE.equals(object.type) ||
+			TELEPORT_TYPE.equals(object.type)) {
+			parent.addEvent(createEvent(parent, object, layerIndex), layerIndex);
+		} else if (Z_TELEPORT_TYPE.equals(object.type)) {
+			parent.addEvent(createEvent(parent, object, layerIndex), layerIndex);
+			parent.addEvent(createEvent(parent, object, layerIndex), layerIndex+1);
+		} else {
+			Global.reporter.warn("Was an event with no type: " + object.name);
+		}
+	}
+	
 	/**
 	 * Creates a map object from tiled object data. Returns the appropriate
-	 * subclass of MapEvent.
+	 * subclass of MapEvent. Does not add the map event and is meant to be
+	 * called internally.
+	 * though.
+	 * @param	parent			The level to craft the object for
 	 * @param 	object			The tiled object data
+	 * @param	layerIndex		The layer index that this object is intended for
 	 * @return					Newly minted map object
 	 */
-	public static MapEvent createEvent(Level parent, TiledObject object) {
+	protected static MapEvent createEvent(Level parent, TiledObject object, int layerIndex) {
 		if (EVENT_TYPE.equals(object.type)) {
 			TiledMap map = parent.getMap();
 			String mdoName = object.properties.get("key");
@@ -134,6 +165,8 @@ public abstract class MapEvent extends MapObject {
 			}
 		} else if (TELEPORT_TYPE.equals(object.type)) {
 			return new TeleportEvent(parent, object);
+		} else if (Z_TELEPORT_TYPE.equals(object.type)) {
+			return new ZTeleportEvent(parent, object, layerIndex);
 		} else {
 			Global.reporter.warn("Found an event with no type: " + object.name);
 			return null;

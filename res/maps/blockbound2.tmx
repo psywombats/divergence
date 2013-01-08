@@ -17,16 +17,25 @@
   </tile>
  </tileset>
  <layer name="Tile Layer 1" width="20" height="15">
+  <properties>
+   <property name="z" value="0"/>
+  </properties>
   <data encoding="base64" compression="zlib">
    eJwTYWBgEBnFQwIzAjETEDNTyTx2IOYAYk4gFkbC+PQY4pHjBWI+IOYnwQ2E7CXkHlzuo5Z5uPQRG16kmEdJXNLCPHRMjTRHKQYAVZYXKQ==
   </data>
  </layer>
  <layer name="Tile Layer 2" width="20" height="15">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
   <data encoding="base64" compression="zlib">
    eJyTZ2BgUABiRSCWx8FGBrjEYUAdiDWAWBMPGwaUcYiTC7SpYMZgB8pEqlMiUh2xYaZFpDp6AmLDglhATFgMhJ20BsYU6kXGtDQTBABbaQbj
   </data>
  </layer>
  <objectgroup name="Object Layer 1" width="20" height="15">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
   <object name="Waldy" type="event" x="544" y="128" width="32" height="32">
    <properties>
     <property name="key" value="waldsworth_event"/>

@@ -10,7 +10,7 @@ import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.HeadlessSchema;
-import net.wombatrpgs.rainfallschema.hero.moveset.MoveSchema;
+import net.wombatrpgs.rainfallschema.hero.moveset.MoveMDO;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 
 /**
@@ -19,10 +19,10 @@ import net.wombatrpgs.rainfallschema.io.data.InputCommand;
  * something else, in theory, although this implementation is rather rigid.
  */
 @ExcludeFromTree
-public class MovesetEntrySchema extends HeadlessSchema {
+public class MovesetEntryMDO extends HeadlessSchema {
 	
 	@Desc("Move data")
-	@SchemaLink(MoveSchema.class)
+	@SchemaLink(MoveMDO.class)
 	public String move;
 	
 	@Desc("Command -- usually use ACTION_1, ACTION_2, etc, what those are " +

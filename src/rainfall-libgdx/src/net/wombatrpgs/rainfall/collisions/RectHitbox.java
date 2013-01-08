@@ -34,6 +34,22 @@ public class RectHitbox extends Hitbox {
 	}
 
 	/**
+	 * @see net.wombatrpgs.rainfall.collisions.Hitbox#getWidth()
+	 */
+	@Override
+	public int getWidth() {
+		return Math.abs(x1 - x2);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.collisions.Hitbox#getHeight()
+	 */
+	@Override
+	public int getHeight() {
+		return Math.abs(y1 - y2);
+	}
+
+	/**
 	 * @see net.wombatrpgs.rainfall.collisions.Hitbox#isColliding
 	 * (net.wombatrpgs.rainfall.collisions.Hitbox)
 	 */

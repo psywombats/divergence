@@ -16,7 +16,7 @@ import net.wombatrpgs.mgns.core.MainSchema;
  * assuming the setup's working.
  */
 @ExcludeFromTree
-public class MoveSchema extends MainSchema {
+public class MoveMDO extends MainSchema {
 	
 	@Desc("Cooldown time - in seconds")
 	public Float cooldown;

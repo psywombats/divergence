@@ -39,11 +39,16 @@ public class CharacterEvent extends MapEvent {
 	 */
 	public CharacterEvent(Level parent, CharacterEventMDO mdo, float x, float y) {
 		super(parent, x, y);
-		this.mdo = mdo;
-		if (mdo.appearance != null) {
-			FourDirMDO dirMDO = (FourDirMDO) RGlobal.data.getEntryByKey(mdo.appearance);
-			appearance = new FourDir(dirMDO, this);
-		}
+		init(mdo);
+	}
+	
+	/**
+	 * Creates a new character event associated with no map from the MDO.
+	 * @param 	mdo		The MDO to create the event from
+	 */
+	public CharacterEvent(CharacterEventMDO mdo) {
+		super();
+		init(mdo);
 	}
 	
 	/**
@@ -52,6 +57,14 @@ public class CharacterEvent extends MapEvent {
 	 */
 	protected CharacterEvent(Level parent) {
 		super(parent);
+	}
+	
+	/**
+	 * Gets the direction this character is currently facing from its animation
+	 * @return			The direction currently facing
+	 */
+	public Direction getFacing() {
+		return appearance.getFacing();
 	}
 
 	/**
@@ -162,13 +175,25 @@ public class CharacterEvent extends MapEvent {
 	/**
 	 * The character starts moving in the specified direction. Uses its built-in
 	 * speed. (but right now it just takes it from the speed mdo)
-	 * @param 	vector			The vector direction to start moving in
+	 * @param 	vector		The vector direction to start moving in
 	 */
 	protected void addMoveComponent(DirVector vector) {
 		GameSpeedMDO mdo = RGlobal.data.getEntryFor("game_speed", GameSpeedMDO.class);
 		float newX = this.vx + vector.x * mdo.heroWalkRate;
 		float newY = this.vy + vector.y * mdo.heroWalkRate;
 		this.setVelocity(newX, newY);
+	}
+	
+	/**
+	 * Creates this event from an MDO.
+	 * @param 	mdo			The MDO to create the event from
+	 */
+	protected void init(CharacterEventMDO mdo) {
+		this.mdo = mdo;
+		if (mdo.appearance != null) {
+			FourDirMDO dirMDO = (FourDirMDO) RGlobal.data.getEntryByKey(mdo.appearance);
+			appearance = new FourDir(dirMDO, this);
+		}
 	}
 
 }

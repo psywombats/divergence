@@ -1,0 +1,9 @@
+{
+	"key" : "move_push",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"cooldown" : 0.0,
+	"targetVelocity" : 128,
+	"acceleration" : 512
+}

@@ -209,7 +209,7 @@ public class SchemaTree extends JTree {
 	 * Returns the selected class. The selection could be either an individual
 	 * schema or a lot of schema but this returns their class either way. Could
 	 * return null if a bigger folder is selected.
-	 * @return
+	 * @return The currently selected class in the tree
 	 */
 	public Class<? extends MainSchema> getSelectedClass() {
 		SchemaNode node = (SchemaNode) getLastSelectedPathComponent();

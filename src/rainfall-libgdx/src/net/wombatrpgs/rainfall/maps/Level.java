@@ -21,6 +21,8 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
 
 import net.wombatrpgs.mgne.global.Global;
+import net.wombatrpgs.rainfall.collisions.FallResult;
+import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Renderable;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
@@ -74,11 +76,23 @@ public class Level implements Renderable {
 	/** @return The height of this map, in tiles */
 	public int getHeight() { return map.height; }
 	
+	/** @return The width of each tile on this map, in pixels */
+	public int getTileWidth() { return map.tileWidth; }
+	
+	/** @return The height of each tile on this map, in pixels */
+	public int getTileHeight() { return map.tileHeight; }
+	
 	/** @return The class used to render this level */
 	public TileMapRenderer getRenderer() { return renderer; }
 	
 	/** @return The underlying TMX map */
 	public TiledMap getMap() { return map; }
+	
+	/** @return All tile layers on this map */
+	public List<GridLayer> getGridLayers() { return tileLayers; }
+	
+	/** @return All object layers on this map */
+	public List<ObjectLayer> getObjectLayers() { return objectLayers; }
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render(
@@ -121,19 +135,24 @@ public class Level implements Renderable {
 		layerMap = new HashMap<MapObject, Integer>();
 		
 		// each object group represents a new layer
-		int layerIndex = 0;
-		for (TiledObjectGroup group : map.objectGroups) {
-			List<MapObject> objects = new ArrayList<MapObject>();
-			
+		for (int layerIndex = 0; layerIndex <= map.objectGroups.size(); layerIndex++) {
+			// create a new layer to add things to
+			TiledObjectGroup group;
+			if (layerIndex < map.objectGroups.size()) {
+				group = map.objectGroups.get(layerIndex);
+			} else {
+				group = new TiledObjectGroup();
+			}
+			objectLayers.add(layerIndex, new ObjectLayer(this, group));
+		}
+		
+		for (int layerIndex = 0; layerIndex < map.objectGroups.size(); layerIndex++) {
+			TiledObjectGroup group = map.objectGroups.get(layerIndex);
 			// load up all ingame objects from the database
 			for (TiledObject object : group.objects) {
-				MapEvent newEvent = MapEvent.createEvent(this, object);
-				layerMap.put(newEvent, layerIndex);
-				objects.add(newEvent);
+				//addEvent(MapEvent.createEvent(this, object), layerIndex);
+				MapEvent.handleData(this, object, layerIndex);
 			}
-			
-			objectLayers.add(layerIndex, new ObjectLayer(this, objects));
-			layerIndex += 1;
 		}
 		
 		for (int i = 0; i < map.layers.size(); i++) {
@@ -191,21 +210,41 @@ public class Level implements Renderable {
 			return;
 		}
 		int layerIndex = layerMap.get(event);
-		ObjectLayer activeLayer = objectLayers.get(layerIndex);
-		activeLayer.applyPhysicalCorrections(event);
+		int activeZ = (int) Math.floor(objectLayers.get(layerIndex).getZ());
 		for (int i = 0; i < layers.size(); i++) {
-			Layer layer = layers.get(i);
-			if (layer == activeLayer) {
-				if (i == 0) {
-					Global.reporter.warn("Applying layer collisions to an " +
-							"object on the bottom of the level: " + event);
-					return;
-				}
-				for (int j = i-1; j >= 0; j--) {
-					layers.get(j).applyPhysicalCorrections(event);
-				}
+			if (activeZ == Math.floor(layers.get(i).getZ())) {
+				layers.get(i).applyPhysicalCorrections(event);
 			}
 		}
+	}
+	
+	/**
+	 * Drops an object on the implicit location, returning the result of the
+	 * drop.
+	 * @param 	box			The hitbox of the falling object
+	 * @param	start		The starting z of the falling object
+	 * @return				The result of the fall
+	 */
+	public FallResult dropObject(Hitbox box, float start) {
+		int i = layers.size()-1;
+		while (layers.get(i).getZ() > start) i -= 1;
+		for (; i >= 0; i--) {
+			FallResult layerResult = layers.get(i).dropObject(box);
+			if (layerResult.finished) return layerResult;
+		}
+		FallResult result = new FallResult();
+		result.finished = false;
+		return result;
+	}
+	
+	/**
+	 * Drops an object on the implicit location, returning the result of the
+	 * drop. Starts the drop at the uppermost z layer
+	 * @param 	box			The hitbox of the falling object
+	 * @return				The result of the fall
+	 */
+	public FallResult dropObject(Hitbox box) {
+		return dropObject(box, layers.size()-1);
 	}
 	
 	/**
@@ -214,27 +253,98 @@ public class Level implements Renderable {
 	 */
 	public void teleportOff() {
 		RGlobal.hero.parent = null;
+		teleportOff(RGlobal.hero);
+	}
+	
+	/**
+	 * Removes a map object from this map. The object is assumed not to be the
+	 * hero. Control remains on this map.
+	 * @param 	toRemove		The map object to remove
+	 */
+	public void teleportOff(MapObject toRemove) {
 		for (ObjectLayer layer : objectLayers) {
-			if (layer.contains(RGlobal.hero)) {
-				layer.remove(RGlobal.hero);
+			if (layer.contains(toRemove)) {
+				layer.remove(toRemove);
 			}
 		}
+		layerMap.remove(toRemove);
 	}
 	
 	/**
 	 * Welcome a new arrival to this map! The hero! This is specifically made to
 	 * transfer control to this level and plop the hero event down at (x,y)
-	 * @param 	x				The x-coord to teleport to (in pixels)
-	 * @param	y				The y-coord to teleport to (in pixels)
+	 * @param 	tileX			The x-coord to teleport to (in tiles)
+	 * @param	tileY			The y-coord to teleport to (in tiles)
 	 */
-	public void teleportOn(int tileX, int tileY) {
+	public void teleportOn(int tileX, int tileY, int z) {
 		// TODO: don't forget about z
-		RGlobal.hero.parent = this;
-		RGlobal.hero.x = tileX * map.tileWidth;
-		RGlobal.hero.y = tileY * map.tileHeight;
+		teleportOn(RGlobal.hero, tileX, tileY);
 		RGlobal.screens.getLevelScreen().setCanvas(this);
-		objectLayers.get(0).add(RGlobal.hero);
-		layerMap.put(RGlobal.hero, 0);
+	}
+	
+	/**
+	 * Welcomes a new event to this map. Does not transfer level control. Event
+	 * is assumed to not be the hero. Z is set to 0.
+	 * @param 	newObject		The object to teleport in
+	 * @param 	tileX			The initial x-coord (in tiles) of this object
+	 * @param 	tileY			The initial y-coord (in tiles) of this object
+	 * @param	z				The z-depth of the object (layer index)
+	 */
+	public void teleportOn(MapObject newObject, int tileX, int tileY, int z) {
+		newObject.parent = this;
+		newObject.setX(tileX * map.tileWidth);
+		newObject.setY(tileY * map.tileHeight);
+		objectLayers.get(z).add(newObject);
+		layerMap.put(newObject, z);
+	}
+	
+	/**
+	 * Welcomes a new event to this map. Does not transfer level control. Event
+	 * is assumed to not be the hero. Z is set to 0.
+	 * @param 	newObject		The object to teleport in
+	 * @param 	tileX			The initial x-coord (in tiles) of this object
+	 * @param 	tileY			The initial y-coord (in tiles) of this object
+	 */
+	public void teleportOn(MapObject newObject, int tileX, int tileY) {
+		teleportOn(newObject, tileX, tileY, 0);
+	}
+	
+	/**
+	 * Changes an object's z-coordinate on the map. Z-coordinate is handled by
+	 * map layer and must be changed here.
+	 * @param 	object			The object to change z
+	 * @param 	newZ			The index of the layer to put it on
+	 */
+	public void changeZ(MapObject object, int newZ) {
+		for (ObjectLayer layer : objectLayers) {
+			if (layer.contains(object)) {
+				layer.remove(object);
+			}
+		}
+		objectLayers.get(newZ).add(object);
+		layerMap.put(object, newZ);
+	}
+	
+	/**
+	 * Gets the z-coord of an object, which is just its index in the object
+	 * layer stack.
+	 * @param 	object			The object to get the coord of
+	 * @return					The z-coord of that object
+	 */
+	public int getZ(MapObject object) {
+		return layerMap.get(object);
+	}
+	
+	/**
+	 * Adds a new event to this map. Called internally for maps in the actual
+	 * map resources and externally by events that should've been there but
+	 * aren't for convenience reasons.
+	 * @param 	newEvent		The new event to add
+	 * @param 	layerIndex		The number of the layer to add on
+	 */
+	public void addEvent(MapEvent newEvent, int layerIndex) {
+		layerMap.put(newEvent, layerIndex);
+		objectLayers.get(layerIndex).add(newEvent);
 	}
 
 }
