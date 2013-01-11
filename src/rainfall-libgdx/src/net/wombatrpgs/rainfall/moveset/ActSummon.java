@@ -6,16 +6,14 @@
  */
 package net.wombatrpgs.rainfall.moveset;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 import net.wombatrpgs.rainfall.characters.Block;
 import net.wombatrpgs.rainfall.collisions.FallResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.RectHitbox;
+import net.wombatrpgs.rainfall.collisions.TargetPosition;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfall.maps.Positionable;
 import net.wombatrpgs.rainfallschema.hero.moveset.SummonMDO;
 
 /**
@@ -60,7 +58,8 @@ public class ActSummon implements Actionable {
 		}
 		if (result.finished) {
 			if (result.cleanLanding || result.collidingObject == RGlobal.block) {
-				summonAt(map, targetTileX, targetTileY, result.z);
+				int deltaZ = result.z - map.getZ(RGlobal.hero);
+				summonAt(map, targetTileX, targetTileY + deltaZ, result.z);
 			} else {
 				selfDestructAt(map, targetTileX, targetTileY);
 			}
@@ -81,18 +80,9 @@ public class ActSummon implements Actionable {
 	private FallResult attemptFallAt(Level map, int targetTileX, int targetTileY) {
 		final int targetX = targetTileX * map.getTileWidth();
 		final int targetY = targetTileY * map.getTileHeight();
-		Hitbox targetBox = new RectHitbox(new Positionable() {
-			@Override
-			public int getX() { return targetX; }
-			@Override
-			public int getY() { return targetY; }
-			@Override
-			public SpriteBatch getBatch() {
-				RGlobal.reporter.warn("Getting the block's hypo hitbox");
-				return null;
-			}
-		}, 0, 0, 32, 32);
-		return map.dropObject(targetBox, map.getZ(RGlobal.hero) + .5f);
+		TargetPosition target = new TargetPosition(targetX, targetY);
+		Hitbox targetBox = new RectHitbox(target, 0, 0, 32, 32);
+		return map.dropObject(targetBox, map.getZ(RGlobal.hero) + .5f, target);
 	}
 	
 	/**

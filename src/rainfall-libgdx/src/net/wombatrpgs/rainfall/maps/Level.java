@@ -23,6 +23,7 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
 import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.collisions.FallResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
+import net.wombatrpgs.rainfall.collisions.TargetPosition;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Renderable;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
@@ -41,7 +42,8 @@ import net.wombatrpgs.rainfallschema.maps.MapMDO;
  */
 public class Level implements Renderable {
 	
-	protected static final int TILES_TO_CULL = 8;
+	public static final int PIXELS_PER_Y = 32;
+	public static final int TILES_TO_CULL = 8;
 	
 	protected TileMapRenderer renderer;
 	protected TiledMap map;
@@ -223,28 +225,23 @@ public class Level implements Renderable {
 	 * drop.
 	 * @param 	box			The hitbox of the falling object
 	 * @param	start		The starting z of the falling object
+	 * @param	target		The target positionable to adjust for z-correction
 	 * @return				The result of the fall
 	 */
-	public FallResult dropObject(Hitbox box, float start) {
+	public FallResult dropObject(Hitbox box, float start, TargetPosition target) {
+		int originalY = target.getY();
 		int i = layers.size()-1;
 		while (layers.get(i).getZ() > start) i -= 1;
 		for (; i >= 0; i--) {
-			FallResult layerResult = layers.get(i).dropObject(box);
+			Layer layer = layers.get(i);
+			int deltaZ = (int) (Math.floor(start) - Math.floor(layer.getZ()));
+			target.setY(originalY - deltaZ * PIXELS_PER_Y);
+			FallResult layerResult = layer.dropObject(box);
 			if (layerResult.finished) return layerResult;
 		}
 		FallResult result = new FallResult();
 		result.finished = false;
 		return result;
-	}
-	
-	/**
-	 * Drops an object on the implicit location, returning the result of the
-	 * drop. Starts the drop at the uppermost z layer
-	 * @param 	box			The hitbox of the falling object
-	 * @return				The result of the fall
-	 */
-	public FallResult dropObject(Hitbox box) {
-		return dropObject(box, layers.size()-1);
 	}
 	
 	/**
