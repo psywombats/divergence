@@ -32,6 +32,22 @@ public class NoHitbox extends Hitbox {
 	}
 
 	/**
+	 * @see net.wombatrpgs.rainfall.collisions.Hitbox#getWidth()
+	 */
+	@Override
+	public int getWidth() {
+		return 0;
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.collisions.Hitbox#getHeight()
+	 */
+	@Override
+	public int getHeight() {
+		return 0;
+	}
+
+	/**
 	 * @see net.wombatrpgs.rainfall.collisions.Hitbox#isColliding
 	 * (net.wombatrpgs.rainfall.collisions.Hitbox)
 	 */

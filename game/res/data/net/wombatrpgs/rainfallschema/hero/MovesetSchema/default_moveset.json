@@ -5,12 +5,16 @@
 	"description" : "",
 	"moves" : [
 		{
-			"move" : "basic_dash",
+			"move" : "move_summon",
 			"command" : "ACTION_1"
 		},
 		{
-			"move" : "basic_roll",
+			"move" : "move_pull",
 			"command" : "ACTION_2"
+		},
+		{
+			"move" : "move_push",
+			"command" : "ACTION_3"
 		}
 	]
 }

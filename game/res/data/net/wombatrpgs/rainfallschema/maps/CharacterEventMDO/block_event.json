@@ -1,0 +1,8 @@
+{
+	"key" : "block_event",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"appearance" : "waldsworth_blockbound_4dir",
+	"collision" : "ANIMATION_SPECIFIC_RECTANGLE"
+}

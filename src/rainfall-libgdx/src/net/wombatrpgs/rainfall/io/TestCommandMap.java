@@ -33,6 +33,8 @@ public class TestCommandMap extends CommandMap {
 		
 		downMap.put(InputButton.BUTTON_1, 	InputCommand.ACTION_1);
 		downMap.put(InputButton.BUTTON_2, 	InputCommand.ACTION_2);
+		downMap.put(InputButton.BUTTON_3,	InputCommand.ACTION_3);
+		downMap.put(InputButton.BUTTON_4,	InputCommand.ACTION_4);
 		downMap.put(InputButton.DOWN, 		InputCommand.MOVE_START_DOWN);
 		downMap.put(InputButton.LEFT, 		InputCommand.MOVE_START_LEFT);
 		downMap.put(InputButton.RIGHT, 		InputCommand.MOVE_START_RIGHT);

@@ -38,20 +38,22 @@ public class FourDir implements Renderable {
 		currentDir = Direction.DOWN;
 		sliceAnimations();
 	}
-
+	
 	/**
-	 * Populates the array of animations.
+	 * Gets the hitbox of the current facing. Usually a rectangle... at least,
+	 * that's what's in the database at the moment.
+	 * @return				The hitbox of the current facing, 99.9% rect
 	 */
-	protected void sliceAnimations() {
-		animations = new DirAnim[Direction.values().length];
-		animations[Direction.DOWN.ordinal()] = new DirAnim(
-				RGlobal.data.getEntryFor(mdo.downAnim, AnimationMDO.class), parent);
-		animations[Direction.UP.ordinal()] = new DirAnim(
-				RGlobal.data.getEntryFor(mdo.upAnim, AnimationMDO.class), parent);
-		animations[Direction.LEFT.ordinal()] = new DirAnim(
-				RGlobal.data.getEntryFor(mdo.leftAnim, AnimationMDO.class), parent);
-		animations[Direction.RIGHT.ordinal()] = new DirAnim(
-				RGlobal.data.getEntryFor(mdo.rightAnim, AnimationMDO.class), parent);
+	public Hitbox getHitbox() {
+		return animations[currentDir.ordinal()].getHitbox();
+	}
+	
+	/**
+	 * Gets the direction this animation is currently facing.
+	 * @return				The direction currently facing
+	 */
+	public Direction getFacing() {
+		return currentDir;
 	}
 
 	/**
@@ -102,12 +104,18 @@ public class FourDir implements Renderable {
 	}
 	
 	/**
-	 * Gets the hitbox of the current facing. Usually a rectangle... at least,
-	 * that's what's in the database at the moment.
-	 * @return				The hitbox of the current facing, 99.9% rect
+	 * Populates the array of animations.
 	 */
-	public Hitbox getHitbox() {
-		return animations[currentDir.ordinal()].getHitbox();
+	protected void sliceAnimations() {
+		animations = new DirAnim[Direction.values().length];
+		animations[Direction.DOWN.ordinal()] = new DirAnim(
+				RGlobal.data.getEntryFor(mdo.downAnim, AnimationMDO.class), parent);
+		animations[Direction.UP.ordinal()] = new DirAnim(
+				RGlobal.data.getEntryFor(mdo.upAnim, AnimationMDO.class), parent);
+		animations[Direction.LEFT.ordinal()] = new DirAnim(
+				RGlobal.data.getEntryFor(mdo.leftAnim, AnimationMDO.class), parent);
+		animations[Direction.RIGHT.ordinal()] = new DirAnim(
+				RGlobal.data.getEntryFor(mdo.rightAnim, AnimationMDO.class), parent);
 	}
 	
 }

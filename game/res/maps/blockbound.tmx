@@ -1,10 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="15" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="20"><properties><property name="blended tiles" value=""/></properties>
  <tileset firstgid="1" name="lower" tileheight="32" tilewidth="32">
   <image height="160" source="tilesets/test/lower.PNG" trans="b5a5d5" width="192"/>
+  <tile id="21">
+   <properties>
+    <property name="impassable" value=""/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="impassable" value=""/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="impassable" value=""/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="impassable" value=""/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="impassable" value=""/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="impassable" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="31" name="upper" tileheight="32" tilewidth="32">
   <image height="128" source="tilesets/test/upper.PNG" trans="b5a5d5" width="256"/>
-  <tile id="4">
+  <tile id="3">
+   <properties>
+    <property name="impassable" value=""/>
+   </properties>
+  </tile>
+  <tile id="11">
    <properties>
     <property name="impassable" value=""/>
    </properties>
@@ -14,18 +49,42 @@
     <property name="impassable" value=""/>
    </properties>
   </tile>
+  <tile id="18">
+   <properties>
+    <property name="impassable" value=""/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="impassable" value=""/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="impassable" value=""/>
+   </properties>
+  </tile>
  </tileset>
- <layer height="15" name="Tile Layer 1" width="20"><properties><property name="layer" value="2"/></properties>
+ <layer height="15" name="Tile Layer 1" width="20">
+  <properties>
+   <property name="z" value="0"/>
+  <property name="layer" value="5"/></properties>
   <data compression="zlib" encoding="base64">
-   eJwTYWBgEBnFQwIzAjETEDNTyTx2IOYAYk4qmccLxHxAzD8IwmoUD08MAPeTFwU=
+   eJwTYWBgEKEBRgaD1TxuNPNkgFiOTPNkoOYRq1+aDDsYgZgJiJlxmIdupiwB89iBmAOIOdHMQMcgOWEoxmceLxDzATE/ldxH7fAbiRgEjBgQYLCZRyoGAIpUFp8=
   </data>
  </layer>
- <layer height="15" name="Tile Layer 2" width="20"><properties><property name="layer" value="1"/></properties>
+ <layer height="15" name="Tile Layer 2" width="20">
+  <properties>
+   <property name="z" value=".5"/>
+  <property name="layer" value="4"/></properties>
   <data compression="zlib" encoding="base64">
-   eJxjYBg4oExl87SpbN5gBKNhhgADERaj4T+wAAAOTQE5
+   eJxjYBg+QHugHTAEwWiYDSwYDX/SAABSqwCC
   </data>
  </layer>
- <objectgroup height="15" name="Object Layer 1" width="20"><properties><property name="layer" value="0"/></properties>
+ <objectgroup height="15" name="Object Layer 1" width="20">
+  <properties>
+   <property name="z" value="0"/>
+  <property name="layer" value="3"/></properties>
   <object height="32" name="Waldy" type="event" width="32" x="352" y="288">
    <properties>
     <property name="key" value="waldsworth_event"/>
@@ -61,5 +120,34 @@
     <property name="key" value="waldsworth_event"/>
    </properties>
   </object>
+  <object height="32" name="tele" type="teleport" width="32" x="608" y="192">
+   <properties>
+    <property name="id" value="blockbound2"/>
+    <property name="x" value="1"/>
+    <property name="y" value="8"/>
+   </properties>
+  </object>
+  <object height="64" name="stairwell" type="z-teleport" width="32" x="96" y="96"/>
+ </objectgroup>
+ <layer height="15" name="Tile Layer 3" width="20">
+  <properties>
+   <property name="z" value="1"/>
+  <property name="layer" value="2"/></properties>
+  <data compression="zlib" encoding="base64">
+   eJxjYKANYAFiViBmo5J5XEDMDcWiaJgcIAClhSh32igYBaOATgAAkMYApg==
+  </data>
+ </layer>
+ <layer height="15" name="Tile Layer 4" width="20">
+  <properties>
+   <property name="z" value="1.5"/>
+  <property name="layer" value="1"/></properties>
+  <data compression="zlib" encoding="base64">
+   eJxjYBg4oDyAdg9VMBpmAwtGw39gAQA1WwBq
+  </data>
+ </layer>
+ <objectgroup height="15" name="Object Layer 2" width="20">
+  <properties>
+   <property name="z" value="1.5"/>
+  <property name="layer" value="0"/></properties>
  </objectgroup>
 </map>

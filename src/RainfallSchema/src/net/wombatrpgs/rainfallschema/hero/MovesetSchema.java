@@ -9,7 +9,7 @@ package net.wombatrpgs.rainfallschema.hero;
 import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.MainSchema;
-import net.wombatrpgs.rainfallschema.hero.data.MovesetEntrySchema;
+import net.wombatrpgs.rainfallschema.hero.data.MovesetEntryMDO;
 
 /**
  * A container for all the hero's moves in one convenient blob. It's useful to
@@ -18,7 +18,7 @@ import net.wombatrpgs.rainfallschema.hero.data.MovesetEntrySchema;
 @Path("hero/")
 public class MovesetSchema extends MainSchema {
 	
-	@InlineSchema(MovesetEntrySchema.class)
-	public MovesetEntrySchema[] moves;
+	@InlineSchema(MovesetEntryMDO.class)
+	public MovesetEntryMDO[] moves;
 
 }

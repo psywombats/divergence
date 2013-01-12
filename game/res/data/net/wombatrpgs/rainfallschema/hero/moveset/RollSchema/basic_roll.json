@@ -1,9 +1,0 @@
-{
-	"key" : "basic_roll",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "psy's sample implementation",
-	"cooldown" : 1,
-	"duration" : 0.7,
-	"distance" : 96
-}

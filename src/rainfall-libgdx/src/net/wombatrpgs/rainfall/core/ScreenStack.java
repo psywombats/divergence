@@ -23,6 +23,7 @@ import net.wombatrpgs.mgne.global.Global;
 public class ScreenStack {
 	
 	private List<GameScreen> screens;
+	private GameScreen levelScreen;
 	
 	/**
 	 * Creates and initializes a new empty stack of screens.
@@ -99,6 +100,23 @@ public class ScreenStack {
 		} else {
 			screens.get(0).render(camera);
 		}
+	}
+	
+	/**
+	 * Set a screen as the screen for levels. This means when teleportation
+	 * occurs, this screen will get wiped. The previous screen will be replaced.
+	 * @param 	screen			The screen to register
+	 */
+	public void registerLevelScreen(GameScreen screen) {
+		levelScreen = screen;
+	}
+	
+	/**
+	 * Gets the screen previously registered as the level carrier.
+	 * @return					The screen prevouisly registered
+	 */
+	public GameScreen getLevelScreen() {
+		return levelScreen;
 	}
 	
 	/**

@@ -15,6 +15,7 @@ import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Renderable;
+import net.wombatrpgs.rainfall.maps.layers.ObjectLayer;
 
 /**
  * All objects that appear in Tiled maps that are not tiles extend this class.
@@ -35,10 +36,26 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	 * @param 	x			The x-coord in pixels of this object on the map
 	 * @param 	y			The y-coord in pixels of this object on the map
 	 */
-	public MapObject(Level parent, int x, int y) {
+	public MapObject(Level parent, float x, float y) {
+		this(parent);
 		this.x = x;
 		this.y = y;
+	}
+	
+	/**
+	 * Creates a new map object for a given level at the origin.
+	 * @param 	parent		The level this map object is on
+	 */
+	protected MapObject(Level parent) {
+		this();
 		this.parent = parent;
+	}
+	
+	/**
+	 * Creates a new map object floating in limbo land.
+	 */
+	protected MapObject() {
+		// tsilb
 	}
 
 	/** @see net.wombatrpgs.rainfall.maps.Positionable#getX() */
@@ -66,6 +83,24 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	
 	/** @param y The offset to add to x */
 	public void moveY(int y) { this.y += y; }
+	
+	/** @return The map the hero is currently on */
+	public Level getLevel() { return parent; }
+	
+	/**
+	 * Sorts map objects based on z-depth.
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(MapObject other) {
+		if (other.getY() < y) {
+			return -1;
+		} else if (other.getY() > y) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
 
 	/**
 	 * Gets the hitbox associated with this map object at this point in time.
@@ -125,6 +160,14 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 		}
 		x += vx * elapsed;
 		y += vy * elapsed;
+	}
+	
+	/**
+	 * Called when this object is added to an object layer. Nothing by default.
+	 * @param 	layer			The layer this object is being added to
+	 */
+	public void onAdd(ObjectLayer layer) {
+		// nothing by default
 	}
 
 }

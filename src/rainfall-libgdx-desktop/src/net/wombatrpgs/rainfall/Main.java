@@ -8,6 +8,7 @@ import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.core.ScreenStack;
 import net.wombatrpgs.rainfall.io.DefaultKeymap;
+import net.wombatrpgs.rainfall.maps.LevelManager;
 import net.wombatrpgs.rainfallschema.settings.WindowDataMDO;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -37,6 +38,7 @@ public class Main {
 		RGlobal.screens = new ScreenStack();
 		RGlobal.keymap = new DefaultKeymap();
 		RGlobal.constants = new Constants();
+		RGlobal.levelManager = new LevelManager();
 
 		WindowDataMDO data = (WindowDataMDO) RGlobal.data.getEntryByKey("window_data");
 		

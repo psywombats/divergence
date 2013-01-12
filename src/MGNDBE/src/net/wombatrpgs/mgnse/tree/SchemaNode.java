@@ -52,7 +52,7 @@ public class SchemaNode extends DefaultMutableTreeNode {
 	/** @return The schema class of the file */
 	public Class<? extends MainSchema> getSchema() { return schema; }
 	
-	/** @param the new schema for the node */
+	/** @param schema The new schema for the node */
 	public void setSchema(Class<? extends MainSchema> schema) { this.schema = schema; }
 	
 	@Override
