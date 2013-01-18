@@ -64,10 +64,12 @@ public class TeleportEvent extends MapEvent {
 	 */
 	@Override
 	public void onCollide(MapObject other, CollisionResult result) {
+		if (other != RGlobal.hero) return; 
 		super.onCollide(other, result);
+		int z = parent.getZ(other);
 		parent.teleportOff();
 		Level map = RGlobal.levelManager.getLevel(mapID);
-		map.teleportOn(targetX, map.getHeight() - targetY - 1, parent.getZ(other));
+		map.teleportOn(targetX, map.getHeight() - targetY - 1, z);
 	}
 	
 }

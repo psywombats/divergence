@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.rainfall.characters;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
+
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.DirAnim;
 import net.wombatrpgs.rainfall.maps.Level;
@@ -20,6 +22,7 @@ public class Block extends CharacterEvent {
 	
 	protected SummonMDO mdo;
 	protected DirAnim anim;
+	protected boolean moving;
 	
 	/**
 	 * Creates the block. Must be updated with the map each time the hero
@@ -32,7 +35,14 @@ public class Block extends CharacterEvent {
 		appearance.queueRequiredAssets(RGlobal.assetManager);
 		RGlobal.assetManager.finishLoading();
 		appearance.postProcessing(RGlobal.assetManager);
+		moving = false;
 	}
+	
+	/** @return True if the block is in motion via push/pull spells */
+	public boolean isMoving() { return moving; }
+	
+	/** @param moving True if the block is in motion via push/pull spells */
+	public void setMoving(boolean moving) { this.moving = moving; }
 	
 	/**
 	 * Changes the map the block is currently located on. Call every time the
@@ -45,5 +55,15 @@ public class Block extends CharacterEvent {
 		}
 		map.teleportOn(this, getX(), getY());
 	}
-
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#render
+	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 */
+	@Override
+	public void render(OrthographicCamera camera) {
+		super.render(camera);
+		this.parent.applyPhysicalCorrections(this);
+	}
+	
 }

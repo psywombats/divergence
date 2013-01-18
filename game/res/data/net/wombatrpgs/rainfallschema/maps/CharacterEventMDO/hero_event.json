@@ -3,6 +3,6 @@
 	"subfolder" : "blockbound/",
 	"name" : "",
 	"description" : "hero placeholder",
-	"appearance" : "waldsworth_4dir",
+	"appearance" : "nico_4dir",
 	"collision" : "ANIMATION_SPECIFIC_RECTANGLE"
 }

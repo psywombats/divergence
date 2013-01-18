@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfall.maps.events.CharacterEvent;
@@ -48,16 +49,29 @@ public class Hero extends CharacterEvent {
 	 */
 	@Override
 	public void onCollide(MapObject other, CollisionResult result) {
-		if (!other.isOverlappingAllowed() && !this.isOverlappingAllowed()) {
-			// resolve the collision!!
-			// flip if we're not primary
-			if (this.getHitbox() == result.collide2) {
-				result.mtvX *= -1;
-				result.mtvY *= -1;
+		if (other.isOverlappingAllowed()) return;
+		float move1, move2;
+		if (other == RGlobal.block) {
+			if (RGlobal.block.isMoving()) {
+				move1 = 0;
+				move2 = 1;				
+			} else {
+				move1 = 1;
+				move2 = 0;				
 			}
-			this.x += result.mtvX;
-			this.y += result.mtvY;
+
+		} else {
+			move1 = .5f;
+			move2 = .5f;
 		}
+		if (result.collide1 == other.getHitbox()) {
+			result.mtvX *= -1;
+			result.mtvY *= -1;
+		}
+		this.setX((int) (this.getX() + move1 * result.mtvX));
+		this.setY((int) (this.getY() + move1 * result.mtvY));
+		other.setX((int) (other.getX() + move2 * -result.mtvX));
+		other.setY((int) (other.getY() + move2 * -result.mtvY));
 	}
 
 	/**
@@ -71,6 +85,26 @@ public class Hero extends CharacterEvent {
 	}
 	
 	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.CharacterEvent#startMove
+	 * (net.wombatrpgs.rainfall.maps.Direction)
+	 */
+	@Override
+	public void startMove(Direction dir) {
+		if (RGlobal.block != null && RGlobal.block.isMoving()) return;
+		super.startMove(dir);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.CharacterEvent#stopMove
+	 * (net.wombatrpgs.rainfall.maps.Direction)
+	 */
+	@Override
+	public void stopMove(Direction dir) {
+		if (RGlobal.block != null && RGlobal.block.isMoving()) return;
+		super.stopMove(dir);
+	}
+
+	/**
 	 * Passes the input command to the moveset for appropriate response. This
 	 * handles special moves such as jumping and attacks, not the default
 	 * movements. Those should be handled by the screen instead, at least until
@@ -81,5 +115,7 @@ public class Hero extends CharacterEvent {
 	public void act(InputCommand command, Level map) {
 		moves.act(command, map);
 	}
+	
+	
 
 }

@@ -44,6 +44,8 @@ public class TestCommandMap extends CommandMap {
 		upMap.put(InputButton.LEFT, 		InputCommand.MOVE_STOP_LEFT);
 		upMap.put(InputButton.RIGHT, 		InputCommand.MOVE_STOP_RIGHT);
 		upMap.put(InputButton.UP, 			InputCommand.MOVE_STOP_UP);
+		upMap.put(InputButton.BUTTON_2, 	InputCommand.ACTION_2);
+		upMap.put(InputButton.BUTTON_3,		InputCommand.ACTION_3);
 	}
 
 	/**

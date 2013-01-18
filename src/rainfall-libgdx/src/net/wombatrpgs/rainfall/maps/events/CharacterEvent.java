@@ -6,6 +6,9 @@
  */
 package net.wombatrpgs.rainfall.maps.events;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
@@ -27,6 +30,7 @@ import net.wombatrpgs.rainfallschema.settings.GameSpeedMDO;
  */
 public class CharacterEvent extends MapEvent {
 	
+	protected Map<Direction, Boolean> directionStatus;
 	protected CharacterEventMDO mdo;
 	protected FourDir appearance;
 
@@ -156,7 +160,10 @@ public class CharacterEvent extends MapEvent {
 	 * @param 	dir			The direction to move in
 	 */
 	public void startMove(Direction dir) {
-		addMoveComponent(dir.getVector());
+		if (!directionStatus.get(dir)) {
+			addMoveComponent(dir.getVector());
+			directionStatus.put(dir, true);
+		}
 	}
 
 	/**
@@ -166,10 +173,13 @@ public class CharacterEvent extends MapEvent {
 	 * @param 	dir			The direction to cancel velocity in 
 	 */
 	public void stopMove(Direction dir) {
-		DirVector vec = dir.getVector();
-		vec.x *= -1;
-		vec.y *= -1;
-		addMoveComponent(vec);
+		if (directionStatus.get(dir)) {
+			DirVector vec = dir.getVector();
+			vec.x *= -1;
+			vec.y *= -1;
+			addMoveComponent(vec);
+			directionStatus.put(dir, false);
+		}
 	}
 	
 	/**
@@ -194,6 +204,11 @@ public class CharacterEvent extends MapEvent {
 			FourDirMDO dirMDO = (FourDirMDO) RGlobal.data.getEntryByKey(mdo.appearance);
 			appearance = new FourDir(dirMDO, this);
 		}
+		directionStatus = new HashMap<Direction, Boolean>();
+		directionStatus.put(Direction.DOWN, false);
+		directionStatus.put(Direction.UP, false);
+		directionStatus.put(Direction.LEFT, false);
+		directionStatus.put(Direction.RIGHT, false);
 	}
 
 }
