@@ -8,6 +8,7 @@ package net.wombatrpgs.mgnse;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JPanel;
@@ -215,30 +216,36 @@ public class Logic {
 		}
 		SchemaChoice choice = parent.promptChooseSchema(itemList, defaultChoice);
 		if (choice != null) {
-			newEntry(choice.schema);
+			newEntry(choice.schema, null);
 		}
 	}
 	
 	/**
 	 * Creates a new schema of the specified type.
+	 * @param T the type of schema to create
 	 * @param schema The type of schema to create
+	 * @param source Starter data for the schema, null if none
 	 */
-	public void newEntry(Class<? extends MainSchema> schema) {
+	public void newEntry(Class<? extends MainSchema> schema, MainSchema source) {
 		String key = parent.promptKey();
 		if (key == null) return;
 		if (key.equals("")) {
 			parent.alert("Enter a non-empty key next time, okay?");
-			newEntry(schema);
+			newEntry(schema, source);
 		}
 		String subdir = parent.promptSubdir();
 		if (subdir == null) return;
 		MainSchema instance = null;
-		try {
-			instance = schema.newInstance();
-		} catch (InstantiationException e) {
-			Global.instance().err("Couldn't instantiate " + schema, e);
-		} catch (IllegalAccessException e) {
-			Global.instance().err("Bad permissions for " + schema, e);
+		if (source == null) {
+			try {
+				instance = schema.newInstance();
+			} catch (InstantiationException e) {
+				Global.instance().err("Couldn't instantiate " + schema, e);
+			} catch (IllegalAccessException e) {
+				Global.instance().err("Bad permissions for " + schema, e);
+			}
+		} else {
+			instance = source;
 		}
 		String path = in.getFile(out.getProjectConfigFile().getParentFile(), 
 				projectConfig.data).getAbsolutePath() + "\\";
@@ -250,7 +257,7 @@ public class Logic {
 		if (file.exists()) {
 			// this should ensure unique key
 			parent.alert("A similarly-named file already exists for that schema.");
-			newEntry(schema);
+			newEntry(schema, source);
 			return;
 		}
 		try {
@@ -281,6 +288,36 @@ public class Logic {
 		editorPane.revalidate();
 		currentEditor = null;
 		tree.selectNode(parent);
+	}
+	
+	/**
+	 * Makes a duplicate of the selected entry.
+	 */
+	public void cloneEntry() {
+		SchemaNode selected = tree.getSelectedNode();
+		Class<? extends MainSchema> clazz = tree.getSelectedClass();
+		MainSchema source = in.instantiateData(selected.getSchema(), selected.getFile());
+		MainSchema target = null;
+		try {
+			target = clazz.newInstance();
+		} catch (InstantiationException e) {
+			Global.instance().err("Bad clone", e);
+			e.printStackTrace();
+			return;
+		} catch (IllegalAccessException e) {
+			Global.instance().err("Bad clone 2", e);
+			e.printStackTrace();
+			return;
+		}
+		for (Field f : clazz.getFields()) {
+			try {
+				f.set(target, f.get(source));
+			} catch (Exception e) {
+				e.printStackTrace();
+				Global.instance().err("Cloned a bad field", e);
+			}
+		}
+		newEntry(clazz, target);
 	}
 	
 	/**

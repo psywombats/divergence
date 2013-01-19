@@ -1,0 +1,17 @@
+{
+	"key" : "staffraise_left",
+	"subfolder" : "moves",
+	"name" : null,
+	"description" : null,
+	"file" : null,
+	"frameCount" : null,
+	"frameWidth" : null,
+	"frameHeight" : null,
+	"offX" : null,
+	"offY" : null,
+	"animSpeed" : null,
+	"hit1x" : null,
+	"hit1y" : null,
+	"hit2x" : null,
+	"hit2y" : null
+}

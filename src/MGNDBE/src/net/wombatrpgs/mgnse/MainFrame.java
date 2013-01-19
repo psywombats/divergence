@@ -33,7 +33,7 @@ public class MainFrame extends JFrame {
 	private Logic logic;
 	private Listener in;
 	private JMenu file, edit;
-	private JMenuItem saveItem, saveAllItem, revertItem, revertAllItem, deleteItem;
+	private JMenuItem saveItem, saveAllItem, revertItem, revertAllItem, deleteItem, cloneItem;
 	private JScrollPane treeScroll, editorScroll;
 	
 	/**
@@ -142,6 +142,8 @@ public class MainFrame extends JFrame {
 		edit.add(revertAllItem);
 		deleteItem = createMenuItem(Action.DELETE_ENTRY);
 		edit.add(deleteItem);
+		cloneItem = createMenuItem(Action.CLONE_ENTRY);
+		edit.add(cloneItem);
 		bar.add(edit);
 		
 		setSaveAllEnable(false);

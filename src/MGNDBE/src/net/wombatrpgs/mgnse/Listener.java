@@ -53,6 +53,7 @@ public class Listener implements ActionListener, TreeSelectionListener {
 		if (cmd.equals(Action.REVERT_ALL.toString())) logic.revertAll();
 		if (cmd.equals(Action.NEW_ENTRY.toString())) logic.newEntry();
 		if (cmd.equals(Action.DELETE_ENTRY.toString())) logic.deleteEntry();
+		if (cmd.equals(Action.CLONE_ENTRY.toString())) logic.cloneEntry();
 	}
 
 	@Override
