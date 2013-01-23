@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.rainfall.characters;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
@@ -13,7 +14,6 @@ import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
-import net.wombatrpgs.rainfall.maps.events.CharacterEvent;
 import net.wombatrpgs.rainfall.moveset.Moveset;
 import net.wombatrpgs.rainfallschema.hero.MovesetSchema;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
@@ -39,7 +39,7 @@ public class Hero extends CharacterEvent {
 	 */
 	public Hero(Level parent, CharacterEventMDO mdo, int x, int y) {
 		super(parent, mdo, x, y);
-		moves = new Moveset(RGlobal.data.getEntryFor("default_moveset", MovesetSchema.class));
+		moves = new Moveset(this, RGlobal.data.getEntryFor("default_moveset", MovesetSchema.class));
 	}
 	
 	/**
@@ -85,7 +85,7 @@ public class Hero extends CharacterEvent {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.events.CharacterEvent#startMove
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#startMove
 	 * (net.wombatrpgs.rainfall.maps.Direction)
 	 */
 	@Override
@@ -95,13 +95,33 @@ public class Hero extends CharacterEvent {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.events.CharacterEvent#stopMove
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#stopMove
 	 * (net.wombatrpgs.rainfall.maps.Direction)
 	 */
 	@Override
 	public void stopMove(Direction dir) {
 		if (RGlobal.block != null && RGlobal.block.isMoving()) return;
 		super.stopMove(dir);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		super.queueRequiredAssets(manager);
+		moves.queueRequiredAssets(manager);
+	}
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager) {
+		super.postProcessing(manager);
+		moves.postProcessing(manager);
 	}
 
 	/**
@@ -113,9 +133,7 @@ public class Hero extends CharacterEvent {
 	 * @param 	map			The map to perform an action on
 	 */
 	public void act(InputCommand command, Level map) {
-		moves.act(command, map);
+		moves.act(command, map, this);
 	}
-	
-	
 
 }

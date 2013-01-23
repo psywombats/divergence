@@ -1,10 +1,10 @@
 /**
- *  Event.java
+ *  CharacterEvent.java
  *  Created on Nov 12, 2012 11:13:21 AM for project rainfall-libgdx
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfall.maps.events;
+package net.wombatrpgs.rainfall.characters;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +20,8 @@ import net.wombatrpgs.rainfall.graphics.FourDir;
 import net.wombatrpgs.rainfall.maps.DirVector;
 import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
+import net.wombatrpgs.rainfall.maps.MapObject;
+import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
 import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
 import net.wombatrpgs.rainfallschema.settings.GameSpeedMDO;
@@ -69,6 +71,30 @@ public class CharacterEvent extends MapEvent {
 	 */
 	public Direction getFacing() {
 		return appearance.getFacing();
+	}
+	
+	/**
+	 * Tells the animation to face a specific direction.
+	 * @param 	dir		The directiont to face
+	 */
+	public void setFacing(Direction dir) {
+		this.appearance.setFacing(dir);
+	}
+	
+	/**
+	 * Gives this character a new (temporary?) appearance with a four-dir anim
+	 * @param 	anim	The new anim for this character
+	 */
+	public void setAnimation(FourDir anim) {
+		this.appearance = anim;
+	}
+	
+	/**
+	 * Gets the current appearance of this character event.
+	 * @return			The current appearance of this character event
+	 */
+	public FourDir getAnimation() {
+		return appearance;
 	}
 
 	/**
@@ -154,6 +180,28 @@ public class CharacterEvent extends MapEvent {
 	public boolean isOverlappingAllowed() { return false; }
 	
 	/**
+	 * Makes this event face towards an object on the map.
+	 * @param 	object		The object to face
+	 */
+	public void faceToward(MapObject object) {
+		int dx = object.getX() - this.getX();
+		int dy = object.getY() - this.getY();
+		if (Math.abs(dx) > Math.abs(dy)) {
+			if (dx > 0) {
+				setFacing(Direction.RIGHT);
+			} else {
+				setFacing(Direction.LEFT);
+			}
+		} else {
+			if (dy > 0) {
+				setFacing(Direction.UP);
+			} else {
+				setFacing(Direction.DOWN);
+			}
+		}
+	}
+	
+	/**
 	 * Start moving in a particular direction. Does not switch immediately to
 	 * that direction but rather adds some speed in that direction based on hero
 	 * walk rate.
@@ -179,6 +227,16 @@ public class CharacterEvent extends MapEvent {
 			vec.y *= -1;
 			addMoveComponent(vec);
 			directionStatus.put(dir, false);
+		}
+	}
+	
+	/**
+	 * Stops all movement in a key-friendly way.
+	 */
+	public void halt() {
+		appearance.stopMoving();
+		for (Direction dir : Direction.values()) {
+			stopMove(dir);
 		}
 	}
 	

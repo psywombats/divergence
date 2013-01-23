@@ -55,6 +55,14 @@ public class FourDir implements Renderable {
 	public Direction getFacing() {
 		return currentDir;
 	}
+	
+	/**
+	 * Sets the current facing of this directional animation.
+	 * @param 	dir			The new current direction
+	 */
+	public void setFacing(Direction dir) {
+		this.currentDir = dir;
+	}
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render
@@ -88,6 +96,17 @@ public class FourDir implements Renderable {
 	}
 	
 	/**
+	 * Just starts moving.
+	 */
+	public void startMoving() {
+		Direction oldDir = getFacing();
+		for (Direction dir : Direction.values()) {
+			startMoving(dir);
+		}
+		setFacing(oldDir);
+	}
+	
+	/**
 	 * Starts moving in the indicated direction.
 	 * @param 	dir			The new direction to move in
 	 */
@@ -100,7 +119,18 @@ public class FourDir implements Renderable {
 	 * Halts all animation movement.
 	 */
 	public void stopMoving() {
-		animations[currentDir.ordinal()].stopMoving();
+		for (Direction dir : Direction.values()) {
+			animations[dir.ordinal()].stopMoving();
+		}
+	}
+	
+	/**
+	 * Resets all the timings on this animation.
+	 */
+	public void reset() {
+		for (Direction dir : Direction.values()) {
+			animations[dir.ordinal()].reset();
+		}
 	}
 	
 	/**

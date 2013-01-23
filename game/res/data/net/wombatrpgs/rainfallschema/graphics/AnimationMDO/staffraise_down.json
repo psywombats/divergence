@@ -1,5 +1,5 @@
 {
-	"key" : "staffraise_left",
+	"key" : "staffraise_down",
 	"subfolder" : "moves",
 	"name" : "",
 	"description" : "",
@@ -9,7 +9,7 @@
 	"frameWidth" : 32,
 	"frameHeight" : 64,
 	"offX" : 0,
-	"offY" : 128,
+	"offY" : 192,
 	"animSpeed" : 8,
 	"hit1x" : 8,
 	"hit1y" : 48,

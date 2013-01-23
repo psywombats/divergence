@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.rainfall.moveset;
 
+import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfallschema.hero.moveset.PushMDO;
@@ -13,27 +14,34 @@ import net.wombatrpgs.rainfallschema.hero.moveset.PushMDO;
 /**
  * Push or pull the block.
  */
-public class ActPush implements Actionable {
+public class ActPush extends MovesetAct {
 	
 	protected PushMDO mdo;
 	protected boolean active;
 
-	public ActPush(PushMDO mdo) {
+	/**
+	 * Constructs a new push act from data.
+	 * @param	actor			The character performing the action
+	 * @param 	mdo				The MDO to construct from
+	 */
+	public ActPush(CharacterEvent actor, PushMDO mdo) {
+		super(actor, mdo);
 		this.mdo = mdo;
 		this.active = false;
 	}
 	
 	/**
 	 * @see net.wombatrpgs.rainfall.moveset.Actionable#act
-	 * (net.wombatrpgs.rainfall.maps.Level)
+	 * (net.wombatrpgs.rainfall.maps.Level, net.wombatrpgs.rainfall.characters.CharacterEvent)
 	 */
 	@Override
-	public void act(Level map) {
+	public void coreAct(Level map, CharacterEvent actor) {
 		if (RGlobal.block == null) return;
 		if (RGlobal.block.getLevel() != RGlobal.hero.getLevel()) return;
 		int compX = 0;
 		int compY = 0;
 		if (!active) {
+			animFromMDO.reset();
 			int dx = RGlobal.hero.getX() - RGlobal.block.getX();
 			int dy = RGlobal.hero.getY() - RGlobal.block.getY();
 			if (Math.abs(dx) > Math.abs(dy)) {
@@ -45,8 +53,12 @@ public class ActPush implements Actionable {
 			if (RGlobal.hero.getY() > RGlobal.block.getY()) compY *= -1;
 			compX *= mdo.targetVelocity;
 			compY *= mdo.targetVelocity;
+			setAppearance(this.animFromMDO);
+			RGlobal.hero.halt();
+			RGlobal.hero.getAnimation().startMoving();
+		} else {
+			restoreAppearance();
 		}
-		RGlobal.hero.setVelocity(0, 0);
 		RGlobal.block.setVelocity(compX, compY);
 		active = !active;
 		RGlobal.block.setMoving(active);

@@ -7,6 +7,7 @@
 package net.wombatrpgs.rainfall.moveset;
 
 import net.wombatrpgs.rainfall.characters.Block;
+import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.collisions.FallResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.RectHitbox;
@@ -19,26 +20,27 @@ import net.wombatrpgs.rainfallschema.hero.moveset.SummonMDO;
 /**
  * Summon the block to your side!
  */
-// TODO: handle z, anywhere
-public class ActSummon implements Actionable {
+public class ActSummon extends MovesetAct {
 	
 	protected SummonMDO mdo;
 	
 	/**
 	 * Creates and initializes this summon MDO. Involves loading an image, it
 	 * seems.
-	 * @param 	mdo			The MDO singleton devoted to this act
+	 * @param	actor			The character performing the action
+	 * @param 	mdo				The MDO singleton devoted to this act
 	 */
-	public ActSummon(SummonMDO mdo) {
+	public ActSummon(CharacterEvent actor, SummonMDO mdo) {
+		super(actor, mdo);
 		this.mdo = mdo;
 	}
 
 	/**
 	 * @see net.wombatrpgs.rainfall.moveset.Actionable#act
-	 * (net.wombatrpgs.rainfall.maps.Level)
+	 * (net.wombatrpgs.rainfall.maps.Level, net.wombatrpgs.rainfall.characters.CharacterEvent)
 	 */
 	@Override
-	public void act(Level map) {
+	public void coreAct(Level map, CharacterEvent actor) {
 		int heroX = RGlobal.hero.getX() + RGlobal.hero.getHitbox().getWidth()/2;
 		int heroY = RGlobal.hero.getY() + RGlobal.hero.getHitbox().getHeight()/2;
 		int targetTileX = (heroX - heroX % 32) / 32;
@@ -109,7 +111,9 @@ public class ActSummon implements Actionable {
 	 */
 	private void selfDestructAt(Level map, int targetTileX, int targetTileY) {
 		RGlobal.reporter.inform("BOOM! Summon failed.");
-		RGlobal.block.getLevel().teleportOff(RGlobal.block);
+		if (RGlobal.block != null) {
+			RGlobal.block.getLevel().teleportOff(RGlobal.block);
+		}
 	}
 
 }

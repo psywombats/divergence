@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"file" : "block.png",
+	"mode" : "DO_NOTHING",
 	"frameCount" : 1,
 	"frameWidth" : 32,
 	"frameHeight" : 64,

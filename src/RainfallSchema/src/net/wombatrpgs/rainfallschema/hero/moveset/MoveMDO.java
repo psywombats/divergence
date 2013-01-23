@@ -8,7 +8,10 @@ package net.wombatrpgs.rainfallschema.hero.moveset;
 
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
+import net.wombatrpgs.mgns.core.Annotations.Nullable;
+import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
+import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
 
 /**
  * Base class for all schema that form part of the moveset. Hopefully
@@ -20,5 +23,10 @@ public class MoveMDO extends MainSchema {
 	
 	@Desc("Cooldown time - in seconds")
 	public Float cooldown;
+	
+	@Desc("4Dir Animation - played when move is in action")
+	@SchemaLink(FourDirMDO.class)
+	@Nullable
+	public String animation;
 
 }

@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.DirAnim;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfall.maps.events.CharacterEvent;
 import net.wombatrpgs.rainfallschema.hero.moveset.SummonMDO;
 import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
 
@@ -64,6 +63,9 @@ public class Block extends CharacterEvent {
 	public void render(OrthographicCamera camera) {
 		super.render(camera);
 		this.parent.applyPhysicalCorrections(this);
+		if (moving) {
+			RGlobal.hero.faceToward(this);
+		}
 	}
 	
 }

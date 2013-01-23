@@ -9,7 +9,12 @@ package net.wombatrpgs.rainfall.moveset;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.assets.AssetManager;
+
+import net.wombatrpgs.rainfall.characters.CharacterEvent;
+import net.wombatrpgs.rainfall.characters.Hero;
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.graphics.Queueable;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfallschema.hero.MovesetSchema;
 import net.wombatrpgs.rainfallschema.hero.data.MovesetEntryMDO;
@@ -23,35 +28,58 @@ import net.wombatrpgs.rainfallschema.io.data.InputCommand;
  * mapped to action keys. A quick overview: raw -> input buttons -> commands ->
  * moves.
  */
-public class Moveset {
+public class Moveset implements Queueable {
 	
 	protected MovesetSchema mdo; // caution -- may be null
-	protected Map<InputCommand, Actionable> moves;
+	protected Map<InputCommand, MovesetAct> moves;
 	
 	/**
 	 * Creates and initializes a ne blank moveset. Make sure to manually add
 	 * moves or else the hero won't be able to do anything.
 	 */
 	public Moveset() {
-		moves = new HashMap<InputCommand, Actionable>();
+		moves = new HashMap<InputCommand, MovesetAct>();
 	}
 	
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.Queueable#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		for (MovesetAct move : moves.values()) {
+			move.queueRequiredAssets(manager);
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.Queueable#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager) {
+		for (MovesetAct move : moves.values()) {
+			move.postProcessing(manager);
+		}
+	}
+
 	/**
 	 * Creates and initializes a new moveset. It's fine to do things like change
 	 * movesets on the fly as the hero gains and loses moves, but this is one
 	 * way to create it from data.
+	 * @param	hero		RGlobal.hero reference doesn't exist yet, use this
 	 * @param 	mdo			The data object to initialize from
 	 */
-	public Moveset(MovesetSchema mdo) {
+	public Moveset(Hero hero, MovesetSchema mdo) {
 		this();
 		this.mdo = mdo;
 		for (MovesetEntryMDO entryMDO : mdo.moves) {
 			MoveMDO moveMDO = RGlobal.data.getEntryFor(entryMDO.move, MoveMDO.class);
 			// TODO: it may be possible to generalize this
 			if (SummonMDO.class.isAssignableFrom(moveMDO.getClass())) {
-				moves.put(entryMDO.command, new ActSummon((SummonMDO) moveMDO));
+				moves.put(entryMDO.command, new ActSummon(hero, (SummonMDO) moveMDO));
 			} else if (PushMDO.class.isAssignableFrom(moveMDO.getClass())) {
-				moves.put(entryMDO.command, new ActPush((PushMDO) moveMDO));
+				moves.put(entryMDO.command, new ActPush(hero, (PushMDO) moveMDO));
 			} else {
 				RGlobal.reporter.warn("Unknown move class: " + moveMDO.getClass());
 			}
@@ -62,10 +90,11 @@ public class Moveset {
 	 * Acts according to the input command by mapping it into the moveset.
 	 * @param 	command		The command to respond to
 	 * @param	map			The map to act on
+	 * @param	actor		The actor performing the command
 	 */
-	public void act(InputCommand command, Level map) {
+	public void act(InputCommand command, Level map, CharacterEvent actor) {
 		if (moves.containsKey(command)) {
-			moves.get(command).act(map);
+			moves.get(command).act(map, actor);
 		}
 	}
 

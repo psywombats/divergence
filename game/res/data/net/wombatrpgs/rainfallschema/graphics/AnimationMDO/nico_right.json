@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"file" : "nico.png",
+	"mode" : "REPEAT",
 	"frameCount" : 4,
 	"frameWidth" : 32,
 	"frameHeight" : 64,

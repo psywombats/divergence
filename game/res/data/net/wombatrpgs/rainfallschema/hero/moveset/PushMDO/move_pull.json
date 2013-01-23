@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"cooldown" : 0.0,
+	"animation" : "staffraise_4dir",
 	"targetVelocity" : -128,
 	"acceleration" : 512
 }
