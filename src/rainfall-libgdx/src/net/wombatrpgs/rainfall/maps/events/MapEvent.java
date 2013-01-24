@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 
 import net.wombatrpgs.mgne.global.Global;
+import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.characters.Hero;
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
@@ -105,12 +106,14 @@ public abstract class MapEvent extends MapObject {
 	public void postProcessing(AssetManager manager) { }
 
 	/**
-	 * Default is nothing happens.
+	 * Default does nothing.
 	 * @see net.wombatrpgs.rainfall.maps.MapObject#onCollide
 	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.collisions.CollisionResult)
 	 */
 	@Override
-	public void onCollide(MapObject other, CollisionResult result) { }
+	public void onCollide(MapObject other, CollisionResult result) { 
+		
+	}
 
 	/**
 	 * Overlapping is enabled by default.
@@ -171,6 +174,21 @@ public abstract class MapEvent extends MapObject {
 			Global.reporter.warn("Found an event with no type: " + object.name);
 			return null;
 		}
+	}
+	
+	/**
+	 * Moves objects out of collision with each other. Usually call this from
+	 * onCollide, as a collision result is needed.
+	 * @param 	other			The other object to bump
+	 * @param 	result			The result of the two objects' collisions
+	 */
+	protected void applyMTV(MapObject other, CollisionResult result) {
+		if (this.getHitbox() == result.collide2) {
+			result.mtvX *= -1;
+			result.mtvY *= -1;
+		}
+		this.x += result.mtvX;
+		this.y += result.mtvY;
 	}
 
 }

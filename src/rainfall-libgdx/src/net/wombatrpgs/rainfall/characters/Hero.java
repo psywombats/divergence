@@ -6,13 +6,14 @@
  */
 package net.wombatrpgs.rainfall.characters;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
-import net.wombatrpgs.rainfall.maps.events.CharacterEvent;
 import net.wombatrpgs.rainfall.moveset.Moveset;
 import net.wombatrpgs.rainfallschema.hero.MovesetSchema;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
@@ -38,7 +39,7 @@ public class Hero extends CharacterEvent {
 	 */
 	public Hero(Level parent, CharacterEventMDO mdo, int x, int y) {
 		super(parent, mdo, x, y);
-		moves = new Moveset(RGlobal.data.getEntryFor("default_moveset", MovesetSchema.class));
+		moves = new Moveset(this, RGlobal.data.getEntryFor("default_moveset", MovesetSchema.class));
 	}
 	
 	/**
@@ -48,16 +49,29 @@ public class Hero extends CharacterEvent {
 	 */
 	@Override
 	public void onCollide(MapObject other, CollisionResult result) {
-		if (!other.isOverlappingAllowed() && !this.isOverlappingAllowed()) {
-			// resolve the collision!!
-			// flip if we're not primary
-			if (this.getHitbox() == result.collide2) {
-				result.mtvX *= -1;
-				result.mtvY *= -1;
+		if (other.isOverlappingAllowed()) return;
+		float move1, move2;
+		if (other == RGlobal.block) {
+			if (RGlobal.block.isMoving()) {
+				move1 = 0;
+				move2 = 1;				
+			} else {
+				move1 = 1;
+				move2 = 0;				
 			}
-			this.x += result.mtvX;
-			this.y += result.mtvY;
+
+		} else {
+			move1 = .5f;
+			move2 = .5f;
 		}
+		if (result.collide1 == other.getHitbox()) {
+			result.mtvX *= -1;
+			result.mtvY *= -1;
+		}
+		this.setX((int) (this.getX() + move1 * result.mtvX));
+		this.setY((int) (this.getY() + move1 * result.mtvY));
+		other.setX((int) (other.getX() + move2 * -result.mtvX));
+		other.setY((int) (other.getY() + move2 * -result.mtvY));
 	}
 
 	/**
@@ -71,6 +85,46 @@ public class Hero extends CharacterEvent {
 	}
 	
 	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#startMove
+	 * (net.wombatrpgs.rainfall.maps.Direction)
+	 */
+	@Override
+	public void startMove(Direction dir) {
+		if (RGlobal.block != null && RGlobal.block.isMoving()) return;
+		super.startMove(dir);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#stopMove
+	 * (net.wombatrpgs.rainfall.maps.Direction)
+	 */
+	@Override
+	public void stopMove(Direction dir) {
+		if (RGlobal.block != null && RGlobal.block.isMoving()) return;
+		super.stopMove(dir);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		super.queueRequiredAssets(manager);
+		moves.queueRequiredAssets(manager);
+	}
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager) {
+		super.postProcessing(manager);
+		moves.postProcessing(manager);
+	}
+
+	/**
 	 * Passes the input command to the moveset for appropriate response. This
 	 * handles special moves such as jumping and attacks, not the default
 	 * movements. Those should be handled by the screen instead, at least until
@@ -79,7 +133,7 @@ public class Hero extends CharacterEvent {
 	 * @param 	map			The map to perform an action on
 	 */
 	public void act(InputCommand command, Level map) {
-		moves.act(command, map);
+		moves.act(command, map, this);
 	}
 
 }

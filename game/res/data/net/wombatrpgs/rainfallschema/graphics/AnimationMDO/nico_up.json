@@ -1,9 +1,9 @@
 {
-	"key" : "waldsworth_up",
-	"subfolder" : "charas/",
+	"key" : "nico_up",
+	"subfolder" : "charas",
 	"name" : "",
 	"description" : "",
-	"file" : "waldsworth.png",
+	"file" : "nico.png",
 	"mode" : "REPEAT",
 	"frameCount" : 4,
 	"frameWidth" : 32,

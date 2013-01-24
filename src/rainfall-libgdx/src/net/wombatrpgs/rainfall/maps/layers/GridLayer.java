@@ -30,6 +30,8 @@ import net.wombatrpgs.rainfall.maps.events.MapEvent;
  */
 public class GridLayer extends Layer implements Renderable {
 	
+	public static String PROPERTY_IMPASSABLE = "x";
+	
 	protected TiledMap map;
 	protected Level parent;
 	protected TiledLayer layer;
@@ -150,7 +152,7 @@ public class GridLayer extends Layer implements Renderable {
 				if (tileID == 0) continue;
 				result.finished = true;
 				result.z = (int) Math.floor(getZ());
-				if (map.getTileProperty(tileID, "impassable") != null) {
+				if (map.getTileProperty(tileID, PROPERTY_IMPASSABLE) != null) {
 					result.cleanLanding = false;
 				}
 				break;
@@ -179,7 +181,7 @@ public class GridLayer extends Layer implements Renderable {
 				// there is no tile and we are the bottom
 				checkForUpper(event, tileX, tileY);
 			}
-		} else if (map.getTileProperty(tileID, "impassable") != null) {
+		} else if (map.getTileProperty(tileID, PROPERTY_IMPASSABLE) != null) {
 			// the tile at this location is impassable
 			checkForUpper(event, tileX, tileY);
 		}

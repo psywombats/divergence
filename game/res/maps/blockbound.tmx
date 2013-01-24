@@ -3,32 +3,32 @@
   <image height="160" source="tilesets/test/lower.PNG" trans="b5a5d5" width="192"/>
   <tile id="21">
    <properties>
-    <property name="impassable" value=""/>
+    <property name="x" value=""/>
    </properties>
   </tile>
   <tile id="22">
    <properties>
-    <property name="impassable" value=""/>
+    <property name="x" value=""/>
    </properties>
   </tile>
   <tile id="23">
    <properties>
-    <property name="impassable" value=""/>
+    <property name="x" value=""/>
    </properties>
   </tile>
   <tile id="27">
    <properties>
-    <property name="impassable" value=""/>
+    <property name="x" value=""/>
    </properties>
   </tile>
   <tile id="28">
    <properties>
-    <property name="impassable" value=""/>
+    <property name="x" value=""/>
    </properties>
   </tile>
   <tile id="29">
    <properties>
-    <property name="impassable" value=""/>
+    <property name="x" value=""/>
    </properties>
   </tile>
  </tileset>
@@ -41,12 +41,12 @@
   </tile>
   <tile id="11">
    <properties>
-    <property name="impassable" value=""/>
+    <property name="x" value=""/>
    </properties>
   </tile>
   <tile id="12">
    <properties>
-    <property name="impassable" value=""/>
+    <property name="x" value=""/>
    </properties>
   </tile>
   <tile id="18">
