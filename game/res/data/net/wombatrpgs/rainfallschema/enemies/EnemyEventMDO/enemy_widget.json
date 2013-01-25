@@ -1,0 +1,8 @@
+{
+	"key" : "enemy_widget",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"appearance" : "widget_2dir",
+	"collision" : "NONE"
+}

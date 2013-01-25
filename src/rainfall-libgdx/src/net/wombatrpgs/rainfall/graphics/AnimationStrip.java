@@ -23,7 +23,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 /**
  * A specialized animation that makes up one of the four facings
  */
-public class DirAnim implements Renderable {
+public class AnimationStrip implements Renderable {
 	
 	protected AnimationMDO mdo;
 	protected Animation anim;
@@ -42,7 +42,7 @@ public class DirAnim implements Renderable {
 	 * @param 	mdo			The animation data
 	 * @param 	parent		The parent map object
 	 */
-	public DirAnim(AnimationMDO mdo, MapObject parent) {
+	public AnimationStrip(AnimationMDO mdo, MapObject parent) {
 		this.mdo = mdo;
 		this.parent = parent;
 		moving = false;

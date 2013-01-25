@@ -6,10 +6,13 @@
  */
 package net.wombatrpgs.rainfallschema.graphics.data;
 
+import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
+
 /**
  * All animations have a mode - whether to repeat indefinitely, play, or uh
  * do nothing I guess?
  */
+@ExcludeFromTree
 public enum AnimationMode {
 	
 	REPEAT,

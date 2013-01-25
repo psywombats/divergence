@@ -26,6 +26,7 @@ import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.TargetPosition;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Renderable;
+import net.wombatrpgs.rainfall.maps.events.EventFactory;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.maps.layers.GridLayer;
 import net.wombatrpgs.rainfall.maps.layers.Layer;
@@ -153,7 +154,7 @@ public class Level implements Renderable {
 			// load up all ingame objects from the database
 			for (TiledObject object : group.objects) {
 				//addEvent(MapEvent.createEvent(this, object), layerIndex);
-				MapEvent.handleData(this, object, layerIndex);
+				EventFactory.handleData(this, object, layerIndex);
 			}
 		}
 		

@@ -12,7 +12,7 @@ import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
-import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
+import net.wombatrpgs.rainfallschema.graphics.DirMDO;
 import net.wombatrpgs.rainfallschema.maps.data.HitboxType;
 
 /**
@@ -23,7 +23,7 @@ import net.wombatrpgs.rainfallschema.maps.data.HitboxType;
 public class CharacterEventMDO extends MainSchema {
 	
 	@Desc("Appearance")
-	@SchemaLink(FourDirMDO.class)
+	@SchemaLink(DirMDO.class)
 	@Nullable
 	public String appearance;
 	

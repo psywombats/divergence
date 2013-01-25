@@ -32,14 +32,15 @@ public class Hero extends CharacterEvent {
 	 * this will change. Right now it sets up the hero on the map like any other
 	 * event. Also sets up the moveset called "default_moveset" though that
 	 * should be put in the hero MDO when it gets created.
-	 * @param 	parent		The level the hero starts on
 	 * @param 	mdo			The character mdo dummy starting the hero
+	 * @param 	parent		The level the hero starts on
 	 * @param 	x			The x-coord (in pixels) to start hero at
 	 * @param 	y			The y-coord (in pixels) to start hero at
 	 */
-	public Hero(Level parent, CharacterEventMDO mdo, int x, int y) {
-		super(parent, mdo, x, y);
+	public Hero(CharacterEventMDO mdo, Level parent, int x, int y) {
+		super(mdo, parent, x, y);
 		moves = new Moveset(this, RGlobal.data.getEntryFor("default_moveset", MovesetSchema.class));
+		RGlobal.hero = this;
 	}
 	
 	/**

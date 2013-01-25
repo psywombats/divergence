@@ -55,7 +55,7 @@ public class ActPush extends MovesetAct {
 			compY *= mdo.targetVelocity;
 			setAppearance(this.animFromMDO);
 			RGlobal.hero.halt();
-			RGlobal.hero.getAnimation().startMoving();
+			RGlobal.hero.getAppearance().startMoving();
 		} else {
 			restoreAppearance();
 		}

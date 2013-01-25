@@ -16,13 +16,14 @@ import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.NoHitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.graphics.FourDir;
+import net.wombatrpgs.rainfall.graphics.FacesAnimation;
+import net.wombatrpgs.rainfall.graphics.FacesAnimationFactory;
 import net.wombatrpgs.rainfall.maps.DirVector;
 import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
-import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
+import net.wombatrpgs.rainfallschema.graphics.DirMDO;
 import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
 import net.wombatrpgs.rainfallschema.settings.GameSpeedMDO;
 
@@ -34,16 +35,16 @@ public class CharacterEvent extends MapEvent {
 	
 	protected Map<Direction, Boolean> directionStatus;
 	protected CharacterEventMDO mdo;
-	protected FourDir appearance;
+	protected FacesAnimation appearance;
 
 	/**
 	 * Creates a new char event with the specified data at the specified coords.
-	 * @param	parent	The parent level of the event
 	 * @param 	mdo		The data to create the event with
+	 * @param	parent	The parent level of the event
 	 * @param 	x		The x-coord of the event (in pixels)
 	 * @param 	y		The y-coord of the event (in pixels)
 	 */
-	public CharacterEvent(Level parent, CharacterEventMDO mdo, float x, float y) {
+	public CharacterEvent(CharacterEventMDO mdo, Level parent, float x, float y) {
 		super(parent, x, y);
 		init(mdo);
 	}
@@ -83,17 +84,17 @@ public class CharacterEvent extends MapEvent {
 	
 	/**
 	 * Gives this character a new (temporary?) appearance with a four-dir anim
-	 * @param 	anim	The new anim for this character
+	 * @param 	oldAppearance	The new anim for this character
 	 */
-	public void setAnimation(FourDir anim) {
-		this.appearance = anim;
+	public void setAppearance(FacesAnimation oldAppearance) {
+		this.appearance = oldAppearance;
 	}
 	
 	/**
 	 * Gets the current appearance of this character event.
 	 * @return			The current appearance of this character event
 	 */
-	public FourDir getAnimation() {
+	public FacesAnimation getAppearance() {
 		return appearance;
 	}
 
@@ -137,7 +138,7 @@ public class CharacterEvent extends MapEvent {
 				appearance.stopMoving();
 			} else {
 				Direction newDir;
-				if (Math.abs(vx) > Math.abs(vy)) {
+				if (Math.abs(vx) >= Math.abs(vy)) {
 					if (vx * Direction.RIGHT.getVector().x> 0) {
 						newDir = Direction.RIGHT;
 					} else {
@@ -259,8 +260,8 @@ public class CharacterEvent extends MapEvent {
 	protected void init(CharacterEventMDO mdo) {
 		this.mdo = mdo;
 		if (mdo.appearance != null) {
-			FourDirMDO dirMDO = (FourDirMDO) RGlobal.data.getEntryByKey(mdo.appearance);
-			appearance = new FourDir(dirMDO, this);
+			DirMDO dirMDO = (DirMDO) RGlobal.data.getEntryByKey(mdo.appearance);
+			appearance = FacesAnimationFactory.create(dirMDO, this);
 		}
 		directionStatus = new HashMap<Direction, Boolean>();
 		directionStatus.put(Direction.DOWN, false);

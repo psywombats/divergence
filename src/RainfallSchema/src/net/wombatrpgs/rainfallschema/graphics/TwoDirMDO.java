@@ -1,6 +1,6 @@
 /**
- *  FourDirMDO.java
- *  Created on Nov 12, 2012 5:16:02 AM for project RainfallSchema
+ *  TwoDirMDO.java
+ *  Created on Jan 24, 2013 6:20:15 PM for project RainfallSchema
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
@@ -11,23 +11,14 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 
 /**
- * Four animations combined into directions. Usually used for characters'
- * appearance.
+ * Same thing as a FourDir, but moves in only two directions.
  */
 @Path("graphics/")
-public class FourDirMDO extends DirMDO {
-	
-	@Desc("Upwards-facing animation")
-	@SchemaLink(AnimationMDO.class)
-	public String upAnim;
+public class TwoDirMDO extends DirMDO {
 	
 	@Desc("Right-facing animation")
 	@SchemaLink(AnimationMDO.class)
 	public String rightAnim;
-	
-	@Desc("Downwards-facing animation")
-	@SchemaLink(AnimationMDO.class)
-	public String downAnim;
 	
 	@Desc("Left-facing animation")
 	@SchemaLink(AnimationMDO.class)

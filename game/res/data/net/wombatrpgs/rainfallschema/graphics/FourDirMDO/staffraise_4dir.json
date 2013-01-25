@@ -6,6 +6,5 @@
 	"upAnim" : "staffraise_up",
 	"rightAnim" : "staffraise_right",
 	"downAnim" : "staffraise_down",
-	"leftAnim" : "staffraise_left",
-	"excessHeight" : 32
+	"leftAnim" : "staffraise_left"
 }

@@ -6,6 +6,5 @@
 	"upAnim" : "nico_up",
 	"rightAnim" : "nico_right",
 	"downAnim" : "nico_down",
-	"leftAnim" : "nico_left",
-	"excessHeight" : 48
+	"leftAnim" : "nico_left"
 }

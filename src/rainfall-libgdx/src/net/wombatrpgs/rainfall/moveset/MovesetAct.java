@@ -10,6 +10,7 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.graphics.FacesAnimation;
 import net.wombatrpgs.rainfall.graphics.FourDir;
 import net.wombatrpgs.rainfall.graphics.Queueable;
 import net.wombatrpgs.rainfall.maps.Level;
@@ -25,8 +26,8 @@ public abstract class MovesetAct implements Actionable, Queueable {
 	
 	protected CharacterEvent actor;
 	protected Level map;
-	protected FourDir oldAppearance, newAppearance;
-	protected FourDir animFromMDO;
+	protected FacesAnimation oldAppearance, newAppearance;
+	protected FacesAnimation animFromMDO;
 	
 	/**
 	 * Constructs a moveset act from data.
@@ -92,19 +93,19 @@ public abstract class MovesetAct implements Actionable, Queueable {
 	 * requires changing the appearance of the actor temporarily.
 	 */
 	protected void saveAppearance() {
-		oldAppearance = actor.getAnimation();
+		oldAppearance = actor.getAppearance();
 	}
 	
 	/**
 	 * Changes the actor's appearance to the supplied animation. Also remembers
 	 * the old action for future restoration.
-	 * @param	newAppearance		The new appearance for the actor
+	 * @param	animFromMDO2		The new appearance for the actor
 	 */
-	protected void setAppearance(FourDir newAppearance) {
-		if (actor.getAnimation() != newAppearance) {
+	protected void setAppearance(FacesAnimation animFromMDO2) {
+		if (actor.getAppearance() != animFromMDO2) {
 			saveAppearance();
-			actor.setAnimation(newAppearance);
-			this.newAppearance = newAppearance;
+			actor.setAppearance(animFromMDO2);
+			this.newAppearance = animFromMDO2;
 			this.newAppearance.startMoving();
 		}
 	}
@@ -114,9 +115,9 @@ public abstract class MovesetAct implements Actionable, Queueable {
 	 * means if the animation is the animation that was set by this move.
 	 */
 	protected void restoreAppearance() {
-		if (actor.getAnimation() == newAppearance) {
+		if (actor.getAppearance() == newAppearance) {
 			// we were the ones to set this
-			actor.setAnimation(oldAppearance);
+			actor.setAppearance(oldAppearance);
 		}
 	}
 

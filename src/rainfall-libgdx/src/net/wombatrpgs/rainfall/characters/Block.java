@@ -9,7 +9,7 @@ package net.wombatrpgs.rainfall.characters;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.graphics.DirAnim;
+import net.wombatrpgs.rainfall.graphics.AnimationStrip;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfallschema.hero.moveset.SummonMDO;
 import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
@@ -20,7 +20,7 @@ import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
 public class Block extends CharacterEvent {
 	
 	protected SummonMDO mdo;
-	protected DirAnim anim;
+	protected AnimationStrip anim;
 	protected boolean moving;
 	
 	/**

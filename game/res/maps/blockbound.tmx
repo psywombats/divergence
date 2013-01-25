@@ -85,39 +85,14 @@
   <properties>
    <property name="z" value="0"/>
   <property name="layer" value="3"/></properties>
-  <object height="32" name="Waldy" type="event" width="32" x="352" y="288">
-   <properties>
-    <property name="key" value="waldsworth_event"/>
-   </properties>
-  </object>
-  <object height="32" name="Waldy" type="event" width="32" x="288" y="288">
-   <properties>
-    <property name="key" value="waldsworth_event"/>
-   </properties>
-  </object>
   <object height="32" name="Hero" type="event" width="32" x="224" y="288">
    <properties>
     <property name="key" value="hero_event"/>
    </properties>
   </object>
-  <object height="32" name="Waldy" type="event" width="32" x="160" y="288">
+  <object height="32" name="Widget" type="event" width="32" x="320" y="320">
    <properties>
-    <property name="key" value="waldsworth_event"/>
-   </properties>
-  </object>
-  <object height="32" name="Waldy" type="event" width="32" x="416" y="320">
-   <properties>
-    <property name="key" value="waldsworth_event"/>
-   </properties>
-  </object>
-  <object height="32" name="Waldy" type="event" width="32" x="544" y="320">
-   <properties>
-    <property name="key" value="waldsworth_event"/>
-   </properties>
-  </object>
-  <object height="32" name="Waldy" type="event" width="32" x="64" y="256">
-   <properties>
-    <property name="key" value="waldsworth_event"/>
+    <property name="key" value="enemy_widget"/>
    </properties>
   </object>
   <object height="32" name="tele" type="teleport" width="32" x="608" y="192">
