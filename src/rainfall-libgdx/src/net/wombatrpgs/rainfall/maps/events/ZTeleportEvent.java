@@ -13,7 +13,7 @@ import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.RectHitbox;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
-import net.wombatrpgs.rainfall.maps.layers.ObjectLayer;
+import net.wombatrpgs.rainfall.maps.layers.EventLayer;
 
 /**
  * A teleport from one z-layer of a map to another. Mappers place these things
@@ -32,7 +32,7 @@ public class ZTeleportEvent extends MapEvent {
 	 * @param	lowerIndex		The lower z-index of this pair of events
 	 */
 	protected ZTeleportEvent(Level parent, TiledObject object, int lowerIndex) {
-		super(parent, object);
+		super(parent, object, false, true);
 		int h = -object.height;
 		this.box = new RectHitbox(this, 0, h, object.width, 0);
 	}
@@ -64,15 +64,18 @@ public class ZTeleportEvent extends MapEvent {
 			other.setY(other.getY()-1);
 			System.out.println("Teled to bottom");
 		}
-		parent.changeZ(other, newZ);
+		if (MapEvent.class.isAssignableFrom(other.getClass())) {
+			// TODO: change this ugly instanceof equiv!
+			parent.changeZ((MapEvent) other, newZ);
+		}
 	}
 	
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.MapObject#onAdd
-	 * (net.wombatrpgs.rainfall.maps.layers.ObjectLayer)
+	 * (net.wombatrpgs.rainfall.maps.layers.EventLayer)
 	 */
 	@Override
-	public void onAdd(ObjectLayer layer) {
+	public void onAdd(EventLayer layer) {
 		super.onAdd(layer);
 		layer.setPassable(
 				(int) Math.round(x/parent.getTileWidth()), 

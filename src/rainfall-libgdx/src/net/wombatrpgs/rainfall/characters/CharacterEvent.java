@@ -45,7 +45,7 @@ public class CharacterEvent extends MapEvent {
 	 * @param 	y		The y-coord of the event (in pixels)
 	 */
 	public CharacterEvent(CharacterEventMDO mdo, Level parent, float x, float y) {
-		super(parent, x, y);
+		super(parent, x, y, true, true);
 		init(mdo);
 	}
 	

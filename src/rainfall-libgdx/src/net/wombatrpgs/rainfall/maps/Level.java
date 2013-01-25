@@ -30,7 +30,7 @@ import net.wombatrpgs.rainfall.maps.events.EventFactory;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.maps.layers.GridLayer;
 import net.wombatrpgs.rainfall.maps.layers.Layer;
-import net.wombatrpgs.rainfall.maps.layers.ObjectLayer;
+import net.wombatrpgs.rainfall.maps.layers.EventLayer;
 import net.wombatrpgs.rainfallschema.maps.MapMDO;
 
 /**
@@ -49,11 +49,12 @@ public class Level implements Renderable {
 	protected TileMapRenderer renderer;
 	protected TiledMap map;
 	protected SpriteBatch batch;
-	protected List<Layer> layers; // all object and tile layers in order
-	protected List<ObjectLayer> objectLayers;
-	protected List<GridLayer> tileLayers;
-	protected Map<MapObject, Integer> layerMap; // each object's later
 	protected String mapName;
+	protected List<Layer> layers; // all object and tile layers in order
+	protected List<EventLayer> eventLayers;
+	protected List<GridLayer> tileLayers;
+	protected Map<MapEvent, Integer> layerMap; // each object's later
+	protected List<MapEvent> registeredEvents;
 	
 	/**
 	 * Generates a level from the supplied level data.
@@ -62,6 +63,7 @@ public class Level implements Renderable {
 	public Level(MapMDO mdo) {
 		mapName = RGlobal.MAPS_DIR + mdo.map;
 		batch = new SpriteBatch();
+		registeredEvents = new ArrayList<MapEvent>();
 	}
 	
 	/** @return The batch used to render sprites on this map */
@@ -95,7 +97,7 @@ public class Level implements Renderable {
 	public List<GridLayer> getGridLayers() { return tileLayers; }
 	
 	/** @return All object layers on this map */
-	public List<ObjectLayer> getObjectLayers() { return objectLayers; }
+	public List<EventLayer> getObjectLayers() { return eventLayers; }
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render(
@@ -106,6 +108,12 @@ public class Level implements Renderable {
 		if (RGlobal.assetManager.isLoaded(mapName)) {
 			for (Renderable layer : layers) {
 				layer.render(camera);
+			}
+			for (MapEvent event : registeredEvents) {
+				if (event.isCollisionEnabled()) {
+					applyPhysicalCorrections(event);
+					detectCollisions(event);
+				}
 			}
 		} else {
 			Global.reporter.warn("Map assets not loaded for " + mapName);
@@ -133,9 +141,9 @@ public class Level implements Renderable {
 		renderer = RGlobal.assetManager.get(mapName, TileMapRenderer.class);
 		map = renderer.getMap();
 		layers = new ArrayList<Layer>();
-		objectLayers = new ArrayList<ObjectLayer>();
+		eventLayers = new ArrayList<EventLayer>();
 		tileLayers = new ArrayList<GridLayer>();
-		layerMap = new HashMap<MapObject, Integer>();
+		layerMap = new HashMap<MapEvent, Integer>();
 		
 		// each object group represents a new layer
 		for (int layerIndex = 0; layerIndex <= map.objectGroups.size(); layerIndex++) {
@@ -146,7 +154,7 @@ public class Level implements Renderable {
 			} else {
 				group = new TiledObjectGroup();
 			}
-			objectLayers.add(layerIndex, new ObjectLayer(this, group));
+			eventLayers.add(layerIndex, new EventLayer(this, group));
 		}
 		
 		for (int layerIndex = 0; layerIndex < map.objectGroups.size(); layerIndex++) {
@@ -174,7 +182,7 @@ public class Level implements Renderable {
 				layers.add(tileLayers.get(atTile));
 				atTile++;
 			} else {
-				layers.add(objectLayers.get(atObject));
+				layers.add(eventLayers.get(atObject));
 				atObject++;
 			}
 			added++;
@@ -204,19 +212,31 @@ public class Level implements Renderable {
 	
 	/**
 	 * Adjusts an event on the level based on its collisions. This usually
-	 * involves moving it out of said collisions.
-	 * @param event
+	 * involves moving it out of said collisions. This only works on terrain
+	 * and is applying automatically to mobile events in the level.
+	 * @param 	event			The mobile event being pushed around
 	 */
 	public void applyPhysicalCorrections(MapEvent event) {
-		if (!layerMap.containsKey(event)) {
-			Global.reporter.warn("Event not in layer index: " + event);
-			return;
-		}
 		int layerIndex = layerMap.get(event);
-		int activeZ = (int) Math.floor(objectLayers.get(layerIndex).getZ());
-		for (int i = 0; i < layers.size(); i++) {
-			if (activeZ == Math.floor(layers.get(i).getZ())) {
-				layers.get(i).applyPhysicalCorrections(event);
+		int activeZ = (int) Math.floor(eventLayers.get(layerIndex).getZ());
+		for (int i = 0; i < tileLayers.size(); i++) {
+			if (activeZ == Math.floor(tileLayers.get(i).getZ())) {
+				tileLayers.get(i).applyPhysicalCorrections(event);
+			}
+		}
+	}
+	
+	/**
+	 * Performs all collision detection between events, including collision
+	 * response and other things that happen when they collide
+	 * @param 	event			The event starring in the collisions
+	 */
+	public void detectCollisions(MapEvent event) {
+		int layerIndex = layerMap.get(event);
+		int activeZ = (int) Math.floor(eventLayers.get(layerIndex).getZ());
+		for (int i = 0; i < eventLayers.size(); i++) {
+			if (activeZ == Math.floor(eventLayers.get(i).getZ())) {
+				eventLayers.get(i).detectCollisions(event);
 			}
 		}
 	}
@@ -255,17 +275,18 @@ public class Level implements Renderable {
 	}
 	
 	/**
-	 * Removes a map object from this map. The object is assumed not to be the
-	 * hero. Control remains on this map.
-	 * @param 	toRemove		The map object to remove
+	 * Removes an event from this map. The object is assumed not to be the hero.
+	 * Control remains on this map.
+	 * @param 	toRemove		The map event to remove
 	 */
-	public void teleportOff(MapObject toRemove) {
-		for (ObjectLayer layer : objectLayers) {
+	public void teleportOff(MapEvent toRemove) {
+		for (EventLayer layer : eventLayers) {
 			if (layer.contains(toRemove)) {
 				layer.remove(toRemove);
 			}
 		}
 		layerMap.remove(toRemove);
+		toRemove.onTeleOff(this);
 	}
 	
 	/**
@@ -283,44 +304,66 @@ public class Level implements Renderable {
 	/**
 	 * Welcomes a new event to this map. Does not transfer level control. Event
 	 * is assumed to not be the hero. Z is set to 0.
-	 * @param 	newObject		The object to teleport in
+	 * @param 	newEvent		The event to teleport in
 	 * @param 	tileX			The initial x-coord (in tiles) of this object
 	 * @param 	tileY			The initial y-coord (in tiles) of this object
 	 * @param	z				The z-depth of the object (layer index)
 	 */
-	public void teleportOn(MapObject newObject, int tileX, int tileY, int z) {
-		newObject.parent = this;
-		newObject.setX(tileX * map.tileWidth);
-		newObject.setY(tileY * map.tileHeight);
-		objectLayers.get(z).add(newObject);
-		layerMap.put(newObject, z);
+	public void teleportOn(MapEvent newEvent, int tileX, int tileY, int z) {
+		newEvent.setX(tileX * map.tileWidth);
+		newEvent.setY(tileY * map.tileHeight);
+		eventLayers.get(z).add(newEvent);
+		layerMap.put(newEvent, z);
+		newEvent.onTeleOn(this);
 	}
 	
 	/**
 	 * Welcomes a new event to this map. Does not transfer level control. Event
 	 * is assumed to not be the hero. Z is set to 0.
-	 * @param 	newObject		The object to teleport in
+	 * @param 	newEvent		The object to teleport in
 	 * @param 	tileX			The initial x-coord (in tiles) of this object
 	 * @param 	tileY			The initial y-coord (in tiles) of this object
 	 */
-	public void teleportOn(MapObject newObject, int tileX, int tileY) {
-		teleportOn(newObject, tileX, tileY, 0);
+	public void teleportOn(MapEvent newEvent, int tileX, int tileY) {
+		teleportOn(newEvent, tileX, tileY, 0);
+	}
+	
+	/**
+	 * Registers an event on this map so it can be used for things like
+	 * collision detection.
+	 * @param 	event			The event being registered
+	 */
+	public void registerEvent(MapEvent event) {
+		registeredEvents.add(event);
+	}
+	
+	/**
+	 * Unregisters an event from this map so that it is no longer checked in the
+	 * collision detection phase.
+	 * @param 	event			The event being unregistered
+	 */
+	public void unregisterEvent(MapEvent event) {
+		if (registeredEvents.contains(event)) {
+			registeredEvents.remove(event);
+		} else {
+			RGlobal.reporter.warn("Tried to unregister a non-event: " + event);
+		}
 	}
 	
 	/**
 	 * Changes an object's z-coordinate on the map. Z-coordinate is handled by
 	 * map layer and must be changed here.
-	 * @param 	object			The object to change z
+	 * @param 	event			The object to change z
 	 * @param 	newZ			The index of the layer to put it on
 	 */
-	public void changeZ(MapObject object, int newZ) {
-		for (ObjectLayer layer : objectLayers) {
-			if (layer.contains(object)) {
-				layer.remove(object);
+	public void changeZ(MapEvent event, int newZ) {
+		for (EventLayer layer : eventLayers) {
+			if (layer.contains(event)) {
+				layer.remove(event);
 			}
 		}
-		objectLayers.get(newZ).add(object);
-		layerMap.put(object, newZ);
+		eventLayers.get(newZ).add(event);
+		layerMap.put(event, newZ);
 	}
 	
 	/**
@@ -342,7 +385,7 @@ public class Level implements Renderable {
 	 */
 	public void addEvent(MapEvent newEvent, int layerIndex) {
 		layerMap.put(newEvent, layerIndex);
-		objectLayers.get(layerIndex).add(newEvent);
+		eventLayers.get(layerIndex).add(newEvent);
 	}
 
 }

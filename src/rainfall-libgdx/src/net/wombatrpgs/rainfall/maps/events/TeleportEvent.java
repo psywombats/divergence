@@ -39,7 +39,7 @@ public class TeleportEvent extends MapEvent {
 	 * @param 	object		The object to infer coords from
 	 */
 	protected TeleportEvent(Level parent, TiledObject object) {
-		super(parent, object);
+		super(parent, object, false, true);
 		TiledMap map = parent.getMap();
 		box = new RectHitbox(this, 0, -map.tileHeight, map.tileWidth, 0);
 		

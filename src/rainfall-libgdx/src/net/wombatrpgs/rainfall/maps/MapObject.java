@@ -15,7 +15,7 @@ import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Renderable;
-import net.wombatrpgs.rainfall.maps.layers.ObjectLayer;
+import net.wombatrpgs.rainfall.maps.layers.EventLayer;
 
 /**
  * All objects that appear in Tiled maps that are not tiles extend this class.
@@ -166,8 +166,24 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	 * Called when this object is added to an object layer. Nothing by default.
 	 * @param 	layer			The layer this object is being added to
 	 */
-	public void onAdd(ObjectLayer layer) {
+	public void onAdd(EventLayer layer) {
 		// nothing by default
+	}
+	
+	/**
+	 * Called when this object is tele'd onto a map.
+	 * @param 	map				The map this object is being removed from
+	 */
+	public void onTeleOn(Level map) {
+		this.parent = map;
+	}
+	
+	/**
+	 * Called when this object is tele'd or otherwise removed from a map.
+	 * @param 	map				The map this object is being removed from
+	 */
+	public void onTeleOff(Level map) {
+		this.parent = null;
 	}
 
 }

@@ -22,14 +22,21 @@ import net.wombatrpgs.rainfall.maps.MapObject;
  */
 public abstract class MapEvent extends MapObject {
 	
+	protected boolean mobile;
+	protected boolean checkCollisions;
+	
 	/**
 	 * Creates a new map event for the level at the specified coords.
-	 * @param 	parent		The parent level of the event
-	 * @param 	x			The x-coord to start at (in pixels)
-	 * @param 	y			The y-coord to start at (in pixels);
+	 * @param 	parent			The parent level of the event
+	 * @param 	x				The x-coord to start at (in pixels)
+	 * @param 	y				The y-coord to start at (in pixels);
+	 * @param	mobile			True if this object will be moving, else false
+	 * @param	checkCollisions	True if collision detection should be enabled
 	 */
-	public MapEvent(Level parent, float x, float y) {
+	public MapEvent(Level parent, float x, float y, boolean mobile, boolean checkCollisions) {
 		super(parent, x, y);
+		this.mobile = mobile;
+		this.checkCollisions = checkCollisions;
 	}
 
 	/**
@@ -54,10 +61,12 @@ public abstract class MapEvent extends MapObject {
 	 * @param 	parent		The parent levelt to make teleport for
 	 * @param 	object		The object to infer coords from
 	 */
-	protected MapEvent(Level parent, TiledObject object) {
+	protected MapEvent(Level parent, TiledObject object, boolean mobile, boolean checkCollisions) {
 		this(	parent, 
 				object.x, 
-				parent.getMap().height*parent.getMap().tileHeight-object.y);
+				parent.getMap().height*parent.getMap().tileHeight-object.y,
+				mobile,
+				checkCollisions);
 	}
 
 	/**
@@ -69,6 +78,14 @@ public abstract class MapEvent extends MapObject {
 		return NoHitbox.getInstance();
 	}
 	
+	/** @return True if this event moves, false otherwise */
+	public boolean isMobile() { return mobile; }
+	
+	/** @return True if collisions should be checked on this event */
+	public boolean isCollisionEnabled() { return checkCollisions; }
+	
+	/** @param enabled True if collisions should be checked on this event */
+	public void setCollisionsEnabled(boolean enabled) { this.checkCollisions = enabled; }
 	
 	/**
 	 * Default is invisible.
@@ -113,6 +130,24 @@ public abstract class MapEvent extends MapObject {
 		return true;
 	}
 	
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#onTeleOn(net.wombatrpgs.rainfall.maps.Level)
+	 */
+	@Override
+	public void onTeleOn(Level map) {
+		super.onTeleOn(map);
+		map.registerEvent(this);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#onTeleOff(net.wombatrpgs.rainfall.maps.Level)
+	 */
+	@Override
+	public void onTeleOff(Level map) {
+		super.onTeleOff(map);
+		map.unregisterEvent(this);
+	}
+
 	/**
 	 * Moves objects out of collision with each other. Usually call this from
 	 * onCollide, as a collision result is needed.
