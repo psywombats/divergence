@@ -115,8 +115,7 @@ public abstract class MovesetAct implements Actionable, Queueable {
 	 * means if the animation is the animation that was set by this move.
 	 */
 	protected void restoreAppearance() {
-		if (actor.getAppearance() == newAppearance) {
-			// we were the ones to set this
+		if (newAppearance == RGlobal.hero.getAppearance()) {
 			actor.setAppearance(oldAppearance);
 		}
 	}

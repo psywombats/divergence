@@ -17,6 +17,7 @@ import net.wombatrpgs.rainfallschema.hero.moveset.PushMDO;
 public class ActPush extends MovesetAct {
 	
 	protected PushMDO mdo;
+	protected boolean keyDown;
 	protected boolean active;
 
 	/**
@@ -27,6 +28,7 @@ public class ActPush extends MovesetAct {
 	public ActPush(CharacterEvent actor, PushMDO mdo) {
 		super(actor, mdo);
 		this.mdo = mdo;
+		this.keyDown = false;
 		this.active = false;
 	}
 	
@@ -40,7 +42,11 @@ public class ActPush extends MovesetAct {
 		if (RGlobal.block.getLevel() != RGlobal.hero.getLevel()) return;
 		int compX = 0;
 		int compY = 0;
-		if (!active) {
+		if (!keyDown) {
+			keyDown = true;
+			if (RGlobal.hero.isActing()) return;
+			active = true;
+			RGlobal.hero.setActing(true);
 			animFromMDO.reset();
 			int dx = RGlobal.hero.getX() - RGlobal.block.getX();
 			int dy = RGlobal.hero.getY() - RGlobal.block.getY();
@@ -57,11 +63,13 @@ public class ActPush extends MovesetAct {
 			RGlobal.hero.halt();
 			RGlobal.hero.getAppearance().startMoving();
 		} else {
+			keyDown = false;
+			if (!active) return;
 			restoreAppearance();
+			RGlobal.hero.setActing(false);
 		}
 		RGlobal.block.setVelocity(compX, compY);
-		active = !active;
-		RGlobal.block.setMoving(active);
+		RGlobal.block.setMoving(keyDown);
 	}
 
 }

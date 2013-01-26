@@ -74,13 +74,13 @@ public class Block extends CharacterEvent {
 	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#onCollide
 	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.collisions.CollisionResult)
 	 */
-//	@Override
-//	public void onCollide(MapObject other, CollisionResult result) {
-//		if (other == RGlobal.hero) {
-//			RGlobal.hero.onCollide(this, result);
-//		} else {
-//			super.onCollide(other, result);
-//		}
-//	}
+	@Override
+	public boolean onCollide(MapObject other, CollisionResult result) {
+		if (other == RGlobal.hero) {
+			return true;
+		} else {
+			return super.onCollide(other, result);
+		}
+	}
 	
 }
