@@ -197,7 +197,15 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public boolean onCollide(MapObject other, CollisionResult result) {
-		// check for bounces and stuns
+		return other.onCharacterCollide(this, result);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#onCharacterCollide
+	 * (net.wombatrpgs.rainfall.characters.CharacterEvent, net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 */
+	@Override
+	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
 		return false;
 	}
 

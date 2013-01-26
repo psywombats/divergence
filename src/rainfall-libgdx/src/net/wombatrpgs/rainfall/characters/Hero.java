@@ -74,6 +74,17 @@ public class Hero extends CharacterEvent {
 	}
 
 	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#onCharacterCollide(
+	 * net.wombatrpgs.rainfall.characters.CharacterEvent, 
+	 * net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 */
+	@Override
+	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
+		System.out.println("I mean business");
+		return super.onCharacterCollide(other, result);
+	}
+
+	/**
 	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#render
 	 * (com.badlogic.gdx.graphics.OrthographicCamera)
 	 */

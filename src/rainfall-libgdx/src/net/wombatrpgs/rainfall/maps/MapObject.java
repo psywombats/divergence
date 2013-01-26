@@ -125,6 +125,18 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	public abstract boolean onCollide(MapObject other, CollisionResult result);
 	
 	/**
+	 * A double-dispatch method for characters when they collide with one
+	 * another.
+	 * @param 	other		The other object-character in the collision
+	 * @param 	result		Info about the collision
+	 * @return				True if collision is "consumed" without response,
+	 * 						false if collision response should be applied
+	 */
+	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
+		return false;
+	}
+	
+	/**
 	 * Determine whether overlapping with this object in general is allowed.
 	 * This is sort of a physicsy thing. Allowing it implies no physical presence
 	 * on the map, even if this object has a hitbox. Disallowing it is usually a
