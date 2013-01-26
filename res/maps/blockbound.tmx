@@ -66,7 +66,25 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tile Layer 1" width="20" height="15">
+ <tileset firstgid="63" name="wood" tilewidth="32" tileheight="32">
+  <image source="tilesets/wood2.PNG" trans="8080ff" width="320" height="224"/>
+  <tile id="60">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="61">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="62">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1" width="20" height="15" visible="0">
   <properties>
    <property name="z" value="0"/>
   </properties>
@@ -74,7 +92,7 @@
    eJwTYWBgEKEBRgaD1TxuNPNkgFiOTPNkoOYRq1+aDDsYgZgJiJlxmIdupiwB89iBmAOIOdHMQMcgOWEoxmceLxDzATE/ldxH7fAbiRgEjBgQYLCZRyoGAIpUFp8=
   </data>
  </layer>
- <layer name="Tile Layer 2" width="20" height="15">
+ <layer name="Tile Layer 2" width="20" height="15" visible="0">
   <properties>
    <property name="z" value=".5"/>
   </properties>
@@ -82,7 +100,7 @@
    eJxjYBg+QHugHTAEwWiYDSwYDX/SAABSqwCC
   </data>
  </layer>
- <objectgroup name="Object Layer 1" width="20" height="15">
+ <objectgroup name="Object Layer 1" width="20" height="15" visible="0">
   <properties>
    <property name="ogga" value="ALPHONSEO"/>
    <property name="z" value=".5"/>
@@ -111,10 +129,10 @@
    <property name="z" value="1"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYKANYAFiViBmo5J5XEDMDcWiaJgcIAClhSh32igYBaOATgAAkMYApg==
+   eJxjYKANsAdiByB2pJJ5nkDshQOTA6qhdC3lThsFo2AU0AkAAOayA74=
   </data>
  </layer>
- <layer name="Tile Layer 4" width="20" height="15">
+ <layer name="Tile Layer 4" width="20" height="15" visible="0">
   <properties>
    <property name="z" value="1.5"/>
   </properties>
@@ -122,7 +140,7 @@
    eJxjYBg4oDyAdg9VMBpmAwtGw39gAQA1WwBq
   </data>
  </layer>
- <objectgroup name="Object Layer 2" width="20" height="15">
+ <objectgroup name="Object Layer 2" width="20" height="15" visible="0">
   <properties>
    <property name="z" value="1.5"/>
   </properties>
