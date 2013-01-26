@@ -117,8 +117,8 @@ public abstract class MapEvent extends MapObject {
 	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.collisions.CollisionResult)
 	 */
 	@Override
-	public void onCollide(MapObject other, CollisionResult result) { 
-		
+	public boolean onCollide(MapObject other, CollisionResult result) { 
+		return false;
 	}
 
 	/**
@@ -128,39 +128,6 @@ public abstract class MapEvent extends MapObject {
 	@Override
 	public boolean isOverlappingAllowed() {
 		return true;
-	}
-	
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#onTeleOn(net.wombatrpgs.rainfall.maps.Level)
-	 */
-	@Override
-	public void onTeleOn(Level map) {
-		super.onTeleOn(map);
-		map.registerEvent(this);
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#onTeleOff(net.wombatrpgs.rainfall.maps.Level)
-	 */
-	@Override
-	public void onTeleOff(Level map) {
-		super.onTeleOff(map);
-		map.unregisterEvent(this);
-	}
-
-	/**
-	 * Moves objects out of collision with each other. Usually call this from
-	 * onCollide, as a collision result is needed.
-	 * @param 	other			The other object to bump
-	 * @param 	result			The result of the two objects' collisions
-	 */
-	protected void applyMTV(MapObject other, CollisionResult result) {
-		if (this.getHitbox() == result.collide2) {
-			result.mtvX *= -1;
-			result.mtvY *= -1;
-		}
-		this.x += result.mtvX;
-		this.y += result.mtvY;
 	}
 
 }

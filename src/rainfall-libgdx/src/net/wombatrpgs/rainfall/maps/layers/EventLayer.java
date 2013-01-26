@@ -32,6 +32,7 @@ public class EventLayer extends Layer implements Renderable {
 	protected boolean passable[][];
 	protected List<MapEvent> objects;
 	protected TiledObjectGroup group;
+	protected float z;
 	
 	/**
 	 * Creates a new object layer with a parent level and no objects.
@@ -47,6 +48,11 @@ public class EventLayer extends Layer implements Renderable {
 			for (int x = 0; x < parent.getWidth(); x++) {
 				passable[y][x] = false;
 			}
+		}
+		if (group.properties.containsKey("z")) {
+			z = Float.valueOf(group.properties.get("z"));
+		} else {
+			Global.reporter.warn("Group with no z-value on " + parent);
 		}
 	}
 
@@ -160,12 +166,7 @@ public class EventLayer extends Layer implements Renderable {
 	 */
 	@Override
 	public float getZ() {
-		if (group.properties.containsKey("z")) {
-			return Float.valueOf(group.properties.get("z"));
-		} else {
-			Global.reporter.warn("Group with no z-value on " + parent);
-			return 0;
-		}
+		return z;
 	}
 	
 	/**
@@ -192,14 +193,20 @@ public class EventLayer extends Layer implements Renderable {
 	 * @param	event			The event to run the checks for
 	 */
 	public void detectCollisions(MapEvent event) {
-		if (!event.isMobile()) return;
+		// TODO: optimize these loops
+		//if (!event.isMobile()) return;
 		for (int i = 0; i < objects.size(); i++) {
 			MapEvent other = objects.get(i);
 			if (other != event) {
 				CollisionResult result = event.getHitbox().isColliding(other.getHitbox());
 				if (result.isColliding) {
-					event.onCollide(other, result);
-					if (!other.isMobile()) other.onCollide(event, result);
+					boolean res1 = event.onCollide(other, result);
+					boolean res2 = other.onCollide(event, result);
+					if (!event.isOverlappingAllowed() && 
+						! other.isOverlappingAllowed() &&
+						!res1 && !res2) {
+						event.resolveCollision(other, result);
+					}
 					break;
 				}
 			}

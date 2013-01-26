@@ -51,15 +51,15 @@ public class ZTeleportEvent extends MapEvent {
 	 * net.wombatrpgs.rainfall.collisions.CollisionResult)
 	 */
 	@Override
-	public void onCollide(MapObject other, CollisionResult result) {
+	public boolean onCollide(MapObject other, CollisionResult result) {
 		int newZ;
 		if (parent.getZ(this) == lowerIndex) {
-			if (below(other)) return;
+			if (below(other)) return true;
 			newZ = lowerIndex + 1;
 			other.setY(other.getY()+1);
 			System.out.println("Teled to top");
 		} else {
-			if (above(other)) return;
+			if (above(other)) return true;
 			newZ = lowerIndex;
 			other.setY(other.getY()-1);
 			System.out.println("Teled to bottom");
@@ -68,6 +68,7 @@ public class ZTeleportEvent extends MapEvent {
 			// TODO: change this ugly instanceof equiv!
 			parent.changeZ((MapEvent) other, newZ);
 		}
+		return true;
 	}
 	
 	/**

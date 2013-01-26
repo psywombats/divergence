@@ -48,32 +48,20 @@ public class Hero extends CharacterEvent {
 	 * @see net.wombatrpgs.rainfall.maps.MapObject#onCollide
 	 * (net.wombatrpgs.rainfall.collisions.CollisionResult)
 	 */
-	@Override
-	public void onCollide(MapObject other, CollisionResult result) {
-		if (other.isOverlappingAllowed()) return;
-		float move1, move2;
-		if (other == RGlobal.block) {
-			if (RGlobal.block.isMoving()) {
-				move1 = 0;
-				move2 = 1;				
-			} else {
-				move1 = 1;
-				move2 = 0;				
-			}
-
-		} else {
-			move1 = .5f;
-			move2 = .5f;
-		}
-		if (result.collide1 == other.getHitbox()) {
-			result.mtvX *= -1;
-			result.mtvY *= -1;
-		}
-		this.setX((int) (this.getX() + move1 * result.mtvX));
-		this.setY((int) (this.getY() + move1 * result.mtvY));
-		other.setX((int) (other.getX() + move2 * -result.mtvX));
-		other.setY((int) (other.getY() + move2 * -result.mtvY));
-	}
+//	@Override
+//	public void onCollide(MapObject other, CollisionResult result) {
+//		if (other == RGlobal.block) {
+//			float ratio;
+//			if (RGlobal.block.isMoving()) {
+//				ratio = 0f;
+//			} else {
+//				ratio = 1f;
+//			}
+//			applyMTV(other, result, ratio);
+//		} else {
+//			super.onCollide(other, result);
+//		}
+//	}
 
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#render

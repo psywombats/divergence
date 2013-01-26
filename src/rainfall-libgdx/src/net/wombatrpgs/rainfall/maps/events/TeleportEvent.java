@@ -63,13 +63,14 @@ public class TeleportEvent extends MapEvent {
 	 * net.wombatrpgs.rainfall.collisions.CollisionResult)
 	 */
 	@Override
-	public void onCollide(MapObject other, CollisionResult result) {
-		if (other != RGlobal.hero) return; 
+	public boolean onCollide(MapObject other, CollisionResult result) {
+		if (other != RGlobal.hero) return true; 
 		super.onCollide(other, result);
 		int z = parent.getZ(other);
 		parent.teleportOff();
 		Level map = RGlobal.levelManager.getLevel(mapID);
 		map.teleportOn(targetX, map.getHeight() - targetY - 1, z);
+		return true;
 	}
 	
 }

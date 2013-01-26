@@ -9,8 +9,9 @@ package net.wombatrpgs.rainfallschema.maps.data;
 /**
  * What happens when the hero runs into this enemy?
  */
-public enum CollisionResultType {
+public enum CollisionResponseType {
 	
+	ETHEREAL,
 	IMMOBILE,
 	PUSHABLE,
 	STUN,

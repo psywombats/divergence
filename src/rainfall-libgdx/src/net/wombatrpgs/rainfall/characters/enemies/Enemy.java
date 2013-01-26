@@ -29,5 +29,5 @@ public class Enemy extends CharacterEvent {
 		super(mdo, parent, x, y);
 		this.mdo = mdo;
 	}
-
+	
 }

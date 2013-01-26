@@ -4,5 +4,6 @@
 	"name" : "",
 	"description" : "",
 	"appearance" : "waldsworth_blockbound_4dir",
-	"collision" : "ANIMATION_SPECIFIC_RECTANGLE"
+	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
+	"response" : "IMMOBILE"
 }

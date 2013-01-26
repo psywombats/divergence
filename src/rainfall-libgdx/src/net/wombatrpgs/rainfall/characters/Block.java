@@ -8,9 +8,11 @@ package net.wombatrpgs.rainfall.characters;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
+import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.AnimationStrip;
 import net.wombatrpgs.rainfall.maps.Level;
+import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfallschema.hero.moveset.SummonMDO;
 import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
 
@@ -67,5 +69,18 @@ public class Block extends CharacterEvent {
 			RGlobal.hero.faceToward(this);
 		}
 	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#onCollide
+	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 */
+//	@Override
+//	public void onCollide(MapObject other, CollisionResult result) {
+//		if (other == RGlobal.hero) {
+//			RGlobal.hero.onCollide(this, result);
+//		} else {
+//			super.onCollide(other, result);
+//		}
+//	}
 	
 }

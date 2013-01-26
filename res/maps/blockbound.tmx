@@ -84,7 +84,8 @@
  </layer>
  <objectgroup name="Object Layer 1" width="20" height="15">
   <properties>
-   <property name="z" value="0"/>
+   <property name="ogga" value="ALPHONSEO"/>
+   <property name="z" value=".5"/>
   </properties>
   <object name="Hero" type="event" x="224" y="288" width="32" height="32">
    <properties>

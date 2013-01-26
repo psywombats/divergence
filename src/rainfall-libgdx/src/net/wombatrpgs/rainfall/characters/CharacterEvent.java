@@ -13,6 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.mgne.global.Global;
+import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.NoHitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
@@ -25,6 +26,7 @@ import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.graphics.DirMDO;
 import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
+import net.wombatrpgs.rainfallschema.maps.data.CollisionResponseType;
 import net.wombatrpgs.rainfallschema.settings.GameSpeedMDO;
 
 /**
@@ -176,10 +178,29 @@ public class CharacterEvent extends MapEvent {
 		}
 	}
 
-	/** @see net.wombatrpgs.rainfall.maps.MapObject#isOverlappingAllowed() */
+	/** 
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#isOverlappingAllowed()
+	 **/
 	@Override
-	public boolean isOverlappingAllowed() { return false; }
+	public boolean isOverlappingAllowed() { 
+		switch (mdo.response) {
+		case ETHEREAL:
+			return true;
+		default:
+			return false;
+		}
+	}
 	
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#onCollide
+	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 */
+	@Override
+	public boolean onCollide(MapObject other, CollisionResult result) {
+		// check for bounces and stuns
+		return false;
+	}
+
 	/**
 	 * Makes this event face towards an object on the map.
 	 * @param 	object		The object to face
@@ -241,6 +262,44 @@ public class CharacterEvent extends MapEvent {
 		}
 	}
 	
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#resolveCollision
+	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 */
+	@Override
+	public void resolveCollision(MapObject other, CollisionResult result) {
+		other.resolveCharacterCollision(this, result);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#resolveCharacterCollision
+	 * (net.wombatrpgs.rainfall.characters.CharacterEvent, net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 */
+	@Override
+	public void resolveCharacterCollision(CharacterEvent other, CollisionResult result) {
+		if (other.mdo.response == CollisionResponseType.IMMOBILE &&
+			this.mdo.response == CollisionResponseType.IMMOBILE) {
+			RGlobal.reporter.warn("Two immobile objects collided? wtf?");
+			applyMTV(other, result, 1f);
+			return;
+		}
+		if (other.mdo.response == CollisionResponseType.IMMOBILE) {
+			applyMTV(other, result, 1f);
+		}
+		if (this.mdo.response == CollisionResponseType.IMMOBILE) {
+			applyMTV(other, result, 0f);
+		}
+		if (other.mdo.response == CollisionResponseType.PUSHABLE &&
+				this.mdo.response == CollisionResponseType.PUSHABLE) {
+				RGlobal.reporter.warn("Two immobile objects collided? wtf?");
+				applyMTV(other, result, .5f);
+		} else if (other.mdo.response == CollisionResponseType.PUSHABLE) {
+			applyMTV(other, result, 0f);
+		} else if (this.mdo.response == CollisionResponseType.PUSHABLE) {
+			applyMTV(other, result, 1f);
+		}
+	}
+
 	/**
 	 * The character starts moving in the specified direction. Uses its built-in
 	 * speed. (but right now it just takes it from the speed mdo)

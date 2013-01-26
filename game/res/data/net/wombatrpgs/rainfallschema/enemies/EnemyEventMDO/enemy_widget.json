@@ -4,5 +4,6 @@
 	"name" : "",
 	"description" : "",
 	"appearance" : "widget_2dir",
-	"collision" : "NONE"
+	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
+	"response" : "IMMOBILE"
 }

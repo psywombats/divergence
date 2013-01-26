@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
@@ -78,11 +79,11 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	@Override
 	public SpriteBatch getBatch() { return parent.getBatch(); }
 	
-	/** @param x The offset to add to x */
-	public void moveX(int x) { this.x += x; }
+	/** @param f The offset to add to x */
+	public void moveX(float f) { this.x += f; }
 	
 	/** @param y The offset to add to x */
-	public void moveY(int y) { this.y += y; }
+	public void moveY(float y) { this.y += y; }
 	
 	/** @return The map the hero is currently on */
 	public Level getLevel() { return parent; }
@@ -118,8 +119,10 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	 * double dispatch here really. Maybe.
 	 * @param 	other		The other object involved in the collision
 	 * @param	result		Info about the collision
+	 * @return				True if collision is "consumed" without response,
+	 * 						false if collision response should be applied
 	 */
-	public abstract void onCollide(MapObject other, CollisionResult result);
+	public abstract boolean onCollide(MapObject other, CollisionResult result);
 	
 	/**
 	 * Determine whether overlapping with this object in general is allowed.
@@ -184,6 +187,46 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	 */
 	public void onTeleOff(Level map) {
 		this.parent = null;
+	}
+	
+	/**
+	 * Called once per collision with another object. Move everyone out of
+	 * collision if necessary. Override if you want to do something special
+	 * with this.
+	 * @param 	other			The villain in this little scenario
+	 * @param 	result			The result of colliding us with villain
+	 */
+	public void resolveCollision(MapObject other, CollisionResult result) {
+		// default - just get out of here
+		applyMTV(other, result, 0f);
+	}
+	
+	/**
+	 * A double dispatch to override maybe.
+	 * @param	 other			The character we collided with
+	 * @param 	result			How exactly we collided
+	 */
+	public void resolveCharacterCollision(CharacterEvent other, CollisionResult result) {
+		// default - just get out of here
+		applyMTV(other, result, 0f);
+	}
+	
+	/**
+	 * Moves objects out of collision with each other. Usually call this from
+	 * onCollide, as a collision result is needed.
+	 * @param 	other			The other object to bump
+	 * @param 	result			The result of the two objects' collisions
+	 * @param	ratio			Percent to apply to us, 1 = 100% move us
+	 */
+	protected void applyMTV(MapObject other, CollisionResult result, float ratio) {
+		if (this.getHitbox() == result.collide2) {
+			result.mtvX *= -1;
+			result.mtvY *= -1;
+		}
+		this.moveX(result.mtvX * ratio);
+		this.moveY(result.mtvY * ratio);
+		other.moveX(result.mtvX * -(1f - ratio));
+		other.moveY(result.mtvY * -(1f - ratio));
 	}
 
 }

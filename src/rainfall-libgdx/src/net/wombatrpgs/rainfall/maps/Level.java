@@ -54,7 +54,7 @@ public class Level implements Renderable {
 	protected List<EventLayer> eventLayers;
 	protected List<GridLayer> tileLayers;
 	protected Map<MapEvent, Integer> layerMap; // each object's later
-	protected List<MapEvent> registeredEvents;
+	protected List<MapEvent> events;
 	
 	/**
 	 * Generates a level from the supplied level data.
@@ -63,7 +63,7 @@ public class Level implements Renderable {
 	public Level(MapMDO mdo) {
 		mapName = RGlobal.MAPS_DIR + mdo.map;
 		batch = new SpriteBatch();
-		registeredEvents = new ArrayList<MapEvent>();
+		events = new ArrayList<MapEvent>();
 	}
 	
 	/** @return The batch used to render sprites on this map */
@@ -109,7 +109,7 @@ public class Level implements Renderable {
 			for (Renderable layer : layers) {
 				layer.render(camera);
 			}
-			for (MapEvent event : registeredEvents) {
+			for (MapEvent event : events) {
 				if (event.isCollisionEnabled()) {
 					applyPhysicalCorrections(event);
 					detectCollisions(event);
@@ -153,6 +153,7 @@ public class Level implements Renderable {
 				group = map.objectGroups.get(layerIndex);
 			} else {
 				group = new TiledObjectGroup();
+				group.properties.put("z", String.valueOf((layerIndex+.5)));
 			}
 			eventLayers.add(layerIndex, new EventLayer(this, group));
 		}
@@ -286,6 +287,7 @@ public class Level implements Renderable {
 			}
 		}
 		layerMap.remove(toRemove);
+		events.remove(toRemove);
 		toRemove.onTeleOff(this);
 	}
 	
@@ -312,9 +314,8 @@ public class Level implements Renderable {
 	public void teleportOn(MapEvent newEvent, int tileX, int tileY, int z) {
 		newEvent.setX(tileX * map.tileWidth);
 		newEvent.setY(tileY * map.tileHeight);
-		eventLayers.get(z).add(newEvent);
-		layerMap.put(newEvent, z);
 		newEvent.onTeleOn(this);
+		addEvent(newEvent, z);
 	}
 	
 	/**
@@ -326,28 +327,6 @@ public class Level implements Renderable {
 	 */
 	public void teleportOn(MapEvent newEvent, int tileX, int tileY) {
 		teleportOn(newEvent, tileX, tileY, 0);
-	}
-	
-	/**
-	 * Registers an event on this map so it can be used for things like
-	 * collision detection.
-	 * @param 	event			The event being registered
-	 */
-	public void registerEvent(MapEvent event) {
-		registeredEvents.add(event);
-	}
-	
-	/**
-	 * Unregisters an event from this map so that it is no longer checked in the
-	 * collision detection phase.
-	 * @param 	event			The event being unregistered
-	 */
-	public void unregisterEvent(MapEvent event) {
-		if (registeredEvents.contains(event)) {
-			registeredEvents.remove(event);
-		} else {
-			RGlobal.reporter.warn("Tried to unregister a non-event: " + event);
-		}
 	}
 	
 	/**
@@ -386,6 +365,7 @@ public class Level implements Renderable {
 	public void addEvent(MapEvent newEvent, int layerIndex) {
 		layerMap.put(newEvent, layerIndex);
 		eventLayers.get(layerIndex).add(newEvent);
+		events.add(newEvent);
 	}
 
 }
