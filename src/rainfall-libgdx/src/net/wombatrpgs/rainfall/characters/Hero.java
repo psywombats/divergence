@@ -7,7 +7,6 @@
 package net.wombatrpgs.rainfall.characters;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.core.RGlobal;
@@ -82,16 +81,6 @@ public class Hero extends CharacterEvent {
 	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
 		System.out.println("I mean business");
 		return super.onCharacterCollide(other, result);
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
-	 */
-	@Override
-	public void render(OrthographicCamera camera) {
-		super.render(camera);
-		this.parent.applyPhysicalCorrections(this);
 	}
 	
 	/**

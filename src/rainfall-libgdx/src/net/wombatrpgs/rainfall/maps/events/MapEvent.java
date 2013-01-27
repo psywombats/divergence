@@ -93,7 +93,9 @@ public abstract class MapEvent extends MapObject {
 	 * (com.badlogic.gdx.graphics.OrthographicCamera)
 	 */
 	@Override
-	public void render(OrthographicCamera camera) { }
+	public void render(OrthographicCamera camera) { 
+		super.render(camera);
+	}
 
 	/**
 	 * Default is nothing.

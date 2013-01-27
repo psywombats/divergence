@@ -43,7 +43,7 @@ import net.wombatrpgs.rainfallschema.maps.MapMDO;
  */
 public class Level implements Renderable {
 	
-	public static final int PIXELS_PER_Y = 32;
+	public static final int PIXELS_PER_Y = 48;
 	public static final int TILES_TO_CULL = 8;
 	
 	protected TileMapRenderer renderer;
@@ -153,7 +153,7 @@ public class Level implements Renderable {
 				group = map.objectGroups.get(layerIndex);
 			} else {
 				group = new TiledObjectGroup();
-				group.properties.put("z", String.valueOf((layerIndex+.5)));
+				group.properties.put(Layer.PROPERTY_Z, String.valueOf((layerIndex+.5)));
 			}
 			eventLayers.add(layerIndex, new EventLayer(this, group));
 		}

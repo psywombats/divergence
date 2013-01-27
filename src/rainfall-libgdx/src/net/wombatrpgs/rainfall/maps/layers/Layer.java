@@ -17,6 +17,8 @@ import net.wombatrpgs.rainfall.maps.events.MapEvent;
  */
 public abstract class Layer implements Renderable {
 	
+	public static final String PROPERTY_Z = "z";
+	
 	/**
 	 * Provides collision response service to an event on this layer.
 	 * @param 	event			The event to push out of collision

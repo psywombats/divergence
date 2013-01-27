@@ -68,7 +68,7 @@ public class ActPush extends MovesetAct {
 			restoreAppearance();
 			RGlobal.hero.setActing(false);
 		}
-		RGlobal.block.setVelocity(compX, compY);
+		RGlobal.block.targetVelocity(compX, compY);
 		RGlobal.block.setMoving(keyDown);
 	}
 

@@ -3,7 +3,5 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
-	"framerate" : 60,
-	"heroWalkRate" : 96,
-	"heroRunRate" : 0
+	"framerate" : 60
 }
