@@ -84,7 +84,7 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tile Layer 1" width="20" height="15" visible="0">
+ <layer name="Tile Layer 1" width="20" height="15">
   <properties>
    <property name="z" value="0"/>
   </properties>
@@ -92,7 +92,7 @@
    eJwTYWBgEKEBRgaD1TxuNPNkgFiOTPNkoOYRq1+aDDsYgZgJiJlxmIdupiwB89iBmAOIOdHMQMcgOWEoxmceLxDzATE/ldxH7fAbiRgEjBgQYLCZRyoGAIpUFp8=
   </data>
  </layer>
- <layer name="Tile Layer 2" width="20" height="15" visible="0">
+ <layer name="Tile Layer 2" width="20" height="15">
   <properties>
    <property name="z" value=".5"/>
   </properties>
@@ -100,14 +100,14 @@
    eJxjYBg+QHugHTAEwWiYDSwYDX/SAABSqwCC
   </data>
  </layer>
- <objectgroup name="Object Layer 1" width="20" height="15" visible="0">
+ <objectgroup name="Object Layer 1" width="20" height="15">
   <properties>
    <property name="ogga" value="ALPHONSEO"/>
    <property name="z" value=".5"/>
   </properties>
   <object name="Hero" type="event" x="224" y="288" width="32" height="32">
    <properties>
-    <property name="key" value="hero_event"/>
+    <property name="key" value="hero_default"/>
    </properties>
   </object>
   <object name="Widget" type="event" x="320" y="320" width="32" height="32">
@@ -132,7 +132,7 @@
    eJxjYKANsAdiByB2pJJ5nkDshQOTA6qhdC3lThsFo2AU0AkAAOayA74=
   </data>
  </layer>
- <layer name="Tile Layer 4" width="20" height="15" visible="0">
+ <layer name="Tile Layer 4" width="20" height="15">
   <properties>
    <property name="z" value="1.5"/>
   </properties>
@@ -140,7 +140,7 @@
    eJxjYBg4oDyAdg9VMBpmAwtGw39gAQA1WwBq
   </data>
  </layer>
- <objectgroup name="Object Layer 2" width="20" height="15" visible="0">
+ <objectgroup name="Object Layer 2" width="20" height="15">
   <properties>
    <property name="z" value="1.5"/>
   </properties>

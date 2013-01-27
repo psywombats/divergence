@@ -49,8 +49,8 @@ public class EventLayer extends Layer implements Renderable {
 				passable[y][x] = false;
 			}
 		}
-		if (group.properties.containsKey("z")) {
-			z = Float.valueOf(group.properties.get("z"));
+		if (group.properties.containsKey(PROPERTY_Z)) {
+			z = Float.valueOf(group.properties.get(PROPERTY_Z));
 		} else {
 			Global.reporter.warn("Group with no z-value on " + parent);
 		}

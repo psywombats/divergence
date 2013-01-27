@@ -1,0 +1,9 @@
+{
+	"key" : "mobility_enemy",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "default; feel free to provide your own for specific enemies",
+	"walkVelocity" : 48,
+	"acceleration" : 256,
+	"decceleration" : 48
+}

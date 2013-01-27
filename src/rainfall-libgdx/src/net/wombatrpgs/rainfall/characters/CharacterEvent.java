@@ -24,10 +24,10 @@ import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
+import net.wombatrpgs.rainfallschema.enemies.MobilityMDO;
 import net.wombatrpgs.rainfallschema.graphics.DirMDO;
 import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
 import net.wombatrpgs.rainfallschema.maps.data.CollisionResponseType;
-import net.wombatrpgs.rainfallschema.settings.GameSpeedMDO;
 
 /**
  * A character event is an event with an MDO and an animation that looks kind of
@@ -37,6 +37,7 @@ public class CharacterEvent extends MapEvent {
 	
 	protected Map<Direction, Boolean> directionStatus;
 	protected CharacterEventMDO mdo;
+	protected MobilityMDO mobilityMDO;
 	protected FacesAnimation appearance;
 
 	/**
@@ -106,9 +107,9 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
+		super.render(camera);
 		if (appearance != null) {
 			appearance.render(camera);
-			camera.update();
 		}
 	}
 
@@ -131,32 +132,30 @@ public class CharacterEvent extends MapEvent {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#setVelocity(float, float)
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#targetVelocity(float, float)
 	 */
 	@Override
-	public void setVelocity(float vx, float vy) {
-		if (appearance != null && (vx != this.vx || vy != this.vy)) {
-			if (vx == 0 && vy == 0) {
-				appearance.stopMoving();
-			} else {
-				Direction newDir;
-				if (Math.abs(vx) >= Math.abs(vy)) {
-					if (vx * Direction.RIGHT.getVector().x> 0) {
-						newDir = Direction.RIGHT;
-					} else {
-						newDir = Direction.LEFT;
-					}
+	public void targetVelocity(float targetVX, float targetVY) {
+		if (appearance != null && 
+				(targetVX != this.targetVX || targetVY != this.targetVY) && 
+				(Math.abs(targetVX) > .1 || Math.abs(targetVY) > .1)) {
+			Direction newDir;
+			if (Math.abs(targetVX) >= Math.abs(targetVY)) {
+				if (targetVX * Direction.RIGHT.getVector().x > 0) {
+					newDir = Direction.RIGHT;
 				} else {
-					if (vy * Direction.DOWN.getVector().y > 0) {
-						newDir = Direction.DOWN;
-					} else {
-						newDir = Direction.UP;
-					}
+					newDir = Direction.LEFT;
 				}
-				appearance.startMoving(newDir);
+			} else {
+				if (targetVY * Direction.DOWN.getVector().y > 0) {
+					newDir = Direction.DOWN;
+				} else {
+					newDir = Direction.UP;
+				}
 			}
+			appearance.startMoving(newDir);
 		}
-		super.setVelocity(vx, vy);
+		super.targetVelocity(targetVX, targetVY);
 	}
 
 	/**
@@ -307,6 +306,17 @@ public class CharacterEvent extends MapEvent {
 			applyMTV(other, result, 1f);
 		}
 	}
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#update(float)
+	 */
+	@Override
+	protected void update(float elapsed) {
+		super.update(elapsed);
+		if (appearance != null && Math.abs(vx) < .1f && Math.abs(vy) < .1f) {
+			appearance.stopMoving();
+		}
+	}
 
 	/**
 	 * The character starts moving in the specified direction. Uses its built-in
@@ -314,10 +324,9 @@ public class CharacterEvent extends MapEvent {
 	 * @param 	vector		The vector direction to start moving in
 	 */
 	protected void addMoveComponent(DirVector vector) {
-		GameSpeedMDO mdo = RGlobal.data.getEntryFor("game_speed", GameSpeedMDO.class);
-		float newX = this.vx + vector.x * mdo.heroWalkRate;
-		float newY = this.vy + vector.y * mdo.heroWalkRate;
-		this.setVelocity(newX, newY);
+		float newX = this.targetVX + vector.x * mobilityMDO.walkVelocity;
+		float newY = this.targetVY + vector.y * mobilityMDO.walkVelocity;
+		this.targetVelocity(newX, newY);
 	}
 	
 	/**
@@ -335,6 +344,10 @@ public class CharacterEvent extends MapEvent {
 		directionStatus.put(Direction.UP, false);
 		directionStatus.put(Direction.LEFT, false);
 		directionStatus.put(Direction.RIGHT, false);
+		mobilityMDO = RGlobal.data.getEntryFor(mdo.mobility, MobilityMDO.class);
+		acceleration = mobilityMDO.acceleration;
+		decceleration = mobilityMDO.decceleration;
+		maxVelocity = mobilityMDO.walkVelocity;
 	}
 
 }

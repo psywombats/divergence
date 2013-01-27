@@ -65,6 +65,24 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="63" name="wood" tileheight="32" tilewidth="32">
+  <image height="224" source="tilesets/wood2.PNG" trans="8080ff" width="320"/>
+  <tile id="60">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="61">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="62">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+ </tileset>
  <layer height="15" name="Tile Layer 1" width="20">
   <properties>
    <property name="z" value="0"/>
@@ -88,7 +106,7 @@
   <property name="layer" value="3"/></properties>
   <object height="32" name="Hero" type="event" width="32" x="224" y="288">
    <properties>
-    <property name="key" value="hero_event"/>
+    <property name="key" value="hero_default"/>
    </properties>
   </object>
   <object height="32" name="Widget" type="event" width="32" x="320" y="320">
@@ -110,7 +128,7 @@
    <property name="z" value="1"/>
   <property name="layer" value="2"/></properties>
   <data compression="zlib" encoding="base64">
-   eJxjYKANYAFiViBmo5J5XEDMDcWiaJgcIAClhSh32igYBaOATgAAkMYApg==
+   eJxjYKANsAdiByB2pJJ5nkDshQOTA6qhdC3lThsFo2AU0AkAAOayA74=
   </data>
  </layer>
  <layer height="15" name="Tile Layer 4" width="20">

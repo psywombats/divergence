@@ -19,12 +19,5 @@ public class GameSpeedMDO extends MainSchema {
 	@Desc("Target render rate, in frames per second. At rates lower than " +
 			"this, the game will slow down.")
 	public Integer framerate;
-	
-	@Desc("The speed, in pixels/second, that the hero walks at. No " +
-			"acceleration or related terms are taken into account right now")
-	public Integer heroWalkRate;
-	
-	@Desc("The speed, in  pixels/second, that the hero runs at")
-	public Integer heroRunRate;
 
 }

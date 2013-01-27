@@ -10,6 +10,7 @@ import net.wombatrpgs.rainfall.characters.enemies.Enemy;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfallschema.enemies.EnemyEventMDO;
+import net.wombatrpgs.rainfallschema.hero.HeroMDO;
 import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
 
 /**
@@ -29,7 +30,7 @@ public class CharacterFactory {
 	public static CharacterEvent create(CharacterEventMDO mdo, Level parent, int x, int y) {
 		// TODO: it may be possible to generalize this
 		// TODO: this is a hack for hero ID-ing
-		if (mdo.key.equals("hero_event")) {
+		if (HeroMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new Hero(mdo, parent, x, y);
 		} else if (EnemyEventMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new Enemy((EnemyEventMDO) mdo, parent, x, y);

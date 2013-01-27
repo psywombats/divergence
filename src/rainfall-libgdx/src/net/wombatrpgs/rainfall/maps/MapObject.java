@@ -28,8 +28,19 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	protected Level parent;
 	/** Coords in pixels relative to map origin */
 	protected float x, y;
-	/** Velocity in pixels/second */
+
+	/** Velocity the object is trying to reach in pixels/second */
+	protected float targetVX, targetVY;
+	/** Velocity the object is currently moving at in pixels/second */
 	protected float vx, vy;
+	
+	/** How fast this object accelerates when below its top speed, in px/s^2 */
+	protected float acceleration;
+	/** How fast this object deccelerates when above its top speed, in px/s^2 */
+	protected float decceleration;
+	/** The top speed this object can voluntarily reach, in px/s */
+	protected float maxVelocity;
+	
 	
 	/**
 	 * Creates a new map object for a given level and position.
@@ -56,7 +67,14 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	 * Creates a new map object floating in limbo land.
 	 */
 	protected MapObject() {
-		// tsilb
+		acceleration = 0;
+		decceleration = 0;
+		x = 0;
+		y = 0;
+		targetVX = 0;
+		targetVY = 0;
+		vx = 0;
+		vy = 0;
 	}
 
 	/** @see net.wombatrpgs.rainfall.maps.Positionable#getX() */
@@ -104,6 +122,21 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	}
 
 	/**
+	 * This is actually the update part of the render loop.
+	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render
+	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 */
+	@Override
+	public void render(OrthographicCamera camera) {
+		float elapsed = Gdx.graphics.getDeltaTime();
+		float real = 1.0f / elapsed;
+		if (real < RGlobal.constants.rate()) {
+			elapsed = (1.0f / RGlobal.constants.rate());
+		}
+		update(elapsed);
+	}
+
+	/**
 	 * Gets the hitbox associated with this map object at this point in time.
 	 * It's abstract so that events with different animations can return the
 	 * appropriate object for each call.
@@ -141,18 +174,18 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	 * This is sort of a physicsy thing. Allowing it implies no physical presence
 	 * on the map, even if this object has a hitbox. Disallowing it is usually a
 	 * signal that collisions need to be resolvled.
-	 * @return				True if overlapping with this object is okay
+	 * @return					True if overlapping with this object is okay
 	 */
 	public abstract boolean isOverlappingAllowed();
 
 	/**
-	 * Updates the velocity of this map object.
-	 * @param 	vx			The new x-velocity of the object, in pixels/second
-	 * @param 	vy			The new y-velocity of the object, in pixels/second
+	 * Updates the target velocity of this map object.
+	 * @param 	targetVX		The target x-velocity of the object, in px/s
+	 * @param 	targetVY		The target  y-velocity of the object, in px/s
 	 */
-	public void setVelocity(float vx, float vy) {
-		this.vx = vx;
-		this.vy = vy;
+	public void targetVelocity(float targetVX, float targetVY) {
+		this.targetVX = targetVX;
+		this.targetVY = targetVY;
 	}
 	
 	/**
@@ -162,19 +195,10 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	 * @param	camera		The current camera
 	 */
 	public void renderLocal(OrthographicCamera camera, TextureRegion sprite) {
-		
 		parent.getBatch().draw(
 				sprite, 
 				x + Gdx.graphics.getWidth()/2 - camera.position.x, 
 				y + Gdx.graphics.getHeight()/2 - camera.position.y);
-		
-		float elapsed = Gdx.graphics.getDeltaTime();
-		float real = 1.0f / elapsed;
-		if (real < RGlobal.constants.rate()) {
-			elapsed = (1.0f / RGlobal.constants.rate());
-		}
-		x += vx * elapsed;
-		y += vy * elapsed;
 	}
 	
 	/**
@@ -239,6 +263,41 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 		this.moveY(result.mtvY * ratio);
 		other.moveX(result.mtvX * -(1f - ratio));
 		other.moveY(result.mtvY * -(1f - ratio));
+	}
+	
+	/**
+	 * Update yoself! This is called from the rendering loop but it's with some
+	 * filters set on it for target framerate.
+	 * @param 	elapsed			Time elapsed since last update, in seconds
+	 */
+	protected void update(float elapsed) {
+		float deltaVX, deltaVY;
+		if (vx != targetVX) {
+			if (Math.abs(vx) < maxVelocity) {
+				deltaVX = acceleration * elapsed;
+			} else {
+				deltaVX = decceleration * elapsed;
+			}
+			if (vx < targetVX) {
+				vx = Math.min(vx + deltaVX, targetVX);
+			} else {
+				vx = Math.max(vx - deltaVX, targetVX);
+			}
+		}
+		if (vy != targetVY) {
+			if (Math.abs(vy) < maxVelocity) {
+				deltaVY = acceleration * elapsed;
+			} else {
+				deltaVY = decceleration * elapsed;
+			}
+			if (vy < targetVY) {
+				vy = Math.min(vy + deltaVY, targetVY);
+			} else {
+				vy = Math.max(vy - deltaVY, targetVY);
+			}
+		}
+		x += vx * elapsed;
+		y += vy * elapsed;
 	}
 
 }
