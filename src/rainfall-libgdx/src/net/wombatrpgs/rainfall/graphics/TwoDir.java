@@ -56,7 +56,7 @@ public class TwoDir extends FacesAnimation {
 	 * (com.badlogic.gdx.graphics.OrthographicCamera)
 	 */
 	@Override
-	public void render(OrthographicCamera camera) {
+	public void coreRender(OrthographicCamera camera) {
 		animations[effectiveIndex].render(camera);
 	}
 

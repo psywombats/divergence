@@ -79,7 +79,20 @@ public class Hero extends CharacterEvent {
 	 */
 	@Override
 	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
-		System.out.println("I mean business");
+		switch (other.mdo.response) {
+		case BOUNCE:
+			bounce(other);
+			break;
+		case STUN:
+			stun();
+			break;
+		case STUNBOUNCE:
+			bounce(other);
+			stun();
+			break;
+		default:
+			break;
+		}
 		return super.onCharacterCollide(other, result);
 	}
 	

@@ -270,6 +270,26 @@ public class CharacterEvent extends MapEvent {
 	}
 	
 	/**
+	 * Stuns the character to prevent action for some time or something?
+	 */
+	public void stun() {
+		appearance.setFlicker(true);
+	}
+	
+	/**
+	 * Bounces forcibly off of another object.
+	 * @param 	other			The other object to bounce off of.
+	 */
+	public void bounce(MapObject other) {
+		float dx = getX() - other.getX();
+		float dy = getY() - other.getY();
+		float hypo = (float) Math.sqrt(dx*dx + dy*dy);
+		dx /= hypo;
+		dy /= hypo;
+		setVelocity(dx * mobilityMDO.walkVelocity * 2.5f, dy * mobilityMDO.walkVelocity * 2.5f);
+	}
+	
+	/**
 	 * @see net.wombatrpgs.rainfall.maps.MapObject#resolveCollision
 	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.collisions.CollisionResult)
 	 */
@@ -315,6 +335,8 @@ public class CharacterEvent extends MapEvent {
 		super.update(elapsed);
 		if (appearance != null && Math.abs(vx) < .1f && Math.abs(vy) < .1f) {
 			appearance.stopMoving();
+			// TODO: get rid of this unstun hack
+			appearance.setFlicker(false);
 		}
 	}
 

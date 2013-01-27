@@ -6,7 +6,9 @@
  */
 package net.wombatrpgs.rainfall.graphics;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.maps.Direction;
@@ -20,11 +22,15 @@ import net.wombatrpgs.rainfallschema.graphics.DirMDO;
  */
 public abstract class FacesAnimation implements Renderable {
 	
+	protected static final float FLICKER_DURATION = .3f; // in s
+	
 	protected DirMDO mdo;
 	protected Direction currentDir;
 	protected MapObject parent;
 	protected AnimationStrip[] animations;
 	protected int facings;
+	protected boolean flickering;
+	protected float time;
 	
 	/**
 	 * Sets up an animation from data for a specific map.
@@ -38,6 +44,8 @@ public abstract class FacesAnimation implements Renderable {
 		this.facings = facings;
 		setFacing(Direction.DOWN);
 		animations = new AnimationStrip[facings];
+		flickering = false;
+		time = 0;
 	}
 	
 	/**
@@ -59,9 +67,17 @@ public abstract class FacesAnimation implements Renderable {
 	/**
 	 * Gets the hitbox of the current facing. Usually a rectangle... at least,
 	 * that's what's in the database at the moment.
-	 * @return				The hitbox of the current facing, 99.9% rect
+	 * @return					The hitbox of the current facing, 99.9% rect
 	 */
 	public abstract Hitbox getHitbox();
+	
+	/**
+	 * The /real/ rendering method.
+	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render
+	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 * @param 	camera			The camera used to render
+	 */
+	public abstract void coreRender(OrthographicCamera camera);
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#queueRequiredAssets
@@ -85,6 +101,26 @@ public abstract class FacesAnimation implements Renderable {
 		}
 	}
 	
+	/**
+	 * There's a coreRender method to override instead
+	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render
+	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 */
+	@Override
+	public final void render(OrthographicCamera camera) {
+		time += Gdx.graphics.getDeltaTime();
+		if (flickering) {
+			int ms = (int) (time * 1000);
+			int d = (int) (FLICKER_DURATION * 1000);
+			if (ms % d > d/2) {
+				coreRender(camera);
+			}
+		} else {
+			coreRender(camera);
+		}
+		
+	}
+
 	/**
 	 * Just starts moving.
 	 */
@@ -123,6 +159,14 @@ public abstract class FacesAnimation implements Renderable {
 		for (int i = 0; i < facings; i++) {
 			animations[i].reset();
 		}
+	}
+	
+	/**
+	 * Turns on/off this animation's flickering.
+	 * @param 	flicker				True if we should flicker, false otherwise
+	 */
+	public void setFlicker(boolean flicker) {
+		this.flickering = flicker;
 	}
 	
 	/**

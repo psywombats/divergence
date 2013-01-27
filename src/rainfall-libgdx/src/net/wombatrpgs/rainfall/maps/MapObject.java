@@ -181,11 +181,21 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	/**
 	 * Updates the target velocity of this map object.
 	 * @param 	targetVX		The target x-velocity of the object, in px/s
-	 * @param 	targetVY		The target  y-velocity of the object, in px/s
+	 * @param 	targetVY		The target y-velocity of the object, in px/s
 	 */
 	public void targetVelocity(float targetVX, float targetVY) {
 		this.targetVX = targetVX;
 		this.targetVY = targetVY;
+	}
+	
+	/**
+	 * Updates the effective velocity of this map object.
+	 * @param 	vx			The new x-velocity of the object, in px/s
+	 * @param 	vy			The new y-velocity of the object, in px/s
+	 */
+	public void setVelocity(float vx, float vy) {
+		this.vx = vx;
+		this.vy = vy;
 	}
 	
 	/**
