@@ -6,10 +6,13 @@
  */
 package net.wombatrpgs.rainfall.characters;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
+
+import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.graphics.DirAnim;
+import net.wombatrpgs.rainfall.graphics.AnimationStrip;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfall.maps.events.CharacterEvent;
+import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfallschema.hero.moveset.SummonMDO;
 import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
 
@@ -19,7 +22,8 @@ import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
 public class Block extends CharacterEvent {
 	
 	protected SummonMDO mdo;
-	protected DirAnim anim;
+	protected AnimationStrip anim;
+	protected boolean moving;
 	
 	/**
 	 * Creates the block. Must be updated with the map each time the hero
@@ -32,7 +36,14 @@ public class Block extends CharacterEvent {
 		appearance.queueRequiredAssets(RGlobal.assetManager);
 		RGlobal.assetManager.finishLoading();
 		appearance.postProcessing(RGlobal.assetManager);
+		moving = false;
 	}
+	
+	/** @return True if the block is in motion via push/pull spells */
+	public boolean isMoving() { return moving; }
+	
+	/** @param moving True if the block is in motion via push/pull spells */
+	public void setMoving(boolean moving) { this.moving = moving; }
 	
 	/**
 	 * Changes the map the block is currently located on. Call every time the
@@ -45,5 +56,31 @@ public class Block extends CharacterEvent {
 		}
 		map.teleportOn(this, getX(), getY());
 	}
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#render
+	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 */
+	@Override
+	public void render(OrthographicCamera camera) {
+		super.render(camera);
+		this.parent.applyPhysicalCorrections(this);
+		if (moving) {
+			RGlobal.hero.faceToward(this);
+		}
+	}
 
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#onCollide
+	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 */
+	@Override
+	public boolean onCollide(MapObject other, CollisionResult result) {
+		if (other == RGlobal.hero) {
+			return true;
+		} else {
+			return super.onCollide(other, result);
+		}
+	}
+	
 }

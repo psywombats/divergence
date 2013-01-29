@@ -6,6 +6,5 @@
 	"upAnim" : "waldsworth_blockbound",
 	"rightAnim" : "waldsworth_blockbound",
 	"downAnim" : "waldsworth_blockbound",
-	"leftAnim" : "waldsworth_blockbound",
-	"excessHeight" : 32
+	"leftAnim" : "waldsworth_blockbound"
 }

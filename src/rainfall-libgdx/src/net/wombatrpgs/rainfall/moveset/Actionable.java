@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.rainfall.moveset;
 
+import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.maps.Level;
 
 /**
@@ -17,6 +18,7 @@ public interface Actionable {
 	/**
 	 * Perform some action on the map.
 	 * @param 	map			The map to perform the action on
+	 * @param	actor		The character performing the action
 	 */
-	public void act(Level map);
+	public void act(Level map, CharacterEvent actor);
 }

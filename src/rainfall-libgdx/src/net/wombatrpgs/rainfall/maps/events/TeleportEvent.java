@@ -39,7 +39,7 @@ public class TeleportEvent extends MapEvent {
 	 * @param 	object		The object to infer coords from
 	 */
 	protected TeleportEvent(Level parent, TiledObject object) {
-		super(parent, object);
+		super(parent, object, false, true);
 		TiledMap map = parent.getMap();
 		box = new RectHitbox(this, 0, -map.tileHeight, map.tileWidth, 0);
 		
@@ -63,11 +63,14 @@ public class TeleportEvent extends MapEvent {
 	 * net.wombatrpgs.rainfall.collisions.CollisionResult)
 	 */
 	@Override
-	public void onCollide(MapObject other, CollisionResult result) {
+	public boolean onCollide(MapObject other, CollisionResult result) {
+		if (other != RGlobal.hero) return true; 
 		super.onCollide(other, result);
+		int z = parent.getZ(other);
 		parent.teleportOff();
 		Level map = RGlobal.levelManager.getLevel(mapID);
-		map.teleportOn(targetX, map.getHeight() - targetY - 1, parent.getZ(other));
+		map.teleportOn(targetX, map.getHeight() - targetY - 1, z);
+		return true;
 	}
 	
 }

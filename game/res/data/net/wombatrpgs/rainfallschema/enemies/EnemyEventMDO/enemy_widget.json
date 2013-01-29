@@ -1,0 +1,10 @@
+{
+	"key" : "enemy_widget",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"appearance" : "widget_2dir",
+	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
+	"response" : "IMMOBILE",
+	"mobility" : "mobility_enemy"
+}

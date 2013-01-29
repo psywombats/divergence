@@ -2,7 +2,8 @@
 	"key" : "hero_event",
 	"subfolder" : "blockbound/",
 	"name" : "",
-	"description" : "hero placeholder",
-	"appearance" : "waldsworth_4dir",
-	"collision" : "ANIMATION_SPECIFIC_RECTANGLE"
+	"description" : "hero placeholde",
+	"appearance" : "nico_4dir",
+	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
+	"response" : "PUSHABLE"
 }

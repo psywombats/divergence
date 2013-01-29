@@ -2,4 +2,5 @@
 <objecttypes>
  <objecttype name="event" color="#0d00a4"/>
  <objecttype name="teleport" color="#a49f00"/>
+ <objecttype name="z-teleport" color="#13a4a4"/>
 </objecttypes>

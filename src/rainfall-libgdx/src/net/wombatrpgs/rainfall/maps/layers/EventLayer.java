@@ -24,29 +24,35 @@ import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 
 /**
- * A renderable collection of map objects, grouped into a layer in a level.
+ * A renderable collection of map events, grouped into a layer in a level.
  */
-public class ObjectLayer extends Layer implements Renderable {
+public class EventLayer extends Layer implements Renderable {
 	
 	protected Level parent;
 	protected boolean passable[][];
-	protected List<MapObject> objects;
+	protected List<MapEvent> objects;
 	protected TiledObjectGroup group;
+	protected float z;
 	
 	/**
 	 * Creates a new object layer with a parent level and no objects.
 	 * @param 	parent		The parent level of the layer
 	 * @param	group		The underlying tiled object
 	 */
-	public ObjectLayer(Level parent, TiledObjectGroup group) {
+	public EventLayer(Level parent, TiledObjectGroup group) {
 		this.parent = parent;
-		this.objects = new ArrayList<MapObject>();
+		this.objects = new ArrayList<MapEvent>();
 		this.group = group;
 		this.passable = new boolean[parent.getHeight()][parent.getWidth()];
 		for (int y = 0; y < parent.getHeight(); y++) {
 			for (int x = 0; x < parent.getWidth(); x++) {
 				passable[y][x] = false;
 			}
+		}
+		if (group.properties.containsKey(PROPERTY_Z)) {
+			z = Float.valueOf(group.properties.get(PROPERTY_Z));
+		} else {
+			Global.reporter.warn("Group with no z-value on " + parent);
 		}
 	}
 
@@ -94,17 +100,7 @@ public class ObjectLayer extends Layer implements Renderable {
 	 */
 	@Override
 	public void applyPhysicalCorrections(MapEvent event) {
-		for (int i = 0; i < objects.size(); i++) {
-			MapObject other = objects.get(i);
-			if (other != event) {
-				CollisionResult result = event.getHitbox().isColliding(other.getHitbox());
-				if (result.isColliding) {
-					event.onCollide(other, result);
-					other.onCollide(event, result);
-					break;
-				}
-			}
-		}
+		// this is no longer support here, do your collisions somewhere else
 	}
 	
 	/**
@@ -137,23 +133,23 @@ public class ObjectLayer extends Layer implements Renderable {
 
 	/**
 	 * Adds another map object to this layer.
-	 * @param 	mapObject		The map object to add
+	 * @param 	event		The map object to add
 	 */
-	public void add(MapObject mapObject) {
-		if (mapObject == null) {
+	public void add(MapEvent event) {
+		if (event == null) {
 			Global.reporter.warn("Added a null object to the map?");
 		} else {
-			objects.add(mapObject);
-			mapObject.onAdd(this);
+			objects.add(event);
+			event.onAdd(this);
 		}
 	}
 	
 	/**
 	 * Removes a map object from this layer.
-	 * @param 	mapObject		The map object to remove
+	 * @param 	event		The map object to remove
 	 */
-	public void remove(MapObject mapObject) {
-		objects.remove(mapObject);
+	public void remove(MapEvent event) {
+		objects.remove(event);
 	}
 	
 	/**
@@ -170,12 +166,7 @@ public class ObjectLayer extends Layer implements Renderable {
 	 */
 	@Override
 	public float getZ() {
-		if (group.properties.containsKey("z")) {
-			return Float.valueOf(group.properties.get("z"));
-		} else {
-			Global.reporter.warn("Group with no z-value on " + parent);
-			return 0;
-		}
+		return z;
 	}
 	
 	/**
@@ -195,6 +186,31 @@ public class ObjectLayer extends Layer implements Renderable {
 	 */
 	public void setPassable(int tileX, int tileY) {
 		passable[tileY][tileX] = true;
+	}
+	
+	/**
+	 * Run collision detection for an individual event on this layer.
+	 * @param	event			The event to run the checks for
+	 */
+	public void detectCollisions(MapEvent event) {
+		// TODO: optimize these loops
+		//if (!event.isMobile()) return;
+		for (int i = 0; i < objects.size(); i++) {
+			MapEvent other = objects.get(i);
+			if (other != event) {
+				CollisionResult result = event.getHitbox().isColliding(other.getHitbox());
+				if (result.isColliding) {
+					boolean res1 = event.onCollide(other, result);
+					boolean res2 = other.onCollide(event, result);
+					if (!event.isOverlappingAllowed() && 
+						! other.isOverlappingAllowed() &&
+						!res1 && !res2) {
+						event.resolveCollision(other, result);
+					}
+					break;
+				}
+			}
+		}
 	}
 
 }

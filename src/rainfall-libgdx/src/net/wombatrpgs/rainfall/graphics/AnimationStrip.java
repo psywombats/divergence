@@ -23,7 +23,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 /**
  * A specialized animation that makes up one of the four facings
  */
-public class DirAnim implements Renderable {
+public class AnimationStrip implements Renderable {
 	
 	protected AnimationMDO mdo;
 	protected Animation anim;
@@ -34,6 +34,7 @@ public class DirAnim implements Renderable {
 	
 	protected float time = 0f;
 	protected boolean moving;
+	protected boolean looping;
 	
 	/**
 	 * Creates a new animation from the relevant information and with the
@@ -41,7 +42,7 @@ public class DirAnim implements Renderable {
 	 * @param 	mdo			The animation data
 	 * @param 	parent		The parent map object
 	 */
-	public DirAnim(AnimationMDO mdo, MapObject parent) {
+	public AnimationStrip(AnimationMDO mdo, MapObject parent) {
 		this.mdo = mdo;
 		this.parent = parent;
 		moving = false;
@@ -49,7 +50,9 @@ public class DirAnim implements Renderable {
 		if (mdo.hit1y == null) mdo.hit1y = 0;
 		if (mdo.hit2x == null) mdo.hit2x = mdo.frameWidth;
 		if (mdo.hit2y == null) mdo.hit2y = mdo.frameHeight;
-		box = new RectHitbox(parent, mdo.hit1x, mdo.frameHeight-mdo.hit2y, mdo.hit2x, mdo.frameHeight-mdo.hit1y);
+		box = new RectHitbox(parent, 
+				mdo.hit1x, mdo.frameHeight-mdo.hit2y, 
+				mdo.hit2x, mdo.frameHeight-mdo.hit1y);
 	}
 	
 	/**
@@ -71,8 +74,15 @@ public class DirAnim implements Renderable {
 	 * Call when this animation stops moving.
 	 */
 	public void stopMoving() {
-		time = 0;
+		reset();
 		moving = false;
+	}
+	
+	/**
+	 * Resets the time and animation status of this animation.
+	 */
+	public void reset() {
+		time = 0;
 	}
 
 	/**
@@ -84,7 +94,7 @@ public class DirAnim implements Renderable {
 		if (moving) {
 			time += Gdx.graphics.getDeltaTime();
 		}
-		TextureRegion currentFrame = anim.getKeyFrame(time, true);
+		TextureRegion currentFrame = anim.getKeyFrame(time, looping);
 		parent.renderLocal(camera, currentFrame);
 	}
 
@@ -114,7 +124,22 @@ public class DirAnim implements Renderable {
 						mdo.frameWidth,
 						mdo.frameHeight);
 			}
-			anim = new Animation(1.0f/mdo.frameCount, frames);
+			anim = new Animation(1.0f/mdo.animSpeed, frames);
+			switch(mdo.mode) {
+			case REPEAT:
+				looping = true;
+				anim.setPlayMode(Animation.LOOP);
+				break;
+			case DO_NOTHING:
+				// TODO: that's not right! Do nothing. Make it do nothing.
+				looping = false;
+				anim.setPlayMode(Animation.LOOP);
+				break;
+			case PLAY_ONCE:
+				looping = false;
+				anim.setPlayMode(Animation.NORMAL);
+				break;
+			}
 		} else {
 			Global.reporter.warn("Spritesheet not loaded: " + filename);
 		}

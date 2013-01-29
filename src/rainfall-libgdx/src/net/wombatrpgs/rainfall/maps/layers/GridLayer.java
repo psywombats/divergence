@@ -30,6 +30,9 @@ import net.wombatrpgs.rainfall.maps.events.MapEvent;
  */
 public class GridLayer extends Layer implements Renderable {
 	
+	public static final String PROPERTY_IMPASSABLE = "x";
+	public static final String PROPERTY_CLIFFTOP = "top";
+	
 	protected TiledMap map;
 	protected Level parent;
 	protected TiledLayer layer;
@@ -132,10 +135,6 @@ public class GridLayer extends Layer implements Renderable {
 		result.cleanLanding = true;
 		float resX = parent.getTileWidth();
 		float resY = parent.getTileHeight();
-//		int loX = (int) Math.ceil(((float) (box.getX())) / resX);
-//		int hiX = (int) Math.floor(((float) (box.getX()+box.getWidth())) / resX);
-//		int loY = (int) Math.ceil(((float) (box.getY())) / resY);
-//		int hiY = (int) Math.floor(((float) (box.getY()+box.getHeight())) / resY);
 		int loX = (int) Math.round(box.getX() / resX);
 		int hiX = loX;
 		int loY = (int) Math.round(box.getY() / resY);
@@ -150,7 +149,8 @@ public class GridLayer extends Layer implements Renderable {
 				if (tileID == 0) continue;
 				result.finished = true;
 				result.z = (int) Math.floor(getZ());
-				if (map.getTileProperty(tileID, "impassable") != null) {
+				if (map.getTileProperty(tileID, PROPERTY_IMPASSABLE) != null ||
+					map.getTileProperty(tileID, PROPERTY_CLIFFTOP) != null) {
 					result.cleanLanding = false;
 				}
 				break;
@@ -179,7 +179,8 @@ public class GridLayer extends Layer implements Renderable {
 				// there is no tile and we are the bottom
 				checkForUpper(event, tileX, tileY);
 			}
-		} else if (map.getTileProperty(tileID, "impassable") != null) {
+		} else if (map.getTileProperty(tileID, PROPERTY_IMPASSABLE) != null ||
+				map.getTileProperty(tileID, PROPERTY_CLIFFTOP) != null) {
 			// the tile at this location is impassable
 			checkForUpper(event, tileX, tileY);
 		}
@@ -203,7 +204,7 @@ public class GridLayer extends Layer implements Renderable {
 			}
 		}
 		// TODO: move this somewhere else
-		for (ObjectLayer otherLayer : parent.getObjectLayers()) {
+		for (EventLayer otherLayer : parent.getObjectLayers()) {
 			if (otherLayer.isSpecialPassable(tileX, tileY)) {
 				return;
 			}
@@ -220,15 +221,30 @@ public class GridLayer extends Layer implements Renderable {
 	 */
 	private void bump(MapEvent event, final int tileX, final int tileY) {
 		// TODO: optimize this, remove the new
+		RectHitbox tileBox;
+		final boolean cliff;
+		if (tileX < 0 || tileX >= map.width || tileY < 0 || tileY >= map.height) {
+			cliff = false;
+		} else {
+			int tileID = layer.tiles[map.height-tileY-1][tileX];
+			cliff = map.getTileProperty(tileID, PROPERTY_CLIFFTOP) != null;
+		}
 		Positionable loc = new Positionable() {
 			@Override
 			public int getX() { return tileX * map.tileWidth;}
 			@Override
-			public int getY() { return tileY * map.tileHeight; }
+			public int getY() { 
+				if (cliff) return tileY * map.tileHeight - map.tileHeight/2;
+				else return tileY * map.tileHeight; 
+			}
 			@Override
 			public SpriteBatch getBatch() { return null; }
 		};
-		RectHitbox tileBox = new RectHitbox(loc, 0, 0, map.tileWidth, map.tileHeight);
+		if (cliff) {
+			tileBox = new RectHitbox(loc, 0, map.tileHeight/2, map.tileWidth, map.tileHeight);
+		} else {
+			tileBox = new RectHitbox(loc, 0, 0, map.tileWidth, map.tileHeight);
+		}
 		CollisionResult result = tileBox.isColliding(event.getHitbox());
 		// TODO: this code is duplicated elsewhere
 		if (result.isColliding) {

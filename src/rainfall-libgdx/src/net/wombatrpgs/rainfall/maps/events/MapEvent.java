@@ -8,18 +8,13 @@ package net.wombatrpgs.rainfall.maps.events;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 
-import net.wombatrpgs.mgne.global.Global;
-import net.wombatrpgs.rainfall.characters.Hero;
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.NoHitbox;
-import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
-import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
 
 /**
  * A map event is any map object defined in Tiled, including characters and
@@ -27,19 +22,21 @@ import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
  */
 public abstract class MapEvent extends MapObject {
 	
-	/* these event types are defined in objecttypes.xml */
-	protected static String EVENT_TYPE = "event";
-	protected static String TELEPORT_TYPE = "teleport";
-	protected static String Z_TELEPORT_TYPE = "z-teleport";
+	protected boolean mobile;
+	protected boolean checkCollisions;
 	
 	/**
 	 * Creates a new map event for the level at the specified coords.
-	 * @param 	parent		The parent level of the event
-	 * @param 	x			The x-coord to start at (in pixels)
-	 * @param 	y			The y-coord to start at (in pixels);
+	 * @param 	parent			The parent level of the event
+	 * @param 	x				The x-coord to start at (in pixels)
+	 * @param 	y				The y-coord to start at (in pixels);
+	 * @param	mobile			True if this object will be moving, else false
+	 * @param	checkCollisions	True if collision detection should be enabled
 	 */
-	public MapEvent(Level parent, float x, float y) {
+	public MapEvent(Level parent, float x, float y, boolean mobile, boolean checkCollisions) {
 		super(parent, x, y);
+		this.mobile = mobile;
+		this.checkCollisions = checkCollisions;
 	}
 
 	/**
@@ -64,10 +61,12 @@ public abstract class MapEvent extends MapObject {
 	 * @param 	parent		The parent levelt to make teleport for
 	 * @param 	object		The object to infer coords from
 	 */
-	protected MapEvent(Level parent, TiledObject object) {
+	protected MapEvent(Level parent, TiledObject object, boolean mobile, boolean checkCollisions) {
 		this(	parent, 
 				object.x, 
-				parent.getMap().height*parent.getMap().tileHeight-object.y);
+				parent.getMap().height*parent.getMap().tileHeight-object.y,
+				mobile,
+				checkCollisions);
 	}
 
 	/**
@@ -79,6 +78,14 @@ public abstract class MapEvent extends MapObject {
 		return NoHitbox.getInstance();
 	}
 	
+	/** @return True if this event moves, false otherwise */
+	public boolean isMobile() { return mobile; }
+	
+	/** @return True if collisions should be checked on this event */
+	public boolean isCollisionEnabled() { return checkCollisions; }
+	
+	/** @param enabled True if collisions should be checked on this event */
+	public void setCollisionsEnabled(boolean enabled) { this.checkCollisions = enabled; }
 	
 	/**
 	 * Default is invisible.
@@ -86,7 +93,9 @@ public abstract class MapEvent extends MapObject {
 	 * (com.badlogic.gdx.graphics.OrthographicCamera)
 	 */
 	@Override
-	public void render(OrthographicCamera camera) { }
+	public void render(OrthographicCamera camera) { 
+		super.render(camera);
+	}
 
 	/**
 	 * Default is nothing.
@@ -105,12 +114,14 @@ public abstract class MapEvent extends MapObject {
 	public void postProcessing(AssetManager manager) { }
 
 	/**
-	 * Default is nothing happens.
+	 * Default does nothing.
 	 * @see net.wombatrpgs.rainfall.maps.MapObject#onCollide
 	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.collisions.CollisionResult)
 	 */
 	@Override
-	public void onCollide(MapObject other, CollisionResult result) { }
+	public boolean onCollide(MapObject other, CollisionResult result) { 
+		return false;
+	}
 
 	/**
 	 * Overlapping is enabled by default.
@@ -119,58 +130,6 @@ public abstract class MapEvent extends MapObject {
 	@Override
 	public boolean isOverlappingAllowed() {
 		return true;
-	}
-	
-	/**
-	 * Handles an entry from the map and turns it into the relevant event(s).
-	 * @param 	parent			The parent level to add events to
-	 * @param 	object			The tiled object to create events from
-	 * @param 	layerIndex		The index of the layer of the source event
-	 */
-	public static void handleData(Level parent, TiledObject object, int layerIndex) {
-		if (EVENT_TYPE.equals(object.type) ||
-			TELEPORT_TYPE.equals(object.type)) {
-			parent.addEvent(createEvent(parent, object, layerIndex), layerIndex);
-		} else if (Z_TELEPORT_TYPE.equals(object.type)) {
-			parent.addEvent(createEvent(parent, object, layerIndex), layerIndex);
-			parent.addEvent(createEvent(parent, object, layerIndex), layerIndex+1);
-		} else {
-			Global.reporter.warn("Was an event with no type: " + object.name);
-		}
-	}
-	
-	/**
-	 * Creates a map object from tiled object data. Returns the appropriate
-	 * subclass of MapEvent. Does not add the map event and is meant to be
-	 * called internally.
-	 * though.
-	 * @param	parent			The level to craft the object for
-	 * @param 	object			The tiled object data
-	 * @param	layerIndex		The layer index that this object is intended for
-	 * @return					Newly minted map object
-	 */
-	protected static MapEvent createEvent(Level parent, TiledObject object, int layerIndex) {
-		if (EVENT_TYPE.equals(object.type)) {
-			TiledMap map = parent.getMap();
-			String mdoName = object.properties.get("key");
-			CharacterEventMDO eventMdo = (CharacterEventMDO) RGlobal.data.getEntryByKey(mdoName);
-			if (eventMdo.key.equals("hero_event")) {
-				Hero hero = new Hero(parent, eventMdo, object.x, 
-						map.height*map.tileHeight-object.y);
-				RGlobal.hero = hero;
-				return hero;
-			} else {
-				return new CharacterEvent(parent, eventMdo, object.x, 
-						map.height*map.tileHeight-object.y);
-			}
-		} else if (TELEPORT_TYPE.equals(object.type)) {
-			return new TeleportEvent(parent, object);
-		} else if (Z_TELEPORT_TYPE.equals(object.type)) {
-			return new ZTeleportEvent(parent, object, layerIndex);
-		} else {
-			Global.reporter.warn("Found an event with no type: " + object.name);
-			return null;
-		}
 	}
 
 }

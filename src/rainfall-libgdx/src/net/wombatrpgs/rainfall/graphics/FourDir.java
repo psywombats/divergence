@@ -13,108 +13,56 @@ import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 /**
  * A holder for four different animations that make up a character's up, right,
  * left, and down.
  */
-public class FourDir implements Renderable {
+public class FourDir extends FacesAnimation {
 	
 	protected FourDirMDO mdo;
-	protected MapObject parent;
-	protected DirAnim[] animations;
-	protected Direction currentDir;
 	
 	/**
-	 * Constructs and splices a 4dir.
+	 * Constructs and splices a 4dir
 	 * @param 	mdo			The MDO with relevant data
 	 * @param 	parent		The parent this 4dir is tied to
 	 */
 	public FourDir(FourDirMDO mdo, MapObject parent) {
+		super(mdo, parent, Direction.values().length);
 		this.mdo = mdo;
-		this.parent = parent;
-		currentDir = Direction.DOWN;
 		sliceAnimations();
 	}
-	
+
 	/**
-	 * Gets the hitbox of the current facing. Usually a rectangle... at least,
-	 * that's what's in the database at the moment.
-	 * @return				The hitbox of the current facing, 99.9% rect
+	 * @see net.wombatrpgs.rainfall.graphics.FacesAnimation#getHitbox()
 	 */
+	@Override
 	public Hitbox getHitbox() {
 		return animations[currentDir.ordinal()].getHitbox();
 	}
 	
 	/**
-	 * Gets the direction this animation is currently facing.
-	 * @return				The direction currently facing
-	 */
-	public Direction getFacing() {
-		return currentDir;
-	}
-
-	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render
 	 * (com.badlogic.gdx.graphics.OrthographicCamera)
 	 */
 	@Override
-	public void render(OrthographicCamera camera) {
+	public void coreRender(OrthographicCamera camera) {
 		animations[currentDir.ordinal()].render(camera);
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Renderable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * @see net.wombatrpgs.rainfall.graphics.FacesAnimation#sliceAnimations()
 	 */
 	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		for (Direction dir : Direction.values()) {
-			animations[dir.ordinal()].queueRequiredAssets(manager);
-		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager) {
-		for (Direction dir : Direction.values()) {
-			animations[dir.ordinal()].postProcessing(manager);
-		}
-	}
-	
-	/**
-	 * Starts moving in the indicated direction.
-	 * @param 	dir			The new direction to move in
-	 */
-	public void startMoving(Direction dir) {
-		currentDir = dir;
-		animations[currentDir.ordinal()].startMoving();
-	}
-	
-	/**
-	 * Halts all animation movement.
-	 */
-	public void stopMoving() {
-		animations[currentDir.ordinal()].stopMoving();
-	}
-	
-	/**
-	 * Populates the array of animations.
-	 */
 	protected void sliceAnimations() {
-		animations = new DirAnim[Direction.values().length];
-		animations[Direction.DOWN.ordinal()] = new DirAnim(
+		animations[Direction.DOWN.ordinal()] = new AnimationStrip(
 				RGlobal.data.getEntryFor(mdo.downAnim, AnimationMDO.class), parent);
-		animations[Direction.UP.ordinal()] = new DirAnim(
+		animations[Direction.UP.ordinal()] = new AnimationStrip(
 				RGlobal.data.getEntryFor(mdo.upAnim, AnimationMDO.class), parent);
-		animations[Direction.LEFT.ordinal()] = new DirAnim(
+		animations[Direction.LEFT.ordinal()] = new AnimationStrip(
 				RGlobal.data.getEntryFor(mdo.leftAnim, AnimationMDO.class), parent);
-		animations[Direction.RIGHT.ordinal()] = new DirAnim(
+		animations[Direction.RIGHT.ordinal()] = new AnimationStrip(
 				RGlobal.data.getEntryFor(mdo.rightAnim, AnimationMDO.class), parent);
 	}
 	

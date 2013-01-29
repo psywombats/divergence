@@ -20,9 +20,10 @@ public enum Action {
 	SAVE_ALL			("Save All",		KeyEvent.VK_S, ActionEvent.SHIFT_MASK),
 	REVERT				("Revert",			KeyEvent.VK_R),
 	REVERT_ALL			("Revert All",		KeyEvent.VK_R, ActionEvent.SHIFT_MASK),
-	CLOSE_PROJECT		("Close", 			KeyEvent.VK_C),
+	CLOSE_PROJECT		("Close", 			KeyEvent.VK_C, ActionEvent.SHIFT_MASK),
 	NEW_ENTRY			("New Entry...",	KeyEvent.VK_N),
-	DELETE_ENTRY		("Delete Entry",	KeyEvent.VK_D);
+	DELETE_ENTRY		("Delete Entry",	KeyEvent.VK_D),
+	CLONE_ENTRY			("Clone Entry",		KeyEvent.VK_C);
 	
 	private String displayName;
 	private boolean shortcutExists = false, maskExists = false;

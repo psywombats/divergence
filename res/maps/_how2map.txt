@@ -48,15 +48,15 @@ Object layers follow the same scheme as upper chip layers. This probably sounds
 complicated but looking at the sample maps should help.
 
 Tile properties:
-Tiles have properties that can be edited by r-clicking them in the tilset. The
-engine relies on a property called "impassable" to make blocking chips. If a
-tile contains the property "impassable" (no matter what the value) characters
-will not be allowed to step on that tile. If a tile contains the property
-"passable," characters will be allowed to use that tile as a bridge. The
-"passable" property is only checked for on RM upper chip style layers with
-decimal z-depth and will allow the character to step on that space even if tiles
-below it are marked "impassable."
-(so far that's the only property used)
+Tiles have properties that can be edited by r-clicking them in the tileset.
+"x" - Blocking chip. If a tile contains the property "x" (no matter what the
+value) characters will not be allowed to step on that tile.
+"passable" - If a tile contains this property, characters will be allowed to use
+that tile as a bridge. The "passable" property is only checked for on RM upper
+chip style layers with decimal z-depth and will allow the character to step on
+that space even if tiles below it are marked
+"top" - The tile is the top of a cliff face: its lower half is cliff and its top
+half is dirt. Used only in Blockbound because weird physics
 
 Layer properties:
 Right now the only layer property is z-depth.

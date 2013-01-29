@@ -6,32 +6,23 @@
  */
 package net.wombatrpgs.rainfall.graphics;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 /**
  * All objects that are to be drawn to the screen must implement this. It just
- * contains a basic render method... for now.
+ * contains a basic render method. However, due to how libgdx sets up its
+ * interal loops, this should be thought of as more of an "updateable." Any
+ * updating should be done in the render loop by taking elapsed time to render
+ * frame into account.
  */
-public interface Renderable {
+public interface Renderable extends Queueable {
 	
 	/**
 	 * Render yourself to the screen using OpenGL. Nothing needs to be passed
-	 * here because OpenGL is one giant statemachine clusterfuck.
+	 * here because OpenGL is one giant statemachine clusterfuck. Keep in mind
+	 * due to libgdx weirdness, updates should be done in here as well.
 	 * @param	camera		The camera to render with, may or may not be used
 	 */
 	public void render(OrthographicCamera camera);
-	
-	/**
-	 * Queues up all the assets required to render this object in the resource
-	 * manager. Does not actually load them.
-	 */
-	public void queueRequiredAssets(AssetManager manager);
-	
-	/**
-	 * Perform all other necessary post-processing when the renderable assets
-	 * are loaded. Called before the first render and after asset loading.
-	 */
-	public void postProcessing(AssetManager manager);
 
 }

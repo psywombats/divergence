@@ -1,0 +1,18 @@
+{
+	"key" : "nico_right",
+	"subfolder" : "charas",
+	"name" : "",
+	"description" : "",
+	"file" : "nico.png",
+	"mode" : "REPEAT",
+	"frameCount" : 4,
+	"frameWidth" : 32,
+	"frameHeight" : 64,
+	"offX" : 0,
+	"offY" : 0,
+	"animSpeed" : 4,
+	"hit1x" : 8,
+	"hit1y" : 48,
+	"hit2x" : 24,
+	"hit2y" : 64
+}
