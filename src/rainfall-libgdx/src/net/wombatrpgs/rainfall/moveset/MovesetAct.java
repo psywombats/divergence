@@ -49,6 +49,7 @@ public abstract class MovesetAct implements Actionable, Queueable {
 	 */
 	@Override
 	public final void act(Level map, CharacterEvent actor) {
+		if (!actor.canAct()) return;
 		coreAct(map, actor);
 		this.map = map;
 	}
@@ -81,6 +82,14 @@ public abstract class MovesetAct implements Actionable, Queueable {
 	 * Same as that thing 
 	 */
 	public abstract void coreAct(Level map, CharacterEvent actor);
+	
+	/**
+	 * Called when the event is pre-emptively interrupted by the hero. This only
+	 * really applies to events that are active for a period of time.
+	 */
+	public void cancel() {
+		actor.stopAction(this);
+	}
 	
 	/**
 	 * Shortcut for subclasses to act themselves.

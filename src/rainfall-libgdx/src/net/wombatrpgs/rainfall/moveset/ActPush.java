@@ -58,4 +58,13 @@ public class ActPush extends MovesetAct {
 		RGlobal.block.targetVelocity(compX, compY);
 	}
 
+	/**
+	 * @see net.wombatrpgs.rainfall.moveset.MovesetAct#cancel()
+	 */
+	@Override
+	public void cancel() {
+		super.cancel();
+		RGlobal.block.targetVelocity(0, 0);
+	}
+
 }

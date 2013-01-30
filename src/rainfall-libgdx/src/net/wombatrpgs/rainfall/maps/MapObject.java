@@ -29,6 +29,8 @@ public abstract class MapObject implements	Renderable,
 	protected Level parent;
 	/** All sub-objects that update with us */
 	protected List<Updateable> subEvents;
+	/** All sub-objects to remove later */
+	protected List<Updateable> removalQueue;
 	
 	/**
 	 * Creates a new map object for a given level.
@@ -44,6 +46,7 @@ public abstract class MapObject implements	Renderable,
 	 */
 	public MapObject() {
 		subEvents = new ArrayList<Updateable>();
+		removalQueue = new ArrayList<Updateable>();
 	}
 	
 	/** @return The map the hero is currently on */
@@ -87,6 +90,9 @@ public abstract class MapObject implements	Renderable,
 		for (Updateable subEvent : subEvents) {
 			subEvent.update(elapsed);
 		}
+		for (Updateable toRemove : removalQueue) {
+			subEvents.remove(toRemove);
+		}
 	}
 
 	/**
@@ -120,7 +126,7 @@ public abstract class MapObject implements	Renderable,
 	 */
 	public void removeSubEvent(Updateable subEvent) {
 		if (subEvents.contains(subEvent)) {
-			subEvents.remove(subEvent);
+			removalQueue.add(subEvent);
 		} else {
 			RGlobal.reporter.warn("Removed a non-child subevent: " + subEvent);
 		}

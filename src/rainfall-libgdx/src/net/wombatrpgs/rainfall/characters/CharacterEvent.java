@@ -25,6 +25,8 @@ import net.wombatrpgs.rainfall.maps.DirVector;
 import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
+import net.wombatrpgs.rainfall.maps.objects.TimerListener;
+import net.wombatrpgs.rainfall.maps.objects.TimerObject;
 import net.wombatrpgs.rainfall.moveset.MovesetAct;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 import net.wombatrpgs.rainfallschema.characters.MobilityMDO;
@@ -43,6 +45,8 @@ public class CharacterEvent extends MapEvent {
 	protected MobilityMDO mobilityMDO;
 	protected FacesAnimation appearance;
 	protected FacesAnimation walkAnim;
+	
+	protected boolean stunned;
 
 	/**
 	 * Creates a new char event with the specified data at the specified coords.
@@ -236,6 +240,15 @@ public class CharacterEvent extends MapEvent {
 			applyMTV(other, result, 1f);
 		}
 	}
+	
+	/**
+	 * Determines if the hero is currently in a state to act, based on the
+	 * actions the hero is currently carrying out and status conditions.
+	 * @return					True if we can act, false otherwise.
+	 */
+	public boolean canAct() {
+		return !stunned;
+	}
 
 	/**
 	 * Makes this event face towards an object on the map.
@@ -266,6 +279,7 @@ public class CharacterEvent extends MapEvent {
 	 * @param 	dir			The direction to move in
 	 */
 	public void startMove(Direction dir) {
+		if (!canAct()) return;
 		if (!directionStatus.get(dir)) {
 			addMoveComponent(dir.getVector());
 			directionStatus.put(dir, true);
@@ -302,8 +316,21 @@ public class CharacterEvent extends MapEvent {
 	 * Stuns the character to prevent action for some time or something?
 	 */
 	public void stun() {
-		// appearance.setFlicker(true);
-		// NOPE
+		setStunned(true);
+		List<MovesetAct> cancelledActs = new ArrayList<MovesetAct>();
+		for (MovesetAct act : activeMoves) {
+			cancelledActs.add(act);
+		}
+		for (MovesetAct act : cancelledActs) {
+			act.cancel();
+		}
+		new TimerObject(1.0f, this, new TimerListener() {
+			@Override
+			public void onTimerZero(TimerObject source) {
+				appearance.setFlicker(false);
+				setStunned(false);
+			}
+		});
 	}
 	
 	/**
@@ -324,6 +351,7 @@ public class CharacterEvent extends MapEvent {
 	 * @param 	act				The act that's being started
 	 */
 	public void startAction(MovesetAct act) {
+		if (!canAct()) return;
 		activeMoves.add(act);
 		if (act.getAppearance() != null) {
 			setAppearance(act.getAppearance());
@@ -392,6 +420,17 @@ public class CharacterEvent extends MapEvent {
 		float newX = this.targetVX + vector.x * mobilityMDO.walkVelocity;
 		float newY = this.targetVY + vector.y * mobilityMDO.walkVelocity;
 		this.targetVelocity(newX, newY);
+	}
+	
+	/**
+	 * Sets the stun status of this character. Stunned characters are unable to
+	 * act.
+	 * @param 	stunned			True if this chara is stunned, false otherwise
+	 */
+	protected void setStunned(boolean stunned) {
+		this.stunned = stunned;
+		this.appearance = walkAnim;
+		this.appearance.setFlicker(stunned);
 	}
 	
 	/**

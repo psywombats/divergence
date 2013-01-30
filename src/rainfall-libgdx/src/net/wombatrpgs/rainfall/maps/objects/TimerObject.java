@@ -29,10 +29,10 @@ public class TimerObject extends MapObject {
 	 * listener, then starts counting down. Auto-kills itself when time runs
 	 * out the first time.
 	 * @param remaining				The time to notify after elapsed
-	 * @param listener				The single listener to notify when done
 	 * @param parent				The thing to jetison from once elapsed
+	 * @param listener				The single listener to notify when done
 	 */
-	public TimerObject(float remaining, TimerListener listener, MapObject parent) {
+	public TimerObject(float remaining, MapObject parent, TimerListener listener) {
 		this(remaining);
 		addListener(listener);
 		set(true);
