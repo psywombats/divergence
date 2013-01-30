@@ -19,6 +19,7 @@ import net.wombatrpgs.rainfall.collisions.NoHitbox;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfall.maps.PositionSetable;
+import net.wombatrpgs.rainfall.maps.layers.EventLayer;
 
 /**
  * A map event is any map object defined in Tiled, including characters and
@@ -95,7 +96,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 * @param 	parent		The parent levelt to make teleport for
 	 * @param 	object		The object to infer coords from
 	 */
-	protected MapEvent(Level parent, TiledObject object, boolean mobile, boolean checkCollisions) {
+	public MapEvent(Level parent, TiledObject object, boolean mobile, boolean checkCollisions) {
 		this(	parent, 
 				object.x, 
 				parent.getMap().height*parent.getMap().tileHeight-object.y,
@@ -189,6 +190,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 * @param 	elapsed			Time elapsed since last update, in seconds
 	 */
 	public void update(float elapsed) {
+		super.update(elapsed);
 		if (tracking) {
 			float dx = targetX - x;;
 			float dy = targetY - y;
@@ -361,6 +363,14 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 */
 	public boolean onCollide(MapEvent other, CollisionResult result) { 
 		return false;
+	}
+	
+	/**
+	 * Called when this object is added to an object layer. Nothing by default.
+	 * @param 	layer			The layer this object is being added to
+	 */
+	public void onAdd(EventLayer layer) {
+		// nothing by default
 	}
 	
 	/**

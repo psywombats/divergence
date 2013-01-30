@@ -44,27 +44,41 @@ import net.wombatrpgs.rainfallschema.maps.MapMDO;
  */
 public class Level implements Canvasable {
 	
-	public static final int PIXELS_PER_Y = 48;
-	public static final int TILES_TO_CULL = 8;
+	/** How many pixels are occupied by each point of z-depth */
+	public static final int PIXELS_PER_Y = 48; // in pixels
+	/** libgdx bullshit */
+	public static final int TILES_TO_CULL = 8; // in... I don't know
 	
+	/** The thing we're going to use to render the level */
 	protected TileMapRenderer renderer;
+	/** The underlying map for this level */
 	protected TiledMap map;
+	/** Sprite batch for use in rendering */
 	protected SpriteBatch batch;
-	protected String mapName;
-	protected List<Layer> layers; // all object and tile layers in order
+	/** Name of the file with our map in it, mentioned in database */
+	protected String mapPath;
+	/** All event and tile layers, in order by Z */
+	protected List<Layer> layers;
+	/** All event layers, in order by Z */
 	protected List<EventLayer> eventLayers;
+	/** All tile layers, in order by Z */
 	protected List<GridLayer> tileLayers;
-	protected Map<MapEvent, Integer> layerMap; // each object's later
+	/** A mapping from object to their z-depths */
+	protected Map<MapEvent, Integer> layerMap;
+	/** List of all map events in the level, (these are all in layers) */
 	protected List<MapEvent> events;
+	/** List of all map object in the level (some are in layers) */
+	protected List<MapObject> objects;
 	
 	/**
 	 * Generates a level from the supplied level data.
 	 * @param 	mdo		Info about the level to generate
 	 */
 	public Level(MapMDO mdo) {
-		mapName = RGlobal.MAPS_DIR + mdo.map;
+		mapPath = RGlobal.MAPS_DIR + mdo.map;
 		batch = new SpriteBatch();
 		events = new ArrayList<MapEvent>();
+		objects = new ArrayList<MapObject>();
 	}
 	
 	/** @return The batch used to render sprites on this map */
@@ -106,12 +120,12 @@ public class Level implements Canvasable {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		if (RGlobal.assetManager.isLoaded(mapName)) {
+		if (RGlobal.assetManager.isLoaded(mapPath)) {
 			for (Renderable layer : layers) {
 				layer.render(camera);
 			}
 		} else {
-			Global.reporter.warn("Map assets not loaded for " + mapName);
+			Global.reporter.warn("Map assets not loaded for " + mapPath);
 		}
 	}
 	
@@ -123,8 +137,8 @@ public class Level implements Canvasable {
 	public void queueRequiredAssets(AssetManager manager) {
 		TileMapParameter tileMapParameter = new TileMapParameter(
 				RGlobal.MAPS_DIR, TILES_TO_CULL, TILES_TO_CULL);
-		RGlobal.reporter.inform("We're trying to load from " + mapName);
-		RGlobal.assetManager.load(mapName, TileMapRenderer.class, tileMapParameter);
+		RGlobal.reporter.inform("We're trying to load from " + mapPath);
+		RGlobal.assetManager.load(mapPath, TileMapRenderer.class, tileMapParameter);
 	}
 	
 	/**
@@ -133,7 +147,7 @@ public class Level implements Canvasable {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager) {
-		renderer = RGlobal.assetManager.get(mapName, TileMapRenderer.class);
+		renderer = RGlobal.assetManager.get(mapPath, TileMapRenderer.class);
 		map = renderer.getMap();
 		layers = new ArrayList<Layer>();
 		eventLayers = new ArrayList<EventLayer>();
@@ -190,8 +204,8 @@ public class Level implements Canvasable {
 	 */
 	@Override
 	public void update(float elapsed) {
-		for (MapEvent event : events) {
-			event.update(elapsed);
+		for (MapObject object : objects) {
+			object.update(elapsed);
 		}
 		for (MapEvent event : events) {
 			if (event.isCollisionEnabled()) {
@@ -299,7 +313,8 @@ public class Level implements Canvasable {
 		}
 		layerMap.remove(toRemove);
 		events.remove(toRemove);
-		toRemove.onTeleOff(this);
+		objects.remove(toRemove);
+		toRemove.onRemovedFromMap(this);
 	}
 	
 	/**
@@ -309,7 +324,6 @@ public class Level implements Canvasable {
 	 * @param	tileY			The y-coord to teleport to (in tiles)
 	 */
 	public void teleportOn(int tileX, int tileY, int z) {
-		// TODO: don't forget about z
 		teleportOn(RGlobal.hero, tileX, tileY);
 		RGlobal.screens.getLevelScreen().setCanvas(this);
 	}
@@ -325,7 +339,7 @@ public class Level implements Canvasable {
 	public void teleportOn(MapEvent newEvent, int tileX, int tileY, int z) {
 		newEvent.setX(tileX * map.tileWidth);
 		newEvent.setY(tileY * map.tileHeight);
-		newEvent.onTeleOn(this);
+		newEvent.onAddedToMap(this);
 		addEvent(newEvent, z);
 	}
 	
@@ -377,6 +391,16 @@ public class Level implements Canvasable {
 		layerMap.put(newEvent, layerIndex);
 		eventLayers.get(layerIndex).add(newEvent);
 		events.add(newEvent);
+		addObject(newEvent);
+	}
+	
+	/**
+	 * Adds a new object to this map. Called externally for anything wanting to
+	 * add non-events to this map.
+	 * @param 	object			The new object to add
+	 */
+	public void addObject(MapObject object) {
+		objects.add(object);
 	}
 
 }
