@@ -47,6 +47,17 @@ public class Block extends CharacterEvent {
 		}
 		map.teleportOn(this, getX(), getY());
 	}
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		super.update(elapsed);
+		if (isMoving()) {
+			RGlobal.hero.faceToward(this);
+		}
+	}
 
 	/**
 	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#onCollide
@@ -58,17 +69,6 @@ public class Block extends CharacterEvent {
 			return true;
 		} else {
 			return super.onCollide(other, result);
-		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#update(float)
-	 */
-	@Override
-	protected void update(float elapsed) {
-		super.update(elapsed);
-		if (isMoving()) {
-			RGlobal.hero.faceToward(this);
 		}
 	}
 	

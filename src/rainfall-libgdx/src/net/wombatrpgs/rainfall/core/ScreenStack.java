@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.mgne.global.Global;
@@ -100,6 +101,20 @@ public class ScreenStack {
 		} else {
 			screens.get(0).render(camera);
 		}
+		update();
+	}
+	
+	// TODO: might want to make this affect /all/ the screens
+	/**
+	 * Updates all objects in the screen.
+	 */
+	public void update() {
+		float elapsed = Gdx.graphics.getDeltaTime();
+		float real = 1.0f / elapsed;
+		if (real < RGlobal.constants.rate()) {
+			elapsed = (1.0f / RGlobal.constants.rate());
+		}
+		screens.get(0).update(elapsed);
 	}
 	
 	/**

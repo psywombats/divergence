@@ -13,6 +13,7 @@ import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.graphics.Renderable;
 import net.wombatrpgs.rainfall.io.CommandListener;
 import net.wombatrpgs.rainfall.io.CommandMap;
+import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 
 /**
  * A screen is the environment in which the game is now running. It's
@@ -25,12 +26,13 @@ import net.wombatrpgs.rainfall.io.CommandMap;
  */
 public abstract class GameScreen implements CommandListener, 
 											Comparable<GameScreen>,
-											Renderable {
+											Renderable,
+											Updateable {
 	
 	/** Command map to use while this screen is active */
 	protected CommandMap commandContext;
 	/** The thing to draw if this canvas is visible */
-	protected Renderable canvas;
+	protected Canvasable canvas;
 	/** Depth, lower values are rendered last */
 	protected float z;
 	/** If true, layers with higher z won't be rendered */
@@ -131,10 +133,27 @@ public abstract class GameScreen implements CommandListener,
 	}
 	
 	/**
+	 * @see net.wombatrpgs.rainfall.core.Updateable#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		canvas.update(elapsed);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.io.CommandListener#onCommand
+	 * (net.wombatrpgs.rainfallschema.io.data.InputCommand)
+	 */
+	@Override
+	public void onCommand(InputCommand command) {
+		// default does nothing I think
+	}
+
+	/**
 	 * Changes the screen's canvas.
 	 * @param 	newCanvas			The new renderable canvas
 	 */
-	public void setCanvas(Renderable newCanvas) {
+	public void setCanvas(Canvasable newCanvas) {
 		this.canvas = newCanvas;
 	}
 

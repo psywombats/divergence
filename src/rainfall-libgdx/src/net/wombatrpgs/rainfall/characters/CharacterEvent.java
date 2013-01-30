@@ -105,6 +105,18 @@ public class CharacterEvent extends MapEvent {
 	public FacesAnimation getAppearance() {
 		return appearance;
 	}
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		super.update(elapsed);
+		if (Math.abs(vx) < .1 && Math.abs(vy) < .1) {
+			walkAnim.stopMoving();
+		}
+		// TODO: unstun stuff
+	}
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render
@@ -343,18 +355,6 @@ public class CharacterEvent extends MapEvent {
 	 */
 	public boolean isMoveActive(MovesetAct act) {
 		return activeMoves.contains(act);
-	}
-	
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#update(float)
-	 */
-	@Override
-	protected void update(float elapsed) {
-		super.update(elapsed);
-		if (Math.abs(vx) < .1 && Math.abs(vy) < .1) {
-			walkAnim.stopMoving();
-		}
-		// TODO: unstun stuff
 	}
 	
 	/**

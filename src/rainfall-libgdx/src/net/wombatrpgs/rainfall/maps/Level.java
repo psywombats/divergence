@@ -24,6 +24,7 @@ import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.collisions.FallResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.TargetPosition;
+import net.wombatrpgs.rainfall.core.Canvasable;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Renderable;
 import net.wombatrpgs.rainfall.maps.events.EventFactory;
@@ -41,7 +42,7 @@ import net.wombatrpgs.rainfallschema.maps.MapMDO;
  * order so that the player's sprite can appear say above the ground but below a
  * cloud or other upper chip object.
  */
-public class Level implements Renderable {
+public class Level implements Canvasable {
 	
 	public static final int PIXELS_PER_Y = 48;
 	public static final int TILES_TO_CULL = 8;
@@ -108,12 +109,6 @@ public class Level implements Renderable {
 		if (RGlobal.assetManager.isLoaded(mapName)) {
 			for (Renderable layer : layers) {
 				layer.render(camera);
-			}
-			for (MapEvent event : events) {
-				if (event.isCollisionEnabled()) {
-					applyPhysicalCorrections(event);
-					detectCollisions(event);
-				}
 			}
 		} else {
 			Global.reporter.warn("Map assets not loaded for " + mapName);
@@ -190,6 +185,22 @@ public class Level implements Renderable {
 		}
 	}
 	
+	/**
+	 * @see net.wombatrpgs.rainfall.core.Updateable#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		for (MapEvent event : events) {
+			event.update(elapsed);
+		}
+		for (MapEvent event : events) {
+			if (event.isCollisionEnabled()) {
+				applyPhysicalCorrections(event);
+				detectCollisions(event);
+			}
+		}
+	}
+
 	/**
 	 * Same as the rendering asset queuing, but for a second round of map object
 	 * assets.

@@ -40,7 +40,7 @@ public class Enemy extends CharacterEvent {
 	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#update(float)
 	 */
 	@Override
-	protected void update(float elapsed) {
+	public void update(float elapsed) {
 		ai.act();
 		super.update(elapsed);
 	}

@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
-import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfall.graphics.Renderable;
 import net.wombatrpgs.rainfall.maps.layers.EventLayer;
 
@@ -22,9 +22,10 @@ import net.wombatrpgs.rainfall.maps.layers.EventLayer;
  * All objects that appear in Tiled maps that are not tiles extend this class.
  * This includes both characters and events. 
  */
-public abstract class MapObject implements 	Renderable, 
+public abstract class MapObject implements	Renderable, 
 											PositionSetable, 
-											Comparable<MapObject> {
+											Comparable<MapObject>,
+											Updateable {
 	
 	/** Level this object exists on */
 	protected Level parent;
@@ -133,18 +134,15 @@ public abstract class MapObject implements 	Renderable,
 	}
 
 	/**
-	 * This is actually the update part of the render loop.
+	 * This is actually the update part of the render loop. CHANGED on
+	 * 2013-01-30 so that the level actually calls update separately. So don't
+	 * worry about that.
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render
 	 * (com.badlogic.gdx.graphics.OrthographicCamera)
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		float elapsed = Gdx.graphics.getDeltaTime();
-		float real = 1.0f / elapsed;
-		if (real < RGlobal.constants.rate()) {
-			elapsed = (1.0f / RGlobal.constants.rate());
-		}
-		update(elapsed);
+		// default is invisible
 	}
 
 	/**
@@ -318,10 +316,11 @@ public abstract class MapObject implements 	Renderable,
 	
 	/**
 	 * Update yoself! This is called from the rendering loop but it's with some
-	 * filters set on it for target framerate.
+	 * filters set on it for target framerate. As of 2012-01-30 it's not called
+	 * from the idiotic update loop.
 	 * @param 	elapsed			Time elapsed since last update, in seconds
 	 */
-	protected void update(float elapsed) {
+	public void update(float elapsed) {
 		if (tracking) {
 			float dx = targetX - x;;
 			float dy = targetY - y;
