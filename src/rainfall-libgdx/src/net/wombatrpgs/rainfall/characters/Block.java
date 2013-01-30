@@ -13,8 +13,8 @@ import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.AnimationStrip;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
-import net.wombatrpgs.rainfallschema.hero.moveset.SummonMDO;
-import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
+import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
+import net.wombatrpgs.rainfallschema.characters.hero.moveset.SummonMDO;
 
 /**
  * That big blocky thing that falls from the sky.

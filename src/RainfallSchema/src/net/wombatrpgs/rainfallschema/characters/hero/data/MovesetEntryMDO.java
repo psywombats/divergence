@@ -4,13 +4,13 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfallschema.hero.data;
+package net.wombatrpgs.rainfallschema.characters.hero.data;
 
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.HeadlessSchema;
-import net.wombatrpgs.rainfallschema.hero.moveset.MoveMDO;
+import net.wombatrpgs.rainfallschema.characters.hero.moveset.MoveMDO;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 
 /**

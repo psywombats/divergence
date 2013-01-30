@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfallschema.hero.moveset;
+package net.wombatrpgs.rainfallschema.characters.hero.moveset;
 
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
@@ -12,7 +12,7 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 /**
  * Push and pull move.
  */
-@Path("hero/moveset/")
+@Path("characters/hero/moveset/")
 public class PushMDO extends MoveMDO {
 	
 	@Desc("Target velocity -- negative goes towards hero, in pixels/second")

@@ -14,8 +14,8 @@ import net.wombatrpgs.rainfall.graphics.FacesAnimation;
 import net.wombatrpgs.rainfall.graphics.FourDir;
 import net.wombatrpgs.rainfall.graphics.Queueable;
 import net.wombatrpgs.rainfall.maps.Level;
+import net.wombatrpgs.rainfallschema.characters.hero.moveset.MoveMDO;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
-import net.wombatrpgs.rainfallschema.hero.moveset.MoveMDO;
 
 /**
  * A superclass for all moves from the movesets that involve character animation

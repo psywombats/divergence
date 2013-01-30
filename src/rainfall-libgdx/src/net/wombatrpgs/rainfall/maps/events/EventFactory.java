@@ -9,7 +9,7 @@ package net.wombatrpgs.rainfall.maps.events;
 import net.wombatrpgs.rainfall.characters.CharacterFactory;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
+import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 
 import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;

@@ -14,9 +14,9 @@ import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfall.moveset.Moveset;
-import net.wombatrpgs.rainfallschema.hero.MovesetSchema;
+import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
+import net.wombatrpgs.rainfallschema.characters.hero.MovesetSchema;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
-import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
 
 /**
  * Placeholder class for the protagonist player.

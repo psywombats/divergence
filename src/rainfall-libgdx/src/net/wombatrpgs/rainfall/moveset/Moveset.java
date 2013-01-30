@@ -16,11 +16,11 @@ import net.wombatrpgs.rainfall.characters.Hero;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Queueable;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfallschema.hero.MovesetSchema;
-import net.wombatrpgs.rainfallschema.hero.data.MovesetEntryMDO;
-import net.wombatrpgs.rainfallschema.hero.moveset.MoveMDO;
-import net.wombatrpgs.rainfallschema.hero.moveset.PushMDO;
-import net.wombatrpgs.rainfallschema.hero.moveset.SummonMDO;
+import net.wombatrpgs.rainfallschema.characters.hero.MovesetSchema;
+import net.wombatrpgs.rainfallschema.characters.hero.data.MovesetEntryMDO;
+import net.wombatrpgs.rainfallschema.characters.hero.moveset.MoveMDO;
+import net.wombatrpgs.rainfallschema.characters.hero.moveset.PushMDO;
+import net.wombatrpgs.rainfallschema.characters.hero.moveset.SummonMDO;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 
 /**

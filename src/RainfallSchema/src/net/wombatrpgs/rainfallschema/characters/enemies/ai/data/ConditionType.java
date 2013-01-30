@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfallschema.enemies.ai.data;
+package net.wombatrpgs.rainfallschema.characters.enemies.ai.data;
 
 import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
 

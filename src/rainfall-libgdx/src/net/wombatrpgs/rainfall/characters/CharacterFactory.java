@@ -9,9 +9,9 @@ package net.wombatrpgs.rainfall.characters;
 import net.wombatrpgs.rainfall.characters.enemies.Enemy;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfallschema.enemies.EnemyEventMDO;
-import net.wombatrpgs.rainfallschema.hero.HeroMDO;
-import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
+import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
+import net.wombatrpgs.rainfallschema.characters.enemies.EnemyEventMDO;
+import net.wombatrpgs.rainfallschema.characters.hero.HeroMDO;
 
 /**
  * A factory for creating characters from a generic MDO.

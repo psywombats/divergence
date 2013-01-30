@@ -4,14 +4,14 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfallschema.enemies.ai.intent;
+package net.wombatrpgs.rainfallschema.characters.enemies.ai.intent;
 
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
 import net.wombatrpgs.mgns.core.HeadlessSchema;
-import net.wombatrpgs.rainfallschema.enemies.ai.data.ActionType;
-import net.wombatrpgs.rainfallschema.enemies.ai.data.ConditionType;
+import net.wombatrpgs.rainfallschema.characters.enemies.ai.data.ActionType;
+import net.wombatrpgs.rainfallschema.characters.enemies.ai.data.ConditionType;
 
 /**
  * An intent is something an ai wants to do if certain conditions are met. A

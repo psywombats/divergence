@@ -4,15 +4,15 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfallschema.hero;
+package net.wombatrpgs.rainfallschema.characters.hero;
 
 import net.wombatrpgs.mgns.core.Annotations.Path;
-import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
+import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 
 /**
  * Defines stuff about the hero and how it moves/acts.
  */
-@Path("hero/")
+@Path("characters/hero/")
 public class HeroMDO extends CharacterEventMDO {
 
 }

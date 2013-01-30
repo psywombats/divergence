@@ -9,7 +9,7 @@ package net.wombatrpgs.rainfall.moveset;
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfallschema.hero.moveset.PushMDO;
+import net.wombatrpgs.rainfallschema.characters.hero.moveset.PushMDO;
 
 /**
  * Push or pull the block.

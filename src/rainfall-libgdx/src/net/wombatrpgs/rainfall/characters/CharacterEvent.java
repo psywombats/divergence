@@ -24,10 +24,10 @@ import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
-import net.wombatrpgs.rainfallschema.enemies.MobilityMDO;
+import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
+import net.wombatrpgs.rainfallschema.characters.MobilityMDO;
+import net.wombatrpgs.rainfallschema.characters.data.CollisionResponseType;
 import net.wombatrpgs.rainfallschema.graphics.DirMDO;
-import net.wombatrpgs.rainfallschema.maps.CharacterEventMDO;
-import net.wombatrpgs.rainfallschema.maps.data.CollisionResponseType;
 
 /**
  * A character event is an event with an MDO and an animation that looks kind of

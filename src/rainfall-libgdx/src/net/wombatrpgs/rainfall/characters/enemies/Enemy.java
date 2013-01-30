@@ -8,7 +8,7 @@ package net.wombatrpgs.rainfall.characters.enemies;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfallschema.enemies.EnemyEventMDO;
+import net.wombatrpgs.rainfallschema.characters.enemies.EnemyEventMDO;
 
 /**
  * The one and only class for those pesky badniks that hunt down the valiant
