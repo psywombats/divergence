@@ -41,6 +41,12 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	/** The top speed this object can voluntarily reach, in px/s */
 	protected float maxVelocity;
 	
+	/** Are we currently moving towards some preset destination? */
+	protected boolean tracking;
+	/** The place we're possibly moving for */
+	protected float targetX, targetY;
+	/** Gotta keep track of these for some reason (tracking reasons!) */
+	protected float lastX, lastY;
 	
 	/**
 	 * Creates a new map object for a given level and position.
@@ -281,6 +287,15 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	 * @param 	elapsed			Time elapsed since last update, in seconds
 	 */
 	protected void update(float elapsed) {
+		if (tracking) {
+			float dx = targetX - x;;
+			float dy = targetY - y;
+			float norm = (float) Math.sqrt(dx*dx + dy*dy);
+			dx /= norm;
+			dy /= norm;
+			targetVX = maxVelocity * dx;
+			targetVY = maxVelocity * dy;
+		}
 		float deltaVX, deltaVY;
 		if (vx != targetVX) {
 			if (Math.abs(vx) < maxVelocity) {
@@ -308,6 +323,23 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 		}
 		x += vx * elapsed;
 		y += vy * elapsed;
+		if (tracking) {
+			if ((x < targetX && lastX > targetX) || (x > targetX && lastX < targetX)) {
+				x = targetX;
+				vx = 0;
+				targetVX = 0;
+			}
+			if ((y < targetY && lastY > targetY) || (y > targetY && lastY < targetY)) {
+				y = targetY;
+				vy = 0;
+				targetVY = 0;
+			}
+			if (x == targetX && y == targetY) {
+				tracking = false;
+			}
+		}
+		lastX = x;
+		lastY = y;
 	}
 
 }

@@ -5,6 +5,6 @@
 	"description" : "",
 	"appearance" : "widget_2dir",
 	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
-	"response" : "IMMOBILE",
+	"response" : "STUNBOUNCE",
 	"mobility" : "mobility_enemy"
 }
