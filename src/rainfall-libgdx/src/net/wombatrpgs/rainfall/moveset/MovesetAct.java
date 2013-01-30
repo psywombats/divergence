@@ -26,8 +26,7 @@ public abstract class MovesetAct implements Actionable, Queueable {
 	
 	protected CharacterEvent actor;
 	protected Level map;
-	protected FacesAnimation oldAppearance, newAppearance;
-	protected FacesAnimation animFromMDO;
+	protected FacesAnimation appearance;
 	
 	/**
 	 * Constructs a moveset act from data.
@@ -36,10 +35,13 @@ public abstract class MovesetAct implements Actionable, Queueable {
 	public MovesetAct(CharacterEvent actor, MoveMDO mdo) {
 		if (mdo.animation != null && !"".equals(mdo.animation)) {
 			FourDirMDO animMDO = RGlobal.data.getEntryFor(mdo.animation, FourDirMDO.class);
-			this.animFromMDO = new FourDir(animMDO, actor);
+			this.appearance = new FourDir(animMDO, actor);
 		}
 		this.actor = actor;
 	}
+	
+	/** @return The animation associated with this move */
+	public FacesAnimation getAppearance() { return appearance; }
 
 	/**
 	 * @see net.wombatrpgs.rainfall.moveset.Actionable#act
@@ -57,8 +59,8 @@ public abstract class MovesetAct implements Actionable, Queueable {
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		if (animFromMDO != null) {
-			animFromMDO.queueRequiredAssets(manager);
+		if (appearance != null) {
+			appearance.queueRequiredAssets(manager);
 		}
 	}
 
@@ -68,8 +70,8 @@ public abstract class MovesetAct implements Actionable, Queueable {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager) {
-		if (animFromMDO != null) {
-			animFromMDO.postProcessing(manager);
+		if (appearance != null) {
+			appearance.postProcessing(manager);
 		}
 	}
 
@@ -86,39 +88,6 @@ public abstract class MovesetAct implements Actionable, Queueable {
 	 */
 	protected final void act(Level map) {
 		act(map, this.actor);
-	}
-	
-	/**
-	 * Remembers the actor's appearance for future use. Useful if the act 
-	 * requires changing the appearance of the actor temporarily.
-	 */
-	protected void saveAppearance() {
-		oldAppearance = actor.getAppearance();
-	}
-	
-	/**
-	 * Changes the actor's appearance to the supplied animation. Also remembers
-	 * the old action for future restoration.
-	 * @param	animFromMDO2		The new appearance for the actor
-	 */
-	protected void setAppearance(FacesAnimation animFromMDO2) {
-		if (actor.getAppearance() != animFromMDO2) {
-			saveAppearance();
-			actor.setAppearance(animFromMDO2);
-			this.newAppearance = animFromMDO2;
-			this.newAppearance.startMoving();
-		}
-	}
-	
-	/**
-	 * Returns the actor to its memorized animation if appropriate. Here, this
-	 * means if the animation is the animation that was set by this move.
-	 */
-	protected void restoreAppearance() {
-		// FIXME: there's a bug here
-		if (newAppearance == RGlobal.hero.getAppearance()) {
-			actor.setAppearance(oldAppearance);
-		}
 	}
 
 }

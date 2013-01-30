@@ -226,6 +226,14 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	}
 	
 	/**
+	 * Determines if this object is currently in motion.
+	 * @return					True if the object is moving, false otherwise
+	 */
+	public boolean isMoving() {
+		return Math.abs(vx) > .1 || Math.abs(vy) > .1;
+	}
+	
+	/**
 	 * Called when this object is tele'd onto a map.
 	 * @param 	map				The map this object is being removed from
 	 */

@@ -17,8 +17,6 @@ import net.wombatrpgs.rainfallschema.characters.hero.moveset.PushMDO;
 public class ActPush extends MovesetAct {
 	
 	protected PushMDO mdo;
-	protected boolean keyDown;
-	protected boolean active;
 
 	/**
 	 * Constructs a new push act from data.
@@ -28,8 +26,6 @@ public class ActPush extends MovesetAct {
 	public ActPush(CharacterEvent actor, PushMDO mdo) {
 		super(actor, mdo);
 		this.mdo = mdo;
-		this.keyDown = false;
-		this.active = false;
 	}
 	
 	/**
@@ -42,14 +38,11 @@ public class ActPush extends MovesetAct {
 		if (RGlobal.block.getLevel() != RGlobal.hero.getLevel()) return;
 		int compX = 0;
 		int compY = 0;
-		if (!keyDown) {
-			keyDown = true;
-			if (RGlobal.hero.isActing()) return;
-			active = true;
-			RGlobal.hero.setActing(true);
-			animFromMDO.reset();
-			int dx = RGlobal.hero.getX() - RGlobal.block.getX();
-			int dy = RGlobal.hero.getY() - RGlobal.block.getY();
+		if (!actor.isMoveActive(this)) {
+			actor.halt();
+			actor.startAction(this);
+			int dx = actor.getX() - RGlobal.block.getX();
+			int dy = actor.getY() - RGlobal.block.getY();
 			if (Math.abs(dx) > Math.abs(dy)) {
 				compX = 1;
 			} else {
@@ -59,17 +52,10 @@ public class ActPush extends MovesetAct {
 			if (RGlobal.hero.getY() > RGlobal.block.getY()) compY *= -1;
 			compX *= mdo.targetVelocity;
 			compY *= mdo.targetVelocity;
-			setAppearance(this.animFromMDO);
-			RGlobal.hero.halt();
-			RGlobal.hero.getAppearance().startMoving();
 		} else {
-			keyDown = false;
-			if (!active) return;
-			restoreAppearance();
-			RGlobal.hero.setActing(false);
+			actor.stopAction(this);
 		}
 		RGlobal.block.targetVelocity(compX, compY);
-		RGlobal.block.setMoving(keyDown);
 	}
 
 }

@@ -6,7 +6,9 @@
  */
 package net.wombatrpgs.rainfall.characters;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -24,6 +26,7 @@ import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
+import net.wombatrpgs.rainfall.moveset.MovesetAct;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 import net.wombatrpgs.rainfallschema.characters.MobilityMDO;
 import net.wombatrpgs.rainfallschema.characters.data.CollisionResponseType;
@@ -36,9 +39,11 @@ import net.wombatrpgs.rainfallschema.graphics.DirMDO;
 public class CharacterEvent extends MapEvent {
 	
 	protected Map<Direction, Boolean> directionStatus;
+	protected List<MovesetAct> activeMoves;
 	protected CharacterEventMDO mdo;
 	protected MobilityMDO mobilityMDO;
 	protected FacesAnimation appearance;
+	protected FacesAnimation walkAnim;
 
 	/**
 	 * Creates a new char event with the specified data at the specified coords.
@@ -87,10 +92,10 @@ public class CharacterEvent extends MapEvent {
 	
 	/**
 	 * Gives this character a new (temporary?) appearance with a four-dir anim
-	 * @param 	oldAppearance	The new anim for this character
+	 * @param 	appearance	The new anim for this character
 	 */
-	public void setAppearance(FacesAnimation oldAppearance) {
-		this.appearance = oldAppearance;
+	public void setAppearance(FacesAnimation appearance) {
+		this.appearance = appearance;
 	}
 	
 	/**
@@ -201,11 +206,51 @@ public class CharacterEvent extends MapEvent {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.MapObject#onCharacterCollide
-	 * (net.wombatrpgs.rainfall.characters.CharacterEvent, net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 * (net.wombatrpgs.rainfall.characters.CharacterEvent, 
+	 * net.wombatrpgs.rainfall.collisions.CollisionResult)
 	 */
 	@Override
 	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
 		return false;
+	}
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#resolveCollision
+	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 */
+	@Override
+	public void resolveCollision(MapObject other, CollisionResult result) {
+		other.resolveCharacterCollision(this, result);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#resolveCharacterCollision
+	 * (net.wombatrpgs.rainfall.characters.CharacterEvent, 
+	 * net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 */
+	@Override
+	public void resolveCharacterCollision(CharacterEvent other, CollisionResult result) {
+		if (other.mdo.response == CollisionResponseType.IMMOBILE &&
+			this.mdo.response == CollisionResponseType.IMMOBILE) {
+			RGlobal.reporter.warn("Two immobile objects collided? wtf?");
+			applyMTV(other, result, 1f);
+			return;
+		}
+		if (other.mdo.response == CollisionResponseType.IMMOBILE) {
+			applyMTV(other, result, 1f);
+		}
+		if (this.mdo.response == CollisionResponseType.IMMOBILE) {
+			applyMTV(other, result, 0f);
+		}
+		if (other.mdo.response == CollisionResponseType.PUSHABLE &&
+				this.mdo.response == CollisionResponseType.PUSHABLE) {
+				RGlobal.reporter.warn("Two immobile objects collided? wtf?");
+				applyMTV(other, result, .5f);
+		} else if (other.mdo.response == CollisionResponseType.PUSHABLE) {
+			applyMTV(other, result, 0f);
+		} else if (this.mdo.response == CollisionResponseType.PUSHABLE) {
+			applyMTV(other, result, 1f);
+		}
 	}
 
 	/**
@@ -290,41 +335,40 @@ public class CharacterEvent extends MapEvent {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#resolveCollision
-	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 * Does not actually do anything but registers this move as having started.
+	 * @param 	act				The act that's being started
 	 */
-	@Override
-	public void resolveCollision(MapObject other, CollisionResult result) {
-		other.resolveCharacterCollision(this, result);
+	public void startAction(MovesetAct act) {
+		activeMoves.add(act);
+		if (act.getAppearance() != null) {
+			setAppearance(act.getAppearance());
+			act.getAppearance().reset();
+			act.getAppearance().startMoving();
+		}
 	}
-
+	
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#resolveCharacterCollision
-	 * (net.wombatrpgs.rainfall.characters.CharacterEvent, net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 * Registers a move as having stopped. Adjusts appearance back to normal.
+	 * @param 	act				The act that's being stopped
 	 */
-	@Override
-	public void resolveCharacterCollision(CharacterEvent other, CollisionResult result) {
-		if (other.mdo.response == CollisionResponseType.IMMOBILE &&
-			this.mdo.response == CollisionResponseType.IMMOBILE) {
-			RGlobal.reporter.warn("Two immobile objects collided? wtf?");
-			applyMTV(other, result, 1f);
-			return;
+	public void stopAction(MovesetAct act) {
+		if (activeMoves.contains(act)) {
+			activeMoves.remove(act);
+		} else {
+			RGlobal.reporter.warn("Removed an unperformed action: " + act);
 		}
-		if (other.mdo.response == CollisionResponseType.IMMOBILE) {
-			applyMTV(other, result, 1f);
+		if (activeMoves.size() == 0) {
+			appearance = walkAnim;
 		}
-		if (this.mdo.response == CollisionResponseType.IMMOBILE) {
-			applyMTV(other, result, 0f);
-		}
-		if (other.mdo.response == CollisionResponseType.PUSHABLE &&
-				this.mdo.response == CollisionResponseType.PUSHABLE) {
-				RGlobal.reporter.warn("Two immobile objects collided? wtf?");
-				applyMTV(other, result, .5f);
-		} else if (other.mdo.response == CollisionResponseType.PUSHABLE) {
-			applyMTV(other, result, 0f);
-		} else if (this.mdo.response == CollisionResponseType.PUSHABLE) {
-			applyMTV(other, result, 1f);
-		}
+	}
+	
+	/**
+	 * Determines if a move is currently being performed.
+	 * @param 	act				The act to check
+	 * @return					True if that act is active, false otherwise
+	 */
+	public boolean isMoveActive(MovesetAct act) {
+		return activeMoves.contains(act);
 	}
 	
 	/**
@@ -333,11 +377,10 @@ public class CharacterEvent extends MapEvent {
 	@Override
 	protected void update(float elapsed) {
 		super.update(elapsed);
-		if (appearance != null && Math.abs(vx) < .1f && Math.abs(vy) < .1f) {
-			appearance.stopMoving();
-			// TODO: get rid of this unstun hack
-			appearance.setFlicker(false);
+		if (Math.abs(vx) < .1 && Math.abs(vy) < .1) {
+			walkAnim.stopMoving();
 		}
+		// TODO: unstun stuff
 	}
 
 	/**
@@ -357,9 +400,11 @@ public class CharacterEvent extends MapEvent {
 	 */
 	protected void init(CharacterEventMDO mdo) {
 		this.mdo = mdo;
+		activeMoves = new ArrayList<MovesetAct>();
 		if (mdo.appearance != null) {
 			DirMDO dirMDO = (DirMDO) RGlobal.data.getEntryByKey(mdo.appearance);
-			appearance = FacesAnimationFactory.create(dirMDO, this);
+			walkAnim = FacesAnimationFactory.create(dirMDO, this);
+			appearance = walkAnim;
 		}
 		directionStatus = new HashMap<Direction, Boolean>();
 		directionStatus.put(Direction.DOWN, false);

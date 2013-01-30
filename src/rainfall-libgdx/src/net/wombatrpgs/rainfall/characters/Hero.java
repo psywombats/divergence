@@ -25,8 +25,6 @@ public class Hero extends CharacterEvent {
 	
 	/** Holds the moves the player has assigned the hero */
 	protected Moveset moves;
-	/** Whether or not we're doing something special at the moment */
-	protected boolean acting;
 
 	/**
 	 * Placeholder constructor. When the herp is finally initialized properly
@@ -42,14 +40,7 @@ public class Hero extends CharacterEvent {
 		super(mdo, parent, x, y);
 		moves = new Moveset(this, RGlobal.data.getEntryFor("default_moveset", MovesetSchema.class));
 		RGlobal.hero = this;
-		this.acting = false;
 	}
-	
-	/** @return True if the hero is currently performing an action */
-	public boolean isActing() { return this.acting; }
-	
-	/** @param True if the hero is current;y performing an action */
-	public void setActing(boolean acting) { this.acting = acting; }
 	
 	/**
 	 * This default implementation moves us out of collision.

@@ -6,8 +6,6 @@
  */
 package net.wombatrpgs.rainfall.characters;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
-
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.AnimationStrip;
@@ -23,7 +21,6 @@ public class Block extends CharacterEvent {
 	
 	protected SummonMDO mdo;
 	protected AnimationStrip anim;
-	protected boolean moving;
 	
 	/**
 	 * Creates the block. Must be updated with the map each time the hero
@@ -36,14 +33,8 @@ public class Block extends CharacterEvent {
 		appearance.queueRequiredAssets(RGlobal.assetManager);
 		RGlobal.assetManager.finishLoading();
 		appearance.postProcessing(RGlobal.assetManager);
-		moving = false;
+		setCollisionsEnabled(true);
 	}
-	
-	/** @return True if the block is in motion via push/pull spells */
-	public boolean isMoving() { return moving; }
-	
-	/** @param moving True if the block is in motion via push/pull spells */
-	public void setMoving(boolean moving) { this.moving = moving; }
 	
 	/**
 	 * Changes the map the block is currently located on. Call every time the
@@ -56,19 +47,6 @@ public class Block extends CharacterEvent {
 		}
 		map.teleportOn(this, getX(), getY());
 	}
-	
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
-	 */
-	@Override
-	public void render(OrthographicCamera camera) {
-		super.render(camera);
-		this.parent.applyPhysicalCorrections(this);
-		if (moving) {
-			RGlobal.hero.faceToward(this);
-		}
-	}
 
 	/**
 	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#onCollide
@@ -80,6 +58,17 @@ public class Block extends CharacterEvent {
 			return true;
 		} else {
 			return super.onCollide(other, result);
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#update(float)
+	 */
+	@Override
+	protected void update(float elapsed) {
+		super.update(elapsed);
+		if (isMoving()) {
+			RGlobal.hero.faceToward(this);
 		}
 	}
 	
