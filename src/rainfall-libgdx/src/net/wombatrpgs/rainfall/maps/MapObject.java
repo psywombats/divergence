@@ -22,7 +22,9 @@ import net.wombatrpgs.rainfall.maps.layers.EventLayer;
  * All objects that appear in Tiled maps that are not tiles extend this class.
  * This includes both characters and events. 
  */
-public abstract class MapObject implements Renderable, PositionSetable, Comparable<MapObject> {
+public abstract class MapObject implements 	Renderable, 
+											PositionSetable, 
+											Comparable<MapObject> {
 	
 	/** Level this object exists on */
 	protected Level parent;
@@ -112,6 +114,9 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	/** @return The map the hero is currently on */
 	public Level getLevel() { return parent; }
 	
+	/** @return True if this object is moving towards a location */
+	public boolean isTracking() { return tracking; }
+	
 	/**
 	 * Sorts map objects based on z-depth.
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
@@ -164,6 +169,15 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	public abstract boolean onCollide(MapObject other, CollisionResult result);
 	
 	/**
+	 * Determine whether overlapping with this object in general is allowed.
+	 * This is sort of a physicsy thing. Allowing it implies no physical presence
+	 * on the map, even if this object has a hitbox. Disallowing it is usually a
+	 * signal that collisions need to be resolvled.
+	 * @return					True if overlapping with this object is okay
+	 */
+	public abstract boolean isOverlappingAllowed();
+	
+	/**
 	 * A double-dispatch method for characters when they collide with one
 	 * another.
 	 * @param 	other		The other object-character in the collision
@@ -176,22 +190,24 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	}
 	
 	/**
-	 * Determine whether overlapping with this object in general is allowed.
-	 * This is sort of a physicsy thing. Allowing it implies no physical presence
-	 * on the map, even if this object has a hitbox. Disallowing it is usually a
-	 * signal that collisions need to be resolvled.
-	 * @return					True if overlapping with this object is okay
+	 * Gives this map object a new target to track towards.
+	 * @param 	targetX		The target location x-coord (in px)
+	 * @param 	targetY		The target location y-coord (in px)
 	 */
-	public abstract boolean isOverlappingAllowed();
+	public void targetLocation(float targetX, float targetY) {
+		this.targetX = targetX;
+		this.targetY = targetY;
+		this.tracking = true;
+	}
 
 	/**
 	 * Updates the target velocity of this map object.
-	 * @param 	targetVX		The target x-velocity of the object, in px/s
-	 * @param 	targetVY		The target y-velocity of the object, in px/s
+	 * @param 	targetVX	The target x-velocity of the object, in px/s
+	 * @param 	targetVY	The target y-velocity of the object, in px/s
 	 */
-	public void targetVelocity(float targetVX, float targetVY) {
-		this.targetVX = targetVX;
-		this.targetVY = targetVY;
+	public final void targetVelocity(float targetVX, float targetVY) {
+		internalTargetVelocity(targetVX, targetVY);
+		this.tracking = false;
 	}
 	
 	/**
@@ -272,6 +288,17 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 	}
 	
 	/**
+	 * This is like 7th grade math class here.
+	 * @param 	other			The other object in the calculation
+	 * @return					The distance between this and other, in pixels
+	 */
+	public float distanceTo(MapObject other) {
+		float dx = other.x - x;
+		float dy = other.y - y;
+		return (float) Math.sqrt(dx*dx + dy*dy);
+	}
+	
+	/**
 	 * Moves objects out of collision with each other. Usually call this from
 	 * onCollide, as a collision result is needed.
 	 * @param 	other			The other object to bump
@@ -301,8 +328,7 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 			float norm = (float) Math.sqrt(dx*dx + dy*dy);
 			dx /= norm;
 			dy /= norm;
-			targetVX = maxVelocity * dx;
-			targetVY = maxVelocity * dy;
+			internalTargetVelocity(maxVelocity * dx, maxVelocity * dy);
 		}
 		float deltaVX, deltaVY;
 		if (vx != targetVX) {
@@ -348,6 +374,16 @@ public abstract class MapObject implements Renderable, PositionSetable, Comparab
 		}
 		lastX = x;
 		lastY = y;
+	}
+	
+	/**
+	 * Internal method of targeting velocities. Feel free to override this one.
+	 * @param 	targetVX			The new target x-velocity (in px/s)
+	 * @param 	targetVY			The new target y-velocity (in px/s)
+	 */
+	protected void internalTargetVelocity(float targetVX, float targetVY) {
+		this.targetVX = targetVX;
+		this.targetVY = targetVY;
 	}
 
 }

@@ -60,7 +60,7 @@ public class Database {
 	public MainSchema getEntryByKey(String key) {
 		MainSchema result = keyShelf.get(key);
 		if (result == null) {
-			Global.reporter.warn("Couldn't find an entry for key: " + key);
+			Global.reporter.err("Couldn't find an entry for key: " + key);
 		}
 		return result;
 	}

@@ -6,5 +6,6 @@
 	"appearance" : "widget_2dir",
 	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
 	"response" : "STUNBOUNCE",
-	"mobility" : "mobility_enemy"
+	"mobility" : "mobility_enemy",
+	"intelligence" : "widget_intelligence"
 }

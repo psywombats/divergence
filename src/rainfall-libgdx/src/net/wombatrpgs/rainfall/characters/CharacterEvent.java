@@ -137,33 +137,6 @@ public class CharacterEvent extends MapEvent {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#targetVelocity(float, float)
-	 */
-	@Override
-	public void targetVelocity(float targetVX, float targetVY) {
-		if (appearance != null && 
-				(targetVX != this.targetVX || targetVY != this.targetVY) && 
-				(Math.abs(targetVX) > .1 || Math.abs(targetVY) > .1)) {
-			Direction newDir;
-			if (Math.abs(targetVX) >= Math.abs(targetVY)) {
-				if (targetVX * Direction.RIGHT.getVector().x > 0) {
-					newDir = Direction.RIGHT;
-				} else {
-					newDir = Direction.LEFT;
-				}
-			} else {
-				if (targetVY * Direction.DOWN.getVector().y > 0) {
-					newDir = Direction.DOWN;
-				} else {
-					newDir = Direction.UP;
-				}
-			}
-			appearance.startMoving(newDir);
-		}
-		super.targetVelocity(targetVX, targetVY);
-	}
-
-	/**
 	 * @see net.wombatrpgs.rainfall.maps.MapObject#getHitbox()
 	 */
 	@Override
@@ -381,6 +354,33 @@ public class CharacterEvent extends MapEvent {
 			walkAnim.stopMoving();
 		}
 		// TODO: unstun stuff
+	}
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#internalTargetVelocity(float, float)
+	 */
+	@Override
+	protected void internalTargetVelocity(float targetVX, float targetVY) {
+		if (appearance != null && 
+				(targetVX != this.targetVX || targetVY != this.targetVY) && 
+				(Math.abs(targetVX) > .1 || Math.abs(targetVY) > .1)) {
+			Direction newDir;
+			if (Math.abs(targetVX) >= Math.abs(targetVY)) {
+				if (targetVX * Direction.RIGHT.getVector().x > 0) {
+					newDir = Direction.RIGHT;
+				} else {
+					newDir = Direction.LEFT;
+				}
+			} else {
+				if (targetVY * Direction.DOWN.getVector().y > 0) {
+					newDir = Direction.DOWN;
+				} else {
+					newDir = Direction.UP;
+				}
+			}
+			appearance.startMoving(newDir);
+		}
+		super.internalTargetVelocity(targetVX, targetVY);
 	}
 
 	/**
