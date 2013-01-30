@@ -291,7 +291,8 @@ public class CharacterEvent extends MapEvent {
 	 * Stuns the character to prevent action for some time or something?
 	 */
 	public void stun() {
-		appearance.setFlicker(true);
+		// appearance.setFlicker(true);
+		// NOPE
 	}
 	
 	/**
