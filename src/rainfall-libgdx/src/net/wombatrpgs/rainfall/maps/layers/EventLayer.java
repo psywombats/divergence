@@ -119,7 +119,7 @@ public class EventLayer extends Layer implements Renderable {
 	public FallResult dropObject(Hitbox box) {
 		FallResult result = new FallResult();
 		result.finished = false;
-		for (MapObject object : objects) {
+		for (MapEvent object : objects) {
 			if (object.getHitbox().isColliding(box).isColliding) {
 				result.finished = true;
 				result.cleanLanding = false;
@@ -132,8 +132,8 @@ public class EventLayer extends Layer implements Renderable {
 	}
 
 	/**
-	 * Adds another map object to this layer.
-	 * @param 	event		The map object to add
+	 * Adds another map event to this layer.
+	 * @param 	event			The map event to add
 	 */
 	public void add(MapEvent event) {
 		if (event == null) {

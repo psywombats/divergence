@@ -12,7 +12,6 @@ import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.RectHitbox;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfall.maps.layers.EventLayer;
 
 /**
@@ -51,7 +50,7 @@ public class ZTeleportEvent extends MapEvent {
 	 * net.wombatrpgs.rainfall.collisions.CollisionResult)
 	 */
 	@Override
-	public boolean onCollide(MapObject other, CollisionResult result) {
+	public boolean onCollide(MapEvent other, CollisionResult result) {
 		int newZ;
 		if (parent.getZ(this) == lowerIndex) {
 			if (below(other)) return true;
@@ -87,7 +86,7 @@ public class ZTeleportEvent extends MapEvent {
 	}
 
 	/** @return true if other is in upper quadrant */
-	private boolean above(MapObject other) {
+	private boolean above(MapEvent other) {
 		float heroY = other.getY();
 		float ourY = getY();
 		float ourMid = ourY - parent.getTileHeight() - 15;
@@ -95,7 +94,7 @@ public class ZTeleportEvent extends MapEvent {
 	}
 	
 	/** @return true if other is in lower quadrant */
-	private boolean below(MapObject other) {
+	private boolean below(MapEvent other) {
 		return !above(other);
 	}
 

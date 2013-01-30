@@ -10,7 +10,7 @@ import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.RectHitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.maps.MapObject;
+import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 
 import com.badlogic.gdx.Gdx;
@@ -27,7 +27,7 @@ public class AnimationStrip implements Renderable {
 	
 	protected AnimationMDO mdo;
 	protected Animation anim;
-	protected MapObject parent;
+	protected MapEvent parent;
 	protected Hitbox box;
 	protected Texture spritesheet;
 	protected TextureRegion[] frames;
@@ -40,9 +40,9 @@ public class AnimationStrip implements Renderable {
 	 * Creates a new animation from the relevant information and with the
 	 * map object as its positioning parent for rendering.
 	 * @param 	mdo			The animation data
-	 * @param 	parent		The parent map object
+	 * @param 	parent		The parent map event
 	 */
-	public AnimationStrip(AnimationMDO mdo, MapObject parent) {
+	public AnimationStrip(AnimationMDO mdo, MapEvent parent) {
 		this.mdo = mdo;
 		this.parent = parent;
 		moving = false;

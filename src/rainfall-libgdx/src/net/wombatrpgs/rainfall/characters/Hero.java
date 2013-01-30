@@ -12,7 +12,7 @@ import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfall.maps.MapObject;
+import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.moveset.Moveset;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.MovesetSchema;
@@ -41,14 +41,14 @@ public class Hero extends CharacterEvent {
 		moves = new Moveset(this, RGlobal.data.getEntryFor("default_moveset", MovesetSchema.class));
 		RGlobal.hero = this;
 	}
-	
+
 	/**
-	 * This default implementation moves us out of collision.
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#onCollide
-	 * (net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#onCollide
+	 * (net.wombatrpgs.rainfall.maps.events.MapEvent, 
+	 * net.wombatrpgs.rainfall.collisions.CollisionResult)
 	 */
 	@Override
-	public boolean onCollide(MapObject other, CollisionResult result) {
+	public boolean onCollide(MapEvent other, CollisionResult result) {
 		if (other == RGlobal.block) {
 			float ratio;
 			if (RGlobal.block.isMoving()) {

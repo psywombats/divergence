@@ -24,7 +24,6 @@ import net.wombatrpgs.rainfall.graphics.FacesAnimationFactory;
 import net.wombatrpgs.rainfall.maps.DirVector;
 import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.moveset.MovesetAct;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
@@ -185,7 +184,7 @@ public class CharacterEvent extends MapEvent {
 	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.collisions.CollisionResult)
 	 */
 	@Override
-	public boolean onCollide(MapObject other, CollisionResult result) {
+	public boolean onCollide(MapEvent other, CollisionResult result) {
 		return other.onCharacterCollide(this, result);
 	}
 
@@ -204,7 +203,7 @@ public class CharacterEvent extends MapEvent {
 	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.collisions.CollisionResult)
 	 */
 	@Override
-	public void resolveCollision(MapObject other, CollisionResult result) {
+	public void resolveCollision(MapEvent other, CollisionResult result) {
 		other.resolveCharacterCollision(this, result);
 	}
 
@@ -240,9 +239,9 @@ public class CharacterEvent extends MapEvent {
 
 	/**
 	 * Makes this event face towards an object on the map.
-	 * @param 	object		The object to face
+	 * @param 	object			The object to face
 	 */
-	public void faceToward(MapObject object) {
+	public void faceToward(MapEvent object) {
 		int dx = object.getX() - this.getX();
 		int dy = object.getY() - this.getY();
 		if (Math.abs(dx) > Math.abs(dy)) {
@@ -308,10 +307,10 @@ public class CharacterEvent extends MapEvent {
 	}
 	
 	/**
-	 * Bounces forcibly off of another object.
-	 * @param 	other			The other object to bounce off of.
+	 * Bounces forcibly off of another event.
+	 * @param 	other			The other event to bounce off of.
 	 */
-	public void bounce(MapObject other) {
+	public void bounce(MapEvent other) {
 		float dx = getX() - other.getX();
 		float dy = getY() - other.getY();
 		float hypo = (float) Math.sqrt(dx*dx + dy*dy);

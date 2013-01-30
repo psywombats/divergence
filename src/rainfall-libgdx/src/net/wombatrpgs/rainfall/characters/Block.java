@@ -10,7 +10,7 @@ import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.AnimationStrip;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfall.maps.MapObject;
+import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.SummonMDO;
 
@@ -61,10 +61,10 @@ public class Block extends CharacterEvent {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#onCollide
-	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 * (net.wombatrpgs.rainfall.maps.MapEvent, net.wombatrpgs.rainfall.collisions.CollisionResult)
 	 */
 	@Override
-	public boolean onCollide(MapObject other, CollisionResult result) {
+	public boolean onCollide(MapEvent other, CollisionResult result) {
 		if (other == RGlobal.hero) {
 			return true;
 		} else {

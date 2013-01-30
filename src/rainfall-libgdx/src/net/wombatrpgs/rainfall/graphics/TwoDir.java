@@ -9,7 +9,7 @@ package net.wombatrpgs.rainfall.graphics;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Direction;
-import net.wombatrpgs.rainfall.maps.MapObject;
+import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.graphics.TwoDirMDO;
 
@@ -28,10 +28,10 @@ public class TwoDir extends FacesAnimation {
 
 	/**
 	 * Constructs and splices a 2dir
-	 * @param 	mdo			The MDO with relevant data
-	 * @param 	parent		The parent this 4dir is tied to
+	 * @param 	mdo				The MDO with relevant data
+	 * @param 	parent			The parent this 4dir is tied to
 	 */
-	public TwoDir(TwoDirMDO mdo, MapObject parent) {
+	public TwoDir(TwoDirMDO mdo, MapEvent parent) {
 		super(mdo, parent, 2);
 		this.mdo = mdo;
 		sliceAnimations();

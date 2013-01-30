@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.maps.Direction;
-import net.wombatrpgs.rainfall.maps.MapObject;
+import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.graphics.DirMDO;
 
 /**
@@ -26,7 +26,7 @@ public abstract class FacesAnimation implements Renderable {
 	
 	protected DirMDO mdo;
 	protected Direction currentDir;
-	protected MapObject parent;
+	protected MapEvent parent;
 	protected AnimationStrip[] animations;
 	protected int facings;
 	protected boolean flickering;
@@ -38,7 +38,7 @@ public abstract class FacesAnimation implements Renderable {
 	 * @param 	parent			The parent map to spawn on
 	 * @param	facings			How many facings make up this animation
 	 */
-	public FacesAnimation(DirMDO mdo, MapObject parent, int facings) {
+	public FacesAnimation(DirMDO mdo, MapEvent parent, int facings) {
 		this.mdo = mdo;
 		this.parent = parent;
 		this.facings = facings;

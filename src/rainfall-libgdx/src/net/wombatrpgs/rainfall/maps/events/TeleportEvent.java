@@ -14,7 +14,6 @@ import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.RectHitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfall.maps.MapObject;
 
 /**
  * Constructs a teleportation device! (or event, just depends on your
@@ -59,11 +58,11 @@ public class TeleportEvent extends MapEvent {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#onCollide
-	 * (net.wombatrpgs.rainfall.maps.MapObject, 
+	 * (net.wombatrpgs.rainfall.maps.MapEvent, 
 	 * net.wombatrpgs.rainfall.collisions.CollisionResult)
 	 */
 	@Override
-	public boolean onCollide(MapObject other, CollisionResult result) {
+	public boolean onCollide(MapEvent other, CollisionResult result) {
 		if (other != RGlobal.hero) return true; 
 		super.onCollide(other, result);
 		int z = parent.getZ(other);
