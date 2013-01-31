@@ -90,6 +90,7 @@ public class AnimationStrip implements 	Renderable,
 	 * Call when this animation begins to move.
 	 */
 	public void startMoving() {
+		update(0);
 		moving = true;
 	}
 	

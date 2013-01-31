@@ -149,10 +149,10 @@ public abstract class FacesAnimation implements Renderable,
 	 * @param 	dir			The new direction to move in
 	 */
 	public void startMoving(Direction dir) {
-		setFacing(dir);
 		for (int i = 0; i < facings; i++) {
 			animations[i].startMoving();
 		}
+		setFacing(dir);
 	}
 	
 	/**

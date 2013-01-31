@@ -21,5 +21,9 @@ public class EnemyEventMDO extends CharacterEventMDO {
 	@Desc("Intelligence - the set of behaviors that control the enemy")
 	@SchemaLink(IntelligenceMDO.class)
 	public String intelligence;	
+	
+	@Desc("Vulnerability - describes what this enemy can be killed by")
+	@SchemaLink(VulnerabilityMDO.class)
+	public String vulnerability;
 
 }

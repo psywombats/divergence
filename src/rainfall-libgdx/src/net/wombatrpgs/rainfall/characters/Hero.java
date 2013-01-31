@@ -93,7 +93,7 @@ public class Hero extends CharacterEvent {
 	 */
 	@Override
 	public void startMove(Direction dir) {
-		if (RGlobal.block != null && RGlobal.block.isMoving()) return;
+		if (activeMoves.size() > 0) return;
 		super.startMove(dir);
 	}
 

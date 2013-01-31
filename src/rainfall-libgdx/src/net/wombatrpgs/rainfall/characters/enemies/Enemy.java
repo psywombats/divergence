@@ -8,9 +8,12 @@ package net.wombatrpgs.rainfall.characters.enemies;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.characters.ai.Intelligence;
+import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
+import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.characters.enemies.EnemyEventMDO;
+import net.wombatrpgs.rainfallschema.characters.enemies.VulnerabilityMDO;
 import net.wombatrpgs.rainfallschema.characters.enemies.ai.IntelligenceMDO;
 
 /**
@@ -21,6 +24,7 @@ public class Enemy extends CharacterEvent {
 	
 	protected EnemyEventMDO mdo;
 	protected Intelligence ai;
+	protected Vulnerability vuln;
 	
 	/**
 	 * Creates a new enemy on a map from a database entry.
@@ -32,8 +36,12 @@ public class Enemy extends CharacterEvent {
 	public Enemy(EnemyEventMDO mdo, Level parent, float x, float y) {
 		super(mdo, parent, x, y);
 		this.mdo = mdo;
-		IntelligenceMDO aiMDO = RGlobal.data.getEntryFor(mdo.intelligence, IntelligenceMDO.class);
+		IntelligenceMDO aiMDO = RGlobal.data.getEntryFor(
+				mdo.intelligence, IntelligenceMDO.class);
 		ai = new Intelligence(aiMDO, this);
+		VulnerabilityMDO vulnMDO = RGlobal.data.getEntryFor(
+				mdo.vulnerability, VulnerabilityMDO.class);
+		vuln = new Vulnerability(vulnMDO);
 	}
 
 	/**
@@ -44,4 +52,35 @@ public class Enemy extends CharacterEvent {
 		ai.act();
 		super.update(elapsed);
 	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#onCharacterCollide
+	 * (net.wombatrpgs.rainfall.characters.CharacterEvent,
+	 * net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 */
+	@Override
+	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
+		if (other == RGlobal.block) {
+			if (RGlobal.block.isMoving()) {
+				if (vuln.killableByPush()) {
+					selfDestruct(RGlobal.block);
+					return true;
+				} else {
+					// check if we've been pinned
+				}
+			}
+		}
+		return super.onCharacterCollide(other, result); // ie false
+	}
+	
+	/**
+	 * Kills self in a spectacular manner. Another object is supplied so that
+	 * gibs can scatter correctly. If this enemy just imploded randomly, then
+	 * pass in itself and the distribution will be random.
+	 * @param 	cause			The event that caused this enemy's death
+	 */
+	public void selfDestruct(MapEvent cause) {
+		parent.removeEvent(this);
+	}
+	
 }

@@ -69,6 +69,10 @@ public class Level implements Canvasable {
 	protected List<MapEvent> events;
 	/** List of all map object in the level (some are in layers) */
 	protected List<MapObject> objects;
+	/** List of all map events to remove next loop */
+	protected List<MapEvent> removalEvents;
+	/** List of all map objects to remove next loop */
+	protected List<MapObject> removalObjects;
 	
 	/**
 	 * Generates a level from the supplied level data.
@@ -79,6 +83,8 @@ public class Level implements Canvasable {
 		batch = new SpriteBatch();
 		events = new ArrayList<MapEvent>();
 		objects = new ArrayList<MapObject>();
+		removalObjects = new ArrayList<MapObject>();
+		removalEvents = new ArrayList<MapEvent>();
 	}
 	
 	/** @return The batch used to render sprites on this map */
@@ -204,6 +210,14 @@ public class Level implements Canvasable {
 	 */
 	@Override
 	public void update(float elapsed) {
+		for (MapObject toRemove : removalObjects) {
+			removeObject(toRemove);
+		}
+		for (MapEvent toRemove : removalEvents) {
+			internalRemoveEvent(toRemove);
+		}
+		removalObjects.clear();
+		removalEvents.clear();
 		for (int i = 0; i < objects.size(); i++) {
 			objects.get(i).update(elapsed);
 		}
@@ -297,7 +311,7 @@ public class Level implements Canvasable {
 	 */
 	public void teleportOff() {
 		RGlobal.hero.parent = null;
-		removeEvent(RGlobal.hero);
+		internalRemoveEvent(RGlobal.hero);
 	}
 	
 	/**
@@ -306,15 +320,7 @@ public class Level implements Canvasable {
 	 * @param 	toRemove		The map event to remove
 	 */
 	public void removeEvent(MapEvent toRemove) {
-		for (EventLayer layer : eventLayers) {
-			if (layer.contains(toRemove)) {
-				layer.remove(toRemove);
-			}
-		}
-		layerMap.remove(toRemove);
-		events.remove(toRemove);
-		objects.remove(toRemove);
-		toRemove.onRemovedFromMap(this);
+		removalEvents.add(toRemove);
 	}
 	
 	/**
@@ -401,6 +407,31 @@ public class Level implements Canvasable {
 	 */
 	public void addObject(MapObject object) {
 		objects.add(object);
+	}
+	
+	/**
+	 * Internally removes an event from all lists and registries.
+	 * @param 	toRemove		The event to remove
+	 */
+	protected void internalRemoveEvent(MapEvent toRemove) {
+		for (EventLayer layer : eventLayers) {
+			if (layer.contains(toRemove)) {
+				layer.remove(toRemove);
+			}
+		}
+		layerMap.remove(toRemove);
+		events.remove(toRemove);
+		removeObject(toRemove);
+	}
+	
+	/**
+	 * Internall removes an object from all lists and registries. This should
+	 * not be used for events, at least not as a primary call.
+	 * @param 	toRemove		The event to remove
+	 */
+	protected void removeObject(MapObject toRemove) {
+		objects.remove(toRemove);
+		toRemove.onRemovedFromMap(this);
 	}
 
 }
