@@ -115,10 +115,12 @@ public class CharacterEvent extends MapEvent {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
+		if (appearance != null) {
+			appearance.update(elapsed);
+		}
 		if (Math.abs(vx) < .1 && Math.abs(vy) < .1) {
 			walkAnim.stopMoving();
 		}
-		// TODO: unstun stuff
 	}
 
 	/**
@@ -356,7 +358,7 @@ public class CharacterEvent extends MapEvent {
 		if (act.getAppearance() != null) {
 			setAppearance(act.getAppearance());
 			act.getAppearance().reset();
-			act.getAppearance().startMoving();
+			act.getAppearance().startMoving(walkAnim.getFacing());
 		}
 	}
 	

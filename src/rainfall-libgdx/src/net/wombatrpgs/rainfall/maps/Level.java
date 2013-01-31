@@ -204,8 +204,8 @@ public class Level implements Canvasable {
 	 */
 	@Override
 	public void update(float elapsed) {
-		for (MapObject object : objects) {
-			object.update(elapsed);
+		for (int i = 0; i < objects.size(); i++) {
+			objects.get(i).update(elapsed);
 		}
 		for (MapEvent event : events) {
 			if (event.isCollisionEnabled()) {
@@ -297,7 +297,7 @@ public class Level implements Canvasable {
 	 */
 	public void teleportOff() {
 		RGlobal.hero.parent = null;
-		teleportOff(RGlobal.hero);
+		removeEvent(RGlobal.hero);
 	}
 	
 	/**
@@ -305,7 +305,7 @@ public class Level implements Canvasable {
 	 * Control remains on this map.
 	 * @param 	toRemove		The map event to remove
 	 */
-	public void teleportOff(MapEvent toRemove) {
+	public void removeEvent(MapEvent toRemove) {
 		for (EventLayer layer : eventLayers) {
 			if (layer.contains(toRemove)) {
 				layer.remove(toRemove);
@@ -324,7 +324,7 @@ public class Level implements Canvasable {
 	 * @param	tileY			The y-coord to teleport to (in tiles)
 	 */
 	public void teleportOn(int tileX, int tileY, int z) {
-		teleportOn(RGlobal.hero, tileX, tileY);
+		addEvent(RGlobal.hero, tileX, tileY);
 		RGlobal.screens.getLevelScreen().setCanvas(this);
 	}
 	
@@ -336,10 +336,9 @@ public class Level implements Canvasable {
 	 * @param 	tileY			The initial y-coord (in tiles) of this object
 	 * @param	z				The z-depth of the object (layer index)
 	 */
-	public void teleportOn(MapEvent newEvent, int tileX, int tileY, int z) {
+	public void addEvent(MapEvent newEvent, int tileX, int tileY, int z) {
 		newEvent.setX(tileX * map.tileWidth);
 		newEvent.setY(tileY * map.tileHeight);
-		newEvent.onAddedToMap(this);
 		addEvent(newEvent, z);
 	}
 	
@@ -350,8 +349,23 @@ public class Level implements Canvasable {
 	 * @param 	tileX			The initial x-coord (in tiles) of this object
 	 * @param 	tileY			The initial y-coord (in tiles) of this object
 	 */
-	public void teleportOn(MapEvent newEvent, int tileX, int tileY) {
-		teleportOn(newEvent, tileX, tileY, 0);
+	public void addEvent(MapEvent newEvent, int tileX, int tileY) {
+		addEvent(newEvent, tileX, tileY, 0);
+	}
+	
+	/**
+	 * Adds a new event to this map. Called internally for maps in the actual
+	 * map resources and externally by events that should've been there but
+	 * aren't for convenience reasons.
+	 * @param 	newEvent		The new event to add
+	 * @param 	layerIndex		The number of the layer to add on
+	 */
+	public void addEvent(MapEvent newEvent, int layerIndex) {
+		layerMap.put(newEvent, layerIndex);
+		eventLayers.get(layerIndex).add(newEvent);
+		events.add(newEvent);
+		addObject(newEvent);
+		newEvent.onAddedToMap(this);
 	}
 	
 	/**
@@ -378,20 +392,6 @@ public class Level implements Canvasable {
 	 */
 	public int getZ(MapObject object) {
 		return layerMap.get(object);
-	}
-	
-	/**
-	 * Adds a new event to this map. Called internally for maps in the actual
-	 * map resources and externally by events that should've been there but
-	 * aren't for convenience reasons.
-	 * @param 	newEvent		The new event to add
-	 * @param 	layerIndex		The number of the layer to add on
-	 */
-	public void addEvent(MapEvent newEvent, int layerIndex) {
-		layerMap.put(newEvent, layerIndex);
-		eventLayers.get(layerIndex).add(newEvent);
-		events.add(newEvent);
-		addObject(newEvent);
 	}
 	
 	/**

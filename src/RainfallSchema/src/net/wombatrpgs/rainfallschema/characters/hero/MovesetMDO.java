@@ -16,7 +16,7 @@ import net.wombatrpgs.rainfallschema.characters.hero.data.MovesetEntryMDO;
  * have multiple sets for balancing, so that one could be swapped in and out.
  */
 @Path("characters/hero/")
-public class MovesetSchema extends MainSchema {
+public class MovesetMDO extends MainSchema {
 	
 	@InlineSchema(MovesetEntryMDO.class)
 	public MovesetEntryMDO[] moves;

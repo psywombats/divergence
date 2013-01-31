@@ -6,5 +6,6 @@
 	"cooldown" : 0.2,
 	"animation" : "staffraise_4dir",
 	"duration" : 0.2,
-	"blockEvent" : "block_event"
+	"blockEvent" : "block_event",
+	"blockAnimation" : "blockfall"
 }

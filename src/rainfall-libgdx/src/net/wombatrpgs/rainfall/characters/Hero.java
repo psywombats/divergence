@@ -15,7 +15,7 @@ import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.moveset.Moveset;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
-import net.wombatrpgs.rainfallschema.characters.hero.MovesetSchema;
+import net.wombatrpgs.rainfallschema.characters.hero.MovesetMDO;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 
 /**
@@ -38,7 +38,7 @@ public class Hero extends CharacterEvent {
 	 */
 	public Hero(CharacterEventMDO mdo, Level parent, int x, int y) {
 		super(mdo, parent, x, y);
-		moves = new Moveset(this, RGlobal.data.getEntryFor("default_moveset", MovesetSchema.class));
+		moves = new Moveset(this, RGlobal.data.getEntryFor("default_moveset", MovesetMDO.class));
 		RGlobal.hero = this;
 	}
 

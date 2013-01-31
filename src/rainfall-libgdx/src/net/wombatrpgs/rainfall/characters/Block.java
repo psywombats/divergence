@@ -45,7 +45,7 @@ public class Block extends CharacterEvent {
 		if (this.parent != null) {
 			parent.teleportOff();
 		}
-		map.teleportOn(this, getX(), getY());
+		map.addEvent(this, getX(), getY());
 	}
 	
 	/**

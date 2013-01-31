@@ -16,7 +16,7 @@ import net.wombatrpgs.rainfall.characters.Hero;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Queueable;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfallschema.characters.hero.MovesetSchema;
+import net.wombatrpgs.rainfallschema.characters.hero.MovesetMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.data.MovesetEntryMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.MoveMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.PushMDO;
@@ -30,7 +30,7 @@ import net.wombatrpgs.rainfallschema.io.data.InputCommand;
  */
 public class Moveset implements Queueable {
 	
-	protected MovesetSchema mdo; // caution -- may be null
+	protected MovesetMDO mdo; // caution -- may be null
 	protected Map<InputCommand, MovesetAct> moves;
 	
 	/**
@@ -70,7 +70,7 @@ public class Moveset implements Queueable {
 	 * @param	hero		RGlobal.hero reference doesn't exist yet, use this
 	 * @param 	mdo			The data object to initialize from
 	 */
-	public Moveset(Hero hero, MovesetSchema mdo) {
+	public Moveset(Hero hero, MovesetMDO mdo) {
 		this();
 		this.mdo = mdo;
 		for (MovesetEntryMDO entryMDO : mdo.moves) {

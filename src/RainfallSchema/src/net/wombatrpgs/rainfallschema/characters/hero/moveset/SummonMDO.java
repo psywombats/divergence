@@ -10,6 +10,7 @@ import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
+import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 
 /**
  * Summons the bloock.
@@ -17,11 +18,15 @@ import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 @Path("characters/hero/moveset/")
 public class SummonMDO extends MoveMDO {
 	
-	@Desc("Duration -- how long it takes to summon the block, in seconds")
+	@Desc("Duration - how long it takes to summon the block, in seconds")
 	public Float duration;
 	
-	@Desc("Block event -- which event to use for the block")
+	@Desc("Block event - which event to use for the block")
 	@SchemaLink(CharacterEventMDO.class)
 	public String blockEvent;
+	
+	@Desc("Block animation - plays as the block phases into existance")
+	@SchemaLink(AnimationMDO.class)
+	public String blockAnimation;
 
 }

@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.rainfall.moveset;
 
+import com.badlogic.gdx.assets.AssetManager;
+
 import net.wombatrpgs.rainfall.characters.Block;
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.collisions.FallResult;
@@ -15,7 +17,11 @@ import net.wombatrpgs.rainfall.collisions.TargetPosition;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
+import net.wombatrpgs.rainfall.maps.events.AnimationPlayer;
+import net.wombatrpgs.rainfall.maps.objects.TimerListener;
+import net.wombatrpgs.rainfall.maps.objects.TimerObject;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.SummonMDO;
+import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 
 /**
  * Summon the block to your side!
@@ -23,6 +29,7 @@ import net.wombatrpgs.rainfallschema.characters.hero.moveset.SummonMDO;
 public class ActSummon extends MovesetAct {
 	
 	protected SummonMDO mdo;
+	protected AnimationPlayer player;
 	
 	/**
 	 * Creates and initializes this summon MDO. Involves loading an image, it
@@ -33,6 +40,8 @@ public class ActSummon extends MovesetAct {
 	public ActSummon(CharacterEvent actor, SummonMDO mdo) {
 		super(actor, mdo);
 		this.mdo = mdo;
+		AnimationMDO animMDO = RGlobal.data.getEntryFor(mdo.blockAnimation, AnimationMDO.class);
+		this.player = new AnimationPlayer(animMDO);
 	}
 
 	/**
@@ -40,7 +49,10 @@ public class ActSummon extends MovesetAct {
 	 * (net.wombatrpgs.rainfall.maps.Level, net.wombatrpgs.rainfall.characters.CharacterEvent)
 	 */
 	@Override
-	public void coreAct(Level map, CharacterEvent actor) {
+	public void coreAct(Level map, final CharacterEvent actor) {
+		if (actor.isMoveActive(this)) return;
+		actor.halt();
+		actor.startAction(this);
 		int heroX = RGlobal.hero.getX() + RGlobal.hero.getHitbox().getWidth()/2;
 		int heroY = RGlobal.hero.getY() + RGlobal.hero.getHitbox().getHeight()/2;
 		int targetTileX = (heroX - heroX % 32) / 32;
@@ -70,6 +82,13 @@ public class ActSummon extends MovesetAct {
 			RGlobal.reporter.inform("Fell off into the abyss!!!");
 		}
 		RGlobal.reporter.inform(result.toString());
+		final MovesetAct parent = this;
+		new TimerObject(mdo.duration, RGlobal.hero, new TimerListener() {
+			@Override
+			public void onTimerZero(TimerObject source) {
+				actor.stopAction(parent);
+			}
+		});
 	}
 	
 	/**
@@ -94,13 +113,21 @@ public class ActSummon extends MovesetAct {
 	 * @param 	targetY			The y-coord to land at (in tiles)
 	 * @param	z				The z-coord to land at (depth index)
 	 */
-	private void summonAt(Level map, int targetTileX, int targetTileY, int z) {
-		RGlobal.block.setX(targetTileX * map.getTileWidth());
-		RGlobal.block.setY(targetTileY * map.getTileHeight());
+	private void summonAt(final Level map, 
+			final int targetTileX, final int targetTileY, final int z) {
 		if (RGlobal.block.getLevel() != null) {
-			RGlobal.block.getLevel().teleportOff(RGlobal.block);
+			RGlobal.block.getLevel().removeEvent(RGlobal.block);
 		}
-		map.teleportOn(RGlobal.block, targetTileX, targetTileY, z);
+		map.addEvent(player, 0, 0, map.getZ(actor));
+		player.setX(targetTileX * map.getTileWidth());
+		player.setY(targetTileY * map.getTileHeight());
+		player.start();
+		new TimerObject(mdo.duration, RGlobal.hero, new TimerListener() {
+			@Override
+			public void onTimerZero(TimerObject source) {
+				map.addEvent(RGlobal.block, targetTileX, targetTileY, z);
+			}
+		});
 	}
 	
 	/**
@@ -111,9 +138,29 @@ public class ActSummon extends MovesetAct {
 	 */
 	private void selfDestructAt(Level map, int targetTileX, int targetTileY) {
 		RGlobal.reporter.inform("BOOM! Summon failed.");
-		if (RGlobal.block != null) {
-			RGlobal.block.getLevel().teleportOff(RGlobal.block);
+		if (RGlobal.block != null && RGlobal.block.getLevel() != null) {
+			RGlobal.block.getLevel().removeEvent(RGlobal.block);
 		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.moveset.MovesetAct#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		super.queueRequiredAssets(manager);
+		player.queueRequiredAssets(manager);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.moveset.MovesetAct#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager) {
+		super.postProcessing(manager);
+		player.postProcessing(manager);
 	}
 
 }

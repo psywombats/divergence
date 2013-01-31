@@ -36,7 +36,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	
 	/** Coords in pixels relative to map origin */
 	protected float x, y;
-
+	
 	/** Velocity the object is trying to reach in pixels/second */
 	protected float targetVX, targetVY;
 	/** Velocity the object is currently moving at in pixels/second */
@@ -374,13 +374,23 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
-	 * Uses this event's x/y to render locally
+	 * Uses this event's x/y to render locally.
 	 * @see net.wombatrpgs.rainfall.maps.MapObject#renderLocal
 	 * (com.badlogic.gdx.graphics.OrthographicCamera, 
 	 * com.badlogic.gdx.graphics.g2d.TextureRegion, int, int)
 	 */
 	public void renderLocal(OrthographicCamera camera, TextureRegion sprite) {
 		super.renderLocal(camera, sprite, getX(), getY());
+	}
+	
+	/**
+	 * Renders something offset by an x/y relative to this event's x/y.
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#renderLocal
+	 * (com.badlogic.gdx.graphics.OrthographicCamera, 
+	 * com.badlogic.gdx.graphics.g2d.TextureRegion, int, int)
+	 */
+	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, int offX, int offY) {
+		super.renderLocal(camera, sprite, getX() + offX, getY() + offY);
 	}
 	
 	/**

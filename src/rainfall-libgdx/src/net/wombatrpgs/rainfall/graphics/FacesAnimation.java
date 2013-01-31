@@ -6,11 +6,11 @@
  */
 package net.wombatrpgs.rainfall.graphics;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.rainfall.collisions.Hitbox;
+import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.graphics.DirMDO;
@@ -20,7 +20,8 @@ import net.wombatrpgs.rainfallschema.graphics.DirMDO;
  * a congolomeration of faces that switch out depending on how the entity's
  * moving.
  */
-public abstract class FacesAnimation implements Renderable {
+public abstract class FacesAnimation implements Renderable, 
+												Updateable {
 	
 	protected static final float FLICKER_DURATION = .3f; // in s
 	
@@ -108,7 +109,6 @@ public abstract class FacesAnimation implements Renderable {
 	 */
 	@Override
 	public final void render(OrthographicCamera camera) {
-		time += Gdx.graphics.getDeltaTime();
 		if (flickering) {
 			int ms = (int) (time * 1000);
 			int d = (int) (FLICKER_DURATION * 1000);
@@ -119,6 +119,18 @@ public abstract class FacesAnimation implements Renderable {
 			coreRender(camera);
 		}
 		
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.core.Updateable#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		time += elapsed;
+		for (int i = 0; i < facings; i++) {
+			// we could just update the only one being displayed...
+			animations[i].update(elapsed);
+		}
 	}
 
 	/**

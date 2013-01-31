@@ -10,10 +10,10 @@ import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.RectHitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,7 +23,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 /**
  * A specialized animation that makes up one of the four facings
  */
-public class AnimationStrip implements Renderable {
+public class AnimationStrip implements 	Renderable,
+										Updateable {
 	
 	protected AnimationMDO mdo;
 	protected Animation anim;
@@ -31,8 +32,11 @@ public class AnimationStrip implements Renderable {
 	protected Hitbox box;
 	protected Texture spritesheet;
 	protected TextureRegion[] frames;
+	protected TextureRegion currentFrame;
 	
-	protected float time = 0f;
+	protected float offX, offY;
+	protected float time;
+	protected float maxTime;
 	protected boolean moving;
 	protected boolean looping;
 	
@@ -45,7 +49,11 @@ public class AnimationStrip implements Renderable {
 	public AnimationStrip(AnimationMDO mdo, MapEvent parent) {
 		this.mdo = mdo;
 		this.parent = parent;
-		moving = false;
+		this.time = 0;
+		this.offX = 0;
+		this.offY = 0;
+		this.maxTime = ((float) mdo.frameCount) / ((float) mdo.animSpeed);
+		this.moving = false;
 		if (mdo.hit1x == null) mdo.hit1x = 0;
 		if (mdo.hit1y == null) mdo.hit1y = 0;
 		if (mdo.hit2x == null) mdo.hit2x = mdo.frameWidth;
@@ -54,6 +62,21 @@ public class AnimationStrip implements Renderable {
 				mdo.hit1x, mdo.frameHeight-mdo.hit2y, 
 				mdo.hit2x, mdo.frameHeight-mdo.hit1y);
 	}
+	
+	/**
+	 * Creates a new animation from the relevant MDO information. Does not
+	 * associate a map event for positioning, so that should be supplied later.
+	 * @param 	mdo				The data for object creation
+	 */
+	public AnimationStrip(AnimationMDO mdo) {
+		this(mdo, null);
+	}
+	
+	/** @param x The new x-offset (in pixels) */
+	public void setOffsetX(int x) { this.offX = x; }
+	
+	/** @param y The new y-offset (in pixels) */
+	public void setOffsetY(int y) { this.offY = y; }
 	
 	/**
 	 * Call this when this direction becomes active.
@@ -86,16 +109,25 @@ public class AnimationStrip implements Renderable {
 	}
 
 	/**
+	 * @see net.wombatrpgs.rainfall.core.Updateable#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		if (moving) {
+			time += elapsed;
+		}
+		currentFrame = anim.getKeyFrame(time, looping);
+	}
+
+	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render
 	 * (com.badlogic.gdx.graphics.OrthographicCamera)
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		if (moving) {
-			time += Gdx.graphics.getDeltaTime();
+		if (currentFrame != null) {
+			parent.renderLocal(camera, currentFrame, (int) offX, (int) offY);
 		}
-		TextureRegion currentFrame = anim.getKeyFrame(time, looping);
-		parent.renderLocal(camera, currentFrame);
 	}
 
 	/**
@@ -147,10 +179,27 @@ public class AnimationStrip implements Renderable {
 	
 	/**
 	 * Gets the database-defined hitbox of this animation. Usually a rect.
-	 * @return				The hitbox used by this anim
+	 * @return					The hitbox used by this anim
 	 */
 	public Hitbox getHitbox() {
 		return box;
+	}
+	
+	/**
+	 * Determines if this strip has finished playing. Strips on infinite loop
+	 * never finish playing...
+	 * @return					True if this strip has played once
+	 */
+	public boolean isFinished() {
+		return time > maxTime;
+	}
+	
+	/**
+	 * Gives this strip a new position parent.
+	 * @param 	parent			The new position parent map event
+	 */
+	public void setParent(MapEvent parent) {
+		this.parent = parent;
 	}
 
 }
