@@ -203,6 +203,10 @@ public class Level implements Canvasable {
 			}
 			added++;
 		}
+		
+		for (Layer layer : layers) {
+			layer.finalizePassability();
+		}
 	}
 	
 	/**

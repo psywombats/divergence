@@ -36,6 +36,7 @@ public class GridLayer extends Layer implements Renderable {
 	protected TiledMap map;
 	protected Level parent;
 	protected TiledLayer layer;
+	protected boolean passability[][];
 	protected int layerID;
 	
 	/**
@@ -125,6 +126,34 @@ public class GridLayer extends Layer implements Renderable {
 	}
 	
 	/**
+	 * @see net.wombatrpgs.rainfall.maps.layers.Layer#finalizePassability()
+	 */
+	@Override
+	public void finalizePassability() {
+		passability = new boolean[map.height][map.width];
+		for (int x = 0; x < map.width; x++) {
+			for (int y = 0; y < map.height; y++) {
+				int tileID = layer.tiles[map.height-y-1][x];
+				if (tileID == 0) {
+					// there is no tile at this location
+					if (isLowerChip()) {
+						// there is no tile and we are the bottom
+						passability[y][x] = passableByUpper(x, y);
+					} else {
+						passability[y][x] = true;
+					}
+				} else if (map.getTileProperty(tileID, PROPERTY_IMPASSABLE) != null ||
+						map.getTileProperty(tileID, PROPERTY_CLIFFTOP) != null) {
+					// the tile at this location is impassable
+					passability[y][x] = passableByUpper(x, y);
+				} else {
+					passability[y][x] = true;
+				}
+			}
+		}
+	}
+
+	/**
 	 * @see net.wombatrpgs.rainfall.maps.layers.Layer#dropObject
 	 * (net.wombatrpgs.rainfall.collisions.Hitbox)
 	 */
@@ -159,6 +188,7 @@ public class GridLayer extends Layer implements Renderable {
 		return result;
 	}
 
+
 	/**
 	 * Applies physical corrections from a single tile. Essentially this
 	 * determines if the hero needs to be bumped, and if it does, delegates it.
@@ -172,45 +202,9 @@ public class GridLayer extends Layer implements Renderable {
 			bump(event, tileX, tileY);
 			return;
 		}
-		int tileID = layer.tiles[map.height-tileY-1][tileX];
-		if (tileID == 0) {
-			// there is no tile at this location
-			if (isLowerChip()) {
-				// there is no tile and we are the bottom
-				checkForUpper(event, tileX, tileY);
-			}
-		} else if (map.getTileProperty(tileID, PROPERTY_IMPASSABLE) != null ||
-				map.getTileProperty(tileID, PROPERTY_CLIFFTOP) != null) {
-			// the tile at this location is impassable
-			checkForUpper(event, tileX, tileY);
+		if (passability[tileY][tileX] == false) {
+			bump(event, tileX, tileY);
 		}
-	}
-	
-	/**
-	 * Same as the bump, but only this time make sure there isn't a bridge or
-	 * something on the upper chip that makes this thing passable.
-	 * @param 	event			The event that may require bumping
-	 * @param 	tileX			The x-coord of the bump tile (in tiles)
-	 * @param 	tileY			The y-coord of the bump tile (in tiles)
-	 */
-	private void checkForUpper(MapEvent event, int tileX, int tileY) {
-		// TODO: if this affects performance, it can be precomputed
-		for (GridLayer otherLayer : parent.getGridLayers()) {
-			if (Math.floor(otherLayer.getZ()) == this.getZ() && otherLayer != this) {
-				int tileID = otherLayer.getTiles()[map.height-tileY-1][tileX];
-				if (map.getTileProperty(tileID, "passable") != null) {
-					return;
-				}
-			}
-		}
-		// TODO: move this somewhere else
-		for (EventLayer otherLayer : parent.getObjectLayers()) {
-			if (otherLayer.isSpecialPassable(tileX, tileY)) {
-				return;
-			}
-		}
-		// no layers contained a passable upper chip
-		bump(event, tileX, tileY);
 	}
 	
 	/**
@@ -257,4 +251,28 @@ public class GridLayer extends Layer implements Renderable {
 		}
 	}
 	
+	/**
+	 * Calculate if a tile is passable because of a special upper chip brdige.
+	 * @param 	tileX			The x-coord of the tile to check (in tiles)
+	 * @param 	tileY			The y-coord of the tile to check (in tiles)
+	 * @return					True if passable, false if not
+	 */
+	private boolean passableByUpper(int tileX, int tileY) {
+		for (GridLayer otherLayer : parent.getGridLayers()) {
+			if (Math.floor(otherLayer.getZ()) == this.getZ() && otherLayer != this) {
+				int tileID = otherLayer.getTiles()[map.height-tileY-1][tileX];
+				if (map.getTileProperty(tileID, "passable") != null) {
+					return true;
+				}
+			}
+		}
+		// TODO: move this somewhere else
+		for (EventLayer otherLayer : parent.getObjectLayers()) {
+			if (otherLayer.isSpecialPassable(tileX, tileY)) {
+				return true;
+			}
+		}
+		// no layers contained a passable upper chip
+		return false;
+	}
 }

@@ -110,11 +110,6 @@
     <property name="key" value="hero_default"/>
    </properties>
   </object>
-  <object name="Widget" type="event" x="320" y="320" width="32" height="32">
-   <properties>
-    <property name="key" value="enemy_widget"/>
-   </properties>
-  </object>
   <object name="tele" type="teleport" x="608" y="192" width="32" height="32">
    <properties>
     <property name="id" value="blockbound2"/>
@@ -129,7 +124,7 @@
    <property name="z" value="1"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYKANsAdiByB2pJJ5nkDshQOTA6qhdC3lThsFo2AU0AkAAOayA74=
+   eJxjYKANsAdiByB2pJJ5nkDMjQOTA6qhdC3lThsFo2AU0AkAAAdDAkQ=
   </data>
  </layer>
  <layer name="Tile Layer 4" width="20" height="15">

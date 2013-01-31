@@ -257,11 +257,33 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
+	 * Renders something offset by an x/y relative to this event's x/y.
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#renderLocal
+	 * (com.badlogic.gdx.graphics.OrthographicCamera, 
+	 * com.badlogic.gdx.graphics.g2d.TextureRegion, int, int)
+	 */
+	@Override
+	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, int offX, int offY) {
+		super.renderLocal(camera, sprite, getX() + offX, getY() + offY);
+	}
+	
+	/**
 	 * Determines if this object is currently in motion.
 	 * @return					True if the object is moving, false otherwise
 	 */
 	public boolean isMoving() {
 		return Math.abs(vx) > .1 || Math.abs(vy) > .1;
+	}
+	
+	/**
+	 * Checks if the block can land on top of this event. If this is true, then
+	 * the block will land and whatever hit detection will go on when the block
+	 * lands, in theory. If it's false, the block will kill itself. False by
+	 * default.
+	 * @return					True if block landing here is legal
+	 */
+	public boolean supportsBlockLanding() {
+		return false;
 	}
 	
 	/**
@@ -381,16 +403,6 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 */
 	public void renderLocal(OrthographicCamera camera, TextureRegion sprite) {
 		super.renderLocal(camera, sprite, getX(), getY());
-	}
-	
-	/**
-	 * Renders something offset by an x/y relative to this event's x/y.
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#renderLocal
-	 * (com.badlogic.gdx.graphics.OrthographicCamera, 
-	 * com.badlogic.gdx.graphics.g2d.TextureRegion, int, int)
-	 */
-	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, int offX, int offY) {
-		super.renderLocal(camera, sprite, getX() + offX, getY() + offY);
 	}
 	
 	/**

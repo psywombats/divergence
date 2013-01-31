@@ -72,5 +72,10 @@
     <property name="y" value="6"/>
    </properties>
   </object>
+  <object height="32" name="Widget" type="event" width="32" x="464" y="208">
+   <properties>
+    <property name="key" value="enemy_widget"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

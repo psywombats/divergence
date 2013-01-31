@@ -21,6 +21,7 @@ public class Block extends CharacterEvent {
 	
 	protected SummonMDO mdo;
 	protected AnimationStrip anim;
+	protected boolean summonInProgress;
 	
 	/**
 	 * Creates the block. Must be updated with the map each time the hero
@@ -34,7 +35,14 @@ public class Block extends CharacterEvent {
 		RGlobal.assetManager.finishLoading();
 		appearance.postProcessing(RGlobal.assetManager);
 		setCollisionsEnabled(true);
+		summonInProgress = false;
 	}
+	
+	/** @param summoning True if summoning is in progress */
+	public void setSummoning(boolean summoning) { this.summonInProgress = summoning; }
+	
+	/** @return True if summoning is in progress */
+	public boolean isSummoning() { return this.summonInProgress; }
 	
 	/**
 	 * Changes the map the block is currently located on. Call every time the

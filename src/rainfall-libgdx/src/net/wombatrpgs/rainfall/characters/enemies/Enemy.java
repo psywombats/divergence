@@ -68,11 +68,26 @@ public class Enemy extends CharacterEvent {
 				} else {
 					// check if we've been pinned
 				}
+			} else {
+				// maybe the block has been summoned on top of us?
+				if (RGlobal.block.isSummoning()) {
+					if (vuln.killableBySummon()) {
+						selfDestruct(RGlobal.block);
+					}
+				}
 			}
 		}
 		return super.onCharacterCollide(other, result); // ie false
 	}
 	
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#supportsBlockLanding()
+	 */
+	@Override
+	public boolean supportsBlockLanding() {
+		return vuln.killableBySummon();
+	}
+
 	/**
 	 * Kills self in a spectacular manner. Another object is supplied so that
 	 * gibs can scatter correctly. If this enemy just imploded randomly, then

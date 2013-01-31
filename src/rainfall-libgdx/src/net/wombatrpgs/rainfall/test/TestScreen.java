@@ -6,6 +6,11 @@
  */
 package net.wombatrpgs.rainfall.test;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import net.wombatrpgs.rainfall.core.GameScreen;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.io.TestCommandMap;
@@ -20,6 +25,8 @@ import net.wombatrpgs.rainfallschema.test.MapLoadTestMDO;
 public class TestScreen extends GameScreen {
 	
 	protected Level map;
+	protected BitmapFont font;
+	protected SpriteBatch batch;
 	
 	public TestScreen() {
 		MapLoadTestMDO mapTestMDO = (MapLoadTestMDO) RGlobal.data.getEntryByKey("map_test");
@@ -29,6 +36,8 @@ public class TestScreen extends GameScreen {
 		RGlobal.screens.registerLevelScreen(this);
 		commandContext = new TestCommandMap();
 		z = 0;
+		font = new BitmapFont();
+		batch = new SpriteBatch();
 		
 		init();
 	}
@@ -64,6 +73,18 @@ public class TestScreen extends GameScreen {
 		}
 		
 		RGlobal.hero.act(command, map);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.core.GameScreen#render
+	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 */
+	@Override
+	public void render(OrthographicCamera camera) {
+		super.render(camera);
+		batch.begin();
+		font.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 8, 16);
+		batch.end();
 	}
 
 	/**

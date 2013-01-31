@@ -83,10 +83,11 @@ public class ActSummon extends MovesetAct {
 		}
 		RGlobal.reporter.inform(result.toString());
 		final MovesetAct parent = this;
-		new TimerObject(mdo.duration, RGlobal.hero, new TimerListener() {
+		new TimerObject(mdo.duration * 1.2f, RGlobal.hero, new TimerListener() {
 			@Override
 			public void onTimerZero(TimerObject source) {
 				actor.stopAction(parent);
+				RGlobal.block.setSummoning(false);
 			}
 		});
 	}
@@ -128,6 +129,7 @@ public class ActSummon extends MovesetAct {
 				map.addEvent(RGlobal.block, targetTileX, targetTileY, z);
 			}
 		});
+		RGlobal.block.setSummoning(true);
 	}
 	
 	/**

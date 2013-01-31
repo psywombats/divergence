@@ -56,5 +56,11 @@ public abstract class Layer implements Renderable {
 	public boolean isUpperChip() {
 		return !isLowerChip();
 	}
+	
+	/**
+	 * Calculate the final passabilities of tiles in the layer. This should be
+	 * called once all layers have been populated.
+	 */
+	public abstract void finalizePassability();
 
 }

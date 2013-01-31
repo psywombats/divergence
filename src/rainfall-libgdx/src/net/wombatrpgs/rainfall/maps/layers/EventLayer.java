@@ -120,7 +120,8 @@ public class EventLayer extends Layer implements Renderable {
 		FallResult result = new FallResult();
 		result.finished = false;
 		for (MapEvent object : objects) {
-			if (object.getHitbox().isColliding(box).isColliding) {
+			if (!object.supportsBlockLanding() && 
+					object.getHitbox().isColliding(box).isColliding) {
 				result.finished = true;
 				result.cleanLanding = false;
 				result.collidingObject = object;
@@ -211,6 +212,14 @@ public class EventLayer extends Layer implements Renderable {
 				}
 			}
 		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.layers.Layer#finalizePassability()
+	 */
+	@Override
+	public void finalizePassability() {
+		// we don't care
 	}
 
 }
