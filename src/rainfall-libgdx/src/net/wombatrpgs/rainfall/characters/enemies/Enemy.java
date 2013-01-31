@@ -6,15 +6,21 @@
  */
 package net.wombatrpgs.rainfall.characters.enemies;
 
+import com.badlogic.gdx.assets.AssetManager;
+
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.characters.ai.Intelligence;
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.graphics.particles.Emitter;
+import net.wombatrpgs.rainfall.graphics.particles.GibParticleSet;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.characters.enemies.EnemyEventMDO;
 import net.wombatrpgs.rainfallschema.characters.enemies.VulnerabilityMDO;
 import net.wombatrpgs.rainfallschema.characters.enemies.ai.IntelligenceMDO;
+import net.wombatrpgs.rainfallschema.graphics.EmitterMDO;
+import net.wombatrpgs.rainfallschema.graphics.GibsetMDO;
 
 /**
  * The one and only class for those pesky badniks that hunt down the valiant
@@ -25,6 +31,7 @@ public class Enemy extends CharacterEvent {
 	protected EnemyEventMDO mdo;
 	protected Intelligence ai;
 	protected Vulnerability vuln;
+	protected Emitter emitter;
 	
 	/**
 	 * Creates a new enemy on a map from a database entry.
@@ -42,6 +49,12 @@ public class Enemy extends CharacterEvent {
 		VulnerabilityMDO vulnMDO = RGlobal.data.getEntryFor(
 				mdo.vulnerability, VulnerabilityMDO.class);
 		vuln = new Vulnerability(vulnMDO);
+		if (mdo.emitter != null && mdo.gibset != null) {
+			GibsetMDO gibsetMDO = RGlobal.data.getEntryFor(mdo.gibset, GibsetMDO.class);
+			EmitterMDO emitterMDO = RGlobal.data.getEntryFor(mdo.emitter, EmitterMDO.class);
+			GibParticleSet gibs = new GibParticleSet(gibsetMDO);
+			emitter = new Emitter(emitterMDO, gibs);
+		}
 	}
 
 	/**
@@ -89,12 +102,54 @@ public class Enemy extends CharacterEvent {
 	}
 
 	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		super.queueRequiredAssets(manager);
+		if (emitter != null) {
+			emitter.queueRequiredAssets(manager);
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager) {
+		super.postProcessing(manager);
+		if (emitter != null) {
+			emitter.postProcessing(manager);
+		}
+	}
+
+	/**
 	 * Kills self in a spectacular manner. Another object is supplied so that
 	 * gibs can scatter correctly. If this enemy just imploded randomly, then
 	 * pass in itself and the distribution will be random.
 	 * @param 	cause			The event that caused this enemy's death
 	 */
 	public void selfDestruct(MapEvent cause) {
+		if (emitter != null) {
+			float xComp, yComp;
+			if (cause.isMoving()) {
+				xComp = cause.getVX();
+				yComp = cause.getVY();
+			} else {
+				xComp = cause.getX() - getX();
+				yComp = cause.getY() - getY();
+			}
+			float norm = (float) Math.sqrt(xComp*xComp + yComp*yComp);
+			norm *= .8;
+			xComp /= norm;
+			yComp /= norm;
+			parent.addEvent(emitter, 0, 0, parent.getZ(this));
+			emitter.setX(getX());
+			emitter.setY(getY());
+			emitter.fire(xComp, yComp);
+		}
 		parent.removeEvent(this);
 	}
 	

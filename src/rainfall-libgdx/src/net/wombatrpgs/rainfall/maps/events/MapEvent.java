@@ -120,6 +120,12 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	@Override
 	public void setY(int y) { this.y = y; }
 	
+	/** @return The x-velocity of this object, in px/s */
+	public float getVX() { return this.vx; }
+	
+	/** @return The y-velocity of this object, in px/s */
+	public float getVY() { return this.vy; }
+	
 	/** @param f The offset to add to x */
 	public void moveX(float f) { this.x += f; }
 	
@@ -267,6 +273,17 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		super.renderLocal(camera, sprite, getX() + offX, getY() + offY);
 	}
 	
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#renderLocal
+	 * (com.badlogic.gdx.graphics.OrthographicCamera,
+	 * com.badlogic.gdx.graphics.g2d.TextureRegion, int, int, int)
+	 */
+	@Override
+	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, 
+			int offX, int offY, int angle) {
+		super.renderLocal(camera, sprite, getX() + offX, getY() + offY, angle);
+	}
+
 	/**
 	 * Determines if this object is currently in motion.
 	 * @return					True if the object is moving, false otherwise

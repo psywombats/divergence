@@ -1,5 +1,7 @@
 package net.wombatrpgs.rainfall;
 
+import java.util.Random;
+
 import net.wombatrpgs.mgne.data.Database;
 import net.wombatrpgs.mgne.data.DirectoryDataLoader;
 import net.wombatrpgs.mgne.global.DebugReporter;
@@ -39,6 +41,7 @@ public class Main {
 		RGlobal.keymap = new DefaultKeymap();
 		RGlobal.constants = new Constants();
 		RGlobal.levelManager = new LevelManager();
+		RGlobal.rand = new Random(System.currentTimeMillis());
 
 		WindowDataMDO data = (WindowDataMDO) RGlobal.data.getEntryByKey("window_data");
 		

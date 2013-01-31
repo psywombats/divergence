@@ -117,6 +117,21 @@
    </properties>
   </object>
   <object height="64" name="stairwell" type="z-teleport" width="32" x="96" y="96"/>
+  <object height="32" name="Widget" type="event" width="32" x="480" y="352">
+   <properties>
+    <property name="key" value="enemy_widget"/>
+   </properties>
+  </object>
+  <object height="32" name="Widget" type="event" width="32" x="448" y="224">
+   <properties>
+    <property name="key" value="enemy_widget"/>
+   </properties>
+  </object>
+  <object height="32" name="Widget" type="event" width="32" x="544" y="96">
+   <properties>
+    <property name="key" value="enemy_widget"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer height="15" name="Tile Layer 3" width="20">
   <properties>

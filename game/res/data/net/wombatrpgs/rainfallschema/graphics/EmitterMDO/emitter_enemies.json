@@ -1,0 +1,12 @@
+{
+	"key" : "emitter_enemies",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"mode" : "EXPLODE_ONCE",
+	"count" : 20,
+	"velocity" : 320,
+	"rotationalVelocity" : 720,
+	"minLife" : 0.8,
+	"maxLife" : 2.0
+}

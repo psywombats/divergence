@@ -20,7 +20,7 @@ import net.wombatrpgs.rainfallschema.graphics.data.AnimationMode;
 @Path("graphics/")
 public class AnimationMDO extends MainSchema {
 	
-	@Desc("Image file")
+	@Desc("Image file - actual spritesheet, should be png")
 	@FileLink("sprites")
 	public String file;
 	

@@ -1,0 +1,10 @@
+{
+	"key" : "gibset_widget",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"file" : "widget_shards.png",
+	"count" : 10,
+	"frameWidth" : 14,
+	"frameHeight" : 14
+}
