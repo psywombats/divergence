@@ -225,7 +225,9 @@ public class Level implements Canvasable {
 		for (int i = 0; i < objects.size(); i++) {
 			objects.get(i).update(elapsed);
 		}
-		for (MapEvent event : events) {
+		// TODO: add queue? really
+		for (int i = 0; i < events.size(); i++) {
+			MapEvent event = events.get(i);
 			if (event.isCollisionEnabled()) {
 				applyPhysicalCorrections(event);
 				detectCollisions(event);

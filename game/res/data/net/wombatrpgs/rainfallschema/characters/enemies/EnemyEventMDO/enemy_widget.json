@@ -8,5 +8,7 @@
 	"response" : "STUNBOUNCE",
 	"mobility" : "mobility_enemy",
 	"intelligence" : "widget_intelligence",
-	"vulnerability" : "vulnerability_all"
+	"vulnerability" : "vulnerability_all",
+	"gibset" : "gibset_widget",
+	"emitter" : "emitter_enemies"
 }

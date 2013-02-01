@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.rainfall.core;
 
+import java.util.Random;
+
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mgne.global.Global;
@@ -26,12 +28,14 @@ public class RGlobal extends Global {
 	public static final String SPRITES_DIR = RESOURCE_DIR + "sprites/";
 	/** Directory where maps are stored, prefix string */
 	public static final String MAPS_DIR = RESOURCE_DIR + "maps/";
+	/** Directory where all the gibs are stored, prefix string */
+	public static final String GIBS_DIR = RESOURCE_DIR + "gibs/";
 	
 	/** Manages all in-game assets */
 	public static AssetManager assetManager;
 	
 	/** The stack of screeeeeeens */
-	public static net.wombatrpgs.rainfall.core.ScreenStack screens;
+	public static ScreenStack screens;
 	
 	/** Current mapper of the keyys */
 	public static Keymap keymap;
@@ -48,6 +52,9 @@ public class RGlobal extends Global {
 	/** Everybody's favorite petrified cashier */
 	public static Block block;
 	
+	/** A single-source RNG */
+	public static Random rand;
+	
 	/**
 	 * Can't override static methods, so this thing will have to do.
 	 */
@@ -55,6 +62,7 @@ public class RGlobal extends Global {
 		RGlobal.assetManager = new AssetManager();
 		RGlobal.screens = new ScreenStack();
 		RGlobal.keymap = new DefaultKeymap();
+		RGlobal.rand = new Random(System.currentTimeMillis());
 		Global.setupGlobalForTesting();
 	}
 

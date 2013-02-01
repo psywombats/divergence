@@ -12,14 +12,19 @@ import java.util.List;
 import java.util.Map;
 
 import net.wombatrpgs.mgne.global.Global;
+import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfallschema.io.data.InputButton;
 
 import com.badlogic.gdx.InputProcessor;
 
 /**
  * A map from physical keyboard keys to the meta-buttons that the game runs on.
+ * As of 2013-01-31, constantly sends the down event as long as the key is
+ * held down. This may lead to some weird issues, but it's much better than the
+ * mandatory 1:1 mapping alternative.
  */
-public abstract class Keymap implements InputProcessor {
+public abstract class Keymap implements InputProcessor,
+										Updateable {
 	
 	private List<ButtonListener> listeners;
 	@SuppressWarnings("unused")

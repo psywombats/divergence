@@ -55,17 +55,6 @@ public class Block extends CharacterEvent {
 		}
 		map.addEvent(this, getX(), getY());
 	}
-	
-	/**
-	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#update(float)
-	 */
-	@Override
-	public void update(float elapsed) {
-		super.update(elapsed);
-		if (isMoving()) {
-			RGlobal.hero.faceToward(this);
-		}
-	}
 
 	/**
 	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#onCollide

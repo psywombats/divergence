@@ -120,6 +120,12 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	@Override
 	public void setY(int y) { this.y = y; }
 	
+	/** @return The x-velocity of this object, in px/s */
+	public float getVX() { return this.vx; }
+	
+	/** @return The y-velocity of this object, in px/s */
+	public float getVY() { return this.vy; }
+	
 	/** @param f The offset to add to x */
 	public void moveX(float f) { this.x += f; }
 	
@@ -268,6 +274,17 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#renderLocal
+	 * (com.badlogic.gdx.graphics.OrthographicCamera,
+	 * com.badlogic.gdx.graphics.g2d.TextureRegion, int, int, int)
+	 */
+	@Override
+	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, 
+			int offX, int offY, int angle) {
+		super.renderLocal(camera, sprite, getX() + offX, getY() + offY, angle);
+	}
+
+	/**
 	 * Determines if this object is currently in motion.
 	 * @return					True if the object is moving, false otherwise
 	 */
@@ -406,6 +423,14 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
+	 * Called when this event collides with immovable terrain.
+	 * @param 	result			The result of the wall collision
+	 */
+	public void resolveWallCollision(CollisionResult result) {
+		applyMTV(null, result, 1f);
+	}
+	
+	/**
 	 * Moves objects out of collision with each other. Usually call this from
 	 * onCollide, as a collision result is needed.
 	 * @param 	other			The other object to bump
@@ -419,8 +444,10 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		}
 		this.moveX(result.mtvX * ratio);
 		this.moveY(result.mtvY * ratio);
-		other.moveX(result.mtvX * -(1f - ratio));
-		other.moveY(result.mtvY * -(1f - ratio));
+		if (other != null && ratio != 1) {
+			other.moveX(result.mtvX * -(1f - ratio));
+			other.moveY(result.mtvY * -(1f - ratio));
+		}
 	}
 	
 	/**

@@ -1,0 +1,14 @@
+{
+	"key" : "emitter_enemies",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"mode" : "EXPLODE_ONCE",
+	"reflect" : "REFLECT_OFF_WALLS",
+	"bounce" : "BOUNCE_ENABLED",
+	"count" : 30,
+	"velocity" : 192,
+	"rotationalVelocity" : 720,
+	"minLife" : 1.0,
+	"maxLife" : 1.7
+}

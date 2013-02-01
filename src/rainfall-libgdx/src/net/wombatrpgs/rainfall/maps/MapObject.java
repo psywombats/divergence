@@ -141,11 +141,35 @@ public abstract class MapObject implements	Renderable,
 	 * @param	x				The x-coord for rendering (in pixels)
 	 * @param	y				The y-coord for rendering (in pixels)
 	 */
-	protected void renderLocal(OrthographicCamera camera, TextureRegion sprite, int x, int y) {
+	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, int x, int y) {
 		parent.getBatch().draw(
 				sprite, 
 				x + Gdx.graphics.getWidth()/2 - camera.position.x, 
 				y + Gdx.graphics.getHeight()/2 - camera.position.y);
+	}
+	
+	/**
+	 * Renders a texture at this object's location using its own batch and
+	 * coords appropriate to the drawing. This one takes rotation into account.
+	 * @param 	sprite			The region to render
+	 * @param	camera			The current camera
+	 * @param	x				The x-coord for rendering (in pixels)
+	 * @param	y				The y-coord for rendering (in pixels)
+	 * @param	angle			The angle to render at
+	 */
+	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, 
+			int x, int y, int angle) {
+		int atX = (int) (x + Gdx.graphics.getWidth()/2 - camera.position.x);
+		int atY = (int) (y + Gdx.graphics.getHeight()/2 - camera.position.y);
+		parent.getBatch().draw(
+				sprite,
+				atX, 
+				atY,
+				sprite.getRegionWidth()/2, 
+				sprite.getRegionHeight() / 2, 
+				sprite.getRegionWidth(), sprite.getRegionHeight(), 
+				1, 1, 
+				angle);
 	}
 
 }
