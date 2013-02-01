@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="20" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="tilesets/rock.tsx"/>
+ <tileset firstgid="71" source="tilesets/rug.tsx"/>
+ <tileset firstgid="80" source="tilesets/stone.tsx"/>
+ <tileset firstgid="150" source="tilesets/wood.tsx"/>
+ <tileset firstgid="220" source="tilesets/upper.tsx"/>
+ <layer name="Layer 0 lower" width="20" height="20">
+  <properties>
+   <property name="z" value="0"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgF+MBCItScBOITUJoQXohF7BSUhoFTUHWUYGTzPJCwJxXM80bCPlQwzw8J+1PBvJNkmkGueRVAXAXE7khhDBOjxH1eeMJ4IM2D+Q3ZvFH/YpqHXiag52tfBtxp/gCSefsYMMsMUjGyedQEAJxEpjc=
+  </data>
+ </layer>
+ <layer name="Layer 0 upper" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgF9AIfgZiDkYHhMwl6nuOR+wnEv4D4N0WuYmBgZyRNnBjwBYi/YmGPglEwCoYPAAC5QAml
+  </data>
+ </layer>
+ <objectgroup name="Layer 0 object" width="20" height="20">
+  <properties>
+   <property name="z" value="0"/>
+  </properties>
+ </objectgroup>
+ <layer name="Layer 1 lower" width="20" height="20">
+  <properties>
+   <property name="z" value="1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBiZYB8Q7ycCM2ARO4BmFjp/FJAGTtHZvk4griNCDBuYBsTTgXgGFdwBMmsOEC8E4rlUMHMB1CwYXgQVJ9e/uMyjtvuobR65/r0ExJeR8BUy3UVs2YIPHyDTbnoDAHzYNdQ=
+  </data>
+ </layer>
+ <layer name="Layer 1 upper" width="20" height="20">
+  <properties>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFuMBLEMHIwPCaBD33aeQWZPCfRPFRMHjBczR6FIyCoQQAnsQGgQ==
+  </data>
+ </layer>
+ <objectgroup name="Layer 1 object" width="20" height="20">
+  <properties>
+   <property name="z" value="1"/>
+  </properties>
+ </objectgroup>
+ <layer name="Layer 2 lower" width="20" height="20">
+  <properties>
+   <property name="z" value="2"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgaYB8Q7ycTH0AzC50/CkgDBwbaAaNgFFARbAHirRTibXR39eAAAHIOGis=
+  </data>
+ </layer>
+ <layer name="Layer 2 upper" width="20" height="20">
+  <properties>
+   <property name="z" value="2.5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBg+4CEQPwLixwPtkFEwbMF9NHoUjIKRDAC83QRl
+  </data>
+ </layer>
+ <objectgroup name="Layer 2 object" width="20" height="20">
+  <properties>
+   <property name="z" value="2"/>
+  </properties>
+ </objectgroup>
+ <layer name="Layer 3 lower" width="20" height="20">
+  <properties>
+   <property name="z" value="3"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYKA+mAnEsyjEs5HMO0oFNy2lghlD1bxzVDZv8QgzjxpxM2oe9cxbC8TrKMTrqeCmUcDAAAAQ2CYn
+  </data>
+ </layer>
+ <layer name="Layer 3 upper" width="20" height="20">
+  <properties>
+   <property name="z" value="3.5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApIBwAGQAAB
+  </data>
+ </layer>
+ <objectgroup name="Layer 3 object" width="20" height="20">
+  <properties>
+   <property name="z" value="3"/>
+  </properties>
+ </objectgroup>
+</map>
