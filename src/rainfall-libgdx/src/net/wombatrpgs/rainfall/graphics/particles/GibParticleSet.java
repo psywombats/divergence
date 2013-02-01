@@ -31,7 +31,8 @@ public class GibParticleSet extends ParticleSet {
 	 */
 	@Override
 	public Particle generateParticle(Emitter source) {
-		Particle part = new Particle(source, particleSources[RGlobal.rand.nextInt(mdo.count)]);
+		Particle part = new Particle(source.mdo, source,
+				particleSources[RGlobal.rand.nextInt(mdo.count)]);
 		return part;
 	}
 

@@ -12,7 +12,7 @@ import net.wombatrpgs.mgns.core.Annotations.FileLink;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.MainSchema;
-import net.wombatrpgs.rainfallschema.graphics.data.AnimationMode;
+import net.wombatrpgs.rainfallschema.graphics.data.AnimationType;
 
 /**
  * Spritestrip sort of thing.
@@ -26,7 +26,7 @@ public class AnimationMDO extends MainSchema {
 	
 	@Desc("Animation type")
 	@DefaultValue("REPEAT")
-	public AnimationMode mode;
+	public AnimationType mode;
 	
 	@Desc("Frame count")
 	@DefaultValue("1")

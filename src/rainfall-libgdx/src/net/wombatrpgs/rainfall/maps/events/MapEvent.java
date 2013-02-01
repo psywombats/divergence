@@ -423,6 +423,14 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
+	 * Called when this event collides with immovable terrain.
+	 * @param 	result			The result of the wall collision
+	 */
+	public void resolveWallCollision(CollisionResult result) {
+		applyMTV(null, result, 1f);
+	}
+	
+	/**
 	 * Moves objects out of collision with each other. Usually call this from
 	 * onCollide, as a collision result is needed.
 	 * @param 	other			The other object to bump
@@ -436,8 +444,10 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		}
 		this.moveX(result.mtvX * ratio);
 		this.moveY(result.mtvY * ratio);
-		other.moveX(result.mtvX * -(1f - ratio));
-		other.moveY(result.mtvY * -(1f - ratio));
+		if (other != null && ratio != 1) {
+			other.moveX(result.mtvX * -(1f - ratio));
+			other.moveY(result.mtvY * -(1f - ratio));
+		}
 	}
 	
 	/**
