@@ -18,6 +18,7 @@ public enum ActionType {
 	
 	SIT_STILL,
 	PACE_MENACINGLY,
+	WANDER_RANDOMLY,
 	CHARGE_HERO,
 
 }

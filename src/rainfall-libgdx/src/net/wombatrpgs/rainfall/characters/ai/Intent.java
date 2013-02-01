@@ -34,7 +34,7 @@ public class Intent implements Comparable<Intent> {
 	 */
 	@Override
 	public int compareTo(Intent other) {
-		return mdo.priority - other.mdo.priority;
+		return other.mdo.priority - mdo.priority;
 	}
 	
 	/**

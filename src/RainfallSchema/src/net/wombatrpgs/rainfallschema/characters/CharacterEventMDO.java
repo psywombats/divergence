@@ -14,6 +14,7 @@ import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.rainfallschema.characters.data.CollisionResponseType;
 import net.wombatrpgs.rainfallschema.characters.data.HitboxType;
+import net.wombatrpgs.rainfallschema.characters.enemies.data.TouchEffectType;
 import net.wombatrpgs.rainfallschema.graphics.DirMDO;
 
 /**
@@ -35,6 +36,10 @@ public class CharacterEventMDO extends MainSchema {
 	@Desc("Collision response - what happens when the hero runs into us")
 	@DefaultValue("ETHEREAL")
 	public CollisionResponseType response;
+	
+	@Desc("Touch effect - describes what happens when the chara hits hero")
+	@DefaultValue("NOTHING")
+	public TouchEffectType touch;
 	
 	@Desc("Mobility - speed and acceleration parameters")
 	@SchemaLink(MobilityMDO.class)

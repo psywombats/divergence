@@ -23,7 +23,7 @@ public class ConditionHeroSpotted extends Condition {
 
 	@Override
 	public boolean isMet() {
-		return actor.distanceTo(RGlobal.hero)< SIGHT_RANGE; 
+		return actor.distanceTo(RGlobal.hero) < SIGHT_RANGE; 
 	}
 
 }

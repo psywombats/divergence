@@ -7,16 +7,12 @@
 package net.wombatrpgs.rainfallschema.characters.data;
 
 /**
- * What happens when the hero runs into this enemy?
+ * What happens when this object collides with another?
  */
 public enum CollisionResponseType {
 	
 	ETHEREAL,
-	IMMOBILE,
 	PUSHABLE,
-	STUN,
-	STUNBOUNCE,
-	BOUNCE,
-	INSTADEATH,
+	IMMOBILE,
 
 }

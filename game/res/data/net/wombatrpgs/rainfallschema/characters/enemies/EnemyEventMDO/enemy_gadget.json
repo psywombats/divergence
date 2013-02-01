@@ -1,15 +1,15 @@
 {
-	"key" : "enemy_widget",
+	"key" : "enemy_gadget",
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
-	"appearance" : "widget_2dir",
+	"appearance" : "gadget_2dir",
 	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
 	"response" : "PUSHABLE",
 	"touch" : "STUNBOUNCE",
 	"mobility" : "mobility_enemy",
-	"intelligence" : "widget_intelligence",
+	"intelligence" : "gadget_intelligence",
 	"vulnerability" : "vulnerability_all",
-	"gibset" : "gibset_widget",
+	"gibset" : "gibset_gadget",
 	"emitter" : "emitter_enemies"
 }

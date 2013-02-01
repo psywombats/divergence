@@ -374,13 +374,15 @@ public class CharacterEvent extends MapEvent {
 		}
 		if (activeMoves.size() == 0 && appearance != walkAnim) {
 			appearance = walkAnim;
-			Direction newFace;
-			if (Math.abs(targetVX) > Math.abs(targetVY)) {
-				newFace = (targetVX > 0) ? Direction.RIGHT : Direction.LEFT;
-			} else {
-				newFace = (targetVY > 0) ? Direction.UP : Direction.DOWN;
+			if (targetVX != 0 && targetVY != 0) {
+				Direction newFace;
+				if (Math.abs(targetVX) > Math.abs(targetVY)) {
+					newFace = (targetVX > 0) ? Direction.RIGHT : Direction.LEFT;
+				} else {
+					newFace = (targetVY > 0) ? Direction.UP : Direction.DOWN;
+				}
+				walkAnim.setFacing(newFace);
 			}
-			walkAnim.setFacing(newFace);
 		}
 	}
 	

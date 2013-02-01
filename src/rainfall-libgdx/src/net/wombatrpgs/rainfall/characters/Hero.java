@@ -70,7 +70,7 @@ public class Hero extends CharacterEvent {
 	 */
 	@Override
 	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
-		switch (other.mdo.response) {
+		switch (other.mdo.touch) {
 		case BOUNCE:
 			bounce(other);
 			break;

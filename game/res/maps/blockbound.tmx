@@ -127,9 +127,9 @@
     <property name="key" value="enemy_widget"/>
    </properties>
   </object>
-  <object height="32" name="Widget" type="event" width="32" x="544" y="96">
+  <object height="32" name="Gadget" type="event" width="32" x="544" y="96">
    <properties>
-    <property name="key" value="enemy_widget"/>
+    <property name="key" value="enemy_gadget"/>
    </properties>
   </object>
  </objectgroup>

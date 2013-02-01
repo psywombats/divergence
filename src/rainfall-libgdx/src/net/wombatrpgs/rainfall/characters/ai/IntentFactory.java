@@ -10,6 +10,7 @@ import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentChase;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentHalt;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentPace;
+import net.wombatrpgs.rainfall.characters.ai.actions.IntentWander;
 import net.wombatrpgs.rainfall.characters.ai.conditions.ConditionDefault;
 import net.wombatrpgs.rainfall.characters.ai.conditions.ConditionHeroSpotted;
 import net.wombatrpgs.rainfallschema.characters.enemies.ai.intent.IntentMDO;
@@ -47,6 +48,8 @@ public class IntentFactory {
 	public static IntentAct makeAction(CharacterEvent actor, IntentMDO mdo) {
 		// do the if-else
 		switch (mdo.action) {
+		case WANDER_RANDOMLY:
+			return new IntentWander(actor);
 		case PACE_MENACINGLY:
 			return new IntentPace(actor);
 		case CHARGE_HERO:

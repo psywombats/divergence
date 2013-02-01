@@ -1,0 +1,18 @@
+{
+	"key" : "gadget_intelligence",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"intents" : [
+		{
+			"action" : "CHARGE_HERO",
+			"condition" : "HERO_SPOTTED",
+			"priority" : 10
+		},
+		{
+			"action" : "WANDER_RANDOMLY",
+			"condition" : "DEFAULT",
+			"priority" : 0
+		}
+	]
+}
