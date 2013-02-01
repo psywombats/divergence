@@ -32,6 +32,7 @@ public class GridLayer extends Layer implements Renderable {
 	
 	public static final String PROPERTY_IMPASSABLE = "x";
 	public static final String PROPERTY_CLIFFTOP = "top";
+	public static final String PROPERTY_ABYSS = "hole";
 	
 	protected TiledMap map;
 	protected Level parent;
@@ -114,6 +115,9 @@ public class GridLayer extends Layer implements Renderable {
 		applyCorrectionsByTile(event, atX1, atY2);
 		applyCorrectionsByTile(event, atX2, atY1);
 		applyCorrectionsByTile(event, atX2, atY2);
+		checkForHoles(event,
+				(int) Math.round(((float) event.getX()) / map.tileWidth),
+				(int) Math.round(((float) event.getY()) / map.tileHeight));
 	}
 	
 	/**
@@ -273,5 +277,22 @@ public class GridLayer extends Layer implements Renderable {
 		}
 		// no layers contained a passable upper chip
 		return false;
+	}
+	
+	/**
+	 * Makes sure a map event didn't fall into any holes.
+	 * @param 	event			The event to check
+	 * @param 	tileX			The x-coord to check (in tiles)
+	 * @param 	tileY			The y-coord to check (in tiles)
+	 */
+	private void checkForHoles(MapEvent event, int tileX, int tileY) {
+		if (tileX < 0 || tileX >= map.width || tileY < 0 || tileY >= map.height) {
+			return;
+		}
+		int tileID = layer.tiles[map.height-tileY-1][tileX];
+		if (map.getTileProperty(tileID, PROPERTY_ABYSS) != null &&
+				!passableByUpper(tileX, tileY)) {
+			event.fallIntoHole(tileX, tileY);
+		}
 	}
 }

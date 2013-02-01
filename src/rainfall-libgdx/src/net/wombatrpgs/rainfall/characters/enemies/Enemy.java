@@ -62,7 +62,7 @@ public class Enemy extends CharacterEvent {
 	 */
 	@Override
 	public void update(float elapsed) {
-		ai.act();
+		if (canAct()) ai.act();
 		super.update(elapsed);
 	}
 

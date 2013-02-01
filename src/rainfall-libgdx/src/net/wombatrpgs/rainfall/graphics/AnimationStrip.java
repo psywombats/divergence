@@ -127,7 +127,7 @@ public class AnimationStrip implements 	Renderable,
 	@Override
 	public void render(OrthographicCamera camera) {
 		if (currentFrame != null) {
-			parent.renderLocal(camera, currentFrame, (int) offX, (int) offY);
+			parent.renderLocal(camera, currentFrame, (int) offX, (int) offY, 0);
 		}
 	}
 

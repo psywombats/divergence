@@ -29,6 +29,9 @@ import net.wombatrpgs.rainfall.maps.layers.EventLayer;
 public abstract class MapEvent extends MapObject implements PositionSetable,
 															Comparable<MapEvent> {
 	
+	/** Max time to fall into a hole */
+	protected static final float FALL_TIME = 1f;
+	
 	/** Will this event ever move? May be deprecated */
 	protected boolean mobile;
 	/** Should this object have its collisions checked? */
@@ -55,6 +58,15 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	protected float targetX, targetY;
 	/** Gotta keep track of these for some reason (tracking reasons!) */
 	protected float lastX, lastY;
+	
+	/** How much time we've spent falling (in s) */
+	protected float fallTime;
+	/** Are we sinking into the abyss? */
+	protected boolean falling;
+	/** Our target hole location... (in px) */
+	protected float holeX, holeY;
+	/** Where we started falling in from (in px) */
+	protected float startX, startY;
 	
 	/**
 	 * Creates a new map event for the level at the specified coords.
@@ -247,6 +259,14 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 				tracking = false;
 			}
 		}
+		if (falling) {
+			fallTime += elapsed;
+			x = startX + (holeX - startX) * (fallTime / FALL_TIME);
+			y = startY + (holeY - startY) * (fallTime / FALL_TIME);
+			if (fallTime > FALL_TIME) {
+				endFall();
+			}
+		}
 		lastX = x;
 		lastY = y;
 	}
@@ -263,14 +283,12 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
-	 * Renders something offset by an x/y relative to this event's x/y.
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#renderLocal
-	 * (com.badlogic.gdx.graphics.OrthographicCamera, 
-	 * com.badlogic.gdx.graphics.g2d.TextureRegion, int, int)
+	 * Determines if the character is able to move of their own volition. False
+	 * in cases such as stunning or falling.
+	 * @return					True if moving is legal, false otherwise
 	 */
-	@Override
-	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, int offX, int offY) {
-		super.renderLocal(camera, sprite, getX() + offX, getY() + offY);
+	public boolean canMove() {
+		return !falling;
 	}
 	
 	/**
@@ -278,10 +296,19 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 * (com.badlogic.gdx.graphics.OrthographicCamera,
 	 * com.badlogic.gdx.graphics.g2d.TextureRegion, int, int, int)
 	 */
-	@Override
 	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, 
 			int offX, int offY, int angle) {
-		super.renderLocal(camera, sprite, getX() + offX, getY() + offY, angle);
+		super.renderLocal(camera, sprite, getX() + offX, getY() + offY, angle, fallTime/FALL_TIME);
+	}
+	
+	/**
+	 * Uses this event's x/y to render locally.
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#renderLocal
+	 * (com.badlogic.gdx.graphics.OrthographicCamera, 
+	 * com.badlogic.gdx.graphics.g2d.TextureRegion, int, int)
+	 */
+	public void renderLocal(OrthographicCamera camera, TextureRegion sprite) {
+		super.renderLocal(camera, sprite, getX(), getY(), fallTime/FALL_TIME);
 	}
 
 	/**
@@ -413,21 +440,34 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
-	 * Uses this event's x/y to render locally.
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#renderLocal
-	 * (com.badlogic.gdx.graphics.OrthographicCamera, 
-	 * com.badlogic.gdx.graphics.g2d.TextureRegion, int, int)
-	 */
-	public void renderLocal(OrthographicCamera camera, TextureRegion sprite) {
-		super.renderLocal(camera, sprite, getX(), getY());
-	}
-	
-	/**
 	 * Called when this event collides with immovable terrain.
 	 * @param 	result			The result of the wall collision
 	 */
 	public void resolveWallCollision(CollisionResult result) {
 		applyMTV(null, result, 1f);
+	}
+	
+	/**
+	 * Start falling into a hole. Oh no!
+	 * @param 	tileX			The x-coord of the hole (in tiles)
+	 * @param 	tileY			The y-coord of the hole (in tiles);
+	 */
+	public void fallIntoHole(int tileX, int tileY) {
+		if (!falling) {
+			falling = true;
+			holeX = tileX * parent.getTileWidth();
+			holeY = (tileY - .5f) * parent.getTileHeight();
+			startX = x;
+			startY = y;
+		}
+	}
+	
+	/**
+	 * Called after finishing falling into a hole. Default removes us from map.
+	 */
+	public void endFall() {
+		parent.removeEvent(this);
+		zeroCoords();
 	}
 	
 	/**
@@ -464,14 +504,16 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 * Does some constructor-like stuff to reset physical variables.
 	 */
 	protected void zeroCoords() {
-		acceleration = 0;
-		decceleration = 0;
 		x = 0;
 		y = 0;
 		targetVX = 0;
 		targetVY = 0;
 		vx = 0;
 		vy = 0;
+		fallTime = 0;
+		holeX = 0;
+		holeY = 0;
+		falling = false;
 	}	
 
 }

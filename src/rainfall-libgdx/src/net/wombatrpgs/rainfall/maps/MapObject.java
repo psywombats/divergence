@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -140,12 +141,11 @@ public abstract class MapObject implements	Renderable,
 	 * @param	camera			The current camera
 	 * @param	x				The x-coord for rendering (in pixels)
 	 * @param	y				The y-coord for rendering (in pixels)
+	 * @param	fallTime		How far fallen we are (0-1)
 	 */
-	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, int x, int y) {
-		parent.getBatch().draw(
-				sprite, 
-				x + Gdx.graphics.getWidth()/2 - camera.position.x, 
-				y + Gdx.graphics.getHeight()/2 - camera.position.y);
+	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, 
+			int x, int y, float fallTime) {
+		renderLocal(camera, sprite, x, y, 0, fallTime);
 	}
 	
 	/**
@@ -156,20 +156,27 @@ public abstract class MapObject implements	Renderable,
 	 * @param	x				The x-coord for rendering (in pixels)
 	 * @param	y				The y-coord for rendering (in pixels)
 	 * @param	angle			The angle to render at
+	 * @param	fallTime		How far fallen we are (0-1)
 	 */
 	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, 
-			int x, int y, int angle) {
+			int x, int y, int angle, float fallTime) {
 		int atX = (int) (x + Gdx.graphics.getWidth()/2 - camera.position.x);
 		int atY = (int) (y + Gdx.graphics.getHeight()/2 - camera.position.y);
+		Color c = parent.getBatch().getColor();
+		float tint = (fallTime < .5f) ? 1-fallTime*2 : 0;
+		parent.getBatch().setColor(tint, tint, tint, 1);
 		parent.getBatch().draw(
 				sprite,
 				atX, 
 				atY,
-				sprite.getRegionWidth()/2, 
+				sprite.getRegionWidth() / 2, 
 				sprite.getRegionHeight() / 2, 
-				sprite.getRegionWidth(), sprite.getRegionHeight(), 
-				1, 1, 
+				sprite.getRegionWidth(),
+				sprite.getRegionHeight(), 
+				1f-fallTime,
+				1f-fallTime, 
 				angle);
+		parent.getBatch().setColor(c);
 	}
 
 }

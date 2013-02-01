@@ -54,6 +54,11 @@
     <property name="impassable" value=""/>
    </properties>
   </tile>
+  <tile id="19">
+   <properties>
+    <property name="passable" value=""/>
+   </properties>
+  </tile>
   <tile id="20">
    <properties>
     <property name="impassable" value=""/>
@@ -82,13 +87,18 @@
     <property name="top" value=""/>
    </properties>
   </tile>
+  <tile id="63">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <layer height="15" name="Tile Layer 1" width="20">
   <properties>
    <property name="z" value="0"/>
   <property name="layer" value="5"/></properties>
   <data compression="zlib" encoding="base64">
-   eJwTYWBgEKEBRgaD1TxuNPNkgFiOTPNkoOYRq1+aDDsYgZgJiJlxmIdupiwB89iBmAOIOdHMQMcgOWEoxmceLxDzATE/ldxH7fAbiRgEjBgQYLCZRyoGAIpUFp8=
+   eJwTYWBgEKEBRgaD1TxuNPNkgFiOTPNkoOYRq1+aDDsYgZgJiJlxmIdupiwB89iBmAOIOdHMQMcgOWEoxmceLxDzATE/ldxH7fAbibgODQ8280jFAMhCGis=
   </data>
  </layer>
  <layer height="15" name="Tile Layer 2" width="20">
@@ -96,7 +106,7 @@
    <property name="z" value=".5"/>
   <property name="layer" value="4"/></properties>
   <data compression="zlib" encoding="base64">
-   eJxjYBg+QHugHTAEwWiYDSwYDX/SAABSqwCC
+   eJxjYBg+QHugHTAEwWiYDSygR/gbDXLzSAEAkrsA5g==
   </data>
  </layer>
  <objectgroup height="15" name="Object Layer 1" width="20">

@@ -34,11 +34,11 @@ public class ActPush extends MovesetAct {
 	 */
 	@Override
 	public void coreAct(Level map, CharacterEvent actor) {
-		if (RGlobal.block == null) return;
-		if (RGlobal.block.getLevel() != RGlobal.hero.getLevel()) return;
 		int compX = 0;
 		int compY = 0;
 		if (!actor.isMoveActive(this)) {
+			if (RGlobal.block == null) return;
+			if (RGlobal.block.getLevel() != RGlobal.hero.getLevel()) return;
 			actor.halt();
 			actor.startAction(this);
 			actor.faceToward(RGlobal.block);

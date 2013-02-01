@@ -186,6 +186,14 @@ public class CharacterEvent extends MapEvent {
 	}
 	
 	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#canMove()
+	 */
+	@Override
+	public boolean canMove() {
+		return !stunned && super.canMove();
+	}
+
+	/**
 	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#onCollide
 	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.collisions.CollisionResult)
 	 */
@@ -249,7 +257,7 @@ public class CharacterEvent extends MapEvent {
 	 * @return					True if we can act, false otherwise.
 	 */
 	public boolean canAct() {
-		return !stunned;
+		return canMove();
 	}
 
 	/**

@@ -13,6 +13,7 @@ import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
+import net.wombatrpgs.rainfall.maps.layers.EventLayer;
 import net.wombatrpgs.rainfall.moveset.Moveset;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.MovesetMDO;
@@ -25,6 +26,9 @@ public class Hero extends CharacterEvent {
 	
 	/** Holds the moves the player has assigned the hero */
 	protected Moveset moves;
+	
+	/** Where we entered the stage */
+	protected float entryX, entryY;
 
 	/**
 	 * Placeholder constructor. When the herp is finally initialized properly
@@ -125,6 +129,27 @@ public class Hero extends CharacterEvent {
 	public void postProcessing(AssetManager manager) {
 		super.postProcessing(manager);
 		moves.postProcessing(manager);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#onAdd
+	 * (net.wombatrpgs.rainfall.maps.layers.EventLayer)
+	 */
+	@Override
+	public void onAdd(EventLayer layer) {
+		super.onAdd(layer);
+		entryX = getX();
+		entryY = getY();
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#endFall()
+	 */
+	@Override
+	public void endFall() {
+		zeroCoords();
+		setX((int) entryX);
+		setY((int) entryY);
 	}
 
 	/**
