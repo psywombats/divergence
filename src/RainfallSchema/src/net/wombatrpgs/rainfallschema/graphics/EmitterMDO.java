@@ -9,7 +9,9 @@ package net.wombatrpgs.rainfallschema.graphics;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.MainSchema;
+import net.wombatrpgs.rainfallschema.graphics.data.BounceType;
 import net.wombatrpgs.rainfallschema.graphics.data.EmitterType;
+import net.wombatrpgs.rainfallschema.graphics.data.ReflectionType;
 
 /**
  * Spit particles out your ass. Direction is determined at runtime.
@@ -19,6 +21,12 @@ public class EmitterMDO extends MainSchema {
 	
 	@Desc("Mode - will this emitter fire once or keep firing?")
 	public EmitterType mode;
+	
+	@Desc("Reflection mode - how do particles interact with walls?")
+	public ReflectionType reflect;
+	
+	@Desc("Bounce mode - particles can bounce on the floor")
+	public BounceType bounce;
 	
 	@Desc("Rate of fire- how many particles to fire (possibly per second)")
 	public Integer count;

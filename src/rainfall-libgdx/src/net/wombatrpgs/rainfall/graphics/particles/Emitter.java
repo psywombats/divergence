@@ -68,10 +68,11 @@ public class Emitter extends MapEvent {
 		vy *= (RGlobal.rand.nextFloat()/2 + .5f);
 		part.setVelocity(vx, vy);
 		part.setAngularVelocity(mdo.rotationalVelocity * RGlobal.rand.nextFloat()*2-1);
-		part.setX(getX() + RGlobal.rand.nextInt(32));
-		part.setY(getY() + RGlobal.rand.nextInt(32));
 		part.setLife(RGlobal.rand.nextFloat() * (mdo.maxLife - mdo.minLife) + mdo.minLife);
 		particles.add(part);
+		parent.addEvent(part, 0, 0, parent.getZ(this));
+		part.setX(getX() + RGlobal.rand.nextInt(32));
+		part.setY(getY() + RGlobal.rand.nextInt(32));
 	}
 
 	/**
@@ -81,9 +82,9 @@ public class Emitter extends MapEvent {
 	@Override
 	public void render(OrthographicCamera camera) {
 		super.render(camera);
-		for (Particle part : particles) {
-			part.render(camera);
-		}
+//		for (Particle part : particles) {
+//			part.render(camera);
+//		}
 	}
 
 	/**
@@ -114,13 +115,14 @@ public class Emitter extends MapEvent {
 		super.update(elapsed);
 		List<Particle> deadParts = new ArrayList<Particle>();
 		for (Particle part : particles) {
-			part.update(elapsed);
+			//part.update(elapsed);
 			if (part.getLife() <= 0) {
 				deadParts.add(part);
 			}
 		}
 		for (Particle part : deadParts) {
 			particles.remove(part);
+			parent.removeEvent(part);
 		}
 	}
 

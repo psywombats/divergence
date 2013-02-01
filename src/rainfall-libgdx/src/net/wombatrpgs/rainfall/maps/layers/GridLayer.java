@@ -246,8 +246,7 @@ public class GridLayer extends Layer implements Renderable {
 				result.mtvX *= -1;
 				result.mtvY *= -1;
 			}
-			event.moveX(result.mtvX);
-			event.moveY(result.mtvY);
+			event.resolveWallCollision(result);
 		}
 	}
 	
