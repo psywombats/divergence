@@ -6,7 +6,9 @@
  */
 package net.wombatrpgs.rainfall.io;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import net.wombatrpgs.rainfallschema.io.data.InputButton;
@@ -14,6 +16,7 @@ import net.wombatrpgs.rainfallschema.io.data.InputButton;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
+// TODO: make this class a database entry
 /**
  * The default keyboard bindings for Rainfall.
  */
@@ -22,6 +25,7 @@ public class DefaultKeymap extends Keymap {
 	private Map<Integer, InputButton> map;
 	private Map<InputButton, Integer> backmap;
 	private Map<InputButton, Boolean> state;
+	private List<InputButton> constantButtons;
 	
 	/**
 	 * Creates and initializes the default keymap.
@@ -29,6 +33,7 @@ public class DefaultKeymap extends Keymap {
 	public DefaultKeymap() {
 		map = new HashMap<Integer, InputButton>();
 		backmap = new HashMap<InputButton, Integer>();
+		constantButtons = new ArrayList<InputButton>();
 		
 		// movamant
 		map.put(Keys.UP, 		InputButton.UP);
@@ -54,6 +59,11 @@ public class DefaultKeymap extends Keymap {
 		for (InputButton button : InputButton.values()) {
 			state.put(button, false);
 		}
+		
+		constantButtons.add(InputButton.RIGHT);
+		constantButtons.add(InputButton.UP);
+		constantButtons.add(InputButton.LEFT);
+		constantButtons.add(InputButton.DOWN);
 	}
 
 	/**
@@ -85,11 +95,24 @@ public class DefaultKeymap extends Keymap {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.io.Keymap#isButtonDown(net.wombatrpgs.rainfallschema.io.data.InputButton)
+	 * @see net.wombatrpgs.rainfall.io.Keymap#isButtonDown
+	 * (net.wombatrpgs.rainfallschema.io.data.InputButton)
 	 */
 	@Override
 	public boolean isButtonDown(InputButton button) {
 		return Gdx.input.isKeyPressed(backmap.get(button));
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.core.Updateable#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		for (InputButton button : constantButtons) {
+			if (isButtonDown(button)) {
+				signal(button, true);
+			}
+		}
 	}
 
 	/**

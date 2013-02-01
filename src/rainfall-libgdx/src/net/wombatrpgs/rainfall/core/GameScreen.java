@@ -138,6 +138,7 @@ public abstract class GameScreen implements CommandListener,
 	@Override
 	public void update(float elapsed) {
 		canvas.update(elapsed);
+		RGlobal.keymap.update(elapsed);
 	}
 
 	/**
