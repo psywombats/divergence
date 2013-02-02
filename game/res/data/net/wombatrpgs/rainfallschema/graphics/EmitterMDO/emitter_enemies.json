@@ -6,7 +6,7 @@
 	"mode" : "EXPLODE_ONCE",
 	"reflect" : "REFLECT_OFF_WALLS",
 	"bounce" : "BOUNCE_ENABLED",
-	"count" : 30,
+	"count" : 5,
 	"velocity" : 192,
 	"rotationalVelocity" : 720,
 	"minLife" : 1.0,
