@@ -1,0 +1,13 @@
+{
+	"key" : "textbox_default",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"image" : "graphic_dbox_test",
+	"graphicX" : 0,
+	"graphicY" : 384,
+	"x1" : 8,
+	"y1" : 40,
+	"x2" : 634,
+	"y2" : 88
+}

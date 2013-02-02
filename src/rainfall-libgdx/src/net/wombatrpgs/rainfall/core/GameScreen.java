@@ -120,7 +120,7 @@ public abstract class GameScreen implements CommandListener,
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		canvas.queueRequiredAssets(manager);
+		//canvas.queueRequiredAssets(manager);
 	}
 
 	/**
@@ -129,7 +129,7 @@ public abstract class GameScreen implements CommandListener,
 	 */
 	@Override
 	public void postProcessing(AssetManager manager) {
-		canvas.postProcessing(manager);
+		//canvas.postProcessing(manager);
 	}
 	
 	/**
@@ -171,6 +171,9 @@ public abstract class GameScreen implements CommandListener,
 		} else {
 			commandContext.registerListener(this);
 		}
+		this.queueRequiredAssets(RGlobal.assetManager);
+		RGlobal.assetManager.finishLoading();
+		this.postProcessing(RGlobal.assetManager);
 		initialized = true;
 	}
 

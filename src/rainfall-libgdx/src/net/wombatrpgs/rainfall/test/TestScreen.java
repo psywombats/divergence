@@ -7,6 +7,7 @@
 package net.wombatrpgs.rainfall.test;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,8 +17,14 @@ import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.io.TestCommandMap;
 import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
+import net.wombatrpgs.rainfall.ui.text.FontHolder;
+import net.wombatrpgs.rainfall.ui.text.TextBox;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 import net.wombatrpgs.rainfallschema.test.MapLoadTestMDO;
+import net.wombatrpgs.rainfallschema.test.TextBoxTestMDO;
+import net.wombatrpgs.rainfallschema.test.data.TestState;
+import net.wombatrpgs.rainfallschema.ui.FontMDO;
+import net.wombatrpgs.rainfallschema.ui.TextBoxMDO;
 
 /**
  * TESTING 1 2 3 TESTING DO YOU HEAR ME TESTINGGGGGGGG
@@ -25,18 +32,29 @@ import net.wombatrpgs.rainfallschema.test.MapLoadTestMDO;
 public class TestScreen extends GameScreen {
 	
 	protected Level map;
-	protected BitmapFont font;
+	protected BitmapFont defaultFont;
 	protected SpriteBatch batch;
+	protected FontHolder font;
+	protected TextBox box;
 	
 	public TestScreen() {
 		MapLoadTestMDO mapTestMDO = (MapLoadTestMDO) RGlobal.data.getEntryByKey("map_test");
 		this.map = RGlobal.levelManager.getLevel(mapTestMDO.map);
 		this.canvas = map;
 		
+		TextBoxTestMDO testMDO = RGlobal.data.getEntryFor("test_textbox", TextBoxTestMDO.class);
+		if (testMDO != null && testMDO.enabled == TestState.ENABLED) {
+			FontMDO fontMDO = RGlobal.data.getEntryFor(testMDO.font, FontMDO.class);
+			font = new FontHolder(fontMDO);
+			TextBoxMDO textMDO = RGlobal.data.getEntryFor(testMDO.box, TextBoxMDO.class);
+			box = new TextBox(textMDO, font);
+			box.setText(testMDO.text);
+		}
+		
 		RGlobal.screens.registerLevelScreen(this);
 		commandContext = new TestCommandMap();
 		z = 0;
-		font = new BitmapFont();
+		defaultFont = new BitmapFont();
 		batch = new SpriteBatch();
 		
 		init();
@@ -83,8 +101,13 @@ public class TestScreen extends GameScreen {
 	public void render(OrthographicCamera camera) {
 		super.render(camera);
 		batch.begin();
-		font.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 8, 16);
+		defaultFont.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 8, 16);
 		batch.end();
+		
+		// TODO: HACK HACK HACK HACK
+		RGlobal.hero.getBatch().begin();
+		if (box != null) box.render(camera);
+		RGlobal.hero.getBatch().end();
 	}
 
 	/**
@@ -101,6 +124,34 @@ public class TestScreen extends GameScreen {
 	@Override
 	public void onFocusGained() {
 		// tslib
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.core.GameScreen#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		if (font != null) {
+			font.queueRequiredAssets(manager);
+		}
+		if (box != null) {
+			box.queueRequiredAssets(manager);
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.core.GameScreen#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager) {
+		if (font != null) {
+			font.postProcessing(manager);
+		}
+		if (box != null) {
+			box.postProcessing(manager);
+		}
 	}
 
 }

@@ -30,6 +30,10 @@ public class RGlobal extends Global {
 	public static final String MAPS_DIR = RESOURCE_DIR + "maps/";
 	/** Directory where all the gibs are stored, prefix string */
 	public static final String GIBS_DIR = RESOURCE_DIR + "gibs/";
+	/** Uhhh where da right fonts at? */
+	public static final String FONTS_DIR = RESOURCE_DIR + "fonts/";
+	/** I hate my life */
+	public static final String UI_DIR = RESOURCE_DIR + "ui/";
 	
 	/** Manages all in-game assets */
 	public static AssetManager assetManager;

@@ -23,7 +23,7 @@ public class SpeakerMDO extends MainSchema {
 	public String file;
 	
 	@Desc("Script name - how the script refers to this character, for instance "
-			+ "[nico]: would be nico")
+			+ "\"NICO: blah blah\" would be NICO")
 	public String id;
 
 }
