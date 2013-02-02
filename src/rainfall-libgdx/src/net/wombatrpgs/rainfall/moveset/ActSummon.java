@@ -15,6 +15,8 @@ import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.RectHitbox;
 import net.wombatrpgs.rainfall.collisions.TargetPosition;
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.graphics.particles.Emitter;
+import net.wombatrpgs.rainfall.graphics.particles.GibParticleSet;
 import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.events.AnimationPlayer;
@@ -22,6 +24,8 @@ import net.wombatrpgs.rainfall.maps.objects.TimerListener;
 import net.wombatrpgs.rainfall.maps.objects.TimerObject;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.SummonMDO;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
+import net.wombatrpgs.rainfallschema.graphics.EmitterMDO;
+import net.wombatrpgs.rainfallschema.graphics.GibsetMDO;
 
 /**
  * Summon the block to your side!
@@ -29,7 +33,9 @@ import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 public class ActSummon extends MovesetAct {
 	
 	protected SummonMDO mdo;
-	protected AnimationPlayer player;
+	protected AnimationPlayer goodPlayer;
+	protected AnimationPlayer badPlayer;
+	protected Emitter emitter;
 	
 	/**
 	 * Creates and initializes this summon MDO. Involves loading an image, it
@@ -40,8 +46,24 @@ public class ActSummon extends MovesetAct {
 	public ActSummon(CharacterEvent actor, SummonMDO mdo) {
 		super(actor, mdo);
 		this.mdo = mdo;
-		AnimationMDO animMDO = RGlobal.data.getEntryFor(mdo.blockAnimation, AnimationMDO.class);
-		this.player = new AnimationPlayer(animMDO);
+		AnimationMDO goodMDO = RGlobal.data.getEntryFor(mdo.blockAnimation, AnimationMDO.class);
+		AnimationMDO badMDO = RGlobal.data.getEntryFor(mdo.failAnimation, AnimationMDO.class);
+		this.goodPlayer = new AnimationPlayer(goodMDO) {
+			@Override public int renderBump() { 
+				return (animation.getTime() < animation.getMaxTime()/2) ? 1 : 0;
+			}
+		};
+		this.badPlayer = new AnimationPlayer(badMDO) {
+			@Override public int renderBump() { 
+				return (animation.getTime() < animation.getMaxTime()/2) ? 1 : 0;
+			}
+		};
+		if (mdo.emitter != null && mdo.gibs != null) {
+			GibsetMDO gibsetMDO = RGlobal.data.getEntryFor(mdo.gibs, GibsetMDO.class);
+			EmitterMDO emitterMDO = RGlobal.data.getEntryFor(mdo.emitter, EmitterMDO.class);
+			GibParticleSet gibs = new GibParticleSet(gibsetMDO);
+			emitter = new Emitter(emitterMDO, gibs);
+		}
 	}
 
 	/**
@@ -119,10 +141,10 @@ public class ActSummon extends MovesetAct {
 		if (RGlobal.block.getLevel() != null) {
 			RGlobal.block.getLevel().removeEvent(RGlobal.block);
 		}
-		map.addEvent(player, 0, 0, map.getZ(actor));
-		player.setX(targetTileX * map.getTileWidth());
-		player.setY(targetTileY * map.getTileHeight());
-		player.start();
+		map.addEvent(goodPlayer, 0, 0, map.getZ(actor));
+		goodPlayer.setX(targetTileX * map.getTileWidth());
+		goodPlayer.setY(targetTileY * map.getTileHeight());
+		goodPlayer.start();
 		new TimerObject(mdo.duration, RGlobal.hero, new TimerListener() {
 			@Override
 			public void onTimerZero(TimerObject source) {
@@ -138,11 +160,26 @@ public class ActSummon extends MovesetAct {
 	 * @param 	targetX			The x-coord to land at (in tiles)
 	 * @param 	targetY			The y-coord to land at (in tiles)
 	 */
-	private void selfDestructAt(Level map, int targetTileX, int targetTileY) {
+	private void selfDestructAt(Level map, final int targetTileX, final int targetTileY) {
 		RGlobal.reporter.inform("BOOM! Summon failed.");
 		if (RGlobal.block != null && RGlobal.block.getLevel() != null) {
 			RGlobal.block.getLevel().removeEvent(RGlobal.block);
 		}
+		map.addEvent(badPlayer, 0, 0, map.getZ(actor));
+		badPlayer.setX(targetTileX * map.getTileWidth());
+		badPlayer.setY(targetTileY * map.getTileHeight());
+		badPlayer.start();
+		new TimerObject(mdo.duration, actor, new TimerListener() {
+			@Override
+			public void onTimerZero(TimerObject source) {
+				if (emitter != null) {
+					actor.getLevel().addEvent(emitter, 
+							targetTileX, targetTileY,
+							actor.getLevel().getZ(actor));
+					emitter.fire(0, 0);
+				}
+			}
+		});
 	}
 
 	/**
@@ -152,7 +189,11 @@ public class ActSummon extends MovesetAct {
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
-		player.queueRequiredAssets(manager);
+		goodPlayer.queueRequiredAssets(manager);
+		badPlayer.queueRequiredAssets(manager);
+		if (emitter != null) {
+			emitter.queueRequiredAssets(manager);
+		}
 	}
 
 	/**
@@ -162,7 +203,11 @@ public class ActSummon extends MovesetAct {
 	@Override
 	public void postProcessing(AssetManager manager) {
 		super.postProcessing(manager);
-		player.postProcessing(manager);
+		goodPlayer.postProcessing(manager);
+		badPlayer.postProcessing(manager);
+		if (emitter != null) {
+			emitter.postProcessing(manager);
+		}
 	}
 
 }

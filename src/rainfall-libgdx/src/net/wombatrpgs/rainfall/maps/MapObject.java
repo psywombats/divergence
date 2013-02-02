@@ -95,6 +95,18 @@ public abstract class MapObject implements	Renderable,
 			subEvents.remove(toRemove);
 		}
 	}
+	
+	/**
+	 * Determines what layer to render this object on. A returned value of 0
+	 * means this object should stay on its normal z layer, while positive
+	 * values it should be indicated earlier in the chain. This is used to
+	 * prevent tall objects from appearing above upper chip. Those objects
+	 * typically return (tilesHigh - 2).
+	 * @return					Render layer offset
+	 */
+	public int renderBump() {
+		return 0;
+	}
 
 	/**
 	 * Called when this object is tele'd onto a map.

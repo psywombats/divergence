@@ -118,7 +118,7 @@ public class Level implements Canvasable {
 	public List<GridLayer> getGridLayers() { return tileLayers; }
 	
 	/** @return All object layers on this map */
-	public List<EventLayer> getObjectLayers() { return eventLayers; }
+	public List<EventLayer> getEventLayers() { return eventLayers; }
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render(

@@ -242,7 +242,6 @@ public class CharacterEvent extends MapEvent {
 		}
 		if (other.mdo.response == CollisionResponseType.PUSHABLE &&
 				this.mdo.response == CollisionResponseType.PUSHABLE) {
-				RGlobal.reporter.warn("Two immobile objects collided? wtf?");
 				applyMTV(other, result, .5f);
 		} else if (other.mdo.response == CollisionResponseType.PUSHABLE) {
 			applyMTV(other, result, 0f);

@@ -30,7 +30,7 @@ public class EventLayer extends Layer implements Renderable {
 	
 	protected Level parent;
 	protected boolean passable[][];
-	protected List<MapEvent> objects;
+	protected List<MapEvent> events;
 	protected TiledObjectGroup group;
 	protected float z;
 	
@@ -41,7 +41,7 @@ public class EventLayer extends Layer implements Renderable {
 	 */
 	public EventLayer(Level parent, TiledObjectGroup group) {
 		this.parent = parent;
-		this.objects = new ArrayList<MapEvent>();
+		this.events = new ArrayList<MapEvent>();
 		this.group = group;
 		this.passable = new boolean[parent.getHeight()][parent.getWidth()];
 		for (int y = 0; y < parent.getHeight(); y++) {
@@ -63,11 +63,14 @@ public class EventLayer extends Layer implements Renderable {
 	@Override
 	public void render(OrthographicCamera camera) {
 		// TODO: this can be optimized
-		Collections.sort(objects);
+		Collections.sort(events);
 		parent.getBatch().begin();
-		for (int i = 0; i < objects.size(); i++) {
-			MapObject object = objects.get(i);
-			object.render(camera);
+		for (EventLayer layer : parent.getEventLayers()) {
+			for (MapEvent event : layer.events) {
+				if (event.renderBump() + layer.z == z) {
+					event.render(camera);
+				}
+			}
 		}
 		parent.getBatch().end();
 	}
@@ -78,7 +81,7 @@ public class EventLayer extends Layer implements Renderable {
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		for (MapObject object : objects) {
+		for (MapObject object : events) {
 			object.queueRequiredAssets(manager);
 		}
 	}
@@ -89,7 +92,7 @@ public class EventLayer extends Layer implements Renderable {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager) {
-		for (MapObject object : objects) {
+		for (MapObject object : events) {
 			object.postProcessing(manager);
 		}
 	}
@@ -119,7 +122,7 @@ public class EventLayer extends Layer implements Renderable {
 	public FallResult dropObject(Hitbox box) {
 		FallResult result = new FallResult();
 		result.finished = false;
-		for (MapEvent object : objects) {
+		for (MapEvent object : events) {
 			if (!object.supportsBlockLanding() && 
 					object.getHitbox().isColliding(box).isColliding) {
 				result.finished = true;
@@ -131,6 +134,22 @@ public class EventLayer extends Layer implements Renderable {
 		}
 		return result;
 	}
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.layers.Layer#getZ()
+	 */
+	@Override
+	public float getZ() {
+		return z;
+	}
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.layers.Layer#finalizePassability()
+	 */
+	@Override
+	public void finalizePassability() {
+		// we don't care
+	}
 
 	/**
 	 * Adds another map event to this layer.
@@ -140,7 +159,7 @@ public class EventLayer extends Layer implements Renderable {
 		if (event == null) {
 			Global.reporter.warn("Added a null object to the map?");
 		} else {
-			objects.add(event);
+			events.add(event);
 			event.onAdd(this);
 		}
 	}
@@ -150,7 +169,7 @@ public class EventLayer extends Layer implements Renderable {
 	 * @param 	event		The map object to remove
 	 */
 	public void remove(MapEvent event) {
-		objects.remove(event);
+		events.remove(event);
 	}
 	
 	/**
@@ -159,15 +178,7 @@ public class EventLayer extends Layer implements Renderable {
 	 * @return					True if the object exists on this layer
 	 */
 	public boolean contains(MapObject mapObject) {
-		return objects.contains(mapObject);
-	}
-	
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.layers.Layer#getZ()
-	 */
-	@Override
-	public float getZ() {
-		return z;
+		return events.contains(mapObject);
 	}
 	
 	/**
@@ -196,8 +207,8 @@ public class EventLayer extends Layer implements Renderable {
 	public void detectCollisions(MapEvent event) {
 		// TODO: optimize these loops
 		//if (!event.isMobile()) return;
-		for (int i = 0; i < objects.size(); i++) {
-			MapEvent other = objects.get(i);
+		for (int i = 0; i < events.size(); i++) {
+			MapEvent other = events.get(i);
 			if (other != event) {
 				CollisionResult result = event.getHitbox().isColliding(other.getHitbox());
 				if (result.isColliding) {
@@ -212,14 +223,6 @@ public class EventLayer extends Layer implements Renderable {
 				}
 			}
 		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.layers.Layer#finalizePassability()
-	 */
-	@Override
-	public void finalizePassability() {
-		// we don't care
 	}
 
 }

@@ -78,6 +78,12 @@ public class AnimationStrip implements 	Renderable,
 	/** @param y The new y-offset (in pixels) */
 	public void setOffsetY(int y) { this.offY = y; }
 	
+	/** @return Time elapsed since started playing */
+	public float getTime() { return this.time; }
+	
+	/** @return Time total to elapse */
+	public float getMaxTime() { return this.maxTime; }
+	
 	/**
 	 * Call this when this direction becomes active.
 	 */

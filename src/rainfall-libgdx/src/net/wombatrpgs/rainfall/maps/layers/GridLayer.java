@@ -270,7 +270,7 @@ public class GridLayer extends Layer implements Renderable {
 			}
 		}
 		// TODO: move this somewhere else
-		for (EventLayer otherLayer : parent.getObjectLayers()) {
+		for (EventLayer otherLayer : parent.getEventLayers()) {
 			if (otherLayer.isSpecialPassable(tileX, tileY)) {
 				return true;
 			}
