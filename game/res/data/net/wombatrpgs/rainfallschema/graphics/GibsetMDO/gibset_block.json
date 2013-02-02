@@ -1,0 +1,10 @@
+{
+	"key" : "gibset_block",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"file" : "block_shards.png",
+	"count" : 10,
+	"frameWidth" : 14,
+	"frameHeight" : 14
+}
