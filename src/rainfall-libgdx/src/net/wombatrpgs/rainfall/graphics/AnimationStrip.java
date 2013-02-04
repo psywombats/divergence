@@ -148,10 +148,10 @@ public class AnimationStrip implements 	Renderable,
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (com.badlogic.gdx.assets.AssetManager, int pass)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager) {
+	public void postProcessing(AssetManager manager, int pass) {
 		String filename = RGlobal.SPRITES_DIR+mdo.file;
 		if (RGlobal.assetManager.isLoaded(filename)) {
 			spritesheet = RGlobal.assetManager.get(filename, Texture.class);

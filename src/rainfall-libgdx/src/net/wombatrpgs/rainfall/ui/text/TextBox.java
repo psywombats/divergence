@@ -81,13 +81,13 @@ public class TextBox extends MapObject {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.MapObject#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager) {
-		super.postProcessing(manager);
+	public void postProcessing(AssetManager manager, int pass) {
+		super.postProcessing(manager, pass);
 		if (backer != null) {
-			backer.postProcessing(manager);
+			backer.postProcessing(manager, pass);
 		}
 	}
 	

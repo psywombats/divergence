@@ -67,12 +67,12 @@ public abstract class MovesetAct implements Actionable, Queueable {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager) {
+	public void postProcessing(AssetManager manager, int pass) {
 		if (appearance != null) {
-			appearance.postProcessing(manager);
+			appearance.postProcessing(manager, pass);
 		}
 	}
 

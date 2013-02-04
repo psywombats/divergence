@@ -142,15 +142,16 @@ public class TestScreen extends GameScreen {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.core.GameScreen#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (com.badlogic.gdx.assets.AssetManager, int pass)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager) {
+	public void postProcessing(AssetManager manager, int pass) {
+		if (pass > 0) return;
 		if (font != null) {
-			font.postProcessing(manager);
+			font.postProcessing(manager, pass);
 		}
 		if (box != null) {
-			box.postProcessing(manager);
+			box.postProcessing(manager, pass);
 		}
 	}
 

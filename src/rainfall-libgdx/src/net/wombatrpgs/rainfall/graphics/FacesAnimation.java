@@ -93,12 +93,12 @@ public abstract class FacesAnimation implements Renderable,
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (com.badlogic.gdx.assets.AssetManager , int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager) {
+	public void postProcessing(AssetManager manager, int pass) {
 		for (int i = 0; i < facings; i++) {
-			animations[i].postProcessing(manager);
+			animations[i].postProcessing(manager, pass);
 		}
 	}
 	

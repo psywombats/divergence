@@ -88,12 +88,12 @@ public class EventLayer extends Layer implements Renderable {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager) {
+	public void postProcessing(AssetManager manager, int pass) {
 		for (MapObject object : events) {
-			object.postProcessing(manager);
+			object.postProcessing(manager, pass);
 		}
 	}
 	

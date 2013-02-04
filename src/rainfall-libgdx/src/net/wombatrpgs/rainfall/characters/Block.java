@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.rainfall.characters;
 
+import com.badlogic.gdx.assets.AssetManager;
+
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.AnimationStrip;
@@ -30,10 +32,6 @@ public class Block extends CharacterEvent {
 	 */
 	public Block(SummonMDO mdo) {
 		super(RGlobal.data.getEntryFor(mdo.blockEvent, CharacterEventMDO.class));
-		// TODO: move this somewhere sane
-		appearance.queueRequiredAssets(RGlobal.assetManager);
-		RGlobal.assetManager.finishLoading();
-		appearance.postProcessing(RGlobal.assetManager);
 		setCollisionsEnabled(true);
 		summonInProgress = false;
 	}
@@ -67,6 +65,26 @@ public class Block extends CharacterEvent {
 		} else {
 			return super.onCollide(other, result);
 		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		super.queueRequiredAssets(manager);
+		appearance.queueRequiredAssets(manager);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager, int pass) {
+		super.postProcessing(manager, pass);
+		appearance.postProcessing(manager, pass);
 	}
 	
 }

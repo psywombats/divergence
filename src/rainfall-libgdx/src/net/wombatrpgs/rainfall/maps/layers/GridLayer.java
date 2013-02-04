@@ -94,10 +94,10 @@ public class GridLayer extends Layer implements Renderable {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager) {
+	public void postProcessing(AssetManager manager, int pass) {
 		// this is handled in the parent
 	}
 

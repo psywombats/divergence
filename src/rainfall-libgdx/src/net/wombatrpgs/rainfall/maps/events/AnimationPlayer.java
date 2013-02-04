@@ -58,12 +58,12 @@ public class AnimationPlayer extends MapEvent {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager) {
-		super.postProcessing(manager);
-		animation.postProcessing(manager);
+	public void postProcessing(AssetManager manager, int pass) {
+		super.postProcessing(manager, pass);
+		animation.postProcessing(manager, pass);
 	}
 	
 	/**

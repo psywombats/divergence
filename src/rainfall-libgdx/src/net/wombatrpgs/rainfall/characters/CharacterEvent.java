@@ -146,11 +146,12 @@ public class CharacterEvent extends MapEvent {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager) {
-		appearance.postProcessing(manager);
+	public void postProcessing(AssetManager manager, int pass) {
+		super.postProcessing(manager, pass);
+		appearance.postProcessing(manager, pass);
 	}
 
 	/**

@@ -58,10 +58,10 @@ public abstract class ParticleSet implements Queueable {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager) {
+	public void postProcessing(AssetManager manager, int pass) {
 		if (RGlobal.assetManager.isLoaded(fileName)) {
 			Texture spritesheet = RGlobal.assetManager.get(fileName, Texture.class);
 			particleSources = new TextureRegion[frameCount];

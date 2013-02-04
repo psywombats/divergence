@@ -102,9 +102,9 @@ public class Emitter extends MapEvent {
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager) {
-		super.postProcessing(manager);
-		set.postProcessing(manager);
+	public void postProcessing(AssetManager manager, int pass) {
+		super.postProcessing(manager, pass);
+		set.postProcessing(manager, pass);
 	}
 
 	/**

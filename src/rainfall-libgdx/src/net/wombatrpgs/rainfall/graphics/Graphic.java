@@ -42,10 +42,10 @@ public class Graphic implements Queueable {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager) {
+	public void postProcessing(AssetManager manager, int pass) {
 		Texture tex = manager.get(RGlobal.UI_DIR + mdo.file, Texture.class);
 		appearance = new TextureRegion(tex, 0, 0, mdo.width, mdo.height);
 	}

@@ -149,10 +149,14 @@ public class Level implements Canvasable {
 	
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager) {
+	public void postProcessing(AssetManager manager, int pass) {
+		if (pass >= 1) {
+			postProcessingMapObjects(manager, pass);
+			return;
+		}
 		renderer = RGlobal.assetManager.get(mapPath, TileMapRenderer.class);
 		map = renderer.getMap();
 		layers = new ArrayList<Layer>();
@@ -207,6 +211,8 @@ public class Level implements Canvasable {
 		for (Layer layer : layers) {
 			layer.finalizePassability();
 		}
+		
+		queueMapObjectAssets(manager);
 	}
 	
 	/**
@@ -249,10 +255,11 @@ public class Level implements Canvasable {
 	/**
 	 * Finish processing the map object loaded previously.
 	 * @param 	manager			The manager the map assets were loaded in
+	 * @Param	pass			The pass iteration
 	 */
-	public void postProcessingMapObjects(AssetManager manager) {
+	public void postProcessingMapObjects(AssetManager manager, int pass) {
 		for (Renderable layer : layers) {
-			layer.postProcessing(manager);
+			layer.postProcessing(manager, pass);
 		}
 	}
 	

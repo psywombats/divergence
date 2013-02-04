@@ -54,12 +54,12 @@ public class Moveset implements Queueable {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager) {
+	public void postProcessing(AssetManager manager, int pass) {
 		for (MovesetAct move : moves.values()) {
-			move.postProcessing(manager);
+			move.postProcessing(manager, pass);
 		}
 	}
 

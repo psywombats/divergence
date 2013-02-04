@@ -38,10 +38,10 @@ public class FontHolder implements Queueable {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager) {
+	public void postProcessing(AssetManager manager, int pass) {
 		String filename = RGlobal.FONTS_DIR+mdo.file;
 		if (RGlobal.assetManager.isLoaded(filename)) {
 			font = RGlobal.assetManager.get(filename, BitmapFont.class);

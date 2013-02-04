@@ -30,20 +30,21 @@ public class LevelManager {
 	
 	/**
 	 * Converts a string id into a level, either by fetching it or loading it
-	 * up.
+	 * up. WARNING: right now it loads the entire goddamn level if it hasn't
+	 * been loaded yet.
 	 * @param 	mapID		The map id to load up
 	 * @return				The map, either gen'd or stored
 	 */
+	// TODO: make this pretty loading
 	public Level getLevel(String mapID) {
 		if (!levels.containsKey(mapID)) {
 			MapMDO mapMDO = RGlobal.data.getEntryFor(mapID, MapMDO.class);
 			Level map = new Level(mapMDO);
 			map.queueRequiredAssets(RGlobal.assetManager);
-			while (!RGlobal.assetManager.update());
-			map.postProcessing(RGlobal.assetManager);
-			map.queueMapObjectAssets(RGlobal.assetManager);
-			while (!RGlobal.assetManager.update());
-			map.postProcessingMapObjects(RGlobal.assetManager);
+			for (int pass = 0; RGlobal.assetManager.getProgress() < 1; pass++) {
+				RGlobal.assetManager.finishLoading();
+				map.postProcessing(RGlobal.assetManager, pass);
+			}
 			levels.put(mapID, map);
 		}
 		return levels.get(mapID);

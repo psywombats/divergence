@@ -123,12 +123,12 @@ public class Hero extends CharacterEvent {
 	
 	/**
 	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager) {
-		super.postProcessing(manager);
-		moves.postProcessing(manager);
+	public void postProcessing(AssetManager manager, int pass) {
+		super.postProcessing(manager, pass);
+		moves.postProcessing(manager, pass);
 	}
 
 	/**

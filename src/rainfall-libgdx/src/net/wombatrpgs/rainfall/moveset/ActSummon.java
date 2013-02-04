@@ -46,6 +46,9 @@ public class ActSummon extends MovesetAct {
 	public ActSummon(CharacterEvent actor, SummonMDO mdo) {
 		super(actor, mdo);
 		this.mdo = mdo;
+		if (RGlobal.block == null) {
+			RGlobal.block = new Block(mdo);
+		}
 		AnimationMDO goodMDO = RGlobal.data.getEntryFor(mdo.blockAnimation, AnimationMDO.class);
 		AnimationMDO badMDO = RGlobal.data.getEntryFor(mdo.failAnimation, AnimationMDO.class);
 		this.goodPlayer = new AnimationPlayer(goodMDO) {
@@ -83,9 +86,6 @@ public class ActSummon extends MovesetAct {
 		targetTileX += dir.getVector().x;
 		targetTileY += dir.getVector().y;
 		
-		if (RGlobal.block == null) {
-			RGlobal.block = new Block(mdo);
-		}
 		FallResult result = attemptFallAt(map, targetTileX, targetTileY);
 		if (result.finished && !result.cleanLanding && result.collidingObject == RGlobal.hero) {
 			targetTileX += dir.getVector().x;
@@ -189,6 +189,7 @@ public class ActSummon extends MovesetAct {
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
+		RGlobal.block.queueRequiredAssets(manager);
 		goodPlayer.queueRequiredAssets(manager);
 		badPlayer.queueRequiredAssets(manager);
 		if (emitter != null) {
@@ -198,15 +199,16 @@ public class ActSummon extends MovesetAct {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.moveset.MovesetAct#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager) {
-		super.postProcessing(manager);
-		goodPlayer.postProcessing(manager);
-		badPlayer.postProcessing(manager);
+	public void postProcessing(AssetManager manager, int pass) {
+		super.postProcessing(manager, pass);
+		goodPlayer.postProcessing(manager, pass);
+		badPlayer.postProcessing(manager, pass);
+		RGlobal.block.postProcessing(manager, pass);
 		if (emitter != null) {
-			emitter.postProcessing(manager);
+			emitter.postProcessing(manager, pass);
 		}
 	}
 

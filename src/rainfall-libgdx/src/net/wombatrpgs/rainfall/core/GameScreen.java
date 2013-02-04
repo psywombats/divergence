@@ -125,10 +125,10 @@ public abstract class GameScreen implements CommandListener,
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager) {
+	public void postProcessing(AssetManager manager, int pass) {
 		//canvas.postProcessing(manager);
 	}
 	
@@ -173,7 +173,7 @@ public abstract class GameScreen implements CommandListener,
 		}
 		this.queueRequiredAssets(RGlobal.assetManager);
 		RGlobal.assetManager.finishLoading();
-		this.postProcessing(RGlobal.assetManager);
+		this.postProcessing(RGlobal.assetManager, 0);
 		initialized = true;
 	}
 

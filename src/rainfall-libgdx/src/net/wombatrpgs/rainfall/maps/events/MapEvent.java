@@ -177,10 +177,10 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	/**
 	 * Default is nothing.
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager) { }
+	public void postProcessing(AssetManager manager, int pass) { }
 	
 	/** @see net.wombatrpgs.rainfall.maps.Positionable#getBatch() */
 	@Override
