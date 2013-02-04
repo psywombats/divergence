@@ -23,6 +23,7 @@ import net.wombatrpgs.rainfallschema.ui.TextBoxMDO;
  * future it will do some other cool stuff. These things only display on the
  * map the hero is on. Otherwise it really wouldn't make sense, would it?
  */
+// TODO: turn into picture
 public class TextBox extends MapObject {
 	
 	protected TextBoxMDO mdo;

@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.rainfall.graphics.particles;
 
+import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfallschema.graphics.GibsetMDO;
 
@@ -21,7 +22,7 @@ public class GibParticleSet extends ParticleSet {
 	 * @param 	mdo				The MDO to get data from
 	 */
 	public GibParticleSet(GibsetMDO mdo) {
-		super(RGlobal.GIBS_DIR+mdo.file, mdo.count, mdo.frameWidth, mdo.frameHeight);
+		super(Constants.GIBS_DIR+mdo.file, mdo.count, mdo.frameWidth, mdo.frameHeight);
 		this.mdo = mdo;
 	}
 

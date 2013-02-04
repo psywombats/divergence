@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Queueable;
 import net.wombatrpgs.rainfallschema.ui.FontMDO;
@@ -33,7 +34,7 @@ public class FontHolder implements Queueable {
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		RGlobal.assetManager.load(RGlobal.FONTS_DIR + mdo.file, BitmapFont.class);
+		RGlobal.assetManager.load(Constants.FONTS_DIR + mdo.file, BitmapFont.class);
 	}
 
 	/**
@@ -42,7 +43,7 @@ public class FontHolder implements Queueable {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		String filename = RGlobal.FONTS_DIR+mdo.file;
+		String filename = Constants.FONTS_DIR+mdo.file;
 		if (RGlobal.assetManager.isLoaded(filename)) {
 			font = RGlobal.assetManager.get(filename, BitmapFont.class);
 		} else {

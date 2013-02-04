@@ -9,6 +9,7 @@ package net.wombatrpgs.rainfall.graphics;
 import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.RectHitbox;
+import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
@@ -143,7 +144,7 @@ public class AnimationStrip implements 	Renderable,
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		RGlobal.assetManager.load(RGlobal.SPRITES_DIR + mdo.file, Texture.class);
+		RGlobal.assetManager.load(Constants.SPRITES_DIR + mdo.file, Texture.class);
 	}
 
 	/**
@@ -152,7 +153,7 @@ public class AnimationStrip implements 	Renderable,
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		String filename = RGlobal.SPRITES_DIR+mdo.file;
+		String filename = Constants.SPRITES_DIR+mdo.file;
 		if (RGlobal.assetManager.isLoaded(filename)) {
 			spritesheet = RGlobal.assetManager.get(filename, Texture.class);
 			frames = new TextureRegion[mdo.frameCount];

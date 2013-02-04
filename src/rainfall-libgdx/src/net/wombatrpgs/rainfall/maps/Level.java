@@ -7,6 +7,7 @@
 package net.wombatrpgs.rainfall.maps;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,11 +21,10 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
 
-import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.collisions.FallResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.TargetPosition;
-import net.wombatrpgs.rainfall.core.Canvasable;
+import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Renderable;
 import net.wombatrpgs.rainfall.maps.events.EventFactory;
@@ -32,6 +32,8 @@ import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.maps.layers.GridLayer;
 import net.wombatrpgs.rainfall.maps.layers.Layer;
 import net.wombatrpgs.rainfall.maps.layers.EventLayer;
+import net.wombatrpgs.rainfall.maps.objects.Picture;
+import net.wombatrpgs.rainfall.screens.ScreenShowable;
 import net.wombatrpgs.rainfallschema.maps.MapMDO;
 
 /**
@@ -42,7 +44,7 @@ import net.wombatrpgs.rainfallschema.maps.MapMDO;
  * order so that the player's sprite can appear say above the ground but below a
  * cloud or other upper chip object.
  */
-public class Level implements Canvasable {
+public class Level implements ScreenShowable {
 	
 	/** How many pixels are occupied by each point of z-depth */
 	public static final int PIXELS_PER_Y = 48; // in pixels
@@ -69,22 +71,27 @@ public class Level implements Canvasable {
 	protected List<MapEvent> events;
 	/** List of all map object in the level (some are in layers) */
 	protected List<MapObject> objects;
+	/** Pictures that fly above the stage! */
+	protected List<Picture> pictures;
 	/** List of all map events to remove next loop */
 	protected List<MapEvent> removalEvents;
 	/** List of all map objects to remove next loop */
 	protected List<MapObject> removalObjects;
+	/** Should we not update? If so, update this guy */
+	protected MapObject pauser;
 	
 	/**
 	 * Generates a level from the supplied level data.
 	 * @param 	mdo		Info about the level to generate
 	 */
 	public Level(MapMDO mdo) {
-		mapPath = RGlobal.MAPS_DIR + mdo.map;
+		mapPath = Constants.MAPS_DIR + mdo.map;
 		batch = new SpriteBatch();
 		events = new ArrayList<MapEvent>();
 		objects = new ArrayList<MapObject>();
 		removalObjects = new ArrayList<MapObject>();
 		removalEvents = new ArrayList<MapEvent>();
+		pictures = new ArrayList<Picture>();
 	}
 	
 	/** @return The batch used to render sprites on this map */
@@ -119,6 +126,9 @@ public class Level implements Canvasable {
 	
 	/** @return All object layers on this map */
 	public List<EventLayer> getEventLayers() { return eventLayers; }
+	
+	/** @param pause The map object to pause on */
+	public void setPause(MapObject pauser) { this.pauser = pauser; }
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render(
@@ -126,12 +136,13 @@ public class Level implements Canvasable {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		if (RGlobal.assetManager.isLoaded(mapPath)) {
-			for (Renderable layer : layers) {
-				layer.render(camera);
-			}
-		} else {
-			Global.reporter.warn("Map assets not loaded for " + mapPath);
+		for (Renderable layer : layers) {
+			layer.render(camera);
+		}
+		for (MapObject picture : pictures) {
+			batch.begin();
+			picture.render(camera);
+			batch.end();
 		}
 	}
 	
@@ -142,7 +153,7 @@ public class Level implements Canvasable {
 	 */
 	public void queueRequiredAssets(AssetManager manager) {
 		TileMapParameter tileMapParameter = new TileMapParameter(
-				RGlobal.MAPS_DIR, TILES_TO_CULL, TILES_TO_CULL);
+				Constants.MAPS_DIR, TILES_TO_CULL, TILES_TO_CULL);
 		RGlobal.reporter.inform("We're trying to load from " + mapPath);
 		RGlobal.assetManager.load(mapPath, TileMapRenderer.class, tileMapParameter);
 	}
@@ -154,7 +165,7 @@ public class Level implements Canvasable {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		if (pass >= 1) {
-			postProcessingMapObjects(manager, pass);
+			postProcessingMapObjects(manager, pass-1);
 			return;
 		}
 		renderer = RGlobal.assetManager.get(mapPath, TileMapRenderer.class);
@@ -228,16 +239,20 @@ public class Level implements Canvasable {
 		}
 		removalObjects.clear();
 		removalEvents.clear();
-		for (int i = 0; i < objects.size(); i++) {
-			objects.get(i).update(elapsed);
-		}
-		// TODO: add queue? really
-		for (int i = 0; i < events.size(); i++) {
-			MapEvent event = events.get(i);
-			if (event.isCollisionEnabled()) {
-				applyPhysicalCorrections(event);
-				detectCollisions(event);
+		if (pauser == null) {
+			for (int i = 0; i < objects.size(); i++) {
+				objects.get(i).update(elapsed);
 			}
+			// TODO: add queue? really
+			for (int i = 0; i < events.size(); i++) {
+				MapEvent event = events.get(i);
+				if (event.isCollisionEnabled()) {
+					applyPhysicalCorrections(event);
+					detectCollisions(event);
+				}
+			}
+		} else {
+			pauser.update(elapsed);
 		}
 	}
 
@@ -420,6 +435,36 @@ public class Level implements Canvasable {
 	 */
 	public void addObject(MapObject object) {
 		objects.add(object);
+		object.onAddedToMap(this);
+	}
+	
+	/**
+	 * Adds a new picture to the scene. Auto-sorts them in a pseudo-layer.
+	 * @param 	picture			The picture to add the level
+	 */
+	public void addPicture(Picture picture) {
+		addObject(picture);
+		pictures.add(picture);
+		Collections.sort(pictures);
+	}
+	
+	/**
+	 * Internall removes an object from all lists and registries. This should
+	 * not be used for events, at least not as a primary call.
+	 * @param 	toRemove		The event to remove
+	 */
+	public void removeObject(MapObject toRemove) {
+		objects.remove(toRemove);
+		toRemove.onRemovedFromMap(this);
+	}
+	
+	/**
+	 * Removes a picture from the scene.
+	 * @param 	picture			The picture to remove
+	 */
+	public void removePicture(Picture picture) {
+		removeObject(picture);
+		pictures.remove(picture);
 	}
 	
 	/**
@@ -435,16 +480,6 @@ public class Level implements Canvasable {
 		layerMap.remove(toRemove);
 		events.remove(toRemove);
 		removeObject(toRemove);
-	}
-	
-	/**
-	 * Internall removes an object from all lists and registries. This should
-	 * not be used for events, at least not as a primary call.
-	 * @param 	toRemove		The event to remove
-	 */
-	protected void removeObject(MapObject toRemove) {
-		objects.remove(toRemove);
-		toRemove.onRemovedFromMap(this);
 	}
 
 }

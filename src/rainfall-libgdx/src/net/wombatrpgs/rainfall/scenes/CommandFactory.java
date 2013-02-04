@@ -1,0 +1,36 @@
+/**
+ *  CommandFactory.java
+ *  Created on Feb 3, 2013 9:59:52 PM for project rainfall-libgdx
+ *  Author: psy_wombats
+ *  Contact: psy_wombats@wombatrpgs.net
+ */
+package net.wombatrpgs.rainfall.scenes;
+
+import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.scenes.commands.CommandSpeak;
+
+/**
+ * A static thing that given a line from a scene, produces a command appropriate
+ * for that line.
+ */
+public class CommandFactory {
+	
+	/**
+	 * Actually performs the generation. This should be a great big if/else.
+	 * @param 	parent			The parent parser that will run the command
+	 * @param 	line			The line read from the string file
+	 * @return					The generated command
+	 */
+	public static SceneCommand make(SceneParser parent, String line) {
+		if (line.startsWith("[")) {
+			// TODO: implement other commands
+			return null;
+		} else if (line.contains(":")) {
+			return new CommandSpeak(parent, line);
+		} else {
+			RGlobal.reporter.warn("Found something weird in a scene file: " + line);
+			return null;
+		}
+	}
+
+}

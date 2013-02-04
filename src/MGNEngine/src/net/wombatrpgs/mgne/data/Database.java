@@ -42,10 +42,11 @@ public class Database {
 	 */
 	public void addData(List<? extends MainSchema> entries) {
 		for (MainSchema s : entries) {
-			Global.reporter.inform("Added entry to database: " + s.key);
+			//Global.reporter.inform("Added entry to database: " + s.key);
 			List<MainSchema> currentList = classShelf.get(s.getClass());
 			if (currentList == null) {
 				currentList = new ArrayList<MainSchema>();
+				classShelf.put(s.getClass(), currentList);
 			}
 			currentList.add(s);
 			keyShelf.put(s.key, s);
@@ -90,8 +91,9 @@ public class Database {
 	 * @param 	clazz	The class that the entries must be
 	 * @return			All entries of that class
 	 */
-	public List<MainSchema> getEntriesByClass(Class<? extends MainSchema> clazz) {
-		return classShelf.get(clazz);
+	@SuppressWarnings("unchecked")
+	public <T extends MainSchema> List<T> getEntriesByClass(Class<T> clazz) {
+		return (List<T>) classShelf.get(clazz);
 	}
 
 }

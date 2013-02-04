@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 
 /**
@@ -22,13 +22,28 @@ public class Graphic implements Queueable {
 	
 	protected GraphicMDO mdo;
 	protected TextureRegion appearance;
+	protected String filename;
+	protected int width, height;
 	
 	/**
-	 * Creates a new graphic from a file
-	 * @param 	filename			Fully qualified name to the .png file
+	 * Creates a new graphic from mdo data.
+	 * @param 	mdo				The MDO with file data.
 	 */
 	public Graphic(GraphicMDO mdo) {
 		this.mdo = mdo;
+		this.filename = Constants.UI_DIR + mdo.file;
+		this.width = mdo.width;
+		this.height = mdo.height;
+	}
+	
+	/**
+	 * Creates a new graphic from a file path and width/height data.
+	 * @param 	filename		The fully qualified filename to the .png
+	 */
+	public Graphic(String filename) {
+		this.filename = filename;
+		this.width = -1;
+		this.height = -1;
 	}
 
 	/**
@@ -37,7 +52,7 @@ public class Graphic implements Queueable {
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		RGlobal.assetManager.load(RGlobal.UI_DIR + mdo.file, Texture.class);
+		manager.load(filename, Texture.class);
 	}
 
 	/**
@@ -46,9 +61,17 @@ public class Graphic implements Queueable {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		Texture tex = manager.get(RGlobal.UI_DIR + mdo.file, Texture.class);
-		appearance = new TextureRegion(tex, 0, 0, mdo.width, mdo.height);
+		Texture tex = manager.get(filename, Texture.class);
+		if (width == -1) width = tex.getWidth();
+		if (height == -1) height = tex.getHeight();
+		appearance = new TextureRegion(tex, 0, 0, width, height);
 	}
+	
+	/** @return The basic width of this graphic (in px) */
+	public int getWidth() { return this.width; }
+	
+	/** @return The basic height of this graphic (in px) */
+	public int getHeight() { return this.height; }
 	
 	/**
 	 * Returns the renderable portion of this image.

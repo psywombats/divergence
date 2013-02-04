@@ -23,6 +23,7 @@ public class EventFactory {
 	protected final static String EVENT_TYPE = "event";
 	protected final static String TELEPORT_TYPE = "teleport";
 	protected final static String Z_TELEPORT_TYPE = "z-teleport";
+	protected final static String TRIGGER_TYPE = "trigger";
 	
 	/**
 	 * Handles an entry from the map and turns it into the relevant event(s).
@@ -31,14 +32,11 @@ public class EventFactory {
 	 * @param 	layerIndex		The index of the layer of the source event
 	 */
 	public static void handleData(Level parent, TiledObject object, int layerIndex) {
-		if (EVENT_TYPE.equals(object.type) ||
-			TELEPORT_TYPE.equals(object.type)) {
-			parent.addEvent(create(parent, object, layerIndex), layerIndex);
-		} else if (Z_TELEPORT_TYPE.equals(object.type)) {
+		if (Z_TELEPORT_TYPE.equals(object.type)) {
 			parent.addEvent(create(parent, object, layerIndex), layerIndex);
 			parent.addEvent(create(parent, object, layerIndex), layerIndex+1);
 		} else {
-			RGlobal.reporter.warn("Was an event with no type: " + object.name);
+			parent.addEvent(create(parent, object, layerIndex), layerIndex);
 		}
 	}
 	
@@ -64,6 +62,8 @@ public class EventFactory {
 			return new TeleportEvent(parent, object);
 		} else if (Z_TELEPORT_TYPE.equals(object.type)) {
 			return new ZTeleportEvent(parent, object, layerIndex);
+		} else if (TRIGGER_TYPE.equals(object.type)){
+			return new TriggerEvent(parent, object);
 		} else {
 			RGlobal.reporter.warn("Found an event with no type: " + object.name);
 			return null;

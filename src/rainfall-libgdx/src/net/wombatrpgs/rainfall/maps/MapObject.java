@@ -50,7 +50,7 @@ public abstract class MapObject implements	Renderable,
 		removalQueue = new ArrayList<Updateable>();
 	}
 	
-	/** @return The map the hero is currently on */
+	/** @return The map we are currently on */
 	public Level getLevel() { return parent; }
 
 	/**

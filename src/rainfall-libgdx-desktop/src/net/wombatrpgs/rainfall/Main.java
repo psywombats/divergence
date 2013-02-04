@@ -8,9 +8,9 @@ import net.wombatrpgs.mgne.global.DebugReporter;
 import net.wombatrpgs.mgne.global.SimpleFileLoader;
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.core.ScreenStack;
 import net.wombatrpgs.rainfall.io.DefaultKeymap;
 import net.wombatrpgs.rainfall.maps.LevelManager;
+import net.wombatrpgs.rainfall.screens.ScreenStack;
 import net.wombatrpgs.rainfallschema.settings.WindowDataMDO;
 
 import com.badlogic.gdx.assets.AssetManager;

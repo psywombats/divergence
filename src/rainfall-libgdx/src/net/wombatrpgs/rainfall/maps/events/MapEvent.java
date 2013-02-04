@@ -20,6 +20,7 @@ import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfall.maps.PositionSetable;
 import net.wombatrpgs.rainfall.maps.layers.EventLayer;
+import net.wombatrpgs.rainfall.maps.objects.Picture;
 
 /**
  * A map event is any map object defined in Tiled, including characters and
@@ -199,6 +200,15 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		} else {
 			return 0;
 		}
+	}
+	
+	/**
+	 * Double dispatch method so pictures can override their comparisons.
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 * @return					Negative, zero, positive if we are less, gr, eq
+	 */
+	public int compareToPicture(Picture pic) {
+		return compareTo(pic);
 	}
 	
 	/**

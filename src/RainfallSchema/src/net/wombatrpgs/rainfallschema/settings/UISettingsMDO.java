@@ -11,6 +11,7 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.rainfallschema.ui.FontMDO;
+import net.wombatrpgs.rainfallschema.ui.TextBoxMDO;
 
 /**
  * Some UI stuff?
@@ -21,5 +22,9 @@ public class UISettingsMDO extends MainSchema {
 	@Desc("Default font")
 	@SchemaLink(FontMDO.class)
 	public String font;
+	
+	@Desc("Default text box")
+	@SchemaLink(TextBoxMDO.class)
+	public String box;
 
 }

@@ -4,12 +4,14 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfall.core;
+package net.wombatrpgs.rainfall.screens;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.mgne.global.Global;
+import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfall.graphics.Renderable;
 import net.wombatrpgs.rainfall.io.CommandListener;
 import net.wombatrpgs.rainfall.io.CommandMap;
@@ -32,7 +34,7 @@ public abstract class GameScreen implements CommandListener,
 	/** Command map to use while this screen is active */
 	protected CommandMap commandContext;
 	/** The thing to draw if this canvas is visible */
-	protected Canvasable canvas;
+	protected ScreenShowable canvas;
 	/** Depth, lower values are rendered last */
 	protected float z;
 	/** If true, layers with higher z won't be rendered */
@@ -74,7 +76,7 @@ public abstract class GameScreen implements CommandListener,
 	/**
 	 * Returns the z value (depth) of the screen. Higher z values are rendered
 	 * later.
-	 * @return				The current z-value
+	 * @return					The current z-value
 	 */
 	public float getZ() {
 		return z;
@@ -82,10 +84,22 @@ public abstract class GameScreen implements CommandListener,
 	
 	/**
 	 * Gets the command parser used on this screen. Usually only used by engine.
-	 * @return				The command parser used on this screen
+	 * @return					The command parser used on this screen
 	 */
 	public CommandMap getCommandContext() {
 		return commandContext;
+	}
+	
+	/**
+	 * Sets the command parser used on the screen. Usually only used by engine.
+	 * @param 	map				The command map to use instead
+	 */
+	public void setCommandContext(CommandMap map) {
+		if (commandContext != null) {
+			RGlobal.keymap.unregisterListener(commandContext);
+		}
+		this.commandContext = map;
+		RGlobal.keymap.registerListener(commandContext);
 	}
 	
 	/**
@@ -154,7 +168,7 @@ public abstract class GameScreen implements CommandListener,
 	 * Changes the screen's canvas.
 	 * @param 	newCanvas			The new renderable canvas
 	 */
-	public void setCanvas(Canvasable newCanvas) {
+	public void setCanvas(ScreenShowable newCanvas) {
 		this.canvas = newCanvas;
 	}
 

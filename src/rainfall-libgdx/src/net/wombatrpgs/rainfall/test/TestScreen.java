@@ -12,11 +12,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import net.wombatrpgs.rainfall.core.GameScreen;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.io.TestCommandMap;
 import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
+import net.wombatrpgs.rainfall.screens.GameScreen;
 import net.wombatrpgs.rainfall.ui.text.FontHolder;
 import net.wombatrpgs.rainfall.ui.text.TextBox;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
@@ -94,7 +94,7 @@ public class TestScreen extends GameScreen {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.core.GameScreen#render
+	 * @see net.wombatrpgs.rainfall.screens.GameScreen#render
 	 * (com.badlogic.gdx.graphics.OrthographicCamera)
 	 */
 	@Override
@@ -111,7 +111,7 @@ public class TestScreen extends GameScreen {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.core.GameScreen#onFocusLost()
+	 * @see net.wombatrpgs.rainfall.screens.GameScreen#onFocusLost()
 	 */
 	@Override
 	public void onFocusLost() {
@@ -119,7 +119,7 @@ public class TestScreen extends GameScreen {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.core.GameScreen#onFocusGained()
+	 * @see net.wombatrpgs.rainfall.screens.GameScreen#onFocusGained()
 	 */
 	@Override
 	public void onFocusGained() {
@@ -127,7 +127,7 @@ public class TestScreen extends GameScreen {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.core.GameScreen#queueRequiredAssets
+	 * @see net.wombatrpgs.rainfall.screens.GameScreen#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override

@@ -60,8 +60,9 @@ public abstract class CommandMap implements ButtonListener {
 	 * @param 	command			The command that was indicated
 	 */
 	protected final void signal(InputCommand command) {
-		for (CommandListener listener : listeners) {
-			listener.onCommand(command);
+		// there were concurrent mod problems here
+		for (int i = 0; i < listeners.size(); i++) {
+			listeners.get(i).onCommand(command);
 		}
 	}
 	

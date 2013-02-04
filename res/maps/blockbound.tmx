@@ -143,6 +143,11 @@
     <property name="key" value="enemy_gadget"/>
    </properties>
   </object>
+  <object name="Test Cutscene" type="trigger" x="288" y="32" width="64" height="64">
+   <properties>
+    <property name="id" value="scene_test0000"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Tile Layer 3" width="20" height="15">
   <properties>
