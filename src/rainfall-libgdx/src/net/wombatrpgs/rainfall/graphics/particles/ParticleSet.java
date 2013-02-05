@@ -10,7 +10,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Queueable;
 
@@ -71,7 +70,7 @@ public abstract class ParticleSet implements Queueable {
 						frameWidth, frameHeight);
 			}
 		} else {
-			Global.reporter.warn("Particlesheet not loaded: " + fileName);
+			RGlobal.reporter.warn("Particlesheet not loaded: " + fileName);
 		}
 	}
 

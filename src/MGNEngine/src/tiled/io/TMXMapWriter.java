@@ -263,7 +263,7 @@ public class TMXMapWriter
             boolean needWrite = false;
 
             // As long as one has properties, they all need to be written.
-            // TODO: This shouldn't be necessary
+            // LIBGDXTODO: This shouldn't be necessary
             for (Tile tile : set) {
                 if (!tile.getProperties().isEmpty()) {
                     needWrite = true;

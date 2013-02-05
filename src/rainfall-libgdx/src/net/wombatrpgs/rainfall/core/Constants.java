@@ -6,7 +6,12 @@
  */
 package net.wombatrpgs.rainfall.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.rainfallschema.settings.GameSpeedMDO;
+import net.wombatrpgs.rainfallschema.settings.WindowDataMDO;
 
 /**
  * Access to a bunch of magic numbers that are needed in a bunch of different
@@ -32,6 +37,15 @@ public class Constants {
 	public static final String PORTRAITS_DIR = RESOURCE_DIR + "portraits/";
 	/** Direction where all the scenes are stored, prefix string */
 	public static final String SCENES_DIR = RESOURCE_DIR + "scenes/";
+	/** Directory where all the .json mdos are stored, prefix string */
+	public static final String DATA_DIR = RESOURCE_DIR + "data/";
+	
+	public static final List<Class<? extends MainSchema>> PRELOAD_SCHEMA;
+	static {
+		PRELOAD_SCHEMA = new ArrayList<Class< ? extends MainSchema>>();
+		PRELOAD_SCHEMA.add(WindowDataMDO.class);
+		PRELOAD_SCHEMA.add(GameSpeedMDO.class);
+	}
 	
 	private int rate;
 	

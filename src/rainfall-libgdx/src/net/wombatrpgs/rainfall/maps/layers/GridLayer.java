@@ -13,11 +13,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledLayer;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 
-import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.collisions.FallResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.RectHitbox;
+import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Renderable;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.Positionable;
@@ -69,7 +69,7 @@ public class GridLayer extends Layer implements Renderable {
 		if (layer.properties.containsKey("z")) {
 			return Float.valueOf(layer.properties.get("z"));
 		} else {
-			Global.reporter.warn("Layer with no z-value on " + parent);
+			RGlobal.reporter.warn("Layer with no z-value on " + parent);
 			return 0;
 		}
 	}

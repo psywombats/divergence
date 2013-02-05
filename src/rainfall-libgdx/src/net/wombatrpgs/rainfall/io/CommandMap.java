@@ -9,7 +9,7 @@ package net.wombatrpgs.rainfall.io;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.wombatrpgs.mgne.global.Global;
+import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 
 /**
@@ -50,7 +50,7 @@ public abstract class CommandMap implements ButtonListener {
 		if (listeners.contains(listener)) {
 			listeners.remove(listener);
 		} else {
-			Global.reporter.warn("Listener " + listener + " was not actually " +
+			RGlobal.reporter.warn("Listener " + listener + " was not actually " +
 					"in the listeners list for " + this);
 		}
 	}

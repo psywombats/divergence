@@ -343,7 +343,7 @@ public class TMXMapReader
                         // case.
                         hasTilesetImage = true;
 
-                        // FIXME: importTileBitmap does not fully support URLs
+                        // LIBGDXFIXME: importTileBitmap does not fully support URLs
                         String sourcePath = imgSource;
                         if (! new File(imgSource).isAbsolute()) {
                             sourcePath = tilesetBaseDir + imgSource;
@@ -369,7 +369,7 @@ public class TMXMapReader
                     } else {
                         Tile myTile = set.getTile(tile.getId());
                         myTile.setProperties(tile.getProperties());
-                        //TODO: there is the possibility here of overlaying images,
+                        //LIBGDXTODO: there is the possibility here of overlaying images,
                         //      which some people may want
                     }
                 }
@@ -488,7 +488,7 @@ public class TMXMapReader
                 Image img = unmarshalImage(child, baseDir);
                 tile.setImage(img);
             } else if ("animation".equalsIgnoreCase(child.getNodeName())) {
-                // TODO: fill this in once TMXMapWriter is complete
+                // LIBGDXTODO: fill this in once TMXMapWriter is complete
             }
         }
 

@@ -38,6 +38,7 @@ public class SceneLoader extends SynchronousAssetLoader<SceneData, SceneLoader.S
 	}
 	
 	static public class SceneParameter extends AssetLoaderParameters<SceneData> {
+		
 	}
 
 }

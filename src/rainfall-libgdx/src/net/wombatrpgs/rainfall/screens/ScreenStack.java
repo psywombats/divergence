@@ -13,7 +13,6 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.core.RGlobal;
 
 /**
@@ -57,7 +56,7 @@ public class ScreenStack {
 	 */
 	public GameScreen pop() {
 		if (screens.size() == 0) {
-			Global.reporter.warn("No screens left in the stack, but popping.");
+			RGlobal.reporter.warn("No screens left in the stack, but popping.");
 			return null;
 		} else {
 			GameScreen oldTop = screens.get(0);
@@ -98,7 +97,7 @@ public class ScreenStack {
 	 */
 	public void render(OrthographicCamera camera) {
 		if (screens.size() == 0) {
-			Global.reporter.warn("No screens in stack, but told to render");
+			RGlobal.reporter.warn("No screens in stack, but told to render");
 		} else {
 			screens.get(0).render(camera);
 		}

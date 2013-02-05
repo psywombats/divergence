@@ -14,7 +14,6 @@ import java.util.Map;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.NoHitbox;
@@ -163,12 +162,12 @@ public class CharacterEvent extends MapEvent {
 		case ANIMATION_SPECIFIC_RECTANGLE:
 			return appearance.getHitbox();
 		case SOMETHING_ELSE_TELL_PSY_RIGHT_AWAY:
-			Global.reporter.warn("Got a hitbox for something totally weird");
+			RGlobal.reporter.warn("Got a hitbox for something totally weird");
 			return NoHitbox.getInstance();
 		case NONE:
 			return NoHitbox.getInstance();
 		default:
-			Global.reporter.warn("No hitbox setting found on " + this);
+			RGlobal.reporter.warn("No hitbox setting found on " + this);
 			return NoHitbox.getInstance();
 		}
 	}
@@ -460,7 +459,7 @@ public class CharacterEvent extends MapEvent {
 		this.mdo = mdo;
 		activeMoves = new ArrayList<MovesetAct>();
 		if (mdo.appearance != null) {
-			DirMDO dirMDO = (DirMDO) RGlobal.data.getEntryByKey(mdo.appearance);
+			DirMDO dirMDO = RGlobal.data.getEntryFor(mdo.appearance, DirMDO.class);
 			walkAnim = FacesAnimationFactory.create(dirMDO, this);
 			appearance = walkAnim;
 		}

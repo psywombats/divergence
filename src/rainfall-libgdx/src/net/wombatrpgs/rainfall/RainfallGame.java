@@ -4,6 +4,7 @@ import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.io.FocusListener;
 import net.wombatrpgs.rainfall.io.FocusReporter;
 import net.wombatrpgs.rainfall.test.TestScreen;
+import net.wombatrpgs.rainfallschema.settings.WindowDataMDO;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -12,6 +13,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 
 public class RainfallGame implements ApplicationListener, FocusListener {
+	
+	private static final String WINDOW_KEY = "window_data";
 	
 	private FocusReporter focusReporter;
 	private boolean paused;
@@ -29,10 +32,17 @@ public class RainfallGame implements ApplicationListener, FocusListener {
 		focusReporter.registerListener(this);
 		this.focusReporter = focusReporter;
 		paused = false;
+		// Don't you dare do anything fancy in here
 	}
 	
 	@Override
 	public void create() {		
+		RGlobal.globalInit();
+		
+		WindowDataMDO window = RGlobal.data.getEntryFor(WINDOW_KEY, WindowDataMDO.class);
+		Gdx.graphics.setDisplayMode(window.defaultWidth, window.defaultHeight, false);
+		Gdx.graphics.setTitle(window.windowName);
+		
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		
@@ -74,7 +84,7 @@ public class RainfallGame implements ApplicationListener, FocusListener {
 	 */
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
+		// TODO: handle game resizing
 		
 	}
 

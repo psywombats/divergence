@@ -151,7 +151,7 @@ public class Sprite
         this.fpl = fpl;
         borderWidth = border;
 
-        //TODO: break up the image into tiles
+        //LIBGDXTODO: break up the image into tiles
 
         //given this information, extrapolate the rest...
 
@@ -260,7 +260,7 @@ public class Sprite
     }
 
     public KeyFrame getPreviousKey() {
-        //TODO: this
+        //LIBGDXTODO: this
         return null;
     }
 

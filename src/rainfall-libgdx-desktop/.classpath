@@ -7,7 +7,6 @@
 	<classpathentry kind="lib" path="libs/gdx-backend-lwjgl-natives.jar"/>
 	<classpathentry kind="lib" path="libs/gdx-natives.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/rainfall-libgdx"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/MGNEngine"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/MGNSchema"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/RainfallSchema"/>
 	<classpathentry kind="lib" path="libs/jackson-annotations-2.0.4.jar"/>

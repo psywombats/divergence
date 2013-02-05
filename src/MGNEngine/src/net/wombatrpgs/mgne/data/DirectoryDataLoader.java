@@ -61,7 +61,7 @@ public class DirectoryDataLoader extends DataLoader {
 	 */
 	protected void loadFile(File toLoad) {
 		preloaded.add(new PreloadedData(getSchemaByFile(toLoad), readFile(toLoad)));
-		//Global.reporter.inform("Loaded database entry " + toLoad);
+		Global.reporter.inform("Loaded database entry " + toLoad);
 	}
 	
 	/**

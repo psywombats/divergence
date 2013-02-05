@@ -114,7 +114,7 @@ public abstract class DataLoader {
 			Global.reporter.err("Couldn't read data file " + preload, e);
 		}
 	}
-	
+
 	/**
 	 * Returns all files in the root directory, recursively. Does not include
 	 * directories. Static helper.

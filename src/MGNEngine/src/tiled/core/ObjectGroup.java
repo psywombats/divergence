@@ -83,41 +83,41 @@ public class ObjectGroup extends MapLayer
      * @see MapLayer#rotate(int)
      */
     public void rotate(int angle) {
-        // TODO: Implement rotating an object group
+        // LIBGDXTODO: Implement rotating an object group
     }
 
     /**
      * @see MapLayer#mirror(int)
      */
     public void mirror(int dir) {
-        // TODO: Implement mirroring an object group
+        // LIBGDXTODO: Implement mirroring an object group
     }
 
     public void mergeOnto(MapLayer other) {
-        // TODO: Implement merging with another object group
+        // LIBGDXTODO: Implement merging with another object group
     }
 
     public void maskedMergeOnto(MapLayer other, Area mask) {
-        // TODO: Figure out what object group should do with this method
+        // LIBGDXTODO: Figure out what object group should do with this method
     }
 
     public void copyFrom(MapLayer other) {
-        // TODO: Implement copying from another object group (same as merging)
+        // LIBGDXTODO: Implement copying from another object group (same as merging)
     }
 
     public void maskedCopyFrom(MapLayer other, Area mask) {
-        // TODO: Figure out what object group should do with this method
+        // LIBGDXTODO: Figure out what object group should do with this method
     }
 
     public void copyTo(MapLayer other) {
-        // TODO: Implement copying to another object group (same as merging)
+        // LIBGDXTODO: Implement copying to another object group (same as merging)
     }
 
     /**
      * @see MapLayer#resize(int,int,int,int)
      */
     public void resize(int width, int height, int dx, int dy) {
-        // TODO: Translate contained objects by the change of origin
+        // LIBGDXTODO: translate contained object by the change in origin
     }
 
     public boolean isEmpty() {

@@ -54,7 +54,7 @@ public class EventFactory {
 		if (EVENT_TYPE.equals(object.type)) {
 			TiledMap map = parent.getMap();
 			String mdoName = object.properties.get("key");
-			CharacterEventMDO eventMDO = (CharacterEventMDO) RGlobal.data.getEntryByKey(mdoName);
+			CharacterEventMDO eventMDO = RGlobal.data.getEntryFor(mdoName, CharacterEventMDO.class);
 			return CharacterFactory.create(eventMDO, parent,  
 					object.x, 
 					map.height*map.tileHeight-object.y);

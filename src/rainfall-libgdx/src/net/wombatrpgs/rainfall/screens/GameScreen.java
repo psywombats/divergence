@@ -9,7 +9,6 @@ package net.wombatrpgs.rainfall.screens;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfall.graphics.Renderable;
@@ -123,7 +122,7 @@ public abstract class GameScreen implements CommandListener,
 	@Override
 	public void render(OrthographicCamera camera) {
 		if (!initialized) {
-			Global.reporter.warn("Forgot to intialize screen " + this);
+			RGlobal.reporter.warn("Forgot to intialize screen " + this);
 		}
 		canvas.render(camera);
 	}
@@ -178,13 +177,14 @@ public abstract class GameScreen implements CommandListener,
 	 */
 	protected final void init() {
 		if (canvas == null) {
-			Global.reporter.warn("No canvas for screen " + this);
+			RGlobal.reporter.warn("No canvas for screen " + this);
 		}
 		if (commandContext == null) {
-			Global.reporter.warn("No command context for screen " + this);
+			RGlobal.reporter.warn("No command context for screen " + this);
 		} else {
 			commandContext.registerListener(this);
 		}
+		// TODO: load with a loading bar
 		this.queueRequiredAssets(RGlobal.assetManager);
 		RGlobal.assetManager.finishLoading();
 		this.postProcessing(RGlobal.assetManager, 0);

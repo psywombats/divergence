@@ -4,8 +4,10 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry exported="true" kind="lib" path="libs/gdx.jar" sourcepath="libs/gdx-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/tween-engine-api.jar" sourcepath="libs/tween-engine-api-sources.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/MGNEngine"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/MGNSchema"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/RainfallSchema"/>
+	<classpathentry kind="lib" path="/MGNDBE/lib/jackson-annotations-2.0.4.jar" sourcepath="/jackson-annotations/src/main"/>
+	<classpathentry kind="lib" path="/MGNDBE/lib/jackson-core-2.0.4.jar" sourcepath="/jackson-core/src/main"/>
+	<classpathentry kind="lib" path="/MGNDBE/lib/jackson-databind-2.0.4.jar" sourcepath="/jackson-databind/src/main"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

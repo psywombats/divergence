@@ -8,9 +8,11 @@ package net.wombatrpgs.mgne.global;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.wombatrpgs.mgne.data.DataLoader;
-import net.wombatrpgs.mgne.data.Database;
-import net.wombatrpgs.mgne.data.DirectoryDataLoader;
+import net.wombatrpgs.rainfall.core.DataLoader;
+import net.wombatrpgs.rainfall.core.Database;
+import net.wombatrpgs.rainfall.core.DebugReporter;
+import net.wombatrpgs.rainfall.core.DirectoryDataLoader;
+import net.wombatrpgs.rainfall.core.Reporter;
 
 /**
  * GLOBAL - THE GLOBAL CLASS. It's a big giant class that's just "there" and

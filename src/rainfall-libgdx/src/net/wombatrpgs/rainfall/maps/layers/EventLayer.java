@@ -14,10 +14,10 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
 
-import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.collisions.FallResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
+import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Renderable;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
@@ -52,7 +52,7 @@ public class EventLayer extends Layer implements Renderable {
 		if (group.properties.containsKey(PROPERTY_Z)) {
 			z = Float.valueOf(group.properties.get(PROPERTY_Z));
 		} else {
-			Global.reporter.warn("Group with no z-value on " + parent);
+			RGlobal.reporter.warn("Group with no z-value on " + parent);
 		}
 	}
 
@@ -157,7 +157,7 @@ public class EventLayer extends Layer implements Renderable {
 	 */
 	public void add(MapEvent event) {
 		if (event == null) {
-			Global.reporter.warn("Added a null object to the map?");
+			RGlobal.reporter.warn("Added a null object to the map?");
 		} else {
 			events.add(event);
 			event.onAdd(this);

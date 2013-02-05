@@ -38,7 +38,7 @@ public class TestScreen extends GameScreen {
 	protected TextBox box;
 	
 	public TestScreen() {
-		MapLoadTestMDO mapTestMDO = (MapLoadTestMDO) RGlobal.data.getEntryByKey("map_test");
+		MapLoadTestMDO mapTestMDO = RGlobal.data.getEntryFor("map_test", MapLoadTestMDO.class);
 		this.map = RGlobal.levelManager.getLevel(mapTestMDO.map);
 		this.canvas = map;
 		

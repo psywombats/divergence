@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.rainfall.graphics;
 
-import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.RectHitbox;
 import net.wombatrpgs.rainfall.core.Constants;
@@ -181,7 +180,7 @@ public class AnimationStrip implements 	Renderable,
 				break;
 			}
 		} else {
-			Global.reporter.warn("Spritesheet not loaded: " + filename);
+			RGlobal.reporter.warn("Spritesheet not loaded: " + filename);
 		}
 	}
 	

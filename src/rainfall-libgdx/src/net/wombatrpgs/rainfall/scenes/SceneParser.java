@@ -10,11 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.io.loaders.SceneLoader;
 import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfallschema.cutscene.SceneMDO;
 import net.wombatrpgs.rainfallschema.cutscene.data.TriggerRepeatType;
@@ -47,7 +45,6 @@ public class SceneParser extends MapObject {
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
-		manager.setLoader(SceneData.class, new SceneLoader(new InternalFileHandleResolver()));
 		manager.load(filename, SceneData.class);
 	}
 

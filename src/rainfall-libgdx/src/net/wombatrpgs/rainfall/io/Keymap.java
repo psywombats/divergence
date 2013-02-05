@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.wombatrpgs.mgne.global.Global;
+import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfallschema.io.data.InputButton;
 
@@ -53,7 +53,7 @@ public abstract class Keymap implements InputProcessor,
 		if (listeners.contains(listener)) {
 			listeners.remove(listener);
 		} else {
-			Global.reporter.warn("The listener " + listener + " is not " +
+			RGlobal.reporter.warn("The listener " + listener + " is not " +
 					"actually listening to " + this);
 		}
 	}

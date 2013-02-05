@@ -8,10 +8,10 @@ package net.wombatrpgs.mgne.tests;
 
 import java.util.List;
 
-import net.wombatrpgs.mgne.data.DataLoader;
-import net.wombatrpgs.mgne.data.DirectoryDataLoader;
 import net.wombatrpgs.mgne.global.Global;
 import net.wombatrpgs.mgns.core.MainSchema;
+import net.wombatrpgs.rainfall.core.DataLoader;
+import net.wombatrpgs.rainfall.core.DirectoryDataLoader;
 
 /**
  * Make sure the default directory data loader thing is working properly!

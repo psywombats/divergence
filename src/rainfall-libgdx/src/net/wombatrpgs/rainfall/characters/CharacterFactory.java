@@ -28,8 +28,7 @@ public class CharacterFactory {
 	 * @return
 	 */
 	public static CharacterEvent create(CharacterEventMDO mdo, Level parent, int x, int y) {
-		// TODO: it may be possible to generalize this
-		// TODO: this is a hack for hero ID-ing
+		// it may be possible to generalize this
 		if (HeroMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new Hero(mdo, parent, x, y);
 		} else if (EnemyEventMDO.class.isAssignableFrom(mdo.getClass())) {
