@@ -1,2 +1,7 @@
 NICO: Hello my name is Nico. I am the protagonist of this game.
 WALDY: Hello my name is Waldsworth. I am a massive tool.
+NICO: I am about to walk four tiles downwards.
+[move nico down 4]
+[wait-all]
+WALDY: You just walked four tiles downwards.
+NICO: I'm proud of myself.

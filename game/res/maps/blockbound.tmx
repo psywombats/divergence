@@ -117,6 +117,7 @@
   <object height="32" name="Hero" type="event" width="32" x="224" y="288">
    <properties>
     <property name="key" value="hero_default"/>
+    <property name="name" value="nico"/>
    </properties>
   </object>
   <object height="32" name="tele" type="teleport" width="32" x="608" y="192">

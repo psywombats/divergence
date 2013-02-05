@@ -117,8 +117,8 @@ public class ActSummon extends MovesetAct {
 	/**
 	 * Returns what would happen if the block were dropped at this tile.
 	 * @param	map				The map to drop on
-	 * @param 	targetX			The x-coord to land at (in tiles)
-	 * @param 	targetY			The y-coord to land at (in tiles)
+	 * @param 	deltaX			The x-coord to land at (in tiles)
+	 * @param 	deltaY			The y-coord to land at (in tiles)
 	 * @return					The result of the potential fall
 	 */
 	private FallResult attemptFallAt(Level map, int targetTileX, int targetTileY) {
@@ -132,8 +132,8 @@ public class ActSummon extends MovesetAct {
 	/**
 	 * Nicely animates the block landing at the specified location.
 	 * @param	map				The map to drop the block on
-	 * @param 	targetX			The x-coord to land at (in tiles)
-	 * @param 	targetY			The y-coord to land at (in tiles)
+	 * @param 	deltaX			The x-coord to land at (in tiles)
+	 * @param 	deltaY			The y-coord to land at (in tiles)
 	 * @param	z				The z-coord to land at (depth index)
 	 */
 	private void summonAt(final Level map, 
@@ -157,8 +157,8 @@ public class ActSummon extends MovesetAct {
 	/**
 	 * Nicely animates the block landing (and killing) itself at the location.
 	 * @param	map				The map to drop the block on
-	 * @param 	targetX			The x-coord to land at (in tiles)
-	 * @param 	targetY			The y-coord to land at (in tiles)
+	 * @param 	deltaX			The x-coord to land at (in tiles)
+	 * @param 	deltaY			The y-coord to land at (in tiles)
 	 */
 	private void selfDestructAt(Level map, final int targetTileX, final int targetTileY) {
 		RGlobal.reporter.inform("BOOM! Summon failed.");

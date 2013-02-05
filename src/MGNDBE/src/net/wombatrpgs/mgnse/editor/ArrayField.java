@@ -21,7 +21,8 @@ import net.wombatrpgs.mgnse.Global;
  * Superclass of all array-based fields. It's useful for the common removable
  * panel and new button functionality.
  */
-public abstract class ArrayField<T extends JComponent> extends FieldPanel implements RemovalListener {
+public abstract class ArrayField<T extends JComponent> 	extends FieldPanel 
+														implements RemovalListener {
 	
 	private static final long serialVersionUID = -8155278891013826258L;
 	protected ArrayList<T> inputs;

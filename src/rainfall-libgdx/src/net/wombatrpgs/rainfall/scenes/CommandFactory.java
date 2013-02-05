@@ -7,13 +7,18 @@
 package net.wombatrpgs.rainfall.scenes;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.scenes.commands.CommandMove;
 import net.wombatrpgs.rainfall.scenes.commands.CommandSpeak;
+import net.wombatrpgs.rainfall.scenes.commands.CommandWaitAll;
 
 /**
  * A static thing that given a line from a scene, produces a command appropriate
  * for that line.
  */
 public class CommandFactory {
+	
+	protected static final String COMMAND_MOVE = "move";
+	protected static final String COMMAND_WAIT_ALL = "wait-all";
 	
 	/**
 	 * Actually performs the generation. This should be a great big if/else.
@@ -22,9 +27,22 @@ public class CommandFactory {
 	 * @return					The generated command
 	 */
 	public static SceneCommand make(SceneParser parent, String line) {
+		if (line.equals("")) return null;
 		if (line.startsWith("[")) {
-			// TODO: implement other commands
-			return null;
+			String commandName;
+			if (line.indexOf(' ') > 0) {
+				commandName = line.substring(1, line.indexOf(' '));
+			} else {
+				commandName = line.substring(1, line.indexOf(']'));
+			}
+			if (commandName.equals(COMMAND_MOVE)) {
+				return new CommandMove(parent, line);
+			} else if (commandName.equals(COMMAND_WAIT_ALL)) {
+				return new CommandWaitAll(parent, line);
+			} else {
+				RGlobal.reporter.warn("Did not recognize a command: " + commandName);
+				return null;
+			}
 		} else if (line.contains(":")) {
 			return new CommandSpeak(parent, line);
 		} else {

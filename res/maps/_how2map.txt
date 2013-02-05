@@ -81,3 +81,9 @@ Exporting maps:
 Run export_maps.bat in the same directory. This requires that you be running
 Windows, sorry. This will update all maps in the actual game directory to
 reflect those in the maps directory.
+
+Events:
+Events are weird and this section is under construction.
+
+Event parameters:
+"name" - the name of the object, what it's referred to in cutscene events

@@ -51,22 +51,24 @@ public class EventFactory {
 	 * @return					Newly minted map object
 	 */
 	protected static MapEvent create(Level parent, TiledObject object, int layerIndex) {
+		MapEvent newEvent = null;
 		if (EVENT_TYPE.equals(object.type)) {
 			TiledMap map = parent.getMap();
 			String mdoName = object.properties.get("key");
 			CharacterEventMDO eventMDO = RGlobal.data.getEntryFor(mdoName, CharacterEventMDO.class);
-			return CharacterFactory.create(eventMDO, parent,  
+			newEvent = CharacterFactory.create(eventMDO, object, parent,
 					object.x, 
 					map.height*map.tileHeight-object.y);
 		} else if (TELEPORT_TYPE.equals(object.type)) {
-			return new TeleportEvent(parent, object);
+			newEvent = new TeleportEvent(parent, object);
 		} else if (Z_TELEPORT_TYPE.equals(object.type)) {
-			return new ZTeleportEvent(parent, object, layerIndex);
+			newEvent = new ZTeleportEvent(parent, object, layerIndex);
 		} else if (TRIGGER_TYPE.equals(object.type)){
-			return new TriggerEvent(parent, object);
+			newEvent = new TriggerEvent(parent, object);
 		} else {
 			RGlobal.reporter.warn("Found an event with no type: " + object.name);
-			return null;
+			newEvent = null;
 		}
+		return newEvent;
 	}
 }

@@ -129,6 +129,9 @@ public class Level implements ScreenShowable {
 	
 	/** @param pause The map object to pause on */
 	public void setPause(boolean paused) { this.paused = paused; }
+	
+	/** @return True if the level is in a suspended state */
+	public boolean isPaused() { return this.paused; }
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render(
@@ -425,6 +428,21 @@ public class Level implements ScreenShowable {
 	 */
 	public int getZ(MapObject object) {
 		return layerMap.get(object);
+	}
+	
+	/**
+	 * Finds and returns the event named apporpriately. Behaves weirdly if
+	 * multiple events have the same name.
+	 * @param 	name			The name of the event we're looking for
+	 * @return					An event named that way, or null if none
+	 */
+	public MapEvent getEventByName(String name) {
+		for (MapEvent event : events) {
+			if (name.equals(event.getName())) {
+				return event;
+			}
+		}
+		return null;
 	}
 	
 	/**

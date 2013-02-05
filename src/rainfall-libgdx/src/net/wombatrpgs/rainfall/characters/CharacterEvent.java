@@ -13,6 +13,7 @@ import java.util.Map;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
@@ -49,19 +50,20 @@ public class CharacterEvent extends MapEvent {
 
 	/**
 	 * Creates a new char event with the specified data at the specified coords.
-	 * @param 	mdo		The data to create the event with
-	 * @param	parent	The parent level of the event
-	 * @param 	x		The x-coord of the event (in pixels)
-	 * @param 	y		The y-coord of the event (in pixels)
+	 * @param 	mdo				The data to create the event with
+	 * @param	object			The tiled object that created the chara
+	 * @param	parent			The parent level of the event
+	 * @param 	x				The x-coord of the event (in pixels)
+	 * @param 	y				The y-coord of the event (in pixels)
 	 */
-	public CharacterEvent(CharacterEventMDO mdo, Level parent, float x, float y) {
-		super(parent, x, y, true, true);
+	public CharacterEvent(CharacterEventMDO mdo, TiledObject object, Level parent, int x, int y) {
+		super(parent, object, x, y, true, true);
 		init(mdo);
 	}
 	
 	/**
 	 * Creates a new character event associated with no map from the MDO.
-	 * @param 	mdo		The MDO to create the event from
+	 * @param 	mdo				The MDO to create the event from
 	 */
 	public CharacterEvent(CharacterEventMDO mdo) {
 		super();
@@ -69,8 +71,8 @@ public class CharacterEvent extends MapEvent {
 	}
 	
 	/**
-	 * Creates a new character event with the specified data at the origin.
-	 * @param 	parent	The parent level of the event
+	 * Creates a new character event with the specified level at the origin.
+	 * @param 	parent			The parent level of the event
 	 */
 	protected CharacterEvent(Level parent) {
 		super(parent);
@@ -78,7 +80,7 @@ public class CharacterEvent extends MapEvent {
 	
 	/**
 	 * Gets the direction this character is currently facing from its animation
-	 * @return			The direction currently facing
+	 * @return					The direction currently facing
 	 */
 	public Direction getFacing() {
 		return appearance.getFacing();
@@ -86,7 +88,7 @@ public class CharacterEvent extends MapEvent {
 	
 	/**
 	 * Tells the animation to face a specific direction.
-	 * @param 	dir		The directiont to face
+	 * @param 	dir				The directiont to face
 	 */
 	public void setFacing(Direction dir) {
 		this.appearance.setFacing(dir);
@@ -94,7 +96,7 @@ public class CharacterEvent extends MapEvent {
 	
 	/**
 	 * Gives this character a new (temporary?) appearance with a four-dir anim
-	 * @param 	appearance	The new anim for this character
+	 * @param 	appearance		The new anim for this character
 	 */
 	public void setAppearance(FacesAnimation appearance) {
 		this.appearance = appearance;
@@ -102,7 +104,7 @@ public class CharacterEvent extends MapEvent {
 	
 	/**
 	 * Gets the current appearance of this character event.
-	 * @return			The current appearance of this character event
+	 * @return					The current appearance of this character event
 	 */
 	public FacesAnimation getAppearance() {
 		return appearance;
@@ -312,15 +314,22 @@ public class CharacterEvent extends MapEvent {
 	}
 	
 	/**
-	 * Stops all movement in a key-friendly way.
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#halt()
 	 */
+	@Override
 	public void halt() {
+		super.halt();
 		appearance.stopMoving();
+		targetVX = 0;
+		targetVY = 0;
 		for (Direction dir : Direction.values()) {
 			stopMove(dir);
 		}
+		for (Direction dir : directionStatus.keySet()) {
+			directionStatus.put(dir, false);
+		}
 	}
-	
+
 	/**
 	 * Stuns the character to prevent action for some time or something?
 	 */

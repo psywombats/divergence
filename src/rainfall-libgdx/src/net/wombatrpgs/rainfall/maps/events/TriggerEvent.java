@@ -40,7 +40,7 @@ public class TriggerEvent extends MapEvent {
 			RGlobal.reporter.warn("Trigger event had no id: " + object.name);
 		} else {
 			SceneMDO mdo = RGlobal.data.getEntryFor(id, SceneMDO.class);
-			scene = new SceneParser(mdo);
+			scene = new SceneParser(mdo, getLevel());
 		}
 	}
 	

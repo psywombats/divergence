@@ -33,6 +33,9 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	/** Max time to fall into a hole */
 	protected static final float FALL_TIME = 1f;
 	
+	/** Our patron object on the tiled map */
+	protected TiledObject object;
+	
 	/** Will this event ever move? May be deprecated */
 	protected boolean mobile;
 	/** Should this object have its collisions checked? */
@@ -72,16 +75,19 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	/**
 	 * Creates a new map event for the level at the specified coords.
 	 * @param 	parent			The parent level of the event
+	 * @param 	object`			The Tiled object used to complete the event
 	 * @param 	x				The x-coord to start at (in pixels)
 	 * @param 	y				The y-coord to start at (in pixels);
 	 * @param	mobile			True if this object will be moving, else false
 	 * @param	checkCollisions	True if collision detection should be enabled
 	 */
-	public MapEvent(Level parent, float x, float y, boolean mobile, boolean checkCollisions) {
+	protected MapEvent(Level parent, TiledObject object, float x, float y, 
+			boolean mobile, boolean checkCollisions) {
 		super(parent);
 		zeroCoords();
 		this.x = x;
 		this.y = y;
+		this.object = object;
 		this.mobile = mobile;
 		this.checkCollisions = checkCollisions;
 	}
@@ -90,7 +96,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 * Creates a new map event for the level at the origin.
 	 * @param 	parent		The parent level of the event
 	 */
-	public MapEvent(Level parent) {
+	protected MapEvent(Level parent) {
 		super(parent);
 		zeroCoords();
 	}
@@ -99,7 +105,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 * Creates a blank map event associated with no map. Assumes the subclass
 	 * will do something interesting in its constructor.
 	 */
-	public MapEvent() {
+	protected MapEvent() {
 		zeroCoords();
 	}
 	
@@ -111,6 +117,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 */
 	public MapEvent(Level parent, TiledObject object, boolean mobile, boolean checkCollisions) {
 		this(	parent, 
+				object,
 				object.x, 
 				parent.getMap().height*parent.getMap().tileHeight-object.y,
 				mobile,
@@ -203,15 +210,6 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
-	 * Double dispatch method so pictures can override their comparisons.
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 * @return					Negative, zero, positive if we are less, gr, eq
-	 */
-	public int compareToPicture(Picture pic) {
-		return compareTo(pic);
-	}
-	
-	/**
 	 * Update yoself! This is called from the rendering loop but it's with some
 	 * filters set on it for target framerate. As of 2012-01-30 it's not called
 	 * from the idiotic update loop.
@@ -293,12 +291,34 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
+	 * Double dispatch method so pictures can override their comparisons.
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 * @return					Negative, zero, positive if we are less, gr, eq
+	 */
+	public int compareToPicture(Picture pic) {
+		return compareTo(pic);
+	}
+	
+	/**
 	 * Determines if the character is able to move of their own volition. False
 	 * in cases such as stunning or falling.
 	 * @return					True if moving is legal, false otherwise
 	 */
 	public boolean canMove() {
 		return !falling;
+	}
+	
+	/**
+	 * Gets the name of this event as specified in Tiled. Null if the event is
+	 * unnamed in tiled or was not created from tiled.
+	 * @return
+	 */
+	public String getName() {
+		if (object != null) {
+			return object.properties.get("name");
+		} else {
+			return null;
+		}
 	}
 	
 	/**
@@ -327,6 +347,16 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 */
 	public boolean isMoving() {
 		return Math.abs(vx) > .1 || Math.abs(vy) > .1;
+	}
+	
+	/**
+	 * Stops all movement in a key-friendly way.
+	 */
+	public void halt() {
+		targetVX = 0;
+		targetVY = 0;
+		vx = 0;
+		vy = 0;
 	}
 	
 	/**

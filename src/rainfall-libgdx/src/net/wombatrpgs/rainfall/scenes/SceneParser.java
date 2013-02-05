@@ -16,6 +16,7 @@ import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfall.maps.PauseLevel;
+import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.cutscene.SceneMDO;
 import net.wombatrpgs.rainfallschema.cutscene.data.TriggerRepeatType;
 
@@ -27,17 +28,22 @@ public class SceneParser extends MapObject {
 	
 	protected SceneMDO mdo;
 	protected List<SceneCommand> commands;
+	protected List<MapEvent> controlledEvents;
 	protected String filename;
-	protected boolean executed;
+	protected boolean executed, enabled;
 	
 	/**
 	 * Creates a new scene parser from data. Does not autoplay.
 	 * @param 	mdo				The data to create from
+	 * @param	parent			The level we'll be parsing on
 	 */
-	public SceneParser(SceneMDO mdo) {
+	public SceneParser(SceneMDO mdo, Level parent) {
 		this.mdo = mdo;
 		this.executed = false;
+		this.enabled = false;
 		this.filename = Constants.SCENES_DIR + mdo.file;
+		this.controlledEvents = new ArrayList<MapEvent>();
+		parent.addObject(this);
 		setPauseLevel(PauseLevel.PAUSE_RESISTANT);
 	}
 	
@@ -69,8 +75,10 @@ public class SceneParser extends MapObject {
 			List<String> lines = manager.get(filename, SceneData.class).getLines();
 			for (String line : lines) {
 				SceneCommand command = CommandFactory.make(this, line);
-				command.queueRequiredAssets(manager);
-				commands.add(command);
+				if (command != null) {
+					command.queueRequiredAssets(manager);
+					commands.add(command);
+				}
 			}
 		}
 	}
@@ -81,12 +89,22 @@ public class SceneParser extends MapObject {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
-		for (SceneCommand command : commands) {
-			if (!command.run()) return;
+		if (enabled) {
+			for (SceneCommand command : commands) {
+				if (!command.run()) return;
+			}
+			parent.setPause(false);
+			enabled = false;
+			RGlobal.hero.halt();
 		}
-		parent.setPause(false);
-		parent.removeObject(this);
-		RGlobal.hero.halt();
+	}
+	
+	/**
+	 * Gets all map events that have been touched by movements by this parser.
+	 * @return					The events controlled by the parser
+	 */
+	public List<MapEvent> getControlledEvents() {
+		return controlledEvents;
 	}
 
 	/**
@@ -96,7 +114,7 @@ public class SceneParser extends MapObject {
 	 */
 	public void run(Level level) {
 		if (!executed || mdo.repeat == TriggerRepeatType.RUN_EVERY_TIME) {
-			level.addObject(this);
+			enabled = true;
 			forceRun();
 		}
 	}
