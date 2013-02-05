@@ -12,3 +12,7 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+
+# Rainfall logs #
+#################
+*.log

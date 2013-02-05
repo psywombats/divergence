@@ -14,6 +14,7 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 
 import net.wombatrpgs.rainfall.characters.Block;
 import net.wombatrpgs.rainfall.characters.Hero;
+import net.wombatrpgs.rainfall.core.reporters.PrintReporter;
 import net.wombatrpgs.rainfall.io.DefaultKeymap;
 import net.wombatrpgs.rainfall.io.Keymap;
 import net.wombatrpgs.rainfall.io.loaders.DataLoader;
@@ -71,7 +72,7 @@ public class RGlobal {
 	public static void globalInit() {
 		
 		// debugging is needed first
-		RGlobal.reporter = new DebugReporter();
+		RGlobal.reporter = new PrintReporter();
 		RGlobal.reporter.inform("Initializing primary globals");
 		RGlobal.assetManager = new AssetManager();
 		RGlobal.rand = new Random(System.currentTimeMillis());
