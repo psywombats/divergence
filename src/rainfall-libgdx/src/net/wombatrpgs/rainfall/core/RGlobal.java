@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.rainfall.core;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -15,6 +17,7 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import net.wombatrpgs.rainfall.characters.Block;
 import net.wombatrpgs.rainfall.characters.Hero;
 import net.wombatrpgs.rainfall.core.reporters.PrintReporter;
+import net.wombatrpgs.rainfall.graphics.Queueable;
 import net.wombatrpgs.rainfall.io.DefaultKeymap;
 import net.wombatrpgs.rainfall.io.Keymap;
 import net.wombatrpgs.rainfall.io.loaders.DataLoader;
@@ -23,6 +26,7 @@ import net.wombatrpgs.rainfall.maps.LevelManager;
 import net.wombatrpgs.rainfall.scenes.SceneData;
 import net.wombatrpgs.rainfall.screens.ScreenStack;
 import net.wombatrpgs.rainfall.ui.UISettings;
+import net.wombatrpgs.rainfallschema.settings.UISettingsMDO;
 
 /**
  * Rainfall's version of the MGNDB global.
@@ -53,6 +57,8 @@ public class RGlobal {
 	public static UISettings ui;
 	/** Are we done loading yet? */
 	public static boolean initialized = false;
+	
+	private static List<Queueable> toLoad;
 	
 	/**
 	 * Can't override static methods, so this thing will have to do.
@@ -85,6 +91,7 @@ public class RGlobal {
 		assetManager.finishLoading();
 		
 		// here on out, these may require data
+		toLoad = new ArrayList<Queueable>();
 		RGlobal.reporter.inform("Intializing secondary globals");
 		RGlobal.constants = new Constants();
 		RGlobal.screens = new ScreenStack();
@@ -96,6 +103,15 @@ public class RGlobal {
 		RGlobal.reporter.inform("Loading secondary data");
 		RGlobal.data.queueFilesInDir(assetManager, Gdx.files.internal(Constants.DATA_DIR));
 		assetManager.finishLoading();
+
+		// initialize everything that needed data
+		RGlobal.reporter.inform("Initializing data-dependant resources");
+		RGlobal.ui = new UISettings(RGlobal.data.getEntryFor(
+				UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
+		toLoad.add(ui);
+		for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
+		assetManager.finishLoading();
+		for (Queueable q : toLoad) q.postProcessing(assetManager, 0);
 		
 		initialized = true;
 		RGlobal.reporter.inform("Done loading");

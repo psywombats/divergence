@@ -11,6 +11,7 @@ import java.util.List;
 
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.rainfallschema.settings.GameSpeedMDO;
+import net.wombatrpgs.rainfallschema.settings.UISettingsMDO;
 import net.wombatrpgs.rainfallschema.settings.WindowDataMDO;
 
 /**
@@ -45,6 +46,7 @@ public class Constants {
 		PRELOAD_SCHEMA = new ArrayList<Class< ? extends MainSchema>>();
 		PRELOAD_SCHEMA.add(WindowDataMDO.class);
 		PRELOAD_SCHEMA.add(GameSpeedMDO.class);
+		PRELOAD_SCHEMA.add(UISettingsMDO.class);
 	}
 	
 	private int rate;

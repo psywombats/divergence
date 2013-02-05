@@ -25,6 +25,8 @@ import net.wombatrpgs.rainfallschema.ui.TextBoxMDO;
  */
 public class UISettings implements Queueable {
 	
+	public static String DEFAULT_MDO_KEY = "default_ui";
+	
 	protected UISettingsMDO mdo; // this is only the original default settings
 	protected FontHolder font;
 	protected TextBox box;
@@ -58,5 +60,11 @@ public class UISettings implements Queueable {
 		font.postProcessing(manager, pass);
 		box.postProcessing(manager, pass);
 	}
+	
+	/** @return The text box associated with these settings */
+	public TextBox getBox() { return this.box; }
+	
+	/** @return The font associated with these settings */
+	public FontHolder getFont() { return this.font; }
 
 }

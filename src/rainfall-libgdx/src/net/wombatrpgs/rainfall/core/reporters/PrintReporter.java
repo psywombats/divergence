@@ -28,7 +28,7 @@ public class PrintReporter implements Reporter {
 		debugger = new DebugReporter();
 		File errFile = new File("error.log");
 		File normalFile= new File("info.log");
-		// this, unfortuantely, will never be closed
+		// this, unfortunately, will never be closed
 		try {
 			errLog = new PrintWriter(errFile);
 			normalLog = new PrintWriter(normalFile);

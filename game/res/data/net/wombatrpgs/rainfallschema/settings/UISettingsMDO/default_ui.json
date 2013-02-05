@@ -1,8 +1,8 @@
 {
-	"key" : "ui_settings",
+	"key" : "default_ui",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "",
+	"description" : "MGNE looks for this MDO by key",
 	"font" : "font_c64block",
 	"box" : "textbox_default"
 }
