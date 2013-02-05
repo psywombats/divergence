@@ -32,6 +32,8 @@ public abstract class MapObject implements	Renderable,
 	protected List<Updateable> subEvents;
 	/** All sub-objects to remove later */
 	protected List<Updateable> removalQueue;
+	/** How we respond to pausing */
+	protected PauseLevel pauseLevel;
 	
 	/**
 	 * Creates a new map object for a given level.
@@ -48,10 +50,8 @@ public abstract class MapObject implements	Renderable,
 	public MapObject() {
 		subEvents = new ArrayList<Updateable>();
 		removalQueue = new ArrayList<Updateable>();
+		pauseLevel = PauseLevel.SURRENDERS_EASILY;
 	}
-	
-	/** @return The map we are currently on */
-	public Level getLevel() { return parent; }
 
 	/**
 	 * This is actually the update part of the render loop. CHANGED on
@@ -95,6 +95,15 @@ public abstract class MapObject implements	Renderable,
 			subEvents.remove(toRemove);
 		}
 	}
+	
+	/** @return The map we are currently on */
+	public Level getLevel() { return parent; }
+	
+	/** @return How this object responds to pausing */
+	public PauseLevel getPauseLevel() { return this.pauseLevel; }
+	
+	/** @param How this object will respond to pausing */
+	public void setPauseLevel(PauseLevel level) { this.pauseLevel = level; }
 	
 	/**
 	 * Determines what layer to render this object on. A returned value of 0

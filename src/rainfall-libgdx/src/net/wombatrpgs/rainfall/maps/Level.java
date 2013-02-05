@@ -77,8 +77,8 @@ public class Level implements ScreenShowable {
 	protected List<MapEvent> removalEvents;
 	/** List of all map objects to remove next loop */
 	protected List<MapObject> removalObjects;
-	/** Should we not update? If so, update this guy */
-	protected MapObject pauser;
+	/** Should game state be suspended */
+	protected boolean paused;
 	
 	/**
 	 * Generates a level from the supplied level data.
@@ -128,7 +128,7 @@ public class Level implements ScreenShowable {
 	public List<EventLayer> getEventLayers() { return eventLayers; }
 	
 	/** @param pause The map object to pause on */
-	public void setPause(MapObject pauser) { this.pauser = pauser; }
+	public void setPause(boolean paused) { this.paused = paused; }
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render(
@@ -239,20 +239,19 @@ public class Level implements ScreenShowable {
 		}
 		removalObjects.clear();
 		removalEvents.clear();
-		if (pauser == null) {
-			for (int i = 0; i < objects.size(); i++) {
-				objects.get(i).update(elapsed);
+		for (int i = 0; i < objects.size(); i++) {
+			MapObject object = objects.get(i);
+			if (!paused || object.getPauseLevel() != PauseLevel.SURRENDERS_EASILY) {
+				object.update(elapsed);
 			}
-			// TODO: add queue? really
-			for (int i = 0; i < events.size(); i++) {
-				MapEvent event = events.get(i);
-				if (event.isCollisionEnabled()) {
-					applyPhysicalCorrections(event);
-					detectCollisions(event);
-				}
+		}
+		// TODO: add queue? really
+		for (int i = 0; i < events.size(); i++) {
+			MapEvent event = events.get(i);
+			if (event.isCollisionEnabled()) {
+				applyPhysicalCorrections(event);
+				detectCollisions(event);
 			}
-		} else {
-			pauser.update(elapsed);
 		}
 	}
 
@@ -434,6 +433,9 @@ public class Level implements ScreenShowable {
 	 * @param 	object			The new object to add
 	 */
 	public void addObject(MapObject object) {
+		if (objects.contains(object)) {
+			RGlobal.reporter.warn("Added the same object twice: " + object);
+		}
 		objects.add(object);
 		object.onAddedToMap(this);
 	}

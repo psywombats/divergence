@@ -60,8 +60,7 @@ public class TriggerEvent extends MapEvent {
 	@Override
 	public boolean onCollide(MapEvent other, CollisionResult result) {
 		if (other != RGlobal.hero) return true;
-		getLevel().addObject(scene);
-		scene.run();
+		scene.run(getLevel());
 		return true;
 	}
 

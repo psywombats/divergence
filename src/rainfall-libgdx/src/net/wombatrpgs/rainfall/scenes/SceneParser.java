@@ -13,7 +13,9 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
+import net.wombatrpgs.rainfall.maps.PauseLevel;
 import net.wombatrpgs.rainfallschema.cutscene.SceneMDO;
 import net.wombatrpgs.rainfallschema.cutscene.data.TriggerRepeatType;
 
@@ -36,6 +38,7 @@ public class SceneParser extends MapObject {
 		this.mdo = mdo;
 		this.executed = false;
 		this.filename = Constants.SCENES_DIR + mdo.file;
+		setPauseLevel(PauseLevel.PAUSE_RESISTANT);
 	}
 	
 	/**
@@ -73,11 +76,27 @@ public class SceneParser extends MapObject {
 	}
 
 	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		super.update(elapsed);
+		for (SceneCommand command : commands) {
+			if (!command.run()) return;
+		}
+		parent.setPause(false);
+		parent.removeObject(this);
+		RGlobal.hero.halt();
+	}
+
+	/**
 	 * Runs the scene assuming it should be run in the current context. Right
 	 * now the only context is if a scene has been played before.
+	 * @param	level			The level this command was executed on
 	 */
-	public void run() {
+	public void run(Level level) {
 		if (!executed || mdo.repeat == TriggerRepeatType.RUN_EVERY_TIME) {
+			level.addObject(this);
 			forceRun();
 		}
 	}
@@ -87,19 +106,7 @@ public class SceneParser extends MapObject {
 	 */
 	public void forceRun() {
 		executed = true;
-		final SceneParser parser = this;
-		parent.setPause(new MapObject() {
-			@Override
-			public void update(float elapsed) {
-				super.update(elapsed);
-				for (SceneCommand command : commands) {
-					if (!command.run()) return;
-				}
-				parser.getLevel().setPause(null);
-				parser.getLevel().removeObject(parser);
-				RGlobal.hero.halt();
-			}
-		});
+		parent.setPause(true);
 	}
 
 }
