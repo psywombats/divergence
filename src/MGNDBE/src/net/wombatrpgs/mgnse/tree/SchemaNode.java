@@ -79,5 +79,10 @@ public class SchemaNode extends DefaultMutableTreeNode {
 			return getName();
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return getName();
+	}
 
 }

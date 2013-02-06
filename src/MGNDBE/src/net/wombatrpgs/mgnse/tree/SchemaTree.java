@@ -83,8 +83,7 @@ public class SchemaTree extends JTree {
 			@Override
 			public Component getTreeCellRendererComponent( JTree tree, Object value, boolean sel,
 					boolean expanded, boolean leaf, int row, boolean hasFocus) {
-				SchemaNode node = (SchemaNode) value;
-			    return super.getTreeCellRendererComponent(tree, node.getName(), sel, expanded,
+			    return super.getTreeCellRendererComponent(tree, value.toString(), sel, expanded,
 			    		leaf, row, hasFocus);
 			}
 
