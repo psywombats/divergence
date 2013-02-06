@@ -95,11 +95,11 @@ public class ScreenStack {
 	 * Renders the top screen on the stack.
 	 * @param	camera			The camera to render with
 	 */
-	public void render(OrthographicCamera camera) {
+	public void render() {
 		if (screens.size() == 0) {
 			RGlobal.reporter.warn("No screens in stack, but told to render");
 		} else {
-			screens.get(0).render(camera);
+			screens.get(0).render();
 		}
 		update();
 	}

@@ -27,6 +27,7 @@ import net.wombatrpgs.rainfall.scenes.SceneData;
 import net.wombatrpgs.rainfall.screens.ScreenStack;
 import net.wombatrpgs.rainfall.ui.UISettings;
 import net.wombatrpgs.rainfallschema.settings.UISettingsMDO;
+import net.wombatrpgs.rainfallschema.settings.WindowDataMDO;
 
 /**
  * Rainfall's version of the MGNDB global.
@@ -57,6 +58,8 @@ public class RGlobal {
 	public static UISettings ui;
 	/** Are we done loading yet? */
 	public static boolean initialized = false;
+	/** Our current window settings */
+	public static WindowDataMDO window;
 	
 	private static List<Queueable> toLoad;
 	
@@ -90,7 +93,7 @@ public class RGlobal {
 		RGlobal.data.queueData(assetManager, Constants.PRELOAD_SCHEMA);
 		assetManager.finishLoading();
 		
-		// here on out, these may require data
+		// here on out, these may require essential data
 		toLoad = new ArrayList<Queueable>();
 		RGlobal.reporter.inform("Intializing secondary globals");
 		RGlobal.constants = new Constants();
@@ -106,6 +109,7 @@ public class RGlobal {
 
 		// initialize everything that needed data
 		RGlobal.reporter.inform("Initializing data-dependant resources");
+		RGlobal.window = RGlobal.data.getEntryFor(Constants.WINDOW_KEY, WindowDataMDO.class);
 		RGlobal.ui = new UISettings(RGlobal.data.getEntryFor(
 				UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
 		toLoad.add(ui);

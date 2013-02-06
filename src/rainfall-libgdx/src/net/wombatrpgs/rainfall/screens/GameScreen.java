@@ -7,11 +7,11 @@
 package net.wombatrpgs.rainfall.screens;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.core.Updateable;
-import net.wombatrpgs.rainfall.graphics.Renderable;
+import net.wombatrpgs.rainfall.graphics.Queueable;
+import net.wombatrpgs.rainfall.graphics.TrackerCam;
 import net.wombatrpgs.rainfall.io.CommandListener;
 import net.wombatrpgs.rainfall.io.CommandMap;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
@@ -27,13 +27,15 @@ import net.wombatrpgs.rainfallschema.io.data.InputCommand;
  */
 public abstract class GameScreen implements CommandListener, 
 											Comparable<GameScreen>,
-											Renderable,
-											Updateable {
+											Updateable,
+											Queueable {
 	
 	/** Command map to use while this screen is active */
 	protected CommandMap commandContext;
 	/** The thing to draw if this canvas is visible */
 	protected ScreenShowable canvas;
+	/** What we'll use to render */
+	protected TrackerCam cam;
 	/** Depth, lower values are rendered last */
 	protected float z;
 	/** If true, layers with higher z won't be rendered */
@@ -43,12 +45,26 @@ public abstract class GameScreen implements CommandListener,
 	
 	/**
 	 * Creates a new game screen. Remember to call intialize when done setting
-	 * things up yourself.
+	 * things up yourself. Fair warning: if you don't give us a camera, we'll
+	 * create one for ourselves, potentially reformatting the game window.
 	 */
 	public GameScreen() {
 		transparent = false;
 		initialized = false;
 		z = 0;
+		cam = new TrackerCam(RGlobal.window.defaultWidth, RGlobal.window.defaultHeight);
+		cam.init();
+	}
+	
+	/**
+	 * This time we won't create an apocalyptic camera.
+	 * @param 	cam				The camera to use instead
+	 */
+	public GameScreen(TrackerCam cam) {
+		transparent = false;
+		initialized = false;
+		z = 0;
+		this.cam = cam;
 	}
 	
 	/**
@@ -116,15 +132,13 @@ public abstract class GameScreen implements CommandListener,
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 * The root of all evil. We supply the camera.
 	 */
-	@Override
-	public void render(OrthographicCamera camera) {
+	public void render() {
 		if (!initialized) {
 			RGlobal.reporter.warn("Forgot to intialize screen " + this);
 		}
-		canvas.render(camera);
+		canvas.render(cam);
 	}
 
 	/**
@@ -152,6 +166,7 @@ public abstract class GameScreen implements CommandListener,
 	public void update(float elapsed) {
 		canvas.update(elapsed);
 		RGlobal.keymap.update(elapsed);
+		cam.update(elapsed);
 	}
 
 	/**

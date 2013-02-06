@@ -41,6 +41,9 @@ public class Constants {
 	/** Directory where all the .json mdos are stored, prefix string */
 	public static final String DATA_DIR = RESOURCE_DIR + "data/";
 	
+	/** The key of the default window settings */
+	public static final String WINDOW_KEY = "window_data";
+	
 	public static final List<Class<? extends MainSchema>> PRELOAD_SCHEMA;
 	static {
 		PRELOAD_SCHEMA = new ArrayList<Class< ? extends MainSchema>>();

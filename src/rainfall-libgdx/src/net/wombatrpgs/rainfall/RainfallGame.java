@@ -4,23 +4,15 @@ import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.io.FocusListener;
 import net.wombatrpgs.rainfall.io.FocusReporter;
 import net.wombatrpgs.rainfall.test.TestScreen;
-import net.wombatrpgs.rainfallschema.settings.WindowDataMDO;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Rectangle;
 
 public class RainfallGame implements ApplicationListener, FocusListener {
 	
-	private static final String WINDOW_KEY = "window_data";
-	
 	private FocusReporter focusReporter;
 	private boolean paused;
-	
-	private OrthographicCamera camera;
-	private Rectangle glViewport;
 	
 	/**
 	 * Creates a new game. Requires a few setup tools that are platform
@@ -39,15 +31,13 @@ public class RainfallGame implements ApplicationListener, FocusListener {
 	public void create() {		
 		RGlobal.globalInit();
 		
-		WindowDataMDO window = RGlobal.data.getEntryFor(WINDOW_KEY, WindowDataMDO.class);
-		Gdx.graphics.setDisplayMode(window.defaultWidth, window.defaultHeight, false);
-		Gdx.graphics.setTitle(window.windowName);
-		
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
+		Gdx.graphics.setDisplayMode(
+				RGlobal.window.defaultWidth, 
+				RGlobal.window.defaultHeight, 
+				false);
+		Gdx.graphics.setTitle(RGlobal.window.windowName);
 		
 		Gdx.graphics.setVSync(true);
-		glViewport = new Rectangle(0, 0, w, h);
 		
 		Gdx.input.setInputProcessor(RGlobal.keymap);
 		RGlobal.screens.push(new TestScreen());
@@ -65,17 +55,8 @@ public class RainfallGame implements ApplicationListener, FocusListener {
 		
 		if (!paused) {
 			Gdx.gl.glClearColor(0, 0, 0, 1);
-			Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-			
-			// camera
-			if (camera == null) {
-				createCamera();
-			}
-			camera.position.x = RGlobal.hero.getX();
-			camera.position.y = RGlobal.hero.getY();
-			camera.update();
-			
-			RGlobal.screens.render(camera);
+			Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);			
+			RGlobal.screens.render();
 		}
 	}
 
@@ -120,22 +101,6 @@ public class RainfallGame implements ApplicationListener, FocusListener {
 	@Override
 	public void onFocusGained() {
 		resume();
-	}
-	
-	/**
-	 * Camera creation, called once.
-	 */
-	private void createCamera() {
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
-		
-		camera = new OrthographicCamera(w, h);
-		camera.update();
-		GL10 gl = Gdx.graphics.getGL10();
-		gl.glViewport((int) glViewport.x, (int) glViewport.y,
-				(int) glViewport.width, (int) glViewport.height);
-		camera.update();
-		camera.apply(gl);
 	}
 
 }

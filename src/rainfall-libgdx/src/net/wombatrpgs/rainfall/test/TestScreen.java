@@ -8,7 +8,6 @@ package net.wombatrpgs.rainfall.test;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -37,6 +36,7 @@ public class TestScreen extends GameScreen {
 	protected TextBox box;
 	
 	public TestScreen() {
+		super();
 		MapLoadTestMDO mapTestMDO = RGlobal.data.getEntryFor("map_test", MapLoadTestMDO.class);
 		this.map = RGlobal.levelManager.getLevel(mapTestMDO.map);
 		this.canvas = map;
@@ -55,6 +55,7 @@ public class TestScreen extends GameScreen {
 		z = 0;
 		defaultFont = new BitmapFont();
 		batch = new SpriteBatch();
+		cam.track(RGlobal.hero);
 		
 		init();
 	}
@@ -98,19 +99,18 @@ public class TestScreen extends GameScreen {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.screens.GameScreen#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 * @see net.wombatrpgs.rainfall.screens.GameScreen#render()
 	 */
 	@Override
-	public void render(OrthographicCamera camera) {
-		super.render(camera);
+	public void render() {
+		super.render();
 		batch.begin();
 		defaultFont.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 8, 16);
 		batch.end();
 		
 		// TODO: HACK HACK HACK HACK
 		RGlobal.hero.getBatch().begin();
-		if (box != null) box.render(camera);
+		if (box != null) box.render(cam);
 		RGlobal.hero.getBatch().end();
 	}
 
