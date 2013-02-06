@@ -116,7 +116,7 @@ public class Emitter extends MapEvent {
 		List<Particle> deadParts = new ArrayList<Particle>();
 		for (Particle part : particles) {
 			//part.update(elapsed);
-			if (part.getLife() <= 0) {
+			if (part.getLife() <= 0 && !part.isFalling()) {
 				deadParts.add(part);
 			}
 		}

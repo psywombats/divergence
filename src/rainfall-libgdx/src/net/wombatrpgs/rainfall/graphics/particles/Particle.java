@@ -97,7 +97,7 @@ public class Particle extends MapEvent {
 		super.update(elapsed);
 		angle += angularVelocity * elapsed;
 		life -= elapsed; // the parent will take care of killing us
-		if (bounce == BounceType.BOUNCE_ENABLED) {
+		if (bounce == BounceType.BOUNCE_ENABLED && !isFalling()) {
 			bounceY += bounceVelocity * elapsed;
 			bounceVelocity -= BOUNCE_DECAY * elapsed;
 			if (bounceY < 0) {
