@@ -21,8 +21,11 @@ import com.badlogic.gdx.math.Rectangle;
  */
 public class TrackerCam extends OrthographicCamera implements Updateable {
 	
+	protected static final int DEFAULT_PAN_SPEED = 48; // px/s, should be somewhere else
+	
 	protected Rectangle glViewport;
 	protected Positionable target;
+	protected float speed; // in px/s
 
 	/**
 	 * Same as the superclass constructor.
@@ -44,6 +47,15 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 			update();
 		}
 	}
+	
+	/** @param speed The speed at which this camera pans to its destination */
+	public void setPanSpeed(float speed) { this.speed = speed; }
+	
+	/** @return The speed at which this camera pans to its destination */
+	public float getPanSpeed() { return this.speed; }
+	
+	/** @return What the camera is currently tracking */
+	public Positionable getTarget() { return this.target; }
 
 	/**
 	 * Invokes some OpenGL black magic to get the camera viewport set up.

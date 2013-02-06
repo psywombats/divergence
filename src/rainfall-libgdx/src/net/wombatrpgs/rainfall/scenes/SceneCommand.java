@@ -27,7 +27,7 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	protected CommandMap oldContext;
 	protected UnblockedListener listener;
 	protected boolean blocking;
-	protected boolean running;
+	protected boolean finished;
 	
 	/**
 	 * Creates a new command from a line in scene data.
@@ -38,7 +38,7 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 		this.parent = parent;
 		this.line = line;
 		this.blocking = false;
-		this.running = false;
+		this.finished = false;
 	}
 	
 	/**
@@ -73,6 +73,9 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 			listener = null;
 		}
 	}
+	
+	/** @return The parent parser that will execute this command */
+	public SceneParser getParent() { return this.parent; }
 
 	/**
 	 * Let this command be executed! Sometimes commands can wait by returning

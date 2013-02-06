@@ -11,9 +11,9 @@ import java.util.Collections;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.graphics.TrackerCam;
 
 /**
  * A bunch of screens stacked on top of each other that make up the game
@@ -66,6 +66,14 @@ public class ScreenStack {
 			}
 			return oldTop;
 		}
+	}
+	
+	/**
+	 * Gets the camera being used by the topmost screen
+	 * @return					The in-use camera
+	 */
+	public TrackerCam getCamera() {
+		return screens.get(0).getCamera();
 	}
 	
 //	/**

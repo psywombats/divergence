@@ -11,3 +11,10 @@ NICO: Let's find out, Waldy!
 [move nico up 1 right 1 down 1 left 1]
 [wait-all]
 NICO: I'm getting dizzy...
+[camera-track fix]
+[camera-speed 48]
+[camera-pan up 1 right 1 down 1 left 1]
+[wait-all]
+NICO: Woah...
+WALDY: Nico you're drunk.
+[camera-track nico]

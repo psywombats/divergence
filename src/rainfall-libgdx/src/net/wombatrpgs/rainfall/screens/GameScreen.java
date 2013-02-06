@@ -97,6 +97,9 @@ public abstract class GameScreen implements CommandListener,
 		return z;
 	}
 	
+	/** @return The camera this screen uses to render */
+	public TrackerCam getCamera() { return cam; }
+	
 	/**
 	 * Gets the command parser used on this screen. Usually only used by engine.
 	 * @return					The command parser used on this screen

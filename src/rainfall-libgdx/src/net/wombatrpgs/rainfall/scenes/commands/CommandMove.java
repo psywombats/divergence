@@ -29,7 +29,6 @@ public class CommandMove extends SceneCommand {
 	
 	protected Stack<MoveStep> steps;
 	protected MapEvent event;
-	protected boolean finished;
 
 	/**
 	 * Creates a movement command and interprets its string to get it all ready
@@ -45,6 +44,59 @@ public class CommandMove extends SceneCommand {
 		String eventName = line.substring(0, line.indexOf(' '));
 		event = parent.getLevel().getEventByName(eventName);
 		line = line.substring(line.indexOf(' ') + 1);
+		parseSteps(line);
+	}
+	
+	/**
+	 * If any of our buddy commands need to move something, come here.
+	 * @param	parent			The parent scene parser
+	 * @param 	line			The move string code
+	 * @param 	event			The thing that'll be moved
+	 */
+	public CommandMove(SceneParser parent, String line, MapEvent event) {
+		super(parent, line);
+		this.event = event;
+		finished = false;
+		steps = new Stack<MoveStep>();
+		parseSteps(line);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.scenes.SceneCommand#run()
+	 */
+	@Override
+	public boolean run() {
+		if (!event.isTracking() && steps.size() <= 0 && !finished) {
+			event.halt();
+			finished = true;
+		}
+		if (finished) return true;
+		if (event.isTracking()) {
+			event.setPauseLevel(PauseLevel.PAUSE_RESISTANT);
+		} else {
+			event.setPauseLevel(PauseLevel.SURRENDERS_EASILY);
+		}
+		if (!event.isTracking() && steps.size() > 0) {
+			MoveStep step = steps.pop();
+			event.targetLocation(
+					event.getX() + step.deltaX, 
+					event.getY() + step.deltaY);
+			if (!parent.getControlledEvents().contains(event)) {
+				parent.getControlledEvents().add(event);
+			}
+		}
+		return true;
+	}
+	
+	/** @return True if we're done executing */
+	public boolean isFinished() { return this.finished; }
+	
+	/**
+	 * Parses all the data contained in the latter half of the string, the part
+	 * reserved for the move commands.
+	 * @param 	line			What remains of the line code
+	 */
+	protected void parseSteps(String line) {
 		while(!line.equals("")) {
 			String dirString = line.substring(0, line.indexOf(' '));
 			line = line.substring(line.indexOf(' ') + 1);
@@ -71,32 +123,6 @@ public class CommandMove extends SceneCommand {
 			int deltaY = vec.y * paces * parent.getLevel().getTileHeight();
 			steps.add(0, new MoveStep(deltaX, deltaY));
 		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.scenes.SceneCommand#run()
-	 */
-	@Override
-	public boolean run() {
-		if (event.isTracking()) {
-			event.setPauseLevel(PauseLevel.PAUSE_RESISTANT);
-		} else {
-			event.setPauseLevel(PauseLevel.SURRENDERS_EASILY);
-		}
-		if (!event.isTracking() && steps.size() > 0) {
-			MoveStep step = steps.pop();
-			event.targetLocation(
-					event.getX() + step.deltaX, 
-					event.getY() + step.deltaY);
-			if (!parent.getControlledEvents().contains(event)) {
-				parent.getControlledEvents().add(event);
-			}
-		}
-		if (!event.isTracking() && steps.size() <= 0 && !finished) {
-			event.halt();
-			finished = true;
-		}
-		return true;
 	}
 
 	public class MoveStep {

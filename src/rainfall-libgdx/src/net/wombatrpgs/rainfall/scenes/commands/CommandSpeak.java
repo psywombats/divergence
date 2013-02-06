@@ -34,9 +34,11 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	protected SpeakerMDO mdo;
 	protected Graphic faceGraphic;
 	protected Picture facePic;
+	protected boolean running;
 
 	public CommandSpeak(SceneParser parent, String line) {
 		super(parent, line);
+		running = false;
 		if (speakers == null) {
 			speakers = new HashMap<String, SpeakerMDO>();
 			for (SpeakerMDO speakerMDO : RGlobal.data.getEntriesByClass(SpeakerMDO.class)) {
