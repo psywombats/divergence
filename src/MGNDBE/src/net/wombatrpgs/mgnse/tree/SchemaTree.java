@@ -331,8 +331,9 @@ public class SchemaTree extends JTree {
 		String rootPath = dataDir.getAbsolutePath();
 		String ourPath = getMainSchemaDirectory(dataFile).getAbsolutePath();
 		String relativePath = ourPath.substring(rootPath.length(), ourPath.length());
-		if (relativePath.startsWith("\\")) relativePath = relativePath.substring(1);
 		String className = relativePath.replace('\\', '.');
+		className = className.replace('/', '.');
+		if (className.startsWith(".")) className = className.substring(1);
 		try {
 			Class<?> rawClass = cl.loadClass(className);
 			if (!MainSchema.class.isAssignableFrom(rawClass)) {

@@ -127,6 +127,8 @@ public class Level implements ScreenShowable {
 	/** @return All pictures being displayed on this map */
 	public List<Picture> getPictures() { return this.pictures; }
 	
+	public List<MapEvent> getEvents() { return this.events; }
+	
 	/** @param pause The map object to pause on */
 	public void setPause(boolean paused) { this.paused = paused; }
 	
