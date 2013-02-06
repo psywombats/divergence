@@ -27,13 +27,15 @@ public class TextBoxMDO extends MainSchema {
 	@Desc("Box x - upper left x of where the text box image is displayed (in px)")
 	public Integer graphicX;
 	
-	@Desc("Box y - upper left y of where the text box image is displayed (in px)")
+	@Desc("Box y - upper left y of where the text box image is displayed (in px), " +
+			"refers to bottom of text")
 	public Integer graphicY;
 	
 	@Desc("x1 - upper left x of the rectangle where text will be (in px)")
 	public Integer x1;
 	
-	@Desc("y1 - upper left y of the rectangle where text will be (in px)")
+	@Desc("y1 - upper left y of the rectangle where text will be (in px), " +
+			"refers to bottom of text")
 	public Integer y1;
 	
 	@Desc("x2 - lower right x of the rectangle where text will be (in px)")
@@ -41,5 +43,12 @@ public class TextBoxMDO extends MainSchema {
 	
 	@Desc("y2 - lower right y of the rectangle where text will be (in px)")
 	public Integer y2;
+	
+	@Desc("Name x - upper left x of where character's name is printed, if used (in px)")
+	public Integer nameX;
+	
+	@Desc("Name y - upper left x of where character's name is printed, if used (in px), " +
+			"refers to bottom of text")
+	public Integer nameY;
 
 }

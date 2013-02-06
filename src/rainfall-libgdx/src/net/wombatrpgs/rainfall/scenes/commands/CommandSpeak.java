@@ -64,6 +64,7 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 		if (!running) {
 			running = true;
 			RGlobal.ui.getBox().setText(speech);
+			RGlobal.ui.getBox().setName(mdo.name);
 			if (faceGraphic != null) {
 				facePic = new Picture(faceGraphic,
 						(Gdx.graphics.getWidth() - faceGraphic.getWidth()) / 2 - FACE_OFFSET,

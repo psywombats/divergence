@@ -25,5 +25,8 @@ public class SpeakerMDO extends MainSchema {
 	@Desc("Script name - how the script refers to this character, for instance "
 			+ "\"NICO: blah blah\" would be NICO")
 	public String id;
+	
+	@Desc("Text box name - how this character is referred to in text box nametags")
+	public String name;
 
 }

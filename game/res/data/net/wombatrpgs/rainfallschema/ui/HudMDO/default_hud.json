@@ -2,7 +2,7 @@
 	"key" : "default_hud",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "engine will look for this hud by key",
+	"description" : "",
 	"graphic" : "graphic_hud",
 	"anchorDir" : "DOWN",
 	"icons" : [

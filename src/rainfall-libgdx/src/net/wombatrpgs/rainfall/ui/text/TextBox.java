@@ -28,9 +28,9 @@ public class TextBox extends MapObject {
 	
 	protected TextBoxMDO mdo;
 	protected FontHolder font;
-	protected TextBoxFormat format;
+	protected TextBoxFormat bodyFormat, nameFormat;
 	protected Graphic backer;
-	protected String text;
+	protected String body, name;
 	
 	/**
 	 * Creates a new text box from data. Does not deal with the loading of its
@@ -41,12 +41,10 @@ public class TextBox extends MapObject {
 	public TextBox(TextBoxMDO mdo, FontHolder font) {
 		this.mdo = mdo;
 		this.font = font;
-		this.format = new TextBoxFormat();
-		format.x = mdo.x1;
-		format.y = mdo.y1;
-		format.align = HAlignment.LEFT;
-		format.height = mdo.y2 - mdo.y1;
-		format.width = mdo.x2 - mdo.x1;
+		this.body = "";
+		this.name = "oo";
+		this.bodyFormat = new TextBoxFormat();
+		this.nameFormat = new TextBoxFormat();
 		if (mdo.image != null) {
 			GraphicMDO graphicMDO = RGlobal.data.getEntryFor(mdo.image, GraphicMDO.class);
 			this.backer = new Graphic(graphicMDO);
@@ -65,7 +63,8 @@ public class TextBox extends MapObject {
 					mdo.graphicX,
 					Gdx.graphics.getHeight() - mdo.graphicY - backer.getGraphic().getRegionHeight());
 		}
-		font.draw(RGlobal.hero.getBatch(), format, text);
+		font.draw(RGlobal.screens.peek().getBatch(), bodyFormat, body);
+		font.draw(RGlobal.screens.peek().getBatch(), nameFormat, name);
 	}
 
 	/**
@@ -90,6 +89,16 @@ public class TextBox extends MapObject {
 		if (backer != null) {
 			backer.postProcessing(manager, pass);
 		}
+		bodyFormat.x = mdo.x1;
+		bodyFormat.y = backer.getHeight() - mdo.y1;
+		bodyFormat.align = HAlignment.LEFT;
+		bodyFormat.height = mdo.y2 - mdo.y1;
+		bodyFormat.width = mdo.x2 - mdo.x1;
+		nameFormat.x = mdo.nameX;
+		nameFormat.y = backer.getHeight() - mdo.nameY;
+		nameFormat.align = HAlignment.LEFT;
+		nameFormat.height = mdo.y2 - mdo.y1;
+		nameFormat.width = mdo.x2 - mdo.x1;
 	}
 	
 	/**
@@ -97,7 +106,15 @@ public class TextBox extends MapObject {
 	 * @param 	text			The text to be displayed
 	 */
 	public void setText(String text) {
-		this.text = text;
+		this.body = text;
+	}
+	
+	/**
+	 * Sets the name tag for the text box, if the text box supports a name tag.
+	 * @param 	name			The name of the character speaking
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

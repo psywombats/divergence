@@ -6,8 +6,10 @@
 	"image" : "graphic_dbox_test",
 	"graphicX" : 0,
 	"graphicY" : 384,
-	"x1" : 8,
-	"y1" : 40,
+	"x1" : 10,
+	"y1" : 52,
 	"x2" : 634,
-	"y2" : 88
+	"y2" : 88,
+	"nameX" : 10,
+	"nameY" : 20
 }
