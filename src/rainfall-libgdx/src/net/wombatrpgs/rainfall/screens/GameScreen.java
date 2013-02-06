@@ -6,7 +6,13 @@
  */
 package net.wombatrpgs.rainfall.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.core.Updateable;
@@ -40,8 +46,16 @@ public abstract class GameScreen implements CommandListener,
 	protected float z;
 	/** If true, layers with higher z won't be rendered */
 	protected boolean transparent;
-	
-	private boolean initialized;
+	/** Batch used for rendering by contents */
+	protected SpriteBatch batch;
+	/** Batch used to render frame buffers */
+	protected SpriteBatch privateBatch;
+	/** Buffer we'll be using to draw to */
+	protected FrameBuffer buffer;
+	/** What we'll be tinting the screen before each render */
+	protected Color tint;
+	/** Have we been set up yet? */
+	protected boolean initialized;
 	
 	/**
 	 * Creates a new game screen. Remember to call intialize when done setting
@@ -52,6 +66,12 @@ public abstract class GameScreen implements CommandListener,
 		transparent = false;
 		initialized = false;
 		z = 0;
+		batch = new SpriteBatch();
+		privateBatch = new SpriteBatch();
+		buffer = new FrameBuffer(Format.RGB565, 
+				RGlobal.window.defaultWidth, RGlobal.window.defaultHeight, 
+				false);
+		tint = Color.WHITE;
 		cam = new TrackerCam(RGlobal.window.defaultWidth, RGlobal.window.defaultHeight);
 		cam.init();
 	}
@@ -100,6 +120,12 @@ public abstract class GameScreen implements CommandListener,
 	/** @return The camera this screen uses to render */
 	public TrackerCam getCamera() { return cam; }
 	
+	/** @return Batch used for rendering contents */
+	public SpriteBatch getBatch() { return batch; }
+	
+	/** @return Game screen whole tint */
+	public Color getTint() { return tint; }
+	
 	/**
 	 * Gets the command parser used on this screen. Usually only used by engine.
 	 * @return					The command parser used on this screen
@@ -141,7 +167,19 @@ public abstract class GameScreen implements CommandListener,
 		if (!initialized) {
 			RGlobal.reporter.warn("Forgot to intialize screen " + this);
 		}
+		int width = RGlobal.window.defaultWidth;
+		int height = RGlobal.window.defaultHeight;
+		buffer.begin();
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		canvas.render(cam);
+		buffer.end();
+		privateBatch.begin();
+		privateBatch.setColor(tint);
+		// oh god I'm so sorry
+		privateBatch.draw(buffer.getColorBufferTexture(), 0, 0, 0, 0, 
+				width, height, 1, 1, 0, 0, 0, width, height, false, true);
+		privateBatch.end();
 	}
 
 	/**
@@ -183,7 +221,7 @@ public abstract class GameScreen implements CommandListener,
 
 	/**
 	 * Changes the screen's canvas.
-	 * @param 	newCanvas			The new renderable canvas
+	 * @param 	newCanvas		The new renderable canvas
 	 */
 	public void setCanvas(ScreenShowable newCanvas) {
 		this.canvas = newCanvas;

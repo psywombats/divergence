@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.rainfall.maps.layers;
 
-
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

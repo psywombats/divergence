@@ -143,6 +143,14 @@ public class ScreenStack {
 	}
 	
 	/**
+	 * Gets the first screen on the stack without popping it.
+	 * @return					The topmost screen
+	 */
+	public GameScreen peek() {
+		return screens.get(0);
+	}
+	
+	/**
 	 * Sorts the stack of game screens by their z-value.
 	 */
 	private void sortStack() {

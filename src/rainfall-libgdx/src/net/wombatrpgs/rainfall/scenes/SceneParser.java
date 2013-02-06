@@ -31,6 +31,7 @@ public class SceneParser extends MapObject {
 	protected List<MapEvent> controlledEvents;
 	protected String filename;
 	protected boolean executed, enabled;
+	protected float timeSinceStart;
 	
 	/**
 	 * Creates a new scene parser from data. Does not autoplay.
@@ -43,6 +44,7 @@ public class SceneParser extends MapObject {
 		this.enabled = false;
 		this.filename = Constants.SCENES_DIR + mdo.file;
 		this.controlledEvents = new ArrayList<MapEvent>();
+		this.timeSinceStart = 0;
 		parent.addObject(this);
 		setPauseLevel(PauseLevel.PAUSE_RESISTANT);
 	}
@@ -89,6 +91,7 @@ public class SceneParser extends MapObject {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
+		timeSinceStart += elapsed;
 		if (enabled) {
 			for (SceneCommand command : commands) {
 				if (!command.run()) return;
@@ -106,6 +109,12 @@ public class SceneParser extends MapObject {
 	public List<MapEvent> getControlledEvents() {
 		return controlledEvents;
 	}
+	
+	/**
+	 * Gets the time since this scene was last started.
+	 * @return					Time since last restart
+	 */
+	public float getTimeSinceStart() { return this.timeSinceStart; }
 
 	/**
 	 * Runs the scene assuming it should be run in the current context. Right
@@ -125,6 +134,7 @@ public class SceneParser extends MapObject {
 	public void forceRun() {
 		executed = true;
 		parent.setPause(true);
+		timeSinceStart = 0;
 	}
 
 }

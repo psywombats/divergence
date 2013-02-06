@@ -31,7 +31,6 @@ public class TestScreen extends GameScreen {
 	
 	protected Level map;
 	protected BitmapFont defaultFont;
-	protected SpriteBatch batch;
 	protected FontHolder font;
 	protected TextBox box;
 	

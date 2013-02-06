@@ -20,7 +20,7 @@ public class Main {
 		
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = WARMUP_NAME;
-		cfg.useGL20 = false;
+		cfg.useGL20 = true;
 		cfg.width = WARMUP_WIDTH;
 		cfg.height = WARMUP_HEIGHT;
 		

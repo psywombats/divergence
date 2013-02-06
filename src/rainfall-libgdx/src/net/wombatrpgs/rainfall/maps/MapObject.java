@@ -185,7 +185,7 @@ public abstract class MapObject implements	Renderable,
 		int atY = (int) (y + Gdx.graphics.getHeight()/2 - camera.position.y);
 		Color c = parent.getBatch().getColor();
 		float tint = (fallTime < .5f) ? 1-fallTime*2 : 0;
-		parent.getBatch().setColor(tint, tint, tint, 1);
+		parent.getBatch().setColor(tint*c.r, tint*c.b, tint*c.g, 1);
 		parent.getBatch().draw(
 				sprite,
 				atX, 

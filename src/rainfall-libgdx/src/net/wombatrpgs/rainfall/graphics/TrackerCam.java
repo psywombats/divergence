@@ -6,12 +6,9 @@
  */
 package net.wombatrpgs.rainfall.graphics;
 
-import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfall.maps.Positionable;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -58,17 +55,18 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 	public Positionable getTarget() { return this.target; }
 
 	/**
-	 * Invokes some OpenGL black magic to get the camera viewport set up.
+	 * Invokes some OpenGL black magic to get the camera viewport set up. As of
+	 * 2012-02-05 this was pretty much eliminated due to a switch to GL20.
 	 */
 	public void init() {
-		GL10 gl = Gdx.graphics.getGL10();
-		glViewport = new Rectangle(
-				0, 0, 
-				RGlobal.window.defaultWidth, RGlobal.window.defaultHeight);
-		gl.glViewport((int) glViewport.x, (int) glViewport.y,
-				(int) glViewport.width, (int) glViewport.height);
+//		GL20 gl = Gdx.graphics.getGL20();
+//		glViewport = new Rectangle(
+//				0, 0, 
+//				RGlobal.window.defaultWidth, RGlobal.window.defaultHeight);
+//		gl.glViewport((int) glViewport.x, (int) glViewport.y,
+//				(int) glViewport.width, (int) glViewport.height);
+//		apply(gl);
 		update();
-		apply(gl);
 	}
 
 	/**

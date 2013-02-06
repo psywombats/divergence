@@ -12,6 +12,8 @@ import net.wombatrpgs.rainfall.scenes.commands.CommandCameraSpeed;
 import net.wombatrpgs.rainfall.scenes.commands.CommandCameraTrack;
 import net.wombatrpgs.rainfall.scenes.commands.CommandMove;
 import net.wombatrpgs.rainfall.scenes.commands.CommandSpeak;
+import net.wombatrpgs.rainfall.scenes.commands.CommandTint;
+import net.wombatrpgs.rainfall.scenes.commands.CommandWait;
 import net.wombatrpgs.rainfall.scenes.commands.CommandWaitAll;
 
 /**
@@ -25,6 +27,8 @@ public class CommandFactory {
 	protected static final String COMMAND_CAM_TRACK = "camera-track";
 	protected static final String COMMAND_CAM_SPEED = "camera-speed";
 	protected static final String COMMAND_CAM_PAN = "camera-pan";
+	protected static final String COMMAND_WAIT = "wait";
+	protected static final String COMMAND_TINT = "tint";
 	
 	/**
 	 * Actually performs the generation. This should be a great big if/else.
@@ -51,6 +55,10 @@ public class CommandFactory {
 				return new CommandCameraSpeed(parent, line);
 			} else if (commandName.equals(COMMAND_CAM_PAN)) {
 				return new CommandCameraPan(parent, line);
+			} else if (commandName.equals(COMMAND_WAIT)) {
+				return new CommandWait(parent, line);
+			} else if (commandName.equals(COMMAND_TINT)) {
+				return new CommandTint(parent, line);
 			} else {
 				RGlobal.reporter.warn("Did not recognize a command: " + commandName);
 				return null;

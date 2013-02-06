@@ -55,8 +55,6 @@ public class Level implements ScreenShowable {
 	protected TileMapRenderer renderer;
 	/** The underlying map for this level */
 	protected TiledMap map;
-	/** Sprite batch for use in rendering */
-	protected SpriteBatch batch;
 	/** Name of the file with our map in it, mentioned in database */
 	protected String mapPath;
 	/** All event and tile layers, in order by Z */
@@ -86,7 +84,6 @@ public class Level implements ScreenShowable {
 	 */
 	public Level(MapMDO mdo) {
 		mapPath = Constants.MAPS_DIR + mdo.map;
-		batch = new SpriteBatch();
 		events = new ArrayList<MapEvent>();
 		objects = new ArrayList<MapObject>();
 		removalObjects = new ArrayList<MapObject>();
@@ -95,7 +92,7 @@ public class Level implements ScreenShowable {
 	}
 	
 	/** @return The batch used to render sprites on this map */
-	public SpriteBatch getBatch() { return batch; }
+	public SpriteBatch getBatch() { return RGlobal.screens.peek().getBatch(); }
 	
 	/** @return The width of this map, in pixels */
 	public int getWidthPixels() { return map.width * map.tileWidth; }
@@ -143,9 +140,9 @@ public class Level implements ScreenShowable {
 			layer.render(camera);
 		}
 		for (MapObject picture : pictures) {
-			batch.begin();
+			getBatch().begin();
 			picture.render(camera);
-			batch.end();
+			getBatch().end();
 		}
 	}
 	
