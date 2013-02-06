@@ -17,6 +17,7 @@ import net.wombatrpgs.rainfallschema.characters.hero.moveset.PushMDO;
 public class ActPush extends MovesetAct {
 	
 	protected PushMDO mdo;
+	protected boolean anulled;
 
 	/**
 	 * Constructs a new push act from data.
@@ -26,6 +27,7 @@ public class ActPush extends MovesetAct {
 	public ActPush(CharacterEvent actor, PushMDO mdo) {
 		super(actor, mdo);
 		this.mdo = mdo;
+		anulled = false;
 	}
 	
 	/**
@@ -37,8 +39,14 @@ public class ActPush extends MovesetAct {
 		int compX = 0;
 		int compY = 0;
 		if (!actor.isMoveActive(this)) {
-			if (RGlobal.block == null) return;
-			if (RGlobal.block.getLevel() != RGlobal.hero.getLevel()) return;
+			if (RGlobal.block == null || RGlobal.block.getLevel() != RGlobal.hero.getLevel()) {
+				anulled = !anulled;
+				return;
+			}
+			if (anulled) {
+				anulled = !anulled;
+				return;
+			}
 			actor.halt();
 			actor.startAction(this);
 			actor.faceToward(RGlobal.block);
