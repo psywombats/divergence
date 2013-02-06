@@ -5,6 +5,7 @@
 	"description" : "",
 	"cooldown" : 0.2,
 	"animation" : "staffraise_4dir",
+	"graphic" : "graphic_icon_summon",
 	"duration" : 0.2,
 	"blockEvent" : "block_event",
 	"blockAnimation" : "blockfall",

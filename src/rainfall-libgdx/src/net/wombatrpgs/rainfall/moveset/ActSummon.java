@@ -17,7 +17,6 @@ import net.wombatrpgs.rainfall.collisions.TargetPosition;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.particles.Emitter;
 import net.wombatrpgs.rainfall.graphics.particles.GibParticleSet;
-import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.events.AnimationPlayer;
 import net.wombatrpgs.rainfall.maps.objects.TimerListener;
@@ -26,6 +25,7 @@ import net.wombatrpgs.rainfallschema.characters.hero.moveset.SummonMDO;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.graphics.EmitterMDO;
 import net.wombatrpgs.rainfallschema.graphics.GibsetMDO;
+import net.wombatrpgs.rainfallschema.maps.data.Direction;
 
 /**
  * Summon the block to your side!

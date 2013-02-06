@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.rainfallschema.characters.hero;
 
+import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.MainSchema;
@@ -18,6 +19,7 @@ import net.wombatrpgs.rainfallschema.characters.hero.data.MovesetEntryMDO;
 @Path("characters/hero/")
 public class MovesetMDO extends MainSchema {
 	
+	@Desc("All moves that are a part of this moveset")
 	@InlineSchema(MovesetEntryMDO.class)
 	public MovesetEntryMDO[] moves;
 

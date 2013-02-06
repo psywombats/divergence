@@ -12,21 +12,25 @@ import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.FacesAnimation;
 import net.wombatrpgs.rainfall.graphics.FourDir;
+import net.wombatrpgs.rainfall.graphics.Graphic;
 import net.wombatrpgs.rainfall.graphics.Queueable;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.MoveMDO;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
+import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 
 /**
  * A superclass for all moves from the movesets that involve character animation
  * swapping and other stuff. A MovesetAct should really only be used by a single
  * actor.
  */
-public abstract class MovesetAct implements Actionable, Queueable {
+public abstract class MovesetAct implements Actionable, 
+											Queueable {
 	
 	protected CharacterEvent actor;
 	protected Level map;
 	protected FacesAnimation appearance;
+	protected Graphic icon;
 	
 	/**
 	 * Constructs a moveset act from data.
@@ -36,6 +40,10 @@ public abstract class MovesetAct implements Actionable, Queueable {
 		if (mdo.animation != null && !"".equals(mdo.animation)) {
 			FourDirMDO animMDO = RGlobal.data.getEntryFor(mdo.animation, FourDirMDO.class);
 			this.appearance = new FourDir(animMDO, actor);
+		}
+		if (mdo.graphic != null) {
+			GraphicMDO iconMDO= RGlobal.data.getEntryFor(mdo.graphic, GraphicMDO.class);
+			this.icon = new Graphic(iconMDO);
 		}
 		this.actor = actor;
 	}
@@ -63,6 +71,9 @@ public abstract class MovesetAct implements Actionable, Queueable {
 		if (appearance != null) {
 			appearance.queueRequiredAssets(manager);
 		}
+		if (icon != null) {
+			icon.queueRequiredAssets(manager);
+		}
 	}
 
 	/**
@@ -73,6 +84,9 @@ public abstract class MovesetAct implements Actionable, Queueable {
 	public void postProcessing(AssetManager manager, int pass) {
 		if (appearance != null) {
 			appearance.postProcessing(manager, pass);
+		}
+		if (icon != null) {
+			icon.postProcessing(manager, pass);
 		}
 	}
 
@@ -89,6 +103,15 @@ public abstract class MovesetAct implements Actionable, Queueable {
 	 */
 	public void cancel() {
 		actor.stopAction(this);
+	}
+	
+	/**
+	 * Gets the icon displayed for this icon. To be displayed when this move is
+	 * bound to a command. Can be null
+	 * @return					The icon of this move, or null if none
+	 */
+	public Graphic getIcon() {
+		return icon;
 	}
 	
 	/**

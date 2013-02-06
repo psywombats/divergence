@@ -41,6 +41,9 @@ public class Moveset implements Queueable {
 		moves = new HashMap<InputCommand, MovesetAct>();
 	}
 	
+	/** @return The underlying map from commands to actions */
+	public Map<InputCommand, MovesetAct> getMoves() { return moves; }
+	
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)

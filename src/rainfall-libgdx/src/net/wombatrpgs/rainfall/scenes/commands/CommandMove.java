@@ -9,12 +9,12 @@ package net.wombatrpgs.rainfall.scenes.commands;
 import java.util.Stack;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.maps.DirVector;
-import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.PauseLevel;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.scenes.SceneCommand;
 import net.wombatrpgs.rainfall.scenes.SceneParser;
+import net.wombatrpgs.rainfallschema.maps.data.DirVector;
+import net.wombatrpgs.rainfallschema.maps.data.Direction;
 
 /**
  * A command to move a character a certain distance a certain direction,

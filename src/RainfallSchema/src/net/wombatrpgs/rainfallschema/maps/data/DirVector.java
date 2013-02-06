@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfall.maps;
+package net.wombatrpgs.rainfallschema.maps.data;
 
 /**
  * Struct to keep track of velocities. Represents a velocity or acceleration

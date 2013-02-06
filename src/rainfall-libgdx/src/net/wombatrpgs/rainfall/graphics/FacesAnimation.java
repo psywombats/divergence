@@ -11,9 +11,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.core.Updateable;
-import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.graphics.DirMDO;
+import net.wombatrpgs.rainfallschema.maps.data.Direction;
 
 /**
  * Any animation used to represent a moving entity on the map. Generally it's

@@ -25,8 +25,8 @@ public class MovesetEntryMDO extends HeadlessSchema {
 	@SchemaLink(MoveMDO.class)
 	public String move;
 	
-	@Desc("Command -- usually use ACTION_1, ACTION_2, etc, what those are " +
+	@Desc("Command - usually use ACTION_1, ACTION_2, etc, what those are " +
 			"depends on the user's keymap")
 	public InputCommand command;
-
+	
 }

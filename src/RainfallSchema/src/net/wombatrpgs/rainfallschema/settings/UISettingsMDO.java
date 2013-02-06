@@ -11,6 +11,7 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.rainfallschema.ui.FontMDO;
+import net.wombatrpgs.rainfallschema.ui.HudMDO;
 import net.wombatrpgs.rainfallschema.ui.TextBoxMDO;
 
 /**
@@ -26,5 +27,9 @@ public class UISettingsMDO extends MainSchema {
 	@Desc("Default text box")
 	@SchemaLink(TextBoxMDO.class)
 	public String box;
+	
+	@Desc("Default HUD")
+	@SchemaLink(HudMDO.class)
+	public String hud;
 
 }

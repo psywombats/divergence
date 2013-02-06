@@ -47,6 +47,9 @@ public class Hero extends CharacterEvent {
 		moves = new Moveset(this, RGlobal.data.getEntryFor("default_moveset", MovesetMDO.class));
 		RGlobal.hero = this;
 	}
+	
+	/** @return The moveset currently in use by the hero */
+	public Moveset getMoves() { return this.moves; }
 
 	/**
 	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#onCollide

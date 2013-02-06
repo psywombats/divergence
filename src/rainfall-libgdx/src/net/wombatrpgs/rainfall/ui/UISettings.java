@@ -14,6 +14,7 @@ import net.wombatrpgs.rainfall.ui.text.FontHolder;
 import net.wombatrpgs.rainfall.ui.text.TextBox;
 import net.wombatrpgs.rainfallschema.settings.UISettingsMDO;
 import net.wombatrpgs.rainfallschema.ui.FontMDO;
+import net.wombatrpgs.rainfallschema.ui.HudMDO;
 import net.wombatrpgs.rainfallschema.ui.TextBoxMDO;
 
 /**
@@ -30,6 +31,7 @@ public class UISettings implements Queueable {
 	protected UISettingsMDO mdo; // this is only the original default settings
 	protected FontHolder font;
 	protected TextBox box;
+	protected Hud hud;
 	
 	/**
 	 * Creates a new UI settings using MDO data for defaults.
@@ -39,6 +41,7 @@ public class UISettings implements Queueable {
 		this.mdo = mdo;
 		font = new FontHolder(RGlobal.data.getEntryFor(mdo.font, FontMDO.class));
 		box = new TextBox(RGlobal.data.getEntryFor(mdo.box, TextBoxMDO.class), font);
+		hud = new Hud(RGlobal.data.getEntryFor(mdo.hud, HudMDO.class));
 	}
 
 	/**
@@ -49,6 +52,7 @@ public class UISettings implements Queueable {
 	public void queueRequiredAssets(AssetManager manager) {
 		font.queueRequiredAssets(manager);
 		box.queueRequiredAssets(manager);
+		hud.queueRequiredAssets(manager);
 	}
 
 	/**
@@ -59,6 +63,7 @@ public class UISettings implements Queueable {
 	public void postProcessing(AssetManager manager, int pass) {
 		font.postProcessing(manager, pass);
 		box.postProcessing(manager, pass);
+		hud.postProcessing(manager, pass);
 	}
 	
 	/** @return The text box associated with these settings */
@@ -66,5 +71,8 @@ public class UISettings implements Queueable {
 	
 	/** @return The font associated with these settings */
 	public FontHolder getFont() { return this.font; }
+	
+	/** @return The HUD associated with these settings */
+	public Hud getHud() { return this.hud; }
 
 }

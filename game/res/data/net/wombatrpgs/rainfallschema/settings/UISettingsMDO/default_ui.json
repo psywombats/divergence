@@ -4,5 +4,6 @@
 	"name" : "",
 	"description" : "MGNE looks for this MDO by key",
 	"font" : "font_c64block",
-	"box" : "textbox_default"
+	"box" : "textbox_default",
+	"hud" : "default_hud"
 }

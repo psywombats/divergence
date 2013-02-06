@@ -5,6 +5,7 @@
 	"description" : "",
 	"cooldown" : 0.0,
 	"animation" : "staffraise_4dir",
+	"graphic" : "graphic_icon_push",
 	"targetVelocity" : 128,
 	"acceleration" : 512
 }

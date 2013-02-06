@@ -8,10 +8,10 @@ package net.wombatrpgs.rainfall.graphics;
 
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
+import net.wombatrpgs.rainfallschema.maps.data.Direction;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 

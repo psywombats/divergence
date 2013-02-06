@@ -1,0 +1,30 @@
+{
+	"key" : "default_hud",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "engine will look for this hud by key",
+	"graphic" : "graphic_hud",
+	"anchorDir" : "DOWN",
+	"icons" : [
+		{
+			"command" : "ACTION_1",
+			"offX" : 172,
+			"offY" : 76
+		},
+		{
+			"command" : "ACTION_2",
+			"offX" : 262,
+			"offY" : 76
+		},
+		{
+			"command" : "ACTION_3",
+			"offX" : 352,
+			"offY" : 76
+		},
+		{
+			"command" : "ACTION_4",
+			"offX" : 442,
+			"offY" : 76
+		}
+	]
+}

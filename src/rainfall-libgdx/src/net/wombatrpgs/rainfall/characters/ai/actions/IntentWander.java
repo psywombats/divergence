@@ -9,10 +9,10 @@ package net.wombatrpgs.rainfall.characters.ai.actions;
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.characters.ai.IntentAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.maps.DirVector;
-import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.objects.TimerListener;
 import net.wombatrpgs.rainfall.maps.objects.TimerObject;
+import net.wombatrpgs.rainfallschema.maps.data.DirVector;
+import net.wombatrpgs.rainfallschema.maps.data.Direction;
 
 /**
  * Randomly choose destinations every once in a while.
