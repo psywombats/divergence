@@ -31,8 +31,8 @@ public class RainfallGame implements ApplicationListener, FocusListener {
 		RGlobal.globalInit();
 		
 		Gdx.graphics.setDisplayMode(
-				RGlobal.window.defaultWidth, 
-				RGlobal.window.defaultHeight, 
+				RGlobal.window.width, 
+				RGlobal.window.height, 
 				false);
 		Gdx.graphics.setTitle(RGlobal.window.windowName);
 		

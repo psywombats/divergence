@@ -27,7 +27,7 @@ import net.wombatrpgs.rainfall.scenes.SceneData;
 import net.wombatrpgs.rainfall.screens.ScreenStack;
 import net.wombatrpgs.rainfall.ui.UISettings;
 import net.wombatrpgs.rainfallschema.settings.UISettingsMDO;
-import net.wombatrpgs.rainfallschema.settings.WindowDataMDO;
+import net.wombatrpgs.rainfallschema.settings.WindowSettingsMDO;
 
 /**
  * Rainfall's version of the MGNDB global.
@@ -59,7 +59,7 @@ public class RGlobal {
 	/** Are we done loading yet? */
 	public static boolean initialized = false;
 	/** Our current window settings */
-	public static WindowDataMDO window;
+	public static WindowSettingsMDO window;
 	
 	private static List<Queueable> toLoad;
 	
@@ -109,7 +109,7 @@ public class RGlobal {
 
 		// initialize everything that needed data
 		RGlobal.reporter.inform("Initializing data-dependant resources");
-		RGlobal.window = RGlobal.data.getEntryFor(Constants.WINDOW_KEY, WindowDataMDO.class);
+		RGlobal.window = RGlobal.data.getEntryFor(Constants.WINDOW_KEY, WindowSettingsMDO.class);
 		RGlobal.ui = new UISettings(RGlobal.data.getEntryFor(
 				UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
 		toLoad.add(ui);

@@ -12,7 +12,7 @@ import java.util.List;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.rainfallschema.settings.GameSpeedMDO;
 import net.wombatrpgs.rainfallschema.settings.UISettingsMDO;
-import net.wombatrpgs.rainfallschema.settings.WindowDataMDO;
+import net.wombatrpgs.rainfallschema.settings.WindowSettingsMDO;
 
 /**
  * Access to a bunch of magic numbers that are needed in a bunch of different
@@ -47,7 +47,7 @@ public class Constants {
 	public static final List<Class<? extends MainSchema>> PRELOAD_SCHEMA;
 	static {
 		PRELOAD_SCHEMA = new ArrayList<Class< ? extends MainSchema>>();
-		PRELOAD_SCHEMA.add(WindowDataMDO.class);
+		PRELOAD_SCHEMA.add(WindowSettingsMDO.class);
 		PRELOAD_SCHEMA.add(GameSpeedMDO.class);
 		PRELOAD_SCHEMA.add(UISettingsMDO.class);
 	}

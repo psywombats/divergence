@@ -69,10 +69,10 @@ public abstract class GameScreen implements CommandListener,
 		batch = new SpriteBatch();
 		privateBatch = new SpriteBatch();
 		buffer = new FrameBuffer(Format.RGB565, 
-				RGlobal.window.defaultWidth, RGlobal.window.defaultHeight, 
+				RGlobal.window.width, RGlobal.window.height, 
 				false);
 		tint = Color.WHITE;
-		cam = new TrackerCam(RGlobal.window.defaultWidth, RGlobal.window.defaultHeight);
+		cam = new TrackerCam(RGlobal.window.width, RGlobal.window.height);
 		cam.init();
 	}
 	
@@ -167,8 +167,8 @@ public abstract class GameScreen implements CommandListener,
 		if (!initialized) {
 			RGlobal.reporter.warn("Forgot to intialize screen " + this);
 		}
-		int width = RGlobal.window.defaultWidth;
-		int height = RGlobal.window.defaultHeight;
+		int width = RGlobal.window.width;
+		int height = RGlobal.window.height;
 		buffer.begin();
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

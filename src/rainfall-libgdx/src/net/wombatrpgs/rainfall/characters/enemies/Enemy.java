@@ -147,6 +147,7 @@ public class Enemy extends CharacterEvent {
 			norm *= .8;
 			xComp /= norm;
 			yComp /= norm;
+			parent.addEvent(emitter, 0, 0, parent.getZ(this));
 			emitter.setX(getX());
 			emitter.setY(getY());
 			emitter.fire(xComp, yComp);

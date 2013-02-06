@@ -13,14 +13,14 @@ import net.wombatrpgs.mgns.core.Annotations.*;
  * All the static information about the window.
  */
 @Path("settings/")
-public class WindowDataMDO extends MainSchema {
+public class WindowSettingsMDO extends MainSchema {
 	
 	@Desc("Window title")
 	public String windowName;
 	
 	@Desc("Default width of window, in pixels")
-	public Integer defaultWidth;
+	public Integer width;
 	@Desc("Default height of window, in pixels")
-	public Integer defaultHeight;
+	public Integer height;
 
 }

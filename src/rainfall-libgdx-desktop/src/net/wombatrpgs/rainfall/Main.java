@@ -8,7 +8,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
  */
 public class Main {
 	
-	public static final String WARMUP_NAME = "One second...";
+	public static final String WARMUP_NAME = "One moment please...";
 	public static final int WARMUP_WIDTH = 320;
 	public static final int WARMUP_HEIGHT = 240;
 	
