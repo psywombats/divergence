@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.io.TestCommandMap;
-import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.screens.GameScreen;
 import net.wombatrpgs.rainfall.ui.text.FontHolder;
@@ -68,27 +67,32 @@ public class TestScreen extends GameScreen {
 	public void onCommand(InputCommand command) {
 		//RGlobal.reporter.inform("Command received: " + command);
 		
-		// start move
-		if (command.equals(InputCommand.MOVE_START_DOWN)) {
-			RGlobal.hero.startMove(Direction.DOWN);
-		} else if (command.equals(InputCommand.MOVE_START_LEFT)) {
-			RGlobal.hero.startMove(Direction.LEFT);
-		} else if (command.equals(InputCommand.MOVE_START_RIGHT)) {
-			RGlobal.hero.startMove(Direction.RIGHT);
-		} else if (command.equals(InputCommand.MOVE_START_UP)) {
-			RGlobal.hero.startMove(Direction.UP);
-		}
-		
-		// end move
-		if (command.equals(InputCommand.MOVE_STOP_DOWN)) {
-			RGlobal.hero.stopMove(Direction.DOWN);
-		} else if (command.equals(InputCommand.MOVE_STOP_LEFT)) {
-			RGlobal.hero.stopMove(Direction.LEFT);
-		} else if (command.equals(InputCommand.MOVE_STOP_RIGHT)) {
-			RGlobal.hero.stopMove(Direction.RIGHT);
-		} else if (command.equals(InputCommand.MOVE_STOP_UP)) {
-			RGlobal.hero.stopMove(Direction.UP);
-		}
+		/* We no longer do this because it's very shaky to convey button presses
+		 * 1:1 to the hero. If one is missed, or one is canceled, things just
+		 * turn into a giant mess. So instead, we'll expect that the hero is
+		 * polling us for actions.
+		 */
+//		// start move
+//		if (command.equals(InputCommand.MOVE_START_DOWN)) {
+//			RGlobal.hero.startMove(Direction.DOWN);
+//		} else if (command.equals(InputCommand.MOVE_START_LEFT)) {
+//			RGlobal.hero.startMove(Direction.LEFT);
+//		} else if (command.equals(InputCommand.MOVE_START_RIGHT)) {
+//			RGlobal.hero.startMove(Direction.RIGHT);
+//		} else if (command.equals(InputCommand.MOVE_START_UP)) {
+//			RGlobal.hero.startMove(Direction.UP);
+//		}
+//		
+//		// end move
+//		if (command.equals(InputCommand.MOVE_STOP_DOWN)) {
+//			RGlobal.hero.stopMove(Direction.DOWN);
+//		} else if (command.equals(InputCommand.MOVE_STOP_LEFT)) {
+//			RGlobal.hero.stopMove(Direction.LEFT);
+//		} else if (command.equals(InputCommand.MOVE_STOP_RIGHT)) {
+//			RGlobal.hero.stopMove(Direction.RIGHT);
+//		} else if (command.equals(InputCommand.MOVE_STOP_UP)) {
+//			RGlobal.hero.stopMove(Direction.UP);
+//		}
 		
 		RGlobal.hero.act(command, map);
 	}

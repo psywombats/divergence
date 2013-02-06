@@ -5,3 +5,9 @@ NICO: I am about to walk four tiles downwards.
 [wait-all]
 WALDY: You just walked four tiles downwards.
 NICO: I'm proud of myself.
+WALDY: But can you...
+WALDY: WALK IN A CIRCLE?
+NICO: Let's find out, Waldy!
+[move nico up 1 right 1 down 1 left 1]
+[wait-all]
+NICO: I'm getting dizzy...

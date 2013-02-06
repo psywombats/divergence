@@ -284,36 +284,6 @@ public class CharacterEvent extends MapEvent {
 	}
 	
 	/**
-	 * Start moving in a particular direction. Does not switch immediately to
-	 * that direction but rather adds some speed in that direction based on hero
-	 * walk rate.
-	 * @param 	dir			The direction to move in
-	 */
-	public void startMove(Direction dir) {
-		if (!canAct()) return;
-		if (!directionStatus.get(dir)) {
-			addMoveComponent(dir.getVector());
-			directionStatus.put(dir, true);
-		}
-	}
-
-	/**
-	 * Stop moving in a particular direction. Does not switch immediately to
-	 * that direction but rather adds some speed in that direction based on hero
-	 * walk rate.
-	 * @param 	dir			The direction to cancel velocity in 
-	 */
-	public void stopMove(Direction dir) {
-		if (directionStatus.get(dir)) {
-			DirVector vec = dir.getVector();
-			vec.x *= -1;
-			vec.y *= -1;
-			addMoveComponent(vec);
-			directionStatus.put(dir, false);
-		}
-	}
-	
-	/**
 	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#halt()
 	 */
 	@Override
@@ -322,9 +292,6 @@ public class CharacterEvent extends MapEvent {
 		appearance.stopMoving();
 		targetVX = 0;
 		targetVY = 0;
-		for (Direction dir : Direction.values()) {
-			stopMove(dir);
-		}
 		for (Direction dir : directionStatus.keySet()) {
 			directionStatus.put(dir, false);
 		}

@@ -164,6 +164,9 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	/** @param enabled True if collisions should be checked on this event */
 	public void setCollisionsEnabled(boolean enabled) { this.checkCollisions = enabled; }
 	
+	/** @return True if we're falling into a hole, false otherwise */
+	public boolean isFalling() { return this.falling; }
+	
 	/**
 	 * Default is invisible.
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render

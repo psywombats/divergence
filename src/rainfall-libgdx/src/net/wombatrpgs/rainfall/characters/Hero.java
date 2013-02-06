@@ -11,13 +11,13 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.maps.Direction;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.maps.layers.EventLayer;
 import net.wombatrpgs.rainfall.moveset.Moveset;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.MovesetMDO;
+import net.wombatrpgs.rainfallschema.io.data.InputButton;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 
 /**
@@ -92,26 +92,6 @@ public class Hero extends CharacterEvent {
 		}
 		return super.onCharacterCollide(other, result);
 	}
-	
-	/**
-	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#startMove
-	 * (net.wombatrpgs.rainfall.maps.Direction)
-	 */
-	@Override
-	public void startMove(Direction dir) {
-		if (activeMoves.size() > 0) return;
-		super.startMove(dir);
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#stopMove
-	 * (net.wombatrpgs.rainfall.maps.Direction)
-	 */
-	@Override
-	public void stopMove(Direction dir) {
-		if (RGlobal.block != null && RGlobal.block.isMoving()) return;
-		super.stopMove(dir);
-	}
 
 	/**
 	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#queueRequiredAssets
@@ -131,6 +111,25 @@ public class Hero extends CharacterEvent {
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
 		moves.postProcessing(manager, pass);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		super.update(elapsed);
+		if (activeMoves.size() <= 0 && canAct() && !getLevel().isPaused()) {
+			int targetVX = 0;
+			int targetVY = 0;
+			if (RGlobal.keymap.isButtonDown(InputButton.DOWN)) targetVY -= 1;
+			if (RGlobal.keymap.isButtonDown(InputButton.UP)) targetVY += 1;
+			if (RGlobal.keymap.isButtonDown(InputButton.LEFT)) targetVX -= 1;
+			if (RGlobal.keymap.isButtonDown(InputButton.RIGHT)) targetVX += 1;
+			targetVX *= maxVelocity;
+			targetVY *= maxVelocity;
+			targetVelocity(targetVX, targetVY);
+		}
 	}
 
 	/**

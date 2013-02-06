@@ -31,7 +31,7 @@ public class CommandWaitAll extends SceneCommand {
 	@Override
 	public boolean run() {
 		for (MapEvent event : parent.getControlledEvents()) {
-			if (event.isMoving()) return false;
+			if (event.isTracking() || event.isMoving()) return false;
 		}
 		return true;
 	}
