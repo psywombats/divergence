@@ -12,8 +12,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.rainfall.core.Constants;
+import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.graphics.Queueable;
 import net.wombatrpgs.rainfallschema.ui.FontMDO;
 
 /**
@@ -29,7 +29,7 @@ public class FontHolder implements Queueable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Queueable#queueRequiredAssets
+	 * @see net.wombatrpgs.rainfall.core.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -38,7 +38,7 @@ public class FontHolder implements Queueable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Queueable#postProcessing
+	 * @see net.wombatrpgs.rainfall.core.Queueable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override

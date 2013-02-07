@@ -17,7 +17,6 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import net.wombatrpgs.rainfall.characters.Block;
 import net.wombatrpgs.rainfall.characters.Hero;
 import net.wombatrpgs.rainfall.core.reporters.PrintReporter;
-import net.wombatrpgs.rainfall.graphics.Queueable;
 import net.wombatrpgs.rainfall.io.DefaultKeymap;
 import net.wombatrpgs.rainfall.io.Keymap;
 import net.wombatrpgs.rainfall.io.loaders.DataLoader;

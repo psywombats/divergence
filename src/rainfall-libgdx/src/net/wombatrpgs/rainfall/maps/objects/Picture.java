@@ -8,9 +8,13 @@ package net.wombatrpgs.rainfall.maps.objects;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Graphic;
-import net.wombatrpgs.rainfall.maps.events.MapEvent;
+import net.wombatrpgs.rainfall.graphics.Renderable;
+import net.wombatrpgs.rainfall.maps.MapObject;
+import net.wombatrpgs.rainfall.maps.PositionSetable;
 import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 
 /**
@@ -18,11 +22,13 @@ import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
  * equivalent. The only difference it has with the map object is that it
  * can be compared against other pictures to sort by z-depth.
  */
-public class Picture extends MapEvent {
+public class Picture extends MapObject implements 	Comparable<Picture>,
+													Renderable,
+													PositionSetable {
 	
 	protected Graphic appearance;
 	protected boolean preloaded;
-	protected int z;
+	protected int x, y, z; // z is depth-y
 	
 	/**
 	 * Create a picture at an explicit location
@@ -49,7 +55,7 @@ public class Picture extends MapEvent {
 	}
 	
 	/**
-	 * Creates a picture
+	 * Creates a picture from data (a non-preloaded graphic).
 	 * @param 	mdo				The data for the graphic that we'll be using
 	 * @param 	x				The x-coord (in pixels) to render at
 	 * @param 	y				The y-coord (in pixels) to render at
@@ -62,23 +68,14 @@ public class Picture extends MapEvent {
 		this.z = z;
 		this.preloaded = false;
 	}
-
+	
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#compareTo
-	 * (net.wombatrpgs.rainfall.maps.events.MapEvent)
+	 * Creates a picture from data (a non-preloaded graphic) at 0,0.
+	 * @param 	mdo				The data for the graphic that we'll be using
+	 * @param 	z				The z-depth (number in RM terms) of the picture
 	 */
-	@Override
-	public int compareTo(MapEvent other) {
-		return -other.compareToPicture(this);
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#compareToPicture
-	 * (net.wombatrpgs.rainfall.maps.objects.Picture)
-	 */
-	@Override
-	public int compareToPicture(Picture pic) {
-		return z - pic.z;
+	public Picture(GraphicMDO mdo, int z) {
+		this(mdo, 0, 0, z);
 	}
 
 	/**
@@ -88,7 +85,7 @@ public class Picture extends MapEvent {
 	@Override
 	public void render(OrthographicCamera camera) {
 		super.render(camera);
-		appearance.renderAt(getBatch(), getX(), getY());
+		appearance.renderAt(getX(), getY());
 	}
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#queueRequiredAssets
@@ -112,5 +109,51 @@ public class Picture extends MapEvent {
 			appearance.postProcessing(manager, pass);
 		}
 	}
-
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.Positionable#getX()
+	 */
+	@Override
+	public int getX() {
+		return this.x;
+	}
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.Positionable#getY()
+	 */
+	@Override
+	public int getY() {
+		return this.y;
+	}
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.PositionSetable#setX(int)
+	 */
+	@Override
+	public void setX(int x) {
+		this.x = x;
+	}
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.PositionSetable#setY(int)
+	 */
+	@Override
+	public void setY(int y) {
+		this.y = y;
+	}
+	/**
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(Picture other) {
+		return z - other.z;
+	}
+	
+	/**
+	 * Gets the default screen batch. This is usually what's used to render,
+	 * although if some special thing is going on, it'd be best to use a
+	 * different batch.
+	 * @return					The current screen's sprite batch
+	 */
+	public SpriteBatch getBatch() {
+		return RGlobal.screens.peek().getBatch();
+	}
+	
 }

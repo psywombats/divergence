@@ -6,9 +6,6 @@
  */
 package net.wombatrpgs.rainfall.collisions;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Positionable;
 
 /**
@@ -50,14 +47,5 @@ public class TargetPosition implements Positionable {
 	
 	/** @param x The new x-coord of this target */
 	public void setY(int y) { this.y = y; }
-
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.Positionable#getBatch()
-	 */
-	@Override
-	public SpriteBatch getBatch() {
-		RGlobal.reporter.warn("Getting the batch of a target position");
-		return null;
-	}
 
 }

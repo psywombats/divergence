@@ -66,7 +66,7 @@ public abstract class MapObject implements	Renderable,
 	}
 	
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Queueable#queueRequiredAssets
+	 * @see net.wombatrpgs.rainfall.core.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -75,7 +75,7 @@ public abstract class MapObject implements	Renderable,
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Queueable#postProcessing
+	 * @see net.wombatrpgs.rainfall.core.Queueable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
@@ -104,18 +104,6 @@ public abstract class MapObject implements	Renderable,
 	
 	/** @param How this object will respond to pausing */
 	public void setPauseLevel(PauseLevel level) { this.pauseLevel = level; }
-	
-	/**
-	 * Determines what layer to render this object on. A returned value of 0
-	 * means this object should stay on its normal z layer, while positive
-	 * values it should be indicated earlier in the chain. This is used to
-	 * prevent tall objects from appearing above upper chip. Those objects
-	 * typically return (tilesHigh - 2).
-	 * @return					Render layer offset
-	 */
-	public int renderBump() {
-		return 0;
-	}
 
 	/**
 	 * Called when this object is tele'd onto a map.

@@ -24,7 +24,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * A specialized animation that makes up one of the four facings
  */
 public class AnimationStrip implements 	Renderable,
-										Updateable {
+										Updateable,
+										PreRenderable {
 	
 	protected AnimationMDO mdo;
 	protected Animation anim;
@@ -34,7 +35,6 @@ public class AnimationStrip implements 	Renderable,
 	protected TextureRegion[] frames;
 	protected TextureRegion currentFrame;
 	
-	protected float offX, offY;
 	protected float time;
 	protected float maxTime;
 	protected boolean moving;
@@ -50,8 +50,6 @@ public class AnimationStrip implements 	Renderable,
 		this.mdo = mdo;
 		this.parent = parent;
 		this.time = 0;
-		this.offX = 0;
-		this.offY = 0;
 		this.maxTime = ((float) mdo.frameCount) / ((float) mdo.animSpeed);
 		this.moving = false;
 		if (mdo.hit1x == null) mdo.hit1x = 0;
@@ -72,48 +70,17 @@ public class AnimationStrip implements 	Renderable,
 		this(mdo, null);
 	}
 	
-	/** @param x The new x-offset (in pixels) */
-	public void setOffsetX(int x) { this.offX = x; }
-	
-	/** @param y The new y-offset (in pixels) */
-	public void setOffsetY(int y) { this.offY = y; }
-	
 	/** @return Time elapsed since started playing */
 	public float getTime() { return this.time; }
 	
 	/** @return Time total to elapse */
 	public float getMaxTime() { return this.maxTime; }
 	
-	/**
-	 * Call this when this direction becomes active.
-	 */
-	public void switchTo() {
-		time = 0;
-		moving = false;
-	}
+	/** @return The width (in px) of current frames */
+	public int getWidth() { return currentFrame.getRegionWidth(); }
 	
-	/**
-	 * Call when this animation begins to move.
-	 */
-	public void startMoving() {
-		update(0);
-		moving = true;
-	}
-	
-	/**
-	 * Call when this animation stops moving.
-	 */
-	public void stopMoving() {
-		reset();
-		moving = false;
-	}
-	
-	/**
-	 * Resets the time and animation status of this animation.
-	 */
-	public void reset() {
-		time = 0;
-	}
+	/** @return The height (in px) of current frames */
+	public int getHeight() { return currentFrame.getRegionHeight(); }
 
 	/**
 	 * @see net.wombatrpgs.rainfall.core.Updateable#update(float)
@@ -133,7 +100,7 @@ public class AnimationStrip implements 	Renderable,
 	@Override
 	public void render(OrthographicCamera camera) {
 		if (currentFrame != null) {
-			parent.renderLocal(camera, currentFrame, (int) offX, (int) offY, 0);
+			parent.renderLocal(camera, currentFrame, 0, 0, 0);
 		}
 	}
 
@@ -182,6 +149,61 @@ public class AnimationStrip implements 	Renderable,
 		} else {
 			RGlobal.reporter.warn("Spritesheet not loaded: " + filename);
 		}
+	}
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRenderX()
+	 */
+	@Override
+	public int getRenderX() {
+		return parent.getX();
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRenderY()
+	 */
+	@Override
+	public int getRenderY() {
+		return parent.getY();
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRegions()
+	 */
+	@Override
+	public TextureRegion getRegion() {
+		return currentFrame;
+	}
+
+	/**
+	 * Call this when this direction becomes active.
+	 */
+	public void switchTo() {
+		time = 0;
+		moving = false;
+	}
+	
+	/**
+	 * Call when this animation begins to move.
+	 */
+	public void startMoving() {
+		update(0);
+		moving = true;
+	}
+	
+	/**
+	 * Call when this animation stops moving.
+	 */
+	public void stopMoving() {
+		reset();
+		moving = false;
+	}
+	
+	/**
+	 * Resets the time and animation status of this animation.
+	 */
+	public void reset() {
+		time = 0;
 	}
 	
 	/**

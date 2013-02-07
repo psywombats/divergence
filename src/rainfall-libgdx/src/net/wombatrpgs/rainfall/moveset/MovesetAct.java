@@ -9,11 +9,11 @@ package net.wombatrpgs.rainfall.moveset;
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
+import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.FacesAnimation;
 import net.wombatrpgs.rainfall.graphics.FourDir;
 import net.wombatrpgs.rainfall.graphics.Graphic;
-import net.wombatrpgs.rainfall.graphics.Queueable;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.MoveMDO;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
@@ -63,7 +63,7 @@ public abstract class MovesetAct implements Actionable,
 	}
 	
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Queueable#queueRequiredAssets
+	 * @see net.wombatrpgs.rainfall.core.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -77,7 +77,7 @@ public abstract class MovesetAct implements Actionable,
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Queueable#postProcessing
+	 * @see net.wombatrpgs.rainfall.core.Queueable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override

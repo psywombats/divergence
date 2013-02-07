@@ -8,7 +8,6 @@ package net.wombatrpgs.rainfall.maps.layers;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledLayer;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 
@@ -234,8 +233,6 @@ public class GridLayer extends Layer implements Renderable {
 				if (cliff) return tileY * map.tileHeight - map.tileHeight/2;
 				else return tileY * map.tileHeight; 
 			}
-			@Override
-			public SpriteBatch getBatch() { return null; }
 		};
 		if (cliff) {
 			tileBox = new RectHitbox(loc, 0, map.tileHeight/2, map.tileWidth, map.tileHeight);

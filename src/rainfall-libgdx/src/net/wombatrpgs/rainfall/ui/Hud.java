@@ -84,7 +84,6 @@ public class Hud extends Picture {
 			getBatch().end();
 			getBatch().setBlendFunction(GL20.GL_ONE_MINUS_DST_ALPHA, GL20.GL_DST_ALPHA);
 			Gdx.graphics.getGL20().glColorMask(true, true, true, true);
-			System.out.println(offX + ", " + ((maxY - minY) - offY));
 			getBatch().begin();
 			getBatch().draw(minimap.getTexture(),
 					x1,

@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.AnimationStrip;
@@ -80,6 +81,14 @@ public class AnimationPlayer extends MapEvent {
 			parent.removeEvent(this);
 			animation.stopMoving();
 		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRegion()
+	 */
+	@Override
+	public TextureRegion getRegion() {
+		return animation.getRegion();
 	}
 
 	/**

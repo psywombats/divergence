@@ -8,8 +8,8 @@ package net.wombatrpgs.rainfall.ui;
 
 import com.badlogic.gdx.assets.AssetManager;
 
+import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.graphics.Queueable;
 import net.wombatrpgs.rainfall.ui.text.FontHolder;
 import net.wombatrpgs.rainfall.ui.text.TextBox;
 import net.wombatrpgs.rainfallschema.settings.UISettingsMDO;
@@ -45,7 +45,7 @@ public class UISettings implements Queueable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Queueable#queueRequiredAssets
+	 * @see net.wombatrpgs.rainfall.core.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -56,7 +56,7 @@ public class UISettings implements Queueable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Queueable#postProcessing
+	 * @see net.wombatrpgs.rainfall.core.Queueable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override

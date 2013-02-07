@@ -13,6 +13,7 @@ import java.util.Map;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
@@ -251,7 +252,15 @@ public class CharacterEvent extends MapEvent {
 			applyMTV(other, result, 1f);
 		}
 	}
-	
+
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRegion()
+	 */
+	@Override
+	public TextureRegion getRegion() {
+		return appearance.getRegion();
+	}
+
 	/**
 	 * Determines if the hero is currently in a state to act, based on the
 	 * actions the hero is currently carrying out and status conditions.

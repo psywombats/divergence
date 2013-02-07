@@ -6,14 +6,11 @@
  */
 package net.wombatrpgs.rainfall.graphics;
 
-import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
 import net.wombatrpgs.rainfallschema.maps.data.Direction;
-
-import com.badlogic.gdx.graphics.OrthographicCamera;
 
 /**
  * A holder for four different animations that make up a character's up, right,
@@ -35,20 +32,11 @@ public class FourDir extends FacesAnimation {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.FacesAnimation#getHitbox()
+	 * @see net.wombatrpgs.rainfall.graphics.FacesAnimation#currentDirOrdinal()
 	 */
 	@Override
-	public Hitbox getHitbox() {
-		return animations[currentDir.ordinal()].getHitbox();
-	}
-	
-	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
-	 */
-	@Override
-	public void coreRender(OrthographicCamera camera) {
-		animations[currentDir.ordinal()].render(camera);
+	protected int currentDirOrdinal() {
+		return currentDir.ordinal();
 	}
 
 	/**

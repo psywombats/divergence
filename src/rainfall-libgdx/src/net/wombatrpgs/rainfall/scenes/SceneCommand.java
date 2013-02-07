@@ -8,8 +8,8 @@ package net.wombatrpgs.rainfall.scenes;
 
 import com.badlogic.gdx.assets.AssetManager;
 
+import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.graphics.Queueable;
 import net.wombatrpgs.rainfall.io.CommandListener;
 import net.wombatrpgs.rainfall.io.CommandMap;
 import net.wombatrpgs.rainfall.scenes.commands.UnblockedListener;
@@ -42,7 +42,7 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Queueable#queueRequiredAssets
+	 * @see net.wombatrpgs.rainfall.core.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -51,7 +51,7 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Queueable#postProcessing
+	 * @see net.wombatrpgs.rainfall.core.Queueable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override

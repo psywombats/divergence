@@ -51,16 +51,8 @@ public class ActSummon extends MovesetAct {
 		}
 		AnimationMDO goodMDO = RGlobal.data.getEntryFor(mdo.blockAnimation, AnimationMDO.class);
 		AnimationMDO badMDO = RGlobal.data.getEntryFor(mdo.failAnimation, AnimationMDO.class);
-		this.goodPlayer = new AnimationPlayer(goodMDO) {
-			@Override public int renderBump() { 
-				return (animation.getTime() < animation.getMaxTime()/2) ? 1 : 0;
-			}
-		};
-		this.badPlayer = new AnimationPlayer(badMDO) {
-			@Override public int renderBump() { 
-				return (animation.getTime() < animation.getMaxTime()/2) ? 1 : 0;
-			}
-		};
+		this.goodPlayer = new AnimationPlayer(goodMDO);
+		this.badPlayer = new AnimationPlayer(badMDO);
 		if (mdo.emitter != null && mdo.gibs != null) {
 			GibsetMDO gibsetMDO = RGlobal.data.getEntryFor(mdo.gibs, GibsetMDO.class);
 			EmitterMDO emitterMDO = RGlobal.data.getEntryFor(mdo.emitter, EmitterMDO.class);

@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfall.graphics;
+package net.wombatrpgs.rainfall.core;
 
 import com.badlogic.gdx.assets.AssetManager;
 

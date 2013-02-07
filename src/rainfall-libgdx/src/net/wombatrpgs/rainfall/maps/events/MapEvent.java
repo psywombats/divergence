@@ -8,7 +8,6 @@ package net.wombatrpgs.rainfall.maps.events;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 
@@ -16,11 +15,11 @@ import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.NoHitbox;
+import net.wombatrpgs.rainfall.graphics.PreRenderable;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfall.maps.PositionSetable;
 import net.wombatrpgs.rainfall.maps.layers.EventLayer;
-import net.wombatrpgs.rainfall.maps.objects.Picture;
 
 /**
  * A map event is any map object defined in Tiled, including characters and
@@ -28,10 +27,14 @@ import net.wombatrpgs.rainfall.maps.objects.Picture;
  * exists on a Tiled layer, even if it wasn't created in Tiled itself.
  */
 public abstract class MapEvent extends MapObject implements PositionSetable,
-															Comparable<MapEvent> {
+															Comparable<MapEvent>,
+															PreRenderable {
 	
 	/** Max time to fall into a hole */
 	protected static final float FALL_TIME = 1f;
+	
+	/** A thingy to fool the prerenderable, a sort of no-appear flag */
+	protected static final TextureRegion noAppearance = null;
 	
 	/** Our patron object on the tiled map */
 	protected TiledObject object;
@@ -196,10 +199,6 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	@Override
 	public void postProcessing(AssetManager manager, int pass) { }
 	
-	/** @see net.wombatrpgs.rainfall.maps.Positionable#getBatch() */
-	@Override
-	public SpriteBatch getBatch() { return parent.getBatch(); }
-	
 	/**
 	 * Sorts map objects based on z-depth.
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
@@ -286,6 +285,31 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
+	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRenderX()
+	 */
+	@Override
+	public int getRenderX() {
+		return getX();
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRenderY()
+	 */
+	@Override
+	public int getRenderY() {
+		return getY();
+	}
+
+	/**
+	 * Default is inivisible.
+	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRegion()
+	 */
+	@Override
+	public TextureRegion getRegion() {
+		return noAppearance;
+	}
+
+	/**
 	 * Determine whether overlapping with this object in general is allowed.
 	 * This is sort of a physicsy thing. Allowing it implies no physical presence
 	 * on the map, even if this object has a hitbox. Disallowing it is usually a
@@ -294,15 +318,6 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 */
 	public boolean isOverlappingAllowed() {
 		return true;
-	}
-	
-	/**
-	 * Double dispatch method so pictures can override their comparisons.
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 * @return					Negative, zero, positive if we are less, gr, eq
-	 */
-	public int compareToPicture(Picture pic) {
-		return compareTo(pic);
 	}
 	
 	/**

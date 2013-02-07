@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.rainfall.graphics;
 
+import net.wombatrpgs.rainfall.core.Queueable;
+
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 /**

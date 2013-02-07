@@ -13,8 +13,8 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.characters.Hero;
+import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.graphics.Queueable;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfallschema.characters.hero.MovesetMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.data.MovesetEntryMDO;
@@ -45,7 +45,7 @@ public class Moveset implements Queueable {
 	public Map<InputCommand, MovesetAct> getMoves() { return moves; }
 	
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Queueable#queueRequiredAssets
+	 * @see net.wombatrpgs.rainfall.core.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -56,7 +56,7 @@ public class Moveset implements Queueable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Queueable#postProcessing
+	 * @see net.wombatrpgs.rainfall.core.Queueable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override

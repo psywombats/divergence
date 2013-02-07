@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Graphic;
-import net.wombatrpgs.rainfall.maps.MapObject;
+import net.wombatrpgs.rainfall.maps.objects.Picture;
 import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 import net.wombatrpgs.rainfallschema.ui.TextBoxMDO;
 
@@ -24,7 +24,7 @@ import net.wombatrpgs.rainfallschema.ui.TextBoxMDO;
  * map the hero is on. Otherwise it really wouldn't make sense, would it?
  */
 // TODO: turn into picture
-public class TextBox extends MapObject {
+public class TextBox extends Picture {
 	
 	protected TextBoxMDO mdo;
 	protected FontHolder font;
@@ -39,6 +39,7 @@ public class TextBox extends MapObject {
 	 * @param 	font			The font to use in rendering, can change
 	 */
 	public TextBox(TextBoxMDO mdo, FontHolder font) {
+		super(RGlobal.data.getEntryFor(mdo.image, GraphicMDO.class), 0);
 		this.mdo = mdo;
 		this.font = font;
 		this.body = "";
@@ -59,7 +60,7 @@ public class TextBox extends MapObject {
 	public void render(OrthographicCamera camera) {
 		super.render(camera);
 		if (backer != null) {
-			backer.renderAt(RGlobal.hero.getBatch(),
+			backer.renderAt(getBatch(),
 					mdo.graphicX,
 					Gdx.graphics.getHeight() - mdo.graphicY - backer.getGraphic().getRegionHeight());
 		}

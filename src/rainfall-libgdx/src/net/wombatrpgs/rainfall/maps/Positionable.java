@@ -6,8 +6,6 @@
  */
 package net.wombatrpgs.rainfall.maps;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 /**
  * Any object that can be positioned on the map and rendered at a location.
  */
@@ -17,9 +15,5 @@ public interface Positionable {
 	public int getX();
 	/** @return The y-coord (in pixels) of this object */
 	public int getY();
-	
-	// TODO: this is ugly and should be separated out
-	/** @return The batch to render the associated graphics with */
-	public SpriteBatch getBatch();
 
 }

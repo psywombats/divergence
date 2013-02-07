@@ -8,6 +8,7 @@ package net.wombatrpgs.rainfall.graphics;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.core.Updateable;
@@ -20,7 +21,8 @@ import net.wombatrpgs.rainfallschema.maps.data.Direction;
  * a congolomeration of faces that switch out depending on how the entity's
  * moving.
  */
-public abstract class FacesAnimation implements Renderable, 
+public abstract class FacesAnimation implements Renderable,
+												PreRenderable,
 												Updateable {
 	
 	protected static final float FLICKER_DURATION = .3f; // in s
@@ -49,28 +51,20 @@ public abstract class FacesAnimation implements Renderable,
 		time = 0;
 	}
 	
-	/**
-	 * Gets the direction this animation is currently facing.
-	 * @return				The direction currently facing
-	 */
-	public Direction getFacing() {
-		return currentDir;
-	}
+	/** @return The direction currently facing */
+	public Direction getFacing() { return currentDir; }
 	
-	/**
-	 * Sets the current facing of this directional animation.
-	 * @param 	dir			The new current direction
-	 */
-	public void setFacing(Direction dir) {
-		this.currentDir = dir;
-	}
+	/** @param dir The new current direction */
+	public void setFacing(Direction dir) { this.currentDir = dir; }
 	
 	/**
 	 * Gets the hitbox of the current facing. Usually a rectangle... at least,
 	 * that's what's in the database at the moment.
 	 * @return					The hitbox of the current facing, 99.9% rect
 	 */
-	public abstract Hitbox getHitbox();
+	public Hitbox getHitbox() {
+		return animations[currentDirOrdinal()].getHitbox();
+	}
 	
 	/**
 	 * The /real/ rendering method.
@@ -78,7 +72,25 @@ public abstract class FacesAnimation implements Renderable,
 	 * (com.badlogic.gdx.graphics.OrthographicCamera)
 	 * @param 	camera			The camera used to render
 	 */
-	public abstract void coreRender(OrthographicCamera camera);
+	public void coreRender(OrthographicCamera camera) {
+		animations[currentDirOrdinal()].render(camera);
+	}
+	
+	/**
+	 * Gets the width of the current frame. Current frame is selected by child.
+	 * @return					The width of current frame in px
+	 */
+	public int getWidth() {
+		return animations[currentDirOrdinal()].getWidth();
+	}
+	
+	/**
+	 * Gets the height of the current frame. Current frame is selected by child.
+	 * @return					The height of current frame in px
+	 */
+	public int getHeight() {
+		return animations[currentDirOrdinal()].getHeight();
+	}
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#queueRequiredAssets
@@ -134,6 +146,30 @@ public abstract class FacesAnimation implements Renderable,
 	}
 
 	/**
+	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRenderX()
+	 */
+	@Override
+	public int getRenderX() {
+		return parent.getX();
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRenderY()
+	 */
+	@Override
+	public int getRenderY() {
+		return parent.getY();
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRegion()
+	 */
+	@Override
+	public TextureRegion getRegion() {
+		return animations[currentDirOrdinal()].getRegion();
+	}
+
+	/**
 	 * Just starts moving.
 	 */
 	public void startMoving() {
@@ -175,11 +211,17 @@ public abstract class FacesAnimation implements Renderable,
 	
 	/**
 	 * Turns on/off this animation's flickering.
-	 * @param 	flicker				True if we should flicker, false otherwise
+	 * @param 	flicker			True if we should flicker, false otherwise
 	 */
 	public void setFlicker(boolean flicker) {
 		this.flickering = flicker;
 	}
+	
+	/**
+	 * This is used to index into the animations array. Returns the index.
+	 * @return					The index of the current anim in the anim array
+	 */
+	protected abstract int currentDirOrdinal();
 	
 	/**
 	 * Populates the array of animations.

@@ -108,9 +108,9 @@ public class TestScreen extends GameScreen {
 		batch.end();
 		
 		// TODO: HACK HACK HACK HACK
-		RGlobal.hero.getBatch().begin();
+		getBatch().begin();
 		if (box != null) box.render(cam);
-		RGlobal.hero.getBatch().end();
+		getBatch().end();
 	}
 
 	/**

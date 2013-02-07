@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.rainfall.core.Constants;
+import net.wombatrpgs.rainfall.core.Queueable;
+import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 
 /**
@@ -48,7 +50,7 @@ public class Graphic implements Queueable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Queueable#queueRequiredAssets
+	 * @see net.wombatrpgs.rainfall.core.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -57,7 +59,7 @@ public class Graphic implements Queueable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Queueable#postProcessing
+	 * @see net.wombatrpgs.rainfall.core.Queueable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
@@ -101,6 +103,15 @@ public class Graphic implements Queueable {
 	 */
 	public void renderAt(SpriteBatch batch, int x, int y) {
 		batch.draw(appearance, x, y, getWidth(), getHeight());
+	}
+	
+	/**
+	 * Renders itself at a specific location using the default screen batch.
+	 * @param 	x				The x-coord to render at (in px)
+	 * @param 	y				The y-coord to render at (in px)
+	 */
+	public void renderAt(int x, int y) {
+		renderAt(RGlobal.screens.peek().getBatch(), x, y);
 	}
 
 }

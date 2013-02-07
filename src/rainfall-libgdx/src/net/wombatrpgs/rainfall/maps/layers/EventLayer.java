@@ -67,7 +67,7 @@ public class EventLayer extends Layer implements Renderable {
 		parent.getBatch().begin();
 		for (EventLayer layer : parent.getEventLayers()) {
 			for (MapEvent event : layer.events) {
-				if (event.renderBump() + layer.z == z) {
+				if (layer.z == z) {
 					event.render(camera);
 				}
 			}

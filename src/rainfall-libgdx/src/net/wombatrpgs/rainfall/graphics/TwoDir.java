@@ -6,14 +6,11 @@
  */
 package net.wombatrpgs.rainfall.graphics;
 
-import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.graphics.TwoDirMDO;
 import net.wombatrpgs.rainfallschema.maps.data.Direction;
-
-import com.badlogic.gdx.graphics.OrthographicCamera;
 
 /**
  * The same thing as a FourDir, but with a left/right facing only.
@@ -50,22 +47,13 @@ public class TwoDir extends FacesAnimation {
 			effectiveIndex = RIGHT_INDEX;
 		}
 	}
-
+	
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 * @see net.wombatrpgs.rainfall.graphics.FacesAnimation#currentDirOrdinal()
 	 */
 	@Override
-	public void coreRender(OrthographicCamera camera) {
-		animations[effectiveIndex].render(camera);
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.graphics.FacesAnimation#getHitbox()
-	 */
-	@Override
-	public Hitbox getHitbox() {
-		return animations[effectiveIndex].getHitbox();
+	protected int currentDirOrdinal() {
+		return effectiveIndex;
 	}
 
 	/**
