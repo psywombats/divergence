@@ -121,16 +121,9 @@ public abstract class FacesAnimation implements Renderable,
 	 */
 	@Override
 	public final void render(OrthographicCamera camera) {
-		if (flickering) {
-			int ms = (int) (time * 1000);
-			int d = (int) (FLICKER_DURATION * 1000);
-			if (ms % d > d/2) {
-				coreRender(camera);
-			}
-		} else {
+		if (shouldAppear()) {
 			coreRender(camera);
 		}
-		
 	}
 
 	/**
@@ -166,7 +159,11 @@ public abstract class FacesAnimation implements Renderable,
 	 */
 	@Override
 	public TextureRegion getRegion() {
-		return animations[currentDirOrdinal()].getRegion();
+		if (shouldAppear()) {
+			return animations[currentDirOrdinal()].getRegion();
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -227,5 +224,22 @@ public abstract class FacesAnimation implements Renderable,
 	 * Populates the array of animations.
 	 */
 	protected abstract void sliceAnimations();
+	
+	/**
+	 * Determines if this animation is visible at the moment. This isn't in the
+	 * culling sense but more of the "did I drink an invisibility potion"
+	 * sense.
+	 * @return					True if should be rendered, false otherwise
+	 */
+	protected boolean shouldAppear() {
+		if (flickering) {
+			int ms = (int) (time * 1000);
+			int d = (int) (FLICKER_DURATION * 1000);
+			if (ms % d < d/2) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 }
