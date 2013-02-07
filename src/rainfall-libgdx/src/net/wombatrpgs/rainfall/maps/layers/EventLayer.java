@@ -12,13 +12,13 @@ import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
 
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.collisions.FallResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.graphics.Renderable;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
@@ -26,7 +26,7 @@ import net.wombatrpgs.rainfall.maps.events.MapEvent;
 /**
  * A renderable collection of map events, grouped into a layer in a level.
  */
-public class EventLayer extends Layer implements Renderable {
+public class EventLayer extends Layer {
 	
 	protected Level parent;
 	protected boolean passable[][];
@@ -57,19 +57,32 @@ public class EventLayer extends Layer implements Renderable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 * @see net.wombatrpgs.rainfall.maps.layers.Layer#render
+	 * (com.badlogic.gdx.graphics.OrthographicCamera, int)
 	 */
 	@Override
-	public void render(OrthographicCamera camera) {
-		// TODO: this can be optimized
+	public void render(OrthographicCamera camera, int z) {
+		// TODO: this can be optimized, but it's not fucking likely
 		Collections.sort(events);
 		parent.getBatch().begin();
-		for (EventLayer layer : parent.getEventLayers()) {
-			for (MapEvent event : layer.events) {
-				if (layer.z == z) {
+		for (MapEvent event : events) {
+			TextureRegion sprite = event.getRegion();
+			if (sprite == null) {
+				// render them once
+				if ((int) Math.floor(getZ()) == z) {
 					event.render(camera);
 				}
+			} else {
+				// let's chunk 'em
+				int startY = (int) (z - Math.floor(getZ())) * parent.getTileHeight();
+				if (startY < 0 || startY >= sprite.getRegionHeight()) continue;
+				int origY = sprite.getRegionY();
+				int origHeight = sprite.getRegionHeight();
+				sprite.setRegionY(origY - startY + (origHeight - parent.getTileHeight()));
+				if (origHeight > 32) sprite.setRegionHeight(32);
+				event.renderLocal(camera, sprite, 0, startY, 0);
+				sprite.setRegionY(origY);
+				sprite.setRegionHeight(origHeight);
 			}
 		}
 		parent.getBatch().end();
@@ -205,7 +218,7 @@ public class EventLayer extends Layer implements Renderable {
 	 * @param	event			The event to run the checks for
 	 */
 	public void detectCollisions(MapEvent event) {
-		// TODO: optimize these loops
+		// TODO: optimize these loops if it becomes an issue
 		//if (!event.isMobile()) return;
 		for (int i = 0; i < events.size(); i++) {
 			MapEvent other = events.get(i);

@@ -6,16 +6,18 @@
  */
 package net.wombatrpgs.rainfall.maps.layers;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
+
 import net.wombatrpgs.rainfall.collisions.FallResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
-import net.wombatrpgs.rainfall.graphics.Renderable;
+import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 
 /**
  * A layer in a map, either a grid layer or an object layer. It's how Tiled
  * handles it.
  */
-public abstract class Layer implements Renderable {
+public abstract class Layer implements Queueable {
 	
 	public static final String PROPERTY_Z = "z";
 	
@@ -62,5 +64,14 @@ public abstract class Layer implements Renderable {
 	 * called once all layers have been populated.
 	 */
 	public abstract void finalizePassability();
+	
+	/**
+	 * Render yourself to the screen using OpenGL. This is different from the
+	 * normal renderable method because it takes a z-parameter. Layers should
+	 * only draw components of themselves that are on that specific z layer.
+	 * @param	camera			The camera to render with
+	 * @param	z				The z-layer to render components of
+	 */
+	public abstract void render(OrthographicCamera camera, int z);
 
 }

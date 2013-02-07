@@ -89,7 +89,7 @@ public class ActSummon extends MovesetAct {
 				int deltaZ = result.z - map.getZ(RGlobal.hero);
 				summonAt(map, targetTileX, targetTileY + deltaZ, result.z);
 			} else {
-				selfDestructAt(map, targetTileX, targetTileY);
+				selfDestructAt(map, targetTileX, targetTileY, result.z);
 			}
 		} else {
 			// there was nothing to drop the block onto
@@ -133,7 +133,7 @@ public class ActSummon extends MovesetAct {
 		if (RGlobal.block.getLevel() != null) {
 			RGlobal.block.getLevel().removeEvent(RGlobal.block);
 		}
-		map.addEvent(goodPlayer, 0, 0, map.getZ(actor));
+		map.addEvent(goodPlayer, 0, 0, z);
 		goodPlayer.setX(targetTileX * map.getTileWidth());
 		goodPlayer.setY(targetTileY * map.getTileHeight());
 		goodPlayer.start();
@@ -149,15 +149,16 @@ public class ActSummon extends MovesetAct {
 	/**
 	 * Nicely animates the block landing (and killing) itself at the location.
 	 * @param	map				The map to drop the block on
-	 * @param 	deltaX			The x-coord to land at (in tiles)
-	 * @param 	deltaY			The y-coord to land at (in tiles)
+	 * @param 	targetTileX		The x-coord to land at (in tiles)
+	 * @param 	targetTileY		The y-coord to land at (in tiles)
+	 * @param	z				The z-layer to land at (in z-depth layer)
 	 */
-	private void selfDestructAt(Level map, final int targetTileX, final int targetTileY) {
+	private void selfDestructAt(Level map, final int targetTileX, final int targetTileY, int z) {
 		RGlobal.reporter.inform("BOOM! Summon failed.");
 		if (RGlobal.block != null && RGlobal.block.getLevel() != null) {
 			RGlobal.block.getLevel().removeEvent(RGlobal.block);
 		}
-		map.addEvent(badPlayer, 0, 0, map.getZ(actor));
+		map.addEvent(badPlayer, 0, 0, z);
 		badPlayer.setX(targetTileX * map.getTileWidth());
 		badPlayer.setY(targetTileY * map.getTileHeight());
 		badPlayer.start();

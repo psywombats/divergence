@@ -27,7 +27,6 @@ import net.wombatrpgs.rainfall.collisions.TargetPosition;
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Graphic;
-import net.wombatrpgs.rainfall.graphics.Renderable;
 import net.wombatrpgs.rainfall.maps.events.EventFactory;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.maps.layers.GridLayer;
@@ -52,6 +51,8 @@ public class Level implements ScreenShowable {
 	public static final int PIXELS_PER_Y = 48; // in pixels
 	/** libgdx bullshit */
 	public static final int TILES_TO_CULL = 8; // in... I don't know
+	/** Max number of tiles an event can have in height, in tiles */
+	public static final int MAX_EVENT_HEIGHT = 3;
 	
 	public static final String PROPERTY_MINIMAP_GRAPHIC = "minimap";
 	public static final String PROPERTY_MINIMAP_X1 = "minimap_x1";
@@ -165,10 +166,12 @@ public class Level implements ScreenShowable {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		for (Renderable layer : layers) {
-			layer.render(camera);
+		for (int z = 0; z < layers.size() + MAX_EVENT_HEIGHT; z++) {
+			for (Layer layer : layers) {
+				layer.render(camera, z);
+			}
 		}
-		for (MapObject picture : pictures) {
+		for (Picture picture : pictures) {
 			getBatch().begin();
 			picture.render(camera);
 			getBatch().end();
@@ -197,7 +200,7 @@ public class Level implements ScreenShowable {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		if (pass >= 1) {
-			for (Renderable layer : layers) {
+			for (Layer layer : layers) {
 				layer.postProcessing(manager, pass-1);
 			}
 			if (minimap != null) {
@@ -260,7 +263,7 @@ public class Level implements ScreenShowable {
 			minimap = new Graphic(RGlobal.data.getEntryFor(key, GraphicMDO.class));
 			minimap.queueRequiredAssets(manager);
 		}
-		for (Renderable layer : layers) {
+		for (Layer layer : layers) {
 			layer.queueRequiredAssets(manager);
 		}
 	}

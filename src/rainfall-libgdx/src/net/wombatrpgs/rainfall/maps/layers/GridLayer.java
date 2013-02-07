@@ -16,7 +16,6 @@ import net.wombatrpgs.rainfall.collisions.FallResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.RectHitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.graphics.Renderable;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.Positionable;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
@@ -26,7 +25,7 @@ import net.wombatrpgs.rainfall.maps.events.MapEvent;
  * conflict with the stubby libgdx idea of a TiledLayer which isn't a layer at
  * all, really.
  */
-public class GridLayer extends Layer implements Renderable {
+public class GridLayer extends Layer {
 	
 	public static final String PROPERTY_IMPASSABLE = "x";
 	public static final String PROPERTY_CLIFFTOP = "top";
@@ -73,12 +72,14 @@ public class GridLayer extends Layer implements Renderable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 * @see net.wombatrpgs.rainfall.maps.layers.Layer#render
+	 * (com.badlogic.gdx.graphics.OrthographicCamera, int)
 	 */
 	@Override
-	public void render(OrthographicCamera camera) {
-		parent.getRenderer().render(camera, new int[] {layerID});
+	public void render(OrthographicCamera camera, int z) {
+		if ((int) Math.floor(getZ()) == z) {
+			parent.getRenderer().render(camera, new int[] {layerID});
+		}
 	}
 
 	/**
@@ -240,7 +241,6 @@ public class GridLayer extends Layer implements Renderable {
 			tileBox = new RectHitbox(loc, 0, 0, map.tileWidth, map.tileHeight);
 		}
 		CollisionResult result = tileBox.isColliding(event.getHitbox());
-		// TODO: this code is duplicated elsewhere
 		if (result.isColliding) {
 			if (event.getHitbox() == result.collide2) {
 				result.mtvX *= -1;
