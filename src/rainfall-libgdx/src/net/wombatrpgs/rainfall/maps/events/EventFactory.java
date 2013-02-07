@@ -11,7 +11,6 @@ import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 
-import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 
 /**
@@ -53,12 +52,11 @@ public class EventFactory {
 	protected static MapEvent create(Level parent, TiledObject object, int layerIndex) {
 		MapEvent newEvent = null;
 		if (EVENT_TYPE.equals(object.type)) {
-			TiledMap map = parent.getMap();
 			String mdoName = object.properties.get("key");
 			CharacterEventMDO eventMDO = RGlobal.data.getEntryFor(mdoName, CharacterEventMDO.class);
 			newEvent = CharacterFactory.create(eventMDO, object, parent,
 					object.x, 
-					map.height*map.tileHeight-object.y);
+					parent.getHeight()*parent.getTileHeight()-object.y);
 		} else if (TELEPORT_TYPE.equals(object.type)) {
 			newEvent = new TeleportEvent(parent, object);
 		} else if (Z_TELEPORT_TYPE.equals(object.type)) {

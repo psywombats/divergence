@@ -8,6 +8,7 @@ package net.wombatrpgs.rainfallschema.ui;
 
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
+import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
@@ -27,6 +28,22 @@ public class HudMDO extends MainSchema {
 	
 	@Desc("Anchor side - graphic will be pinned to this side of the screen")
 	public Direction anchorDir;
+	
+	@Desc("Minimap x - upper left x of where minimap is displayed, relative to left (in px)")
+	public Integer minimapX;
+	
+	@Desc("Minimap y - upper left y of where minimap is displayed, relative to top (in px)")
+	public Integer minimapY;
+	
+	@Desc("Minimap alpha mask - alpha-channel graphic that serves as alpha for minimap, or none")
+	@Nullable
+	@SchemaLink(GraphicMDO.class)
+	public String alphaMask;
+	
+	@Desc("Minimap mask - graphic that will be rendered on top of the minimap, or none")
+	@SchemaLink(GraphicMDO.class)
+	@Nullable
+	public String mask;
 	
 	@Desc("Icon locations - where icons will appear for bound moves, if any")
 	@InlineSchema(IconPlacementMDO.class)

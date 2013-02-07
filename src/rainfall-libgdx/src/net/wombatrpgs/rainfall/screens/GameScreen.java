@@ -123,6 +123,9 @@ public abstract class GameScreen implements CommandListener,
 	/** @return Batch used for rendering contents */
 	public SpriteBatch getBatch() { return batch; }
 	
+	/** @return Buffer used for rendering contents */
+	public FrameBuffer getBuffer() { return buffer; }
+	
 	/** @return Game screen whole tint */
 	public Color getTint() { return tint; }
 	
@@ -171,7 +174,7 @@ public abstract class GameScreen implements CommandListener,
 		int height = RGlobal.window.height;
 		buffer.begin();
 		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_STENCIL_BUFFER_BIT);
 		canvas.render(cam);
 		buffer.end();
 		privateBatch.begin();

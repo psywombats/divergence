@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.rainfall.maps.events;
 
-import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
@@ -39,8 +38,7 @@ public class TeleportEvent extends MapEvent {
 	 */
 	protected TeleportEvent(Level parent, TiledObject object) {
 		super(parent, object, false, true);
-		TiledMap map = parent.getMap();
-		box = new RectHitbox(this, 0, -map.tileHeight, map.tileWidth, 0);
+		box = new RectHitbox(this, 0, -parent.getTileHeight(), -parent.getTileWidth(), 0);
 		
 		// TODO: center the hero
 		this.targetX = Integer.valueOf(object.properties.get(PROPERTY_X));

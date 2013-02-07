@@ -26,6 +26,7 @@ import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.TargetPosition;
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.graphics.Graphic;
 import net.wombatrpgs.rainfall.graphics.Renderable;
 import net.wombatrpgs.rainfall.maps.events.EventFactory;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
@@ -34,6 +35,7 @@ import net.wombatrpgs.rainfall.maps.layers.Layer;
 import net.wombatrpgs.rainfall.maps.layers.EventLayer;
 import net.wombatrpgs.rainfall.maps.objects.Picture;
 import net.wombatrpgs.rainfall.screens.ScreenShowable;
+import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 import net.wombatrpgs.rainfallschema.maps.MapMDO;
 
 /**
@@ -51,12 +53,17 @@ public class Level implements ScreenShowable {
 	/** libgdx bullshit */
 	public static final int TILES_TO_CULL = 8; // in... I don't know
 	
+	public static final String PROPERTY_MINIMAP_GRAPHIC = "minimap";
+	public static final String PROPERTY_MINIMAP_X1 = "minimap_x1";
+	public static final String PROPERTY_MINIMAP_Y1 = "minimap_y1";
+	public static final String PROPERTY_MINIMAP_X2 = "minimap_x2";
+	public static final String PROPERTY_MINIMAP_Y2 = "minimap_y2";
+	
 	/** The thing we're going to use to render the level */
 	protected TileMapRenderer renderer;
 	/** The underlying map for this level */
 	protected TiledMap map;
-	/** Name of the file with our map in it, mentioned in database */
-	protected String mapPath;
+
 	/** All event and tile layers, in order by Z */
 	protected List<Layer> layers;
 	/** All event layers, in order by Z */
@@ -65,6 +72,7 @@ public class Level implements ScreenShowable {
 	protected List<GridLayer> tileLayers;
 	/** A mapping from object to their z-depths */
 	protected Map<MapEvent, Integer> layerMap;
+	
 	/** List of all map events in the level, (these are all in layers) */
 	protected List<MapEvent> events;
 	/** List of all map object in the level (some are in layers) */
@@ -72,11 +80,17 @@ public class Level implements ScreenShowable {
 	/** Pictures that fly above the stage! */
 	protected List<Picture> pictures;
 	/** List of all map events to remove next loop */
+	
 	protected List<MapEvent> removalEvents;
 	/** List of all map objects to remove next loop */
 	protected List<MapObject> removalObjects;
+	
+	/** Our minimap graphic */
+	protected Graphic minimap;
 	/** Should game state be suspended */
 	protected boolean paused;
+	/** Name of the file with our map in it, mentioned in database */
+	protected String mapPath;
 	
 	/**
 	 * Generates a level from the supplied level data.
@@ -84,6 +98,10 @@ public class Level implements ScreenShowable {
 	 */
 	public Level(MapMDO mdo) {
 		mapPath = Constants.MAPS_DIR + mdo.map;
+		layers = new ArrayList<Layer>();
+		eventLayers = new ArrayList<EventLayer>();
+		tileLayers = new ArrayList<GridLayer>();
+		layerMap = new HashMap<MapEvent, Integer>();
 		events = new ArrayList<MapEvent>();
 		objects = new ArrayList<MapObject>();
 		removalObjects = new ArrayList<MapObject>();
@@ -118,6 +136,9 @@ public class Level implements ScreenShowable {
 	/** @return The underlying TMX map */
 	public TiledMap getMap() { return map; }
 	
+	/** @param key The key to index into map properties @return The value */
+	public String getProperty(String key) { return map.properties.get(key); }
+	
 	/** @return All tile layers on this map */
 	public List<GridLayer> getGridLayers() { return tileLayers; }
 	
@@ -134,6 +155,9 @@ public class Level implements ScreenShowable {
 	
 	/** @return True if the level is in a suspended state */
 	public boolean isPaused() { return this.paused; }
+	
+	/** @return The graphic of the minimap to display on the map */
+	public Graphic getMinimap() { return this.minimap; }
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render(
@@ -159,8 +183,11 @@ public class Level implements ScreenShowable {
 	public void queueRequiredAssets(AssetManager manager) {
 		TileMapParameter tileMapParameter = new TileMapParameter(
 				Constants.MAPS_DIR, TILES_TO_CULL, TILES_TO_CULL);
-		RGlobal.reporter.inform("We're trying to load from " + mapPath);
-		RGlobal.assetManager.load(mapPath, TileMapRenderer.class, tileMapParameter);
+		RGlobal.reporter.inform("Loading map " + mapPath);
+		manager.load(mapPath, TileMapRenderer.class, tileMapParameter);
+		if (minimap != null) {
+			minimap.queueRequiredAssets(manager);
+		}
 	}
 	
 	/**
@@ -170,15 +197,16 @@ public class Level implements ScreenShowable {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		if (pass >= 1) {
-			postProcessingMapObjects(manager, pass-1);
+			for (Renderable layer : layers) {
+				layer.postProcessing(manager, pass-1);
+			}
+			if (minimap != null) {
+				minimap.postProcessing(manager, pass-1);
+			}
 			return;
 		}
 		renderer = RGlobal.assetManager.get(mapPath, TileMapRenderer.class);
 		map = renderer.getMap();
-		layers = new ArrayList<Layer>();
-		eventLayers = new ArrayList<EventLayer>();
-		tileLayers = new ArrayList<GridLayer>();
-		layerMap = new HashMap<MapEvent, Integer>();
 		
 		// each object group represents a new layer
 		for (int layerIndex = 0; layerIndex <= map.objectGroups.size(); layerIndex++) {
@@ -227,8 +255,14 @@ public class Level implements ScreenShowable {
 		for (Layer layer : layers) {
 			layer.finalizePassability();
 		}
-		
-		queueMapObjectAssets(manager);
+		if (getProperty(PROPERTY_MINIMAP_GRAPHIC) != null) {
+			String key = getProperty(PROPERTY_MINIMAP_GRAPHIC);
+			minimap = new Graphic(RGlobal.data.getEntryFor(key, GraphicMDO.class));
+			minimap.queueRequiredAssets(manager);
+		}
+		for (Renderable layer : layers) {
+			layer.queueRequiredAssets(manager);
+		}
 	}
 	
 	/**
@@ -257,28 +291,6 @@ public class Level implements ScreenShowable {
 				applyPhysicalCorrections(event);
 				detectCollisions(event);
 			}
-		}
-	}
-
-	/**
-	 * Same as the rendering asset queuing, but for a second round of map object
-	 * assets.
-	 * @param 	manager			The manager to queue the object in
-	 */
-	public void queueMapObjectAssets(AssetManager manager) {
-		for (Renderable layer : layers) {
-			layer.queueRequiredAssets(manager);
-		}
-	}
-	
-	/**
-	 * Finish processing the map object loaded previously.
-	 * @param 	manager			The manager the map assets were loaded in
-	 * @Param	pass			The pass iteration
-	 */
-	public void postProcessingMapObjects(AssetManager manager, int pass) {
-		for (Renderable layer : layers) {
-			layer.postProcessing(manager, pass);
 		}
 	}
 	

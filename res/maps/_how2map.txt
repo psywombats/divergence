@@ -85,5 +85,10 @@ reflect those in the maps directory.
 Events:
 Events are weird and this section is under construction.
 
-Event parameters:
+Event properties:
 "name" - the name of the object, what it's referred to in cutscene events
+
+Map properties:
+"minimap" - the database key of a minimap graphic that'll display with the HUD
+"minimap_x" - where this room's top left corner is on the minimap, in px
+"minimap_y" - where this room's top left corner is on the minimap, in px

@@ -119,7 +119,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		this(	parent, 
 				object,
 				object.x, 
-				parent.getMap().height*parent.getMap().tileHeight-object.y,
+				parent.getHeight()*parent.getTileHeight()-object.y,
 				mobile,
 				checkCollisions);
 	}

@@ -23,6 +23,7 @@ public class Main {
 		cfg.useGL20 = true;
 		cfg.width = WARMUP_WIDTH;
 		cfg.height = WARMUP_HEIGHT;
+		cfg.stencil = 8;
 		
 		new LwjglApplication(new RainfallGame(new DesktopFocusReporter()), cfg);
 	}

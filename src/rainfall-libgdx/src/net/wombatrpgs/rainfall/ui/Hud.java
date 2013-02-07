@@ -8,11 +8,14 @@ package net.wombatrpgs.rainfall.ui;
 
 import java.util.Map;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Graphic;
+import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.objects.Picture;
 import net.wombatrpgs.rainfall.moveset.MovesetAct;
 import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
@@ -28,6 +31,7 @@ import net.wombatrpgs.rainfallschema.ui.data.IconPlacementMDO;
 public class Hud extends Picture {
 	
 	protected HudMDO mdo;
+	protected Graphic mask, alphaMask;
 
 	/**
 	 * Creates a new HUD from data. Requires queueing.
@@ -36,6 +40,8 @@ public class Hud extends Picture {
 	public Hud(HudMDO mdo) {
 		super(RGlobal.data.getEntryFor(mdo.graphic, GraphicMDO.class), 0, 0, 50);
 		this.mdo = mdo;
+		mask = new Graphic(RGlobal.data.getEntryFor(mdo.mask, GraphicMDO.class));
+		alphaMask = new Graphic(RGlobal.data.getEntryFor(mdo.alphaMask, GraphicMDO.class));
 	}
 
 	/**
@@ -57,6 +63,56 @@ public class Hud extends Picture {
 				}
 			}
 		}
+		Graphic minimap = RGlobal.hero.getLevel().getMinimap();
+
+		if (minimap != null) {
+			int x1 = (int) (x + mdo.minimapX);
+			int y1 = (int) (y + appearance.getHeight() - mask.getHeight() - mdo.minimapY);
+			int minX = Integer.valueOf(getLevel().getProperty(Level.PROPERTY_MINIMAP_X1));
+			int minY = Integer.valueOf(getLevel().getProperty(Level.PROPERTY_MINIMAP_Y1));
+			int maxX = Integer.valueOf(getLevel().getProperty(Level.PROPERTY_MINIMAP_X2));
+			int maxY = Integer.valueOf(getLevel().getProperty(Level.PROPERTY_MINIMAP_Y2));
+			int offX = (int) (minX + ((float) RGlobal.hero.getX() / 
+					(float) getLevel().getWidthPixels()) * (maxX - minX));
+			int offY = (int)(minY - ((float) RGlobal.hero.getY() / 
+					(float) getLevel().getHeightPixels()) * (maxY - minY) + (maxY - minY));
+			getBatch().end();
+			getBatch().setBlendFunction(GL20.GL_ONE, GL20.GL_ZERO);
+			Gdx.graphics.getGL20().glColorMask(false, false, false, true);
+			getBatch().begin();
+			alphaMask.renderAt(getBatch(), x1, y1);
+			getBatch().end();
+			getBatch().setBlendFunction(GL20.GL_ONE_MINUS_DST_ALPHA, GL20.GL_DST_ALPHA);
+			Gdx.graphics.getGL20().glColorMask(true, true, true, true);
+			System.out.println(offX + ", " + ((maxY - minY) - offY));
+			getBatch().begin();
+			getBatch().draw(minimap.getTexture(),
+					x1,
+					y1,
+					-mask.getWidth()/2 + offX, 
+					-mask.getHeight()/2 + offY,
+					mask.getWidth(),
+					mask.getHeight());
+			getBatch().end();
+			getBatch().setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+			getBatch().begin();
+			mask.renderAt(getBatch(), x1, y1);
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.objects.Picture#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		super.queueRequiredAssets(manager);
+		if (alphaMask != null) {
+			alphaMask.queueRequiredAssets(manager);
+		}
+		if (mask != null) {
+			mask.queueRequiredAssets(manager);
+		}
 	}
 
 	/**
@@ -66,6 +122,12 @@ public class Hud extends Picture {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
+		if (mask != null) {
+			mask.postProcessing(manager, pass);
+		}
+		if (alphaMask != null) {
+			alphaMask.postProcessing(manager, pass);
+		}
 		switch (mdo.anchorDir) {
 		case DOWN:
 			x = (RGlobal.window.width - appearance.getWidth()) / 2;

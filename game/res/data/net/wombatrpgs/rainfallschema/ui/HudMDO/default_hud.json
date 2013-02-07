@@ -5,6 +5,10 @@
 	"description" : "",
 	"graphic" : "graphic_hud",
 	"anchorDir" : "DOWN",
+	"minimapX" : 33,
+	"minimapY" : 39,
+	"alphaMask" : "graphic_minimap_alphamask",
+	"mask" : "graphic_minimap_mask",
 	"icons" : [
 		{
 			"command" : "ACTION_1",

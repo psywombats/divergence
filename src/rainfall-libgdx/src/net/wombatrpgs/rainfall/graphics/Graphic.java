@@ -21,6 +21,7 @@ import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 public class Graphic implements Queueable {
 	
 	protected GraphicMDO mdo;
+	protected Texture texture;
 	protected TextureRegion appearance;
 	protected String filename;
 	protected int width, height;
@@ -61,10 +62,10 @@ public class Graphic implements Queueable {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		Texture tex = manager.get(filename, Texture.class);
-		if (width == -1) width = tex.getWidth();
-		if (height == -1) height = tex.getHeight();
-		appearance = new TextureRegion(tex, 0, 0, width, height);
+		texture = manager.get(filename, Texture.class);
+		if (width == -1) width = texture.getWidth();
+		if (height == -1) height = texture.getHeight();
+		appearance = new TextureRegion(texture, 0, 0, width, height);
 	}
 	
 	/** @return The basic width of this graphic (in px) */
@@ -74,11 +75,22 @@ public class Graphic implements Queueable {
 	public int getHeight() { return this.height; }
 	
 	/**
-	 * Returns the renderable portion of this image.
+	 * Returns the renderable portion of this image, if you want to be a dick
+	 * about it and render it yourself
 	 * @return					The preloaded texture region appearance
 	 */
 	public TextureRegion getGraphic() {
 		return appearance;
+	}
+	
+	/**
+	 * Returns the raw texture behind the graphic. This is only really useful
+	 * if you want to do weird things that texture regions can't do, like use
+	 * this thing as an alpha map.
+	 * @return					The loaded texture
+	 */
+	public Texture getTexture() {
+		return texture;
 	}
 	
 	/**
@@ -88,7 +100,7 @@ public class Graphic implements Queueable {
 	 * @param 	y				The y-coord to render at (in px)
 	 */
 	public void renderAt(SpriteBatch batch, int x, int y) {
-		batch.draw(appearance, x, y);
+		batch.draw(appearance, x, y, getWidth(), getHeight());
 	}
 
 }
