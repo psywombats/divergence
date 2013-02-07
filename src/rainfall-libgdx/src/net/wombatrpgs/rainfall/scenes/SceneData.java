@@ -27,9 +27,11 @@ public class SceneData {
 	 */
 	public SceneData(FileHandle file) {
 		String full = file.readString();
+		full = full.replaceAll("\\r\\n", "\n");
+		full = full.replaceAll("\\r", "\n");
 		lines = new ArrayList<String>();
 		while (full.indexOf(SPLITTER) != -1) {
-			lines.add(full.substring(0, full.indexOf(SPLITTER) - SPLITTER.length()));
+			lines.add(full.substring(0, full.indexOf(SPLITTER)));
 			full = full.substring(full.indexOf(SPLITTER) + 1);
 		}
 		lines.add(full);
