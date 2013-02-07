@@ -87,8 +87,8 @@ public class Hero extends CharacterEvent {
 			stun();
 			break;
 		case STUNBOUNCE:
-			bounce(other);
 			stun();
+			bounce(other);
 			break;
 		default:
 			break;

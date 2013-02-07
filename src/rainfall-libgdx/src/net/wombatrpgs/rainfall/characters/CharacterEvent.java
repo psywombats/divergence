@@ -302,6 +302,7 @@ public class CharacterEvent extends MapEvent {
 	 */
 	public void stun() {
 		setStunned(true);
+		halt();
 		List<MovesetAct> cancelledActs = new ArrayList<MovesetAct>();
 		for (MovesetAct act : activeMoves) {
 			cancelledActs.add(act);
