@@ -290,9 +290,6 @@ public class GridLayer extends Layer {
 					result.mtvX *= -1;
 					result.mtvY *= -1;
 				}
-				if (event == RGlobal.hero) {
-					System.out.println();
-				}
 				event.resolveWallCollision(result);
 			}
 		} else {
@@ -303,9 +300,6 @@ public class GridLayer extends Layer {
 					if (event.getHitbox() == result.collide2) {
 						result.mtvX *= -1;
 						result.mtvY *= -1;
-					}
-					if (event == RGlobal.hero) {
-						System.out.println();
 					}
 					event.resolveWallCollision(result);
 				}

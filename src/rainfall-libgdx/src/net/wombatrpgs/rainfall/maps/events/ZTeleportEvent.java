@@ -63,10 +63,7 @@ public class ZTeleportEvent extends MapEvent {
 			other.setY(other.getY()-1);
 			System.out.println("Teled to bottom");
 		}
-		if (MapEvent.class.isAssignableFrom(other.getClass())) {
-			// TODO: change this ugly instanceof equiv!
-			parent.changeZ((MapEvent) other, newZ);
-		}
+		other.changeZ(newZ);
 		return true;
 	}
 	

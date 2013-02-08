@@ -532,6 +532,15 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
+	 * Change out z to the appropriate new value. This does what it should,
+	 * just override it if you need to bring things with you.
+	 * @param 	newZ				The new z-layer to put us on
+	 */
+	public void changeZ(int newZ) {
+		parent.changeZ(this, newZ);
+	}
+	
+	/**
 	 * Moves objects out of collision with each other. Usually call this from
 	 * onCollide, as a collision result is needed.
 	 * @param 	other			The other object to bump

@@ -47,6 +47,10 @@ public class ActPush extends MovesetAct {
 				anulled = !anulled;
 				return;
 			}
+			if (map.getZ(actor) == map.getZ(RGlobal.block)+1 &&
+					RGlobal.block.getUpperBox().isColliding(actor.getHitbox()).isColliding) {
+				return;
+			}
 			actor.halt();
 			actor.startAction(this);
 			actor.faceToward(RGlobal.block);

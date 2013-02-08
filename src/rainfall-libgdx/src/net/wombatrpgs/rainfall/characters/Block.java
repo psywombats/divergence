@@ -6,13 +6,10 @@
  */
 package net.wombatrpgs.rainfall.characters;
 
-import javax.swing.Box;
-
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
-import net.wombatrpgs.rainfall.collisions.RectHitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.AnimationStrip;
 import net.wombatrpgs.rainfall.maps.Level;
@@ -53,17 +50,8 @@ public class Block extends CharacterEvent {
 	/** @return True if summoning is in progress */
 	public boolean isSummoning() { return this.summonInProgress; }
 	
-	/**
-	 * Changes the map the block is currently located on. Call every time the
-	 * block is summoned.
-	 * @param	map				The new level for the block to be on
-	 */
-	public void changeMap(Level map) {
-		if (this.parent != null) {
-			parent.teleportOff();
-		}
-		map.addEvent(this, getX(), getY());
-	}
+	/** @return The hitbox of the block's upper half */
+	public Hitbox getUpperBox() { return this.upperBox; }
 
 	/**
 	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#onCollide
@@ -116,6 +104,28 @@ public class Block extends CharacterEvent {
 	public void onRemovedFromMap(Level map) {
 		super.onRemovedFromMap(map);
 		map.removePassabilityOverride(upperBox, map.getZ(this) + 1);
+	}
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#changeZ(int)
+	 */
+	@Override
+	public void changeZ(int newZ) {
+		parent.removePassabilityOverride(upperBox, parent.getZ(this) + 1);
+		super.changeZ(newZ);
+		parent.addPassabilityOverride(upperBox, parent.getZ(this) + 1);
+	}
+
+	/**
+	 * Changes the map the block is currently located on. Call every time the
+	 * block is summoned.
+	 * @param	map				The new level for the block to be on
+	 */
+	public void changeMap(Level map) {
+		if (this.parent != null) {
+			parent.teleportOff();
+		}
+		map.addEvent(this, getX(), getY());
 	}
 	
 }
