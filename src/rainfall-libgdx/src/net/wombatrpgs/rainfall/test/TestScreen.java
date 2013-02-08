@@ -28,8 +28,7 @@ import net.wombatrpgs.rainfallschema.ui.TextBoxMDO;
  * TESTING 1 2 3 TESTING DO YOU HEAR ME TESTINGGGGGGGG
  */
 public class TestScreen extends GameScreen {
-	
-	protected Level map;
+
 	protected BitmapFont defaultFont;
 	protected FontHolder font;
 	protected TextBox box;
@@ -37,7 +36,7 @@ public class TestScreen extends GameScreen {
 	public TestScreen() {
 		super();
 		MapLoadTestMDO mapTestMDO = RGlobal.data.getEntryFor("map_test", MapLoadTestMDO.class);
-		this.map = RGlobal.levelManager.getLevel(mapTestMDO.map);
+		Level map = RGlobal.levelManager.getLevel(mapTestMDO.map);
 		this.canvas = map;
 		
 		TextBoxTestMDO testMDO = RGlobal.data.getEntryFor("test_textbox", TextBoxTestMDO.class);
@@ -94,7 +93,7 @@ public class TestScreen extends GameScreen {
 //			RGlobal.hero.stopMove(Direction.UP);
 //		}
 		
-		RGlobal.hero.act(command, map);
+		RGlobal.hero.act(command, RGlobal.hero.getLevel());
 	}
 
 	/**

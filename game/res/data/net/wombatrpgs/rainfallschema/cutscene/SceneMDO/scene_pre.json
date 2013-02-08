@@ -1,0 +1,8 @@
+{
+	"key" : "scene_pre",
+	"subfolder" : "teleport",
+	"name" : "",
+	"description" : "",
+	"file" : "teleport_pre.scene",
+	"repeat" : "RUN_EVERY_TIME"
+}

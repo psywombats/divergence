@@ -64,8 +64,8 @@ public class CommandTint extends SceneCommand {
 					if (ratio >= 1) ratio = 1;
 					if (tint == null) tint = RGlobal.screens.peek().getTint();
 					tint.r = oldR + ratio * (r - oldR);
-					tint.g = oldG + ratio * (r - oldG);
-					tint.b = oldB + ratio * (r - oldB);
+					tint.g = oldG + ratio * (g - oldG);
+					tint.b = oldB + ratio * (b - oldB);
 					if (ratio >= 1) {
 						parent.removeObject(this);
 						tinting = false;

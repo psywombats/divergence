@@ -24,7 +24,6 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	protected SceneParser parent;
 	protected String line;
 	
-	protected CommandMap oldContext;
 	protected UnblockedListener listener;
 	protected boolean blocking;
 	protected boolean finished;
@@ -68,7 +67,6 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 		if (blocking && command == InputCommand.INTENT_CONFIRM) {
 			blocking = false;
 			RGlobal.screens.getLevelScreen().getCommandContext().unregisterListener(this);
-			RGlobal.screens.getLevelScreen().setCommandContext(oldContext);
 			listener.onUnblock();
 			listener = null;
 		}
@@ -89,8 +87,6 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	 */
 	public void block(UnblockedListener listener) {
 		this.listener = listener;
-		oldContext = RGlobal.screens.getLevelScreen().getCommandContext();
-		RGlobal.screens.getLevelScreen().setCommandContext(new SceneCommandMap());
 		RGlobal.screens.getLevelScreen().getCommandContext().registerListener(this);
 		blocking = true;
 	}

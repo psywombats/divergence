@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="15" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="20"><properties><property name="blended tiles" value=""/></properties>
- <tileset firstgid="1" name="lower" tileheight="32" tilewidth="32">
-  <image height="160" source="tilesets/test/lower.PNG" trans="b5a5d5" width="192"/>
- </tileset>
- <tileset firstgid="31" name="upper" tileheight="32" tilewidth="32">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="15" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="20">
+ <properties><property name="blended tiles" value=""/>
+  <property name="minimap" value="graphic_minimap_l1_f1"/>
+  <property name="minimap_x1" value="159"/>
+  <property name="minimap_x2" value="192"/>
+  <property name="minimap_y1" value="69"/>
+  <property name="minimap_y2" value="114"/>
+ </properties>
+ <tileset firstgid="1" name="upper" tileheight="32" tilewidth="32">
   <image height="128" source="tilesets/test/upper.PNG" trans="b5a5d5" width="256"/>
   <tile id="4">
    <properties>
@@ -11,7 +15,40 @@
   </tile>
   <tile id="12">
    <properties>
-    <property name="impassable" value=""/>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="33" name="lower" tileheight="32" tilewidth="32">
+  <image height="160" source="tilesets/test/lower.PNG" trans="b5a5d5" width="192"/>
+  <tile id="21">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="x" value=""/>
    </properties>
   </tile>
  </tileset>
@@ -20,7 +57,7 @@
    <property name="z" value="0"/>
   <property name="layer" value="2"/></properties>
   <data compression="zlib" encoding="base64">
-   eJwTYWBgEBnFQwIzAjETEDNTyTx2IOYAYk4gFkbC+PQY4pHjBWI+IOYnwQ2E7CXkHlzuo5Z5uPQRG16kmEdJXNLCPHRMjTRHKQYAVZYXKQ==
+   eJwzYWBgMBnFQwIrArESECtTyTx1INYAYk0S9AjjkdMFYj0g1ifBPGMcmFw/4XIfJWbiC39KzCUn/PFhcsJ/qGEA/5g7zw==
   </data>
  </layer>
  <layer height="15" name="Tile Layer 2" width="20">
@@ -28,43 +65,13 @@
    <property name="z" value=".5"/>
   <property name="layer" value="1"/></properties>
   <data compression="zlib" encoding="base64">
-   eJyTZ2BgUABiRSCWx8FGBrjEYUAdiDWAWBMPGwaUcYiTC7SpYMZgB8pEqlMiUh2xYaZFpDp6AmLDglhATFgMhJ20BsYU6kXGtDQTBABbaQbj
+   eJxjZGBgYAJiZiBmxMFGBrjEYYATiLmAmBsPGwZYcYiTC3ipYMZgB6xEqmMhUh2xYcZDpDp6AmLDglhATFgMhJ20BqIU6kXGtDQTBACMsQG7
   </data>
  </layer>
  <objectgroup height="15" name="Object Layer 1" width="20">
   <properties>
    <property name="z" value=".5"/>
   <property name="layer" value="0"/></properties>
-  <object height="32" name="Waldy" type="event" width="32" x="544" y="128">
-   <properties>
-    <property name="key" value="waldsworth_event"/>
-   </properties>
-  </object>
-  <object height="32" name="Waldy" type="event" width="32" x="512" y="128">
-   <properties>
-    <property name="key" value="waldsworth_event"/>
-   </properties>
-  </object>
-  <object height="32" name="Waldy" type="event" width="32" x="544" y="160">
-   <properties>
-    <property name="key" value="waldsworth_event"/>
-   </properties>
-  </object>
-  <object height="32" name="Waldy" type="event" width="32" x="512" y="96">
-   <properties>
-    <property name="key" value="waldsworth_event"/>
-   </properties>
-  </object>
-  <object height="32" name="Waldy" type="event" width="32" x="544" y="96">
-   <properties>
-    <property name="key" value="waldsworth_event"/>
-   </properties>
-  </object>
-  <object height="32" name="Waldy" type="event" width="32" x="512" y="160">
-   <properties>
-    <property name="key" value="waldsworth_event"/>
-   </properties>
-  </object>
   <object height="32" name="tele" type="teleport" width="32" x="0" y="256">
    <properties>
     <property name="id" value="sample_map"/>
@@ -75,6 +82,11 @@
   <object height="32" name="Widget" type="event" width="32" x="464" y="208">
    <properties>
     <property name="key" value="enemy_widget"/>
+   </properties>
+  </object>
+  <object height="64" name="Test Cutscene" type="trigger" width="64" x="288" y="32">
+   <properties>
+    <property name="id" value="scene_test0000"/>
    </properties>
   </object>
  </objectgroup>

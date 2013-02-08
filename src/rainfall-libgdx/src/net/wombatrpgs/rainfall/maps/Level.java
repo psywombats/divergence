@@ -149,7 +149,11 @@ public class Level implements ScreenShowable {
 	/** @return All pictures being displayed on this map */
 	public List<Picture> getPictures() { return this.pictures; }
 	
+	/** @return All events on the level */
 	public List<MapEvent> getEvents() { return this.events; }
+	
+	/** @return All objects on the level */
+	public List<MapObject> getObjects() { return this.objects; }
 	
 	/** @param pause The map object to pause on */
 	public void setPause(boolean paused) { this.paused = paused; }
@@ -298,6 +302,14 @@ public class Level implements ScreenShowable {
 	}
 	
 	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return mapPath + " ";
+	}
+
+	/**
 	 * Adjusts an event on the level based on its collisions. This usually
 	 * involves moving it out of said collisions. This only works on terrain
 	 * and is applying automatically to mobile events in the level.
@@ -357,8 +369,7 @@ public class Level implements ScreenShowable {
 	 * control no longer on the map.
 	 */
 	public void teleportOff() {
-		RGlobal.hero.parent = null;
-		internalRemoveEvent(RGlobal.hero);
+		removalEvents.add(RGlobal.hero);
 	}
 	
 	/**

@@ -23,8 +23,10 @@ import net.wombatrpgs.rainfall.io.loaders.DataLoader;
 import net.wombatrpgs.rainfall.io.loaders.SceneLoader;
 import net.wombatrpgs.rainfall.maps.LevelManager;
 import net.wombatrpgs.rainfall.scenes.SceneData;
+import net.wombatrpgs.rainfall.scenes.TeleportSettings;
 import net.wombatrpgs.rainfall.screens.ScreenStack;
 import net.wombatrpgs.rainfall.ui.UISettings;
+import net.wombatrpgs.rainfallschema.settings.TeleportSettingsMDO;
 import net.wombatrpgs.rainfallschema.settings.UISettingsMDO;
 import net.wombatrpgs.rainfallschema.settings.WindowSettingsMDO;
 
@@ -59,6 +61,8 @@ public class RGlobal {
 	public static boolean initialized = false;
 	/** Our current window settings */
 	public static WindowSettingsMDO window;
+	/** Teleport settings, from database */
+	public static TeleportSettings teleport;
 	
 	private static List<Queueable> toLoad;
 	
@@ -111,7 +115,10 @@ public class RGlobal {
 		RGlobal.window = RGlobal.data.getEntryFor(Constants.WINDOW_KEY, WindowSettingsMDO.class);
 		RGlobal.ui = new UISettings(RGlobal.data.getEntryFor(
 				UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
+		RGlobal.teleport = new TeleportSettings(RGlobal.data.getEntryFor(
+				TeleportSettings.DEFAULT_MDO_KEY, TeleportSettingsMDO.class));
 		toLoad.add(ui);
+		toLoad.add(teleport);
 		for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
 		assetManager.finishLoading();
 		for (Queueable q : toLoad) q.postProcessing(assetManager, 0);

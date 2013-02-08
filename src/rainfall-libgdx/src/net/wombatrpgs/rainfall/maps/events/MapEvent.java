@@ -115,8 +115,10 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	/**
 	 * Creates a new event for the supplied parent level using coordinates
 	 * inferred from the tiled object.
-	 * @param 	parent		The parent levelt to make teleport for
-	 * @param 	object		The object to infer coords from
+	 * @param 	parent			The parent levelt to make teleport for
+	 * @param 	object			The object to infer coords from
+	 * @param	mobile			True if this object will be moving, false otherwise
+	 * @param	checkCollision	True if this event should check for collisions
 	 */
 	public MapEvent(Level parent, TiledObject object, boolean mobile, boolean checkCollisions) {
 		this(	parent, 
