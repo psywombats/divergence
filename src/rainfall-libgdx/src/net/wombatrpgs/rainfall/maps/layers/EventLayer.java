@@ -66,14 +66,14 @@ public class EventLayer extends Layer {
 		Collections.sort(events);
 		parent.getBatch().begin();
 		for (MapEvent event : events) {
-			TextureRegion sprite = event.getRegion();
-			if (sprite == null) {
+			if (!event.requiresChunking()) {
 				// render them once
 				if ((int) Math.floor(getZ()) == z) {
 					event.render(camera);
 				}
 			} else {
 				// let's chunk 'em
+				TextureRegion sprite = event.getRegion();
 				int startY = (int) (z - Math.floor(getZ())) * parent.getTileHeight();
 				if (startY < 0 || startY >= sprite.getRegionHeight()) continue;
 				int origY = sprite.getRegionY();

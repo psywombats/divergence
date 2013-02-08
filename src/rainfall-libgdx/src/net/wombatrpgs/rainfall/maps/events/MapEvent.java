@@ -536,10 +536,22 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	/**
 	 * Change out z to the appropriate new value. This does what it should,
 	 * just override it if you need to bring things with you.
-	 * @param 	newZ				The new z-layer to put us on
+	 * @param 	newZ			The new z-layer to put us on
 	 */
 	public void changeZ(int newZ) {
 		parent.changeZ(this, newZ);
+	}
+	
+	/**
+	 * Chunking refers to the process of breaking this event into pieces for the
+	 * purposes of simulating tile depth. This should enabled for tall objects
+	 * and disabled when the graphic is undergound special effects, like falling
+	 * into holes. Default returns true if the event isn't falling into a hole,
+	 * and there's a graphic to display.
+	 * @return					True if this event should be chunked
+	 */
+	public boolean requiresChunking() {
+		return (this.getRegion() != null && !isFalling());
 	}
 	
 	/**
