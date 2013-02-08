@@ -492,7 +492,6 @@ public class Level implements ScreenShowable {
 	 */
 	public void removeObject(MapObject toRemove) {
 		objects.remove(toRemove);
-		toRemove.onRemovedFromMap(this);
 	}
 	
 	/**
@@ -505,10 +504,40 @@ public class Level implements ScreenShowable {
 	}
 	
 	/**
+	 * Adds a passable event hitbox to the level. Same as the gridlayer method.
+	 * Note that this can only add to gridlayers with integer z values. This is
+	 * somewhat intentional as overriding the upper chip with an upper chip
+	 * event is pointless.
+	 * @param 	box				The hitbox to add as an override
+	 * @param	z				The z of the layer to add it on
+	 */
+	public void addPassabilityOverride(Hitbox box, int z) {
+		for (GridLayer layer : tileLayers) {
+			if (layer.getZ() == z) {
+				layer.addPassabilityOverride(box);
+			}
+		}
+	}
+	
+	/**
+	 * Removes a passable event hitbox from the level.
+	 * @param 	box				The override to remove
+	 * @param 	z				The z of the layer to remove it from
+	 */
+	public void removePassabilityOverride(Hitbox box, int z) {
+		for (GridLayer layer : tileLayers) {
+			if (layer.getZ() == z) {
+				layer.removePassabilityOverride(box);
+			}
+		}
+	}
+	
+	/**
 	 * Internally removes an event from all lists and registries.
 	 * @param 	toRemove		The event to remove
 	 */
 	protected void internalRemoveEvent(MapEvent toRemove) {
+		toRemove.onRemovedFromMap(this);
 		for (EventLayer layer : eventLayers) {
 			if (layer.contains(toRemove)) {
 				layer.remove(toRemove);

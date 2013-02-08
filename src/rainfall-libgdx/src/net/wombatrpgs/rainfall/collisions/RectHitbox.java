@@ -6,6 +6,9 @@
  */
 package net.wombatrpgs.rainfall.collisions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.wombatrpgs.rainfall.maps.Positionable;
 
 /**
@@ -47,6 +50,31 @@ public class RectHitbox extends Hitbox {
 	@Override
 	public int getHeight() {
 		return Math.abs(y1 - y2);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.collisions.Hitbox#getX()
+	 */
+	@Override
+	public int getX() {
+		return parent.getX() + x1;
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.collisions.Hitbox#getY()
+	 */
+	@Override
+	public int getY() {
+		return parent.getY() + y1;
+	}
+
+	/**
+	 * @see java.lang.Object#clone()
+	 */
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
 	}
 
 	/**
@@ -105,6 +133,64 @@ public class RectHitbox extends Hitbox {
 		result.mtvX = mtvx;
 		result.mtvY = mtvy;
 		return result;
+	}
+	
+	/**
+	 * Subtracts the area of one rectangle from this rectangle, returning a 
+	 * collection of rectangles that defines the remaining polygon.
+	 * @param 	other			The hitbox to subtract
+	 * @return					The remaining polygon representation
+	 */
+	public List<RectHitbox> subtract(RectHitbox other) {
+		// TODO: this an inner loop, get rid of the new!
+		// I could probably make this a for loop but I honestly don't care
+		List<RectHitbox> rects = new ArrayList<RectHitbox>();
+		if (!other.isColliding(this).isColliding) {
+			rects.add(this);
+			return rects;
+		}
+		int px1 = x1 + parent.getX();
+		int px2 = other.x1 + other.parent.getX();
+		int px3 = other.x2 + other.parent.getX();
+		int px4 = x2 + parent.getX();
+		int py1 = y1 + parent.getY();
+		int py2 = other.y1 + other.getY();
+		int py3 = other.y2 + other.getY();
+		int py4 = y2 + parent.getY();
+		if (px1 < px2 && py1 < py2) {
+			rects.add(new RectHitbox(parent, px1, py1, px2, py2));
+		}
+		if (px2 < px3 && py1 < py2) {
+			rects.add(new RectHitbox(parent, px2, py1, px3, py2));
+		}
+		if (px3 < px4 && py1 < py2) {
+			rects.add(new RectHitbox(parent, px3, py1, px4, py2));
+		}
+		if (px1 < px2 && py2 < py3) {
+			rects.add(new RectHitbox(parent, px1, py2, px2, py3));
+		}
+		if (px3 < px4 && py2 < py3) {
+			rects.add(new RectHitbox(parent, px3, py2, px4, py3));
+		}
+		if (px1 < px2 && py3 < py4) {
+			rects.add(new RectHitbox(parent, px1, py3, px2, py4));
+		}
+		if (px2 < px3 && py3 < py4) {
+			rects.add(new RectHitbox(parent, px2, py3, px3, py4));
+		}
+		if (px3 < px4 && py3 < py4) {
+			rects.add(new RectHitbox(parent, px3, py3, px4, py4));
+		}
+		for (RectHitbox rect : rects) {
+			rect.x1 -= parent.getX();
+			rect.x2 -= parent.getX();
+			rect.y1 -= parent.getY();
+			rect.y2 -= parent.getY();
+			if (rect.x1 + 32 < rect.x2 || rect.y1 + 32 < rect.y2) {
+				System.out.println();
+			}
+		}
+		return rects;
 	}
 
 }

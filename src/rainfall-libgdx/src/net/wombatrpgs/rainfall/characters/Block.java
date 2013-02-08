@@ -6,12 +6,17 @@
  */
 package net.wombatrpgs.rainfall.characters;
 
+import javax.swing.Box;
+
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
+import net.wombatrpgs.rainfall.collisions.Hitbox;
+import net.wombatrpgs.rainfall.collisions.RectHitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.AnimationStrip;
 import net.wombatrpgs.rainfall.maps.Level;
+import net.wombatrpgs.rainfall.maps.Positionable;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.SummonMDO;
@@ -23,6 +28,7 @@ public class Block extends CharacterEvent {
 	
 	protected SummonMDO mdo;
 	protected AnimationStrip anim;
+	protected Hitbox upperBox;
 	protected boolean summonInProgress;
 	
 	/**
@@ -34,6 +40,11 @@ public class Block extends CharacterEvent {
 		super(RGlobal.data.getEntryFor(mdo.blockEvent, CharacterEventMDO.class));
 		setCollisionsEnabled(true);
 		summonInProgress = false;
+		upperBox = getHitbox().duplicate();
+		upperBox.setParent(new Positionable() {
+			@Override public int getX() { return (int) x; }
+			@Override public int getY() { return (int) (y + Level.PIXELS_PER_Y); }	
+		});
 	}
 	
 	/** @param summoning True if summoning is in progress */
@@ -85,6 +96,26 @@ public class Block extends CharacterEvent {
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
 		appearance.postProcessing(manager, pass);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#onAddedToMap
+	 * (net.wombatrpgs.rainfall.maps.Level)
+	 */
+	@Override
+	public void onAddedToMap(Level map) {
+		super.onAddedToMap(map);
+		map.addPassabilityOverride(upperBox, map.getZ(this) + 1);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#onRemovedFromMap
+	 * (net.wombatrpgs.rainfall.maps.Level)
+	 */
+	@Override
+	public void onRemovedFromMap(Level map) {
+		super.onRemovedFromMap(map);
+		map.removePassabilityOverride(upperBox, map.getZ(this) + 1);
 	}
 	
 }

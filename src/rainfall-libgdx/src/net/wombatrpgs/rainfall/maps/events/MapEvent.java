@@ -134,7 +134,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	/** @see net.wombatrpgs.rainfall.maps.Positionable#getY() */
 	@Override
 	public int getY() { return Math.round(y); }
-	
+
 	/** @see net.wombatrpgs.rainfall.maps.PositionSetable#setX(int) */
 	@Override
 	public void setX(int x) { this.x = x; }

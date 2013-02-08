@@ -6,13 +6,14 @@
  */
 package net.wombatrpgs.rainfall.collisions;
 
+import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Positionable;
 
 /**
  * Something that can collide and be possessed by physical objects. Isn't it
  * wonderful?
  */
-public abstract class Hitbox {
+public abstract class Hitbox implements Cloneable {
 	
 	protected Positionable parent;
 	
@@ -29,6 +30,9 @@ public abstract class Hitbox {
 	
 	/** @return the y-coord (in pixels) where this hitbox begins */
 	public int getY() { return parent.getY(); }
+	
+	/** @return parent The new source for offsets on this hitbox */
+	public void setParent(Positionable parent) { this.parent = parent; }
 	
 	/**
 	 * Gets the width of this hitbox, that is, the distance between the point
@@ -60,5 +64,19 @@ public abstract class Hitbox {
 	 * @return					The result of the collision test
 	 */
 	public abstract CollisionResult isCollidingRect(RectHitbox other);
+	
+	/**
+	 * Clones this specific hitbox... I've never had much luck with this in
+	 * Java, to be honest.
+	 * @return					A field-for-field copy of this hitbox
+	 */
+	public Hitbox duplicate() {
+		try {
+			return (Hitbox) this.clone();
+		} catch (CloneNotSupportedException e) {
+			RGlobal.reporter.err("Cloning fuckup?", e);
+			return null;
+		}
+	}
 
 }

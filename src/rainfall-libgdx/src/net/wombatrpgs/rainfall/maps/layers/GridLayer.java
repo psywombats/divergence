@@ -6,6 +6,9 @@
  */
 package net.wombatrpgs.rainfall.maps.layers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledLayer;
@@ -34,6 +37,7 @@ public class GridLayer extends Layer {
 	protected TiledMap map;
 	protected Level parent;
 	protected TiledLayer layer;
+	protected List<Hitbox> passOverrides;
 	protected boolean passability[][];
 	protected int layerID;
 	
@@ -48,6 +52,7 @@ public class GridLayer extends Layer {
 		this.layer = layer;
 		this.layerID = layerID;
 		this.map = parent.getMap();
+		this.passOverrides = new ArrayList<Hitbox>();
 	}
 	
 	/**
@@ -106,14 +111,24 @@ public class GridLayer extends Layer {
 	 */
 	@Override
 	public void applyPhysicalCorrections(MapEvent event) {
-		int atX1 = (int) Math.floor(((float) event.getX()) / map.tileWidth);
-		int atX2 = (int) Math.ceil(((float) event.getX()) / map.tileWidth);
-		int atY1 = (int) Math.floor(((float) event.getY()) / map.tileHeight);
-		int atY2 = (int) Math.ceil(((float) event.getY()) / map.tileHeight);
-		applyCorrectionsByTile(event, atX1, atY1);
-		applyCorrectionsByTile(event, atX1, atY2);
-		applyCorrectionsByTile(event, atX2, atY1);
-		applyCorrectionsByTile(event, atX2, atY2);
+		RectHitbox safeRect = null;
+		if (event.isCollisionEnabled()) {
+			for (Hitbox box : passOverrides) {
+				if (event.getHitbox().isColliding(box).isColliding) {
+					safeRect = (RectHitbox) box; // t(=_=) casting
+				}
+			}
+		}
+		Hitbox box = event.getHitbox();
+		int atX1 = (int) Math.floor((float) box.getX() / (float) map.tileWidth);
+		int atX2 = (int) Math.floor((float) (box.getX() + box.getWidth()) / (float) map.tileWidth);
+		int atY1 = (int) Math.floor((float) box.getY() / (float) map.tileHeight);
+		int atY2 = (int) Math.floor((float) (box.getY() + box.getHeight()) / (float) map.tileHeight);
+		for (int atX = atX1; atX <= atX2; atX++) {
+			for (int atY = atY1; atY <= atY2; atY++) {
+				applyCorrectionsByTile(event, atX, atY, safeRect);
+			}
+		}
 		checkForHoles(event,
 				(int) Math.round(((float) event.getX()) / map.tileWidth),
 				(int) Math.round(((float) event.getY()) / map.tileHeight));
@@ -190,6 +205,32 @@ public class GridLayer extends Layer {
 		}
 		return result;
 	}
+	
+	/**
+	 * Adds an override to the normal passability of this grid layer. If an
+	 * event is in contact with this hitbox, it will be considered legal
+	 * regardless of any other state it's in. This is useful for events that
+	 * move around that perform the same function as upper chip. However, they
+	 * need to be registered here. Note that the collision indicates that the
+	 * colliding event must be >50% inside the box, not just touching like
+	 * normal.
+	 * @param 	box				The box that will override passability
+	 */
+	public void addPassabilityOverride(Hitbox box) {
+		passOverrides.add(box);
+	}
+	
+	/**
+	 * Removes a previously added passability override
+	 * @param 	box				The box of the override to remove
+	 */
+	public void removePassabilityOverride(Hitbox box) {
+		if (passOverrides.contains(box)) {
+			passOverrides.remove(box);
+		} else {
+			RGlobal.reporter.warn("Tried to remove a pass that wasn't here: " + box);
+		}
+	}
 
 
 	/**
@@ -198,15 +239,16 @@ public class GridLayer extends Layer {
 	 * @param 	event			The event to correct
 	 * @param 	tileX			The x-coord of the tile (in tiles)
 	 * @param 	tileY			The y-coord of the tile (in tiles)
+	 * @param	safe			Rect to subtract from all tile boxes
 	 */
-	private void applyCorrectionsByTile(MapEvent event, int tileX, int tileY) {
+	private void applyCorrectionsByTile(MapEvent event, int tileX, int tileY, RectHitbox safe) {
 		if (tileX < 0 || tileX >= map.width || tileY < 0 || tileY >= map.height) {
 			// the hero has stepped outside the map
-			bump(event, tileX, tileY);
+			bump(event, tileX, tileY, null);
 			return;
 		}
 		if (passability[tileY][tileX] == false) {
-			bump(event, tileX, tileY);
+			bump(event, tileX, tileY, safe);
 		}
 	}
 	
@@ -215,8 +257,9 @@ public class GridLayer extends Layer {
 	 * @param 	event			The event that needs bumping
 	 * @param 	tileX			The x-coord of the bump tile (in tiles)
 	 * @param 	tileY			The y-coord of the bump tile (in tiles)
+	 * @param	safe			A rect hitbox to subtract from tile boxes
 	 */
-	private void bump(MapEvent event, final int tileX, final int tileY) {
+	private void bump(MapEvent event, final int tileX, final int tileY, RectHitbox safe) {
 		// TODO: optimize this, remove the new
 		RectHitbox tileBox;
 		final boolean cliff;
@@ -240,13 +283,33 @@ public class GridLayer extends Layer {
 		} else {
 			tileBox = new RectHitbox(loc, 0, 0, map.tileWidth, map.tileHeight);
 		}
-		CollisionResult result = tileBox.isColliding(event.getHitbox());
-		if (result.isColliding) {
-			if (event.getHitbox() == result.collide2) {
-				result.mtvX *= -1;
-				result.mtvY *= -1;
+		if (safe == null) {
+			CollisionResult result = tileBox.isColliding(event.getHitbox());
+			if (result.isColliding) {
+				if (event.getHitbox() == result.collide2) {
+					result.mtvX *= -1;
+					result.mtvY *= -1;
+				}
+				if (event == RGlobal.hero) {
+					System.out.println();
+				}
+				event.resolveWallCollision(result);
 			}
-			event.resolveWallCollision(result);
+		} else {
+			List<RectHitbox> boxes = tileBox.subtract(safe);
+			for (RectHitbox box : boxes) {
+				CollisionResult result = box.isColliding(event.getHitbox());
+				if (result.isColliding) {
+					if (event.getHitbox() == result.collide2) {
+						result.mtvX *= -1;
+						result.mtvY *= -1;
+					}
+					if (event == RGlobal.hero) {
+						System.out.println();
+					}
+					event.resolveWallCollision(result);
+				}
+			}
 		}
 	}
 	
