@@ -15,7 +15,6 @@ import net.wombatrpgs.rainfall.scenes.SceneParser;
  */
 public class CommandCameraSpeed extends SceneCommand {
 	
-	protected boolean finished;
 	protected int speed;
 
 	/**
@@ -27,7 +26,6 @@ public class CommandCameraSpeed extends SceneCommand {
 		super(parent, line);
 		String arg = line.substring(line.indexOf(' ') + 1, line.indexOf(']'));
 		speed = Integer.valueOf(arg);
-		finished = false;
 	}
 
 	/**

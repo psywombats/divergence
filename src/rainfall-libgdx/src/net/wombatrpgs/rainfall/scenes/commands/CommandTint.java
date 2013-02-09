@@ -79,4 +79,13 @@ public class CommandTint extends SceneCommand {
 		return true;
 	}
 
+	/**
+	 * @see net.wombatrpgs.rainfall.scenes.SceneCommand#reset()
+	 */
+	@Override
+	public void reset() {
+		super.reset();
+		tinting = false;
+	}
+
 }

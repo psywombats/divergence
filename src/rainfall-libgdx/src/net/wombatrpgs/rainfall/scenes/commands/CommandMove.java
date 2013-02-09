@@ -38,12 +38,12 @@ public class CommandMove extends SceneCommand {
 	 */
 	public CommandMove(SceneParser parent, String line) {
 		super(parent, line);
-		finished = false;
 		steps = new Stack<MoveStep>();
 		line = line.substring(line.indexOf(' ')+1);
 		String eventName = line.substring(0, line.indexOf(' '));
 		event = parent.getLevel().getEventByName(eventName);
 		line = line.substring(line.indexOf(' ') + 1);
+		this.line = line;
 		parseSteps(line);
 	}
 	
@@ -88,9 +88,16 @@ public class CommandMove extends SceneCommand {
 		return true;
 	}
 	
-	/** @return True if we're done executing */
-	public boolean isFinished() { return this.finished; }
-	
+	/**
+	 * @see net.wombatrpgs.rainfall.scenes.SceneCommand#reset()
+	 */
+	@Override
+	public void reset() {
+		super.reset();
+		steps = new Stack<MoveStep>();
+		parseSteps(line);
+	}
+
 	/**
 	 * Parses all the data contained in the latter half of the string, the part
 	 * reserved for the move commands.

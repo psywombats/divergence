@@ -18,7 +18,6 @@ public class CommandCameraTrack extends SceneCommand {
 	
 	protected static final String NULL_TARGET = "fix";
 	
-	protected boolean finished;
 	protected MapEvent target;
 
 	/**
@@ -28,7 +27,6 @@ public class CommandCameraTrack extends SceneCommand {
 	 */
 	public CommandCameraTrack(SceneParser parent, String line) {
 		super(parent, line);
-		finished = false;
 		String arg = line.substring(line.indexOf(' ')+1, line.indexOf(']'));
 		if (arg.equals(NULL_TARGET)) {
 			target = null;

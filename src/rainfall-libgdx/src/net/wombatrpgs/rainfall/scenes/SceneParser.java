@@ -114,9 +114,6 @@ public class SceneParser extends MapObject {
 	/** @return True if this parser has been run */
 	public boolean hasExecuted() { return this.executed; }
 	
-	/** Sets execution to false */
-	public void reset() { this.executed = false; }
-	
 	/**
 	 * Gets all map events that have been touched by movements by this parser.
 	 * @return					The events controlled by the parser
@@ -138,6 +135,7 @@ public class SceneParser extends MapObject {
 	 */
 	public void run(Level level) {
 		if (!enabled && (!executed || mdo.repeat == TriggerRepeatType.RUN_EVERY_TIME)) {
+			if (executed) reset();
 			enabled = true;
 			forceRun();
 		}
@@ -153,12 +151,24 @@ public class SceneParser extends MapObject {
 		RGlobal.screens.getLevelScreen().setCommandContext(new SceneCommandMap());
 	}
 	
+	/** 
+	 * Resets the scene so that it can be run again. Does this by setting
+	 * execution to false and reseting its children.
+	 */
+	public void reset() { 
+		this.executed = false;
+		for (SceneCommand command : commands) {
+			command.reset();
+		}
+	}
+	
 	/**
 	 * Called when this parser finishes execution.
 	 */
 	protected void terminate() {
 		RGlobal.screens.getLevelScreen().setCommandContext(oldMap);
 		parent.setPause(false);
+		parent.removeObject(this);
 		enabled = false;
 		executed = true;
 		RGlobal.hero.halt();

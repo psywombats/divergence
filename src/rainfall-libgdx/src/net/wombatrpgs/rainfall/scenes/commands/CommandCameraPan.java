@@ -22,7 +22,6 @@ public class CommandCameraPan extends SceneCommand {
 	protected CommandMove subCommand;
 	protected Positionable oldTarget;
 	protected boolean runOnce;
-	protected boolean finished;
 
 	/**
 	 * Creates a new pan from code.
@@ -31,7 +30,6 @@ public class CommandCameraPan extends SceneCommand {
 	 */
 	public CommandCameraPan(SceneParser parent, String line) {
 		super(parent, line);
-		finished = false;
 		runOnce = false;
 		target = new MapEvent() {
 			@Override
@@ -69,6 +67,15 @@ public class CommandCameraPan extends SceneCommand {
 			finished = true;
 		}
 		return subCommand.run();
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.scenes.SceneCommand#reset()
+	 */
+	@Override
+	public void reset() {
+		super.reset();
+		runOnce = false;
 	}
 
 }

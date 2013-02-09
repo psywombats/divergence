@@ -73,6 +73,9 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	
 	/** @return The parent parser that will execute this command */
 	public SceneParser getParent() { return this.parent; }
+	
+	/** @return True if this command is done running */
+	public boolean isFinished() { return this.finished; }
 
 	/**
 	 * Let this command be executed! Sometimes commands can wait by returning
@@ -80,6 +83,16 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	 * @return					True if we're done running and should continue
 	 */
 	public abstract boolean run();
+	
+	/**
+	 * Reset this command so it can be run again. The default resets all
+	 * state variables, and children should override this and reset their
+	 * state variables.
+	 */
+	public void reset() {
+		finished = false;
+		blocking = false;
+	}
 	
 	/**
 	 * Waits for the user to acknowledge before progressing.

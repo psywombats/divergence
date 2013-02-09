@@ -122,4 +122,13 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 		}
 	}
 
+	/**
+	 * @see net.wombatrpgs.rainfall.scenes.SceneCommand#reset()
+	 */
+	@Override
+	public void reset() {
+		super.reset();
+		running = false;
+	}
+
 }
