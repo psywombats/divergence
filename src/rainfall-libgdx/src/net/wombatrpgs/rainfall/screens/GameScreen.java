@@ -6,6 +6,9 @@
  */
 package net.wombatrpgs.rainfall.screens;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
@@ -40,6 +43,8 @@ public abstract class GameScreen implements CommandListener,
 	protected CommandMap commandContext;
 	/** The thing to draw if this canvas is visible */
 	protected ScreenShowable canvas;
+	/** These things will be drawn over top of the canvas */
+	protected List<ScreenShowable> pictures;
 	/** What we'll use to render */
 	protected TrackerCam cam;
 	/** Depth, lower values are rendered last */
@@ -71,6 +76,7 @@ public abstract class GameScreen implements CommandListener,
 		buffer = new FrameBuffer(Format.RGB565, 
 				RGlobal.window.width, RGlobal.window.height, 
 				false);
+		pictures = new ArrayList<ScreenShowable>();
 		tint = Color.WHITE;
 		cam = new TrackerCam(RGlobal.window.width, RGlobal.window.height);
 		cam.init();
@@ -174,8 +180,13 @@ public abstract class GameScreen implements CommandListener,
 		int height = RGlobal.window.height;
 		buffer.begin();
 		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_STENCIL_BUFFER_BIT);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		canvas.render(cam);
+		batch.begin();
+		for (ScreenShowable pic : pictures) {
+			pic.render(cam);
+		}
+		batch.end();
 		buffer.end();
 		privateBatch.begin();
 		privateBatch.setColor(tint);
@@ -209,6 +220,9 @@ public abstract class GameScreen implements CommandListener,
 	@Override
 	public void update(float elapsed) {
 		canvas.update(elapsed);
+		for (ScreenShowable pic : pictures) {
+			pic.update(elapsed);
+		}
 		RGlobal.keymap.update(elapsed);
 		cam.update(elapsed);
 	}
@@ -228,6 +242,22 @@ public abstract class GameScreen implements CommandListener,
 	 */
 	public void setCanvas(ScreenShowable newCanvas) {
 		this.canvas = newCanvas;
+	}
+	
+	/**
+	 * Adds a screen-showable picture to the screen.
+	 * @param 	pic				The picture to add
+	 */
+	public void addPicture(ScreenShowable pic) {
+		pictures.add(pic);
+	}
+	
+	public void removePicture(ScreenShowable pic) {
+		if (pictures.contains(pic)) {
+			pictures.remove(pic);
+		} else {
+			RGlobal.reporter.warn("Tried to remove non-existant picture from screen: " + pic);
+		}
 	}
 
 	/**

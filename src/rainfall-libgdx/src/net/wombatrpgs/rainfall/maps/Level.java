@@ -7,7 +7,6 @@
 package net.wombatrpgs.rainfall.maps;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +31,6 @@ import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.maps.layers.GridLayer;
 import net.wombatrpgs.rainfall.maps.layers.Layer;
 import net.wombatrpgs.rainfall.maps.layers.EventLayer;
-import net.wombatrpgs.rainfall.maps.objects.Picture;
 import net.wombatrpgs.rainfall.screens.ScreenShowable;
 import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 import net.wombatrpgs.rainfallschema.maps.MapMDO;
@@ -78,8 +76,6 @@ public class Level implements ScreenShowable {
 	protected List<MapEvent> events;
 	/** List of all map object in the level (some are in layers) */
 	protected List<MapObject> objects;
-	/** Pictures that fly above the stage! */
-	protected List<Picture> pictures;
 	/** List of all map events to remove next loop */
 	
 	protected List<MapEvent> removalEvents;
@@ -107,7 +103,6 @@ public class Level implements ScreenShowable {
 		objects = new ArrayList<MapObject>();
 		removalObjects = new ArrayList<MapObject>();
 		removalEvents = new ArrayList<MapEvent>();
-		pictures = new ArrayList<Picture>();
 	}
 	
 	/** @return The batch used to render sprites on this map */
@@ -146,9 +141,6 @@ public class Level implements ScreenShowable {
 	/** @return All object layers on this map */
 	public List<EventLayer> getEventLayers() { return eventLayers; }
 	
-	/** @return All pictures being displayed on this map */
-	public List<Picture> getPictures() { return this.pictures; }
-	
 	/** @return All events on the level */
 	public List<MapEvent> getEvents() { return this.events; }
 	
@@ -174,11 +166,6 @@ public class Level implements ScreenShowable {
 			for (Layer layer : layers) {
 				layer.render(camera, z);
 			}
-		}
-		for (Picture picture : pictures) {
-			getBatch().begin();
-			picture.render(camera);
-			getBatch().end();
 		}
 	}
 	
@@ -487,31 +474,12 @@ public class Level implements ScreenShowable {
 	}
 	
 	/**
-	 * Adds a new picture to the scene. Auto-sorts them in a pseudo-layer.
-	 * @param 	picture			The picture to add the level
-	 */
-	public void addPicture(Picture picture) {
-		addObject(picture);
-		pictures.add(picture);
-		Collections.sort(pictures);
-	}
-	
-	/**
 	 * Internall removes an object from all lists and registries. This should
 	 * not be used for events, at least not as a primary call.
 	 * @param 	toRemove		The event to remove
 	 */
 	public void removeObject(MapObject toRemove) {
 		objects.remove(toRemove);
-	}
-	
-	/**
-	 * Removes a picture from the scene.
-	 * @param 	picture			The picture to remove
-	 */
-	public void removePicture(Picture picture) {
-		removeObject(picture);
-		pictures.remove(picture);
 	}
 	
 	/**

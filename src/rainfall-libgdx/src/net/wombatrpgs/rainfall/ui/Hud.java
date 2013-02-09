@@ -27,11 +27,11 @@ import net.wombatrpgs.rainfallschema.ui.data.IconPlacementMDO;
  * Heads-up display! Everybody's favorite piece of UI. This version is stuck
  * into a UI object and should be told to draw itself as part of a screen.
  */
-// TODO: make this display with the screen and not the level
 public class Hud extends Picture {
 	
 	protected HudMDO mdo;
 	protected Graphic mask, alphaMask;
+	protected boolean enabled;
 
 	/**
 	 * Creates a new HUD from data. Requires queueing.
@@ -43,6 +43,12 @@ public class Hud extends Picture {
 		mask = new Graphic(RGlobal.data.getEntryFor(mdo.mask, GraphicMDO.class));
 		alphaMask = new Graphic(RGlobal.data.getEntryFor(mdo.alphaMask, GraphicMDO.class));
 	}
+	
+	/** @return True if the hud is displaying right now */
+	public boolean isEnabled() { return enabled; }
+	
+	/** @param True if the hud is going to be displayed */
+	public void setEnabled(boolean enabled) { this.enabled = enabled; }
 
 	/**
 	 * Remember we have to render all those pesky icons as well.
@@ -68,14 +74,20 @@ public class Hud extends Picture {
 		if (minimap != null) {
 			int x1 = (int) (x + mdo.minimapX);
 			int y1 = (int) (y + appearance.getHeight() - mask.getHeight() - mdo.minimapY);
-			int minX = Integer.valueOf(getLevel().getProperty(Level.PROPERTY_MINIMAP_X1));
-			int minY = Integer.valueOf(getLevel().getProperty(Level.PROPERTY_MINIMAP_Y1));
-			int maxX = Integer.valueOf(getLevel().getProperty(Level.PROPERTY_MINIMAP_X2));
-			int maxY = Integer.valueOf(getLevel().getProperty(Level.PROPERTY_MINIMAP_Y2));
+			int minX = Integer.valueOf(RGlobal.hero.getLevel().getProperty(
+					Level.PROPERTY_MINIMAP_X1));
+			int minY = Integer.valueOf(RGlobal.hero.getLevel().getProperty(
+					Level.PROPERTY_MINIMAP_Y1));
+			int maxX = Integer.valueOf(RGlobal.hero.getLevel().getProperty(
+					Level.PROPERTY_MINIMAP_X2));
+			int maxY = Integer.valueOf(RGlobal.hero.getLevel().getProperty(
+					Level.PROPERTY_MINIMAP_Y2));
 			int offX = (int) (minX + ((float) RGlobal.hero.getX() / 
-					(float) getLevel().getWidthPixels()) * (maxX - minX));
+					(float) RGlobal.hero.getLevel().getWidthPixels()) * 
+					(maxX - minX));
 			int offY = (int)(minY - ((float) RGlobal.hero.getY() / 
-					(float) getLevel().getHeightPixels()) * (maxY - minY) + (maxY - minY));
+					(float) RGlobal.hero.getLevel().getHeightPixels()) * 
+					(maxY - minY) + (maxY - minY));
 			getBatch().end();
 			getBatch().setBlendFunction(GL20.GL_ONE, GL20.GL_ZERO);
 			Gdx.graphics.getGL20().glColorMask(false, false, false, true);

@@ -81,7 +81,7 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 							}
 							
 				};
-				parent.getLevel().addPicture(facePic);
+				RGlobal.screens.peek().addPicture(facePic);
 			}
 			block(this);
 			return false;
@@ -118,7 +118,7 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	@Override
 	public void onUnblock() {
 		if (facePic != null) {
-			parent.getLevel().removePicture(facePic);
+			RGlobal.screens.peek().removePicture(facePic);
 		}
 	}
 

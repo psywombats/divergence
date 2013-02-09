@@ -12,9 +12,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Graphic;
-import net.wombatrpgs.rainfall.graphics.Renderable;
-import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfall.maps.PositionSetable;
+import net.wombatrpgs.rainfall.screens.ScreenShowable;
 import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 
 /**
@@ -22,9 +21,9 @@ import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
  * equivalent. The only difference it has with the map object is that it
  * can be compared against other pictures to sort by z-depth.
  */
-public class Picture extends MapObject implements 	Comparable<Picture>,
-													Renderable,
-													PositionSetable {
+public class Picture implements Comparable<Picture>,
+								ScreenShowable,
+								PositionSetable {
 	
 	protected Graphic appearance;
 	protected boolean preloaded;
@@ -84,7 +83,6 @@ public class Picture extends MapObject implements 	Comparable<Picture>,
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		super.render(camera);
 		appearance.renderAt(getX(), getY());
 	}
 	/**
@@ -93,7 +91,6 @@ public class Picture extends MapObject implements 	Comparable<Picture>,
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		super.queueRequiredAssets(manager);
 		if (!preloaded) {
 			appearance.queueRequiredAssets(manager);
 		}
@@ -104,7 +101,6 @@ public class Picture extends MapObject implements 	Comparable<Picture>,
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		super.postProcessing(manager, pass);
 		if (!preloaded) {
 			appearance.postProcessing(manager, pass);
 		}
@@ -146,6 +142,13 @@ public class Picture extends MapObject implements 	Comparable<Picture>,
 		return z - other.z;
 	}
 	
+	/**
+	 * @see net.wombatrpgs.rainfall.core.Updateable#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		// default does nothing
+	}
 	/**
 	 * Gets the default screen batch. This is usually what's used to render,
 	 * although if some special thing is going on, it'd be best to use a

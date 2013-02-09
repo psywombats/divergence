@@ -11,7 +11,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.io.CommandListener;
-import net.wombatrpgs.rainfall.io.CommandMap;
 import net.wombatrpgs.rainfall.scenes.commands.UnblockedListener;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 
