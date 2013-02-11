@@ -10,6 +10,8 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.maps.Level;
+import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.cutscene.SceneMDO;
 import net.wombatrpgs.rainfallschema.settings.TeleportSettingsMDO;
 
@@ -57,6 +59,26 @@ public class TeleportSettings implements Queueable {
 	public void postProcessing(AssetManager manager, int pass) {
 		preParser.postProcessing(manager, pass);
 		postParser.postProcessing(manager, pass);
+	}
+	
+	// TODO: make this deal with pre/post
+	/**
+	 * Teleports the hero to the map. This is a core teleport event and doesn't
+	 * actually deal with the pre/post stuff... Assumes the teleport affects the
+	 * hero and not some other goober.
+	 * @param	victim			The poor event to teleport
+	 * @param 	map				The level to teleport to
+	 * @param 	tileX			The x-coord to teleport to (in tiles);
+	 * @param 	tileY			The y-coord to teleport to (in tiles)
+	 */
+	public void teleport(Level map, int tileX, int tileY) {
+		MapEvent victim = RGlobal.hero;
+		getPre().reset();
+		Level old = victim.getLevel();
+		int z = old.getZ(victim);
+		old.teleportOff();
+		old.update(0);
+		map.teleportOn(tileX, tileY, z);
 	}
 
 }

@@ -151,6 +151,14 @@ public class ScreenStack {
 	}
 	
 	/**
+	 * Reports how many scenes are on the stack.
+	 * @return					The number of screens on the stack
+	 */
+	public int size() {
+		return screens.size();
+	}
+	
+	/**
 	 * Sorts the stack of game screens by their z-value.
 	 */
 	private void sortStack() {

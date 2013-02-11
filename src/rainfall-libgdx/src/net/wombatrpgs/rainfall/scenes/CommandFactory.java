@@ -12,6 +12,7 @@ import net.wombatrpgs.rainfall.scenes.commands.CommandCameraSpeed;
 import net.wombatrpgs.rainfall.scenes.commands.CommandCameraTrack;
 import net.wombatrpgs.rainfall.scenes.commands.CommandMove;
 import net.wombatrpgs.rainfall.scenes.commands.CommandSpeak;
+import net.wombatrpgs.rainfall.scenes.commands.CommandTeleport;
 import net.wombatrpgs.rainfall.scenes.commands.CommandTint;
 import net.wombatrpgs.rainfall.scenes.commands.CommandToggleHud;
 import net.wombatrpgs.rainfall.scenes.commands.CommandWait;
@@ -31,6 +32,7 @@ public class CommandFactory {
 	protected static final String COMMAND_WAIT = "wait";
 	protected static final String COMMAND_TINT = "tint";
 	protected static final String COMMAND_TOGGLE_HUD = "toggle-hud";
+	protected static final String COMMAND_TELE = "teleport";
 	
 	/**
 	 * Actually performs the generation. This should be a great big if/else.
@@ -63,6 +65,8 @@ public class CommandFactory {
 				return new CommandTint(parent, line);
 			} else if (commandName.equals(COMMAND_TOGGLE_HUD)) {
 				return new CommandToggleHud(parent, line);
+			} else if (commandName.equals(COMMAND_TELE)) {
+				return new CommandTeleport(parent, line);
 			} else {
 				RGlobal.reporter.warn("Did not recognize a command: " + commandName);
 				return null;

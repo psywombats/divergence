@@ -63,23 +63,11 @@ public class TeleportEvent extends MapEvent {
 	public boolean onCollide(MapEvent other, CollisionResult result) {
 		if (other != RGlobal.hero) return true;
 		if (RGlobal.teleport.getPre().hasExecuted()) {
-			RGlobal.teleport.getPre().reset();
-			int z = parent.getZ(other);
-			Level old = other.getLevel();
-			parent.teleportOff();
-			old.update(0);
-			// it's buggy, this shouldn't be necessary
-			float oldR = RGlobal.screens.peek().getTint().r;
-			float oldG = RGlobal.screens.peek().getTint().g;
-			float oldB = RGlobal.screens.peek().getTint().b;
-			RGlobal.screens.peek().getTint().r = 1;
-			RGlobal.screens.peek().getTint().g = 1;
-			RGlobal.screens.peek().getTint().b = 1;
 			Level map = RGlobal.levelManager.getLevel(mapID);
-			RGlobal.screens.peek().getTint().r = oldR;
-			RGlobal.screens.peek().getTint().g = oldG;
-			RGlobal.screens.peek().getTint().b = oldB;
-			map.teleportOn(targetX, map.getHeight() - targetY - 1, z);
+			RGlobal.teleport.teleport(
+					map, 
+					targetX, 
+					map.getHeight() - targetY - 1);
 			map.addObject(RGlobal.teleport.getPost());
 			RGlobal.teleport.getPost().run(map);
 		} else {

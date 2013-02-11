@@ -1,4 +1,5 @@
 [tint 0 0 0 0]
+[toggle-hud on]
 [tint 1 1 1 2.0]
 [wait 2.0]
 NICO: Hello my name is Nico. I am the protagonist of this game.
@@ -24,4 +25,5 @@ NICO: I'm getting dizzy...
 NICO: Woah...
 WALDY: Nico you're drunk.
 [camera-track nico]
-[toggle-hud on]
+NICO: Hmph. I'm going to go stand in the bookshelf.
+[teleport blockbound2 1 1]

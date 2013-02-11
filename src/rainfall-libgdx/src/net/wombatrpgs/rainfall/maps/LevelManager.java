@@ -38,6 +38,17 @@ public class LevelManager {
 	// TODO: make this pretty loading
 	public Level getLevel(String mapID) {
 		if (!levels.containsKey(mapID)) {
+			// TODO: figure out this tint bullshit and why it's needed
+			// it's buggy, this shouldn't be necessary
+			float oldR = 0, oldG = 0, oldB = 0;
+			if (RGlobal.screens.size() > 0) {
+				oldR = RGlobal.screens.peek().getTint().r;
+				oldG = RGlobal.screens.peek().getTint().g;
+				oldB = RGlobal.screens.peek().getTint().b;
+				RGlobal.screens.peek().getTint().r = 1;
+				RGlobal.screens.peek().getTint().g = 1;
+				RGlobal.screens.peek().getTint().b = 1;
+			}
 			MapMDO mapMDO = RGlobal.data.getEntryFor(mapID, MapMDO.class);
 			Level map = new Level(mapMDO);
 			map.queueRequiredAssets(RGlobal.assetManager);
@@ -46,6 +57,11 @@ public class LevelManager {
 				map.postProcessing(RGlobal.assetManager, pass);
 			}
 			levels.put(mapID, map);
+			if (RGlobal.screens.size() > 0) {
+				RGlobal.screens.peek().getTint().r = oldR;
+				RGlobal.screens.peek().getTint().g = oldG;
+				RGlobal.screens.peek().getTint().b = oldB;
+			}
 		}
 		return levels.get(mapID);
 	}
