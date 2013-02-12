@@ -1,4 +1,5 @@
 /**
+
  *  FieldPanel.java
  *  Created on Aug 13, 2012 11:54:36 PM for project MGNSE
  *  Author: psy_wombats
@@ -10,6 +11,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.lang.reflect.Field;
 
 import javax.swing.JComboBox;
@@ -26,7 +29,9 @@ import net.wombatrpgs.mgns.core.Schema;
  * Base of all editor panel field editors. Provides some cool methods for them
  * to use related to constraints.
  */
-public abstract class FieldPanel extends JPanel implements DocumentListener, ActionListener {
+public abstract class FieldPanel extends JPanel implements 	DocumentListener, 
+															ActionListener,
+															ItemListener {
 	
 	private static final long serialVersionUID = -2777827947566521485L;
 	
@@ -56,7 +61,9 @@ public abstract class FieldPanel extends JPanel implements DocumentListener, Act
 	public void changedUpdate(DocumentEvent e) { parent.setDirty(true); }
 	@Override
 	public void actionPerformed(ActionEvent e) { parent.setDirty(true); }
-	
+	@Override
+	public void itemStateChanged(ItemEvent e) { parent.setDirty(true); }
+
 	/**
 	 * Selects a string in a drop-down list.
 	 * @param s			The string to select

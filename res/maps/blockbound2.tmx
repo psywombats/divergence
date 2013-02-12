@@ -85,5 +85,10 @@
     <property name="key" value="enemy_widget"/>
    </properties>
   </object>
+  <object name="DragonBeetle" type="event" x="352" y="160" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_dragon_beetle"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

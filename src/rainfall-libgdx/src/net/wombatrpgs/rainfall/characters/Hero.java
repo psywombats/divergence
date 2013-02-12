@@ -90,6 +90,9 @@ public class Hero extends CharacterEvent {
 			stun();
 			bounce(other);
 			break;
+		case INSTADEATH:
+			// hoo boy
+			
 		default:
 			break;
 		}

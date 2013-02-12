@@ -1,0 +1,10 @@
+{
+	"key" : "fireball_4dir",
+	"subfolder" : "enemies/",
+	"name" : "",
+	"description" : "",
+	"upAnim" : "fireball_up",
+	"rightAnim" : "fireball_right",
+	"downAnim" : "fireball_down",
+	"leftAnim" : "fireball_left"
+}

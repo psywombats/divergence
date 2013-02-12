@@ -89,7 +89,7 @@ public class CharacterEvent extends MapEvent {
 	
 	/**
 	 * Tells the animation to face a specific direction.
-	 * @param 	dir				The directiont to face
+	 * @param 	dir				The direction to face
 	 */
 	public void setFacing(Direction dir) {
 		this.appearance.setFacing(dir);
@@ -269,6 +269,14 @@ public class CharacterEvent extends MapEvent {
 	public boolean canAct() {
 		return canMove();
 	}
+	
+	/**
+	 * Gets the speed from the mobility mdo.
+	 * @return					Normal speed of this event
+	 */
+	public float getSpeed() {
+		return mobilityMDO.walkVelocity;
+	}
 
 	/**
 	 * Makes this event face towards an object on the map.
@@ -386,6 +394,17 @@ public class CharacterEvent extends MapEvent {
 	 */
 	public boolean isMoveActive(MovesetAct act) {
 		return activeMoves.contains(act);
+	}
+	
+	/**
+	 * Sets movement in a particular direction based on our mobility.
+	 * @param 	dir				The direction to move in
+	 */
+	public void targetDirection(Direction dir) {
+		DirVector vec = dir.getVector();
+		float targetVX = mobilityMDO.walkVelocity * vec.x;
+		float targetVY = mobilityMDO.walkVelocity * vec.y;
+		targetVelocity(targetVX, targetVY);
 	}
 	
 	/**

@@ -8,7 +8,10 @@ package net.wombatrpgs.rainfall.characters.ai;
 
 import java.util.PriorityQueue;
 
+import com.badlogic.gdx.assets.AssetManager;
+
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
+import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfallschema.characters.enemies.ai.IntelligenceMDO;
 import net.wombatrpgs.rainfallschema.characters.enemies.ai.intent.IntentMDO;
 
@@ -23,7 +26,7 @@ import net.wombatrpgs.rainfallschema.characters.enemies.ai.intent.IntentMDO;
  * custom intelligence and override this thing's methods. A new intelligence is
  * created for each individual enemy.
  */
-public class Intelligence {
+public class Intelligence implements Queueable {
 	
 	protected IntelligenceMDO mdo;
 	protected PriorityQueue<Intent> intents;
@@ -49,6 +52,28 @@ public class Intelligence {
 	public void act() {
 		for (Intent intent : intents) {
 			if (intent.checkAndAct()) break;
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.core.Queueable#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		for (Intent intent : intents) {
+			intent.queueRequiredAssets(manager);
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.core.Queueable#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager, int pass) {
+		for (Intent intent : intents) {
+			intent.postProcessing(manager, pass);
 		}
 	}
 

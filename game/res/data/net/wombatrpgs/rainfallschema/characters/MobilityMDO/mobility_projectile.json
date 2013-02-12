@@ -1,0 +1,9 @@
+{
+	"key" : "mobility_projectile",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"walkVelocity" : 256,
+	"acceleration" : 1024,
+	"decceleration" : 1024
+}

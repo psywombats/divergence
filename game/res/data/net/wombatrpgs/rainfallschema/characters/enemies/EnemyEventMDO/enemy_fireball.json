@@ -1,0 +1,15 @@
+{
+	"key" : "enemy_fireball",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"appearance" : "fireball_4dir",
+	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
+	"response" : "ETHEREAL",
+	"touch" : "INSTADEATH",
+	"mobility" : "mobility_projectile",
+	"intelligence" : "dummy_intelligence",
+	"vulnerability" : "vulnerability_all",
+	"gibset" : "None",
+	"emitter" : "None"
+}

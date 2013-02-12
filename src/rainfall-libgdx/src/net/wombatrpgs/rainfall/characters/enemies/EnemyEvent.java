@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.characters.ai.Intelligence;
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
+import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.particles.Emitter;
 import net.wombatrpgs.rainfall.graphics.particles.GibParticleSet;
@@ -27,7 +28,7 @@ import net.wombatrpgs.rainfallschema.graphics.GibsetMDO;
  * The one and only class for those pesky badniks that hunt down the valiant
  * hero and hinder his quest to save the earth.
  */
-public class Enemy extends CharacterEvent {
+public class EnemyEvent extends CharacterEvent {
 	
 	protected EnemyEventMDO mdo;
 	protected Intelligence ai;
@@ -42,7 +43,7 @@ public class Enemy extends CharacterEvent {
 	 * @param	x				The initial x-coord (in tiles)
 	 * @param	y				The intitila y-coord (in tiles)
 	 */
-	public Enemy(EnemyEventMDO mdo, TiledObject object, Level parent, int x, int y) {
+	public EnemyEvent(EnemyEventMDO mdo, TiledObject object, Level parent, int x, int y) {
 		super(mdo, object, parent, x, y);
 		this.mdo = mdo;
 		IntelligenceMDO aiMDO = RGlobal.data.getEntryFor(
@@ -51,7 +52,7 @@ public class Enemy extends CharacterEvent {
 		VulnerabilityMDO vulnMDO = RGlobal.data.getEntryFor(
 				mdo.vulnerability, VulnerabilityMDO.class);
 		vuln = new Vulnerability(vulnMDO);
-		if (mdo.emitter != null && mdo.gibset != null) {
+		if (!Constants.NULL_MDO.equals(mdo.emitter) && !Constants.NULL_MDO.equals(mdo.gibset)) {
 			GibsetMDO gibsetMDO = RGlobal.data.getEntryFor(mdo.gibset, GibsetMDO.class);
 			EmitterMDO emitterMDO = RGlobal.data.getEntryFor(mdo.emitter, EmitterMDO.class);
 			GibParticleSet gibs = new GibParticleSet(gibsetMDO);
@@ -76,6 +77,10 @@ public class Enemy extends CharacterEvent {
 	@Override
 	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
 		if (other == RGlobal.block) {
+			if (vuln.killableByTouch()) {
+				selfDestruct(RGlobal.block);
+				return true;
+			}
 			if (RGlobal.block.isMoving()) {
 				if (vuln.killableByPush()) {
 					selfDestruct(RGlobal.block);
@@ -110,6 +115,7 @@ public class Enemy extends CharacterEvent {
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
+		ai.queueRequiredAssets(manager);
 		if (emitter != null) {
 			emitter.queueRequiredAssets(manager);
 		}
@@ -122,6 +128,7 @@ public class Enemy extends CharacterEvent {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
+		ai.postProcessing(manager, pass);
 		if (emitter != null) {
 			emitter.postProcessing(manager, pass);
 		}

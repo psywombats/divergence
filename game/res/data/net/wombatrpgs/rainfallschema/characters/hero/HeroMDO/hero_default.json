@@ -6,5 +6,6 @@
 	"appearance" : "nico_4dir",
 	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
 	"response" : "PUSHABLE",
+	"touch" : "NOTHING",
 	"mobility" : "mobility_hero"
 }

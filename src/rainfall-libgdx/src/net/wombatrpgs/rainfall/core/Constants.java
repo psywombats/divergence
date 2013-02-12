@@ -44,6 +44,9 @@ public class Constants {
 	/** The key of the default window settings */
 	public static final String WINDOW_KEY = "window_data";
 	
+	/** Strings could be null or else this */
+	public static final String NULL_MDO = "None";
+	
 	public static final List<Class<? extends MainSchema>> PRELOAD_SCHEMA;
 	static {
 		PRELOAD_SCHEMA = new ArrayList<Class< ? extends MainSchema>>();

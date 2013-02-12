@@ -6,7 +6,10 @@
  */
 package net.wombatrpgs.rainfall.characters.ai;
 
+import com.badlogic.gdx.assets.AssetManager;
+
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
+import net.wombatrpgs.rainfall.core.Queueable;
 
 /**
  * An interface for um a very plan method. Should be subclasses, supplied with
@@ -15,7 +18,7 @@ import net.wombatrpgs.rainfall.characters.CharacterEvent;
  * than shared between a set of actors. Again, maybe this should've been an
  * interface. The intent is called once per update loop usually.
  */
-public abstract class IntentAct {
+public abstract class IntentAct implements Queueable {
 	
 	protected CharacterEvent actor;
 	
@@ -31,5 +34,25 @@ public abstract class IntentAct {
 	 * Actually do the goshdarned action.
 	 */
 	public abstract void act();
+
+	/**
+	 * @see net.wombatrpgs.rainfall.core.Queueable#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		// default does nothing
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.core.Queueable#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager, int pass) {
+		// default does nothing
+	}
+	
+	
 
 }

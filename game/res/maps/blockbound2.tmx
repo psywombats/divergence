@@ -84,9 +84,9 @@
     <property name="key" value="enemy_widget"/>
    </properties>
   </object>
-  <object height="64" name="Test Cutscene" type="trigger" width="64" x="288" y="32">
+  <object height="32" name="DragonBeetle" type="event" width="32" x="352" y="160">
    <properties>
-    <property name="id" value="scene_test0000"/>
+    <property name="key" value="enemy_dragon_beetle"/>
    </properties>
   </object>
  </objectgroup>

@@ -1,0 +1,18 @@
+{
+	"key" : "fireball_down",
+	"subfolder" : "enemies/",
+	"name" : "",
+	"description" : "",
+	"file" : "dragon_beetle_fireball.png",
+	"mode" : "REPEAT",
+	"frameCount" : 1,
+	"frameWidth" : 42,
+	"frameHeight" : 16,
+	"offX" : 0,
+	"offY" : 17,
+	"animSpeed" : 1,
+	"hit1x" : 12,
+	"hit1y" : 6,
+	"hit2x" : 24,
+	"hit2y" : 15
+}

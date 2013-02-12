@@ -20,5 +20,8 @@ public enum ActionType {
 	PACE_MENACINGLY,
 	WANDER_RANDOMLY,
 	CHARGE_HERO,
-
+	SPIT_FIRE,
+	FACE_HERO,
+	DO_NOTHING,
+	
 }

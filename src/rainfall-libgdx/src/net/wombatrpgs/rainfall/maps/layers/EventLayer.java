@@ -78,7 +78,9 @@ public class EventLayer extends Layer {
 				if (startY < 0 || startY >= sprite.getRegionHeight()) continue;
 				int origY = sprite.getRegionY();
 				int origHeight = sprite.getRegionHeight();
-				sprite.setRegionY(origY - startY + (origHeight - parent.getTileHeight()));
+				int newY = origY - startY + (origHeight - parent.getTileHeight());
+				if (newY < origY) newY = origY;
+				sprite.setRegionY(newY);
 				if (origHeight > 32) sprite.setRegionHeight(32);
 				event.renderLocal(camera, sprite, 0, startY, 0);
 				sprite.setRegionY(origY);

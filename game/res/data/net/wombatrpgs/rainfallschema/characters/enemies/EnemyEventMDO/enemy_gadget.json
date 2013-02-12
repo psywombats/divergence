@@ -9,7 +9,7 @@
 	"touch" : "STUNBOUNCE",
 	"mobility" : "mobility_enemy",
 	"intelligence" : "gadget_intelligence",
-	"vulnerability" : "vulnerability_all",
+	"vulnerability" : "vulnerability_default",
 	"gibset" : "gibset_gadget",
 	"emitter" : "emitter_enemies"
 }

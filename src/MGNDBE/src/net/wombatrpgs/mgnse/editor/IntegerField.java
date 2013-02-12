@@ -52,7 +52,7 @@ public class IntegerField extends FieldPanel {
 			input.setText("0");
 		}
 		try {
-			source.set(s, Integer.valueOf(input.getText()));
+			source.set(s, Integer.valueOf(input.getText().replace(",","")));
 		} catch (NumberFormatException e) {
 			String ew = input.getText();
 			System.out.println(ew);

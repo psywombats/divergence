@@ -6,7 +6,7 @@
 	"intents" : [
 		{
 			"action" : "CHARGE_HERO",
-			"condition" : "HERO_SPOTTED",
+			"condition" : "HERO_IN_RANGE",
 			"priority" : 10
 		},
 		{

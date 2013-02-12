@@ -1,0 +1,18 @@
+{
+	"key" : "dragon_beetle_right",
+	"subfolder" : "enemies",
+	"name" : "",
+	"description" : "",
+	"file" : "dragon_beetle.png",
+	"mode" : "REPEAT",
+	"frameCount" : 2,
+	"frameWidth" : 32,
+	"frameHeight" : 32,
+	"offX" : 0,
+	"offY" : 0,
+	"animSpeed" : 2,
+	"hit1x" : 4,
+	"hit1y" : 16,
+	"hit2x" : 28,
+	"hit2y" : 29
+}

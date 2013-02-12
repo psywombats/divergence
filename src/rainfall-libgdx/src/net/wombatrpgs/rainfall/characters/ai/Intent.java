@@ -6,13 +6,17 @@
  */
 package net.wombatrpgs.rainfall.characters.ai;
 
+import com.badlogic.gdx.assets.AssetManager;
+
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
+import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfallschema.characters.enemies.ai.intent.IntentMDO;
 
 /**
  * A subcomponent of an intelligence that dictates an action and a condition.
  */
-public class Intent implements Comparable<Intent> {
+public class Intent implements 	Comparable<Intent>,
+								Queueable {
 	
 	protected IntentMDO mdo;
 	protected Condition condition;
@@ -47,4 +51,23 @@ public class Intent implements Comparable<Intent> {
 		action.act();
 		return true;
 	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.core.Queueable#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		action.queueRequiredAssets(manager);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.core.Queueable#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager, int pass) {
+		action.postProcessing(manager, pass);
+	}
+
 }

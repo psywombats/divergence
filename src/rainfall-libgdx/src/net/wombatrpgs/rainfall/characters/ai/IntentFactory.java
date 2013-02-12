@@ -8,11 +8,16 @@ package net.wombatrpgs.rainfall.characters.ai;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentChase;
+import net.wombatrpgs.rainfall.characters.ai.actions.IntentFaceHero;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentHalt;
+import net.wombatrpgs.rainfall.characters.ai.actions.IntentNothing;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentPace;
+import net.wombatrpgs.rainfall.characters.ai.actions.IntentSpitfire;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentWander;
 import net.wombatrpgs.rainfall.characters.ai.conditions.ConditionDefault;
 import net.wombatrpgs.rainfall.characters.ai.conditions.ConditionHeroSpotted;
+import net.wombatrpgs.rainfall.characters.ai.conditions.ConditionSightCone;
+import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfallschema.characters.enemies.ai.intent.IntentMDO;
 
 /**
@@ -31,10 +36,14 @@ public class IntentFactory {
 	public static Condition makeCondition(CharacterEvent actor, IntentMDO mdo) {
 		// do some if-else assignable instanceofs here
 		switch (mdo.condition) {
-		case HERO_SPOTTED:
+		case HERO_IN_VISIONCONE:
+			return new ConditionSightCone(actor);
+		case HERO_IN_RANGE:
 			return new ConditionHeroSpotted(actor);
 		case DEFAULT:
+			return new ConditionDefault(actor);
 		default:
+			RGlobal.reporter.warn("Unsupported condition: " + mdo.condition);
 			return new ConditionDefault(actor);
 		}
 	}
@@ -48,6 +57,10 @@ public class IntentFactory {
 	public static IntentAct makeAction(CharacterEvent actor, IntentMDO mdo) {
 		// do the if-else
 		switch (mdo.action) {
+		case SPIT_FIRE:
+			return new IntentSpitfire(actor);
+		case FACE_HERO:
+			return new IntentFaceHero(actor);
 		case WANDER_RANDOMLY:
 			return new IntentWander(actor);
 		case PACE_MENACINGLY:
@@ -55,8 +68,12 @@ public class IntentFactory {
 		case CHARGE_HERO:
 			return new IntentChase(actor);
 		case SIT_STILL:
-		default:
 			return new IntentHalt(actor);
+		case DO_NOTHING:
+			return new IntentNothing(actor);
+		default:
+			RGlobal.reporter.warn("Unsupported action: " + mdo.action);
+			return new IntentNothing(actor);
 		}
 	}
 
