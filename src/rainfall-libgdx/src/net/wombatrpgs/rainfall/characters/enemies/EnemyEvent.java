@@ -34,6 +34,7 @@ public class EnemyEvent extends CharacterEvent {
 	protected Intelligence ai;
 	protected Vulnerability vuln;
 	protected Emitter emitter;
+	protected int againstWall;
 	
 	/**
 	 * Creates a new enemy on a map from a database entry.
@@ -46,6 +47,7 @@ public class EnemyEvent extends CharacterEvent {
 	public EnemyEvent(EnemyEventMDO mdo, TiledObject object, Level parent, int x, int y) {
 		super(mdo, object, parent, x, y);
 		this.mdo = mdo;
+		againstWall = 0;
 		IntelligenceMDO aiMDO = RGlobal.data.getEntryFor(
 				mdo.intelligence, IntelligenceMDO.class);
 		ai = new Intelligence(aiMDO, this);
@@ -67,6 +69,7 @@ public class EnemyEvent extends CharacterEvent {
 	public void update(float elapsed) {
 		if (canAct()) ai.act();
 		super.update(elapsed);
+		if (againstWall > 0) againstWall -= 1;
 	}
 
 	/**
@@ -81,20 +84,17 @@ public class EnemyEvent extends CharacterEvent {
 				selfDestruct(RGlobal.block);
 				return true;
 			}
-			if (RGlobal.block.isMoving()) {
-				if (vuln.killableByPush()) {
-					selfDestruct(RGlobal.block);
-					return true;
-				} else {
-					// check if we've been pinned
-				}
-			} else {
-				// maybe the block has been summoned on top of us?
-				if (RGlobal.block.isSummoning()) {
-					if (vuln.killableBySummon()) {
-						selfDestruct(RGlobal.block);
-					}
-				}
+			if (vuln.killableByPush() && RGlobal.block.isMoving()) {
+				selfDestruct(RGlobal.block);
+				return true;
+			}
+			if (vuln.killableBySummon() && RGlobal.block.isSummoning()) {
+				selfDestruct(RGlobal.block);
+				return true;
+			}
+			if (vuln.killableByPin() && againstWall > 0) {
+				selfDestruct(RGlobal.block);
+				return true;
 			}
 		}
 		return super.onCharacterCollide(other, result); // ie false
@@ -132,6 +132,16 @@ public class EnemyEvent extends CharacterEvent {
 		if (emitter != null) {
 			emitter.postProcessing(manager, pass);
 		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#resolveWallCollision
+	 * (net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 */
+	@Override
+	public void resolveWallCollision(CollisionResult result) {
+		super.resolveWallCollision(result);
+		againstWall = 2;
 	}
 
 	/**
