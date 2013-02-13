@@ -50,16 +50,6 @@ public abstract class Layer implements Queueable {
 	public abstract boolean isLowerChip();
 	
 	/**
-	 * Determines whether this layer is an object layer, a so-called upper
-	 * chip layer. This means that unoccupied grid squares on this layer will
-	 * be treated as passable.
-	 * @return					True if this layer is lower chip, else false
-	 */
-	public boolean isUpperChip() {
-		return !isLowerChip();
-	}
-	
-	/**
 	 * Calculate the final passabilities of tiles in the layer. This should be
 	 * called once all layers have been populated.
 	 */
@@ -73,5 +63,15 @@ public abstract class Layer implements Queueable {
 	 * @param	z				The z-layer to render components of
 	 */
 	public abstract void render(OrthographicCamera camera, int z);
+	
+	/**
+	 * Determines whether this layer is an object layer, a so-called upper
+	 * chip layer. This means that unoccupied grid squares on this layer will
+	 * be treated as passable.
+	 * @return					True if this layer is lower chip, else false
+	 */
+	public boolean isUpperChip() {
+		return !isLowerChip();
+	}
 
 }

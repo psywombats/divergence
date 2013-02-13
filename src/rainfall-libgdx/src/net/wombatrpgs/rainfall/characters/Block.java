@@ -117,6 +117,14 @@ public class Block extends CharacterEvent {
 	}
 
 	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#reset()
+	 */
+	@Override
+	public void reset() {
+		// nope nope nope
+	}
+
+	/**
 	 * Changes the map the block is currently located on. Call every time the
 	 * block is summoned.
 	 * @param	map				The new level for the block to be on

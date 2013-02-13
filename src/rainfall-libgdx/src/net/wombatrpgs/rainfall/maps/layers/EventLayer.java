@@ -36,8 +36,8 @@ public class EventLayer extends Layer {
 	
 	/**
 	 * Creates a new object layer with a parent level and no objects.
-	 * @param 	parent		The parent level of the layer
-	 * @param	group		The underlying tiled object
+	 * @param 	parent			The parent level of the layer
+	 * @param	group			The underlying tiled object
 	 */
 	public EventLayer(Level parent, TiledObjectGroup group) {
 		this.parent = parent;

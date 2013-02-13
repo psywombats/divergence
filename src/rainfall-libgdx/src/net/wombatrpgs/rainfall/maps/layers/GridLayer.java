@@ -205,7 +205,7 @@ public class GridLayer extends Layer {
 		}
 		return result;
 	}
-	
+
 	/**
 	 * Adds an override to the normal passability of this grid layer. If an
 	 * event is in contact with this hitbox, it will be considered legal

@@ -141,11 +141,8 @@ public class Level implements ScreenShowable {
 	/** @return All object layers on this map */
 	public List<EventLayer> getEventLayers() { return eventLayers; }
 	
-	/** @return All events on the level */
-	public List<MapEvent> getEvents() { return this.events; }
-	
-	/** @return All objects on the level */
-	public List<MapObject> getObjects() { return this.objects; }
+//	/** @return All events on the level */
+//	public List<MapEvent> getEvents() { return this.events; }
 	
 	/** @param pause The map object to pause on */
 	public void setPause(boolean paused) { this.paused = paused; }
@@ -215,12 +212,12 @@ public class Level implements ScreenShowable {
 			eventLayers.add(layerIndex, new EventLayer(this, group));
 		}
 		
-		for (int layerIndex = 0; layerIndex < map.objectGroups.size(); layerIndex++) {
-			TiledObjectGroup group = map.objectGroups.get(layerIndex);
+		for (int i = 0; i < map.objectGroups.size(); i++) {
+			TiledObjectGroup group = map.objectGroups.get(i);
 			// load up all ingame objects from the database
 			for (TiledObject object : group.objects) {
 				//addEvent(MapEvent.createEvent(this, object), layerIndex);
-				EventFactory.handleData(this, object, layerIndex);
+				EventFactory.handleData(this, object, i);
 			}
 		}
 		
@@ -265,7 +262,7 @@ public class Level implements ScreenShowable {
 	@Override
 	public void update(float elapsed) {
 		for (MapObject toRemove : removalObjects) {
-			removeObject(toRemove);
+			internalRemoveObject(toRemove);
 		}
 		for (MapEvent toRemove : removalEvents) {
 			internalRemoveEvent(toRemove);
@@ -479,7 +476,7 @@ public class Level implements ScreenShowable {
 	 * @param 	toRemove		The event to remove
 	 */
 	public void removeObject(MapObject toRemove) {
-		objects.remove(toRemove);
+		removalObjects.add(toRemove);
 	}
 	
 	/**
@@ -512,10 +509,43 @@ public class Level implements ScreenShowable {
 	}
 	
 	/**
+	 * Resets the level to how it was during its intial load. This should keep
+	 * important things like puzzle solved status but remove things like enemy
+	 * deaths and reset event positions.
+	 */
+	public void reset() {
+		for (MapObject object : objects) {
+			object.reset();
+		}
+	}
+	
+	/**
+	 * Determiens if an object will exist on this level in the upcoming update.
+	 * This doesn't check the active objects, but also the objects in the queue
+	 * for adding and excludes the removal queue. (actually there is no add
+	 * queue right now so uh)
+	 * @param 	object			The object to check if exists
+	 * @return					True if that object will be on the map
+	 */
+	public boolean contains(MapObject object) {
+		for (MapEvent victim : removalEvents) {
+			if (object == victim) return false;
+		}
+		for (MapObject victim : removalObjects) {
+			if (object == victim) return false;
+		}
+		for (MapObject other : objects) {
+			if (object == other) return true;
+		}
+		return false;
+	}
+	
+	/**
 	 * Internally removes an event from all lists and registries.
 	 * @param 	toRemove		The event to remove
 	 */
 	protected void internalRemoveEvent(MapEvent toRemove) {
+		internalRemoveObject(toRemove);
 		toRemove.onRemovedFromMap(this);
 		for (EventLayer layer : eventLayers) {
 			if (layer.contains(toRemove)) {
@@ -524,7 +554,15 @@ public class Level implements ScreenShowable {
 		}
 		layerMap.remove(toRemove);
 		events.remove(toRemove);
-		removeObject(toRemove);
+	}
+	
+	/**
+	 * Called when this object is removed from the map.
+	 * @param 	toRemove		The object to remove
+	 */
+	protected void internalRemoveObject(MapObject toRemove) {
+		toRemove.onRemovedFromMap(this);
+		objects.remove(toRemove);
 	}
 
 }

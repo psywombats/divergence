@@ -48,6 +48,7 @@ public class CharacterEvent extends MapEvent {
 	protected FacesAnimation walkAnim;
 	
 	protected boolean stunned;
+	protected boolean dead;
 
 	/**
 	 * Creates a new char event with the specified data at the specified coords.
@@ -116,6 +117,7 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public void update(float elapsed) {
+		if (dead) return;
 		super.update(elapsed);
 		if (appearance != null) {
 			appearance.update(elapsed);
@@ -131,6 +133,7 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
+		if (dead) return;
 		super.render(camera);
 		if (appearance != null) {
 			appearance.render(camera);
@@ -193,7 +196,7 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public boolean canMove() {
-		return !stunned && super.canMove();
+		return !stunned && !dead && super.canMove();
 	}
 
 	/**
@@ -202,6 +205,7 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public boolean onCollide(MapEvent other, CollisionResult result) {
+		if (dead) return true;
 		return other.onCharacterCollide(this, result);
 	}
 
@@ -212,6 +216,7 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
+		if (dead) return true;
 		return false;
 	}
 	
@@ -258,7 +263,17 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public TextureRegion getRegion() {
+		if (dead) return null;
 		return appearance.getRegion();
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#reset()
+	 */
+	@Override
+	public void reset() {
+		super.reset();
+		dead = false;
 	}
 
 	/**
@@ -268,6 +283,14 @@ public class CharacterEvent extends MapEvent {
 	 */
 	public boolean canAct() {
 		return canMove();
+	}
+	
+	/**
+	 * The power of life and death!
+	 * @param 	isDead			True if character is out of action
+	 */
+	public void setDead(boolean isDead) {
+		this.dead = isDead;
 	}
 	
 	/**
@@ -334,6 +357,14 @@ public class CharacterEvent extends MapEvent {
 				setStunned(false);
 			}
 		});
+	}
+	
+	/**
+	 * Sets this character to a "dead" state. Rather than being removed from the
+	 * map it silently waits for the map to be reset. Useful for enemies.
+	 */
+	public void kill() {
+		dead = true;
 	}
 	
 	/**
@@ -477,6 +508,7 @@ public class CharacterEvent extends MapEvent {
 		acceleration = mobilityMDO.acceleration;
 		decceleration = mobilityMDO.decceleration;
 		maxVelocity = mobilityMDO.walkVelocity;
+		dead = false;
 	}
 
 }

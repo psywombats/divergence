@@ -15,6 +15,7 @@ import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.maps.layers.EventLayer;
 import net.wombatrpgs.rainfall.moveset.Moveset;
+import net.wombatrpgs.rainfall.scenes.FinishListener;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.MovesetMDO;
 import net.wombatrpgs.rainfallschema.io.data.InputButton;
@@ -27,12 +28,11 @@ public class Hero extends CharacterEvent {
 	
 	/** Holds the moves the player has assigned the hero */
 	protected Moveset moves;
-	
 	/** Where we entered the stage */
 	protected float entryX, entryY;
 
 	/**
-	 * Placeholder constructor. When the herp is finally initialized properly
+	 * Placeholder constructor. When the hero is finally initialized properly
 	 * this will change. Right now it sets up the hero on the map like any other
 	 * event. Also sets up the moveset called "default_moveset" though that
 	 * should be put in the hero MDO when it gets created.
@@ -154,9 +154,15 @@ public class Hero extends CharacterEvent {
 	 */
 	@Override
 	public void endFall() {
-		zeroCoords();
-		setX((int) entryX);
-		setY((int) entryY);
+		die();
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#reset()
+	 */
+	@Override
+	public void reset() {
+		// oh hell no we ain't dyin
 	}
 
 	/**
@@ -171,4 +177,21 @@ public class Hero extends CharacterEvent {
 		moves.act(command, map, this);
 	}
 
+	/**
+	 * Goodbye, cruel world! Actually this just resets the level because death
+	 * isn't really death in Blockbound.
+	 */
+	protected void die() {
+		RGlobal.teleport.getPre().addListener(new FinishListener() {
+			@Override
+			public void onFinish(Level map) {
+				map.reset();
+				zeroCoords();
+				setX((int) entryX);
+				setY((int) entryY);
+				RGlobal.teleport.getPost().run(map);
+			}
+		});
+		RGlobal.teleport.getPre().run(getLevel());
+	}
 }

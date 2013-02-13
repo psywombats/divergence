@@ -66,14 +66,12 @@ public class TeleportSettings implements Queueable {
 	 * Teleports the hero to the map. This is a core teleport event and doesn't
 	 * actually deal with the pre/post stuff... Assumes the teleport affects the
 	 * hero and not some other goober.
-	 * @param	victim			The poor event to teleport
 	 * @param 	map				The level to teleport to
 	 * @param 	tileX			The x-coord to teleport to (in tiles);
 	 * @param 	tileY			The y-coord to teleport to (in tiles)
 	 */
 	public void teleport(Level map, int tileX, int tileY) {
 		MapEvent victim = RGlobal.hero;
-		getPre().reset();
 		Level old = victim.getLevel();
 		int z = old.getZ(victim);
 		old.teleportOff();

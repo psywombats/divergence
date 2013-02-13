@@ -30,6 +30,7 @@ public class SceneParser extends MapObject {
 	protected SceneMDO mdo;
 	protected List<SceneCommand> commands;
 	protected List<MapEvent> controlledEvents;
+	protected List<FinishListener> listeners;
 	protected CommandMap oldMap;
 	protected String filename;
 	protected boolean executed, enabled;
@@ -56,6 +57,7 @@ public class SceneParser extends MapObject {
 		this.enabled = false;
 		this.filename = Constants.SCENES_DIR + mdo.file;
 		this.controlledEvents = new ArrayList<MapEvent>();
+		this.listeners = new ArrayList<FinishListener>();
 		this.timeSinceStart = 0;
 		setPauseLevel(PauseLevel.PAUSE_RESISTANT);
 	}
@@ -110,7 +112,7 @@ public class SceneParser extends MapObject {
 			terminate();
 		}
 	}
-	
+
 	/** @return True if this parser has been run */
 	public boolean hasExecuted() { return this.executed; }
 	
@@ -136,6 +138,9 @@ public class SceneParser extends MapObject {
 	public void run(Level level) {
 		if (!enabled && (!executed || mdo.repeat == TriggerRepeatType.RUN_EVERY_TIME)) {
 			if (executed) reset();
+			if (!level.contains(this)) {
+				level.addObject(this);
+			}
 			enabled = true;
 			forceRun();
 		}
@@ -163,6 +168,28 @@ public class SceneParser extends MapObject {
 	}
 	
 	/**
+	 * Adds a listener to the parser. The parser will be notified when the
+	 * parser finished executing the scene. The listener will then be removed,
+	 * so watch out.
+	 * @param 	listener		The listener to add
+	 */
+	public void addListener(FinishListener listener) {
+		listeners.add(listener);
+	}
+	
+	/**
+	 * Removes a listener to a parser. It will no longer be notified.
+	 * @param 	listener		The existing listener to remove
+	 */
+	public void removeListener(FinishListener listener) {
+		if (listeners.contains(listener)) {
+			listeners.remove(listener);
+		} else {
+			RGlobal.reporter.warn("Tried to remove a non-listener: " + listener);
+		}
+	}
+	
+	/**
 	 * Called when this parser finishes execution.
 	 */
 	protected void terminate() {
@@ -172,6 +199,10 @@ public class SceneParser extends MapObject {
 		enabled = false;
 		executed = true;
 		RGlobal.hero.halt();
+		for (FinishListener listener : listeners) {
+			listener.onFinish(parent);
+		}
+		listeners.clear();
 	}
 
 }

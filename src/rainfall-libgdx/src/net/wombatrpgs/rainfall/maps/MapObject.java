@@ -104,6 +104,16 @@ public abstract class MapObject implements	Renderable,
 	
 	/** @param How this object will respond to pausing */
 	public void setPauseLevel(PauseLevel level) { this.pauseLevel = level; }
+	
+	/**
+	 * Called when the level resets. Return to the default position. This should
+	 * involve either reseting coords to where they were when the level was
+	 * generated or removing self from the map. The default removes self from
+	 * map; chances are we shouldn't be there.
+	 */
+	public void reset() {
+		parent.removeObject(this);
+	}
 
 	/**
 	 * Called when this object is tele'd onto a map.

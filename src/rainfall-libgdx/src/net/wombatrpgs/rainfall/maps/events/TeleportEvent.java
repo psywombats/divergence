@@ -13,6 +13,7 @@ import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.RectHitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
+import net.wombatrpgs.rainfall.scenes.FinishListener;
 
 /**
  * Constructs a teleportation device! (or event, just depends on your
@@ -62,20 +63,19 @@ public class TeleportEvent extends MapEvent {
 	@Override
 	public boolean onCollide(MapEvent other, CollisionResult result) {
 		if (other != RGlobal.hero) return true;
-		if (RGlobal.teleport.getPre().hasExecuted()) {
-			Level map = RGlobal.levelManager.getLevel(mapID);
-			RGlobal.teleport.teleport(
-					map, 
-					targetX, 
-					map.getHeight() - targetY - 1);
-			map.addObject(RGlobal.teleport.getPost());
-			RGlobal.teleport.getPost().run(map);
-		} else {
-			if (!parent.getObjects().contains(RGlobal.teleport.getPre())) {
-				parent.addObject(RGlobal.teleport.getPre());
-				RGlobal.teleport.getPre().run(parent);
+		if (getLevel().contains(RGlobal.teleport.getPre())) return true;
+		RGlobal.teleport.getPre().addListener(new FinishListener() {
+			@Override
+			public void onFinish(Level map) {
+				Level newMap = RGlobal.levelManager.getLevel(mapID);
+				RGlobal.teleport.teleport(
+						newMap, 
+						targetX, 
+						newMap.getHeight() - targetY - 1);
+				RGlobal.teleport.getPost().run(newMap);
 			}
-		}
+		});
+		RGlobal.teleport.getPre().run(RGlobal.hero.getLevel());
 		return true;
 	}
 	

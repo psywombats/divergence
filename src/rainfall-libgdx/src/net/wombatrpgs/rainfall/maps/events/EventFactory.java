@@ -29,13 +29,15 @@ public class EventFactory {
 	 * @param 	parent			The parent level to add events to
 	 * @param 	object			The tiled object to create events from
 	 * @param 	layerIndex		The index of the layer of the source event
+	 * @param	denyPermanents	If true, will not generate permanent events
 	 */
 	public static void handleData(Level parent, TiledObject object, int layerIndex) {
 		if (Z_TELEPORT_TYPE.equals(object.type)) {
 			parent.addEvent(create(parent, object, layerIndex), layerIndex);
 			parent.addEvent(create(parent, object, layerIndex), layerIndex+1);
 		} else {
-			parent.addEvent(create(parent, object, layerIndex), layerIndex);
+			MapEvent event = create(parent, object, layerIndex);
+			parent.addEvent(event, layerIndex);
 		}
 	}
 	

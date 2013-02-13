@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.rainfall.maps.events;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
@@ -15,6 +14,7 @@ import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.collisions.NoHitbox;
+import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.PreRenderable;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
@@ -31,7 +31,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 															PreRenderable {
 	
 	/** Max time to fall into a hole */
-	protected static final float FALL_TIME = 1f;
+	protected static final float FULL_FALL = 1f;
 	
 	/** A thingy to fool the prerenderable, a sort of no-appear flag */
 	protected static final TextureRegion noAppearance = null;
@@ -176,32 +176,6 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	public void setMaxVelocity(float maxVelocity) { this.maxVelocity = maxVelocity; }
 	
 	/**
-	 * Default is invisible.
-	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
-	 */
-	@Override
-	public void render(OrthographicCamera camera) { 
-		super.render(camera);
-	}
-
-	/**
-	 * Default is nothing.
-	 * @see net.wombatrpgs.rainfall.graphics.Renderable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) { }
-
-	/**
-	 * Default is nothing.
-	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) { }
-	
-	/**
 	 * Sorts map objects based on z-depth.
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
@@ -217,6 +191,31 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
+	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRenderX()
+	 */
+	@Override
+	public int getRenderX() {
+		return getX();
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRenderY()
+	 */
+	@Override
+	public int getRenderY() {
+		return getY();
+	}
+
+	/**
+	 * Default is inivisible.
+	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRegion()
+	 */
+	@Override
+	public TextureRegion getRegion() {
+		return noAppearance;
+	}
+	
+	/**
 	 * Update yoself! This is called from the rendering loop but it's with some
 	 * filters set on it for target framerate. As of 2012-01-30 it's not called
 	 * from the idiotic update loop.
@@ -228,8 +227,10 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 			float dx = targetX - x;;
 			float dy = targetY - y;
 			float norm = (float) Math.sqrt(dx*dx + dy*dy);
-			dx /= norm;
-			dy /= norm;
+			if (norm != 0) {
+				dx /= norm;
+				dy /= norm;
+			}
 			internalTargetVelocity(maxVelocity * dx, maxVelocity * dy);
 		}
 		float deltaVX, deltaVY;
@@ -257,6 +258,9 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 				vy = Math.max(vy - deltaVY, targetVY);
 			}
 		}
+		if (Float.isNaN(vx) || Float.isNaN(vy)) {
+			RGlobal.reporter.warn("NaN values in physics!! " + this);
+		}
 		x += vx * elapsed;
 		y += vy * elapsed;
 		if (tracking) {
@@ -276,39 +280,45 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		}
 		if (falling) {
 			fallTime += elapsed;
-			x = startX + (holeX - startX) * (fallTime / FALL_TIME);
-			y = startY + (holeY - startY) * (fallTime / FALL_TIME);
-			if (fallTime > FALL_TIME) {
+			x = startX + (holeX - startX) * (fallTime / FULL_FALL);
+			y = startY + (holeY - startY) * (fallTime / FULL_FALL);
+			if (fallTime > FULL_FALL) {
 				endFall();
 			}
 		}
 		lastX = x;
 		lastY = y;
 	}
-	
+
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRenderX()
+	 * This version kills itself unless it was present on the map in the first
+	 * place.
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#reset()
 	 */
 	@Override
-	public int getRenderX() {
-		return getX();
+	public void reset() {
+		if (object == null) {
+			getLevel().removeEvent(this);
+		} else {
+			setX(object.x);
+			setY(parent.getHeight()*parent.getTileHeight()-object.y);
+			// ha! I told you storing this would come in handy!
+			getLevel().changeZ(this, Integer.valueOf(object.properties.get("z")));
+		}
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRenderY()
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#onAddedToMap
+	 * (net.wombatrpgs.rainfall.maps.Level)
 	 */
 	@Override
-	public int getRenderY() {
-		return getY();
-	}
-
-	/**
-	 * Default is inivisible.
-	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRegion()
-	 */
-	@Override
-	public TextureRegion getRegion() {
-		return noAppearance;
+	public void onAddedToMap(Level map) {
+		super.onAddedToMap(map);
+		if (object != null) {
+			object.properties.put("z", String.valueOf(map.getZ(this))); // trust me
+		}
+		
+		// (but really it's a hack so we can restore when we reset)
 	}
 
 	/**
@@ -351,7 +361,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 */
 	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, 
 			int offX, int offY, int angle) {
-		super.renderLocal(camera, sprite, getX() + offX, getY() + offY, angle, fallTime/FALL_TIME);
+		super.renderLocal(camera, sprite, getX() + offX, getY() + offY, angle, fallTime/FULL_FALL);
 	}
 	
 	/**
@@ -361,7 +371,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 * com.badlogic.gdx.graphics.g2d.TextureRegion, int, int)
 	 */
 	public void renderLocal(OrthographicCamera camera, TextureRegion sprite) {
-		super.renderLocal(camera, sprite, getX(), getY(), fallTime/FALL_TIME);
+		super.renderLocal(camera, sprite, getX(), getY(), fallTime/FULL_FALL);
 	}
 
 	/**

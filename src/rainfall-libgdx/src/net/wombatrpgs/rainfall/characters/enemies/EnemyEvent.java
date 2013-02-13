@@ -79,6 +79,7 @@ public class EnemyEvent extends CharacterEvent {
 	 */
 	@Override
 	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
+		if (dead) return true;
 		if (other == RGlobal.block) {
 			if (vuln.killableByTouch()) {
 				selfDestruct(RGlobal.block);
@@ -164,14 +165,14 @@ public class EnemyEvent extends CharacterEvent {
 			norm *= .8;
 			xComp /= norm;
 			yComp /= norm;
-			if (!parent.getEvents().contains(emitter)) {
+			if (!parent.contains(emitter)) {
 				parent.addEvent(emitter, 0, 0, parent.getZ(this));
 			}
 			emitter.setX(getX());
 			emitter.setY(getY());
 			emitter.fire(xComp, yComp);
 		}
-		parent.removeEvent(this);
+		kill();
 	}
 	
 }

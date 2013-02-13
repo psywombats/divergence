@@ -82,6 +82,14 @@ public class ZTeleportEvent extends MapEvent {
 				(int) Math.round(y/parent.getTileHeight()-1));
 	}
 
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#reset()
+	 */
+	@Override
+	public void reset() {
+		// aw hell no
+	}
+
 	/** @return true if other is in upper quadrant */
 	private boolean above(MapEvent other) {
 		float heroY = other.getY();
