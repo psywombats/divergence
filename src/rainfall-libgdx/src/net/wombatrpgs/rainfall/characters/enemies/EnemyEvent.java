@@ -192,6 +192,8 @@ public class EnemyEvent extends CharacterEvent {
 			emitter.fire(xComp, yComp);
 		}
 		kill();
+		setX(0);
+		setY(0);
 	}
 	
 }

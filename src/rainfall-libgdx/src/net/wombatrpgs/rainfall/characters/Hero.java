@@ -92,7 +92,9 @@ public class Hero extends CharacterEvent {
 			break;
 		case INSTADEATH:
 			// hoo boy
-			
+			// TODO: set the hero on fire
+			die();
+			break;
 		default:
 			break;
 		}
@@ -182,6 +184,7 @@ public class Hero extends CharacterEvent {
 	 * isn't really death in Blockbound.
 	 */
 	protected void die() {
+		stun();
 		RGlobal.teleport.getPre().addListener(new FinishListener() {
 			@Override
 			public void onFinish(Level map) {
