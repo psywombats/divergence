@@ -62,6 +62,8 @@ public class LevelManager {
 				RGlobal.screens.peek().getTint().g = oldG;
 				RGlobal.screens.peek().getTint().b = oldB;
 			}
+		} else {
+			levels.get(mapID).reset();
 		}
 		return levels.get(mapID);
 	}

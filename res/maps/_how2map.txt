@@ -86,7 +86,9 @@ Events:
 Events are weird and this section is under construction.
 
 Event properties:
+"key" - event key in the database
 "name" - the name of the object, what it's referred to in cutscene events
+"respawns" - causes the enemy to come back if the hero does something dumb
 
 Map properties:
 "minimap" - the database key of a minimap graphic that'll display with the HUD

@@ -30,6 +30,8 @@ import net.wombatrpgs.rainfallschema.graphics.GibsetMDO;
  */
 public class EnemyEvent extends CharacterEvent {
 	
+	protected static final String PROPERTY_RESPAWNS = "respawns";
+	
 	protected EnemyEventMDO mdo;
 	protected Intelligence ai;
 	protected Vulnerability vuln;
@@ -143,6 +145,23 @@ public class EnemyEvent extends CharacterEvent {
 	public void resolveWallCollision(CollisionResult result) {
 		super.resolveWallCollision(result);
 		againstWall = 2;
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#reset()
+	 */
+	@Override
+	public void reset() {
+		if (object == null) {
+			super.reset();
+		} else {
+			if (object.properties.get(PROPERTY_RESPAWNS) != null) {
+				super.reset();
+			} else {
+				if (!dead) super.reset();
+				// we're still dead :(
+			}
+		}
 	}
 
 	/**

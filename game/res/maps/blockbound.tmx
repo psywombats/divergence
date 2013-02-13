@@ -138,11 +138,13 @@
   <object height="32" name="Widget" type="event" width="32" x="480" y="352">
    <properties>
     <property name="key" value="enemy_widget"/>
+    <property name="respawns" value=""/>
    </properties>
   </object>
   <object height="32" name="Widget" type="event" width="32" x="448" y="224">
    <properties>
     <property name="key" value="enemy_widget"/>
+    <property name="respawns" value=""/>
    </properties>
   </object>
   <object height="32" name="Gadget" type="event" width="32" x="544" y="96">

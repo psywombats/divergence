@@ -18,7 +18,7 @@ import net.wombatrpgs.rainfallschema.settings.TeleportSettingsMDO;
 /**
  * A thing to keep track of which scene scripts play before/after teleports
  */
-public class TeleportSettings implements Queueable {
+public class TeleportGlobal implements Queueable {
 	
 	public static final String DEFAULT_MDO_KEY = "default_teleport";
 	
@@ -29,7 +29,7 @@ public class TeleportSettings implements Queueable {
 	 * Constructs teleport settings from data.
 	 * @param 	mdo				The settings to use to construct the settings
 	 */
-	public TeleportSettings(TeleportSettingsMDO mdo) {
+	public TeleportGlobal(TeleportSettingsMDO mdo) {
 		this.mdo = mdo;
 		preParser = new SceneParser(RGlobal.data.getEntryFor(mdo.pre, SceneMDO.class));
 		postParser = new SceneParser(RGlobal.data.getEntryFor(mdo.post, SceneMDO.class));
@@ -71,6 +71,9 @@ public class TeleportSettings implements Queueable {
 	 * @param 	tileY			The y-coord to teleport to (in tiles)
 	 */
 	public void teleport(Level map, int tileX, int tileY) {
+		if (RGlobal.block.getLevel() != null) {
+			RGlobal.block.getLevel().removeEvent(RGlobal.block);
+		}
 		MapEvent victim = RGlobal.hero;
 		Level old = victim.getLevel();
 		int z = old.getZ(victim);
