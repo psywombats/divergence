@@ -11,7 +11,7 @@ import net.wombatrpgs.rainfall.scenes.commands.CommandCameraPan;
 import net.wombatrpgs.rainfall.scenes.commands.CommandCameraSpeed;
 import net.wombatrpgs.rainfall.scenes.commands.CommandCameraTrack;
 import net.wombatrpgs.rainfall.scenes.commands.CommandMove;
-import net.wombatrpgs.rainfall.scenes.commands.CommandSpeak;
+import net.wombatrpgs.rainfall.scenes.commands.CommandSpeakAll;
 import net.wombatrpgs.rainfall.scenes.commands.CommandTeleport;
 import net.wombatrpgs.rainfall.scenes.commands.CommandTint;
 import net.wombatrpgs.rainfall.scenes.commands.CommandToggleHud;
@@ -72,7 +72,7 @@ public class CommandFactory {
 				return null;
 			}
 		} else if (line.contains(":")) {
-			return new CommandSpeak(parent, line);
+			return new CommandSpeakAll(parent, line);
 		} else {
 			RGlobal.reporter.warn("Found something weird in a scene file: " + line);
 			return null;

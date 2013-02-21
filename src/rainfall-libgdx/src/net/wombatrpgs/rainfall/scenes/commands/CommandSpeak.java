@@ -7,6 +7,7 @@
 package net.wombatrpgs.rainfall.scenes.commands;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
@@ -22,7 +23,10 @@ import net.wombatrpgs.rainfall.scenes.SceneParser;
 import net.wombatrpgs.rainfallschema.cutscene.SpeakerMDO;
 
 /**
- * An individual character speaks.
+ * An individual character speaks. As of 2013-02-14 this thing is a designated
+ * single-line command and not meant to be used for multi-line speaks, or to
+ * be instantiated by anything but CommandSpeakAll. It's also been repurpposed
+ * to take a list of lines instead of a single one.
  */
 public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	
@@ -30,28 +34,45 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	
 	protected static Map<String, SpeakerMDO> speakers;
 	
-	protected String speech;
+	protected List<String> lines;
 	protected SpeakerMDO mdo;
 	protected Graphic faceGraphic;
 	protected Picture facePic;
 	protected boolean running;
-
-	public CommandSpeak(SceneParser parent, String line) {
-		super(parent, line);
-		running = false;
+	
+//	@Deprecated
+//	public CommandSpeak(SceneParser parent, String line) {
+//		super(parent, line);
+//		running = false;
+//		if (speakers == null) {
+//			speakers = new HashMap<String, SpeakerMDO>();
+//			for (SpeakerMDO speakerMDO : RGlobal.data.getEntriesByClass(SpeakerMDO.class)) {
+//				speakers.put(speakerMDO.id, speakerMDO);
+//			}
+//		}
+//		String speakerKey = line.substring(0, line.indexOf(':'));
+//		speech = line.substring(line.indexOf(':') + 2);
+//		this.mdo = speakers.get(speakerKey);
+//		if (mdo == null) {
+//			RGlobal.reporter.warn("Speaker key not in database: " + speakerKey);
+//		} else if (mdo.file != null) {
+//			faceGraphic = new Graphic(Constants.PORTRAITS_DIR + mdo.file);
+//		}
+//	}
+	
+	CommandSpeak(SceneParser parent, String speakerKey, List<String> lines) {
+		super(parent, "[subcommand]");
 		if (speakers == null) {
 			speakers = new HashMap<String, SpeakerMDO>();
 			for (SpeakerMDO speakerMDO : RGlobal.data.getEntriesByClass(SpeakerMDO.class)) {
 				speakers.put(speakerMDO.id, speakerMDO);
 			}
 		}
-		String speakerKey = line.substring(0, line.indexOf(':'));
-		speech = line.substring(line.indexOf(':') + 2);
+		this.lines = lines;
 		this.mdo = speakers.get(speakerKey);
 		if (mdo == null) {
 			RGlobal.reporter.warn("Speaker key not in database: " + speakerKey);
-		}
-		if (mdo.file != null) {
+		} else if (mdo.file != null) {
 			faceGraphic = new Graphic(Constants.PORTRAITS_DIR + mdo.file);
 		}
 	}
@@ -63,7 +84,7 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	public boolean run() {
 		if (!running) {
 			running = true;
-			RGlobal.ui.getBox().setText(speech);
+			RGlobal.ui.getBox().setLines(lines);
 			RGlobal.ui.getBox().setName(mdo.name);
 			if (faceGraphic != null) {
 				facePic = new Picture(faceGraphic,

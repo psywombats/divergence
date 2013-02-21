@@ -58,13 +58,22 @@ public class FontHolder implements Queueable {
 	 * @param	batch			The batch to draw in context of
 	 * @param 	format			The formatting to use for the text box
 	 * @param 	text			The actual text to draw
+	 * @param	offY			Additional offset Y, to change lines (in px)
 	 */
-	public void draw(SpriteBatch batch, TextBoxFormat format, String text) {
+	public void draw(SpriteBatch batch, TextBoxFormat format, String text, int offY) {
 		TextBounds bounds = font.drawWrapped(batch, text, 
-				format.x, format.y, 
+				format.x, format.y + offY, 
 				format.width, format.align);
 		if (bounds.height > format.height) {
 			RGlobal.reporter.warn("A string was oversized: \"" + text + "\"");
 		}
+	}
+	
+	/**
+	 * Gets the distance between two lines of text, usually used in a text box.
+	 * @return					The distance between two lines of text (in px)
+	 */
+	public float getLineHeight() {
+		return font.getLineHeight();
 	}
 }

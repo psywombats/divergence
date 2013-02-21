@@ -6,6 +6,9 @@
  */
 package net.wombatrpgs.rainfall.ui.text;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -23,14 +26,14 @@ import net.wombatrpgs.rainfallschema.ui.TextBoxMDO;
  * future it will do some other cool stuff. These things only display on the
  * map the hero is on. Otherwise it really wouldn't make sense, would it?
  */
-// TODO: turn into picture
 public class TextBox extends Picture {
 	
+	protected List<String> lines;
 	protected TextBoxMDO mdo;
 	protected FontHolder font;
 	protected TextBoxFormat bodyFormat, nameFormat;
 	protected Graphic backer;
-	protected String body, name;
+	protected String name;
 	
 	/**
 	 * Creates a new text box from data. Does not deal with the loading of its
@@ -42,7 +45,6 @@ public class TextBox extends Picture {
 		super(RGlobal.data.getEntryFor(mdo.image, GraphicMDO.class), 0);
 		this.mdo = mdo;
 		this.font = font;
-		this.body = "";
 		this.name = "oo";
 		this.bodyFormat = new TextBoxFormat();
 		this.nameFormat = new TextBoxFormat();
@@ -64,8 +66,11 @@ public class TextBox extends Picture {
 					mdo.graphicX,
 					Gdx.graphics.getHeight() - mdo.graphicY - backer.getGraphic().getRegionHeight());
 		}
-		font.draw(RGlobal.screens.peek().getBatch(), bodyFormat, body);
-		font.draw(RGlobal.screens.peek().getBatch(), nameFormat, name);
+		for (int i = 0; i < lines.size(); i++) {
+			font.draw(RGlobal.screens.peek().getBatch(), bodyFormat,
+					lines.get(i), (int) (font.getLineHeight() * -i));
+		}
+		font.draw(RGlobal.screens.peek().getBatch(), nameFormat, name, 0);
 	}
 
 	/**
@@ -104,10 +109,21 @@ public class TextBox extends Picture {
 	
 	/**
 	 * Sets the internal text to be displayed at this textbox. Nothing fancy.
+	 * This only displays one line so you probably don't want to use this.
 	 * @param 	text			The text to be displayed
 	 */
 	public void setText(String text) {
-		this.body = text;
+		this.lines = new ArrayList<String>();
+		lines.add(text);
+	}
+	
+	/**
+	 * Sets the lines that are displayed by the text box. These should be
+	 * pre-formatted. One string is displayed per line.
+	 * @param 	lines			The lines to be displayed in the box.
+	 */
+	public void setLines(List<String> lines) {
+		this.lines = lines;
 	}
 	
 	/**
