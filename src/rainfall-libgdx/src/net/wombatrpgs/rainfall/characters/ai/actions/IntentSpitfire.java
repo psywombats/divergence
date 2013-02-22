@@ -14,11 +14,11 @@ import com.badlogic.gdx.assets.AssetManager;
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.characters.ai.IntentAct;
 import net.wombatrpgs.rainfall.characters.enemies.EnemyEvent;
-import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.objects.TimerListener;
 import net.wombatrpgs.rainfall.maps.objects.TimerObject;
+import net.wombatrpgs.rainfall.physics.CollisionResult;
 import net.wombatrpgs.rainfallschema.characters.enemies.EnemyEventMDO;
 import net.wombatrpgs.rainfallschema.maps.data.DirVector;
 

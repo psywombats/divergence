@@ -6,12 +6,12 @@
  */
 package net.wombatrpgs.rainfall.graphics;
 
-import net.wombatrpgs.rainfall.collisions.Hitbox;
-import net.wombatrpgs.rainfall.collisions.RectHitbox;
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
+import net.wombatrpgs.rainfall.physics.Hitbox;
+import net.wombatrpgs.rainfall.physics.RectHitbox;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 
 import com.badlogic.gdx.assets.AssetManager;

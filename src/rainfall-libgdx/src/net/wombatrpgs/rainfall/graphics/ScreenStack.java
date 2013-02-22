@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfall.screens;
+package net.wombatrpgs.rainfall.graphics;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +13,6 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.graphics.TrackerCam;
 
 /**
  * A bunch of screens stacked on top of each other that make up the game

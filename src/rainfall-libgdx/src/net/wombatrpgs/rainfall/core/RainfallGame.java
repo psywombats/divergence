@@ -1,9 +1,8 @@
-package net.wombatrpgs.rainfall;
+package net.wombatrpgs.rainfall.core;
 
-import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.io.FocusListener;
 import net.wombatrpgs.rainfall.io.FocusReporter;
-import net.wombatrpgs.rainfall.test.TestScreen;
+import net.wombatrpgs.rainfall.screens.TestScreen;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;

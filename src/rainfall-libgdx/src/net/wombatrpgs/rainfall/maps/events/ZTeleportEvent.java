@@ -8,11 +8,11 @@ package net.wombatrpgs.rainfall.maps.events;
 
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 
-import net.wombatrpgs.rainfall.collisions.CollisionResult;
-import net.wombatrpgs.rainfall.collisions.Hitbox;
-import net.wombatrpgs.rainfall.collisions.RectHitbox;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.layers.EventLayer;
+import net.wombatrpgs.rainfall.physics.CollisionResult;
+import net.wombatrpgs.rainfall.physics.Hitbox;
+import net.wombatrpgs.rainfall.physics.RectHitbox;
 
 /**
  * A teleport from one z-layer of a map to another. Mappers place these things
@@ -47,7 +47,7 @@ public class ZTeleportEvent extends MapEvent {
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#onCollide
 	 * (net.wombatrpgs.rainfall.maps.MapObject, 
-	 * net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 * net.wombatrpgs.rainfall.physics.CollisionResult)
 	 */
 	@Override
 	public boolean onCollide(MapEvent other, CollisionResult result) {

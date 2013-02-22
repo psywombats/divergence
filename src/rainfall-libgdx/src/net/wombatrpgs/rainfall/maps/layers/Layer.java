@@ -8,10 +8,10 @@ package net.wombatrpgs.rainfall.maps.layers;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import net.wombatrpgs.rainfall.collisions.FallResult;
-import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
+import net.wombatrpgs.rainfall.physics.FallResult;
+import net.wombatrpgs.rainfall.physics.Hitbox;
 
 /**
  * A layer in a map, either a grid layer or an object layer. It's how Tiled

@@ -4,16 +4,12 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfall.moveset;
+package net.wombatrpgs.rainfall.characters.moveset;
 
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.rainfall.characters.Block;
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
-import net.wombatrpgs.rainfall.collisions.FallResult;
-import net.wombatrpgs.rainfall.collisions.Hitbox;
-import net.wombatrpgs.rainfall.collisions.RectHitbox;
-import net.wombatrpgs.rainfall.collisions.TargetPosition;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.particles.Emitter;
 import net.wombatrpgs.rainfall.graphics.particles.GibParticleSet;
@@ -21,6 +17,10 @@ import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.events.AnimationPlayer;
 import net.wombatrpgs.rainfall.maps.objects.TimerListener;
 import net.wombatrpgs.rainfall.maps.objects.TimerObject;
+import net.wombatrpgs.rainfall.physics.FallResult;
+import net.wombatrpgs.rainfall.physics.Hitbox;
+import net.wombatrpgs.rainfall.physics.RectHitbox;
+import net.wombatrpgs.rainfall.physics.TargetPosition;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.SummonMDO;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.graphics.EmitterMDO;
@@ -62,7 +62,7 @@ public class ActSummon extends MovesetAct {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.moveset.Actionable#act
+	 * @see net.wombatrpgs.rainfall.characters.moveset.Actionable#act
 	 * (net.wombatrpgs.rainfall.maps.Level, net.wombatrpgs.rainfall.characters.CharacterEvent)
 	 */
 	@Override
@@ -176,7 +176,7 @@ public class ActSummon extends MovesetAct {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.moveset.MovesetAct#queueRequiredAssets
+	 * @see net.wombatrpgs.rainfall.characters.moveset.MovesetAct#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -191,7 +191,7 @@ public class ActSummon extends MovesetAct {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.moveset.MovesetAct#postProcessing
+	 * @see net.wombatrpgs.rainfall.characters.moveset.MovesetAct#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override

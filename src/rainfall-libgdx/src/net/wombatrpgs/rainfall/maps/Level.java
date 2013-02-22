@@ -20,18 +20,18 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
 
-import net.wombatrpgs.rainfall.collisions.FallResult;
-import net.wombatrpgs.rainfall.collisions.Hitbox;
-import net.wombatrpgs.rainfall.collisions.TargetPosition;
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Graphic;
+import net.wombatrpgs.rainfall.graphics.ScreenShowable;
 import net.wombatrpgs.rainfall.maps.events.EventFactory;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.maps.layers.GridLayer;
 import net.wombatrpgs.rainfall.maps.layers.Layer;
 import net.wombatrpgs.rainfall.maps.layers.EventLayer;
-import net.wombatrpgs.rainfall.screens.ScreenShowable;
+import net.wombatrpgs.rainfall.physics.FallResult;
+import net.wombatrpgs.rainfall.physics.Hitbox;
+import net.wombatrpgs.rainfall.physics.TargetPosition;
 import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 import net.wombatrpgs.rainfallschema.maps.MapMDO;
 

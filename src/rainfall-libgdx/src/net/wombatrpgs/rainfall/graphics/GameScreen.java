@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfall.screens;
+package net.wombatrpgs.rainfall.graphics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,6 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.core.Updateable;
-import net.wombatrpgs.rainfall.graphics.TrackerCam;
 import net.wombatrpgs.rainfall.io.CommandListener;
 import net.wombatrpgs.rainfall.io.CommandMap;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;

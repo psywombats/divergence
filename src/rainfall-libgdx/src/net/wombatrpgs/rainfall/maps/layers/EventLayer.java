@@ -15,13 +15,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
 
-import net.wombatrpgs.rainfall.collisions.CollisionResult;
-import net.wombatrpgs.rainfall.collisions.FallResult;
-import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
+import net.wombatrpgs.rainfall.physics.CollisionResult;
+import net.wombatrpgs.rainfall.physics.FallResult;
+import net.wombatrpgs.rainfall.physics.Hitbox;
 
 /**
  * A renderable collection of map events, grouped into a layer in a level.
@@ -131,7 +131,7 @@ public class EventLayer extends Layer {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.layers.Layer#dropObject
-	 * (net.wombatrpgs.rainfall.collisions.Hitbox)
+	 * (net.wombatrpgs.rainfall.physics.Hitbox)
 	 */
 	@Override
 	public FallResult dropObject(Hitbox box) {

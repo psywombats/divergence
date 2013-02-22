@@ -1,5 +1,7 @@
 package net.wombatrpgs.rainfall;
 
+import net.wombatrpgs.rainfall.core.RainfallGame;
+
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 

@@ -16,9 +16,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 
-import net.wombatrpgs.rainfall.collisions.CollisionResult;
-import net.wombatrpgs.rainfall.collisions.Hitbox;
-import net.wombatrpgs.rainfall.collisions.NoHitbox;
+import net.wombatrpgs.rainfall.characters.moveset.MovesetAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.FacesAnimation;
 import net.wombatrpgs.rainfall.graphics.FacesAnimationFactory;
@@ -26,7 +24,9 @@ import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.maps.objects.TimerListener;
 import net.wombatrpgs.rainfall.maps.objects.TimerObject;
-import net.wombatrpgs.rainfall.moveset.MovesetAct;
+import net.wombatrpgs.rainfall.physics.CollisionResult;
+import net.wombatrpgs.rainfall.physics.Hitbox;
+import net.wombatrpgs.rainfall.physics.NoHitbox;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 import net.wombatrpgs.rainfallschema.characters.MobilityMDO;
 import net.wombatrpgs.rainfallschema.characters.data.CollisionResponseType;
@@ -201,7 +201,7 @@ public class CharacterEvent extends MapEvent {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#onCollide
-	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.physics.CollisionResult)
 	 */
 	@Override
 	public boolean onCollide(MapEvent other, CollisionResult result) {
@@ -212,7 +212,7 @@ public class CharacterEvent extends MapEvent {
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.MapObject#onCharacterCollide
 	 * (net.wombatrpgs.rainfall.characters.CharacterEvent, 
-	 * net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 * net.wombatrpgs.rainfall.physics.CollisionResult)
 	 */
 	@Override
 	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
@@ -222,7 +222,7 @@ public class CharacterEvent extends MapEvent {
 	
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.MapObject#resolveCollision
-	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.physics.CollisionResult)
 	 */
 	@Override
 	public void resolveCollision(MapEvent other, CollisionResult result) {
@@ -232,7 +232,7 @@ public class CharacterEvent extends MapEvent {
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.MapObject#resolveCharacterCollision
 	 * (net.wombatrpgs.rainfall.characters.CharacterEvent, 
-	 * net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 * net.wombatrpgs.rainfall.physics.CollisionResult)
 	 */
 	@Override
 	public void resolveCharacterCollision(CharacterEvent other, CollisionResult result) {

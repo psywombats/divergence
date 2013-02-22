@@ -9,11 +9,11 @@ package net.wombatrpgs.rainfall.graphics.particles;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.wombatrpgs.rainfall.collisions.CollisionResult;
-import net.wombatrpgs.rainfall.collisions.Hitbox;
-import net.wombatrpgs.rainfall.collisions.RectHitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
+import net.wombatrpgs.rainfall.physics.CollisionResult;
+import net.wombatrpgs.rainfall.physics.Hitbox;
+import net.wombatrpgs.rainfall.physics.RectHitbox;
 import net.wombatrpgs.rainfallschema.graphics.EmitterMDO;
 import net.wombatrpgs.rainfallschema.graphics.data.BounceType;
 import net.wombatrpgs.rainfallschema.graphics.data.ReflectionType;
@@ -117,7 +117,7 @@ public class Particle extends MapEvent {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#resolveWallCollision
-	 * (net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 * (net.wombatrpgs.rainfall.physics.CollisionResult)
 	 */
 	@Override
 	public void resolveWallCollision(CollisionResult result) {

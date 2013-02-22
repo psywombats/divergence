@@ -4,10 +4,9 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfall.screens;
+package net.wombatrpgs.rainfall.graphics;
 
 import net.wombatrpgs.rainfall.core.Updateable;
-import net.wombatrpgs.rainfall.graphics.Renderable;
 
 /**
  * Something that's both renderable and updateable. Can also be sorted.

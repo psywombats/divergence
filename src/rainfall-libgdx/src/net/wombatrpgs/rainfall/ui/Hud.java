@@ -13,11 +13,11 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
+import net.wombatrpgs.rainfall.characters.moveset.MovesetAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Graphic;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.objects.Picture;
-import net.wombatrpgs.rainfall.moveset.MovesetAct;
 import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 import net.wombatrpgs.rainfallschema.ui.HudMDO;

@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfall.moveset;
+package net.wombatrpgs.rainfall.characters.moveset;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.core.RGlobal;
@@ -31,7 +31,7 @@ public class ActPush extends MovesetAct {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.rainfall.moveset.Actionable#act
+	 * @see net.wombatrpgs.rainfall.characters.moveset.Actionable#act
 	 * (net.wombatrpgs.rainfall.maps.Level, net.wombatrpgs.rainfall.characters.CharacterEvent)
 	 */
 	@Override
@@ -72,7 +72,7 @@ public class ActPush extends MovesetAct {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.moveset.MovesetAct#cancel()
+	 * @see net.wombatrpgs.rainfall.characters.moveset.MovesetAct#cancel()
 	 */
 	@Override
 	public void cancel() {

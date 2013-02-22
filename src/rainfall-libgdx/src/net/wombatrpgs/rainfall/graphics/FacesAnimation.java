@@ -10,9 +10,9 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.wombatrpgs.rainfall.collisions.Hitbox;
 import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
+import net.wombatrpgs.rainfall.physics.Hitbox;
 import net.wombatrpgs.rainfallschema.graphics.DirMDO;
 import net.wombatrpgs.rainfallschema.maps.data.Direction;
 

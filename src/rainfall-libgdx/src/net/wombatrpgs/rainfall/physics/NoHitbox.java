@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfall.collisions;
+package net.wombatrpgs.rainfall.physics;
 
 /**
  * This is not a hitbox. It's for objects with hitboxes. As such, it's
@@ -32,7 +32,7 @@ public class NoHitbox extends Hitbox {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.collisions.Hitbox#getWidth()
+	 * @see net.wombatrpgs.rainfall.physics.Hitbox#getWidth()
 	 */
 	@Override
 	public int getWidth() {
@@ -40,7 +40,7 @@ public class NoHitbox extends Hitbox {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.collisions.Hitbox#getHeight()
+	 * @see net.wombatrpgs.rainfall.physics.Hitbox#getHeight()
 	 */
 	@Override
 	public int getHeight() {
@@ -48,8 +48,8 @@ public class NoHitbox extends Hitbox {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.collisions.Hitbox#isColliding
-	 * (net.wombatrpgs.rainfall.collisions.Hitbox)
+	 * @see net.wombatrpgs.rainfall.physics.Hitbox#isColliding
+	 * (net.wombatrpgs.rainfall.physics.Hitbox)
 	 */
 	@Override
 	public CollisionResult isColliding(Hitbox other) {
@@ -57,8 +57,8 @@ public class NoHitbox extends Hitbox {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.collisions.Hitbox#isCollidingRect
-	 * (net.wombatrpgs.rainfall.collisions.RectHitbox)
+	 * @see net.wombatrpgs.rainfall.physics.Hitbox#isCollidingRect
+	 * (net.wombatrpgs.rainfall.physics.RectHitbox)
 	 */
 	@Override
 	public CollisionResult isCollidingRect(RectHitbox other) {

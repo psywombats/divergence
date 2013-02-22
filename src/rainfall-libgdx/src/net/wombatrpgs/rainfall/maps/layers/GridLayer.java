@@ -14,14 +14,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledLayer;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
 
-import net.wombatrpgs.rainfall.collisions.CollisionResult;
-import net.wombatrpgs.rainfall.collisions.FallResult;
-import net.wombatrpgs.rainfall.collisions.Hitbox;
-import net.wombatrpgs.rainfall.collisions.RectHitbox;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.Positionable;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
+import net.wombatrpgs.rainfall.physics.CollisionResult;
+import net.wombatrpgs.rainfall.physics.FallResult;
+import net.wombatrpgs.rainfall.physics.Hitbox;
+import net.wombatrpgs.rainfall.physics.RectHitbox;
 
 /**
  * A layer of tiles that is part of a level. It's named "grid" so as to not
@@ -173,7 +173,7 @@ public class GridLayer extends Layer {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.layers.Layer#dropObject
-	 * (net.wombatrpgs.rainfall.collisions.Hitbox)
+	 * (net.wombatrpgs.rainfall.physics.Hitbox)
 	 */
 	@Override
 	public FallResult dropObject(Hitbox box) {

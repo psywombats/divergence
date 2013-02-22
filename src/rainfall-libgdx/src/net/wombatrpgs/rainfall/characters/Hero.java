@@ -9,12 +9,12 @@ package net.wombatrpgs.rainfall.characters;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 
-import net.wombatrpgs.rainfall.collisions.CollisionResult;
+import net.wombatrpgs.rainfall.characters.moveset.Moveset;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.maps.layers.EventLayer;
-import net.wombatrpgs.rainfall.moveset.Moveset;
+import net.wombatrpgs.rainfall.physics.CollisionResult;
 import net.wombatrpgs.rainfall.scenes.FinishListener;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.MovesetMDO;
@@ -54,7 +54,7 @@ public class Hero extends CharacterEvent {
 	/**
 	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#onCollide
 	 * (net.wombatrpgs.rainfall.maps.events.MapEvent, 
-	 * net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 * net.wombatrpgs.rainfall.physics.CollisionResult)
 	 */
 	@Override
 	public boolean onCollide(MapEvent other, CollisionResult result) {
@@ -75,7 +75,7 @@ public class Hero extends CharacterEvent {
 	/**
 	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#onCharacterCollide(
 	 * net.wombatrpgs.rainfall.characters.CharacterEvent, 
-	 * net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 * net.wombatrpgs.rainfall.physics.CollisionResult)
 	 */
 	@Override
 	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {

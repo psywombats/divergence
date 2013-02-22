@@ -11,13 +11,13 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.characters.ai.Intelligence;
-import net.wombatrpgs.rainfall.collisions.CollisionResult;
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.particles.Emitter;
 import net.wombatrpgs.rainfall.graphics.particles.GibParticleSet;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
+import net.wombatrpgs.rainfall.physics.CollisionResult;
 import net.wombatrpgs.rainfallschema.characters.enemies.EnemyEventMDO;
 import net.wombatrpgs.rainfallschema.characters.enemies.VulnerabilityMDO;
 import net.wombatrpgs.rainfallschema.characters.enemies.ai.IntelligenceMDO;
@@ -77,7 +77,7 @@ public class EnemyEvent extends CharacterEvent {
 	/**
 	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#onCharacterCollide
 	 * (net.wombatrpgs.rainfall.characters.CharacterEvent,
-	 * net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 * net.wombatrpgs.rainfall.physics.CollisionResult)
 	 */
 	@Override
 	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
@@ -139,7 +139,7 @@ public class EnemyEvent extends CharacterEvent {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#resolveWallCollision
-	 * (net.wombatrpgs.rainfall.collisions.CollisionResult)
+	 * (net.wombatrpgs.rainfall.physics.CollisionResult)
 	 */
 	@Override
 	public void resolveWallCollision(CollisionResult result) {

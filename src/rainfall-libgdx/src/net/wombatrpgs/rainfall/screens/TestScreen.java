@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfall.test;
+package net.wombatrpgs.rainfall.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -12,9 +12,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.graphics.GameScreen;
 import net.wombatrpgs.rainfall.io.TestCommandMap;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfall.screens.GameScreen;
 import net.wombatrpgs.rainfall.ui.text.FontHolder;
 import net.wombatrpgs.rainfall.ui.text.TextBox;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
@@ -97,7 +97,7 @@ public class TestScreen extends GameScreen {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.screens.GameScreen#render()
+	 * @see net.wombatrpgs.rainfall.graphics.GameScreen#render()
 	 */
 	@Override
 	public void render() {
@@ -113,7 +113,7 @@ public class TestScreen extends GameScreen {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.screens.GameScreen#onFocusLost()
+	 * @see net.wombatrpgs.rainfall.graphics.GameScreen#onFocusLost()
 	 */
 	@Override
 	public void onFocusLost() {
@@ -121,7 +121,7 @@ public class TestScreen extends GameScreen {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.screens.GameScreen#onFocusGained()
+	 * @see net.wombatrpgs.rainfall.graphics.GameScreen#onFocusGained()
 	 */
 	@Override
 	public void onFocusGained() {
@@ -129,7 +129,7 @@ public class TestScreen extends GameScreen {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.screens.GameScreen#queueRequiredAssets
+	 * @see net.wombatrpgs.rainfall.graphics.GameScreen#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override

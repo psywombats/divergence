@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfall.moveset;
+package net.wombatrpgs.rainfall.characters.moveset;
 
 import com.badlogic.gdx.assets.AssetManager;
 
@@ -52,7 +52,7 @@ public abstract class MovesetAct implements Actionable,
 	public FacesAnimation getAppearance() { return appearance; }
 
 	/**
-	 * @see net.wombatrpgs.rainfall.moveset.Actionable#act
+	 * @see net.wombatrpgs.rainfall.characters.moveset.Actionable#act
 	 * (net.wombatrpgs.rainfall.maps.Level, net.wombatrpgs.rainfall.characters.CharacterEvent)
 	 */
 	@Override
@@ -91,7 +91,7 @@ public abstract class MovesetAct implements Actionable,
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.moveset.Actionable#act
+	 * @see net.wombatrpgs.rainfall.characters.moveset.Actionable#act
 	 * (net.wombatrpgs.rainfall.maps.Level, net.wombatrpgs.rainfall.characters.CharacterEvent)
 	 * Same as that thing 
 	 */
