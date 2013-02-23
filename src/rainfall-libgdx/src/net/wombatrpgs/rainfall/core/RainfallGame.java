@@ -2,7 +2,7 @@ package net.wombatrpgs.rainfall.core;
 
 import net.wombatrpgs.rainfall.io.FocusListener;
 import net.wombatrpgs.rainfall.io.FocusReporter;
-import net.wombatrpgs.rainfall.screens.TestScreen;
+import net.wombatrpgs.rainfall.screens.DefaultScreen;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -38,12 +38,13 @@ public class RainfallGame implements ApplicationListener, FocusListener {
 		Gdx.graphics.setVSync(true);
 		
 		Gdx.input.setInputProcessor(RGlobal.keymap);
-		RGlobal.screens.push(new TestScreen());
+		RGlobal.screens.push(new DefaultScreen());
 	}
 
 	@Override
 	public void dispose() {
 		RGlobal.assetManager.dispose();
+		RGlobal.screens.dispose();
 	}
 
 	@Override

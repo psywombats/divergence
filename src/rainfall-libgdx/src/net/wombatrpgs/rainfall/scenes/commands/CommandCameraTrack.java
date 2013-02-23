@@ -19,6 +19,7 @@ public class CommandCameraTrack extends SceneCommand {
 	protected static final String NULL_TARGET = "fix";
 	
 	protected MapEvent target;
+	protected String arg;
 
 	/**
 	 * Creates a new camera command from code.
@@ -27,12 +28,7 @@ public class CommandCameraTrack extends SceneCommand {
 	 */
 	public CommandCameraTrack(SceneParser parent, String line) {
 		super(parent, line);
-		String arg = line.substring(line.indexOf(' ')+1, line.indexOf(']'));
-		if (arg.equals(NULL_TARGET)) {
-			target = null;
-		} else {
-			target = parent.getLevel().getEventByName(arg);
-		}
+		arg = line.substring(line.indexOf(' ')+1, line.indexOf(']'));
 	}
 
 	/**
@@ -41,6 +37,11 @@ public class CommandCameraTrack extends SceneCommand {
 	@Override
 	public boolean run() {
 		if (!finished) {
+			if (arg.equals(NULL_TARGET)) {
+				target = null;
+			} else {
+				target = parent.getLevel().getEventByName(arg);
+			}
 			RGlobal.screens.getCamera().track(target);
 			finished = true;
 		}

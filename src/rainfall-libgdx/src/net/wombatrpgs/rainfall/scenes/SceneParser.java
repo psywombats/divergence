@@ -28,12 +28,13 @@ import net.wombatrpgs.rainfallschema.cutscene.data.TriggerRepeatType;
 public class SceneParser extends MapObject {
 	
 	protected SceneMDO mdo;
+	protected SceneParser childParser;
 	protected List<SceneCommand> commands;
 	protected List<MapEvent> controlledEvents;
 	protected List<FinishListener> listeners;
 	protected CommandMap oldMap;
 	protected String filename;
-	protected boolean executed, enabled;
+	protected boolean executed, running;
 	protected float timeSinceStart;
 	
 	/**
@@ -48,13 +49,13 @@ public class SceneParser extends MapObject {
 	
 	/**
 	 * Creates a new scene parser from data without a parent. Does not auto-
-	 * play. Assumes you will add it to the scene yourself before playing.
+	 * play. Assumes you will add it to the map yourself before playing.
 	 * @param 	mdo				The data to construct from
 	 */
 	public SceneParser(SceneMDO mdo) {
 		this.mdo = mdo;
 		this.executed = false;
-		this.enabled = false;
+		this.running = false;
 		this.filename = Constants.SCENES_DIR + mdo.file;
 		this.controlledEvents = new ArrayList<MapEvent>();
 		this.listeners = new ArrayList<FinishListener>();
@@ -105,16 +106,45 @@ public class SceneParser extends MapObject {
 	public void update(float elapsed) {
 		super.update(elapsed);
 		timeSinceStart += elapsed;
-		if (enabled) {
+		if (running) {
 			for (SceneCommand command : commands) {
 				if (!command.run()) return;
 			}
-			terminate();
+			if (childParser == null || childParser.hasExecuted()) {
+				terminate();
+			}
+		}
+	}
+
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return filename;
+	}
+
+	/**
+	 * ...should we really be overriding this?
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#reset()
+	 */
+	@Override
+	public void reset() {
+		this.executed = false;
+		this.childParser = null;
+		for (SceneCommand command : commands) {
+			command.reset();
 		}
 	}
 
 	/** @return True if this parser has been run */
 	public boolean hasExecuted() { return this.executed; }
+	
+	/** @return Trus if this parser is in the process of running */
+	public boolean isRunning() { return this.running; }
+	
+	/** @param parser The thing to wait until done */
+	public void setChild(SceneParser parser) { this.childParser = parser; }
 	
 	/**
 	 * Gets all map events that have been touched by movements by this parser.
@@ -136,35 +166,35 @@ public class SceneParser extends MapObject {
 	 * @param	level			The level this command was executed on
 	 */
 	public void run(Level level) {
-		if (!enabled && (!executed || mdo.repeat == TriggerRepeatType.RUN_EVERY_TIME)) {
+		if (!running && (!executed || mdo.repeat == TriggerRepeatType.RUN_EVERY_TIME)) {
 			if (executed) reset();
-			if (!level.contains(this)) {
-				level.addObject(this);
-			}
-			enabled = true;
-			forceRun();
+			forceRun(level);
 		}
 	}
 	
 	/**
 	 * Just run the scene, regardless of context.
 	 */
-	public void forceRun() {
+	public void forceRun(Level level) {
+		if (running) {
+			RGlobal.reporter.inform("Aborted a parser on " + parent + ": " + this);
+			terminate();
+		}
+		if (parent != level) {
+			if (parent != null && parent.contains(this)) {
+				RGlobal.reporter.inform("Removed a parser on " + parent + ": " + this);
+			}
+			this.parent = level;
+		}
+		if (!level.contains(this)) {
+			level.addObject(this);
+		}
+		RGlobal.reporter.inform("Now running a scene: " + this);
+		running = true;
 		parent.setPause(true);
 		timeSinceStart = 0;
-		oldMap = RGlobal.screens.getLevelScreen().getCommandContext();
-		RGlobal.screens.getLevelScreen().setCommandContext(new SceneCommandMap());
-	}
-	
-	/** 
-	 * Resets the scene so that it can be run again. Does this by setting
-	 * execution to false and reseting its children.
-	 */
-	public void reset() { 
-		this.executed = false;
-		for (SceneCommand command : commands) {
-			command.reset();
-		}
+		oldMap = RGlobal.screens.peek().getCommandContext();
+		RGlobal.screens.peek().setCommandContext(new SceneCommandMap());
 	}
 	
 	/**
@@ -193,12 +223,15 @@ public class SceneParser extends MapObject {
 	 * Called when this parser finishes execution.
 	 */
 	protected void terminate() {
-		RGlobal.screens.getLevelScreen().setCommandContext(oldMap);
+		RGlobal.reporter.inform("Terminated a scene: " + this);
+		RGlobal.screens.peek().setCommandContext(oldMap);
 		parent.setPause(false);
 		parent.removeObject(this);
-		enabled = false;
+		running = false;
 		executed = true;
-		RGlobal.hero.halt();
+		if (RGlobal.hero != null) {
+			RGlobal.hero.halt();
+		}
 		for (FinishListener listener : listeners) {
 			listener.onFinish(parent);
 		}

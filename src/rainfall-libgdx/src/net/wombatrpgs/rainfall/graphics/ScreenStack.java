@@ -20,28 +20,37 @@ import net.wombatrpgs.rainfall.core.RGlobal;
  * manager. This is the object that should be rendering every frame regardless
  * of whatever the hell else is going on.
  */
-public class ScreenStack {
+public class ScreenStack implements Disposable {
 	
-	private List<GameScreen> screens;
-	private GameScreen levelScreen;
+	private List<Screen> screens;
 	
 	/**
 	 * Creates and initializes a new empty stack of screens.
 	 */
 	public ScreenStack() {
-		screens = new ArrayList<GameScreen>();
+		screens = new ArrayList<Screen>();
 	}
 	
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.Disposable#dispose()
+	 */
+	@Override
+	public void dispose() {
+		for (Screen screen :  screens) {
+			screen.dispose();
+		}
+	}
+
 	/**
 	 * Pushes a screen to the top of the screen stack. Corrects the z-value of
 	 * the screen such that it's on the top.
 	 * @param	screen		The screen to put on top
 	 */
-	public void push(GameScreen screen) {
+	public void push(Screen screen) {
 		if (screens.size() == 0) {
 			screens.add(screen);
 		} else {
-			GameScreen oldTop = screens.get(0);
+			Screen oldTop = screens.get(0);
 			screen.setZ(oldTop.z - 1);
 			screens.add(0, screen);
 			sortStack();
@@ -53,12 +62,12 @@ public class ScreenStack {
 	 * Removes the top screen from the stack. Does not alter z-values.
 	 * @return				The screen evicted from the top
 	 */
-	public GameScreen pop() {
+	public Screen pop() {
 		if (screens.size() == 0) {
 			RGlobal.reporter.warn("No screens left in the stack, but popping.");
 			return null;
 		} else {
-			GameScreen oldTop = screens.get(0);
+			Screen oldTop = screens.get(0);
 			unfocus(oldTop);
 			if (screens.size() > 0) {
 				focus(screens.get(0));
@@ -125,27 +134,10 @@ public class ScreenStack {
 	}
 	
 	/**
-	 * Set a screen as the screen for levels. This means when teleportation
-	 * occurs, this screen will get wiped. The previous screen will be replaced.
-	 * @param 	screen			The screen to register
-	 */
-	public void registerLevelScreen(GameScreen screen) {
-		levelScreen = screen;
-	}
-	
-	/**
-	 * Gets the screen previously registered as the level carrier.
-	 * @return					The screen prevouisly registered
-	 */
-	public GameScreen getLevelScreen() {
-		return levelScreen;
-	}
-	
-	/**
 	 * Gets the first screen on the stack without popping it.
 	 * @return					The topmost screen
 	 */
-	public GameScreen peek() {
+	public Screen peek() {
 		return screens.get(0);
 	}
 	
@@ -168,7 +160,7 @@ public class ScreenStack {
 	 * Called whenever a screen gains focus.
 	 * @param	 screen			The screen that gained focus
 	 */
-	private void focus(GameScreen screen) {
+	private void focus(Screen screen) {
 		screen.onFocusGained();
 		RGlobal.keymap.registerListener(screen.getCommandContext());
 	}
@@ -177,7 +169,7 @@ public class ScreenStack {
 	 * Called whenever a screen loses focus.
 	 * @param 	screen			The screen that lost focus
 	 */
-	private void unfocus(GameScreen screen) {
+	private void unfocus(Screen screen) {
 		screen.onFocusLost();
 		screens.remove(screen);
 		RGlobal.keymap.unregisterListener(screen.getCommandContext());

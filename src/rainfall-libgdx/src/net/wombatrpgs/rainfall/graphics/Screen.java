@@ -33,10 +33,11 @@ import net.wombatrpgs.rainfallschema.io.data.InputCommand;
  * are only rendered if the screen on top of them is counted as transparent.
  * More info in the ScreenStack class.
  */
-public abstract class GameScreen implements CommandListener, 
-											Comparable<GameScreen>,
-											Updateable,
-											Queueable {
+public abstract class Screen implements CommandListener,
+										Comparable<Screen>,
+										Updateable,
+										Queueable,
+										Disposable {
 	
 	/** Command map to use while this screen is active */
 	protected CommandMap commandContext;
@@ -66,7 +67,7 @@ public abstract class GameScreen implements CommandListener,
 	 * things up yourself. Fair warning: if you don't give us a camera, we'll
 	 * create one for ourselves, potentially reformatting the game window.
 	 */
-	public GameScreen() {
+	public Screen() {
 		transparent = false;
 		initialized = false;
 		z = 0;
@@ -85,7 +86,7 @@ public abstract class GameScreen implements CommandListener,
 	 * This time we won't create an apocalyptic camera.
 	 * @param 	cam				The camera to use instead
 	 */
-	public GameScreen(TrackerCam cam) {
+	public Screen(TrackerCam cam) {
 		transparent = false;
 		initialized = false;
 		z = 0;
@@ -94,15 +95,19 @@ public abstract class GameScreen implements CommandListener,
 	
 	/**
 	 * Called whenever this screen stops being the top screen on the stack. The
-	 * screen will stop receiving player commands.
+	 * screen will stop receiving player commands. Default does nothing.
 	 */
-	public abstract void onFocusLost();
+	public void onFocusLost() {
+		// nothing
+	}
 	
 	/**
 	 * Called whenever this screen starts being the top screen on the stack. The
-	 * screen will start receiving player commands.
+	 * screen will start receiving player commands. Default does nothing.
 	 */
-	public abstract void onFocusGained();
+	public void onFocusGained() {
+		// nothing
+	}
 	
 	/**
 	 * Sets the z value (depth) of the screen. Higher z values are rendered
@@ -158,7 +163,7 @@ public abstract class GameScreen implements CommandListener,
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override
-	public int compareTo(GameScreen other) {
+	public int compareTo(Screen other) {
 		if (z < other.z) {
 			return (int) Math.floor(z - other.z) - 1;
 		} else if (z > other.z) {
@@ -243,6 +248,16 @@ public abstract class GameScreen implements CommandListener,
 		this.canvas = newCanvas;
 	}
 	
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.Disposable#dispose()
+	 */
+	@Override
+	public void dispose() {
+		batch.dispose();
+		privateBatch.dispose();
+		buffer.dispose();
+	}
+
 	/**
 	 * Adds a screen-showable picture to the screen.
 	 * @param 	pic				The picture to add

@@ -27,6 +27,7 @@ public class CommandMove extends SceneCommand {
 	protected static final String DIR_LEFT = "left";
 	protected static final String DIR_RIGHT = "right";
 	
+	protected String eventName;
 	protected Stack<MoveStep> steps;
 	protected MapEvent event;
 
@@ -40,7 +41,7 @@ public class CommandMove extends SceneCommand {
 		super(parent, line);
 		steps = new Stack<MoveStep>();
 		line = line.substring(line.indexOf(' ')+1);
-		String eventName = line.substring(0, line.indexOf(' '));
+		this.eventName = line.substring(0, line.indexOf(' '));
 		event = parent.getLevel().getEventByName(eventName);
 		line = line.substring(line.indexOf(' ') + 1);
 		this.line = line;
@@ -66,6 +67,9 @@ public class CommandMove extends SceneCommand {
 	 */
 	@Override
 	public boolean run() {
+		if (event == null) {
+			event = parent.getLevel().getEventByName(eventName);
+		}
 		if (!event.isTracking() && steps.size() <= 0 && !finished) {
 			event.halt();
 			finished = true;

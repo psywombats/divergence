@@ -40,26 +40,6 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	protected Picture facePic;
 	protected boolean running;
 	
-//	@Deprecated
-//	public CommandSpeak(SceneParser parent, String line) {
-//		super(parent, line);
-//		running = false;
-//		if (speakers == null) {
-//			speakers = new HashMap<String, SpeakerMDO>();
-//			for (SpeakerMDO speakerMDO : RGlobal.data.getEntriesByClass(SpeakerMDO.class)) {
-//				speakers.put(speakerMDO.id, speakerMDO);
-//			}
-//		}
-//		String speakerKey = line.substring(0, line.indexOf(':'));
-//		speech = line.substring(line.indexOf(':') + 2);
-//		this.mdo = speakers.get(speakerKey);
-//		if (mdo == null) {
-//			RGlobal.reporter.warn("Speaker key not in database: " + speakerKey);
-//		} else if (mdo.file != null) {
-//			faceGraphic = new Graphic(Constants.PORTRAITS_DIR + mdo.file);
-//		}
-//	}
-	
 	CommandSpeak(SceneParser parent, String speakerKey, List<String> lines) {
 		super(parent, "[subcommand]");
 		if (speakers == null) {

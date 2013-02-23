@@ -71,7 +71,7 @@ public class TeleportGlobal implements Queueable {
 	 * @param 	tileY			The y-coord to teleport to (in tiles)
 	 */
 	public void teleport(Level map, int tileX, int tileY) {
-		if (RGlobal.block.getLevel() != null) {
+		if (RGlobal.block != null && RGlobal.block.getLevel() != null) {
 			RGlobal.block.getLevel().removeEvent(RGlobal.block);
 		}
 		MapEvent victim = RGlobal.hero;

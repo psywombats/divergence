@@ -47,11 +47,12 @@ public class CommandTeleport extends SceneCommand {
 		if (!phase2) {
 			parent.getLevel().addObject(pre);
 			pre.run(parent.getLevel());
+			getParent().setChild(pre);
 			post.reset();
 			phase2 = true;
 		}
 		if (pre.hasExecuted()) {
-			if (!post.hasExecuted()) {
+			if (!post.isRunning() && !post.hasExecuted()) {
 				parent.getLevel().removeObject(pre);
 				parent.getLevel().removeObject(parent);
 				Level map = RGlobal.levelManager.getLevel(mapID);
@@ -62,6 +63,7 @@ public class CommandTeleport extends SceneCommand {
 				map.addObject(parent);
 				map.addObject(post);
 				post.run(map);
+				getParent().setChild(post);
 			} else {
 				finished = true;
 			}

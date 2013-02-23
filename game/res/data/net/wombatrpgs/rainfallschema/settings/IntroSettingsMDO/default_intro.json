@@ -1,0 +1,8 @@
+{
+	"key" : "default_intro",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "engine searches for this mdo by name",
+	"scene" : "scene_intro",
+	"map" : "map_blank"
+}

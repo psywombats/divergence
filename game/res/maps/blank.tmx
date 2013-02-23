@@ -100,77 +100,43 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="133" name="black" tileheight="32" tilewidth="32">
+  <image height="32" source="tilesets/system/black.png" width="32"/>
+ </tileset>
  <layer height="15" name="Tile Layer 1" width="20">
   <properties>
    <property name="z" value="0"/>
-  <property name="layer" value="5"/></properties>
+  <property name="layer" value="3"/></properties>
   <data compression="zlib" encoding="base64">
-   eJwTYWBgEKEBRgaD1TxuNPNkgFiOTPNkoOYRq1+aDDsYgZgJiJlxmIdupiwB89iBmAOIOdHMQMcgOWEoxmceLxDzATE/ldxH7fAbibgODQ8280jFAMhCGis=
+   eJxjYBgFo2AUjIKhAQAEsAAB
   </data>
  </layer>
  <layer height="15" name="Tile Layer 2" width="20">
   <properties>
    <property name="z" value=".5"/>
-  <property name="layer" value="4"/></properties>
+  <property name="layer" value="2"/></properties>
   <data compression="zlib" encoding="base64">
-   eJxjYBg+QHugHTAEwWiYDSygR/gbDXLzSAEAkrsA5g==
+   eJxjYBgFo2AUjIKhAQAEsAAB
   </data>
  </layer>
  <objectgroup height="15" name="Object Layer 1" width="20">
   <properties>
    <property name="ogga" value="ALPHONSEO"/>
    <property name="z" value=".5"/>
-  <property name="layer" value="3"/></properties>
-  <object height="32" name="tele" type="teleport" width="32" x="608" y="192">
+  <property name="layer" value="1"/></properties>
+  <object height="32" name="Hero" type="event" width="32" x="336" y="208">
    <properties>
-    <property name="id" value="blockbound2"/>
-    <property name="x" value="1"/>
-    <property name="y" value="8"/>
-   </properties>
-  </object>
-  <object height="64" name="stairwell" type="z-teleport" width="32" x="96" y="96"/>
-  <object height="32" name="Widget" type="event" width="32" x="480" y="352">
-   <properties>
-    <property name="key" value="enemy_widget"/>
-    <property name="respawns" value=""/>
-   </properties>
-  </object>
-  <object height="32" name="Widget" type="event" width="32" x="448" y="224">
-   <properties>
-    <property name="key" value="enemy_widget"/>
-    <property name="respawns" value=""/>
-   </properties>
-  </object>
-  <object height="32" name="Gadget" type="event" width="32" x="544" y="96">
-   <properties>
-    <property name="key" value="enemy_gadget"/>
-   </properties>
-  </object>
-  <object height="64" name="Test Cutscene" type="trigger" width="64" x="288" y="32">
-   <properties>
-    <property name="id" value="scene_test0000"/>
+    <property name="key" value="hero_default"/>
+    <property name="name" value="nico"/>
    </properties>
   </object>
  </objectgroup>
  <layer height="15" name="Tile Layer 3" width="20">
   <properties>
    <property name="z" value="1"/>
-  <property name="layer" value="2"/></properties>
-  <data compression="zlib" encoding="base64">
-   eJxjYKANsAdiByB2pJJ5nkDMjQOTA6qhdC3lThsFo2AU0AkAAAdDAkQ=
-  </data>
- </layer>
- <layer height="15" name="Tile Layer 4" width="20">
-  <properties>
-   <property name="z" value="1.5"/>
-  <property name="layer" value="1"/></properties>
-  <data compression="zlib" encoding="base64">
-   eJxjYBg4oDyAdg9VMBpmAwtGw39gAQA1WwBq
-  </data>
- </layer>
- <objectgroup height="15" name="Object Layer 2" width="20">
-  <properties>
-   <property name="z" value="1.5"/>
   <property name="layer" value="0"/></properties>
- </objectgroup>
+  <data compression="zlib" encoding="base64">
+   eJxrZWBgaB3Fo3gUj+IhgAGdepvd
+  </data>
+ </layer>
 </map>

@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.graphics.GameScreen;
+import net.wombatrpgs.rainfall.graphics.Screen;
 import net.wombatrpgs.rainfall.io.TestCommandMap;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.ui.text.FontHolder;
@@ -27,7 +27,8 @@ import net.wombatrpgs.rainfallschema.ui.TextBoxMDO;
 /**
  * TESTING 1 2 3 TESTING DO YOU HEAR ME TESTINGGGGGGGG
  */
-public class TestScreen extends GameScreen {
+// TODO: screens should probably appear as a database entry
+public class TestScreen extends Screen {
 
 	protected BitmapFont defaultFont;
 	protected FontHolder font;
@@ -48,7 +49,6 @@ public class TestScreen extends GameScreen {
 			box.setText(testMDO.text);
 		}
 		
-		RGlobal.screens.registerLevelScreen(this);
 		commandContext = new TestCommandMap();
 		z = 0;
 		defaultFont = new BitmapFont();
@@ -97,7 +97,7 @@ public class TestScreen extends GameScreen {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.GameScreen#render()
+	 * @see net.wombatrpgs.rainfall.graphics.Screen#render()
 	 */
 	@Override
 	public void render() {
@@ -106,30 +106,14 @@ public class TestScreen extends GameScreen {
 		defaultFont.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 8, 16);
 		batch.end();
 		
-		// TODO: HACK HACK HACK HACK
+		// this is actually legal wtf, used to be to-do here
 		getBatch().begin();
 		if (box != null) box.render(cam);
 		getBatch().end();
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.GameScreen#onFocusLost()
-	 */
-	@Override
-	public void onFocusLost() {
-		// tsilb
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.graphics.GameScreen#onFocusGained()
-	 */
-	@Override
-	public void onFocusGained() {
-		// tslib
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.graphics.GameScreen#queueRequiredAssets
+	 * @see net.wombatrpgs.rainfall.graphics.Screen#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override

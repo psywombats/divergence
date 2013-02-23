@@ -373,7 +373,7 @@ public class Level implements ScreenShowable {
 	 */
 	public void teleportOn(int tileX, int tileY, int z) {
 		addEvent(RGlobal.hero, tileX, tileY);
-		RGlobal.screens.getLevelScreen().setCanvas(this);
+		RGlobal.screens.peek().setCanvas(this);
 	}
 	
 	/**
