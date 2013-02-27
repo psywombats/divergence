@@ -44,8 +44,8 @@ public class IntentWander extends IntentAct {
 		case 3: dir = Direction.RIGHT; break;
 		}
 		DirVector vec = dir.getVector();
-		int targetX = actor.getX() + vec.x * PACE_RANGE;
-		int targetY = actor.getY() + vec.y * PACE_RANGE;
+		int targetX = actor.getX() + (int) vec.x * PACE_RANGE;
+		int targetY = actor.getY() + (int) vec.y * PACE_RANGE;
 		actor.targetLocation(targetX, targetY);
 		
 		float duration = RGlobal.rand.nextFloat() * (WAIT_MAX - WAIT_MIN) + WAIT_MIN;

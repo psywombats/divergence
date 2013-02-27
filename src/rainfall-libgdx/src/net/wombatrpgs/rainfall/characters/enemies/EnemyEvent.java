@@ -16,11 +16,13 @@ import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.particles.Emitter;
 import net.wombatrpgs.rainfall.graphics.particles.GibParticleSet;
 import net.wombatrpgs.rainfall.maps.Level;
+import net.wombatrpgs.rainfall.maps.events.AnimationPlayer;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.physics.CollisionResult;
 import net.wombatrpgs.rainfallschema.characters.enemies.EnemyEventMDO;
 import net.wombatrpgs.rainfallschema.characters.enemies.VulnerabilityMDO;
 import net.wombatrpgs.rainfallschema.characters.enemies.ai.IntelligenceMDO;
+import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.graphics.EmitterMDO;
 import net.wombatrpgs.rainfallschema.graphics.GibsetMDO;
 
@@ -36,6 +38,7 @@ public class EnemyEvent extends CharacterEvent {
 	protected Intelligence ai;
 	protected Vulnerability vuln;
 	protected Emitter emitter;
+	protected AnimationPlayer deathSplat;
 	protected int againstWall;
 	
 	/**
@@ -56,11 +59,17 @@ public class EnemyEvent extends CharacterEvent {
 		VulnerabilityMDO vulnMDO = RGlobal.data.getEntryFor(
 				mdo.vulnerability, VulnerabilityMDO.class);
 		vuln = new Vulnerability(vulnMDO);
-		if (!Constants.NULL_MDO.equals(mdo.emitter) && !Constants.NULL_MDO.equals(mdo.gibset)) {
+		if (	mdo.emitter != null && mdo.gibset != null &&
+				!Constants.NULL_MDO.equals(mdo.emitter) && 
+				!Constants.NULL_MDO.equals(mdo.gibset)) {
 			GibsetMDO gibsetMDO = RGlobal.data.getEntryFor(mdo.gibset, GibsetMDO.class);
 			EmitterMDO emitterMDO = RGlobal.data.getEntryFor(mdo.emitter, EmitterMDO.class);
 			GibParticleSet gibs = new GibParticleSet(gibsetMDO);
 			emitter = new Emitter(emitterMDO, gibs);
+		}
+		if (mdo.dieAnim != null && !Constants.NULL_MDO.equals(mdo.dieAnim)) {
+			AnimationMDO dieMDO = RGlobal.data.getEntryFor(mdo.dieAnim, AnimationMDO.class);
+			deathSplat = new AnimationPlayer(dieMDO);
 		}
 	}
 
@@ -122,6 +131,9 @@ public class EnemyEvent extends CharacterEvent {
 		if (emitter != null) {
 			emitter.queueRequiredAssets(manager);
 		}
+		if (deathSplat != null) {
+			deathSplat.queueRequiredAssets(manager);
+		}
 	}
 
 	/**
@@ -134,6 +146,9 @@ public class EnemyEvent extends CharacterEvent {
 		ai.postProcessing(manager, pass);
 		if (emitter != null) {
 			emitter.postProcessing(manager, pass);
+		}
+		if (deathSplat != null) {
+			deathSplat.postProcessing(manager, pass);
 		}
 	}
 
@@ -190,6 +205,10 @@ public class EnemyEvent extends CharacterEvent {
 			emitter.setX(getX());
 			emitter.setY(getY());
 			emitter.fire(xComp, yComp);
+		}
+		if (deathSplat != null) {
+			parent.addEventAbsolute(deathSplat, getX(), getY(), parent.getZ(this));
+			deathSplat.start();
 		}
 		kill();
 		setX(0);

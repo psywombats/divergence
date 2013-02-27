@@ -1,0 +1,18 @@
+{
+	"key" : "pudding_intelligence",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"intents" : [
+		{
+			"action" : "WANDER_ORGANICALLY",
+			"condition" : "DEFAULT",
+			"priority" : 0
+		},
+		{
+			"action" : "CHARGE_HERO",
+			"condition" : "HERO_IN_RANGE",
+			"priority" : 10
+		}
+	]
+}

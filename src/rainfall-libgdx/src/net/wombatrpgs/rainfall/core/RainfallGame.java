@@ -2,7 +2,7 @@ package net.wombatrpgs.rainfall.core;
 
 import net.wombatrpgs.rainfall.io.FocusListener;
 import net.wombatrpgs.rainfall.io.FocusReporter;
-import net.wombatrpgs.rainfall.screens.DefaultScreen;
+import net.wombatrpgs.rainfall.screen.instances.DefaultScreen;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;

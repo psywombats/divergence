@@ -5,9 +5,9 @@ Follow these rules and learn 2 map!!
 
 Getting started:
 All mapping in this engine is done through the Tiled Map Editor, available from
-http://www.tiled.org . Download it and install it. Once that's done, you can
+http://www.mapeditor.org . Download it and install it. Once that's done, you can
 import the tilesets located in the tilesets directory (a subdirectory of this
-directory, labeled "tilesets") via Layer -> Add External Layer... . Just import
+directory, labeled "tilesets") via Map -> Add External Tileset... . Just import
 them all. Object types can be imported via Edit -> Preferences... -> Object
 Types -> Import... . Those are located in the directory labeled "objecttypes,"
 and there should only be one file there.

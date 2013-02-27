@@ -13,16 +13,16 @@ package net.wombatrpgs.rainfallschema.maps.data;
 public class DirVector {
 	
 	/** x-component, usually in pixels */
-	public int x;
+	public float x;
 	/** y-component, usually in pixels */
-	public int y;
+	public float y;
 	
 	/**
 	 * Creates a new struct with the specified values.
 	 * @param 	x			x-component, usually in pixels
 	 * @param 	y			y-component, usually in pixels
 	 */
-	public DirVector(int x, int y) {
+	public DirVector(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}

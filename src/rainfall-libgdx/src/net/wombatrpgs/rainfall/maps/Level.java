@@ -23,7 +23,6 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Graphic;
-import net.wombatrpgs.rainfall.graphics.ScreenShowable;
 import net.wombatrpgs.rainfall.maps.events.EventFactory;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.maps.layers.GridLayer;
@@ -32,6 +31,7 @@ import net.wombatrpgs.rainfall.maps.layers.EventLayer;
 import net.wombatrpgs.rainfall.physics.FallResult;
 import net.wombatrpgs.rainfall.physics.Hitbox;
 import net.wombatrpgs.rainfall.physics.TargetPosition;
+import net.wombatrpgs.rainfall.screen.ScreenShowable;
 import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 import net.wombatrpgs.rainfallschema.maps.MapMDO;
 
@@ -385,8 +385,20 @@ public class Level implements ScreenShowable {
 	 * @param	z				The z-depth of the object (layer index)
 	 */
 	public void addEvent(MapEvent newEvent, int tileX, int tileY, int z) {
-		newEvent.setX(tileX * map.tileWidth);
-		newEvent.setY(tileY * map.tileHeight);
+		addEventAbsolute(newEvent, tileX * map.tileWidth, tileY * map.tileHeight, z);
+	}
+	
+	/**
+	 * Another clone for adding events. This one used float coords for pixels
+	 * instead of the usual tile coordinates.
+	 * @param 	newEvent		The event to add
+	 * @param 	x				The x-coord of the object (in px)
+	 * @param 	y				The y-coord of the object (in px)
+	 * @param 	z				The z-depth of the object (in ordinal)
+	 */
+	public void addEventAbsolute(MapEvent newEvent, int x, int y, int z) {
+		newEvent.setX(x);
+		newEvent.setY(y);
 		addEvent(newEvent, z);
 	}
 	

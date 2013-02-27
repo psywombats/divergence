@@ -7,11 +7,11 @@
 package net.wombatrpgs.rainfall.scenes.commands;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.graphics.TrackerCam;
 import net.wombatrpgs.rainfall.maps.Positionable;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.scenes.SceneCommand;
 import net.wombatrpgs.rainfall.scenes.SceneParser;
+import net.wombatrpgs.rainfall.screen.TrackerCam;
 
 /**
  * Moves that mysterious camera.

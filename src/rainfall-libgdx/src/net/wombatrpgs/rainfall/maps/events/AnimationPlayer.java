@@ -74,7 +74,7 @@ public class AnimationPlayer extends MapEvent {
 	public void update(float elapsed) {
 		super.update(elapsed);
 		animation.update(elapsed);
-		if (animation.isFinished()) {
+		if (animation.isFinished() && animation.runsOnlyOnce()) {
 			for (AnimationListener listener : listeners) {
 				listener.onAnimationFinish(this);
 			}

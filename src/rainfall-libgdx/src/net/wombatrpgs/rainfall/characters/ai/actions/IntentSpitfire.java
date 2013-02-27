@@ -58,8 +58,8 @@ public class IntentSpitfire extends IntentAct {
 		if (!charging) {
 			Level map = actor.getLevel();
 			DirVector vec = actor.getFacing().getVector();
-			int tileX = actor.getX() + vec.x * map.getTileWidth()/3;
-			int tileY = actor.getY() + vec.y * map.getTileHeight()/3;
+			int tileX = actor.getX() + (int) vec.x * map.getTileWidth()/3;
+			int tileY = actor.getY() + (int) vec.y * map.getTileHeight()/3;
 			EnemyEvent fireball = fireballs.get(fireIndex);
 			fireIndex = (fireIndex + 1) % MAX_FIREBALLS;
 			if (!map.contains(fireball)) map.addEvent(fireball, map.getZ(actor));

@@ -14,6 +14,7 @@ import net.wombatrpgs.rainfall.characters.ai.actions.IntentNothing;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentPace;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentSpitfire;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentWander;
+import net.wombatrpgs.rainfall.characters.ai.actions.IntentWanderOrganic;
 import net.wombatrpgs.rainfall.characters.ai.conditions.ConditionDefault;
 import net.wombatrpgs.rainfall.characters.ai.conditions.ConditionHeroSpotted;
 import net.wombatrpgs.rainfall.characters.ai.conditions.ConditionSightCone;
@@ -61,6 +62,8 @@ public class IntentFactory {
 			return new IntentSpitfire(actor);
 		case FACE_HERO:
 			return new IntentFaceHero(actor);
+		case WANDER_ORGANICALLY:
+			return new IntentWanderOrganic(actor);
 		case WANDER_RANDOMLY:
 			return new IntentWander(actor);
 		case PACE_MENACINGLY:

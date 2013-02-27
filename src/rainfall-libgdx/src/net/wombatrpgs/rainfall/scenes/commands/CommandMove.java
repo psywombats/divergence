@@ -130,8 +130,8 @@ public class CommandMove extends SceneCommand {
 			DirVector vec = dir.getVector();
 			
 			int paces = Integer.valueOf(countString);
-			int deltaX = vec.x * paces * parent.getLevel().getTileWidth();
-			int deltaY = vec.y * paces * parent.getLevel().getTileHeight();
+			int deltaX = (int) vec.x * paces * parent.getLevel().getTileWidth();
+			int deltaY = (int) vec.y * paces * parent.getLevel().getTileHeight();
 			steps.add(0, new MoveStep(deltaX, deltaY));
 		}
 	}

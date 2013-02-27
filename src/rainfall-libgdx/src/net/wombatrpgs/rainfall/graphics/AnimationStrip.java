@@ -13,6 +13,7 @@ import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.physics.Hitbox;
 import net.wombatrpgs.rainfall.physics.RectHitbox;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
+import net.wombatrpgs.rainfallschema.graphics.data.AnimationType;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -173,6 +174,15 @@ public class AnimationStrip implements 	Renderable,
 	@Override
 	public TextureRegion getRegion() {
 		return currentFrame;
+	}
+	
+	/**
+	 * Determines if this thing should play multiple times. Actually just
+	 * consults the MDO.
+	 * @return					True if should only play once
+	 */
+	public boolean runsOnlyOnce() {
+		return mdo.mode == AnimationType.PLAY_ONCE;
 	}
 
 	/**
