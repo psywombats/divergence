@@ -12,6 +12,7 @@ import java.util.List;
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
+import net.wombatrpgs.rainfall.characters.ai.Intelligence;
 import net.wombatrpgs.rainfall.characters.ai.IntentAct;
 import net.wombatrpgs.rainfall.characters.enemies.EnemyEvent;
 import net.wombatrpgs.rainfall.core.RGlobal;
@@ -37,8 +38,8 @@ public class IntentSpitfire extends IntentAct {
 	protected boolean charging;
 	protected int fireIndex;
 
-	public IntentSpitfire(CharacterEvent actor) {
-		super(actor);
+	public IntentSpitfire(Intelligence parent, CharacterEvent actor) {
+		super(parent, actor);
 		charging = false;
 		fireballs = new ArrayList<EnemyEvent>();
 		fireIndex = 0;

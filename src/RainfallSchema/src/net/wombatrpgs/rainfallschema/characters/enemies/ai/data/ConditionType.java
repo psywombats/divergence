@@ -15,6 +15,7 @@ import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
 @ExcludeFromTree
 public enum ConditionType {
 	
+	HERO_IN_VISIONLINE,
 	HERO_IN_VISIONCONE,
 	HERO_IN_RANGE,
 	DEFAULT,

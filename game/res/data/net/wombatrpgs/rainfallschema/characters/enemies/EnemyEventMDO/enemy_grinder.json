@@ -1,0 +1,16 @@
+{
+	"key" : "enemy_grinder",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"appearance" : "grinder_4dir",
+	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
+	"response" : "PUSHABLE",
+	"touch" : "STUNBOUNCE",
+	"mobility" : "mobility_slippery_fast",
+	"intelligence" : "grinder_intelligence",
+	"vulnerability" : "vulnerability_default",
+	"gibset" : "gibset_grinder",
+	"emitter" : "emitter_enemies",
+	"dieAnim" : "None"
+}

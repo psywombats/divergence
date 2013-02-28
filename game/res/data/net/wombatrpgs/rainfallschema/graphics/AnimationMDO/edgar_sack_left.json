@@ -1,0 +1,18 @@
+{
+	"key" : "edgar_sack_left",
+	"subfolder" : "charas",
+	"name" : "",
+	"description" : "",
+	"file" : "edgar_sack.png",
+	"mode" : "REPEAT",
+	"frameCount" : 2,
+	"frameWidth" : 32,
+	"frameHeight" : 32,
+	"offX" : 0,
+	"offY" : 32,
+	"animSpeed" : 3,
+	"hit1x" : 0,
+	"hit1y" : 0,
+	"hit2x" : 0,
+	"hit2y" : 0
+}

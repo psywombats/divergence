@@ -2,7 +2,7 @@
 	"key" : "mobility_slippery",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "default; feel free to provide your own for specific enemies",
+	"description" : "",
 	"walkVelocity" : 32,
 	"acceleration" : 128,
 	"decceleration" : 16

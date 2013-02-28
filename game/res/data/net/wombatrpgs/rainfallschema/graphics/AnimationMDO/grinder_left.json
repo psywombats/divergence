@@ -1,0 +1,18 @@
+{
+	"key" : "grinder_left",
+	"subfolder" : "enemies",
+	"name" : "",
+	"description" : "",
+	"file" : "grinder.png",
+	"mode" : "REPEAT",
+	"frameCount" : 12,
+	"frameWidth" : 32,
+	"frameHeight" : 32,
+	"offX" : 0,
+	"offY" : 0,
+	"animSpeed" : 4,
+	"hit1x" : 7,
+	"hit1y" : 12,
+	"hit2x" : 27,
+	"hit2y" : 31
+}

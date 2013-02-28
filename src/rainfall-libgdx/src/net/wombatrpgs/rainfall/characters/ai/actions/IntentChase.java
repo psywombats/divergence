@@ -7,6 +7,7 @@
 package net.wombatrpgs.rainfall.characters.ai.actions;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
+import net.wombatrpgs.rainfall.characters.ai.Intelligence;
 import net.wombatrpgs.rainfall.characters.ai.IntentAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
 
@@ -15,8 +16,8 @@ import net.wombatrpgs.rainfall.core.RGlobal;
  */
 public class IntentChase extends IntentAct {
 
-	public IntentChase(CharacterEvent actor) {
-		super(actor);
+	public IntentChase(Intelligence parent, CharacterEvent actor) {
+		super(parent, actor);
 	}
 
 	@Override

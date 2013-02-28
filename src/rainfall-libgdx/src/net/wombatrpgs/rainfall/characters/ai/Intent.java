@@ -24,13 +24,14 @@ public class Intent implements 	Comparable<Intent>,
 	
 	/**
 	 * Creates an intent from data.
+	 * @param	parent			The intelligence that this intent is part of
 	 * @param 	mdo				The data for the new intent
 	 * @param	actor			The actor that will wind up performing the act
 	 */
-	public Intent(IntentMDO mdo, CharacterEvent actor) {
+	public Intent(Intelligence parent, IntentMDO mdo, CharacterEvent actor) {
 		this.mdo = mdo;
 		this.condition = IntentFactory.makeCondition(actor, mdo);
-		this.action = IntentFactory.makeAction(actor, mdo);
+		this.action = IntentFactory.makeAction(parent, actor, mdo);
 	}
 	
 	/**

@@ -7,6 +7,7 @@
 package net.wombatrpgs.rainfall.characters.ai.actions;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
+import net.wombatrpgs.rainfall.characters.ai.Intelligence;
 import net.wombatrpgs.rainfall.characters.ai.IntentAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.objects.TimerListener;
@@ -24,8 +25,8 @@ public class IntentWanderOrganic extends IntentAct {
 	
 	protected boolean needsRecalc;
 
-	public IntentWanderOrganic(CharacterEvent actor) {
-		super(actor);
+	public IntentWanderOrganic(Intelligence parent, CharacterEvent actor) {
+		super(parent, actor);
 		this.needsRecalc = true;
 	}
 

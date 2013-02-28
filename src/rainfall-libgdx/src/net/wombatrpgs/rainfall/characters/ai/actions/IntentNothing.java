@@ -7,6 +7,7 @@
 package net.wombatrpgs.rainfall.characters.ai.actions;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
+import net.wombatrpgs.rainfall.characters.ai.Intelligence;
 import net.wombatrpgs.rainfall.characters.ai.IntentAct;
 
 /**
@@ -14,8 +15,8 @@ import net.wombatrpgs.rainfall.characters.ai.IntentAct;
  */
 public class IntentNothing extends IntentAct {
 
-	public IntentNothing(CharacterEvent actor) {
-		super(actor);
+	public IntentNothing(Intelligence parent, CharacterEvent actor) {
+		super(parent, actor);
 	}
 
 	@Override

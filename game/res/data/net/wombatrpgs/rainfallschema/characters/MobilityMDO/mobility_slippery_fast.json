@@ -1,0 +1,9 @@
+{
+	"key" : "mobility_slippery_fast",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"walkVelocity" : 128,
+	"acceleration" : 192,
+	"decceleration" : 16
+}

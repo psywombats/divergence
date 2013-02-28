@@ -7,6 +7,7 @@
 package net.wombatrpgs.rainfall.characters.ai;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
+import net.wombatrpgs.rainfall.characters.ai.actions.IntentChargeForward;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentChase;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentFaceHero;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentHalt;
@@ -18,6 +19,7 @@ import net.wombatrpgs.rainfall.characters.ai.actions.IntentWanderOrganic;
 import net.wombatrpgs.rainfall.characters.ai.conditions.ConditionDefault;
 import net.wombatrpgs.rainfall.characters.ai.conditions.ConditionHeroSpotted;
 import net.wombatrpgs.rainfall.characters.ai.conditions.ConditionSightCone;
+import net.wombatrpgs.rainfall.characters.ai.conditions.ConditionSightLine;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfallschema.characters.enemies.ai.intent.IntentMDO;
 
@@ -37,6 +39,8 @@ public class IntentFactory {
 	public static Condition makeCondition(CharacterEvent actor, IntentMDO mdo) {
 		// do some if-else assignable instanceofs here
 		switch (mdo.condition) {
+		case HERO_IN_VISIONLINE:
+			return new ConditionSightLine(actor);
 		case HERO_IN_VISIONCONE:
 			return new ConditionSightCone(actor);
 		case HERO_IN_RANGE:
@@ -55,28 +59,30 @@ public class IntentFactory {
 	 * @param 	mdo				The data to make the action from
 	 * @return					An action made from that data
 	 */
-	public static IntentAct makeAction(CharacterEvent actor, IntentMDO mdo) {
+	public static IntentAct makeAction(Intelligence intel, CharacterEvent actor, IntentMDO mdo) {
 		// do the if-else
 		switch (mdo.action) {
+		case CHARGE_FORWARD:
+			return new IntentChargeForward(intel, actor);
 		case SPIT_FIRE:
-			return new IntentSpitfire(actor);
+			return new IntentSpitfire(intel, actor);
 		case FACE_HERO:
-			return new IntentFaceHero(actor);
+			return new IntentFaceHero(intel, actor);
 		case WANDER_ORGANICALLY:
-			return new IntentWanderOrganic(actor);
+			return new IntentWanderOrganic(intel, actor);
 		case WANDER_RANDOMLY:
-			return new IntentWander(actor);
+			return new IntentWander(intel, actor);
 		case PACE_MENACINGLY:
-			return new IntentPace(actor);
+			return new IntentPace(intel, actor);
 		case CHARGE_HERO:
-			return new IntentChase(actor);
+			return new IntentChase(intel, actor);
 		case SIT_STILL:
-			return new IntentHalt(actor);
+			return new IntentHalt(intel, actor);
 		case DO_NOTHING:
-			return new IntentNothing(actor);
+			return new IntentNothing(intel, actor);
 		default:
 			RGlobal.reporter.warn("Unsupported action: " + mdo.action);
-			return new IntentNothing(actor);
+			return new IntentNothing(intel, actor);
 		}
 	}
 

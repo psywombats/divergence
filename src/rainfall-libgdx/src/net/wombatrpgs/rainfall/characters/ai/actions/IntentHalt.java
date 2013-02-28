@@ -7,15 +7,16 @@
 package net.wombatrpgs.rainfall.characters.ai.actions;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
+import net.wombatrpgs.rainfall.characters.ai.Intelligence;
 import net.wombatrpgs.rainfall.characters.ai.IntentAct;
 
 /**
  * Halt.
  */
 public class IntentHalt extends IntentAct {
-	
-	public IntentHalt(CharacterEvent actor) {
-		super(actor);
+
+	public IntentHalt(Intelligence parent, CharacterEvent actor) {
+		super(parent, actor);
 	}
 
 	/**

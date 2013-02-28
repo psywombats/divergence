@@ -79,11 +79,6 @@
     <property name="y" value="6"/>
    </properties>
   </object>
-  <object height="32" name="Widget" type="event" width="32" x="64" y="96">
-   <properties>
-    <property name="key" value="enemy_widget"/>
-   </properties>
-  </object>
   <object height="32" name="DragonBeetle" type="event" width="32" x="448" y="64">
    <properties>
     <property name="key" value="enemy_dragon_beetle"/>
@@ -108,6 +103,12 @@
   <object height="32" name="Pudding" type="event" width="32" x="448" y="352">
    <properties>
     <property name="key" value="enemy_pudding"/>
+   </properties>
+  </object>
+  <object height="32" name="Grinder" type="event" width="32" x="208" y="80">
+   <properties>
+    <property name="key" value="enemy_grinder"/>
+    <property name="respawns" value=""/>
    </properties>
   </object>
  </objectgroup>
