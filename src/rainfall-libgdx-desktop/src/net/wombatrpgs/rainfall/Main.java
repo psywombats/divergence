@@ -26,6 +26,7 @@ public class Main {
 		cfg.width = WARMUP_WIDTH;
 		cfg.height = WARMUP_HEIGHT;
 		cfg.stencil = 8;
+		cfg.resizable = false;
 		
 		new LwjglApplication(new RainfallGame(new DesktopFocusReporter()), cfg);
 	}
