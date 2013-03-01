@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="13" height="11" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="minimap" value="graphic_minimap_l1_f1"/>
+  <property name="minimap_x1" value="87"/>
+  <property name="minimap_x2" value="108"/>
+  <property name="minimap_y1" value="117"/>
+  <property name="minimap_y2" value="138"/>
+ </properties>
+ <tileset firstgid="1" name="blockboundBrickWall" tilewidth="32" tileheight="32">
+  <image source="tilesets/blockbound/brickwall.png" width="96" height="32"/>
+  <tile id="0">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="4" name="blockboundBrownRock" tilewidth="32" tileheight="32">
+  <image source="tilesets/blockbound/brownrock.png" trans="8080ff" width="320" height="224"/>
+  <tile id="30">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="50">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="51">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="52">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="74" name="blockboundRedRug" tilewidth="32" tileheight="32">
+  <image source="tilesets/blockbound/redrug.png" width="96" height="96"/>
+ </tileset>
+ <tileset firstgid="83" name="blockboundStoneFloor" tilewidth="32" tileheight="32">
+  <image source="tilesets/blockbound/stonefloor.PNG" trans="8080ff" width="320" height="320"/>
+  <tile id="30">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="60">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="61">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="62">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="183" name="blockboundUpper" tilewidth="32" tileheight="32">
+  <image source="tilesets/blockbound/upper.png" trans="8080ff" width="256" height="288"/>
+  <tile id="0">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="47">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="255" name="blockboundWoodFloor" tilewidth="32" tileheight="32">
+  <image source="tilesets/blockbound/woodfloor.png" trans="8080ff" width="320" height="320"/>
+  <tile id="30">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="50">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="51">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="52">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="60">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="61">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="62">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="70">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="71">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="72">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="73">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="74">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="75">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="76">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="77">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="80">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="81">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="82">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="83">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="84">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="85">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="86">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="87">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="90">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="91">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="92">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="93">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="94">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="95">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="96">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="355" name="blockboundCeiling" tilewidth="32" tileheight="32">
+  <image source="tilesets/blockbound/ceiling.png" trans="8080ff" width="160" height="96"/>
+  <tile id="0">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="370" name="blockboundQuarryCeiling" tilewidth="32" tileheight="32">
+  <image source="tilesets/blockbound/quarryroof.png" trans="8080ff" width="160" height="96"/>
+  <tile id="0">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Lower 1" width="13" height="11">
+  <properties>
+   <property name="z" value="0"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzLY2RgKCAB5wJxDhAzMRCPs+ishwsH9gWq8UPDtNATAFQTiIYJ6cGGydWTCcRpaDgdKp+KRS4DiLGBTALyABnSGS8=
+  </data>
+ </layer>
+ <layer name="Upper 1" width="13" height="11">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYKA+eA7EL0jU8x6IP+CQuwHEN4F4OxDvAOKdUPHvQPwDyr6OpucBED8E4v1AfACIDyLJPQXiZ0B8n0Q3nkbjnwLiuySacZJE9YMZAACr/BQ0
+  </data>
+ </layer>
+ <objectgroup name="Event 1" width="13" height="11">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <object name="Teleport" type="teleport" x="192" y="304" width="32" height="16">
+   <properties>
+    <property name="id" value="map_havenWestHall"/>
+    <property name="x" value="17"/>
+    <property name="y" value="4"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="Lower 2" width="13" height="11">
+  <properties>
+   <property name="z" value="1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4A8AAACPAAB
+  </data>
+ </layer>
+ <layer name="Upper 2" width="13" height="11">
+  <properties>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4A8AAACPAAB
+  </data>
+ </layer>
+ <objectgroup name="Event 2" width="13" height="11">
+  <properties>
+   <property name="z" value="1.5"/>
+  </properties>
+ </objectgroup>
+</map>

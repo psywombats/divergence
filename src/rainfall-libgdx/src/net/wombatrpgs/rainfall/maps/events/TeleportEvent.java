@@ -28,6 +28,7 @@ public class TeleportEvent extends MapEvent {
 	
 	protected static final String PROPERTY_X = "x";
 	protected static final String PROPERTY_Y = "y";
+	protected static final String PROPERTY_Z = "targetZ";
 	protected static final String PROPERTY_ID = "id";
 
 	/**
@@ -64,6 +65,7 @@ public class TeleportEvent extends MapEvent {
 	public boolean onCollide(MapEvent other, CollisionResult result) {
 		if (other != RGlobal.hero) return true;
 		if (getLevel().contains(RGlobal.teleport.getPre())) return true;
+		final TeleportEvent parent = this;
 		RGlobal.teleport.getPre().addListener(new FinishListener() {
 			@Override
 			public void onFinish(Level map) {
@@ -73,6 +75,10 @@ public class TeleportEvent extends MapEvent {
 						targetX, 
 						newMap.getHeight() - targetY - 1);
 				RGlobal.teleport.getPost().run(newMap);
+				if (parent.object.properties.get(PROPERTY_Z) != null) {
+					newMap.changeZ(RGlobal.hero, 
+							Float.valueOf(parent.object.properties.get(PROPERTY_Z))+.5f);
+				}
 			}
 		});
 		RGlobal.teleport.getPre().run(RGlobal.hero.getLevel());

@@ -32,9 +32,9 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	
 	/** Max time to fall into a hole */
 	protected static final float FULL_FALL = 1f;
-	
 	/** A thingy to fool the prerenderable, a sort of no-appear flag */
-	protected static final TextureRegion noAppearance = null;
+	protected static final TextureRegion NO_APPEARANCE = null;
+	protected static final String PROPERTY_Z = "z";
 	
 	/** Our patron object on the tiled map */
 	protected TiledObject object;
@@ -212,7 +212,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 */
 	@Override
 	public TextureRegion getRegion() {
-		return noAppearance;
+		return NO_APPEARANCE;
 	}
 	
 	/**
@@ -303,7 +303,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 			setX(object.x);
 			setY(parent.getHeight()*parent.getTileHeight()-object.y);
 			// ha! I told you storing this would come in handy!
-			getLevel().changeZ(this, Integer.valueOf(object.properties.get("z")));
+			getLevel().changeZ(this, Float.valueOf(object.properties.get(PROPERTY_Z))+.5f);
 		}
 	}
 
@@ -315,7 +315,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	public void onAddedToMap(Level map) {
 		super.onAddedToMap(map);
 		if (object != null) {
-			object.properties.put("z", String.valueOf(map.getZ(this))); // trust me
+			object.properties.put(PROPERTY_Z, String.valueOf(map.getZ(this))); // trust me
 		}
 		
 		// (but really it's a hack so we can restore when we reset)

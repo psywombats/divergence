@@ -30,6 +30,7 @@ import net.wombatrpgs.rainfall.physics.RectHitbox;
  */
 public class GridLayer extends Layer {
 	
+	public static final String PROPERTY_PASSABLE = "o";
 	public static final String PROPERTY_IMPASSABLE = "x";
 	public static final String PROPERTY_CLIFFTOP = "top";
 	public static final String PROPERTY_ABYSS = "hole";
@@ -317,7 +318,7 @@ public class GridLayer extends Layer {
 		for (GridLayer otherLayer : parent.getGridLayers()) {
 			if (Math.floor(otherLayer.getZ()) == this.getZ() && otherLayer != this) {
 				int tileID = otherLayer.getTiles()[map.height-tileY-1][tileX];
-				if (map.getTileProperty(tileID, "passable") != null) {
+				if (map.getTileProperty(tileID, PROPERTY_PASSABLE) != null) {
 					return true;
 				}
 			}

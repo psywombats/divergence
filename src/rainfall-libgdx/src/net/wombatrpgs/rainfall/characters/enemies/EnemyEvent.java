@@ -180,6 +180,27 @@ public class EnemyEvent extends CharacterEvent {
 	}
 
 	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		String name;
+		if (mdo.name != null && !mdo.name.equals("")) {
+			name = mdo.name;
+		} else {
+			name = mdo.appearance;
+		}
+		String deads;
+		if (this.dead) {
+			deads = "dead ";
+		} else {
+			deads = "";
+		}
+		return "a " + deads + getName() + ": " + name + " " + this.getX() + 
+				" " +	this.getY() + " rendering " + this.appearance;
+	}
+
+	/**
 	 * Kills self in a spectacular manner. Another object is supplied so that
 	 * gibs can scatter correctly. If this enemy just imploded randomly, then
 	 * pass in itself and the distribution will be random.
@@ -197,8 +218,13 @@ public class EnemyEvent extends CharacterEvent {
 			}
 			float norm = (float) Math.sqrt(xComp*xComp + yComp*yComp);
 			norm *= .8;
-			xComp /= norm;
-			yComp /= norm;
+			if (Math.abs(norm) > .01) {
+				xComp /= norm;
+				yComp /= norm;
+			} else {
+				xComp = 0;
+				yComp = 0;
+			}
 			if (!parent.contains(emitter)) {
 				parent.addEvent(emitter, 0, 0, parent.getZ(this));
 			}

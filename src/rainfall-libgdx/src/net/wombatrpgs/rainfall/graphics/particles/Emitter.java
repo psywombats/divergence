@@ -70,9 +70,10 @@ public class Emitter extends MapEvent {
 		part.setAngularVelocity(mdo.rotationalVelocity * RGlobal.rand.nextFloat()*2-1);
 		part.setLife(RGlobal.rand.nextFloat() * (mdo.maxLife - mdo.minLife) + mdo.minLife);
 		particles.add(part);
-		parent.addEvent(part, 0, 0, parent.getZ(this));
-		part.setX(getX() + RGlobal.rand.nextInt(32));
-		part.setY(getY() + RGlobal.rand.nextInt(32));
+		parent.addEventAbsolute(part, 
+				getX() + RGlobal.rand.nextInt(32), 
+				getY() + RGlobal.rand.nextInt(32), 
+				parent.getZ(this));
 	}
 
 	/**

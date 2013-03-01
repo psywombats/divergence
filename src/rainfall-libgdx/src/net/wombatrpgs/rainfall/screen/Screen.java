@@ -184,7 +184,7 @@ public abstract class Screen implements CommandListener,
 		int width = RGlobal.window.width;
 		int height = RGlobal.window.height;
 		buffer.begin();
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		canvas.render(cam);
 		batch.begin();

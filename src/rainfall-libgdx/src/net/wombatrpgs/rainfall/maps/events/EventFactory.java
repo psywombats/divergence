@@ -58,7 +58,7 @@ public class EventFactory {
 			CharacterEventMDO eventMDO = RGlobal.data.getEntryFor(mdoName, CharacterEventMDO.class);
 			newEvent = CharacterFactory.create(eventMDO, object, parent,
 					object.x, 
-					parent.getHeight()*parent.getTileHeight()-object.y);
+					parent.getHeight()*parent.getTileHeight()-object.y-parent.getTileHeight());
 		} else if (TELEPORT_TYPE.equals(object.type)) {
 			newEvent = new TeleportEvent(parent, object);
 		} else if (Z_TELEPORT_TYPE.equals(object.type)) {

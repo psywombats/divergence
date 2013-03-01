@@ -67,6 +67,11 @@ public class ActSummon extends MovesetAct {
 	 */
 	@Override
 	public void coreAct(Level map, final CharacterEvent actor) {
+		if (RGlobal.block != null && map.contains(RGlobal.block) && 
+				map.getZ(actor) == map.getZ(RGlobal.block)+1 &&
+				RGlobal.block.getUpperBox().isColliding(actor.getHitbox()).isColliding) {
+			return;
+		}
 		if (actor.isMoveActive(this)) return;
 		actor.halt();
 		actor.startAction(this);
@@ -133,9 +138,7 @@ public class ActSummon extends MovesetAct {
 		if (RGlobal.block.getLevel() != null) {
 			RGlobal.block.getLevel().removeEvent(RGlobal.block);
 		}
-		map.addEvent(goodPlayer, 0, 0, z);
-		goodPlayer.setX(targetTileX * map.getTileWidth());
-		goodPlayer.setY(targetTileY * map.getTileHeight());
+		map.addEvent(goodPlayer, targetTileX, targetTileY, z);
 		goodPlayer.start();
 		new TimerObject(mdo.duration, RGlobal.hero, new TimerListener() {
 			@Override
@@ -154,13 +157,10 @@ public class ActSummon extends MovesetAct {
 	 * @param	z				The z-layer to land at (in z-depth layer)
 	 */
 	private void selfDestructAt(Level map, final int targetTileX, final int targetTileY, int z) {
-		RGlobal.reporter.inform("BOOM! Summon failed.");
 		if (RGlobal.block != null && RGlobal.block.getLevel() != null) {
 			RGlobal.block.getLevel().removeEvent(RGlobal.block);
 		}
-		map.addEvent(badPlayer, 0, 0, z);
-		badPlayer.setX(targetTileX * map.getTileWidth());
-		badPlayer.setY(targetTileY * map.getTileHeight());
+		map.addEvent(badPlayer, targetTileX, targetTileY, z+1);
 		badPlayer.start();
 		new TimerObject(mdo.duration, actor, new TimerListener() {
 			@Override

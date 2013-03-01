@@ -5,11 +5,6 @@
 	"description" : "",
 	"intents" : [
 		{
-			"action" : "SPIT_FIRE",
-			"condition" : "HERO_IN_VISIONCONE",
-			"priority" : 10
-		},
-		{
 			"action" : "FACE_HERO",
 			"condition" : "DEFAULT",
 			"priority" : 0

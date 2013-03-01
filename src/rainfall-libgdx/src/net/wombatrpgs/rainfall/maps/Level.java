@@ -432,16 +432,20 @@ public class Level implements ScreenShowable {
 	 * Changes an object's z-coordinate on the map. Z-coordinate is handled by
 	 * map layer and must be changed here.
 	 * @param 	event			The object to change z
-	 * @param 	newZ			The index of the layer to put it on
+	 * @param 	z			The index of the layer to put it on
 	 */
-	public void changeZ(MapEvent event, int newZ) {
+	public void changeZ(MapEvent event, float z) {
 		for (EventLayer layer : eventLayers) {
 			if (layer.contains(event)) {
 				layer.remove(event);
 			}
 		}
-		eventLayers.get(newZ).add(event);
-		layerMap.put(event, newZ);
+		for (EventLayer layer : eventLayers) {
+			if (layer.getZ() == z) {
+				layer.add(event);
+			}
+		}
+		layerMap.put(event, (int) Math.floor(z));
 	}
 	
 	/**

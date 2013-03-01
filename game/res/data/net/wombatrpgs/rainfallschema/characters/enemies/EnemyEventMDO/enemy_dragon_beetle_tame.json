@@ -5,7 +5,7 @@
 	"description" : "",
 	"appearance" : "dragon_beetle_4dir",
 	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
-	"response" : "IMMOBILE",
+	"response" : "PUSHABLE",
 	"touch" : "NOTHING",
 	"mobility" : "mobility_enemy",
 	"intelligence" : "dragon_beetle_tame_intelligence",

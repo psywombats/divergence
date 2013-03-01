@@ -19,7 +19,7 @@ public class CommandToggleHud extends SceneCommand {
 	protected static final String TOGGLE_ON = "on";
 	protected static final String TOGGLE_OFF = "off";
 	
-	protected boolean turnOn;
+	protected boolean turnOn, turnOff;
 
 	/**
 	 * Creates a command from code.
@@ -30,7 +30,7 @@ public class CommandToggleHud extends SceneCommand {
 		super(parent, line);
 		String arg = line.substring(line.indexOf(' ') + 1, line.indexOf(']'));
 		if (arg.equals(TOGGLE_ON)) turnOn = true;
-		else if (arg.equals(TOGGLE_OFF)) turnOn = true;
+		else if (arg.equals(TOGGLE_OFF)) turnOff = true;
 		else RGlobal.reporter.warn("Invalid toggle hud arg: " + arg);
 	}
 
@@ -45,7 +45,7 @@ public class CommandToggleHud extends SceneCommand {
 			if (turnOn && !hud.isEnabled()) {
 				RGlobal.screens.peek().addPicture(hud);
 				hud.setEnabled(true);
-			} else if (hud.isEnabled()) {
+			} else if (turnOff && hud.isEnabled()) {
 				RGlobal.screens.peek().removePicture(hud);
 				hud.setEnabled(false);
 			}
