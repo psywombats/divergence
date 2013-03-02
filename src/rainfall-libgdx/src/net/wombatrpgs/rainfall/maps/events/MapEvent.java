@@ -181,13 +181,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 */
 	@Override
 	public int compareTo(MapEvent other) {
-		if (other.getY() < y) {
-			return -1;
-		} else if (other.getY() > y) {
-			return 1;
-		} else {
-			return 0;
-		}
+		return Math.round(other.getSortY() - getSortY());
 	}
 	
 	/**
@@ -414,6 +408,15 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 */
 	public Hitbox getHitbox() {
 		return NoHitbox.getInstance();
+	}
+	
+	/**
+	 * Gets the y were we sort at. This is for relative positioning with the z-
+	 * layer. Used for above/below hero in subclasses. By default is y-coord.
+	 * @return
+	 */
+	public float getSortY() {
+		return getY();
 	}
 	
 	/**

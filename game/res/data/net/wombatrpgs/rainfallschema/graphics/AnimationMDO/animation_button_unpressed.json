@@ -1,0 +1,18 @@
+{
+	"key" : "animation_button_unpressed",
+	"subfolder" : "events",
+	"name" : "",
+	"description" : "",
+	"file" : "button_unpressed.png",
+	"mode" : "DO_NOTHING",
+	"frameCount" : 1,
+	"frameWidth" : 32,
+	"frameHeight" : 32,
+	"offX" : 0,
+	"offY" : 0,
+	"animSpeed" : 1,
+	"hit1x" : 6,
+	"hit1y" : 12,
+	"hit2x" : 26,
+	"hit2y" : 26
+}

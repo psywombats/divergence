@@ -8,6 +8,7 @@ package net.wombatrpgs.rainfall.graphics;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
+import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.graphics.DirMDO;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
 import net.wombatrpgs.rainfallschema.graphics.TwoDirMDO;
@@ -30,6 +31,8 @@ public class FacesAnimationFactory {
 			return new FourDir((FourDirMDO) mdo, parent);
 		} else if (TwoDirMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new TwoDir((TwoDirMDO) mdo, parent);
+		} else if (AnimationMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new OneDir((AnimationMDO) mdo, parent);
 		} else {
 			RGlobal.reporter.warn("Unknown subclass of DirMDO: " + mdo);
 			return null;

@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.physics.Hitbox;
-import net.wombatrpgs.rainfallschema.graphics.DirMDO;
 import net.wombatrpgs.rainfallschema.maps.data.Direction;
 
 /**
@@ -27,7 +26,6 @@ public abstract class FacesAnimation implements Renderable,
 	
 	protected static final float FLICKER_DURATION = .3f; // in s
 	
-	protected DirMDO mdo;
 	protected Direction currentDir;
 	protected MapEvent parent;
 	protected AnimationStrip[] animations;
@@ -37,12 +35,10 @@ public abstract class FacesAnimation implements Renderable,
 	
 	/**
 	 * Sets up an animation from data for a specific map.
-	 * @param 	mdo				The data to create from
 	 * @param 	parent			The parent map to spawn on
 	 * @param	facings			How many facings make up this animation
 	 */
-	public FacesAnimation(DirMDO mdo, MapEvent parent, int facings) {
-		this.mdo = mdo;
+	public FacesAnimation(MapEvent parent, int facings) {
 		this.parent = parent;
 		this.facings = facings;
 		setFacing(Direction.DOWN);

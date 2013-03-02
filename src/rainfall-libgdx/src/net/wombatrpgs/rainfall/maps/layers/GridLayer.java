@@ -121,6 +121,7 @@ public class GridLayer extends Layer {
 			}
 		}
 		Hitbox box = event.getHitbox();
+		if (box == null || (box.getX()==0 && box.getY() == 0)) return;
 		int atX1 = (int) Math.floor((float) box.getX() / (float) map.tileWidth);
 		int atX2 = (int) Math.floor((float) (box.getX() + box.getWidth()) / (float) map.tileWidth);
 		int atY1 = (int) Math.floor((float) box.getY() / (float) map.tileHeight);

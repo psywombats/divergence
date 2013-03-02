@@ -2,7 +2,10 @@
 	"key" : "waldsworth_event",
 	"subfolder" : "blockbound/",
 	"name" : "",
-	"description" : "test chara",
+	"description" : "hugely outdated. HUGELY. HUUUUUUGELY.",
 	"appearance" : "waldsworth_4dir",
-	"collision" : "ANIMATION_SPECIFIC_RECTANGLE"
+	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
+	"response" : "ETHEREAL",
+	"touch" : "NOTHING",
+	"mobility" : "mobility_block"
 }

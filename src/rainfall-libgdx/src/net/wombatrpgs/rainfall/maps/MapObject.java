@@ -179,6 +179,7 @@ public abstract class MapObject implements	Renderable,
 	 */
 	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, 
 			int x, int y, int angle, float fallTime) {
+		if (parent == null) return;
 		int atX = (int) (x + Gdx.graphics.getWidth()/2 - camera.position.x);
 		int atY = (int) (y + Gdx.graphics.getHeight()/2 - camera.position.y);
 		Color c = parent.getBatch().getColor();

@@ -23,6 +23,7 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Graphic;
+import net.wombatrpgs.rainfall.maps.custom.CustomEvent;
 import net.wombatrpgs.rainfall.maps.events.EventFactory;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.maps.layers.GridLayer;
@@ -76,8 +77,10 @@ public class Level implements ScreenShowable {
 	protected List<MapEvent> events;
 	/** List of all map object in the level (some are in layers) */
 	protected List<MapObject> objects;
-	/** List of all map events to remove next loop */
+	/** All objects that have registered a unique-per-map id */
+	protected Map<String, CustomEvent> customObjects;
 	
+	/** List of all map events to remove next loop */
 	protected List<MapEvent> removalEvents;
 	/** List of all map objects to remove next loop */
 	protected List<MapObject> removalObjects;
@@ -101,6 +104,7 @@ public class Level implements ScreenShowable {
 		layerMap = new HashMap<MapEvent, Integer>();
 		events = new ArrayList<MapEvent>();
 		objects = new ArrayList<MapObject>();
+		customObjects = new HashMap<String, CustomEvent>();
 		removalObjects = new ArrayList<MapObject>();
 		removalEvents = new ArrayList<MapEvent>();
 	}
@@ -140,9 +144,6 @@ public class Level implements ScreenShowable {
 	
 	/** @return All object layers on this map */
 	public List<EventLayer> getEventLayers() { return eventLayers; }
-	
-//	/** @return All events on the level */
-//	public List<MapEvent> getEvents() { return this.events; }
 	
 	/** @param pause The map object to pause on */
 	public void setPause(boolean paused) { this.paused = paused; }
@@ -557,6 +558,25 @@ public class Level implements ScreenShowable {
 			if (object == other) return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Registers a unique-per-map ID object in this level's database. Does not
+	 * actually add the object to the map, just the registry.
+	 * @param 	object			The object to add to registry
+	 */
+	public void registerCustomObject(CustomEvent object) {
+		customObjects.put(object.getID(), object);
+	}
+	
+	/**
+	 * Get a previously registered unique-per-map ID object from this level's
+	 * database. No guarantees on if the object has actually been added yet.
+	 * @param 	id				The string ID of the object to fetch
+	 * @return					The object from the registry with that key
+	 */
+	public CustomEvent getCustomObject(String id) {
+		return customObjects.get(id);
 	}
 	
 	/**

@@ -24,7 +24,7 @@ import net.wombatrpgs.rainfallschema.graphics.DirMDO;
 @Path("characters/")
 public class CharacterEventMDO extends MainSchema {
 	
-	@Desc("Appearance - what this event looks like")
+	@Desc("Appearance - what this event looks like, at least at first")
 	@SchemaLink(DirMDO.class)
 	@Nullable
 	public String appearance;

@@ -744,7 +744,7 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJy10EEKwjAQheHJRbMRS5TY2nZpvIm6lC61J+yTzEAYgkwWLfykKfOlkN4RXY1d0O+JWCeyda6YpCrnkzJ6Vjq4XKoYj/WBnuhFee8LI3tt3vx9aTAf9EVrxYgb+O5icY5Om5H/9c/ceG4muxF3L94tRtdqjpgNjUbf9d7mhLUzFthsKIRRrg==
+   eJzLY2RgKCAS5wIxCOQA6SIG4nAWFj01aBhZfQ2aHnS1MJzMCME1WPTEAek5QDwXiOcxQPhxSHpgfHQ9y6DiK0jQswGINwLxJjx68qFhl4Mkho5hemD6CqF24dNTDVVXzEC8Hpi+WiQ2MXrQMal6UoFqM0jUgx7WtNaTCaTTiMQZUD0AHS1RqA==
   </data>
  </layer>
  <layer name="Upper 1" width="13" height="16">
@@ -752,7 +752,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBj64BYZeh5R3RXDB+wmQ8/hIWgnNQAAp8IEuQ==
+   eJxjYBj64BYZeh5R3RUjGxweIXaiAwBGJwND
   </data>
  </layer>
  <objectgroup name="Event 1" width="13" height="16">
@@ -766,19 +766,13 @@
     <property name="y" value="8"/>
    </properties>
   </object>
-  <object name="Grinder" type="event" x="192" y="192" width="32" height="32">
+  <object name="Grinder" type="event" x="32" y="416" width="32" height="32">
    <properties>
     <property name="key" value="enemy_grinder"/>
     <property name="respawns" value=""/>
    </properties>
   </object>
-  <object name="Grinder" type="event" x="160" y="160" width="32" height="32">
-   <properties>
-    <property name="key" value="enemy_grinder"/>
-    <property name="respawns" value=""/>
-   </properties>
-  </object>
-  <object name="Grinder" type="event" x="192" y="128" width="32" height="32">
+  <object name="Grinder" type="event" x="32" y="384" width="32" height="32">
    <properties>
     <property name="key" value="enemy_grinder"/>
     <property name="respawns" value=""/>
@@ -790,29 +784,24 @@
     <property name="respawns" value=""/>
    </properties>
   </object>
-  <object name="Pudding" type="event" x="96" y="288" width="32" height="32">
+  <object name="Pudding" type="event" x="96" y="320" width="32" height="32">
    <properties>
     <property name="key" value="enemy_pudding"/>
    </properties>
   </object>
-  <object name="Pudding" type="event" x="128" y="320" width="32" height="32">
+  <object name="Pudding" type="event" x="96" y="384" width="32" height="32">
    <properties>
     <property name="key" value="enemy_pudding"/>
    </properties>
   </object>
-  <object name="Pudding" type="event" x="96" y="416" width="32" height="32">
+  <object name="Pudding" type="event" x="128" y="352" width="32" height="32">
    <properties>
     <property name="key" value="enemy_pudding"/>
    </properties>
   </object>
-  <object name="Pudding" type="event" x="64" y="384" width="32" height="32">
+  <object name="Pudding" type="event" x="64" y="352" width="32" height="32">
    <properties>
     <property name="key" value="enemy_pudding"/>
-   </properties>
-  </object>
-  <object name="Gadget" type="event" x="32" y="448" width="32" height="32">
-   <properties>
-    <property name="key" value="enemy_gadget"/>
    </properties>
   </object>
   <object name="Gadget" type="event" x="160" y="448" width="32" height="32">
@@ -820,8 +809,34 @@
     <property name="key" value="enemy_gadget"/>
    </properties>
   </object>
+  <object name="Gadget" type="event" x="128" y="448" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_gadget"/>
+   </properties>
+  </object>
+  <object name="Pressure Pad" type="object" x="32" y="128" width="32" height="32">
+   <properties>
+    <property name="id" value="pressure_pad"/>
+   </properties>
+  </object>
+  <object name="DragonBeetle" type="event" x="160" y="192" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_dragon_beetle"/>
+    <property name="respawns" value=""/>
+   </properties>
+  </object>
+  <object name="Pressure Pad" type="object" x="160" y="128" width="32" height="32">
+   <properties>
+    <property name="id" value="pressure_pad_havenfight"/>
+   </properties>
+  </object>
+  <object name="Trick Door" type="object" x="320" y="288" width="32" height="32">
+   <properties>
+    <property name="id" value="trick_wall"/>
+   </properties>
+  </object>
  </objectgroup>
- <layer name="Lower 2" width="13" height="16">
+ <layer name="Lower 2" width="13" height="16" visible="0">
   <properties>
    <property name="z" value="1"/>
   </properties>
@@ -834,7 +849,7 @@
    <property name="z" value="1.5"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUkAsAA0AAAQ==
+   eJxjYBgFowAV7B4hdlIDAABk2wF3
   </data>
  </layer>
  <objectgroup name="Event 2" width="13" height="16">

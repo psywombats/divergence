@@ -1,0 +1,9 @@
+{
+	"key" : "mobility_immobile",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"walkVelocity" : 0,
+	"acceleration" : 1024,
+	"decceleration" : 1024
+}

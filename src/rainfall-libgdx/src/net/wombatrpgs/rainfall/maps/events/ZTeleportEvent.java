@@ -90,6 +90,14 @@ public class ZTeleportEvent extends MapEvent {
 		// aw hell no
 	}
 
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#supportsBlockLanding()
+	 */
+	@Override
+	public boolean supportsBlockLanding() {
+		return false;
+	}
+
 	/** @return true if other is in upper quadrant */
 	private boolean above(MapEvent other) {
 		float heroY = other.getY();

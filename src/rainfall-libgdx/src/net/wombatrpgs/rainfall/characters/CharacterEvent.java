@@ -164,6 +164,7 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public Hitbox getHitbox() {
+		if (appearance == null) return NoHitbox.getInstance();
 		switch (mdo.collision) {
 		case ANIMATION_SPECIFIC_RECTANGLE:
 			return appearance.getHitbox();
@@ -264,6 +265,7 @@ public class CharacterEvent extends MapEvent {
 	@Override
 	public TextureRegion getRegion() {
 		if (dead) return null;
+		if (appearance == null) return null;
 		return appearance.getRegion();
 	}
 

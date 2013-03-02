@@ -1,0 +1,13 @@
+{
+	"key" : "event_trick_wall",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"appearance" : "animation_trick_wall",
+	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
+	"response" : "IMMOBILE",
+	"touch" : "NOTHING",
+	"mobility" : "mobility_immobile",
+	"id" : "trick_wall",
+	"sort" : "SAME_LEVEL_AS_HERO"
+}

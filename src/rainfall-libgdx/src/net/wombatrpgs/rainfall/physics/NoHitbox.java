@@ -48,6 +48,31 @@ public class NoHitbox extends Hitbox {
 	}
 
 	/**
+	 * @see net.wombatrpgs.rainfall.physics.Hitbox#getX()
+	 */
+	@Override
+	public int getX() {
+		return 0;
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.physics.Hitbox#getY()
+	 */
+	@Override
+	public int getY() {
+		return 0;
+	}
+
+	/**
+	 * @see java.lang.Object#clone()
+	 */
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
+	}
+
+	/**
 	 * @see net.wombatrpgs.rainfall.physics.Hitbox#isColliding
 	 * (net.wombatrpgs.rainfall.physics.Hitbox)
 	 */

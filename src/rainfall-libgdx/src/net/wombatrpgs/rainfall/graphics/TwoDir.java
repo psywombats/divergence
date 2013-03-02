@@ -29,7 +29,7 @@ public class TwoDir extends FacesAnimation {
 	 * @param 	parent			The parent this 4dir is tied to
 	 */
 	public TwoDir(TwoDirMDO mdo, MapEvent parent) {
-		super(mdo, parent, 2);
+		super(parent, 2);
 		this.mdo = mdo;
 		sliceAnimations();
 	}

@@ -11,14 +11,13 @@ import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.FileLink;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
-import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.rainfallschema.graphics.data.AnimationType;
 
 /**
  * Spritestrip sort of thing.
  */
 @Path("graphics/")
-public class AnimationMDO extends MainSchema {
+public class AnimationMDO extends DirMDO {
 	
 	@Desc("Image file - actual spritesheet, should be png")
 	@FileLink("sprites")

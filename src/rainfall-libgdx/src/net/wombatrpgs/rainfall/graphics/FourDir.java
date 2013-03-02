@@ -26,7 +26,7 @@ public class FourDir extends FacesAnimation {
 	 * @param 	parent			The parent this 4dir is tied to
 	 */
 	public FourDir(FourDirMDO mdo, MapEvent parent) {
-		super(mdo, parent, Direction.values().length);
+		super(parent, Direction.values().length);
 		this.mdo = mdo;
 		sliceAnimations();
 	}
