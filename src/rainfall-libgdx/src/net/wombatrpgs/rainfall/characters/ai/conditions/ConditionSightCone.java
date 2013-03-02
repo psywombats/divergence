@@ -17,6 +17,7 @@ public class ConditionSightCone extends Condition {
 	
 	protected static final int CONE_LENGTH = 480;
 	protected static final float CONE_SLOPE = .3f; // in the 1st quad, right
+	protected static final float WIDE_THRESH = 128.f; // we'll expand slope based on this
 
 	public ConditionSightCone(CharacterEvent actor) {
 		super(actor);
@@ -25,8 +26,12 @@ public class ConditionSightCone extends Condition {
 	@Override
 	public boolean isMet() {
 		float dist = actor.distanceTo(RGlobal.hero);
+		float maxSlope = CONE_SLOPE;
 		if (dist > CONE_LENGTH) {
 			return false;
+		}
+		if (dist < WIDE_THRESH) {
+			maxSlope *= 2;
 		}
 		float dx = actor.getX() - RGlobal.hero.getX();
 		float dy = actor.getY() - RGlobal.hero.getY();
@@ -36,7 +41,7 @@ public class ConditionSightCone extends Condition {
 		} else {
 			slope = dx / dy;
 		}
-		return Math.abs(slope) < CONE_SLOPE;
+		return Math.abs(slope) < maxSlope;
 	}
 
 }

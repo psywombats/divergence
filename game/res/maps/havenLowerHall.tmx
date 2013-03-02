@@ -765,21 +765,18 @@
     <property name="y" value="18"/>
    </properties>
   </object>
-  <object height="32" name="Grinder" type="event" width="32" x="64" y="384">
+  <object height="32" name="Teleport" type="teleport" width="16" x="32" y="544">
    <properties>
-    <property name="key" value="enemy_grinder"/>
-    <property name="respawns" value=""/>
+    <property name="id" value="map_havenStorage1"/>
+    <property name="x" value="10"/>
+    <property name="y" value="10"/>
    </properties>
   </object>
-  <object height="32" name="Grinder" type="event" width="32" x="144" y="272">
+  <object height="32" name="Teleport" type="teleport" width="16" x="32" y="256">
    <properties>
-    <property name="key" value="enemy_grinder"/>
-    <property name="respawns" value=""/>
-   </properties>
-  </object>
-  <object height="32" name="Gadget" type="event" width="32" x="160" y="416">
-   <properties>
-    <property name="key" value="enemy_gadget"/>
+    <property name="id" value="map_havenStorage2"/>
+    <property name="x" value="10"/>
+    <property name="y" value="10"/>
    </properties>
   </object>
  </objectgroup>

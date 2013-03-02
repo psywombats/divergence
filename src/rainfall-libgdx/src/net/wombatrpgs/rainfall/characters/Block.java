@@ -121,6 +121,7 @@ public class Block extends CharacterEvent {
 	 */
 	@Override
 	public void reset() {
+		// this is glitchy for some reason
 		//getLevel().removeEvent(this);
 	}
 

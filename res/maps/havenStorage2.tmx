@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="10" height="26" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="13" height="16" tilewidth="32" tileheight="32">
  <properties>
   <property name="minimap" value="graphic_minimap_l1_b1"/>
-  <property name="minimap_x1" value="110"/>
-  <property name="minimap_x2" value="119"/>
-  <property name="minimap_y1" value="84"/>
+  <property name="minimap_x1" value="86"/>
+  <property name="minimap_x2" value="107"/>
+  <property name="minimap_y1" value="120"/>
   <property name="minimap_y2" value="153"/>
  </properties>
  <tileset firstgid="1" name="blockboundBrickWall" tilewidth="32" tileheight="32">
@@ -739,65 +739,105 @@
  <tileset firstgid="385" name="blockboundStairSide" tilewidth="32" tileheight="32">
   <image source="tilesets/blockbound/stairwellside.png" trans="8080ff" width="128" height="128"/>
  </tileset>
- <layer name="Lower 1" width="10" height="26">
+ <layer name="Lower 1" width="13" height="16">
   <properties>
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJy10ssKgzAQBdAb/E83oT5KHz6W2kX1M7rpp3YCEcfpJAZE4YIJxxCuAwAPAzRK7hT+3Gjd4T/XiMt3nKWM3o0+3Lm7tZTMGx7u3Fm9Yo64V6LTjHQ1vZcBq/UijevpTLf0bIU1gf6kC/Wc8t+O9vxk8xrrucV2DkNnproB23mN3fFt9t1E+7NwH8VdaL+gVMx9sVpr9Dmo/XcyFXM/k9RSpw==
+   eJy10EEKwjAQheHJRbMRS5TY2nZpvIm6lC61J+yTzEAYgkwWLfykKfOlkN4RXY1d0O+JWCeyda6YpCrnkzJ6Vjq4XKoYj/WBnuhFee8LI3tt3vx9aTAf9EVrxYgb+O5icY5Om5H/9c/ceG4muxF3L94tRtdqjpgNjUbf9d7mhLUzFthsKIRRrg==
   </data>
  </layer>
- <layer name="Upper 1" width="10" height="26">
+ <layer name="Upper 1" width="13" height="16">
   <properties>
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYCAd7AHivUC8j4C6I0B8FIiPEVB3BojPAvE5AuquAPFVIL4GxKcIO3MU0BHcJVLdW5q6gnqglZE4NW1EqOskQs1gAQBeyw4e
+   eJxjYBj64BYZeh5R3RXDB+wmQ8/hIWgnNQAAp8IEuQ==
   </data>
  </layer>
- <objectgroup name="Event 1" width="10" height="26">
+ <objectgroup name="Event 1" width="13" height="16">
   <properties>
    <property name="z" value=".5"/>
   </properties>
-  <object name="Teleport" type="teleport" x="232" y="672" width="24" height="64">
+  <object name="Teleport" type="teleport" x="368" y="320" width="16" height="32">
    <properties>
-    <property name="id" value="map_havenLobby"/>
-    <property name="x" value="4"/>
-    <property name="y" value="18"/>
+    <property name="id" value="map_havenLowerHall"/>
+    <property name="x" value="2"/>
+    <property name="y" value="8"/>
    </properties>
   </object>
-  <object name="Teleport" type="teleport" x="32" y="544" width="16" height="32">
+  <object name="Grinder" type="event" x="192" y="192" width="32" height="32">
    <properties>
-    <property name="id" value="map_havenStorage1"/>
-    <property name="x" value="10"/>
-    <property name="y" value="10"/>
+    <property name="key" value="enemy_grinder"/>
+    <property name="respawns" value=""/>
    </properties>
   </object>
-  <object name="Teleport" type="teleport" x="32" y="256" width="16" height="32">
+  <object name="Grinder" type="event" x="160" y="160" width="32" height="32">
    <properties>
-    <property name="id" value="map_havenStorage2"/>
-    <property name="x" value="10"/>
-    <property name="y" value="10"/>
+    <property name="key" value="enemy_grinder"/>
+    <property name="respawns" value=""/>
+   </properties>
+  </object>
+  <object name="Grinder" type="event" x="192" y="128" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_grinder"/>
+    <property name="respawns" value=""/>
+   </properties>
+  </object>
+  <object name="DragonBeetle" type="event" x="96" y="160" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_dragon_beetle"/>
+    <property name="respawns" value=""/>
+   </properties>
+  </object>
+  <object name="Pudding" type="event" x="96" y="288" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_pudding"/>
+   </properties>
+  </object>
+  <object name="Pudding" type="event" x="128" y="320" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_pudding"/>
+   </properties>
+  </object>
+  <object name="Pudding" type="event" x="96" y="416" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_pudding"/>
+   </properties>
+  </object>
+  <object name="Pudding" type="event" x="64" y="384" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_pudding"/>
+   </properties>
+  </object>
+  <object name="Gadget" type="event" x="32" y="448" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_gadget"/>
+   </properties>
+  </object>
+  <object name="Gadget" type="event" x="160" y="448" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_gadget"/>
    </properties>
   </object>
  </objectgroup>
- <layer name="Lower 2" width="10" height="26">
+ <layer name="Lower 2" width="13" height="16">
   <properties>
    <property name="z" value="1"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBhYIDXA9g8VwEKkOj4i1UngEGcjUv9ovA1eAEorrGTqBQD6CABu
+   eJxjYBiagA+IBQaxHhYgZoViYoAEFEtC8SgYGgAAr48A2Q==
   </data>
  </layer>
- <layer name="Upper 2" width="10" height="26">
+ <layer name="Upper 2" width="13" height="16">
   <properties>
    <property name="z" value="1.5"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBhYcHqA7R9ugNLwHI2PoQ8oiUMAZe4DLQ==
+   eJxjYBgFo2AUkAsAA0AAAQ==
   </data>
  </layer>
- <objectgroup name="Event 2" width="10" height="26">
+ <objectgroup name="Event 2" width="13" height="16">
   <properties>
    <property name="z" value="1.5"/>
   </properties>

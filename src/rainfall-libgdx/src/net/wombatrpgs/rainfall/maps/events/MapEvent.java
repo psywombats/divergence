@@ -316,9 +316,12 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		super.onAddedToMap(map);
 		if (object != null) {
 			object.properties.put(PROPERTY_Z, String.valueOf(map.getZ(this))); // trust me
+			// (but really it's a hack so we can restore when we reset)
 		}
-		
-		// (but really it's a hack so we can restore when we reset)
+		falling = false;
+		fallTime = 0;
+		holeX = 0;
+		holeY = 0;
 	}
 
 	/**
@@ -540,7 +543,6 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 */
 	public void endFall() {
 		parent.removeEvent(this);
-		zeroCoords();
 	}
 	
 	/**

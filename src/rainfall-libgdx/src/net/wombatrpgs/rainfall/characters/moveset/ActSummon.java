@@ -143,7 +143,12 @@ public class ActSummon extends MovesetAct {
 		new TimerObject(mdo.duration, RGlobal.hero, new TimerListener() {
 			@Override
 			public void onTimerZero(TimerObject source) {
-				map.addEvent(RGlobal.block, targetTileX, targetTileY, z);
+				if (RGlobal.hero.canAct()) {
+					map.addEventAbsolute(RGlobal.block, 
+							targetTileX * map.getTileWidth(), 
+							targetTileY * map.getTileHeight() + 2, // fudge factor
+							z);
+				}
 			}
 		});
 		RGlobal.block.setSummoning(true);

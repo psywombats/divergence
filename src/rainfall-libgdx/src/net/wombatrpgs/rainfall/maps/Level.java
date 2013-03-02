@@ -530,6 +530,9 @@ public class Level implements ScreenShowable {
 	 * deaths and reset event positions.
 	 */
 	public void reset() {
+		if (contains(RGlobal.block)) {
+			removeEvent(RGlobal.block);
+		}
 		for (MapObject object : objects) {
 			object.reset();
 		}

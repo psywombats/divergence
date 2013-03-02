@@ -273,7 +273,18 @@ public class CharacterEvent extends MapEvent {
 	@Override
 	public void reset() {
 		super.reset();
+		setY(getY() - parent.getTileHeight()); // TODO: awfuil hack idk
 		dead = false;
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#fallIntoHole(int, int)
+	 */
+	@Override
+	public void fallIntoHole(int tileX, int tileY) {
+		if (mdo.response != CollisionResponseType.ETHEREAL) {
+			super.fallIntoHole(tileX, tileY);
+		}
 	}
 
 	/**
