@@ -30,6 +30,8 @@ public class Hero extends CharacterEvent {
 	protected Moveset moves;
 	/** Where we entered the stage */
 	protected float entryX, entryY;
+	/** How many times enemies have consecutively mugged us */
+	protected int stunMug = 0;
 
 	/**
 	 * Placeholder constructor. When the hero is finally initialized properly
@@ -168,6 +170,23 @@ public class Hero extends CharacterEvent {
 	}
 
 	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#stun()
+	 */
+	@Override
+	public void stun() {
+		if (stunned) {
+			stunMug += 1;
+			if (stunMug >= 40) { // MAGIC NUMBER ALERT: MUGS TO DEATH
+				die();
+				return;
+			}
+		} else {
+			stunMug = 0;
+		}
+		super.stun();
+	}
+
+	/**
 	 * Passes the input command to the moveset for appropriate response. This
 	 * handles special moves such as jumping and attacks, not the default
 	 * movements. Those should be handled by the screen instead, at least until
@@ -184,7 +203,6 @@ public class Hero extends CharacterEvent {
 	 * isn't really death in Blockbound.
 	 */
 	protected void die() {
-		stun();
 		RGlobal.teleport.getPre().addListener(new FinishListener() {
 			@Override
 			public void onFinish(Level map) {
@@ -193,6 +211,7 @@ public class Hero extends CharacterEvent {
 				setX((int) entryX);
 				setY((int) entryY);
 				RGlobal.teleport.getPost().run(map);
+				//stun();
 			}
 		});
 		RGlobal.teleport.getPre().run(getLevel());

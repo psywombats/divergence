@@ -743,7 +743,7 @@
    <property name="z" value="0"/>
   <property name="layer" value="5"/></properties>
   <data compression="zlib" encoding="base64">
-   eJzLY2RgKCAS5wIxCOQA6SIG4nAWFj01aBhZfQ2aHnS1MJzMCME1WPTEAek5QDwXiOcxQPhxSHpgfHQ9y6DiK0jQswGINwLxJjx68qFhl4Mkho5hemD6CqF24dNTDVVXzEC8Hpi+WiQ2MXrQMal6UoFqM0jUgx7WtNaTCaTTiMQZUD0AHS1RqA==
+   eJy1kMsKg0AMRTM/6kYsVrTPZccvqbqULtt+Ya9MAiGMEhcdOGQS7iGQUyC6OOnA8lrUG/loMk406Hw0js0KZUjEjFOgDmAEE6W+UI701pl5/so4zxXnDT7gu7HnzLdr1cwijnhX3rXlPDh3J78jXq/+Hsey16mQrXc69tb/do6oByc1Oz+c5VHl
   </data>
  </layer>
  <layer height="16" name="Upper 1" width="13">
@@ -751,7 +751,7 @@
    <property name="z" value=".5"/>
   <property name="layer" value="4"/></properties>
   <data compression="zlib" encoding="base64">
-   eJxjYBj64BYZeh5R3RUjGxweIXaiAwBGJwND
+   eJxjYBgFo4BycJjO+k9SaB+1AAC3JwJQ
   </data>
  </layer>
  <objectgroup height="16" name="Event 1" width="13">
@@ -788,7 +788,7 @@
     <property name="key" value="enemy_pudding"/>
    </properties>
   </object>
-  <object height="32" name="Pudding" type="event" width="32" x="96" y="384">
+  <object height="32" name="Pudding" type="event" width="32" x="96" y="448">
    <properties>
     <property name="key" value="enemy_pudding"/>
    </properties>
@@ -818,7 +818,7 @@
     <property name="id" value="pressure_pad"/>
    </properties>
   </object>
-  <object height="32" name="DragonBeetle" type="event" width="32" x="64" y="416">
+  <object height="32" name="DragonBeetle" type="event" width="32" x="96" y="384">
    <properties>
     <property name="key" value="enemy_dragon_beetle"/>
     <property name="respawns" value=""/>
@@ -835,7 +835,7 @@
    </properties>
   </object>
  </objectgroup>
- <layer height="16" name="Lower 2" visible="0" width="13">
+ <layer height="16" name="Lower 2" width="13">
   <properties>
    <property name="z" value="1"/>
   <property name="layer" value="2"/></properties>
@@ -848,7 +848,7 @@
    <property name="z" value="1.5"/>
   <property name="layer" value="1"/></properties>
   <data compression="zlib" encoding="base64">
-   eJxjYBgFowAV7B4hdlIDAABk2wF3
+   eJxjYBgFowAV7B5g/UMJAACK1wF3
   </data>
  </layer>
  <objectgroup height="16" name="Event 2" width="13">

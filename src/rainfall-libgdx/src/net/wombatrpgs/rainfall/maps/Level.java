@@ -548,6 +548,9 @@ public class Level implements ScreenShowable {
 	 */
 	public void reset() {
 		reseting = true;
+		if (contains(RGlobal.block)) {
+			removeEvent(RGlobal.block);
+		}
 		for (MapObject object : objects) {
 			object.reset();
 		}

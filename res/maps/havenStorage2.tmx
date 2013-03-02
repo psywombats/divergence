@@ -744,7 +744,7 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzLY2RgKCAS5wIxCOQA6SIG4nAWFj01aBhZfQ2aHnS1MJzMCME1WPTEAek5QDwXiOcxQPhxSHpgfHQ9y6DiK0jQswGINwLxJjx68qFhl4Mkho5hemD6CqF24dNTDVVXzEC8Hpi+WiQ2MXrQMal6UoFqM0jUgx7WtNaTCaTTiMQZUD0AHS1RqA==
+   eJy1kMsKg0AMRTM/6kYsVrTPZccvqbqULtt+Ya9MAiGMEhcdOGQS7iGQUyC6OOnA8lrUG/loMk406Hw0js0KZUjEjFOgDmAEE6W+UI701pl5/so4zxXnDT7gu7HnzLdr1cwijnhX3rXlPDh3J78jXq/+Hsey16mQrXc69tb/do6oByc1Oz+c5VHl
   </data>
  </layer>
  <layer name="Upper 1" width="13" height="16">
@@ -752,7 +752,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBj64BYZeh5R3RUjGxweIXaiAwBGJwND
+   eJxjYBgFo4BycJjO+k9SaB+1AAC3JwJQ
   </data>
  </layer>
  <objectgroup name="Event 1" width="13" height="16">
@@ -789,7 +789,7 @@
     <property name="key" value="enemy_pudding"/>
    </properties>
   </object>
-  <object name="Pudding" type="event" x="96" y="384" width="32" height="32">
+  <object name="Pudding" type="event" x="96" y="448" width="32" height="32">
    <properties>
     <property name="key" value="enemy_pudding"/>
    </properties>
@@ -819,7 +819,7 @@
     <property name="id" value="pressure_pad"/>
    </properties>
   </object>
-  <object name="DragonBeetle" type="event" x="64" y="416" width="32" height="32">
+  <object name="DragonBeetle" type="event" x="96" y="384" width="32" height="32">
    <properties>
     <property name="key" value="enemy_dragon_beetle"/>
     <property name="respawns" value=""/>
@@ -836,7 +836,7 @@
    </properties>
   </object>
  </objectgroup>
- <layer name="Lower 2" width="13" height="16" visible="0">
+ <layer name="Lower 2" width="13" height="16">
   <properties>
    <property name="z" value="1"/>
   </properties>
@@ -849,7 +849,7 @@
    <property name="z" value="1.5"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgFowAV7B4hdlIDAABk2wF3
+   eJxjYBgFowAV7B5g/UMJAACK1wF3
   </data>
  </layer>
  <objectgroup name="Event 2" width="13" height="16">
