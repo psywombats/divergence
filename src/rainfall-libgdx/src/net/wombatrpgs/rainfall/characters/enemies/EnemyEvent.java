@@ -225,9 +225,7 @@ public class EnemyEvent extends CharacterEvent {
 				xComp = 0;
 				yComp = 0;
 			}
-			if (!parent.contains(emitter)) {
-				parent.addEvent(emitter, 0, 0, parent.getZ(this));
-			}
+			parent.addEvent(emitter, 0, 0, parent.getZ(this));
 			emitter.setX(getX());
 			emitter.setY(getY());
 			emitter.fire(xComp, yComp);

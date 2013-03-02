@@ -98,9 +98,7 @@ public class ActSummon extends MovesetAct {
 			}
 		} else {
 			// there was nothing to drop the block onto
-			RGlobal.reporter.inform("Fell off into the abyss!!!");
 		}
-		RGlobal.reporter.inform(result.toString());
 		final MovesetAct parent = this;
 		new TimerObject(mdo.duration * 1.2f, RGlobal.hero, new TimerListener() {
 			@Override

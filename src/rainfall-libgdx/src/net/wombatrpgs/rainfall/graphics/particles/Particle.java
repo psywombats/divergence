@@ -127,5 +127,13 @@ public class Particle extends MapEvent {
 			if (result.mtvY != 0) this.vy *= -1;
 		}
 	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#supportsBlockLanding()
+	 */
+	@Override
+	public boolean supportsBlockLanding() {
+		return true;
+	}
 	
 }

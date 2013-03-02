@@ -89,6 +89,8 @@ public class Level implements ScreenShowable {
 	protected Graphic minimap;
 	/** Should game state be suspended */
 	protected boolean paused;
+	/** Is the level in an update cycle in which there was a reset */
+	protected boolean reseting;
 	/** Name of the file with our map in it, mentioned in database */
 	protected String mapPath;
 	
@@ -107,6 +109,9 @@ public class Level implements ScreenShowable {
 		customObjects = new HashMap<String, CustomEvent>();
 		removalObjects = new ArrayList<MapObject>();
 		removalEvents = new ArrayList<MapEvent>();
+		
+		paused = false;
+		reseting = false;
 	}
 	
 	/** @return The batch used to render sprites on this map */
@@ -274,16 +279,19 @@ public class Level implements ScreenShowable {
 			MapObject object = objects.get(i);
 			if (!paused || object.getPauseLevel() != PauseLevel.SURRENDERS_EASILY) {
 				object.update(elapsed);
+				if (reseting) break;
 			}
 		}
-		// TODO: add queue? really
-		for (int i = 0; i < events.size(); i++) {
-			MapEvent event = events.get(i);
-			if (event.isCollisionEnabled()) {
-				applyPhysicalCorrections(event);
-				detectCollisions(event);
+		if (!reseting) {
+			for (int i = 0; i < events.size(); i++) {
+				MapEvent event = events.get(i);
+				if (event.isCollisionEnabled()) {
+					applyPhysicalCorrections(event);
+					detectCollisions(event);
+				}
 			}
 		}
+		reseting = false;
 	}
 	
 	/**
@@ -481,7 +489,15 @@ public class Level implements ScreenShowable {
 	 */
 	public void addObject(MapObject object) {
 		if (objects.contains(object)) {
-			RGlobal.reporter.warn("Added the same object twice: " + object);
+			if (removalEvents.contains(object)) {
+				internalRemoveEvent((MapEvent) object);
+				RGlobal.reporter.inform("Overlapped remove/add event: " + object);
+			} else if (removalObjects.contains(object)) {
+				internalRemoveObject(object);
+				RGlobal.reporter.inform("Overlapped remove/add object: " + object);
+			} else {
+				RGlobal.reporter.warn("Added the same object twice: " + object);
+			}
 		}
 		objects.add(object);
 		object.onAddedToMap(this);
@@ -531,9 +547,7 @@ public class Level implements ScreenShowable {
 	 * deaths and reset event positions.
 	 */
 	public void reset() {
-		if (contains(RGlobal.block)) {
-			removeEvent(RGlobal.block);
-		}
+		reseting = true;
 		for (MapObject object : objects) {
 			object.reset();
 		}

@@ -766,7 +766,7 @@
     <property name="y" value="8"/>
    </properties>
   </object>
-  <object name="Grinder" type="event" x="32" y="416" width="32" height="32">
+  <object name="Grinder" type="event" x="192" y="128" width="32" height="32">
    <properties>
     <property name="key" value="enemy_grinder"/>
     <property name="respawns" value=""/>
@@ -819,7 +819,7 @@
     <property name="id" value="pressure_pad"/>
    </properties>
   </object>
-  <object name="DragonBeetle" type="event" x="160" y="192" width="32" height="32">
+  <object name="DragonBeetle" type="event" x="64" y="416" width="32" height="32">
    <properties>
     <property name="key" value="enemy_dragon_beetle"/>
     <property name="respawns" value=""/>

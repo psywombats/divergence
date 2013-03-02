@@ -121,8 +121,8 @@ public class Block extends CharacterEvent {
 	 */
 	@Override
 	public void reset() {
-		// this is glitchy for some reason
-		//getLevel().removeEvent(this);
+		// this is glitchy if... (2013-03-02)
+		getLevel().removeEvent(this);
 	}
 
 	/**
