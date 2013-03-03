@@ -207,6 +207,33 @@ public class GridLayer extends Layer {
 		}
 		return result;
 	}
+	
+	/**
+	 * Determines whether a grid cell is passable by looking it up in our cache
+	 * of passability. This is a little slow as it checks passability overrides.
+	 * @param 	x				The x-coord of the tile to check (in tiles)
+	 * @param 	y				The y-coord of the tile to check (in tiles)
+	 * @return					True if that tile is passable, false otherwise
+	 */
+	public boolean isPassable(final int x, final int y) {
+		if (passability[y][x]) return true;
+		Hitbox subBox = new RectHitbox(new Positionable() {
+			@Override
+			public int getX() { return x * map.tileWidth; }
+			@Override
+			public int getY() {return  y * map.tileHeight; }
+		},
+		map.tileWidth*1/4,
+		map.tileHeight*1/4,
+		map.tileWidth*3/4,
+		map.tileHeight*3/4);
+		for (Hitbox box : passOverrides) {
+			if (subBox.isColliding(box).isColliding) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * Adds an override to the normal passability of this grid layer. If an

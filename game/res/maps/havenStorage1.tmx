@@ -777,6 +777,13 @@
     <property name="y" value="17"/>
    </properties>
   </object>
+  <object height="32" name="Treasure Chest" type="object" width="32" x="96" y="416">
+   <properties>
+    <property name="id" value="chest"/>
+    <property name="item" value="Lift Sprocket"/>
+    <property name="scene" value="scene_event_lift_sprocket"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer height="16" name="Lower 2" width="13">
   <properties>

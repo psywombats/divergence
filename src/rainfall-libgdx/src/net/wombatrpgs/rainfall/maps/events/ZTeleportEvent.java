@@ -56,12 +56,10 @@ public class ZTeleportEvent extends MapEvent {
 			if (below(other)) return true;
 			newZ = lowerIndex + 1;
 			other.setY(other.getY()+1);
-			System.out.println("Teled to top");
 		} else {
 			if (above(other)) return true;
 			newZ = lowerIndex;
 			other.setY(other.getY()-1);
-			System.out.println("Teled to bottom");
 		}
 		other.changeZ(newZ);
 		return true;

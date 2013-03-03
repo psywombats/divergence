@@ -20,8 +20,8 @@ public class ConditionSightLine extends Condition {
 	public boolean isMet() {
 		int deltaX = actor.getX() - RGlobal.hero.getX();
 		int deltaY = actor.getY() - RGlobal.hero.getY();
-		return	Math.abs(deltaX) < actor.getLevel().getTileWidth() ||
-				Math.abs(deltaY) < actor.getLevel().getTileHeight();
+		return	Math.abs(deltaX) < actor.getLevel().getTileWidth()/4 ||
+				Math.abs(deltaY) < actor.getLevel().getTileHeight()/4;
 	}
 
 }

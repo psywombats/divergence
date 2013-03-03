@@ -96,15 +96,15 @@ quarryroof
   index: 1
 quarryroof
   rotate: false
-  xy: 138, 2
+  xy: 172, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 8
+  index: 0
 quarryroof
   rotate: false
   xy: 172, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 0
+  index: 8

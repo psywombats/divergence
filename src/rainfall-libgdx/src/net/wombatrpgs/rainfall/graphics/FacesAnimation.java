@@ -107,6 +107,7 @@ public abstract class FacesAnimation implements Renderable,
 	public void postProcessing(AssetManager manager, int pass) {
 		for (int i = 0; i < facings; i++) {
 			animations[i].postProcessing(manager, pass);
+			animations[i].update(0);
 		}
 	}
 	

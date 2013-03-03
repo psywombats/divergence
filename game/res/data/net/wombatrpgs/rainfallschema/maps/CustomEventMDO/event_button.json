@@ -1,0 +1,13 @@
+{
+	"key" : "event_button",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "different from a pressure pad in that you need to touch it once and only once",
+	"appearance" : "animation_button_unpressed",
+	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
+	"response" : "ETHEREAL",
+	"touch" : "NOTHING",
+	"mobility" : "mobility_immobile",
+	"id" : "button",
+	"sort" : "BELOW_HERO"
+}

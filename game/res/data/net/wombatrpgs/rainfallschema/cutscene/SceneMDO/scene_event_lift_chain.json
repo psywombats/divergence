@@ -1,0 +1,8 @@
+{
+	"key" : "scene_event_lift_chain",
+	"subfolder" : "event",
+	"name" : "",
+	"description" : "",
+	"file" : "event_lift_chain.scene",
+	"repeat" : "RUN_ONLY_ONCE"
+}

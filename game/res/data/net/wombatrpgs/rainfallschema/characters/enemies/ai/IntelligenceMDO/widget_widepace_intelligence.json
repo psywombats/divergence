@@ -1,0 +1,13 @@
+{
+	"key" : "widget_widepace_intelligence",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"intents" : [
+		{
+			"action" : "PACE_HITWALLS",
+			"condition" : "DEFAULT",
+			"priority" : 0
+		}
+	]
+}

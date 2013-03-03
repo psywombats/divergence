@@ -663,6 +663,14 @@
     <property name="y" value="10"/>
    </properties>
   </object>
+  <object name="Teleport" type="teleport" x="32" y="256" width="16" height="32">
+   <properties>
+    <property name="id" value="map_havenWorkshop"/>
+    <property name="targetZ" value="1"/>
+    <property name="x" value="17"/>
+    <property name="y" value="10"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Lower 2" width="25" height="15">
   <properties>

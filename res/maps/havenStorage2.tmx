@@ -769,13 +769,11 @@
   <object name="Grinder" type="event" x="192" y="128" width="32" height="32">
    <properties>
     <property name="key" value="enemy_grinder"/>
-    <property name="respawns" value=""/>
    </properties>
   </object>
   <object name="Grinder" type="event" x="32" y="384" width="32" height="32">
    <properties>
     <property name="key" value="enemy_grinder"/>
-    <property name="respawns" value=""/>
    </properties>
   </object>
   <object name="DragonBeetle" type="event" x="96" y="160" width="32" height="32">
@@ -833,6 +831,13 @@
   <object name="Trick Door" type="object" x="320" y="288" width="32" height="32">
    <properties>
     <property name="id" value="trick_wall"/>
+   </properties>
+  </object>
+  <object name="Treasure Chest" type="object" x="288" y="128" width="32" height="32">
+   <properties>
+    <property name="id" value="chest"/>
+    <property name="item" value="Lift Chain"/>
+    <property name="scene" value="scene_event_lift_chain"/>
    </properties>
   </object>
  </objectgroup>

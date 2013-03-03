@@ -6,6 +6,9 @@
  */
 package net.wombatrpgs.rainfall.characters;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
@@ -15,6 +18,7 @@ import net.wombatrpgs.rainfall.maps.Positionable;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.physics.CollisionResult;
 import net.wombatrpgs.rainfall.physics.Hitbox;
+import net.wombatrpgs.rainfall.physics.RectHitbox;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.SummonMDO;
 
@@ -37,11 +41,11 @@ public class Block extends CharacterEvent {
 		super(RGlobal.data.getEntryFor(mdo.blockEvent, CharacterEventMDO.class));
 		setCollisionsEnabled(true);
 		summonInProgress = false;
-		upperBox = getHitbox().duplicate();
-		upperBox.setParent(new Positionable() {
+		upperBox = new RectHitbox(new Positionable() {
 			@Override public int getX() { return (int) x; }
-			@Override public int getY() { return (int) (y + Level.PIXELS_PER_Y); }	
-		});
+			@Override public int getY() { return (int) (y + Level.PIXELS_PER_Y); }
+		}, 	-1, -1, 
+			getHitbox().getWidth()+1, getHitbox().getHeight()+1);
 	}
 	
 	/** @param summoning True if summoning is in progress */
@@ -104,6 +108,16 @@ public class Block extends CharacterEvent {
 	public void onRemovedFromMap(Level map) {
 		super.onRemovedFromMap(map);
 		map.removePassabilityOverride(upperBox, map.getZ(this) + 1);
+		List<MapEvent> doomedIdiots = new ArrayList<MapEvent>();
+		for (MapEvent event : map.getEvents()) {
+			if (map.getZ(event) == map.getZ(this) + 1 &&
+				event.getHitbox().isColliding(upperBox).isColliding) {
+				doomedIdiots.add(event);
+			}
+		}
+		for (MapEvent event : doomedIdiots) {
+			event.onSupportPulled();
+		}
 	}
 	
 	/**

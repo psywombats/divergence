@@ -10,6 +10,8 @@ import net.wombatrpgs.rainfall.characters.CharacterFactory;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.custom.CustomEvent;
+import net.wombatrpgs.rainfall.maps.custom.EventButton;
+import net.wombatrpgs.rainfall.maps.custom.EventChest;
 import net.wombatrpgs.rainfall.maps.custom.EventPressurePad;
 import net.wombatrpgs.rainfall.maps.custom.EventTrickWall;
 import net.wombatrpgs.rainfall.maps.custom.instances.EventPressurePadHavenFight;
@@ -98,6 +100,10 @@ public class EventFactory {
 		id = CustomEvent.EVENT_PREFIX + id;
 		if (id.equals(EventPressurePad.ID)) {
 			return new EventPressurePad(object, parent);
+		} else if (id.equals(EventChest.ID)) {
+			return new EventChest(object, parent);
+		} else if (id.equals(EventButton.ID)) {
+			return new EventButton(object, parent);
 		} else if (id.equals(EventTrickWall.ID)) {
 			return new EventTrickWall(object, parent);
 		} else if (id.equals(EventPressurePadHavenFight.ID)) {

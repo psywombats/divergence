@@ -6,10 +6,14 @@
  */
 package net.wombatrpgs.rainfall.characters;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 
 import net.wombatrpgs.rainfall.characters.moveset.Moveset;
+import net.wombatrpgs.rainfall.characters.moveset.MovesetAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
@@ -203,6 +207,12 @@ public class Hero extends CharacterEvent {
 	 * isn't really death in Blockbound.
 	 */
 	protected void die() {
+		List<MovesetAct> toCancel = new ArrayList<MovesetAct>();
+		toCancel.addAll(activeMoves);
+		for (MovesetAct act : toCancel) {
+			act.cancel();
+		}
+		activeMoves.clear();
 		RGlobal.teleport.getPre().addListener(new FinishListener() {
 			@Override
 			public void onFinish(Level map) {

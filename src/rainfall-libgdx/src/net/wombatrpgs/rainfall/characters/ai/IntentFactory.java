@@ -13,6 +13,7 @@ import net.wombatrpgs.rainfall.characters.ai.actions.IntentFaceHero;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentHalt;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentNothing;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentPace;
+import net.wombatrpgs.rainfall.characters.ai.actions.IntentPaceWalls;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentSpitfire;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentWander;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentWanderOrganic;
@@ -72,6 +73,8 @@ public class IntentFactory {
 			return new IntentWanderOrganic(intel, actor);
 		case WANDER_RANDOMLY:
 			return new IntentWander(intel, actor);
+		case PACE_HITWALLS:
+			return new IntentPaceWalls(intel, actor);
 		case PACE_MENACINGLY:
 			return new IntentPace(intel, actor);
 		case CHARGE_HERO:

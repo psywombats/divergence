@@ -185,9 +185,6 @@ public class RectHitbox extends Hitbox {
 			rect.x2 -= parent.getX();
 			rect.y1 -= parent.getY();
 			rect.y2 -= parent.getY();
-			if (rect.x1 + 32 < rect.x2 || rect.y1 + 32 < rect.y2) {
-				System.out.println();
-			}
 		}
 		return rects;
 	}

@@ -12,8 +12,6 @@ import net.wombatrpgs.rainfall.characters.ai.IntentAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.objects.TimerListener;
 import net.wombatrpgs.rainfall.maps.objects.TimerObject;
-import net.wombatrpgs.rainfallschema.maps.data.DirVector;
-import net.wombatrpgs.rainfallschema.maps.data.Direction;
 
 /**
  * Charge in a cardinal direction.
@@ -38,11 +36,7 @@ public class IntentChargeForward extends IntentAct {
 			finishedCharging = false;
 		} else if (!actor.isTracking()) {
 			actor.faceToward(RGlobal.hero);
-			Direction dir = actor.getFacing();
-			DirVector vec = dir.getVector();
-			int targetX = actor.getX() + (int) vec.x * 1000;
-			int targetY = actor.getY() + (int) vec.y * 1000;
-			actor.targetLocation(targetX, targetY);
+			actor.targetDirection(actor.getFacing());
 			
 			float duration = CHARGE_TIME;
 			new TimerObject(duration, actor, new TimerListener() {

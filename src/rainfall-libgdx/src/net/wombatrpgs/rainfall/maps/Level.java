@@ -150,6 +150,9 @@ public class Level implements ScreenShowable {
 	/** @return All object layers on this map */
 	public List<EventLayer> getEventLayers() { return eventLayers; }
 	
+	/** @return All events on this map */
+	public List<MapEvent> getEvents() { return events; }
+	
 	/** @param pause The map object to pause on */
 	public void setPause(boolean paused) { this.paused = paused; }
 	

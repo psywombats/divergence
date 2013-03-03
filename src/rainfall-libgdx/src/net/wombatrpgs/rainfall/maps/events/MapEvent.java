@@ -570,6 +570,15 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
+	 * Happens when the block is pulled out from under us. Maybe should be a
+	 * fall, but falls aren't currently supported. So for now it uh does
+	 * nothing but throw a warning. Override if you need.
+	 */
+	public void onSupportPulled() {
+		RGlobal.reporter.warn("Pulled out support for an unsuspecting event: " + this);
+	}
+	
+	/**
 	 * Moves objects out of collision with each other. Usually call this from
 	 * onCollide, as a collision result is needed.
 	 * @param 	other			The other object to bump

@@ -744,7 +744,7 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJy10ssKgzAQBdAb/E83oT5KHz6W2kX1M7rpp3YCEcfpJAZE4YIJxxCuAwAPAzRK7hT+3Gjd4T/XiMt3nKWM3o0+3Lm7tZTMGx7u3Fm9Yo64V6LTjHQ1vZcBq/UijevpTLf0bIU1gf6kC/Wc8t+O9vxk8xrrucV2DkNnproB23mN3fFt9t1E+7NwH8VdaL+gVMx9sVpr9Dmo/XcyFXM/k9RSpw==
+   eJy10j0OwjAMBeAX9QBcDhaGLBHQIv4KI+0AHIOFo9aWUuEYp+lCpKc00VcrsgwAJwdcjBwpch3ofMVv9hNuUXCB0kXXxUjHb2spVTQy0nGtG+2rmW5tWO162n20S+G180gz1pauoe9dxlp90Y779E839jko6zL9085nXIWy6w1jOctwzmJec33mtEjnMFdzrrsjndepNz5c2T3p/qXc23Abut9SauE++Nrg7Dlo4n86tXADzv9OFw==
   </data>
  </layer>
  <layer name="Upper 1" width="10" height="26">
@@ -778,6 +778,13 @@
     <property name="id" value="map_havenStorage2"/>
     <property name="x" value="10"/>
     <property name="y" value="10"/>
+   </properties>
+  </object>
+  <object name="Teleport" type="teleport" x="128" y="96" width="32" height="24">
+   <properties>
+    <property name="id" value="map_havenQuarry"/>
+    <property name="x" value="6"/>
+    <property name="y" value="14"/>
    </properties>
   </object>
  </objectgroup>

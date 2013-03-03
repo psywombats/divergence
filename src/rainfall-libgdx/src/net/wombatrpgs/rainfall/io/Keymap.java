@@ -115,9 +115,6 @@ public abstract class Keymap implements InputProcessor,
 		Map<InputButton, Boolean> snapshot = new HashMap<InputButton, Boolean>();
 		for (InputButton button : InputButton.values()) {
 			snapshot.put(button, isButtonDown(button));
-			if (isButtonDown(button)) {
-				System.out.println(button + " was down");
-			}
 		}
 		return snapshot;
 	}
