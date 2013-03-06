@@ -787,6 +787,13 @@
     <property name="y" value="14"/>
    </properties>
   </object>
+  <object name="Treasure Chest" type="object" x="160" y="320" width="32" height="32">
+   <properties>
+    <property name="id" value="chest"/>
+    <property name="item" value="Lift Chain"/>
+    <property name="scene" value="scene_event_lift_chain"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Lower 2" width="10" height="26">
   <properties>
