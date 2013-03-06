@@ -34,7 +34,11 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	protected static final float FULL_FALL = 1f;
 	/** A thingy to fool the prerenderable, a sort of no-appear flag */
 	protected static final TextureRegion NO_APPEARANCE = null;
+	
 	protected static final String PROPERTY_Z = "z";
+	protected static final String PROPERTY_GROUP = "group";
+	protected static final String PROPERTY_NAME = "name";
+	protected static final char SEPERATOR_CHAR = ';';
 	
 	/** Our patron object on the tiled map */
 	protected TiledObject object;
@@ -345,10 +349,28 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 */
 	public String getName() {
 		if (object != null) {
-			return object.properties.get("name");
+			return object.properties.get(PROPERTY_NAME);
 		} else {
-			return null;
+			return "(Anonymous)";
 		}
+	}
+	
+	/**
+	 * Checks if this event's in a specific group. Events can belong to multiple
+	 * groups if their group name contains the separator character.
+	 * @param 	groupName		The name of the group we may be in
+	 * @return					True if in that group, false if not
+	 */
+	public boolean inGroup(String groupName) {
+		if (object == null) return false;
+		String groups = object.properties.get(PROPERTY_GROUP);
+		if (groups == null) return false;
+		while (groups.indexOf(SEPERATOR_CHAR) != -1) {
+			String group = groups.substring(0, groups.indexOf(SEPERATOR_CHAR));
+			if (group.equals(groupName)) return true;
+			groups = groups.substring(groups.indexOf(SEPERATOR_CHAR)+2);
+		}
+		return (groups.equals(groupName));
 	}
 	
 	/**

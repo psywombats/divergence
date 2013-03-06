@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.rainfall.scenes.commands;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
@@ -27,9 +29,11 @@ public class CommandMove extends SceneCommand {
 	protected static final String DIR_LEFT = "left";
 	protected static final String DIR_RIGHT = "right";
 	
-	protected String eventName;
+	protected static final String ARG_GROUP = "group";
+	
+	protected String eventName, groupName;
 	protected Stack<MoveStep> steps;
-	protected MapEvent event;
+	protected List<MapEvent> events;
 
 	/**
 	 * Creates a movement command and interprets its string to get it all ready
@@ -42,8 +46,12 @@ public class CommandMove extends SceneCommand {
 		steps = new Stack<MoveStep>();
 		line = line.substring(line.indexOf(' ')+1);
 		this.eventName = line.substring(0, line.indexOf(' '));
-		event = parent.getLevel().getEventByName(eventName);
+		if (eventName.equals(ARG_GROUP)) {
+			line = line.substring(line.indexOf(' ') + 1);
+			groupName = line.substring(0, line.indexOf(' '));
+		}
 		line = line.substring(line.indexOf(' ') + 1);
+		events = new ArrayList<MapEvent>();
 		this.line = line;
 		parseSteps(line);
 	}
@@ -56,7 +64,8 @@ public class CommandMove extends SceneCommand {
 	 */
 	public CommandMove(SceneParser parent, String line, MapEvent event) {
 		super(parent, line);
-		this.event = event;
+		events = new ArrayList<MapEvent>();
+		events.add(event);
 		finished = false;
 		steps = new Stack<MoveStep>();
 		parseSteps(line);
@@ -67,28 +76,45 @@ public class CommandMove extends SceneCommand {
 	 */
 	@Override
 	public boolean run() {
-		if (event == null) {
-			event = parent.getLevel().getEventByName(eventName);
-		}
-		if (!event.isTracking() && steps.size() <= 0 && !finished) {
-			event.halt();
-			finished = true;
-		}
 		if (finished) return true;
-		if (event.isTracking()) {
-			event.setPauseLevel(PauseLevel.PAUSE_RESISTANT);
-		} else {
-			event.setPauseLevel(PauseLevel.SURRENDERS_EASILY);
-		}
-		if (!event.isTracking() && steps.size() > 0) {
-			MoveStep step = steps.pop();
-			event.targetLocation(
-					event.getX() + step.deltaX, 
-					event.getY() + step.deltaY);
-			if (!parent.getControlledEvents().contains(event)) {
-				parent.getControlledEvents().add(event);
+		if (events.size() == 0) {
+			if (eventName.equals(ARG_GROUP)) {
+				events.addAll(parent.getLevel().getEventsByGroup(groupName));
+			} else {
+				events.add(parent.getLevel().getEventByName(eventName));
 			}
 		}
+		boolean allDone = true;
+		for (MapEvent event : events) {
+			if (!event.isTracking() && steps.size() <= 0 && !finished) {
+				event.halt();
+			} else {
+				allDone = false;
+			}
+			if (event.isTracking()) {
+				event.setPauseLevel(PauseLevel.PAUSE_RESISTANT);
+			} else {
+				event.setPauseLevel(PauseLevel.SURRENDERS_EASILY);
+			}
+		}
+		boolean needsTracking = false;
+		for (MapEvent event : events) {
+			if (!event.isTracking() && steps.size() > 0) {
+				needsTracking = true;
+			}
+		}
+		if (needsTracking) {
+			MoveStep step = steps.pop();
+			for (MapEvent event : events) {
+				event.targetLocation(
+						event.getX() + step.deltaX, 
+						event.getY() + step.deltaY);
+				if (!parent.getControlledEvents().contains(event)) {
+					parent.getControlledEvents().add(event);
+				}
+			}
+		}
+		finished = allDone;
 		return true;
 	}
 	

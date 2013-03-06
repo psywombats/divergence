@@ -30,6 +30,7 @@ public class EventFactory {
 	protected final static String TYPE_TELEPORT_Z = "z-teleport";
 	protected final static String TYPE_TRIGGER = "trigger";
 	protected final static String TYPE_CUSTOM = "object";
+	protected final static String TYPE_TARGET = "point";
 	
 	protected final static String PROPERTY_ID = "id";
 	
@@ -70,6 +71,8 @@ public class EventFactory {
 			newEvent = CharacterFactory.create(eventMDO, object, parent,
 					object.x, 
 					parent.getHeight()*parent.getTileHeight()-object.y-parent.getTileHeight());
+		} else if (TYPE_TARGET.equals(object.type)) {
+			newEvent = new TargetEvent(parent, object);
 		} else if (TYPE_TELEPORT.equals(object.type)) {
 			newEvent = new TeleportEvent(parent, object);
 		} else if (TYPE_TELEPORT_Z.equals(object.type)) {
@@ -77,7 +80,8 @@ public class EventFactory {
 		} else if (TYPE_TRIGGER.equals(object.type)){
 			newEvent = new TriggerEvent(parent, object);
 		} else {
-			RGlobal.reporter.warn("Found an event with no type: " + object.name);
+			RGlobal.reporter.warn("Found an event with no type: " + 
+					object.name + ", a " + object.type);
 			newEvent = null;
 		}
 		return newEvent;

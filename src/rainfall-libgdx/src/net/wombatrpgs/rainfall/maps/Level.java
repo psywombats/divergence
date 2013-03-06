@@ -486,6 +486,21 @@ public class Level implements ScreenShowable {
 	}
 	
 	/**
+	 * Finds and returns all events with the given group name. Numerous for
+	 * commanding a bunch of events at once. Events can belong to multiple
+	 * groups by putting the ';' between their group name.
+	 * @param 	groupName		The group name to search for
+	 * @return					All events belonging to that group
+	 */
+	public List<MapEvent> getEventsByGroup(String groupName) {
+		List<MapEvent> result = new ArrayList<MapEvent>();
+		for (MapEvent event : events) {
+			if (event.inGroup(groupName)) result.add(event);
+		}
+		return result;
+	}
+	
+	/**
 	 * Adds a new object to this map. Called externally for anything wanting to
 	 * add non-events to this map.
 	 * @param 	object			The new object to add

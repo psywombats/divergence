@@ -128,11 +128,11 @@
   <object name="Hero" type="event" x="336" y="208" width="32" height="32">
    <properties>
     <property name="key" value="hero_default"/>
-    <property name="name" value="nico"/>
+    <property name="name" value="hero"/>
    </properties>
   </object>
  </objectgroup>
- <layer name="Tile Layer 3" width="20" height="15">
+ <layer name="Tile Layer 3" width="20" height="15" visible="0">
   <properties>
    <property name="z" value="1"/>
   </properties>

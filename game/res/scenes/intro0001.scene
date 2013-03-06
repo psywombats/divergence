@@ -1,0 +1,15 @@
+[camera-track cam_target]
+[tint 1 1 1 2.0]
+[wait 2.0]
+NICO: Aaaaahhhhh!
+[move group gang1 left 22]
+[wait-all]
+NICO: Aaaaahhhhh!
+[move group gang2 right 22]
+[wait-all]
+NICO: Waldsworth! Help me!
+WALDY: ...
+NICO: C'mon, Waldy, old buddy, old pal! Save meeee!
+WALDY: ...
+NICO: What's the matter with -
+NICO: Oh yeah, I forgot about that.

@@ -1,0 +1,11 @@
+{
+	"key" : "event_grinder",
+	"subfolder" : "dummy",
+	"name" : "",
+	"description" : "",
+	"appearance" : "grinder_4dir",
+	"collision" : "NONE",
+	"response" : "ETHEREAL",
+	"touch" : "NOTHING",
+	"mobility" : "mobility_cutscene"
+}

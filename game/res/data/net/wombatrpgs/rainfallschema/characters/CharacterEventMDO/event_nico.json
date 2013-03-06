@@ -1,0 +1,11 @@
+{
+	"key" : "event_nico",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"appearance" : "nico_4dir",
+	"collision" : "NONE",
+	"response" : "ETHEREAL",
+	"touch" : "NOTHING",
+	"mobility" : "mobility_cutscene"
+}

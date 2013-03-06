@@ -5,7 +5,7 @@
 NICO: Hello my name is Nico. I am the protagonist of this game.
 WALDY: Hello my name is Waldsworth. I am a massive tool.
 NICO: I am about to walk four tiles downwards.
-[move nico down 4]
+[move hero down 4]
 [wait-all]
 WALDY: You just walked four tiles downwards.
 NICO: I'm proud of myself.
@@ -13,7 +13,7 @@ WALDY: But can you...
 WALDY: WALK IN A CIRCLE?
 NICO: Let's find out, Waldy!
 [wait 1.0]
-[move nico up 1 right 1 down 1 left 1]
+[move hero up 1 right 1 down 1 left 1]
 [wait-all]
 [wait .8]
 NICO: I'm getting dizzy...
@@ -24,6 +24,6 @@ NICO: I'm getting dizzy...
 [wait-all]
 NICO: Woah...
 WALDY: Nico you're drunk.
-[camera-track nico]
+[camera-track hero]
 NICO: Hmph. I'm going to go stand in the bookshelf.
 [teleport blockbound2 1 1]

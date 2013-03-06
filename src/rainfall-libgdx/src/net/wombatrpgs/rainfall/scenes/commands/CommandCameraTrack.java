@@ -41,6 +41,9 @@ public class CommandCameraTrack extends SceneCommand {
 				target = null;
 			} else {
 				target = parent.getLevel().getEventByName(arg);
+				if (target == null) {
+					RGlobal.reporter.warn("Couldn't find event to track named: " + arg);
+				}
 			}
 			RGlobal.screens.getCamera().track(target);
 			finished = true;

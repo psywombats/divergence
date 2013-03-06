@@ -127,11 +127,11 @@
   <object height="32" name="Hero" type="event" width="32" x="336" y="208">
    <properties>
     <property name="key" value="hero_default"/>
-    <property name="name" value="nico"/>
+    <property name="name" value="hero"/>
    </properties>
   </object>
  </objectgroup>
- <layer height="15" name="Tile Layer 3" width="20">
+ <layer height="15" name="Tile Layer 3" visible="0" width="20">
   <properties>
    <property name="z" value="1"/>
   <property name="layer" value="0"/></properties>

@@ -17,7 +17,9 @@ import net.wombatrpgs.rainfall.scenes.SceneParser;
 public class CommandTeleport extends SceneCommand {
 	
 	protected String mapID;
+	protected Level map;
 	protected int teleX, teleY;
+	protected boolean basic;
 	protected boolean phase2;
 
 	/**
@@ -32,7 +34,14 @@ public class CommandTeleport extends SceneCommand {
 		line = line.substring(line.indexOf(' ') + 1);
 		teleX = Integer.valueOf(line.substring(0, line.indexOf(' ')));
 		line = line.substring(line.indexOf(' ') + 1);
-		teleY = Integer.valueOf(line.substring(0, line.indexOf(']')));
+		if (line.indexOf(' ') == -1) {
+			teleY = Integer.valueOf(line.substring(0, line.indexOf(']')));
+			basic = false;
+		} else {
+			teleY = Integer.valueOf(line.substring(0, line.indexOf(' ')));
+			line = line.substring(line.indexOf(' ') + 1);
+			basic = true;
+		}
 		phase2 = false;
 	}
 
@@ -44,26 +53,30 @@ public class CommandTeleport extends SceneCommand {
 		if (finished) return true;
 		SceneParser pre = RGlobal.teleport.getPre();
 		SceneParser post = RGlobal.teleport.getPost();
-		if (!phase2) {
+		if (!phase2 && !basic) {
 			parent.getLevel().addObject(pre);
 			pre.run(parent.getLevel());
 			getParent().setChild(pre);
 			post.reset();
 			phase2 = true;
 		}
-		if (pre.hasExecuted()) {
-			if (!post.isRunning() && !post.hasExecuted()) {
-				parent.getLevel().removeObject(pre);
+		if (pre.hasExecuted() || basic) {
+			if ((!post.isRunning() && !post.hasExecuted()) || basic) {
+				if (!basic) parent.getLevel().removeObject(pre);
 				parent.getLevel().removeObject(parent);
-				Level map = RGlobal.levelManager.getLevel(mapID);
+				if (map == null) {
+					map = RGlobal.levelManager.getLevel(mapID);
+				}
 				RGlobal.teleport.teleport(
 						map, 
 						teleX,
 						map.getHeight() - teleY - 1);
 				map.addObject(parent);
-				map.addObject(post);
-				post.run(map);
-				getParent().setChild(post);
+				if (!basic) {
+					map.addObject(post);
+					post.run(map);
+					getParent().setChild(post);
+				}
 			} else {
 				finished = true;
 			}

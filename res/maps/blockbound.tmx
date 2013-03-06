@@ -152,6 +152,11 @@
     <property name="id" value="scene_test0000"/>
    </properties>
   </object>
+  <object name="waldy" type="event" x="32" y="32" width="32" height="32">
+   <properties>
+    <property name="key" value="waldsworth_event"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Tile Layer 3" width="20" height="15">
   <properties>

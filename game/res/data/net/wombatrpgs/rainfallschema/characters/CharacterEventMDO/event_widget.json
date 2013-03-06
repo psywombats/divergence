@@ -1,0 +1,11 @@
+{
+	"key" : "event_widget",
+	"subfolder" : "dummy",
+	"name" : "",
+	"description" : "",
+	"appearance" : "widget_2dir",
+	"collision" : "NONE",
+	"response" : "ETHEREAL",
+	"touch" : "NOTHING",
+	"mobility" : "mobility_cutscene"
+}

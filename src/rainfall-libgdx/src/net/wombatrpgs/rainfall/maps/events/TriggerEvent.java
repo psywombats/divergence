@@ -23,9 +23,11 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 public class TriggerEvent extends MapEvent {
 	
 	protected static final String PROPERTY_ID = "id";
+	protected static final String PROPERTY_AUTOSTART = "auto";
 	
 	protected SceneParser scene;
 	protected Hitbox box;
+	protected boolean autorun;
 	
 	/**
 	 * Constructs a new trigger. Called by the superclass factory method.
@@ -42,6 +44,7 @@ public class TriggerEvent extends MapEvent {
 			SceneMDO mdo = RGlobal.data.getEntryFor(id, SceneMDO.class);
 			scene = new SceneParser(mdo, getLevel());
 		}
+		autorun = object.properties.get(PROPERTY_AUTOSTART) != null;
 	}
 	
 	/**
@@ -82,6 +85,17 @@ public class TriggerEvent extends MapEvent {
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
 		scene.postProcessing(manager, pass);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		super.update(elapsed);
+		if (autorun && !scene.hasExecuted()) {
+			scene.run(parent);
+		}
 	}
 
 }
