@@ -62,7 +62,7 @@ public class TextBox extends Picture {
 	public void render(OrthographicCamera camera) {
 		super.render(camera);
 		if (backer != null) {
-			backer.renderAt(getBatch(),
+			backer.renderAt(RGlobal.screens.peek().getBatch(),
 					mdo.graphicX,
 					Gdx.graphics.getHeight() - mdo.graphicY - backer.getGraphic().getRegionHeight());
 		}

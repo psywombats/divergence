@@ -1,7 +1,7 @@
 [camera-track cam_target]
-[tint 1 1 1 2.0]
-[wait 2.0]
 NICO: Aaaaahhhhh!
+[tint 1 1 1 2.0]
+[wait 1.0]
 [move group gang1 left 23]
 [wait-all]
 NICO: Aaaaahhhhh!

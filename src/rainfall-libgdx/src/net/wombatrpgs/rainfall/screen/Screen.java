@@ -189,16 +189,21 @@ public abstract class Screen implements CommandListener,
 		canvas.render(cam);
 		batch.begin();
 		for (ScreenShowable pic : pictures) {
-			pic.render(cam);
+			if (!pic.ignoresTint()) pic.render(cam);
 		}
 		batch.end();
 		buffer.end();
-		privateBatch.begin();
 		privateBatch.setColor(tint);
+		privateBatch.begin();
 		// oh god I'm so sorry
 		privateBatch.draw(buffer.getColorBufferTexture(), 0, 0, 0, 0, 
 				width, height, 1, 1, 0, 0, 0, width, height, false, true);
 		privateBatch.end();
+		batch.begin();
+		for (ScreenShowable pic : pictures) {
+			if (pic.ignoresTint()) pic.render(cam);
+		}
+		batch.end();
 	}
 
 	/**

@@ -14,5 +14,12 @@ import net.wombatrpgs.rainfall.graphics.Renderable;
  */
 public interface ScreenShowable extends Renderable, 
 										Updateable {
+	
+	/**
+	 * If this is true, ignores the screen's transition tint. This means that
+	 * it will have to be rendered in a separate phase.
+	 * @return					True if tint is ignored, false if it is applied
+	 */
+	public boolean ignoresTint();
 
 }

@@ -26,8 +26,9 @@ public class Picture implements Comparable<Picture>,
 								PositionSetable {
 	
 	protected Graphic appearance;
-	protected boolean preloaded;
 	protected int x, y, z; // z is depth-y
+	protected boolean preloaded;
+	protected boolean ignoresTint;
 	
 	/**
 	 * Create a picture at an explicit location
@@ -51,6 +52,7 @@ public class Picture implements Comparable<Picture>,
 		this.z = z;
 		this.appearance = appearance;
 		this.preloaded = true;
+		this.ignoresTint = true;
 	}
 	
 	/**
@@ -66,6 +68,7 @@ public class Picture implements Comparable<Picture>,
 		setY(y);
 		this.z = z;
 		this.preloaded = false;
+		this.ignoresTint = true;
 	}
 	
 	/**
@@ -83,7 +86,8 @@ public class Picture implements Comparable<Picture>,
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		appearance.renderAt(getX(), getY());
+		RGlobal.screens.peek().getBatch().setColor(1, 1, 1, 1);
+		appearance.renderAt(x, y);
 	}
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#queueRequiredAssets
@@ -158,5 +162,12 @@ public class Picture implements Comparable<Picture>,
 	public SpriteBatch getBatch() {
 		return RGlobal.screens.peek().getBatch();
 	}
-	
+	/**
+	 * @see net.wombatrpgs.rainfall.screen.ScreenShowable#ignoresTint()
+	 */
+	@Override
+	public boolean ignoresTint() {
+		return ignoresTint;
+	}
+
 }

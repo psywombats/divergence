@@ -299,6 +299,14 @@ public class Level implements ScreenShowable {
 	}
 	
 	/**
+	 * @see net.wombatrpgs.rainfall.screen.ScreenShowable#ignoresTint()
+	 */
+	@Override
+	public boolean ignoresTint() {
+		return false;
+	}
+
+	/**
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
