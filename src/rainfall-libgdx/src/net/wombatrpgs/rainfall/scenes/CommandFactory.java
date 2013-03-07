@@ -11,6 +11,7 @@ import net.wombatrpgs.rainfall.scenes.commands.CommandCameraPan;
 import net.wombatrpgs.rainfall.scenes.commands.CommandCameraSpeed;
 import net.wombatrpgs.rainfall.scenes.commands.CommandCameraTrack;
 import net.wombatrpgs.rainfall.scenes.commands.CommandMove;
+import net.wombatrpgs.rainfall.scenes.commands.CommandSetGraphic;
 import net.wombatrpgs.rainfall.scenes.commands.CommandShowHide;
 import net.wombatrpgs.rainfall.scenes.commands.CommandSpeakAll;
 import net.wombatrpgs.rainfall.scenes.commands.CommandTeleport;
@@ -36,6 +37,7 @@ public class CommandFactory {
 	protected static final String COMMAND_TELE = "teleport";
 	protected static final String COMMAND_SHOW = "show";
 	protected static final String COMMAND_HIDE = "hide";
+	protected static final String COMMAND_SET_GRAPHIC = "change-graphic";
 	
 	/**
 	 * Actually performs the generation. This should be a great big if/else.
@@ -54,6 +56,8 @@ public class CommandFactory {
 			}
 			if (commandName.equals(COMMAND_MOVE)) {
 				return new CommandMove(parent, line);
+			} else if (commandName.equals(COMMAND_SET_GRAPHIC)) {
+				return new CommandSetGraphic(parent, line);
 			} else if (commandName.equals(COMMAND_WAIT_ALL)) {
 				return new CommandWaitAll(parent, line);
 			} else if (commandName.equals(COMMAND_SHOW)) {

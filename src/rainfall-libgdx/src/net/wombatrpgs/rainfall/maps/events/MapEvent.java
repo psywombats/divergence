@@ -98,10 +98,14 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		zeroCoords();
 		this.x = x;
 		this.y = y;
+		this.lastX = x;
+		this.lastY = y;
 		this.object = object;
 		this.mobile = mobile;
 		this.checkCollisions = checkCollisions;
-		this.hidden = object.properties.get(PROPERTY_HIDDEN) != null;
+		if (object != null) {
+			this.hidden = object.properties.get(PROPERTY_HIDDEN) != null;
+		}
 		
 	}
 

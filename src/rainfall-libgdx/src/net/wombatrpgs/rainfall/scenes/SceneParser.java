@@ -27,6 +27,8 @@ import net.wombatrpgs.rainfallschema.cutscene.data.TriggerRepeatType;
  */
 public class SceneParser extends MapObject {
 	
+	protected static boolean runningGlobal = false;
+	
 	protected SceneMDO mdo;
 	protected SceneParser childParser;
 	protected List<SceneCommand> commands;
@@ -195,6 +197,10 @@ public class SceneParser extends MapObject {
 		timeSinceStart = 0;
 		oldMap = RGlobal.screens.peek().getCommandContext();
 		RGlobal.screens.peek().setCommandContext(new SceneCommandMap());
+		if (runningGlobal) {
+			RGlobal.reporter.warn("Running two scenes at once? " + this);
+		}
+		runningGlobal = true;
 	}
 	
 	/**
@@ -236,6 +242,7 @@ public class SceneParser extends MapObject {
 			listener.onFinish(parent);
 		}
 		listeners.clear();
+		runningGlobal = false;
 	}
 
 }

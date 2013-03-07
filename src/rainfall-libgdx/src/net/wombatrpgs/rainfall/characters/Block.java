@@ -145,7 +145,7 @@ public class Block extends CharacterEvent {
 	 */
 	public void changeMap(Level map) {
 		if (this.parent != null) {
-			parent.teleportOff();
+			parent.removeEvent(this);
 		}
 		map.addEvent(this, getX(), getY());
 	}

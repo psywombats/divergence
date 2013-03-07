@@ -286,6 +286,11 @@
     <property name="x" value=""/>
    </properties>
   </tile>
+  <tile id="54">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="255" name="blockboundWoodFloor" tilewidth="32" tileheight="32">
   <image source="tilesets/blockbound/woodfloor.png" trans="8080ff" width="320" height="320"/>
@@ -624,14 +629,14 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYKAvuEekGKlqRxK4i8a/OCCuGF7gPBBfGGhHjAKSwOWBdsAgBwDVKgeZ
+   eJxjYKAvuEekGKlqRxK4O9AOGIbgPBBfGGhHjAKSwOWBdsAgBwB9ZQbI
   </data>
  </layer>
  <objectgroup name="Event 1" width="25" height="15">
   <properties>
    <property name="z" value=".5"/>
   </properties>
-  <object name="TameDragonBeetle" type="event" x="448" y="128" width="32" height="32">
+  <object name="TameDragonBeetle" type="event" x="448" y="160" width="32" height="32">
    <properties>
     <property name="key" value="enemy_dragon_beetle_tame"/>
    </properties>
@@ -671,6 +676,12 @@
     <property name="y" value="10"/>
    </properties>
   </object>
+  <object name="Trigger" type="trigger" x="352" y="64" width="32" height="32">
+   <properties>
+    <property name="auto" value=""/>
+    <property name="id" value="scene_intro0002"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Lower 2" width="25" height="15">
   <properties>
@@ -692,5 +703,12 @@
   <properties>
    <property name="z" value="1.5"/>
   </properties>
+  <object name="Edgar" type="event" x="576" y="144" width="32" height="32">
+   <properties>
+    <property name="face" value="right"/>
+    <property name="key" value="event_edgar"/>
+    <property name="name" value="edgar"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

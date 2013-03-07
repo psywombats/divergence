@@ -1,0 +1,18 @@
+{
+	"key" : "animation_block_nowaldy",
+	"subfolder" : "charas",
+	"name" : "",
+	"description" : "",
+	"file" : "block_nowaldy.png",
+	"mode" : "DO_NOTHING",
+	"frameCount" : 1,
+	"frameWidth" : 32,
+	"frameHeight" : 64,
+	"offX" : 0,
+	"offY" : 0,
+	"animSpeed" : 1,
+	"hit1x" : 0,
+	"hit1y" : 38,
+	"hit2x" : 32,
+	"hit2y" : 66
+}

@@ -1,0 +1,11 @@
+{
+	"key" : "event_edgar",
+	"subfolder" : "dummy",
+	"name" : "",
+	"description" : "",
+	"appearance" : "edgar_2dir",
+	"collision" : "NONE",
+	"response" : "ETHEREAL",
+	"touch" : "NOTHING",
+	"mobility" : "mobility_cutscene"
+}

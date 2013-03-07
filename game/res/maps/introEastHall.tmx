@@ -645,26 +645,26 @@
     <property name="name" value="cam_target"/>
    </properties>
   </object>
-  <object height="32" name="Nico" type="event" width="32" x="832" y="736">
+  <object height="32" name="Nico" type="event" width="32" x="832" y="720">
    <properties>
     <property name="group" value="gang1; gang2"/>
     <property name="key" value="event_nico"/>
     <property name="name" value="nico"/>
    </properties>
   </object>
-  <object height="32" name="Widget" type="event" width="32" x="896" y="736">
+  <object height="32" name="Widget" type="event" width="32" x="896" y="720">
    <properties>
     <property name="group" value="gang1"/>
     <property name="key" value="event_widget"/>
    </properties>
   </object>
-  <object height="32" name="Grinder" type="event" width="32" x="64" y="704">
+  <object height="32" name="Grinder" type="event" width="32" x="64" y="688">
    <properties>
     <property name="group" value="gang2"/>
     <property name="key" value="event_grinder"/>
    </properties>
   </object>
-  <object height="32" name="Grinder" type="event" width="32" x="64" y="768">
+  <object height="32" name="Grinder" type="event" width="32" x="64" y="752">
    <properties>
     <property name="group" value="gang2"/>
     <property name="key" value="event_grinder"/>
@@ -709,7 +709,7 @@
     <property name="key" value="event_waldy_stoned"/>
    </properties>
   </object>
-  <object height="32" name="Widget" type="event" width="32" x="32" y="736">
+  <object height="32" name="Widget" type="event" width="32" x="32" y="720">
    <properties>
     <property name="group" value="gang2"/>
     <property name="key" value="event_widget"/>

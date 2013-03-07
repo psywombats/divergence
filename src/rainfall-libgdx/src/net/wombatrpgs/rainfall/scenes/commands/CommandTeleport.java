@@ -77,6 +77,8 @@ public class CommandTeleport extends SceneCommand {
 					post.run(map);
 					getParent().setChild(post);
 				}
+				finished = basic;
+				return finished;
 			} else {
 				finished = true;
 			}

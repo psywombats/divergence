@@ -1,0 +1,15 @@
+{
+	"key" : "move_summon_nowaldy",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"cooldown" : 0.2,
+	"animation" : "staffraise_4dir",
+	"graphic" : "graphic_icon_summon",
+	"duration" : 0.2,
+	"blockEvent" : "block_event",
+	"blockAnimation" : "animation_blockfall_nowaldy",
+	"failAnimation" : "blockfall_destroyed_nowaldy",
+	"gibs" : "gibset_block",
+	"emitter" : "emitter_block"
+}

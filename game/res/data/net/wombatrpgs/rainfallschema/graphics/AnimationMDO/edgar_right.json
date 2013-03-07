@@ -10,7 +10,7 @@
 	"frameHeight" : 32,
 	"offX" : 0,
 	"offY" : 0,
-	"animSpeed" : 3,
+	"animSpeed" : 6,
 	"hit1x" : 0,
 	"hit1y" : 0,
 	"hit2x" : 0,

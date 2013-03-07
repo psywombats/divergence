@@ -1,0 +1,28 @@
+[change-graphic hero animation_nico_snoozing]
+[camera-track hero]
+[tint 1 1 1 2.0]
+[wait 3.0]
+NICO: Zzz...
+[wait .5]
+[move edgar left 11 up 1 face-right]
+[wait-all]
+[wait .5]
+EDGAR: Nico! Wake up!
+[change-graphic hero nico_4dir]
+NICO: Wah! Huh?
+NICO: What's up Edgar?
+EDGAR: Chloe wants you to deal with the dragon beetle infestation.
+NICO: Well she picked the right guy! This sounds like a job for Nico, Exerminator Extraordinaire!
+EDGAR: ...or it sounds like a job for Chloe's monkey-mage helper.
+NICO: Whatever.
+NICO: Wait, how am I supposed to kill them? Those dudes have thick armor.
+EDGAR: You're supposed to be a stone mage. Why don't you drop a block on them or something?
+NICO: Right! I have my trusty staff!
+[tint 0 0 0 .5]
+[wait .5]
+[toggle-hud on]
+[wait 1.5]
+[tint 1 1 1 .5]
+[wait .5]
+NICO: Death to dragon beetles!
+EDGAR: ...just hurry up about it.

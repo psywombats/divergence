@@ -113,6 +113,13 @@ public class CharacterEvent extends MapEvent {
 		this.appearance = appearance;
 	}
 	
+	public void setWalkAnim(FacesAnimation appearance) {
+		if (this.appearance == this.walkAnim) {
+			this.appearance = appearance;
+		}
+		this.walkAnim = appearance;
+	}
+	
 	/**
 	 * Gets the current appearance of this character event.
 	 * @return					The current appearance of this character event
@@ -128,6 +135,9 @@ public class CharacterEvent extends MapEvent {
 	public void update(float elapsed) {
 		if (dead || hidden) return;
 		super.update(elapsed);
+		if (!pacing && appearance != null) {
+			appearance.update(elapsed);
+		}
 	}
 
 	/**
@@ -136,7 +146,7 @@ public class CharacterEvent extends MapEvent {
 	@Override
 	public void vitalUpdate(float elapsed) {
 		super.vitalUpdate(elapsed);
-		if (appearance != null) {
+		if (pacing && appearance != null) {
 			appearance.update(elapsed);
 		}
 		if (!pacing && (Math.abs(vx) < .1 && Math.abs(vy) < .1)) {

@@ -61,7 +61,6 @@ public class TeleportGlobal implements Queueable {
 		postParser.postProcessing(manager, pass);
 	}
 	
-	// TODO: make this deal with pre/post
 	/**
 	 * Teleports the hero to the map. This is a core teleport event and doesn't
 	 * actually deal with the pre/post stuff... Assumes the teleport affects the
@@ -77,7 +76,7 @@ public class TeleportGlobal implements Queueable {
 		MapEvent victim = RGlobal.hero;
 		Level old = victim.getLevel();
 		int z = old.getZ(victim);
-		old.teleportOff();
+		old.removeEvent(victim);
 		old.update(0);
 		map.teleportOn(tileX, tileY, z);
 	}

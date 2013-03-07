@@ -5,7 +5,7 @@
 	"description" : "",
 	"moves" : [
 		{
-			"move" : "move_summon",
+			"move" : "move_summon_nowaldy",
 			"command" : "ACTION_1"
 		},
 		{

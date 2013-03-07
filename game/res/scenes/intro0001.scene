@@ -19,4 +19,6 @@ WALDY: ...
 NICO: What's the matter with -
 NICO: Oh yeah, I forgot about that.
 [tint 0 0 0 2.0]
+[wait 2.0]
 SYSTEM: Earlier that day...
+[teleport map_havenGallery 8 5 basic]

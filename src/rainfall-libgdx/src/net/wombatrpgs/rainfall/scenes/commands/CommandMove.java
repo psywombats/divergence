@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.PauseLevel;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
@@ -28,6 +29,10 @@ public class CommandMove extends SceneCommand {
 	protected static final String DIR_DOWN = "down";
 	protected static final String DIR_LEFT = "left";
 	protected static final String DIR_RIGHT = "right";
+	protected static final String FACEDIR_UP = "face-up";
+	protected static final String FACEDIR_DOWN = "face-down";
+	protected static final String FACEDIR_LEFT = "face-left";
+	protected static final String FACEDIR_RIGHT = "face-right";
 	
 	protected static final String ARG_GROUP = "group";
 	
@@ -82,6 +87,9 @@ public class CommandMove extends SceneCommand {
 				events.addAll(parent.getLevel().getEventsByGroup(groupName));
 			} else {
 				events.add(parent.getLevel().getEventByName(eventName));
+				if (events.get(0) == null) {
+					RGlobal.reporter.warn("Couldn't move event by name: " + eventName);
+				}
 			}
 		}
 		boolean allDone = true;
@@ -105,12 +113,20 @@ public class CommandMove extends SceneCommand {
 		}
 		if (needsTracking) {
 			MoveStep step = steps.pop();
-			for (MapEvent event : events) {
-				event.targetLocation(
-						event.getX() + step.deltaX, 
-						event.getY() + step.deltaY);
-				if (!parent.getControlledEvents().contains(event)) {
-					parent.getControlledEvents().add(event);
+			for (MapEvent mapEvent : events) {
+				mapEvent.targetLocation(
+						mapEvent.getX() + step.deltaX, 
+						mapEvent.getY() + step.deltaY);
+				if (step.dir != null) {
+					if (CharacterEvent.class.isAssignableFrom(mapEvent.getClass())) { 
+						CharacterEvent event = (CharacterEvent) mapEvent;
+						event.setFacing(step.dir);
+					} else {
+						RGlobal.reporter.warn("Tried to set dir of non-character: " + mapEvent);
+					}
+				}
+				if (!parent.getControlledEvents().contains(mapEvent)) {
+					parent.getControlledEvents().add(mapEvent);
 				}
 			}
 		}
@@ -135,15 +151,13 @@ public class CommandMove extends SceneCommand {
 	 */
 	protected void parseSteps(String line) {
 		while(!line.equals("")) {
-			String dirString = line.substring(0, line.indexOf(' '));
-			line = line.substring(line.indexOf(' ') + 1);
-			String countString;
-			if (line.indexOf(' ') == -1) {
-				countString = line.substring(0, line.indexOf(']'));
-				line = "";
-			} else {
-				countString = line.substring(0, line.indexOf(' '));
+			String dirString;
+			if (line.indexOf(' ') != -1) {
+				dirString = line.substring(0, line.indexOf(' '));
 				line = line.substring(line.indexOf(' ') + 1);
+			} else {
+				dirString = line.substring(0, line.indexOf(']'));
+				line = "";
 			}
 			
 			Direction dir = null;
@@ -151,22 +165,44 @@ public class CommandMove extends SceneCommand {
 			if (dirString.equals(DIR_DOWN)) dir = Direction.DOWN;
 			if (dirString.equals(DIR_LEFT)) dir = Direction.LEFT;
 			if (dirString.equals(DIR_RIGHT)) dir = Direction.RIGHT;
-			if (dir == null) RGlobal.reporter.warn("Non-dir string in move " +
-					"command" + dirString);
-			DirVector vec = dir.getVector();
-			
-			int paces = Integer.valueOf(countString);
-			int deltaX = (int) vec.x * paces * parent.getLevel().getTileWidth();
-			int deltaY = (int) vec.y * paces * parent.getLevel().getTileHeight();
-			steps.add(0, new MoveStep(deltaX, deltaY));
+			if (dir == null) {
+				if (dirString.equals(FACEDIR_UP)) dir = Direction.UP;
+				if (dirString.equals(FACEDIR_DOWN)) dir = Direction.DOWN;
+				if (dirString.equals(FACEDIR_LEFT)) dir = Direction.LEFT;
+				if (dirString.equals(FACEDIR_RIGHT)) dir = Direction.RIGHT;
+				if (dir == null) RGlobal.reporter.warn("Non-dir string in move " +
+						"command" + dirString);
+				steps.add(0, new MoveStep(dir));
+			} else {
+				DirVector vec = dir.getVector();
+				String countString;
+				if (line.indexOf(' ') == -1) {
+					countString = line.substring(0, line.indexOf(']'));
+					line = "";
+				} else {
+					countString = line.substring(0, line.indexOf(' '));
+					line = line.substring(line.indexOf(' ') + 1);
+				}
+				int paces = Integer.valueOf(countString);
+				int deltaX = (int) vec.x * paces * parent.getLevel().getTileWidth();
+				int deltaY = (int) vec.y * paces * parent.getLevel().getTileHeight();
+				steps.add(0, new MoveStep(deltaX, deltaY));
+			}
+
 		}
 	}
 
 	public class MoveStep {
 		public int deltaX, deltaY;
+		public Direction dir;
 		public MoveStep(int deltaX, int deltaY) {
 			this.deltaX = deltaX;
 			this.deltaY = deltaY;
+		}
+		public MoveStep(Direction dir) {
+			this.dir = dir;
+			deltaX = 0;
+			deltaY = 0;
 		}
 	}
 }

@@ -91,6 +91,8 @@ public class Level implements ScreenShowable {
 	protected boolean paused;
 	/** Is the level in an update cycle in which there was a reset */
 	protected boolean reseting;
+	/** Are we in the process of updating ? */
+	protected boolean updating;
 	/** Name of the file with our map in it, mentioned in database */
 	protected String mapPath;
 	
@@ -270,6 +272,7 @@ public class Level implements ScreenShowable {
 	 */
 	@Override
 	public void update(float elapsed) {
+		updating = true;
 		for (MapObject toRemove : removalObjects) {
 			internalRemoveObject(toRemove);
 		}
@@ -296,6 +299,7 @@ public class Level implements ScreenShowable {
 			}
 		}
 		reseting = false;
+		updating = false;
 	}
 	
 	/**
@@ -370,20 +374,29 @@ public class Level implements ScreenShowable {
 	}
 	
 	/**
-	 * Teleports the hero off of this map and makes preparations for hero
-	 * control no longer on the map.
-	 */
-	public void teleportOff() {
-		removalEvents.add(RGlobal.hero);
-	}
-	
-	/**
 	 * Removes an event from this map. The object is assumed not to be the hero.
 	 * Control remains on this map.
 	 * @param 	toRemove		The map event to remove
 	 */
 	public void removeEvent(MapEvent toRemove) {
-		removalEvents.add(toRemove);
+		if (updating) {
+			removalEvents.add(toRemove);
+		} else {
+			internalRemoveEvent(toRemove);
+		}
+	}
+	
+	/**
+	 * Internall removes an object from all lists and registries. This should
+	 * not be used for events, at least not as a primary call.
+	 * @param 	toRemove		The event to remove
+	 */
+	public void removeObject(MapObject toRemove) {
+		if (updating) {
+			removalObjects.add(toRemove);
+		} else {
+			internalRemoveObject(toRemove);
+		}
 	}
 	
 	/**
@@ -528,15 +541,6 @@ public class Level implements ScreenShowable {
 		}
 		objects.add(object);
 		object.onAddedToMap(this);
-	}
-	
-	/**
-	 * Internall removes an object from all lists and registries. This should
-	 * not be used for events, at least not as a primary call.
-	 * @param 	toRemove		The event to remove
-	 */
-	public void removeObject(MapObject toRemove) {
-		removalObjects.add(toRemove);
 	}
 	
 	/**
