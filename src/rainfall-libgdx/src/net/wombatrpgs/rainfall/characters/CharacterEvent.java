@@ -117,7 +117,7 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public void update(float elapsed) {
-		if (dead) return;
+		if (dead || hidden) return;
 		super.update(elapsed);
 		if (appearance != null) {
 			appearance.update(elapsed);
@@ -164,7 +164,7 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public Hitbox getHitbox() {
-		if (appearance == null) return NoHitbox.getInstance();
+		if (appearance == null || hidden) return NoHitbox.getInstance();
 		switch (mdo.collision) {
 		case ANIMATION_SPECIFIC_RECTANGLE:
 			return appearance.getHitbox();
@@ -264,6 +264,7 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public TextureRegion getRegion() {
+		if (hidden) return null;
 		if (dead) return null;
 		if (appearance == null) return null;
 		return appearance.getRegion();

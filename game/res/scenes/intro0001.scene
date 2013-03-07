@@ -5,7 +5,7 @@ NICO: Aaaaahhhhh!
 [move group gang1 left 22]
 [wait-all]
 NICO: Aaaaahhhhh!
-[move group gang2 right 22]
+[move group gang2 right 11]
 [wait-all]
 NICO: Waldsworth! Help me!
 WALDY: ...

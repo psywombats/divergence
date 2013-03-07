@@ -11,6 +11,7 @@ import net.wombatrpgs.rainfall.scenes.commands.CommandCameraPan;
 import net.wombatrpgs.rainfall.scenes.commands.CommandCameraSpeed;
 import net.wombatrpgs.rainfall.scenes.commands.CommandCameraTrack;
 import net.wombatrpgs.rainfall.scenes.commands.CommandMove;
+import net.wombatrpgs.rainfall.scenes.commands.CommandShowHide;
 import net.wombatrpgs.rainfall.scenes.commands.CommandSpeakAll;
 import net.wombatrpgs.rainfall.scenes.commands.CommandTeleport;
 import net.wombatrpgs.rainfall.scenes.commands.CommandTint;
@@ -33,6 +34,8 @@ public class CommandFactory {
 	protected static final String COMMAND_TINT = "tint";
 	protected static final String COMMAND_TOGGLE_HUD = "toggle-hud";
 	protected static final String COMMAND_TELE = "teleport";
+	protected static final String COMMAND_SHOW = "show";
+	protected static final String COMMAND_HIDE = "hide";
 	
 	/**
 	 * Actually performs the generation. This should be a great big if/else.
@@ -53,6 +56,10 @@ public class CommandFactory {
 				return new CommandMove(parent, line);
 			} else if (commandName.equals(COMMAND_WAIT_ALL)) {
 				return new CommandWaitAll(parent, line);
+			} else if (commandName.equals(COMMAND_SHOW)) {
+				return new CommandShowHide(parent, line, false);
+			} else if (commandName.equals(COMMAND_HIDE)) {
+				return new CommandShowHide(parent, line, true);
 			} else if (commandName.equals(COMMAND_CAM_TRACK)) {
 				return new CommandCameraTrack(parent, line);
 			} else if (commandName.equals(COMMAND_CAM_SPEED)) {

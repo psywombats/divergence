@@ -38,6 +38,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	protected static final String PROPERTY_Z = "z";
 	protected static final String PROPERTY_GROUP = "group";
 	protected static final String PROPERTY_NAME = "name";
+	protected static final String PROPERTY_HIDDEN = "hidden";
 	protected static final char SEPERATOR_CHAR = ';';
 	
 	/** Our patron object on the tiled map */
@@ -47,6 +48,8 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	protected boolean mobile;
 	/** Should this object have its collisions checked? */
 	protected boolean checkCollisions;
+	/** Is this object hidden from view/interaction due to cutscene? */
+	protected boolean hidden;
 	
 	/** Coords in pixels relative to map origin */
 	protected float x, y;
@@ -97,6 +100,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		this.object = object;
 		this.mobile = mobile;
 		this.checkCollisions = checkCollisions;
+		this.hidden = object.properties.get(PROPERTY_HIDDEN) != null;
 	}
 
 	/**
@@ -334,6 +338,16 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
+	 * Sets the hide status of this map event. Hidden events do not update or
+	 * interact with other events. It's a way of having objects on the map but
+	 * not using them until they're needed.
+	 * @param 	hidden			True to hide the event, false to reveal it
+	 */
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
+	
+	/**
 	 * Determines if the character is able to move of their own volition. False
 	 * in cases such as stunning or falling.
 	 * @return					True if moving is legal, false otherwise
@@ -373,6 +387,16 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		return (groups.equals(groupName));
 	}
 	
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#render
+	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 */
+	@Override
+	public void render(OrthographicCamera camera) {
+		if (hidden) return;
+		super.render(camera);
+	}
+
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.MapObject#renderLocal
 	 * (com.badlogic.gdx.graphics.OrthographicCamera,
@@ -425,7 +449,8 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	/**
 	 * Gets the hitbox associated with this map object at this point in time.
 	 * It's abstract so that events with different animations can return the
-	 * appropriate object for each call. Default returns no hitbox
+	 * appropriate object for each call. Default returns no hitbox. As of
+	 * 2012-12-whenever it's not abstract but instead default return none.
 	 * @return				The hitbox being used at the moment, never null
 	 */
 	public Hitbox getHitbox() {
