@@ -40,6 +40,14 @@ import net.wombatrpgs.rainfallschema.maps.data.Direction;
  */
 public class CharacterEvent extends MapEvent {
 	
+	protected static final String PROPERTY_FACING = "face";
+	protected static final String PROPERTY_WALK_IN_PLACE = "pace";
+	
+	protected static final String DIR_DOWN = "down";
+	protected static final String DIR_UP = "up";
+	protected static final String DIR_LEFT = "left";
+	protected static final String DIR_RIGHT = "right";
+	
 	protected Map<Direction, Boolean> directionStatus;
 	protected List<MovesetAct> activeMoves;
 	protected CharacterEventMDO mdo;
@@ -49,6 +57,7 @@ public class CharacterEvent extends MapEvent {
 	
 	protected boolean stunned;
 	protected boolean dead;
+	protected boolean pacing;
 
 	/**
 	 * Creates a new char event with the specified data at the specified coords.
@@ -119,10 +128,18 @@ public class CharacterEvent extends MapEvent {
 	public void update(float elapsed) {
 		if (dead || hidden) return;
 		super.update(elapsed);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#vitalUpdate(float)
+	 */
+	@Override
+	public void vitalUpdate(float elapsed) {
+		super.vitalUpdate(elapsed);
 		if (appearance != null) {
 			appearance.update(elapsed);
 		}
-		if (Math.abs(vx) < .1 && Math.abs(vy) < .1) {
+		if (!pacing && (Math.abs(vx) < .1 && Math.abs(vy) < .1)) {
 			walkAnim.stopMoving();
 		}
 	}
@@ -133,7 +150,7 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		if (dead) return;
+		if (dead || hidden) return;
 		super.render(camera);
 		if (appearance != null) {
 			appearance.render(camera);
@@ -157,6 +174,27 @@ public class CharacterEvent extends MapEvent {
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
 		appearance.postProcessing(manager, pass);
+		if (object != null) {
+			String dir = object.properties.get(PROPERTY_FACING);
+			if (dir != null) {
+				if (dir.equals(DIR_DOWN)) {
+					appearance.setFacing(Direction.DOWN);
+				} else if (dir.equals(DIR_UP)) {
+					appearance.setFacing(Direction.UP);
+				} else if (dir.equals(DIR_RIGHT)) {
+					appearance.setFacing(Direction.RIGHT);
+				} else if (dir.equals(DIR_LEFT)) {
+					appearance.setFacing(Direction.LEFT);
+				} else {
+					RGlobal.reporter.warn("Not a valid direction on char " + this + 
+							" : " + dir);
+				}
+			}
+			if (object.properties.get(PROPERTY_WALK_IN_PLACE) != null) {
+				appearance.startMoving();
+				pacing = true;
+			}
+		}
 	}
 
 	/**
@@ -523,6 +561,7 @@ public class CharacterEvent extends MapEvent {
 		decceleration = mobilityMDO.decceleration;
 		maxVelocity = mobilityMDO.walkVelocity;
 		dead = false;
+		pacing = false;
 	}
 
 }

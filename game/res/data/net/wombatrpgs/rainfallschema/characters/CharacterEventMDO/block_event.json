@@ -2,7 +2,7 @@
 	"key" : "block_event",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "",
+	"description" : "the REAL block",
 	"appearance" : "waldsworth_blockbound_4dir",
 	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
 	"response" : "IMMOBILE",

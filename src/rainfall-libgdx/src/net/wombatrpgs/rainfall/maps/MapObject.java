@@ -96,6 +96,15 @@ public abstract class MapObject implements	Renderable,
 		}
 	}
 	
+	/**
+	 * Things to be done even when paused go in here. Called every update loop
+	 * regardless of pause state.
+	 * @param 	elapsed			The time since last vital update
+	 */
+	public void vitalUpdate(float elapsed) {
+		// default is nothing
+	}
+	
 	/** @return The map we are currently on */
 	public Level getLevel() { return parent; }
 	

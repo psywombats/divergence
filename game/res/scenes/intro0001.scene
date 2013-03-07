@@ -2,12 +2,17 @@
 [tint 1 1 1 2.0]
 [wait 2.0]
 NICO: Aaaaahhhhh!
-[move group gang1 left 22]
+[move group gang1 left 23]
 [wait-all]
 NICO: Aaaaahhhhh!
-[move group gang2 right 11]
+[move group gang2 right 25]
 [wait-all]
 NICO: Waldsworth! Help me!
+[hide group gang2]
+[camera-speed 96]
+[camera-pan right 12]
+[wait-all]
+[camera-track fix]
 WALDY: ...
 NICO: C'mon, Waldy, old buddy, old pal! Save meeee!
 WALDY: ...

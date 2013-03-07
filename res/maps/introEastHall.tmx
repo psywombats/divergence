@@ -659,13 +659,13 @@
     <property name="key" value="event_widget"/>
    </properties>
   </object>
-  <object name="Grinder" type="event" x="128" y="704" width="32" height="32">
+  <object name="Grinder" type="event" x="64" y="704" width="32" height="32">
    <properties>
     <property name="group" value="gang2"/>
     <property name="key" value="event_grinder"/>
    </properties>
   </object>
-  <object name="Grinder" type="event" x="128" y="768" width="32" height="32">
+  <object name="Grinder" type="event" x="64" y="768" width="32" height="32">
    <properties>
     <property name="group" value="gang2"/>
     <property name="key" value="event_grinder"/>
@@ -675,6 +675,46 @@
    <properties>
     <property name="auto" value=""/>
     <property name="id" value="scene_intro0001"/>
+   </properties>
+  </object>
+  <object name="Nico" type="event" x="928" y="672" width="32" height="32">
+   <properties>
+    <property name="face" value="left"/>
+    <property name="key" value="event_nico"/>
+    <property name="name" value="nico2"/>
+   </properties>
+  </object>
+  <object name="Grinder" type="event" x="864" y="656" width="32" height="32">
+   <properties>
+    <property name="face" value="right"/>
+    <property name="key" value="event_grinder"/>
+    <property name="pace" value=""/>
+   </properties>
+  </object>
+  <object name="Grinder" type="event" x="864" y="688" width="32" height="32">
+   <properties>
+    <property name="face" value="right"/>
+    <property name="key" value="event_grinder"/>
+    <property name="pace" value=""/>
+   </properties>
+  </object>
+  <object name="Widget" type="event" x="832" y="672" width="32" height="32">
+   <properties>
+    <property name="face" value="right"/>
+    <property name="key" value="event_widget"/>
+    <property name="pace" value=""/>
+   </properties>
+  </object>
+  <object name="Block" type="event" x="896" y="672" width="32" height="32">
+   <properties>
+    <property name="key" value="event_waldy_stoned"/>
+   </properties>
+  </object>
+  <object name="Widget" type="event" x="32" y="736" width="32" height="32">
+   <properties>
+    <property name="group" value="gang2"/>
+    <property name="key" value="event_widget"/>
+    <property name="pace" value=""/>
    </properties>
   </object>
  </objectgroup>

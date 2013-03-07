@@ -14,7 +14,7 @@ import net.wombatrpgs.rainfall.scenes.SceneParser;
 import net.wombatrpgs.rainfall.screen.TrackerCam;
 
 /**
- * Moves that mysterious camera.
+ * Moves that mysterious camera. As of 2013-03-07 does not reset the camera.
  */
 public class CommandCameraPan extends SceneCommand {
 	
@@ -61,8 +61,8 @@ public class CommandCameraPan extends SceneCommand {
 			runOnce = true;
 		}
 		if (subCommand.isFinished() && !finished) {
-			TrackerCam cam = RGlobal.screens.getCamera();
-			cam.track(oldTarget);
+//			TrackerCam cam = RGlobal.screens.getCamera();
+//			cam.track(oldTarget);
 			parent.getLevel().removeEvent(target);
 			finished = true;
 		}

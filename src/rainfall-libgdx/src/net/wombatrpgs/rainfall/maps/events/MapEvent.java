@@ -39,6 +39,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	protected static final String PROPERTY_GROUP = "group";
 	protected static final String PROPERTY_NAME = "name";
 	protected static final String PROPERTY_HIDDEN = "hidden";
+	
 	protected static final char SEPERATOR_CHAR = ';';
 	
 	/** Our patron object on the tiled map */
@@ -101,6 +102,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		this.mobile = mobile;
 		this.checkCollisions = checkCollisions;
 		this.hidden = object.properties.get(PROPERTY_HIDDEN) != null;
+		
 	}
 
 	/**
