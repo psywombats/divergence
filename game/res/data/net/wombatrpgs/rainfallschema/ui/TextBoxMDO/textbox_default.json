@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"image" : "graphic_dbox_test",
+	"image2" : "graphic_dbox_test_noname",
 	"graphicX" : 0,
 	"graphicY" : 384,
 	"x1" : 10,

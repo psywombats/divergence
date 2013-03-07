@@ -20,6 +20,7 @@ import net.wombatrpgs.rainfall.graphics.Graphic;
 import net.wombatrpgs.rainfall.maps.objects.Picture;
 import net.wombatrpgs.rainfall.scenes.SceneCommand;
 import net.wombatrpgs.rainfall.scenes.SceneParser;
+import net.wombatrpgs.rainfall.screen.ScreenShowable;
 import net.wombatrpgs.rainfallschema.cutscene.SpeakerMDO;
 
 /**
@@ -30,15 +31,17 @@ import net.wombatrpgs.rainfallschema.cutscene.SpeakerMDO;
  */
 public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	
-	protected static final int FACE_OFFSET = 180; // px from center
+	protected static final String NAME_SYSTEM = "SYSTEM";
+	protected static final int FACE_OFFSET = 160; // px from center
 	
 	protected static Map<String, SpeakerMDO> speakers;
 	
 	protected List<String> lines;
 	protected SpeakerMDO mdo;
 	protected Graphic faceGraphic;
-	protected Picture facePic;
+	protected ScreenShowable facePic;
 	protected boolean running;
+	protected boolean system;
 	
 	CommandSpeak(SceneParser parent, String speakerKey, List<String> lines) {
 		super(parent, "[subcommand]");
@@ -49,11 +52,15 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 			}
 		}
 		this.lines = lines;
-		this.mdo = speakers.get(speakerKey);
-		if (mdo == null) {
-			RGlobal.reporter.warn("Speaker key not in database: " + speakerKey);
-		} else if (mdo.file != null) {
-			faceGraphic = new Graphic(Constants.PORTRAITS_DIR + mdo.file);
+		if (speakerKey.equals(NAME_SYSTEM)) {
+			system = true;
+		} else {
+			this.mdo = speakers.get(speakerKey);
+			if (mdo == null) {
+				RGlobal.reporter.warn("Speaker key not in database: " + speakerKey);
+			} else if (mdo.file != null) {
+				faceGraphic = new Graphic(Constants.PORTRAITS_DIR + mdo.file);
+			}
 		}
 	}
 
@@ -65,7 +72,11 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 		if (!running) {
 			running = true;
 			RGlobal.ui.getBox().setLines(lines);
-			RGlobal.ui.getBox().setName(mdo.name);
+			if (system) {
+				RGlobal.ui.getBox().setName("");
+			} else {
+				RGlobal.ui.getBox().setName(mdo.name);
+			}
 			if (faceGraphic != null) {
 				facePic = new Picture(faceGraphic,
 						(Gdx.graphics.getWidth() - faceGraphic.getWidth()) / 2 - FACE_OFFSET,
@@ -81,6 +92,19 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 								RGlobal.ui.getBox().render(camera);
 							}
 							
+				};
+				RGlobal.screens.peek().addPicture(facePic);
+			} else {
+				facePic = new ScreenShowable() {
+					@Override public void update(float elapsed) { 
+						RGlobal.ui.getBox().update(elapsed);
+					}
+					@Override public void queueRequiredAssets(AssetManager manager) { }
+					@Override public void postProcessing(AssetManager manager, int pass) { }
+					@Override public void render(OrthographicCamera camera) {
+						RGlobal.ui.getBox().render(camera);
+					}
+					@Override public boolean ignoresTint() { return true; }
 				};
 				RGlobal.screens.peek().addPicture(facePic);
 			}

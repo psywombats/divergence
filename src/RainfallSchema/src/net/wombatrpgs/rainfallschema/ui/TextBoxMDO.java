@@ -24,6 +24,11 @@ public class TextBoxMDO extends MainSchema {
 	@Nullable
 	public String image;
 	
+	@Desc("No-name Graphic - displayed like the ui box when speaker has no name")
+	@SchemaLink(GraphicMDO.class)
+	@Nullable
+	public String image2;
+	
 	@Desc("Box x - upper left x of where the text box image is displayed (in px)")
 	public Integer graphicX;
 	

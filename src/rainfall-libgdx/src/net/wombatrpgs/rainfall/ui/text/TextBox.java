@@ -32,7 +32,7 @@ public class TextBox extends Picture {
 	protected TextBoxMDO mdo;
 	protected FontHolder font;
 	protected TextBoxFormat bodyFormat, nameFormat;
-	protected Graphic backer;
+	protected Graphic backer, backer2;
 	protected String name;
 	
 	/**
@@ -45,12 +45,16 @@ public class TextBox extends Picture {
 		super(RGlobal.data.getEntryFor(mdo.image, GraphicMDO.class), 0);
 		this.mdo = mdo;
 		this.font = font;
-		this.name = "oo";
+		this.name = "";
 		this.bodyFormat = new TextBoxFormat();
 		this.nameFormat = new TextBoxFormat();
 		if (mdo.image != null) {
 			GraphicMDO graphicMDO = RGlobal.data.getEntryFor(mdo.image, GraphicMDO.class);
 			this.backer = new Graphic(graphicMDO);
+		}
+		if (mdo.image2 != null) {
+			GraphicMDO graphicMDO = RGlobal.data.getEntryFor(mdo.image2, GraphicMDO.class);
+			this.backer2 = new Graphic(graphicMDO);
 		}
 	}
 
@@ -60,9 +64,14 @@ public class TextBox extends Picture {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		super.render(camera);
-		if (backer != null) {
+		//super.render(camera);
+		if (backer != null && name.length() > 0) {
 			backer.renderAt(RGlobal.screens.peek().getBatch(),
+					mdo.graphicX,
+					Gdx.graphics.getHeight() - mdo.graphicY - backer.getGraphic().getRegionHeight());
+		}
+		if (backer2 != null && name.length() == 0) {
+			backer2.renderAt(RGlobal.screens.peek().getBatch(),
 					mdo.graphicX,
 					Gdx.graphics.getHeight() - mdo.graphicY - backer.getGraphic().getRegionHeight());
 		}
@@ -83,6 +92,9 @@ public class TextBox extends Picture {
 		if (backer != null) {
 			backer.queueRequiredAssets(manager);
 		}
+		if (backer2 != null) {
+			backer2.queueRequiredAssets(manager);
+		}
 	}
 
 	/**
@@ -94,6 +106,9 @@ public class TextBox extends Picture {
 		super.postProcessing(manager, pass);
 		if (backer != null) {
 			backer.postProcessing(manager, pass);
+		}
+		if (backer2 != null) {
+			backer2.postProcessing(manager, pass);
 		}
 		bodyFormat.x = mdo.x1;
 		bodyFormat.y = backer.getHeight() - mdo.y1;
