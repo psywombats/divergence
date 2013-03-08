@@ -769,12 +769,20 @@
    <properties>
     <property name="key" value="enemy_widget_widepace"/>
     <property name="respawns" value=""/>
+    <property name="switch" value="intro_done"/>
    </properties>
   </object>
   <object height="32" name="Widget (wide-pacing)" type="event" width="32" x="544" y="384">
    <properties>
     <property name="key" value="enemy_widget_widepace"/>
     <property name="respawns" value=""/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="Trigger" type="trigger" width="32" x="544" y="480">
+   <properties>
+    <property name="id" value="scene_event_lift_first_seen"/>
+    <property name="switch" value="intro_done"/>
    </properties>
   </object>
  </objectgroup>
@@ -802,6 +810,7 @@
    <properties>
     <property name="key" value="enemy_widget_widepace"/>
     <property name="respawns" value=""/>
+    <property name="switch" value="intro_done"/>
    </properties>
   </object>
   <object height="32" name="Button" type="object" width="32" x="512" y="256">

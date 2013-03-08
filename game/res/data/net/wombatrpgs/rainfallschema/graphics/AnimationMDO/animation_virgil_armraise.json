@@ -1,0 +1,18 @@
+{
+	"key" : "animation_virgil_armraise",
+	"subfolder" : "charas",
+	"name" : "",
+	"description" : "",
+	"file" : "virgil_armraise.png",
+	"mode" : "PLAY_ONCE",
+	"frameCount" : 13,
+	"frameWidth" : 32,
+	"frameHeight" : 64,
+	"offX" : 0,
+	"offY" : 0,
+	"animSpeed" : 10,
+	"hit1x" : 0,
+	"hit1y" : 0,
+	"hit2x" : 0,
+	"hit2y" : 0
+}

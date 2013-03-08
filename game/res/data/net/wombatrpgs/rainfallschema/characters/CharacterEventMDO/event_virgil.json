@@ -1,0 +1,11 @@
+{
+	"key" : "event_virgil",
+	"subfolder" : "dummy",
+	"name" : "",
+	"description" : "",
+	"appearance" : "virgil_4dir",
+	"collision" : "NONE",
+	"response" : "ETHEREAL",
+	"touch" : "NOTHING",
+	"mobility" : "mobility_hero"
+}

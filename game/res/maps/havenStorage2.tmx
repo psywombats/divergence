@@ -768,11 +768,13 @@
   <object height="32" name="Grinder" type="event" width="32" x="192" y="128">
    <properties>
     <property name="key" value="enemy_grinder"/>
+    <property name="switch" value="intro_done"/>
    </properties>
   </object>
   <object height="32" name="Grinder" type="event" width="32" x="32" y="384">
    <properties>
     <property name="key" value="enemy_grinder"/>
+    <property name="switch" value="intro_done"/>
    </properties>
   </object>
   <object height="32" name="DragonBeetle" type="event" width="32" x="96" y="160">
@@ -784,31 +786,37 @@
   <object height="32" name="Pudding" type="event" width="32" x="96" y="320">
    <properties>
     <property name="key" value="enemy_pudding"/>
+    <property name="switch" value="intro_done"/>
    </properties>
   </object>
   <object height="32" name="Pudding" type="event" width="32" x="96" y="448">
    <properties>
     <property name="key" value="enemy_pudding"/>
+    <property name="switch" value="intro_done"/>
    </properties>
   </object>
   <object height="32" name="Pudding" type="event" width="32" x="128" y="352">
    <properties>
     <property name="key" value="enemy_pudding"/>
+    <property name="switch" value="intro_done"/>
    </properties>
   </object>
   <object height="32" name="Pudding" type="event" width="32" x="64" y="352">
    <properties>
     <property name="key" value="enemy_pudding"/>
+    <property name="switch" value="intro_done"/>
    </properties>
   </object>
   <object height="32" name="Gadget" type="event" width="32" x="160" y="448">
    <properties>
     <property name="key" value="enemy_gadget"/>
+    <property name="switch" value="intro_done"/>
    </properties>
   </object>
   <object height="32" name="Gadget" type="event" width="32" x="128" y="448">
    <properties>
     <property name="key" value="enemy_gadget"/>
+    <property name="switch" value="intro_done"/>
    </properties>
   </object>
   <object height="32" name="Pressure Pad" type="object" width="32" x="32" y="128">
@@ -820,6 +828,7 @@
    <properties>
     <property name="key" value="enemy_dragon_beetle"/>
     <property name="respawns" value=""/>
+    <property name="switch" value="intro_done"/>
    </properties>
   </object>
   <object height="32" name="Pressure Pad" type="object" width="32" x="160" y="128">

@@ -642,6 +642,12 @@
     <property name="y" value="4"/>
    </properties>
   </object>
+  <object height="32" name="Trigger" type="trigger" width="32" x="0" y="0">
+   <properties>
+    <property name="auto" value=""/>
+    <property name="id" value="scene_event_room_waldy"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer height="11" name="Lower 2" width="13">
   <properties>

@@ -659,20 +659,11 @@
     <property name="y" value="8"/>
    </properties>
   </object>
-  <object height="32" name="DragonBeetle" type="event" width="32" x="800" y="128">
+  <object height="32" name="Trigger" type="trigger" width="32" x="128" y="96">
    <properties>
-    <property name="key" value="enemy_dragon_beetle"/>
-    <property name="respawns" value=""/>
-   </properties>
-  </object>
-  <object height="32" name="Gadget" type="event" width="32" x="448" y="128">
-   <properties>
-    <property name="key" value="enemy_gadget"/>
-   </properties>
-  </object>
-  <object height="32" name="Gadget" type="event" width="32" x="128" y="224">
-   <properties>
-    <property name="key" value="enemy_gadget"/>
+    <property name="auto" value=""/>
+    <property name="id" value="scene_intro00005"/>
+    <property name="switch" value="got_earrings"/>
    </properties>
   </object>
  </objectgroup>

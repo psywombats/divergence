@@ -622,7 +622,6 @@ public class Level implements ScreenShowable {
 	 * @param 	toRemove		The event to remove
 	 */
 	protected void internalRemoveEvent(MapEvent toRemove) {
-		toRemove.onRemovedFromMap(this);
 		internalRemoveObject(toRemove);
 		for (EventLayer layer : eventLayers) {
 			if (layer.contains(toRemove)) {
@@ -638,6 +637,7 @@ public class Level implements ScreenShowable {
 	 * @param 	toRemove		The object to remove
 	 */
 	protected void internalRemoveObject(MapObject toRemove) {
+		toRemove.onRemovedFromMap(this);
 		objects.remove(toRemove);
 	}
 

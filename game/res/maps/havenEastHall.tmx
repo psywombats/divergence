@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="26" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="33">
  <properties><property name="blended tiles" value="186,188,189,190,191,193,194,196,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,218,220,221,222,226,228,229,230,231,232,233,234,235,236,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254"/>
   <property name="minimap" value="graphic_minimap_l1_f1"/>
-  <property name="minimap_x1" value="122"/>
-  <property name="minimap_x2" value="180"/>
+  <property name="minimap_x1" value="126"/>
+  <property name="minimap_x2" value="184"/>
   <property name="minimap_y1" value="117"/>
   <property name="minimap_y2" value="174"/>
  </properties>
@@ -662,6 +662,7 @@
   <object height="32" name="Waldy" type="event" width="32" x="832" y="704">
    <properties>
     <property name="convo" value="scene_waldy0001"/>
+    <property name="hideswitch" value="got_earrings"/>
     <property name="key" value="event_waldy_push"/>
     <property name="pace" value=""/>
    </properties>
@@ -669,6 +670,14 @@
   <object height="32" name="Trigger" type="trigger" width="16" x="800" y="288">
    <properties>
     <property name="id" value="scene_event_reverse_courtyard"/>
+   </properties>
+  </object>
+  <object height="32" name="Chloe" type="event" width="32" x="96" y="672">
+   <properties>
+    <property name="convo" value="scene_chloe0002"/>
+    <property name="face" value="up"/>
+    <property name="key" value="event_chloe"/>
+    <property name="switch" value="got_earrings"/>
    </properties>
   </object>
  </objectgroup>

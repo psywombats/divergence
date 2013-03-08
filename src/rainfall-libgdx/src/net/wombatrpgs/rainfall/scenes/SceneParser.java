@@ -178,6 +178,7 @@ public class SceneParser extends MapObject {
 	 * Just run the scene, regardless of context.
 	 */
 	public void forceRun(Level level) {
+		RGlobal.hero.cancelActions();
 		if (running) {
 			RGlobal.reporter.inform("Aborted a parser on " + parent + ": " + this);
 			terminate();

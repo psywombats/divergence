@@ -778,7 +778,7 @@
    <property name="z" value="0"/>
   <property name="layer" value="5"/></properties>
   <data compression="zlib" encoding="base64">
-   eJzNlOsOgjAMhTv854uZiPdXICgY8fJbfHe6QENttjKctyYnY2TnY9npAGjrbACuEaoMPNUJ5wm8ruOPeFngd1y8qUOZ573UJ3k221sk78IytnubQO+XIs8c16RCi85n2Bly3h3HmukBPW+Jzyuh9QBP0xheyBlpPJ5JieMhkpejCpYx7VHLQ+P5+k/mwXkbnG+FdoJH/5XY/uNZ2Pvny/ffeXVAX7p4SaDv2zzby3vT9vPsDTwq4rpEdydX1hSCp1U5wtMAlihE7w==
+   eJzFlNsOgjAMhju888VMPODhFQgKBk/X4iP7DnbBhtqUOhxqkz9jpP1o9ncANHF0AOcIHRy8RIX7BD7X/k+8LPA7Gm+sKOt4L/VNnvf2Esk7MY99byNo66WoZoo5M6H5s86xM+S8K6410w1a3gKfU6HlG56lPryQM7J43JMS110kL0cVzGPq0fLD4nXNn/SD81a4XwttBI/+K7Hzx73w98/7e1c8juEN3Z+WVwfMpcZLAut+zfOzvHXNPE8G4FEQVxPdndzIKQTPirJHzQPAr0XR
   </data>
  </layer>
  <layer height="23" name="Upper 1" width="20">
@@ -786,7 +786,7 @@
    <property name="z" value=".5"/>
   <property name="layer" value="4"/></properties>
   <data compression="zlib" encoding="base64">
-   eJxjYBhe4B4ONjawm8p2H0Zi7wLid1Q0+xAVzYKBizQwk17gLhXNOg/EF6ho3mAHdxmoG36kgJNQeheVzaVF/jgOpd+SobeDkTx92EA30KweRioZBgT9QLNayDDvFMPApZvBAgAwrBPw
+   eJxjYBhe4B4ONjawm8p2H0Zi7wLid1Q0+xAVzYKBizQwk17gLhXNOg/EF6ho3mAHdxmoG36kgGBGBoYTNDAXlD9cGalrZiTUvLdk6O1gJE8fNtANNKuHin7rB5rVgsU8UNycxKPvFAP+dMOFZCbM7/jMG4oAAJP+FkA=
   </data>
  </layer>
  <objectgroup height="23" name="Event 1" width="20">
@@ -818,6 +818,7 @@
    <properties>
     <property name="convo" value="scene_chloe0001"/>
     <property name="face" value="down"/>
+    <property name="hideswitch" value="intro_done"/>
     <property name="key" value="event_chloe"/>
     <property name="name" value="chloe"/>
    </properties>
@@ -842,6 +843,80 @@
     <property name="name" value="edgar"/>
    </properties>
   </object>
+  <object height="32" name="Trigger" type="trigger" width="32" x="0" y="640">
+   <properties>
+    <property name="auto" value=""/>
+    <property name="id" value="scene_event_reenter_lobby"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="DragonBeetle" type="event" width="32" x="224" y="448">
+   <properties>
+    <property name="key" value="enemy_dragon_beetle"/>
+    <property name="respawns" value=""/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="DragonBeetle" type="event" width="32" x="224" y="640">
+   <properties>
+    <property name="key" value="enemy_dragon_beetle"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="Pudding" type="event" width="32" x="320" y="160">
+   <properties>
+    <property name="key" value="enemy_pudding"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="Pudding" type="event" width="32" x="384" y="160">
+   <properties>
+    <property name="key" value="enemy_pudding"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="Pudding" type="event" width="32" x="448" y="160">
+   <properties>
+    <property name="key" value="enemy_pudding"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="Pudding" type="event" width="32" x="512" y="160">
+   <properties>
+    <property name="key" value="enemy_pudding"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="Grinder" type="event" width="32" x="480" y="320">
+   <properties>
+    <property name="key" value="enemy_grinder"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="Grinder" type="event" width="32" x="480" y="352">
+   <properties>
+    <property name="key" value="enemy_grinder"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="Grinder" type="event" width="32" x="448" y="640">
+   <properties>
+    <property name="key" value="enemy_grinder"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="Widget" type="event" width="32" x="480" y="480">
+   <properties>
+    <property name="key" value="enemy_widget"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="Widget" type="event" width="32" x="480" y="544">
+   <properties>
+    <property name="key" value="enemy_widget"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer height="23" name="Lower 2" width="20">
   <properties>
@@ -856,7 +931,7 @@
    <property name="z" value="1.5"/>
   <property name="layer" value="1"/></properties>
   <data compression="zlib" encoding="base64">
-   eJxjYBgFo2AUjIJRMApGASEAAAcwAAE=
+   eJxjYBgFo2AUjAL6gl0D7YBRMArIAAAA/gC7
   </data>
  </layer>
  <objectgroup height="23" name="Event 2" width="20">

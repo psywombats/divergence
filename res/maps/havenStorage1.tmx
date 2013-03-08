@@ -783,6 +783,13 @@
     <property name="id" value="chest"/>
     <property name="item" value="Lift Sprocket"/>
     <property name="scene" value="scene_event_lift_sprocket"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object name="Widget (wide-pacing)" type="event" x="320" y="160" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_widget_widepace"/>
+    <property name="switch" value="intro_done"/>
    </properties>
   </object>
  </objectgroup>

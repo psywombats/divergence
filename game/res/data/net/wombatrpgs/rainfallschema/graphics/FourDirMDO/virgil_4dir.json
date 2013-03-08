@@ -1,0 +1,10 @@
+{
+	"key" : "virgil_4dir",
+	"subfolder" : "charas",
+	"name" : "",
+	"description" : "",
+	"upAnim" : "virgil_up",
+	"rightAnim" : "virgil_right",
+	"downAnim" : "virgil_down",
+	"leftAnim" : "virgil_left"
+}

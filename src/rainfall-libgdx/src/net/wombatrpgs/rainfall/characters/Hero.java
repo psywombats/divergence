@@ -7,7 +7,9 @@
 package net.wombatrpgs.rainfall.characters;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
@@ -32,6 +34,9 @@ public class Hero extends CharacterEvent {
 	
 	/** Holds the moves the player has assigned the hero */
 	protected Moveset moves;
+	/** Whoo, I'm in RM land!! */
+	// TODO: for god's sake why are these in hero.java
+	protected Map<String, Boolean> switches;
 	/** Where we entered the stage */
 	protected float entryX, entryY;
 	/** How many times enemies have consecutively mugged us */
@@ -52,6 +57,7 @@ public class Hero extends CharacterEvent {
 		super(mdo, object, parent, x, y);
 		moves = new Moveset(this, RGlobal.data.getEntryFor("default_moveset", MovesetMDO.class));
 		RGlobal.hero = this;
+		switches = new HashMap<String, Boolean>();
 	}
 	
 	/** @return The moveset currently in use by the hero */
@@ -189,6 +195,27 @@ public class Hero extends CharacterEvent {
 		}
 		super.stun();
 	}
+	
+	/**
+	 * Checks to see if a switch is set. Switches are guaranteed to be
+	 * persistent across hero, and the primary way of storing event persistence,
+	 * even if events are stored...
+	 * @param 	swit			The switch to check
+	 * @return					True if that switch is set, false otherwise
+	 */
+	public boolean isSet(String swit) {
+		Boolean result = switches.get(swit);
+		return (result != null && result);
+	}
+	
+	/**
+	 * Sets a switch in memory.
+	 * @param 	swit			The name of the switch to set
+	 * @param 	value			The value to set it to
+	 */
+	public void setSwitch(String swit, boolean value) {
+		switches.put(swit, value);
+	}
 
 	/**
 	 * Passes the input command to the moveset for appropriate response. This
@@ -200,6 +227,17 @@ public class Hero extends CharacterEvent {
 	 */
 	public void act(InputCommand command, Level map) {
 		moves.act(command, map, this);
+	}
+	
+	/**
+	 * Cancels all actions currently being performed.
+	 */
+	public void cancelActions() {
+		List<MovesetAct> toCancel = new ArrayList<MovesetAct>();
+		toCancel.addAll(activeMoves);
+		for (MovesetAct act : toCancel) {
+			act.cancel();
+		}
 	}
 
 	/**

@@ -786,6 +786,45 @@
     <property name="y" value="14"/>
    </properties>
   </object>
+  <object height="32" name="Waldy" type="event" width="32" x="128" y="640">
+   <properties>
+    <property name="key" value="event_waldy_stoned"/>
+    <property name="name" value="waldy"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="Edgar" type="event" width="32" x="256" y="672">
+   <properties>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_edgar"/>
+    <property name="name" value="edgar"/>
+   </properties>
+  </object>
+  <object height="32" name="Gadget" type="event" width="32" x="192" y="160">
+   <properties>
+    <property name="key" value="enemy_gadget"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="Gadget" type="event" width="32" x="64" y="160">
+   <properties>
+    <property name="key" value="enemy_gadget"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="Trigger" type="trigger" width="32" x="288" y="544">
+   <properties>
+    <property name="auto" value=""/>
+    <property name="id" value="scene_intro0007"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="Widget (wide-pacing)" type="event" width="32" x="128" y="352">
+   <properties>
+    <property name="key" value="enemy_widget_widepace"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer height="26" name="Lower 2" width="10">
   <properties>

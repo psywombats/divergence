@@ -69,7 +69,7 @@ public class Trigger extends MapEvent {
 	@Override
 	public boolean onCollide(MapEvent other, CollisionResult result) {
 		if (other != RGlobal.hero) return true;
-		if (condition == null || condition.shouldExecute()) scene.run(getLevel());
+		run();
 		return true;
 	}
 
@@ -99,7 +99,14 @@ public class Trigger extends MapEvent {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
-		if (autorun && !scene.hasExecuted() && (condition == null || condition.shouldExecute())) {
+		if (autorun) run();
+	}
+	
+	/**
+	 * Exceutes (maybe) the underlying scene.
+	 */
+	protected void run() {
+		if ((condition == null || condition.shouldExecute()) && !hidden) {
 			scene.run(parent);
 		}
 	}

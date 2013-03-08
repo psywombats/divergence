@@ -660,6 +660,19 @@
     <property name="z" value=".5"/>
    </properties>
   </object>
+  <object name="Trigger" type="trigger" x="0" y="0" width="32" height="32">
+   <properties>
+    <property name="auto" value=""/>
+    <property name="id" value="scene_event_room_chloe"/>
+   </properties>
+  </object>
+  <object name="Treasure Chest" type="object" x="320" y="192" width="32" height="32">
+   <properties>
+    <property name="id" value="chest"/>
+    <property name="item" value="Earrings"/>
+    <property name="scene" value="scene_event_earrings"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Lower 3" width="13" height="11">
   <properties>

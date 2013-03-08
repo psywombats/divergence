@@ -2,8 +2,8 @@
 <map version="1.0" orientation="orthogonal" width="33" height="26" tilewidth="32" tileheight="32">
  <properties>
   <property name="minimap" value="graphic_minimap_l1_f1"/>
-  <property name="minimap_x1" value="122"/>
-  <property name="minimap_x2" value="180"/>
+  <property name="minimap_x1" value="126"/>
+  <property name="minimap_x2" value="184"/>
   <property name="minimap_y1" value="117"/>
   <property name="minimap_y2" value="174"/>
  </properties>
@@ -663,6 +663,7 @@
   <object name="Waldy" type="event" x="832" y="704" width="32" height="32">
    <properties>
     <property name="convo" value="scene_waldy0001"/>
+    <property name="hideswitch" value="got_earrings"/>
     <property name="key" value="event_waldy_push"/>
     <property name="pace" value=""/>
    </properties>
@@ -670,6 +671,14 @@
   <object name="Trigger" type="trigger" x="800" y="288" width="16" height="32">
    <properties>
     <property name="id" value="scene_event_reverse_courtyard"/>
+   </properties>
+  </object>
+  <object name="Chloe" type="event" x="96" y="672" width="32" height="32">
+   <properties>
+    <property name="convo" value="scene_chloe0002"/>
+    <property name="face" value="up"/>
+    <property name="key" value="event_chloe"/>
+    <property name="switch" value="got_earrings"/>
    </properties>
   </object>
  </objectgroup>

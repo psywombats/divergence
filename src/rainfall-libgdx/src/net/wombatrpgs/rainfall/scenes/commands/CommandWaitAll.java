@@ -35,6 +35,9 @@ public class CommandWaitAll extends SceneCommand {
 			if (event.isTracking() || event.isMoving()) return false;
 		}
 		finished = true;
+		for (MapEvent event : parent.getControlledEvents()) {
+			event.halt();
+		}
 		return true;
 	}
 

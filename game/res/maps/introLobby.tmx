@@ -1,0 +1,990 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="23" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="20">
+ <properties><property name="blended tiles" value="186,188,189,190,191,193,194,196,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,218,220,221,222,226,228,229,230,231,232,233,234,235,236,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,389,390,391,392,393,394,395,396,397,398,399,400"/>
+  <property name="minimap" value="graphic_minimap_l1_f1"/>
+  <property name="minimap_x1" value="159"/>
+  <property name="minimap_x2" value="192"/>
+  <property name="minimap_y1" value="69"/>
+  <property name="minimap_y2" value="114"/>
+ </properties>
+ <tileset firstgid="1" name="blockboundBrickWall" tileheight="32" tilewidth="32">
+  <image height="32" source="tilesets/blockbound/brickwall.png" width="96"/>
+  <tile id="0">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="4" name="blockboundBrownRock" tileheight="32" tilewidth="32">
+  <image height="224" source="tilesets/blockbound/brownrock.png" trans="8080ff" width="320"/>
+  <tile id="30">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="50">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="51">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="52">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="74" name="blockboundRedRug" tileheight="32" tilewidth="32">
+  <image height="96" source="tilesets/blockbound/redrug.png" width="96"/>
+ </tileset>
+ <tileset firstgid="83" name="blockboundStoneFloor" tileheight="32" tilewidth="32">
+  <image height="320" source="tilesets/blockbound/stonefloor.PNG" trans="8080ff" width="320"/>
+  <tile id="30">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="60">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="61">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="62">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="70">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="71">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="72">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="73">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="74">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="75">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="76">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="77">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="80">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="81">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="82">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="83">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="84">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="85">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="86">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="87">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="90">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="91">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="92">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="93">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="94">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="95">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="96">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="183" name="blockboundUpper" tileheight="32" tilewidth="32">
+  <image height="288" source="tilesets/blockbound/upper.png" trans="8080ff" width="256"/>
+  <tile id="0">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="47">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="54">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="255" name="blockboundWoodFloor" tileheight="32" tilewidth="32">
+  <image height="320" source="tilesets/blockbound/woodfloor.png" trans="8080ff" width="320"/>
+  <tile id="30">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="50">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="51">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="52">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="60">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="61">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="62">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="70">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="71">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="72">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="73">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="74">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="75">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="76">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="77">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="80">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="81">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="82">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="83">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="84">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="85">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="86">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="87">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="90">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="91">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="92">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="93">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="94">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="95">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+  <tile id="96">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="355" name="blockboundCeiling" tileheight="32" tilewidth="32">
+  <image height="96" source="tilesets/blockbound/ceiling.png" trans="8080ff" width="160"/>
+  <tile id="0">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="370" name="blockboundQuarryCeiling" tileheight="32" tilewidth="32">
+  <image height="96" source="tilesets/blockbound/quarryroof.png" trans="8080ff" width="160"/>
+  <tile id="0">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="385" name="blockboundStairSide" tileheight="32" tilewidth="32">
+  <image height="128" source="tilesets/blockbound/stairwellside.png" trans="8080ff" width="128"/>
+  <tile id="4">
+   <properties>
+    <property name="o" value=""/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="o" value=""/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="o" value=""/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="o" value=""/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="o" value=""/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="o" value=""/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="o" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer height="23" name="Lower 1" width="20">
+  <properties>
+   <property name="z" value="0"/>
+  <property name="layer" value="5"/></properties>
+  <data compression="zlib" encoding="base64">
+   eJzNlOsOgjAMhTv854uZiPdXICgY8fJbfHe6QENttjKctyYnY2TnY9npAGjrbACuEaoMPNUJ5wm8ruOPeFngd1y8qUOZ573UJ3k221sk78IytnubQO+XIs8c16RCi85n2Bly3h3HmukBPW+Jzyuh9QBP0xheyBlpPJ5JieMhkpejCpYx7VHLQ+P5+k/mwXkbnG+FdoJH/5XY/uNZ2Pvny/ffeXVAX7p4SaDv2zzby3vT9vPsDTwq4rpEdydX1hSCp1U5wtMAlihE7w==
+  </data>
+ </layer>
+ <layer height="23" name="Upper 1" width="20">
+  <properties>
+   <property name="z" value=".5"/>
+  <property name="layer" value="4"/></properties>
+  <data compression="zlib" encoding="base64">
+   eJxjYBhe4B4ONjawm8p2H0Zi7wLid1Q0+xAVzYKBizQwk17gLhXNOg/EF6ho3mAHdxmoG36kgJNQeheVzaVF/jgOpd+SobeDkTx92EA30KweRioZBgT9QLNaqGjeSAIAhmYSSQ==
+  </data>
+ </layer>
+ <objectgroup height="23" name="Event 1" width="20">
+  <properties>
+   <property name="z" value=".5"/>
+  <property name="layer" value="3"/></properties>
+  <object height="32" name="Chloe" type="event" width="32" x="448" y="640">
+   <properties>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_chloe"/>
+    <property name="name" value="chloe"/>
+   </properties>
+  </object>
+  <object height="32" name="Waldy" type="event" width="32" x="416" y="320">
+   <properties>
+    <property name="face" value="right"/>
+    <property name="key" value="event_waldy"/>
+    <property name="name" value="waldy"/>
+   </properties>
+  </object>
+  <object height="32" name="Virgil" type="event" width="32" x="576" y="320">
+   <properties>
+    <property name="face" value="left"/>
+    <property name="key" value="event_virgil"/>
+    <property name="name" value="virgil"/>
+   </properties>
+  </object>
+  <object name="Point" type="point" x="448" y="336">
+   <properties>
+    <property name="name" value="cam_target"/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="96" y="288">
+   <properties>
+    <property name="group" value="left_minions1"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_gadget"/>
+    <property name="pace" value=""/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="352" y="640">
+   <properties>
+    <property name="group" value="bottom2_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="384" y="640">
+   <properties>
+    <property name="group" value="bottom2_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="416" y="640">
+   <properties>
+    <property name="group" value="bottom2_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="448" y="640">
+   <properties>
+    <property name="group" value="bottom2_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="480" y="640">
+   <properties>
+    <property name="group" value="bottom2_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="512" y="640">
+   <properties>
+    <property name="group" value="bottom2_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="352" y="608">
+   <properties>
+    <property name="group" value="bottom1_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="384" y="608">
+   <properties>
+    <property name="group" value="bottom1_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="416" y="608">
+   <properties>
+    <property name="group" value="bottom1_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="448" y="608">
+   <properties>
+    <property name="group" value="bottom1_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="480" y="608">
+   <properties>
+    <property name="group" value="bottom1_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="512" y="608">
+   <properties>
+    <property name="group" value="bottom1_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="96" y="320">
+   <properties>
+    <property name="group" value="left_minions1"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_gadget"/>
+    <property name="pace" value=""/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="96" y="352">
+   <properties>
+    <property name="group" value="left_minions1"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_gadget"/>
+    <property name="pace" value=""/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="64" y="288">
+   <properties>
+    <property name="group" value="left_minions2"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_widget"/>
+    <property name="pace" value=""/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="64" y="320">
+   <properties>
+    <property name="group" value="left_minions2"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_widget"/>
+    <property name="pace" value=""/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="64" y="352">
+   <properties>
+    <property name="group" value="left_minions2"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_widget"/>
+    <property name="pace" value=""/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="576" y="320">
+   <properties>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_widget"/>
+    <property name="name" value="vanguard"/>
+    <property name="pace" value=""/>
+   </properties>
+  </object>
+  <object height="32" name="Trigger" type="trigger" width="32" x="576" y="224">
+   <properties>
+    <property name="auto" value=""/>
+    <property name="id" value="scene_intro0006"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer height="23" name="Lower 2" width="20">
+  <properties>
+   <property name="z" value="1"/>
+  <property name="layer" value="2"/></properties>
+  <data compression="zlib" encoding="base64">
+   eJxjYBgFyKCbyuYlDHPzeoA4GwnnUOqgUUARQI+PCCqbnzDCzGuisnmjYGgDALSBB6w=
+  </data>
+ </layer>
+ <layer height="23" name="Upper 2" width="20">
+  <properties>
+   <property name="z" value="1.5"/>
+  <property name="layer" value="1"/></properties>
+  <data compression="zlib" encoding="base64">
+   eJxjYBgFo2AUjIJRMApGASEAAAcwAAE=
+  </data>
+ </layer>
+ <objectgroup height="23" name="Event 2" width="20">
+  <properties>
+   <property name="z" value="1.5"/>
+  <property name="layer" value="0"/></properties>
+ </objectgroup>
+</map>

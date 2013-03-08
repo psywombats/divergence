@@ -653,6 +653,12 @@
     <property name="y" value="7"/>
    </properties>
   </object>
+  <object name="Trigger" type="trigger" x="0" y="0" width="32" height="32">
+   <properties>
+    <property name="auto" value=""/>
+    <property name="id" value="scene_event_room_nico"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Lower 2" width="13" height="10">
   <properties>

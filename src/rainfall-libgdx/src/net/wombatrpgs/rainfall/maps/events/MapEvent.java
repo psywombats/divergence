@@ -39,6 +39,8 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	protected static final String PROPERTY_GROUP = "group";
 	protected static final String PROPERTY_NAME = "name";
 	protected static final String PROPERTY_HIDDEN = "hidden";
+	protected static final String PROPERTY_SWITCH = "switch";
+	protected static final String PROPERTY_HIDESWITCH = "hideswitch";
 	
 	protected static final char SEPERATOR_CHAR = ';';
 	
@@ -51,6 +53,9 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	protected boolean checkCollisions;
 	/** Is this object hidden from view/interaction due to cutscene? */
 	protected boolean hidden;
+	/** Another toggle on our visibility - if it exists, link it to hidden */
+	protected String showSwitch;
+	protected String hideSwitch;
 	
 	/** Coords in pixels relative to map origin */
 	protected float x, y;
@@ -105,6 +110,14 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		this.checkCollisions = checkCollisions;
 		if (object != null) {
 			this.hidden = object.properties.get(PROPERTY_HIDDEN) != null;
+			this.showSwitch = object.properties.get(PROPERTY_SWITCH);
+			if (showSwitch != null) {
+				this.hidden = !RGlobal.hero.isSet(showSwitch);
+			}
+			this.hideSwitch = object.properties.get(PROPERTY_HIDESWITCH);
+			if (hideSwitch != null && !hidden) {
+				this.hidden = RGlobal.hero.isSet(hideSwitch);
+			}
 		}
 		
 	}
@@ -299,6 +312,20 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 
 	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#vitalUpdate(float)
+	 */
+	@Override
+	public void vitalUpdate(float elapsed) {
+		super.vitalUpdate(elapsed);
+		if (showSwitch != null) {
+			hidden = !RGlobal.hero.isSet(showSwitch);
+		}
+		if (hideSwitch != null && !hidden) {
+			hidden = RGlobal.hero.isSet(hideSwitch);
+		}
+	}
+
+	/**
 	 * This version kills itself unless it was present on the map in the first
 	 * place.
 	 * @see net.wombatrpgs.rainfall.maps.MapObject#reset()
@@ -312,6 +339,10 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 			setY(parent.getHeight()*parent.getTileHeight()-object.y);
 			// ha! I told you storing this would come in handy!
 			getLevel().changeZ(this, Float.valueOf(object.properties.get(PROPERTY_Z))+.5f);
+			falling = false;
+			fallTime = 0;
+			holeX = 0;
+			holeY = 0;
 		}
 	}
 
@@ -568,6 +599,8 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 * @param 	layer			The layer this object is being added to
 	 */
 	public void onAdd(EventLayer layer) {
+		this.lastX = getX();
+		this.lastY = getY();
 		// nothing by default
 	}
 	

@@ -362,7 +362,18 @@ public class CharacterEvent extends MapEvent {
 	 * @return					True if we can act, false otherwise.
 	 */
 	public boolean canAct() {
-		return canMove();
+		return canMove() && !hidden;
+	}
+	
+	/**
+	 * Overrides the pacing action of this character.
+	 * @param 	pacing			True if character should pace, false otherwise
+	 */
+	public void setPacing(boolean pacing) {
+		this.pacing = pacing;
+		if (pacing) {
+			appearance.startMoving();
+		}
 	}
 	
 	/**
@@ -409,7 +420,10 @@ public class CharacterEvent extends MapEvent {
 	@Override
 	public void halt() {
 		super.halt();
-		appearance.stopMoving();
+		if (!pacing) {
+			appearance.stopMoving();
+			appearance.update(0);
+		}
 		targetVX = 0;
 		targetVY = 0;
 		for (Direction dir : directionStatus.keySet()) {

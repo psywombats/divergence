@@ -209,6 +209,14 @@ public class EnemyEvent extends CharacterEvent {
 	}
 
 	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#endFall()
+	 */
+	@Override
+	public void endFall() {
+		dead = true;
+	}
+
+	/**
 	 * Kills self in a spectacular manner. Another object is supplied so that
 	 * gibs can scatter correctly. If this enemy just imploded randomly, then
 	 * pass in itself and the distribution will be random.

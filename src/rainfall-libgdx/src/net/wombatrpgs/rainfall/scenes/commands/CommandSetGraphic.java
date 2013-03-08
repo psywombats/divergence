@@ -27,10 +27,12 @@ public class CommandSetGraphic extends SceneCommand {
 	
 	protected static final String ARG_GROUP = "group";
 	protected static final String ARG_HERO = "hero";
+	protected static final String ARG_AUTOPLAY = "autoplay";
 	
 	protected List<MapEvent> events;
 	protected String eventName; //, groupName;
 	protected FacesAnimation graphic;
+	protected boolean autoplay;
 
 	/**
 	 * Inherited constructor.
@@ -39,6 +41,7 @@ public class CommandSetGraphic extends SceneCommand {
 	 */
 	public CommandSetGraphic(SceneParser parent, String line) {
 		super(parent, line);
+		autoplay = false;
 		events = new ArrayList<MapEvent>();
 		line = line.substring(line.indexOf(' ')+1);
 		this.eventName = line.substring(0, line.indexOf(' '));
@@ -56,7 +59,19 @@ public class CommandSetGraphic extends SceneCommand {
 			RGlobal.reporter.warn("Couldn't find ev to set anim: " + eventName);
 		}
 		line = line.substring(line.indexOf(' ') + 1);
-		String mdoKey = line.substring(0, line.indexOf(']'));
+		String mdoKey;
+		if (line.indexOf(' ') == -1) {
+			mdoKey = line.substring(0, line.indexOf(']'));
+		} else {
+			mdoKey = line.substring(0, line.indexOf(' '));
+			line = line.substring(line.indexOf(' ') + 1);
+			String arg = line.substring(0, line.indexOf(']'));
+			if (arg.equals(ARG_AUTOPLAY)) {
+				autoplay = true;
+			} else {
+				RGlobal.reporter.warn("Unknown arg to setgraphic: " + arg);
+			}
+		}
 		DirMDO dirMDO = RGlobal.data.getEntryFor(mdoKey, DirMDO.class);
 		graphic = FacesAnimationFactory.create(dirMDO, events.get(0));
 	}
@@ -71,6 +86,7 @@ public class CommandSetGraphic extends SceneCommand {
 			if (CharacterEvent.class.isAssignableFrom(mapEvent.getClass())) { 
 				CharacterEvent event = (CharacterEvent) mapEvent;
 				event.setWalkAnim(graphic);
+				event.setPacing(autoplay);
 				event.halt();
 			} else {
 				RGlobal.reporter.warn("Tried to set anim of non-character: " + mapEvent);

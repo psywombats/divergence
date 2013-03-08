@@ -74,6 +74,7 @@ public class TeleportGlobal implements Queueable {
 		MapEvent victim = RGlobal.hero;
 		Level old = victim.getLevel();
 		int z = old.getZ(victim);
+		if (old.contains(RGlobal.block)) old.removeEvent(RGlobal.block);
 		old.removeEvent(victim);
 		old.update(0);
 		map.teleportOn(tileX, tileY, z);
