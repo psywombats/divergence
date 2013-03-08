@@ -190,6 +190,11 @@
     <property name="x" value=""/>
    </properties>
   </tile>
+  <tile id="19">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
   <tile id="24">
    <properties>
     <property name="x" value=""/>
@@ -633,7 +638,7 @@
    <property name="z" value=".5"/>
   <property name="layer" value="4"/></properties>
   <data compression="zlib" encoding="base64">
-   eJxjYBhZYA8Q7wXifQPohiNAfBSIjw2gG84A8VkgPjeAbrgCpa8B8akBdMcoGAWDBRwfaAeMgiEHhkqddo9ENqmA1nXaEwLyoDoMuU57SyN3kAoGiztA4BYBmlg1lIBHBGhi1QxGMJLrj5MD7QA8AABJrikw
+   eJxjYBhZYA8Q7wXifQPohiNAfBSIjw2gG84A8VkgPjeAbrgCpa8B8akBdMcoGAWDBRwfaAeMgiEHhkqddo9ENqmA1nXaEwLyoDoMuU57SyN3kAoGiztA4BYBmlg1lIBHBGhi1YDAbiq5iRJwGIk9Wn8MTgAAonQp5Q==
   </data>
  </layer>
  <objectgroup height="26" name="Event 1" width="33">
@@ -654,46 +659,16 @@
     <property name="y" value="8"/>
    </properties>
   </object>
-  <object height="32" name="Widget" type="event" width="32" x="512" y="704">
+  <object height="32" name="Waldy" type="event" width="32" x="832" y="704">
    <properties>
-    <property name="key" value="enemy_widget"/>
-    <property name="respawns" value=""/>
+    <property name="convo" value="scene_waldy0001"/>
+    <property name="key" value="event_waldy_push"/>
+    <property name="pace" value=""/>
    </properties>
   </object>
-  <object height="32" name="Widget" type="event" width="32" x="512" y="736">
+  <object height="32" name="Trigger" type="trigger" width="16" x="800" y="288">
    <properties>
-    <property name="key" value="enemy_widget"/>
-    <property name="respawns" value=""/>
-   </properties>
-  </object>
-  <object height="32" name="Widget" type="event" width="32" x="736" y="704">
-   <properties>
-    <property name="key" value="enemy_widget"/>
-    <property name="respawns" value=""/>
-   </properties>
-  </object>
-  <object height="32" name="Widget" type="event" width="32" x="736" y="736">
-   <properties>
-    <property name="key" value="enemy_widget"/>
-    <property name="respawns" value=""/>
-   </properties>
-  </object>
-  <object height="32" name="Widget" type="event" width="32" x="256" y="704">
-   <properties>
-    <property name="key" value="enemy_widget"/>
-    <property name="respawns" value=""/>
-   </properties>
-  </object>
-  <object height="32" name="Widget" type="event" width="32" x="256" y="736">
-   <properties>
-    <property name="key" value="enemy_widget"/>
-    <property name="respawns" value=""/>
-   </properties>
-  </object>
-  <object height="32" name="Grinder" type="event" width="32" x="896" y="416">
-   <properties>
-    <property name="key" value="enemy_grinder"/>
-    <property name="respawns" value=""/>
+    <property name="id" value="scene_event_reverse_courtyard"/>
    </properties>
   </object>
  </objectgroup>

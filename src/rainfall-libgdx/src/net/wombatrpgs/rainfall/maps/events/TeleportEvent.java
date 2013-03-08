@@ -12,6 +12,7 @@ import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.physics.CollisionResult;
 import net.wombatrpgs.rainfall.physics.Hitbox;
+import net.wombatrpgs.rainfall.physics.NoHitbox;
 import net.wombatrpgs.rainfall.physics.RectHitbox;
 import net.wombatrpgs.rainfall.scenes.FinishListener;
 
@@ -53,7 +54,8 @@ public class TeleportEvent extends MapEvent {
 	 */
 	@Override
 	public Hitbox getHitbox() {
-		return box;
+		if (!hidden) return box;
+		else return NoHitbox.getInstance();
 	}
 
 	/**

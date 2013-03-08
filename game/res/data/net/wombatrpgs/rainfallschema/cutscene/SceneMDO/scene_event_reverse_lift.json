@@ -1,0 +1,8 @@
+{
+	"key" : "scene_event_reverse_lift",
+	"subfolder" : "event",
+	"name" : "",
+	"description" : "",
+	"file" : "event_reverse_lift.scene",
+	"repeat" : "RUN_EVERY_TIME"
+}

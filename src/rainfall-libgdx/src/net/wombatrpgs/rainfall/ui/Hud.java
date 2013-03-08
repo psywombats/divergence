@@ -32,6 +32,7 @@ public class Hud extends Picture {
 	protected HudMDO mdo;
 	protected Graphic mask, alphaMask;
 	protected boolean enabled;
+	protected boolean ignoresTint;
 
 	/**
 	 * Creates a new HUD from data. Requires queueing.
@@ -164,7 +165,15 @@ public class Hud extends Picture {
 	 */
 	@Override
 	public boolean ignoresTint() {
-		return false;
+		return ignoresTint;
+	}
+	
+	/**
+	 * This is a hack for the first time UI is displayed... sorry.
+	 * @param 	ignoreTint			True if this hud should ignore tint.
+	 */
+	public void setOverlayTintIgnore(boolean ignoreTint) {
+		this.ignoresTint = ignoreTint;
 	}
 
 }

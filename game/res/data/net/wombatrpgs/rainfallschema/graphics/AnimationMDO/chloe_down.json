@@ -1,0 +1,18 @@
+{
+	"key" : "chloe_down",
+	"subfolder" : "charas",
+	"name" : "",
+	"description" : "",
+	"file" : "chloe.png",
+	"mode" : "REPEAT",
+	"frameCount" : 3,
+	"frameWidth" : 32,
+	"frameHeight" : 64,
+	"offX" : 0,
+	"offY" : 196,
+	"animSpeed" : 4,
+	"hit1x" : 8,
+	"hit1y" : 48,
+	"hit2x" : 24,
+	"hit2y" : 64
+}

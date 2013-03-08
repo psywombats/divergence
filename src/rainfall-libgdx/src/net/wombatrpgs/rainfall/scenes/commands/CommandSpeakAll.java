@@ -82,4 +82,15 @@ public class CommandSpeakAll extends SceneCommand {
 		}
 	}
 
+	/**
+	 * @see net.wombatrpgs.rainfall.scenes.SceneCommand#reset()
+	 */
+	@Override
+	public void reset() {
+		super.reset();
+		for (CommandSpeak command : subCommands) {
+			command.reset();
+		}
+	}
+
 }

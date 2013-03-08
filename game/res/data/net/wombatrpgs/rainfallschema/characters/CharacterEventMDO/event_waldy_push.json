@@ -1,0 +1,11 @@
+{
+	"key" : "event_waldy_push",
+	"subfolder" : "dummy",
+	"name" : "",
+	"description" : "",
+	"appearance" : "animation_waldsworth_push",
+	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
+	"response" : "IMMOBILE",
+	"touch" : "NOTHING",
+	"mobility" : "mobility_immobile"
+}

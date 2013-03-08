@@ -47,7 +47,7 @@ public class CommandSetLocation extends SceneCommand {
 		} else {
 			Level map = parent.getLevel();
 			event.setX(teleX * map.getTileWidth());
-			event.setY(map.getHeightPixels() - teleY * map.getTileHeight());
+			event.setY(map.getHeightPixels() - (teleY+1) * map.getTileHeight());
 		}
 		
 		finished = true;

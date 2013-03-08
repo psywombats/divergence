@@ -284,11 +284,11 @@ public class Level implements ScreenShowable {
 		removalEvents.clear();
 		for (int i = 0; i < objects.size(); i++) {
 			MapObject object = objects.get(i);
-			object.vitalUpdate(elapsed);
 			if (!paused || object.getPauseLevel() != PauseLevel.SURRENDERS_EASILY) {
 				object.update(elapsed);
 				if (reseting) break;
 			}
+			object.vitalUpdate(elapsed);
 		}
 		if (!reseting) {
 			for (int i = 0; i < events.size(); i++) {

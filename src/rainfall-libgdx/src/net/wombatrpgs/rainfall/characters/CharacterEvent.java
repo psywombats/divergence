@@ -27,9 +27,11 @@ import net.wombatrpgs.rainfall.maps.objects.TimerObject;
 import net.wombatrpgs.rainfall.physics.CollisionResult;
 import net.wombatrpgs.rainfall.physics.Hitbox;
 import net.wombatrpgs.rainfall.physics.NoHitbox;
+import net.wombatrpgs.rainfall.scenes.SceneParser;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 import net.wombatrpgs.rainfallschema.characters.MobilityMDO;
 import net.wombatrpgs.rainfallschema.characters.data.CollisionResponseType;
+import net.wombatrpgs.rainfallschema.cutscene.SceneMDO;
 import net.wombatrpgs.rainfallschema.graphics.DirMDO;
 import net.wombatrpgs.rainfallschema.maps.data.DirVector;
 import net.wombatrpgs.rainfallschema.maps.data.Direction;
@@ -42,15 +44,17 @@ public class CharacterEvent extends MapEvent {
 	
 	protected static final String PROPERTY_FACING = "face";
 	protected static final String PROPERTY_WALK_IN_PLACE = "pace";
+	protected static final String PROPERTY_CONVO = "convo";
 	
 	protected static final String DIR_DOWN = "down";
 	protected static final String DIR_UP = "up";
 	protected static final String DIR_LEFT = "left";
 	protected static final String DIR_RIGHT = "right";
 	
+	protected CharacterEventMDO mdo;
 	protected Map<Direction, Boolean> directionStatus;
 	protected List<MovesetAct> activeMoves;
-	protected CharacterEventMDO mdo;
+	protected SceneParser convo;
 	protected MobilityMDO mobilityMDO;
 	protected FacesAnimation appearance;
 	protected FacesAnimation walkAnim;
@@ -149,7 +153,8 @@ public class CharacterEvent extends MapEvent {
 		if (pacing && appearance != null) {
 			appearance.update(elapsed);
 		}
-		if (!pacing && (Math.abs(vx) < .1 && Math.abs(vy) < .1)) {
+		if (!pacing && (Math.abs(vx) < .1 && Math.abs(vy) < .1) &&
+				(Math.abs(targetVX) < .1 && Math.abs(targetVY) < .1)) {
 			walkAnim.stopMoving();
 		}
 	}
@@ -173,7 +178,12 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		appearance.queueRequiredAssets(manager);
+		if (appearance != null) {
+			appearance.queueRequiredAssets(manager);
+		}
+		if (convo != null) {
+			convo.queueRequiredAssets(manager);
+		}
 	}
 
 	/**
@@ -183,7 +193,12 @@ public class CharacterEvent extends MapEvent {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
-		appearance.postProcessing(manager, pass);
+		if (appearance != null) {
+			appearance.postProcessing(manager, pass);
+		}
+		if (convo != null) {
+			convo.postProcessing(manager, pass);
+		}
 		if (object != null) {
 			String dir = object.properties.get(PROPERTY_FACING);
 			if (dir != null) {
@@ -266,6 +281,9 @@ public class CharacterEvent extends MapEvent {
 	@Override
 	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
 		if (dead) return true;
+		if (other == RGlobal.hero && convo != null) {
+			convo.run(getLevel());
+		}
 		return false;
 	}
 	
@@ -287,7 +305,7 @@ public class CharacterEvent extends MapEvent {
 	public void resolveCharacterCollision(CharacterEvent other, CollisionResult result) {
 		if (other.mdo.response == CollisionResponseType.IMMOBILE &&
 			this.mdo.response == CollisionResponseType.IMMOBILE) {
-			RGlobal.reporter.warn("Two immobile objects collided? wtf?");
+			//RGlobal.reporter.warn("Two immobile objects collided? wtf?");
 			applyMTV(other, result, 1f);
 			return;
 		}
@@ -522,6 +540,7 @@ public class CharacterEvent extends MapEvent {
 					newDir = Direction.UP;
 				}
 			}
+			walkAnim.startMoving(newDir);
 			appearance.startMoving(newDir);
 		}
 		super.internalTargetVelocity(targetVX, targetVY);
@@ -560,6 +579,13 @@ public class CharacterEvent extends MapEvent {
 			DirMDO dirMDO = RGlobal.data.getEntryFor(mdo.appearance, DirMDO.class);
 			walkAnim = FacesAnimationFactory.create(dirMDO, this);
 			appearance = walkAnim;
+		}
+		if (object != null) {
+			String convoKey = object.properties.get(PROPERTY_CONVO);
+			if (convoKey != null) {
+				SceneMDO sceneMDO = RGlobal.data.getEntryFor(convoKey, SceneMDO.class);
+				convo = new SceneParser(sceneMDO);
+			}
 		}
 		directionStatus = new HashMap<Direction, Boolean>();
 		directionStatus.put(Direction.DOWN, false);

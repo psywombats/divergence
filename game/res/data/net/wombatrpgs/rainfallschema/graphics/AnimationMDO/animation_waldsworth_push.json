@@ -1,0 +1,18 @@
+{
+	"key" : "animation_waldsworth_push",
+	"subfolder" : "charas",
+	"name" : "",
+	"description" : "",
+	"file" : "waldsworth_push.png",
+	"mode" : "REPEAT",
+	"frameCount" : 2,
+	"frameWidth" : 32,
+	"frameHeight" : 64,
+	"offX" : 0,
+	"offY" : 0,
+	"animSpeed" : 2,
+	"hit1x" : 7,
+	"hit1y" : 48,
+	"hit2x" : 32,
+	"hit2y" : 64
+}

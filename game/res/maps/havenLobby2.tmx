@@ -814,35 +814,32 @@
     <property name="y" value="22"/>
    </properties>
   </object>
-  <object height="32" name="DragonBeetle" type="event" width="32" x="192" y="192">
+  <object height="32" name="Chloe" type="event" width="32" x="384" y="256">
    <properties>
-    <property name="key" value="enemy_dragon_beetle"/>
-    <property name="respawns" value=""/>
+    <property name="convo" value="scene_chloe0001"/>
+    <property name="face" value="down"/>
+    <property name="key" value="event_chloe"/>
+    <property name="name" value="chloe"/>
    </properties>
   </object>
-  <object height="32" name="Pudding" type="event" width="32" x="512" y="544">
+  <object height="32" name="Waldy" type="event" width="32" x="384" y="352">
    <properties>
-    <property name="key" value="enemy_pudding"/>
+    <property name="face" value="up"/>
+    <property name="key" value="event_waldy"/>
+    <property name="name" value="waldy"/>
    </properties>
   </object>
-  <object height="32" name="Pudding" type="event" width="32" x="480" y="512">
+  <object height="32" name="Trigger" type="trigger" width="32" x="576" y="224">
    <properties>
-    <property name="key" value="enemy_pudding"/>
+    <property name="auto" value=""/>
+    <property name="id" value="scene_intro0004"/>
    </properties>
   </object>
-  <object height="32" name="Pudding" type="event" width="32" x="448" y="544">
+  <object height="32" name="Edgar" type="event" width="32" x="448" y="280">
    <properties>
-    <property name="key" value="enemy_pudding"/>
-   </properties>
-  </object>
-  <object height="32" name="Pudding" type="event" width="32" x="480" y="576">
-   <properties>
-    <property name="key" value="enemy_pudding"/>
-   </properties>
-  </object>
-  <object height="32" name="Gadget" type="event" width="32" x="416" y="128">
-   <properties>
-    <property name="key" value="enemy_gadget"/>
+    <property name="face" value="left"/>
+    <property name="key" value="event_edgar"/>
+    <property name="name" value="edgar"/>
    </properties>
   </object>
  </objectgroup>

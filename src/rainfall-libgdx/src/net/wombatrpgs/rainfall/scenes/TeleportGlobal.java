@@ -70,12 +70,14 @@ public class TeleportGlobal implements Queueable {
 	 * @param 	tileY			The y-coord to teleport to (in tiles)
 	 */
 	public void teleport(Level map, int tileX, int tileY) {
+		RGlobal.ui.getHud().setOverlayTintIgnore(false);
 		MapEvent victim = RGlobal.hero;
 		Level old = victim.getLevel();
 		int z = old.getZ(victim);
 		old.removeEvent(victim);
 		old.update(0);
 		map.teleportOn(tileX, tileY, z);
+		RGlobal.ui.getHud().setOverlayTintIgnore(true);
 	}
 
 }
