@@ -135,7 +135,25 @@ public class Block extends CharacterEvent {
 	 */
 	@Override
 	public void reset() {
-		
+		parent.removeEvent(this);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#setHidden(boolean)
+	 */
+	@Override
+	public void setHidden(boolean hidden) {
+		if (hidden == true) {
+			parent.removeEvent(this);
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#getName()
+	 */
+	@Override
+	public String getName() {
+		return "block";
 	}
 
 	/**

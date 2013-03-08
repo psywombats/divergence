@@ -159,4 +159,12 @@ public class Hud extends Picture {
 		}
 	}
 
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.objects.Picture#ignoresTint()
+	 */
+	@Override
+	public boolean ignoresTint() {
+		return false;
+	}
+
 }

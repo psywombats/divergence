@@ -274,6 +274,7 @@ public class Level implements ScreenShowable {
 	public void update(float elapsed) {
 		updating = true;
 		for (MapObject toRemove : removalObjects) {
+			toRemove.onRemovedFromMap(this);
 			internalRemoveObject(toRemove);
 		}
 		for (MapEvent toRemove : removalEvents) {
@@ -379,11 +380,7 @@ public class Level implements ScreenShowable {
 	 * @param 	toRemove		The map event to remove
 	 */
 	public void removeEvent(MapEvent toRemove) {
-		if (updating) {
-			removalEvents.add(toRemove);
-		} else {
-			internalRemoveEvent(toRemove);
-		}
+		removalEvents.add(toRemove);
 	}
 	
 	/**
@@ -392,11 +389,7 @@ public class Level implements ScreenShowable {
 	 * @param 	toRemove		The event to remove
 	 */
 	public void removeObject(MapObject toRemove) {
-		if (updating) {
-			removalObjects.add(toRemove);
-		} else {
-			internalRemoveObject(toRemove);
-		}
+		removalObjects.add(toRemove);
 	}
 	
 	/**
@@ -579,9 +572,6 @@ public class Level implements ScreenShowable {
 	 */
 	public void reset() {
 		reseting = true;
-		if (contains(RGlobal.block)) {
-			removeEvent(RGlobal.block);
-		}
 		for (MapObject object : objects) {
 			object.reset();
 		}
@@ -632,8 +622,8 @@ public class Level implements ScreenShowable {
 	 * @param 	toRemove		The event to remove
 	 */
 	protected void internalRemoveEvent(MapEvent toRemove) {
-		internalRemoveObject(toRemove);
 		toRemove.onRemovedFromMap(this);
+		internalRemoveObject(toRemove);
 		for (EventLayer layer : eventLayers) {
 			if (layer.contains(toRemove)) {
 				layer.remove(toRemove);
@@ -648,7 +638,6 @@ public class Level implements ScreenShowable {
 	 * @param 	toRemove		The object to remove
 	 */
 	protected void internalRemoveObject(MapObject toRemove) {
-		toRemove.onRemovedFromMap(this);
 		objects.remove(toRemove);
 	}
 

@@ -1,0 +1,11 @@
+{
+	"key" : "event_waldy",
+	"subfolder" : "dummy",
+	"name" : "",
+	"description" : "",
+	"appearance" : "waldsworth_4dir",
+	"collision" : "NONE",
+	"response" : "ETHEREAL",
+	"touch" : "NOTHING",
+	"mobility" : "mobility_hero"
+}

@@ -1,5 +1,6 @@
 [change-graphic hero animation_nico_snoozing]
 [camera-track hero]
+[hide group tele]
 [tint 1 1 1 2.0]
 [wait 3.0]
 NICO: Zzz...
@@ -25,4 +26,4 @@ NICO: Right! I have my trusty staff!
 [tint 1 1 1 .5]
 [wait .5]
 NICO: Death to dragon beetles!
-EDGAR: ...just hurry up about it.
+EDGAR: You got it, pal.

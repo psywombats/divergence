@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.rainfall.scenes.commands;
 
+import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.scenes.SceneCommand;
 import net.wombatrpgs.rainfall.scenes.SceneParser;
 
@@ -14,8 +15,11 @@ import net.wombatrpgs.rainfall.scenes.SceneParser;
  */
 public class CommandWait extends SceneCommand {
 	
+	protected static final String ARG_SOFT = "soft";
+	
 	protected float duration;
 	protected float startTime;
+	protected boolean soft, running;;
 
 	/**
 	 * Creates a wait command from code.
@@ -24,9 +28,23 @@ public class CommandWait extends SceneCommand {
 	 */
 	public CommandWait(SceneParser parent, String line) {
 		super(parent, line);
-		String arg = line.substring(line.indexOf(' ') + 1, line.indexOf(']'));
-		duration = Float.valueOf(arg);
 		startTime = -1;
+		soft = false;
+		running = false;
+		String arg = line.substring(line.indexOf(' ') + 1, line.indexOf(']'));
+		if (arg.indexOf(' ') != -1) {
+			duration = Float.valueOf(arg.substring(0, arg.indexOf(' ')));
+			arg = arg.substring(arg.indexOf(' ' ) + 1);
+			if (arg.equals(ARG_SOFT)) {
+				soft = true;
+				RGlobal.reporter.warn("Soft pause is not fully implemented");
+			} else {
+				RGlobal.reporter.warn("Unknown wait argument: " + arg);
+			}
+		} else {
+			duration = Float.valueOf(arg);
+		}
+
 	}
 
 	/**
@@ -34,8 +52,17 @@ public class CommandWait extends SceneCommand {
 	 */
 	@Override
 	public boolean run() {
-		if (startTime == -1) startTime = parent.getTimeSinceStart();
-		return (startTime + duration <= parent.getTimeSinceStart());
+		if (finished) return true;
+		if (!running) {
+			startTime = parent.getTimeSinceStart();
+			if (soft) parent.getLevel().setPause(false);
+			running = true;
+		}
+		if (startTime + duration <= parent.getTimeSinceStart()) {
+			finished = true;
+			if (soft) parent.getLevel().setPause(true);
+		}
+		return false;
 	}
 
 }

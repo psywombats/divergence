@@ -72,13 +72,13 @@ public class EventFactory {
 					object.x, 
 					parent.getHeight()*parent.getTileHeight()-object.y-parent.getTileHeight());
 		} else if (TYPE_TARGET.equals(object.type)) {
-			newEvent = new TargetEvent(parent, object);
+			newEvent = new TargetPoint(parent, object);
 		} else if (TYPE_TELEPORT.equals(object.type)) {
 			newEvent = new TeleportEvent(parent, object);
 		} else if (TYPE_TELEPORT_Z.equals(object.type)) {
 			newEvent = new ZTeleportEvent(parent, object, layerIndex);
 		} else if (TYPE_TRIGGER.equals(object.type)){
-			newEvent = new TriggerEvent(parent, object);
+			newEvent = new Trigger(parent, object);
 		} else {
 			RGlobal.reporter.warn("Found an event with no type: " + 
 					object.name + ", a " + object.type);

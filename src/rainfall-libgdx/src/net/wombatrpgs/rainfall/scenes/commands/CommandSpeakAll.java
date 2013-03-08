@@ -19,7 +19,7 @@ import net.wombatrpgs.rainfall.scenes.SceneParser;
  */
 public class CommandSpeakAll extends SceneCommand {
 	
-	public static final int CHARS_PER_LINE = 60;
+	public static final int CHARS_PER_LINE = 54;
 	public static final int LINES_PER_BOX = 3;
 	
 	protected List<CommandSpeak> subCommands;

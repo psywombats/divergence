@@ -22,7 +22,7 @@ public class TimerObject extends MapObject {
 	protected MapObject parent;
 	protected float timeRemaining; // in seconds
 	protected float lastTime; // in seconds
-	protected boolean running;
+	protected boolean running, completed;
 	
 	/**
 	 * A pre-built timer package! Sets some time on the clock, registers the
@@ -38,6 +38,7 @@ public class TimerObject extends MapObject {
 		set(true);
 		this.parent = parent;
 		this.parent.addSubEvent(this);
+		completed = false;
 	}
 
 	/**
@@ -74,6 +75,7 @@ public class TimerObject extends MapObject {
 			if (parent != null) {
 				parent.removeSubEvent(this);
 			}
+			completed = true;
 		}
 	}
 
@@ -100,6 +102,15 @@ public class TimerObject extends MapObject {
 	 */
 	public void set(boolean run) {
 		this.running = run;
+	}
+	
+	/**
+	 * Detetermines whether or not this timer is "complete," where complete
+	 * here means it's been run at least once to completion.
+	 * @return					True if timer completed at least once
+	 */
+	public boolean hasCompleted() {
+		return completed;
 	}
 	
 	/**
