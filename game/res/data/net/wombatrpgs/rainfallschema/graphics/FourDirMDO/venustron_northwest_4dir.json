@@ -1,0 +1,10 @@
+{
+	"key" : "venustron_northwest_4dir",
+	"subfolder" : "enemies",
+	"name" : "",
+	"description" : "",
+	"upAnim" : "animation_venustron_northwest_faceup",
+	"rightAnim" : "animation_venustron_northwest_faceright",
+	"downAnim" : "animation_venustron_northwest_faceright",
+	"leftAnim" : "animation_venustron_northwest_faceleft"
+}

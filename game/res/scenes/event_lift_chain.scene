@@ -1,3 +1,3 @@
-NICO: Oh look, it's the sprokects for the elevator! I put them down here last week.
-EDGAR: What're you waiting for? Grab them and let's go.
-NICO: But I was going to start a sprocket collection in this box...
+NICO: Oh look, it's the elevator chain. Why'd Waldy put it in here in the first place?
+EDGAR: Probably to spite you.
+[set-switch got_chain on]

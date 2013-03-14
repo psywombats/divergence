@@ -779,10 +779,9 @@
     <property name="switch" value="intro_done"/>
    </properties>
   </object>
-  <object height="32" name="Trigger" type="trigger" width="32" x="544" y="480">
+  <object height="16" name="Lift" type="object" width="32" x="544" y="496">
    <properties>
-    <property name="id" value="scene_event_lift_first_seen"/>
-    <property name="switch" value="intro_done"/>
+    <property name="id" value="haven_lift"/>
    </properties>
   </object>
  </objectgroup>

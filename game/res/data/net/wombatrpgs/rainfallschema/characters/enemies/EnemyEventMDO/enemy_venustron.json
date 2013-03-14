@@ -1,0 +1,16 @@
+{
+	"key" : "enemy_venustron",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"appearance" : "None",
+	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
+	"response" : "ETHEREAL",
+	"touch" : "INSTADEATH",
+	"mobility" : "mobility_steady",
+	"intelligence" : "dummy_intelligence",
+	"vulnerability" : "vulnerability_none",
+	"gibset" : "None",
+	"emitter" : "None",
+	"dieAnim" : "None"
+}

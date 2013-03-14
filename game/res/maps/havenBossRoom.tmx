@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="11" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="27">
- <properties><property name="blended tiles" value="186,188,189,190,191,193,194,196,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,218,220,221,222,226,228,229,230,231,232,233,234,235,236,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,389,390,391,392,393,394,395,396,397,398,399,400"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="17" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="17">
+ <properties><property name="blended tiles" value="186,188,189,190,191,193,194,196,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,218,220,221,222,226,228,229,230,231,232,233,234,235,236,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254"/>
   <property name="minimap" value="graphic_minimap_l1_f1"/>
   <property name="minimap_x1" value="63"/>
-  <property name="minimap_x2" value="120"/>
-  <property name="minimap_y1" value="141"/>
-  <property name="minimap_y2" value="150"/>
+  <property name="minimap_x2" value="84"/>
+  <property name="minimap_y1" value="153"/>
+  <property name="minimap_y2" value="174"/>
  </properties>
  <tileset firstgid="1" name="blockboundBrickWall" tileheight="32" tilewidth="32">
   <image height="32" source="tilesets/blockbound/brickwall.png" width="96"/>
@@ -190,6 +190,11 @@
     <property name="x" value=""/>
    </properties>
   </tile>
+  <tile id="19">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
   <tile id="24">
    <properties>
     <property name="x" value=""/>
@@ -281,6 +286,16 @@
    </properties>
   </tile>
   <tile id="47">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="54">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="55">
    <properties>
     <property name="x" value=""/>
    </properties>
@@ -610,119 +625,108 @@
    </properties>
   </tile>
  </tileset>
- <layer height="11" name="Lower 1" width="27">
+ <layer height="17" name="Lower 1" width="17">
   <properties>
    <property name="z" value="0"/>
-  <property name="layer" value="5"/></properties>
+  <property name="layer" value="8"/></properties>
   <data compression="zlib" encoding="base64">
-   eJzLY2RgKKADzgXiHCBmYqA9zkKzi4tMe4nRNxB2cdEBD3e73OlkVyYQpwFxOlQsFconFqPrS8djFwzA7MxAEiMGoOvD5XZSzaXEDSAAAEkbJZs=
+   eJzLY2RgKKAA5wJxDhAXMZCPs6Bm1DCQj2FmwEAykW5KRtIDMyMZCaOr58IihqwemxnobuXCIkbIjDgGwpgYM8yx0MtJNEMPSvOh0aSYUcOA3QyYu0gJDz0c7iIlPGDuQXcXKeGBjvVIMANk73IsZsDcQ4v0kQnEaThwOtTMVDxqMpDyDjaQSaQ6ADm3asc=
   </data>
  </layer>
- <layer height="11" name="Upper 1" width="27">
+ <layer height="17" name="Upper 1" width="17">
   <properties>
    <property name="z" value=".5"/>
-  <property name="layer" value="4"/></properties>
+  <property name="layer" value="7"/></properties>
   <data compression="zlib" encoding="base64">
-   eJxjYKA/2APEe4F4Hx30HQHio0B8DMr/CsTfyNBHDDgDxGeB+BwJesjVdwWIrwLxNRL0HCeg7xEJZlED0Nu+UTA0AQCpYxdP
+   eJxjYBi84CsQfyNCjBiwB4j3AvE+CtxzBIiPAvExCsw4A8RngfgcBWZcAeKrQHyNAjPQwSkqmjUKyAdvkfBIAQBgxxDU
   </data>
  </layer>
- <objectgroup height="11" name="Event 1" width="27">
+ <objectgroup height="17" name="Event 1" width="17">
   <properties>
    <property name="z" value=".5"/>
-  <property name="layer" value="3"/></properties>
-  <object height="16" name="Teleport" type="teleport" width="32" x="736" y="304">
+  <property name="layer" value="6"/></properties>
+  <object height="24" name="Teleport" type="teleport" width="32" x="256" y="160">
    <properties>
-    <property name="id" value="map_havenEastHall"/>
+    <property name="hideswitch" value="intro_done"/>
+    <property name="id" value="map_havenWestHall"/>
     <property name="x" value="3"/>
-    <property name="y" value="18"/>
-   </properties>
-  </object>
-  <object height="24" name="Teleport" type="teleport" width="32" x="544" y="96">
-   <properties>
-    <property name="id" value="map_havenWaldyRoom"/>
-    <property name="x" value="6"/>
-    <property name="y" value="8"/>
-   </properties>
-  </object>
-  <object height="16" name="Teleport" type="teleport" width="32" x="544" y="272">
-   <properties>
-    <property name="id" value="map_havenNicoRoom"/>
-    <property name="x" value="6"/>
-    <property name="y" value="4"/>
-   </properties>
-  </object>
-  <object height="24" name="Teleport" type="teleport" width="32" x="96" y="96">
-   <properties>
-    <property name="id" value="map_havenChloeRoom"/>
-    <property name="targetZ" value="1"/>
-    <property name="x" value="6"/>
-    <property name="y" value="8"/>
-   </properties>
-  </object>
-  <object height="32" name="Trigger" type="trigger" width="32" x="128" y="96">
-   <properties>
-    <property name="auto" value=""/>
-    <property name="id" value="scene_intro00005"/>
-    <property name="switch" value="got_earrings"/>
-   </properties>
-  </object>
-  <object height="32" name="Widget" type="event" width="32" x="640" y="128">
-   <properties>
-    <property name="key" value="enemy_widget"/>
-    <property name="switch" value="intro_done"/>
-   </properties>
-  </object>
-  <object height="32" name="Widget" type="event" width="32" x="320" y="128">
-   <properties>
-    <property name="key" value="enemy_widget"/>
-    <property name="switch" value="intro_done"/>
-   </properties>
-  </object>
-  <object height="32" name="Widget" type="event" width="32" x="480" y="160">
-   <properties>
-    <property name="key" value="enemy_widget"/>
-    <property name="switch" value="intro_done"/>
-   </properties>
-  </object>
-  <object height="32" name="Widget" type="event" width="32" x="160" y="192">
-   <properties>
-    <property name="key" value="enemy_widget"/>
-    <property name="switch" value="intro_done"/>
-   </properties>
-  </object>
-  <object height="32" name="Widget" type="event" width="32" x="352" y="224">
-   <properties>
-    <property name="key" value="enemy_widget"/>
-    <property name="switch" value="intro_done"/>
-   </properties>
-  </object>
-  <object height="16" name="Teleport" type="teleport" width="32" x="96" y="272">
-   <properties>
-    <property name="id" value="map_havenBossRoom"/>
-    <property name="x" value="8"/>
-    <property name="y" value="6"/>
+    <property name="y" value="7"/>
    </properties>
   </object>
  </objectgroup>
- <layer height="11" name="Lower 2" width="27">
+ <layer height="17" name="Lower 2" width="17">
   <properties>
    <property name="z" value="1"/>
+  <property name="layer" value="5"/></properties>
+  <data compression="zlib" encoding="base64">
+   eJxjYBg8oAiKKdFTA8WkAHQ9XIwQTApA1wPjFxOpvxCLGUUMpJuBLTxAZtQSaUY1A+7w4CYyTDgZcYfHqBmDy4zBAADaFAt/
+  </data>
+ </layer>
+ <layer height="17" name="Upper 2" width="17">
+  <properties>
+   <property name="z" value="1.5"/>
+  <property name="layer" value="4"/></properties>
+  <data compression="zlib" encoding="base64">
+   eJxjYBgFo2Bwgl1UMOMQFcygBhhOfqE2AAAXoAL5
+  </data>
+ </layer>
+ <objectgroup height="17" name="Event 2" width="17">
+  <properties>
+   <property name="z" value="1.5"/>
+  <property name="layer" value="3"/></properties>
+  <object height="32" name="Virgil" type="event" width="32" x="64" y="320">
+   <properties>
+    <property name="face" value="right"/>
+    <property name="key" value="event_virgil"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="Chloe" type="event" width="32" x="32" y="352">
+   <properties>
+    <property name="face" value="right"/>
+    <property name="key" value="event_chloe"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="Trick Door" type="object" width="32" x="64" y="224">
+   <properties>
+    <property name="id" value="trick_wall"/>
+   </properties>
+  </object>
+  <object height="32" name="DragonBeetle" type="event" width="32" x="64" y="112">
+   <properties>
+    <property name="key" value="enemy_dragon_beetle"/>
+    <property name="respawns" value=""/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="DragonBeetle" type="event" width="32" x="448" y="112">
+   <properties>
+    <property name="key" value="enemy_dragon_beetle"/>
+    <property name="respawns" value=""/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer height="17" name="Lower 3" width="17">
+  <properties>
+   <property name="z" value="2"/>
   <property name="layer" value="2"/></properties>
   <data compression="zlib" encoding="base64">
-   eJxjYBgFo2AUjILBCwAEpAAB
+   eJxjYBh8IIkK6gbajGwoziHSjCwkPaNgFIwkAAD0zQTP
   </data>
  </layer>
- <layer height="11" name="Upper 2" width="27">
+ <layer height="17" name="Upper 3" width="17">
   <properties>
-   <property name="z" value="1.5"/>
+   <property name="z" value="2.5"/>
   <property name="layer" value="1"/></properties>
   <data compression="zlib" encoding="base64">
-   eJxjYBgFgxncGub2DWYwGhaDAwAAFj4Cjw==
+   eJxjYBgFo2AUjIKBAwAEhAAB
   </data>
  </layer>
- <objectgroup height="11" name="Event 2" width="27">
+ <objectgroup height="17" name="Event 3" width="17">
   <properties>
-   <property name="z" value="1.5"/>
+   <property name="z" value="2.5"/>
   <property name="layer" value="0"/></properties>
  </objectgroup>
 </map>

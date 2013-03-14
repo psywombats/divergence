@@ -658,6 +658,13 @@
     <property name="id" value="scene_event_room_nico"/>
    </properties>
   </object>
+  <object height="32" name="DragonBeetle" type="event" width="32" x="352" y="192">
+   <properties>
+    <property name="key" value="enemy_dragon_beetle"/>
+    <property name="respawns" value=""/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer height="10" name="Lower 2" width="13">
   <properties>

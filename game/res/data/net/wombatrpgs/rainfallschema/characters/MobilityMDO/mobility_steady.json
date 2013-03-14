@@ -1,0 +1,9 @@
+{
+	"key" : "mobility_steady",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"walkVelocity" : 48,
+	"acceleration" : 10000,
+	"decceleration" : 10000
+}

@@ -1,0 +1,18 @@
+{
+	"key" : "animation_venustron_northeast_faceright",
+	"subfolder" : "venustron",
+	"name" : "",
+	"description" : "",
+	"file" : "venustron.png",
+	"mode" : "REPEAT",
+	"frameCount" : 1,
+	"frameWidth" : 64,
+	"frameHeight" : 96,
+	"offX" : 320,
+	"offY" : 0,
+	"animSpeed" : 4,
+	"hit1x" : 16,
+	"hit1y" : 64,
+	"hit2x" : 48,
+	"hit2y" : 96
+}

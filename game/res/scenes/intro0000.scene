@@ -1,3 +1,5 @@
 [tint 0 0 0 0]
 [wait 1]
-[teleport map_havenGallery 5 5 basic]
+[teleport map_havenQuarry 6 12]
+[set-switch intro_done on]
+[camera-track hero]

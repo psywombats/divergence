@@ -1,0 +1,13 @@
+{
+	"key" : "event_haven_lift",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"appearance" : "None",
+	"collision" : "NONE",
+	"response" : "ETHEREAL",
+	"touch" : "NOTHING",
+	"mobility" : "mobility_immobile",
+	"id" : "",
+	"sort" : "BELOW_HERO"
+}
