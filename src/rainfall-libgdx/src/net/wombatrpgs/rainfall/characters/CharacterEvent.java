@@ -42,6 +42,8 @@ import net.wombatrpgs.rainfallschema.maps.data.Direction;
  */
 public class CharacterEvent extends MapEvent {
 	
+	protected static final String NULL_MDO = "None";
+	
 	protected static final String PROPERTY_FACING = "face";
 	protected static final String PROPERTY_WALK_IN_PLACE = "pace";
 	protected static final String PROPERTY_CONVO = "convo";
@@ -106,7 +108,8 @@ public class CharacterEvent extends MapEvent {
 	 * @param 	dir				The direction to face
 	 */
 	public void setFacing(Direction dir) {
-		this.appearance.setFacing(dir);
+		if (appearance != null) this.appearance.setFacing(dir);
+		if (walkAnim != null) this.walkAnim.setFacing(dir);
 	}
 	
 	/**
@@ -154,7 +157,8 @@ public class CharacterEvent extends MapEvent {
 			appearance.update(elapsed);
 		}
 		if (!pacing && (Math.abs(vx) < .1 && Math.abs(vy) < .1) &&
-				(Math.abs(targetVX) < .1 && Math.abs(targetVY) < .1)) {
+				(Math.abs(targetVX) < .1 && Math.abs(targetVY) < .1) &&
+				walkAnim != null) {
 			walkAnim.stopMoving();
 		}
 	}
@@ -394,24 +398,10 @@ public class CharacterEvent extends MapEvent {
 
 	/**
 	 * Makes this event face towards an object on the map.
-	 * @param 	object			The object to face
+	 * @param 	event			The object to face
 	 */
-	public void faceToward(MapEvent object) {
-		int dx = object.getX() - this.getX();
-		int dy = object.getY() - this.getY();
-		if (Math.abs(dx) > Math.abs(dy)) {
-			if (dx > 0) {
-				setFacing(Direction.RIGHT);
-			} else {
-				setFacing(Direction.LEFT);
-			}
-		} else {
-			if (dy > 0) {
-				setFacing(Direction.UP);
-			} else {
-				setFacing(Direction.DOWN);
-			}
-		}
+	public void faceToward(MapEvent event) {
+		setFacing(directionTo(event));
 	}
 	
 	/**
@@ -484,7 +474,7 @@ public class CharacterEvent extends MapEvent {
 		if (act.getAppearance() != null) {
 			setAppearance(act.getAppearance());
 			act.getAppearance().reset();
-			act.getAppearance().startMoving(walkAnim.getFacing());
+			setFacing(walkAnim.getFacing());
 		}
 	}
 	
@@ -554,8 +544,8 @@ public class CharacterEvent extends MapEvent {
 					newDir = Direction.UP;
 				}
 			}
-			walkAnim.startMoving(newDir);
-			appearance.startMoving(newDir);
+			setFacing(newDir);
+			walkAnim.startMoving();
 		}
 		super.internalTargetVelocity(targetVX, targetVY);
 	}
@@ -589,7 +579,7 @@ public class CharacterEvent extends MapEvent {
 	protected void init(CharacterEventMDO mdo) {
 		this.mdo = mdo;
 		activeMoves = new ArrayList<MovesetAct>();
-		if (mdo.appearance != null) {
+		if (mdo.appearance != null && !mdo.appearance.equals(NULL_MDO)) {
 			DirMDO dirMDO = RGlobal.data.getEntryFor(mdo.appearance, DirMDO.class);
 			walkAnim = FacesAnimationFactory.create(dirMDO, this);
 			appearance = walkAnim;

@@ -649,6 +649,13 @@
     <property name="id" value="scene_event_room_waldy"/>
    </properties>
   </object>
+  <object name="DragonBeetle" type="event" x="32" y="160" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_dragon_beetle"/>
+    <property name="respawns" value=""/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Lower 2" width="13" height="11">
   <properties>

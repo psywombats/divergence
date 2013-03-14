@@ -631,7 +631,7 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt1c0OgjAMB/BWbns0o0h8BaICQdGz+u62YZ5cN8JHG6NL/tmF0F86WAGWXxcEuAZyRoXifrVUawWfaYwMDn/b4ALRMvD3eDM2cA8y+Bvehk3AoWnIad8ZGmqqc6LsDQ28rP/NbzFozLSUQZppnWAbk9Q9Kc0TDLjGJnVHWRo6f+bSWbGhxHkiGbhGEzG4meqXkfcPMdzpmcfEPIUerGGYYclsoZ8jloaC6h9orwwNHO5B7A7TNPBsPRql8oYXV45VJA==
+   eJzt1c0KgzAMB/DE3fpsouArCH6x6XbefHcT0JOplaqNMgN/PATMj6INwPHVIsBbyAsDDB/rSbMimKdRMhj8b4MREsrA3+NH2cBn8IDbMBliwRHSkNAzVTTUNKekZIoGLu1/8yqGEDvNZbDttM5i84nrnrTtExRcvnHdUWcxSH1u57hPfA1mp/n5wvvXGL7U/21MbzmDtYajcxvOZ+DdWiilGg0DmkZTNg==
   </data>
  </layer>
  <layer name="Upper 1" width="33" height="26">
@@ -639,7 +639,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBhZYA8Q7wXifQPohiNAfBSIjw2gG84A8VkgPjeAbrgCpa8B8akBdMcoGAWDBRwfaAeMgiEHhkqddo9ENqmA1nXaEwLyoDoMuU57SyN3kAoGiztA4BYBmlg1lIBHBGhi1YDAbiq5iRJwGIk9Wn8MTgAAonQp5Q==
+   eJxjYBhZYA8Q7wXifQPohiNAfBSIjw2gG84A8VkgPjeAbrgCpa8B8akBdMcoGAWDBRwfaAeMgiEHhkqddo9ENqmA1nXaEwLyoDoMuU57SyN3kAoGiztA4BYBmlg1lIBHBGhi1YDAbiq5iRJweKAdMAoIAgBlPSke
   </data>
  </layer>
  <objectgroup name="Event 1" width="33" height="26">
@@ -679,6 +679,42 @@
     <property name="face" value="up"/>
     <property name="key" value="event_chloe"/>
     <property name="switch" value="got_earrings"/>
+   </properties>
+  </object>
+  <object name="Grinder" type="event" x="352" y="672" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_grinder"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object name="Grinder" type="event" x="352" y="704" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_grinder"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object name="Grinder" type="event" x="352" y="736" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_grinder"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object name="Grinder" type="event" x="352" y="768" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_grinder"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object name="Grinder" type="event" x="896" y="768" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_grinder"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object name="Gadget" type="event" x="64" y="736" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_gadget"/>
+    <property name="switch" value="intro_done"/>
    </properties>
   </object>
  </objectgroup>

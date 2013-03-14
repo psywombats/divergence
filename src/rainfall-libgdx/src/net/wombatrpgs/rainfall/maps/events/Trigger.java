@@ -38,6 +38,7 @@ public class Trigger extends MapEvent {
 	 */
 	protected Trigger(Level parent, TiledObject object) {
 		super(parent, object, false, true);
+		// TODO: correct this awful width thing
 		this.box = new RectHitbox(this, 0, -object.height, object.width, 0);
 		String id = object.properties.get(PROPERTY_ID);
 		if (id == null) {

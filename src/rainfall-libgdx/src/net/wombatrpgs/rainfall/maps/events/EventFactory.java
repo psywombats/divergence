@@ -14,6 +14,7 @@ import net.wombatrpgs.rainfall.maps.custom.EventButton;
 import net.wombatrpgs.rainfall.maps.custom.EventChest;
 import net.wombatrpgs.rainfall.maps.custom.EventPressurePad;
 import net.wombatrpgs.rainfall.maps.custom.EventTrickWall;
+import net.wombatrpgs.rainfall.maps.custom.instances.EventLiftBottom;
 import net.wombatrpgs.rainfall.maps.custom.instances.EventPressurePadHavenFight;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 
@@ -112,6 +113,8 @@ public class EventFactory {
 			return new EventTrickWall(object, parent);
 		} else if (id.equals(EventPressurePadHavenFight.ID)) {
 			return new EventPressurePadHavenFight(object, parent);
+		} else if (id.equals(EventLiftBottom.ID)) {
+			return new EventLiftBottom(object, parent);
 		} else {
 			RGlobal.reporter.warn("Unrecognized ID on custom event: " + id + "(" + object + ")");
 			return null;

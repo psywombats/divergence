@@ -918,6 +918,18 @@
     <property name="switch" value="intro_done"/>
    </properties>
   </object>
+  <object name="Trigger" type="trigger" x="592" y="320" width="16" height="32">
+   <properties>
+    <property name="id" value="scene_event_reverse_entrance2"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object name="Trigger" type="trigger" x="592" y="320" width="16" height="32">
+   <properties>
+    <property name="hideswitch" value="intro_done"/>
+    <property name="id" value="scene_event_reverse_entrance"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Lower 2" width="20" height="23">
   <properties>

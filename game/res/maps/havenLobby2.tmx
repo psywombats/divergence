@@ -919,9 +919,14 @@
   </object>
   <object height="32" name="Trigger" type="trigger" width="16" x="592" y="320">
    <properties>
-    <property name="auto" value=""/>
-    <property name="id" value="scene_event_reverse_entrance"/>
+    <property name="id" value="scene_event_reverse_entrance2"/>
     <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="Trigger" type="trigger" width="16" x="592" y="320">
+   <properties>
+    <property name="hideswitch" value="intro_done"/>
+    <property name="id" value="scene_event_reverse_entrance"/>
    </properties>
   </object>
  </objectgroup>

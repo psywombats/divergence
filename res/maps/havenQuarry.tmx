@@ -780,9 +780,15 @@
     <property name="switch" value="intro_done"/>
    </properties>
   </object>
-  <object name="Trigger" type="trigger" x="544" y="480" width="32" height="32">
+  <object name="Lift" type="object" x="544" y="496" width="32" height="16">
    <properties>
-    <property name="id" value="scene_event_lift_first_seen"/>
+    <property name="id" value="haven_lift"/>
+   </properties>
+  </object>
+  <object name="????" type="event" x="416" y="416" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_venustron"/>
+    <property name="respawns" value=""/>
     <property name="switch" value="intro_done"/>
    </properties>
   </object>

@@ -20,6 +20,7 @@ import net.wombatrpgs.rainfall.maps.layers.EventLayer;
 import net.wombatrpgs.rainfall.physics.CollisionResult;
 import net.wombatrpgs.rainfall.physics.Hitbox;
 import net.wombatrpgs.rainfall.physics.NoHitbox;
+import net.wombatrpgs.rainfallschema.maps.data.Direction;
 
 /**
  * A map event is any map object defined in Tiled, including characters and
@@ -282,8 +283,6 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		if (Float.isNaN(vx) || Float.isNaN(vy)) {
 			RGlobal.reporter.warn("NaN values in physics!! " + this);
 		}
-		x += vx * elapsed;
-		y += vy * elapsed;
 		if (tracking) {
 			if ((x < targetX && lastX > targetX) || (x > targetX && lastX < targetX)) {
 				x = targetX;
@@ -307,8 +306,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 				endFall();
 			}
 		}
-		lastX = x;
-		lastY = y;
+		integrate(elapsed);
 	}
 
 	/**
@@ -333,7 +331,11 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	@Override
 	public void reset() {
 		if (object == null) {
-			getLevel().removeEvent(this);
+			if (getLevel() != null) {
+				getLevel().removeEvent(this);
+			} else {
+				RGlobal.reporter.warn("Strange ordering of remove events... " + this);
+			}
 		} else {
 			setX(object.x);
 			setY(parent.getHeight()*parent.getTileHeight()-object.y);
@@ -569,7 +571,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
-	 * This is like 7th grade math class here.
+	 * Calculates distance. This is like 7th grade math class here.
 	 * @param 	other			The other object in the calculation
 	 * @return					The distance between this and other, in pixels
 	 */
@@ -577,6 +579,29 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		float dx = other.x - x;
 		float dy = other.y - y;
 		return (float) Math.sqrt(dx*dx + dy*dy);
+	}
+	
+	/**
+	 * Calculates the direction towards some other map event.
+	 * @param 	event			The event to get direction towards
+	 * @return					The direction towards that event
+	 */
+	public Direction directionTo(MapEvent event) {
+		int dx = event.getX() - this.getX();
+		int dy = event.getY() - this.getY();
+		if (Math.abs(dx) > Math.abs(dy)) {
+			if (dx > 0) {
+				return Direction.RIGHT;
+			} else {
+				return Direction.LEFT;
+			}
+		} else {
+			if (dy > 0) {
+				return Direction.UP;
+			} else {
+				return Direction.DOWN;
+			}
+		}
 	}
 
 	/**
@@ -708,6 +733,17 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		holeX = 0;
 		holeY = 0;
 		falling = false;
-	}	
+	}
+	
+	/**
+	 * Applies the physics integration for a timestep.
+	 * @param 	elapsed			The time elapsed in that timestep
+	 */
+	protected void integrate(float elapsed) {
+		x += vx * elapsed;
+		y += vy * elapsed;
+		lastX = x;
+		lastY = y;
+	}
 
 }

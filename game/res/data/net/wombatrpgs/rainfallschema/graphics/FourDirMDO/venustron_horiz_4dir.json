@@ -3,8 +3,8 @@
 	"subfolder" : "enemies",
 	"name" : "",
 	"description" : "",
-	"upAnim" : "animation_venustron_vert_faceup",
-	"rightAnim" : "animation_venustron_vert_faceright",
-	"downAnim" : "animation_venustron_vert_faceright",
-	"leftAnim" : "animation_venustron_vert_faceleft"
+	"upAnim" : "animation_venustron_horiz_faceup",
+	"rightAnim" : "animation_venustron_horiz_faceright",
+	"downAnim" : "animation_venustron_horiz_faceright",
+	"leftAnim" : "animation_venustron_horiz_faceleft"
 }

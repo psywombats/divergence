@@ -3,7 +3,7 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
-	"appearance" : "None",
+	"appearance" : "venustron_vert_4dir",
 	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
 	"response" : "ETHEREAL",
 	"touch" : "INSTADEATH",

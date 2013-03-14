@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="33" height="26" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="17" height="17" tilewidth="32" tileheight="32">
  <properties>
   <property name="minimap" value="graphic_minimap_l1_f1"/>
-  <property name="minimap_x1" value="122"/>
-  <property name="minimap_x2" value="180"/>
-  <property name="minimap_y1" value="117"/>
+  <property name="minimap_x1" value="63"/>
+  <property name="minimap_x2" value="84"/>
+  <property name="minimap_y1" value="153"/>
   <property name="minimap_y2" value="174"/>
  </properties>
  <tileset firstgid="1" name="blockboundBrickWall" tilewidth="32" tileheight="32">
@@ -187,6 +187,11 @@
    </properties>
   </tile>
   <tile id="18">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="19">
    <properties>
     <property name="x" value=""/>
    </properties>
@@ -621,122 +626,114 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Lower 1" width="33" height="26">
+ <layer name="Lower 1" width="17" height="17">
   <properties>
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt1c0KgzAMB/DE3fpsouArCH6x6XbefHcT0JOplaqNMgN/PATMj6INwPHVIsBbyAsDDB/rSbMimKdRMhj8b4MREsrA3+NH2cBn8IDbMBliwRHSkNAzVTTUNKekZIoGLu1/8yqGEDvNZbDttM5i84nrnrTtExRcvnHdUWcxSH1u57hPfA1mp/n5wvvXGL7U/21MbzmDtYajcxvOZ+DdWiilGg0DmkZTNg==
+   eJzLY2RgKKAA5wJxDhAXMZCPs6Bm1DCQj2FmwEAykW5KRtIDMyMZCaOr58IihqwemxnobuXCIkbIjDgGwpgYM8yx0MtJNEMPSvOh0aSYUcOA3QyYu0gJDz0c7iIlPGDuQXcXKeGBjvVIMANk73IsZsDcQ4v0kQnEaThwOtTMVDxqMpDyDjaQSaQ6ADm3asc=
   </data>
  </layer>
- <layer name="Upper 1" width="33" height="26">
+ <layer name="Upper 1" width="17" height="17">
   <properties>
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBhZYA8Q7wXifQPohiNAfBSIjw2gG84A8VkgPjeAbrgCpa8B8akBdMcoGAWDBRwfaAeMgiEHhkqddo9ENqlgoOs0UB2GXKe9HSB3oIPB4g4QuEWAJlYNJeARAZpYNaNgFBALAMxAJrw=
+   eJxjYBi84CsQfyNCjBiwB4j3AvE+CtxzBIiPAvExCsw4A8RngfgcBWZcAeKrQHyNAjPQwSkqmjUKyAdvkfBIAQBgxxDU
   </data>
  </layer>
- <objectgroup name="Event 1" width="33" height="26">
+ <objectgroup name="Event 1" width="17" height="17">
   <properties>
    <property name="z" value=".5"/>
   </properties>
-  <object name="Point" type="point" x="512" y="736">
+  <object name="Teleport" type="teleport" x="256" y="160" width="32" height="24">
    <properties>
-    <property name="name" value="cam_target"/>
+    <property name="hideswitch" value="intro_done"/>
+    <property name="id" value="map_havenWestHall"/>
+    <property name="x" value="3"/>
+    <property name="y" value="7"/>
    </properties>
   </object>
-  <object name="Nico" type="event" x="832" y="720" width="32" height="32">
+  <object name="Trigger" type="trigger" x="256" y="496" width="32" height="16">
    <properties>
-    <property name="group" value="gang1; gang2"/>
-    <property name="key" value="event_nico"/>
-    <property name="name" value="nico"/>
-   </properties>
-  </object>
-  <object name="Widget" type="event" x="896" y="720" width="32" height="32">
-   <properties>
-    <property name="group" value="gang1"/>
-    <property name="key" value="event_widget"/>
-   </properties>
-  </object>
-  <object name="Grinder" type="event" x="64" y="688" width="32" height="32">
-   <properties>
-    <property name="group" value="gang2"/>
-    <property name="key" value="event_grinder"/>
-   </properties>
-  </object>
-  <object name="Grinder" type="event" x="64" y="752" width="32" height="32">
-   <properties>
-    <property name="group" value="gang2"/>
-    <property name="key" value="event_grinder"/>
-   </properties>
-  </object>
-  <object name="Trigger" type="trigger" x="480" y="512" width="32" height="32">
-   <properties>
-    <property name="auto" value=""/>
-    <property name="id" value="scene_intro0001"/>
-   </properties>
-  </object>
-  <object name="Nico" type="event" x="928" y="672" width="32" height="32">
-   <properties>
-    <property name="face" value="left"/>
-    <property name="key" value="event_nico"/>
-    <property name="name" value="nico2"/>
-   </properties>
-  </object>
-  <object name="Grinder" type="event" x="864" y="656" width="32" height="32">
-   <properties>
-    <property name="face" value="right"/>
-    <property name="key" value="event_grinder"/>
-    <property name="pace" value=""/>
-   </properties>
-  </object>
-  <object name="Grinder" type="event" x="864" y="688" width="32" height="32">
-   <properties>
-    <property name="face" value="right"/>
-    <property name="key" value="event_grinder"/>
-    <property name="pace" value=""/>
-   </properties>
-  </object>
-  <object name="Widget" type="event" x="832" y="672" width="32" height="32">
-   <properties>
-    <property name="face" value="right"/>
-    <property name="key" value="event_widget"/>
-    <property name="pace" value=""/>
-   </properties>
-  </object>
-  <object name="Block" type="event" x="896" y="672" width="32" height="32">
-   <properties>
-    <property name="key" value="event_waldy_stoned"/>
-   </properties>
-  </object>
-  <object name="Widget" type="event" x="32" y="720" width="32" height="32">
-   <properties>
-    <property name="group" value="gang2"/>
-    <property name="key" value="event_widget"/>
-    <property name="pace" value=""/>
+    <property name="hideswitch" value="intro_done"/>
+    <property name="id" value="scene_event_reverse_boss"/>
    </properties>
   </object>
  </objectgroup>
- <layer name="Lower 2" width="33" height="26">
+ <layer name="Lower 2" width="17" height="17">
   <properties>
    <property name="z" value="1"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztzrERABAUBUGNIkT/Dfg9PJndmcuvNQAAXuvVCJvhw6p22Akf4FcXWOYN7Q==
+   eJxjYBg8oAiKKdFTA8WkAHQ9XIwQTApA1wPjFxOpvxCLGUUMpJuBLTxAZtQSaUY1A+7w4CYyTDgZcYfHqBmDy4zBAADaFAt/
   </data>
  </layer>
- <layer name="Upper 2" width="33" height="26">
+ <layer name="Upper 2" width="17" height="17">
   <properties>
    <property name="z" value="1.5"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwSgYnmAXAT6xaigBhwjwiVUzCkbBUAK3iJDDRROrZrADANoyDZs=
+   eJxjYBgFo2Bwgl1UMOMQFcygBhhOfqE2AAAXoAL5
   </data>
  </layer>
- <objectgroup name="Event 2" width="33" height="26">
+ <objectgroup name="Event 2" width="17" height="17">
   <properties>
    <property name="z" value="1.5"/>
+  </properties>
+  <object name="Virgil" type="event" x="64" y="320" width="32" height="32">
+   <properties>
+    <property name="face" value="right"/>
+    <property name="key" value="event_virgil"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object name="Chloe" type="event" x="32" y="352" width="32" height="32">
+   <properties>
+    <property name="face" value="right"/>
+    <property name="key" value="event_chloe"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object name="Trick Door" type="object" x="64" y="224" width="32" height="32">
+   <properties>
+    <property name="id" value="trick_wall"/>
+   </properties>
+  </object>
+  <object name="DragonBeetle" type="event" x="64" y="112" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_dragon_beetle"/>
+    <property name="respawns" value=""/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object name="DragonBeetle" type="event" x="448" y="112" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_dragon_beetle"/>
+    <property name="respawns" value=""/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="Lower 3" width="17" height="17">
+  <properties>
+   <property name="z" value="2"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBh8IIkK6gbajGwoziHSjCwkPaNgFIwkAAD0zQTP
+  </data>
+ </layer>
+ <layer name="Upper 3" width="17" height="17">
+  <properties>
+   <property name="z" value="2.5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIKBAwAEhAAB
+  </data>
+ </layer>
+ <objectgroup name="Event 3" width="17" height="17">
+  <properties>
+   <property name="z" value="2.5"/>
   </properties>
  </objectgroup>
 </map>

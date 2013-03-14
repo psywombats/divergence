@@ -38,5 +38,18 @@ public class FacesAnimationFactory {
 			return null;
 		}
 	}
+	
+	/**
+	 * Creates the right subclass of FacesAnimation by checking the database.
+	 * The other parameters are straight from its constructor. Differs from the
+	 * above in that it looks up in the database instead of you.
+	 * @param 	mdoKey			The key to check in the database
+	 * @param 	parent			The parent map event
+	 * @return					That object, formatted and shit
+	 */
+	public static FacesAnimation create(String mdoKey, MapEvent parent) {
+		DirMDO mdo = RGlobal.data.getEntryFor(mdoKey, DirMDO.class);
+		return create(mdo, parent);
+	}
 
 }

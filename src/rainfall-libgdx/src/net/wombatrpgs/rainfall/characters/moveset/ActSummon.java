@@ -11,8 +11,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import net.wombatrpgs.rainfall.characters.Block;
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.graphics.particles.Emitter;
-import net.wombatrpgs.rainfall.graphics.particles.GibParticleSet;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.events.AnimationPlayer;
 import net.wombatrpgs.rainfall.maps.objects.TimerListener;
@@ -23,8 +21,6 @@ import net.wombatrpgs.rainfall.physics.RectHitbox;
 import net.wombatrpgs.rainfall.physics.TargetPosition;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.SummonMDO;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
-import net.wombatrpgs.rainfallschema.graphics.EmitterMDO;
-import net.wombatrpgs.rainfallschema.graphics.GibsetMDO;
 import net.wombatrpgs.rainfallschema.maps.data.Direction;
 
 /**
@@ -34,8 +30,6 @@ public class ActSummon extends MovesetAct {
 	
 	protected SummonMDO mdo;
 	protected AnimationPlayer goodPlayer;
-	protected AnimationPlayer badPlayer;
-	protected Emitter emitter;
 	
 	/**
 	 * Creates and initializes this summon MDO. Involves loading an image, it
@@ -50,15 +44,7 @@ public class ActSummon extends MovesetAct {
 			RGlobal.block = new Block(mdo);
 		}
 		AnimationMDO goodMDO = RGlobal.data.getEntryFor(mdo.blockAnimation, AnimationMDO.class);
-		AnimationMDO badMDO = RGlobal.data.getEntryFor(mdo.failAnimation, AnimationMDO.class);
 		this.goodPlayer = new AnimationPlayer(goodMDO);
-		this.badPlayer = new AnimationPlayer(badMDO);
-		if (mdo.emitter != null && mdo.gibs != null) {
-			GibsetMDO gibsetMDO = RGlobal.data.getEntryFor(mdo.gibs, GibsetMDO.class);
-			EmitterMDO emitterMDO = RGlobal.data.getEntryFor(mdo.emitter, EmitterMDO.class);
-			GibParticleSet gibs = new GibParticleSet(gibsetMDO);
-			emitter = new Emitter(emitterMDO, gibs);
-		}
 	}
 
 	/**
@@ -94,7 +80,7 @@ public class ActSummon extends MovesetAct {
 				int deltaZ = result.z - map.getZ(RGlobal.hero);
 				summonAt(map, targetTileX, targetTileY + deltaZ, result.z);
 			} else {
-				selfDestructAt(map, targetTileX, targetTileY, result.z);
+				RGlobal.block.selfDestructAt(map, targetTileX, targetTileY, result.z);
 			}
 		} else {
 			// there was nothing to drop the block onto
@@ -151,32 +137,6 @@ public class ActSummon extends MovesetAct {
 		});
 		RGlobal.block.setSummoning(true);
 	}
-	
-	/**
-	 * Nicely animates the block landing (and killing) itself at the location.
-	 * @param	map				The map to drop the block on
-	 * @param 	targetTileX		The x-coord to land at (in tiles)
-	 * @param 	targetTileY		The y-coord to land at (in tiles)
-	 * @param	z				The z-layer to land at (in z-depth layer)
-	 */
-	private void selfDestructAt(Level map, final int targetTileX, final int targetTileY, int z) {
-		if (RGlobal.block != null && RGlobal.block.getLevel() != null) {
-			RGlobal.block.getLevel().removeEvent(RGlobal.block);
-		}
-		map.addEvent(badPlayer, targetTileX, targetTileY, z+1);
-		badPlayer.start();
-		new TimerObject(mdo.duration, actor, new TimerListener() {
-			@Override
-			public void onTimerZero(TimerObject source) {
-				if (emitter != null) {
-					actor.getLevel().addEvent(emitter, 
-							targetTileX, targetTileY,
-							actor.getLevel().getZ(actor));
-					emitter.fire(0, 0);
-				}
-			}
-		});
-	}
 
 	/**
 	 * @see net.wombatrpgs.rainfall.characters.moveset.MovesetAct#queueRequiredAssets
@@ -187,10 +147,6 @@ public class ActSummon extends MovesetAct {
 		super.queueRequiredAssets(manager);
 		RGlobal.block.queueRequiredAssets(manager);
 		goodPlayer.queueRequiredAssets(manager);
-		badPlayer.queueRequiredAssets(manager);
-		if (emitter != null) {
-			emitter.queueRequiredAssets(manager);
-		}
 	}
 
 	/**
@@ -200,12 +156,8 @@ public class ActSummon extends MovesetAct {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
-		goodPlayer.postProcessing(manager, pass);
-		badPlayer.postProcessing(manager, pass);
 		RGlobal.block.postProcessing(manager, pass);
-		if (emitter != null) {
-			emitter.postProcessing(manager, pass);
-		}
+		goodPlayer.postProcessing(manager, pass);
 	}
 
 }

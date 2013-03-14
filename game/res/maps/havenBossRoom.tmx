@@ -653,6 +653,12 @@
     <property name="y" value="7"/>
    </properties>
   </object>
+  <object height="16" name="Trigger" type="trigger" width="32" x="256" y="496">
+   <properties>
+    <property name="hideswitch" value="intro_done"/>
+    <property name="id" value="scene_event_reverse_boss"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer height="17" name="Lower 2" width="17">
   <properties>

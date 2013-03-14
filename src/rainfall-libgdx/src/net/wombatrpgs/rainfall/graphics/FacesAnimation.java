@@ -167,22 +167,9 @@ public abstract class FacesAnimation implements Renderable,
 	 * Just starts moving.
 	 */
 	public void startMoving() {
-		Direction oldDir = getFacing();
-		for (Direction dir : Direction.values()) {
-			startMoving(dir);
-		}
-		setFacing(oldDir);
-	}
-	
-	/**
-	 * Starts moving in the indicated direction.
-	 * @param 	dir			The new direction to move in
-	 */
-	public void startMoving(Direction dir) {
 		for (int i = 0; i < facings; i++) {
 			animations[i].startMoving();
 		}
-		setFacing(dir);
 	}
 	
 	/**

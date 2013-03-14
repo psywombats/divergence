@@ -13,14 +13,22 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.AnimationStrip;
+import net.wombatrpgs.rainfall.graphics.particles.Emitter;
+import net.wombatrpgs.rainfall.graphics.particles.GibParticleSet;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.Positionable;
+import net.wombatrpgs.rainfall.maps.events.AnimationPlayer;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
+import net.wombatrpgs.rainfall.maps.objects.TimerListener;
+import net.wombatrpgs.rainfall.maps.objects.TimerObject;
 import net.wombatrpgs.rainfall.physics.CollisionResult;
 import net.wombatrpgs.rainfall.physics.Hitbox;
 import net.wombatrpgs.rainfall.physics.RectHitbox;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.SummonMDO;
+import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
+import net.wombatrpgs.rainfallschema.graphics.EmitterMDO;
+import net.wombatrpgs.rainfallschema.graphics.GibsetMDO;
 
 /**
  * That big blocky thing that falls from the sky.
@@ -30,6 +38,8 @@ public class Block extends CharacterEvent {
 	protected SummonMDO mdo;
 	protected AnimationStrip anim;
 	protected Hitbox upperBox;
+	protected AnimationPlayer badPlayer;
+	protected Emitter emitter;
 	protected boolean summonInProgress;
 	
 	/**
@@ -39,6 +49,7 @@ public class Block extends CharacterEvent {
 	 */
 	public Block(SummonMDO mdo) {
 		super(RGlobal.data.getEntryFor(mdo.blockEvent, CharacterEventMDO.class));
+		this.mdo = mdo;
 		setCollisionsEnabled(true);
 		summonInProgress = false;
 		upperBox = new RectHitbox(new Positionable() {
@@ -46,6 +57,14 @@ public class Block extends CharacterEvent {
 			@Override public int getY() { return (int) (y + Level.PIXELS_PER_Y); }
 		}, 	-1, -1, 
 			getHitbox().getWidth()+1, getHitbox().getHeight()+1);
+		AnimationMDO badMDO = RGlobal.data.getEntryFor(mdo.failAnimation, AnimationMDO.class);
+		this.badPlayer = new AnimationPlayer(badMDO);
+		if (mdo.emitter != null && mdo.gibs != null) {
+			GibsetMDO gibsetMDO = RGlobal.data.getEntryFor(mdo.gibs, GibsetMDO.class);
+			EmitterMDO emitterMDO = RGlobal.data.getEntryFor(mdo.emitter, EmitterMDO.class);
+			GibParticleSet gibs = new GibParticleSet(gibsetMDO);
+			emitter = new Emitter(emitterMDO, gibs);
+		}
 	}
 	
 	/** @param summoning True if summoning is in progress */
@@ -78,6 +97,10 @@ public class Block extends CharacterEvent {
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
 		appearance.queueRequiredAssets(manager);
+		badPlayer.queueRequiredAssets(manager);
+		if (emitter != null) {
+			emitter.queueRequiredAssets(manager);
+		}
 	}
 
 	/**
@@ -88,6 +111,10 @@ public class Block extends CharacterEvent {
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
 		appearance.postProcessing(manager, pass);
+		badPlayer.postProcessing(manager, pass);
+		if (emitter != null) {
+			emitter.postProcessing(manager, pass);
+		}
 	}
 
 	/**
@@ -170,6 +197,32 @@ public class Block extends CharacterEvent {
 			parent.removeEvent(this);
 		}
 		map.addEvent(this, getX(), getY());
+	}
+	
+	/**
+	 * Nicely animates the block landing (and killing) itself at the location.
+	 * @param	map				The map to drop the block on
+	 * @param 	targetTileX		The x-coord to land at (in tiles)
+	 * @param 	targetTileY		The y-coord to land at (in tiles)
+	 * @param	z				The z-layer to land at (in z-depth layer)
+	 */
+	public void selfDestructAt(Level map, final int targetTileX, final int targetTileY, int z) {
+		if (RGlobal.block != null && RGlobal.block.getLevel() != null) {
+			RGlobal.block.getLevel().removeEvent(RGlobal.block);
+		}
+		map.addEvent(badPlayer, targetTileX, targetTileY, z+1);
+		badPlayer.start();
+		new TimerObject(mdo.duration, this, new TimerListener() {
+			@Override
+			public void onTimerZero(TimerObject source) {
+//				if (emitter != null) {
+//					RGlobal.hero.getLevel().addEvent(emitter, 
+//							targetTileX, targetTileY,
+//							RGlobal.hero.getLevel().getZ(RGlobal.hero));
+//					emitter.fire(0, 0);
+//				}
+			}
+		});
 	}
 	
 }

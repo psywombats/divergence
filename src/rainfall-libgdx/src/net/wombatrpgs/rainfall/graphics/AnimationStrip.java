@@ -38,6 +38,7 @@ public class AnimationStrip implements 	Renderable,
 	
 	protected float time;
 	protected float maxTime;
+	protected float bump;
 	protected boolean moving;
 	protected boolean looping;
 	
@@ -51,6 +52,7 @@ public class AnimationStrip implements 	Renderable,
 		this.mdo = mdo;
 		this.parent = parent;
 		this.time = 0;
+		this.bump = 0;
 		this.maxTime = ((float) mdo.frameCount) / ((float) mdo.animSpeed);
 		this.moving = false;
 		if (mdo.hit1x == null) mdo.hit1x = 0;
@@ -71,11 +73,17 @@ public class AnimationStrip implements 	Renderable,
 		this(mdo, null);
 	}
 	
+	/** @param bump Bump up animation time by some amount */
+	public void setBump(float bump) { this.bump = bump; }
+	
 	/** @return Time elapsed since started playing */
 	public float getTime() { return this.time; }
 	
 	/** @return Time total to elapse */
 	public float getMaxTime() { return this.maxTime; }
+	
+	/** @return How many frames this anim goes through in a second */
+	public float getFPS() { return this.mdo.animSpeed; }
 	
 	/** @return The width (in px) of current frames */
 	public int getWidth() { return currentFrame.getRegionWidth(); }
@@ -91,7 +99,7 @@ public class AnimationStrip implements 	Renderable,
 		if (moving) {
 			time += elapsed;
 		}
-		currentFrame = anim.getKeyFrame(time, looping);
+		currentFrame = anim.getKeyFrame(time + bump, looping);
 	}
 
 	/**
