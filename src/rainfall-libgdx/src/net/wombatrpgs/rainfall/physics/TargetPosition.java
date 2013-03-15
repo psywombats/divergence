@@ -13,15 +13,14 @@ import net.wombatrpgs.rainfall.maps.Positionable;
  */
 public class TargetPosition implements Positionable {
 	
-	protected int x;
-	protected int y;
+	protected float x, y;
 	
 	/**
 	 * Creates a new target position centered at the provided coords.
 	 * @param 	x			The initial x-coord of the position
 	 * @param 	y			The initial y-coord of the position
 	 */
-	public TargetPosition(int x, int y) {
+	public TargetPosition(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -30,7 +29,7 @@ public class TargetPosition implements Positionable {
 	 * @see net.wombatrpgs.rainfall.maps.Positionable#getX()
 	 */
 	@Override
-	public int getX() {
+	public float getX() {
 		return x;
 	}
 
@@ -38,14 +37,14 @@ public class TargetPosition implements Positionable {
 	 * @see net.wombatrpgs.rainfall.maps.Positionable#getY()
 	 */
 	@Override
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 	
 	/** @param x The new x-coord of this target */
-	public void setX(int x) { this.x = x; }
+	public void setX(float x) { this.x = x; }
 	
 	/** @param x The new x-coord of this target */
-	public void setY(int y) { this.y = y; }
+	public void setY(float y) { this.y = y; }
 
 }

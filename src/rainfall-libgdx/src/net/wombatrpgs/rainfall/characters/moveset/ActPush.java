@@ -54,8 +54,8 @@ public class ActPush extends MovesetAct {
 			actor.halt();
 			actor.startAction(this);
 			actor.faceToward(RGlobal.block);
-			int dx = actor.getX() - RGlobal.block.getX();
-			int dy = actor.getY() - RGlobal.block.getY();
+			float dx = actor.getX() - RGlobal.block.getX();
+			float dy = actor.getY() - RGlobal.block.getY();
 			if (Math.abs(dx) > Math.abs(dy)) {
 				compX = 1;
 			} else {

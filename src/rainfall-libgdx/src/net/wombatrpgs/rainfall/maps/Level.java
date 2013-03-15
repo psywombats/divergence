@@ -377,7 +377,7 @@ public class Level implements ScreenShowable {
 	 * @return				The result of the fall
 	 */
 	public FallResult dropObject(Hitbox box, float start, TargetPosition target) {
-		int originalY = target.getY();
+		float originalY = target.getY();
 		int i = layers.size()-1;
 		while (layers.get(i).getZ() > start) i -= 1;
 		for (; i >= 0; i--) {
@@ -441,7 +441,7 @@ public class Level implements ScreenShowable {
 	 * @param 	y				The y-coord of the object (in px)
 	 * @param 	z				The z-depth of the object (in ordinal)
 	 */
-	public void addEventAbsolute(MapEvent newEvent, int x, int y, int z) {
+	public void addEventAbsolute(MapEvent newEvent, float x, float y, int z) {
 		newEvent.setX(x);
 		newEvent.setY(y);
 		addEvent(newEvent, z);

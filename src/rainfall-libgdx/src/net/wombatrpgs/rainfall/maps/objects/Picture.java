@@ -26,7 +26,8 @@ public class Picture implements Comparable<Picture>,
 								PositionSetable {
 	
 	protected Graphic appearance;
-	protected int x, y, z; // z is depth-y
+	protected float x, y;
+	protected int z; // z is depth-y
 	protected boolean preloaded;
 	protected boolean ignoresTint;
 	
@@ -113,14 +114,14 @@ public class Picture implements Comparable<Picture>,
 	 * @see net.wombatrpgs.rainfall.maps.Positionable#getX()
 	 */
 	@Override
-	public int getX() {
+	public float getX() {
 		return this.x;
 	}
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.Positionable#getY()
 	 */
 	@Override
-	public int getY() {
+	public float getY() {
 		return this.y;
 	}
 	
@@ -128,14 +129,14 @@ public class Picture implements Comparable<Picture>,
 	 * @see net.wombatrpgs.rainfall.maps.PositionSetable#setX(int)
 	 */
 	@Override
-	public void setX(int x) {
+	public void setX(float x) {
 		this.x = x;
 	}
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.PositionSetable#setY(int)
 	 */
 	@Override
-	public void setY(int y) {
+	public void setY(float y) {
 		this.y = y;
 	}
 	/**

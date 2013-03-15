@@ -17,7 +17,7 @@ import net.wombatrpgs.rainfall.maps.Positionable;
  */
 public class RectHitbox extends Hitbox {
 	
-	private int x1, y1, x2, y2;
+	private float x1, y1, x2, y2;
 	
 	/**
 	 * Creates a new rectangular hitbox. All coordinates relative to the origin
@@ -28,7 +28,7 @@ public class RectHitbox extends Hitbox {
 	 * @param 	x2			The lower right x-coord, in pixels
 	 * @param 	y2			The lower right y-coord, in pixels
 	 */
-	public RectHitbox(Positionable parent, int x1, int y1, int x2, int y2) {
+	public RectHitbox(Positionable parent, float x1, float y1, float x2, float y2) {
 		super(parent);
 		this.x1 = x1;
 		this.x2 = x2;
@@ -40,7 +40,7 @@ public class RectHitbox extends Hitbox {
 	 * @see net.wombatrpgs.rainfall.physics.Hitbox#getWidth()
 	 */
 	@Override
-	public int getWidth() {
+	public float getWidth() {
 		return Math.abs(x1 - x2);
 	}
 
@@ -48,7 +48,7 @@ public class RectHitbox extends Hitbox {
 	 * @see net.wombatrpgs.rainfall.physics.Hitbox#getHeight()
 	 */
 	@Override
-	public int getHeight() {
+	public float getHeight() {
 		return Math.abs(y1 - y2);
 	}
 
@@ -56,7 +56,7 @@ public class RectHitbox extends Hitbox {
 	 * @see net.wombatrpgs.rainfall.physics.Hitbox#getX()
 	 */
 	@Override
-	public int getX() {
+	public float getX() {
 		return parent.getX() + x1;
 	}
 
@@ -64,7 +64,7 @@ public class RectHitbox extends Hitbox {
 	 * @see net.wombatrpgs.rainfall.physics.Hitbox#getY()
 	 */
 	@Override
-	public int getY() {
+	public float getY() {
 		return parent.getY() + y1;
 	}
 
@@ -95,28 +95,28 @@ public class RectHitbox extends Hitbox {
 		CollisionResult result = new CollisionResult();
 		result.collide1 = this;
 		result.collide2 = other;
-		int ax1 = this.x1 + this.parent.getX();
-		int ay1 = this.y1 + this.parent.getY();
-		int ax2 = this.x2 + this.parent.getX();
-		int ay2 = this.y2 + this.parent.getY();
-		int bx1 = other.x1 + other.parent.getX();
-		int by1 = other.y1 + other.parent.getY();
-		int bx2 = other.x2 + other.parent.getX();
-		int by2 = other.y2 + other.parent.getY();
+		float ax1 = this.x1 + this.parent.getX();
+		float ay1 = this.y1 + this.parent.getY();
+		float ax2 = this.x2 + this.parent.getX();
+		float ay2 = this.y2 + this.parent.getY();
+		float bx1 = other.x1 + other.parent.getX();
+		float by1 = other.y1 + other.parent.getY();
+		float bx2 = other.x2 + other.parent.getX();
+		float by2 = other.y2 + other.parent.getY();
 		// if you switch to float, change > to >=
 		boolean colliding =  !((ax1 >= bx2) || (bx1 >= ax2) || (ay1 >= by2) || (by1 >= ay2));
 		if (!colliding) {
 			result.isColliding = false;
 			return result;
 		}
-		int mtvx = 0;
-		int mtvy = 0;
-		int pushLeft = ax2 - bx1;
-		int pushRight = bx2 - ax1;
-		int pushDown = ay2 - by1;
-		int pushUp = by2 - ay1;
+		float mtvx = 0;
+		float mtvy = 0;
+		float pushLeft = ax2 - bx1;
+		float pushRight = bx2 - ax1;
+		float pushDown = ay2 - by1;
+		float pushUp = by2 - ay1;
 		
-		int min = Integer.MAX_VALUE;
+		float min = Float.MAX_VALUE;
 		if (pushLeft < min) min = pushLeft;
 		if (pushRight < min) min = pushRight;
 		if (pushUp < min) min = pushUp;
@@ -148,14 +148,14 @@ public class RectHitbox extends Hitbox {
 			rects.add(this);
 			return rects;
 		}
-		int px1 = x1 + parent.getX();
-		int px2 = other.x1 + other.parent.getX();
-		int px3 = other.x2 + other.parent.getX();
-		int px4 = x2 + parent.getX();
-		int py1 = y1 + parent.getY();
-		int py2 = other.y1 + other.getY();
-		int py3 = other.y2 + other.getY();
-		int py4 = y2 + parent.getY();
+		float px1 = x1 + parent.getX();
+		float px2 = other.x1 + other.parent.getX();
+		float px3 = other.x2 + other.parent.getX();
+		float px4 = x2 + parent.getX();
+		float py1 = y1 + parent.getY();
+		float py2 = other.y1 + other.getY();
+		float py3 = other.y2 + other.getY();
+		float py4 = y2 + parent.getY();
 		if (px1 < px2 && py1 < py2) {
 			rects.add(new RectHitbox(parent, px1, py1, px2, py2));
 		}

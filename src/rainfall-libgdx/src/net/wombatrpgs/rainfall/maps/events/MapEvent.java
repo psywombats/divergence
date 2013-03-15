@@ -159,19 +159,19 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	
 	/** @see net.wombatrpgs.rainfall.maps.Positionable#getX() */
 	@Override
-	public int getX() { return Math.round(x); }
+	public float getX() { return x; }
 
 	/** @see net.wombatrpgs.rainfall.maps.Positionable#getY() */
 	@Override
-	public int getY() { return Math.round(y); }
+	public float getY() { return y; }
 
 	/** @see net.wombatrpgs.rainfall.maps.PositionSetable#setX(int) */
 	@Override
-	public void setX(int x) { this.x = x; }
+	public void setX(float x) { this.x = x; }
 
 	/** @see net.wombatrpgs.rainfall.maps.PositionSetable#setY(int) */
 	@Override
-	public void setY(int y) { this.y = y; }
+	public void setY(float y) { this.y = y; }
 	
 	/** @return Z-depth of this object according to its parent */
 	public int getZ() { return getLevel().getZ(this); }
@@ -239,7 +239,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 */
 	@Override
 	public int getRenderX() {
-		return getX();
+		return (int) getX();
 	}
 
 	/**
@@ -247,7 +247,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 */
 	@Override
 	public int getRenderY() {
-		return getY();
+		return (int) getY();
 	}
 
 	/**
@@ -476,7 +476,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 * com.badlogic.gdx.graphics.g2d.TextureRegion, int, int)
 	 */
 	public void renderLocal(OrthographicCamera camera, TextureRegion sprite) {
-		super.renderLocal(camera, sprite, getX(), getY(), fallTime/FULL_FALL);
+		super.renderLocal(camera, sprite, (int) getX(), (int) getY(), fallTime/FULL_FALL);
 	}
 
 	/**
@@ -610,8 +610,8 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 * @return					The direction towards that event
 	 */
 	public Direction directionTo(MapEvent event) {
-		int dx = event.getX() - this.getX();
-		int dy = event.getY() - this.getY();
+		float dx = event.getX() - this.getX();
+		float dy = event.getY() - this.getY();
 		if (Math.abs(dx) > Math.abs(dy)) {
 			if (dx > 0) {
 				return Direction.RIGHT;

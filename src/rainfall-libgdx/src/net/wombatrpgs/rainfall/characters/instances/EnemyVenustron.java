@@ -61,8 +61,8 @@ public class EnemyVenustron extends EnemyEvent {
 		assets.add(turnNortheast);
 		final Positionable me = this;
 		offBox = new RectHitbox(new Positionable() {
-			@Override public int getX() { return me.getX() - 16; }
-			@Override public int getY() { return me.getY(); }
+			@Override public float getX() { return me.getX() - 16; }
+			@Override public float getY() { return me.getY(); }
 		}, 16, 0, 48, 32);
 		zero();
 	}

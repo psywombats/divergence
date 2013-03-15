@@ -220,9 +220,9 @@ public class GridLayer extends Layer {
 		if (passability[y][x]) return true;
 		Hitbox subBox = new RectHitbox(new Positionable() {
 			@Override
-			public int getX() { return x * map.tileWidth; }
+			public float getX() { return x * map.tileWidth; }
 			@Override
-			public int getY() {return  y * map.tileHeight; }
+			public float getY() {return  y * map.tileHeight; }
 		},
 		map.tileWidth*1/4,
 		map.tileHeight*1/4,
@@ -301,9 +301,9 @@ public class GridLayer extends Layer {
 		}
 		Positionable loc = new Positionable() {
 			@Override
-			public int getX() { return tileX * map.tileWidth;}
+			public float getX() { return tileX * map.tileWidth;}
 			@Override
-			public int getY() { 
+			public float getY() { 
 				if (cliff) return tileY * map.tileHeight - map.tileHeight/2;
 				else return tileY * map.tileHeight; 
 			}

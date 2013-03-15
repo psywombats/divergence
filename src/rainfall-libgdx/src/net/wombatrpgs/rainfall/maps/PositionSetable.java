@@ -16,13 +16,13 @@ public interface PositionSetable extends Positionable {
 	 * Sets the x-coord of the implementing object.
 	 * @param 	x			The new x-coord, in pixels
 	 */
-	public void setX(int x);
+	public void setX(float x);
 	
 	/**
 	 * Sets the y-coord of the implementing object.
 	 * @param 	y			The new y-coord, in pixels
 	 */
-	public void setY(int y);
+	public void setY(float y);
 
 
 }

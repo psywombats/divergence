@@ -26,10 +26,10 @@ public abstract class Hitbox implements Cloneable {
 	}
 	
 	/** @return the x-coord (in pixels) where this hitbox begins */
-	public int getX() { return parent.getX(); }
+	public float getX() { return parent.getX(); }
 	
 	/** @return the y-coord (in pixels) where this hitbox begins */
-	public int getY() { return parent.getY(); }
+	public float getY() { return parent.getY(); }
 	
 	/** @return parent The new source for offsets on this hitbox */
 	public void setParent(Positionable parent) { this.parent = parent; }
@@ -39,14 +39,14 @@ public abstract class Hitbox implements Cloneable {
 	 * farthest to the left and the point farthest to the right.
 	 * @return					The width of this hitbox
 	 */
-	public abstract int getWidth();
+	public abstract float getWidth();
 	
 	/**
 	 * Gets the height of this hitbox, that is, the distance between the point
 	 * farthest to the top and the point farthest to the bottom.
 	 * @return					The height of this hitbox
 	 */
-	public abstract int getHeight();
+	public abstract float getHeight();
 	
 	/**
 	 * Decide if this hitbox collides with the other hitbox via any means

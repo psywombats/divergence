@@ -61,10 +61,10 @@ public class ActSummon extends MovesetAct {
 		if (actor.isMoveActive(this)) return;
 		actor.halt();
 		actor.startAction(this);
-		int heroX = RGlobal.hero.getX() + RGlobal.hero.getHitbox().getWidth()/2;
-		int heroY = RGlobal.hero.getY() + RGlobal.hero.getHitbox().getHeight()/2;
-		int targetTileX = (heroX - heroX % 32) / 32;
-		int targetTileY = (heroY - heroY % 32) / 32;
+		float heroX = RGlobal.hero.getX() + RGlobal.hero.getHitbox().getWidth()/2;
+		float heroY = RGlobal.hero.getY() + RGlobal.hero.getHitbox().getHeight()/2;
+		int targetTileX = Math.round((heroX - heroX % 32) / 32); // TODO: generalize the size
+		int targetTileY = Math.round((heroY - heroY % 32) / 32);
 		Direction dir = RGlobal.hero.getFacing();
 		targetTileX += dir.getVector().x;
 		targetTileY += dir.getVector().y;

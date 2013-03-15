@@ -11,9 +11,10 @@ package net.wombatrpgs.rainfall.maps;
  */
 public interface Positionable {
 	
-	/** @return The x-coord (in pixels) of this object */
-	public int getX();
-	/** @return The y-coord (in pixels) of this object */
-	public int getY();
+	/** @return The x-coord (in screen space pixels) of this object */
+	public float getX();
+	
+	/** @return The y-coord (in screen space pixels) of this object */
+	public float getY();
 
 }

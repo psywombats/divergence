@@ -165,7 +165,7 @@ public class AnimationStrip implements 	Renderable,
 	 */
 	@Override
 	public int getRenderX() {
-		return parent.getX();
+		return (int) parent.getX();
 	}
 
 	/**
@@ -173,7 +173,7 @@ public class AnimationStrip implements 	Renderable,
 	 */
 	@Override
 	public int getRenderY() {
-		return parent.getY();
+		return (int) parent.getY();
 	}
 
 	/**

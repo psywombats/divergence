@@ -35,7 +35,7 @@ public class NoHitbox extends Hitbox {
 	 * @see net.wombatrpgs.rainfall.physics.Hitbox#getWidth()
 	 */
 	@Override
-	public int getWidth() {
+	public float getWidth() {
 		return 0;
 	}
 
@@ -43,7 +43,7 @@ public class NoHitbox extends Hitbox {
 	 * @see net.wombatrpgs.rainfall.physics.Hitbox#getHeight()
 	 */
 	@Override
-	public int getHeight() {
+	public float getHeight() {
 		return 0;
 	}
 
@@ -51,7 +51,7 @@ public class NoHitbox extends Hitbox {
 	 * @see net.wombatrpgs.rainfall.physics.Hitbox#getX()
 	 */
 	@Override
-	public int getX() {
+	public float getX() {
 		return 0;
 	}
 
@@ -59,7 +59,7 @@ public class NoHitbox extends Hitbox {
 	 * @see net.wombatrpgs.rainfall.physics.Hitbox#getY()
 	 */
 	@Override
-	public int getY() {
+	public float getY() {
 		return 0;
 	}
 

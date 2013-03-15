@@ -53,8 +53,8 @@ public class Block extends CharacterEvent {
 		setCollisionsEnabled(true);
 		summonInProgress = false;
 		upperBox = new RectHitbox(new Positionable() {
-			@Override public int getX() { return (int) x; }
-			@Override public int getY() { return (int) (y + Level.PIXELS_PER_Y); }
+			@Override public float getX() { return x; }
+			@Override public float getY() { return y + Level.PIXELS_PER_Y; }
 		}, 	-1, -1, 
 			getHitbox().getWidth()+1, getHitbox().getHeight()+1);
 		AnimationMDO badMDO = RGlobal.data.getEntryFor(mdo.failAnimation, AnimationMDO.class);
@@ -185,18 +185,6 @@ public class Block extends CharacterEvent {
 	@Override
 	public String getName() {
 		return "block";
-	}
-
-	/**
-	 * Changes the map the block is currently located on. Call every time the
-	 * block is summoned.
-	 * @param	map				The new level for the block to be on
-	 */
-	public void changeMap(Level map) {
-		if (this.parent != null) {
-			parent.removeEvent(this);
-		}
-		map.addEvent(this, getX(), getY());
 	}
 	
 	/**

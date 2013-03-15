@@ -101,7 +101,7 @@ public class Graphic implements Queueable {
 	 * @param 	x				The x-coord to render at (in px)
 	 * @param 	y				The y-coord to render at (in px)
 	 */
-	public void renderAt(SpriteBatch batch, int x, int y) {
+	public void renderAt(SpriteBatch batch, float x, float y) {
 		batch.draw(appearance, x, y, getWidth(), getHeight());
 	}
 	
@@ -110,7 +110,7 @@ public class Graphic implements Queueable {
 	 * @param 	x				The x-coord to render at (in px)
 	 * @param 	y				The y-coord to render at (in px)
 	 */
-	public void renderAt(int x, int y) {
+	public void renderAt(float x, float y) {
 		renderAt(RGlobal.screens.peek().getBatch(), x, y);
 	}
 

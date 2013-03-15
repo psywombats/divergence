@@ -18,9 +18,9 @@ public class CollisionResult {
 	/** whether the two actually collided */
 	public boolean isColliding;
 	/** minimum translation vector x */
-	public int mtvX;
+	public float mtvX;
 	/** minimum translation vector y; */
-	public int mtvY;
+	public float mtvY;
 	
 	/** a good dummy false */
 	public static final CollisionResult falseResult = new CollisionResult(false, 0, 0);
@@ -38,7 +38,7 @@ public class CollisionResult {
 	 * @param 	mtvX			The x-value of the mtv
 	 * @param 	mtvY			The y-value of the mtv
 	 */
-	public CollisionResult(boolean isColliding, int mtvX, int mtvY) {
+	public CollisionResult(boolean isColliding, float mtvX, float mtvY) {
 		this.isColliding = isColliding;
 		this.mtvX = mtvX;
 		this.mtvY = mtvY;

@@ -29,11 +29,11 @@ public class IntentPaceWalls extends IntentAct {
 	@Override
 	public void act() {
 		if (actor.getVX() == 0) actor.targetDirection(Direction.RIGHT);
-		int nudge;
+		float nudge;
 		if (actor.getVX() > 0) nudge = SENSOR_RANGE + actor.getHitbox().getWidth();
 		else nudge = -SENSOR_RANGE;
-		int x = actor.getHitbox().getX() + nudge;
-		int y = actor.getHitbox().getY() + actor.getHitbox().getHeight()/2;
+		float x = actor.getHitbox().getX() + nudge;
+		float y = actor.getHitbox().getY() + actor.getHitbox().getHeight()/2;
 		int tileX = (int) Math.floor(x / actor.getLevel().getTileWidth());
 		int tileY = (int) Math.floor(y / actor.getLevel().getTileHeight());
 		for (GridLayer layer : actor.getLevel().getGridLayers()) {

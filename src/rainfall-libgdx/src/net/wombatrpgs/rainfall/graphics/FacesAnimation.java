@@ -136,22 +136,6 @@ public abstract class FacesAnimation implements Renderable,
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRenderX()
-	 */
-	@Override
-	public int getRenderX() {
-		return parent.getX();
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRenderY()
-	 */
-	@Override
-	public int getRenderY() {
-		return parent.getY();
-	}
-
-	/**
 	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRegion()
 	 */
 	@Override
@@ -162,7 +146,23 @@ public abstract class FacesAnimation implements Renderable,
 			return null;
 		}
 	}
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRenderX()
+	 */
+	@Override
+	public int getRenderX() {
+		return parent.getRenderX();
+	}
 
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.PreRenderable#getRenderY()
+	 */
+	@Override
+	public int getRenderY() {
+		return parent.getRenderY();
+	}
+	
 	/**
 	 * Just starts moving.
 	 */
@@ -171,7 +171,7 @@ public abstract class FacesAnimation implements Renderable,
 			animations[i].startMoving();
 		}
 	}
-	
+
 	/**
 	 * Halts all animation movement.
 	 */
