@@ -335,6 +335,24 @@ public class Level implements ScreenShowable {
 		}
 	}
 	
+	// TODO: check events in pathfinding
+	/**
+	 * Checks if a certain tile is passable by our stored layer data. This does
+	 * not check events at the momement.
+	 * @param 	tileX			The checked x-coord (in tiles)
+	 * @param 	tileY			The checked y-coord (in tiles)
+	 * @param	z				The z-depth to restrict the search to (in depth)
+	 * @return 					True if layer is passable, false otherwise
+	 */
+	public boolean isPassable(int tileX, int tileY, int z) {
+		for (GridLayer layer : getGridLayers()) {
+			if (Math.floor(layer.getZ()) == z && !layer.isPassable(tileX, tileY)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	/**
 	 * Performs all collision detection between events, including collision
 	 * response and other things that happen when they collide

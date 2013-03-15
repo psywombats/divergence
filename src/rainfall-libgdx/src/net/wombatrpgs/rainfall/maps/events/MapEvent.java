@@ -173,6 +173,17 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	@Override
 	public void setY(int y) { this.y = y; }
 	
+	/** @return Z-depth of this object according to its parent */
+	public int getZ() { return getLevel().getZ(this); }
+	
+	/** @return The x-coord of this object, in tiles */
+	public int getTileX() { return Math.round((float) getX() / 
+			(float) getLevel().getTileWidth()); }
+	
+	/** @return The y-coord of this object, in tiles */
+	public int getTileY() { return Math.round((float) getY() / 
+			(float) getLevel().getTileHeight()); }
+	
 	/** @return The x-velocity of this object, in px/s */
 	public float getVX() { return this.vx; }
 	
@@ -202,6 +213,17 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	
 	/** @param The new max targetable speed by this event */
 	public void setMaxVelocity(float maxVelocity) { this.maxVelocity = maxVelocity; }
+	
+	/**
+	 * Determines if this object is "stuck" or not. This means it's tracking
+	 * but hasn't moved much at all.
+	 * @return					True if the event is stuck, false otherwise
+	 */
+	public boolean isStuck() {
+		return 	isTracking() &&
+				Math.abs(lastX - x) < Math.abs(vx) / 2.f &&
+				Math.abs(lastY - y) < Math.abs(vy) / 2.f;
+	}
 	
 	/**
 	 * Sorts map objects based on z-depth.
@@ -443,7 +465,8 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 */
 	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, 
 			int offX, int offY, int angle) {
-		super.renderLocal(camera, sprite, getX() + offX, getY() + offY, angle, fallTime/FULL_FALL);
+		super.renderLocal(camera, sprite, getRenderX() + offX, getRenderY() + offY, 
+				angle, fallTime/FULL_FALL);
 	}
 	
 	/**

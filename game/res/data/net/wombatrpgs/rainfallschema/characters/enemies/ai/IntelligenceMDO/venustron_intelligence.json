@@ -1,0 +1,13 @@
+{
+	"key" : "venustron_intelligence",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"intents" : [
+		{
+			"action" : "PATHFIND_TO_HERO",
+			"condition" : "DEFAULT",
+			"priority" : 0
+		}
+	]
+}

@@ -19,7 +19,10 @@ import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.FacesAnimation;
 import net.wombatrpgs.rainfall.graphics.FacesAnimationFactory;
 import net.wombatrpgs.rainfall.maps.Level;
+import net.wombatrpgs.rainfall.maps.Positionable;
 import net.wombatrpgs.rainfall.physics.CollisionResult;
+import net.wombatrpgs.rainfall.physics.Hitbox;
+import net.wombatrpgs.rainfall.physics.RectHitbox;
 import net.wombatrpgs.rainfallschema.characters.enemies.EnemyEventMDO;
 import net.wombatrpgs.rainfallschema.maps.data.Direction;
 
@@ -38,6 +41,8 @@ public class EnemyVenustron extends EnemyEvent {
 	private FacesAnimation appearanceVert, appearanceHoriz;
 	private FacesAnimation turnNortheast, turnNorthwest;
 	
+	private Hitbox offBox;
+	
 	private static final float SWIVEL_TIME = .25f; // in s
 	private Direction travelDir;
 	private float swiveled;
@@ -54,6 +59,11 @@ public class EnemyVenustron extends EnemyEvent {
 		assets.add(appearanceVert);
 		assets.add(turnNorthwest);
 		assets.add(turnNortheast);
+		final Positionable me = this;
+		offBox = new RectHitbox(new Positionable() {
+			@Override public int getX() { return me.getX() - 16; }
+			@Override public int getY() { return me.getY(); }
+		}, 16, 0, 48, 32);
 		zero();
 	}
 
@@ -157,11 +167,20 @@ public class EnemyVenustron extends EnemyEvent {
 		
 		x += vx * elapsed;
 		y += vy * elapsed;
+		if (tracking && ((lastX < targetX && x > targetX) || (lastX > targetX && x < targetX))) {
+			x = targetX;
+		}
+		if (tracking && ((lastY < targetY && y > targetY) || (lastY > targetY && y < targetY))) {
+			y = targetY;
+		}
+		if ((x == targetX && y == targetY) || (lastX == x && lastY == y)) {
+			tracking = false;
+		}
 		lastX = x;
 		lastY = y;
 		
 		setFacing(directionTo(RGlobal.hero));
-		targetLocation(RGlobal.hero.getX(), RGlobal.hero.getY());
+		//targetLocation(RGlobal.hero.getX(), RGlobal.hero.getY());
 	}
 
 	@Override
@@ -175,6 +194,16 @@ public class EnemyVenustron extends EnemyEvent {
 	@Override
 	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
 		return super.onCharacterCollide(other, result);
+	}
+
+	@Override
+	public int getRenderX() {
+		return super.getRenderX() - 16;
+	}
+	
+	@Override
+	public Hitbox getHitbox() {
+		return offBox;
 	}
 
 	@Override
