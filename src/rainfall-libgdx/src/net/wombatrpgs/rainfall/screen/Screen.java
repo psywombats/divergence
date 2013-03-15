@@ -181,6 +181,7 @@ public abstract class Screen implements CommandListener,
 		if (!initialized) {
 			RGlobal.reporter.warn("Forgot to intialize screen " + this);
 		}
+		cam.update(0);
 		int width = RGlobal.window.width;
 		int height = RGlobal.window.height;
 		buffer.begin();
@@ -229,12 +230,12 @@ public abstract class Screen implements CommandListener,
 	 */
 	@Override
 	public void update(float elapsed) {
+		cam.update(elapsed);
 		canvas.update(elapsed);
 		for (ScreenShowable pic : pictures) {
 			pic.update(elapsed);
 		}
 		RGlobal.keymap.update(elapsed);
-		cam.update(elapsed);
 	}
 
 	/**

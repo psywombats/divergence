@@ -84,6 +84,7 @@ public class GridLayer extends Layer {
 	@Override
 	public void render(OrthographicCamera camera, int z) {
 		if ((int) Math.floor(getZ()) == z) {
+			camera.update();
 			parent.getRenderer().render(camera, new int[] {layerID});
 		}
 	}
