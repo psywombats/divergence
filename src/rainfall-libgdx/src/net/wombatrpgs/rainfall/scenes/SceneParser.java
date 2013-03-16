@@ -14,6 +14,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.io.CommandMap;
+import net.wombatrpgs.rainfall.io.SceneCommandMap;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
 import net.wombatrpgs.rainfall.maps.PauseLevel;

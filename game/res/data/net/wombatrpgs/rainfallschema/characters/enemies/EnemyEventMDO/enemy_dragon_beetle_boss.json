@@ -1,0 +1,16 @@
+{
+	"key" : "enemy_dragon_beetle_boss",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"appearance" : "dragon_beetle_4dir",
+	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
+	"response" : "PUSHABLE",
+	"touch" : "NOTHING",
+	"mobility" : "mobility_enemy",
+	"intelligence" : "dummy_intelligence",
+	"vulnerability" : "vulnerability_beetle",
+	"gibset" : "gibset_dragon_beetle",
+	"emitter" : "emitter_enemies",
+	"dieAnim" : "None"
+}

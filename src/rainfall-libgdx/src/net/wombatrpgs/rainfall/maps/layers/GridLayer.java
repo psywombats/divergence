@@ -208,21 +208,19 @@ public class GridLayer extends Layer {
 		}
 		return result;
 	}
-	
+
 	/**
-	 * Determines whether a grid cell is passable by looking it up in our cache
-	 * of passability. This is a little slow as it checks passability overrides.
-	 * @param 	x				The x-coord of the tile to check (in tiles)
-	 * @param 	y				The y-coord of the tile to check (in tiles)
-	 * @return					True if that tile is passable, false otherwise
+	 * @see net.wombatrpgs.rainfall.maps.layers.Layer#isPassable(MapEvent, int, int)
 	 */
-	public boolean isPassable(final int x, final int y) {
-		if (passability[y][x]) return true;
+	@Override
+	public boolean isPassable(MapEvent actor, final int x, final int y) {
+		if (passability[y][x]) {
+			int tileID = layer.tiles[map.height-y-1][x];
+			return map.getTileProperty(tileID, PROPERTY_ABYSS) == null;
+		}
 		Hitbox subBox = new RectHitbox(new Positionable() {
-			@Override
-			public float getX() { return x * map.tileWidth; }
-			@Override
-			public float getY() {return  y * map.tileHeight; }
+			@Override public float getX() {return x * map.tileWidth; }
+			@Override public float getY() {return  y * map.tileHeight; }
 		},
 		map.tileWidth*1/4,
 		map.tileHeight*1/4,

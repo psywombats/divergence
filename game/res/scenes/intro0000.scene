@@ -1,5 +1,3 @@
-[tint 0 0 0 0]
+[tint 0 0 0 .5]
 [wait 1]
-[teleport map_havenQuarry 6 12]
-[set-switch intro_done on]
-[camera-track hero]
+[teleport map_introEastHall 0 0 basic]

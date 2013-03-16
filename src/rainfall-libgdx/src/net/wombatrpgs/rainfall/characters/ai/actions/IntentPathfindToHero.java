@@ -30,15 +30,30 @@ public class IntentPathfindToHero extends IntentAct {
 	@Override
 	public void act() {
 		if (!actor.isTracking() && RGlobal.hero.getLevel() != null) {
-			finder.setStart(actor.getTileX(), actor.getTileY(), actor.getZ());
-			finder.setTarget(RGlobal.hero.getTileX(), RGlobal.hero.getTileY());
-			List<Direction> steps = finder.getPath();
-			if (steps != null && steps.size() != 0) {
-				float toX = (steps.get(0).getVector().x + actor.getTileX());
-				float toY = (steps.get(0).getVector().y + actor.getTileY());
-				toX *= actor.getLevel().getTileWidth();
-				toY *= actor.getLevel().getTileHeight();
-				actor.targetLocation(toX, toY);
+			int tileX = Math.round(actor.getX()/32.f);
+			int tileY = Math.round(actor.getY()/32.f);
+			float targetTileX = tileX * 32;
+			float targetTileY = tileY * 32;
+			if (actor.getLevel().isPassable(actor, tileX, tileY, actor.getZ()) &&
+					(Math.abs(targetTileX-actor.getX()) > .1 || 
+					Math.abs(targetTileY-actor.getY()) > .1)) {
+				actor.targetLocation(targetTileX, targetTileY);
+			} else if (RGlobal.hero.getLevel() != null) {
+				actor.setX(targetTileX);
+				actor.setY(targetTileY);
+				finder.setStart(actor.getTileX(), actor.getTileY(), actor.getZ());
+				finder.setTarget(RGlobal.hero.getTileX(), RGlobal.hero.getTileY());
+				List<Direction> steps = finder.getPath(actor);
+				if (steps != null && steps.size() != 0) {
+					Direction first = steps.get(0);
+					int t;
+					for (t = 0; t < steps.size() && steps.get(t) == first; t++);
+					float toX = (t * first.getVector().x + actor.getTileX());
+					float toY = (t * first.getVector().y + actor.getTileY());
+					toX *= actor.getLevel().getTileWidth();
+					toY *= actor.getLevel().getTileHeight();
+					actor.targetLocation(toX, toY);
+				}
 			}
 		}
 	}

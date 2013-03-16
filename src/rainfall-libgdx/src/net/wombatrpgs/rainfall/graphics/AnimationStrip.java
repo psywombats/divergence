@@ -247,6 +247,7 @@ public class AnimationStrip implements 	Renderable,
 	 */
 	public void setParent(MapEvent parent) {
 		this.parent = parent;
+		box.setParent(parent);
 	}
 
 }

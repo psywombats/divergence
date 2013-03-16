@@ -140,7 +140,7 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public void update(float elapsed) {
-		if (dead || hidden) return;
+		if (hidden()) return;
 		super.update(elapsed);
 		if (!pacing && appearance != null) {
 			appearance.update(elapsed);
@@ -169,7 +169,7 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		if (dead || hidden) return;
+		if (hidden()) return;
 		super.render(camera);
 		if (appearance != null) {
 			appearance.render(camera);
@@ -231,7 +231,7 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public Hitbox getHitbox() {
-		if (appearance == null || hidden) return NoHitbox.getInstance();
+		if (appearance == null || hidden()) return NoHitbox.getInstance();
 		switch (mdo.collision) {
 		case ANIMATION_SPECIFIC_RECTANGLE:
 			return appearance.getHitbox();
@@ -334,9 +334,7 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public TextureRegion getRegion() {
-		if (hidden) return null;
-		if (dead) return null;
-		if (appearance == null) return null;
+		if (hidden() || appearance == null) return null;
 		return appearance.getRegion();
 	}
 
@@ -366,7 +364,7 @@ public class CharacterEvent extends MapEvent {
 	 * @return					True if we can act, false otherwise.
 	 */
 	public boolean canAct() {
-		return canMove() && !hidden;
+		return canMove() && !hidden();
 	}
 	
 	/**
@@ -548,6 +546,14 @@ public class CharacterEvent extends MapEvent {
 			walkAnim.startMoving();
 		}
 		super.internalTargetVelocity(targetVX, targetVY);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#hidden()
+	 */
+	@Override
+	protected boolean hidden() {
+		return super.hidden() || dead;
 	}
 
 	/**

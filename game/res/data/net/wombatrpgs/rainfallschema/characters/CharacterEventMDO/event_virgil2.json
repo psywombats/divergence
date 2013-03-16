@@ -1,0 +1,11 @@
+{
+	"key" : "event_virgil2",
+	"subfolder" : "dummy",
+	"name" : "",
+	"description" : "",
+	"appearance" : "animation_virgil_levers",
+	"collision" : "NONE",
+	"response" : "ETHEREAL",
+	"touch" : "NOTHING",
+	"mobility" : "mobility_hero"
+}

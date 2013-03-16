@@ -18,10 +18,12 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.MapObject;
+import net.wombatrpgs.rainfall.maps.Positionable;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.physics.CollisionResult;
 import net.wombatrpgs.rainfall.physics.FallResult;
 import net.wombatrpgs.rainfall.physics.Hitbox;
+import net.wombatrpgs.rainfall.physics.RectHitbox;
 
 /**
  * A renderable collection of map events, grouped into a layer in a level.
@@ -66,12 +68,7 @@ public class EventLayer extends Layer {
 		Collections.sort(events);
 		parent.getBatch().begin();
 		for (MapEvent event : events) {
-			if (!event.requiresChunking()) {
-				// render them once
-				if ((int) Math.floor(getZ()) == z) {
-					event.render(camera);
-				}
-			} else {
+			if (event.requiresChunking()) {
 				// let's chunk 'em
 				TextureRegion sprite = event.getRegion();
 				int startY = (int) (z - Math.floor(getZ())) * parent.getTileHeight();
@@ -85,6 +82,9 @@ public class EventLayer extends Layer {
 				event.renderLocal(camera, sprite, 0, startY, 0);
 				sprite.setRegionY(origY);
 				sprite.setRegionHeight(origHeight);
+			}
+			if ((int) Math.floor(getZ()) == z) {
+				event.render(camera);
 			}
 		}
 		parent.getBatch().end();
@@ -164,6 +164,32 @@ public class EventLayer extends Layer {
 	@Override
 	public void finalizePassability() {
 		// we don't care
+	}
+
+	/**
+	 * Just check if any no-overlap events are in the area.
+	 * @see net.wombatrpgs.rainfall.maps.layers.Layer#isPassable
+	 * (MapEvent, int, int)
+	 */
+	@Override
+	public boolean isPassable(MapEvent actor, final int x, final int y) {
+		final Level map = parent;
+		Hitbox subBox = new RectHitbox(new Positionable() {
+			@Override public float getX() {return x * map.getTileWidth(); }
+			@Override public float getY() {return y * map.getTileHeight(); }
+		},
+		map.getTileWidth()*1/16,
+		map.getTileHeight()*1/16,
+		map.getTileWidth()*15/16,
+		map.getTileHeight()*15/16);
+		for (int i = 0; i < events.size(); i++) {
+			MapEvent other = events.get(i);
+			if (!other.isOverlappingAllowed() && other != actor) {
+				CollisionResult result = subBox.isColliding(other.getHitbox());
+				if (result.isColliding == true) return false;
+			}
+		}
+		return true;	
 	}
 
 	/**

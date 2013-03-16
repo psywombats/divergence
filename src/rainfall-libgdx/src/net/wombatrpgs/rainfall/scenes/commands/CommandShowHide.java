@@ -64,7 +64,7 @@ public class CommandShowHide extends SceneCommand {
 			}
 		}
 		for (MapEvent event : events) {
-			if (event != null) event.setHidden(invert);
+			if (event != null) event.setCommandHidden(invert);
 		}
 		finished = true;
 		return false;

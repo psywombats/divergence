@@ -9,6 +9,8 @@ package net.wombatrpgs.rainfall.scenes.commands;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Positionable;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
+import net.wombatrpgs.rainfall.physics.Hitbox;
+import net.wombatrpgs.rainfall.physics.NoHitbox;
 import net.wombatrpgs.rainfall.scenes.SceneCommand;
 import net.wombatrpgs.rainfall.scenes.SceneParser;
 import net.wombatrpgs.rainfall.screen.TrackerCam;
@@ -39,6 +41,7 @@ public class CommandCameraPan extends SceneCommand {
 				this.decceleration = 10000; // big;
 			}
 			@Override public boolean isCollisionEnabled() { return false; }
+			@Override public Hitbox getHitbox() { return NoHitbox.getInstance(); }
 		};
 		subCommand = new CommandMove(getParent(), 
 				line.substring(line.indexOf(' ') + 1),

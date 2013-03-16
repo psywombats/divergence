@@ -54,7 +54,7 @@ public class TeleportEvent extends MapEvent {
 	 */
 	@Override
 	public Hitbox getHitbox() {
-		if (!hidden) return box;
+		if (!hidden()) return box;
 		else return NoHitbox.getInstance();
 	}
 

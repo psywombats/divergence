@@ -244,7 +244,7 @@ public class Hero extends CharacterEvent {
 	 * Goodbye, cruel world! Actually this just resets the level because death
 	 * isn't really death in Blockbound.
 	 */
-	protected void die() {
+	public void die() {
 		List<MovesetAct> toCancel = new ArrayList<MovesetAct>();
 		toCancel.addAll(activeMoves);
 		for (MovesetAct act : toCancel) {

@@ -39,6 +39,7 @@ public class CommandMove extends SceneCommand {
 	protected String eventName, groupName;
 	protected Stack<MoveStep> steps;
 	protected List<MapEvent> events;
+	protected String movesLine;
 
 	/**
 	 * Creates a movement command and interprets its string to get it all ready
@@ -141,7 +142,7 @@ public class CommandMove extends SceneCommand {
 	public void reset() {
 		super.reset();
 		steps = new Stack<MoveStep>();
-		parseSteps(line);
+		parseSteps(movesLine);
 	}
 
 	/**
@@ -150,6 +151,7 @@ public class CommandMove extends SceneCommand {
 	 * @param 	line			What remains of the line code
 	 */
 	protected void parseSteps(String line) {
+		movesLine = line.substring(0);
 		while(!line.equals("")) {
 			String dirString;
 			if (line.indexOf(' ') != -1) {

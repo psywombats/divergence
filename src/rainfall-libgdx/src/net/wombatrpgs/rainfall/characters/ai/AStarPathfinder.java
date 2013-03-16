@@ -12,6 +12,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 import net.wombatrpgs.rainfall.maps.Level;
+import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.maps.data.DirVector;
 import net.wombatrpgs.rainfallschema.maps.data.Direction;
 
@@ -74,9 +75,10 @@ public class AStarPathfinder {
 	
 	/**
 	 * Calculates the path to the location. Woo hoo!
+	 * @param	actor			The event that will be pathing
 	 * @return					The steps to get to destination, or null if none
 	 */
-	public List<Direction> getPath() {
+	public List<Direction> getPath(MapEvent actor) {
 		Queue<Path> queue = new PriorityQueue<Path>();
 		queue.add(new Path(toX, toY, fromX, fromY));
 		// I can't believe I'm making a 2D array like this
@@ -107,7 +109,8 @@ public class AStarPathfinder {
 					if (nextX >= 0 && nextX < map.getWidth() &&
 						nextY >= 0 && nextY < map.getHeight() &&
 						!visited.get(nextY).get(nextX) &&
-						map.isPassable(nextX, nextY, z)) {
+						(map.isPassable(actor, nextX, nextY, z) || 
+								(nextX==toX && nextY==toY))) {
 						queue.add(new Path(node, dir));
 					}
 				}

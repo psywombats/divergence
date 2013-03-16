@@ -5,7 +5,7 @@
 	"description" : "",
 	"appearance" : "venustron_vert_4dir",
 	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
-	"response" : "PUSHABLE",
+	"response" : "IMMOBILE",
 	"touch" : "NOTHING",
 	"mobility" : "mobility_steady",
 	"intelligence" : "venustron_intelligence",

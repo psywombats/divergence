@@ -39,8 +39,8 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 	@Override
 	public void update(float elapsed) {
 		if (target != null) {
-			position.x = target.getX();
-			position.y = target.getY();
+			position.x = Math.round(target.getX());
+			position.y = Math.round(target.getY());
 		}
 		super.update();
 	}

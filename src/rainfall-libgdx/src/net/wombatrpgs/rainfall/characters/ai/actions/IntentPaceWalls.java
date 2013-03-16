@@ -38,7 +38,7 @@ public class IntentPaceWalls extends IntentAct {
 		int tileY = (int) Math.floor(y / actor.getLevel().getTileHeight());
 		for (GridLayer layer : actor.getLevel().getGridLayers()) {
 			if (Math.floor(layer.getZ()) == Math.floor(actor.getLevel().getZ(actor))) {
-				if (!layer.isPassable(tileX, tileY)) {
+				if (!layer.isPassable(actor, tileX, tileY)) {
 					if (actor.getVX() > 0) actor.targetDirection(Direction.LEFT);
 					if (actor.getVX() < 0) actor.targetDirection(Direction.RIGHT);
 				}

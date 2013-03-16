@@ -87,6 +87,17 @@ public abstract class FacesAnimation implements Renderable,
 	public int getHeight() {
 		return animations[currentDirOrdinal()].getHeight();
 	}
+	
+	/**
+	 * Reassigns the parent, in case the creator wants to disown us :(
+	 * @param 	parent			The new parent :)
+	 */
+	public void setParent(MapEvent parent) {
+		this.parent = parent;
+		for (int i = 0; i < facings; i++) {
+			animations[i].setParent(parent);
+		}
+	}
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#queueRequiredAssets

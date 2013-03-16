@@ -4,12 +4,11 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfall.scenes;
+package net.wombatrpgs.rainfall.io;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import net.wombatrpgs.rainfall.io.CommandMap;
 import net.wombatrpgs.rainfallschema.io.data.InputButton;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 

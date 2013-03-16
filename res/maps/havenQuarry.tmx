@@ -785,13 +785,6 @@
     <property name="id" value="haven_lift"/>
    </properties>
   </object>
-  <object name="????" type="event" x="416" y="416" width="32" height="32">
-   <properties>
-    <property name="key" value="enemy_venustron"/>
-    <property name="respawns" value=""/>
-    <property name="switch" value="intro_done"/>
-   </properties>
-  </object>
  </objectgroup>
  <layer name="Lower 2" width="21" height="17">
   <properties>

@@ -173,7 +173,7 @@ public class Block extends CharacterEvent {
 	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#setHidden(boolean)
 	 */
 	@Override
-	public void setHidden(boolean hidden) {
+	public void setCommandHidden(boolean hidden) {
 		if (hidden == true) {
 			parent.removeEvent(this);
 		}
@@ -200,15 +200,15 @@ public class Block extends CharacterEvent {
 		}
 		map.addEvent(badPlayer, targetTileX, targetTileY, z+1);
 		badPlayer.start();
-		new TimerObject(mdo.duration, this, new TimerListener() {
+		new TimerObject(mdo.duration, RGlobal.hero, new TimerListener() {
 			@Override
 			public void onTimerZero(TimerObject source) {
-//				if (emitter != null) {
-//					RGlobal.hero.getLevel().addEvent(emitter, 
-//							targetTileX, targetTileY,
-//							RGlobal.hero.getLevel().getZ(RGlobal.hero));
-//					emitter.fire(0, 0);
-//				}
+				if (emitter != null) {
+					RGlobal.hero.getLevel().addEvent(emitter, 
+							targetTileX, targetTileY,
+							RGlobal.hero.getLevel().getZ(RGlobal.hero));
+					emitter.fire(0, 0);
+				}
 			}
 		});
 	}

@@ -335,18 +335,18 @@ public class Level implements ScreenShowable {
 		}
 	}
 	
-	// TODO: check events in pathfinding
 	/**
 	 * Checks if a certain tile is passable by our stored layer data. This does
 	 * not check events at the momement.
+	 * @param	actor			The character that will be trying to pass
 	 * @param 	tileX			The checked x-coord (in tiles)
 	 * @param 	tileY			The checked y-coord (in tiles)
 	 * @param	z				The z-depth to restrict the search to (in depth)
 	 * @return 					True if layer is passable, false otherwise
 	 */
-	public boolean isPassable(int tileX, int tileY, int z) {
-		for (GridLayer layer : getGridLayers()) {
-			if (Math.floor(layer.getZ()) == z && !layer.isPassable(tileX, tileY)) {
+	public boolean isPassable(MapEvent actor, int tileX, int tileY, int z) {
+		for (Layer layer : layers) {
+			if (Math.floor(layer.getZ()) == z && !layer.isPassable(actor, tileX, tileY)) {
 				return false;
 			}
 		}
@@ -476,7 +476,7 @@ public class Level implements ScreenShowable {
 	/**
 	 * Changes an object's z-coordinate on the map. Z-coordinate is handled by
 	 * map layer and must be changed here.
-	 * @param 	event			The object to change z
+	 * @param 	event		The object to change z
 	 * @param 	z			The index of the layer to put it on
 	 */
 	public void changeZ(MapEvent event, float z) {

@@ -107,7 +107,7 @@ public class Trigger extends MapEvent {
 	 * Exceutes (maybe) the underlying scene.
 	 */
 	protected void run() {
-		if ((condition == null || condition.shouldExecute()) && !hidden) {
+		if ((condition == null || condition.shouldExecute()) && !hidden()) {
 			scene.run(parent);
 		}
 	}

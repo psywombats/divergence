@@ -10,7 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.characters.enemies.EnemyEvent;
@@ -20,10 +23,14 @@ import net.wombatrpgs.rainfall.graphics.FacesAnimation;
 import net.wombatrpgs.rainfall.graphics.FacesAnimationFactory;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.Positionable;
+import net.wombatrpgs.rainfall.maps.events.AnimationPlayer;
+import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.physics.CollisionResult;
 import net.wombatrpgs.rainfall.physics.Hitbox;
+import net.wombatrpgs.rainfall.physics.NoHitbox;
 import net.wombatrpgs.rainfall.physics.RectHitbox;
 import net.wombatrpgs.rainfallschema.characters.enemies.EnemyEventMDO;
+import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.maps.data.Direction;
 
 /**
@@ -35,18 +42,25 @@ public class EnemyVenustron extends EnemyEvent {
 	private static final String KEY_4DIR_HORIZ = "venustron_horiz_4dir";
 	private static final String KEY_4DIR_NORTHEAST = "venustron_northeast_4dir";
 	private static final String KEY_4DIR_NORTHWEST = "venustron_northwest_4dir";
-	
+	private static final String KEY_ANIM_SPARKS = "animation_sparks";
 	
 	private List<Queueable> assets;
 	private FacesAnimation appearanceVert, appearanceHoriz;
 	private FacesAnimation turnNortheast, turnNorthwest;
 	
 	private Hitbox offBox;
+	private float hitX, hitY;
 	
 	private static final float SWIVEL_TIME = .25f; // in s
 	private Direction travelDir;
 	private float swiveled;
 	private boolean swiveling;
+	
+	private static final float LASER_RANGE = 48; // px from base
+	private MapEvent laser;
+	private ShapeRenderer shapes;
+	private AnimationPlayer sparks;
+	private boolean lasering;
 
 	public EnemyVenustron(EnemyEventMDO mdo, TiledObject object, Level parent, int x, int y) {
 		super(mdo, object, parent, x, y);
@@ -55,16 +69,47 @@ public class EnemyVenustron extends EnemyEvent {
 		appearanceVert = FacesAnimationFactory.create(KEY_4DIR_VERT, this);
 		turnNortheast = FacesAnimationFactory.create(KEY_4DIR_NORTHEAST, this);
 		turnNorthwest = FacesAnimationFactory.create(KEY_4DIR_NORTHWEST, this);
+		sparks = new AnimationPlayer(RGlobal.data.getEntryFor(KEY_ANIM_SPARKS, AnimationMDO.class));
 		assets.add(appearanceHoriz);
 		assets.add(appearanceVert);
 		assets.add(turnNorthwest);
 		assets.add(turnNortheast);
+		assets.add(sparks);
 		final Positionable me = this;
 		offBox = new RectHitbox(new Positionable() {
 			@Override public float getX() { return me.getX() - 16; }
 			@Override public float getY() { return me.getY(); }
-		}, 16, 0, 48, 32);
+		}, 17, 1, 47, 31);
 		zero();
+		shapes = new ShapeRenderer();
+		final EnemyVenustron venus = this;
+		laser = new MapEvent() {
+			@Override
+			public boolean requiresChunking() {
+				return false;
+			}
+			@Override
+			public void render(OrthographicCamera camera) {
+				super.render(camera);
+				float x1 = venus.x+16;
+				float y1 = venus.y+72;
+				float x2 = targetX();
+				float y2 = targetY();
+				if (venus.getFacing() == Direction.RIGHT) x1 += 6;
+				if (venus.getFacing() == Direction.LEFT) x1 -= 6;
+				getLevel().getBatch().end();
+				shapes.setProjectionMatrix(camera.combined);
+				shapes.begin(ShapeType.Line);
+				for (int off = -2; off <= 2; off++) {
+					float rg = 1 - (Math.abs(off)+1) / 3;
+					shapes.setColor(rg, rg, 1, 1);
+					shapes.line(x1 + off, y1, x2 + off, y2);
+				}
+				shapes.end();
+				getLevel().getBatch().begin();
+			}
+			
+		};
 	}
 
 	@Override
@@ -92,11 +137,12 @@ public class EnemyVenustron extends EnemyEvent {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
+		if (!RGlobal.hero.isSet("go_venustron")) return;
 		
 		if (targetVX != 0 && targetVY != 0) {
 			float deltaX = Math.abs(getX() - targetX);
-			float deltaY = Math.abs(getY() - targetY);
-			if (deltaX > 16 || deltaX > deltaY) {
+			//float deltaY = Math.abs(getY() - targetY);
+			if (deltaX > 0) {
 				targetVY = 0;
 			} else {
 				targetVX = 0;
@@ -173,14 +219,40 @@ public class EnemyVenustron extends EnemyEvent {
 		if (tracking && ((lastY < targetY && y > targetY) || (lastY > targetY && y < targetY))) {
 			y = targetY;
 		}
-		if ((x == targetX && y == targetY) || (lastX == x && lastY == y)) {
+		if (tracking && x == targetX && y == targetY) {
 			tracking = false;
 		}
 		lastX = x;
 		lastY = y;
 		
 		setFacing(directionTo(RGlobal.hero));
-		//targetLocation(RGlobal.hero.getX(), RGlobal.hero.getY());
+		
+		float dist = heroDist();
+		if (!lasering && canAct() && dist < LASER_RANGE * 1.6) {
+			lasering = true;
+			if (!getLevel().contains(sparks)) {
+				if (getFacing() == Direction.UP) {
+					getLevel().addEvent(laser, 0);
+					getLevel().addEvent(sparks, 0);
+				} else {
+					getLevel().addEvent(laser, 2);
+					getLevel().addEvent(sparks, 2);
+				}
+				sparks.start();
+			}
+		}
+		if (lasering && dist > LASER_RANGE * 1.8) {
+			lasering = false;
+			getLevel().removeObject(sparks);
+			getLevel().removeEvent(laser);
+		}
+		if (lasering && dist < LASER_RANGE) {
+			RGlobal.hero.die();
+		}
+		if (lasering) {
+			sparks.setX(targetX()-8);
+			sparks.setY(targetY());
+		}
 	}
 
 	@Override
@@ -189,10 +261,19 @@ public class EnemyVenustron extends EnemyEvent {
 		appearanceVert.setFacing(dir);
 		turnNorthwest.setFacing(dir);
 		turnNortheast.setFacing(dir);
+		appearanceVert.startMoving();
+		appearanceHoriz.startMoving();
 	}
 
 	@Override
 	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
+		if (other == RGlobal.block) {
+			if (other.getX() != hitX || other.getY() != hitY) {
+				tracking = false;
+				hitX = other.getX();
+				hitY = other.getY();
+			}
+		}
 		return super.onCharacterCollide(other, result);
 	}
 
@@ -200,21 +281,50 @@ public class EnemyVenustron extends EnemyEvent {
 	public int getRenderX() {
 		return super.getRenderX() - 16;
 	}
-	
 	@Override
 	public Hitbox getHitbox() {
+		if (hidden()) return NoHitbox.getInstance();
 		return offBox;
 	}
 
 	@Override
 	protected void integrate(float elapsed) {
+		if (!RGlobal.hero.isSet("go_venustron")) super.integrate(elapsed);
 		// yeah no
+	}
+
+	@Override
+	protected void storeXY() {
+		if (!RGlobal.hero.isSet("go_venustron")) super.storeXY();
 	}
 
 	private void zero() {
 		travelDir = Direction.UP;
 		swiveled = 0;
 		swiveling = false;
+		tracking = false;
+	}
+	
+	private float heroDist() {
+		float dx = (getX()) - RGlobal.hero.getX();
+		float dy = (getY() - 8) - RGlobal.hero.getY();
+		return (float) Math.sqrt(dx * dx + dy * dy);
+	}
+	
+	private float targetX() {
+		float angle = (float) Math.atan2(
+				getY() - RGlobal.hero.getY(), getX() - (RGlobal.hero.getX()));
+		float dist = heroDist();
+		dist = (dist > LASER_RANGE) ? LASER_RANGE : heroDist();
+		return getX() - (float) (Math.cos(angle) * dist) + 10;
+	}
+	
+	private float targetY() {
+		float angle = (float) Math.atan2(
+				getY() - RGlobal.hero.getY(), getX() - (RGlobal.hero.getX()));
+		float dist = heroDist();
+		dist = (dist > LASER_RANGE) ? LASER_RANGE : heroDist();
+		return getY() - (float) (Math.sin(angle) * dist);
 	}
 
 }

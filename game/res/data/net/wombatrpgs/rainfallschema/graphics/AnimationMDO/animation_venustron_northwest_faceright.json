@@ -9,7 +9,7 @@
 	"frameWidth" : 64,
 	"frameHeight" : 96,
 	"offX" : 768,
-	"offY" : 96,
+	"offY" : 0,
 	"animSpeed" : 4,
 	"hit1x" : 16,
 	"hit1y" : 64,

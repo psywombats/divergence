@@ -53,7 +53,8 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	/** Should this object have its collisions checked? */
 	protected boolean checkCollisions;
 	/** Is this object hidden from view/interaction due to cutscene? */
-	protected boolean hidden;
+	protected boolean commandHidden;
+	protected boolean switchHidden;
 	/** Another toggle on our visibility - if it exists, link it to hidden */
 	protected String showSwitch;
 	protected String hideSwitch;
@@ -109,15 +110,17 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		this.object = object;
 		this.mobile = mobile;
 		this.checkCollisions = checkCollisions;
+		this.commandHidden = false;
+		this.switchHidden = false;
 		if (object != null) {
-			this.hidden = object.properties.get(PROPERTY_HIDDEN) != null;
+			this.commandHidden = object.properties.get(PROPERTY_HIDDEN) != null;
 			this.showSwitch = object.properties.get(PROPERTY_SWITCH);
 			if (showSwitch != null) {
-				this.hidden = !RGlobal.hero.isSet(showSwitch);
+				this.switchHidden = !RGlobal.hero.isSet(showSwitch);
 			}
 			this.hideSwitch = object.properties.get(PROPERTY_HIDESWITCH);
-			if (hideSwitch != null && !hidden) {
-				this.hidden = RGlobal.hero.isSet(hideSwitch);
+			if (hideSwitch != null) {
+				this.switchHidden = switchHidden || RGlobal.hero.isSet(hideSwitch);
 			}
 		}
 		
@@ -305,6 +308,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		if (Float.isNaN(vx) || Float.isNaN(vy)) {
 			RGlobal.reporter.warn("NaN values in physics!! " + this);
 		}
+		integrate(elapsed);
 		if (tracking) {
 			if ((x < targetX && lastX > targetX) || (x > targetX && lastX < targetX)) {
 				x = targetX;
@@ -328,7 +332,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 				endFall();
 			}
 		}
-		integrate(elapsed);
+		storeXY();
 	}
 
 	/**
@@ -338,10 +342,10 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	public void vitalUpdate(float elapsed) {
 		super.vitalUpdate(elapsed);
 		if (showSwitch != null) {
-			hidden = !RGlobal.hero.isSet(showSwitch);
+			switchHidden = !RGlobal.hero.isSet(showSwitch);
 		}
-		if (hideSwitch != null && !hidden) {
-			hidden = RGlobal.hero.isSet(hideSwitch);
+		if (hideSwitch != null) {
+			switchHidden = RGlobal.hero.isSet(hideSwitch);
 		}
 	}
 
@@ -399,13 +403,13 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
-	 * Sets the hide status of this map event. Hidden events do not update or
-	 * interact with other events. It's a way of having objects on the map but
-	 * not using them until they're needed.
+	 * Sets the hide status of this map event via event command. Hidden events
+	 * do not update or interact with other events. It's a way of having objects
+	 * on the map but not using them until they're needed.
 	 * @param 	hidden			True to hide the event, false to reveal it
 	 */
-	public void setHidden(boolean hidden) {
-		this.hidden = hidden;
+	public void setCommandHidden(boolean hidden) {
+		this.commandHidden = hidden;
 	}
 	
 	/**
@@ -454,7 +458,8 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		if (hidden) return;
+		if (hidden()) return;
+		if (requiresChunking()) return;
 		super.render(camera);
 	}
 
@@ -713,6 +718,14 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
+	 * Determines if an event is "hidden" either by switch or command.
+	 * @return					True if the event is hidden, false otherwise
+	 */
+	protected boolean hidden() {
+		return commandHidden || switchHidden;
+	}
+	
+	/**
 	 * Moves objects out of collision with each other. Usually call this from
 	 * onCollide, as a collision result is needed.
 	 * @param 	other			The other object to bump
@@ -765,6 +778,12 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	protected void integrate(float elapsed) {
 		x += vx * elapsed;
 		y += vy * elapsed;
+	}
+	
+	/**
+	 * Updates last x/y.
+	 */
+	protected void storeXY() {
 		lastX = x;
 		lastY = y;
 	}

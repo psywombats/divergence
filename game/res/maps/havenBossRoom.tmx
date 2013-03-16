@@ -122,6 +122,11 @@
     <property name="top" value=""/>
    </properties>
   </tile>
+  <tile id="84">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="183" name="blockboundUpper" tileheight="32" tilewidth="32">
   <image height="288" source="tilesets/blockbound/upper.png" trans="8080ff" width="256"/>
@@ -625,20 +630,20 @@
    </properties>
   </tile>
  </tileset>
- <layer height="17" name="Lower 1" width="17">
+ <layer height="17" name="Lower 1" visible="0" width="17">
   <properties>
    <property name="z" value="0"/>
   <property name="layer" value="8"/></properties>
   <data compression="zlib" encoding="base64">
-   eJzLY2RgKKAA5wJxDhAXMZCPs6Bm1DCQj2FmwEAykW5KRtIDMyMZCaOr58IihqwemxnobuXCIkbIjDgGwpgYM8yx0MtJNEMPSvOh0aSYUcOA3QyYu0gJDz0c7iIlPGDuQXcXKeGBjvVIMANk73IsZsDcQ4v0kQnEaThwOtTMVDxqMpDyDjaQSaQ6ADm3asc=
+   eJzLY2RgKKAA5wJxDhAXMZCPs6Bm1DCQj2FmwEAykW5KRtIDMyMZCaOr58IihqwemxnobuXCIkbIjDgGwpgYM7DRy6lgBqnuqGHAbxYp4UGJGejuweYuYs3AFh+khMdyLGYgu4fa6SMTiNNw4HSomal41GQg5R1sIJNIdQCyVG6q
   </data>
  </layer>
- <layer height="17" name="Upper 1" width="17">
+ <layer height="17" name="Upper 1" visible="0" width="17">
   <properties>
    <property name="z" value=".5"/>
   <property name="layer" value="7"/></properties>
   <data compression="zlib" encoding="base64">
-   eJxjYBi84CsQfyNCjBiwB4j3AvE+CtxzBIiPAvExCsw4A8RngfgcBWZcAeKrQHyNAjPQwSkqmjUKyAdvkfBIAQBgxxDU
+   eJxjYBi84CsQfyNCjBiwB4j3AvE+CtxzBEofo8CMM1D6HAVmXIHS1ygwAx2coqJZo4B88BaNHgkAACrvDYA=
   </data>
  </layer>
  <objectgroup height="17" name="Event 1" width="17">
@@ -659,16 +664,68 @@
     <property name="id" value="scene_event_reverse_boss"/>
    </properties>
   </object>
+  <object height="32" name="Venustron" type="event" width="32" x="256" y="352">
+   <properties>
+    <property name="key" value="enemy_venustron"/>
+    <property name="name" value="venustron_real"/>
+    <property name="switch" value="go_venustron"/>
+   </properties>
+  </object>
+  <object height="32" name="Doorcover" type="object" width="32" x="256" y="160">
+   <properties>
+    <property name="id" value="doorcover"/>
+    <property name="name" value="door"/>
+   </properties>
+  </object>
+  <object height="32" name="Trigger" type="trigger" width="32" x="32" y="32">
+   <properties>
+    <property name="auto" value=""/>
+    <property name="id" value="scene_intro0008"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="Venustron Dummy" type="event" width="32" x="256" y="480">
+   <properties>
+    <property name="hideswitch" value="go_venustron"/>
+    <property name="key" value="event_venusdummy"/>
+    <property name="name" value="venustron"/>
+   </properties>
+  </object>
+  <object height="32" name="Pressure Pad" type="object" width="32" x="128" y="192">
+   <properties>
+    <property name="group" value="pad"/>
+    <property name="id" value="pressure_pad"/>
+   </properties>
+  </object>
+  <object height="32" name="Pressure Pad" type="object" width="32" x="384" y="192">
+   <properties>
+    <property name="group" value="pad"/>
+    <property name="id" value="pressure_pad"/>
+   </properties>
+  </object>
+  <object height="32" name="Pressure Pad" type="object" width="32" x="256" y="384">
+   <properties>
+    <property name="group" value="pad"/>
+    <property name="id" value="pressure_pad_bossfight"/>
+   </properties>
+  </object>
+  <object height="32" name="Trigger" type="trigger" width="32" x="64" y="32">
+   <properties>
+    <property name="auto" value=""/>
+    <property name="id" value="scene_intro0009"/>
+    <property name="switch" value="beat_venustron"/>
+   </properties>
+  </object>
  </objectgroup>
- <layer height="17" name="Lower 2" width="17">
+ <layer height="17" name="Lower 2" visible="0" width="17">
   <properties>
    <property name="z" value="1"/>
   <property name="layer" value="5"/></properties>
   <data compression="zlib" encoding="base64">
-   eJxjYBg8oAiKKdFTA8WkAHQ9XIwQTApA1wPjFxOpvxCLGUUMpJuBLTxAZtQSaUY1A+7w4CYyTDgZcYfHqBmDy4zBAADaFAt/
+   eJzNkMEKgEAIRHePtX2L175r22P17xGNl2EFLYIdEFGch5rSONoQXzwHIiL2zPmJiNijdXP6a4fR0KsBBv/jBGNHveZ+Vt1z1j8KZgV5oayasv2PQrPM0H0iDDH28jD4ft7LwxCDIS9usfQXYwRdWycNzg==
   </data>
  </layer>
- <layer height="17" name="Upper 2" width="17">
+ <layer height="17" name="Upper 2" visible="0" width="17">
   <properties>
    <property name="z" value="1.5"/>
   <property name="layer" value="4"/></properties>
@@ -683,7 +740,9 @@
   <object height="32" name="Virgil" type="event" width="32" x="64" y="320">
    <properties>
     <property name="face" value="right"/>
-    <property name="key" value="event_virgil"/>
+    <property name="key" value="event_virgil2"/>
+    <property name="name" value="virgil"/>
+    <property name="pace" value=""/>
     <property name="switch" value="intro_done"/>
    </properties>
   </object>
@@ -696,25 +755,53 @@
   </object>
   <object height="32" name="Trick Door" type="object" width="32" x="64" y="224">
    <properties>
+    <property name="hideswitch" value="beat_venustron"/>
     <property name="id" value="trick_wall"/>
    </properties>
   </object>
   <object height="32" name="DragonBeetle" type="event" width="32" x="64" y="112">
    <properties>
-    <property name="key" value="enemy_dragon_beetle"/>
+    <property name="key" value="enemy_dragon_beetle_boss"/>
+    <property name="name" value="beetle"/>
     <property name="respawns" value=""/>
-    <property name="switch" value="intro_done"/>
    </properties>
   </object>
   <object height="32" name="DragonBeetle" type="event" width="32" x="448" y="112">
    <properties>
-    <property name="key" value="enemy_dragon_beetle"/>
+    <property name="key" value="enemy_dragon_beetle_boss"/>
+    <property name="name" value="beetle_right"/>
     <property name="respawns" value=""/>
-    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="32" name="Fireball" type="event" width="32" x="64" y="128">
+   <properties>
+    <property name="face" value="down"/>
+    <property name="group" value="fireball"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="enemy_fireball"/>
+    <property name="name" value="fireball1"/>
+   </properties>
+  </object>
+  <object height="32" name="Fireball" type="event" width="32" x="64" y="128">
+   <properties>
+    <property name="face" value="down"/>
+    <property name="group" value="fireball"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="enemy_fireball"/>
+    <property name="name" value="fireball2"/>
+   </properties>
+  </object>
+  <object height="32" name="Fireball" type="event" width="32" x="64" y="128">
+   <properties>
+    <property name="face" value="down"/>
+    <property name="group" value="fireball"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="enemy_fireball"/>
+    <property name="name" value="fireball3"/>
    </properties>
   </object>
  </objectgroup>
- <layer height="17" name="Lower 3" width="17">
+ <layer height="17" name="Lower 3" visible="0" width="17">
   <properties>
    <property name="z" value="2"/>
   <property name="layer" value="2"/></properties>

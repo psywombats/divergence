@@ -65,6 +65,16 @@ public abstract class Layer implements Queueable {
 	public abstract void render(OrthographicCamera camera, int z);
 	
 	/**
+	 * Checking to see if a position in the grid is passable. This is a little
+	 * wonky for event layers...
+	 * @param	actor			The event checking for collisions
+	 * @param 	x				The x-coord of the tile to check (in tiles)
+	 * @param 	y				The y-coord of the tile to check (in tiles)
+	 * @return					True if that tile is passable, false otherwise
+	 */
+	public abstract boolean isPassable(MapEvent actor, final int x, final int y);
+	
+	/**
 	 * Determines whether this layer is an object layer, a so-called upper
 	 * chip layer. This means that unoccupied grid squares on this layer will
 	 * be treated as passable.

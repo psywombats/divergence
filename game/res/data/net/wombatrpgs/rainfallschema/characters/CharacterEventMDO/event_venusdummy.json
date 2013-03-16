@@ -1,0 +1,11 @@
+{
+	"key" : "event_venusdummy",
+	"subfolder" : "dummy",
+	"name" : "",
+	"description" : "",
+	"appearance" : "venustron_vert_4dir",
+	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
+	"response" : "ETHEREAL",
+	"touch" : "NOTHING",
+	"mobility" : "mobility_cutscene_slow"
+}
