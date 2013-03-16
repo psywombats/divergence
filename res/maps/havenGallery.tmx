@@ -702,6 +702,24 @@
     <property name="key" value="enemy_dragon_beetle_tame"/>
    </properties>
   </object>
+  <object name="Widget (wide-pacing)" type="event" x="288" y="192" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_widget_widepace"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object name="Widget (wide-pacing)" type="event" x="288" y="160" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_widget_widepace"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object name="Gadget" type="event" x="544" y="416" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_gadget"/>
+    <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Lower 2" width="25" height="15">
   <properties>

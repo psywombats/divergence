@@ -1,9 +1,6 @@
-
-
-
 LIBRARY LICENSES:
 
-tiled:
+Tiled:
 
 /*
  * Copyright 2004-2006, Thorbjørn Lindeijer <thorbjorn@lindeijer.nl>
@@ -66,3 +63,6 @@ tiled:
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+ 
+ Jackson:
+ GNU General Public License, version 2 http://www.gnu.org/licenses/gpl-2.0.html

@@ -88,7 +88,8 @@ public class EventLiftBottom extends CustomEvent {
 			firstSeen.run(getLevel());
 			return true;
 		}
-		if (RGlobal.hero.isSet(SWTICH_SPROCKET) && RGlobal.hero.isSet(SWITCH_CHAIN)) {
+		if (RGlobal.hero.isSet(SWTICH_SPROCKET) && 
+				RGlobal.hero.isSet(SWITCH_CHAIN) && !parent.isPaused()) {
 			if (firedTwice) {
 				EventButton button = (EventButton) getLevel().getCustomObject(EventButton.ID);
 				if (button.pressed) {

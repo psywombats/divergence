@@ -345,7 +345,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 			switchHidden = !RGlobal.hero.isSet(showSwitch);
 		}
 		if (hideSwitch != null) {
-			switchHidden = RGlobal.hero.isSet(hideSwitch);
+			switchHidden = switchHidden || RGlobal.hero.isSet(hideSwitch);
 		}
 	}
 

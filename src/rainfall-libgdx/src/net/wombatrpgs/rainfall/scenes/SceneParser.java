@@ -169,6 +169,7 @@ public class SceneParser extends MapObject {
 	 * @param	level			The level this command was executed on
 	 */
 	public void run(Level level) {
+		this.parent = level;
 		if (!running && (!executed || mdo.repeat == TriggerRepeatType.RUN_EVERY_TIME)) {
 			if (executed) reset();
 			forceRun(level);

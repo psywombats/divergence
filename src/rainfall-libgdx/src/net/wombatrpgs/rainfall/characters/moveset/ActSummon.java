@@ -30,6 +30,7 @@ public class ActSummon extends MovesetAct {
 	
 	protected SummonMDO mdo;
 	protected AnimationPlayer goodPlayer;
+	protected Block myBlock;
 	
 	/**
 	 * Creates and initializes this summon MDO. Involves loading an image, it
@@ -40,8 +41,9 @@ public class ActSummon extends MovesetAct {
 	public ActSummon(CharacterEvent actor, SummonMDO mdo) {
 		super(actor, mdo);
 		this.mdo = mdo;
+		myBlock = new Block(mdo);
 		if (RGlobal.block == null) {
-			RGlobal.block = new Block(mdo);
+			RGlobal.block = myBlock;
 		}
 		AnimationMDO goodMDO = RGlobal.data.getEntryFor(mdo.blockAnimation, AnimationMDO.class);
 		this.goodPlayer = new AnimationPlayer(goodMDO);
@@ -122,6 +124,9 @@ public class ActSummon extends MovesetAct {
 		if (RGlobal.block.getLevel() != null) {
 			RGlobal.block.getLevel().removeEvent(RGlobal.block);
 		}
+		if (RGlobal.block != myBlock) {
+			RGlobal.block = myBlock;
+		}
 		map.addEvent(goodPlayer, targetTileX, targetTileY, z);
 		goodPlayer.start();
 		new TimerObject(mdo.duration, RGlobal.hero, new TimerListener() {
@@ -145,7 +150,7 @@ public class ActSummon extends MovesetAct {
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
-		RGlobal.block.queueRequiredAssets(manager);
+		myBlock.queueRequiredAssets(manager);
 		goodPlayer.queueRequiredAssets(manager);
 	}
 
@@ -156,7 +161,7 @@ public class ActSummon extends MovesetAct {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
-		RGlobal.block.postProcessing(manager, pass);
+		myBlock.postProcessing(manager, pass);
 		goodPlayer.postProcessing(manager, pass);
 	}
 

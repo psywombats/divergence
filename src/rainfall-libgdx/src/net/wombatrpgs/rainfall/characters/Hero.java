@@ -14,6 +14,7 @@ import java.util.Map;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 
+import net.wombatrpgs.rainfall.characters.moveset.ActSummon;
 import net.wombatrpgs.rainfall.characters.moveset.Moveset;
 import net.wombatrpgs.rainfall.characters.moveset.MovesetAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
@@ -24,6 +25,7 @@ import net.wombatrpgs.rainfall.physics.CollisionResult;
 import net.wombatrpgs.rainfall.scenes.FinishListener;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.MovesetMDO;
+import net.wombatrpgs.rainfallschema.characters.hero.moveset.SummonMDO;
 import net.wombatrpgs.rainfallschema.io.data.InputButton;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 
@@ -41,6 +43,9 @@ public class Hero extends CharacterEvent {
 	protected float entryX, entryY;
 	/** How many times enemies have consecutively mugged us */
 	protected int stunMug = 0;
+	
+	private static final String KEY_MOVE_SUMMON2 = "move_summon";
+	private MovesetAct summon2; // I'm sorry, but I'm hardcoding this. I'm tired.
 
 	/**
 	 * Placeholder constructor. When the hero is finally initialized properly
@@ -58,6 +63,7 @@ public class Hero extends CharacterEvent {
 		moves = new Moveset(this, RGlobal.data.getEntryFor("default_moveset", MovesetMDO.class));
 		RGlobal.hero = this;
 		switches = new HashMap<String, Boolean>();
+		summon2 = new ActSummon(this, RGlobal.data.getEntryFor(KEY_MOVE_SUMMON2, SummonMDO.class));
 	}
 	
 	/** @return The moveset currently in use by the hero */
@@ -121,6 +127,7 @@ public class Hero extends CharacterEvent {
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
 		moves.queueRequiredAssets(manager);
+		summon2.queueRequiredAssets(manager);
 	}
 	
 	/**
@@ -131,6 +138,7 @@ public class Hero extends CharacterEvent {
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
 		moves.postProcessing(manager, pass);
+		summon2.postProcessing(manager, pass);
 	}
 
 	/**
@@ -149,6 +157,10 @@ public class Hero extends CharacterEvent {
 			targetVX *= maxVelocity;
 			targetVY *= maxVelocity;
 			targetVelocity(targetVX, targetVY);
+		}
+		// more hardcoding issues
+		if (isSet("intro_done")) {
+			moves.getMoves().put(InputCommand.ACTION_1, summon2);
 		}
 	}
 
@@ -227,6 +239,7 @@ public class Hero extends CharacterEvent {
 	 */
 	public void act(InputCommand command, Level map) {
 		moves.act(command, map, this);
+		appearance.startMoving();
 	}
 	
 	/**

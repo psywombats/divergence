@@ -326,7 +326,14 @@ public class Level implements ScreenShowable {
 	 * @param 	event			The mobile event being pushed around
 	 */
 	public void applyPhysicalCorrections(MapEvent event) {
-		int layerIndex = layerMap.get(event);
+		if (event == null) {
+			RGlobal.reporter.warn("Correcting a null event?");
+		}
+		Integer layerIndex = layerMap.get(event);
+		if (layerIndex == null) {
+			RGlobal.reporter.warn("Weird block z-bug...");
+			return;
+		}
 		int activeZ = (int) Math.floor(eventLayers.get(layerIndex).getZ());
 		for (int i = 0; i < tileLayers.size(); i++) {
 			if (activeZ == Math.floor(tileLayers.get(i).getZ())) {
@@ -359,7 +366,10 @@ public class Level implements ScreenShowable {
 	 * @param 	event			The event starring in the collisions
 	 */
 	public void detectCollisions(MapEvent event) {
-		int layerIndex = layerMap.get(event);
+		Integer layerIndex = layerMap.get(event);
+		if (layerIndex == null) {
+			RGlobal.reporter.warn("Weird blcok z-bug (2)...");
+		}
 		int activeZ = (int) Math.floor(eventLayers.get(layerIndex).getZ());
 		for (int i = 0; i < eventLayers.size(); i++) {
 			if (activeZ == Math.floor(eventLayers.get(i).getZ())) {

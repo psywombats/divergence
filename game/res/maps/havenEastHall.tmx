@@ -676,6 +676,7 @@
    <properties>
     <property name="convo" value="scene_chloe0002"/>
     <property name="face" value="up"/>
+    <property name="hideswitch" value="intro_done"/>
     <property name="key" value="event_chloe"/>
     <property name="switch" value="got_earrings"/>
    </properties>

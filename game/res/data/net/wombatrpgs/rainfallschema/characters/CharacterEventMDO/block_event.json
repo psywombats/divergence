@@ -3,7 +3,7 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "the REAL block",
-	"appearance" : "animation_block_nowaldy",
+	"appearance" : "waldsworth_blockbound",
 	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
 	"response" : "IMMOBILE",
 	"touch" : "NOTHING",

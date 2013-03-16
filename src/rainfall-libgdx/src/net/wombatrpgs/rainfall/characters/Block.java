@@ -135,7 +135,7 @@ public class Block extends CharacterEvent {
 	public void onRemovedFromMap(Level map) {
 		super.onRemovedFromMap(map);
 		if (parent == null) {
-			RGlobal.reporter.warn("That dumb block-z bug showed up again");
+			//RGlobal.reporter.warn("That dumb block-z bug showed up again");
 			return;
 		}
 		map.removePassabilityOverride(upperBox, map.getZ(this) + 1);

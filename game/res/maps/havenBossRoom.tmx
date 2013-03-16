@@ -630,7 +630,7 @@
    </properties>
   </tile>
  </tileset>
- <layer height="17" name="Lower 1" visible="0" width="17">
+ <layer height="17" name="Lower 1" width="17">
   <properties>
    <property name="z" value="0"/>
   <property name="layer" value="8"/></properties>
@@ -638,7 +638,7 @@
    eJzLY2RgKKAA5wJxDhAXMZCPs6Bm1DCQj2FmwEAykW5KRtIDMyMZCaOr58IihqwemxnobuXCIkbIjDgGwpgYM7DRy6lgBqnuqGHAbxYp4UGJGejuweYuYs3AFh+khMdyLGYgu4fa6SMTiNNw4HSomal41GQg5R1sIJNIdQCyVG6q
   </data>
  </layer>
- <layer height="17" name="Upper 1" visible="0" width="17">
+ <layer height="17" name="Upper 1" width="17">
   <properties>
    <property name="z" value=".5"/>
   <property name="layer" value="7"/></properties>
@@ -689,6 +689,7 @@
     <property name="hideswitch" value="go_venustron"/>
     <property name="key" value="event_venusdummy"/>
     <property name="name" value="venustron"/>
+    <property name="switch" value="intro_done"/>
    </properties>
   </object>
   <object height="32" name="Pressure Pad" type="object" width="32" x="128" y="192">
@@ -717,7 +718,7 @@
    </properties>
   </object>
  </objectgroup>
- <layer height="17" name="Lower 2" visible="0" width="17">
+ <layer height="17" name="Lower 2" width="17">
   <properties>
    <property name="z" value="1"/>
   <property name="layer" value="5"/></properties>
@@ -725,7 +726,7 @@
    eJzNkMEKgEAIRHePtX2L175r22P17xGNl2EFLYIdEFGch5rSONoQXzwHIiL2zPmJiNijdXP6a4fR0KsBBv/jBGNHveZ+Vt1z1j8KZgV5oayasv2PQrPM0H0iDDH28jD4ft7LwxCDIS9usfQXYwRdWycNzg==
   </data>
  </layer>
- <layer height="17" name="Upper 2" visible="0" width="17">
+ <layer height="17" name="Upper 2" width="17">
   <properties>
    <property name="z" value="1.5"/>
   <property name="layer" value="4"/></properties>
@@ -801,7 +802,7 @@
    </properties>
   </object>
  </objectgroup>
- <layer height="17" name="Lower 3" visible="0" width="17">
+ <layer height="17" name="Lower 3" width="17">
   <properties>
    <property name="z" value="2"/>
   <property name="layer" value="2"/></properties>

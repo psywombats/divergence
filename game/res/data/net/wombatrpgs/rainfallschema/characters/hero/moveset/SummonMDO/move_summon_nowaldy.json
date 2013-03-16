@@ -7,7 +7,7 @@
 	"animation" : "staffraise_4dir",
 	"graphic" : "graphic_icon_summon",
 	"duration" : 0.2,
-	"blockEvent" : "block_event",
+	"blockEvent" : "block_nowaldy_event",
 	"blockAnimation" : "animation_blockfall_nowaldy",
 	"failAnimation" : "blockfall_destroyed_nowaldy",
 	"gibs" : "gibset_block",

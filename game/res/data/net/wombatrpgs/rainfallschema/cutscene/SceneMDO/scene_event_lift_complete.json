@@ -4,5 +4,5 @@
 	"name" : "",
 	"description" : "",
 	"file" : "event_lift_complete.scene",
-	"repeat" : "RUN_EVERY_TIME"
+	"repeat" : "RUN_ONLY_ONCE"
 }

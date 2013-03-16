@@ -1,6 +1,0 @@
-in the future, the actual game executable or playable version will go here
-
-psynote - I'm adding license.txt to keep track of the library and shit that I'm
-using
-
-#2 - resources are now located here

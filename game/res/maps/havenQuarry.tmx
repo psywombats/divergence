@@ -781,7 +781,17 @@
   </object>
   <object height="16" name="Lift" type="object" width="32" x="544" y="496">
    <properties>
+    <property name="hideswitch" value="lift_finished"/>
     <property name="id" value="haven_lift"/>
+   </properties>
+  </object>
+  <object height="16" name="Teleport" type="teleport" width="32" x="544" y="496">
+   <properties>
+    <property name="id" value="map_havenWorkshop"/>
+    <property name="switch" value="lift_finished"/>
+    <property name="targetZ" value="1"/>
+    <property name="x" value="9"/>
+    <property name="y" value="4"/>
    </properties>
   </object>
  </objectgroup>

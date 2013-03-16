@@ -43,6 +43,7 @@ public class DefaultKeymap extends Keymap {
 		
 		// buttans
 		map.put(Keys.Z, 		InputButton.BUTTON_1);
+		map.put(Keys.SPACE, 	InputButton.BUTTON_1);
 		map.put(Keys.X, 		InputButton.BUTTON_2);
 		map.put(Keys.C, 		InputButton.BUTTON_3);
 		map.put(Keys.V, 		InputButton.BUTTON_4);
