@@ -906,13 +906,13 @@
     <property name="switch" value="intro_done"/>
    </properties>
   </object>
-  <object height="32" name="Widget" type="event" width="32" x="480" y="480">
+  <object height="32" name="Widget" type="event" width="32" x="544" y="480">
    <properties>
     <property name="key" value="enemy_widget"/>
     <property name="switch" value="intro_done"/>
    </properties>
   </object>
-  <object height="32" name="Widget" type="event" width="32" x="480" y="544">
+  <object height="32" name="Widget" type="event" width="32" x="544" y="544">
    <properties>
     <property name="key" value="enemy_widget"/>
     <property name="switch" value="intro_done"/>

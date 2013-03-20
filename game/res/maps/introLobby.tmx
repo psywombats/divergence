@@ -827,46 +827,12 @@
     <property name="pace" value=""/>
    </properties>
   </object>
-  <object height="32" name="Dummy" type="event" width="32" x="352" y="640">
-   <properties>
-    <property name="group" value="bottom2_minions"/>
-    <property name="hidden" value=""/>
-    <property name="key" value="event_grinder"/>
-   </properties>
-  </object>
-  <object height="32" name="Dummy" type="event" width="32" x="384" y="640">
-   <properties>
-    <property name="group" value="bottom2_minions"/>
-    <property name="hidden" value=""/>
-    <property name="key" value="event_grinder"/>
-   </properties>
-  </object>
-  <object height="32" name="Dummy" type="event" width="32" x="416" y="640">
-   <properties>
-    <property name="group" value="bottom2_minions"/>
-    <property name="hidden" value=""/>
-    <property name="key" value="event_grinder"/>
-   </properties>
-  </object>
-  <object height="32" name="Dummy" type="event" width="32" x="448" y="640">
-   <properties>
-    <property name="group" value="bottom2_minions"/>
-    <property name="hidden" value=""/>
-    <property name="key" value="event_grinder"/>
-   </properties>
-  </object>
-  <object height="32" name="Dummy" type="event" width="32" x="480" y="640">
-   <properties>
-    <property name="group" value="bottom2_minions"/>
-    <property name="hidden" value=""/>
-    <property name="key" value="event_grinder"/>
-   </properties>
-  </object>
   <object height="32" name="Dummy" type="event" width="32" x="512" y="640">
    <properties>
     <property name="group" value="bottom2_minions"/>
     <property name="hidden" value=""/>
     <property name="key" value="event_grinder"/>
+    <property name="pace" value=""/>
    </properties>
   </object>
   <object height="32" name="Dummy" type="event" width="32" x="352" y="608">
@@ -874,41 +840,7 @@
     <property name="group" value="bottom1_minions"/>
     <property name="hidden" value=""/>
     <property name="key" value="event_grinder"/>
-   </properties>
-  </object>
-  <object height="32" name="Dummy" type="event" width="32" x="384" y="608">
-   <properties>
-    <property name="group" value="bottom1_minions"/>
-    <property name="hidden" value=""/>
-    <property name="key" value="event_grinder"/>
-   </properties>
-  </object>
-  <object height="32" name="Dummy" type="event" width="32" x="416" y="608">
-   <properties>
-    <property name="group" value="bottom1_minions"/>
-    <property name="hidden" value=""/>
-    <property name="key" value="event_grinder"/>
-   </properties>
-  </object>
-  <object height="32" name="Dummy" type="event" width="32" x="448" y="608">
-   <properties>
-    <property name="group" value="bottom1_minions"/>
-    <property name="hidden" value=""/>
-    <property name="key" value="event_grinder"/>
-   </properties>
-  </object>
-  <object height="32" name="Dummy" type="event" width="32" x="480" y="608">
-   <properties>
-    <property name="group" value="bottom1_minions"/>
-    <property name="hidden" value=""/>
-    <property name="key" value="event_grinder"/>
-   </properties>
-  </object>
-  <object height="32" name="Dummy" type="event" width="32" x="512" y="608">
-   <properties>
-    <property name="group" value="bottom1_minions"/>
-    <property name="hidden" value=""/>
-    <property name="key" value="event_grinder"/>
+    <property name="pace" value=""/>
    </properties>
   </object>
   <object height="32" name="Dummy" type="event" width="32" x="96" y="320">
@@ -963,6 +895,86 @@
    <properties>
     <property name="auto" value=""/>
     <property name="id" value="scene_intro0006"/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="384" y="608">
+   <properties>
+    <property name="group" value="bottom1_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+    <property name="pace" value=""/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="416" y="608">
+   <properties>
+    <property name="group" value="bottom1_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+    <property name="pace" value=""/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="448" y="608">
+   <properties>
+    <property name="group" value="bottom1_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+    <property name="pace" value=""/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="480" y="608">
+   <properties>
+    <property name="group" value="bottom1_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+    <property name="pace" value=""/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="512" y="608">
+   <properties>
+    <property name="group" value="bottom1_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+    <property name="pace" value=""/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="480" y="640">
+   <properties>
+    <property name="group" value="bottom2_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+    <property name="pace" value=""/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="448" y="640">
+   <properties>
+    <property name="group" value="bottom2_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+    <property name="pace" value=""/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="416" y="640">
+   <properties>
+    <property name="group" value="bottom2_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+    <property name="pace" value=""/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="384" y="640">
+   <properties>
+    <property name="group" value="bottom2_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+    <property name="pace" value=""/>
+   </properties>
+  </object>
+  <object height="32" name="Dummy" type="event" width="32" x="352" y="640">
+   <properties>
+    <property name="group" value="bottom2_minions"/>
+    <property name="hidden" value=""/>
+    <property name="key" value="event_grinder"/>
+    <property name="pace" value=""/>
    </properties>
   </object>
  </objectgroup>
