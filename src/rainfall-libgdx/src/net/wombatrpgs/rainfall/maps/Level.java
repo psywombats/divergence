@@ -23,6 +23,7 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Graphic;
+import net.wombatrpgs.rainfall.io.audio.MusicObject;
 import net.wombatrpgs.rainfall.maps.custom.CustomEvent;
 import net.wombatrpgs.rainfall.maps.events.EventFactory;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
@@ -33,6 +34,7 @@ import net.wombatrpgs.rainfall.physics.FallResult;
 import net.wombatrpgs.rainfall.physics.Hitbox;
 import net.wombatrpgs.rainfall.physics.TargetPosition;
 import net.wombatrpgs.rainfall.screen.ScreenShowable;
+import net.wombatrpgs.rainfallschema.audio.MusicMDO;
 import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 import net.wombatrpgs.rainfallschema.maps.MapMDO;
 
@@ -58,6 +60,7 @@ public class Level implements ScreenShowable {
 	public static final String PROPERTY_MINIMAP_Y1 = "minimap_y1";
 	public static final String PROPERTY_MINIMAP_X2 = "minimap_x2";
 	public static final String PROPERTY_MINIMAP_Y2 = "minimap_y2";
+	public static final String PROPERTY_BGM = "bgm";
 	
 	/** The thing we're going to use to render the level */
 	protected TileMapRenderer renderer;
@@ -87,6 +90,8 @@ public class Level implements ScreenShowable {
 	
 	/** Our minimap graphic */
 	protected Graphic minimap;
+	/** herp derp I wonder what this is */
+	protected MusicObject bgm;
 	/** Should game state be suspended */
 	protected boolean paused;
 	/** Is the level in an update cycle in which there was a reset */
@@ -163,6 +168,9 @@ public class Level implements ScreenShowable {
 	
 	/** @return The graphic of the minimap to display on the map */
 	public Graphic getMinimap() { return this.minimap; }
+	
+	/** @return The default bgm for this level */
+	public MusicObject getBGM() { return this.bgm; }
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render(
@@ -190,6 +198,9 @@ public class Level implements ScreenShowable {
 		if (minimap != null) {
 			minimap.queueRequiredAssets(manager);
 		}
+		if (bgm != null) {
+			bgm.queueRequiredAssets(manager);
+		}
 	}
 	
 	/**
@@ -204,6 +215,9 @@ public class Level implements ScreenShowable {
 			}
 			if (minimap != null) {
 				minimap.postProcessing(manager, pass-1);
+			}
+			if (bgm != null) {
+				bgm.postProcessing(manager, pass-1);
 			}
 			return;
 		}
@@ -261,6 +275,11 @@ public class Level implements ScreenShowable {
 			String key = getProperty(PROPERTY_MINIMAP_GRAPHIC);
 			minimap = new Graphic(RGlobal.data.getEntryFor(key, GraphicMDO.class));
 			minimap.queueRequiredAssets(manager);
+		}
+		if (getProperty(PROPERTY_BGM) != null) {
+			String key = getProperty(PROPERTY_BGM);
+			bgm = new MusicObject(RGlobal.data.getEntryFor(key, MusicMDO.class));
+			bgm.queueRequiredAssets(manager);
 		}
 		for (Layer layer : layers) {
 			layer.queueRequiredAssets(manager);
@@ -418,17 +437,6 @@ public class Level implements ScreenShowable {
 	 */
 	public void removeObject(MapObject toRemove) {
 		removalObjects.add(toRemove);
-	}
-	
-	/**
-	 * Welcome a new arrival to this map! The hero! This is specifically made to
-	 * transfer control to this level and plop the hero event down at (x,y)
-	 * @param 	tileX			The x-coord to teleport to (in tiles)
-	 * @param	tileY			The y-coord to teleport to (in tiles)
-	 */
-	public void teleportOn(int tileX, int tileY, int z) {
-		addEvent(RGlobal.hero, tileX, tileY);
-		RGlobal.screens.peek().setCanvas(this);
 	}
 	
 	/**

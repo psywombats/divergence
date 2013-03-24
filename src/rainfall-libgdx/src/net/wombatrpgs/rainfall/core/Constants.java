@@ -40,6 +40,8 @@ public class Constants {
 	public static final String SCENES_DIR = RESOURCE_DIR + "scenes/";
 	/** Directory where all the .json mdos are stored, prefix string */
 	public static final String DATA_DIR = RESOURCE_DIR + "data/";
+	/** Directory where all the audio files are stored, prefix string */
+	public static final String AUDIO_DIR = RESOURCE_DIR + "audio/";
 	
 	/** The key of the default window settings */
 	public static final String WINDOW_KEY = "window_data";
