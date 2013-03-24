@@ -128,213 +128,213 @@ upper
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 29
+  index: 30
 upper
   rotate: false
   xy: 206, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 28
+  index: 29
 upper
   rotate: false
   xy: 206, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 27
+  index: 28
 upper
   rotate: false
   xy: 206, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 26
+  index: 27
 upper
   rotate: false
   xy: 240, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 25
+  index: 26
 upper
   rotate: false
   xy: 240, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 24
+  index: 25
 upper
   rotate: false
   xy: 240, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 23
+  index: 24
 upper
   rotate: false
   xy: 274, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 21
+  index: 23
 upper
   rotate: false
   xy: 274, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 20
+  index: 22
 upper
   rotate: false
   xy: 274, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 19
+  index: 21
 upper
   rotate: false
   xy: 308, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 18
+  index: 20
 upper
   rotate: false
   xy: 308, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 17
+  index: 19
 upper
   rotate: false
   xy: 308, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 16
+  index: 18
 upper
   rotate: false
   xy: 342, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 15
+  index: 17
 upper
   rotate: false
   xy: 342, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 14
-upper
-  rotate: false
-  xy: 342, 36
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 22
-upper
-  rotate: false
-  xy: 342, 36
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 30
+  index: 16
 upper
   rotate: false
   xy: 342, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 13
+  index: 15
 upper
   rotate: false
   xy: 376, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 12
+  index: 14
 upper
   rotate: false
   xy: 376, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 11
+  index: 13
 upper
   rotate: false
   xy: 376, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 10
+  index: 12
 upper
   rotate: false
   xy: 410, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 9
+  index: 11
 upper
   rotate: false
   xy: 410, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 8
+  index: 10
 upper
   rotate: false
   xy: 410, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 7
+  index: 9
 upper
   rotate: false
   xy: 444, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 6
+  index: 8
 upper
   rotate: false
   xy: 444, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 5
+  index: 7
 upper
   rotate: false
   xy: 444, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 4
+  index: 6
 upper
   rotate: false
   xy: 478, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 3
+  index: 5
 upper
   rotate: false
   xy: 478, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 2
+  index: 4
 upper
   rotate: false
   xy: 478, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 1
+  index: 3
 upper
   rotate: false
   xy: 512, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+upper
+  rotate: false
+  xy: 512, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+upper
+  rotate: false
+  xy: 512, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

@@ -1,0 +1,9 @@
+{
+	"key" : "sound_venustron_move",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"file" : "venustron_move.wav",
+	"volume" : 100,
+	"repeats" : "PLAY_ONCE"
+}

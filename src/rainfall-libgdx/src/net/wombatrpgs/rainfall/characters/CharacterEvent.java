@@ -20,6 +20,7 @@ import net.wombatrpgs.rainfall.characters.moveset.MovesetAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.FacesAnimation;
 import net.wombatrpgs.rainfall.graphics.FacesAnimationFactory;
+import net.wombatrpgs.rainfall.io.audio.SoundObject;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.maps.objects.TimerListener;
@@ -28,6 +29,7 @@ import net.wombatrpgs.rainfall.physics.CollisionResult;
 import net.wombatrpgs.rainfall.physics.Hitbox;
 import net.wombatrpgs.rainfall.physics.NoHitbox;
 import net.wombatrpgs.rainfall.scenes.SceneParser;
+import net.wombatrpgs.rainfallschema.audio.SoundMDO;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 import net.wombatrpgs.rainfallschema.characters.MobilityMDO;
 import net.wombatrpgs.rainfallschema.characters.data.CollisionResponseType;
@@ -57,6 +59,7 @@ public class CharacterEvent extends MapEvent {
 	protected Map<Direction, Boolean> directionStatus;
 	protected List<MovesetAct> activeMoves;
 	protected SceneParser convo;
+	protected SoundObject soundHurt;
 	protected MobilityMDO mobilityMDO;
 	protected FacesAnimation appearance;
 	protected FacesAnimation walkAnim;
@@ -188,6 +191,9 @@ public class CharacterEvent extends MapEvent {
 		if (convo != null) {
 			convo.queueRequiredAssets(manager);
 		}
+		if (soundHurt != null) {
+			soundHurt.queueRequiredAssets(manager);
+		}
 	}
 
 	/**
@@ -202,6 +208,9 @@ public class CharacterEvent extends MapEvent {
 		}
 		if (convo != null) {
 			convo.postProcessing(manager, pass);
+		}
+		if (soundHurt != null) {
+			soundHurt.postProcessing(manager, pass);
 		}
 		if (object != null) {
 			String dir = object.properties.get(PROPERTY_FACING);
@@ -345,6 +354,9 @@ public class CharacterEvent extends MapEvent {
 	public void reset() {
 		super.reset();
 		setY(getY() - parent.getTileHeight()); // TODO: awfuil hack idk
+		if (parent.contains(soundHurt)) {
+			parent.removeObject(soundHurt);
+		}
 		dead = false;
 	}
 
@@ -424,6 +436,9 @@ public class CharacterEvent extends MapEvent {
 	 */
 	public void stun() {
 		setStunned(true);
+		if (soundHurt != null) {
+			soundHurt.play();
+		}
 		halt();
 		List<MovesetAct> cancelledActs = new ArrayList<MovesetAct>();
 		for (MovesetAct act : activeMoves) {
@@ -447,6 +462,9 @@ public class CharacterEvent extends MapEvent {
 	 */
 	public void kill() {
 		dead = true;
+		if (soundHurt != null) {
+			soundHurt.play();
+		}
 	}
 	
 	/**
@@ -589,6 +607,10 @@ public class CharacterEvent extends MapEvent {
 			DirMDO dirMDO = RGlobal.data.getEntryFor(mdo.appearance, DirMDO.class);
 			walkAnim = FacesAnimationFactory.create(dirMDO, this);
 			appearance = walkAnim;
+		}
+		if (mdo.soundHurt != null && !mdo.soundHurt.equals(NULL_MDO)) {
+			SoundMDO soundMDO = RGlobal.data.getEntryFor(mdo.soundHurt, SoundMDO.class);
+			soundHurt = new SoundObject(soundMDO, this);
 		}
 		if (object != null) {
 			String convoKey = object.properties.get(PROPERTY_CONVO);

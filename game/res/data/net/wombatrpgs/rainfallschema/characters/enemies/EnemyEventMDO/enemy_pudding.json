@@ -7,6 +7,7 @@
 	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
 	"response" : "PUSHABLE",
 	"touch" : "STUNBOUNCE",
+	"soundHurt" : "sound_enemy_hurt",
 	"mobility" : "mobility_slippery",
 	"intelligence" : "pudding_intelligence",
 	"vulnerability" : "vulnerability_beetle",

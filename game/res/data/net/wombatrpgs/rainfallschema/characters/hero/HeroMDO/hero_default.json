@@ -7,5 +7,6 @@
 	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
 	"response" : "PUSHABLE",
 	"touch" : "NOTHING",
+	"soundHurt" : "sound_player_hurt",
 	"mobility" : "mobility_hero"
 }

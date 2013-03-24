@@ -11,6 +11,7 @@ import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
+import net.wombatrpgs.rainfallschema.characters.hero.moveset.data.MoveMDO;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.graphics.EmitterMDO;
 import net.wombatrpgs.rainfallschema.graphics.GibsetMDO;

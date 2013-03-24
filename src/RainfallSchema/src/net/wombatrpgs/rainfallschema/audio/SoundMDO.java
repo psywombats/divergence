@@ -19,7 +19,7 @@ import net.wombatrpgs.rainfallschema.audio.data.RepeatType;
 public class SoundMDO extends AudioMDO {
 	
 	@Desc("Repeats - usually false for SFX")
-	@DefaultValue("FALSE")
+	@DefaultValue("PLAY_ONCE")
 	public RepeatType repeats;
 
 }

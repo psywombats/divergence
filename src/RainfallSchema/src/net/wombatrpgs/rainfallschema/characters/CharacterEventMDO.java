@@ -12,6 +12,7 @@ import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
+import net.wombatrpgs.rainfallschema.audio.SoundMDO;
 import net.wombatrpgs.rainfallschema.characters.data.CollisionResponseType;
 import net.wombatrpgs.rainfallschema.characters.data.HitboxType;
 import net.wombatrpgs.rainfallschema.characters.enemies.data.TouchEffectType;
@@ -40,6 +41,11 @@ public class CharacterEventMDO extends MainSchema {
 	@Desc("Touch effect - describes what happens when the chara hits hero")
 	@DefaultValue("NOTHING")
 	public TouchEffectType touch;
+	
+	@Desc("Hurt sound - plays when this character is damaged")
+	@SchemaLink(SoundMDO.class)
+	@Nullable
+	public String soundHurt;
 	
 	@Desc("Mobility - speed and acceleration parameters")
 	@SchemaLink(MobilityMDO.class)

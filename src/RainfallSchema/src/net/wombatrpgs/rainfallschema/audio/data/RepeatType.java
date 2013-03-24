@@ -11,7 +11,7 @@ package net.wombatrpgs.rainfallschema.audio.data;
  */
 public enum RepeatType {
 	
-	LOOP,
 	PLAY_ONCE,
+	LOOP,
 
 }

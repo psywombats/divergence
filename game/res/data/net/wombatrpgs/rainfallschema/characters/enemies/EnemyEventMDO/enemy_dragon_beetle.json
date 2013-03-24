@@ -7,9 +7,11 @@
 	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
 	"response" : "PUSHABLE",
 	"touch" : "NOTHING",
+	"soundHurt" : "sound_enemy_hurt",
 	"mobility" : "mobility_enemy",
 	"intelligence" : "dragon_beetle_intelligence",
 	"vulnerability" : "vulnerability_beetle",
 	"gibset" : "gibset_dragon_beetle",
-	"emitter" : "emitter_enemies"
+	"emitter" : "emitter_enemies",
+	"dieAnim" : "None"
 }

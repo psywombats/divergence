@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="15" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="20"><properties><property name="blended tiles" value="195,197,198,199,200,202,203,205,207,208,209,210,211,212,213,215,216,217,218,219,220,221,222,223,227,229,230,231,235,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,398,399,400,401,402,403,404,405,406,407,408,409"/></properties>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="15" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="20"><properties><property name="blended tiles" value="195,197,198,199,200,202,203,205,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,227,229,230,231,235,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,398,399,400,401,402,403,404,405,406,407,408,409"/></properties>
  <tileset firstgid="1" name="lower" tileheight="32" tilewidth="32">
   <image height="160" source="tilesets/test/lower.PNG" trans="b5a5d5" width="192"/>
  </tileset>

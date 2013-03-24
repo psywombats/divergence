@@ -14,7 +14,7 @@ import net.wombatrpgs.rainfallschema.audio.SoundMDO;
 import net.wombatrpgs.rainfallschema.audio.data.RepeatType;
 
 /**
- * A sound effect map object. May linger behind once it's done playing.
+ * A sound effect map object.
  */
 public class SoundObject extends AudioObject {
 	
@@ -29,6 +29,14 @@ public class SoundObject extends AudioObject {
 	public SoundObject(SoundMDO mdo, MapObject parent) {
 		super(mdo, parent);
 		this.mdo = mdo;
+	}
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.Disposable#dispose()
+	 */
+	@Override
+	public void dispose() {
+		coreSound.dispose();
 	}
 
 	/**
@@ -64,14 +72,6 @@ public class SoundObject extends AudioObject {
 	@Override
 	protected void postProcessing(AssetManager manager) {
 		coreSound = (Sound) manager.get(filename, getLoaderClass());
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Disposable#dispose()
-	 */
-	@Override
-	public void dispose() {
-		coreSound.dispose();
 	}
 
 }

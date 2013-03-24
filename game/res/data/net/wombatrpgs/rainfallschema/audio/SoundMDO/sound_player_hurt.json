@@ -1,0 +1,9 @@
+{
+	"key" : "sound_player_hurt",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"file" : "player_hurt.wav",
+	"volume" : 100,
+	"repeats" : "PLAY_ONCE"
+}

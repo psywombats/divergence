@@ -8,6 +8,7 @@ package net.wombatrpgs.rainfallschema.characters.hero.moveset;
 
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
+import net.wombatrpgs.rainfallschema.characters.hero.moveset.data.MoveMDO;
 
 /**
  * Push and pull move.

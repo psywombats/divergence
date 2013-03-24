@@ -4,13 +4,14 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.rainfallschema.characters.hero.moveset;
+package net.wombatrpgs.rainfallschema.characters.hero.moveset.data;
 
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
+import net.wombatrpgs.rainfallschema.audio.SoundMDO;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
 import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 
@@ -22,8 +23,13 @@ import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 @ExcludeFromTree
 public class MoveMDO extends MainSchema {
 	
-	@Desc("Cooldown time - in seconds")
+	@Desc("Cooldown time - in seconds, unused?")
 	public Float cooldown;
+	
+	@Desc("SFX - played when move is started")
+	@SchemaLink(SoundMDO.class)
+	@Nullable
+	public String sound;
 	
 	@Desc("4Dir Animation - played when move is in action")
 	@SchemaLink(FourDirMDO.class)

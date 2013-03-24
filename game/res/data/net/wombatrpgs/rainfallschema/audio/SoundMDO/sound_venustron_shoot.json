@@ -1,0 +1,9 @@
+{
+	"key" : "sound_venustron_shoot",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"file" : "venustron_shoot.wav",
+	"volume" : 100,
+	"repeats" : "PLAY_ONCE"
+}

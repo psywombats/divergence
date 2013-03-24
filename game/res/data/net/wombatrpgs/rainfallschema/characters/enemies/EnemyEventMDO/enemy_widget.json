@@ -7,9 +7,11 @@
 	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
 	"response" : "PUSHABLE",
 	"touch" : "STUNBOUNCE",
+	"soundHurt" : "sound_enemy_hurt",
 	"mobility" : "mobility_enemy",
 	"intelligence" : "widget_intelligence",
 	"vulnerability" : "vulnerability_default",
 	"gibset" : "gibset_widget",
-	"emitter" : "emitter_enemies"
+	"emitter" : "emitter_enemies",
+	"dieAnim" : "None"
 }
