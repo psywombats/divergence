@@ -9,486 +9,486 @@ brownrock
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 66
-brownrock
-  rotate: false
-  xy: 2, 2
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 67
-brownrock
-  rotate: false
-  xy: 2, 2
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 68
-brownrock
-  rotate: false
-  xy: 2, 2
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 69
+  index: 65
 brownrock
   rotate: false
   xy: 2, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 65
+  index: 64
 brownrock
   rotate: false
   xy: 2, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 64
+  index: 63
 brownrock
   rotate: false
   xy: 36, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 63
+  index: 59
 brownrock
   rotate: false
   xy: 36, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 62
+  index: 58
 brownrock
   rotate: false
   xy: 36, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 61
+  index: 57
 brownrock
   rotate: false
   xy: 70, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 60
+  index: 56
 brownrock
   rotate: false
   xy: 70, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 59
+  index: 55
 brownrock
   rotate: false
   xy: 70, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 58
+  index: 54
 brownrock
   rotate: false
   xy: 104, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 57
+  index: 53
 brownrock
   rotate: false
   xy: 104, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 56
+  index: 52
 brownrock
   rotate: false
   xy: 104, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 55
+  index: 51
 brownrock
   rotate: false
   xy: 138, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 54
+  index: 50
 brownrock
   rotate: false
   xy: 138, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 53
+  index: 49
 brownrock
   rotate: false
   xy: 138, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 52
+  index: 48
 brownrock
   rotate: false
   xy: 172, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 51
+  index: 47
 brownrock
   rotate: false
   xy: 172, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 50
+  index: 46
 brownrock
   rotate: false
   xy: 172, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 49
+  index: 45
 brownrock
   rotate: false
   xy: 206, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 48
+  index: 44
 brownrock
   rotate: false
   xy: 206, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 46
+  index: 43
 brownrock
   rotate: false
   xy: 206, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 45
+  index: 42
 brownrock
   rotate: false
   xy: 240, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 44
+  index: 41
 brownrock
   rotate: false
   xy: 240, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 43
+  index: 40
 brownrock
   rotate: false
   xy: 240, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 42
+  index: 39
 brownrock
   rotate: false
   xy: 274, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 41
+  index: 38
 brownrock
   rotate: false
   xy: 274, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 40
+  index: 37
 brownrock
   rotate: false
   xy: 274, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 39
+  index: 36
 brownrock
   rotate: false
   xy: 308, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 38
+  index: 35
 brownrock
   rotate: false
   xy: 308, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 37
+  index: 33
 brownrock
   rotate: false
   xy: 308, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 36
+  index: 32
 brownrock
   rotate: false
   xy: 342, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 35
+  index: 31
 brownrock
   rotate: false
   xy: 342, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 33
+  index: 30
 brownrock
   rotate: false
   xy: 342, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 32
+  index: 29
 brownrock
   rotate: false
   xy: 376, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 31
+  index: 28
 brownrock
   rotate: false
   xy: 376, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 30
+  index: 27
 brownrock
   rotate: false
   xy: 376, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 29
+  index: 26
 brownrock
   rotate: false
   xy: 410, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 28
+  index: 25
 brownrock
   rotate: false
   xy: 410, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 27
+  index: 23
 brownrock
   rotate: false
   xy: 410, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 26
+  index: 22
 brownrock
   rotate: false
   xy: 444, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 25
+  index: 21
 brownrock
   rotate: false
   xy: 444, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 23
+  index: 20
 brownrock
   rotate: false
   xy: 444, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 22
+  index: 17
 brownrock
   rotate: false
   xy: 478, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 21
+  index: 16
 brownrock
   rotate: false
   xy: 478, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 20
-brownrock
-  rotate: false
-  xy: 478, 70
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 19
-brownrock
-  rotate: false
-  xy: 478, 70
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 47
-brownrock
-  rotate: false
-  xy: 512, 2
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 18
-brownrock
-  rotate: false
-  xy: 512, 36
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 17
-brownrock
-  rotate: false
-  xy: 512, 70
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 16
-brownrock
-  rotate: false
-  xy: 546, 2
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
   index: 15
 brownrock
   rotate: false
-  xy: 546, 36
+  xy: 478, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 14
 brownrock
   rotate: false
-  xy: 546, 70
+  xy: 512, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 13
 brownrock
   rotate: false
-  xy: 580, 2
+  xy: 512, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 12
 brownrock
   rotate: false
-  xy: 580, 36
+  xy: 512, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 11
 brownrock
   rotate: false
-  xy: 580, 36
+  xy: 512, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 34
 brownrock
   rotate: false
-  xy: 580, 70
+  xy: 546, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 10
 brownrock
   rotate: false
-  xy: 614, 2
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 9
-brownrock
-  rotate: false
-  xy: 614, 36
+  xy: 546, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 8
 brownrock
   rotate: false
-  xy: 614, 70
+  xy: 546, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 9
+brownrock
+  rotate: false
+  xy: 546, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 18
+brownrock
+  rotate: false
+  xy: 546, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 19
+brownrock
+  rotate: false
+  xy: 546, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 60
+brownrock
+  rotate: false
+  xy: 546, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 61
+brownrock
+  rotate: false
+  xy: 546, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 62
+brownrock
+  rotate: false
+  xy: 546, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 66
+brownrock
+  rotate: false
+  xy: 546, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 67
+brownrock
+  rotate: false
+  xy: 546, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 68
+brownrock
+  rotate: false
+  xy: 546, 36
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 69
+brownrock
+  rotate: false
+  xy: 546, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 7
 brownrock
   rotate: false
-  xy: 648, 2
+  xy: 580, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 6
 brownrock
   rotate: false
-  xy: 648, 36
+  xy: 580, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 5
 brownrock
   rotate: false
-  xy: 648, 70
+  xy: 580, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 4
 brownrock
   rotate: false
-  xy: 648, 70
+  xy: 580, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 24
 brownrock
   rotate: false
-  xy: 682, 2
+  xy: 614, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 3
 brownrock
   rotate: false
-  xy: 682, 36
+  xy: 614, 36
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 brownrock
   rotate: false
-  xy: 682, 70
+  xy: 614, 70
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 brownrock
   rotate: false
-  xy: 716, 2
+  xy: 648, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

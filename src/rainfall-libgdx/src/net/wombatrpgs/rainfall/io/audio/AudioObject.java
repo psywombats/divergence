@@ -67,7 +67,6 @@ public abstract class AudioObject extends MapObject implements Disposable {
 			}
 			parent.getLevel().addObject(this);
 		}
-		coreStop();
 		corePlay();
 	}
 	

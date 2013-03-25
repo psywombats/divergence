@@ -1,14 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32">
- <properties>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="15" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="20">
+ <properties><property name="blended tiles" value=""/>
   <property name="minimap" value="graphic_minimap_l1_f1"/>
   <property name="minimap_x1" value="159"/>
   <property name="minimap_x2" value="192"/>
   <property name="minimap_y1" value="69"/>
   <property name="minimap_y2" value="114"/>
  </properties>
- <tileset firstgid="1" name="upper" tilewidth="32" tileheight="32">
-  <image source="tilesets/test/upper.PNG" trans="b5a5d5" width="256" height="128"/>
+ <tileset firstgid="1" name="upper" tileheight="32" tilewidth="32">
+  <image height="128" source="tilesets/test/upper.PNG" trans="b5a5d5" width="256"/>
   <tile id="4">
    <properties>
     <property name="impassable" value=""/>
@@ -20,8 +19,8 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="33" name="lower" tilewidth="32" tileheight="32">
-  <image source="tilesets/test/lower.PNG" trans="b5a5d5" width="192" height="160"/>
+ <tileset firstgid="33" name="lower" tileheight="32" tilewidth="32">
+  <image height="160" source="tilesets/test/lower.PNG" trans="b5a5d5" width="192"/>
   <tile id="21">
    <properties>
     <property name="x" value=""/>
@@ -53,60 +52,60 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tile Layer 1" width="20" height="15">
+ <layer height="15" name="Tile Layer 1" width="20">
   <properties>
    <property name="z" value="0"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
+  <property name="layer" value="2"/></properties>
+  <data compression="zlib" encoding="base64">
    eJwzYWBgMBnFQwIrArESECtTyTx1INYAYk0S9AjjkdMFYj0g1ifBPGMcmFw/4XIfJWbiC39KzCUn/PFhcsJ/qGEA/5g7zw==
   </data>
  </layer>
- <layer name="Tile Layer 2" width="20" height="15">
+ <layer height="15" name="Tile Layer 2" width="20">
   <properties>
    <property name="z" value=".5"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
+  <property name="layer" value="1"/></properties>
+  <data compression="zlib" encoding="base64">
    eJxjZGBgYAJiZiBmxMFGBrjEYYATiLmAmBsPGwZYcYiTC3ipYMZgB6xEqmMhUh2xYcZDpDp6AmLDglhATFgMhJ20BqIU6kXGtDQTBACMsQG7
   </data>
  </layer>
- <objectgroup name="Object Layer 1" width="20" height="15">
+ <objectgroup height="15" name="Object Layer 1" width="20">
   <properties>
    <property name="z" value=".5"/>
-  </properties>
-  <object name="tele" type="teleport" x="0" y="256" width="32" height="32">
+  <property name="layer" value="0"/></properties>
+  <object height="32" name="tele" type="teleport" width="32" x="0" y="256">
    <properties>
     <property name="id" value="sample_map"/>
     <property name="x" value="18"/>
     <property name="y" value="6"/>
    </properties>
   </object>
-  <object name="DragonBeetle" type="event" x="448" y="64" width="32" height="32">
+  <object height="32" name="DragonBeetle" type="event" width="32" x="448" y="64">
    <properties>
     <property name="key" value="enemy_dragon_beetle"/>
     <property name="respawns" value=""/>
    </properties>
   </object>
-  <object name="Pudding" type="event" x="352" y="320" width="32" height="32">
+  <object height="32" name="Pudding" type="event" width="32" x="352" y="320">
    <properties>
     <property name="key" value="enemy_pudding"/>
    </properties>
   </object>
-  <object name="Pudding" type="event" x="416" y="320" width="32" height="32">
+  <object height="32" name="Pudding" type="event" width="32" x="416" y="320">
    <properties>
     <property name="key" value="enemy_pudding"/>
    </properties>
   </object>
-  <object name="Pudding" type="event" x="384" y="352" width="32" height="32">
+  <object height="32" name="Pudding" type="event" width="32" x="384" y="352">
    <properties>
     <property name="key" value="enemy_pudding"/>
    </properties>
   </object>
-  <object name="Pudding" type="event" x="448" y="352" width="32" height="32">
+  <object height="32" name="Pudding" type="event" width="32" x="448" y="352">
    <properties>
     <property name="key" value="enemy_pudding"/>
    </properties>
   </object>
-  <object name="Grinder" type="event" x="208" y="80" width="32" height="32">
+  <object height="32" name="Grinder" type="event" width="32" x="208" y="80">
    <properties>
     <property name="key" value="enemy_grinder"/>
     <property name="respawns" value=""/>

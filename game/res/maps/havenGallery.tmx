@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="15" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="25">
- <properties><property name="blended tiles" value="195,197,198,199,200,202,203,205,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,227,229,230,231,235,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263"/>
+ <properties><property name="blended tiles" value="186,188,189,190,191,193,194,196,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,218,220,221,222,226,228,229,230,231,232,233,234,235,236,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254"/>
   <property name="minimap" value="graphic_minimap_l1_f1"/>
   <property name="minimap_x1" value="111"/>
   <property name="minimap_x2" value="156"/>
@@ -618,7 +618,7 @@
  <layer height="15" name="Lower 1" width="25">
   <properties>
    <property name="z" value="0"/>
-  <property name="layer" value="5"/></properties>
+  <property name="layer" value="5"/><property name="layer" value="5"/></properties>
   <data compression="zlib" encoding="base64">
    eJytk8sKgzAQRa9L3fb/3Ei1io/aLm3/3RnEzZCbRBnhgITMPSQzAYC5AN6OTIL9Rln7wI+BOH4IE8tiNczREFiOwmqsQ3uxRhw1OKxmMT3RM3wj++84VnNfpyN0F/9IvrKRupAjlXWFsjjc1uGVfzoq0/de/jtHz0OynsLLzJb3Wdj7SNXlztpVB5vNlC/XkZPPPCGH9r11xPZ7BwKzglY=
   </data>
@@ -626,7 +626,7 @@
  <layer height="15" name="Upper 1" width="25">
   <properties>
    <property name="z" value=".5"/>
-  <property name="layer" value="4"/></properties>
+  <property name="layer" value="4"/><property name="layer" value="4"/></properties>
   <data compression="zlib" encoding="base64">
    eJxjYKAvuEekGKlqRxK4O9AOGIbgPBBfGGhHjAKSwOWBdsAgBwB9ZQbI
   </data>
@@ -634,7 +634,7 @@
  <objectgroup height="15" name="Event 1" width="25">
   <properties>
    <property name="z" value=".5"/>
-  <property name="layer" value="3"/></properties>
+  <property name="layer" value="3"/><property name="layer" value="3"/></properties>
   <object height="32" name="TameDragonBeetle" type="event" width="32" x="448" y="112">
    <properties>
     <property name="group" value="beetles"/>
@@ -723,7 +723,7 @@
  <layer height="15" name="Lower 2" width="25">
   <properties>
    <property name="z" value="1"/>
-  <property name="layer" value="2"/></properties>
+  <property name="layer" value="2"/><property name="layer" value="2"/></properties>
   <data compression="zlib" encoding="base64">
    eJxjYBgFpAIuRkzMzYhfDycWPVx49NDDDhFGTCxKwA5hLHpECOgZBaMAGfwHEcA0w0jldAMzF4RZoWmfjREhRql9IPNZceQxLiT7qO0vcgEApvkFfw==
   </data>
@@ -731,7 +731,7 @@
  <layer height="15" name="Upper 2" width="25">
   <properties>
    <property name="z" value="1.5"/>
-  <property name="layer" value="1"/></properties>
+  <property name="layer" value="1"/><property name="layer" value="1"/></properties>
   <data compression="zlib" encoding="base64">
    eJxjYBgFpIKTQLwLib8Ll0I0QKqeQzjY1NYzCkYBvQGxeYZUcAuJfQiHOKXgEZqZt9DEBwsAAOYqDWI=
   </data>
@@ -739,7 +739,7 @@
  <objectgroup height="15" name="Event 2" width="25">
   <properties>
    <property name="z" value="1.5"/>
-  <property name="layer" value="0"/></properties>
+  <property name="layer" value="0"/><property name="layer" value="0"/></properties>
   <object height="32" name="Edgar" type="event" width="32" x="576" y="144">
    <properties>
     <property name="face" value="right"/>

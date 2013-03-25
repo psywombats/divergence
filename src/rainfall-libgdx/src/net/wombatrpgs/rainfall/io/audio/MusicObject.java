@@ -41,7 +41,9 @@ public class MusicObject extends AudioObject {
 	 */
 	@Override
 	protected void corePlay() {
-		coreMusic.play();
+		if (!coreMusic.isPlaying()) {
+			coreMusic.play();
+		}
 	}
 
 	/**

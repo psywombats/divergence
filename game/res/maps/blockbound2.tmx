@@ -55,7 +55,7 @@
  <layer height="15" name="Tile Layer 1" width="20">
   <properties>
    <property name="z" value="0"/>
-  <property name="layer" value="2"/></properties>
+  <property name="layer" value="2"/><property name="layer" value="2"/></properties>
   <data compression="zlib" encoding="base64">
    eJwzYWBgMBnFQwIrArESECtTyTx1INYAYk0S9AjjkdMFYj0g1ifBPGMcmFw/4XIfJWbiC39KzCUn/PFhcsJ/qGEA/5g7zw==
   </data>
@@ -63,7 +63,7 @@
  <layer height="15" name="Tile Layer 2" width="20">
   <properties>
    <property name="z" value=".5"/>
-  <property name="layer" value="1"/></properties>
+  <property name="layer" value="1"/><property name="layer" value="1"/></properties>
   <data compression="zlib" encoding="base64">
    eJxjZGBgYAJiZiBmxMFGBrjEYYATiLmAmBsPGwZYcYiTC3ipYMZgB6xEqmMhUh2xYcZDpDp6AmLDglhATFgMhJ20BqIU6kXGtDQTBACMsQG7
   </data>
@@ -71,7 +71,7 @@
  <objectgroup height="15" name="Object Layer 1" width="20">
   <properties>
    <property name="z" value=".5"/>
-  <property name="layer" value="0"/></properties>
+  <property name="layer" value="0"/><property name="layer" value="0"/></properties>
   <object height="32" name="tele" type="teleport" width="32" x="0" y="256">
    <properties>
     <property name="id" value="sample_map"/>

@@ -103,7 +103,7 @@
  <layer height="15" name="Tile Layer 1" width="20">
   <properties>
    <property name="z" value="0"/>
-  <property name="layer" value="5"/></properties>
+  <property name="layer" value="5"/><property name="layer" value="5"/></properties>
   <data compression="zlib" encoding="base64">
    eJwTYWBgECETu2PBMDlkMFjN40YzTwaI5cg0TwZqHj79yFiagHnYMCMQMwExMw7zpNHEZAmYxw7EHEDMiWYGOgbJCUMxPvN4gZgPiPmp5D5C4Ueu3pGE69DwYDOPVAwAsmMfJg==
   </data>
@@ -111,7 +111,7 @@
  <layer height="15" name="Tile Layer 2" width="20">
   <properties>
    <property name="z" value=".5"/>
-  <property name="layer" value="4"/></properties>
+  <property name="layer" value="4"/><property name="layer" value="4"/></properties>
   <data compression="zlib" encoding="base64">
    eJxjYBg+QHugHTAEwWiYDSygR/gbDXLzSAEAkrsA5g==
   </data>
@@ -120,7 +120,7 @@
   <properties>
    <property name="ogga" value="ALPHONSEO"/>
    <property name="z" value=".5"/>
-  <property name="layer" value="3"/></properties>
+  <property name="layer" value="3"/><property name="layer" value="3"/></properties>
   <object height="32" name="tele" type="teleport" width="32" x="608" y="192">
    <properties>
     <property name="id" value="blockbound2"/>
@@ -160,7 +160,7 @@
  <layer height="15" name="Tile Layer 3" width="20">
   <properties>
    <property name="z" value="1"/>
-  <property name="layer" value="2"/></properties>
+  <property name="layer" value="2"/><property name="layer" value="2"/></properties>
   <data compression="zlib" encoding="base64">
    eJxjYKANsAdiByB2pJJ5nkDMjQOTA6qhdC3lThsFo2AU0AkAAAdDAkQ=
   </data>
@@ -168,7 +168,7 @@
  <layer height="15" name="Tile Layer 4" width="20">
   <properties>
    <property name="z" value="1.5"/>
-  <property name="layer" value="1"/></properties>
+  <property name="layer" value="1"/><property name="layer" value="1"/></properties>
   <data compression="zlib" encoding="base64">
    eJxjYBg4oDyAdg9VMBpmAwtGw39gAQA1WwBq
   </data>
@@ -176,6 +176,6 @@
  <objectgroup height="15" name="Object Layer 2" width="20">
   <properties>
    <property name="z" value="1.5"/>
-  <property name="layer" value="0"/></properties>
+  <property name="layer" value="0"/><property name="layer" value="0"/></properties>
  </objectgroup>
 </map>

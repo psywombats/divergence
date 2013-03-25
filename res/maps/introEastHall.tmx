@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="33" height="26" tilewidth="32" tileheight="32">
- <properties>
-  <property name="bgm" value="music_test_bgm"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="26" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="33">
+ <properties><property name="blended tiles" value="186,188,189,190,191,193,194,196,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,218,220,221,222,226,228,229,230,231,232,233,234,235,236,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,389,390,391,392,393,394,395,396,397,398,399,400"/>
   <property name="minimap" value="graphic_minimap_l1_f1"/>
   <property name="minimap_x1" value="122"/>
   <property name="minimap_x2" value="180"/>
   <property name="minimap_y1" value="117"/>
   <property name="minimap_y2" value="174"/>
  </properties>
- <tileset firstgid="1" name="blockboundBrickWall" tilewidth="32" tileheight="32">
-  <image source="tilesets/blockbound/brickwall.png" width="128" height="96"/>
+ <tileset firstgid="1" name="blockboundBrickWall" tileheight="32" tilewidth="32">
+  <image height="32" source="tilesets/blockbound/brickwall.png" width="96"/>
   <tile id="0">
    <properties>
     <property name="x" value=""/>
@@ -26,8 +24,8 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="13" name="blockboundBrownRock" tilewidth="32" tileheight="32">
-  <image source="tilesets/blockbound/brownrock.png" trans="8080ff" width="320" height="224"/>
+ <tileset firstgid="4" name="blockboundBrownRock" tileheight="32" tilewidth="32">
+  <image height="224" source="tilesets/blockbound/brownrock.png" trans="8080ff" width="320"/>
   <tile id="30">
    <properties>
     <property name="x" value=""/>
@@ -74,11 +72,11 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="83" name="blockboundRedRug" tilewidth="32" tileheight="32">
-  <image source="tilesets/blockbound/redrug.png" width="96" height="96"/>
+ <tileset firstgid="74" name="blockboundRedRug" tileheight="32" tilewidth="32">
+  <image height="96" source="tilesets/blockbound/redrug.png" width="96"/>
  </tileset>
- <tileset firstgid="92" name="blockboundStoneFloor" tilewidth="32" tileheight="32">
-  <image source="tilesets/blockbound/stonefloor.PNG" trans="8080ff" width="320" height="320"/>
+ <tileset firstgid="83" name="blockboundStoneFloor" tileheight="32" tilewidth="32">
+  <image height="320" source="tilesets/blockbound/stonefloor.PNG" trans="8080ff" width="320"/>
   <tile id="30">
    <properties>
     <property name="x" value=""/>
@@ -125,8 +123,8 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="192" name="blockboundUpper" tilewidth="32" tileheight="32">
-  <image source="tilesets/blockbound/upper.png" trans="8080ff" width="256" height="288"/>
+ <tileset firstgid="183" name="blockboundUpper" tileheight="32" tilewidth="32">
+  <image height="288" source="tilesets/blockbound/upper.png" trans="8080ff" width="256"/>
   <tile id="0">
    <properties>
     <property name="x" value=""/>
@@ -298,8 +296,8 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="264" name="blockboundWoodFloor" tilewidth="32" tileheight="32">
-  <image source="tilesets/blockbound/woodfloor.png" trans="8080ff" width="320" height="320"/>
+ <tileset firstgid="255" name="blockboundWoodFloor" tileheight="32" tilewidth="32">
+  <image height="320" source="tilesets/blockbound/woodfloor.png" trans="8080ff" width="320"/>
   <tile id="30">
    <properties>
     <property name="x" value=""/>
@@ -476,8 +474,8 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="364" name="blockboundCeiling" tilewidth="32" tileheight="32">
-  <image source="tilesets/blockbound/ceiling.png" trans="8080ff" width="160" height="96"/>
+ <tileset firstgid="355" name="blockboundCeiling" tileheight="32" tilewidth="32">
+  <image height="96" source="tilesets/blockbound/ceiling.png" trans="8080ff" width="160"/>
   <tile id="0">
    <properties>
     <property name="x" value=""/>
@@ -554,8 +552,8 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="379" name="blockboundQuarryCeiling" tilewidth="32" tileheight="32">
-  <image source="tilesets/blockbound/quarryroof.png" trans="8080ff" width="160" height="96"/>
+ <tileset firstgid="370" name="blockboundQuarryCeiling" tileheight="32" tilewidth="32">
+  <image height="96" source="tilesets/blockbound/quarryroof.png" trans="8080ff" width="160"/>
   <tile id="0">
    <properties>
     <property name="x" value=""/>
@@ -622,96 +620,96 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Lower 1" width="33" height="26">
+ <layer height="26" name="Lower 1" width="33">
   <properties>
    <property name="z" value="0"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
-   eJxjYKA9KGdkYKjEgssY6WA5FJQC7WJiwMTFA+QGYcaR7QZhLJhebgClx6oBdgMoDJgZRt0Ac0MoFnfQ0w3hQDpiAN1QBLSnAIijB9ANIDDQeXOouIEedRohN+Cq0ypwuI0cTKicxFWfMGJxF7mYUBk1WNyATR4kncNIHUyuG4SpZH8OHvOJcUMLUL6VQtyGIwyIdQOt8agbBp8bQHVr/gDhQqgbAEHgYT0=
+  <property name="layer" value="5"/></properties>
+  <data compression="zlib" encoding="base64">
+   eJzt1c0KgzAMB/DE3fpsouArCH6x6XbefHcT0JOplaqNMgN/PATMj6INwPHVIsBbyAsDDB/rSbMimKdRMhj8b4MREsrA3+NH2cBn8IDbMBliwRHSkNAzVTTUNKekZIoGLu1/8yqGEDvNZbDttM5i84nrnrTtExRcvnHdUWcxSH1u57hPfA1mp/n5wvvXGL7U/21MbzmDtYajcxvOZ+DdWiilGg0DmkZTNg==
   </data>
  </layer>
- <layer name="Upper 1" width="33" height="26">
+ <layer height="26" name="Upper 1" width="33">
   <properties>
    <property name="z" value=".5"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
-   eJxjYBhZ4CgQHwPi4wPohrNAfA6Izw+gG64C8TUgvj6AbrgLpe8D8eUBdMcoGAWDBVwYaAeMgiEHhkqd9pxENqlgoOs0UB2GXKd9GyB3oIPB4g4QeEyAJlYNJeA1AZpYNaNgFBALAHdGKGM=
+  <property name="layer" value="4"/></properties>
+  <data compression="zlib" encoding="base64">
+   eJxjYBhZYA8Q7wXifQPohiNAfBSIjw2gG84A8VkgPjeAbrgCpa8B8akBdMcoGAWDBRwfaAeMgiEHhkqddo9ENqlgoOs0UB2GXKe9HSB3oIPB4g4QuEWAJlYNJeARAZpYNaNgFBALAMxAJrw=
   </data>
  </layer>
- <objectgroup name="Event 1" width="33" height="26">
+ <objectgroup height="26" name="Event 1" width="33">
   <properties>
    <property name="z" value=".5"/>
-  </properties>
+  <property name="layer" value="3"/></properties>
   <object name="Point" type="point" x="512" y="736">
    <properties>
     <property name="name" value="cam_target"/>
    </properties>
   </object>
-  <object name="Nico" type="event" x="832" y="720" width="32" height="32">
+  <object height="32" name="Nico" type="event" width="32" x="832" y="720">
    <properties>
     <property name="group" value="gang1; gang2"/>
     <property name="key" value="event_nico"/>
     <property name="name" value="nico"/>
    </properties>
   </object>
-  <object name="Widget" type="event" x="896" y="720" width="32" height="32">
+  <object height="32" name="Widget" type="event" width="32" x="896" y="720">
    <properties>
     <property name="group" value="gang1"/>
     <property name="key" value="event_widget"/>
    </properties>
   </object>
-  <object name="Grinder" type="event" x="64" y="688" width="32" height="32">
+  <object height="32" name="Grinder" type="event" width="32" x="64" y="688">
    <properties>
     <property name="group" value="gang2"/>
     <property name="key" value="event_grinder"/>
    </properties>
   </object>
-  <object name="Grinder" type="event" x="64" y="752" width="32" height="32">
+  <object height="32" name="Grinder" type="event" width="32" x="64" y="752">
    <properties>
     <property name="group" value="gang2"/>
     <property name="key" value="event_grinder"/>
    </properties>
   </object>
-  <object name="Trigger" type="trigger" x="480" y="512" width="32" height="32">
+  <object height="32" name="Trigger" type="trigger" width="32" x="480" y="512">
    <properties>
     <property name="auto" value=""/>
     <property name="id" value="scene_intro0001"/>
    </properties>
   </object>
-  <object name="Nico" type="event" x="928" y="672" width="32" height="32">
+  <object height="32" name="Nico" type="event" width="32" x="928" y="672">
    <properties>
     <property name="face" value="left"/>
     <property name="key" value="event_nico"/>
     <property name="name" value="nico2"/>
    </properties>
   </object>
-  <object name="Grinder" type="event" x="864" y="656" width="32" height="32">
+  <object height="32" name="Grinder" type="event" width="32" x="864" y="656">
    <properties>
     <property name="face" value="right"/>
     <property name="key" value="event_grinder"/>
     <property name="pace" value=""/>
    </properties>
   </object>
-  <object name="Grinder" type="event" x="864" y="688" width="32" height="32">
+  <object height="32" name="Grinder" type="event" width="32" x="864" y="688">
    <properties>
     <property name="face" value="right"/>
     <property name="key" value="event_grinder"/>
     <property name="pace" value=""/>
    </properties>
   </object>
-  <object name="Widget" type="event" x="832" y="672" width="32" height="32">
+  <object height="32" name="Widget" type="event" width="32" x="832" y="672">
    <properties>
     <property name="face" value="right"/>
     <property name="key" value="event_widget"/>
     <property name="pace" value=""/>
    </properties>
   </object>
-  <object name="Block" type="event" x="896" y="672" width="32" height="32">
+  <object height="32" name="Block" type="event" width="32" x="896" y="672">
    <properties>
     <property name="key" value="event_waldy_stoned"/>
    </properties>
   </object>
-  <object name="Widget" type="event" x="32" y="720" width="32" height="32">
+  <object height="32" name="Widget" type="event" width="32" x="32" y="720">
    <properties>
     <property name="group" value="gang2"/>
     <property name="key" value="event_widget"/>
@@ -719,25 +717,25 @@
    </properties>
   </object>
  </objectgroup>
- <layer name="Lower 2" width="33" height="26">
+ <layer height="26" name="Lower 2" width="33">
   <properties>
    <property name="z" value="1"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
-   eJztzrERABAUBUHVIkT/gd/Dk9mdufxaAwDgtV6NsBk+rGqHnfABfnUB76IPMQ==
+  <property name="layer" value="2"/></properties>
+  <data compression="zlib" encoding="base64">
+   eJztzrERABAUBUGNIkT/Dfg9PJndmcuvNQAAXuvVCJvhw6p22Akf4FcXWOYN7Q==
   </data>
  </layer>
- <layer name="Upper 2" width="33" height="26">
+ <layer height="26" name="Upper 2" width="33">
   <properties>
    <property name="z" value="1.5"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwSgYnuAwAT6xaigBpwnwiVUzCkbBUAKPiZDDRROrZrADAEZkDjQ=
+  <property name="layer" value="1"/></properties>
+  <data compression="zlib" encoding="base64">
+   eJxjYBgFo2AUjIJRMApGwSgYnmAXAT6xaigBhwjwiVUzCkbBUAK3iJDDRROrZrADANoyDZs=
   </data>
  </layer>
- <objectgroup name="Event 2" width="33" height="26">
+ <objectgroup height="26" name="Event 2" width="33">
   <properties>
    <property name="z" value="1.5"/>
-  </properties>
+  <property name="layer" value="0"/></properties>
  </objectgroup>
 </map>

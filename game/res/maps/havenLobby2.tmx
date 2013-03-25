@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="23" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="20">
- <properties><property name="blended tiles" value="195,197,198,199,200,202,203,205,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,227,229,230,231,235,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262,263,398,399,400,401,402,403,404,405,406,407,408,409"/>
+ <properties><property name="blended tiles" value="186,188,189,190,191,193,194,196,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,218,220,221,222,226,228,229,230,231,232,233,234,235,236,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,389,390,391,392,393,394,395,396,397,398,399,400"/>
   <property name="minimap" value="graphic_minimap_l1_f1"/>
   <property name="minimap_x1" value="159"/>
   <property name="minimap_x2" value="192"/>
@@ -7,7 +7,7 @@
   <property name="minimap_y2" value="114"/>
  </properties>
  <tileset firstgid="1" name="blockboundBrickWall" tileheight="32" tilewidth="32">
-  <image height="96" source="tilesets/blockbound/brickwall.png" width="128"/>
+  <image height="32" source="tilesets/blockbound/brickwall.png" width="96"/>
   <tile id="0">
    <properties>
     <property name="x" value=""/>
@@ -24,7 +24,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="13" name="blockboundBrownRock" tileheight="32" tilewidth="32">
+ <tileset firstgid="4" name="blockboundBrownRock" tileheight="32" tilewidth="32">
   <image height="224" source="tilesets/blockbound/brownrock.png" trans="8080ff" width="320"/>
   <tile id="30">
    <properties>
@@ -72,10 +72,10 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="83" name="blockboundRedRug" tileheight="32" tilewidth="32">
+ <tileset firstgid="74" name="blockboundRedRug" tileheight="32" tilewidth="32">
   <image height="96" source="tilesets/blockbound/redrug.png" width="96"/>
  </tileset>
- <tileset firstgid="92" name="blockboundStoneFloor" tileheight="32" tilewidth="32">
+ <tileset firstgid="83" name="blockboundStoneFloor" tileheight="32" tilewidth="32">
   <image height="320" source="tilesets/blockbound/stonefloor.PNG" trans="8080ff" width="320"/>
   <tile id="30">
    <properties>
@@ -162,11 +162,6 @@
     <property name="hole" value=""/>
    </properties>
   </tile>
-  <tile id="79">
-   <properties>
-    <property name="x" value=""/>
-   </properties>
-  </tile>
   <tile id="80">
    <properties>
     <property name="hole" value=""/>
@@ -243,7 +238,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="192" name="blockboundUpper" tileheight="32" tilewidth="32">
+ <tileset firstgid="183" name="blockboundUpper" tileheight="32" tilewidth="32">
   <image height="288" source="tilesets/blockbound/upper.png" trans="8080ff" width="256"/>
   <tile id="0">
    <properties>
@@ -416,7 +411,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="264" name="blockboundWoodFloor" tileheight="32" tilewidth="32">
+ <tileset firstgid="255" name="blockboundWoodFloor" tileheight="32" tilewidth="32">
   <image height="320" source="tilesets/blockbound/woodfloor.png" trans="8080ff" width="320"/>
   <tile id="30">
    <properties>
@@ -594,7 +589,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="364" name="blockboundCeiling" tileheight="32" tilewidth="32">
+ <tileset firstgid="355" name="blockboundCeiling" tileheight="32" tilewidth="32">
   <image height="96" source="tilesets/blockbound/ceiling.png" trans="8080ff" width="160"/>
   <tile id="0">
    <properties>
@@ -672,7 +667,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="379" name="blockboundQuarryCeiling" tileheight="32" tilewidth="32">
+ <tileset firstgid="370" name="blockboundQuarryCeiling" tileheight="32" tilewidth="32">
   <image height="96" source="tilesets/blockbound/quarryroof.png" trans="8080ff" width="160"/>
   <tile id="0">
    <properties>
@@ -740,7 +735,7 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="394" name="blockboundStairSide" tileheight="32" tilewidth="32">
+ <tileset firstgid="385" name="blockboundStairSide" tileheight="32" tilewidth="32">
   <image height="128" source="tilesets/blockbound/stairwellside.png" trans="8080ff" width="128"/>
   <tile id="4">
    <properties>
@@ -781,23 +776,23 @@
  <layer height="23" name="Lower 1" width="20">
   <properties>
    <property name="z" value="0"/>
-  <property name="layer" value="5"/></properties>
+  <property name="layer" value="5"/><property name="layer" value="5"/></properties>
   <data compression="zlib" encoding="base64">
-   eJzFlG0OgjAMhjs8ghcz8VuvQEAwfv5WL+P9/G0XaKhNqcOhNnkzRtqHZm8HQBUHB3CK0N7BS+xwn8Dn2v6JlwZ+R+MNFaUt76W+yfPeniN5R+ax720ATb0U1YwxZyI0rescO0POu+B6ZbpBw5vh81xo8YZnqQsv5IwsHvekxHUTyctQBfOYerT8sHht8yf94Lwl7ldCa8Gj/0rs/HEv/P3z/j4Uj2N4ffen5d0D5lLjJYF1v+b5Wc5dNc+jHngUxNVEdyczcgrBs6LsUPMElVZSBg==
+   eJzFlNsOgjAMhju888VMPODhFQgKBk/X4iP7DnbBhtqUOhxqkz9jpP1o9ncANHF0AOcIHRy8RIX7BD7X/k+8LPA7Gm+sKOt4L/VNnvf2Esk7MY99byNo66WoZoo5M6H5s86xM+S8K6410w1a3gKfU6HlG56lPryQM7J43JMS110kL0cVzGPq0fLD4nXNn/SD81a4XwttBI/+K7Hzx73w98/7e1c8juEN3Z+WVwfMpcZLAut+zfOzvHXNPE8G4FEQVxPdndzIKQTPirJHzQPAr0XR
   </data>
  </layer>
  <layer height="23" name="Upper 1" width="20">
   <properties>
    <property name="z" value=".5"/>
-  <property name="layer" value="4"/></properties>
+  <property name="layer" value="4"/><property name="layer" value="4"/></properties>
   <data compression="zlib" encoding="base64">
-   eJxjYBhe4DkONjZwhMp2n0FiHwbi71Q0+zQVzYKBWzQwk17gGRXNugHEN6lo3mAHzxioG36kgBhGBoaLNDAXlD/8GKlrZhLUvG9k6J3ISJ4+bGAK0KypVPTbDKBZvVjMA8XNJTz6LjPgTzfCSGbC/I7PvKEIAPwvF2A=
+   eJxjYBhe4B4ONjawm8p2H0Zi7wLid1Q0+xAVzYKBizQwk17gLhXNOg/EF6ho3mAHdxmoG36kgGBGBoYTNDAXlD9cGalrZiTUvLdk6O1gJE8fNtANNKuHin7rB5rVgsU8UNycxKPvFAP+dMOFZCbM7/jMG4oAAJP+FkA=
   </data>
  </layer>
  <objectgroup height="23" name="Event 1" width="20">
   <properties>
    <property name="z" value=".5"/>
-  <property name="layer" value="3"/></properties>
+  <property name="layer" value="3"/><property name="layer" value="3"/></properties>
   <object height="16" name="Teleport" type="teleport" width="32" x="320" y="688">
    <properties>
     <property name="id" value="map_havenEastHall"/>
@@ -911,13 +906,13 @@
     <property name="switch" value="intro_done"/>
    </properties>
   </object>
-  <object height="32" name="Widget" type="event" width="32" x="544" y="480">
+  <object height="32" name="Widget" type="event" width="32" x="480" y="480">
    <properties>
     <property name="key" value="enemy_widget"/>
     <property name="switch" value="intro_done"/>
    </properties>
   </object>
-  <object height="32" name="Widget" type="event" width="32" x="544" y="544">
+  <object height="32" name="Widget" type="event" width="32" x="480" y="544">
    <properties>
     <property name="key" value="enemy_widget"/>
     <property name="switch" value="intro_done"/>
@@ -939,22 +934,22 @@
  <layer height="23" name="Lower 2" width="20">
   <properties>
    <property name="z" value="1"/>
-  <property name="layer" value="2"/></properties>
+  <property name="layer" value="2"/><property name="layer" value="2"/></properties>
   <data compression="zlib" encoding="base64">
-   eJxjYBgFyGAKlc3LHObmTQXiEiRcSrGLRgElAD0+Eqls/mBLf7Q2r5vK5o2CoQ0ATq4ITg==
+   eJxjYBgFyKCbyuYlDHPzeoA4GwnnUOqgUUARQI+PCCqbnzDCzGuisnmjYGgDALSBB6w=
   </data>
  </layer>
  <layer height="23" name="Upper 2" width="20">
   <properties>
    <property name="z" value="1.5"/>
-  <property name="layer" value="1"/></properties>
+  <property name="layer" value="1"/><property name="layer" value="1"/></properties>
   <data compression="zlib" encoding="base64">
-   eJxjYBgFo2AUjAL6gsMD7YBRMArIAAAZdgDE
+   eJxjYBgFo2AUjAL6gl0D7YBRMArIAAAA/gC7
   </data>
  </layer>
  <objectgroup height="23" name="Event 2" width="20">
   <properties>
    <property name="z" value="1.5"/>
-  <property name="layer" value="0"/></properties>
+  <property name="layer" value="0"/><property name="layer" value="0"/></properties>
  </objectgroup>
 </map>
