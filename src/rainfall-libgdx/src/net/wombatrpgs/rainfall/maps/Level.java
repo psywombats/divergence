@@ -614,6 +614,15 @@ public class Level implements ScreenShowable {
 	}
 	
 	/**
+	 * Called when hero goes somewhere else or map otherwise ceases to be.
+	 */
+	public void onFocusLost() {
+		for (MapObject object : objects) {
+			object.onMapFocusLost(this);
+		}
+	}
+	
+	/**
 	 * Determiens if an object will exist on this level in the upcoming update.
 	 * This doesn't check the active objects, but also the objects in the queue
 	 * for adding and excludes the removal queue. (actually there is no add

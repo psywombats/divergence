@@ -6,16 +6,12 @@
  */
 package net.wombatrpgs.rainfall.maps;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfall.graphics.Renderable;
 
@@ -28,10 +24,6 @@ public abstract class MapObject implements	Renderable,
 	
 	/** Level this object exists on */
 	protected Level parent;
-	/** All sub-objects that update with us */
-	protected List<Updateable> subEvents;
-	/** All sub-objects to remove later */
-	protected List<Updateable> removalQueue;
 	/** How we respond to pausing */
 	protected PauseLevel pauseLevel;
 	
@@ -48,8 +40,6 @@ public abstract class MapObject implements	Renderable,
 	 * Creates a new map object floating in limbo land.
 	 */
 	public MapObject() {
-		subEvents = new ArrayList<Updateable>();
-		removalQueue = new ArrayList<Updateable>();
 		pauseLevel = PauseLevel.SURRENDERS_EASILY;
 	}
 
@@ -88,12 +78,7 @@ public abstract class MapObject implements	Renderable,
 	 */
 	@Override
 	public void update(float elapsed) {
-		for (Updateable subEvent : subEvents) {
-			subEvent.update(elapsed);
-		}
-		for (Updateable toRemove : removalQueue) {
-			subEvents.remove(toRemove);
-		}
+		// default does nothing
 	}
 	
 	/**
@@ -102,7 +87,7 @@ public abstract class MapObject implements	Renderable,
 	 * @param 	elapsed			The time since last vital update
 	 */
 	public void vitalUpdate(float elapsed) {
-		// default is nothing
+		// default does nothing
 	}
 	
 	/** @return The map we are currently on */
@@ -123,6 +108,15 @@ public abstract class MapObject implements	Renderable,
 	public void reset() {
 		parent.removeObject(this);
 	}
+	
+	/**
+	 * Called when the parent map loses focus due to the hero teleporting to
+	 * someplace else. Default does nothing.
+	 * @param 	map				The map that lost focus, should be our parent
+	 */
+	public void onMapFocusLost(Level map) {
+		// default is nothing.
+	}
 
 	/**
 	 * Called when this object is tele'd onto a map.
@@ -140,26 +134,7 @@ public abstract class MapObject implements	Renderable,
 		this.parent = null;
 	}
 	
-	/**
-	 * A hook system for sub-events. Adds another event that will be updated
-	 * alongside this one.
-	 * @param 	subEvent		The other object to update at the same time
-	 */
-	public void addSubEvent(Updateable subEvent) {
-		subEvents.add(subEvent);
-	}
-	
-	/**
-	 * Remove the hook from a subevent. Stops it from updating.
-	 * @param 	subEvent		The preregistered event to remove
-	 */
-	public void removeSubEvent(Updateable subEvent) {
-		if (subEvents.contains(subEvent)) {
-			removalQueue.add(subEvent);
-		} else {
-			RGlobal.reporter.warn("Removed a non-child subevent: " + subEvent);
-		}
-	}
+
 	
 	/**
 	 * Renders a texture at this object's location using its own batch and

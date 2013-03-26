@@ -12,13 +12,16 @@ import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Graphic;
+import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.objects.Picture;
+import net.wombatrpgs.rainfall.maps.objects.TimerListener;
+import net.wombatrpgs.rainfall.maps.objects.TimerObject;
 import net.wombatrpgs.rainfall.scenes.SceneCommand;
 import net.wombatrpgs.rainfall.scenes.SceneParser;
 import net.wombatrpgs.rainfallschema.cutscene.SpeakerMDO;
@@ -33,6 +36,7 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	
 	protected static final String NAME_SYSTEM = "SYSTEM";
 	protected static final int FACE_OFFSET = 160; // px from center
+	protected static final float FADE_TIME = .08f; // in s
 	
 	protected static Map<String, SpeakerMDO> speakers;
 	
@@ -82,12 +86,16 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 				facePic = new Picture(faceGraphic,
 						(Gdx.graphics.getWidth() - faceGraphic.getWidth()) / 2 - FACE_OFFSET,
 						(Gdx.graphics.getHeight() - faceGraphic.getHeight()) / 2, 0);
+				facePic.setColor(new Color(1, 1, 1, 0));
 				RGlobal.screens.peek().addPicture(facePic);
+				facePic.tweenTo(new Color(1, 1, 1, 1), FADE_TIME);
 				RGlobal.ui.getBox().setBatch(facePic.batch);
 			} else {
 				RGlobal.ui.getBox().setBatch(new SpriteBatch());
 			}
+			RGlobal.ui.getBox().setColor(new Color(1, 1, 1, 0));
 			RGlobal.screens.peek().addPicture(RGlobal.ui.getBox());
+			RGlobal.ui.getBox().tweenTo(new Color(1, 1, 1, 1), FADE_TIME);
 			block(this);
 			return false;
 		}
@@ -123,9 +131,22 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	@Override
 	public void onUnblock() {
 		if (facePic != null) {
-			RGlobal.screens.peek().removePicture(facePic);
+			facePic.tweenTo(new Color(1, 1, 1, 0), FADE_TIME);
+			RGlobal.ui.getBox().tweenTo(new Color(1, 1, 1, 0), FADE_TIME);
 		}
-		RGlobal.screens.peek().removePicture(RGlobal.ui.getBox());
+		final CommandSpeak speak = this;
+		final TimerListener listener = new TimerListener() {
+			@Override public void onTimerZero(TimerObject source) {
+				speak.zero();
+			}
+		};
+		new TimerObject(FADE_TIME, getParent(), listener) {
+			@Override public void onMapFocusLost(Level map) {
+				super.onMapFocusLost(map);
+				speak.zero();
+				map.removeObject(this);
+			}
+		};
 	}
 
 	/**
@@ -135,6 +156,16 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	public void reset() {
 		super.reset();
 		running = false;
+	}
+	
+	/**
+	 * Called when timer reaches zero-ish. For pic fadeout.
+	 */
+	protected void zero() {
+		RGlobal.screens.peek().removePicture(RGlobal.ui.getBox());
+		if (facePic != null) {
+			RGlobal.screens.peek().removePicture(facePic);
+		}
 	}
 
 }

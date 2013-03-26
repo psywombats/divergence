@@ -11,6 +11,7 @@ import java.util.List;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.MapObject;
+import net.wombatrpgs.rainfall.maps.PauseLevel;
 
 /**
  * A timer counts down to zero, then sends messages off to its listeners. It
@@ -37,7 +38,10 @@ public class TimerObject extends MapObject {
 		addListener(listener);
 		set(true);
 		this.parent = parent;
-		this.parent.addSubEvent(this);
+		this.parent.getLevel().addObject(this);
+		if (parent.getLevel().isPaused()) {
+			this.setPauseLevel(PauseLevel.PAUSE_RESISTANT);
+		}
 		completed = false;
 	}
 
@@ -72,8 +76,8 @@ public class TimerObject extends MapObject {
 			for (TimerListener listener : listeners) {
 				listener.onTimerZero(this);
 			}
-			if (parent != null) {
-				parent.removeSubEvent(this);
+			if (parent != null && parent.getLevel() != null) {
+				parent.getLevel().removeObject(this);
 			}
 			completed = true;
 		}

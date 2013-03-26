@@ -58,6 +58,8 @@ public class Hud extends Picture {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
+		// TODO: this is linked to that text box 2x bug
+		setBatch(RGlobal.ui.getBox().getBatch());
 		super.render(camera);
 		Map<InputCommand, MovesetAct> moves = RGlobal.hero.getMoves().getMoves();
 		for (IconPlacementMDO iconMDO : mdo.icons) {
@@ -89,12 +91,9 @@ public class Hud extends Picture {
 			int offY = (int)(minY - ((float) RGlobal.hero.getY() / 
 					(float) RGlobal.hero.getLevel().getHeightPixels()) * 
 					(maxY - minY) + (maxY - minY));
-			getBatch().end();
 			getBatch().setBlendFunction(GL20.GL_ONE, GL20.GL_ZERO);
 			Gdx.graphics.getGL20().glColorMask(false, false, false, true);
-			getBatch().begin();
 			alphaMask.renderAt(getBatch(), x1, y1);
-			getBatch().end();
 			getBatch().setBlendFunction(GL20.GL_ONE_MINUS_DST_ALPHA, GL20.GL_DST_ALPHA);
 			Gdx.graphics.getGL20().glColorMask(true, true, true, true);
 			getBatch().begin();
@@ -107,7 +106,6 @@ public class Hud extends Picture {
 					mask.getHeight());
 			getBatch().end();
 			getBatch().setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-			getBatch().begin();
 			mask.renderAt(getBatch(), x1, y1);
 		}
 	}

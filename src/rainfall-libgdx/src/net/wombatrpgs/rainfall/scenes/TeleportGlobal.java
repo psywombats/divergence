@@ -70,18 +70,24 @@ public class TeleportGlobal implements Queueable {
 	 * @param 	tileY			The y-coord to teleport to (in tiles)
 	 */
 	public void teleport(Level map, int tileX, int tileY) {
-		RGlobal.ui.getHud().setOverlayTintIgnore(false);
+		
 		MapEvent victim = RGlobal.hero;
 		Level old = victim.getLevel();
 		int z = old.getZ(victim);
+		
+		RGlobal.ui.getHud().setOverlayTintIgnore(false);
+		if (old.getBGM() != null) old.getBGM().stop();	
 		if (old.contains(RGlobal.block)) old.removeEvent(RGlobal.block);
-		if (old.getBGM() != null) old.getBGM().stop();
+		old.onFocusLost();
 		old.removeEvent(victim);
 		old.update(0);
+		
 		map.addEvent(RGlobal.hero, tileX, tileY, z);
-		if (map.getBGM() != null) map.getBGM().play();
-		RGlobal.screens.peek().setCanvas(map);
 		RGlobal.ui.getHud().setOverlayTintIgnore(true);
+		if (map.getBGM() != null) map.getBGM().play();
+		
+		RGlobal.screens.peek().setCanvas(map);
+		
 	}
 
 }

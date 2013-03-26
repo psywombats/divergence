@@ -104,14 +104,14 @@ public class Picture implements Comparable<Picture>,
 			float r;
 			if (tweenTime > tweenEnd) {
 				r = 1;
+				tweening = false;
 			} else {
 				r = tweenTime / tweenEnd;
-				tweening = false;
 			}
-			currentColor.a = tweenBaseColor.a * (1-r) + r * tweenTargetColor.a;
-			currentColor.r = tweenBaseColor.r * (1-r) + r * tweenTargetColor.r;
-			currentColor.g = tweenBaseColor.g * (1-r) + r * tweenTargetColor.g;
-			currentColor.b = tweenBaseColor.b * (1-r) + r * tweenTargetColor.b;
+			currentColor.a = tweenBaseColor.a * (1.f-r) + r * tweenTargetColor.a;
+			currentColor.r = tweenBaseColor.r * (1.f-r) + r * tweenTargetColor.r;
+			currentColor.g = tweenBaseColor.g * (1.f-r) + r * tweenTargetColor.g;
+			currentColor.b = tweenBaseColor.b * (1.f-r) + r * tweenTargetColor.b;
 		}
 	}
 
@@ -215,17 +215,20 @@ public class Picture implements Comparable<Picture>,
 	 * @param 	time			How long to take
 	 */
 	public void tweenTo(Color target, float time) {
-		tweenTargetColor.r = target.r;
-		tweenTargetColor.g = target.g;
-		tweenTargetColor.b = target.b;
-		tweenTargetColor.a = target.a;
-		tweenBaseColor.r = currentColor.r;
-		tweenBaseColor.g = currentColor.g;
-		tweenBaseColor.b = currentColor.b;
-		tweenBaseColor.a = currentColor.a;
+		tweenTargetColor.set(target);
+		tweenBaseColor.set(currentColor);
 		this.tweenEnd = time;
 		this.tweenTime = 0;
 		this.tweening = true;
+	}
+	
+	/**
+	 * Sets the picture's rendering color.
+	 * @param 	newColor
+	 */
+	public void setColor(Color newColor) {
+		tweening = false;
+		currentColor.set(newColor);
 	}
 
 }

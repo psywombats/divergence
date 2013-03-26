@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.Queueable;
-import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 
 /**
