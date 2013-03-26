@@ -55,6 +55,7 @@ public class ActSummon extends MovesetAct {
 	 */
 	@Override
 	public void coreAct(Level map, final CharacterEvent actor) {
+		sfx.play();
 		if (RGlobal.block != null && map.contains(RGlobal.block) && 
 				map.getZ(actor) == map.getZ(RGlobal.block)+1 &&
 				RGlobal.block.getUpperBox().isColliding(actor.getHitbox()).isColliding) {

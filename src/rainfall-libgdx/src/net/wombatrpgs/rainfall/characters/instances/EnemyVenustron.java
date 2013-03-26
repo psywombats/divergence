@@ -21,6 +21,7 @@ import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.FacesAnimation;
 import net.wombatrpgs.rainfall.graphics.FacesAnimationFactory;
+import net.wombatrpgs.rainfall.io.audio.SoundObject;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.Positionable;
 import net.wombatrpgs.rainfall.maps.events.AnimationPlayer;
@@ -29,6 +30,7 @@ import net.wombatrpgs.rainfall.physics.CollisionResult;
 import net.wombatrpgs.rainfall.physics.Hitbox;
 import net.wombatrpgs.rainfall.physics.NoHitbox;
 import net.wombatrpgs.rainfall.physics.RectHitbox;
+import net.wombatrpgs.rainfallschema.audio.SoundMDO;
 import net.wombatrpgs.rainfallschema.characters.enemies.EnemyEventMDO;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.maps.data.Direction;
@@ -43,10 +45,13 @@ public class EnemyVenustron extends EnemyEvent {
 	private static final String KEY_4DIR_NORTHEAST = "venustron_northeast_4dir";
 	private static final String KEY_4DIR_NORTHWEST = "venustron_northwest_4dir";
 	private static final String KEY_ANIM_SPARKS = "animation_sparks";
+	private static final String KEY_SFX_MOVEMENT = "sound_venustron_move";
+	private static final String KEY_SFX_SHOOT = "sound_venustron_shoot";
 	
 	private List<Queueable> assets;
 	private FacesAnimation appearanceVert, appearanceHoriz;
 	private FacesAnimation turnNortheast, turnNorthwest;
+	private SoundObject sfxMove, sfxShoot;
 	
 	private Hitbox offBox;
 	private float hitX, hitY;
@@ -70,11 +75,15 @@ public class EnemyVenustron extends EnemyEvent {
 		turnNortheast = FacesAnimationFactory.create(KEY_4DIR_NORTHEAST, this);
 		turnNorthwest = FacesAnimationFactory.create(KEY_4DIR_NORTHWEST, this);
 		sparks = new AnimationPlayer(RGlobal.data.getEntryFor(KEY_ANIM_SPARKS, AnimationMDO.class));
+		sfxMove = new SoundObject(RGlobal.data.getEntryFor(KEY_SFX_MOVEMENT, SoundMDO.class), this);
+		sfxShoot = new SoundObject(RGlobal.data.getEntryFor(KEY_SFX_SHOOT, SoundMDO.class), this);
 		assets.add(appearanceHoriz);
 		assets.add(appearanceVert);
 		assets.add(turnNorthwest);
 		assets.add(turnNortheast);
 		assets.add(sparks);
+		assets.add(sfxMove);
+		assets.add(sfxShoot);
 		final Positionable me = this;
 		offBox = new RectHitbox(new Positionable() {
 			@Override public float getX() { return me.getX() - 16; }
@@ -169,6 +178,7 @@ public class EnemyVenustron extends EnemyEvent {
 					}
 				} else {
 					swiveling = true;
+					sfxMove.play();
 					swiveled = 0;
 					if (targetVX > 0) {
 						if (travelDir == Direction.DOWN) setAppearance(turnNorthwest);
@@ -199,6 +209,7 @@ public class EnemyVenustron extends EnemyEvent {
 					}
 				} else {
 					swiveling = true;
+					sfxMove.play();
 					swiveled = 0;
 					if (targetVY > 0) {
 						if (travelDir == Direction.LEFT) setAppearance(turnNorthwest);
@@ -239,6 +250,7 @@ public class EnemyVenustron extends EnemyEvent {
 					getLevel().addEvent(sparks, 2);
 				}
 				sparks.start();
+				sfxShoot.play();
 			}
 		}
 		if (lasering && dist > LASER_RANGE * 1.8) {

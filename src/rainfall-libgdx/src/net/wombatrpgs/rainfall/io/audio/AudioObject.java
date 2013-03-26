@@ -75,7 +75,9 @@ public abstract class AudioObject extends MapObject implements Disposable {
 	 */
 	public void stop() {
 		coreStop();
-		getLevel().removeObject(this);
+		if (getLevel() != null) {
+			getLevel().removeObject(this);
+		}
 	}
 	
 	/**

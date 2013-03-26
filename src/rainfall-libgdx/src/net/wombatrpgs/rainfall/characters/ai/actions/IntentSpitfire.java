@@ -16,10 +16,12 @@ import net.wombatrpgs.rainfall.characters.ai.Intelligence;
 import net.wombatrpgs.rainfall.characters.ai.IntentAct;
 import net.wombatrpgs.rainfall.characters.enemies.EnemyEvent;
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.io.audio.SoundObject;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.objects.TimerListener;
 import net.wombatrpgs.rainfall.maps.objects.TimerObject;
 import net.wombatrpgs.rainfall.physics.CollisionResult;
+import net.wombatrpgs.rainfallschema.audio.SoundMDO;
 import net.wombatrpgs.rainfallschema.characters.enemies.EnemyEventMDO;
 import net.wombatrpgs.rainfallschema.maps.data.DirVector;
 
@@ -28,13 +30,15 @@ import net.wombatrpgs.rainfallschema.maps.data.DirVector;
  */
 public class IntentSpitfire extends IntentAct {
 	
-	protected static final String FIREBALL_MDO_KEY = "enemy_fireball";
+	protected static final String MDO_KEY_FIREBALL = "enemy_fireball";
+	protected static final String MDO_KEY_SFX = "sound_beetle_shoot";
 	protected static final float RATE_OF_FIRE = 4; // shots per second
 	protected static final int MAX_FIREBALLS = 8;
 	protected static final int AIM_VARIANCE = 6; // degrees
 	protected static final int MAX_ANGLE = 3; // degrees
 	
 	protected List<EnemyEvent> fireballs;
+	protected SoundObject sfx;
 	protected boolean charging;
 	protected int fireIndex;
 
@@ -43,7 +47,7 @@ public class IntentSpitfire extends IntentAct {
 		charging = false;
 		fireballs = new ArrayList<EnemyEvent>();
 		fireIndex = 0;
-		EnemyEventMDO mdo = RGlobal.data.getEntryFor(FIREBALL_MDO_KEY, EnemyEventMDO.class);
+		EnemyEventMDO mdo = RGlobal.data.getEntryFor(MDO_KEY_FIREBALL, EnemyEventMDO.class);
 		for (int i = 0; i < MAX_FIREBALLS; i++) {
 			fireballs.add(new EnemyEvent(mdo, null, actor.getLevel(), 0, 0) {
 				@Override
@@ -52,6 +56,7 @@ public class IntentSpitfire extends IntentAct {
 				}
 			});
 		}
+		sfx = new SoundObject(RGlobal.data.getEntryFor(MDO_KEY_SFX, SoundMDO.class), actor);
 	}
 
 	@Override
@@ -90,6 +95,7 @@ public class IntentSpitfire extends IntentAct {
 			fireball.setVelocity(0, 0);
 			fireball.targetVelocity(targetVX, targetVY);
 			charging = true;
+			sfx.play();
 			new TimerObject(1.0f / RATE_OF_FIRE, actor, new TimerListener() {
 				@Override
 				public void onTimerZero(TimerObject source) {
@@ -104,6 +110,7 @@ public class IntentSpitfire extends IntentAct {
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
+		sfx.queueRequiredAssets(manager);
 		for (EnemyEvent fireball : fireballs) {
 			fireball.queueRequiredAssets(manager);
 		}
@@ -112,6 +119,7 @@ public class IntentSpitfire extends IntentAct {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
+		sfx.postProcessing(manager, pass);
 		for (EnemyEvent fireball : fireballs) {
 			fireball.postProcessing(manager, pass);
 		}

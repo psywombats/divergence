@@ -14,7 +14,9 @@ import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.FacesAnimation;
 import net.wombatrpgs.rainfall.graphics.FourDir;
 import net.wombatrpgs.rainfall.graphics.Graphic;
+import net.wombatrpgs.rainfall.io.audio.SoundObject;
 import net.wombatrpgs.rainfall.maps.Level;
+import net.wombatrpgs.rainfallschema.audio.SoundMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.data.MoveMDO;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
 import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
@@ -31,6 +33,7 @@ public abstract class MovesetAct implements Actionable,
 	protected Level map;
 	protected FacesAnimation appearance;
 	protected Graphic icon;
+	protected SoundObject sfx;
 	
 	/**
 	 * Constructs a moveset act from data.
@@ -44,6 +47,10 @@ public abstract class MovesetAct implements Actionable,
 		if (mdo.graphic != null) {
 			GraphicMDO iconMDO= RGlobal.data.getEntryFor(mdo.graphic, GraphicMDO.class);
 			this.icon = new Graphic(iconMDO);
+		}
+		if (mdo.sound != null) {
+			SoundMDO soundMDO = RGlobal.data.getEntryFor(mdo.sound, SoundMDO.class);
+			this.sfx = new SoundObject(soundMDO, actor);
 		}
 		this.actor = actor;
 	}
@@ -74,6 +81,9 @@ public abstract class MovesetAct implements Actionable,
 		if (icon != null) {
 			icon.queueRequiredAssets(manager);
 		}
+		if (sfx != null) {
+			sfx.queueRequiredAssets(manager);
+		}
 	}
 
 	/**
@@ -87,6 +97,9 @@ public abstract class MovesetAct implements Actionable,
 		}
 		if (icon != null) {
 			icon.postProcessing(manager, pass);
+		}
+		if (sfx != null) {
+			sfx.postProcessing(manager, pass);
 		}
 	}
 

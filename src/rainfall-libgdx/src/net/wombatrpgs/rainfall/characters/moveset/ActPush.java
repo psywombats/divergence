@@ -65,6 +65,7 @@ public class ActPush extends MovesetAct {
 			if (RGlobal.hero.getY() > RGlobal.block.getY()) compY *= -1;
 			compX *= mdo.targetVelocity;
 			compY *= mdo.targetVelocity;
+			sfx.play();
 		} else {
 			actor.stopAction(this);
 		}

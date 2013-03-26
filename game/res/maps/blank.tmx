@@ -105,25 +105,28 @@
  </tileset>
  <layer height="15" name="Tile Layer 1" width="20">
   <properties>
+   <property name="layer" value="3"/>
    <property name="z" value="0"/>
-  <property name="layer" value="3"/><property name="layer" value="3"/></properties>
+  <property name="layer" value="3"/></properties>
   <data compression="zlib" encoding="base64">
    eJxjYBgFo2AUjIKhAQAEsAAB
   </data>
  </layer>
  <layer height="15" name="Tile Layer 2" width="20">
   <properties>
+   <property name="layer" value="2"/>
    <property name="z" value=".5"/>
-  <property name="layer" value="2"/><property name="layer" value="2"/></properties>
+  <property name="layer" value="2"/></properties>
   <data compression="zlib" encoding="base64">
    eJxjYBgFo2AUjIKhAQAEsAAB
   </data>
  </layer>
  <objectgroup height="15" name="Object Layer 1" width="20">
   <properties>
+   <property name="layer" value="1"/>
    <property name="ogga" value="ALPHONSEO"/>
    <property name="z" value=".5"/>
-  <property name="layer" value="1"/><property name="layer" value="1"/></properties>
+  <property name="layer" value="1"/></properties>
   <object height="32" name="Hero" type="event" width="32" x="336" y="208">
    <properties>
     <property name="key" value="hero_default"/>
@@ -133,8 +136,9 @@
  </objectgroup>
  <layer height="15" name="Tile Layer 3" visible="0" width="20">
   <properties>
+   <property name="layer" value="0"/>
    <property name="z" value="1"/>
-  <property name="layer" value="0"/><property name="layer" value="0"/></properties>
+  <property name="layer" value="0"/></properties>
   <data compression="zlib" encoding="base64">
    eJxrZWBgaB3Fo3gUj+IhgAGdepvd
   </data>
