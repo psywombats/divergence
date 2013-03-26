@@ -7,10 +7,10 @@
 package net.wombatrpgs.rainfall.maps.objects;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Graphic;
 import net.wombatrpgs.rainfall.maps.PositionSetable;
 import net.wombatrpgs.rainfall.screen.ScreenShowable;
@@ -26,10 +26,18 @@ public class Picture implements Comparable<Picture>,
 								PositionSetable {
 	
 	protected Graphic appearance;
+	public SpriteBatch batch;
+	protected Color currentColor;
 	protected float x, y;
 	protected int z; // z is depth-y
 	protected boolean preloaded;
 	protected boolean ignoresTint;
+	
+	protected boolean tweening;
+	protected Color tweenTargetColor;
+	protected Color tweenBaseColor;
+	protected float tweenTime;
+	protected float tweenEnd;
 	
 	/**
 	 * Create a picture at an explicit location
@@ -44,6 +52,21 @@ public class Picture implements Comparable<Picture>,
 		setY(y);
 		this.preloaded = true;
 	}
+	
+	/**
+	 * Creates a picture from data (a non-preloaded graphic).
+	 * @param 	mdo				The data for the graphic that we'll be using
+	 * @param 	x				The x-coord (in pixels) to render at
+	 * @param 	y				The y-coord (in pixels) to render at
+	 * @param 	z				The z-depth (number in RM terms) of the picture
+	 */
+	public Picture(GraphicMDO mdo, int x, int y, int z) {
+		this(new Graphic(mdo), z);
+		setX(x);
+		setY(y);
+		this.preloaded = false;
+	}
+	
 	/**
 	 * Creates a picture with a certain appearance and depth.
 	 * @param 	appearance		The graphic the picture will render
@@ -54,22 +77,11 @@ public class Picture implements Comparable<Picture>,
 		this.appearance = appearance;
 		this.preloaded = true;
 		this.ignoresTint = true;
-	}
-	
-	/**
-	 * Creates a picture from data (a non-preloaded graphic).
-	 * @param 	mdo				The data for the graphic that we'll be using
-	 * @param 	x				The x-coord (in pixels) to render at
-	 * @param 	y				The y-coord (in pixels) to render at
-	 * @param 	z				The z-depth (number in RM terms) of the picture
-	 */
-	public Picture(GraphicMDO mdo, int x, int y, int z) {
-		this.appearance = new Graphic(mdo);
-		setX(x);
-		setY(y);
-		this.z = z;
-		this.preloaded = false;
-		this.ignoresTint = true;
+		this.tweening = false;
+		this.batch = new SpriteBatch();
+		this.currentColor = new Color(1, 1, 1, 1);
+		this.tweenBaseColor = new Color(1, 1, 1, 1);
+		this.tweenTargetColor = new Color(1, 1, 1, 1);
 	}
 	
 	/**
@@ -79,6 +91,28 @@ public class Picture implements Comparable<Picture>,
 	 */
 	public Picture(GraphicMDO mdo, int z) {
 		this(mdo, 0, 0, z);
+		this.preloaded = false;
+	}
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.core.Updateable#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		if (tweening) {
+			tweenTime += elapsed;
+			float r;
+			if (tweenTime > tweenEnd) {
+				r = 1;
+			} else {
+				r = tweenTime / tweenEnd;
+				tweening = false;
+			}
+			currentColor.a = tweenBaseColor.a * (1-r) + r * tweenTargetColor.a;
+			currentColor.r = tweenBaseColor.r * (1-r) + r * tweenTargetColor.r;
+			currentColor.g = tweenBaseColor.g * (1-r) + r * tweenTargetColor.g;
+			currentColor.b = tweenBaseColor.b * (1-r) + r * tweenTargetColor.b;
+		}
 	}
 
 	/**
@@ -87,8 +121,8 @@ public class Picture implements Comparable<Picture>,
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		RGlobal.screens.peek().getBatch().setColor(1, 1, 1, 1);
-		appearance.renderAt(x, y);
+		batch.setColor(currentColor);
+		appearance.renderAt(batch, x, y);
 	}
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#queueRequiredAssets
@@ -148,12 +182,13 @@ public class Picture implements Comparable<Picture>,
 	}
 	
 	/**
-	 * @see net.wombatrpgs.rainfall.core.Updateable#update(float)
+	 * @see net.wombatrpgs.rainfall.screen.ScreenShowable#ignoresTint()
 	 */
 	@Override
-	public void update(float elapsed) {
-		// default does nothing
+	public boolean ignoresTint() {
+		return ignoresTint;
 	}
+	
 	/**
 	 * Gets the default screen batch. This is usually what's used to render,
 	 * although if some special thing is going on, it'd be best to use a
@@ -161,14 +196,36 @@ public class Picture implements Comparable<Picture>,
 	 * @return					The current screen's sprite batch
 	 */
 	public SpriteBatch getBatch() {
-		return RGlobal.screens.peek().getBatch();
+		return batch;
 	}
+	
 	/**
-	 * @see net.wombatrpgs.rainfall.screen.ScreenShowable#ignoresTint()
+	 * Sets the batch we use to render. This is kind of hacky and shouldn't be
+	 * used.
+	 * @param 	batch			The batch to set to
 	 */
-	@Override
-	public boolean ignoresTint() {
-		return ignoresTint;
+	public void setBatch(SpriteBatch batch) {
+		this.batch = batch;
+	}
+	
+	/**
+	 * Tweens to a new color. Undefined behavior if already tweening. This is a
+	 * smooth transition from one color to another.
+	 * @param 	target			The color to end up as
+	 * @param 	time			How long to take
+	 */
+	public void tweenTo(Color target, float time) {
+		tweenTargetColor.r = target.r;
+		tweenTargetColor.g = target.g;
+		tweenTargetColor.b = target.b;
+		tweenTargetColor.a = target.a;
+		tweenBaseColor.r = currentColor.r;
+		tweenBaseColor.g = currentColor.g;
+		tweenBaseColor.b = currentColor.b;
+		tweenBaseColor.a = currentColor.a;
+		this.tweenEnd = time;
+		this.tweenTime = 0;
+		this.tweening = true;
 	}
 
 }

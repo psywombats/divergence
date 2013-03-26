@@ -13,6 +13,7 @@ import java.util.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
@@ -20,7 +21,6 @@ import net.wombatrpgs.rainfall.graphics.Graphic;
 import net.wombatrpgs.rainfall.maps.objects.Picture;
 import net.wombatrpgs.rainfall.scenes.SceneCommand;
 import net.wombatrpgs.rainfall.scenes.SceneParser;
-import net.wombatrpgs.rainfall.screen.ScreenShowable;
 import net.wombatrpgs.rainfallschema.cutscene.SpeakerMDO;
 
 /**
@@ -39,7 +39,7 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	protected List<String> lines;
 	protected SpeakerMDO mdo;
 	protected Graphic faceGraphic;
-	protected ScreenShowable facePic;
+	protected Picture facePic;
 	protected boolean running;
 	protected boolean system;
 	
@@ -77,37 +77,17 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 			} else {
 				RGlobal.ui.getBox().setName(mdo.name);
 			}
+			// TODO: figure out why the text box default batch is broken
 			if (faceGraphic != null) {
 				facePic = new Picture(faceGraphic,
 						(Gdx.graphics.getWidth() - faceGraphic.getWidth()) / 2 - FACE_OFFSET,
-						(Gdx.graphics.getHeight() - faceGraphic.getHeight()) / 2, 0) {
-							@Override
-							public void update(float elapsed) {
-								super.update(elapsed);
-								RGlobal.ui.getBox().update(elapsed);
-							}
-							@Override
-							public void render(OrthographicCamera camera) {
-								super.render(camera);
-								RGlobal.ui.getBox().render(camera);
-							}
-							
-				};
+						(Gdx.graphics.getHeight() - faceGraphic.getHeight()) / 2, 0);
 				RGlobal.screens.peek().addPicture(facePic);
+				RGlobal.ui.getBox().setBatch(facePic.batch);
 			} else {
-				facePic = new ScreenShowable() {
-					@Override public void update(float elapsed) { 
-						RGlobal.ui.getBox().update(elapsed);
-					}
-					@Override public void queueRequiredAssets(AssetManager manager) { }
-					@Override public void postProcessing(AssetManager manager, int pass) { }
-					@Override public void render(OrthographicCamera camera) {
-						RGlobal.ui.getBox().render(camera);
-					}
-					@Override public boolean ignoresTint() { return true; }
-				};
-				RGlobal.screens.peek().addPicture(facePic);
+				RGlobal.ui.getBox().setBatch(new SpriteBatch());
 			}
+			RGlobal.screens.peek().addPicture(RGlobal.ui.getBox());
 			block(this);
 			return false;
 		}
@@ -145,6 +125,7 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 		if (facePic != null) {
 			RGlobal.screens.peek().removePicture(facePic);
 		}
+		RGlobal.screens.peek().removePicture(RGlobal.ui.getBox());
 	}
 
 	/**

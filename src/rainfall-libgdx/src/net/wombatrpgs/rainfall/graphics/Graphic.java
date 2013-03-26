@@ -102,16 +102,9 @@ public class Graphic implements Queueable {
 	 * @param 	y				The y-coord to render at (in px)
 	 */
 	public void renderAt(SpriteBatch batch, float x, float y) {
+		batch.begin();
 		batch.draw(appearance, x, y, getWidth(), getHeight());
-	}
-	
-	/**
-	 * Renders itself at a specific location using the default screen batch.
-	 * @param 	x				The x-coord to render at (in px)
-	 * @param 	y				The y-coord to render at (in px)
-	 */
-	public void renderAt(float x, float y) {
-		renderAt(RGlobal.screens.peek().getBatch(), x, y);
+		batch.end();
 	}
 
 }

@@ -61,12 +61,14 @@ public class FontHolder implements Queueable {
 	 * @param	offY			Additional offset Y, to change lines (in px)
 	 */
 	public void draw(SpriteBatch batch, TextBoxFormat format, String text, int offY) {
+		batch.begin();
 		TextBounds bounds = font.drawWrapped(batch, text, 
 				format.x, format.y + offY, 
 				format.width, format.align);
 		if (bounds.height > format.height) {
 			RGlobal.reporter.warn("A string was oversized: \"" + text + "\"");
 		}
+		batch.end();
 	}
 	
 	/**

@@ -28,6 +28,8 @@ import net.wombatrpgs.rainfallschema.ui.TextBoxMDO;
  */
 public class TextBox extends Picture {
 	
+	protected static final float FADE_IN_TIME = .5f;
+	
 	protected List<String> lines;
 	protected TextBoxMDO mdo;
 	protected FontHolder font;
@@ -48,38 +50,25 @@ public class TextBox extends Picture {
 		this.name = "";
 		this.bodyFormat = new TextBoxFormat();
 		this.nameFormat = new TextBoxFormat();
-		if (mdo.image != null) {
-			GraphicMDO graphicMDO = RGlobal.data.getEntryFor(mdo.image, GraphicMDO.class);
-			this.backer = new Graphic(graphicMDO);
-		}
+		this.backer = appearance;
 		if (mdo.image2 != null) {
 			GraphicMDO graphicMDO = RGlobal.data.getEntryFor(mdo.image2, GraphicMDO.class);
 			this.backer2 = new Graphic(graphicMDO);
 		}
 	}
-
+	
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.MapObject#render
 	 * (com.badlogic.gdx.graphics.OrthographicCamera)
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		//super.render(camera);
-		if (backer != null && name.length() > 0) {
-			backer.renderAt(RGlobal.screens.peek().getBatch(),
-					mdo.graphicX,
-					Gdx.graphics.getHeight() - mdo.graphicY - backer.getGraphic().getRegionHeight());
-		}
-		if (backer2 != null && name.length() == 0) {
-			backer2.renderAt(RGlobal.screens.peek().getBatch(),
-					mdo.graphicX,
-					Gdx.graphics.getHeight() - mdo.graphicY - backer.getGraphic().getRegionHeight());
-		}
+		super.render(camera);
 		for (int i = 0; i < lines.size(); i++) {
-			font.draw(RGlobal.screens.peek().getBatch(), bodyFormat,
+			font.draw(getBatch(), bodyFormat,
 					lines.get(i), (int) (font.getLineHeight() * -i));
 		}
-		font.draw(RGlobal.screens.peek().getBatch(), nameFormat, name, 0);
+		font.draw(getBatch(), nameFormat, name, 0);
 	}
 
 	/**
@@ -89,9 +78,6 @@ public class TextBox extends Picture {
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
-		if (backer != null) {
-			backer.queueRequiredAssets(manager);
-		}
 		if (backer2 != null) {
 			backer2.queueRequiredAssets(manager);
 		}
@@ -104,9 +90,6 @@ public class TextBox extends Picture {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
-		if (backer != null) {
-			backer.postProcessing(manager, pass);
-		}
 		if (backer2 != null) {
 			backer2.postProcessing(manager, pass);
 		}
@@ -147,6 +130,13 @@ public class TextBox extends Picture {
 	 */
 	public void setName(String name) {
 		this.name = name;
+		if (name.length() > 0) {
+			this.appearance = (backer);
+		} else {
+			this.appearance = (backer2);
+		}
+		setX(mdo.graphicX);
+		setY(Gdx.graphics.getHeight() - mdo.graphicY - appearance.getHeight());
 	}
 
 }

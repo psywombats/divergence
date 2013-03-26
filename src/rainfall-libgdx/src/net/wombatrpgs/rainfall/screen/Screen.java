@@ -23,6 +23,7 @@ import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfall.graphics.Disposable;
 import net.wombatrpgs.rainfall.io.CommandListener;
 import net.wombatrpgs.rainfall.io.CommandMap;
+import net.wombatrpgs.rainfall.maps.objects.Picture;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 
 /**
@@ -45,7 +46,7 @@ public abstract class Screen implements CommandListener,
 	/** The thing to draw if this canvas is visible */
 	protected ScreenShowable canvas;
 	/** These things will be drawn over top of the canvas */
-	protected List<ScreenShowable> pictures;
+	protected List<Picture> pictures;
 	/** What we'll use to render */
 	protected TrackerCam cam;
 	/** Depth, lower values are rendered last */
@@ -77,7 +78,7 @@ public abstract class Screen implements CommandListener,
 		buffer = new FrameBuffer(Format.RGB565, 
 				RGlobal.window.width, RGlobal.window.height, 
 				false);
-		pictures = new ArrayList<ScreenShowable>();
+		pictures = new ArrayList<Picture>();
 		tint = Color.WHITE;
 		cam = new TrackerCam(RGlobal.window.width, RGlobal.window.height);
 		cam.init();
@@ -188,11 +189,11 @@ public abstract class Screen implements CommandListener,
 		Gdx.gl.glClearColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		canvas.render(cam);
-		batch.begin();
-		for (ScreenShowable pic : pictures) {
-			if (!pic.ignoresTint()) pic.render(cam);
+		for (Picture pic : pictures) {
+			if (!pic.ignoresTint()) {
+				pic.render(cam);
+			}
 		}
-		batch.end();
 		buffer.end();
 		privateBatch.setColor(tint);
 		privateBatch.begin();
@@ -200,11 +201,11 @@ public abstract class Screen implements CommandListener,
 		privateBatch.draw(buffer.getColorBufferTexture(), 0, 0, 0, 0, 
 				width, height, 1, 1, 0, 0, 0, width, height, false, true);
 		privateBatch.end();
-		batch.begin();
-		for (ScreenShowable pic : pictures) {
-			if (pic.ignoresTint()) pic.render(cam);
+		for (Picture pic : pictures) {
+			if (pic.ignoresTint()) {
+				pic.render(cam);
+			}
 		}
-		batch.end();
 	}
 
 	/**
@@ -269,7 +270,7 @@ public abstract class Screen implements CommandListener,
 	 * Adds a screen-showable picture to the screen.
 	 * @param 	pic				The picture to add
 	 */
-	public void addPicture(ScreenShowable pic) {
+	public void addPicture(Picture pic) {
 		pictures.add(pic);
 	}
 	
