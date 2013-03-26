@@ -1,6 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="20" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="20"><properties><property name="blended tiles" value="186,188,189,190,191,193,194,196,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,218,220,221,222,226,228,229,230,231,232,233,234,235,236,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,389,390,391,392,393,394,395,396,397,398,399,400"/></properties>
- <tileset firstgid="1" name="rock" tileheight="32" tilewidth="32">
-  <image height="224" source="tilesets/rock2.PNG" trans="8080ff" width="320"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="20" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="blended tiles" value="186,188,189,190,191,193,194,196,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,218,220,221,222,226,228,229,230,231,232,233,234,235,236,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,389,390,391,392,393,394,395,396,397,398,399,400"/>
+ </properties>
+ <tileset firstgid="1" name="rock" tilewidth="32" tileheight="32">
+  <image source="tilesets/rock2.PNG" trans="8080ff" width="320" height="224"/>
   <tile id="30">
    <properties>
     <property name="x" value=""/>
@@ -32,14 +36,14 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="71" name="rug" tileheight="32" tilewidth="32">
-  <image height="96" source="tilesets/rug.PNG" trans="8080ff" width="96"/>
+ <tileset firstgid="71" name="rug" tilewidth="32" tileheight="32">
+  <image source="tilesets/rug.PNG" trans="8080ff" width="96" height="96"/>
  </tileset>
- <tileset firstgid="80" name="stone" tileheight="32" tilewidth="32">
-  <image height="224" source="tilesets/stone2.PNG" trans="8080ff" width="320"/>
+ <tileset firstgid="80" name="stone" tilewidth="32" tileheight="32">
+  <image source="tilesets/stone2.PNG" trans="8080ff" width="320" height="224"/>
  </tileset>
- <tileset firstgid="150" name="wood" tileheight="32" tilewidth="32">
-  <image height="224" source="tilesets/wood2.PNG" trans="8080ff" width="320"/>
+ <tileset firstgid="150" name="wood" tilewidth="32" tileheight="32">
+  <image source="tilesets/wood2.PNG" trans="8080ff" width="320" height="224"/>
   <tile id="60">
    <properties>
     <property name="top" value=""/>
@@ -56,8 +60,8 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="220" name="upper" tileheight="32" tilewidth="32">
-  <image height="192" source="tilesets/upper.PNG" trans="8080ff" width="256"/>
+ <tileset firstgid="220" name="upper" tilewidth="32" tileheight="32">
+  <image source="tilesets/upper.PNG" trans="8080ff" width="256" height="192"/>
   <tile id="8">
    <properties>
     <property name="x" value="1337"/>
@@ -189,85 +193,99 @@
    </properties>
   </tile>
  </tileset>
- <layer height="20" name="Layer 0 lower" width="20">
+ <layer name="Layer 0 lower" width="20" height="20">
   <properties>
+   <property name="layer" value="11"/>
    <property name="z" value="0"/>
-  <property name="layer" value="11"/></properties>
-  <data compression="zlib" encoding="base64">
-   eJxjYBgF+MBCItScBOITUJoQXohF7BSUhoFTUHWUYGTzPJCwJxXM80bCPlQwzw8J+1PBvJNkmkGueRVAXAXE7khhDBOjxH1eeMJ4IM2D+Q3ZvFH/YpqHXiag52tfBtxp/gCSefsYMMsMUjGyedQEAJxEpjc=
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgF+MBCItScBOITUJoQXohF7BSUhoFTUHWUYGTzPJCwJxXM80bCPlD55xSY54eE/angvpNkmkGueRVAXAXE7khhDBOjxH1eaGFMqX+pZR7Mb8jmjfoX0zz0MgE9X/sy4E7zB5DM28eAWWaQipHNoyYAALIjpn0=
   </data>
  </layer>
- <layer height="20" name="Layer 0 upper" width="20"><properties><property name="layer" value="10"/></properties>
-  <data compression="zlib" encoding="base64">
+ <layer name="Layer 0 upper" width="20" height="20">
+  <properties>
+   <property name="layer" value="10"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
    eJxjYBgF9AIfgZiDkYHhMwl6nuOR+wnEv4D4N0WuYmBgZyRNnBjwBYi/YmGPglEwCoYPAAC5QAml
   </data>
  </layer>
- <objectgroup height="20" name="Layer 0 object" width="20">
+ <objectgroup name="Layer 0 object" width="20" height="20">
   <properties>
+   <property name="layer" value="9"/>
    <property name="z" value="0"/>
-  <property name="layer" value="9"/></properties>
+  </properties>
  </objectgroup>
- <layer height="20" name="Layer 1 lower" width="20">
+ <layer name="Layer 1 lower" width="20" height="20">
   <properties>
+   <property name="layer" value="8"/>
    <property name="z" value="1"/>
-  <property name="layer" value="8"/></properties>
-  <data compression="zlib" encoding="base64">
+  </properties>
+  <data encoding="base64" compression="zlib">
    eJxjYBiZYB8Q7ycCM2ARO4BmFjp/FJAGTtHZvk4griNCDBuYBsTTgXgGFdwBMmsOEC8E4rlUMHMB1CwYXgQVJ9e/uMyjtvuobR65/r0ExJeR8BUy3UVs2YIPHyDTbnoDAHzYNdQ=
   </data>
  </layer>
- <layer height="20" name="Layer 1 upper" width="20">
+ <layer name="Layer 1 upper" width="20" height="20">
   <properties>
+   <property name="layer" value="7"/>
    <property name="z" value="1.5"/>
-  <property name="layer" value="7"/></properties>
-  <data compression="zlib" encoding="base64">
+  </properties>
+  <data encoding="base64" compression="zlib">
    eJxjYBgFuMBLEMHIwPCaBD33aeQWZPCfRPFRMHjBczR6FIyCoQQAnsQGgQ==
   </data>
  </layer>
- <objectgroup height="20" name="Layer 1 object" width="20">
+ <objectgroup name="Layer 1 object" width="20" height="20">
   <properties>
+   <property name="layer" value="6"/>
    <property name="z" value="1"/>
-  <property name="layer" value="6"/></properties>
+  </properties>
  </objectgroup>
- <layer height="20" name="Layer 2 lower" width="20">
+ <layer name="Layer 2 lower" width="20" height="20">
   <properties>
+   <property name="layer" value="5"/>
    <property name="z" value="2"/>
-  <property name="layer" value="5"/></properties>
-  <data compression="zlib" encoding="base64">
+  </properties>
+  <data encoding="base64" compression="zlib">
    eJxjYBgaYB8Q7ycTH0AzC50/CkgDBwbaAaNgFFARbAHirRTibXR39eAAAHIOGis=
   </data>
  </layer>
- <layer height="20" name="Layer 2 upper" width="20">
+ <layer name="Layer 2 upper" width="20" height="20">
   <properties>
+   <property name="layer" value="4"/>
    <property name="z" value="2.5"/>
-  <property name="layer" value="4"/></properties>
-  <data compression="zlib" encoding="base64">
+  </properties>
+  <data encoding="base64" compression="zlib">
    eJxjYBg+4CEQPwLixwPtkFEwbMF9NHoUjIKRDAC83QRl
   </data>
  </layer>
- <objectgroup height="20" name="Layer 2 object" width="20">
+ <objectgroup name="Layer 2 object" width="20" height="20">
   <properties>
+   <property name="layer" value="3"/>
    <property name="z" value="2"/>
-  <property name="layer" value="3"/></properties>
+  </properties>
  </objectgroup>
- <layer height="20" name="Layer 3 lower" width="20">
+ <layer name="Layer 3 lower" width="20" height="20">
   <properties>
+   <property name="layer" value="2"/>
    <property name="z" value="3"/>
-  <property name="layer" value="2"/></properties>
-  <data compression="zlib" encoding="base64">
+  </properties>
+  <data encoding="base64" compression="zlib">
    eJxjYKA+mAnEsyjEs5HMO0oFNy2lghlD1bxzVDZv8QgzjxpxM2oe9cxbC8TrKMTrqeCmUcDAAAAQ2CYn
   </data>
  </layer>
- <layer height="20" name="Layer 3 upper" width="20">
+ <layer name="Layer 3 upper" width="20" height="20">
   <properties>
+   <property name="layer" value="1"/>
    <property name="z" value="3.5"/>
-  <property name="layer" value="1"/></properties>
-  <data compression="zlib" encoding="base64">
+  </properties>
+  <data encoding="base64" compression="zlib">
    eJxjYBgFo2AUjIJRMApIBwAGQAAB
   </data>
  </layer>
- <objectgroup height="20" name="Layer 3 object" width="20">
+ <objectgroup name="Layer 3 object" width="20" height="20">
   <properties>
+   <property name="layer" value="0"/>
    <property name="z" value="3"/>
-  <property name="layer" value="0"/></properties>
+  </properties>
  </objectgroup>
 </map>

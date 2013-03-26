@@ -1,13 +1,15 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="15" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="25">
- <properties><property name="blended tiles" value="186,188,189,190,191,193,194,196,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,218,220,221,222,226,228,229,230,231,232,233,234,235,236,239,240,241,242,243,244,245,246,247,248,249,250,251,252,253,254"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="15" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="bgm" value="music_haven"/>
   <property name="minimap" value="graphic_minimap_l1_f1"/>
   <property name="minimap_x1" value="111"/>
   <property name="minimap_x2" value="156"/>
   <property name="minimap_y1" value="69"/>
   <property name="minimap_y2" value="102"/>
  </properties>
- <tileset firstgid="1" name="blockboundBrickWall" tileheight="32" tilewidth="32">
-  <image height="32" source="tilesets/blockbound/brickwall.png" width="96"/>
+ <tileset firstgid="1" name="blockboundBrickWall" tilewidth="32" tileheight="32">
+  <image source="tilesets/blockbound/brickwall.png" width="128" height="96"/>
   <tile id="0">
    <properties>
     <property name="x" value=""/>
@@ -24,8 +26,8 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="4" name="blockboundBrownRock" tileheight="32" tilewidth="32">
-  <image height="224" source="tilesets/blockbound/brownrock.png" trans="8080ff" width="320"/>
+ <tileset firstgid="13" name="blockboundBrownRock" tilewidth="32" tileheight="32">
+  <image source="tilesets/blockbound/brownrock.png" trans="8080ff" width="320" height="224"/>
   <tile id="30">
    <properties>
     <property name="x" value=""/>
@@ -72,11 +74,11 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="74" name="blockboundRedRug" tileheight="32" tilewidth="32">
-  <image height="96" source="tilesets/blockbound/redrug.png" width="96"/>
+ <tileset firstgid="83" name="blockboundRedRug" tilewidth="32" tileheight="32">
+  <image source="tilesets/blockbound/redrug.png" width="96" height="96"/>
  </tileset>
- <tileset firstgid="83" name="blockboundStoneFloor" tileheight="32" tilewidth="32">
-  <image height="320" source="tilesets/blockbound/stonefloor.PNG" trans="8080ff" width="320"/>
+ <tileset firstgid="92" name="blockboundStoneFloor" tilewidth="32" tileheight="32">
+  <image source="tilesets/blockbound/stonefloor.PNG" trans="8080ff" width="320" height="320"/>
   <tile id="30">
    <properties>
     <property name="x" value=""/>
@@ -123,8 +125,8 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="183" name="blockboundUpper" tileheight="32" tilewidth="32">
-  <image height="288" source="tilesets/blockbound/upper.png" trans="8080ff" width="256"/>
+ <tileset firstgid="192" name="blockboundUpper" tilewidth="32" tileheight="32">
+  <image source="tilesets/blockbound/upper.png" trans="8080ff" width="256" height="288"/>
   <tile id="0">
    <properties>
     <property name="x" value=""/>
@@ -291,8 +293,8 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="255" name="blockboundWoodFloor" tileheight="32" tilewidth="32">
-  <image height="320" source="tilesets/blockbound/woodfloor.png" trans="8080ff" width="320"/>
+ <tileset firstgid="264" name="blockboundWoodFloor" tilewidth="32" tileheight="32">
+  <image source="tilesets/blockbound/woodfloor.png" trans="8080ff" width="320" height="320"/>
   <tile id="30">
    <properties>
     <property name="x" value=""/>
@@ -469,8 +471,8 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="355" name="blockboundCeiling" tileheight="32" tilewidth="32">
-  <image height="96" source="tilesets/blockbound/ceiling.png" trans="8080ff" width="160"/>
+ <tileset firstgid="364" name="blockboundCeiling" tilewidth="32" tileheight="32">
+  <image source="tilesets/blockbound/ceiling.png" trans="8080ff" width="160" height="96"/>
   <tile id="0">
    <properties>
     <property name="x" value=""/>
@@ -547,8 +549,8 @@
    </properties>
   </tile>
  </tileset>
- <tileset firstgid="370" name="blockboundQuarryCeiling" tileheight="32" tilewidth="32">
-  <image height="96" source="tilesets/blockbound/quarryroof.png" trans="8080ff" width="160"/>
+ <tileset firstgid="379" name="blockboundQuarryCeiling" tilewidth="32" tileheight="32">
+  <image source="tilesets/blockbound/quarryroof.png" trans="8080ff" width="160" height="96"/>
   <tile id="0">
    <properties>
     <property name="x" value=""/>
@@ -615,33 +617,36 @@
    </properties>
   </tile>
  </tileset>
- <layer height="15" name="Lower 1" width="25">
+ <layer name="Lower 1" width="25" height="15">
   <properties>
+   <property name="layer" value="5"/>
    <property name="z" value="0"/>
-  <property name="layer" value="5"/></properties>
-  <data compression="zlib" encoding="base64">
-   eJytk8sKgzAQRa9L3fb/3Ei1io/aLm3/3RnEzZCbRBnhgITMPSQzAYC5AN6OTIL9Rln7wI+BOH4IE8tiNczREFiOwmqsQ3uxRhw1OKxmMT3RM3wj++84VnNfpyN0F/9IvrKRupAjlXWFsjjc1uGVfzoq0/de/jtHz0OynsLLzJb3Wdj7SNXlztpVB5vNlC/XkZPPPCGH9r11xPZ7BwKzglY=
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJytk0sOgzAMRIcrwLb3Y4MKBfEp7ZL23NhCbKxMEpCRnoSieJ4SOwAwF8DbkUmw3yhrH/gxEMcPYWJZrIY5GgLLUViNdWgv1oijBofVLKYneoZvZP8dx2ru63SE7uIfyVc2UhdypLKuUBaH2zq88k9HZfrey3/n6HlI1lN4mdnyPgt7H6m63Fm76mCzmfLlOnLymSfk0L63jth+7wzVjdU=
   </data>
  </layer>
- <layer height="15" name="Upper 1" width="25">
+ <layer name="Upper 1" width="25" height="15">
   <properties>
+   <property name="layer" value="4"/>
    <property name="z" value=".5"/>
-  <property name="layer" value="4"/></properties>
-  <data compression="zlib" encoding="base64">
-   eJxjYKAvuEekGKlqRxK4O9AOGIbgPBBfGGhHjAKSwOWBdsAgBwB9ZQbI
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYKAveE6kGKlqRxJ4NtAOGIbgBhDfHGhHjAKSwJ2BdsAgBwCecAcQ
   </data>
  </layer>
- <objectgroup height="15" name="Event 1" width="25">
+ <objectgroup name="Event 1" width="25" height="15">
   <properties>
+   <property name="layer" value="3"/>
    <property name="z" value=".5"/>
-  <property name="layer" value="3"/></properties>
-  <object height="32" name="TameDragonBeetle" type="event" width="32" x="448" y="112">
+  </properties>
+  <object name="TameDragonBeetle" type="event" x="448" y="112" width="32" height="32">
    <properties>
     <property name="group" value="beetles"/>
     <property name="key" value="enemy_dragon_beetle_tame"/>
    </properties>
   </object>
-  <object height="32" name="Teleport" type="teleport" width="16" x="688" y="256">
+  <object name="Teleport" type="teleport" x="688" y="256" width="16" height="32">
    <properties>
     <property name="group" value="tele"/>
     <property name="id" value="map_havenLobby"/>
@@ -649,7 +654,7 @@
     <property name="y" value="10"/>
    </properties>
   </object>
-  <object height="32" name="Teleport" type="teleport" width="16" x="32" y="256">
+  <object name="Teleport" type="teleport" x="32" y="256" width="16" height="32">
    <properties>
     <property name="group" value="tele"/>
     <property name="id" value="map_havenWorkshop"/>
@@ -658,96 +663,99 @@
     <property name="y" value="10"/>
    </properties>
   </object>
-  <object height="32" name="Trigger" type="trigger" width="32" x="352" y="64">
+  <object name="Trigger" type="trigger" x="352" y="64" width="32" height="32">
    <properties>
     <property name="auto" value=""/>
     <property name="id" value="scene_intro0002"/>
    </properties>
   </object>
-  <object height="32" name="Wallsafe" type="event" width="32" x="448" y="96">
+  <object name="Wallsafe" type="event" x="448" y="96" width="32" height="32">
    <properties>
     <property name="key" value="event_wallsafe"/>
     <property name="name" value="wallsafe"/>
    </properties>
   </object>
-  <object height="32" name="Waldy" type="event" width="32" x="640" y="256">
+  <object name="Waldy" type="event" x="640" y="256" width="32" height="32">
    <properties>
     <property name="hidden" value=""/>
     <property name="key" value="event_waldy"/>
     <property name="name" value="waldy"/>
    </properties>
   </object>
-  <object height="32" name="TameDragonBeetle" type="event" width="32" x="576" y="224">
+  <object name="TameDragonBeetle" type="event" x="576" y="224" width="32" height="32">
    <properties>
     <property name="group" value="beetles"/>
     <property name="key" value="enemy_dragon_beetle_tame"/>
    </properties>
   </object>
-  <object height="32" name="TameDragonBeetle" type="event" width="32" x="160" y="224">
+  <object name="TameDragonBeetle" type="event" x="160" y="224" width="32" height="32">
    <properties>
     <property name="group" value="beetles"/>
     <property name="key" value="enemy_dragon_beetle_tame"/>
    </properties>
   </object>
-  <object height="32" name="TameDragonBeetle" type="event" width="32" x="128" y="384">
+  <object name="TameDragonBeetle" type="event" x="128" y="384" width="32" height="32">
    <properties>
     <property name="group" value="beetles"/>
     <property name="key" value="enemy_dragon_beetle_tame"/>
    </properties>
   </object>
-  <object height="32" name="TameDragonBeetle" type="event" width="32" x="576" y="352">
+  <object name="TameDragonBeetle" type="event" x="576" y="352" width="32" height="32">
    <properties>
     <property name="group" value="beetles"/>
     <property name="key" value="enemy_dragon_beetle_tame"/>
    </properties>
   </object>
-  <object height="32" name="Widget (wide-pacing)" type="event" width="32" x="288" y="192">
+  <object name="Widget (wide-pacing)" type="event" x="288" y="192" width="32" height="32">
    <properties>
     <property name="key" value="enemy_widget_widepace"/>
     <property name="switch" value="intro_done"/>
    </properties>
   </object>
-  <object height="32" name="Widget (wide-pacing)" type="event" width="32" x="288" y="160">
+  <object name="Widget (wide-pacing)" type="event" x="288" y="160" width="32" height="32">
    <properties>
     <property name="key" value="enemy_widget_widepace"/>
     <property name="switch" value="intro_done"/>
    </properties>
   </object>
-  <object height="32" name="Gadget" type="event" width="32" x="544" y="416">
+  <object name="Gadget" type="event" x="544" y="416" width="32" height="32">
    <properties>
     <property name="key" value="enemy_gadget"/>
     <property name="switch" value="intro_done"/>
    </properties>
   </object>
  </objectgroup>
- <layer height="15" name="Lower 2" width="25">
+ <layer name="Lower 2" width="25" height="15">
   <properties>
+   <property name="layer" value="2"/>
    <property name="z" value="1"/>
-  <property name="layer" value="2"/></properties>
-  <data compression="zlib" encoding="base64">
-   eJxjYBgFpAIuRkzMzYhfDycWPVx49NDDDhFGTCxKwA5hLHpECOgZBaMAGfwHEcA0w0jldAMzF4RZoWmfjREhRql9IPNZceQxLiT7qO0vcgEApvkFfw==
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFpAJhRkwswohfjxAWPcJ49NDDDllGTCxHwA4ZLHpkCegZBaMAGXAA0wsnEHNROd3AzAVhPmja50cSo9Q+DiRzcWF+GviLXAAAbasElQ==
   </data>
  </layer>
- <layer height="15" name="Upper 2" width="25">
+ <layer name="Upper 2" width="25" height="15">
   <properties>
+   <property name="layer" value="1"/>
    <property name="z" value="1.5"/>
-  <property name="layer" value="1"/></properties>
-  <data compression="zlib" encoding="base64">
-   eJxjYBgFpIKTQLwLib8Ll0I0QKqeQzjY1NYzCkYBvQGxeYZUcAuJfQiHOKXgEZqZt9DEBwsAAOYqDWI=
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFpIJLQHwYiX8Yl0I0QKqe0zjY1NYzCkYBvQGxeYZU8BiJfRqHOKXgNZqZj9HEBwsAAIS0Dfs=
   </data>
  </layer>
- <objectgroup height="15" name="Event 2" width="25">
+ <objectgroup name="Event 2" width="25" height="15">
   <properties>
+   <property name="layer" value="0"/>
    <property name="z" value="1.5"/>
-  <property name="layer" value="0"/></properties>
-  <object height="32" name="Edgar" type="event" width="32" x="576" y="144">
+  </properties>
+  <object name="Edgar" type="event" x="576" y="144" width="32" height="32">
    <properties>
     <property name="face" value="right"/>
     <property name="key" value="event_edgar"/>
     <property name="name" value="edgar"/>
    </properties>
   </object>
-  <object height="32" name="Trigger" type="trigger" width="32" x="384" y="64">
+  <object name="Trigger" type="trigger" x="384" y="64" width="32" height="32">
    <properties>
     <property name="auto" value=""/>
     <property name="condition" value="beetles_dead"/>
