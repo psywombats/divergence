@@ -662,9 +662,9 @@
   <object name="Teleport" type="teleport" x="192" y="304" width="32" height="16">
    <properties>
     <property name="id" value="map_havenWestHall"/>
+    <property name="targetZ" value="0"/>
     <property name="x" value="3"/>
     <property name="y" value="4"/>
-    <property name="z" value=".5"/>
    </properties>
   </object>
   <object name="Trigger" type="trigger" x="0" y="0" width="32" height="32">
