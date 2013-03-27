@@ -62,7 +62,14 @@ public class DefaultScreen extends Screen {
 	@Override
 	public void onCommand(InputCommand command) {
 		//RGlobal.reporter.inform("Command received: " + command);
-		RGlobal.hero.act(command, RGlobal.hero.getLevel());
+		switch (command) {
+		case INTENT_EXIT:
+			Gdx.app.exit();
+			break;
+		default:
+			RGlobal.hero.act(command, RGlobal.hero.getLevel());
+		}
+		
 	}
 
 	/**

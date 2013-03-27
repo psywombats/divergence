@@ -25,6 +25,7 @@ public enum InputCommand {
 	
 	INTENT_CONFIRM,
 	INTENT_CANCEL,
+	INTENT_EXIT,
 	
 	ACTION_1,
 	ACTION_2,

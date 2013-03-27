@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.rainfall.scenes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.rainfall.core.Queueable;
@@ -68,6 +69,9 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 			RGlobal.screens.peek().getCommandContext().unregisterListener(this);
 			listener.onUnblock();
 			listener = null;
+		}
+		if (command == InputCommand.INTENT_EXIT) {
+			Gdx.app.exit();
 		}
 	}
 	
