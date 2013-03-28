@@ -73,6 +73,12 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 		if (command == InputCommand.INTENT_EXIT) {
 			Gdx.app.exit();
 		}
+		if (command == InputCommand.INTENT_FULLSCREEN) {
+			Gdx.graphics.setDisplayMode(
+					RGlobal.window.width, 
+					RGlobal.window.height, 
+					!Gdx.graphics.isFullscreen());
+		}
 	}
 	
 	/** @return The parent parser that will execute this command */

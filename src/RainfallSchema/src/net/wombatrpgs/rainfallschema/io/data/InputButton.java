@@ -24,5 +24,6 @@ public enum InputButton {
 	BUTTON_5,
 	BUTTON_6,
 	MENU,
+	FULLSCREEN,
 
 }

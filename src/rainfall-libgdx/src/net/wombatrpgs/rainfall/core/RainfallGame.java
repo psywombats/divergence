@@ -6,6 +6,7 @@ import net.wombatrpgs.rainfall.screen.instances.DefaultScreen;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 
 public class RainfallGame implements ApplicationListener, FocusListener {
 	
@@ -29,10 +30,14 @@ public class RainfallGame implements ApplicationListener, FocusListener {
 	public void create() {		
 		RGlobal.globalInit();
 		
+		// TODO: fix this super super hacky file shit
+		FileHandle handle = Gdx.files.internal("blockbound.cfg");
+		boolean fullscreen = handle.readString().indexOf("true") != -1;
+		// TODO: move this incantation to a rglobal
 		Gdx.graphics.setDisplayMode(
 				RGlobal.window.width, 
 				RGlobal.window.height, 
-				false);
+				fullscreen);
 		Gdx.graphics.setTitle(RGlobal.window.windowName);
 		
 		Gdx.graphics.setVSync(true);

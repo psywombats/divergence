@@ -51,6 +51,7 @@ public class DefaultKeymap extends Keymap {
 		map.put(Keys.D, 		InputButton.BUTTON_6);
 		
 		map.put(Keys.ESCAPE, 	InputButton.MENU);
+		map.put(Keys.F4,		InputButton.FULLSCREEN);
 		
 		for (Object key : map.keySet()) {
 			backmap.put(map.get(key), (Integer) key);

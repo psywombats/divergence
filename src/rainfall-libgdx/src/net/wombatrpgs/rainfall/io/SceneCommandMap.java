@@ -31,6 +31,7 @@ public class SceneCommandMap extends CommandMap {
 		downMap.put(InputButton.BUTTON_1, 	InputCommand.INTENT_CONFIRM);
 		downMap.put(InputButton.BUTTON_2, 	InputCommand.INTENT_CANCEL);
 		downMap.put(InputButton.MENU,		InputCommand.INTENT_EXIT);
+		downMap.put(InputButton.FULLSCREEN,	InputCommand.INTENT_FULLSCREEN);
 	}
 
 	/**

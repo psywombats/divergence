@@ -66,6 +66,12 @@ public class DefaultScreen extends Screen {
 		case INTENT_EXIT:
 			Gdx.app.exit();
 			break;
+		case INTENT_FULLSCREEN:
+			Gdx.graphics.setDisplayMode(
+					RGlobal.window.width, 
+					RGlobal.window.height, 
+					!Gdx.graphics.isFullscreen());
+			break;
 		default:
 			RGlobal.hero.act(command, RGlobal.hero.getLevel());
 		}
