@@ -10,8 +10,10 @@ import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.FacesAnimation;
 import net.wombatrpgs.rainfall.graphics.OneDir;
+import net.wombatrpgs.rainfall.io.audio.SoundObject;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.physics.CollisionResult;
+import net.wombatrpgs.rainfallschema.audio.SoundMDO;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.maps.CustomEventMDO;
 
@@ -26,8 +28,10 @@ public class EventPressurePad extends CustomEvent {
 	public static final String ID = CustomEvent.EVENT_PREFIX + "pressure_pad";
 	
 	protected static final String KEY_ANIM_DEPRESSED = "animation_button_pressed";
+	protected static final String KEY_SFX_CLICK = "sound_click";
 	
 	protected FacesAnimation animPressed, animUnpressed;
+	protected SoundObject sfx;
 	public boolean pressed;
 	public boolean setThisTurn;
 
@@ -35,6 +39,7 @@ public class EventPressurePad extends CustomEvent {
 		super(RGlobal.data.getEntryFor(ID, CustomEventMDO.class), object, parent);
 		animPressed = new OneDir(RGlobal.data.getEntryFor(
 				KEY_ANIM_DEPRESSED, AnimationMDO.class), this);
+		sfx = new SoundObject(RGlobal.data.getEntryFor(KEY_SFX_CLICK, SoundMDO.class), this);
 		animUnpressed = getAppearance();
 		pressed = false;
 		setThisTurn = false;
@@ -48,6 +53,7 @@ public class EventPressurePad extends CustomEvent {
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
 		animPressed.queueRequiredAssets(manager);
+		sfx.queueRequiredAssets(manager);
 	}
 
 	/**
@@ -58,6 +64,7 @@ public class EventPressurePad extends CustomEvent {
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
 		animPressed.postProcessing(manager, pass);
+		sfx.postProcessing(manager, pass);
 	}
 
 	/**
@@ -75,6 +82,7 @@ public class EventPressurePad extends CustomEvent {
 	@Override
 	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
 		if (!other.isOverlappingAllowed()) {
+			if (!pressed) sfx.play();
 			pressed = true;
 			setThisTurn = true;
 			setAppearance(animPressed);
@@ -89,6 +97,7 @@ public class EventPressurePad extends CustomEvent {
 	public void update(float elapsed) {
 		super.update(elapsed);
 		if (!setThisTurn) {
+			if (pressed) sfx.play();
 			setAppearance(animUnpressed);
 			pressed = false;
 		}

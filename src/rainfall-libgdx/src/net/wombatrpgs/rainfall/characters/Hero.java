@@ -18,12 +18,14 @@ import net.wombatrpgs.rainfall.characters.moveset.ActSummon;
 import net.wombatrpgs.rainfall.characters.moveset.Moveset;
 import net.wombatrpgs.rainfall.characters.moveset.MovesetAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.io.audio.SoundObject;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.maps.layers.EventLayer;
 import net.wombatrpgs.rainfall.physics.CollisionResult;
 import net.wombatrpgs.rainfall.scenes.FinishListener;
-import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
+import net.wombatrpgs.rainfallschema.audio.SoundMDO;
+import net.wombatrpgs.rainfallschema.characters.hero.HeroMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.MovesetMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.SummonMDO;
 import net.wombatrpgs.rainfallschema.io.data.InputButton;
@@ -39,6 +41,8 @@ public class Hero extends CharacterEvent {
 	/** Whoo, I'm in RM land!! */
 	// TODO: for god's sake why are these in hero.java
 	protected Map<String, Boolean> switches;
+	/** Plays when we bite the bullet */
+	protected SoundObject deathSound;
 	/** Where we entered the stage */
 	protected float entryX, entryY;
 	/** How many times enemies have consecutively mugged us */
@@ -58,12 +62,13 @@ public class Hero extends CharacterEvent {
 	 * @param 	x				The x-coord (in pixels) to start hero at
 	 * @param 	y				The y-coord (in pixels) to start hero at
 	 */
-	public Hero(CharacterEventMDO mdo, TiledObject object, Level parent, int x, int y) {
+	public Hero(HeroMDO mdo, TiledObject object, Level parent, int x, int y) {
 		super(mdo, object, parent, x, y);
 		moves = new Moveset(this, RGlobal.data.getEntryFor("default_moveset", MovesetMDO.class));
 		RGlobal.hero = this;
 		switches = new HashMap<String, Boolean>();
 		summon2 = new ActSummon(this, RGlobal.data.getEntryFor(KEY_MOVE_SUMMON2, SummonMDO.class));
+		deathSound = new SoundObject(RGlobal.data.getEntryFor(mdo.deathSound, SoundMDO.class), this);
 	}
 	
 	/** @return The moveset currently in use by the hero */
@@ -128,6 +133,7 @@ public class Hero extends CharacterEvent {
 		super.queueRequiredAssets(manager);
 		moves.queueRequiredAssets(manager);
 		summon2.queueRequiredAssets(manager);
+		deathSound.queueRequiredAssets(manager);
 	}
 	
 	/**
@@ -139,6 +145,7 @@ public class Hero extends CharacterEvent {
 		super.postProcessing(manager, pass);
 		moves.postProcessing(manager, pass);
 		summon2.postProcessing(manager, pass);
+		deathSound.postProcessing(manager, pass);
 	}
 
 	/**
@@ -258,6 +265,7 @@ public class Hero extends CharacterEvent {
 	 * isn't really death in Blockbound.
 	 */
 	public void die() {
+		deathSound.play();
 		List<MovesetAct> toCancel = new ArrayList<MovesetAct>();
 		toCancel.addAll(activeMoves);
 		for (MovesetAct act : toCancel) {

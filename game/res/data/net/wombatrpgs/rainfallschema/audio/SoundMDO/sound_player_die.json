@@ -1,0 +1,9 @@
+{
+	"key" : "sound_player_die",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"file" : "player_die.wav",
+	"volume" : 100,
+	"repeats" : "PLAY_ONCE"
+}

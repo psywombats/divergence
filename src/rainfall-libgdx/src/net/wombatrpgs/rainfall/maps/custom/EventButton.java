@@ -10,8 +10,10 @@ import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.FacesAnimation;
 import net.wombatrpgs.rainfall.graphics.OneDir;
+import net.wombatrpgs.rainfall.io.audio.SoundObject;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.physics.CollisionResult;
+import net.wombatrpgs.rainfallschema.audio.SoundMDO;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.maps.CustomEventMDO;
 
@@ -26,8 +28,10 @@ public class EventButton extends CustomEvent {
 	public static final String ID = CustomEvent.EVENT_PREFIX + "button";
 	
 	protected static final String KEY_ANIM_DEPRESSED = "animation_button_pressed";
+	protected static final String KEY_SFX_CLICK = "sound_click";
 	
 	protected FacesAnimation animPressed, animUnpressed;
+	protected SoundObject sfx;
 	public boolean pressed;
 
 	public EventButton(TiledObject object, Level parent) {
@@ -36,6 +40,7 @@ public class EventButton extends CustomEvent {
 				KEY_ANIM_DEPRESSED, AnimationMDO.class), this);
 		animUnpressed = getAppearance();
 		pressed = false;
+		sfx = new SoundObject(RGlobal.data.getEntryFor(KEY_SFX_CLICK, SoundMDO.class), this);
 	}
 	
 	/**
@@ -46,6 +51,7 @@ public class EventButton extends CustomEvent {
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
 		animPressed.queueRequiredAssets(manager);
+		sfx.queueRequiredAssets(manager);
 	}
 
 	/**
@@ -56,6 +62,7 @@ public class EventButton extends CustomEvent {
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
 		animPressed.postProcessing(manager, pass);
+		sfx.postProcessing(manager, pass);
 	}
 
 	/**
@@ -75,6 +82,7 @@ public class EventButton extends CustomEvent {
 		if (!other.isOverlappingAllowed()) {
 			pressed = true;
 			setAppearance(animPressed);
+			sfx.play();
 		}
 		return super.onCharacterCollide(other, result);
 	}
