@@ -2,3 +2,4 @@
 [wait 1]
 [camera-track hero]
 [teleport map_havenEastHall 10 18 basic]
+[set-switch intro_done]
