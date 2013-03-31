@@ -171,6 +171,9 @@ public class Level implements ScreenShowable {
 	
 	/** @return The default bgm for this level */
 	public MusicObject getBGM() { return this.bgm; }
+	
+	/** @param The new BGM object on this level */
+	public void setBGM(MusicObject bgm) { this.bgm = bgm; }
 
 	/**
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render(

@@ -76,7 +76,7 @@ public class TeleportGlobal implements Queueable {
 		int z = old.getZ(victim);
 		
 		RGlobal.ui.getHud().setOverlayTintIgnore(false);
-		if (old.getBGM() != null) old.getBGM().stop();	
+		if (old.getBGM() != null && !old.getBGM().matches(map.getBGM())) old.getBGM().stop();	
 		if (old.contains(RGlobal.block)) old.removeEvent(RGlobal.block);
 		old.onFocusLost();
 		old.removeEvent(victim);
@@ -84,7 +84,7 @@ public class TeleportGlobal implements Queueable {
 		
 		map.addEvent(RGlobal.hero, tileX, tileY, z);
 		RGlobal.ui.getHud().setOverlayTintIgnore(true);
-		if (map.getBGM() != null) map.getBGM().play();
+		if (map.getBGM() != null && !map.getBGM().matches(old.getBGM())) map.getBGM().play();
 		
 		RGlobal.screens.peek().setCanvas(map);
 		

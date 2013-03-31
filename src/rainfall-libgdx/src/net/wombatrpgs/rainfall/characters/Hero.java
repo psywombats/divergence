@@ -205,7 +205,7 @@ public class Hero extends CharacterEvent {
 	public void stun() {
 		if (stunned) {
 			stunMug += 1;
-			if (stunMug >= 3) {
+			if (stunMug == 3) {
 				die();
 				return;
 			}
