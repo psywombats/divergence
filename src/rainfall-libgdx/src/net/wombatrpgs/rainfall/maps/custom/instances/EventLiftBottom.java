@@ -94,6 +94,7 @@ public class EventLiftBottom extends CustomEvent {
 				EventButton button = (EventButton) getLevel().getCustomObject(EventButton.ID);
 				if (button.pressed) {
 					complete.run(getLevel());
+					RGlobal.hero.setSwitch("lift_complete", true);
 				} else {
 					//needsPress.run(getLevel()); buggy
 				}
