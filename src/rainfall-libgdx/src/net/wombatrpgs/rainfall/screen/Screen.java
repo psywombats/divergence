@@ -79,7 +79,7 @@ public abstract class Screen implements CommandListener,
 				RGlobal.window.width, RGlobal.window.height, 
 				false);
 		pictures = new ArrayList<Picture>();
-		tint = Color.WHITE;
+		tint = new Color(0, 0, 0, 1);
 		cam = new TrackerCam(RGlobal.window.width, RGlobal.window.height);
 		cam.init();
 	}

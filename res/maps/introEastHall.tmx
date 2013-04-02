@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="33" height="26" tilewidth="32" tileheight="32">
  <properties>
-  <property name="bgm" value="music_haven"/>
   <property name="minimap" value="graphic_minimap_l1_f1"/>
   <property name="minimap_x1" value="122"/>
   <property name="minimap_x2" value="180"/>
