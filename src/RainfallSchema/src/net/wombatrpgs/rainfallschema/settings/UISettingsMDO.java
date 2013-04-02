@@ -10,6 +10,7 @@ import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
+import net.wombatrpgs.rainfallschema.graphics.IconSetMDO;
 import net.wombatrpgs.rainfallschema.ui.FontMDO;
 import net.wombatrpgs.rainfallschema.ui.HudMDO;
 import net.wombatrpgs.rainfallschema.ui.TextBoxMDO;
@@ -31,5 +32,9 @@ public class UISettingsMDO extends MainSchema {
 	@Desc("Default HUD")
 	@SchemaLink(HudMDO.class)
 	public String hud;
+	
+	@Desc("Default icon set")
+	@SchemaLink(IconSetMDO.class)
+	public String icons;
 
 }
