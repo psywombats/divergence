@@ -30,10 +30,11 @@ public class MusicObject extends AudioObject {
 	}
 	
 	/**
-	 * Pauses music playback for things like losing screen focus or whatever.
+	 * @see net.wombatrpgs.rainfall.graphics.Disposable#dispose()
 	 */
-	public void pause() {
-		coreMusic.pause();
+	@Override
+	public void dispose() {
+		coreMusic.dispose();
 	}
 
 	/**
@@ -72,13 +73,22 @@ public class MusicObject extends AudioObject {
 		coreMusic.setLooping(true);
 		coreMusic.setVolume((float) mdo.volume / 100.f);
 	}
-
+	
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Disposable#dispose()
+	 * Pauses music playback for things like losing screen focus or whatever.
 	 */
-	@Override
-	public void dispose() {
-		coreMusic.dispose();
+	public void pause() {
+		coreMusic.pause();
+	}
+	
+	/**
+	 * Determines if two musics are actually -- the same thing!!
+	 * @param 	object				The other music object
+	 * @return						True if they match, false otherwise
+	 */
+	public boolean matches(MusicObject object) {
+		if (object == null) return false;
+		return this.mdo == object.mdo;
 	}
 
 }

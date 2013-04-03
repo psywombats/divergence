@@ -8,5 +8,6 @@
 	"response" : "PUSHABLE",
 	"touch" : "NOTHING",
 	"soundHurt" : "sound_player_hurt",
-	"mobility" : "mobility_hero"
+	"mobility" : "mobility_hero",
+	"deathSound" : "sound_player_die"
 }

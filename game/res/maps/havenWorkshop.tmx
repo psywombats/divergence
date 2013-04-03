@@ -635,7 +635,7 @@
    <property name="z" value=".5"/>
   <property name="layer" value="4"/></properties>
  </objectgroup>
- <layer height="18" name="Lower 2 (default)" width="20">
+ <layer height="18" name="Lower 2 (default)" visible="0" width="20">
   <properties>
    <property name="layer" value="3"/>
    <property name="z" value="1"/>
@@ -668,6 +668,7 @@
   </object>
   <object height="24" name="Trigger" type="trigger" width="32" x="288" y="96">
    <properties>
+    <property name="hideswitch" value="lift_complete"/>
     <property name="id" value="scene_event_reverse_lift"/>
    </properties>
   </object>
@@ -708,6 +709,14 @@
    <properties>
     <property name="key" value="enemy_grinder"/>
     <property name="switch" value="intro_done"/>
+   </properties>
+  </object>
+  <object height="26" name="Teleport" type="teleport" width="32" x="288" y="99">
+   <properties>
+    <property name="id" value="map_havenQuarry"/>
+    <property name="targetZ" value="0"/>
+    <property name="x" value="17"/>
+    <property name="y" value="14"/>
    </properties>
   </object>
  </objectgroup>

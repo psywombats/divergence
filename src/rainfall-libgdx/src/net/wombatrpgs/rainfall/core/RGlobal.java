@@ -13,6 +13,7 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.files.FileHandle;
 
 import net.wombatrpgs.rainfall.characters.Block;
 import net.wombatrpgs.rainfall.characters.Hero;
@@ -25,6 +26,7 @@ import net.wombatrpgs.rainfall.maps.LevelManager;
 import net.wombatrpgs.rainfall.scenes.SceneData;
 import net.wombatrpgs.rainfall.scenes.TeleportGlobal;
 import net.wombatrpgs.rainfall.screen.ScreenStack;
+import net.wombatrpgs.rainfall.screen.instances.DefaultScreen;
 import net.wombatrpgs.rainfall.ui.UISettings;
 import net.wombatrpgs.rainfallschema.settings.TeleportSettingsMDO;
 import net.wombatrpgs.rainfallschema.settings.UISettingsMDO;
@@ -120,8 +122,33 @@ public class RGlobal {
 		toLoad.add(ui);
 		toLoad.add(teleport);
 		for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
-		assetManager.finishLoading();
-		for (Queueable q : toLoad) q.postProcessing(assetManager, 0);
+		for (int pass = 0; RGlobal.assetManager.getProgress() < 1; pass++) {
+			RGlobal.assetManager.finishLoading();
+			for (Queueable q : toLoad) q.postProcessing(RGlobal.assetManager, pass);
+		}
+		
+		// initializing graphics
+		RGlobal.reporter.inform("Creating screen and graphics");
+		toLoad.clear();
+		// TODO: fix this super super hacky file shit
+		FileHandle handle = Gdx.files.internal("blockbound.cfg");
+		boolean fullscreen = handle.readString().indexOf("true") != -1;
+		Gdx.graphics.setDisplayMode(
+				RGlobal.window.width, 
+				RGlobal.window.height, 
+				fullscreen);
+		Gdx.graphics.setTitle(RGlobal.window.windowName);
+		Gdx.graphics.setVSync(true);
+		Gdx.input.setInputProcessor(RGlobal.keymap);
+		
+		RGlobal.reporter.inform("Loading level assets");
+		RGlobal.screens.push(new DefaultScreen());
+		toLoad.add(RGlobal.screens.peek());
+		for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
+		for (int pass = 0; RGlobal.assetManager.getProgress() < 1; pass++) {
+			RGlobal.assetManager.finishLoading();
+			for (Queueable q : toLoad) q.postProcessing(RGlobal.assetManager, pass);
+		}
 		
 		initialized = true;
 		RGlobal.reporter.inform("Done loading");

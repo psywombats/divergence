@@ -34,7 +34,7 @@ public class CharacterFactory {
 			TiledObject object, Level parent, int x, int y) {
 		// it may be possible to generalize this
 		if (HeroMDO.class.isAssignableFrom(mdo.getClass())) {
-			return new Hero(mdo, object, parent, x, y);
+			return new Hero((HeroMDO) mdo, object, parent, x, y);
 		} else if (EnemyEventMDO.class.isAssignableFrom(mdo.getClass())) {
 			if (mdo.key.equals("enemy_venustron")) {
 				return new EnemyVenustron((EnemyEventMDO) mdo, object, parent, x, y);

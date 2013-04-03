@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32">
- <properties>
-  <property name="minimap" value="graphic_minimap_l1_f1"/>
-  <property name="minimap_x1" value="111"/>
-  <property name="minimap_x2" value="156"/>
-  <property name="minimap_y1" value="69"/>
-  <property name="minimap_y2" value="102"/>
- </properties>
  <tileset firstgid="1" name="lower" tilewidth="32" tileheight="32">
   <image source="tilesets/test/lower.PNG" trans="b5a5d5" width="192" height="160"/>
   <tile id="21">
@@ -104,13 +97,16 @@
  <tileset firstgid="133" name="black" tilewidth="32" tileheight="32">
   <image source="tilesets/system/black.png" width="32" height="32"/>
  </tileset>
+ <tileset firstgid="134" name="title" tilewidth="32" tileheight="32">
+  <image source="tilesets/blockbound/title.png" width="640" height="480"/>
+ </tileset>
  <layer name="Tile Layer 1" width="20" height="15">
   <properties>
    <property name="layer" value="3"/>
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIKhAQAEsAAB
+   eJzzYmBg8GKgHHghYWoBapo1CkbBKCAMqJ1/qVUmwMwBAC1YA3k=
   </data>
  </layer>
  <layer name="Tile Layer 2" width="20" height="15">
@@ -128,20 +124,20 @@
    <property name="ogga" value="ALPHONSEO"/>
    <property name="z" value=".5"/>
   </properties>
-  <object name="Hero" type="event" x="336" y="208" width="32" height="32">
+  <object name="Hero" type="event" x="320" y="208" width="32" height="32">
    <properties>
     <property name="key" value="hero_default"/>
     <property name="name" value="hero"/>
    </properties>
   </object>
  </objectgroup>
- <layer name="Tile Layer 3" width="20" height="15" visible="0">
+ <layer name="Tile Layer 3" width="20" height="15">
   <properties>
    <property name="layer" value="0"/>
    <property name="z" value="1"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxrZWBgaB3Fo3gUj+IhgAGdepvd
+   eJwNwwOUEAYAANCrllbLxrJt27ZtLm/ZuFx32b67bNu2seza1pCx/nv/jwkICAh0rOMc7wQnOsnJTnGqQQY7zenOcKaznO0c5zrP+S5woYtc7BKXuszlrjDEUMNc6SpXu8a1rnO9G9zoJje7xa1uc7s73Okud7vHve5zvwc86CEPe8SjHvO4JzzpKU97xrOe87wXvOglL3vFq17zuje86S1ve8ffves97/vAhz7ysU986jOf+8KXvvK1f/inf/nGv/3Hf/3Pt77zvR/86Cc/+8WvfvN/A8JheCP4gxGNZGSjGNUfjWZ0fzKGMY1lbOMY13jGN4EJTWRik5jUZCb3Z1OY0lSmNo1pTWd6M5jRTGY2i1nNZnZzmNNc5jaPec1nfgtY0EIWtohFLWZxS1jSUpa2jGUtZ3krWNFKVraKVa1mdWtY01rWto51rWd9G9jQRja2iU1tZnNb2NJWtraNbW1nezvY0U52totd/cVudreHPe1lb/v4q7/Z1372d4ADHeRghzjUYQ53hCMd5WjHGOhYxzneCU50kpOd4lSDDHaa053hTGc52znOdZ7zXeBCF7nYJS51mctdYYihhrnSVa52jWtd53o3uNHvFKaa7Q==
   </data>
  </layer>
 </map>

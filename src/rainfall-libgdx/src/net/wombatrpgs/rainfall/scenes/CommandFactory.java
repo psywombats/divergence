@@ -7,10 +7,14 @@
 package net.wombatrpgs.rainfall.scenes;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.scenes.commands.CommandBlock;
 import net.wombatrpgs.rainfall.scenes.commands.CommandCameraPan;
 import net.wombatrpgs.rainfall.scenes.commands.CommandCameraSpeed;
 import net.wombatrpgs.rainfall.scenes.commands.CommandCameraTrack;
+import net.wombatrpgs.rainfall.scenes.commands.CommandGoToTitle;
 import net.wombatrpgs.rainfall.scenes.commands.CommandMove;
+import net.wombatrpgs.rainfall.scenes.commands.CommandPlayBGM;
+import net.wombatrpgs.rainfall.scenes.commands.CommandPlaySound;
 import net.wombatrpgs.rainfall.scenes.commands.CommandSetGraphic;
 import net.wombatrpgs.rainfall.scenes.commands.CommandSetLocation;
 import net.wombatrpgs.rainfall.scenes.commands.CommandSetSwitch;
@@ -42,6 +46,10 @@ public class CommandFactory {
 	protected static final String COMMAND_SET_GRAPHIC = "change-graphic";
 	protected static final String COMMAND_SET_LOCATION = "set-location";
 	protected static final String COMMAND_SET_SWITCH = "set-switch";
+	protected static final String COMMAND_GO_TO_TITLE = "goto-title";
+	protected static final String COMMAND_PLAY_SOUND = "play-sound";
+	protected static final String COMMAND_PLAY_BGM = "play-bgm";
+	protected static final String COMMAND_BLOCK = "pause";
 	
 	/**
 	 * Actually performs the generation. This should be a great big if/else.
@@ -60,6 +68,14 @@ public class CommandFactory {
 			}
 			if (commandName.equals(COMMAND_MOVE)) {
 				return new CommandMove(parent, line);
+			} else if (commandName.equals(COMMAND_PLAY_BGM)) {
+				return new CommandPlayBGM(parent, line);
+			} else if (commandName.equals(COMMAND_BLOCK)) {
+				return new CommandBlock(parent, line);
+			} else if (commandName.equals(COMMAND_PLAY_SOUND)) {
+				return new CommandPlaySound(parent, line);
+			} else if (commandName.equals(COMMAND_GO_TO_TITLE)) {
+				return new CommandGoToTitle(parent, line);
 			} else if (commandName.equals(COMMAND_SET_SWITCH)) {
 				return new CommandSetSwitch(parent, line);
 			} else if (commandName.equals(COMMAND_SET_LOCATION)) {
