@@ -739,13 +739,16 @@
  <tileset firstgid="394" name="blockboundStairSide" tileheight="32" tilewidth="32">
   <image height="128" source="tilesets/blockbound/stairwellside.png" trans="8080ff" width="128"/>
  </tileset>
+ <tileset firstgid="410" name="blockboundDirtStoneTrans" tileheight="32" tilewidth="32">
+  <image height="96" source="tilesets/blockbound/stonetodirt.PNG" trans="8080ff" width="160"/>
+ </tileset>
  <layer height="26" name="Lower 1" width="10">
   <properties>
    <property name="layer" value="5"/>
    <property name="z" value="0"/>
   <property name="layer" value="5"/></properties>
   <data compression="zlib" encoding="base64">
-   eJy10j0OwjAMBeAX9RJcDhaGLBHQIv4KI+0AHIOFW9aWUuEYp+lCpKc00VcrsgwAJwdcjBwpch3ofMVv9hNuUXCB0kXXxUjHb2spVTQy0nGtG+2rmW5tWO162n20S+G180gz1pauoe9dxlp90Y779E839jko6zL9085nXIWy6w1jOctwzmJec33mtEjnMFdzrrsjndepNz5c2T3p/qXc23Abut9SauE++Nrg7Dlo4n86tXADC+RVTA==
+   eJy10k0KwjAQBeA39BLeMJugtuJfdWldqHcQpC68pRMYcTqdNG4sPNKGryE8BgC2BOydbDj6WfP3AeOsJtys4CKnE9dJtEt3azmVGB3t0llHXnteH1R2QexTeevO4oLyyVoXMM7duIbfl47tye/Fuvhn9+k5GkuZ/qwLGVc53ZR6zjnPpOzUvOZ6TmkxnMPcmb+6E4bzOnXHC5XdlfdvxvWOm/P+glMr98LXRvLnoJH/bGrl3uMxWOo=
   </data>
  </layer>
  <layer height="26" name="Upper 1" width="10">
