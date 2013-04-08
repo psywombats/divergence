@@ -128,9 +128,9 @@ public class ScreenStack implements Disposable {
 	public void update() {
 		float elapsed = Gdx.graphics.getDeltaTime();
 		float real = 1.0f / elapsed;
-		if (real < RGlobal.constants.rate()) {
-			elapsed = (1.0f / RGlobal.constants.rate());
-		}
+//		if (real < RGlobal.constants.rate()) {
+//			elapsed = (1.0f / RGlobal.constants.rate());
+//		}
 		screens.get(0).update(elapsed);
 	}
 	

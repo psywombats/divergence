@@ -632,7 +632,7 @@
    <property name="z" value="0"/>
   <property name="layer" value="5"/></properties>
   <data compression="zlib" encoding="base64">
-   eJxjYKA9KGdkYKjEgssY6WA5FJQC7WJiwMTFA+QGYcaR7QZhLJhebgClx6oBdgMoDJgZRt0Ac0MoFnfQ0w3hQDpiAN1QBLSnAIijB9ANIDDQeXOouIEedRohN+Cq0ypwuI0cTKicxFWfMGJxF7mYUBk1WNyATR4kncNIHUyuG4SpZH8OHvOJcUMLUL6VQtyGIwyIdQOt8agbBp8bQHVr/gDhQqgbAEHgYT0=
+   eJzt1UkKgDAMQNFEj9BrFkTFca2e2wpdCKYOtYPFFD4uCubRTQD8nw4BBqIWAwzXp1GzMjhWRzII/LdBELGBDWxgQwqGEDvtymDaab3BZtP4wLDfJ0i4bMshDQN1v11LdJOtQTiaL0/+f8cwqfv5ZYvhDe4afMeG7xkq9S0iVWrDCuj+XyY=
   </data>
  </layer>
  <layer height="26" name="Upper 1" width="33">
@@ -669,11 +669,6 @@
     <property name="hideswitch" value="got_earrings"/>
     <property name="key" value="event_waldy_push"/>
     <property name="pace" value=""/>
-   </properties>
-  </object>
-  <object height="32" name="Trigger" type="trigger" width="16" x="800" y="288">
-   <properties>
-    <property name="id" value="scene_event_reverse_courtyard"/>
    </properties>
   </object>
   <object height="32" name="Chloe" type="event" width="32" x="96" y="672">

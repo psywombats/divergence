@@ -636,7 +636,7 @@
    <property name="z" value=".5"/>
   </properties>
  </objectgroup>
- <layer name="Lower 2 (default)" width="20" height="18" visible="0">
+ <layer name="Lower 2 (default)" width="20" height="18">
   <properties>
    <property name="layer" value="3"/>
    <property name="z" value="1"/>
@@ -715,6 +715,7 @@
   <object name="Teleport" type="teleport" x="288" y="99" width="32" height="26">
    <properties>
     <property name="id" value="map_havenQuarry"/>
+    <property name="switch" value="lift_complete"/>
     <property name="targetZ" value="0"/>
     <property name="x" value="17"/>
     <property name="y" value="14"/>

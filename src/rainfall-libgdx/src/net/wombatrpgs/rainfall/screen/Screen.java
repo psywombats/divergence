@@ -16,6 +16,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.core.RGlobal;
@@ -61,8 +63,11 @@ public abstract class Screen implements CommandListener,
 	protected FrameBuffer buffer;
 	/** What we'll be tinting the screen before each render */
 	protected Color tint;
+	/** Used to draw the background rects */
+	protected ShapeRenderer shapes;
 	/** Have we been set up yet? */
 	protected boolean initialized;
+
 	
 	/**
 	 * Creates a new game screen. Remember to call intialize when done setting
@@ -80,6 +85,7 @@ public abstract class Screen implements CommandListener,
 				false);
 		pictures = new ArrayList<Picture>();
 		tint = new Color(0, 0, 0, 1);
+		shapes = new ShapeRenderer();
 		cam = new TrackerCam(RGlobal.window.width, RGlobal.window.height);
 		cam.init();
 	}
@@ -188,6 +194,10 @@ public abstract class Screen implements CommandListener,
 		buffer.begin();
 		Gdx.gl.glClearColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		shapes.setColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
+		shapes.begin(ShapeType.FilledRectangle);
+		shapes.filledRect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		shapes.end();
 		canvas.render(cam);
 		for (Picture pic : pictures) {
 			if (!pic.ignoresTint()) {

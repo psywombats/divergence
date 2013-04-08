@@ -47,6 +47,8 @@ public class Hero extends CharacterEvent {
 	protected float entryX, entryY;
 	/** How many times enemies have consecutively mugged us */
 	protected int stunMug = 0;
+	/** Is the hero in the process of eating fire? */
+	protected boolean dying;
 	
 	private static final String KEY_MOVE_SUMMON2 = "move_summon";
 	private MovesetAct summon2; // I'm sorry, but I'm hardcoding this. I'm tired.
@@ -69,6 +71,7 @@ public class Hero extends CharacterEvent {
 		switches = new HashMap<String, Boolean>();
 		summon2 = new ActSummon(this, RGlobal.data.getEntryFor(KEY_MOVE_SUMMON2, SummonMDO.class));
 		deathSound = new SoundObject(RGlobal.data.getEntryFor(mdo.deathSound, SoundMDO.class), this);
+		dying = false;
 	}
 	
 	/** @return The moveset currently in use by the hero */
@@ -265,6 +268,8 @@ public class Hero extends CharacterEvent {
 	 * isn't really death in Blockbound.
 	 */
 	public void die() {
+		if (dying) return;
+		dying = true;
 		deathSound.play();
 		List<MovesetAct> toCancel = new ArrayList<MovesetAct>();
 		toCancel.addAll(activeMoves);
@@ -280,6 +285,7 @@ public class Hero extends CharacterEvent {
 				setX((int) entryX);
 				setY((int) entryY);
 				RGlobal.teleport.getPost().run(map);
+				dying = false;
 				//stun();
 			}
 		});
