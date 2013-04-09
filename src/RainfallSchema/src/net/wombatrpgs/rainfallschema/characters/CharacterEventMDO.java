@@ -25,10 +25,15 @@ import net.wombatrpgs.rainfallschema.graphics.DirMDO;
 @Path("characters/")
 public class CharacterEventMDO extends MainSchema {
 	
-	@Desc("Appearance - what this event looks like, at least at first")
+	@Desc("Walk animation - what this event looks like when moving")
 	@SchemaLink(DirMDO.class)
 	@Nullable
 	public String appearance;
+	
+	@Desc("Idle animation - what this event looks like when still, (if nothing, will use first frame of walk animation)")
+	@SchemaLink(DirMDO.class)
+	@Nullable
+	public String idleAnim;
 	
 	@Desc("Hitbox type - what shape of hitbox this character has")
 	@DefaultValue("NONE")

@@ -390,9 +390,11 @@ public class Level implements ScreenShowable {
 	public void detectCollisions(MapEvent event) {
 		Integer layerIndex = layerMap.get(event);
 		if (layerIndex == null) {
-			RGlobal.reporter.warn("Weird blcok z-bug (2)...");
+			RGlobal.reporter.warn("Weird block z-bug (2)...");
+			return;
 		}
-		int activeZ = (int) Math.floor(eventLayers.get(layerIndex).getZ());
+		Integer testZ = (int) Math.floor(eventLayers.get(layerIndex).getZ());
+		int activeZ = testZ;
 		for (int i = 0; i < eventLayers.size(); i++) {
 			if (activeZ == Math.floor(eventLayers.get(i).getZ())) {
 				eventLayers.get(i).detectCollisions(event);

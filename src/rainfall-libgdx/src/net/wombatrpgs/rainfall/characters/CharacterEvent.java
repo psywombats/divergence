@@ -63,6 +63,7 @@ public class CharacterEvent extends MapEvent {
 	protected MobilityMDO mobilityMDO;
 	protected FacesAnimation appearance;
 	protected FacesAnimation walkAnim;
+	protected FacesAnimation idleAnim;
 	
 	protected boolean stunned;
 	protected boolean dead;
@@ -113,6 +114,7 @@ public class CharacterEvent extends MapEvent {
 	public void setFacing(Direction dir) {
 		if (appearance != null) this.appearance.setFacing(dir);
 		if (walkAnim != null) this.walkAnim.setFacing(dir);
+		if (idleAnim != null) this.idleAnim.setFacing(dir);
 	}
 	
 	/**
@@ -159,10 +161,14 @@ public class CharacterEvent extends MapEvent {
 		if (pacing && appearance != null) {
 			appearance.update(elapsed);
 		}
-		if (!pacing && (Math.abs(vx) < .1 && Math.abs(vy) < .1) &&
-				(Math.abs(targetVX) < .1 && Math.abs(targetVY) < .1) &&
-				walkAnim != null) {
-			walkAnim.stopMoving();
+		if (!pacing && walkAnim != null)
+			if (Math.abs(vx) < .1 && Math.abs(vy) < .1 &&
+				Math.abs(targetVX) < .1 && Math.abs(targetVY) < .1) {
+				walkAnim.stopMoving();
+				if (appearance == walkAnim) {
+					appearance = idleAnim;
+					idleAnim.setFacing(walkAnim.getFacing());
+				}
 		}
 	}
 
@@ -194,6 +200,9 @@ public class CharacterEvent extends MapEvent {
 		if (soundHurt != null) {
 			soundHurt.queueRequiredAssets(manager);
 		}
+		if (idleAnim != null) {
+			idleAnim.queueRequiredAssets(manager);
+		}
 	}
 
 	/**
@@ -211,6 +220,11 @@ public class CharacterEvent extends MapEvent {
 		}
 		if (soundHurt != null) {
 			soundHurt.postProcessing(manager, pass);
+		}
+		if (idleAnim != null) {
+			idleAnim.postProcessing(manager, pass);
+		} else {
+			idleAnim = walkAnim;
 		}
 		if (object != null) {
 			String dir = object.properties.get(PROPERTY_FACING);
@@ -561,6 +575,9 @@ public class CharacterEvent extends MapEvent {
 				}
 			}
 			setFacing(newDir);
+			if (appearance == idleAnim) {
+				appearance = walkAnim;
+			}
 			walkAnim.startMoving();
 		}
 		super.internalTargetVelocity(targetVX, targetVY);
@@ -607,6 +624,10 @@ public class CharacterEvent extends MapEvent {
 			DirMDO dirMDO = RGlobal.data.getEntryFor(mdo.appearance, DirMDO.class);
 			walkAnim = FacesAnimationFactory.create(dirMDO, this);
 			appearance = walkAnim;
+		}
+		if (mdo.idleAnim != null && !mdo.idleAnim.equals(NULL_MDO)) {
+			DirMDO idleMDO = RGlobal.data.getEntryFor(mdo.idleAnim, DirMDO.class);
+			idleAnim = FacesAnimationFactory.create(idleMDO, this);
 		}
 		if (mdo.soundHurt != null && !mdo.soundHurt.equals(NULL_MDO)) {
 			SoundMDO soundMDO = RGlobal.data.getEntryFor(mdo.soundHurt, SoundMDO.class);

@@ -4,8 +4,10 @@
 	"name" : "",
 	"description" : "",
 	"appearance" : "nico_4dir",
+	"idleAnim" : "None",
 	"collision" : "NONE",
 	"response" : "ETHEREAL",
 	"touch" : "NOTHING",
+	"soundHurt" : "None",
 	"mobility" : "mobility_cutscene"
 }
