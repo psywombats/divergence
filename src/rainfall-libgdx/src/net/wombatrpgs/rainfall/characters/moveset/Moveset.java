@@ -13,6 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.characters.Hero;
+import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfallschema.characters.hero.MovesetMDO;
@@ -27,18 +28,23 @@ import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 public class Moveset implements Queueable {
 	
 	protected MovesetMDO mdo; // caution -- may be null
-	protected Map<InputCommand, MovesetAct> moves;
+	protected Map<InputCommand, MovesetAct> startCommands;
+	protected Map<InputCommand, MovesetAct> stopCommands;
 	
 	/**
 	 * Creates and initializes a ne blank moveset. Make sure to manually add
 	 * moves or else the hero won't be able to do anything.
 	 */
 	public Moveset() {
-		moves = new HashMap<InputCommand, MovesetAct>();
+		startCommands = new HashMap<InputCommand, MovesetAct>();
+		stopCommands = new HashMap<InputCommand, MovesetAct>();
 	}
 	
 	/** @return The underlying map from commands to actions */
-	public Map<InputCommand, MovesetAct> getMoves() { return moves; }
+	public Map<InputCommand, MovesetAct> getStartCommands() { return startCommands; }
+	
+	/** @return The underlying map from commands to un-actions */
+	public Map<InputCommand, MovesetAct> getStopCommands() { return stopCommands; }
 	
 	/**
 	 * @see net.wombatrpgs.rainfall.core.Queueable#queueRequiredAssets
@@ -46,7 +52,7 @@ public class Moveset implements Queueable {
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		for (MovesetAct move : moves.values()) {
+		for (MovesetAct move : startCommands.values()) {
 			move.queueRequiredAssets(manager);
 		}
 	}
@@ -57,7 +63,7 @@ public class Moveset implements Queueable {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		for (MovesetAct move : moves.values()) {
+		for (MovesetAct move : startCommands.values()) {
 			move.postProcessing(manager, pass);
 		}
 	}
@@ -73,7 +79,11 @@ public class Moveset implements Queueable {
 		this();
 		this.mdo = mdo;
 		for (MovesetEntryMDO entryMDO : mdo.moves) {
-			moves.put(entryMDO.command, MoveFactory.generateMove(hero, entryMDO.move));
+			MovesetAct move = MoveFactory.generateMove(hero, entryMDO.move);
+			startCommands.put(entryMDO.startCommand, move);
+			if (entryMDO.stopCommand != null && !entryMDO.stopCommand.equals(Constants.NULL_MDO)) {
+				stopCommands.put(entryMDO.stopCommand, move);
+			}
 		}
 	}
 	
@@ -84,8 +94,11 @@ public class Moveset implements Queueable {
 	 * @param	actor		The actor performing the command
 	 */
 	public void act(InputCommand command, Level map, CharacterEvent actor) {
-		if (moves.containsKey(command)) {
-			moves.get(command).act(map, actor);
+		if (startCommands.containsKey(command)) {
+			startCommands.get(command).act(map, actor);
+		}
+		if (stopCommands.containsKey(command)) {
+			stopCommands.get(command).stop(map, actor);
 		}
 	}
 

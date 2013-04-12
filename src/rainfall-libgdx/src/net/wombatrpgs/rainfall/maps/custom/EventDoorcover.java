@@ -40,7 +40,7 @@ public class EventDoorcover extends CustomEvent {
 		animClose.addListener(new AnimationListener() {
 			@Override
 			public void onAnimationFinish(AnimationPlayer source) {
-				door.setAppearance(closedAppearance);
+				door.setIdleAppearance(closedAppearance);
 			}
 		});
 		closedAppearance = FacesAnimationFactory.create(KEY_ANIM_CLOSED, this);

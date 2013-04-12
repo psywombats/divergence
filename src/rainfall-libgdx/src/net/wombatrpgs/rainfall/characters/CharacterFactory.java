@@ -9,7 +9,6 @@ package net.wombatrpgs.rainfall.characters;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 
 import net.wombatrpgs.rainfall.characters.enemies.EnemyEvent;
-import net.wombatrpgs.rainfall.characters.instances.EnemyVenustron;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
 import net.wombatrpgs.rainfallschema.characters.enemies.EnemyEventMDO;
@@ -37,7 +36,8 @@ public class CharacterFactory {
 			return new Hero((HeroMDO) mdo, object, parent, x, y);
 		} else if (EnemyEventMDO.class.isAssignableFrom(mdo.getClass())) {
 			if (mdo.key.equals("enemy_venustron")) {
-				return new EnemyVenustron((EnemyEventMDO) mdo, object, parent, x, y);
+				//return new EnemyVenustron((EnemyEventMDO) mdo, object, parent, x, y);
+				return null;
 			} else {
 				return new EnemyEvent((EnemyEventMDO) mdo, object, parent, x, y);
 			}

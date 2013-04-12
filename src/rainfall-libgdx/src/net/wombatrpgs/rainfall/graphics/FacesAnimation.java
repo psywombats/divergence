@@ -89,6 +89,14 @@ public abstract class FacesAnimation implements Renderable,
 	}
 	
 	/**
+	 * Gets the duration to play the whole animation.
+	 * @return					The time it takes to play this, in s
+	 */
+	public float getDuration() {
+		return animations[currentDirOrdinal()].getMaxTime();
+	}
+	
+	/**
 	 * Reassigns the parent, in case the creator wants to disown us :(
 	 * @param 	parent			The new parent :)
 	 */

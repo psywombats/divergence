@@ -1,0 +1,13 @@
+{
+	"key" : "move_roll",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"cooldown" : 0.0,
+	"mobility" : "IMMOBILE",
+	"sound" : "None",
+	"staticAnimation" : "None",
+	"movingAnimation" : "4dir_talyssa_roll",
+	"graphic" : "None",
+	"length" : 96
+}

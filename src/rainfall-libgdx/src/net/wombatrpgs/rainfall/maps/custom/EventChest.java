@@ -83,7 +83,7 @@ public class EventChest extends CustomEvent {
 	@Override
 	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
 		if (!open && other == RGlobal.hero) {
-			setAppearance(openAppearance);
+			setIdleAppearance(openAppearance);
 			open = true;
 			scene.run(getLevel());
 		}

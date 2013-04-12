@@ -11,22 +11,22 @@
 	"mask" : "graphic_minimap_mask",
 	"icons" : [
 		{
-			"command" : "ACTION_1",
+			"command" : "START_ACTION_1",
 			"offX" : 172,
 			"offY" : 76
 		},
 		{
-			"command" : "ACTION_2",
+			"command" : "START_ACTION_2",
 			"offX" : 262,
 			"offY" : 76
 		},
 		{
-			"command" : "ACTION_3",
+			"command" : "START_ACTION_3",
 			"offX" : 352,
 			"offY" : 76
 		},
 		{
-			"command" : "ACTION_4",
+			"command" : "START_ACTION_4",
 			"offX" : 442,
 			"offY" : 76
 		}

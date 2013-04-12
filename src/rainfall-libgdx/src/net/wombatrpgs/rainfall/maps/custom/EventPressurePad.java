@@ -85,7 +85,7 @@ public class EventPressurePad extends CustomEvent {
 			if (!pressed) sfx.play();
 			pressed = true;
 			setThisTurn = true;
-			setAppearance(animPressed);
+			setIdleAppearance(animPressed);
 		}
 		return super.onCharacterCollide(other, result);
 	}
@@ -98,7 +98,7 @@ public class EventPressurePad extends CustomEvent {
 		super.update(elapsed);
 		if (!setThisTurn) {
 			if (pressed) sfx.play();
-			setAppearance(animUnpressed);
+			setIdleAppearance(animUnpressed);
 			pressed = false;
 		}
 		setThisTurn = false;

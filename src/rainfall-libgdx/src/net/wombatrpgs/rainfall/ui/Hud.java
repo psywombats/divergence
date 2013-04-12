@@ -61,7 +61,7 @@ public class Hud extends Picture {
 		// TODO: this is linked to that text box 2x bug
 		setBatch(RGlobal.ui.getBox().getBatch());
 		super.render(camera);
-		Map<InputCommand, MovesetAct> moves = RGlobal.hero.getMoves().getMoves();
+		Map<InputCommand, MovesetAct> moves = RGlobal.hero.getMoves().getStartCommands();
 		for (IconPlacementMDO iconMDO : mdo.icons) {
 			for (InputCommand command : moves.keySet()) {
 				if (command == iconMDO.command) {

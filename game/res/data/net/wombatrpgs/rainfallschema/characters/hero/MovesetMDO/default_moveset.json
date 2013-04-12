@@ -6,11 +6,13 @@
 	"moves" : [
 		{
 			"move" : "move_run",
-			"command" : "ACTION_1"
+			"startCommand" : "START_ACTION_1",
+			"stopCommand" : "STOP_ACTION_1"
 		},
 		{
-			"move" : "move_run",
-			"command" : "ACTION_2"
+			"move" : "move_roll",
+			"startCommand" : "START_ACTION_2",
+			"stopCommand" : "STOP_ACTION_2"
 		}
 	]
 }

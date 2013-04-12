@@ -45,7 +45,7 @@ public class EventTrickWall extends CustomEvent {
 		animClose.addListener(new AnimationListener() {
 			@Override
 			public void onAnimationFinish(AnimationPlayer source) {
-				door.setAppearance(closedAppearance);
+				door.setIdleAppearance(closedAppearance);
 			}
 		});
 		open = false;
@@ -88,7 +88,7 @@ public class EventTrickWall extends CustomEvent {
 		if (parent.contains(animClose)) {
 			parent.removeEvent(animClose);
 		}
-		setAppearance(null);
+		setIdleAppearance(null);
 		parent.addEvent(animOpen, parent.getZ(this));
 		animOpen.setY(getY());
 		animOpen.setX(getX());

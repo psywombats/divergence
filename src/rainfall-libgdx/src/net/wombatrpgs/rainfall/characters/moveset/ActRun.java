@@ -16,7 +16,7 @@ import net.wombatrpgs.rainfallschema.characters.hero.moveset.RunMDO;
 public class ActRun extends MovesetAct {
 	
 	protected RunMDO mdo;
-	float delta;
+	protected float delta;
 
 	/**
 	 * Inherited constructor. Generate from data.
@@ -34,15 +34,21 @@ public class ActRun extends MovesetAct {
 	 */
 	@Override
 	public void coreAct(Level map, CharacterEvent actor) {
-		if (!actor.isMoveActive(this)) {
-			delta = mdo.newRate - actor.getMaxVelocity();
-			actor.addToRunBonus(delta);
-			actor.startAction(this);
-		} else {
-			actor.addToRunBonus(-delta);
-			delta = 0;
-			actor.stopAction(this);
-		}
+		if (sfx != null) sfx.play();
+		delta = mdo.newRate - actor.getMaxVelocity();
+		actor.addToRunBonus(delta);
+		actor.startAction(this);
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.moveset.MovesetAct#coreRelease
+	 * (net.wombatrpgs.rainfall.maps.Level, net.wombatrpgs.rainfall.characters.CharacterEvent)
+	 */
+	@Override
+	public void coreRelease(Level map, CharacterEvent actor) {
+		actor.addToRunBonus(-delta);
+		delta = 0;
+		actor.stopAction(this);
 	}
 
 	/**
@@ -55,6 +61,18 @@ public class ActRun extends MovesetAct {
 			actor.addToRunBonus(-delta);
 			delta = 0;
 		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.moveset.MovesetAct#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		super.update(elapsed);
+//		if (actor.isMoveActive(this) && !actor.isMoving()) {
+//			cancel();
+//			anulled = true;
+//		}
 	}
 
 }

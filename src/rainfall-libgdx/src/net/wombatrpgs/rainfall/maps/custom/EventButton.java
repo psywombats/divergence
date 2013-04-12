@@ -81,7 +81,7 @@ public class EventButton extends CustomEvent {
 	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
 		if (!other.isOverlappingAllowed()) {
 			pressed = true;
-			setAppearance(animPressed);
+			setIdleAppearance(animPressed);
 			sfx.play();
 		}
 		return super.onCharacterCollide(other, result);

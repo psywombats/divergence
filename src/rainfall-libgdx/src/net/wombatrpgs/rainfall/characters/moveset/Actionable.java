@@ -21,4 +21,5 @@ public interface Actionable {
 	 * @param	actor		The character performing the action
 	 */
 	public void act(Level map, CharacterEvent actor);
+	
 }

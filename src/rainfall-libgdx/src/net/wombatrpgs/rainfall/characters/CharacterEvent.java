@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -18,6 +19,7 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 
 import net.wombatrpgs.rainfall.characters.moveset.MovesetAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfall.graphics.FacesAnimation;
 import net.wombatrpgs.rainfall.graphics.FacesAnimationFactory;
 import net.wombatrpgs.rainfall.io.audio.SoundObject;
@@ -58,12 +60,13 @@ public class CharacterEvent extends MapEvent {
 	protected CharacterEventMDO mdo;
 	protected Map<Direction, Boolean> directionStatus;
 	protected List<MovesetAct> activeMoves;
+	protected List<MovesetAct> toCancel;
 	protected SceneParser convo;
 	protected SoundObject soundHurt;
 	protected MobilityMDO mobilityMDO;
 	protected FacesAnimation appearance;
-	protected FacesAnimation walkAnim;
-	protected FacesAnimation idleAnim;
+	protected Stack<FacesAnimation> walkStack, idleStack;
+	protected FacesAnimation walkAnim, idleAnim;
 	
 	protected boolean stunned;
 	protected boolean dead;
@@ -118,11 +121,21 @@ public class CharacterEvent extends MapEvent {
 	}
 	
 	/**
-	 * Gives this character a new (temporary?) appearance with a four-dir anim
+	 * Gives this character a new idling appearance with a four-dir anim.
 	 * @param 	appearance		The new anim for this character
 	 */
-	public void setAppearance(FacesAnimation appearance) {
-		this.appearance = appearance;
+	public void setIdleAppearance(FacesAnimation appearance) {
+		if (this.appearance == this.idleAnim) this.appearance = appearance;
+		this.idleAnim = appearance;
+	}
+	
+	/**
+	 * Gives this character a new walking appearance with a four-dir anim.
+	 * @param 	appearance		The new anim for this character
+	 */
+	public void setWalkingAppearance(FacesAnimation appearance) {
+		if (this.appearance == this.walkAnim) this.appearance = appearance;
+		this.walkAnim = appearance;
 	}
 	
 	public void setWalkAnim(FacesAnimation appearance) {
@@ -147,6 +160,13 @@ public class CharacterEvent extends MapEvent {
 	public void update(float elapsed) {
 		if (hidden()) return;
 		super.update(elapsed);
+		for (Updateable move : activeMoves) {
+			move.update(elapsed);
+		}
+		for (MovesetAct move : toCancel) {
+			internalStopAction(move);
+		}
+		toCancel.clear();
 		if (!pacing && appearance != null) {
 			appearance.update(elapsed);
 		}
@@ -508,34 +528,29 @@ public class CharacterEvent extends MapEvent {
 	public void startAction(MovesetAct act) {
 		if (!canAct()) return;
 		activeMoves.add(act);
-		if (act.getAppearance() != null) {
-			setAppearance(act.getAppearance());
-			act.getAppearance().reset();
+		if (act.getIdleAppearance() != null) {
+			setIdleAppearance(act.getIdleAppearance());
+			idleStack.push(idleAnim);
+			act.getIdleAppearance().reset();
 			setFacing(walkAnim.getFacing());
+		}
+		if (act.getWalkingAppearance() != null) {
+			setWalkingAppearance(act.getWalkingAppearance());
+			walkStack.push(walkAnim);
+			act.getWalkingAppearance().reset();
+			setFacing(idleAnim.getFacing());
 		}
 	}
 	
 	/**
-	 * Registers a move as having stopped. Adjusts appearance back to normal.
-	 * @param 	act				The act that's being stopped
+	 * Queues an act to stop.
+	 * @param 	act				The act stop
 	 */
 	public void stopAction(MovesetAct act) {
 		if (activeMoves.contains(act)) {
-			activeMoves.remove(act);
+			toCancel.add(act);
 		} else {
 			RGlobal.reporter.warn("Removed an unperformed action: " + act);
-		}
-		if (activeMoves.size() == 0 && appearance != walkAnim) {
-			appearance = walkAnim;
-			if (targetVX != 0 && targetVY != 0) {
-				Direction newFace;
-				if (Math.abs(targetVX) > Math.abs(targetVY)) {
-					newFace = (targetVX > 0) ? Direction.RIGHT : Direction.LEFT;
-				} else {
-					newFace = (targetVY > 0) ? Direction.UP : Direction.DOWN;
-				}
-				walkAnim.setFacing(newFace);
-			}
 		}
 	}
 	
@@ -610,6 +625,38 @@ public class CharacterEvent extends MapEvent {
 	}
 	
 	/**
+	 * Registers a move as having stopped. Adjusts appearance back to normal.
+	 * Internal so as to prevent concurrent mod exceptions.
+	 * @param 	act				The act that's being stopped
+	 */
+	protected void internalStopAction(MovesetAct act) {
+		if (activeMoves.contains(act)) {
+			activeMoves.remove(act);
+		} else {
+			RGlobal.reporter.warn("Removed an unperformed action: " + act);
+		}
+		if (act.getIdleAppearance() != null) {
+			FacesAnimation old = idleStack.pop();
+			idleAnim = idleStack.peek();
+			if (appearance == old) appearance = idleAnim;
+		}
+		if (act.getWalkingAppearance() != null) {
+			FacesAnimation old = walkStack.pop();
+			walkAnim = walkStack.peek();
+			if (appearance == old) appearance = walkAnim;
+		}
+		if (targetVX != 0 && targetVY != 0) {
+			Direction newFace;
+			if (Math.abs(targetVX) > Math.abs(targetVY)) {
+				newFace = (targetVX > 0) ? Direction.RIGHT : Direction.LEFT;
+			} else {
+				newFace = (targetVY > 0) ? Direction.UP : Direction.DOWN;
+			}
+			setFacing(newFace);
+		}
+	}
+	
+	/**
 	 * Sets the stun status of this character. Stunned characters are unable to
 	 * act.
 	 * @param 	stunned			True if this chara is stunned, false otherwise
@@ -627,14 +674,19 @@ public class CharacterEvent extends MapEvent {
 	protected void init(CharacterEventMDO mdo) {
 		this.mdo = mdo;
 		activeMoves = new ArrayList<MovesetAct>();
+		toCancel = new ArrayList<MovesetAct>();
+		walkStack = new Stack<FacesAnimation>();
+		idleStack = new Stack<FacesAnimation>();
 		if (mdo.appearance != null && !mdo.appearance.equals(NULL_MDO)) {
 			DirMDO dirMDO = RGlobal.data.getEntryFor(mdo.appearance, DirMDO.class);
 			walkAnim = FacesAnimationFactory.create(dirMDO, this);
+			walkStack.push(walkAnim);
 			appearance = walkAnim;
 		}
 		if (mdo.idleAnim != null && !mdo.idleAnim.equals(NULL_MDO)) {
 			DirMDO idleMDO = RGlobal.data.getEntryFor(mdo.idleAnim, DirMDO.class);
 			idleAnim = FacesAnimationFactory.create(idleMDO, this);
+			idleStack.push(idleAnim);
 		}
 		if (mdo.soundHurt != null && !mdo.soundHurt.equals(NULL_MDO)) {
 			SoundMDO soundMDO = RGlobal.data.getEntryFor(mdo.soundHurt, SoundMDO.class);

@@ -8,6 +8,7 @@ package net.wombatrpgs.rainfallschema.characters.hero.data;
 
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
+import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.HeadlessSchema;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.data.MoveMDO;
@@ -25,8 +26,13 @@ public class MovesetEntryMDO extends HeadlessSchema {
 	@SchemaLink(MoveMDO.class)
 	public String move;
 	
-	@Desc("Command - usually use ACTION_1, ACTION_2, etc, what those are " +
+	@Desc("Start Command - usually use START_ACTION_1, ACTION_2, etc, what those are " +
 			"depends on the user's keymap")
-	public InputCommand command;
+	public InputCommand startCommand;
+	
+	@Desc("Stop Command - similar to the start command, but can be nothing if there's no" +
+			"way to cancel the move")
+	@Nullable
+	public InputCommand stopCommand;
 	
 }

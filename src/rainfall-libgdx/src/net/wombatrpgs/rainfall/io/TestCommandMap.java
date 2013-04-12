@@ -36,10 +36,10 @@ public class TestCommandMap extends CommandMap {
 		upMap = new HashMap<InputButton, InputCommand>();
 		pressed = new ArrayList<InputButton>();
 		
-		downMap.put(InputButton.BUTTON_1, 	InputCommand.ACTION_1);
-		downMap.put(InputButton.BUTTON_2, 	InputCommand.ACTION_2);
-		downMap.put(InputButton.BUTTON_3,	InputCommand.ACTION_3);
-		downMap.put(InputButton.BUTTON_4,	InputCommand.ACTION_4);
+		downMap.put(InputButton.BUTTON_1, 	InputCommand.START_ACTION_1);
+		downMap.put(InputButton.BUTTON_2, 	InputCommand.START_ACTION_2);
+		downMap.put(InputButton.BUTTON_3,	InputCommand.START_ACTION_3);
+		downMap.put(InputButton.BUTTON_4,	InputCommand.START_ACTION_4);
 		downMap.put(InputButton.DOWN, 		InputCommand.MOVE_START_DOWN);
 		downMap.put(InputButton.LEFT, 		InputCommand.MOVE_START_LEFT);
 		downMap.put(InputButton.RIGHT, 		InputCommand.MOVE_START_RIGHT);
@@ -51,10 +51,10 @@ public class TestCommandMap extends CommandMap {
 		upMap.put(InputButton.LEFT, 		InputCommand.MOVE_STOP_LEFT);
 		upMap.put(InputButton.RIGHT, 		InputCommand.MOVE_STOP_RIGHT);
 		upMap.put(InputButton.UP, 			InputCommand.MOVE_STOP_UP);
-		upMap.put(InputButton.BUTTON_1, 	InputCommand.ACTION_1);
-		upMap.put(InputButton.BUTTON_2, 	InputCommand.ACTION_2);
-		upMap.put(InputButton.BUTTON_3,		InputCommand.ACTION_3);
-		upMap.put(InputButton.BUTTON_4, 	InputCommand.ACTION_4);
+		upMap.put(InputButton.BUTTON_1, 	InputCommand.STOP_ACTION_1);
+		upMap.put(InputButton.BUTTON_2, 	InputCommand.STOP_ACTION_2);
+		upMap.put(InputButton.BUTTON_3,		InputCommand.STOP_ACTION_3);
+		upMap.put(InputButton.BUTTON_4, 	InputCommand.STOP_ACTION_4);
 	}
 
 	/**

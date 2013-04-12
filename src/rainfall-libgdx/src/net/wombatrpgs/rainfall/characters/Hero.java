@@ -14,7 +14,6 @@ import java.util.Map;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 
-import net.wombatrpgs.rainfall.characters.moveset.ActSummon;
 import net.wombatrpgs.rainfall.characters.moveset.Moveset;
 import net.wombatrpgs.rainfall.characters.moveset.MovesetAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
@@ -27,7 +26,6 @@ import net.wombatrpgs.rainfall.scenes.FinishListener;
 import net.wombatrpgs.rainfallschema.audio.SoundMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.HeroMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.MovesetMDO;
-import net.wombatrpgs.rainfallschema.characters.hero.moveset.SummonMDO;
 import net.wombatrpgs.rainfallschema.io.data.InputButton;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 
@@ -49,9 +47,6 @@ public class Hero extends CharacterEvent {
 	protected int stunMug = 0;
 	/** Is the hero in the process of eating fire? */
 	protected boolean dying;
-	
-	private static final String KEY_MOVE_SUMMON2 = "move_summon";
-	private MovesetAct summon2; // I'm sorry, but I'm hardcoding this. I'm tired.
 
 	/**
 	 * Placeholder constructor. When the hero is finally initialized properly
@@ -69,7 +64,6 @@ public class Hero extends CharacterEvent {
 		moves = new Moveset(this, RGlobal.data.getEntryFor("default_moveset", MovesetMDO.class));
 		RGlobal.hero = this;
 		switches = new HashMap<String, Boolean>();
-		summon2 = new ActSummon(this, RGlobal.data.getEntryFor(KEY_MOVE_SUMMON2, SummonMDO.class));
 		deathSound = new SoundObject(RGlobal.data.getEntryFor(mdo.deathSound, SoundMDO.class), this);
 		dying = false;
 	}
@@ -135,7 +129,6 @@ public class Hero extends CharacterEvent {
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
 		moves.queueRequiredAssets(manager);
-		summon2.queueRequiredAssets(manager);
 		deathSound.queueRequiredAssets(manager);
 	}
 	
@@ -147,7 +140,6 @@ public class Hero extends CharacterEvent {
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
 		moves.postProcessing(manager, pass);
-		summon2.postProcessing(manager, pass);
 		deathSound.postProcessing(manager, pass);
 	}
 
@@ -167,10 +159,6 @@ public class Hero extends CharacterEvent {
 			targetVX *= calcAccelerationMaxVelocity();
 			targetVY *= calcAccelerationMaxVelocity();
 			targetVelocity(targetVX, targetVY);
-		}
-		// more hardcoding issues
-		if (isSet("intro_done")) {
-			moves.getMoves().put(InputCommand.ACTION_1, summon2);
 		}
 	}
 

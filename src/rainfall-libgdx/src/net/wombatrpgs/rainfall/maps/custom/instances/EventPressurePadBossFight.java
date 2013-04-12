@@ -49,15 +49,15 @@ public class EventPressurePadBossFight extends EventPressurePad {
 		}
 		switch (pressed) {
 		case 0:
-			door.setAppearance(closed);
+			door.setIdleAppearance(closed);
 			break;
 		case 1:
 			semiclosed.setParent(door);
-			door.setAppearance(semiclosed);
+			door.setIdleAppearance(semiclosed);
 			break;
 		case 2:
 			semiopen.setParent(door);
-			door.setAppearance(semiopen);
+			door.setIdleAppearance(semiopen);
 			break;
 		case 3:
 			RGlobal.hero.setSwitch("beat_venustron", true);

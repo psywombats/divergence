@@ -12,6 +12,7 @@ import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfall.graphics.FacesAnimation;
 import net.wombatrpgs.rainfall.graphics.FourDir;
 import net.wombatrpgs.rainfall.graphics.Graphic;
@@ -29,12 +30,13 @@ import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
  * actor.
  */
 public abstract class MovesetAct implements Actionable, 
-											Queueable {
+											Queueable,
+											Updateable {
 	
 	protected MoveMDO mdo;
 	protected CharacterEvent actor;
 	protected Level map;
-	protected FacesAnimation appearance;
+	protected FacesAnimation idleAppearance, walkingAppearance;
 	protected Graphic icon;
 	protected SoundObject sfx;
 	
@@ -44,9 +46,13 @@ public abstract class MovesetAct implements Actionable,
 	 */
 	public MovesetAct(CharacterEvent actor, MoveMDO mdo) {
 		this.mdo = mdo;
-		if (mdo.animation != null && !mdo.animation.equals(Constants.NULL_MDO)) {
-			FourDirMDO animMDO = RGlobal.data.getEntryFor(mdo.animation, FourDirMDO.class);
-			this.appearance = new FourDir(animMDO, actor);
+		if (mdo.staticAnimation != null && !mdo.staticAnimation.equals(Constants.NULL_MDO)) {
+			FourDirMDO animMDO = RGlobal.data.getEntryFor(mdo.staticAnimation, FourDirMDO.class);
+			this.idleAppearance = new FourDir(animMDO, actor);
+		}
+		if (mdo.movingAnimation != null && !mdo.movingAnimation.equals(Constants.NULL_MDO)) {
+			FourDirMDO animMDO = RGlobal.data.getEntryFor(mdo.movingAnimation, FourDirMDO.class);
+			this.walkingAppearance = new FourDir(animMDO, actor);
 		}
 		if (mdo.graphic != null && !mdo.graphic.equals(Constants.NULL_MDO)) {
 			GraphicMDO iconMDO= RGlobal.data.getEntryFor(mdo.graphic, GraphicMDO.class);
@@ -59,8 +65,19 @@ public abstract class MovesetAct implements Actionable,
 		this.actor = actor;
 	}
 	
-	/** @return The animation associated with this move */
-	public FacesAnimation getAppearance() { return appearance; }
+	/** @return The idle animation associated with this move */
+	public FacesAnimation getIdleAppearance() { return idleAppearance; }
+	
+	/** @return The walking animation associated with this move */
+	public FacesAnimation getWalkingAppearance() { return walkingAppearance; }
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.core.Updateable#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		// default does nothing
+	}
 
 	/**
 	 * @see net.wombatrpgs.rainfall.characters.moveset.Actionable#act
@@ -69,8 +86,18 @@ public abstract class MovesetAct implements Actionable,
 	@Override
 	public final void act(Level map, CharacterEvent actor) {
 		if (!actor.canAct()) return;
-		coreAct(map, actor);
+		if (!actor.isMoveActive(this)) coreAct(map, actor);
 		this.map = map;
+	}
+	
+	/**
+	 * Stops the move, if such a thing is necessary.
+	 * @param 	map				The map the action takes place on
+	 * @param 	actor			The chara performing the action
+	 */
+	public void stop(Level map, CharacterEvent actor) {
+		if (actor.isMoveActive(this)) coreRelease(map, actor);
+		this.map = map;	
 	}
 	
 	/**
@@ -79,8 +106,11 @@ public abstract class MovesetAct implements Actionable,
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		if (appearance != null) {
-			appearance.queueRequiredAssets(manager);
+		if (walkingAppearance != null) {
+			walkingAppearance.queueRequiredAssets(manager);
+		}
+		if (idleAppearance != null) {
+			idleAppearance.queueRequiredAssets(manager);
 		}
 		if (icon != null) {
 			icon.queueRequiredAssets(manager);
@@ -96,8 +126,11 @@ public abstract class MovesetAct implements Actionable,
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		if (appearance != null) {
-			appearance.postProcessing(manager, pass);
+		if (walkingAppearance != null) {
+			walkingAppearance.postProcessing(manager, pass);
+		}
+		if (idleAppearance != null) {
+			idleAppearance.postProcessing(manager, pass);
 		}
 		if (icon != null) {
 			icon.postProcessing(manager, pass);
@@ -113,6 +146,15 @@ public abstract class MovesetAct implements Actionable,
 	 * Same as that thing 
 	 */
 	public abstract void coreAct(Level map, CharacterEvent actor);
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.moveset.Actionable#act
+	 * (net.wombatrpgs.rainfall.maps.Level, net.wombatrpgs.rainfall.characters.CharacterEvent)
+	 * Same as that thing but when the button is released. Default does nothing.
+	 */
+	public void coreRelease(Level map, CharacterEvent actor) {
+		
+	}
 	
 	/**
 	 * Called when the event is pre-emptively interrupted by the hero. This only

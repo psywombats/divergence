@@ -34,10 +34,15 @@ public class MoveMDO extends MainSchema {
 	@Nullable
 	public String sound;
 	
-	@Desc("4Dir Animation - played when move is in action")
+	@Desc("4Dir Idle Animation - played when chara is in action and still. None for no change.")
 	@SchemaLink(FourDirMDO.class)
 	@Nullable
-	public String animation;
+	public String staticAnimation;
+	
+	@Desc("4Dir Moving Animation - played when chara is in action and moving. None for no change.")
+	@SchemaLink(FourDirMDO.class)
+	@Nullable
+	public String movingAnimation;
 	
 	@Desc("Icon - displayed in the HUD or somewhere when this move is ready")
 	@SchemaLink(GraphicMDO.class)
