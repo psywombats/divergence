@@ -11,10 +11,6 @@
 		{
 			"move" : "move_run",
 			"command" : "ACTION_2"
-		},
-		{
-			"move" : "move_push",
-			"command" : "ACTION_3"
 		}
 	]
 }
