@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="15" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="20">
+ <properties>
+  <property name="blended tiles" value="195,197,198,199,200,202,203,205,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,227,229,230,231,235,237,238,239,240,241,242,244,245,246,247,248,249,252,254,255,256,257,258,259,260,261,262,263,398,399,400,401,402,403,404,405,406,407,408,409"/>
+  <property name="minimap" value="graphic_minimap_l1_f1"/>
+  <property name="minimap_x1" value="111"/>
+  <property name="minimap_x2" value="156"/>
+  <property name="minimap_y1" value="69"/>
+  <property name="minimap_y2" value="102"/>
+ </properties>
+ <tileset firstgid="1" name="lower" tileheight="32" tilewidth="32">
+  <image height="160" source="tilesets/test/lower.PNG" trans="b5a5d5" width="192"/>
+  <tile id="21">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="31" name="upper" tileheight="32" tilewidth="32">
+  <image height="128" source="tilesets/test/upper.PNG" trans="b5a5d5" width="256"/>
+  <tile id="3">
+   <properties>
+    <property name="impassable" value=""/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="impassable" value=""/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="passable" value=""/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="impassable" value=""/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="impassable" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="63" name="wood" tileheight="32" tilewidth="32">
+  <image height="224" source="tilesets/wood2.PNG" trans="8080ff" width="320"/>
+  <tile id="60">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="61">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="62">
+   <properties>
+    <property name="top" value=""/>
+   </properties>
+  </tile>
+  <tile id="63">
+   <properties>
+    <property name="hole" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer height="15" name="Tile Layer 1" width="20">
+  <properties>
+   <property name="layer" value="5"/>
+   <property name="z" value="0"/>
+  <property name="layer" value="5"/></properties>
+  <data compression="zlib" encoding="base64">
+   eJwTYWBgEIFiLyTaC0kcF3bHgkXQzCDWLFLMw2Y+NvtIcR82/ehuJ9U8dP95obHxmYcNY3Mfuhwu+4g1j9iwoIf7CIUfKXoJmUcNPBjNIycf0tM8UjEAAOUr0g==
+  </data>
+ </layer>
+ <layer height="15" name="Tile Layer 2" width="20">
+  <properties>
+   <property name="layer" value="4"/>
+   <property name="z" value=".5"/>
+  <property name="layer" value="4"/></properties>
+  <data compression="zlib" encoding="base64">
+   eJxjYBgFo2AUjIKhAQAEsAAB
+  </data>
+ </layer>
+ <objectgroup height="15" name="Object Layer 1" width="20">
+  <properties>
+   <property name="layer" value="3"/>
+   <property name="ogga" value="ALPHONSEO"/>
+   <property name="z" value=".5"/>
+  <property name="layer" value="3"/></properties>
+ </objectgroup>
+ <layer height="15" name="Tile Layer 3" width="20">
+  <properties>
+   <property name="layer" value="2"/>
+   <property name="z" value="1"/>
+  <property name="layer" value="2"/></properties>
+  <data compression="zlib" encoding="base64">
+   eJxjYBgFo2AUjIKhAQAEsAAB
+  </data>
+ </layer>
+ <layer height="15" name="Tile Layer 4" width="20">
+  <properties>
+   <property name="layer" value="1"/>
+   <property name="z" value="1.5"/>
+  <property name="layer" value="1"/></properties>
+  <data compression="zlib" encoding="base64">
+   eJxjYBgFo2AUjIKhAQAEsAAB
+  </data>
+ </layer>
+ <objectgroup height="15" name="Object Layer 2" width="20">
+  <properties>
+   <property name="layer" value="0"/>
+   <property name="z" value="1.5"/>
+  <property name="layer" value="0"/></properties>
+ </objectgroup>
+</map>
