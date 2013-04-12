@@ -128,7 +128,7 @@ public class RGlobal {
 		RGlobal.reporter.inform("Creating screen and graphics");
 		toLoad.clear();
 		// TODO: fix this super super hacky file shit
-		FileHandle handle = Gdx.files.internal("blockbound.cfg");
+		FileHandle handle = Gdx.files.internal("rainfall.cfg");
 		boolean fullscreen = handle.readString().indexOf("true") != -1;
 		Gdx.graphics.setDisplayMode(
 				RGlobal.window.width, 
