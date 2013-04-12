@@ -1,9 +1,0 @@
-NICO: Yes! Finally we can get away from all these stupid robots! Freedom!
-EDGAR: Hey Nico, have you tried looking outside?
-NICO: Uh...
-NICO: Wow, that sure is a lot of angry dragon beetles out there.
-EDGAR: Great. So I'm trapped in here with you, of all people.
-NICO: Wait, I know!
-NICO: There's a back entrance at the end of the hall. We can use that!
-[move hero left 1]
-[wait-all]

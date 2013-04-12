@@ -518,17 +518,6 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
-	 * Checks if the block can land on top of this event. If this is true, then
-	 * the block will land and whatever hit detection will go on when the block
-	 * lands, in theory. If it's false, the block will kill itself. False by
-	 * default.
-	 * @return					True if block landing here is legal
-	 */
-	public boolean supportsBlockLanding() {
-		return false;
-	}
-	
-	/**
 	 * Gets the hitbox associated with this map object at this point in time.
 	 * It's abstract so that events with different animations can return the
 	 * appropriate object for each call. Default returns no hitbox. As of

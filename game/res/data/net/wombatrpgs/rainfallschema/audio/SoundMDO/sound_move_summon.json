@@ -1,9 +1,0 @@
-{
-	"key" : "sound_move_summon",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "",
-	"file" : "move_summon.wav",
-	"volume" : 100,
-	"repeats" : "PLAY_ONCE"
-}

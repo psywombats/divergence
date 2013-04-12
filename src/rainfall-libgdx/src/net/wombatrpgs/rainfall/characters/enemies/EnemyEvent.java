@@ -91,33 +91,7 @@ public class EnemyEvent extends CharacterEvent {
 	@Override
 	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
 		if (dead) return true;
-		if (other == RGlobal.block) {
-			if (vuln.killableByTouch()) {
-				selfDestruct(RGlobal.block);
-				return true;
-			}
-			if (vuln.killableByPush() && RGlobal.block.isMoving()) {
-				selfDestruct(RGlobal.block);
-				return true;
-			}
-			if (vuln.killableBySummon() && RGlobal.block.isSummoning()) {
-				selfDestruct(RGlobal.block);
-				return true;
-			}
-			if (vuln.killableByPin() && againstWall > 0) {
-				selfDestruct(RGlobal.block);
-				return true;
-			}
-		}
 		return super.onCharacterCollide(other, result); // ie false
-	}
-	
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#supportsBlockLanding()
-	 */
-	@Override
-	public boolean supportsBlockLanding() {
-		return vuln.killableBySummon();
 	}
 
 	/**

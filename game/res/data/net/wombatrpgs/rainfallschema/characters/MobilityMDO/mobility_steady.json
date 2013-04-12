@@ -1,9 +1,0 @@
-{
-	"key" : "mobility_steady",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "Used only by Venustron, I think",
-	"walkVelocity" : 64,
-	"acceleration" : 0,
-	"decceleration" : 0
-}

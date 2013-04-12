@@ -1,8 +1,0 @@
-{
-	"key" : "scene_event_lift_complete",
-	"subfolder" : "event",
-	"name" : "",
-	"description" : "",
-	"file" : "event_lift_complete.scene",
-	"repeat" : "RUN_ONLY_ONCE"
-}

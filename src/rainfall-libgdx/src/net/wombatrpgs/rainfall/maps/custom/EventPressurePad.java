@@ -68,14 +68,6 @@ public class EventPressurePad extends CustomEvent {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#supportsBlockLanding()
-	 */
-	@Override
-	public boolean supportsBlockLanding() {
-		return true;
-	}
-
-	/**
 	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#onCharacterCollide
 	 * (net.wombatrpgs.rainfall.characters.CharacterEvent, net.wombatrpgs.rainfall.physics.CollisionResult)
 	 */

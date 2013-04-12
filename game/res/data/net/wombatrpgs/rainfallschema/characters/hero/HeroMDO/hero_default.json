@@ -2,13 +2,13 @@
 	"key" : "hero_default",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "",
+	"description" : " ",
 	"appearance" : "4dir_talyssa_walk",
 	"idleAnim" : "4dir_talyssa_idle",
 	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
 	"response" : "PUSHABLE",
 	"touch" : "NOTHING",
-	"soundHurt" : "sound_player_hurt",
+	"soundHurt" : "None",
 	"mobility" : "mobility_hero",
-	"deathSound" : "sound_player_die"
+	"deathSound" : "sound_click"
 }

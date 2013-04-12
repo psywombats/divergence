@@ -86,13 +86,5 @@ public class TeleportEvent extends MapEvent {
 		RGlobal.teleport.getPre().run(RGlobal.hero.getLevel());
 		return true;
 	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#supportsBlockLanding()
-	 */
-	@Override
-	public boolean supportsBlockLanding() {
-		return false;
-	}
 	
 }

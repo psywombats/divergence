@@ -1,8 +1,0 @@
-{
-	"key" : "scene_event_reenter_lobby",
-	"subfolder" : "event",
-	"name" : "",
-	"description" : "",
-	"file" : "event_reenter_lobby.scene",
-	"repeat" : "RUN_ONLY_ONCE"
-}

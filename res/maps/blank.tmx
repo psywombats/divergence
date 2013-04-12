@@ -72,7 +72,7 @@
   </tile>
  </tileset>
  <tileset firstgid="63" name="wood" tilewidth="32" tileheight="32">
-  <image source="tilesets/wood2.PNG" trans="8080ff" width="320" height="224"/>
+  <image source="tilesets/test/wood2.PNG" trans="8080ff" width="320" height="224"/>
   <tile id="60">
    <properties>
     <property name="top" value=""/>
@@ -98,7 +98,7 @@
   <image source="tilesets/system/black.png" width="32" height="32"/>
  </tileset>
  <tileset firstgid="134" name="title" tilewidth="32" tileheight="32">
-  <image source="tilesets/blockbound/title.png" width="640" height="480"/>
+  <image source="tilesets/test/title.png" width="640" height="480"/>
  </tileset>
  <layer name="Tile Layer 1" width="20" height="15">
   <properties>

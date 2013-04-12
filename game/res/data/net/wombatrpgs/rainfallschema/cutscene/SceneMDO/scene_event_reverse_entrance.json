@@ -1,8 +1,0 @@
-{
-	"key" : "scene_event_reverse_entrance",
-	"subfolder" : "event",
-	"name" : "",
-	"description" : "",
-	"file" : "event_reverse_entrance.scene",
-	"repeat" : "RUN_ONLY_ONCE"
-}

@@ -15,7 +15,6 @@ import net.wombatrpgs.rainfall.characters.ai.actions.IntentNothing;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentPace;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentPaceWalls;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentPathfindToHero;
-import net.wombatrpgs.rainfall.characters.ai.actions.IntentSpitfire;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentWander;
 import net.wombatrpgs.rainfall.characters.ai.actions.IntentWanderOrganic;
 import net.wombatrpgs.rainfall.characters.ai.conditions.ConditionDefault;
@@ -68,8 +67,6 @@ public class IntentFactory {
 			return new IntentPathfindToHero(intel, actor);
 		case CHARGE_FORWARD:
 			return new IntentChargeForward(intel, actor);
-		case SPIT_FIRE:
-			return new IntentSpitfire(intel, actor);
 		case FACE_HERO:
 			return new IntentFaceHero(intel, actor);
 		case WANDER_ORGANICALLY:

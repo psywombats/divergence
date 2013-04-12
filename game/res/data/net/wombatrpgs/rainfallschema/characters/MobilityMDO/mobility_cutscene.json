@@ -1,9 +1,0 @@
-{
-	"key" : "mobility_cutscene",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "",
-	"walkVelocity" : 150,
-	"acceleration" : 10000,
-	"decceleration" : 10000
-}

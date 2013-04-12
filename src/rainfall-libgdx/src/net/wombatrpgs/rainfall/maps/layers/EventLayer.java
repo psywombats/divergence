@@ -138,8 +138,7 @@ public class EventLayer extends Layer {
 		FallResult result = new FallResult();
 		result.finished = false;
 		for (MapEvent object : events) {
-			if (!object.supportsBlockLanding() && 
-					object.getHitbox().isColliding(box).isColliding) {
+			if (object.getHitbox().isColliding(box).isColliding) {
 				result.finished = true;
 				result.cleanLanding = false;
 				result.collidingObject = object;

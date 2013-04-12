@@ -1,9 +1,0 @@
-{
-	"key" : "mobility_block",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "",
-	"walkVelocity" : 96,
-	"acceleration" : 512,
-	"decceleration" : 512
-}

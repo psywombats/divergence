@@ -7,6 +7,7 @@
 package net.wombatrpgs.rainfallschema.characters.hero;
 
 import net.wombatrpgs.mgns.core.Annotations.Desc;
+import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.rainfallschema.audio.SoundMDO;
@@ -20,6 +21,7 @@ public class HeroMDO extends CharacterEventMDO {
 	
 	@Desc("Death sfx - plays when the hero dies")
 	@SchemaLink(SoundMDO.class)
+	@Nullable
 	public String deathSound;
 
 }

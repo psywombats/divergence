@@ -7,6 +7,7 @@
 package net.wombatrpgs.rainfallschema.settings;
 
 import net.wombatrpgs.mgns.core.Annotations.Desc;
+import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
@@ -31,6 +32,7 @@ public class UISettingsMDO extends MainSchema {
 	
 	@Desc("Default HUD")
 	@SchemaLink(HudMDO.class)
+	@Nullable
 	public String hud;
 	
 	@Desc("Default icon set")

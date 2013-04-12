@@ -16,10 +16,10 @@ import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 
 import net.wombatrpgs.rainfall.characters.moveset.Moveset;
 import net.wombatrpgs.rainfall.characters.moveset.MovesetAct;
+import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.io.audio.SoundObject;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.maps.layers.EventLayer;
 import net.wombatrpgs.rainfall.physics.CollisionResult;
 import net.wombatrpgs.rainfall.scenes.FinishListener;
@@ -64,33 +64,15 @@ public class Hero extends CharacterEvent {
 		moves = new Moveset(this, RGlobal.data.getEntryFor("default_moveset", MovesetMDO.class));
 		RGlobal.hero = this;
 		switches = new HashMap<String, Boolean>();
-		deathSound = new SoundObject(RGlobal.data.getEntryFor(mdo.deathSound, SoundMDO.class), this);
+		if (!mdo.deathSound.equals(Constants.NULL_MDO)) {
+			deathSound = new SoundObject(
+					RGlobal.data.getEntryFor(mdo.deathSound, SoundMDO.class), this);
+		}
 		dying = false;
 	}
 	
 	/** @return The moveset currently in use by the hero */
 	public Moveset getMoves() { return this.moves; }
-
-	/**
-	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#onCollide
-	 * (net.wombatrpgs.rainfall.maps.events.MapEvent, 
-	 * net.wombatrpgs.rainfall.physics.CollisionResult)
-	 */
-	@Override
-	public boolean onCollide(MapEvent other, CollisionResult result) {
-		if (other == RGlobal.block) {
-			float ratio;
-			if (RGlobal.block.isMoving()) {
-				ratio = 0f;
-			} else {
-				ratio = 1f;
-			}
-			applyMTV(other, result, ratio);
-			return false;
-		} else {
-			return super.onCollide(other, result);
-		}
-	}
 
 	/**
 	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#onCharacterCollide(
@@ -129,7 +111,7 @@ public class Hero extends CharacterEvent {
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
 		moves.queueRequiredAssets(manager);
-		deathSound.queueRequiredAssets(manager);
+		if (deathSound != null) deathSound.queueRequiredAssets(manager);
 	}
 	
 	/**
@@ -140,7 +122,7 @@ public class Hero extends CharacterEvent {
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
 		moves.postProcessing(manager, pass);
-		deathSound.postProcessing(manager, pass);
+		if (deathSound != null) deathSound.postProcessing(manager, pass);
 	}
 
 	/**
@@ -258,7 +240,7 @@ public class Hero extends CharacterEvent {
 	public void die() {
 		if (dying) return;
 		dying = true;
-		deathSound.play();
+		if (deathSound != null) deathSound.play();
 		List<MovesetAct> toCancel = new ArrayList<MovesetAct>();
 		toCancel.addAll(activeMoves);
 		for (MovesetAct act : toCancel) {

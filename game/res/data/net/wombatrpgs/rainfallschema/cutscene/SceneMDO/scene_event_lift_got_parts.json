@@ -1,8 +1,0 @@
-{
-	"key" : "scene_event_lift_got_parts",
-	"subfolder" : "event",
-	"name" : "",
-	"description" : "",
-	"file" : "event_lift_got_parts.scene",
-	"repeat" : "RUN_ONLY_ONCE"
-}

@@ -1,9 +1,0 @@
-{
-	"key" : "sound_enemy_hurt",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "",
-	"file" : "enemy_die.wav",
-	"volume" : 100,
-	"repeats" : "PLAY_ONCE"
-}

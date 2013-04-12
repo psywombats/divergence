@@ -1,9 +1,0 @@
-{
-	"key" : "sound_move_push",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "",
-	"file" : "move_push.wav",
-	"volume" : 100,
-	"repeats" : "PLAY_ONCE"
-}

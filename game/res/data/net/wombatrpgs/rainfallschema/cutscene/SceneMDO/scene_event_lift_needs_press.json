@@ -1,8 +1,0 @@
-{
-	"key" : "scene_event_lift_needs_press",
-	"subfolder" : "event",
-	"name" : "",
-	"description" : "",
-	"file" : "event_lift_needs_press.scene",
-	"repeat" : "RUN_EVERY_TIME"
-}

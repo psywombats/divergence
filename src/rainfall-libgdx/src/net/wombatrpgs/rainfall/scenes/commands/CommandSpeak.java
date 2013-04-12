@@ -63,7 +63,7 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 			if (mdo == null) {
 				RGlobal.reporter.warn("Speaker key not in database: " + speakerKey);
 			} else if (mdo.file != null) {
-				faceGraphic = new Graphic(Constants.PORTRAITS_DIR + mdo.file);
+				faceGraphic = new Graphic(Constants.UI_DIR + mdo.file);
 			}
 		}
 	}

@@ -8,6 +8,7 @@ package net.wombatrpgs.rainfall.ui;
 
 import com.badlogic.gdx.assets.AssetManager;
 
+import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.ui.text.FontHolder;
@@ -43,7 +44,9 @@ public class UISettings implements Queueable {
 		this.mdo = mdo;
 		font = new FontHolder(RGlobal.data.getEntryFor(mdo.font, FontMDO.class));
 		box = new TextBox(RGlobal.data.getEntryFor(mdo.box, TextBoxMDO.class), font);
-		hud = new Hud(RGlobal.data.getEntryFor(mdo.hud, HudMDO.class));
+		if (!mdo.hud.equals(Constants.NULL_MDO)) {
+			hud = new Hud(RGlobal.data.getEntryFor(mdo.hud, HudMDO.class));
+		}
 		icons = new IconSet(RGlobal.data.getEntryFor(mdo.icons, IconSetMDO.class));
 	}
 
@@ -55,7 +58,7 @@ public class UISettings implements Queueable {
 	public void queueRequiredAssets(AssetManager manager) {
 		font.queueRequiredAssets(manager);
 		box.queueRequiredAssets(manager);
-		hud.queueRequiredAssets(manager);
+		if (hud != null) hud.queueRequiredAssets(manager);
 		icons.queueRequiredAssets(manager);
 	}
 
@@ -67,7 +70,7 @@ public class UISettings implements Queueable {
 	public void postProcessing(AssetManager manager, int pass) {
 		font.postProcessing(manager, pass);
 		box.postProcessing(manager, pass);
-		hud.postProcessing(manager, pass);
+		if (hud != null) hud.postProcessing(manager, pass);
 		icons.postProcessing(manager, pass);
 	}
 	

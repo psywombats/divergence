@@ -18,7 +18,7 @@ import net.wombatrpgs.mgns.core.Annotations.FileLink;
 public class GibsetMDO extends MainSchema {
 	
 	@Desc("Image file - gibset, should be png")
-	@FileLink("gibs")
+	@FileLink("sprites")
 	public String file;
 	
 	@Desc("Gib count")

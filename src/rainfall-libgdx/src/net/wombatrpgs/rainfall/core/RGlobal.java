@@ -15,7 +15,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 
-import net.wombatrpgs.rainfall.characters.Block;
 import net.wombatrpgs.rainfall.characters.Hero;
 import net.wombatrpgs.rainfall.core.reporters.PrintReporter;
 import net.wombatrpgs.rainfall.io.DefaultKeymap;
@@ -53,8 +52,6 @@ public class RGlobal {
 	public static Hero hero;
 	/** Stores all of our levels */
 	public static LevelManager levelManager;
-	/** Everybody's favorite petrified cashier */
-	public static Block block;
 	/** A single-source RNG */
 	public static Random rand;
 	/** The UI settings currently in use by the game */

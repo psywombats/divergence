@@ -1,8 +1,0 @@
-{
-	"key" : "scene_event_lift_first_seen",
-	"subfolder" : "event",
-	"name" : "",
-	"description" : "",
-	"file" : "event_lift_first_seen.scene",
-	"repeat" : "RUN_ONLY_ONCE"
-}

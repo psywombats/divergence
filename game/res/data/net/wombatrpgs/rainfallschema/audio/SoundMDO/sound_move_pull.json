@@ -1,9 +1,0 @@
-{
-	"key" : "sound_move_pull",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "",
-	"file" : "move_pull.wav",
-	"volume" : 100,
-	"repeats" : "PLAY_ONCE"
-}
