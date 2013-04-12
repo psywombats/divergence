@@ -3,9 +3,11 @@
 	"subfolder" : "blockbound/",
 	"name" : "",
 	"description" : "outdated?",
-	"appearance" : "nico_4dir",
+	"appearance" : "4dir_talyssa_walk",
+	"idleAnim" : "4dir_talyssa_idle",
 	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
 	"response" : "PUSHABLE",
 	"touch" : "NOTHING",
+	"soundHurt" : "None",
 	"mobility" : "mobility_block"
 }

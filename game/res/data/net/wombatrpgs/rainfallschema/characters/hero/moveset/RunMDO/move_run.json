@@ -1,0 +1,12 @@
+{
+	"key" : "move_run",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"cooldown" : 0.0,
+	"mobility" : "MOBILE",
+	"sound" : "None",
+	"animation" : "4dir_talyssa_run",
+	"graphic" : "None",
+	"newRate" : 144
+}

@@ -14,13 +14,9 @@ import com.badlogic.gdx.assets.AssetManager;
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.characters.Hero;
 import net.wombatrpgs.rainfall.core.Queueable;
-import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfallschema.characters.hero.MovesetMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.data.MovesetEntryMDO;
-import net.wombatrpgs.rainfallschema.characters.hero.moveset.PushMDO;
-import net.wombatrpgs.rainfallschema.characters.hero.moveset.SummonMDO;
-import net.wombatrpgs.rainfallschema.characters.hero.moveset.data.MoveMDO;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 
 /**
@@ -77,15 +73,7 @@ public class Moveset implements Queueable {
 		this();
 		this.mdo = mdo;
 		for (MovesetEntryMDO entryMDO : mdo.moves) {
-			MoveMDO moveMDO = RGlobal.data.getEntryFor(entryMDO.move, MoveMDO.class);
-			// TODO: it may be possible to generalize this
-			if (SummonMDO.class.isAssignableFrom(moveMDO.getClass())) {
-				moves.put(entryMDO.command, new ActSummon(hero, (SummonMDO) moveMDO));
-			} else if (PushMDO.class.isAssignableFrom(moveMDO.getClass())) {
-				moves.put(entryMDO.command, new ActPush(hero, (PushMDO) moveMDO));
-			} else {
-				RGlobal.reporter.warn("Unknown move class: " + moveMDO.getClass());
-			}
+			moves.put(entryMDO.command, MoveFactory.generateMove(hero, entryMDO.move));
 		}
 	}
 	

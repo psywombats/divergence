@@ -1,0 +1,18 @@
+{
+	"key" : "anim_talyssa_run_down",
+	"subfolder" : "charas/talyssa",
+	"name" : "",
+	"description" : "",
+	"file" : "talyssa_run.png",
+	"mode" : "REPEAT",
+	"frameCount" : 6,
+	"frameWidth" : 64,
+	"frameHeight" : 64,
+	"offX" : 0,
+	"offY" : 128,
+	"animSpeed" : 8,
+	"hit1x" : 0,
+	"hit1y" : 0,
+	"hit2x" : 0,
+	"hit2y" : 0
+}

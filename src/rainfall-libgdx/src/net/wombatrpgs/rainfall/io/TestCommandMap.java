@@ -6,7 +6,9 @@
  */
 package net.wombatrpgs.rainfall.io;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import net.wombatrpgs.rainfallschema.io.data.InputButton;
@@ -23,6 +25,8 @@ public class TestCommandMap extends CommandMap {
 	private Map<InputButton, InputCommand> downMap;
 	private Map<InputButton, InputCommand> upMap;
 	
+	private List<InputButton> pressed;
+	
 	/**
 	 * Creates and initializes the default command map. Should probably only
 	 * need to be created once but w/e.
@@ -30,6 +34,7 @@ public class TestCommandMap extends CommandMap {
 	public TestCommandMap() {
 		downMap = new HashMap<InputButton, InputCommand>();
 		upMap = new HashMap<InputButton, InputCommand>();
+		pressed = new ArrayList<InputButton>();
 		
 		downMap.put(InputButton.BUTTON_1, 	InputCommand.ACTION_1);
 		downMap.put(InputButton.BUTTON_2, 	InputCommand.ACTION_2);
@@ -46,8 +51,10 @@ public class TestCommandMap extends CommandMap {
 		upMap.put(InputButton.LEFT, 		InputCommand.MOVE_STOP_LEFT);
 		upMap.put(InputButton.RIGHT, 		InputCommand.MOVE_STOP_RIGHT);
 		upMap.put(InputButton.UP, 			InputCommand.MOVE_STOP_UP);
+		upMap.put(InputButton.BUTTON_1, 	InputCommand.ACTION_1);
 		upMap.put(InputButton.BUTTON_2, 	InputCommand.ACTION_2);
 		upMap.put(InputButton.BUTTON_3,		InputCommand.ACTION_3);
+		upMap.put(InputButton.BUTTON_4, 	InputCommand.ACTION_4);
 	}
 
 	/**
@@ -58,6 +65,7 @@ public class TestCommandMap extends CommandMap {
 	public void onButtonPressed(InputButton button) {
 		if (downMap.containsKey(button)) {
 			this.signal(downMap.get(button));
+			pressed.add(button);
 		}
 	}
 
@@ -67,6 +75,8 @@ public class TestCommandMap extends CommandMap {
 	 */
 	@Override
 	public void onButtonReleased(InputButton button) {
+		if (!pressed.contains(button)) return;
+		pressed.remove(button);
 		if (upMap.containsKey(button)) {
 			this.signal(upMap.get(button));
 		}

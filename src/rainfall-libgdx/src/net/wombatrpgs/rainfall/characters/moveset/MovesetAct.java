@@ -9,6 +9,7 @@ package net.wombatrpgs.rainfall.characters.moveset;
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
+import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.FacesAnimation;
@@ -18,6 +19,7 @@ import net.wombatrpgs.rainfall.io.audio.SoundObject;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfallschema.audio.SoundMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.data.MoveMDO;
+import net.wombatrpgs.rainfallschema.characters.hero.moveset.data.MoveMobility;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
 import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 
@@ -29,6 +31,7 @@ import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 public abstract class MovesetAct implements Actionable, 
 											Queueable {
 	
+	protected MoveMDO mdo;
 	protected CharacterEvent actor;
 	protected Level map;
 	protected FacesAnimation appearance;
@@ -40,15 +43,16 @@ public abstract class MovesetAct implements Actionable,
 	 * @param 	mdo				The MDO with data to construct from
 	 */
 	public MovesetAct(CharacterEvent actor, MoveMDO mdo) {
-		if (mdo.animation != null && !"".equals(mdo.animation)) {
+		this.mdo = mdo;
+		if (mdo.animation != null && !mdo.animation.equals(Constants.NULL_MDO)) {
 			FourDirMDO animMDO = RGlobal.data.getEntryFor(mdo.animation, FourDirMDO.class);
 			this.appearance = new FourDir(animMDO, actor);
 		}
-		if (mdo.graphic != null) {
+		if (mdo.graphic != null && !mdo.graphic.equals(Constants.NULL_MDO)) {
 			GraphicMDO iconMDO= RGlobal.data.getEntryFor(mdo.graphic, GraphicMDO.class);
 			this.icon = new Graphic(iconMDO);
 		}
-		if (mdo.sound != null) {
+		if (mdo.sound != null && !mdo.sound.equals(Constants.NULL_MDO)) {
 			SoundMDO soundMDO = RGlobal.data.getEntryFor(mdo.sound, SoundMDO.class);
 			this.sfx = new SoundObject(soundMDO, actor);
 		}
@@ -125,6 +129,13 @@ public abstract class MovesetAct implements Actionable,
 	 */
 	public Graphic getIcon() {
 		return icon;
+	}
+	
+	/**
+	 * Determines if this move should stop the hero from moving.
+	 */
+	public boolean disablesMovement() {
+		return mdo.mobility == MoveMobility.IMMOBILE;
 	}
 	
 	/**

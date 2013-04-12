@@ -5,11 +5,11 @@
 	"description" : "",
 	"moves" : [
 		{
-			"move" : "move_summon_nowaldy",
+			"move" : "move_run",
 			"command" : "ACTION_1"
 		},
 		{
-			"move" : "move_pull",
+			"move" : "move_run",
 			"command" : "ACTION_2"
 		},
 		{

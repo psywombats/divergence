@@ -1,0 +1,18 @@
+{
+	"key" : "anim_talyssa_idle_up",
+	"subfolder" : "charas/talyssa",
+	"name" : "",
+	"description" : "",
+	"file" : "talyssa_draft.png",
+	"mode" : "REPEAT",
+	"frameCount" : 1,
+	"frameWidth" : 64,
+	"frameHeight" : 64,
+	"offX" : 0,
+	"offY" : 64,
+	"animSpeed" : 1,
+	"hit1x" : 0,
+	"hit1y" : 0,
+	"hit2x" : 0,
+	"hit2y" : 0
+}

@@ -26,6 +26,9 @@ public class MoveMDO extends MainSchema {
 	@Desc("Cooldown time - in seconds, unused?")
 	public Float cooldown;
 	
+	@Desc("Mobility - should the hero be able to move while this move is active?")
+	public MoveMobility mobility;
+	
 	@Desc("SFX - played when move is started")
 	@SchemaLink(SoundMDO.class)
 	@Nullable

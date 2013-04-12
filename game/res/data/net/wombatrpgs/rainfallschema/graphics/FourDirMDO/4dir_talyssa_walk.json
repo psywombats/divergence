@@ -1,0 +1,10 @@
+{
+	"key" : "4dir_talyssa_walk",
+	"subfolder" : "charas/talyssa",
+	"name" : "",
+	"description" : "",
+	"upAnim" : "anim_talyssa_walk_up",
+	"rightAnim" : "anim_talyssa_walk_right",
+	"downAnim" : "anim_talyssa_walk_down",
+	"leftAnim" : "anim_talyssa_walk_left"
+}

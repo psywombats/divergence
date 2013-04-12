@@ -157,15 +157,15 @@ public class Hero extends CharacterEvent {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
-		if (activeMoves.size() <= 0 && canAct() && !getLevel().isPaused()) {
+		if (canAct() && !getLevel().isPaused()) {
 			int targetVX = 0;
 			int targetVY = 0;
 			if (RGlobal.keymap.isButtonDown(InputButton.DOWN)) targetVY -= 1;
 			if (RGlobal.keymap.isButtonDown(InputButton.UP)) targetVY += 1;
 			if (RGlobal.keymap.isButtonDown(InputButton.LEFT)) targetVX -= 1;
 			if (RGlobal.keymap.isButtonDown(InputButton.RIGHT)) targetVX += 1;
-			targetVX *= maxVelocity;
-			targetVY *= maxVelocity;
+			targetVX *= calcAccelerationMaxVelocity();
+			targetVY *= calcAccelerationMaxVelocity();
 			targetVelocity(targetVX, targetVY);
 		}
 		// more hardcoding issues

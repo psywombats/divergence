@@ -73,6 +73,8 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	protected float decceleration;
 	/** The top speed this object can voluntarily reach, in px/s */
 	protected float maxVelocity;
+	/** How much this event is allowed to accelerate to past its velocity, in px/s */
+	protected float runBonus;
 	
 	/** Are we currently moving towards some preset destination? */
 	protected boolean tracking;
@@ -214,6 +216,9 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	/** @return True if we're falling into a hole, false otherwise */
 	public boolean isFalling() { return this.falling; }
 	
+	/** @return The max velocity of this event, including run bonus */ 
+	public float getMaxVelocity() { return this.calcAccelerationMaxVelocity(); }
+	
 	/** @param The new max targetable speed by this event */
 	public void setMaxVelocity(float maxVelocity) { this.maxVelocity = maxVelocity; }
 	
@@ -278,11 +283,12 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 				dx /= norm;
 				dy /= norm;
 			}
-			internalTargetVelocity(maxVelocity * dx, maxVelocity * dy);
+			internalTargetVelocity(calcAccelerationMaxVelocity() * dx, 
+						calcAccelerationMaxVelocity() * dy);
 		}
 		float deltaVX, deltaVY;
 		if (vx != targetVX) {
-			if (Math.abs(vx) < maxVelocity) {
+			if (Math.abs(vx) < calcDecelerationMaxVelocity()) {
 				deltaVX = acceleration * elapsed;
 			} else {
 				deltaVX = decceleration * elapsed;
@@ -294,7 +300,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 			}
 		}
 		if (vy != targetVY) {
-			if (Math.abs(vy) < maxVelocity) {
+			if (Math.abs(vy) < calcDecelerationMaxVelocity()) {
 				deltaVY = acceleration * elapsed;
 			} else {
 				deltaVY = decceleration * elapsed;
@@ -390,16 +396,36 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		holeX = 0;
 		holeY = 0;
 	}
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapObject#render
+	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 */
+	@Override
+	public void render(OrthographicCamera camera) {
+		if (hidden()) return;
+		if (requiresChunking()) return;
+		super.render(camera);
+	}
 
 	/**
 	 * Determine whether overlapping with this object in general is allowed.
-	 * This is sort of a physicsy thing. Allowing it implies no physical presence
-	 * on the map, even if this object has a hitbox. Disallowing it is usually a
-	 * signal that collisions need to be resolvled.
+	 * This is sort of a physicsy thing. Allowing it implies no physical
+	 * presence on the map, even if this object has a hitbox. Disallowing it is
+	 * usually a signal that collisions need to be resolvled.
 	 * @return					True if overlapping with this object is okay
 	 */
 	public boolean isOverlappingAllowed() {
 		return true;
+	}
+	
+	/**
+	 * Adds (or subtracts) from the run bonus. Run bonus is extra speed the
+	 * character can accelerate to but not deccelerate from cleanly.
+	 * @param 	toAdd			The speed to add, in px/s
+	 */
+	public void addToRunBonus(float toAdd) {
+		runBonus += toAdd;
 	}
 	
 	/**
@@ -450,17 +476,6 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 			groups = groups.substring(groups.indexOf(SEPERATOR_CHAR)+2);
 		}
 		return (groups.equals(groupName));
-	}
-	
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
-	 */
-	@Override
-	public void render(OrthographicCamera camera) {
-		if (hidden()) return;
-		if (requiresChunking()) return;
-		super.render(camera);
 	}
 
 	/**
@@ -718,6 +733,22 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
+	 * Calculates max velocity for the purposes of accelerating.
+	 * @return					Target max velocity in px/s
+	 */
+	protected float calcAccelerationMaxVelocity() {
+		return maxVelocity + runBonus;
+	}
+	
+	/**
+	 * Calculates max velocity for the purposes of slowing down
+	 * @return					Target max velocity in px/s
+	 */
+	protected float calcDecelerationMaxVelocity() {
+		return maxVelocity;
+	}
+	
+	/**
 	 * Determines if an event is "hidden" either by switch or command.
 	 * @return					True if the event is hidden, false otherwise
 	 */
@@ -768,6 +799,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		fallTime = 0;
 		holeX = 0;
 		holeY = 0;
+		runBonus = 0;
 		falling = false;
 	}
 	

@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"cooldown" : 0.2,
+	"mobility" : "MOBILE",
 	"sound" : "sound_move_summon",
 	"animation" : "staffraise_4dir",
 	"graphic" : "graphic_icon_summon",

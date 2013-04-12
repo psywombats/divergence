@@ -287,7 +287,14 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public boolean canMove() {
-		return !stunned && !dead && super.canMove();
+		boolean moveLimited = false;
+		for (MovesetAct act : activeMoves) {
+			if (act.disablesMovement()) {
+				moveLimited = true;
+				break;
+			}
+		}
+		return !moveLimited && !stunned && !dead && super.canMove();
 	}
 
 	/**
