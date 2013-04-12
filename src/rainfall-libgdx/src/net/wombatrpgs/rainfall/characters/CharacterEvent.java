@@ -636,12 +636,14 @@ public class CharacterEvent extends MapEvent {
 			RGlobal.reporter.warn("Removed an unperformed action: " + act);
 		}
 		if (act.getIdleAppearance() != null) {
-			FacesAnimation old = idleStack.pop();
+			FacesAnimation old = act.getIdleAppearance();
+			idleStack.remove(old);
 			idleAnim = idleStack.peek();
 			if (appearance == old) appearance = idleAnim;
 		}
 		if (act.getWalkingAppearance() != null) {
-			FacesAnimation old = walkStack.pop();
+			FacesAnimation old = act.getWalkingAppearance();
+			walkStack.remove(old);
 			walkAnim = walkStack.peek();
 			if (appearance == old) appearance = walkAnim;
 		}
