@@ -18,5 +18,8 @@ public class RollMDO extends MoveMDO {
 	
 	@Desc("Length - How fall the roll carries, in px. The duration/velocity is taken from the animation.")
 	public Integer length;
+	
+	@Desc("Instantenous velocity - Actor's velocity is boosted immediately by this amount in the direction of the roll, in px/s")
+	public Integer kick;
 
 }

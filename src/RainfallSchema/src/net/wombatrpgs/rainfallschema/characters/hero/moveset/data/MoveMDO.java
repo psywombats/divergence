@@ -23,7 +23,7 @@ import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 @ExcludeFromTree
 public class MoveMDO extends MainSchema {
 	
-	@Desc("Cooldown time - in seconds, unused?")
+	@Desc("Cooldown time, in seconds")
 	public Float cooldown;
 	
 	@Desc("Mobility - should the hero be able to move while this move is active?")

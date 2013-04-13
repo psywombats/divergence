@@ -3,11 +3,12 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
-	"cooldown" : 0.0,
+	"cooldown" : 1.0,
 	"mobility" : "IMMOBILE",
 	"sound" : "None",
 	"staticAnimation" : "None",
 	"movingAnimation" : "4dir_talyssa_roll",
 	"graphic" : "None",
-	"length" : 96
+	"length" : 72,
+	"kick" : 32
 }

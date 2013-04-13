@@ -18,6 +18,8 @@ import net.wombatrpgs.rainfall.graphics.FourDir;
 import net.wombatrpgs.rainfall.graphics.Graphic;
 import net.wombatrpgs.rainfall.io.audio.SoundObject;
 import net.wombatrpgs.rainfall.maps.Level;
+import net.wombatrpgs.rainfall.maps.objects.TimerListener;
+import net.wombatrpgs.rainfall.maps.objects.TimerObject;
 import net.wombatrpgs.rainfallschema.audio.SoundMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.data.MoveMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.data.MoveMobility;
@@ -39,6 +41,7 @@ public abstract class MovesetAct implements Actionable,
 	protected FacesAnimation idleAppearance, walkingAppearance;
 	protected Graphic icon;
 	protected SoundObject sfx;
+	protected boolean coolingDown;
 	
 	/**
 	 * Constructs a moveset act from data.
@@ -85,9 +88,17 @@ public abstract class MovesetAct implements Actionable,
 	 */
 	@Override
 	public final void act(Level map, CharacterEvent actor) {
+		if (coolingDown) return;
 		if (!actor.canAct()) return;
 		if (!actor.isMoveActive(this)) coreAct(map, actor);
 		this.map = map;
+		coolingDown = true;
+		final MovesetAct parent = this;
+		new TimerObject(mdo.cooldown, actor, new TimerListener() {
+			@Override public void onTimerZero(TimerObject source) {
+				parent.coolingDown = false;
+			}
+		});
 	}
 	
 	/**

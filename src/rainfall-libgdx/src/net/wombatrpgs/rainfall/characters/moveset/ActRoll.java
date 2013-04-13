@@ -44,12 +44,21 @@ public class ActRoll extends MovesetAct {
 			RGlobal.reporter.warn("Can't roll and be invisible.");
 			return;
 		}
+		
+		Direction dir = actor.getFacing();
+		
+		// kick
+		float newVX = actor.getVX() + dir.getVector().x * mdo.kick;
+		float newVY = actor.getVY() + dir.getVector().y * mdo.kick;
+		actor.setVelocity(newVX, newVY);
+		
+		// acceleration
 		float duration = walkingAppearance.getDuration();
 		float rate = (float) mdo.length / duration;
-		Direction dir = actor.getFacing();
 		float targetVX = dir.getVector().x * rate;
 		float targetVY = dir.getVector().y * rate;
 		actor.targetVelocity(targetVX, targetVY);
+		
 		final ActRoll parentRoll = this;
 		new TimerObject(duration, actor, new TimerListener() {
 			@Override public void onTimerZero(TimerObject source) {

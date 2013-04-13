@@ -5,5 +5,5 @@
 	"description" : "",
 	"walkVelocity" : 96,
 	"acceleration" : 1024,
-	"decceleration" : 384
+	"decceleration" : 512
 }
