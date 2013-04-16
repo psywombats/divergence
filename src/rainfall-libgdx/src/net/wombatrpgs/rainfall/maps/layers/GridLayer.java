@@ -395,7 +395,7 @@ public class GridLayer extends Layer {
 	 * @return					The tile's property at that cell
 	 */
 	protected String getTileProperty(int tileX, int tileY, String key) {
-		Cell cell = layer.getCell(tileX, parent.getHeight() - tileY - 1);
+		Cell cell = layer.getCell(tileX, tileY);
 		if (cell == null) return null;
 		TiledMapTile tile = cell.getTile();
 		Object val = tile.getProperties().get(key);
@@ -409,7 +409,7 @@ public class GridLayer extends Layer {
 	 * @return					The tile's ID at that cell
 	 */
 	protected int getTileID(int tileX, int tileY) {
-		Cell cell =  layer.getCell(tileX, parent.getHeight() - tileY - 1);
+		Cell cell =  layer.getCell(tileX, tileY);
 		return (cell == null) ? 0 : cell.getTile().getId();
 	}
 }

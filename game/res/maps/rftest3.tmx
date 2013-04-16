@@ -2,6 +2,11 @@
 <map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="nomad" tilewidth="32" tileheight="32" spacing="1" margin="1">
   <image source="tilesets/nomadtileset.png" width="1280" height="960"/>
+  <tile id="152">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Tile Layer 1" width="20" height="15">
   <properties>
@@ -9,7 +14,7 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJw7xsDAcGyY4lWMDAyrGaln3gWgWRepaN5A4jeDwA3DHR8nUf3bQeDmwY4B4rvoOQ==
+   eJw7xsDAcGyY4lWMDAyrGaln3gWgWRfJNG8mFkxNv5Jq3hsqm0eq/wc6bdADHycyTGD8t1QK44H2Ny0xAL4x5ZY=
   </data>
  </layer>
  <layer name="Tile Layer 2" width="20" height="15">

@@ -164,8 +164,8 @@ public abstract class MapThing implements	Renderable,
 	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, 
 			int x, int y, int angle, float fallTime) {
 		if (parent == null) return;
-		int atX = (int) (RGlobal.window.width/2 + camera.position.x - Math.floor(x / getLevel().getTileWidth()));
-		int atY = (int) (RGlobal.window.height/2 + camera.position.y - Math.floor(y / getLevel().getTileHeight()));
+		int atX = (int) (RGlobal.window.width/2 - camera.position.x*parent.getTileWidth() + Math.floor(x));
+		int atY = (int) (RGlobal.window.height/2 - camera.position.y*parent.getTileHeight() + Math.floor(y));
 		Color c = parent.getBatch().getColor();
 		float tint = (fallTime < .5f) ? 1-fallTime*2 : 0;
 		parent.getBatch().setColor(tint*c.r, tint*c.b, tint*c.g, 1);

@@ -231,9 +231,6 @@ public class Level implements ScreenShowable {
 		map = RGlobal.assetManager.get(mapPath, TiledMap.class);
 		renderer = new OrthogonalTiledMapRenderer(map, 1f/ (float)TILE_WIDTH);
 		int index = 0;
-		for (TiledMapTileSet set : map.getTileSets()) {
-			System.out.println(set.getName());
-		}
 		for (MapLayer layer : map.getLayers()) {
 			// screw you libgdx this should /not/ be standard
 			Layer created;

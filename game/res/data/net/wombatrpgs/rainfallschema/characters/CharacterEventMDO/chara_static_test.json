@@ -5,7 +5,7 @@
 	"description" : "",
 	"appearance" : "4dir_talyssa_walk",
 	"idleAnim" : "4dir_talyssa_idle",
-	"collision" : "NONE",
+	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
 	"response" : "IMMOBILE",
 	"touch" : "NOTHING",
 	"soundHurt" : "None",

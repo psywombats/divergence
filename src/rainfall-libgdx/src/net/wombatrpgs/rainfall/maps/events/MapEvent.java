@@ -743,8 +743,9 @@ public abstract class MapEvent extends MapThing implements PositionSetable,
 	 * @return 					The y-coord of the source map object
 	 */
 	protected static int extractY(Level parent, MapObject object) {
-		return parent.getHeight()*parent.getTileHeight() -
-				(Integer) object.getProperties().get("y");
+//		return parent.getHeight()*parent.getTileHeight() -
+//				(Integer) object.getProperties().get("y");
+		return (Integer) object.getProperties().get("y");
 	}
 	
 	/**

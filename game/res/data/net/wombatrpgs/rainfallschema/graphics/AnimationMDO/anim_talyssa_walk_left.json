@@ -11,8 +11,8 @@
 	"offX" : 192,
 	"offY" : 64,
 	"animSpeed" : 8,
-	"hit1x" : 0,
-	"hit1y" : 0,
-	"hit2x" : 0,
-	"hit2y" : 0
+	"hit1x" : 18,
+	"hit1y" : 44,
+	"hit2x" : 40,
+	"hit2y" : 60
 }
