@@ -1,0 +1,13 @@
+{
+	"key" : "chara_static_test",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"appearance" : "4dir_talyssa_walk",
+	"idleAnim" : "4dir_talyssa_idle",
+	"collision" : "NONE",
+	"response" : "IMMOBILE",
+	"touch" : "NOTHING",
+	"soundHurt" : "None",
+	"mobility" : "mobility_hero"
+}
