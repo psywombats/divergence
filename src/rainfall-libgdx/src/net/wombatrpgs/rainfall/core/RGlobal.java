@@ -14,6 +14,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 import net.wombatrpgs.rainfall.characters.Hero;
 import net.wombatrpgs.rainfall.core.reporters.PrintReporter;
@@ -157,6 +159,7 @@ public class RGlobal {
 	public static void setHandlers() {
 		assetManager.setLoader(SceneData.class, new SceneLoader(new InternalFileHandleResolver()));
 		assetManager.setLoader(DataEntry.class, new DataLoader(new InternalFileHandleResolver()));
+		assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
 	}
 
 }

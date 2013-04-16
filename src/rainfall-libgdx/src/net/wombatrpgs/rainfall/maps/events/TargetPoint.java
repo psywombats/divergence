@@ -6,9 +6,9 @@
  */
 package net.wombatrpgs.rainfall.maps.events;
 
-import net.wombatrpgs.rainfall.maps.Level;
+import com.badlogic.gdx.maps.MapObject;
 
-import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
+import net.wombatrpgs.rainfall.maps.Level;
 
 /**
  * A thing on the map with zero physical presence and is just a way to specify
@@ -22,7 +22,7 @@ public class TargetPoint extends MapEvent {
 	 * @param 	parent			The level to hold us
 	 * @param 	object			The object that spawned us
 	 */
-	public TargetPoint(Level parent, TiledObject object) {
+	public TargetPoint(Level parent, MapObject object) {
 		super(parent, object, false, false);
 	}
 

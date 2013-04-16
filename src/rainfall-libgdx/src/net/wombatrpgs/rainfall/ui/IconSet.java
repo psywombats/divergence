@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.rainfall.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Pixmap;
 
@@ -52,7 +51,8 @@ public class IconSet implements Queueable {
 		maps[0] = manager.get(Constants.UI_DIR + mdo.icon16, Pixmap.class);
 		maps[1] = manager.get(Constants.UI_DIR + mdo.icon32, Pixmap.class);
 		maps[2] = manager.get(Constants.UI_DIR + mdo.icon128, Pixmap.class);
-		Gdx.graphics.setIcon(maps);
+		// TODO: figure out icons
+		//Gdx.graphics.setIcon(maps);
 	}
 
 }

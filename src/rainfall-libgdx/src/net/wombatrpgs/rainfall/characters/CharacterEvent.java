@@ -15,7 +15,7 @@ import java.util.Stack;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
+import com.badlogic.gdx.maps.MapObject;
 
 import net.wombatrpgs.rainfall.characters.moveset.MovesetAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
@@ -77,11 +77,9 @@ public class CharacterEvent extends MapEvent {
 	 * @param 	mdo				The data to create the event with
 	 * @param	object			The tiled object that created the chara
 	 * @param	parent			The parent level of the event
-	 * @param 	x				The x-coord of the event (in pixels)
-	 * @param 	y				The y-coord of the event (in pixels)
 	 */
-	public CharacterEvent(CharacterEventMDO mdo, TiledObject object, Level parent, int x, int y) {
-		super(parent, object, x, y, true, true);
+	public CharacterEvent(CharacterEventMDO mdo, MapObject object, Level parent) {
+		super(parent, object, extractX(parent, object), extractY(parent, object), true, true);
 		init(mdo);
 	}
 	
@@ -154,7 +152,7 @@ public class CharacterEvent extends MapEvent {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#update(float)
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#update(float)
 	 */
 	@Override
 	public void update(float elapsed) {
@@ -173,7 +171,7 @@ public class CharacterEvent extends MapEvent {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#vitalUpdate(float)
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#vitalUpdate(float)
 	 */
 	@Override
 	public void vitalUpdate(float elapsed) {
@@ -206,7 +204,7 @@ public class CharacterEvent extends MapEvent {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#queueRequiredAssets
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -247,7 +245,7 @@ public class CharacterEvent extends MapEvent {
 			idleAnim = walkAnim;
 		}
 		if (object != null) {
-			String dir = object.properties.get(PROPERTY_FACING);
+			String dir = getProperty(PROPERTY_FACING);
 			if (dir != null) {
 				if (dir.equals(DIR_DOWN)) {
 					appearance.setFacing(Direction.DOWN);
@@ -262,7 +260,7 @@ public class CharacterEvent extends MapEvent {
 							" : " + dir);
 				}
 			}
-			if (object.properties.get(PROPERTY_WALK_IN_PLACE) != null) {
+			if (getProperty(PROPERTY_WALK_IN_PLACE) != null) {
 				appearance.startMoving();
 				pacing = true;
 			}
@@ -270,7 +268,7 @@ public class CharacterEvent extends MapEvent {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#getHitbox()
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#getHitbox()
 	 */
 	@Override
 	public Hitbox getHitbox() {
@@ -290,7 +288,7 @@ public class CharacterEvent extends MapEvent {
 	}
 
 	/** 
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#isOverlappingAllowed()
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#isOverlappingAllowed()
 	 **/
 	@Override
 	public boolean isOverlappingAllowed() { 
@@ -319,7 +317,7 @@ public class CharacterEvent extends MapEvent {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#onCollide
-	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.physics.CollisionResult)
+	 * (net.wombatrpgs.rainfall.maps.MapThing, net.wombatrpgs.rainfall.physics.CollisionResult)
 	 */
 	@Override
 	public boolean onCollide(MapEvent other, CollisionResult result) {
@@ -328,7 +326,7 @@ public class CharacterEvent extends MapEvent {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#onCharacterCollide
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#onCharacterCollide
 	 * (net.wombatrpgs.rainfall.characters.CharacterEvent, 
 	 * net.wombatrpgs.rainfall.physics.CollisionResult)
 	 */
@@ -342,8 +340,8 @@ public class CharacterEvent extends MapEvent {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#resolveCollision
-	 * (net.wombatrpgs.rainfall.maps.MapObject, net.wombatrpgs.rainfall.physics.CollisionResult)
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#resolveCollision
+	 * (net.wombatrpgs.rainfall.maps.MapThing, net.wombatrpgs.rainfall.physics.CollisionResult)
 	 */
 	@Override
 	public void resolveCollision(MapEvent other, CollisionResult result) {
@@ -351,7 +349,7 @@ public class CharacterEvent extends MapEvent {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#resolveCharacterCollision
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#resolveCharacterCollision
 	 * (net.wombatrpgs.rainfall.characters.CharacterEvent, 
 	 * net.wombatrpgs.rainfall.physics.CollisionResult)
 	 */
@@ -394,7 +392,7 @@ public class CharacterEvent extends MapEvent {
 	@Override
 	public void reset() {
 		super.reset();
-		setY(getY() - parent.getTileHeight()); // TODO: awfuil hack idk
+		setY(getY() - parent.getTileHeight()); // TODO: awfuil hack idk bug reset pos
 		if (parent.contains(soundHurt)) {
 			parent.removeObject(soundHurt);
 		}
@@ -575,7 +573,7 @@ public class CharacterEvent extends MapEvent {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#internalTargetVelocity(float, float)
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#internalTargetVelocity(float, float)
 	 */
 	@Override
 	protected void internalTargetVelocity(float targetVX, float targetVY) {
@@ -695,7 +693,7 @@ public class CharacterEvent extends MapEvent {
 			soundHurt = new SoundObject(soundMDO, this);
 		}
 		if (object != null) {
-			String convoKey = object.properties.get(PROPERTY_CONVO);
+			String convoKey = getProperty(PROPERTY_CONVO);
 			if (convoKey != null) {
 				SceneMDO sceneMDO = RGlobal.data.getEntryFor(convoKey, SceneMDO.class);
 				convo = new SceneParser(sceneMDO);

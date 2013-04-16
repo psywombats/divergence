@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.rainfall.maps.events;
 
-import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
+import com.badlogic.gdx.maps.MapObject;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
@@ -39,14 +39,18 @@ public class TeleportEvent extends MapEvent {
 	 * @param 	parent		The parent levelt to make teleport for
 	 * @param 	object		The object to infer coords from
 	 */
-	public TeleportEvent(Level parent, TiledObject object) {
+	public TeleportEvent(Level parent, MapObject object) {
 		super(parent, object, false, true);
-		this.box = new RectHitbox(this, 0, -object.height, object.width, 0);
+		this.box = new RectHitbox(this, 
+				0, 
+				-1 * extractWidth(parent, object),
+				extractHeight(parent, object),
+				0);
 		
 		// TODO: center the hero
-		this.targetX = Integer.valueOf(object.properties.get(PROPERTY_X));
-		this.targetY = Integer.valueOf(object.properties.get(PROPERTY_Y));
-		this.mapID = object.properties.get(PROPERTY_ID);
+		this.targetX = Integer.valueOf(getProperty(PROPERTY_X));
+		this.targetY = Integer.valueOf(getProperty(PROPERTY_Y));
+		this.mapID = getProperty(PROPERTY_ID);
 	}
 
 	/**
@@ -77,9 +81,9 @@ public class TeleportEvent extends MapEvent {
 						targetX, 
 						newMap.getHeight() - targetY - 1);
 				RGlobal.teleport.getPost().run(newMap);
-				if (parent.object.properties.get(PROPERTY_Z) != null) {
+				if (parent.getProperty(PROPERTY_Z) != null) {
 					newMap.changeZ(RGlobal.hero, 
-							Float.valueOf(parent.object.properties.get(PROPERTY_Z))+.5f);
+							Float.valueOf(parent.getProperty(PROPERTY_Z))+.5f);
 				}
 			}
 		});

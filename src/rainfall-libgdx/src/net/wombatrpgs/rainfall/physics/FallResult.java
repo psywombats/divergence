@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.rainfall.physics;
 
-import net.wombatrpgs.rainfall.maps.MapObject;
+import net.wombatrpgs.rainfall.maps.MapThing;
 
 /**
  * Struct for the result of dropping an item at a specified x/y on a map. This
@@ -33,7 +33,7 @@ public class FallResult {
 	 * The object that the falling object collided with, if any. Null otherwise.
 	 * This usually only has relevance if there was an unclean landing.
 	 */
-	public MapObject collidingObject;
+	public MapThing collidingObject;
 	
 	/**
 	 * The z-depth of where the object finished falling.

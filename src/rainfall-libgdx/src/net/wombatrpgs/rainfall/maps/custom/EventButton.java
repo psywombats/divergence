@@ -18,7 +18,7 @@ import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.maps.CustomEventMDO;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
+import com.badlogic.gdx.maps.MapObject;
 
 /**
  * Turns on once if something is on top of it.
@@ -34,7 +34,7 @@ public class EventButton extends CustomEvent {
 	protected SoundObject sfx;
 	public boolean pressed;
 
-	public EventButton(TiledObject object, Level parent) {
+	public EventButton(MapObject object, Level parent) {
 		super(RGlobal.data.getEntryFor(ID, CustomEventMDO.class), object, parent);
 		animPressed = new OneDir(RGlobal.data.getEntryFor(
 				KEY_ANIM_DEPRESSED, AnimationMDO.class), this);

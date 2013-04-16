@@ -62,7 +62,7 @@ public abstract class Layer implements Queueable {
 	 * @param	camera			The camera to render with
 	 * @param	z				The z-layer to render components of
 	 */
-	public abstract void render(OrthographicCamera camera, int z);
+	public abstract void render(OrthographicCamera camera, float z);
 	
 	/**
 	 * Checking to see if a position in the grid is passable. This is a little

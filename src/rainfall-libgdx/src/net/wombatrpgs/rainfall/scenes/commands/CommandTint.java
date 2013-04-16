@@ -9,7 +9,7 @@ package net.wombatrpgs.rainfall.scenes.commands;
 import com.badlogic.gdx.graphics.Color;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.maps.MapObject;
+import net.wombatrpgs.rainfall.maps.MapThing;
 import net.wombatrpgs.rainfall.maps.PauseLevel;
 import net.wombatrpgs.rainfall.scenes.SceneCommand;
 import net.wombatrpgs.rainfall.scenes.SceneParser;
@@ -55,7 +55,7 @@ public class CommandTint extends SceneCommand {
 			final float oldR = RGlobal.screens.peek().getTint().r;
 			final float oldG = RGlobal.screens.peek().getTint().g;
 			final float oldB = RGlobal.screens.peek().getTint().b;
-			MapObject child = new MapObject() {
+			MapThing child = new MapThing() {
 				protected Color tint;
 				@Override
 				public void update(float elapsed) {

@@ -15,7 +15,7 @@ import net.wombatrpgs.rainfall.scenes.SceneParser;
 import net.wombatrpgs.rainfallschema.cutscene.SceneMDO;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
+import com.badlogic.gdx.maps.MapObject;
 
 /**
  * An event that triggers a cutscene or other scene script.
@@ -36,22 +36,26 @@ public class Trigger extends MapEvent {
 	 * @param 	parent			The parent level of this event
 	 * @param 	object			The tiled object that this object is based on
 	 */
-	protected Trigger(Level parent, TiledObject object) {
+	protected Trigger(Level parent, MapObject object) {
 		super(parent, object, false, true);
 		// TODO: correct this awful width thing
-		this.box = new RectHitbox(this, 0, -object.height, object.width, 0);
-		String id = object.properties.get(PROPERTY_ID);
+		this.box = new RectHitbox(this, 
+				0,
+				-1 * extractHeight(parent, object),
+				extractWidth(parent, object),
+				0);
+		String id = getProperty(PROPERTY_ID);
 		if (id == null) {
-			RGlobal.reporter.warn("Trigger event had no id: " + object.name);
+			RGlobal.reporter.warn("Trigger event had no id: " + object);
 		} else {
 			SceneMDO mdo = RGlobal.data.getEntryFor(id, SceneMDO.class);
 			scene = new SceneParser(mdo, getLevel());
 		}
-		String conditionKey = object.properties.get(PROPERTY_CONDITION);
+		String conditionKey = getProperty(PROPERTY_CONDITION);
 		if (conditionKey != null) {
 			condition = TriggerCondition.create(this, conditionKey);
 		}
-		autorun = object.properties.get(PROPERTY_AUTOSTART) != null;
+		autorun = getProperty(PROPERTY_AUTOSTART) != null;
 	}
 	
 	/**

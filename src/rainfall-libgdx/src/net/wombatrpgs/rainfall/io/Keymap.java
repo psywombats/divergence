@@ -197,15 +197,6 @@ public abstract class Keymap implements InputProcessor,
 
 	/**
 	 * Override if needed by the specific keymapping.
-	 * @see com.badlogic.gdx.InputProcessor#touchMoved(int, int)
-	 */
-	@Override
-	public boolean touchMoved(int x, int y) {
-		return false;
-	}
-
-	/**
-	 * Override if needed by the specific keymapping.
 	 * @see com.badlogic.gdx.InputProcessor#scrolled(int)
 	 */
 	@Override

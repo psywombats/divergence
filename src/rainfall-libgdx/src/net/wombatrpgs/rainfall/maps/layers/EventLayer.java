@@ -13,12 +13,14 @@ import java.util.List;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfall.maps.MapObject;
+import net.wombatrpgs.rainfall.maps.MapThing;
 import net.wombatrpgs.rainfall.maps.Positionable;
+import net.wombatrpgs.rainfall.maps.events.EventFactory;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.physics.CollisionResult;
 import net.wombatrpgs.rainfall.physics.FallResult;
@@ -33,26 +35,29 @@ public class EventLayer extends Layer {
 	protected Level parent;
 	protected boolean passable[][];
 	protected List<MapEvent> events;
-	protected TiledObjectGroup group;
+	protected MapLayer layer;
+	protected int index;
 	protected float z;
 	
 	/**
 	 * Creates a new object layer with a parent level and no objects.
 	 * @param 	parent			The parent level of the layer
-	 * @param	group			The underlying tiled object
+	 * @param	layer			The underlying tiled layer
+	 * @param	index			The ordinal of this event layer (of event layer)
 	 */
-	public EventLayer(Level parent, TiledObjectGroup group) {
+	public EventLayer(Level parent, MapLayer layer, int index) {
 		this.parent = parent;
 		this.events = new ArrayList<MapEvent>();
-		this.group = group;
+		this.layer = layer;
+		this.index = index;
 		this.passable = new boolean[parent.getHeight()][parent.getWidth()];
 		for (int y = 0; y < parent.getHeight(); y++) {
 			for (int x = 0; x < parent.getWidth(); x++) {
 				passable[y][x] = false;
 			}
 		}
-		if (group.properties.containsKey(PROPERTY_Z)) {
-			z = Float.valueOf(group.properties.get(PROPERTY_Z));
+		if (layer.getProperties().get(PROPERTY_Z) != null) {
+			z = Float.valueOf(layer.getProperties().get(PROPERTY_Z).toString());
 		} else {
 			RGlobal.reporter.warn("Group with no z-value on " + parent);
 		}
@@ -60,15 +65,16 @@ public class EventLayer extends Layer {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.layers.Layer#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera, int)
+	 * (com.badlogic.gdx.graphics.OrthographicCamera, float)
 	 */
 	@Override
-	public void render(OrthographicCamera camera, int z) {
+	public void render(OrthographicCamera camera, float z) {
+		if (Math.round(z-.5) != z) return;
 		// TODO: this can be optimized, but it's not fucking likely
 		Collections.sort(events);
 		parent.getBatch().begin();
 		for (MapEvent event : events) {
-			if (event.requiresChunking()) {
+			if (!event.requiresChunking()) {
 				// let's chunk 'em
 				TextureRegion sprite = event.getRegion();
 				int startY = (int) (z - Math.floor(getZ())) * parent.getTileHeight();
@@ -96,7 +102,7 @@ public class EventLayer extends Layer {
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		for (MapObject object : events) {
+		for (MapThing object : events) {
 			object.queueRequiredAssets(manager);
 		}
 	}
@@ -107,7 +113,7 @@ public class EventLayer extends Layer {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		for (MapObject object : events) {
+		for (MapThing object : events) {
 			object.postProcessing(manager, pass);
 		}
 	}
@@ -205,6 +211,15 @@ public class EventLayer extends Layer {
 	}
 	
 	/**
+	 * Spawns all the events that should inhabit this layer.
+	 */
+	public void load() {
+		for (MapObject object : layer.getObjects()) {
+			EventFactory.handleData(parent, object, index);
+		}
+	}
+	
+	/**
 	 * Removes a map object from this layer.
 	 * @param 	event		The map object to remove
 	 */
@@ -217,7 +232,7 @@ public class EventLayer extends Layer {
 	 * @param 	mapObject		The map object to check if exists
 	 * @return					True if the object exists on this layer
 	 */
-	public boolean contains(MapObject mapObject) {
+	public boolean contains(MapThing mapObject) {
 		return events.contains(mapObject);
 	}
 	

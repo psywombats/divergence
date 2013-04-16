@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.rainfall.maps.custom;
 
-import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
+import com.badlogic.gdx.maps.MapObject;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.core.RGlobal;
@@ -37,13 +37,11 @@ public abstract class CustomEvent extends CharacterEvent {
 	 * @param object		The tiled object itself
 	 * @param parent		The parent map this object is from
 	 */
-	public CustomEvent(CustomEventMDO mdo, TiledObject object, Level parent) {
-		super(mdo, object, parent,
-				object.x, 
-				parent.getHeight()*parent.getTileHeight()-object.y-parent.getTileHeight());
+	public CustomEvent(CustomEventMDO mdo, MapObject object, Level parent) {
+		super(mdo, object, parent);
 		this.mdo = mdo;
-		if (object.properties.get(PROPERTY_ID) != null) {
-			this.id = EVENT_PREFIX + object.properties.get(PROPERTY_ID);
+		if (getProperty(PROPERTY_ID) != null) {
+			this.id = EVENT_PREFIX + getProperty(PROPERTY_ID);
 		} else {
 			RGlobal.reporter.warn("No event id on a custom object: " + this);
 			this.id = "";

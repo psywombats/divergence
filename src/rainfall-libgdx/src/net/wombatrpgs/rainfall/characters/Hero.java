@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
+import com.badlogic.gdx.maps.MapObject;
 
 import net.wombatrpgs.rainfall.characters.moveset.Moveset;
 import net.wombatrpgs.rainfall.characters.moveset.MovesetAct;
@@ -56,11 +56,9 @@ public class Hero extends CharacterEvent {
 	 * @param 	mdo				The character mdo dummy starting the hero
 	 * @param	object			The tiled obejct that generated the character
 	 * @param 	parent			The level the hero starts on
-	 * @param 	x				The x-coord (in pixels) to start hero at
-	 * @param 	y				The y-coord (in pixels) to start hero at
 	 */
-	public Hero(HeroMDO mdo, TiledObject object, Level parent, int x, int y) {
-		super(mdo, object, parent, x, y);
+	public Hero(HeroMDO mdo, MapObject object, Level parent) {
+		super(mdo, object, parent);
 		moves = new Moveset(this, RGlobal.data.getEntryFor("default_moveset", MovesetMDO.class));
 		RGlobal.hero = this;
 		switches = new HashMap<String, Boolean>();
@@ -94,7 +92,6 @@ public class Hero extends CharacterEvent {
 			break;
 		case INSTADEATH:
 			// hoo boy
-			// TODO: set the hero on fire
 			die();
 			break;
 		default:

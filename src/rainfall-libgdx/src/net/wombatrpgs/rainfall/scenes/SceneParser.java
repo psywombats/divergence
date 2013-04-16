@@ -16,7 +16,7 @@ import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.io.CommandMap;
 import net.wombatrpgs.rainfall.io.SceneCommandMap;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfall.maps.MapObject;
+import net.wombatrpgs.rainfall.maps.MapThing;
 import net.wombatrpgs.rainfall.maps.PauseLevel;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.cutscene.SceneMDO;
@@ -26,7 +26,7 @@ import net.wombatrpgs.rainfallschema.cutscene.data.TriggerRepeatType;
  * This thing takes a scene and then hijacks its parent level into doing its
  * bidding.
  */
-public class SceneParser extends MapObject {
+public class SceneParser extends MapThing {
 	
 	protected static boolean runningGlobal = false;
 	
@@ -67,7 +67,7 @@ public class SceneParser extends MapObject {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#queueRequiredAssets
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -77,7 +77,7 @@ public class SceneParser extends MapObject {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#postProcessing
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
@@ -103,7 +103,7 @@ public class SceneParser extends MapObject {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#update(float)
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#update(float)
 	 */
 	@Override
 	public void update(float elapsed) {
@@ -129,7 +129,7 @@ public class SceneParser extends MapObject {
 
 	/**
 	 * ...should we really be overriding this?
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#reset()
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#reset()
 	 */
 	@Override
 	public void reset() {

@@ -17,7 +17,7 @@ import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.maps.CustomEventMDO;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
+import com.badlogic.gdx.maps.MapObject;
 
 /**
  * A wall that opens.
@@ -35,7 +35,7 @@ public class EventTrickWall extends CustomEvent {
 	
 	public boolean open;
 
-	public EventTrickWall(TiledObject object, Level parent) {
+	public EventTrickWall(MapObject object, Level parent) {
 		super(RGlobal.data.getEntryFor(ID, CustomEventMDO.class), object, parent);
 		final EventTrickWall door = this;
 		animOpen = new AnimationPlayer(RGlobal.data.getEntryFor(

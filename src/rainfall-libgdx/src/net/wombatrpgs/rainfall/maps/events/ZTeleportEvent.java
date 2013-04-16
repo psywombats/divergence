@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.rainfall.maps.events;
 
-import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
+import com.badlogic.gdx.maps.MapObject;
 
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.layers.EventLayer;
@@ -30,10 +30,10 @@ public class ZTeleportEvent extends MapEvent {
 	 * @param 	object			The tiled object that this object is based on
 	 * @param	lowerIndex		The lower z-index of this pair of events
 	 */
-	protected ZTeleportEvent(Level parent, TiledObject object, int lowerIndex) {
+	protected ZTeleportEvent(Level parent, MapObject object, int lowerIndex) {
 		super(parent, object, false, true);
-		int h = -object.height;
-		this.box = new RectHitbox(this, 0, h, object.width, 0);
+		float h = -1 * extractHeight(parent, object);
+		this.box = new RectHitbox(this, 0, h, extractHeight(parent, object), 0);
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public class ZTeleportEvent extends MapEvent {
 	
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#onCollide
-	 * (net.wombatrpgs.rainfall.maps.MapObject, 
+	 * (net.wombatrpgs.rainfall.maps.MapThing, 
 	 * net.wombatrpgs.rainfall.physics.CollisionResult)
 	 */
 	@Override
@@ -66,7 +66,7 @@ public class ZTeleportEvent extends MapEvent {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#onAdd
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#onAdd
 	 * (net.wombatrpgs.rainfall.maps.layers.EventLayer)
 	 */
 	@Override

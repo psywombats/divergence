@@ -1,0 +1,96 @@
+MGN MAPPING RULES - Jan 01 2012
+psy/aking
+Follow these rules and learn 2 map!!
+================================================================================
+
+Getting started:
+All mapping in this engine is done through the Tiled Map Editor, available from
+http://www.mapeditor.org . Download it and install it. Once that's done, you can
+import the tilesets located in the tilesets directory (a subdirectory of this
+directory, labeled "tilesets") via Map -> Add External Tileset... . Just import
+them all. Object types can be imported via Edit -> Preferences... -> Object
+Types -> Import... . Those are located in the directory labeled "objecttypes,"
+and there should only be one file there.
+
+Map locations:
+Maps are located in this folder. For the sake of simplicity, all maps are kept
+in the single directory with no subdirectories though this can probably change
+if you complain hard enough. Tile sets are stored in the labeled directory.
+Those can be sorted however you want.
+
+Layers:
+Layers are split into two types: tile layers and object layers. Tile layers
+store tiles and object tiles store objects, or events as they're called in RM
+world. Tiles make up the map's appearance and non-interactive elements, and
+objects are more interactive things (teleports, NPCs, etc). The order of a layer
+in the stack matters. Those on top of the stack (visible on the right) display
+on top of the other. This order is preserved in the engine.
+
+Tilesets:
+Tile sets in Tiled are a little different than RM. An unlimited number may be
+used in each map. The export script compiles them for use in the engine. Tile
+sets can be broken down however you want: by upper/lower chip, by level, by
+theme... whatever makes sense for you to work with. Those are then combined into
+maps. Feel free to create new ones and save them in the a subdirectory of the
+directory labeled "tilesets."
+
+Z-depth:
+Depth is handled via layer properties. All layers should have a property named
+"z" (no quotation marks). This indicates the physical (not display) depth of the
+layer. A z of 0 indicates the floor, 1 represents one tile's height off the
+ground, 2 is two tiles' height, etc. What would be called the lower chip in RM
+has a z-depth of whole numbers. Decimals are used for upper chip. For instance,
+a sample map might have a ground and second floor, each with a lower chip and a
+few upper chips used to place overlapping upper-chip objects. In this case, the
+floor of the ground floor would be z:0, its upper chip layers would all be
+z:0.5, the second floor would be z:1.0, and its upper chip layers all z:1.5.
+Object layers follow the same scheme as upper chip layers. This probably sounds
+complicated but looking at the sample maps should help.
+
+Tile properties:
+Tiles have properties that can be edited by r-clicking them in the tileset.
+"x" - Blocking chip. If a tile contains the property "x" (no matter what the
+value) characters will not be allowed to step on that tile.
+"passable" - If a tile contains this property, characters will be allowed to use
+that tile as a bridge. The "passable" property is only checked for on RM upper
+chip style layers with decimal z-depth and will allow the character to step on
+that space even if tiles below it are marked
+"top" - The tile is the top of a cliff face: its lower half is cliff and its top
+half is dirt. Used only in Blockbound because weird physics
+
+Layer properties:
+Right now the only layer property is z-depth.
+
+Null tile:
+Layers may or may not contain a tile at any given location. In RM, this just
+meant that the hero could freely walk over that square. In this engine things
+are a bit different. For layers that are RM-style lower chip (that is, floors
+with a whole-number z-depth) the lack of a tile at that location means events
+can't walk on that location, and may potentially fall from that location. For
+layers that are RM-style upper chip (that is, non-floors with decimal z-depth)
+the lack of a tile at a location means nothing. Passability is not affected.
+
+Teleports:
+Teleportation is handled via object. Add an object on the teleport square, set
+it to type "teleport" and give it the following properties: id - the database
+key of the map to teleport to (not its filename), x - the x-coord (in tiles) to
+teleport to on target map, y - the y-coord (in tiles) to teleport to. Keep in
+mind that the engine counts y from the upper left starting from 0.
+
+Exporting maps:
+Run export_maps.bat in the same directory. This requires that you be running
+Windows, sorry. This will update all maps in the actual game directory to
+reflect those in the maps directory.
+
+Events:
+Events are weird and this section is under construction.
+
+Event properties:
+"key" - event key in the database
+"name" - the name of the object, what it's referred to in cutscene events
+"respawns" - causes the enemy to come back if the hero does something dumb
+
+Map properties:
+"minimap" - the database key of a minimap graphic that'll display with the HUD
+"minimap_x" - where this room's top left corner is on the minimap, in px
+"minimap_y" - where this room's top left corner is on the minimap, in px

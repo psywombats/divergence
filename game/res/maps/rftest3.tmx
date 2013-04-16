@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="nomad" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="tilesets/nomadtileset.png" width="1280" height="960"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="20" height="15">
+  <properties>
+   <property name="layer" value="5"/>
+   <property name="z" value="0"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJw7xsDAcGyY4lWMDAyrGaln3gWgWRepaN5A4jeDwA3DHR8nUf3bQeDmwY4B4rvoOQ==
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="20" height="15">
+  <properties>
+   <property name="layer" value="4"/>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIKhAQAEsAAB
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" width="20" height="15">
+  <properties>
+   <property name="layer" value="3"/>
+   <property name="ogga" value="ALPHONSEO"/>
+   <property name="z" value=".5"/>
+  </properties>
+ </objectgroup>
+ <layer name="Tile Layer 3" width="20" height="15">
+  <properties>
+   <property name="layer" value="2"/>
+   <property name="z" value="1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIKhAQAEsAAB
+  </data>
+ </layer>
+ <layer name="Tile Layer 4" width="20" height="15">
+  <properties>
+   <property name="layer" value="1"/>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIKhAQAEsAAB
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 2" width="20" height="15">
+  <properties>
+   <property name="layer" value="0"/>
+   <property name="z" value="1.5"/>
+  </properties>
+ </objectgroup>
+</map>

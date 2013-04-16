@@ -134,5 +134,13 @@ public class DefaultKeymap extends Keymap {
 	protected void replicateButtonDown(InputButton button) {
 		keyDown(backmap.get(button));
 	}
+
+	/**
+	 * @see com.badlogic.gdx.InputProcessor#mouseMoved(int, int)
+	 */
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		return false;
+	}
 	
 }

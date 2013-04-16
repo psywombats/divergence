@@ -58,7 +58,7 @@ public class TextBox extends Picture {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#render
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#render
 	 * (com.badlogic.gdx.graphics.OrthographicCamera)
 	 */
 	@Override
@@ -72,7 +72,7 @@ public class TextBox extends Picture {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#queueRequiredAssets
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -84,7 +84,7 @@ public class TextBox extends Picture {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#postProcessing
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override

@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.rainfall.maps.events;
 
+import com.badlogic.gdx.maps.MapObject;
+
 import net.wombatrpgs.rainfall.characters.CharacterFactory;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
@@ -16,8 +18,6 @@ import net.wombatrpgs.rainfall.maps.custom.EventDoorcover;
 import net.wombatrpgs.rainfall.maps.custom.EventPressurePad;
 import net.wombatrpgs.rainfall.maps.custom.EventTrickWall;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
-
-import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
 
 /**
  * Creates and handles events from MDOs.
@@ -33,6 +33,8 @@ public class EventFactory {
 	protected final static String TYPE_TARGET = "point";
 	
 	protected final static String PROPERTY_ID = "id";
+	protected final static String PROPERTY_TYPE = "type";
+	protected final static String PROPERTY_KEY = "key";
 	
 	/**
 	 * Handles an entry from the map and turns it into the relevant event(s).
@@ -41,8 +43,8 @@ public class EventFactory {
 	 * @param 	layerIndex		The index of the layer of the source event
 	 * @param	denyPermanents	If true, will not generate permanent events
 	 */
-	public static void handleData(Level parent, TiledObject object, int layerIndex) {
-		if (TYPE_TELEPORT_Z.equals(object.type)) {
+	public static void handleData(Level parent, MapObject object, int layerIndex) {
+		if (TYPE_TELEPORT_Z.equals(extractType(object))) {
 			parent.addEvent(create(parent, object, layerIndex), layerIndex);
 			parent.addEvent(create(parent, object, layerIndex), layerIndex+1);
 		} else {
@@ -61,27 +63,25 @@ public class EventFactory {
 	 * @param	layerIndex		The layer index that this object is intended for
 	 * @return					Newly minted map object
 	 */
-	protected static MapEvent create(Level parent, TiledObject object, int layerIndex) {
+	protected static MapEvent create(Level parent, MapObject object, int layerIndex) {
 		MapEvent newEvent = null;
-		if (TYPE_CUSTOM.equals(object.type)) {
+		String type = extractType(object);
+		if (TYPE_CUSTOM.equals(type)) {
 			return createCustom(parent, object, layerIndex);
-		} else if (TYPE_CHARACTER.equals(object.type)) {
-			String mdoName = object.properties.get("key");
+		} else if (TYPE_CHARACTER.equals(type)) {
+			String mdoName = object.getProperties().get(PROPERTY_KEY).toString();
 			CharacterEventMDO eventMDO = RGlobal.data.getEntryFor(mdoName, CharacterEventMDO.class);
-			newEvent = CharacterFactory.create(eventMDO, object, parent,
-					object.x, 
-					parent.getHeight()*parent.getTileHeight()-object.y-parent.getTileHeight());
-		} else if (TYPE_TARGET.equals(object.type)) {
+			newEvent = CharacterFactory.create(eventMDO, object, parent);
+		} else if (TYPE_TARGET.equals(type)) {
 			newEvent = new TargetPoint(parent, object);
-		} else if (TYPE_TELEPORT.equals(object.type)) {
+		} else if (TYPE_TELEPORT.equals(type)) {
 			newEvent = new TeleportEvent(parent, object);
-		} else if (TYPE_TELEPORT_Z.equals(object.type)) {
+		} else if (TYPE_TELEPORT_Z.equals(type)) {
 			newEvent = new ZTeleportEvent(parent, object, layerIndex);
-		} else if (TYPE_TRIGGER.equals(object.type)){
+		} else if (TYPE_TRIGGER.equals(type)){
 			newEvent = new Trigger(parent, object);
 		} else {
-			RGlobal.reporter.warn("Found an event with no type: " + 
-					object.name + ", a " + object.type);
+			RGlobal.reporter.warn("Found an event with no type?");
 			newEvent = null;
 		}
 		return newEvent;
@@ -95,8 +95,8 @@ public class EventFactory {
 	 * @param 	z				The z-depth to create in
 	 * @return					The customized event
 	 */
-	protected static CustomEvent createCustom(Level parent, TiledObject object, int z) {
-		String id = object.properties.get(PROPERTY_ID);
+	protected static CustomEvent createCustom(Level parent, MapObject object, int z) {
+		String id = object.getProperties().get(PROPERTY_ID).toString();
 		if (id == null) {
 			RGlobal.reporter.warn("No ID on custom tiled object: " + object);
 			return null;
@@ -116,6 +116,15 @@ public class EventFactory {
 			RGlobal.reporter.warn("Unrecognized ID on custom event: " + id + "(" + object + ")");
 			return null;
 		}
+	}
+	
+	/**
+	 * Retrieves the type from a map object via its properties.
+	 * @param 	object			The object to extract from
+	 * @return					The object's type
+	 */
+	protected static String extractType(MapObject object) {
+		return object.getProperties().get(PROPERTY_TYPE).toString();
 	}
 	
 }

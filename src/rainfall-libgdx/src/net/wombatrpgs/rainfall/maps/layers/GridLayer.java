@@ -11,8 +11,10 @@ import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.tiled.TiledLayer;
-import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
@@ -37,31 +39,22 @@ public class GridLayer extends Layer {
 	
 	protected TiledMap map;
 	protected Level parent;
-	protected TiledLayer layer;
+	protected TiledMapTileLayer layer;
 	protected List<Hitbox> passOverrides;
 	protected boolean passability[][];
 	protected int layerID;
 	
 	/**
 	 * Creates a new object layer with a parent level and group of objects.
-	 * @param 	parent		The parent level of the layer
-	 * @param 	layer		The underlying layer of this abstraction
-	 * @param	layerID		The numeric identifier of the underlying layer
+	 * @param 	parent			The parent level of the layer
+	 * @param 	layer			The underlying layer of this abstraction
+	 * @param	layerID			The numeric identifier of the underlying layer
 	 */
-	public GridLayer(Level parent, TiledLayer layer, int layerID) {
+	public GridLayer(Level parent, TiledMapTileLayer layer) {
 		this.parent = parent;
 		this.layer = layer;
-		this.layerID = layerID;
 		this.map = parent.getMap();
 		this.passOverrides = new ArrayList<Hitbox>();
-	}
-	
-	/**
-	 * Gets the underlying tiles of the tiled layer.
-	 * @return				The underlying tiles
-	 */
-	public int[][] getTiles() {
-		return layer.tiles;
 	}
 	
 	/**
@@ -69,8 +62,8 @@ public class GridLayer extends Layer {
 	 */
 	@Override
 	public float getZ() {
-		if (layer.properties.containsKey("z")) {
-			return Float.valueOf(layer.properties.get("z"));
+		if (getProperty(PROPERTY_Z) != null) {
+			return Float.valueOf(getProperty(PROPERTY_Z));
 		} else {
 			RGlobal.reporter.warn("Layer with no z-value on " + parent);
 			return 0;
@@ -79,13 +72,16 @@ public class GridLayer extends Layer {
 
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.layers.Layer#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera, int)
+	 * (com.badlogic.gdx.graphics.OrthographicCamera, float)
 	 */
 	@Override
-	public void render(OrthographicCamera camera, int z) {
-		if ((int) Math.floor(getZ()) == z) {
+	public void render(OrthographicCamera camera, float z) {
+		if (getZ() == z) {
 			camera.update();
-			parent.getRenderer().render(camera, new int[] {layerID});
+			parent.getRenderer().setView(camera);
+			parent.getRenderer().getSpriteBatch().begin();
+			parent.getRenderer().renderTileLayer(layer);
+			parent.getRenderer().getSpriteBatch().end();
 		}
 	}
 
@@ -123,18 +119,20 @@ public class GridLayer extends Layer {
 		}
 		Hitbox box = event.getHitbox();
 		if (box == null || (box.getX()==0 && box.getY() == 0)) return;
-		int atX1 = (int) Math.floor((float) box.getX() / (float) map.tileWidth);
-		int atX2 = (int) Math.floor((float) (box.getX() + box.getWidth()) / (float) map.tileWidth);
-		int atY1 = (int) Math.floor((float) box.getY() / (float) map.tileHeight);
-		int atY2 = (int) Math.floor((float) (box.getY() + box.getHeight()) / (float) map.tileHeight);
+		int atX1 = (int) Math.floor((float) box.getX() / parent.getTileWidth());
+		int atX2 = (int) Math.floor((float) (box.getX() +
+				box.getWidth()) / parent.getTileWidth());
+		int atY1 = (int) Math.floor((float) box.getY() / (float) parent.getTileHeight());
+		int atY2 = (int) Math.floor((float) (box.getY() + 
+				box.getHeight()) / (float) parent.getTileHeight());
 		for (int atX = atX1; atX <= atX2; atX++) {
 			for (int atY = atY1; atY <= atY2; atY++) {
 				applyCorrectionsByTile(event, atX, atY, safeRect);
 			}
 		}
 		checkForHoles(event,
-				(int) Math.round(((float) event.getX()) / map.tileWidth),
-				(int) Math.round(((float) event.getY()) / map.tileHeight));
+				(int) Math.round(((float) event.getX()) / parent.getTileWidth()),
+				(int) Math.round(((float) event.getY()) / parent.getTileHeight()));
 	}
 	
 	/**
@@ -142,7 +140,7 @@ public class GridLayer extends Layer {
 	 */
 	@Override
 	public boolean isLowerChip() {
-		float z = Float.valueOf(layer.properties.get("z"));
+		float z = Float.valueOf(getProperty(PROPERTY_Z));
 		return Math.floor(z) == z;
 	}
 	
@@ -151,11 +149,10 @@ public class GridLayer extends Layer {
 	 */
 	@Override
 	public void finalizePassability() {
-		passability = new boolean[map.height][map.width];
-		for (int x = 0; x < map.width; x++) {
-			for (int y = 0; y < map.height; y++) {
-				int tileID = layer.tiles[map.height-y-1][x];
-				if (tileID == 0) {
+		passability = new boolean[parent.getHeight()][parent.getWidth()];
+		for (int x = 0; x < parent.getWidth(); x++) {
+			for (int y = 0; y < parent.getHeight(); y++) {
+				if (getTileID(x, y) == 0) {
 					// there is no tile at this location
 					if (isLowerChip()) {
 						// there is no tile and we are the bottom
@@ -163,8 +160,8 @@ public class GridLayer extends Layer {
 					} else {
 						passability[y][x] = true;
 					}
-				} else if (map.getTileProperty(tileID, PROPERTY_IMPASSABLE) != null ||
-						map.getTileProperty(tileID, PROPERTY_CLIFFTOP) != null) {
+				} else if (getTileProperty(x, y, PROPERTY_IMPASSABLE) != null ||
+						getTileProperty(x, y, PROPERTY_CLIFFTOP) != null) {
 					// the tile at this location is impassable
 					passability[y][x] = passableByUpper(x, y);
 				} else {
@@ -191,16 +188,15 @@ public class GridLayer extends Layer {
 		int hiY = loY;
 		if (loX < 0) loX = 0;
 		if (loY < 0) loY = 0;
-		if (hiX >= map.width) hiX = map.width - 1;
-		if (hiY >= map.height) hiY = map.height - 1;
+		if (hiX >= parent.getWidth()) hiX = parent.getWidth() - 1;
+		if (hiY >= parent.getHeight()) hiY = parent.getHeight() - 1;
 		for (int y = loY; y <= hiY; y++) {
 			for (int x = loX; x <= hiX; x++) {
-				int tileID = layer.tiles[map.height-y-1][x];
-				if (tileID == 0) continue;
+				if (getTileID(x, y) == 0) continue;
 				result.finished = true;
 				result.z = (int) Math.floor(getZ());
-				if (map.getTileProperty(tileID, PROPERTY_IMPASSABLE) != null ||
-					map.getTileProperty(tileID, PROPERTY_CLIFFTOP) != null) {
+				if (getTileProperty(x, y, PROPERTY_IMPASSABLE) != null ||
+						getTileProperty(x, y, PROPERTY_CLIFFTOP) != null) {
 					result.cleanLanding = false;
 				}
 				break;
@@ -215,17 +211,16 @@ public class GridLayer extends Layer {
 	@Override
 	public boolean isPassable(MapEvent actor, final int x, final int y) {
 		if (passability[y][x]) {
-			int tileID = layer.tiles[map.height-y-1][x];
-			return map.getTileProperty(tileID, PROPERTY_ABYSS) == null;
+			return getTileProperty(x, y, PROPERTY_ABYSS) == null;
 		}
 		Hitbox subBox = new RectHitbox(new Positionable() {
-			@Override public float getX() {return x * map.tileWidth; }
-			@Override public float getY() {return  y * map.tileHeight; }
+			@Override public float getX() {return x * parent.getTileWidth(); }
+			@Override public float getY() {return  y * parent.getTileHeight(); }
 		},
-		map.tileWidth*1/4,
-		map.tileHeight*1/4,
-		map.tileWidth*3/4,
-		map.tileHeight*3/4);
+				parent.getTileWidth()*1/4,
+				parent.getTileHeight()*1/4,
+				parent.getTileWidth()*3/4,
+				parent.getTileHeight()*3/4);
 		for (Hitbox box : passOverrides) {
 			if (subBox.isColliding(box).isColliding) {
 				return true;
@@ -270,7 +265,7 @@ public class GridLayer extends Layer {
 	 * @param	safe			Rect to subtract from all tile boxes
 	 */
 	private void applyCorrectionsByTile(MapEvent event, int tileX, int tileY, RectHitbox safe) {
-		if (tileX < 0 || tileX >= map.width || tileY < 0 || tileY >= map.height) {
+		if (tileX < 0 || tileX >= parent.getWidth() || tileY < 0 || tileY >= parent.getHeight()) {
 			// the hero has stepped outside the map
 			bump(event, tileX, tileY, null);
 			return;
@@ -291,25 +286,32 @@ public class GridLayer extends Layer {
 		// TODO: optimize this, remove the new
 		RectHitbox tileBox;
 		final boolean cliff;
-		if (tileX < 0 || tileX >= map.width || tileY < 0 || tileY >= map.height) {
+		if (tileX < 0 || tileX >= parent.getWidth() || tileY < 0 || tileY >= parent.getHeight()) {
 			cliff = false;
 		} else {
-			int tileID = layer.tiles[map.height-tileY-1][tileX];
-			cliff = map.getTileProperty(tileID, PROPERTY_CLIFFTOP) != null;
+			cliff = getProperty(PROPERTY_CLIFFTOP) != null;
 		}
 		Positionable loc = new Positionable() {
 			@Override
-			public float getX() { return tileX * map.tileWidth;}
+			public float getX() { return tileX * parent.getTileWidth();}
 			@Override
 			public float getY() { 
-				if (cliff) return tileY * map.tileHeight - map.tileHeight/2;
-				else return tileY * map.tileHeight; 
+				if (cliff) return (tileY - .5f) * parent.getTileHeight();
+				else return tileY * parent.getTileHeight(); 
 			}
 		};
 		if (cliff) {
-			tileBox = new RectHitbox(loc, 0, map.tileHeight/2, map.tileWidth, map.tileHeight);
+			tileBox = new RectHitbox(loc, 
+					0,
+					parent.getTileHeight()/2,
+					parent.getTileWidth(),
+					parent.getTileHeight());
 		} else {
-			tileBox = new RectHitbox(loc, 0, 0, map.tileWidth, map.tileHeight);
+			tileBox = new RectHitbox(loc, 
+					0,
+					0,
+					parent.getTileWidth(),
+					parent.getTileHeight());
 		}
 		if (safe == null) {
 			CollisionResult result = tileBox.isColliding(event.getHitbox());
@@ -344,8 +346,7 @@ public class GridLayer extends Layer {
 	private boolean passableByUpper(int tileX, int tileY) {
 		for (GridLayer otherLayer : parent.getGridLayers()) {
 			if (Math.floor(otherLayer.getZ()) == this.getZ() && otherLayer != this) {
-				int tileID = otherLayer.getTiles()[map.height-tileY-1][tileX];
-				if (map.getTileProperty(tileID, PROPERTY_PASSABLE) != null) {
+				if (otherLayer.getTileProperty(tileX, tileY, PROPERTY_PASSABLE) != null) {
 					return true;
 				}
 			}
@@ -367,13 +368,48 @@ public class GridLayer extends Layer {
 	 * @param 	tileY			The y-coord to check (in tiles)
 	 */
 	private void checkForHoles(MapEvent event, int tileX, int tileY) {
-		if (tileX < 0 || tileX >= map.width || tileY < 0 || tileY >= map.height) {
+		if (tileX < 0 || tileX >= parent.getWidth() || tileY < 0 || tileY >= parent.getHeight()) {
 			return;
 		}
-		int tileID = layer.tiles[map.height-tileY-1][tileX];
-		if (map.getTileProperty(tileID, PROPERTY_ABYSS) != null &&
+		if (getTileProperty(tileX, tileY, PROPERTY_ABYSS) != null &&
 				!passableByUpper(tileX, tileY)) {
 			event.fallIntoHole(tileX, tileY);
 		}
+	}
+	
+	/**
+	 * An easy way to keep track of properties.
+	 * @param 	key				The key of the desired property
+	 * @return					The value of that property
+	 */
+	protected String getProperty(String key) {
+		Object val = layer.getProperties().get(key);
+		return (val == null) ? null : val.toString();
+	}
+	
+	/**
+	 * Extracts the property from a tile at a given cell.
+	 * @param 	tileX			The x-coord of the tile to get from (in tiles)
+	 * @param 	tileY			The y-coord of the tile to get from (in tiles)
+	 * @param 	key				The key of the property to extract
+	 * @return					The tile's property at that cell
+	 */
+	protected String getTileProperty(int tileX, int tileY, String key) {
+		Cell cell = layer.getCell(tileX, parent.getHeight() - tileY - 1);
+		if (cell == null) return null;
+		TiledMapTile tile = cell.getTile();
+		Object val = tile.getProperties().get(key);
+		return (val == null) ? null : val.toString();
+	}
+	
+	/**
+	 * Extracts the tile ID of a given cell.
+	 * @param 	tileX			The x-coord of the tile to get from (in tiles)
+	 * @param 	tileY			The y-coord of the tile to get from (in tiles)
+	 * @return					The tile's ID at that cell
+	 */
+	protected int getTileID(int tileX, int tileY) {
+		Cell cell =  layer.getCell(tileX, parent.getHeight() - tileY - 1);
+		return (cell == null) ? 0 : cell.getTile().getId();
 	}
 }

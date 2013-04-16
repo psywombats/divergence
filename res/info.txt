@@ -1,9 +1,0 @@
-psynote:
-Hey uh so I moved all the resources into the game folder -- although in release
-distributions they'll probably be all bundled up into one jar, it's much easier
-to run the game in its own resources folder... this may change as we get further
-into the development process
-
-So now this folder represents all resources that should be used to make the shit
-associated with the game, including tilesets and whatever miscellaneous tools
-come to mind

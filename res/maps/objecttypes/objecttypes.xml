@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<objecttypes>
- <objecttype name="event" color="#2600ff"/>
- <objecttype name="teleport" color="#ec7a07"/>
- <objecttype name="z-teleport" color="#00fbff"/>
- <objecttype name="trigger" color="#f3f300"/>
- <objecttype name="object" color="#ff00dd"/>
- <objecttype name="point" color="#fa0000"/>
-</objecttypes>

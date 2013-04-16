@@ -18,7 +18,7 @@ import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.maps.CustomEventMDO;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
+import com.badlogic.gdx.maps.MapObject;
 
 /**
  * A wall that opens.
@@ -36,12 +36,12 @@ public class EventChest extends CustomEvent {
 	protected FacesAnimation openAppearance;
 	public boolean open;
 
-	public EventChest(TiledObject object, Level parent) {
+	public EventChest(MapObject object, Level parent) {
 		super(RGlobal.data.getEntryFor(ID, CustomEventMDO.class), object, parent);
 		open = false;
 		openAppearance = new OneDir(RGlobal.data.getEntryFor(
 				KEY_ANIM_OPEN, AnimationMDO.class), this);
-		String sceneKey = object.properties.get(PROPERTY_SCENE);
+		String sceneKey = getProperty(PROPERTY_SCENE);
 		if (sceneKey == null) {
 			RGlobal.reporter.warn("Treasure chest with no scene: " + this);
 		} else {

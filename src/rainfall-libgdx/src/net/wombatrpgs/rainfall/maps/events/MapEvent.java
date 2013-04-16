@@ -8,13 +8,14 @@ package net.wombatrpgs.rainfall.maps.events;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.PreRenderable;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfall.maps.MapObject;
+import net.wombatrpgs.rainfall.maps.MapThing;
 import net.wombatrpgs.rainfall.maps.PositionSetable;
 import net.wombatrpgs.rainfall.maps.layers.EventLayer;
 import net.wombatrpgs.rainfall.physics.CollisionResult;
@@ -27,7 +28,7 @@ import net.wombatrpgs.rainfallschema.maps.data.Direction;
  * teleports and other fun stuff. Revised as of 2012-01-30 to be anything that
  * exists on a Tiled layer, even if it wasn't created in Tiled itself.
  */
-public abstract class MapEvent extends MapObject implements PositionSetable,
+public abstract class MapEvent extends MapThing implements PositionSetable,
 															Comparable<MapEvent>,
 															PreRenderable {
 	
@@ -46,7 +47,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	protected static final char SEPERATOR_CHAR = ';';
 	
 	/** Our patron object on the tiled map */
-	protected TiledObject object;
+	protected MapObject object;
 	
 	/** Will this event ever move? May be deprecated */
 	protected boolean mobile;
@@ -101,7 +102,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 * @param	mobile			True if this object will be moving, else false
 	 * @param	checkCollisions	True if collision detection should be enabled
 	 */
-	protected MapEvent(Level parent, TiledObject object, float x, float y, 
+	protected MapEvent(Level parent, MapObject object, float x, float y, 
 			boolean mobile, boolean checkCollisions) {
 		super(parent);
 		zeroCoords();
@@ -115,12 +116,12 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 		this.commandHidden = false;
 		this.switchHidden = false;
 		if (object != null) {
-			this.commandHidden = object.properties.get(PROPERTY_HIDDEN) != null;
-			this.showSwitch = object.properties.get(PROPERTY_SWITCH);
+			this.commandHidden = getProperty(PROPERTY_HIDDEN) != null;
+			this.showSwitch = getProperty(PROPERTY_SWITCH);
 			if (showSwitch != null) {
 				this.switchHidden = !RGlobal.hero.isSet(showSwitch);
 			}
-			this.hideSwitch = object.properties.get(PROPERTY_HIDESWITCH);
+			this.hideSwitch = getProperty(PROPERTY_HIDESWITCH);
 			if (hideSwitch != null) {
 				this.switchHidden = switchHidden || RGlobal.hero.isSet(hideSwitch);
 			}
@@ -153,11 +154,11 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 * @param	mobile			True if this object will be moving, false otherwise
 	 * @param	checkCollision	True if this event should check for collisions
 	 */
-	public MapEvent(Level parent, TiledObject object, boolean mobile, boolean checkCollisions) {
+	public MapEvent(Level parent, MapObject object, boolean mobile, boolean checkCollisions) {
 		this(	parent, 
 				object,
-				object.x, 
-				parent.getHeight()*parent.getTileHeight()-object.y,
+				extractX(parent, object), 
+				extractY(parent, object),
 				mobile,
 				checkCollisions);
 	}
@@ -180,6 +181,11 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	
 	/** @return Z-depth of this object according to its parent */
 	public int getZ() { return getLevel().getZ(this); }
+	
+	public String getProperty(String key) {
+		Object val = object.getProperties().get(key);
+		return (val == null) ? null : val.toString();
+	}
 	
 	/** @return The x-coord of this object, in tiles */
 	public int getTileX() { return Math.round((float) getX() / 
@@ -342,7 +348,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#vitalUpdate(float)
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#vitalUpdate(float)
 	 */
 	@Override
 	public void vitalUpdate(float elapsed) {
@@ -358,7 +364,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	/**
 	 * This version kills itself unless it was present on the map in the first
 	 * place.
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#reset()
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#reset()
 	 */
 	@Override
 	public void reset() {
@@ -369,10 +375,10 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 				RGlobal.reporter.warn("Strange ordering of remove events... " + this);
 			}
 		} else {
-			setX(object.x);
-			setY(parent.getHeight()*parent.getTileHeight()-object.y);
+			setX(extractX(parent, object));
+			setY(extractY(parent, object));
 			// ha! I told you storing this would come in handy!
-			getLevel().changeZ(this, Float.valueOf(object.properties.get(PROPERTY_Z))+.5f);
+			getLevel().changeZ(this, Float.valueOf(getProperty(PROPERTY_Z))+.5f);
 			falling = false;
 			fallTime = 0;
 			holeX = 0;
@@ -381,14 +387,14 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#onAddedToMap
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#onAddedToMap
 	 * (net.wombatrpgs.rainfall.maps.Level)
 	 */
 	@Override
 	public void onAddedToMap(Level map) {
 		super.onAddedToMap(map);
 		if (object != null) {
-			object.properties.put(PROPERTY_Z, String.valueOf(map.getZ(this))); // trust me
+			object.getProperties().put(PROPERTY_Z, String.valueOf(map.getZ(this))); // trust me
 			// (but really it's a hack so we can restore when we reset)
 		}
 		falling = false;
@@ -398,7 +404,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 	
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#render
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#render
 	 * (com.badlogic.gdx.graphics.OrthographicCamera)
 	 */
 	@Override
@@ -454,7 +460,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 */
 	public String getName() {
 		if (object != null) {
-			return object.properties.get(PROPERTY_NAME);
+			return getProperty(PROPERTY_NAME);
 		} else {
 			return "(Anonymous)";
 		}
@@ -468,7 +474,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 */
 	public boolean inGroup(String groupName) {
 		if (object == null) return false;
-		String groups = object.properties.get(PROPERTY_GROUP);
+		String groups = getProperty(PROPERTY_GROUP);
 		if (groups == null) return false;
 		while (groups.indexOf(SEPERATOR_CHAR) != -1) {
 			String group = groups.substring(0, groups.indexOf(SEPERATOR_CHAR));
@@ -479,7 +485,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#renderLocal
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#renderLocal
 	 * (com.badlogic.gdx.graphics.OrthographicCamera,
 	 * com.badlogic.gdx.graphics.g2d.TextureRegion, int, int, int)
 	 */
@@ -491,7 +497,7 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	
 	/**
 	 * Uses this event's x/y to render locally.
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#renderLocal
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#renderLocal
 	 * (com.badlogic.gdx.graphics.OrthographicCamera, 
 	 * com.badlogic.gdx.graphics.g2d.TextureRegion, int, int)
 	 */
@@ -719,6 +725,56 @@ public abstract class MapEvent extends MapObject implements PositionSetable,
 	 */
 	public void onSupportPulled() {
 		RGlobal.reporter.warn("Pulled out support for an unsuspecting event: " + this);
+	}
+	
+	/**
+	 * Returns the x-coord of a source map object converted to our coords.
+	 * @param 	object			The source map object
+	 * @return 					The x-coord of the source map object
+	 */
+	protected static int extractX(Level parent, MapObject object) {
+		return (Integer) object.getProperties().get("x");
+	}
+	
+	/**
+	 * Returns the y-coord of a source map object converted to our coords.
+	 * @param	parent			The parent level
+	 * @param 	object			The source map object
+	 * @return 					The y-coord of the source map object
+	 */
+	protected static int extractY(Level parent, MapObject object) {
+		return parent.getHeight()*parent.getTileHeight() -
+				(Integer) object.getProperties().get("y");
+	}
+	
+	/**
+	 * Does some casting magic to find object width.
+	 * @param 	parent			The parent level
+	 * @param 	object			The object to extract from
+	 * @return					The width of the object.
+	 */
+	protected static float extractWidth(Level parent, MapObject object) {
+		return ((RectangleMapObject) object).getRectangle().width;
+	}
+	
+	/**
+	 * Does some casting magic to find object width.
+	 * @param 	parent			The parent level
+	 * @param 	object			The object to extract from
+	 * @return					The width of the object.
+	 */
+	protected static float extractHeight(Level parent, MapObject object) {
+		return ((RectangleMapObject) object).getRectangle().height;
+	}
+	
+	/**
+	 * Because string casts shouldn't be floating around everywhere.
+	 * @param 	object			The object you need the property of
+	 * @param 	key				The key to extract from the object properties
+	 * @return
+	 */
+	protected static String getProperty(MapObject object, String key) {
+		return (String) object.getProperties().get(key);
 	}
 	
 	/**

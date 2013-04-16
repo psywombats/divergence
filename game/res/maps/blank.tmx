@@ -1,142 +1,52 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><map height="15" orientation="orthogonal" tileheight="32" tilewidth="32" version="1.0" width="20"><properties><property name="blended tiles" value=""/></properties>
- <tileset firstgid="1" name="lower" tileheight="32" tilewidth="32">
-  <image height="160" source="tilesets/test/lower.PNG" trans="b5a5d5" width="192"/>
-  <tile id="21">
-   <properties>
-    <property name="x" value=""/>
-   </properties>
-  </tile>
-  <tile id="22">
-   <properties>
-    <property name="x" value=""/>
-   </properties>
-  </tile>
-  <tile id="23">
-   <properties>
-    <property name="x" value=""/>
-   </properties>
-  </tile>
-  <tile id="27">
-   <properties>
-    <property name="x" value=""/>
-   </properties>
-  </tile>
-  <tile id="28">
-   <properties>
-    <property name="x" value=""/>
-   </properties>
-  </tile>
-  <tile id="29">
-   <properties>
-    <property name="x" value=""/>
-   </properties>
-  </tile>
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="blended tiles" value=""/>
+ </properties>
+ <tileset firstgid="1" name="black" tilewidth="32" tileheight="32">
+  <image source="tilesets/system/black.png" width="32" height="32"/>
  </tileset>
- <tileset firstgid="31" name="upper" tileheight="32" tilewidth="32">
-  <image height="128" source="tilesets/test/upper.PNG" trans="b5a5d5" width="256"/>
-  <tile id="3">
-   <properties>
-    <property name="impassable" value=""/>
-   </properties>
-  </tile>
-  <tile id="11">
-   <properties>
-    <property name="x" value=""/>
-   </properties>
-  </tile>
-  <tile id="12">
-   <properties>
-    <property name="x" value=""/>
-   </properties>
-  </tile>
-  <tile id="18">
-   <properties>
-    <property name="impassable" value=""/>
-   </properties>
-  </tile>
-  <tile id="19">
-   <properties>
-    <property name="passable" value=""/>
-   </properties>
-  </tile>
-  <tile id="20">
-   <properties>
-    <property name="impassable" value=""/>
-   </properties>
-  </tile>
-  <tile id="26">
-   <properties>
-    <property name="impassable" value=""/>
-   </properties>
-  </tile>
+ <tileset firstgid="2" name="title" tilewidth="32" tileheight="32">
+  <image source="tilesets/test/title.png" width="640" height="480"/>
  </tileset>
- <tileset firstgid="63" name="wood" tileheight="32" tilewidth="32">
-  <image height="224" source="tilesets/test/wood2.PNG" trans="8080ff" width="320"/>
-  <tile id="60">
-   <properties>
-    <property name="top" value=""/>
-   </properties>
-  </tile>
-  <tile id="61">
-   <properties>
-    <property name="top" value=""/>
-   </properties>
-  </tile>
-  <tile id="62">
-   <properties>
-    <property name="top" value=""/>
-   </properties>
-  </tile>
-  <tile id="63">
-   <properties>
-    <property name="hole" value=""/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="133" name="black" tileheight="32" tilewidth="32">
-  <image height="32" source="tilesets/system/black.png" width="32"/>
- </tileset>
- <tileset firstgid="134" name="title" tileheight="32" tilewidth="32">
-  <image height="480" source="tilesets/test/title.png" width="640"/>
- </tileset>
- <layer height="15" name="Tile Layer 1" width="20">
+ <layer name="Tile Layer 1" width="20" height="15">
   <properties>
    <property name="layer" value="3"/>
    <property name="z" value="0"/>
-  <property name="layer" value="3"/></properties>
-  <data compression="zlib" encoding="base64">
-   eJzzYmBg8GKgHHghYWoBapo1CkbBKCAMqJ1/qVUmwMwBAC1YA3k=
-  </data>
- </layer>
- <layer height="15" name="Tile Layer 2" width="20">
-  <properties>
-   <property name="layer" value="2"/>
-   <property name="z" value=".5"/>
-  <property name="layer" value="2"/></properties>
-  <data compression="zlib" encoding="base64">
+  </properties>
+  <data encoding="base64" compression="zlib">
    eJxjYBgFo2AUjIKhAQAEsAAB
   </data>
  </layer>
- <objectgroup height="15" name="Object Layer 1" width="20">
+ <layer name="Tile Layer 2" width="20" height="15">
+  <properties>
+   <property name="layer" value="2"/>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIKhAQAEsAAB
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" width="20" height="15">
   <properties>
    <property name="layer" value="1"/>
    <property name="ogga" value="ALPHONSEO"/>
    <property name="z" value=".5"/>
-  <property name="layer" value="1"/></properties>
-  <object height="32" name="Hero" type="event" width="32" x="320" y="208">
+  </properties>
+  <object name="Hero" type="event" x="320" y="208" width="32" height="32">
    <properties>
     <property name="key" value="hero_default"/>
     <property name="name" value="hero"/>
    </properties>
   </object>
  </objectgroup>
- <layer height="15" name="Tile Layer 3" width="20">
+ <layer name="Tile Layer 3" width="20" height="15">
   <properties>
    <property name="layer" value="0"/>
    <property name="z" value="1"/>
-  <property name="layer" value="0"/></properties>
-  <data compression="zlib" encoding="base64">
-   eJwNwwOUEAYAANCrllbLxrJt27ZtLm/ZuFx32b67bNu2seza1pCx/nv/jwkICAh0rOMc7wQnOsnJTnGqQQY7zenOcKaznO0c5zrP+S5woYtc7BKXuszlrjDEUMNc6SpXu8a1rnO9G9zoJje7xa1uc7s73Okud7vHve5zvwc86CEPe8SjHvO4JzzpKU97xrOe87wXvOglL3vFq17zuje86S1ve8ffves97/vAhz7ysU986jOf+8KXvvK1f/inf/nGv/3Hf/3Pt77zvR/86Cc/+8WvfvN/A8JheCP4gxGNZGSjGNUfjWZ0fzKGMY1lbOMY13jGN4EJTWRik5jUZCb3Z1OY0lSmNo1pTWd6M5jRTGY2i1nNZnZzmNNc5jaPec1nfgtY0EIWtohFLWZxS1jSUpa2jGUtZ3krWNFKVraKVa1mdWtY01rWto51rWd9G9jQRja2iU1tZnNb2NJWtraNbW1nezvY0U52totd/cVudreHPe1lb/v4q7/Z1372d4ADHeRghzjUYQ53hCMd5WjHGOhYxzneCU50kpOd4lSDDHaa053hTGc52znOdZ7zXeBCF7nYJS51mctdYYihhrnSVa52jWtd53o3uNHvFKaa7Q==
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJwNwwVwEAQAAMCRg9FjGw0bg8HYRoiElEhIp3QLKCCC0h2i0kh3p4rS3SUtKA2SSiPdDX/3Hz8gICCBCU1kYgNNYlKDTGZyU5jSVKY2jcGmNcRQw0xnejOY0UxmNotZzWa4EWY30hzmNMpc5jbaPMYYa5x5zWd+C/iBBf3QQha2iEX9yGIWt4QlLeXHlvYTy1jWcpb3UytY0UpWtopVrWZ1a1jTWtb2M+tY13rWt4ENbWRjm9jUZja3hZ/b0la29gu/tI1tbedXtvdrO9jRb/zWTna2i13tZnd72NNe9raPfe1nfwc40O8c5Pf+4I8OdohDHeZwRzjSUf7kaMc41nGOd4ITneRkpzjVaU53hjOd5WznONd5zneBC13kz/7iry72N393iUtd5nJXuNJVrnaNa13neje40U1udotb3eZ2d7jTXf7hbve4133u94AH/dNDHvYv//aIRz3mcU940lOe9oz/eNZznveCF73kv/7nZa941Wte94Y3veX/3vaOd73nfR/40Ec+9olPfeZzX/jSV772jW99Z0A8jG8CE5rIxAaaxKQGmczkpjClqUxtGoNNa4ihhpnO9GYwo5nMbBazms1wI8xupDnMaZS5zG20eYwx1jjfA2t3g7k=
   </data>
  </layer>
 </map>

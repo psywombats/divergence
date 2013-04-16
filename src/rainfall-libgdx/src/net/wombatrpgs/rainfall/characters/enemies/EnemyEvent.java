@@ -7,7 +7,7 @@
 package net.wombatrpgs.rainfall.characters.enemies;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
+import com.badlogic.gdx.maps.MapObject;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.characters.ai.Intelligence;
@@ -46,11 +46,9 @@ public class EnemyEvent extends CharacterEvent {
 	 * @param 	mdo				The MDO with data to create from
 	 * @param	object			The object on the map that made us
 	 * @param 	parent			The parent map of the object
-	 * @param	x				The initial x-coord (in tiles)
-	 * @param	y				The intitila y-coord (in tiles)
 	 */
-	public EnemyEvent(EnemyEventMDO mdo, TiledObject object, Level parent, int x, int y) {
-		super(mdo, object, parent, x, y);
+	public EnemyEvent(EnemyEventMDO mdo, MapObject object, Level parent) {
+		super(mdo, object, parent);
 		this.mdo = mdo;
 		againstWall = 0;
 		IntelligenceMDO aiMDO = RGlobal.data.getEntryFor(
@@ -144,7 +142,7 @@ public class EnemyEvent extends CharacterEvent {
 		if (object == null) {
 			super.reset();
 		} else {
-			if (object.properties.get(PROPERTY_RESPAWNS) != null) {
+			if (getProperty(PROPERTY_RESPAWNS) != null) {
 				super.reset();
 			} else {
 				if (!dead) super.reset();

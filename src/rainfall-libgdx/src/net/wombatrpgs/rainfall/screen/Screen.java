@@ -87,7 +87,6 @@ public abstract class Screen implements CommandListener,
 		tint = new Color(0, 0, 0, 1);
 		shapes = new ShapeRenderer();
 		cam = new TrackerCam(RGlobal.window.width, RGlobal.window.height);
-		cam.init();
 	}
 	
 	/**
@@ -195,8 +194,8 @@ public abstract class Screen implements CommandListener,
 		Gdx.gl.glClearColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		shapes.setColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
-		shapes.begin(ShapeType.FilledRectangle);
-		shapes.filledRect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		shapes.begin(ShapeType.Filled);
+		shapes.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		shapes.end();
 		canvas.render(cam);
 		for (Picture pic : pictures) {

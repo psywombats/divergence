@@ -10,7 +10,7 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.graphics.Disposable;
-import net.wombatrpgs.rainfall.maps.MapObject;
+import net.wombatrpgs.rainfall.maps.MapThing;
 import net.wombatrpgs.rainfallschema.audio.data.AudioMDO;
 
 /**
@@ -19,10 +19,10 @@ import net.wombatrpgs.rainfallschema.audio.data.AudioMDO;
  * write the class. AAND yep it just turned abstract. Shouldn't write these so
  * fast. Actually now it's a factory for libgdx sounds.
  */
-public abstract class AudioObject extends MapObject implements Disposable {
+public abstract class AudioObject extends MapThing implements Disposable {
 	
 	protected AudioMDO mdo;
-	protected MapObject parent;
+	protected MapThing parent;
 	protected String filename;
 	
 	/**
@@ -30,14 +30,14 @@ public abstract class AudioObject extends MapObject implements Disposable {
 	 * @param 	mdo				The data to create the sound from
 	 * @param	object			The map object that will own us
 	 */
-	public AudioObject(AudioMDO mdo, MapObject parent) {
+	public AudioObject(AudioMDO mdo, MapThing parent) {
 		this.mdo = mdo;
 		this.parent = parent;
 		this.filename = Constants.AUDIO_DIR + mdo.file;
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#queueRequiredAssets
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -47,7 +47,7 @@ public abstract class AudioObject extends MapObject implements Disposable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#postProcessing
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override

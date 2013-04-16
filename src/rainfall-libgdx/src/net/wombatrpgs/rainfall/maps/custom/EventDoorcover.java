@@ -7,7 +7,7 @@
 package net.wombatrpgs.rainfall.maps.custom;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
+import com.badlogic.gdx.maps.MapObject;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.FacesAnimation;
@@ -32,7 +32,7 @@ public class EventDoorcover extends CustomEvent {
 	protected FacesAnimation closedAppearance;
 	protected boolean open;
 	
-	public EventDoorcover(TiledObject object, Level parent) {
+	public EventDoorcover(MapObject object, Level parent) {
 		super(RGlobal.data.getEntryFor(ID, CustomEventMDO.class), object, parent);
 		final EventDoorcover door = this;
 		animClose = new AnimationPlayer(RGlobal.data.getEntryFor(

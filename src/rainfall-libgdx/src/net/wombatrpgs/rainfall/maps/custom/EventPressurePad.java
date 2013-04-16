@@ -18,7 +18,7 @@ import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.maps.CustomEventMDO;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
+import com.badlogic.gdx.maps.MapObject;
 
 /**
  * Turns on if something is on top of it.
@@ -35,7 +35,7 @@ public class EventPressurePad extends CustomEvent {
 	public boolean pressed;
 	public boolean setThisTurn;
 
-	public EventPressurePad(TiledObject object, Level parent) {
+	public EventPressurePad(MapObject object, Level parent) {
 		super(RGlobal.data.getEntryFor(ID, CustomEventMDO.class), object, parent);
 		animPressed = new OneDir(RGlobal.data.getEntryFor(
 				KEY_ANIM_DEPRESSED, AnimationMDO.class), this);

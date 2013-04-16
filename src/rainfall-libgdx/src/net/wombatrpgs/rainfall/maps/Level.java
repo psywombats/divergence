@@ -12,20 +12,19 @@ import java.util.List;
 import java.util.Map;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.TileMapRendererLoader.TileMapParameter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.tiled.TileMapRenderer;
-import com.badlogic.gdx.graphics.g2d.tiled.TiledMap;
-import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
-import com.badlogic.gdx.graphics.g2d.tiled.TiledObjectGroup;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Graphic;
 import net.wombatrpgs.rainfall.io.audio.MusicObject;
 import net.wombatrpgs.rainfall.maps.custom.CustomEvent;
-import net.wombatrpgs.rainfall.maps.events.EventFactory;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.maps.layers.GridLayer;
 import net.wombatrpgs.rainfall.maps.layers.Layer;
@@ -50,10 +49,11 @@ public class Level implements ScreenShowable {
 	
 	/** How many pixels are occupied by each point of z-depth */
 	public static final int PIXELS_PER_Y = 48; // in pixels
-	/** libgdx bullshit */
-	public static final int TILES_TO_CULL = 8; // in... I don't know
 	/** Max number of tiles an event can have in height, in tiles */
 	public static final int MAX_EVENT_HEIGHT = 3;
+	
+	protected static final String PROPERTY_WIDTH = "width";
+	protected static final String PROPERTY_HEIGHT = "height";
 	
 	public static final String PROPERTY_MINIMAP_GRAPHIC = "minimap";
 	public static final String PROPERTY_MINIMAP_X1 = "minimap_x1";
@@ -62,8 +62,11 @@ public class Level implements ScreenShowable {
 	public static final String PROPERTY_MINIMAP_Y2 = "minimap_y2";
 	public static final String PROPERTY_BGM = "bgm";
 	
+	public static final int TILE_WIDTH = 32;
+	public static final int TILE_HEIGHT = 32;
+	
 	/** The thing we're going to use to render the level */
-	protected TileMapRenderer renderer;
+	protected OrthogonalTiledMapRenderer renderer;
 	/** The underlying map for this level */
 	protected TiledMap map;
 
@@ -79,14 +82,14 @@ public class Level implements ScreenShowable {
 	/** List of all map events in the level, (these are all in layers) */
 	protected List<MapEvent> events;
 	/** List of all map object in the level (some are in layers) */
-	protected List<MapObject> objects;
+	protected List<MapThing> objects;
 	/** All objects that have registered a unique-per-map id */
 	protected Map<String, CustomEvent> customObjects;
 	
 	/** List of all map events to remove next loop */
 	protected List<MapEvent> removalEvents;
 	/** List of all map objects to remove next loop */
-	protected List<MapObject> removalObjects;
+	protected List<MapThing> removalObjects;
 	
 	/** Our minimap graphic */
 	protected Graphic minimap;
@@ -112,9 +115,9 @@ public class Level implements ScreenShowable {
 		tileLayers = new ArrayList<GridLayer>();
 		layerMap = new HashMap<MapEvent, Integer>();
 		events = new ArrayList<MapEvent>();
-		objects = new ArrayList<MapObject>();
+		objects = new ArrayList<MapThing>();
 		customObjects = new HashMap<String, CustomEvent>();
-		removalObjects = new ArrayList<MapObject>();
+		removalObjects = new ArrayList<MapThing>();
 		removalEvents = new ArrayList<MapEvent>();
 		
 		paused = false;
@@ -125,31 +128,34 @@ public class Level implements ScreenShowable {
 	public SpriteBatch getBatch() { return RGlobal.screens.peek().getBatch(); }
 	
 	/** @return The width of this map, in pixels */
-	public int getWidthPixels() { return map.width * map.tileWidth; }
+	public int getWidthPixels() { return getWidth() * getTileWidth(); }
 	
 	/** @return The height of this map, in pixels */
-	public int getHeightPixels() { return map.height * map.tileHeight; }
+	public int getHeightPixels() { return getHeight() * getTileHeight(); }
 	
 	/** @return The width of this map, in tiles */
-	public int getWidth() { return map.width; }
+	public int getWidth() { return (Integer) map.getProperties().get(PROPERTY_WIDTH); }
 	
 	/** @return The height of this map, in tiles */
-	public int getHeight() { return map.height; }
+	public int getHeight() { return (Integer) map.getProperties().get(PROPERTY_HEIGHT); }
 	
 	/** @return The width of each tile on this map, in pixels */
-	public int getTileWidth() { return map.tileWidth; }
+	public int getTileWidth() { return TILE_WIDTH; }
 	
 	/** @return The height of each tile on this map, in pixels */
-	public int getTileHeight() { return map.tileHeight; }
+	public int getTileHeight() { return TILE_HEIGHT; }
 	
 	/** @return The class used to render this level */
-	public TileMapRenderer getRenderer() { return renderer; }
+	public OrthogonalTiledMapRenderer getRenderer() { return renderer; }
 	
 	/** @return The underlying TMX map */
 	public TiledMap getMap() { return map; }
 	
 	/** @param key The key to index into map properties @return The value */
-	public String getProperty(String key) { return map.properties.get(key); }
+	public String getProperty(String key) { 
+		Object val = map.getProperties().get(key);
+		return (val == null) ? null : val.toString();
+	}
 	
 	/** @return All tile layers on this map */
 	public List<GridLayer> getGridLayers() { return tileLayers; }
@@ -181,7 +187,7 @@ public class Level implements ScreenShowable {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		for (int z = 0; z < layers.size() + MAX_EVENT_HEIGHT; z++) {
+		for (float z = 0; z < layers.size() + MAX_EVENT_HEIGHT; z += .5) {
 			for (Layer layer : layers) {
 				layer.render(camera, z);
 			}
@@ -194,10 +200,8 @@ public class Level implements ScreenShowable {
 	 * first, but this should happen in the constructor.
 	 */
 	public void queueRequiredAssets(AssetManager manager) {
-		TileMapParameter tileMapParameter = new TileMapParameter(
-				Constants.MAPS_DIR, TILES_TO_CULL, TILES_TO_CULL);
 		RGlobal.reporter.inform("Loading map " + mapPath);
-		manager.load(mapPath, TileMapRenderer.class, tileMapParameter);
+		manager.load(mapPath, TiledMap.class);
 		if (minimap != null) {
 			minimap.queueRequiredAssets(manager);
 		}
@@ -224,53 +228,27 @@ public class Level implements ScreenShowable {
 			}
 			return;
 		}
-		renderer = RGlobal.assetManager.get(mapPath, TileMapRenderer.class);
-		map = renderer.getMap();
-		
-		// each object group represents a new layer
-		for (int layerIndex = 0; layerIndex <= map.objectGroups.size(); layerIndex++) {
-			// create a new layer to add things to
-			TiledObjectGroup group;
-			if (layerIndex < map.objectGroups.size()) {
-				group = map.objectGroups.get(layerIndex);
+		map = RGlobal.assetManager.get(mapPath, TiledMap.class);
+		renderer = new OrthogonalTiledMapRenderer(map, 1f/ (float)TILE_WIDTH);
+		int index = 0;
+		for (TiledMapTileSet set : map.getTileSets()) {
+			System.out.println(set.getName());
+		}
+		for (MapLayer layer : map.getLayers()) {
+			// screw you libgdx this should /not/ be standard
+			Layer created;
+			if (TiledMapTileLayer.class.isAssignableFrom(layer.getClass())) {
+				GridLayer grid = new GridLayer(this, (TiledMapTileLayer) layer);
+				tileLayers.add(grid);
+				created = grid;
 			} else {
-				group = new TiledObjectGroup();
-				group.properties.put(Layer.PROPERTY_Z, String.valueOf((layerIndex+.5)));
+				EventLayer events = new EventLayer(this, layer, index);
+				index += 1;
+				eventLayers.add(events);
+				created = events;
 			}
-			eventLayers.add(layerIndex, new EventLayer(this, group));
+			layers.add(created);
 		}
-		
-		for (int i = 0; i < map.objectGroups.size(); i++) {
-			TiledObjectGroup group = map.objectGroups.get(i);
-			// load up all ingame objects from the database
-			for (TiledObject object : group.objects) {
-				//addEvent(MapEvent.createEvent(this, object), layerIndex);
-				EventFactory.handleData(this, object, i);
-			}
-		}
-		
-		for (int i = 0; i < map.layers.size(); i++) {
-			tileLayers.add(i, new GridLayer(this, map.layers.get(i), i));
-		}
-		
-		// sort the layers by their original index
-		int atTile = 0;			// tile layer we're adding
-		int atObject = 0;		// object layer we're adding
-		int target = map.layers.size() + map.objectGroups.size();
-		int added = 0;			// total layers added
-		while (added < target) {
-			if (atTile < map.layers.size() && 
-					Integer.valueOf(target-added-1).toString().equals(
-					map.layers.get(atTile).properties.get("layer"))) {
-				layers.add(tileLayers.get(atTile));
-				atTile++;
-			} else {
-				layers.add(eventLayers.get(atObject));
-				atObject++;
-			}
-			added++;
-		}
-		
 		for (Layer layer : layers) {
 			layer.finalizePassability();
 		}
@@ -284,6 +262,9 @@ public class Level implements ScreenShowable {
 			bgm = new MusicObject(RGlobal.data.getEntryFor(key, MusicMDO.class));
 			bgm.queueRequiredAssets(manager);
 		}
+		for (EventLayer layer : eventLayers) {
+			layer.load();
+		}
 		for (Layer layer : layers) {
 			layer.queueRequiredAssets(manager);
 		}
@@ -295,7 +276,7 @@ public class Level implements ScreenShowable {
 	@Override
 	public void update(float elapsed) {
 		updating = true;
-		for (MapObject toRemove : removalObjects) {
+		for (MapThing toRemove : removalObjects) {
 			toRemove.onRemovedFromMap(this);
 			internalRemoveObject(toRemove);
 		}
@@ -305,7 +286,7 @@ public class Level implements ScreenShowable {
 		removalObjects.clear();
 		removalEvents.clear();
 		for (int i = 0; i < objects.size(); i++) {
-			MapObject object = objects.get(i);
+			MapThing object = objects.get(i);
 			if (!paused || object.getPauseLevel() != PauseLevel.SURRENDERS_EASILY) {
 				object.update(elapsed);
 				if (reseting) break;
@@ -440,7 +421,7 @@ public class Level implements ScreenShowable {
 	 * not be used for events, at least not as a primary call.
 	 * @param 	toRemove		The event to remove
 	 */
-	public void removeObject(MapObject toRemove) {
+	public void removeObject(MapThing toRemove) {
 		removalObjects.add(toRemove);
 	}
 	
@@ -453,7 +434,7 @@ public class Level implements ScreenShowable {
 	 * @param	z				The z-depth of the object (layer index)
 	 */
 	public void addEvent(MapEvent newEvent, int tileX, int tileY, int z) {
-		addEventAbsolute(newEvent, tileX * map.tileWidth, tileY * map.tileHeight, z);
+		addEventAbsolute(newEvent, tileX * getTileWidth(), tileY * getTileHeight(), z);
 	}
 	
 	/**
@@ -522,7 +503,7 @@ public class Level implements ScreenShowable {
 	 * @param 	object			The object to get the coord of
 	 * @return					The z-coord of that object
 	 */
-	public int getZ(MapObject object) {
+	public int getZ(MapThing object) {
 		return layerMap.get(object);
 	}
 	
@@ -561,7 +542,7 @@ public class Level implements ScreenShowable {
 	 * add non-events to this map.
 	 * @param 	object			The new object to add
 	 */
-	public void addObject(MapObject object) {
+	public void addObject(MapThing object) {
 		if (objects.contains(object)) {
 			if (removalEvents.contains(object)) {
 				internalRemoveEvent((MapEvent) object);
@@ -613,7 +594,7 @@ public class Level implements ScreenShowable {
 	 */
 	public void reset() {
 		reseting = true;
-		for (MapObject object : objects) {
+		for (MapThing object : objects) {
 			object.reset();
 		}
 	}
@@ -622,7 +603,7 @@ public class Level implements ScreenShowable {
 	 * Called when hero goes somewhere else or map otherwise ceases to be.
 	 */
 	public void onFocusLost() {
-		for (MapObject object : objects) {
+		for (MapThing object : objects) {
 			object.onMapFocusLost(this);
 		}
 	}
@@ -635,14 +616,14 @@ public class Level implements ScreenShowable {
 	 * @param 	object			The object to check if exists
 	 * @return					True if that object will be on the map
 	 */
-	public boolean contains(MapObject object) {
+	public boolean contains(MapThing object) {
 		for (MapEvent victim : removalEvents) {
 			if (object == victim) return false;
 		}
-		for (MapObject victim : removalObjects) {
+		for (MapThing victim : removalObjects) {
 			if (object == victim) return false;
 		}
-		for (MapObject other : objects) {
+		for (MapThing other : objects) {
 			if (object == other) return true;
 		}
 		return false;
@@ -686,7 +667,7 @@ public class Level implements ScreenShowable {
 	 * Called when this object is removed from the map.
 	 * @param 	toRemove		The object to remove
 	 */
-	protected void internalRemoveObject(MapObject toRemove) {
+	protected void internalRemoveObject(MapThing toRemove) {
 		toRemove.onRemovedFromMap(this);
 		objects.remove(toRemove);
 	}

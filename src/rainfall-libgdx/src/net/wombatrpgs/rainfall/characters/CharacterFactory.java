@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.rainfall.characters;
 
-import com.badlogic.gdx.graphics.g2d.tiled.TiledObject;
+import com.badlogic.gdx.maps.MapObject;
 
 import net.wombatrpgs.rainfall.characters.enemies.EnemyEvent;
 import net.wombatrpgs.rainfall.maps.Level;
@@ -30,21 +30,21 @@ public class CharacterFactory {
 	 * @return
 	 */
 	public static CharacterEvent create(CharacterEventMDO mdo, 
-			TiledObject object, Level parent, int x, int y) {
+			MapObject object, Level parent) {
 		// it may be possible to generalize this
 		if (HeroMDO.class.isAssignableFrom(mdo.getClass())) {
-			return new Hero((HeroMDO) mdo, object, parent, x, y);
+			return new Hero((HeroMDO) mdo, object, parent);
 		} else if (EnemyEventMDO.class.isAssignableFrom(mdo.getClass())) {
 			if (mdo.key.equals("enemy_venustron")) {
 				//return new EnemyVenustron((EnemyEventMDO) mdo, object, parent, x, y);
 				return null;
 			} else {
-				return new EnemyEvent((EnemyEventMDO) mdo, object, parent, x, y);
+				return new EnemyEvent((EnemyEventMDO) mdo, object, parent);
 			}
 			
 		} else {
 			//RGlobal.reporter.warn("Unknown subclass of chara MDO: " + mdo);
-			return new CharacterEvent(mdo, object, parent, x ,y);
+			return new CharacterEvent(mdo, object, parent);
 		}
 	}
 

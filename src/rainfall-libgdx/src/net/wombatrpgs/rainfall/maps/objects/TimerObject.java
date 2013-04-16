@@ -10,17 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.maps.MapObject;
+import net.wombatrpgs.rainfall.maps.MapThing;
 import net.wombatrpgs.rainfall.maps.PauseLevel;
 
 /**
  * A timer counts down to zero, then sends messages off to its listeners. It
  * updates in the context of a level that it's a part of.
  */
-public class TimerObject extends MapObject {
+public class TimerObject extends MapThing {
 	
 	protected List<TimerListener> listeners;
-	protected MapObject parent;
+	protected MapThing parent;
 	protected float timeRemaining; // in seconds
 	protected float lastTime; // in seconds
 	protected boolean running, completed;
@@ -33,7 +33,7 @@ public class TimerObject extends MapObject {
 	 * @param parent				The thing to jetison from once elapsed
 	 * @param listener				The single listener to notify when done
 	 */
-	public TimerObject(float remaining, MapObject parent, TimerListener listener) {
+	public TimerObject(float remaining, MapThing parent, TimerListener listener) {
 		this(remaining);
 		addListener(listener);
 		set(true);
@@ -64,7 +64,7 @@ public class TimerObject extends MapObject {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapObject#update(float)
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#update(float)
 	 */
 	@Override
 	public void update(float elapsed) {
