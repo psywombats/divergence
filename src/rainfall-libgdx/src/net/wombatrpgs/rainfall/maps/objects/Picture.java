@@ -185,6 +185,7 @@ public class Picture implements Comparable<Picture>,
 	 * @see net.wombatrpgs.rainfall.screen.ScreenShowable#ignoresTint()
 	 */
 	@Override
+	@Deprecated
 	public boolean ignoresTint() {
 		return ignoresTint;
 	}

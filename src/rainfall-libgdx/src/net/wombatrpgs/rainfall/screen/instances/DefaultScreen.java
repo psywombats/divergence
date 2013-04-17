@@ -68,8 +68,8 @@ public class DefaultScreen extends Screen {
 			break;
 		case INTENT_FULLSCREEN:
 			Gdx.graphics.setDisplayMode(
-					RGlobal.window.width, 
-					RGlobal.window.height, 
+					RGlobal.window.resWidth, 
+					RGlobal.window.resHeight, 
 					!Gdx.graphics.isFullscreen());
 			break;
 		default:

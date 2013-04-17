@@ -8,7 +8,6 @@ package net.wombatrpgs.rainfall.screen;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.core.Updateable;
-import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.Positionable;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -34,8 +33,8 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 	public TrackerCam(float viewportWidth, float viewportHeight) {
 		super(viewportWidth, viewportHeight);
 		setToOrtho(false, 
-				RGlobal.window.width / Level.TILE_WIDTH,
-				RGlobal.window.height / Level.TILE_HEIGHT);
+				RGlobal.window.width,
+				RGlobal.window.height);
 	}
 	
 	/**
@@ -43,11 +42,12 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 	 */
 	@Override
 	public void update(float elapsed) {
+		float ratioX = RGlobal.window.resWidth / RGlobal.window.width;
+		float ratioY = RGlobal.window.resHeight / RGlobal.window.height;
 		if (target != null) {
-			position.x = (float) Math.floor(target.getX()) / RGlobal.hero.getLevel().getTileWidth();
-			position.y = (float) Math.floor(target.getY()) / RGlobal.hero.getLevel().getTileHeight();
+			position.x = Math.round(target.getX()/ratioX)*ratioX;// * ratioX;
+			position.y = Math.round(target.getY()/ratioY)*ratioY;// * ratioY;
 		}
-		super.update();
 	}
 	
 	/** @param speed The speed at which this camera pans to its destination */

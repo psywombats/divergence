@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics.DisplayMode;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
@@ -133,11 +134,15 @@ public class RGlobal {
 		FileHandle handle = Gdx.files.internal("rainfall.cfg");
 		boolean fullscreen = handle.readString().indexOf("true") != -1;
 		Gdx.graphics.setDisplayMode(
-				RGlobal.window.width, 
-				RGlobal.window.height, 
+				RGlobal.window.resWidth,
+				RGlobal.window.resHeight, 
 				fullscreen);
+		// TODO: adjust for available resilutuons
+		for (DisplayMode disp : Gdx.graphics.getDisplayModes()) {
+			System.out.println("w, h: " + disp.width +" , " + disp.height);
+		}
 		Gdx.graphics.setTitle(RGlobal.window.windowName);
-		Gdx.graphics.setVSync(true);
+		//Gdx.graphics.setVSync(true);
 		Gdx.input.setInputProcessor(RGlobal.keymap);
 		
 		RGlobal.reporter.inform("Loading level assets");
