@@ -28,6 +28,7 @@ import net.wombatrpgs.rainfall.maps.LevelManager;
 import net.wombatrpgs.rainfall.scenes.SceneData;
 import net.wombatrpgs.rainfall.scenes.TeleportGlobal;
 import net.wombatrpgs.rainfall.screen.ScreenStack;
+import net.wombatrpgs.rainfall.screen.WindowSettings;
 import net.wombatrpgs.rainfall.screen.instances.DefaultScreen;
 import net.wombatrpgs.rainfall.ui.UISettings;
 import net.wombatrpgs.rainfallschema.settings.TeleportSettingsMDO;
@@ -62,7 +63,7 @@ public class RGlobal {
 	/** Are we done loading yet? */
 	public static boolean initialized = false;
 	/** Our current window settings */
-	public static WindowSettingsMDO window;
+	public static WindowSettings window;
 	/** Teleport settings, from database */
 	public static TeleportGlobal teleport;
 	
@@ -114,7 +115,8 @@ public class RGlobal {
 
 		// initialize everything that needed data
 		RGlobal.reporter.inform("Initializing data-dependant resources");
-		RGlobal.window = RGlobal.data.getEntryFor(Constants.WINDOW_KEY, WindowSettingsMDO.class);
+		RGlobal.window = new WindowSettings(
+				RGlobal.data.getEntryFor(Constants.WINDOW_KEY, WindowSettingsMDO.class));
 		RGlobal.ui = new UISettings(RGlobal.data.getEntryFor(
 				UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
 		RGlobal.teleport = new TeleportGlobal(RGlobal.data.getEntryFor(
@@ -134,14 +136,14 @@ public class RGlobal {
 		FileHandle handle = Gdx.files.internal("rainfall.cfg");
 		boolean fullscreen = handle.readString().indexOf("true") != -1;
 		Gdx.graphics.setDisplayMode(
-				RGlobal.window.resWidth,
-				RGlobal.window.resHeight, 
+				RGlobal.window.getResolutionWidth(),
+				RGlobal.window.getResolutionHeight(), 
 				fullscreen);
 		// TODO: adjust for available resilutuons
 		for (DisplayMode disp : Gdx.graphics.getDisplayModes()) {
 			System.out.println("w, h: " + disp.width +" , " + disp.height);
 		}
-		Gdx.graphics.setTitle(RGlobal.window.windowName);
+		Gdx.graphics.setTitle(RGlobal.window.getTitle());
 		//Gdx.graphics.setVSync(true);
 		Gdx.input.setInputProcessor(RGlobal.keymap);
 		

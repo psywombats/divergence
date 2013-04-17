@@ -140,20 +140,20 @@ public class Hud extends Picture {
 		}
 		switch (mdo.anchorDir) {
 		case DOWN:
-			x = (RGlobal.window.width - appearance.getWidth()) / 2;
+			x = (RGlobal.window.getWidth() - appearance.getWidth()) / 2;
 			y = 0;
 			break;
 		case UP:
-			x = (RGlobal.window.width - appearance.getWidth()) / 2;
-			y = RGlobal.window.height - appearance.getHeight();
+			x = (RGlobal.window.getWidth() - appearance.getWidth()) / 2;
+			y = RGlobal.window.getHeight() - appearance.getHeight();
 			break;
 		case LEFT:
 			x = 0;
-			y = (RGlobal.window.height - appearance.getHeight()) / 2;
+			y = (RGlobal.window.getHeight() - appearance.getHeight()) / 2;
 			break;
 		case RIGHT:
-			x = RGlobal.window.width - appearance.getWidth();
-			y = (RGlobal.window.height - appearance.getHeight()) / 2;
+			x = RGlobal.window.getWidth() - appearance.getWidth();
+			y = (RGlobal.window.getHeight() - appearance.getHeight()) / 2;
 			break;
 		}
 	}

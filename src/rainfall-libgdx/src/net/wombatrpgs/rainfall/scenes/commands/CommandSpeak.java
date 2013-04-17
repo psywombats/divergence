@@ -83,8 +83,8 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 			// TODO: figure out why the text box default batch is broken
 			if (faceGraphic != null) {
 				facePic = new Picture(faceGraphic,
-						(RGlobal.window.width - faceGraphic.getWidth()) / 2 - FACE_OFFSET,
-						(RGlobal.window.height - faceGraphic.getHeight()) / 2, 0);
+						(RGlobal.window.getWidth() - faceGraphic.getWidth()) / 2 - FACE_OFFSET,
+						(RGlobal.window.getHeight() - faceGraphic.getHeight()) / 2, 0);
 				facePic.setColor(new Color(1, 1, 1, 0));
 				RGlobal.screens.peek().addPicture(facePic);
 				facePic.tweenTo(new Color(1, 1, 1, 1), FADE_TIME);

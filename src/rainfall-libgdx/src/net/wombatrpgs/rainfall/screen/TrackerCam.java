@@ -33,8 +33,11 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 	public TrackerCam(float viewportWidth, float viewportHeight) {
 		super(viewportWidth, viewportHeight);
 		setToOrtho(false, 
-				RGlobal.window.width,
-				RGlobal.window.height);
+				viewportWidth,
+				viewportHeight);
+		// CAMERA HACK
+		// TODO: treat the RGlobal.window fields as private immutable w/e
+		zoom = RGlobal.window.getZoom();
 	}
 	
 	/**
@@ -42,11 +45,9 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 	 */
 	@Override
 	public void update(float elapsed) {
-		float ratioX = RGlobal.window.resWidth / RGlobal.window.width;
-		float ratioY = RGlobal.window.resHeight / RGlobal.window.height;
 		if (target != null) {
-			position.x = Math.round(target.getX()/ratioX)*ratioX;// * ratioX;
-			position.y = Math.round(target.getY()/ratioY)*ratioY;// * ratioY;
+			position.x = Math.round(target.getX()/zoom)*zoom;// * ratioX;
+			position.y = Math.round(target.getY()/zoom)*zoom;// * ratioY;
 		}
 	}
 	

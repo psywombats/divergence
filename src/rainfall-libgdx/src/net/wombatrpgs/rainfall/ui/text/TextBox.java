@@ -135,7 +135,7 @@ public class TextBox extends Picture {
 			this.appearance = (backer2);
 		}
 		setX(mdo.graphicX);
-		setY(RGlobal.window.height - mdo.graphicY - appearance.getHeight());
+		setY(RGlobal.window.getHeight() - mdo.graphicY - appearance.getHeight());
 	}
 
 }

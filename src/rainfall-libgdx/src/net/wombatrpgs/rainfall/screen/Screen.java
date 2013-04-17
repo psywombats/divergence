@@ -27,7 +27,6 @@ import net.wombatrpgs.rainfall.io.CommandListener;
 import net.wombatrpgs.rainfall.io.CommandMap;
 import net.wombatrpgs.rainfall.maps.objects.Picture;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
-import net.wombatrpgs.rainfallschema.settings.WindowSettingsMDO;
 
 /**
  * A screen is the environment in which the game is now running. It's
@@ -82,13 +81,13 @@ public abstract class Screen implements CommandListener,
 		batch = new SpriteBatch();
 		privateBatch = new SpriteBatch();
 		buffer = new FrameBuffer(Format.RGB565, 
-				RGlobal.window.width,
-				RGlobal.window.height,
+				RGlobal.window.getWidth(),
+				RGlobal.window.getHeight(),
 				false);
 		pictures = new ArrayList<Picture>();
 		tint = new Color(0, 0, 0, 1);
 		shapes = new ShapeRenderer();
-		cam = new TrackerCam(RGlobal.window.width, RGlobal.window.height);
+		cam = new TrackerCam(RGlobal.window.getWidth(), RGlobal.window.getHeight());
 	}
 	
 	/**
@@ -191,13 +190,13 @@ public abstract class Screen implements CommandListener,
 		}
 		cam.update(0);
 		batch.setProjectionMatrix(cam.combined);
-		WindowSettingsMDO window = RGlobal.window;
+		WindowSettings window = RGlobal.window;
 		buffer.begin();
 		Gdx.gl.glClearColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		shapes.setColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
 		shapes.begin(ShapeType.Filled);
-		shapes.rect(0, 0, window.width, window.height);
+		shapes.rect(0, 0, window.getWidth(), window.getHeight());
 		shapes.end();
 		canvas.render(cam);
 		for (Picture pic : pictures) {
@@ -211,11 +210,11 @@ public abstract class Screen implements CommandListener,
 				buffer.getColorBufferTexture(),			// texture
 				0, 0,									// x/y in screen space
 				0, 0,									// origin x/y screen
-				window.resWidth, window.resHeight,		// width/height screen
+				window.getResolutionWidth(), window.getResolutionHeight(),	// width/height screen
 				1, 1,									// scale x/y
 				0,										// rotation in degrees
 				0, 0,									// x/y in texel space
-				window.width, window.height,			// width/height texel
+				window.getWidth(), window.getHeight(),	// width/height texel
 				false, true								// flip horiz/vert
 			);
 		privateBatch.end();
