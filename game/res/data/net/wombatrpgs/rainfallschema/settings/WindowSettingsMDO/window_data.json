@@ -4,8 +4,8 @@
 	"name" : "",
 	"description" : "",
 	"windowName" : "Rainfail",
-	"width" : 512,
-	"height" : 384,
-	"resWidth" : 1024,
-	"resHeight" : 768
+	"width" : 640,
+	"height" : 480,
+	"resWidth" : 640,
+	"resHeight" : 480
 }

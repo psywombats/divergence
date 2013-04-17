@@ -35,8 +35,6 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 		setToOrtho(false, 
 				viewportWidth,
 				viewportHeight);
-		// CAMERA HACK
-		// TODO: treat the RGlobal.window fields as private immutable w/e
 		zoom = RGlobal.window.getZoom();
 	}
 	
@@ -49,6 +47,7 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 			position.x = Math.round(target.getX()/zoom)*zoom;// * ratioX;
 			position.y = Math.round(target.getY()/zoom)*zoom;// * ratioY;
 		}
+		super.update();
 	}
 	
 	/** @param speed The speed at which this camera pans to its destination */

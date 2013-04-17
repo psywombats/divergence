@@ -202,10 +202,10 @@ public abstract class MapEvent extends MapThing implements PositionSetable,
 	public float getVY() { return this.vy; }
 	
 	/** @param f The offset to add to x */
-	public void moveX(float f) { this.x += f; }
+	public void moveX(float f) { this.x = (float) Math.floor(x+f); }
 	
 	/** @param y The offset to add to x */
-	public void moveY(float y) { this.y += y; }
+	public void moveY(float g) { this.y = (float) Math.floor(y+g);System.out.println("now at: "+y); }
 	
 	/** @return True if this object is moving towards a location */
 	public boolean isTracking() { return tracking; }
