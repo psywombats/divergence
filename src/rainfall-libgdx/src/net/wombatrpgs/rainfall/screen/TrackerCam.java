@@ -35,7 +35,6 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 		setToOrtho(false, 
 				RGlobal.window.width,
 				RGlobal.window.height);
-		this.zoom = 1;
 	}
 	
 	/**
