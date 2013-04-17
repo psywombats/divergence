@@ -17,7 +17,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import net.wombatrpgs.rainfall.core.Constants;
@@ -229,7 +228,7 @@ public class Level implements ScreenShowable {
 			return;
 		}
 		map = RGlobal.assetManager.get(mapPath, TiledMap.class);
-		renderer = new OrthogonalTiledMapRenderer(map, 1f/ (float)TILE_WIDTH);
+		renderer = new OrthogonalTiledMapRenderer(map, 1f);
 		int index = 0;
 		for (MapLayer layer : map.getLayers()) {
 			// screw you libgdx this should /not/ be standard

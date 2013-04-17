@@ -9,7 +9,6 @@ package net.wombatrpgs.rainfall.ui.text;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
@@ -136,7 +135,7 @@ public class TextBox extends Picture {
 			this.appearance = (backer2);
 		}
 		setX(mdo.graphicX);
-		setY(Gdx.graphics.getHeight() - mdo.graphicY - appearance.getHeight());
+		setY(RGlobal.window.height - mdo.graphicY - appearance.getHeight());
 	}
 
 }

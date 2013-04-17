@@ -27,6 +27,7 @@ import net.wombatrpgs.rainfall.io.CommandListener;
 import net.wombatrpgs.rainfall.io.CommandMap;
 import net.wombatrpgs.rainfall.maps.objects.Picture;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
+import net.wombatrpgs.rainfallschema.settings.WindowSettingsMDO;
 
 /**
  * A screen is the environment in which the game is now running. It's
@@ -59,7 +60,7 @@ public abstract class Screen implements CommandListener,
 	protected SpriteBatch batch;
 	/** Batch used to render frame buffers */
 	protected SpriteBatch privateBatch;
-	/** Buffer we'll be using to draw to */
+	/** Buffer we'll be using to draw to before scaling to screen */
 	protected FrameBuffer buffer;
 	/** What we'll be tinting the screen before each render */
 	protected Color tint;
@@ -81,7 +82,8 @@ public abstract class Screen implements CommandListener,
 		batch = new SpriteBatch();
 		privateBatch = new SpriteBatch();
 		buffer = new FrameBuffer(Format.RGB565, 
-				RGlobal.window.width, RGlobal.window.height, 
+				RGlobal.window.width,
+				RGlobal.window.height,
 				false);
 		pictures = new ArrayList<Picture>();
 		tint = new Color(0, 0, 0, 1);
@@ -188,33 +190,35 @@ public abstract class Screen implements CommandListener,
 			RGlobal.reporter.warn("Forgot to intialize screen " + this);
 		}
 		cam.update(0);
-		int width = RGlobal.window.width;
-		int height = RGlobal.window.height;
+		batch.setProjectionMatrix(cam.combined);
+		WindowSettingsMDO window = RGlobal.window;
 		buffer.begin();
 		Gdx.gl.glClearColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		shapes.setColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
 		shapes.begin(ShapeType.Filled);
-		shapes.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		shapes.rect(0, 0, window.width, window.height);
 		shapes.end();
 		canvas.render(cam);
 		for (Picture pic : pictures) {
-			if (!pic.ignoresTint()) {
-				pic.render(cam);
-			}
+			pic.render(cam);
 		}
 		buffer.end();
 		privateBatch.setColor(tint);
 		privateBatch.begin();
 		// oh god I'm so sorry
-		privateBatch.draw(buffer.getColorBufferTexture(), 0, 0, 0, 0, 
-				width, height, 1, 1, 0, 0, 0, width, height, false, true);
+		privateBatch.draw(
+				buffer.getColorBufferTexture(),			// texture
+				0, 0,									// x/y in screen space
+				0, 0,									// origin x/y screen
+				window.resWidth, window.resHeight,		// width/height screen
+				1, 1,									// scale x/y
+				0,										// rotation in degrees
+				0, 0,									// x/y in texel space
+				window.width, window.height,			// width/height texel
+				false, true								// flip horiz/vert
+			);
 		privateBatch.end();
-		for (Picture pic : pictures) {
-			if (pic.ignoresTint()) {
-				pic.render(cam);
-			}
-		}
 	}
 
 	/**

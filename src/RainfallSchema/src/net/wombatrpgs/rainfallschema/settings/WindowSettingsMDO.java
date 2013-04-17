@@ -18,9 +18,14 @@ public class WindowSettingsMDO extends MainSchema {
 	@Desc("Window title")
 	public String windowName;
 	
-	@Desc("Default width of window, in pixels")
+	@Desc("Width of in-game viewport, in game pixels")
 	public Integer width;
-	@Desc("Default height of window, in pixels")
+	@Desc("Height of in-game viewport, in game pixels")
 	public Integer height;
+	
+	@Desc("Final resolution width, in physical pixels")
+	public Integer resWidth;
+	@Desc("Final resolution height, in physical pixels")
+	public Integer resHeight;
 
 }

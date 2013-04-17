@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfall.graphics.Renderable;
 
@@ -164,8 +163,8 @@ public abstract class MapThing implements	Renderable,
 	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, 
 			int x, int y, int angle, float fallTime) {
 		if (parent == null) return;
-		int atX = (int) (RGlobal.window.width/2 - camera.position.x*parent.getTileWidth() + Math.floor(x));
-		int atY = (int) (RGlobal.window.height/2 - camera.position.y*parent.getTileHeight() + Math.floor(y));
+		float atX = x;
+		float atY = y;
 		Color c = parent.getBatch().getColor();
 		float tint = (fallTime < .5f) ? 1-fallTime*2 : 0;
 		parent.getBatch().setColor(tint*c.r, tint*c.b, tint*c.g, 1);
