@@ -131,7 +131,7 @@ public class RectHitbox extends Hitbox {
 		result.isColliding = true;
 		result.mtvX = mtvx;
 		result.mtvY = mtvy;
-		System.out.println("mtv: " + mtvx + " , " + mtvy);
+		//System.out.println("mtv: " + mtvx + " , " + mtvy);
 		return result;
 	}
 	

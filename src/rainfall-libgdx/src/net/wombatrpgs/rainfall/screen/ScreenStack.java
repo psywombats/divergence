@@ -116,9 +116,19 @@ public class ScreenStack implements Disposable {
 		if (screens.size() == 0) {
 			RGlobal.reporter.warn("No screens in stack, but told to render");
 		} else {
-			screens.get(0).render();
+			try {
+				screens.get(0).render();
+			} catch (Exception e) {
+				RGlobal.reporter.err("Exception during render: ", e);
+				Gdx.app.exit();
+			}
 		}
-		update();
+		try {
+			update();
+		} catch (Exception e) {
+			RGlobal.reporter.err("Exception during render: ", e);
+			Gdx.app.exit();
+		}
 	}
 	
 	// TODO: might want to make this affect /all/ the screens

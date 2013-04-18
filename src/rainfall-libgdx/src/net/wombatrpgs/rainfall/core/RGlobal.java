@@ -88,76 +88,84 @@ public class RGlobal {
 		
 		// debugging is needed first
 		RGlobal.reporter = new PrintReporter();
-		RGlobal.reporter.inform("Initializing primary globals");
-		RGlobal.assetManager = new AssetManager();
-		RGlobal.rand = new Random(System.currentTimeMillis());
-		RGlobal.data = new Database();
-		
-		// load up data marked essential, this will always be ugly
-		RGlobal.reporter.inform("Loading essential data");
-		setHandlers();
-		RGlobal.data.queueData(assetManager, Constants.PRELOAD_SCHEMA);
-		assetManager.finishLoading();
-		
-		// here on out, these may require essential data
-		toLoad = new ArrayList<Queueable>();
-		RGlobal.reporter.inform("Intializing secondary globals");
-		RGlobal.constants = new Constants();
-		RGlobal.screens = new ScreenStack();
-		RGlobal.keymap = new DefaultKeymap();
-		RGlobal.levelManager = new LevelManager();
-		
-		// load secondary data
-		// TODO: load with a loading bar
-		RGlobal.reporter.inform("Loading secondary data");
-		RGlobal.data.queueFilesInDir(assetManager, Gdx.files.internal(Constants.DATA_DIR));
-		assetManager.finishLoading();
-
-		// initialize everything that needed data
-		RGlobal.reporter.inform("Initializing data-dependant resources");
-		RGlobal.window = new WindowSettings(
-				RGlobal.data.getEntryFor(Constants.WINDOW_KEY, WindowSettingsMDO.class));
-		RGlobal.ui = new UISettings(RGlobal.data.getEntryFor(
-				UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
-		RGlobal.teleport = new TeleportGlobal(RGlobal.data.getEntryFor(
-				TeleportGlobal.DEFAULT_MDO_KEY, TeleportSettingsMDO.class));
-		toLoad.add(ui);
-		toLoad.add(teleport);
-		for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
-		for (int pass = 0; RGlobal.assetManager.getProgress() < 1; pass++) {
-			RGlobal.assetManager.finishLoading();
-			for (Queueable q : toLoad) q.postProcessing(RGlobal.assetManager, pass);
+		try {
+			RGlobal.reporter.inform("Initializing error reporting");
+			RGlobal.assetManager = new AssetManager();
+			RGlobal.reporter.inform("Initializing primary globals");
+			RGlobal.rand = new Random(System.currentTimeMillis());
+			RGlobal.data = new Database();
+			
+			// load up data marked essential, this will always be ugly
+			RGlobal.reporter.inform("Loading essential data");
+			setHandlers();
+			RGlobal.data.queueData(assetManager, Constants.PRELOAD_SCHEMA);
+			assetManager.finishLoading();
+			
+			// here on out, these may require essential data
+			toLoad = new ArrayList<Queueable>();
+			RGlobal.reporter.inform("Intializing secondary globals");
+			RGlobal.constants = new Constants();
+			RGlobal.screens = new ScreenStack();
+			RGlobal.keymap = new DefaultKeymap();
+			RGlobal.levelManager = new LevelManager();
+			
+			// load secondary data
+			// TODO: load with a loading bar
+			RGlobal.reporter.inform("Loading secondary data");
+			RGlobal.data.queueFilesInDir(assetManager, Gdx.files.internal(Constants.DATA_DIR));
+			assetManager.finishLoading();
+	
+			// initialize everything that needed data
+			RGlobal.reporter.inform("Initializing data-dependant resources");
+			RGlobal.window = new WindowSettings(
+					RGlobal.data.getEntryFor(Constants.WINDOW_KEY, WindowSettingsMDO.class));
+			RGlobal.ui = new UISettings(RGlobal.data.getEntryFor(
+					UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
+			RGlobal.teleport = new TeleportGlobal(RGlobal.data.getEntryFor(
+					TeleportGlobal.DEFAULT_MDO_KEY, TeleportSettingsMDO.class));
+			toLoad.add(ui);
+			toLoad.add(teleport);
+			for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
+			for (int pass = 0; RGlobal.assetManager.getProgress() < 1; pass++) {
+				RGlobal.assetManager.finishLoading();
+				for (Queueable q : toLoad) q.postProcessing(RGlobal.assetManager, pass);
+			}
+			
+			// initializing graphics
+			RGlobal.reporter.inform("Creating screen and graphics");
+			toLoad.clear();
+			// TODO: fix this super super hacky file shit
+			FileHandle handle = Gdx.files.internal("rainfall.cfg");
+			boolean fullscreen = handle.readString().indexOf("true") != -1;
+			Gdx.graphics.setDisplayMode(
+					RGlobal.window.getResolutionWidth(),
+					RGlobal.window.getResolutionHeight(), 
+					fullscreen);
+			// TODO: adjust for available resilutuons
+			for (DisplayMode disp : Gdx.graphics.getDisplayModes()) {
+				System.out.println("w, h: " + disp.width +" , " + disp.height);
+			}
+			Gdx.graphics.setTitle(RGlobal.window.getTitle());
+			//Gdx.graphics.setVSync(true);
+			Gdx.input.setInputProcessor(RGlobal.keymap);
+			
+			RGlobal.reporter.inform("Loading level assets");
+			RGlobal.screens.push(new DefaultScreen());
+			toLoad.add(RGlobal.screens.peek());
+			for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
+			for (int pass = 0; RGlobal.assetManager.getProgress() < 1; pass++) {
+				RGlobal.assetManager.finishLoading();
+				for (Queueable q : toLoad) q.postProcessing(RGlobal.assetManager, pass);
+			}
+			
+			initialized = true;
+			RGlobal.reporter.inform("Done loading");
+			
+		} catch (Exception e) {
+			// TODO: proper init error handling
+			RGlobal.reporter.err("Exception during initialization: ", e);
+			Gdx.app.exit();
 		}
-		
-		// initializing graphics
-		RGlobal.reporter.inform("Creating screen and graphics");
-		toLoad.clear();
-		// TODO: fix this super super hacky file shit
-		FileHandle handle = Gdx.files.internal("rainfall.cfg");
-		boolean fullscreen = handle.readString().indexOf("true") != -1;
-		Gdx.graphics.setDisplayMode(
-				RGlobal.window.getResolutionWidth(),
-				RGlobal.window.getResolutionHeight(), 
-				fullscreen);
-		// TODO: adjust for available resilutuons
-		for (DisplayMode disp : Gdx.graphics.getDisplayModes()) {
-			System.out.println("w, h: " + disp.width +" , " + disp.height);
-		}
-		Gdx.graphics.setTitle(RGlobal.window.getTitle());
-		//Gdx.graphics.setVSync(true);
-		Gdx.input.setInputProcessor(RGlobal.keymap);
-		
-		RGlobal.reporter.inform("Loading level assets");
-		RGlobal.screens.push(new DefaultScreen());
-		toLoad.add(RGlobal.screens.peek());
-		for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
-		for (int pass = 0; RGlobal.assetManager.getProgress() < 1; pass++) {
-			RGlobal.assetManager.finishLoading();
-			for (Queueable q : toLoad) q.postProcessing(RGlobal.assetManager, pass);
-		}
-		
-		initialized = true;
-		RGlobal.reporter.inform("Done loading");
 	}
 	
 	/**
