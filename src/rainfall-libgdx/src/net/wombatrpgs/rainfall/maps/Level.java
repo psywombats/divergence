@@ -48,7 +48,7 @@ import net.wombatrpgs.rainfallschema.maps.MapMDO;
 public class Level implements ScreenShowable {
 	
 	/** Max number of tiles an event can have in height, in tiles */
-	public static final int MAX_EVENT_HEIGHT = 3;
+	public static final int MAX_EVENT_HEIGHT = 2;
 	
 	protected static final String PROPERTY_WIDTH = "width";
 	protected static final String PROPERTY_HEIGHT = "height";

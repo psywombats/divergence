@@ -42,6 +42,7 @@ public class GridLayer extends Layer {
 	protected TiledMapTileLayer layer;
 	protected List<Hitbox> passOverrides;
 	protected boolean passability[][];
+	protected boolean isLower;
 	protected int layerID;
 	
 	/**
@@ -55,6 +56,8 @@ public class GridLayer extends Layer {
 		this.layer = layer;
 		this.map = parent.getMap();
 		this.passOverrides = new ArrayList<Hitbox>();
+		float z = Float.valueOf(getProperty(PROPERTY_Z));
+		isLower = Math.floor(z) == z;
 	}
 	
 	/**
@@ -141,8 +144,7 @@ public class GridLayer extends Layer {
 	 */
 	@Override
 	public boolean isLowerChip() {
-		float z = Float.valueOf(getProperty(PROPERTY_Z));
-		return Math.floor(z) == z;
+		return isLower;
 	}
 	
 	/**
