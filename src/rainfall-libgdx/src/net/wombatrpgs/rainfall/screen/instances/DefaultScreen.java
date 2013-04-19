@@ -10,7 +10,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
+import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.io.TestCommandMap;
 import net.wombatrpgs.rainfall.maps.Level;
@@ -20,13 +22,14 @@ import net.wombatrpgs.rainfallschema.cutscene.SceneMDO;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 import net.wombatrpgs.rainfallschema.settings.IntroSettingsMDO;
 import net.wombatrpgs.rainfallschema.test.FramerateTestMDO;
+import net.wombatrpgs.rainfallschema.test.ShaderTestMDO;
 import net.wombatrpgs.rainfallschema.test.data.TestState;
 
 /**
  * This is the default screen that appears when the game is first loaded. Once
  * on this screen, the opening scene is played.
  */
-// TODO: there's some sloppy screen shit here that should be generalized
+// TODO: there's some sloppy fullscreen shit here that should be generalized
 public class DefaultScreen extends Screen {
 	
 	protected SceneParser introParser;
@@ -35,6 +38,9 @@ public class DefaultScreen extends Screen {
 	
 	// tests
 	protected FramerateTestMDO fpsMDO;
+	protected ShaderTestMDO shaderMDO;
+	
+	protected ShaderProgram testShader;
 	
 	/**
 	 * Constructs the introduction scene. This consists of simply setting up the
@@ -43,6 +49,7 @@ public class DefaultScreen extends Screen {
 	public DefaultScreen() {
 		IntroSettingsMDO introMDO=RGlobal.data.getEntryFor("default_intro", IntroSettingsMDO.class);
 		SceneMDO sceneMDO = RGlobal.data.getEntryFor(introMDO.scene, SceneMDO.class);
+		RGlobal.levelManager.setScreen(this);
 		map = RGlobal.levelManager.getLevel(introMDO.map);
 		introParser = new SceneParser(sceneMDO);
 		this.canvas = map;
@@ -50,7 +57,16 @@ public class DefaultScreen extends Screen {
 		defaultFont = new BitmapFont();
 		batch = new SpriteBatch();
 		
-		this.fpsMDO = RGlobal.data.getEntryFor("test_fps", FramerateTestMDO.class);
+		fpsMDO = RGlobal.data.getEntryFor("test_fps", FramerateTestMDO.class);
+		
+		shaderMDO = RGlobal.data.getEntryFor("test_shader", ShaderTestMDO.class);
+		if (shaderMDO.enabled == TestState.ENABLED) {
+			testShader = new ShaderProgram(
+					RGlobal.loader.getText(Constants.SHADERS_DIR + shaderMDO.vertexFile),
+					RGlobal.loader.getText(Constants.SHADERS_DIR + shaderMDO.fragmentFile));
+			batch.setShader(testShader);
+			mapShader = (testShader);
+		}
 		
 		init();
 	}
@@ -108,7 +124,9 @@ public class DefaultScreen extends Screen {
 		super.render();
 		batch.begin();
 		if (fpsMDO.enabled == TestState.ENABLED) {
-			defaultFont.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 8, 16);
+			defaultFont.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(),
+					cam.position.x - RGlobal.window.getWidth()/2 + 8,
+					cam.position.y + RGlobal.window.getHeight()/2 - 8);
 		}
 		batch.end();
 	}

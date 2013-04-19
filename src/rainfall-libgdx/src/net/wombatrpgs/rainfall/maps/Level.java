@@ -22,15 +22,16 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Graphic;
+import net.wombatrpgs.rainfall.graphics.effects.Effect;
+import net.wombatrpgs.rainfall.graphics.effects.EffectFactory;
 import net.wombatrpgs.rainfall.io.audio.MusicObject;
 import net.wombatrpgs.rainfall.maps.custom.CustomEvent;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.maps.layers.GridLayer;
 import net.wombatrpgs.rainfall.maps.layers.Layer;
 import net.wombatrpgs.rainfall.maps.layers.EventLayer;
-import net.wombatrpgs.rainfall.physics.FallResult;
 import net.wombatrpgs.rainfall.physics.Hitbox;
-import net.wombatrpgs.rainfall.physics.TargetPosition;
+import net.wombatrpgs.rainfall.screen.Screen;
 import net.wombatrpgs.rainfall.screen.ScreenShowable;
 import net.wombatrpgs.rainfallschema.audio.MusicMDO;
 import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
@@ -46,8 +47,6 @@ import net.wombatrpgs.rainfallschema.maps.MapMDO;
  */
 public class Level implements ScreenShowable {
 	
-	/** How many pixels are occupied by each point of z-depth */
-	public static final int PIXELS_PER_Y = 48; // in pixels
 	/** Max number of tiles an event can have in height, in tiles */
 	public static final int MAX_EVENT_HEIGHT = 3;
 	
@@ -64,10 +63,14 @@ public class Level implements ScreenShowable {
 	public static final int TILE_WIDTH = 32;
 	public static final int TILE_HEIGHT = 32;
 	
+	/** The data this level was created from */
+	protected MapMDO mdo;
 	/** The thing we're going to use to render the level */
 	protected OrthogonalTiledMapRenderer renderer;
 	/** The underlying map for this level */
 	protected TiledMap map;
+	/** The screen we render to */
+	protected Screen screen;
 
 	/** All event and tile layers, in order by Z */
 	protected List<Layer> layers;
@@ -94,6 +97,9 @@ public class Level implements ScreenShowable {
 	protected Graphic minimap;
 	/** herp derp I wonder what this is */
 	protected MusicObject bgm;
+	/** An effect that plays on this map, or null */
+	protected Effect effect;
+	
 	/** Should game state be suspended */
 	protected boolean paused;
 	/** Is the level in an update cycle in which there was a reset */
@@ -105,9 +111,12 @@ public class Level implements ScreenShowable {
 	
 	/**
 	 * Generates a level from the supplied level data.
-	 * @param 	mdo		Info about the level to generate
+	 * @param 	mdo				The data to make level from
+	 * @param	screen			The screen we render to
 	 */
-	public Level(MapMDO mdo) {
+	public Level(MapMDO mdo, Screen screen) {
+		this.screen = screen;
+		this.mdo = mdo;
 		mapPath = Constants.MAPS_DIR + mdo.map;
 		layers = new ArrayList<Layer>();
 		eventLayers = new ArrayList<EventLayer>();
@@ -118,6 +127,10 @@ public class Level implements ScreenShowable {
 		customObjects = new HashMap<String, CustomEvent>();
 		removalObjects = new ArrayList<MapThing>();
 		removalEvents = new ArrayList<MapEvent>();
+		
+		if (mdo.effect != null && !mdo.effect.equals(Constants.NULL_MDO)) {
+			effect = EffectFactory.create(this, mdo.effect);
+		}
 		
 		paused = false;
 		reseting = false;
@@ -191,6 +204,9 @@ public class Level implements ScreenShowable {
 				layer.render(camera, z);
 			}
 		}
+		if (effect != null) {
+			effect.render(camera);
+		}
 	}
 	
 	/**
@@ -201,12 +217,6 @@ public class Level implements ScreenShowable {
 	public void queueRequiredAssets(AssetManager manager) {
 		RGlobal.reporter.inform("Loading map " + mapPath);
 		manager.load(mapPath, TiledMap.class);
-		if (minimap != null) {
-			minimap.queueRequiredAssets(manager);
-		}
-		if (bgm != null) {
-			bgm.queueRequiredAssets(manager);
-		}
 	}
 	
 	/**
@@ -225,10 +235,14 @@ public class Level implements ScreenShowable {
 			if (bgm != null) {
 				bgm.postProcessing(manager, pass-1);
 			}
+			if (effect != null) {
+				effect.postProcessing(manager, pass-1);
+			}
 			return;
 		}
 		map = RGlobal.assetManager.get(mapPath, TiledMap.class);
 		renderer = new OrthogonalTiledMapRenderer(map, 1f);
+		renderer.getSpriteBatch().setShader(screen.getMapShader());
 		int index = 0;
 		for (MapLayer layer : map.getLayers()) {
 			// screw you libgdx this should /not/ be standard
@@ -256,6 +270,12 @@ public class Level implements ScreenShowable {
 		if (getProperty(PROPERTY_BGM) != null) {
 			String key = getProperty(PROPERTY_BGM);
 			bgm = new MusicObject(RGlobal.data.getEntryFor(key, MusicMDO.class));
+			bgm.queueRequiredAssets(manager);
+		}
+		if (effect != null) {
+			effect.queueRequiredAssets(manager);
+		}
+		if (bgm != null) {
 			bgm.queueRequiredAssets(manager);
 		}
 		for (EventLayer layer : eventLayers) {
@@ -298,25 +318,19 @@ public class Level implements ScreenShowable {
 				}
 			}
 		}
+		if (effect != null) {
+			effect.update(elapsed);
+		}
 		reseting = false;
 		updating = false;
 	}
 	
-	/**
-	 * @see net.wombatrpgs.rainfall.screen.ScreenShowable#ignoresTint()
-	 */
-	@Override
-	public boolean ignoresTint() {
-		return false;
-	}
+	/** @see net.wombatrpgs.rainfall.screen.ScreenShowable#ignoresTint() */
+	@Override public boolean ignoresTint() { return false; }
 
-	/**
-	 * @see java.lang.Object#toString()
-	 */
+	/** @see java.lang.Object#toString() */
 	@Override
-	public String toString() {
-		return mapPath + " ";
-	}
+	public String toString() { return mapPath + " "; }
 
 	/**
 	 * Adjusts an event on the level based on its collisions. This usually
@@ -377,30 +391,6 @@ public class Level implements ScreenShowable {
 				eventLayers.get(i).detectCollisions(event);
 			}
 		}
-	}
-	
-	/**
-	 * Drops an object on the implicit location, returning the result of the
-	 * drop.
-	 * @param 	box			The hitbox of the falling object
-	 * @param	start		The starting z of the falling object
-	 * @param	target		The target positionable to adjust for z-correction
-	 * @return				The result of the fall
-	 */
-	public FallResult dropObject(Hitbox box, float start, TargetPosition target) {
-		float originalY = target.getY();
-		int i = layers.size()-1;
-		while (layers.get(i).getZ() > start) i -= 1;
-		for (; i >= 0; i--) {
-			Layer layer = layers.get(i);
-			int deltaZ = (int) (Math.floor(start) - Math.floor(layer.getZ()));
-			target.setY(originalY - deltaZ * PIXELS_PER_Y);
-			FallResult layerResult = layer.dropObject(box);
-			if (layerResult.finished) return layerResult;
-		}
-		FallResult result = new FallResult();
-		result.finished = false;
-		return result;
 	}
 	
 	/**

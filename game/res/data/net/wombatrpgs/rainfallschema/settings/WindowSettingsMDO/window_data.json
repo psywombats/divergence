@@ -6,6 +6,6 @@
 	"windowName" : "Rainfail",
 	"width" : 640,
 	"height" : 480,
-	"resWidth" : 1280,
-	"resHeight" : 768
+	"resWidth" : 640,
+	"resHeight" : 480
 }

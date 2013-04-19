@@ -14,13 +14,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics.DisplayMode;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 import net.wombatrpgs.rainfall.characters.Hero;
 import net.wombatrpgs.rainfall.core.reporters.PrintReporter;
 import net.wombatrpgs.rainfall.io.DefaultKeymap;
+import net.wombatrpgs.rainfall.io.FileLoader;
 import net.wombatrpgs.rainfall.io.Keymap;
 import net.wombatrpgs.rainfall.io.loaders.DataLoader;
 import net.wombatrpgs.rainfall.io.loaders.SceneLoader;
@@ -66,6 +66,8 @@ public class RGlobal {
 	public static WindowSettings window;
 	/** Teleport settings, from database */
 	public static TeleportGlobal teleport;
+	/** Loader for simple text files */
+	public static FileLoader loader;
 	
 	private static List<Queueable> toLoad;
 	
@@ -107,6 +109,7 @@ public class RGlobal {
 			RGlobal.constants = new Constants();
 			RGlobal.screens = new ScreenStack();
 			RGlobal.keymap = new DefaultKeymap();
+			RGlobal.loader = new FileLoader();
 			RGlobal.levelManager = new LevelManager();
 			
 			// load secondary data
@@ -134,9 +137,8 @@ public class RGlobal {
 			// initializing graphics
 			RGlobal.reporter.inform("Creating screen and graphics");
 			toLoad.clear();
-			// TODO: fix this super super hacky file shit
-			FileHandle handle = Gdx.files.internal("rainfall.cfg");
-			boolean fullscreen = handle.readString().indexOf("true") != -1;
+			String result = loader.getText("rainfall.cfg");
+			boolean fullscreen = result.indexOf("true") != -1;
 			Gdx.graphics.setDisplayMode(
 					RGlobal.window.getResolutionWidth(),
 					RGlobal.window.getResolutionHeight(), 

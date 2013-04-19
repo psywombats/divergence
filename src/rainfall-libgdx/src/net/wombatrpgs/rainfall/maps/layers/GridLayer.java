@@ -78,6 +78,7 @@ public class GridLayer extends Layer {
 	public void render(OrthographicCamera camera, float z) {
 		if (getZ() == z) {
 			camera.update();
+			//parent.getRenderer().getSpriteBatch().enableBlending();
 			parent.getRenderer().setView(camera);
 			parent.getRenderer().getSpriteBatch().begin();
 			parent.getRenderer().renderTileLayer(layer);

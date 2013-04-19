@@ -184,8 +184,8 @@ public class CharacterEvent extends MapEvent {
 				Math.abs(targetVX) < .1 && Math.abs(targetVY) < .1) {
 				walkAnim.stopMoving();
 				if (appearance == walkAnim) {
+					idleAnim.setFacing(appearance.getFacing());
 					appearance = idleAnim;
-					idleAnim.setFacing(walkAnim.getFacing());
 				}
 		}
 	}
@@ -635,6 +635,8 @@ public class CharacterEvent extends MapEvent {
 		} else {
 			RGlobal.reporter.warn("Removed an unperformed action: " + act);
 		}
+		walkStack.get(0).setFacing(appearance.getFacing());
+		idleStack.get(0).setFacing(appearance.getFacing());
 		if (act.getIdleAppearance() != null) {
 			FacesAnimation old = act.getIdleAppearance();
 			idleStack.remove(old);

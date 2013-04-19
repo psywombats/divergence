@@ -1,98 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="25" height="25" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="26" height="21" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="bgm" value="music_test_bgm"/>
+ </properties>
  <tileset firstgid="1" name="nomadtileset" tilewidth="32" tileheight="32" spacing="1" margin="1">
   <image source="tilesets/nomadtileset.png" trans="ff00ff" width="1280" height="960"/>
-  <tile id="153">
-   <properties>
-    <property name="x" value=""/>
-   </properties>
-  </tile>
  </tileset>
- <layer name="Lower 1" width="25" height="25">
+ <layer name="Lower 1" width="26" height="21">
   <properties>
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJy1k0EOQEAMRcutnMXCylE4mr1zOICtTGJiVKf8ahc/Eqqvf/pnb4h2gxa6azvF3ydZ+ksMjWNlrHSJc94Y0nxSncbgHG8fkpf8T0uyanPU/GoMj517nxWSXUk9ULsZ+iNCeltmsfRHWOi5SPUah3/rmqf+8NdgRnmvS06ED+tOarO87cWDoWUNzfpXBudF3W3N2wjuG2FFMjgnMbIiOOk5BzAGIePejInlr/RS1h0QDubr
+   eJy1lMFOAjEQhju+hQd4CBXiW3BWEvVl4CW4c1B4BlSS5briS5jAaUlguTkTZrKztR1KUg9f2m125m//mbZwzg0iFIp3pMejnhcGfi4rv7BAhkpnaOi8gnNv0M7tz3NQokaNzFgvZ27/PBvXIGfLTck6Rx6/Ajq3SB+5y6A1h7AG8YD8II//5KnwidwjS/4+GN46b9R9FmPF4wR5Qj5U7OxM/B5O/x3ZJ8v7Fe+dxs5Vkz+1b0rWoNiQ9xK7VXuvkJ3SkH+rBF9C3utY3fM1tPNrYv2j8b2P9br0pFWXlLpd0utS0xu1RnVc89uScr5tZF33cuw+rbm/rPP4+acX1lQ8qCDf+xWqqdbaJXoX4zkQ69/3PdfJOs8LxOtDGiP4q1FD+w7R2jXey29DZwwnrRQN8YhyUj2k52neZR16Bywtfy2kobWoFgdo7h1B+ud64RdYX4xs
   </data>
  </layer>
- <layer name="Upper 1" width="25" height="25">
+ <layer name="Upper 1" width="26" height="21">
   <properties>
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYKAucGQiTX0FEqYVQLajjormHkDChnSwA9keSu3Qx2I2uj2U2rEfiGdB8RwgfgHEc5HseEmh+eh2HIKKHaShHbNpZMcoGAXUBqSWxaNgFIyCoQcAHvckDQ==
+   eJxjYCAMZuKRe0mEfmLBfjrZMwoGB0BPV7SKY/R0NZjs4WekhUsIg8EcJoPZnlEwGqejgPoAAGg/EFU=
   </data>
  </layer>
- <objectgroup name="Event 1" width="25" height="25">
+ <objectgroup name="Event 1" width="26" height="21">
   <properties>
    <property name="z" value=".5"/>
   </properties>
-  <object name="Beacon" type="point" x="608" y="64">
+  <object name="Beacon" type="point" x="544" y="672">
    <properties>
     <property name="group" value="antifog_beacon"/>
    </properties>
   </object>
-  <object name="Beacon" type="point" x="704" y="224">
+  <object name="Beacon" type="point" x="512" y="480">
    <properties>
     <property name="group" value="antifog_beacon"/>
    </properties>
   </object>
-  <object name="Beacon" type="point" x="544" y="320">
+  <object name="Beacon" type="point" x="384" y="320">
    <properties>
     <property name="group" value="antifog_beacon"/>
    </properties>
   </object>
-  <object name="Beacon" type="point" x="448" y="480">
+  <object name="Beacon" type="point" x="192" y="352">
    <properties>
     <property name="group" value="antifog_beacon"/>
    </properties>
   </object>
-  <object name="Beacon" type="point" x="512" y="640">
-   <properties>
-    <property name="group" value="antifog_beacon"/>
-   </properties>
-  </object>
-  <object name="Beacon" type="point" x="288" y="576">
-   <properties>
-    <property name="group" value="antifog_beacon"/>
-   </properties>
-  </object>
-  <object name="Beacon" type="point" x="224" y="416">
-   <properties>
-    <property name="group" value="antifog_beacon"/>
-   </properties>
-  </object>
-  <object name="Beacon" type="point" x="0" y="416">
-   <properties>
-    <property name="group" value="antifog_beacon"/>
-   </properties>
-  </object>
-  <object name="Beacon" type="point" x="608" y="800">
+  <object name="Beacon" type="point" x="0" y="320">
    <properties>
     <property name="group" value="antifog_beacon"/>
    </properties>
   </object>
  </objectgroup>
- <layer name="Lower 2" width="25" height="25">
+ <layer name="Lower 2" width="26" height="21">
   <properties>
    <property name="z" value="1"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztwQENAAAAwqD3T20ON6AAAHgzCcQAAQ==
+   eJxjYBgFo4A0wM84POzhAGJToB1mQGxOY7uigebHAHEsncIOHZAalqxI7DVE6h2uYZkAtKcFiJ8yQDCtQBvQjk1A3AfEE6B2fqOhH2H22DFC/IgLUCsfguxJJcIeNjRxaob5cE2jQx0AALkYEBU=
   </data>
  </layer>
- <layer name="Upper 2" width="25" height="25">
+ <layer name="Upper 2" width="26" height="21">
   <properties>
    <property name="z" value="1.5"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztwQENAAAAwqD3T20ON6AAAHgzCcQAAQ==
+   eJytlU1OAkEUhIuFC88g4BGQqwBrzuHK3QS4BO4FvQooZ/AIKOx8Hd5Lip7+m8ZKKumeEL7petUAtHUfePbfehVPxWt69q1uaA1v3ZUxUc6zx3oTbzt8VyyTmTKY4/yijA/xl/hQ+L5+JiHOk8f5ES/F78ifKZUJc0a6HxMHyvoVn3TvzvhJ3iKdCXNGuNaYPtPvAQPxULyT/d7jWKY5Tkp33v6o52POCensWavexXNaO8W6w1m6c+ayTynVHc4SyGdvagKMVHdq5PqzwXVva2bKefPaGO4eunnyHSmZaalyHa2ZaUx23x1jgUt/ziibaUixftp9sI6ea15Wlerng87KOvoYmKM/0xjj1n42aPeeFfttK2XZd2/Q7n0Jp6Q73Hdz7L+hlhNi+L3vwvkDqQuFuQ==
   </data>
  </layer>
- <objectgroup name="Event 2" width="25" height="25">
+ <objectgroup name="Event 2" width="26" height="21">
   <properties>
    <property name="z" value="1.5"/>
+  </properties>
+ </objectgroup>
+ <layer name="Lower 3" width="26" height="21">
+  <properties>
+   <property name="z" value="2"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYGAAACIgAAQ==
+  </data>
+ </layer>
+ <layer name="Upper 3" width="26" height="21">
+  <properties>
+   <property name="z" value="2.5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBiZYBUQrwbiNTS04zwQXwDii0B8CYgvI8m1UtGer0D8DYi/A/EPIP4JxCsZcPtxIZn2SDMyMMgAsSwjQgyXH0OAmBuoLoJMu9ABNj+GQOUWUckOEAD5sYMB4sd2IC3PSEjHyAQLaGRuCBK7igGShupobA8ILAbiJXSwh1aAFvYco4GZgx2QUy4vIFH9KihNSt1DSl6Alf3roPy1JNq1mEh1sLIfGYDKzMtY1BICAG43KoY=
+  </data>
+ </layer>
+ <objectgroup name="Event 3" width="26" height="21">
+  <properties>
+   <property name="z" value="2.5"/>
   </properties>
  </objectgroup>
 </map>

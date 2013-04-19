@@ -40,6 +40,7 @@ public class Constants {
 	public static final String DATA_DIR = RESOURCE_DIR + "data/";
 	/** Directory where all the audio files are stored, prefix string */
 	public static final String AUDIO_DIR = RESOURCE_DIR + "audio/";
+	public static final String SHADERS_DIR = RESOURCE_DIR + "shaders/";
 	
 	/** The key of the default window settings */
 	public static final String WINDOW_KEY = "window_data";

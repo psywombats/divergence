@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.screen.Screen;
 import net.wombatrpgs.rainfallschema.maps.MapMDO;
 
 /**
@@ -20,12 +21,22 @@ public class LevelManager {
 	
 	/** Goes from map IDs to their level manifestation */
 	protected Map<String, Level> levels;
+	/** The screen that will be showing all the levels */
+	protected Screen screen;
 	
 	/**
 	 * Creates and initializes a new level manager.
 	 */
 	public LevelManager() {
 		levels = new HashMap<String, Level>();
+	}
+	
+	/**
+	 * Levels will render to the new screen.
+	 * @param screen			The screen that will be showing levels
+	 */
+	public void setScreen(Screen screen) {
+		this.screen = screen;
 	}
 	
 	/**
@@ -50,7 +61,7 @@ public class LevelManager {
 				RGlobal.screens.peek().getTint().b = 1;
 			}
 			MapMDO mapMDO = RGlobal.data.getEntryFor(mapID, MapMDO.class);
-			Level map = new Level(mapMDO);
+			Level map = new Level(mapMDO, screen);
 			map.queueRequiredAssets(RGlobal.assetManager);
 			for (int pass = 0; RGlobal.assetManager.getProgress() < 1; pass++) {
 				RGlobal.assetManager.finishLoading();

@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
@@ -48,17 +49,19 @@ public abstract class Screen implements CommandListener,
 	/** The thing to draw if this canvas is visible */
 	protected ScreenShowable canvas;
 	/** These things will be drawn over top of the canvas */
-	protected List<Picture> pictures;
+	protected List<ScreenShowable> pictures;
 	/** What we'll use to render */
 	protected TrackerCam cam;
 	/** Depth, lower values are rendered last */
 	protected float z;
 	/** If true, layers with higher z won't be rendered */
 	protected boolean transparent;
-	/** Batch used for rendering by contents */
+	/** Batch used to render sprites */
 	protected SpriteBatch batch;
 	/** Batch used to render frame buffers */
 	protected SpriteBatch privateBatch;
+	/** Shader used to render background maps */
+	protected ShaderProgram mapShader;
 	/** Buffer we'll be using to draw to before scaling to screen */
 	protected FrameBuffer buffer;
 	/** What we'll be tinting the screen before each render */
@@ -78,13 +81,14 @@ public abstract class Screen implements CommandListener,
 		transparent = false;
 		initialized = false;
 		z = 0;
+		mapShader = null;
 		batch = new SpriteBatch();
 		privateBatch = new SpriteBatch();
 		buffer = new FrameBuffer(Format.RGB565, 
 				RGlobal.window.getWidth(),
 				RGlobal.window.getHeight(),
 				false);
-		pictures = new ArrayList<Picture>();
+		pictures = new ArrayList<ScreenShowable>();
 		tint = new Color(0, 0, 0, 1);
 		shapes = new ShapeRenderer();
 		cam = new TrackerCam(RGlobal.window.getWidth(), RGlobal.window.getHeight());
@@ -147,6 +151,9 @@ public abstract class Screen implements CommandListener,
 	/** @return Game screen whole tint */
 	public Color getTint() { return tint; }
 	
+	/** @return The shader used to render maps */
+	public ShaderProgram getMapShader() { return mapShader; }
+	
 	/**
 	 * Gets the command parser used on this screen. Usually only used by engine.
 	 * @return					The command parser used on this screen
@@ -199,7 +206,7 @@ public abstract class Screen implements CommandListener,
 		shapes.rect(0, 0, window.getWidth(), window.getHeight());
 		shapes.end();
 		canvas.render(cam);
-		for (Picture pic : pictures) {
+		for (ScreenShowable pic : pictures) {
 			pic.render(cam);
 		}
 		buffer.end();

@@ -158,6 +158,7 @@ public class AnimationStrip implements 	Renderable,
 		} else {
 			RGlobal.reporter.warn("Spritesheet not loaded: " + filename);
 		}
+		update(0);
 	}
 	
 	/**
