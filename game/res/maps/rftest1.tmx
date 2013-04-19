@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="25" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="nomadtileset" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="tilesets/nomadtileset.png" trans="ff00ff" width="1280" height="960"/>
+  <tile id="153">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Lower 1" width="25" height="25">
+  <properties>
+   <property name="z" value="0"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJy1k0EOQEAMRcutnMXCylE4mr1zOICtTGJiVKf8ahc/Eqqvf/pnb4h2gxa6azvF3ydZ+ksMjWNlrHSJc94Y0nxSncbgHG8fkpf8T0uyanPU/GoMj517nxWSXUk9ULsZ+iNCeltmsfRHWOi5SPUah3/rmqf+8NdgRnmvS06ED+tOarO87cWDoWUNzfpXBudF3W3N2wjuG2FFMjgnMbIiOOk5BzAGIePejInlr/RS1h0QDubr
+  </data>
+ </layer>
+ <layer name="Upper 1" width="25" height="25">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYKAucGQiTX0FEqYVQLajjormHkDChnSwA9keSu3Qx2I2uj2U2rEfiGdB8RwgfgHEc5HseEmh+eh2HIKKHaShHbNpZMcoGAXUBqSWxaNgFIyCoQcAHvckDQ==
+  </data>
+ </layer>
+ <objectgroup name="Event 1" width="25" height="25">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <object name="Beacon" type="point" x="608" y="64">
+   <properties>
+    <property name="group" value="antifog_beacon"/>
+   </properties>
+  </object>
+  <object name="Beacon" type="point" x="704" y="224">
+   <properties>
+    <property name="group" value="antifog_beacon"/>
+   </properties>
+  </object>
+  <object name="Beacon" type="point" x="544" y="320">
+   <properties>
+    <property name="group" value="antifog_beacon"/>
+   </properties>
+  </object>
+  <object name="Beacon" type="point" x="448" y="480">
+   <properties>
+    <property name="group" value="antifog_beacon"/>
+   </properties>
+  </object>
+  <object name="Beacon" type="point" x="512" y="640">
+   <properties>
+    <property name="group" value="antifog_beacon"/>
+   </properties>
+  </object>
+  <object name="Beacon" type="point" x="288" y="576">
+   <properties>
+    <property name="group" value="antifog_beacon"/>
+   </properties>
+  </object>
+  <object name="Beacon" type="point" x="224" y="416">
+   <properties>
+    <property name="group" value="antifog_beacon"/>
+   </properties>
+  </object>
+  <object name="Beacon" type="point" x="0" y="416">
+   <properties>
+    <property name="group" value="antifog_beacon"/>
+   </properties>
+  </object>
+  <object name="Beacon" type="point" x="608" y="800">
+   <properties>
+    <property name="group" value="antifog_beacon"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="Lower 2" width="25" height="25">
+  <properties>
+   <property name="z" value="1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20ON6AAAHgzCcQAAQ==
+  </data>
+ </layer>
+ <layer name="Upper 2" width="25" height="25">
+  <properties>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20ON6AAAHgzCcQAAQ==
+  </data>
+ </layer>
+ <objectgroup name="Event 2" width="25" height="25">
+  <properties>
+   <property name="z" value="1.5"/>
+  </properties>
+ </objectgroup>
+</map>

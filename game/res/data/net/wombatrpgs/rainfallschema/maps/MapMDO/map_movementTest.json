@@ -3,5 +3,6 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
-	"map" : "rftest3.tmx"
+	"map" : "rftest1.tmx",
+	"effect" : "effect_fog"
 }

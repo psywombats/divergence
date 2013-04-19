@@ -1,0 +1,8 @@
+{
+	"key" : "shader_alpha_by_beacon",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"vertexFile" : "alpha_by_beacon.vert",
+	"fragmentFile" : "alpha_by_beacon.frag"
+}
