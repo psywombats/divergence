@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="26" height="21" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="bgm" value="music_test_bgm"/>
+ </properties>
+ <tileset firstgid="1" name="nomadtileset" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="tilesets/nomadtileset.png" trans="ff00ff" width="1280" height="960"/>
+ </tileset>
+ <layer name="Lower 1" width="26" height="21">
+  <properties>
+   <property name="z" value="0"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJy1lMFOAjEQhju+hQd4CBXiW3BWEvVl4CW4c1B4BlSS5briS5jAaUlguTkTZrKztR1KUg9f2m125m//mbZwzg0iFIp3pMejnhcGfi4rv7BAhkpnaOi8gnNv0M7tz3NQokaNzFgvZ27/PBvXIGfLTck6Rx6/Ajq3SB+5y6A1h7AG8YD8II//5KnwidwjS/4+GN46b9R9FmPF4wR5Qj5U7OxM/B5O/x3ZJ8v7Fe+dxs5Vkz+1b0rWoNiQ9xK7VXuvkJ3SkH+rBF9C3utY3fM1tPNrYv2j8b2P9br0pFWXlLpd0utS0xu1RnVc89uScr5tZF33cuw+rbm/rPP4+acX1lQ8qCDf+xWqqdbaJXoX4zkQ69/3PdfJOs8LxOtDGiP4q1FD+w7R2jXey29DZwwnrRQN8YhyUj2k52neZR16Bywtfy2kobWoFgdo7h1B+ud64RdYX4xs
+  </data>
+ </layer>
+ <layer name="Upper 1" width="26" height="21">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYCAMZuKRe0mEfmLBfjrZMwoGB0BPV7SKY/R0NZjs4WekhUsIg8EcJoPZnlEwGqejgPoAAGg/EFU=
+  </data>
+ </layer>
+ <objectgroup name="Event 1" width="26" height="21">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+ </objectgroup>
+ <layer name="Lower 2" width="26" height="21">
+  <properties>
+   <property name="z" value="1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4A0wM84POzhAGJToB1mQGxOY7uigebHAHEsncIOHZAalqxI7DVE6h2uYZkAtKcFiJ8yQDCtQBvQjk1A3AfEE6B2fqOhH2H22DFC/IgLUCsfguxJJcIeNjRxaob5cE2jQx0AALkYEBU=
+  </data>
+ </layer>
+ <layer name="Upper 2" width="26" height="21">
+  <properties>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJytlU1OAkEUhIuFC88g4BGQqwBrzuHK3QS4BO4FvQooZ/AIKOx8Hd5Lip7+m8ZKKumeEL7petUAtHUfePbfehVPxWt69q1uaA1v3ZUxUc6zx3oTbzt8VyyTmTKY4/yijA/xl/hQ+L5+JiHOk8f5ES/F78ifKZUJc0a6HxMHyvoVn3TvzvhJ3iKdCXNGuNaYPtPvAQPxULyT/d7jWKY5Tkp33v6o52POCensWavexXNaO8W6w1m6c+ayTynVHc4SyGdvagKMVHdq5PqzwXVva2bKefPaGO4eunnyHSmZaalyHa2ZaUx23x1jgUt/ziibaUixftp9sI6ea15Wlerng87KOvoYmKM/0xjj1n42aPeeFfttK2XZd2/Q7n0Jp6Q73Hdz7L+hlhNi+L3vwvkDqQuFuQ==
+  </data>
+ </layer>
+ <objectgroup name="Event 2" width="26" height="21">
+  <properties>
+   <property name="z" value="1.5"/>
+  </properties>
+ </objectgroup>
+ <layer name="Lower 3" width="26" height="21">
+  <properties>
+   <property name="z" value="2"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYGAAACIgAAQ==
+  </data>
+ </layer>
+ <layer name="Upper 3" width="26" height="21">
+  <properties>
+   <property name="z" value="2.5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBiZYBUQrwbiNTS04zwQXwDii0B8CYgvI8m1UtGer0D8DYi/A/EPIP4JxCsZcPtxIZn2SDMyMMgAsSwjQgyXH0OAmBuoLoJMu9ABNj+GQOUWUckOEAD5sYMB4sd2IC3PSEjHyAQLaGRuCBK7igGShupobA8ILAbiJXSwh1aAFvYco4GZgx2QUy4vIFH9KihNSt1DSl6Alf3roPy1JNq1mEh1sLIfGYDKzMtY1BICAG43KoY=
+  </data>
+ </layer>
+ <objectgroup name="Event 3" width="26" height="21">
+  <properties>
+   <property name="z" value="2.5"/>
+  </properties>
+ </objectgroup>
+</map>
