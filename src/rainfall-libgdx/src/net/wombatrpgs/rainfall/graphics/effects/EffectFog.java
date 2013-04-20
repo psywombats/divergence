@@ -70,49 +70,49 @@ public class EffectFog extends Effect {
 		// forward +wrap
 		batch.draw(
 				tex,
-				win.getWidth() / 2 + offset, 
-				win.getHeight() / 2,
+				offset,
+				0,
 				win.getWidth() / 2,
 				win.getHeight() / 2, 
-				tex.getRegionWidth(),
-				tex.getRegionHeight(), 
-				win.getWidth() / tex.getRegionWidth(),
-				win.getHeight() / tex.getRegionHeight(),
+				win.getWidth(),
+				win.getHeight(),
+				1,
+				1,
 				0);
 		batch.draw(
 				tex,
-				win.getWidth() / 2 + offset - win.getWidth(), 
-				win.getHeight() / 2,
+				offset - win.getWidth(), 
+				0,
 				win.getWidth() / 2,
 				win.getHeight() / 2, 
-				tex.getRegionWidth(),
-				tex.getRegionHeight(), 
-				win.getWidth() / tex.getRegionWidth(),
-				win.getHeight() / tex.getRegionHeight(),
+				win.getWidth(),
+				win.getHeight(),
+				1,
+				1,
 				0);
 		
 		// mirror + wrap
 		batch.draw(
 				tex,
-				win.getWidth() / 2 - offset - win.getWidth(), 
-				win.getHeight() / 2 - win.getHeight(),
+				-offset, 
+				0,
 				win.getWidth() / 2,
 				win.getHeight() / 2, 
-				tex.getRegionWidth(),
-				tex.getRegionHeight(), 
-				win.getWidth() / tex.getRegionWidth(),
-				win.getHeight() / tex.getRegionHeight(),
+				win.getWidth(),
+				win.getHeight(),
+				1,
+				1,
 				180);
 		batch.draw(
 				tex,
-				win.getWidth() / 2 - offset, 
-				win.getHeight() / 2 - win.getHeight(),
+				win.getWidth() - offset, 
+				0,
 				win.getWidth() / 2,
 				win.getHeight() / 2, 
-				tex.getRegionWidth(),
-				tex.getRegionHeight(), 
-				win.getWidth() / tex.getRegionWidth(),
-				win.getHeight() / tex.getRegionHeight(),
+				win.getWidth(),
+				win.getHeight(),
+				1,
+				1,
 				180);
 		
 		batch.end();
