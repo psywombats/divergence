@@ -126,7 +126,6 @@ public class DefaultScreen extends Screen {
 		if (fpsMDO.enabled == TestState.ENABLED) {
 			float wr = RGlobal.window.getZoom();
 			float wh = RGlobal.window.getZoom();
-			System.out.println(wr + " , " + wh);
 			defaultFont.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(),
 					cam.position.x - RGlobal.window.getWidth()/2*wh + 8,
 					cam.position.y + RGlobal.window.getHeight()/2*wr - 8);

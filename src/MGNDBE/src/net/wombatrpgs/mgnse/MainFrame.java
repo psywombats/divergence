@@ -11,10 +11,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
 import net.wombatrpgs.mgnse.tree.SchemaTree;
+import net.wombatrpgs.mgnse.wizard.DummyWizard;
+import net.wombatrpgs.mgnse.wizard.FourDirWizard;
+import net.wombatrpgs.mgnse.wizard.Wizard;
 
 
 /**
@@ -32,9 +36,10 @@ public class MainFrame extends JFrame {
 	private JPanel editor;
 	private Logic logic;
 	private Listener in;
-	private JMenu file, edit;
+	private JMenu file, edit, wizard;
 	private JMenuItem saveItem, saveAllItem, revertItem, revertAllItem, deleteItem, cloneItem;
 	private JScrollPane treeScroll, editorScroll;
+	private List<Wizard> allWizards;
 	
 	/**
 	 * Set up the application... in practice all this does is set window title.
@@ -71,6 +76,11 @@ public class MainFrame extends JFrame {
 	/** @param enabled True if the delete menu should be enabled, else false */
 	public void setDeleteEnable(boolean enabled) {
 		deleteItem.setEnabled(enabled);
+	}
+	
+	/** @return All associated wizards for database */
+	public List<Wizard> getWizards() {
+		return allWizards;
 	}
 	
 	/**
@@ -146,6 +156,17 @@ public class MainFrame extends JFrame {
 		edit.add(cloneItem);
 		bar.add(edit);
 		
+		allWizards = new ArrayList<Wizard>();
+		allWizards.add(new DummyWizard(this));
+		allWizards.add(new FourDirWizard(this));
+		
+		wizard = new JMenu("Wizards");
+		for (Wizard w : allWizards) {
+			JMenuItem item = createMenuItem(w);
+			wizard.add(item);
+		}
+		bar.add(wizard);
+		
 		setSaveAllEnable(false);
 		setSaveEnable(false);
 		setDeleteEnable(false);
@@ -176,7 +197,7 @@ public class MainFrame extends JFrame {
 	 * Initializes all input listeners.
 	 */
 	private void initInput() {
-		in = new Listener(logic);
+		in = new Listener(this, logic);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent we) {
@@ -213,6 +234,12 @@ public class MainFrame extends JFrame {
 			item.setAccelerator(key);
 			item.setMnemonic(a.getVK());
 		}
+		item.addActionListener(in);
+		return item;
+	}
+	
+	private JMenuItem createMenuItem(Wizard w) {
+		JMenuItem item = new JMenuItem(w.getName());
 		item.addActionListener(in);
 		return item;
 	}
@@ -293,6 +320,10 @@ public class MainFrame extends JFrame {
 				msg,
 				"Error",
 				JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public Logic getLogic() {
+		return logic;
 	}
 
 }

@@ -13,6 +13,8 @@ import java.awt.event.WindowEvent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
+import net.wombatrpgs.mgnse.wizard.Wizard;
+
 
 /**
  * Handles all frame input and other user actions.
@@ -20,13 +22,15 @@ import javax.swing.event.TreeSelectionListener;
 public class Listener implements ActionListener, TreeSelectionListener {
 	
 	private Logic logic;
+	private MainFrame frame;
 	
 	/**
 	 * Initializes the input. Listeners must be added elsewhere.
 	 * @param logic The game logic this input thing should call.
 	 */
-	public Listener(Logic logic) {
+	public Listener(MainFrame frame, Logic logic) {
 		this.logic = logic;
+		this.frame = frame;
 	}
 	
 	/**
@@ -54,6 +58,13 @@ public class Listener implements ActionListener, TreeSelectionListener {
 		if (cmd.equals(Action.NEW_ENTRY.toString())) logic.newEntry();
 		if (cmd.equals(Action.DELETE_ENTRY.toString())) logic.deleteEntry();
 		if (cmd.equals(Action.CLONE_ENTRY.toString())) logic.cloneEntry();
+		
+		for (Wizard w : frame.getWizards()) {
+			if (cmd.equals(w.getName())) {
+				w.run();
+			}
+		}
+		
 	}
 
 	@Override

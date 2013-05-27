@@ -372,10 +372,13 @@ public class CharacterEvent extends MapEvent {
 		if (other.mdo.response == CollisionResponseType.PUSHABLE &&
 				this.mdo.response == CollisionResponseType.PUSHABLE) {
 				applyMTV(other, result, .5f);
+				return;
 		} else if (other.mdo.response == CollisionResponseType.PUSHABLE) {
 			applyMTV(other, result, 0f);
+			return;
 		} else if (this.mdo.response == CollisionResponseType.PUSHABLE) {
 			applyMTV(other, result, 1f);
+			return;
 		}
 	}
 

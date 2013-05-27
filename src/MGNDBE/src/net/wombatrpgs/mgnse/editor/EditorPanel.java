@@ -152,7 +152,7 @@ public class EditorPanel extends JPanel {
 	
 	/**
 	 * Generates the grid bag constraints necessary to place this panel in its
-	 * parent editor frame. Keeps display logic out of Logic..
+	 * parent editor frame. Keeps display logic out of Logic.
 	 * @return The bag constraints to add this object
 	 */
 	public GridBagConstraints genConstraints() {
