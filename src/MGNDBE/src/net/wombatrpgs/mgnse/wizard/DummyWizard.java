@@ -14,8 +14,7 @@ import net.wombatrpgs.mgnse.MainFrame;
 public class DummyWizard extends Wizard {
 
 	public DummyWizard(MainFrame frame) {
-		super(frame);
-		// TODO Auto-generated constructor stub
+		super();
 	}
 
 	/**@see net.wombatrpgs.mgnse.wizard.Wizard#getName() */

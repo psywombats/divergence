@@ -4,9 +4,9 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mgnse.wizard;
+package net.wombatrpgs.rainfallschema.wizards;
 
-import net.wombatrpgs.mgnse.MainFrame;
+import net.wombatrpgs.mgnse.wizard.Wizard;
 
 /**
  * Constructs a four-dir sprite and associated MDOs.
@@ -16,8 +16,8 @@ public class FourDirWizard extends Wizard {
 	
 	protected FourDirDialog dialog;
 
-	public FourDirWizard(MainFrame frame) {
-		super(frame);
+	public FourDirWizard() {
+		super();
 	}
 
 	/**

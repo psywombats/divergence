@@ -16,7 +16,11 @@ public abstract class Wizard {
 	
 	protected MainFrame frame;
 	
-	public Wizard(MainFrame frame) {
+	public Wizard() {
+		
+	}
+	
+	public void setFrame(MainFrame frame) {
 		this.frame = frame;
 	}
 	

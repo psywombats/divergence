@@ -9,11 +9,12 @@ package net.wombatrpgs.mgnse.io;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.JFrame;
-
+import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Schema;
 import net.wombatrpgs.mgnse.Global;
+import net.wombatrpgs.mgnse.MainFrame;
 import net.wombatrpgs.mgnse.schema.AppConfig;
+import net.wombatrpgs.mgnse.schema.ProjectConfig;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -24,7 +25,7 @@ public class OutputHandler {
 	
 	private static final String APP_CONFIG_FILE_NAME = "mgnse.cfg";
 	
-	protected JFrame parent;
+	protected MainFrame parent;
 	protected File appConfigFile, projectConfigFile;
 	
 	/**
@@ -32,7 +33,7 @@ public class OutputHandler {
 	 * load up a default app config though.
 	 * @param parent The parent application frame
 	 */
-	public OutputHandler(JFrame parent) {
+	public OutputHandler(MainFrame parent) {
 		this.appConfigFile = new File(APP_CONFIG_FILE_NAME);
 		this.parent = parent;
 	}
@@ -83,6 +84,29 @@ public class OutputHandler {
 	 */
 	public void delete(File f) {
 		f.delete();
+	}
+
+	/**
+	 * Writes a brand-new schema. For use in wizards.
+	 * @param mdo The mdo of the schema to write
+	 */
+	public void writeNewSchema(MainSchema mdo) {
+		InputHandler in = parent.getLogic().getIn();
+		OutputHandler out = parent.getLogic().getOut();
+		ProjectConfig projectConfig = parent.getLogic().getConfig();
+		String path = in.getFile(
+				out.getProjectConfigFile().getParentFile(), 
+				projectConfig.data).getAbsolutePath() + "\\";
+		path += mdo.getClass().getName().replace('.', '\\') + "\\";
+		path += mdo.key + ".json";
+		File file = new File(path);
+		try {
+			file.getParentFile().mkdirs();
+			file.createNewFile();
+			writeSchema(mdo, file);
+		} catch (IOException e) {
+			Global.instance().err("Error creating " + file, e);
+		}
 	}
 
 }

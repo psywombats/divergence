@@ -10,14 +10,21 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarInputStream;
 
 import javax.swing.*;
 
+import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgnse.tree.SchemaTree;
-import net.wombatrpgs.mgnse.wizard.DummyWizard;
-import net.wombatrpgs.mgnse.wizard.FourDirWizard;
 import net.wombatrpgs.mgnse.wizard.Wizard;
 
 
@@ -40,6 +47,7 @@ public class MainFrame extends JFrame {
 	private JMenuItem saveItem, saveAllItem, revertItem, revertAllItem, deleteItem, cloneItem;
 	private JScrollPane treeScroll, editorScroll;
 	private List<Wizard> allWizards;
+	private JMenuBar bar;
 	
 	/**
 	 * Set up the application... in practice all this does is set window title.
@@ -79,7 +87,7 @@ public class MainFrame extends JFrame {
 	}
 	
 	/** @return All associated wizards for database */
-	public List<Wizard> getWizards() {
+	public List<? extends Wizard> getWizards() {
 		return allWizards;
 	}
 	
@@ -130,7 +138,7 @@ public class MainFrame extends JFrame {
 	 */
 	private void initMenu() {
 		
-		JMenuBar bar = new JMenuBar();
+		bar = new JMenuBar();
 		
 		file = new JMenu("File");
 		file.add(createMenuItem(Action.OPEN_PROJECT));
@@ -156,16 +164,8 @@ public class MainFrame extends JFrame {
 		edit.add(cloneItem);
 		bar.add(edit);
 		
-		allWizards = new ArrayList<Wizard>();
-		allWizards.add(new DummyWizard(this));
-		allWizards.add(new FourDirWizard(this));
-		
-		wizard = new JMenu("Wizards");
-		for (Wizard w : allWizards) {
-			JMenuItem item = createMenuItem(w);
-			wizard.add(item);
-		}
-		bar.add(wizard);
+		// TODO: do this each time a project is loaded
+		loadWizards();
 		
 		setSaveAllEnable(false);
 		setSaveEnable(false);
@@ -324,6 +324,73 @@ public class MainFrame extends JFrame {
 	
 	public Logic getLogic() {
 		return logic;
+	}
+	
+	public void setLogic(Logic logic) {
+		this.logic = logic;
+	}
+	
+	public void loadWizards() {
+		allWizards = new ArrayList<Wizard>();
+		
+		// get the jar
+		JarInputStream stream = null;
+		File f = getLogic().loadFile(getLogic().getConfig().schema);
+		try {
+			stream = new JarInputStream(new FileInputStream(f));
+		} catch (Exception e) {
+			Global.instance().err("Couldn't find plugin jar " + f, e);
+		}
+		
+		// init the classloader
+		URL pluginURL = null;
+		ClassLoader cl = null;
+		try {
+			pluginURL = f.toURI().toURL();
+			cl = new URLClassLoader(new URL[] { pluginURL }, MainSchema.class.getClassLoader());
+		} catch (MalformedURLException e1) {
+			Global.instance().err("Malformed url " + pluginURL, e1);
+		}
+		
+		// load the wizards
+		while (true) {
+			JarEntry entry = null;
+			try {
+				entry = stream.getNextJarEntry();
+			} catch (IOException e) {
+				Global.instance().err("Error reading a plugin class", e);
+			}
+			if (entry == null) break;
+			if (entry.getName().endsWith(".class")) {
+				String className = SchemaTree.fileUrlToBinaryName(entry.getName());
+				Global.instance().debug("Loading a plugin " + className);
+				try {
+					Class<?> rawClass = cl.loadClass(className);
+					if (!Wizard.class.isAssignableFrom(rawClass)) {
+						Global.instance().debug("Class doesn't extend plugin: " + rawClass);
+					} else {
+						Wizard w = (Wizard) rawClass.newInstance();
+						w.setFrame(this);
+						allWizards.add(w);
+					}
+				} catch (ClassNotFoundException e) {
+					Global.instance().err("Couldn't find a class?" + className, e);
+				} catch (Exception e) {
+					Global.instance().err("Bad instantiation " + className, e);
+				}
+			} else {
+				Global.instance().debug("Found a non-schema file: " + entry.getName());
+			}
+		}
+		
+		if (wizard != null) bar.remove(wizard);
+		wizard = new JMenu("Wizards");
+		for (Wizard w : allWizards) {
+			JMenuItem item = createMenuItem(w);
+			wizard.add(item);
+		}
+		bar.add(wizard);
+		repaint();
 	}
 
 }
