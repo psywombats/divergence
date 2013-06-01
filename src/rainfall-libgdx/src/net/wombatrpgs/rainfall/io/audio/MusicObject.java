@@ -36,6 +36,23 @@ public class MusicObject extends AudioObject {
 	public void dispose() {
 		coreMusic.dispose();
 	}
+	
+	/**
+	 * Pauses music playback for things like losing screen focus or whatever.
+	 */
+	public void pause() {
+		coreMusic.pause();
+	}
+	
+	/**
+	 * Determines if two musics are actually -- the same thing!!
+	 * @param 	object				The other music object
+	 * @return						True if they match, false otherwise
+	 */
+	public boolean matches(MusicObject object) {
+		if (object == null) return false;
+		return this.mdo == object.mdo;
+	}
 
 	/**
 	 * @see net.wombatrpgs.rainfall.io.audio.AudioObject#corePlay()
@@ -64,31 +81,14 @@ public class MusicObject extends AudioObject {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.io.audio.AudioObject#postProcessing
+	 * @see net.wombatrpgs.rainfall.io.audio.AudioObject#postAudioProcessing
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
-	protected void postProcessing(AssetManager manager) {
+	protected void postAudioProcessing(AssetManager manager) {
 		coreMusic = (Music) manager.get(filename, getLoaderClass());
 		coreMusic.setLooping(true);
 		coreMusic.setVolume((float) mdo.volume / 100.f);
-	}
-	
-	/**
-	 * Pauses music playback for things like losing screen focus or whatever.
-	 */
-	public void pause() {
-		coreMusic.pause();
-	}
-	
-	/**
-	 * Determines if two musics are actually -- the same thing!!
-	 * @param 	object				The other music object
-	 * @return						True if they match, false otherwise
-	 */
-	public boolean matches(MusicObject object) {
-		if (object == null) return false;
-		return this.mdo == object.mdo;
 	}
 
 }

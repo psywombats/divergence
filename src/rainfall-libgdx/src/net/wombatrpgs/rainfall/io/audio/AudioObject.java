@@ -53,7 +53,7 @@ public abstract class AudioObject extends MapThing implements Disposable {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
-		postProcessing(manager);
+		postAudioProcessing(manager);
 	}
 	
 	/**
@@ -101,6 +101,6 @@ public abstract class AudioObject extends MapThing implements Disposable {
 	 * processing. By "loading up" that's just setting some field.
 	 * @param	manager			The manager to load from
 	 */
-	protected abstract void postProcessing(AssetManager manager);
+	protected abstract void postAudioProcessing(AssetManager manager);
 
 }

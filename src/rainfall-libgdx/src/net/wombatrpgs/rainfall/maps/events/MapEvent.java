@@ -28,7 +28,7 @@ import net.wombatrpgs.rainfallschema.maps.data.Direction;
  * teleports and other fun stuff. Revised as of 2012-01-30 to be anything that
  * exists on a Tiled layer, even if it wasn't created in Tiled itself.
  */
-public abstract class MapEvent extends MapThing implements PositionSetable,
+public abstract class MapEvent extends MapThing implements	PositionSetable,
 															Comparable<MapEvent>,
 															PreRenderable {
 	

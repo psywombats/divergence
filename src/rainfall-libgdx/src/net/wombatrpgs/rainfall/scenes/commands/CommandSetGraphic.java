@@ -9,8 +9,6 @@ package net.wombatrpgs.rainfall.scenes.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.assets.AssetManager;
-
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.FacesAnimation;
@@ -74,6 +72,7 @@ public class CommandSetGraphic extends SceneCommand {
 		}
 		DirMDO dirMDO = RGlobal.data.getEntryFor(mdoKey, DirMDO.class);
 		graphic = FacesAnimationFactory.create(dirMDO, events.get(0));
+		assets.add(graphic);
 	}
 
 	/**
@@ -94,26 +93,6 @@ public class CommandSetGraphic extends SceneCommand {
 		}
 		finished = true;
 		return false;
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.scenes.SceneCommand#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		super.queueRequiredAssets(manager);
-		graphic.queueRequiredAssets(manager);
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.scenes.SceneCommand#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		super.postProcessing(manager, pass);
-		graphic.postProcessing(manager, pass);
 	}
 
 }

@@ -66,11 +66,11 @@ public class SoundObject extends AudioObject {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.io.audio.AudioObject#postProcessing
+	 * @see net.wombatrpgs.rainfall.io.audio.AudioObject#postAudioProcessing
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
-	protected void postProcessing(AssetManager manager) {
+	protected void postAudioProcessing(AssetManager manager) {
 		coreSound = (Sound) manager.get(filename, getLoaderClass());
 	}
 

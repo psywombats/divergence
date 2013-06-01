@@ -6,6 +6,9 @@
  */
 package net.wombatrpgs.rainfall.scenes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 
@@ -28,6 +31,8 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	protected boolean blocking;
 	protected boolean finished;
 	
+	protected List<Queueable> assets;
+	
 	/**
 	 * Creates a new command from a line in scene data.
 	 * @param	parent			The parser that will run this command
@@ -38,6 +43,7 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 		this.line = line;
 		this.blocking = false;
 		this.finished = false;
+		assets = new ArrayList<Queueable>();
 	}
 	
 	/**
@@ -46,7 +52,9 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		// default is nothing
+		for (Queueable asset : assets) {
+			asset.queueRequiredAssets(manager);
+		}
 	}
 
 	/**
@@ -55,7 +63,9 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		// default is nothing
+		for (Queueable asset : assets) {
+			asset.postProcessing(manager, pass);
+		}
 	}
 
 	/**

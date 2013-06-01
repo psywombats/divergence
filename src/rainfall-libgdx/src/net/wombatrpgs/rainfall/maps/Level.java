@@ -20,6 +20,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import net.wombatrpgs.rainfall.core.Constants;
+import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.Graphic;
 import net.wombatrpgs.rainfall.graphics.effects.Effect;
@@ -109,6 +110,8 @@ public class Level implements ScreenShowable {
 	/** Name of the file with our map in it, mentioned in database */
 	protected String mapPath;
 	
+	private List<Queueable> assets;
+	
 	/**
 	 * Generates a level from the supplied level data.
 	 * @param 	mdo				The data to make level from
@@ -117,7 +120,10 @@ public class Level implements ScreenShowable {
 	public Level(MapMDO mdo, Screen screen) {
 		this.screen = screen;
 		this.mdo = mdo;
+		
 		mapPath = Constants.MAPS_DIR + mdo.map;
+		
+		// list init
 		layers = new ArrayList<Layer>();
 		eventLayers = new ArrayList<EventLayer>();
 		tileLayers = new ArrayList<GridLayer>();
@@ -127,8 +133,9 @@ public class Level implements ScreenShowable {
 		customObjects = new HashMap<String, CustomEvent>();
 		removalObjects = new ArrayList<MapThing>();
 		removalEvents = new ArrayList<MapEvent>();
+		assets = new ArrayList<Queueable>();
 		
-		if (mdo.effect != null && !mdo.effect.equals(Constants.NULL_MDO)) {
+		if (MapThing.mdoHasProperty(mdo.effect)) {
 			effect = EffectFactory.create(this, mdo.effect);
 		}
 		
@@ -225,64 +232,58 @@ public class Level implements ScreenShowable {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		if (pass >= 1) {
+		if (pass == 0) {
+			map = RGlobal.assetManager.get(mapPath, TiledMap.class);
+			renderer = new OrthogonalTiledMapRenderer(map, 1f);
+			renderer.getSpriteBatch().setShader(screen.getMapShader());
+			int index = 0;
+			for (MapLayer layer : map.getLayers()) {
+				// screw you libgdx this casting should /not/ be standard
+				Layer created;
+				if (TiledMapTileLayer.class.isAssignableFrom(layer.getClass())) {
+					GridLayer grid = new GridLayer(this, (TiledMapTileLayer) layer);
+					tileLayers.add(grid);
+					created = grid;
+				} else {
+					EventLayer events = new EventLayer(this, layer, index);
+					index += 1;
+					eventLayers.add(events);
+					created = events;
+				}
+				layers.add(created);
+			}
+			for (Layer layer : layers) {
+				layer.finalizePassability();
+			}
+			if (getProperty(PROPERTY_MINIMAP_GRAPHIC) != null) {
+				String key = getProperty(PROPERTY_MINIMAP_GRAPHIC);
+				minimap = new Graphic(RGlobal.data.getEntryFor(key, GraphicMDO.class));
+				minimap.queueRequiredAssets(manager);
+				assets.add(minimap);
+			}
+			if (getProperty(PROPERTY_BGM) != null) {
+				String key = getProperty(PROPERTY_BGM);
+				bgm = new MusicObject(RGlobal.data.getEntryFor(key, MusicMDO.class));
+				bgm.queueRequiredAssets(manager);
+				assets.add(bgm);
+			}
+			if (effect != null) {
+				effect.queueRequiredAssets(manager);
+				assets.add(effect);
+			}
+			for (EventLayer layer : eventLayers) {
+				layer.load();
+			}
+			for (Layer layer : layers) {
+				layer.queueRequiredAssets(manager);
+			}
+		} else if (pass == 1) {
 			for (Layer layer : layers) {
 				layer.postProcessing(manager, pass-1);
 			}
-			if (minimap != null) {
-				minimap.postProcessing(manager, pass-1);
+			for (Queueable asset : assets) {
+				asset.postProcessing(manager, pass - 1);
 			}
-			if (bgm != null) {
-				bgm.postProcessing(manager, pass-1);
-			}
-			if (effect != null) {
-				effect.postProcessing(manager, pass-1);
-			}
-			return;
-		}
-		map = RGlobal.assetManager.get(mapPath, TiledMap.class);
-		renderer = new OrthogonalTiledMapRenderer(map, 1f);
-		renderer.getSpriteBatch().setShader(screen.getMapShader());
-		int index = 0;
-		for (MapLayer layer : map.getLayers()) {
-			// screw you libgdx this should /not/ be standard
-			Layer created;
-			if (TiledMapTileLayer.class.isAssignableFrom(layer.getClass())) {
-				GridLayer grid = new GridLayer(this, (TiledMapTileLayer) layer);
-				tileLayers.add(grid);
-				created = grid;
-			} else {
-				EventLayer events = new EventLayer(this, layer, index);
-				index += 1;
-				eventLayers.add(events);
-				created = events;
-			}
-			layers.add(created);
-		}
-		for (Layer layer : layers) {
-			layer.finalizePassability();
-		}
-		if (getProperty(PROPERTY_MINIMAP_GRAPHIC) != null) {
-			String key = getProperty(PROPERTY_MINIMAP_GRAPHIC);
-			minimap = new Graphic(RGlobal.data.getEntryFor(key, GraphicMDO.class));
-			minimap.queueRequiredAssets(manager);
-		}
-		if (getProperty(PROPERTY_BGM) != null) {
-			String key = getProperty(PROPERTY_BGM);
-			bgm = new MusicObject(RGlobal.data.getEntryFor(key, MusicMDO.class));
-			bgm.queueRequiredAssets(manager);
-		}
-		if (effect != null) {
-			effect.queueRequiredAssets(manager);
-		}
-		if (bgm != null) {
-			bgm.queueRequiredAssets(manager);
-		}
-		for (EventLayer layer : eventLayers) {
-			layer.load();
-		}
-		for (Layer layer : layers) {
-			layer.queueRequiredAssets(manager);
 		}
 	}
 	

@@ -6,17 +6,22 @@
  */
 package net.wombatrpgs.rainfall.maps;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfall.graphics.Renderable;
 
 /**
  * All objects that appear in Tiled maps that are not tiles extend this class.
- * This includes both characters and events. As of 2012-01-23
+ * This includes both characters and events. As of 2012-01-23 it's called Thing
+ * and not Object to prevent a name collision with some LibGDX class.
  */
 public abstract class MapThing implements	Renderable,
 											Updateable {
@@ -25,6 +30,11 @@ public abstract class MapThing implements	Renderable,
 	protected Level parent;
 	/** How we respond to pausing */
 	protected PauseLevel pauseLevel;
+	/** Things that need to be loaded in the queue/post phases */
+	protected List<Queueable> assets;
+	
+	/** Appears when an MDO has no such property */
+	protected static final String NULL_MDO = "None";
 	
 	/**
 	 * Creates a new map object for a given level.
@@ -40,6 +50,7 @@ public abstract class MapThing implements	Renderable,
 	 */
 	public MapThing() {
 		pauseLevel = PauseLevel.SURRENDERS_EASILY;
+		assets = new ArrayList<Queueable>();
 	}
 
 	/**
@@ -55,21 +66,27 @@ public abstract class MapThing implements	Renderable,
 	}
 	
 	/**
+	 * Default queues up everything in the assets list.
 	 * @see net.wombatrpgs.rainfall.core.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		// default queues nothing
+		for (Queueable asset : assets) {
+			asset.queueRequiredAssets(manager);
+		}
 	}
 
 	/**
+	 * Default processes everything in the assets list.
 	 * @see net.wombatrpgs.rainfall.core.Queueable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		// default does nothing
+		for (Queueable asset : assets) {
+			asset.postProcessing(manager, pass);
+		}
 	}
 
 	/**
@@ -180,6 +197,16 @@ public abstract class MapThing implements	Renderable,
 				1f-fallTime, 
 				angle);
 		parent.getBatch().setColor(c);
+	}
+	
+	/**
+	 * Deteermines if a given string is the property key, ie, it is non-null and
+	 * not the null key.
+	 * @param 	property		The string from the MDO
+	 * @return					True if it's a value, false it it's none
+	 */
+	public static boolean mdoHasProperty(String property) {
+		return (property != null && !property.equals(NULL_MDO));
 	}
 
 }

@@ -11,12 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.MapObject;
 
 import net.wombatrpgs.rainfall.characters.moveset.Moveset;
 import net.wombatrpgs.rainfall.characters.moveset.MovesetAct;
-import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.io.audio.SoundObject;
 import net.wombatrpgs.rainfall.maps.Level;
@@ -60,11 +58,13 @@ public class Hero extends CharacterEvent {
 	public Hero(HeroMDO mdo, MapObject object, Level parent) {
 		super(mdo, object, parent);
 		moves = new Moveset(this, RGlobal.data.getEntryFor("default_moveset", MovesetMDO.class));
+		assets.add(moves);
 		RGlobal.hero = this;
 		switches = new HashMap<String, Boolean>();
-		if (!mdo.deathSound.equals(Constants.NULL_MDO)) {
+		if (mdoHasProperty(mdo.deathSound)) {
 			deathSound = new SoundObject(
 					RGlobal.data.getEntryFor(mdo.deathSound, SoundMDO.class), this);
+			assets.add(deathSound);
 		}
 		dying = false;
 	}
@@ -98,28 +98,6 @@ public class Hero extends CharacterEvent {
 			break;
 		}
 		return super.onCharacterCollide(other, result);
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		super.queueRequiredAssets(manager);
-		moves.queueRequiredAssets(manager);
-		if (deathSound != null) deathSound.queueRequiredAssets(manager);
-	}
-	
-	/**
-	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		super.postProcessing(manager, pass);
-		moves.postProcessing(manager, pass);
-		if (deathSound != null) deathSound.postProcessing(manager, pass);
 	}
 
 	/**

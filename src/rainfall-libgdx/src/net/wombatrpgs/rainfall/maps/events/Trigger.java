@@ -14,7 +14,6 @@ import net.wombatrpgs.rainfall.physics.RectHitbox;
 import net.wombatrpgs.rainfall.scenes.SceneParser;
 import net.wombatrpgs.rainfallschema.cutscene.SceneMDO;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.MapObject;
 
 /**
@@ -50,6 +49,7 @@ public class Trigger extends MapEvent {
 		} else {
 			SceneMDO mdo = RGlobal.data.getEntryFor(id, SceneMDO.class);
 			scene = new SceneParser(mdo, getLevel());
+			assets.add(scene);
 		}
 		String conditionKey = getProperty(PROPERTY_CONDITION);
 		if (conditionKey != null) {
@@ -76,26 +76,6 @@ public class Trigger extends MapEvent {
 		if (other != RGlobal.hero) return true;
 		run();
 		return true;
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		super.queueRequiredAssets(manager);
-		scene.queueRequiredAssets(manager);
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		super.postProcessing(manager, pass);
-		scene.postProcessing(manager, pass);
 	}
 
 	/**

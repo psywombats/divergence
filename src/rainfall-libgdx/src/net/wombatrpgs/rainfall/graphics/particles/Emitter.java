@@ -9,7 +9,6 @@ package net.wombatrpgs.rainfall.graphics.particles;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
@@ -35,6 +34,7 @@ public class Emitter extends MapEvent {
 		this.mdo = mdo;
 		this.particles = new ArrayList<Particle>();
 		this.set = set;
+		assets.add(set);
 	}
 	
 	/**
@@ -86,26 +86,6 @@ public class Emitter extends MapEvent {
 //		for (Particle part : particles) {
 //			part.render(camera);
 //		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		super.queueRequiredAssets(manager);
-		set.queueRequiredAssets(manager);
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		super.postProcessing(manager, pass);
-		set.postProcessing(manager, pass);
 	}
 
 	/**
