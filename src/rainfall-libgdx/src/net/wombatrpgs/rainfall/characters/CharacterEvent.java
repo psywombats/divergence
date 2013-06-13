@@ -667,7 +667,7 @@ public class CharacterEvent extends MapEvent {
 		}
 		if (mdoHasProperty(mdo.soundHurt)) {
 			SoundMDO soundMDO = RGlobal.data.getEntryFor(mdo.soundHurt, SoundMDO.class);
-			soundHurt = new SoundObject(soundMDO, this);
+			soundHurt = new SoundObject(soundMDO);
 			assets.add(soundHurt);
 		}
 		if (object != null) {

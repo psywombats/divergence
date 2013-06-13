@@ -63,7 +63,7 @@ public class Hero extends CharacterEvent {
 		switches = new HashMap<String, Boolean>();
 		if (mdoHasProperty(mdo.deathSound)) {
 			deathSound = new SoundObject(
-					RGlobal.data.getEntryFor(mdo.deathSound, SoundMDO.class), this);
+					RGlobal.data.getEntryFor(mdo.deathSound, SoundMDO.class));
 			assets.add(deathSound);
 		}
 		dying = false;

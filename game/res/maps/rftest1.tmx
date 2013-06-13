@@ -51,6 +51,11 @@
     <property name="group" value="antifog_beacon"/>
    </properties>
   </object>
+  <object name="Trigger" type="trigger" x="800" y="0" width="32" height="32">
+   <properties>
+    <property name="id" value="scene_test0000"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Lower 2" width="26" height="21">
   <properties>

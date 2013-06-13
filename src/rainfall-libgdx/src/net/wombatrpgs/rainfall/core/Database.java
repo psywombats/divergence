@@ -116,7 +116,9 @@ public class Database {
 	 */
 	@SuppressWarnings("unchecked")
 	public <T extends MainSchema> List<T> getEntriesByClass(Class<T> clazz) {
-		return (List<T>) classShelf.get(clazz);
+		List<T> result = (List<T>) classShelf.get(clazz);
+		if (result == null) return new ArrayList<T>();
+		else return result;
 	}
 	
 	/**

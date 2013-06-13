@@ -11,6 +11,7 @@ import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
+import net.wombatrpgs.rainfallschema.audio.SoundMDO;
 import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 
 /**
@@ -55,5 +56,13 @@ public class TextBoxMDO extends MainSchema {
 	@Desc("Name y - upper left x of where character's name is printed, if used (in px), " +
 			"refers to bottom of text")
 	public Integer nameY;
+	
+	@Desc("Text autotype speed - in characters per second")
+	public Integer typeSpeed;
+	
+	@Desc("Type sfx - plays once per character autotyped")
+	@SchemaLink(SoundMDO.class)
+	@Nullable
+	public String typeSfx;
 
 }

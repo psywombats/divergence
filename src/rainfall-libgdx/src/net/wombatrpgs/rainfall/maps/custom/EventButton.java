@@ -40,7 +40,7 @@ public class EventButton extends CustomEvent {
 				KEY_ANIM_DEPRESSED, AnimationMDO.class), this);
 		animUnpressed = getAppearance();
 		pressed = false;
-		sfx = new SoundObject(RGlobal.data.getEntryFor(KEY_SFX_CLICK, SoundMDO.class), this);
+		sfx = new SoundObject(RGlobal.data.getEntryFor(KEY_SFX_CLICK, SoundMDO.class));
 	}
 	
 	/**

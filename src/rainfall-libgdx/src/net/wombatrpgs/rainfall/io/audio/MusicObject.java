@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.rainfall.io.audio;
 
-import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfallschema.audio.MusicMDO;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -25,7 +24,7 @@ public class MusicObject extends AudioObject {
 	 * @param 	mdo				The data to generate music from
 	 */
 	public MusicObject(MusicMDO mdo) {
-		super(mdo, RGlobal.hero);
+		super(mdo);
 		this.mdo = mdo;
 	}
 	

@@ -12,5 +12,7 @@
 	"x2" : 634,
 	"y2" : 88,
 	"nameX" : 10,
-	"nameY" : 20
+	"nameY" : 20,
+	"typeSpeed" : 32,
+	"typeSfx" : "sound_click"
 }

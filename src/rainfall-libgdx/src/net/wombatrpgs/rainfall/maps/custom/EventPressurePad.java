@@ -39,7 +39,7 @@ public class EventPressurePad extends CustomEvent {
 		super(RGlobal.data.getEntryFor(ID, CustomEventMDO.class), object, parent);
 		animPressed = new OneDir(RGlobal.data.getEntryFor(
 				KEY_ANIM_DEPRESSED, AnimationMDO.class), this);
-		sfx = new SoundObject(RGlobal.data.getEntryFor(KEY_SFX_CLICK, SoundMDO.class), this);
+		sfx = new SoundObject(RGlobal.data.getEntryFor(KEY_SFX_CLICK, SoundMDO.class));
 		animUnpressed = getAppearance();
 		pressed = false;
 		setThisTurn = false;

@@ -77,13 +77,12 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 		if (blocking && command == InputCommand.INTENT_CONFIRM) {
 			blocking = false;
 			RGlobal.screens.peek().getCommandContext().unregisterListener(this);
-			listener.onUnblock();
+			UnblockedListener oldListener = listener;
 			listener = null;
-		}
-		if (command == InputCommand.INTENT_EXIT) {
+			oldListener.onUnblock();
+		} else if (command == InputCommand.INTENT_EXIT) {
 			Gdx.app.exit();
-		}
-		if (command == InputCommand.INTENT_FULLSCREEN) {
+		} else if (command == InputCommand.INTENT_FULLSCREEN) {
 			Gdx.graphics.setDisplayMode(
 					RGlobal.window.getResolutionWidth(), 
 					RGlobal.window.getResolutionHeight(), 

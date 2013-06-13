@@ -40,9 +40,9 @@ public class Trigger extends MapEvent {
 		// TODO: correct this awful width thing
 		this.box = new RectHitbox(this, 
 				0,
-				-1 * extractHeight(parent, object),
+				0,
 				extractWidth(parent, object),
-				0);
+				extractHeight(parent, object));
 		String id = getProperty(PROPERTY_ID);
 		if (id == null) {
 			RGlobal.reporter.warn("Trigger event had no id: " + object);
