@@ -6,11 +6,15 @@
  */
 package net.wombatrpgs.rainfall.maps.objects;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.graphics.Graphic;
 import net.wombatrpgs.rainfall.maps.PositionSetable;
 import net.wombatrpgs.rainfall.screen.ScreenShowable;
@@ -25,12 +29,12 @@ public class Picture implements Comparable<Picture>,
 								ScreenShowable,
 								PositionSetable {
 	
-	protected Graphic appearance;
+	protected List<Queueable> assets;
 	public SpriteBatch batch;
+	protected Graphic appearance;
 	protected Color currentColor;
 	protected float x, y;
 	protected int z; // z is depth-y
-	protected boolean preloaded;
 	protected boolean ignoresTint;
 	
 	protected boolean tweening;
@@ -50,7 +54,6 @@ public class Picture implements Comparable<Picture>,
 		this(appearance, z);
 		setX(x);
 		setY(y);
-		this.preloaded = true;
 	}
 	
 	/**
@@ -62,9 +65,9 @@ public class Picture implements Comparable<Picture>,
 	 */
 	public Picture(GraphicMDO mdo, int x, int y, int z) {
 		this(new Graphic(mdo), z);
+		this.assets.add(appearance);
 		setX(x);
 		setY(y);
-		this.preloaded = false;
 	}
 	
 	/**
@@ -75,13 +78,14 @@ public class Picture implements Comparable<Picture>,
 	public Picture(Graphic appearance, int z) {
 		this.z = z;
 		this.appearance = appearance;
-		this.preloaded = true;
 		this.ignoresTint = true;
 		this.tweening = false;
 		this.batch = new SpriteBatch();
 		this.currentColor = new Color(1, 1, 1, 1);
 		this.tweenBaseColor = new Color(1, 1, 1, 1);
 		this.tweenTargetColor = new Color(1, 1, 1, 1);
+		
+		this.assets = new ArrayList<Queueable>();
 	}
 	
 	/**
@@ -91,7 +95,6 @@ public class Picture implements Comparable<Picture>,
 	 */
 	public Picture(GraphicMDO mdo, int z) {
 		this(mdo, 0, 0, z);
-		this.preloaded = false;
 	}
 	
 	/**
@@ -130,8 +133,8 @@ public class Picture implements Comparable<Picture>,
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		if (!preloaded) {
-			appearance.queueRequiredAssets(manager);
+		for (Queueable asset : assets) {
+			asset.queueRequiredAssets(manager);
 		}
 	}
 	/**
@@ -140,8 +143,8 @@ public class Picture implements Comparable<Picture>,
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		if (!preloaded) {
-			appearance.postProcessing(manager, pass);
+		for (Queueable asset : assets) {
+			asset.postProcessing(manager, pass);
 		}
 	}
 	/**

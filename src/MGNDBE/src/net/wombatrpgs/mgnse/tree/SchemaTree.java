@@ -276,7 +276,7 @@ public class SchemaTree extends JTree {
 	 * @param fileURL The URL to the file
 	 * @return The qualified class name of the file
 	 */
-	private static String fileUrlToBinaryName(String fileURL) {
+	public static String fileUrlToBinaryName(String fileURL) {
 		String url = new String(fileURL);
 		if (url.endsWith(".class")) {
 			url = url.substring(0, url.length() - 6);

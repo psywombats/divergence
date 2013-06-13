@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.rainfall.io.audio;
 
-import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfallschema.audio.MusicMDO;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -25,7 +24,7 @@ public class MusicObject extends AudioObject {
 	 * @param 	mdo				The data to generate music from
 	 */
 	public MusicObject(MusicMDO mdo) {
-		super(mdo, RGlobal.hero);
+		super(mdo);
 		this.mdo = mdo;
 	}
 	
@@ -35,6 +34,23 @@ public class MusicObject extends AudioObject {
 	@Override
 	public void dispose() {
 		coreMusic.dispose();
+	}
+	
+	/**
+	 * Pauses music playback for things like losing screen focus or whatever.
+	 */
+	public void pause() {
+		coreMusic.pause();
+	}
+	
+	/**
+	 * Determines if two musics are actually -- the same thing!!
+	 * @param 	object				The other music object
+	 * @return						True if they match, false otherwise
+	 */
+	public boolean matches(MusicObject object) {
+		if (object == null) return false;
+		return this.mdo == object.mdo;
 	}
 
 	/**
@@ -64,31 +80,14 @@ public class MusicObject extends AudioObject {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.io.audio.AudioObject#postProcessing
+	 * @see net.wombatrpgs.rainfall.io.audio.AudioObject#postAudioProcessing
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
-	protected void postProcessing(AssetManager manager) {
+	protected void postAudioProcessing(AssetManager manager) {
 		coreMusic = (Music) manager.get(filename, getLoaderClass());
 		coreMusic.setLooping(true);
 		coreMusic.setVolume((float) mdo.volume / 100.f);
-	}
-	
-	/**
-	 * Pauses music playback for things like losing screen focus or whatever.
-	 */
-	public void pause() {
-		coreMusic.pause();
-	}
-	
-	/**
-	 * Determines if two musics are actually -- the same thing!!
-	 * @param 	object				The other music object
-	 * @return						True if they match, false otherwise
-	 */
-	public boolean matches(MusicObject object) {
-		if (object == null) return false;
-		return this.mdo == object.mdo;
 	}
 
 }

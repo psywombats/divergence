@@ -29,7 +29,7 @@ public class CommandPlaySound extends SceneCommand {
 	public CommandPlaySound(SceneParser parent, String line) {
 		super(parent, line);
 		String arg = line.substring(line.indexOf(' ' )+1, line.indexOf(']'));
-		sfx = new SoundObject(RGlobal.data.getEntryFor(arg, SoundMDO.class), parent);
+		sfx = new SoundObject(RGlobal.data.getEntryFor(arg, SoundMDO.class));
 	}
 
 	/**

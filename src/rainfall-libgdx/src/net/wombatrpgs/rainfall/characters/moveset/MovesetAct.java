@@ -63,7 +63,7 @@ public abstract class MovesetAct implements Actionable,
 		}
 		if (mdo.sound != null && !mdo.sound.equals(Constants.NULL_MDO)) {
 			SoundMDO soundMDO = RGlobal.data.getEntryFor(mdo.sound, SoundMDO.class);
-			this.sfx = new SoundObject(soundMDO, actor);
+			this.sfx = new SoundObject(soundMDO);
 		}
 		this.actor = actor;
 	}

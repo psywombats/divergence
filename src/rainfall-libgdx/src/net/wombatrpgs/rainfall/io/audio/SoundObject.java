@@ -9,7 +9,6 @@ package net.wombatrpgs.rainfall.io.audio;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 
-import net.wombatrpgs.rainfall.maps.MapThing;
 import net.wombatrpgs.rainfallschema.audio.SoundMDO;
 import net.wombatrpgs.rainfallschema.audio.data.RepeatType;
 
@@ -24,10 +23,9 @@ public class SoundObject extends AudioObject {
 	/**
 	 * Constructs a sound object for another object from data.
 	 * @param	mdo				The data to create from
-	 * @param 	parent			The parent to make for
 	 */
-	public SoundObject(SoundMDO mdo, MapThing parent) {
-		super(mdo, parent);
+	public SoundObject(SoundMDO mdo) {
+		super(mdo);
 		this.mdo = mdo;
 	}
 	
@@ -66,11 +64,11 @@ public class SoundObject extends AudioObject {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.io.audio.AudioObject#postProcessing
+	 * @see net.wombatrpgs.rainfall.io.audio.AudioObject#postAudioProcessing
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
-	protected void postProcessing(AssetManager manager) {
+	protected void postAudioProcessing(AssetManager manager) {
 		coreSound = (Sound) manager.get(filename, getLoaderClass());
 	}
 

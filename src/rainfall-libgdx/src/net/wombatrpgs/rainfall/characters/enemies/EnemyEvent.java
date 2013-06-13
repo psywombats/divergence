@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.rainfall.characters.enemies;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.MapObject;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
@@ -54,20 +53,21 @@ public class EnemyEvent extends CharacterEvent {
 		IntelligenceMDO aiMDO = RGlobal.data.getEntryFor(
 				mdo.intelligence, IntelligenceMDO.class);
 		ai = new Intelligence(aiMDO, this);
+		assets.add(ai);
 		VulnerabilityMDO vulnMDO = RGlobal.data.getEntryFor(
 				mdo.vulnerability, VulnerabilityMDO.class);
 		vuln = new Vulnerability(vulnMDO);
-		if (	mdo.emitter != null && mdo.gibset != null &&
-				!Constants.NULL_MDO.equals(mdo.emitter) && 
-				!Constants.NULL_MDO.equals(mdo.gibset)) {
+		if (mdoHasProperty(mdo.gibset) && mdoHasProperty(mdo.emitter)) {
 			GibsetMDO gibsetMDO = RGlobal.data.getEntryFor(mdo.gibset, GibsetMDO.class);
 			EmitterMDO emitterMDO = RGlobal.data.getEntryFor(mdo.emitter, EmitterMDO.class);
 			GibParticleSet gibs = new GibParticleSet(gibsetMDO);
 			emitter = new Emitter(emitterMDO, gibs);
+			assets.add(emitter);
 		}
 		if (mdo.dieAnim != null && !Constants.NULL_MDO.equals(mdo.dieAnim)) {
 			AnimationMDO dieMDO = RGlobal.data.getEntryFor(mdo.dieAnim, AnimationMDO.class);
 			deathSplat = new AnimationPlayer(dieMDO);
+			assets.add(deathSplat);
 		}
 	}
 
@@ -90,38 +90,6 @@ public class EnemyEvent extends CharacterEvent {
 	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
 		if (dead) return true;
 		return super.onCharacterCollide(other, result); // ie false
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		super.queueRequiredAssets(manager);
-		ai.queueRequiredAssets(manager);
-		if (emitter != null) {
-			emitter.queueRequiredAssets(manager);
-		}
-		if (deathSplat != null) {
-			deathSplat.queueRequiredAssets(manager);
-		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		super.postProcessing(manager, pass);
-		ai.postProcessing(manager, pass);
-		if (emitter != null) {
-			emitter.postProcessing(manager, pass);
-		}
-		if (deathSplat != null) {
-			deathSplat.postProcessing(manager, pass);
-		}
 	}
 
 	/**

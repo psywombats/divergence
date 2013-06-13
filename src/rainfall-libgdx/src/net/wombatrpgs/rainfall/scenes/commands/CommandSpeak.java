@@ -46,7 +46,7 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	protected boolean running;
 	protected boolean system;
 	
-	CommandSpeak(SceneParser parent, String speakerKey, List<String> lines) {
+	public CommandSpeak(SceneParser parent, String speakerKey, List<String> lines) {
 		super(parent, "[subcommand]");
 		if (speakers == null) {
 			speakers = new HashMap<String, SpeakerMDO>();
@@ -129,23 +129,28 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	 */
 	@Override
 	public void onUnblock() {
-		if (facePic != null) {
-			facePic.tweenTo(new Color(1, 1, 1, 0), FADE_TIME);
-			RGlobal.ui.getBox().tweenTo(new Color(1, 1, 1, 0), FADE_TIME);
+		if (RGlobal.ui.getBox().isFinished()) {
+			if (facePic != null) {
+				facePic.tweenTo(new Color(1, 1, 1, 0), FADE_TIME);
+				RGlobal.ui.getBox().tweenTo(new Color(1, 1, 1, 0), FADE_TIME);
+			}
+			final CommandSpeak speak = this;
+			final TimerListener listener = new TimerListener() {
+				@Override public void onTimerZero(TimerObject source) {
+					speak.zero();
+				}
+			};
+			new TimerObject(FADE_TIME, getParent(), listener) {
+				@Override public void onMapFocusLost(Level map) {
+					super.onMapFocusLost(map);
+					speak.zero();
+					map.removeObject(this);
+				}
+			};
+		} else {
+			RGlobal.ui.getBox().displayAll();
+			block(this);
 		}
-		final CommandSpeak speak = this;
-		final TimerListener listener = new TimerListener() {
-			@Override public void onTimerZero(TimerObject source) {
-				speak.zero();
-			}
-		};
-		new TimerObject(FADE_TIME, getParent(), listener) {
-			@Override public void onMapFocusLost(Level map) {
-				super.onMapFocusLost(map);
-				speak.zero();
-				map.removeObject(this);
-			}
-		};
 	}
 
 	/**

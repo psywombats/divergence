@@ -46,8 +46,6 @@ import net.wombatrpgs.rainfallschema.maps.data.Direction;
  */
 public class CharacterEvent extends MapEvent {
 	
-	protected static final String NULL_MDO = "None";
-	
 	protected static final String PROPERTY_FACING = "face";
 	protected static final String PROPERTY_WALK_IN_PLACE = "pace";
 	protected static final String PROPERTY_CONVO = "convo";
@@ -204,44 +202,14 @@ public class CharacterEvent extends MapEvent {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.MapThing#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		if (appearance != null) {
-			appearance.queueRequiredAssets(manager);
-		}
-		if (convo != null) {
-			convo.queueRequiredAssets(manager);
-		}
-		if (soundHurt != null) {
-			soundHurt.queueRequiredAssets(manager);
-		}
-		if (idleAnim != null) {
-			idleAnim.queueRequiredAssets(manager);
-		}
-	}
-
-	/**
+	 * I'm not sure why this doesn't correspond to a queue method but oh well.
 	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
-		if (appearance != null) {
-			appearance.postProcessing(manager, pass);
-		}
-		if (convo != null) {
-			convo.postProcessing(manager, pass);
-		}
-		if (soundHurt != null) {
-			soundHurt.postProcessing(manager, pass);
-		}
-		if (idleAnim != null) {
-			idleAnim.postProcessing(manager, pass);
-		} else {
+		if (idleAnim == null) {
 			idleAnim = walkAnim;
 		}
 		if (object != null) {
@@ -372,10 +340,13 @@ public class CharacterEvent extends MapEvent {
 		if (other.mdo.response == CollisionResponseType.PUSHABLE &&
 				this.mdo.response == CollisionResponseType.PUSHABLE) {
 				applyMTV(other, result, .5f);
+				return;
 		} else if (other.mdo.response == CollisionResponseType.PUSHABLE) {
 			applyMTV(other, result, 0f);
+			return;
 		} else if (this.mdo.response == CollisionResponseType.PUSHABLE) {
 			applyMTV(other, result, 1f);
+			return;
 		}
 	}
 
@@ -681,26 +652,30 @@ public class CharacterEvent extends MapEvent {
 		toCancel = new ArrayList<MovesetAct>();
 		walkStack = new Stack<FacesAnimation>();
 		idleStack = new Stack<FacesAnimation>();
-		if (mdo.appearance != null && !mdo.appearance.equals(NULL_MDO)) {
+		if (mdoHasProperty(mdo.appearance)) {
 			DirMDO dirMDO = RGlobal.data.getEntryFor(mdo.appearance, DirMDO.class);
 			walkAnim = FacesAnimationFactory.create(dirMDO, this);
 			walkStack.push(walkAnim);
 			appearance = walkAnim;
+			assets.add(appearance);
 		}
-		if (mdo.idleAnim != null && !mdo.idleAnim.equals(NULL_MDO)) {
+		if (mdoHasProperty(mdo.idleAnim)) {
 			DirMDO idleMDO = RGlobal.data.getEntryFor(mdo.idleAnim, DirMDO.class);
 			idleAnim = FacesAnimationFactory.create(idleMDO, this);
 			idleStack.push(idleAnim);
+			assets.add(idleAnim);
 		}
-		if (mdo.soundHurt != null && !mdo.soundHurt.equals(NULL_MDO)) {
+		if (mdoHasProperty(mdo.soundHurt)) {
 			SoundMDO soundMDO = RGlobal.data.getEntryFor(mdo.soundHurt, SoundMDO.class);
-			soundHurt = new SoundObject(soundMDO, this);
+			soundHurt = new SoundObject(soundMDO);
+			assets.add(soundHurt);
 		}
 		if (object != null) {
 			String convoKey = getProperty(PROPERTY_CONVO);
 			if (convoKey != null) {
 				SceneMDO sceneMDO = RGlobal.data.getEntryFor(convoKey, SceneMDO.class);
 				convo = new SceneParser(sceneMDO);
+				assets.add(convo);
 			}
 		}
 		directionStatus = new HashMap<Direction, Boolean>();

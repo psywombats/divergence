@@ -18,7 +18,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 import net.wombatrpgs.rainfall.characters.Hero;
-import net.wombatrpgs.rainfall.core.reporters.PrintReporter;
+import net.wombatrpgs.rainfall.core.reporters.*;
 import net.wombatrpgs.rainfall.io.DefaultKeymap;
 import net.wombatrpgs.rainfall.io.FileLoader;
 import net.wombatrpgs.rainfall.io.Keymap;

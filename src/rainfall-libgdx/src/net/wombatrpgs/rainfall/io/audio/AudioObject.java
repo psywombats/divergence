@@ -22,17 +22,14 @@ import net.wombatrpgs.rainfallschema.audio.data.AudioMDO;
 public abstract class AudioObject extends MapThing implements Disposable {
 	
 	protected AudioMDO mdo;
-	protected MapThing parent;
 	protected String filename;
 	
 	/**
 	 * Create a new sound from data.
 	 * @param 	mdo				The data to create the sound from
-	 * @param	object			The map object that will own us
 	 */
-	public AudioObject(AudioMDO mdo, MapThing parent) {
+	public AudioObject(AudioMDO mdo) {
 		this.mdo = mdo;
-		this.parent = parent;
 		this.filename = Constants.AUDIO_DIR + mdo.file;
 	}
 
@@ -53,7 +50,7 @@ public abstract class AudioObject extends MapThing implements Disposable {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
-		postProcessing(manager);
+		postAudioProcessing(manager);
 	}
 	
 	/**
@@ -61,12 +58,12 @@ public abstract class AudioObject extends MapThing implements Disposable {
 	 * managing the map that we're a part of.
 	 */
 	public void play() {
-		if (getLevel() != parent.getLevel()) {
-			if (getLevel() != null) {
-				getLevel().removeObject(this);
-			}
-			parent.getLevel().addObject(this);
-		}
+//		if (getLevel() != parent.getLevel()) {
+//			if (getLevel() != null) {
+//				getLevel().removeObject(this);
+//			}
+//			parent.getLevel().addObject(this);
+//		}
 		corePlay();
 	}
 	
@@ -101,6 +98,6 @@ public abstract class AudioObject extends MapThing implements Disposable {
 	 * processing. By "loading up" that's just setting some field.
 	 * @param	manager			The manager to load from
 	 */
-	protected abstract void postProcessing(AssetManager manager);
+	protected abstract void postAudioProcessing(AssetManager manager);
 
 }

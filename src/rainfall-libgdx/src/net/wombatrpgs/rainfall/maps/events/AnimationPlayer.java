@@ -9,7 +9,6 @@ package net.wombatrpgs.rainfall.maps.events;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -35,6 +34,7 @@ public class AnimationPlayer extends MapEvent {
 		super();
 		this.animation = new AnimationStrip(mdo, this);
 		this.listeners = new ArrayList<AnimationListener>();
+		assets.add(animation);
 	}
 
 	/**
@@ -45,26 +45,6 @@ public class AnimationPlayer extends MapEvent {
 	public void render(OrthographicCamera camera) {
 		super.render(camera);
 		animation.render(camera);
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		super.queueRequiredAssets(manager);
-		animation.queueRequiredAssets(manager);
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		super.postProcessing(manager, pass);
-		animation.postProcessing(manager, pass);
 	}
 	
 	/**

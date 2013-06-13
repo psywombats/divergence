@@ -51,6 +51,7 @@ public class Logic {
 		this.tree = tree;
 		this.editorPane = contentPane;
 		this.parent = parent;
+		parent.setLogic(this);
 		this.cfl = new ContextualFileLoader() {
 			@Override
 			public File getFile(String name) {
@@ -290,6 +291,10 @@ public class Logic {
 		tree.selectNode(parent);
 	}
 	
+	public ProjectConfig getConfig() {
+		return projectConfig;
+	}
+	
 	/**
 	 * Makes a duplicate of the selected entry.
 	 */
@@ -318,6 +323,14 @@ public class Logic {
 			}
 		}
 		newEntry(clazz, target);
+	}
+	
+	public OutputHandler getOut() {
+		return out;
+	}
+	
+	public InputHandler getIn() {
+		return in;
 	}
 	
 	/**

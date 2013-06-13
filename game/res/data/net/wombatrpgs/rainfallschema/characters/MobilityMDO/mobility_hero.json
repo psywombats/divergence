@@ -3,7 +3,7 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
-	"walkVelocity" : 96,
+	"walkVelocity" : 128,
 	"acceleration" : 1024,
 	"decceleration" : 512
 }
