@@ -9,9 +9,11 @@ package net.wombatrpgs.rainfallschema.graphics;
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.FileLink;
+import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.rainfallschema.graphics.data.AnimationType;
+import net.wombatrpgs.rainfallschema.graphics.data.DynamicBoxMDO;
 
 /**
  * Spritestrip sort of thing.
@@ -65,6 +67,11 @@ public class AnimationMDO extends DirMDO {
 	@Desc("Hitbox lower right Y - defaults to frame height, only used if event has a hitbox")
 	@Nullable
 	public Integer hit2y;
+	
+	@Desc("Optionally, attack boxes for each frame of the animation. One per frame. These should be " +
+			"generated with a wizard, probably")
+	@InlineSchema(DynamicBoxMDO.class)
+	public DynamicBoxMDO[] attackBoxes;
 	
 	
 }

@@ -1,0 +1,9 @@
+{
+	"key" : "mobility_sluglike",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"walkVelocity" : 48,
+	"acceleration" : 480,
+	"decceleration" : 480
+}

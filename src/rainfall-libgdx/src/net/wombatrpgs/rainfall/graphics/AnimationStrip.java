@@ -6,6 +6,9 @@
  */
 package net.wombatrpgs.rainfall.graphics;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.core.Updateable;
@@ -14,6 +17,7 @@ import net.wombatrpgs.rainfall.physics.Hitbox;
 import net.wombatrpgs.rainfall.physics.RectHitbox;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.graphics.data.AnimationType;
+import net.wombatrpgs.rainfallschema.graphics.data.DynamicBoxMDO;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -32,6 +36,8 @@ public class AnimationStrip implements 	Renderable,
 	protected Animation anim;
 	protected MapEvent parent;
 	protected Hitbox box;
+	protected List<Hitbox> attackBoxes;
+	
 	protected Texture spritesheet;
 	protected TextureRegion[] frames;
 	protected TextureRegion currentFrame;
@@ -62,6 +68,15 @@ public class AnimationStrip implements 	Renderable,
 		box = new RectHitbox(parent, 
 				mdo.hit1x, mdo.frameHeight-mdo.hit2y, 
 				mdo.hit2x, mdo.frameHeight-mdo.hit1y);
+		attackBoxes = new ArrayList<Hitbox>();
+		if (mdo.attackBoxes != null && mdo.attackBoxes.length > 0) {
+			for (DynamicBoxMDO boxMDO : mdo.attackBoxes) {
+				RectHitbox rect = new RectHitbox(parent,
+						boxMDO.x1, boxMDO.y1,
+						boxMDO.x2, boxMDO.y2);
+				attackBoxes.add(rect);
+			}
+		}
 	}
 	
 	/**
@@ -90,6 +105,9 @@ public class AnimationStrip implements 	Renderable,
 	
 	/** @return The height (in px) of current frames */
 	public int getHeight() { return currentFrame.getRegionHeight(); }
+	
+	/** @return True if this animation has attack box markup */
+	public boolean hasHitData() { return attackBoxes.size() > 0; }
 
 	/**
 	 * @see net.wombatrpgs.rainfall.core.Updateable#update(float)
@@ -234,6 +252,25 @@ public class AnimationStrip implements 	Renderable,
 	}
 	
 	/**
+	 * Gets the database-defined attack box of the current frame of this
+	 * animation. Usually a rectangle. The rules for a mismatch in box number
+	 * and frame number are in the MDO comments somewhere.
+	 * @return					The hitbox of the current attack of this frame
+	 */
+	public Hitbox getAttackBox() {
+		int frameNo = getFrameNumber();
+		int maxBoxes = attackBoxes.size();
+		if (getFrameNumber() >= maxBoxes) {
+			if (attackBoxes.size() == 0) {
+				return null;
+			}
+			return attackBoxes.get(maxBoxes - 1);
+		} else {
+			return attackBoxes.get(frameNo);
+		}
+	}
+	
+	/**
 	 * Determines if this strip has finished playing. Strips on infinite loop
 	 * never finish playing...
 	 * @return					True if this strip has played once
@@ -249,6 +286,19 @@ public class AnimationStrip implements 	Renderable,
 	public void setParent(MapEvent parent) {
 		this.parent = parent;
 		box.setParent(parent);
+		for (Hitbox attackBox : attackBoxes) {
+			attackBox.setParent(parent);
+		}
+	}
+	
+	/**
+	 * Calculates the current frame of this animation. This is calculated from
+	 * elapsed time. It's protected because the strip should abstract away
+	 * frames from its called.
+	 * @return					The index of the current frame
+	 */
+	protected int getFrameNumber() {
+		return anim.getKeyFrameIndex(time);
 	}
 
 }

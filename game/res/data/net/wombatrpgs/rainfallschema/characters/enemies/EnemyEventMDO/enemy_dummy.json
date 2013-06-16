@@ -1,0 +1,18 @@
+{
+	"key" : "enemy_dummy",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"appearance" : "4dir_talyssa_walk",
+	"idleAnim" : "4dir_talyssa_idle",
+	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
+	"response" : "PUSHABLE",
+	"touch" : "NOTHING",
+	"soundHurt" : "None",
+	"mobility" : "mobility_sluglike",
+	"intelligence" : "dummy_intelligence",
+	"vulnerability" : "vulnerability_default",
+	"gibset" : "None",
+	"emitter" : "None",
+	"dieAnim" : "None"
+}

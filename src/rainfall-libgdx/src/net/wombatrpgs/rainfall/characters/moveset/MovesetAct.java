@@ -74,6 +74,9 @@ public abstract class MovesetAct implements Actionable,
 	/** @return The walking animation associated with this move */
 	public FacesAnimation getWalkingAppearance() { return walkingAppearance; }
 	
+	/** @return The character executing this move */
+	public CharacterEvent getActor() { return this.actor; }
+	
 	/**
 	 * @see net.wombatrpgs.rainfall.core.Updateable#update(float)
 	 */

@@ -139,15 +139,7 @@ public class EnemyEvent extends CharacterEvent {
 		return "a " + deads + getName() + ": " + name + " " + this.getX() + 
 				" " +	this.getY() + " rendering " + this.appearance;
 	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#onSupportPulled()
-	 */
-	@Override
-	public void onSupportPulled() {
-		selfDestruct(this);
-	}
-
+	
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#endFall()
 	 */

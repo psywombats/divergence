@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
+import net.wombatrpgs.rainfall.characters.moveset.ActDummyAttack;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.PreRenderable;
 import net.wombatrpgs.rainfall.maps.Level;
@@ -719,12 +720,13 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	}
 	
 	/**
-	 * Happens when the block is pulled out from under us. Maybe should be a
-	 * fall, but falls aren't currently supported. So for now it uh does
-	 * nothing but throw a warning. Override if you need.
+	 * Happens when an attack from something or other happens to hit this. If
+	 * this event is destructible, it should take damage, enemies should die,
+	 * heroes should hurt, etc... Default does nothing though.
+	 * @param 	attack			The attack being responded to
 	 */
-	public void onSupportPulled() {
-		RGlobal.reporter.warn("Pulled out support for an unsuspecting event: " + this);
+	public void respondToAttack(ActDummyAttack attack) {
+		// default is nothing
 	}
 	
 	/**

@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 
+import net.wombatrpgs.rainfall.characters.moveset.ActDummyAttack;
 import net.wombatrpgs.rainfall.characters.moveset.MovesetAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.core.Updateable;
@@ -383,6 +384,21 @@ public class CharacterEvent extends MapEvent {
 	}
 
 	/**
+	 * Finalized, override the internal equivalent instead.
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#respondToAttack
+	 * (net.wombatrpgs.rainfall.characters.moveset.ActDummyAttack)
+	 */
+	@Override
+	public final void respondToAttack(ActDummyAttack attack) {
+		super.respondToAttack(attack);
+		if (attack.getActor() == this) {
+			return;
+		} else {
+			internalAttackResponse(attack);
+		}
+	}
+
+	/**
 	 * Determines if the hero is currently in a state to act, based on the
 	 * actions the hero is currently carrying out and status conditions.
 	 * @return					True if we can act, false otherwise.
@@ -489,7 +505,8 @@ public class CharacterEvent extends MapEvent {
 		float hypo = (float) Math.sqrt(dx*dx + dy*dy);
 		dx /= hypo;
 		dy /= hypo;
-		setVelocity(dx * mobilityMDO.walkVelocity * 2.5f, dy * mobilityMDO.walkVelocity * 2.5f);
+		// TODO: fill these with knockback numbers from somewhere
+		setVelocity(dx * mobilityMDO.walkVelocity * 8, dy * mobilityMDO.walkVelocity * 8);
 	}
 	
 	/**
@@ -629,6 +646,20 @@ public class CharacterEvent extends MapEvent {
 			}
 			setFacing(newFace);
 		}
+	}
+	
+	/**
+	 * Internal response to attacks. Happens when this character is hit by
+	 * something that they didn't launch. Should do kickback/damage etc even
+	 * if this is ultimately shifted into the hands of the attack itself. The
+	 * attack will probably delegate all the necessary commands like stunning
+	 * for characters to override if they're immune or something.
+	 * @param 	attack			The attack that's being responded to
+	 */
+	protected void internalAttackResponse(ActDummyAttack attack) {
+		// TODO: generalized attack response
+		stun();
+		bounce(RGlobal.hero);
 	}
 	
 	/**

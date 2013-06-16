@@ -13,6 +13,11 @@
 			"move" : "move_roll",
 			"startCommand" : "START_ACTION_2",
 			"stopCommand" : "STOP_ACTION_2"
+		},
+		{
+			"move" : "move_dummy",
+			"startCommand" : "START_ACTION_3",
+			"stopCommand" : "STOP_ACTION_3"
 		}
 	]
 }
