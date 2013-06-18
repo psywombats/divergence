@@ -9,6 +9,6 @@
 	"staticAnimation" : "4dir_talyssa_dummyattack",
 	"movingAnimation" : "None",
 	"graphic" : "None",
-	"kick" : 0,
-	"stun" : 0
+	"kick" : 256,
+	"stun" : 1.0
 }
