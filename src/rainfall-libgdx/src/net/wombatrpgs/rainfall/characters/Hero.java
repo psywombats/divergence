@@ -32,6 +32,9 @@ import net.wombatrpgs.rainfallschema.io.data.InputCommand;
  */
 public class Hero extends CharacterEvent {
 	
+	/** How long the hero gets stunned when touching bad guys */
+	protected static float STUN_ON_TOUCH = 1.0f;
+	
 	/** Holds the moves the player has assigned the hero */
 	protected Moveset moves;
 	/** Whoo, I'm in RM land!! */
@@ -81,14 +84,14 @@ public class Hero extends CharacterEvent {
 	public boolean onCharacterCollide(CharacterEvent other, CollisionResult result) {
 		switch (other.mdo.touch) {
 		case BOUNCE:
-			bounce(other);
+			bounce(other, Math.round(this.getMaxVelocity()));
 			break;
 		case STUN:
-			stun();
+			stun(STUN_ON_TOUCH);
 			break;
 		case STUNBOUNCE:
-			stun();
-			bounce(other);
+			stun(STUN_ON_TOUCH);
+			bounce(other, Math.round(this.getMaxVelocity()));
 			break;
 		case INSTADEATH:
 			// hoo boy
@@ -144,23 +147,6 @@ public class Hero extends CharacterEvent {
 	@Override
 	public void reset() {
 		// oh hell no we ain't dyin
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#stun()
-	 */
-	@Override
-	public void stun() {
-		if (stunned) {
-			stunMug += 1;
-			if (stunMug == 3) {
-				die();
-				return;
-			}
-		} else {
-			stunMug = 0;
-		}
-		super.stun();
 	}
 	
 	/**

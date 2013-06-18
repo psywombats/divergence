@@ -183,6 +183,14 @@ public abstract class FacesAnimation implements Renderable,
 	}
 	
 	/**
+	 * Retrieves the attack box of the current frame, if any.
+	 * @return					The attack box of this frame, or null if none
+	 */
+	public Hitbox getAttackBox() {
+		return animations[currentDirOrdinal()].getAttackBox();
+	}
+	
+	/**
 	 * Just starts moving.
 	 */
 	public void startMoving() {

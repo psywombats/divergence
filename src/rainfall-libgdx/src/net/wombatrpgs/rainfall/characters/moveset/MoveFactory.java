@@ -8,6 +8,7 @@ package net.wombatrpgs.rainfall.characters.moveset;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfallschema.characters.hero.moveset.AttackMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.RollMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.RunMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.data.MoveMDO;
@@ -25,6 +26,8 @@ public class MoveFactory {
 			act = new ActRun(actor, (RunMDO) moveMDO);
 		} else if (RollMDO.class.isAssignableFrom(moveMDO.getClass())) {
 			act = new ActRoll(actor, (RollMDO) moveMDO);
+		} else if (AttackMDO.class.isAssignableFrom(moveMDO.getClass())) {
+			act = new ActAttack(actor, (AttackMDO) moveMDO);
 		} else {
 			RGlobal.reporter.warn("Unknown move class: " + moveMDO.getClass());
 			act = null;

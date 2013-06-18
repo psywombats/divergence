@@ -1,0 +1,14 @@
+{
+	"key" : "move_dummy",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"cooldown" : 0.5,
+	"mobility" : "IMMOBILE",
+	"sound" : "None",
+	"staticAnimation" : "4dir_talyssa_dummyattack",
+	"movingAnimation" : "None",
+	"graphic" : "None",
+	"kick" : 256,
+	"stun" : 1.0
+}
