@@ -12,7 +12,7 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
-import net.wombatrpgs.rainfall.characters.moveset.ActDummyAttack;
+import net.wombatrpgs.rainfall.characters.moveset.ActAttack;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.PreRenderable;
 import net.wombatrpgs.rainfall.maps.Level;
@@ -722,10 +722,10 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	/**
 	 * Happens when an attack from something or other happens to hit this. If
 	 * this event is destructible, it should take damage, enemies should die,
-	 * heroes should hurt, etc... Default does nothing though.
+	 * heroes should hurt, etc... Default is nothing.
 	 * @param 	attack			The attack being responded to
 	 */
-	public void respondToAttack(ActDummyAttack attack) {
+	public void respondToAttack(ActAttack attack) {
 		// default is nothing
 	}
 	
