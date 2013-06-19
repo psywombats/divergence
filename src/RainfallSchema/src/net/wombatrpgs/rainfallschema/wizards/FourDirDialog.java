@@ -24,6 +24,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -35,6 +36,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.DocumentEvent;
@@ -48,9 +50,13 @@ import net.wombatrpgs.rainfallschema.characters.enemies.data.TouchEffectType;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
 import net.wombatrpgs.rainfallschema.graphics.data.AnimationType;
+import net.wombatrpgs.rainfallschema.graphics.data.DynamicBoxMDO;
 
 /**
  * Dialog attachment for fourdir wizard.
+ * 
+ * This code's a pile of shit. It works, but if you're looking at this in, say,
+ * 2014+, I'm so so sorry.
  */
 public class FourDirDialog extends JDialog implements	ActionListener,
 														DocumentListener,
@@ -71,6 +77,9 @@ public class FourDirDialog extends JDialog implements	ActionListener,
 	private static final String TOOL_MIRROR_HORIZ = "Mirror left hitbox data to right data";
 	private static final String TOOL_MIRROR_VERT = "Mirror downwards hitbox data to up data";
 	
+	private static final String MODE_BOUNDING = "Draw Bounding Boxes";
+	private static final String MODE_ATTACK = "Draw Attack Boxes";
+	
 	protected MainFrame frame;
 	protected JComboBox<String> fileSelect;
 	protected Image image;
@@ -80,9 +89,14 @@ public class FourDirDialog extends JDialog implements	ActionListener,
 	protected List<JFormattedTextField> ax2Fields;
 	protected List<JFormattedTextField> ay1Fields;
 	protected List<JFormattedTextField> ay2Fields;
-	protected JMenu menuTools;
+	protected JMenu menuTools, menuMode;
 	protected JMenuBar bar;
 	protected JMenuItem toolExport, toolCopyHoriz, toolCopyVert;
+	protected ButtonGroup groupMode;
+	protected JRadioButtonMenuItem radioBoundingMode, radioAttackMode;
+	
+	// indexed by hitboxCoords.get(frameno)[dir][x1/y1/x2/y2]
+	protected List<int[][]> hitboxCoords;
 	
 	protected boolean dragging;
 	protected int dragStartX, dragStartY;
@@ -95,6 +109,7 @@ public class FourDirDialog extends JDialog implements	ActionListener,
 		super(frame, "Four-Dir Sprite Wizard");
 		this.frame = frame;
 		dragging = false;
+		hitboxCoords = new ArrayList<int[][]>();
 		init();
 	}
 	
@@ -107,15 +122,9 @@ public class FourDirDialog extends JDialog implements	ActionListener,
 		} else if (cmd.equals(TOOL_EXPORT)) {
 			export();
 		} else if (cmd.equals(TOOL_MIRROR_HORIZ)) {
-			ax1Fields.get(RIGHT_DIR).setText(mirror(ax2Fields.get(LEFT_DIR).getText()));
-			ax2Fields.get(RIGHT_DIR).setText(mirror(ax1Fields.get(LEFT_DIR).getText()));
-			ay1Fields.get(RIGHT_DIR).setText(ay1Fields.get(LEFT_DIR).getText());
-			ay2Fields.get(RIGHT_DIR).setText(ay2Fields.get(LEFT_DIR).getText());
+			mirrorHoriz();
 		} else if (cmd.equals(TOOL_MIRROR_VERT)) {
-			ax1Fields.get(UP_DIR).setText(ax1Fields.get(DOWN_DIR).getText());
-			ax2Fields.get(UP_DIR).setText(ax2Fields.get(DOWN_DIR).getText());
-			ay1Fields.get(UP_DIR).setText(ay1Fields.get(DOWN_DIR).getText());
-			ay2Fields.get(UP_DIR).setText(ay2Fields.get(DOWN_DIR).getText());
+			mirrorVert();
 		}
 		try {
 			for (JFormattedTextField field : ax1Fields) field.commitEdit();
@@ -125,6 +134,7 @@ public class FourDirDialog extends JDialog implements	ActionListener,
 		} catch (ParseException e2) {
 			System.err.println("parse exception");
 		}
+		ensureSize();
 		repaint();
 	}
 	
@@ -143,12 +153,26 @@ public class FourDirDialog extends JDialog implements	ActionListener,
 		toolCopyHoriz.addActionListener(this);
 		toolCopyVert.addActionListener(this);
 		
-		bar = new JMenuBar();
 		menuTools = new JMenu("Tools");
-		bar.add(menuTools);
 		menuTools.add(toolExport);
 		menuTools.add(toolCopyHoriz);
 		menuTools.add(toolCopyVert);
+		
+		menuMode = new JMenu("Draw Mode");
+		groupMode = new ButtonGroup();
+		radioBoundingMode = new JRadioButtonMenuItem(MODE_BOUNDING);
+		radioAttackMode = new JRadioButtonMenuItem(MODE_ATTACK);
+		groupMode.add(radioBoundingMode);
+		groupMode.add(radioAttackMode);
+		menuMode.add(radioBoundingMode);
+		menuMode.add(radioAttackMode);
+		radioBoundingMode.addActionListener(this);
+		radioAttackMode.addActionListener(this);
+		radioBoundingMode.setSelected(true);
+		
+		bar = new JMenuBar();
+		bar.add(menuTools);
+		bar.add(menuMode);
 		setJMenuBar(bar);
 		
 		JPanel optionsPane = new JPanel();
@@ -185,21 +209,24 @@ public class FourDirDialog extends JDialog implements	ActionListener,
 						int x = frame * width;
 						int y = dir * height;
 						if ((frame + dir) % 2 == 0) {
-							g.setColor(Color.CYAN);
+							g.setColor(new Color(1, .9f, .8f));
 						} else {
-							g.setColor(Color.MAGENTA);
+							g.setColor(new Color(.8f, .9f, 1));
 						}
 						g.fillRect(x, y, width, height);
 					}
 				}
 				g.drawImage(image, 0, 0, this);
+				ensureSize();
 				for (int dir = 0; dir < 4; dir++) {
 					for (int frame = 0; frame < frames; frame++) {
 						int x = frame * width;
 						int y = dir * height;
-						g.setColor(new Color(.0f, .3f, .9f, .5f));
 						int fromX, toX, fromY, toY;
-						if (dragging && dir == dragDir) {
+						
+						// bounding boxes
+						g.setColor(new Color(.0f, .3f, .9f, .5f));
+						if (dragging && dir == dragDir && !attackModeEnabled()) {
 							fromX = (dragToX > dragStartX) ? dragStartX : dragToX;
 							toX = (dragToX > dragStartX) ? dragToX : dragStartX;
 							fromY = (dragToY > dragStartY) ? dragStartY : dragToY;
@@ -209,6 +236,25 @@ public class FourDirDialog extends JDialog implements	ActionListener,
 							toX = getFieldVal(ax2Fields.get(dir));
 							fromY = getFieldVal(ay1Fields.get(dir));
 							toY = getFieldVal(ay2Fields.get(dir));
+						}
+						g.fillRect(	x + fromX,
+								y + fromY,
+								toX - fromX,
+								toY - fromY);
+						
+						// attack boxes
+						g.setColor(new Color(.9f, .3f, .0f, .5f));
+						if (dragging && dir == dragDir && attackModeEnabled() && frame == dragFrame) {
+							fromX = (dragToX > dragStartX) ? dragStartX : dragToX;
+							toX = (dragToX > dragStartX) ? dragToX : dragStartX;
+							fromY = (dragToY > dragStartY) ? dragStartY : dragToY;
+							toY = (dragToY > dragStartY) ? dragToY : dragStartY;
+						} else {
+							int[][] attackData = hitboxCoords.get(frame);
+							fromX = attackData[dir][0];
+							toX = attackData[dir][2];
+							fromY = attackData[dir][1];
+							toY = attackData[dir][3];
 						}
 						g.fillRect(	x + fromX,
 								y + fromY,
@@ -383,10 +429,22 @@ public class FourDirDialog extends JDialog implements	ActionListener,
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		dragging = false;
-		ax1Fields.get(dragDir).setValue((dragToX > dragStartX) ? dragStartX : dragToX);
-		ax2Fields.get(dragDir).setValue((dragToX < dragStartX) ? dragStartX : dragToX);
-		ay1Fields.get(dragDir).setValue((dragToY > dragStartY) ? dragStartY : dragToY);
-		ay2Fields.get(dragDir).setValue((dragToY < dragStartY) ? dragStartY : dragToY);
+		int x1 = (dragToX > dragStartX) ? dragStartX : dragToX;
+		int x2 = (dragToX < dragStartX) ? dragStartX : dragToX;
+		int y1 = (dragToY > dragStartY) ? dragStartY : dragToY;
+		int y2 = (dragToY < dragStartY) ? dragStartY : dragToY;
+		if (!attackModeEnabled()) {
+			ax1Fields.get(dragDir).setValue(x1);
+			ax2Fields.get(dragDir).setValue(x2);
+			ay1Fields.get(dragDir).setValue(y1);
+			ay2Fields.get(dragDir).setValue(y2);
+		} else {
+			int[][] attackData = hitboxCoords.get(dragFrame);
+			attackData[dragDir][0] = x1;
+			attackData[dragDir][1] = y1;
+			attackData[dragDir][2] = x2;
+			attackData[dragDir][3] = y2;
+		}
 		repaint();
 	}
 	
@@ -404,6 +462,19 @@ public class FourDirDialog extends JDialog implements	ActionListener,
 				JOptionPane.PLAIN_MESSAGE,
 				null, null, null);
 		// TODO: check for conflicts in naming ?
+		
+		boolean writeAttacks = false;
+		for (int[][] attackData : hitboxCoords) {
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 4; j++) {
+					if (attackData[i][j] != 0) {
+						writeAttacks = true;
+						break;
+					}
+				}
+			}
+		}
+		
 		List<AnimationMDO> animMDOs = new ArrayList<AnimationMDO>();
 		for (int dir = 0; dir < 4; dir++) {
 			String dirString = "NULL";
@@ -427,6 +498,20 @@ public class FourDirDialog extends JDialog implements	ActionListener,
 			mdo.mode = AnimationType.REPEAT;
 			mdo.offX = 0;
 			mdo.offY = dir * mdo.frameHeight;
+			
+			if (writeAttacks) {
+				mdo.attackBoxes = new DynamicBoxMDO[mdo.frameCount];
+				for (int frame = 0; frame < mdo.frameCount; frame++) {
+					int[][] attackData = hitboxCoords.get(frame);
+					DynamicBoxMDO box = new DynamicBoxMDO();
+					box.x1 = attackData[dir][0];
+					box.y1 = attackData[dir][1];
+					box.x2 = attackData[dir][2];
+					box.y2 = attackData[dir][3];
+					mdo.attackBoxes[frame] = box;
+				}
+			}
+			
 			animMDOs.add(mdo);
 			frame.getLogic().getOut().writeNewSchema(mdo);
 		}
@@ -438,7 +523,7 @@ public class FourDirDialog extends JDialog implements	ActionListener,
 		mdo.leftAnim = "anim_" + name + "_left";
 		mdo.rightAnim = "anim_" + name + "_right";
 		mdo.upAnim = "anim_" + name + "_up";
-		mdo.downAnim = "anim_" + name + "_down";
+		mdo.downAnim = "anim_" + name + "_down";		
 		frame.getLogic().getOut().writeNewSchema(mdo);
 		
 		CharacterEventMDO charaMDO = new CharacterEventMDO();
@@ -465,9 +550,56 @@ public class FourDirDialog extends JDialog implements	ActionListener,
 	
 	private String mirror(String old) {
 		int oldNum = Integer.valueOf(old);
-		int width = Integer.valueOf(frameWidthField.getText());
-		int newNum = width - oldNum;
+		int newNum = mirror2(oldNum);
 		return (new Integer(newNum)).toString();
+	}
+	
+	private int mirror2(int oldNum) {
+		int width = Integer.valueOf(frameWidthField.getText());
+		return width - oldNum;
+	}
+	
+	private boolean attackModeEnabled() {
+		return radioAttackMode.isSelected();
+	}
+	
+	private void mirrorHoriz() {
+		ax1Fields.get(RIGHT_DIR).setText(mirror(ax2Fields.get(LEFT_DIR).getText()));
+		ax2Fields.get(RIGHT_DIR).setText(mirror(ax1Fields.get(LEFT_DIR).getText()));
+		ay1Fields.get(RIGHT_DIR).setText(ay1Fields.get(LEFT_DIR).getText());
+		ay2Fields.get(RIGHT_DIR).setText(ay2Fields.get(LEFT_DIR).getText());
+		for (int[][] attackData : hitboxCoords) {
+			attackData[RIGHT_DIR][0] = mirror2(attackData[LEFT_DIR][2]);
+			attackData[RIGHT_DIR][1] = attackData[LEFT_DIR][1];
+			attackData[RIGHT_DIR][2] = mirror2(attackData[LEFT_DIR][0]);
+			attackData[RIGHT_DIR][3] = attackData[LEFT_DIR][3];
+		}
+	}
+	
+	private void mirrorVert() {
+		ax1Fields.get(UP_DIR).setText(ax1Fields.get(DOWN_DIR).getText());
+		ax2Fields.get(UP_DIR).setText(ax2Fields.get(DOWN_DIR).getText());
+		ay1Fields.get(UP_DIR).setText(ay1Fields.get(DOWN_DIR).getText());
+		ay2Fields.get(UP_DIR).setText(ay2Fields.get(DOWN_DIR).getText());
+		for (int[][] attackData : hitboxCoords) {
+			attackData[UP_DIR][0] = attackData[DOWN_DIR][0];
+			attackData[UP_DIR][1] = attackData[DOWN_DIR][1];
+			attackData[UP_DIR][2] = attackData[DOWN_DIR][2];
+			attackData[UP_DIR][3] = attackData[DOWN_DIR][3];
+		}
+	}
+	
+	private void ensureSize() {
+		int newFrames = getFieldVal(frameCountField);
+		while (hitboxCoords.size() < newFrames) {
+			int temp[][] = new int[4][4];
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 4; j++) {
+					temp[i][j] = 0;
+				}
+			}
+			hitboxCoords.add(temp);
+		}
 	}
 
 }

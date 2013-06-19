@@ -26,7 +26,9 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
- * A specialized animation that makes up one of the four facings
+ * A specialized animation that makes up one of the four facings. Just a
+ * general reminder that the images handled by this class need to be flipped
+ * vertically in terms of markup.
  */
 public class AnimationStrip implements 	Renderable,
 										Updateable,
@@ -72,8 +74,8 @@ public class AnimationStrip implements 	Renderable,
 		if (mdo.attackBoxes != null && mdo.attackBoxes.length > 0) {
 			for (DynamicBoxMDO boxMDO : mdo.attackBoxes) {
 				RectHitbox rect = new RectHitbox(parent,
-						boxMDO.x1, boxMDO.y1,
-						boxMDO.x2, boxMDO.y2);
+						boxMDO.x1, mdo.frameHeight-boxMDO.y2,
+						boxMDO.x2, mdo.frameHeight-boxMDO.y1);
 				attackBoxes.add(rect);
 			}
 		}

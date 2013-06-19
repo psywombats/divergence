@@ -6,8 +6,8 @@
 	"cooldown" : 0.5,
 	"mobility" : "MOBILE",
 	"sound" : "None",
-	"staticAnimation" : "4dir_talyssa_dummyattack",
-	"movingAnimation" : "4dir_talyssa_dummyattack",
+	"staticAnimation" : "4dir_dummyattack2",
+	"movingAnimation" : "4dir_dummyattack2",
 	"graphic" : "None",
 	"kick" : 256,
 	"stun" : 1.0
