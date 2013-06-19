@@ -47,7 +47,6 @@ public class ActAttack extends MovesetAct {
 	@Override
 	public void coreAct(Level map, final CharacterEvent actor) {
 		actor.startAction(this);
-		System.out.println("push");
 		
 		// this is general enough
 		hitSomething = false;
