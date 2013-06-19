@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project rainfall-libgdx-desktop with Jar-in-Jar Loader">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <target name="create_run_jar">
+        <jar destfile="C:/Users/aking_2/rainfall/game/Rainfall.jar">
+            <manifest>
+                <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
+                <attribute name="Rsrc-Main-Class" value="net.wombatrpgs.rainfall.Main"/>
+                <attribute name="Class-Path" value="."/>
+                <attribute name="Rsrc-Class-Path" value="./ gdx-backend-lwjgl.jar gdx-backend-lwjgl-natives.jar gdx-natives.jar gdx.jar jackson-annotations-2.0.4.jar jackson-core-2.0.4.jar jackson-databind-2.0.4.jar jackson-annotations-2.0.4.jar jackson-core-2.0.4.jar jackson-databind-2.0.4.jar"/>
+            </manifest>
+            <zipfileset src="jar-in-jar-loader.zip"/>
+            <fileset dir="C:/Users/aking_2/rainfall/src/rainfall-libgdx-desktop/bin"/>
+            <zipfileset dir="C:\Users\aking_2\rainfall\src\rainfall-libgdx-desktop\libs" includes="gdx-backend-lwjgl.jar"/>
+            <zipfileset dir="C:\Users\aking_2\rainfall\src\rainfall-libgdx-desktop\libs" includes="gdx-backend-lwjgl-natives.jar"/>
+            <zipfileset dir="C:\Users\aking_2\rainfall\src\rainfall-libgdx-desktop\libs" includes="gdx-natives.jar"/>
+            <fileset dir="C:/Users/aking_2/rainfall/src/rainfall-libgdx/bin"/>
+            <zipfileset dir="C:\Users\aking_2\rainfall\src\rainfall-libgdx\libs" includes="gdx.jar"/>
+            <fileset dir="C:/Users/aking_2/rainfall/src/MGNSchema/bin"/>
+            <fileset dir="C:/Users/aking_2/rainfall/src/RainfallSchema/bin"/>
+            <fileset dir="C:/Users/aking_2/rainfall/src/MGNDBE/bin"/>
+            <zipfileset dir="C:\Users\aking_2\rainfall\src\MGNDBE\lib" includes="jackson-annotations-2.0.4.jar"/>
+            <zipfileset dir="C:\Users\aking_2\rainfall\src\MGNDBE\lib" includes="jackson-core-2.0.4.jar"/>
+            <zipfileset dir="C:\Users\aking_2\rainfall\src\MGNDBE\lib" includes="jackson-databind-2.0.4.jar"/>
+            <zipfileset dir="C:\Users\aking_2\rainfall\src\rainfall-libgdx-desktop\libs" includes="jackson-annotations-2.0.4.jar"/>
+            <zipfileset dir="C:\Users\aking_2\rainfall\src\rainfall-libgdx-desktop\libs" includes="jackson-core-2.0.4.jar"/>
+            <zipfileset dir="C:\Users\aking_2\rainfall\src\rainfall-libgdx-desktop\libs" includes="jackson-databind-2.0.4.jar"/>
+        </jar>
+    </target>
+</project>

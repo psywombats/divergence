@@ -113,8 +113,12 @@ public class CharacterEvent extends MapEvent {
 	 */
 	public void setFacing(Direction dir) {
 		if (appearance != null) this.appearance.setFacing(dir);
-		if (walkAnim != null) this.walkAnim.setFacing(dir);
-		if (idleAnim != null) this.idleAnim.setFacing(dir);
+		for (FacesAnimation anim : walkStack) {
+			anim.setFacing(dir);
+		}
+		for (FacesAnimation anim : idleStack) {
+			anim.setFacing(dir);
+		}
 	}
 	
 	/**
