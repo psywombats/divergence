@@ -60,7 +60,7 @@ public class IntentFactory {
 	 * @param 	mdo				The data to make the action from
 	 * @return					An action made from that data
 	 */
-	public static IntentAct makeAction(Intelligence intel, CharacterEvent actor, IntentMDO mdo) {
+	public static IntentAct makeAction(BehaviorList intel, CharacterEvent actor, IntentMDO mdo) {
 		// do the if-else
 		switch (mdo.action) {
 		case PATHFIND_TO_HERO:

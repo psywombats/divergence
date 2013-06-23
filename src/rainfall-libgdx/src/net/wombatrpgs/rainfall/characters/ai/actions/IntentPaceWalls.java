@@ -7,7 +7,7 @@
 package net.wombatrpgs.rainfall.characters.ai.actions;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
-import net.wombatrpgs.rainfall.characters.ai.Intelligence;
+import net.wombatrpgs.rainfall.characters.ai.BehaviorList;
 import net.wombatrpgs.rainfall.characters.ai.IntentAct;
 import net.wombatrpgs.rainfall.maps.layers.GridLayer;
 import net.wombatrpgs.rainfallschema.maps.data.Direction;
@@ -19,7 +19,7 @@ public class IntentPaceWalls extends IntentAct {
 	
 	protected static final int SENSOR_RANGE = 3;
 
-	public IntentPaceWalls(Intelligence parent, CharacterEvent actor) {
+	public IntentPaceWalls(BehaviorList parent, CharacterEvent actor) {
 		super(parent, actor);
 	}
 

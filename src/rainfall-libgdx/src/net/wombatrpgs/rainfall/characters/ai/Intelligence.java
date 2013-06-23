@@ -1,50 +1,48 @@
 /**
  *  Intelligence.java
- *  Created on Jan 30, 2013 12:11:50 AM for project rainfall-libgdx
+ *  Created on Jun 22, 2013 12:21:13 PM for project rainfall-libgdx
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
 package net.wombatrpgs.rainfall.characters.ai;
 
-import java.util.PriorityQueue;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.rainfall.characters.CharacterEvent;
+import net.wombatrpgs.rainfall.characters.enemies.EnemyEvent;
 import net.wombatrpgs.rainfall.core.Queueable;
-import net.wombatrpgs.rainfallschema.characters.enemies.ai.IntelligenceMDO;
-import net.wombatrpgs.rainfallschema.characters.enemies.ai.intent.IntentMDO;
+import net.wombatrpgs.rainfallschema.characters.enemies.ai.data.IntelligenceMDO;
 
 /**
- * A construct of intents that controls an AI. Sequentially goes through its
- * list of potential actions, and if one is valid, performs it. A very straight-
- * forward piece of AI meant to control enemies. However, should some behavior
- * be too complex to be represented as intents, it can instead just have a
- * custom intelligence and override this thing's methods. A new intelligence is
- * created for each individual enemy. The reason this is set as a per-enemy
- * thing rather than a per-enemy-type thing is that intelligecces can change
- * based on actions of an individual enemy.
+ * A thing that can tell enemies what to do. Replaces the old Blockbound style
+ * behavior list exclusive control. Behavior lists (old intelligences) now
+ * extend this.
  */
-public class Intelligence implements Queueable {
+public abstract class Intelligence implements Queueable {
 	
 	protected IntelligenceMDO mdo;
-	protected PriorityQueue<Intent> intents;
-	protected CharacterEvent actor;
-	protected IntentAct busy;
+	protected EnemyEvent actor;
+	protected List<Queueable> assets;
 	
 	/**
-	 * Creates a new intelligence for an actor based on data.
-	 * @param 	mdo				The data to create the intelligence from
-	 * @param 	actor			The actor to create the intelligence for
+	 * Creates a new intelligence to control a specific enemy.
+	 * @param 	actor			The enemy to control
 	 */
-	public Intelligence(IntelligenceMDO mdo, CharacterEvent actor) {
-		this.mdo = mdo;
+	public Intelligence(IntelligenceMDO mdo, EnemyEvent actor) {
 		this.actor = actor;
-		intents = new PriorityQueue<Intent>();
-		for (IntentMDO intentMDO : mdo.intents) {
-			intents.add(new Intent(this, intentMDO, actor));
-		}
+		this.assets = new ArrayList<Queueable>();
+		this.mdo = mdo;
 	}
+	
+	/**
+	 * This is what the intelligence decides to do. It should analyze the game
+	 * state and its internal whatevers and come up with the best course of
+	 * action for the actor, then tell the actor to do it. Called every tick of
+	 * the update loop.
+	 */
+	public abstract void act();
 
 	/**
 	 * @see net.wombatrpgs.rainfall.core.Queueable#queueRequiredAssets
@@ -52,8 +50,8 @@ public class Intelligence implements Queueable {
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		for (Intent intent : intents) {
-			intent.queueRequiredAssets(manager);
+		for (Queueable asset : assets) {
+			asset.queueRequiredAssets(manager);
 		}
 	}
 
@@ -63,32 +61,9 @@ public class Intelligence implements Queueable {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		for (Intent intent : intents) {
-			intent.postProcessing(manager, pass);
+		for (Queueable asset : assets) {
+			asset.postProcessing(manager, pass);
 		}
 	}
-	
-	/**
-	 * Go through all the intents and perform the best one~!
-	 */
-	public void act() {
-		if (busy == null) {
-			for (Intent intent : intents) {
-				if (intent.checkAndAct()) break;
-			}
-		} else {
-			busy.act();
-		}
-	}
-	
-	/**
-	 * Sets the delaying action on this intelligence. This act will override
-	 * the intelligence and always act until it unsets itself as the busy
-	 * event.
-	 * @param act
-	 */
-	public void setBusy(IntentAct act) {
-		this.busy = act;
-	}
-	
+
 }

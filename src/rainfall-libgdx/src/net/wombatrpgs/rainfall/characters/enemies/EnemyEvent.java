@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.MapObject;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.characters.ai.Intelligence;
+import net.wombatrpgs.rainfall.characters.ai.IntelligenceFactory;
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.particles.Emitter;
@@ -20,7 +21,7 @@ import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.physics.CollisionResult;
 import net.wombatrpgs.rainfallschema.characters.enemies.EnemyEventMDO;
 import net.wombatrpgs.rainfallschema.characters.enemies.VulnerabilityMDO;
-import net.wombatrpgs.rainfallschema.characters.enemies.ai.IntelligenceMDO;
+import net.wombatrpgs.rainfallschema.characters.enemies.ai.data.IntelligenceMDO;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.graphics.EmitterMDO;
 import net.wombatrpgs.rainfallschema.graphics.GibsetMDO;
@@ -52,7 +53,7 @@ public class EnemyEvent extends CharacterEvent {
 		againstWall = 0;
 		IntelligenceMDO aiMDO = RGlobal.data.getEntryFor(
 				mdo.intelligence, IntelligenceMDO.class);
-		ai = new Intelligence(aiMDO, this);
+		ai = IntelligenceFactory.create(this, aiMDO);
 		assets.add(ai);
 		VulnerabilityMDO vulnMDO = RGlobal.data.getEntryFor(
 				mdo.vulnerability, VulnerabilityMDO.class);
