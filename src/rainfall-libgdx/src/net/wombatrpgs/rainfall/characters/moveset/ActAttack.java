@@ -79,6 +79,14 @@ public class ActAttack extends MovesetAct {
 	}
 	
 	/**
+	 * @see net.wombatrpgs.rainfall.characters.moveset.MovesetAct#getType()
+	 */
+	@Override
+	public MoveType getType() {
+		return MoveType.ATTACK;
+	}
+
+	/**
 	 * Applies any special stuff associated with this attack. Called when this
 	 * attack lands automatically by the victim itself. Override to use.
 	 * @param 	victim			The character getting hit with this attack

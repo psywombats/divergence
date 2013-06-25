@@ -67,4 +67,12 @@ public class ActRoll extends MovesetAct {
 		});
 	}
 
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.moveset.MovesetAct#getType()
+	 */
+	@Override
+	public MoveType getType() {
+		return MoveType.MOVEMENT;
+	}
+
 }

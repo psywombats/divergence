@@ -195,6 +195,15 @@ public abstract class MovesetAct implements Actionable,
 	}
 	
 	/**
+	 * Determines what type of move this is. Default is other, because we don't
+	 * know.
+	 * @return					The type of this move
+	 */
+	public MoveType getType() {
+		return MoveType.OTHER;
+	}
+	
+	/**
 	 * Shortcut for subclasses to act themselves.
 	 * @param 	map				The map the action takes place on
 	 */

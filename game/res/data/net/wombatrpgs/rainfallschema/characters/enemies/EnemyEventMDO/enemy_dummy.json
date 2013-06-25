@@ -11,6 +11,10 @@
 	"soundHurt" : "None",
 	"mobility" : "mobility_sluglike",
 	"intelligence" : "dummy_intelligence",
+	"moveset" : [
+		"move_roll",
+		"move_run"
+	],
 	"vulnerability" : "vulnerability_default",
 	"gibset" : "None",
 	"emitter" : "None",

@@ -19,5 +19,13 @@ public class PlayerlikeIntelligenceMDO extends IntelligenceMDO {
 	
 	@Desc("Vision - How far away this enemy can see, in px")
 	public Integer visionRadius;
+	
+	@Desc("Far range - Maximum bound of comfortable range from hero, in px")
+	public Integer farRange;
+	
+	@Desc("Near range - Minimum bound of comfortable range from hero, in px")
+	public Integer nearRange;
+	
+	//@Desc
 
 }

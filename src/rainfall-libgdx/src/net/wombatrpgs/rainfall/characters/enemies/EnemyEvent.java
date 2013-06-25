@@ -6,11 +6,16 @@
  */
 package net.wombatrpgs.rainfall.characters.enemies;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.maps.MapObject;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.characters.ai.Intelligence;
 import net.wombatrpgs.rainfall.characters.ai.IntelligenceFactory;
+import net.wombatrpgs.rainfall.characters.moveset.MoveFactory;
+import net.wombatrpgs.rainfall.characters.moveset.MovesetAct;
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.particles.Emitter;
@@ -35,6 +40,7 @@ public class EnemyEvent extends CharacterEvent {
 	protected static final String PROPERTY_RESPAWNS = "respawns";
 	
 	protected EnemyEventMDO mdo;
+	protected List<MovesetAct> moves;
 	protected Intelligence ai;
 	protected Vulnerability vuln;
 	protected Emitter emitter;
@@ -51,6 +57,12 @@ public class EnemyEvent extends CharacterEvent {
 		super(mdo, object, parent);
 		this.mdo = mdo;
 		againstWall = 0;
+		moves = new ArrayList<MovesetAct>();
+		for (String mdoKey : mdo.moveset) {
+			MovesetAct act = MoveFactory.generateMove(this, mdoKey);
+			moves.add(act);
+			assets.add(act);
+		}
 		IntelligenceMDO aiMDO = RGlobal.data.getEntryFor(
 				mdo.intelligence, IntelligenceMDO.class);
 		ai = IntelligenceFactory.create(this, aiMDO);
@@ -147,6 +159,14 @@ public class EnemyEvent extends CharacterEvent {
 	@Override
 	public void endFall() {
 		dead = true;
+	}
+	
+	/**
+	 * Gets the cached list of moves this enemy can perform.
+	 * @return					The moves of this enemy
+	 */
+	public List<MovesetAct> getMoves() {
+		return moves;
 	}
 
 	/**
