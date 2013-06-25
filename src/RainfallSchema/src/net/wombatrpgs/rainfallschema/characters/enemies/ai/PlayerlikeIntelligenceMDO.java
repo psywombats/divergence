@@ -10,6 +10,7 @@ package net.wombatrpgs.rainfallschema.characters.enemies.ai;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.rainfallschema.characters.enemies.ai.data.IntelligenceMDO;
+import net.wombatrpgs.rainfallschema.characters.hero.data.PostAttackType;
 
 /**
  * All ABS-participants, essentially.
@@ -26,6 +27,10 @@ public class PlayerlikeIntelligenceMDO extends IntelligenceMDO {
 	@Desc("Near range - Minimum bound of comfortable range from hero, in px")
 	public Integer nearRange;
 	
-	//@Desc
+	@Desc("Post attack type - What to do after an attack finishes")
+	public PostAttackType postType;
+	
+	@Desc("Aggression - How likely to go for an unlikely attack, as a percent 1-100")
+	public Integer aggression;
 
 }

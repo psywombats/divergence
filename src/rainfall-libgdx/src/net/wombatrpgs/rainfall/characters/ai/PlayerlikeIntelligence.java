@@ -84,5 +84,7 @@ public class PlayerlikeIntelligence extends Intelligence {
 	private void approach() {
 		actor.targetLocation(RGlobal.hero.getX(), RGlobal.hero.getY());
 	}
+	
+	//private boolean maybeAttack
 
 }

@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.rainfall.characters.moveset;
 
+import com.badlogic.gdx.assets.AssetManager;
+
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
@@ -22,6 +24,7 @@ public class ActAttack extends MovesetAct {
 	
 	protected AttackMDO mdo;
 	protected boolean hitSomething;
+	protected int maxRange;
 
 	/**
 	 * Creates a new attack from data. Should be called from subclasses too.
@@ -84,6 +87,16 @@ public class ActAttack extends MovesetAct {
 	@Override
 	public MoveType getType() {
 		return MoveType.ATTACK;
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.moveset.MovesetAct#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager, int pass) {
+		super.postProcessing(manager, pass);
+		
 	}
 
 	/**
