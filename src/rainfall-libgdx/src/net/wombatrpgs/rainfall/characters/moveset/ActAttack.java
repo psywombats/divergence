@@ -6,6 +6,9 @@
  */
 package net.wombatrpgs.rainfall.characters.moveset;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
@@ -15,6 +18,7 @@ import net.wombatrpgs.rainfall.maps.objects.TimerListener;
 import net.wombatrpgs.rainfall.maps.objects.TimerObject;
 import net.wombatrpgs.rainfall.physics.Hitbox;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.AttackMDO;
+import net.wombatrpgs.rainfallschema.maps.data.Direction;
 
 /**
  * Daddy of all attacks. It's not abstract, so basic "hit the dummy" attacks
@@ -24,7 +28,7 @@ public class ActAttack extends MovesetAct {
 	
 	protected AttackMDO mdo;
 	protected boolean hitSomething;
-	protected int maxRange;
+	protected Map<Direction, Integer> attackRanges;
 
 	/**
 	 * Creates a new attack from data. Should be called from subclasses too.
@@ -35,6 +39,7 @@ public class ActAttack extends MovesetAct {
 		super(actor, mdo);
 		this.hitSomething = false;
 		this.mdo = mdo;
+		this.attackRanges = new HashMap<Direction, Integer>();
 	}
 	
 	/** @return How long this attack's stun should last, in s */
@@ -96,6 +101,9 @@ public class ActAttack extends MovesetAct {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
+		for (Direction dir : Direction.values()) {
+			//this.
+		}
 		
 	}
 
