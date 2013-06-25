@@ -11,7 +11,8 @@ import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.rainfallschema.characters.CharacterEventMDO;
-import net.wombatrpgs.rainfallschema.characters.enemies.ai.IntelligenceMDO;
+import net.wombatrpgs.rainfallschema.characters.enemies.ai.data.IntelligenceMDO;
+import net.wombatrpgs.rainfallschema.characters.hero.moveset.data.MoveMDO;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.graphics.EmitterMDO;
 import net.wombatrpgs.rainfallschema.graphics.GibsetMDO;
@@ -24,7 +25,11 @@ public class EnemyEventMDO extends CharacterEventMDO {
 	
 	@Desc("Intelligence - the set of behaviors that control the enemy")
 	@SchemaLink(IntelligenceMDO.class)
-	public String intelligence;	
+	public String intelligence;
+	
+	@Desc("Moveset - all moves this enemy can use")
+	@SchemaLink(MoveMDO.class)
+	public String[] moveset;
 	
 	@Desc("Vulnerability - describes what this enemy can be killed by")
 	@SchemaLink(VulnerabilityMDO.class)

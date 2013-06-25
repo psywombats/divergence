@@ -21,13 +21,13 @@ import net.wombatrpgs.rainfall.core.Queueable;
 public abstract class IntentAct implements Queueable {
 	
 	protected CharacterEvent actor;
-	protected Intelligence parent;
+	protected BehaviorList parent;
 	
 	/**
 	 * Creates a new intent action for the specified actor.
 	 * @param 	actor			The actor the act is being generated for
 	 */
-	public IntentAct(Intelligence parent, CharacterEvent actor) {
+	public IntentAct(BehaviorList parent, CharacterEvent actor) {
 		this.actor = actor;
 		this.parent = parent;
 	}

@@ -34,4 +34,14 @@ public enum Direction {
 	public DirVector getVector() {
 		return new DirVector(x, y);
 	}
+	
+	public static Direction getOpposite(Direction opposite) {
+		switch (opposite) {
+		case UP: return DOWN;
+		case LEFT: return RIGHT;
+		case DOWN: return UP;
+		case RIGHT: return LEFT;
+		default: return null;
+		}
+	}
 }

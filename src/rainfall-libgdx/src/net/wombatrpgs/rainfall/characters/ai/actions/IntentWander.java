@@ -7,7 +7,7 @@
 package net.wombatrpgs.rainfall.characters.ai.actions;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
-import net.wombatrpgs.rainfall.characters.ai.Intelligence;
+import net.wombatrpgs.rainfall.characters.ai.BehaviorList;
 import net.wombatrpgs.rainfall.characters.ai.IntentAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.objects.TimerListener;
@@ -24,7 +24,7 @@ public class IntentWander extends IntentAct {
 	protected static final float WAIT_MIN = 4f; // seconds
 	protected static final float WAIT_MAX = 7f; // seconds
 	
-	public IntentWander(Intelligence parent, CharacterEvent actor) {
+	public IntentWander(BehaviorList parent, CharacterEvent actor) {
 		super(parent, actor);
 		this.needsRecalc = true;
 	}

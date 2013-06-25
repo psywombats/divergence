@@ -43,6 +43,16 @@ public class WindowSettings {
 		return mdo.resHeight;
 	}
 	
+	/** @return The width of the window camera, in virtual px */
+	public int getViewportWidth() {
+		return mdo.width;
+	}
+	
+	/** @return The height of the window camera, in virtual px */
+	public int getViewportHeight() {
+		return mdo.height;
+	}
+	
 	/** @return The zoom factor appropriate for a camera */
 	public float getZoom() {
 		return (float) mdo.width / (float) mdo.resWidth;

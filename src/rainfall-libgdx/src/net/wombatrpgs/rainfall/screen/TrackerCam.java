@@ -8,6 +8,7 @@ package net.wombatrpgs.rainfall.screen;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.core.Updateable;
+import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.Positionable;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -23,6 +24,7 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 	
 	protected Rectangle glViewport;
 	protected Positionable target;
+	protected Level constrainedMap;
 	protected float speed; // in px/s
 
 	/**
@@ -46,6 +48,33 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 		if (target != null) {
 			position.x = Math.round(target.getX()/zoom)*zoom;// * ratioX;
 			position.y = Math.round(target.getY()/zoom)*zoom;// * ratioY;
+			if (constrainedMap != null) {
+				int halfWidth = RGlobal.window.getViewportWidth() / 2;
+				int halfHeight = RGlobal.window.getViewportHeight() / 2;
+				boolean tooLeft = position.x < halfWidth;
+				boolean tooRight = position.x > constrainedMap.getWidthPixels() - halfWidth;
+				boolean tooUp = position.y < halfHeight;
+				boolean tooDown = position.y > constrainedMap.getHeightPixels() - halfHeight;
+				if (tooLeft) {
+					position.x = halfWidth;
+				} else if (tooRight) {
+					position.x = constrainedMap.getWidthPixels() - halfWidth;
+				}
+				if (tooUp) {
+					position.y = halfHeight;
+				} else if (tooDown) {
+					position.y = constrainedMap.getHeightPixels() - halfHeight;
+				}
+				tooLeft = position.x < halfWidth;
+				tooRight = position.x > constrainedMap.getWidthPixels() - halfWidth;
+				tooUp = position.y < halfHeight;
+				tooDown = position.y > constrainedMap.getHeightPixels() - halfHeight;
+				if (tooLeft || tooRight) {
+					position.x = constrainedMap.getWidthPixels() / 2;
+				} else if (tooUp || tooDown) {
+					position.y = constrainedMap.getHeightPixels() / 2;
+				}
+			}
 		}
 		super.update();
 	}
@@ -65,6 +94,15 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 	 */
 	public void track(Positionable target) {
 		this.target = target;
+	}
+	
+	/**
+	 * Sets the camera to restrain itself to the bounds of a map. Can also pass
+	 * in null to clear the map.
+	 * @param 	map				The map to contrain the camera to, or null
+	 */
+	public void constrainMaps(Level map) {
+		this.constrainedMap = map;
 	}
 
 }

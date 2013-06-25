@@ -1,0 +1,9 @@
+{
+	"key" : "dummy_intelligence",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"visionRadius" : 200,
+	"farRange" : 150,
+	"nearRange" : 100
+}

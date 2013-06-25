@@ -7,7 +7,7 @@
 package net.wombatrpgs.rainfall.characters.ai.actions;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
-import net.wombatrpgs.rainfall.characters.ai.Intelligence;
+import net.wombatrpgs.rainfall.characters.ai.BehaviorList;
 import net.wombatrpgs.rainfall.characters.ai.IntentAct;
 
 /**
@@ -20,7 +20,7 @@ public class IntentPace extends IntentAct {
 	protected enum PaceState { GOING_LEFT, GOING_RIGHT }
 	protected PaceState state;
 
-	public IntentPace(Intelligence parent, CharacterEvent actor) {
+	public IntentPace(BehaviorList parent, CharacterEvent actor) {
 		super(parent, actor);
 		state = PaceState.GOING_RIGHT;
 	}

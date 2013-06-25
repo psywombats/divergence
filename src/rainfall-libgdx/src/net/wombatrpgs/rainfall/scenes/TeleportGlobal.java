@@ -88,6 +88,8 @@ public class TeleportGlobal implements Queueable {
 			RGlobal.ui.getHud().setOverlayTintIgnore(true);
 		}
 		if (map.getBGM() != null && !map.getBGM().matches(old.getBGM())) map.getBGM().play();
+		// TODO: make sure this only applies to maps that want it
+		RGlobal.screens.getCamera().constrainMaps(map);
 		
 		RGlobal.screens.peek().setCanvas(map);
 		

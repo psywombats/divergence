@@ -10,7 +10,7 @@ import java.util.List;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.characters.ai.AStarPathfinder;
-import net.wombatrpgs.rainfall.characters.ai.Intelligence;
+import net.wombatrpgs.rainfall.characters.ai.BehaviorList;
 import net.wombatrpgs.rainfall.characters.ai.IntentAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfallschema.maps.data.Direction;
@@ -22,7 +22,7 @@ public class IntentPathfindToHero extends IntentAct {
 	
 	AStarPathfinder finder;
 
-	public IntentPathfindToHero(Intelligence parent, CharacterEvent actor) {
+	public IntentPathfindToHero(BehaviorList parent, CharacterEvent actor) {
 		super(parent, actor);
 		this.finder = new AStarPathfinder(actor.getLevel(), 0, 0, 0, 0, 0);
 	}

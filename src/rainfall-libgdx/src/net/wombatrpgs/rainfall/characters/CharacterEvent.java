@@ -448,6 +448,14 @@ public class CharacterEvent extends MapEvent {
 	}
 	
 	/**
+	 * Face away from a particular map event.
+	 * @param	event			The object to face away from
+	 */
+	public void faceAway(MapEvent event) {
+		setFacing(Direction.getOpposite(directionTo(event)));
+	}
+	
+	/**
 	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#halt()
 	 */
 	@Override
@@ -457,8 +465,7 @@ public class CharacterEvent extends MapEvent {
 			appearance.stopMoving();
 			appearance.update(0);
 		}
-		targetVX = 0;
-		targetVY = 0;
+		targetLocation(getX(), getY());
 		for (Direction dir : directionStatus.keySet()) {
 			directionStatus.put(dir, false);
 		}

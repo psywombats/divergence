@@ -7,7 +7,7 @@
 package net.wombatrpgs.rainfall.characters.ai.actions;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
-import net.wombatrpgs.rainfall.characters.ai.Intelligence;
+import net.wombatrpgs.rainfall.characters.ai.BehaviorList;
 import net.wombatrpgs.rainfall.characters.ai.IntentAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
 
@@ -16,7 +16,7 @@ import net.wombatrpgs.rainfall.core.RGlobal;
  */
 public class IntentFaceHero extends IntentAct {
 
-	public IntentFaceHero(Intelligence parent, CharacterEvent actor) {
+	public IntentFaceHero(BehaviorList parent, CharacterEvent actor) {
 		super(parent, actor);
 	}
 

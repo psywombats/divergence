@@ -7,7 +7,7 @@
 package net.wombatrpgs.rainfall.characters.ai.actions;
 
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
-import net.wombatrpgs.rainfall.characters.ai.Intelligence;
+import net.wombatrpgs.rainfall.characters.ai.BehaviorList;
 import net.wombatrpgs.rainfall.characters.ai.IntentAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.objects.TimerListener;
@@ -22,7 +22,7 @@ public class IntentChargeForward extends IntentAct {
 	
 	protected boolean finishedCharging;
 	
-	public IntentChargeForward(Intelligence parent, CharacterEvent actor) {
+	public IntentChargeForward(BehaviorList parent, CharacterEvent actor) {
 		super(parent, actor);
 		this.finishedCharging = false;
 	}
