@@ -463,6 +463,11 @@ public class FourDirDialog extends JDialog implements	ActionListener,
 				null, null, null);
 		// TODO: check for conflicts in naming ?
 		
+		// check for cancel
+		if (name == "" || name == null || subfolder == null) {
+			return;
+		}
+		
 		boolean writeAttacks = false;
 		for (int[][] attackData : hitboxCoords) {
 			for (int i = 0; i < 4; i++) {
