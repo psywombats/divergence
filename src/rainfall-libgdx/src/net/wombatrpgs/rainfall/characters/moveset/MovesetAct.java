@@ -41,6 +41,7 @@ public abstract class MovesetAct implements Actionable,
 	protected FacesAnimation idleAppearance, walkingAppearance;
 	protected Graphic icon;
 	protected SoundObject sfx;
+	protected int maxRange;
 	protected boolean coolingDown;
 	
 	/**
@@ -76,6 +77,9 @@ public abstract class MovesetAct implements Actionable,
 	
 	/** @return The character executing this move */
 	public CharacterEvent getActor() { return this.actor; }
+	
+	/** @return The range that this move attacks, 0 if none */
+	public int getRange() { return maxRange; }
 	
 	/**
 	 * @see net.wombatrpgs.rainfall.core.Updateable#update(float)
@@ -140,11 +144,18 @@ public abstract class MovesetAct implements Actionable,
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
+		maxRange = 0;
 		if (walkingAppearance != null) {
 			walkingAppearance.postProcessing(manager, pass);
+			if (walkingAppearance.getMaxRange() > maxRange) {
+				maxRange = walkingAppearance.getMaxRange();
+			}
 		}
 		if (idleAppearance != null) {
 			idleAppearance.postProcessing(manager, pass);
+			if (idleAppearance.getMaxRange() > maxRange) {
+				maxRange = idleAppearance.getMaxRange();
+			}
 		}
 		if (icon != null) {
 			icon.postProcessing(manager, pass);

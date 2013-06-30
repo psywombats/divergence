@@ -4,6 +4,6 @@
 	"name" : "",
 	"description" : "",
 	"visionRadius" : 200,
-	"farRange" : 150,
-	"nearRange" : 100
+	"farRange" : 10,
+	"nearRange" : 0
 }

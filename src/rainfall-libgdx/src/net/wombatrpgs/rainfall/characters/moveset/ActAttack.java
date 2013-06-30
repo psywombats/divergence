@@ -9,8 +9,6 @@ package net.wombatrpgs.rainfall.characters.moveset;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.badlogic.gdx.assets.AssetManager;
-
 import net.wombatrpgs.rainfall.characters.CharacterEvent;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
@@ -77,7 +75,8 @@ public class ActAttack extends MovesetAct {
 		if (attackBox != null && !hitSomething) {
 			for (MapEvent event : actor.getLevel().getEvents()) {
 				if (event.isCollisionEnabled() &&
-						event.getHitbox().isColliding(attackBox).isColliding) {
+						event.getHitbox().isColliding(attackBox).isColliding &&
+						event != actor) {
 					event.respondToAttack(this);
 					hitSomething = true;
 					break;
@@ -92,19 +91,6 @@ public class ActAttack extends MovesetAct {
 	@Override
 	public MoveType getType() {
 		return MoveType.ATTACK;
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.characters.moveset.MovesetAct#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		super.postProcessing(manager, pass);
-		for (Direction dir : Direction.values()) {
-			//this.
-		}
-		
 	}
 
 	/**

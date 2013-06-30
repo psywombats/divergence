@@ -34,6 +34,9 @@ public class PlayerlikeIntelligence extends Intelligence {
 	 */
 	@Override
 	public void act() {
+		if (maybeAttack()) {
+			return;
+		}
 		if (actor.distanceTo(RGlobal.hero) > mdo.visionRadius) {
 			idle();
 			return;
@@ -85,6 +88,21 @@ public class PlayerlikeIntelligence extends Intelligence {
 		actor.targetLocation(RGlobal.hero.getX(), RGlobal.hero.getY());
 	}
 	
-	//private boolean maybeAttack
+	/**
+	 * Attack based on a heuristic related to aggression and range.
+	 * @return					True if an attack fired
+	 */
+	private boolean maybeAttack() {
+		float attackDivisor = actor.getMoves().size();
+		float dist = actor.distanceTo(RGlobal.hero);
+		for (MovesetAct attack : actor.getMoves()) {
+			int range = attack.getRange();
+			if (range > dist) {
+				attack.act(actor.getLevel(), actor);
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

@@ -672,7 +672,7 @@ public class CharacterEvent extends MapEvent {
 	 */
 	protected void internalAttackResponse(ActAttack attack) {
 		stun(attack.getStunDuration());
-		bounce(RGlobal.hero, attack.getKnockback());
+		bounce(attack.getActor(), attack.getKnockback());
 	}
 	
 	/**
@@ -692,6 +692,7 @@ public class CharacterEvent extends MapEvent {
 	 */
 	protected void init(CharacterEventMDO mdo) {
 		this.mdo = mdo;
+		checkCollisions = true;
 		activeMoves = new ArrayList<MovesetAct>();
 		toCancel = new ArrayList<MovesetAct>();
 		walkStack = new Stack<FacesAnimation>();
@@ -733,6 +734,14 @@ public class CharacterEvent extends MapEvent {
 		maxVelocity = mobilityMDO.walkVelocity;
 		dead = false;
 		pacing = false;
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#isAnchored()
+	 */
+	@Override
+	protected boolean isAnchored() {
+		return super.isAnchored() && canAct();
 	}
 
 }

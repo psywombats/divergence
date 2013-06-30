@@ -282,7 +282,7 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	 */
 	public void update(float elapsed) {
 		super.update(elapsed);
-		if (tracking) {
+		if (isAnchored()) {
 			float dx = targetX - x;;
 			float dy = targetY - y;
 			float norm = (float) Math.sqrt(dx*dx + dy*dy);
@@ -866,6 +866,16 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	protected void storeXY() {
 		lastX = x;
 		lastY = y;
+	}
+	
+	/**
+	 * Determines if this event wants to stay or go to a specific position or
+	 * is just drifting. This normally just depends on whether an event is
+	 * tracking. Override if needed.
+	 * @return					True if this event wants to be anchored
+	 */
+	protected boolean isAnchored() {
+		return tracking;
 	}
 
 }

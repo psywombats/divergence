@@ -44,8 +44,6 @@ public class Hero extends CharacterEvent {
 	protected SoundObject deathSound;
 	/** Where we entered the stage */
 	protected float entryX, entryY;
-	/** How many times enemies have consecutively mugged us */
-	protected int stunMug = 0;
 	/** Is the hero in the process of eating fire? */
 	protected boolean dying;
 
@@ -222,4 +220,5 @@ public class Hero extends CharacterEvent {
 		});
 		RGlobal.teleport.getPre().run(getLevel());
 	}
+	
 }

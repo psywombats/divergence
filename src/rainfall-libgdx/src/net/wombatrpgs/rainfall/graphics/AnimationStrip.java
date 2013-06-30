@@ -47,6 +47,7 @@ public class AnimationStrip implements 	Renderable,
 	protected float time;
 	protected float maxTime;
 	protected float bump;
+	protected int maxRange;
 	protected boolean moving;
 	protected boolean looping;
 	
@@ -61,6 +62,7 @@ public class AnimationStrip implements 	Renderable,
 		this.parent = parent;
 		this.time = 0;
 		this.bump = 0;
+		this.maxRange = 0;
 		this.maxTime = ((float) mdo.frameCount) / ((float) mdo.animSpeed);
 		this.moving = false;
 		if (mdo.hit1x == null) mdo.hit1x = 0;
@@ -76,6 +78,14 @@ public class AnimationStrip implements 	Renderable,
 				RectHitbox rect = new RectHitbox(parent,
 						boxMDO.x1, mdo.frameHeight-boxMDO.y2,
 						boxMDO.x2, mdo.frameHeight-boxMDO.y1);
+				int smallX = mdo.frameWidth/2 - boxMDO.x1;
+				if (smallX > maxRange) maxRange = smallX;
+				int bigX = boxMDO.x2 - mdo.frameWidth/2;
+				if (bigX > maxRange) maxRange = bigX;
+				int smallY = mdo.frameHeight/2 - boxMDO.y1;
+				if (smallY > maxRange) maxRange = smallX;
+				int bigY = boxMDO.y2 - mdo.frameHeight/2;
+				if (bigY > maxRange) maxRange = bigY;
 				attackBoxes.add(rect);
 			}
 		}
@@ -107,6 +117,9 @@ public class AnimationStrip implements 	Renderable,
 	
 	/** @return The height (in px) of current frames */
 	public int getHeight() { return currentFrame.getRegionHeight(); }
+	
+	/** @return The maximum attack range in this animation */
+	public int getMaxRange() { return maxRange; }
 	
 	/** @return True if this animation has attack box markup */
 	public boolean hasHitData() { return attackBoxes.size() > 0; }

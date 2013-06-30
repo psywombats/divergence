@@ -13,7 +13,7 @@
 	"intelligence" : "dummy_intelligence",
 	"moveset" : [
 		"move_roll",
-		"move_run"
+		"move_dummy"
 	],
 	"vulnerability" : "vulnerability_default",
 	"gibset" : "None",
