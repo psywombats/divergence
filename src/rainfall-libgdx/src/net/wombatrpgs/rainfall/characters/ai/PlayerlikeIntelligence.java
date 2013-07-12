@@ -93,11 +93,10 @@ public class PlayerlikeIntelligence extends Intelligence {
 	 * @return					True if an attack fired
 	 */
 	private boolean maybeAttack() {
-		float attackDivisor = actor.getMoves().size();
 		float dist = actor.distanceTo(RGlobal.hero);
 		for (MovesetAct attack : actor.getMoves()) {
 			int range = attack.getRange();
-			if (range > dist) {
+			if (range > dist && mdo.aggression > RGlobal.rand.nextInt(20)) {
 				attack.act(actor.getLevel(), actor);
 				return true;
 			}

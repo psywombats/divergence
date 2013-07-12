@@ -128,6 +128,7 @@ public class CharacterEvent extends MapEvent {
 	public void setIdleAppearance(FacesAnimation appearance) {
 		if (this.appearance == this.idleAnim) this.appearance = appearance;
 		this.idleAnim = appearance;
+		appearance.setFlicker(stunned);
 	}
 	
 	/**
@@ -137,13 +138,7 @@ public class CharacterEvent extends MapEvent {
 	public void setWalkingAppearance(FacesAnimation appearance) {
 		if (this.appearance == this.walkAnim) this.appearance = appearance;
 		this.walkAnim = appearance;
-	}
-	
-	public void setWalkAnim(FacesAnimation appearance) {
-		if (this.appearance == this.walkAnim) {
-			this.appearance = appearance;
-		}
-		this.walkAnim = appearance;
+		appearance.setFlicker(stunned);
 	}
 	
 	/**
@@ -682,8 +677,13 @@ public class CharacterEvent extends MapEvent {
 	 */
 	protected void setStunned(boolean stunned) {
 		this.stunned = stunned;
-		this.appearance = walkAnim;
-		this.appearance.setFlicker(stunned);
+		for (FacesAnimation anim : walkStack) {
+			anim.setFlicker(stunned);
+		}
+		for (FacesAnimation anim : idleStack) {
+			anim.setFlicker(stunned);
+		}
+		appearance.setFlicker(stunned);
 	}
 	
 	/**

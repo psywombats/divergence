@@ -84,7 +84,7 @@ public class CommandSetGraphic extends SceneCommand {
 		for (MapEvent mapEvent : events) {
 			if (CharacterEvent.class.isAssignableFrom(mapEvent.getClass())) { 
 				CharacterEvent event = (CharacterEvent) mapEvent;
-				event.setWalkAnim(graphic);
+				event.setWalkingAppearance(graphic);
 				event.setPacing(autoplay);
 				event.halt();
 			} else {

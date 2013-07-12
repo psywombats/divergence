@@ -5,5 +5,7 @@
 	"description" : "",
 	"visionRadius" : 200,
 	"farRange" : 10,
-	"nearRange" : 0
+	"nearRange" : 0,
+	"postType" : "RETREAT",
+	"aggression" : 50
 }
