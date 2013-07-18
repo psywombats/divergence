@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="26" height="21" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="nomadtileset" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="tilesets/nomadtileset.png" trans="ff00ff" width="1280" height="960"/>
+  <tile id="42">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="81">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="82">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="119">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="153">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="191">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="350">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="388">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="697">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="701">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Lower 1" width="26" height="21">
+  <properties>
+   <property name="z" value="0"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJy1lD0OwjAMhWNuwQBXQFwFxMxpuAQHYIByB6ay8nMMmIpE241Y2IprmqSNyvDUKo391fZLcmNMrrQk6fUhtbCaWc2tVok59mDMAeKMLSmVdbGMyirzsCRDslLqeRgnXZtmsFLqwfw1Pa9/4jDrCL+MoTl9VQZ809dnqHMgNovEv+G7r/b0SXP43ycjlz/kGz0PZGBs23eOfYp/L6xegsF7iw598YljpecraOaXivWlj9fZk6G5dJlbH6/7PHiju6VLzDOQJxZ7I3+F6tH5d4n9LiDuwyF0IV+megO1bonV5/1Nc5JrfFeBcXeWbz7I2MAvo4LmGcK1sT2Xd7H3RAJ6hurQDO4R5sR5sOfxfUoc3z3gUxtDsnAWJbhzh0J+zAsfbQuYOQ==
+  </data>
+ </layer>
+ <layer name="Upper 1" width="26" height="21">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRgA/sYkKw9wLZ+5hwqx0Fo2AUkAYAexcCPA==
+  </data>
+ </layer>
+ <objectgroup name="Event 1" width="26" height="21">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <object name="Trigger" type="trigger" x="800" y="0" width="32" height="32">
+   <properties>
+    <property name="id" value="scene_test0000"/>
+   </properties>
+  </object>
+  <object name="Dummy" type="event" x="464" y="304" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_dummy"/>
+   </properties>
+  </object>
+  <object name="stairwell" type="z-teleport" x="704" y="544" width="32" height="64"/>
+ </objectgroup>
+ <layer name="Lower 2" width="26" height="21">
+  <properties>
+   <property name="z" value="1"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApoBzTQ8HCxh4GBtvaMFAAAAzUBuQ==
+  </data>
+ </layer>
+ <layer name="Upper 2" width="26" height="21">
+  <properties>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztzccNQjEQhOG1KyFDJWSoBB6xEjIccFPkRyXknxtIHNcX5JE+abWHGZHvuI97LX7ifvx8bYX8VzZGZIsd9jjgiBNinI3OzoWeK26444Hnu9uKGFirs5OgJ4kU0sggixzyKCjtFOkpoYwKqqihjgaaSjstetqI0EEXPfQxwFBpZ0TPGBNMMcMcCyyxUtoJCQnxnxdZ0x1y
+  </data>
+ </layer>
+ <objectgroup name="Event 2" width="26" height="21">
+  <properties>
+   <property name="z" value="1.5"/>
+  </properties>
+ </objectgroup>
+</map>

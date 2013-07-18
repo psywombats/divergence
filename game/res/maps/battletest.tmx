@@ -34,41 +34,4 @@
    </properties>
   </object>
  </objectgroup>
- <layer name="Lower 2" width="26" height="21">
-  <properties>
-   <property name="z" value="1"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwSgYGAAACIgAAQ==
-  </data>
- </layer>
- <layer name="Upper 2" width="26" height="21">
-  <properties>
-   <property name="z" value="1.5"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwSgYGAAACIgAAQ==
-  </data>
- </layer>
- <layer name="Lower 3" width="26" height="21">
-  <properties>
-   <property name="z" value="2"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwSgYGAAACIgAAQ==
-  </data>
- </layer>
- <layer name="Upper 3" width="26" height="21">
-  <properties>
-   <property name="z" value="2.5"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwSgYGAAACIgAAQ==
-  </data>
- </layer>
- <objectgroup name="Event 3" width="26" height="21">
-  <properties>
-   <property name="z" value="2.5"/>
-  </properties>
- </objectgroup>
 </map>
