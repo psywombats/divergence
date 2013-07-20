@@ -7,12 +7,27 @@
     <property name="x" value=""/>
    </properties>
   </tile>
+  <tile id="46">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="48">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
   <tile id="81">
    <properties>
     <property name="x" value=""/>
    </properties>
   </tile>
   <tile id="82">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="84">
    <properties>
     <property name="x" value=""/>
    </properties>
@@ -78,11 +93,6 @@
     <property name="id" value="scene_test0000"/>
    </properties>
   </object>
-  <object name="Dummy" type="event" x="464" y="304" width="32" height="32">
-   <properties>
-    <property name="key" value="enemy_dummy"/>
-   </properties>
-  </object>
   <object name="stairwell" type="z-teleport" x="704" y="544" width="32" height="64"/>
  </objectgroup>
  <layer name="Lower 2" width="26" height="21">
@@ -98,12 +108,33 @@
    <property name="z" value="1.5"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztzccNQjEQhOG1KyFDJWSoBB6xEjIccFPkRyXknxtIHNcX5JE+abWHGZHvuI97LX7ifvx8bYX8VzZGZIsd9jjgiBNinI3OzoWeK26444Hnu9uKGFirs5OgJ4kU0sggixzyKCjtFOkpoYwKqqihjgaaSjstetqI0EEXPfQxwFBpZ0TPGBNMMcMcCyyxUtoJCQnxnxdZ0x1y
+   eJxjYEAF85HY8xhoA+ZjEaOVXaNgFIwC+oEcJvrYMwloz2QgngLEU4F4GhBPB+IZQDyTTm4YBaNgFFAHAAAOSgel
   </data>
  </layer>
  <objectgroup name="Event 2" width="26" height="21">
   <properties>
    <property name="z" value="1.5"/>
+  </properties>
+ </objectgroup>
+ <layer name="Lower 3" width="26" height="21">
+  <properties>
+   <property name="z" value="2"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYGAAACIgAAQ==
+  </data>
+ </layer>
+ <layer name="Upper 3" width="26" height="21">
+  <properties>
+   <property name="z" value="2.5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztzdkRglAQRNF5LxJQXCJxA4kEcA1VRIRIEJRrDvOjNbfq/HaLWNbvdHMiJe6o8ECNJxq0TuenY+eFHgPe+Hy3vYiD9zo/ATshJpgiwgxzLLBU+lmxs8YGW+wQI8EeqdJPxk6OAgccccIZF1yVfizL+p9G5NIVoA==
+  </data>
+ </layer>
+ <objectgroup name="Event 3" width="26" height="21">
+  <properties>
+   <property name="z" value="2.5"/>
   </properties>
  </objectgroup>
 </map>

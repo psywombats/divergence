@@ -43,7 +43,7 @@
  <layer name="Tile Layer 3" width="20" height="15">
   <properties>
    <property name="layer" value="0"/>
-   <property name="z" value="1"/>
+   <property name="z" value="2"/>
   </properties>
   <data encoding="base64" compression="zlib">
    eJwNwwVwEAQAAMCRg9FjGw0bg8HYRoiElEhIp3QLKCCC0h2i0kh3p4rS3SUtKA2SSiPdDX/3Hz8gICCBCU1kYgNNYlKDTGZyU5jSVKY2jcGmNcRQw0xnejOY0UxmNotZzWa4EWY30hzmNMpc5jbaPMYYa5x5zWd+C/iBBf3QQha2iEX9yGIWt4QlLeXHlvYTy1jWcpb3UytY0UpWtopVrWZ1a1jTWtb2M+tY13rWt4ENbWRjm9jUZja3hZ/b0la29gu/tI1tbedXtvdrO9jRb/zWTna2i13tZnd72NNe9raPfe1nfwc40O8c5Pf+4I8OdohDHeZwRzjSUf7kaMc41nGOd4ITneRkpzjVaU53hjOd5WznONd5zneBC13kz/7iry72N393iUtd5nJXuNJVrnaNa13neje40U1udotb3eZ2d7jTXf7hbve4133u94AH/dNDHvYv//aIRz3mcU940lOe9oz/eNZznveCF73kv/7nZa941Wte94Y3veX/3vaOd73nfR/40Ec+9olPfeZzX/jSV772jW99Z0A8jG8CE5rIxAaaxKQGmczkpjClqUxtGoNNa4ihhpnO9GYwo5nMbBazms1wI8xupDnMaZS5zG20eYwx1jjfA2t3g7k=

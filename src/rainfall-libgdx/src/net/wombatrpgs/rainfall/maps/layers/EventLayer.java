@@ -76,20 +76,29 @@ public class EventLayer extends Layer {
 		for (MapEvent event : events) {
 			if (event.requiresChunking()) {
 				// let's chunk 'em
-				TextureRegion sprite = event.getRegion();
-				int startY = (int) (z - Math.floor(getZ())) * parent.getTileHeight();
-				if (startY < 0 || startY >= sprite.getRegionHeight()) continue;
-				int origY = sprite.getRegionY();
-				int origHeight = sprite.getRegionHeight();
-				int newY = origY - startY + (origHeight - parent.getTileHeight());
-				if (newY < origY) newY = origY;
-				sprite.setRegionY(newY);
-				if (origHeight > 32) sprite.setRegionHeight(32);
-				event.renderLocal(camera, sprite, 0, startY, 0);
-				sprite.setRegionY(origY);
-				sprite.setRegionHeight(origHeight);
-			}
-			if ((int) Math.floor(getZ()) == z) {
+				// Our high level strategy: render the feet and body as the
+				// original z-layer, but the head and anything above that get
+				// mapped to one z-layer higher
+				TextureRegion region = event.getRegion();
+				int deltaZ = (int) (z - event.getZ());
+				int maxHeight = (int) Math.ceil(region.getRegionHeight() / 32);
+				if (deltaZ > maxHeight) {
+					break;
+				}
+				int gap = (int) (Math.floor(event.getY())) % 32;
+				if (event.getY()+1 < 0) {
+					gap *= -1;
+				}
+				int botY = region.getRegionHeight() - (deltaZ) * 32 + gap;
+				int topY = region.getRegionHeight() - (deltaZ+1) * 32 + gap;
+				if (botY > region.getRegionHeight()) botY = region.getRegionHeight();
+				if (topY < 0) topY = 0;
+				if (botY < 0) break;
+				TextureRegion chunk = new TextureRegion(region,
+						0, topY,
+						region.getRegionWidth(), botY - topY);
+				event.renderLocal(camera, chunk, 0, region.getRegionHeight() - botY, 0);
+			} else if ((int) Math.floor(getZ()) == z) {
 				event.render(camera);
 			}
 		}

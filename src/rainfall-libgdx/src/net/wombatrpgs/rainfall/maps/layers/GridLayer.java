@@ -56,8 +56,12 @@ public class GridLayer extends Layer {
 		this.layer = layer;
 		this.map = parent.getMap();
 		this.passOverrides = new ArrayList<Hitbox>();
-		float z = Float.valueOf(getProperty(PROPERTY_Z));
-		isLower = Math.floor(z) == z;
+		if (getProperty(PROPERTY_Z) == null) {
+			RGlobal.reporter.warn("Layer with no Z exists on map " + parent);
+		} else {
+			float z = Float.valueOf(getProperty(PROPERTY_Z));
+			isLower = Math.floor(z) == z;
+		}
 	}
 	
 	/**
