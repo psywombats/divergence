@@ -44,8 +44,6 @@ public class Hero extends CharacterEvent {
 	protected SoundObject deathSound;
 	/** Where we entered the stage */
 	protected float entryX, entryY;
-	/** Is the hero in the process of eating fire? */
-	protected boolean dying;
 
 	/**
 	 * Placeholder constructor. When the hero is finally initialized properly
@@ -67,7 +65,6 @@ public class Hero extends CharacterEvent {
 					RGlobal.data.getEntryFor(mdo.deathSound, SoundMDO.class));
 			assets.add(deathSound);
 		}
-		dying = false;
 	}
 	
 	/** @return The moveset currently in use by the hero */
@@ -197,8 +194,6 @@ public class Hero extends CharacterEvent {
 	 * isn't really death in Blockbound.
 	 */
 	public void die() {
-		if (dying) return;
-		dying = true;
 		if (deathSound != null) deathSound.play();
 		List<MovesetAct> toCancel = new ArrayList<MovesetAct>();
 		toCancel.addAll(activeMoves);
@@ -214,7 +209,6 @@ public class Hero extends CharacterEvent {
 				setX((int) entryX);
 				setY((int) entryY);
 				RGlobal.teleport.getPost().run(map);
-				dying = false;
 				//stun();
 			}
 		});

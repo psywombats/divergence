@@ -19,6 +19,10 @@ import net.wombatrpgs.rainfallschema.characters.hero.moveset.data.MoveMDO;
 @Path("characters/hero/moveset/")
 public class AttackMDO extends MoveMDO {
 	
+	@Desc("Damange - Power rating of this attack, added with str to produce " +
+			"final damage")
+	public Integer damage;
+	
 	@Desc("Knockback - Velocity enemies pick up when hit by this attack, in " +
 			"px/s")
 	public Integer kick;

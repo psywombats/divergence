@@ -177,10 +177,12 @@ public class EditorPanel extends JPanel {
 			if (field.isAnnotationPresent(SchemaLink.class)) {
 				// this is strings, all representing links to other schema
 				panel = new ReferenceArrayField(this, (String[]) data, field);
-			} else if (field.isAnnotationPresent(InlineSchema.class)){
+			} else if (field.isAnnotationPresent(InlineSchema.class)) {
 				// this is a list of uh... other stuff
 				panel = new InlineSchemaArrayField(this, (Schema[]) data, field);
 			}
+		} else if (field.isAnnotationPresent(InlineSchema.class)) {
+			panel = new InlineSchemaField(this, (Schema) data, field);
 		} else if (Enum.class.isAssignableFrom(field.getType())) {
 			panel = new EnumField(this, data, field);
 		} else if (field.isAnnotationPresent(FileLink.class)) {

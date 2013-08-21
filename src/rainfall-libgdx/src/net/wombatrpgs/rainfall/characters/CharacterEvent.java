@@ -43,7 +43,8 @@ import net.wombatrpgs.rainfallschema.maps.data.Direction;
 
 /**
  * A character event is an event with an MDO and an animation that looks kind of
- * like a character.
+ * like a character. It's also a character in an RPG-like game, meaning it
+ * should probably be split into RPG-chara and RM-chara at some point soon.
  */
 public class CharacterEvent extends MapEvent {
 	
@@ -70,6 +71,10 @@ public class CharacterEvent extends MapEvent {
 	protected boolean stunned;
 	protected boolean dead;
 	protected boolean pacing;
+	
+	// TODO: move the fields below this line to a character-specific subclass
+	protected Stats stats;
+	protected int hp;
 
 	/**
 	 * Creates a new char event with the specified data at the specified coords.
@@ -668,6 +673,9 @@ public class CharacterEvent extends MapEvent {
 	protected void internalAttackResponse(ActAttack attack) {
 		stun(attack.getStunDuration());
 		bounce(attack.getActor(), attack.getKnockback());
+		// TODO: damage formula
+		this.hp -= attack.getPower();
+		if (hp <= 0) kill();
 	}
 	
 	/**
@@ -734,6 +742,9 @@ public class CharacterEvent extends MapEvent {
 		maxVelocity = mobilityMDO.walkVelocity;
 		dead = false;
 		pacing = false;
+		
+		stats = new Stats(mdo.stats);
+		hp = stats.getMHP();
 	}
 
 	/**

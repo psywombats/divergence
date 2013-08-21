@@ -8,6 +8,7 @@ package net.wombatrpgs.rainfallschema.characters;
 
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
+import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
@@ -15,6 +16,7 @@ import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.rainfallschema.audio.SoundMDO;
 import net.wombatrpgs.rainfallschema.characters.data.CollisionResponseType;
 import net.wombatrpgs.rainfallschema.characters.data.HitboxType;
+import net.wombatrpgs.rainfallschema.characters.data.StatsMDO;
 import net.wombatrpgs.rainfallschema.characters.enemies.data.TouchEffectType;
 import net.wombatrpgs.rainfallschema.graphics.DirMDO;
 
@@ -55,5 +57,9 @@ public class CharacterEventMDO extends MainSchema {
 	@Desc("Mobility - speed and acceleration parameters")
 	@SchemaLink(MobilityMDO.class)
 	public String mobility;
+	
+	@Desc("Stats - RPG-like character base stats")
+	@InlineSchema(StatsMDO.class)
+	public StatsMDO stats;
 
 }

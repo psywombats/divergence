@@ -45,6 +45,9 @@ public class ActAttack extends MovesetAct {
 	
 	/** @return The kickback velocity, in px/s */
 	public int getKnockback() { return mdo.kick; }
+	
+	/** @return The power rating (defore def, str, etc) of the attack, in hp */
+	public int getPower() { return mdo.damage; }
 
 	/**
 	 * @see net.wombatrpgs.rainfall.characters.moveset.MovesetAct#coreAct
