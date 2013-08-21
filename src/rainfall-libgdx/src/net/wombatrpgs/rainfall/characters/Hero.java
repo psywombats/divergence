@@ -90,7 +90,7 @@ public class Hero extends CharacterEvent {
 			break;
 		case INSTADEATH:
 			// hoo boy
-			die();
+			heroDeath();
 			break;
 		default:
 			break;
@@ -133,7 +133,7 @@ public class Hero extends CharacterEvent {
 	 */
 	@Override
 	public void endFall() {
-		die();
+		heroDeath();
 	}
 
 	/**
@@ -144,6 +144,14 @@ public class Hero extends CharacterEvent {
 		// oh hell no we ain't dyin
 	}
 	
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#kill()
+	 */
+	@Override
+	public void kill() {
+		heroDeath();
+	}
+
 	/**
 	 * Checks to see if a switch is set. Switches are guaranteed to be
 	 * persistent across hero, and the primary way of storing event persistence,
@@ -193,7 +201,7 @@ public class Hero extends CharacterEvent {
 	 * Goodbye, cruel world! Actually this just resets the level because death
 	 * isn't really death in Blockbound.
 	 */
-	public void die() {
+	public void heroDeath() {
 		if (deathSound != null) deathSound.play();
 		List<MovesetAct> toCancel = new ArrayList<MovesetAct>();
 		toCancel.addAll(activeMoves);
@@ -209,6 +217,7 @@ public class Hero extends CharacterEvent {
 				setX((int) entryX);
 				setY((int) entryY);
 				RGlobal.teleport.getPost().run(map);
+				RGlobal.hero.hp = stats.getMHP();
 				//stun();
 			}
 		});

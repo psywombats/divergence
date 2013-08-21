@@ -10,5 +10,8 @@
 	"touch" : "NOTHING",
 	"soundHurt" : "None",
 	"mobility" : "mobility_hero",
+	"stats" : {
+		"mhp" : 100
+	},
 	"deathSound" : "sound_click"
 }

@@ -552,7 +552,7 @@ public class CharacterEvent extends MapEvent {
 		if (activeMoves.contains(act)) {
 			toCancel.add(act);
 		} else {
-			RGlobal.reporter.warn("Removed an unperformed action: " + act);
+			RGlobal.reporter.warn("Removed an unperformed action 2: " + act);
 		}
 	}
 	
@@ -635,7 +635,7 @@ public class CharacterEvent extends MapEvent {
 		if (activeMoves.contains(act)) {
 			activeMoves.remove(act);
 		} else {
-			RGlobal.reporter.warn("Removed an unperformed action: " + act);
+			RGlobal.reporter.warn("Removed an unperformed action 1: " + act);
 		}
 		walkStack.get(0).setFacing(appearance.getFacing());
 		idleStack.get(0).setFacing(appearance.getFacing());

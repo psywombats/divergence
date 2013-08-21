@@ -10,6 +10,9 @@
 	"touch" : "NOTHING",
 	"soundHurt" : "None",
 	"mobility" : "mobility_sluglike",
+	"stats" : {
+		"mhp" : 100
+	},
 	"intelligence" : "dummy_intelligence",
 	"moveset" : [
 		"move_roll",

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfallschema.maps.data.DirVector;
@@ -99,7 +100,7 @@ public class AStarPathfinder {
 			} else {
 				visited.get(node.getAtY()).set(node.getAtX(), true);
 				if (node.getAtX() == toX && node.getAtY() == toY) {
-					//RGlobal.reporter.inform("Path found, expanded " + nodes);
+					RGlobal.reporter.inform("Path found, expanded " + nodes);
 					return node.getSteps();
 				}
 				for (Direction dir : Direction.values()) {
