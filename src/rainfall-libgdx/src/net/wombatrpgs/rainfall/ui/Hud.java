@@ -6,31 +6,23 @@
  */
 package net.wombatrpgs.rainfall.ui;
 
-import java.util.Map;
-
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import net.wombatrpgs.rainfall.characters.moveset.MovesetAct;
-import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.graphics.Graphic;
-import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfall.maps.objects.Picture;
-import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
-import net.wombatrpgs.rainfallschema.io.data.InputCommand;
+import net.wombatrpgs.rainfall.core.Queueable;
+import net.wombatrpgs.rainfall.screen.ScreenShowable;
 import net.wombatrpgs.rainfallschema.ui.HudMDO;
-import net.wombatrpgs.rainfallschema.ui.data.IconPlacementMDO;
 
 /**
  * Heads-up display! Everybody's favorite piece of UI. This version is stuck
- * into a UI object and should be told to draw itself as part of a screen.
+ * into a UI object and should be told to draw itself as part of a screen.<br>
+ * This specific HUD is probably overridden on a per-game basis. Christ knows I
+ * just ripped it apart for Rainfall. Ugh.
  */
-public class Hud extends Picture {
+public class Hud implements ScreenShowable,
+							Queueable {
 	
 	protected HudMDO mdo;
-	protected Graphic mask, alphaMask;
 	protected boolean enabled;
 	protected boolean ignoresTint;
 
@@ -39,10 +31,7 @@ public class Hud extends Picture {
 	 * @param 	mdo				The data to create from
 	 */
 	public Hud(HudMDO mdo) {
-		super(RGlobal.data.getEntryFor(mdo.graphic, GraphicMDO.class), 0, 0, 50);
-		this.mdo = mdo;
-		mask = new Graphic(RGlobal.data.getEntryFor(mdo.mask, GraphicMDO.class));
-		alphaMask = new Graphic(RGlobal.data.getEntryFor(mdo.alphaMask, GraphicMDO.class));
+		ignoresTint = true;
 	}
 	
 	/** @return True if the hud is displaying right now */
@@ -50,124 +39,50 @@ public class Hud extends Picture {
 	
 	/** @param True if the hud is going to be displayed */
 	public void setEnabled(boolean enabled) { this.enabled = enabled; }
+	
+	/** @see net.wombatrpgs.rainfall.screen.ScreenShowable#ignoresTint() */
+	@Override public boolean ignoresTint() { return ignoresTint; }
 
 	/**
-	 * Remember we have to render all those pesky icons as well.
-	 * @see net.wombatrpgs.rainfall.maps.objects.Picture#render
+	 * @see net.wombatrpgs.rainfall.core.Updateable#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		// TODO: update and set based on HP
+	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render
 	 * (com.badlogic.gdx.graphics.OrthographicCamera)
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		// TODO: this is linked to that text box 2x bug
-		setBatch(RGlobal.ui.getBox().getBatch());
-		super.render(camera);
-		Map<InputCommand, MovesetAct> moves = RGlobal.hero.getMoves().getStartCommands();
-		for (IconPlacementMDO iconMDO : mdo.icons) {
-			for (InputCommand command : moves.keySet()) {
-				if (command == iconMDO.command) {
-					Graphic icon = moves.get(command).getIcon();
-					icon.renderAt(getBatch(),
-							getX() + iconMDO.offX,
-							getY() + (appearance.getHeight() - iconMDO.offY - icon.getHeight()));
-				}
-			}
-		}
-		Graphic minimap = RGlobal.hero.getLevel().getMinimap();
-
-		if (minimap != null) {
-			int x1 = (int) (x + mdo.minimapX);
-			int y1 = (int) (y + appearance.getHeight() - mask.getHeight() - mdo.minimapY);
-			int minX = Integer.valueOf(RGlobal.hero.getLevel().getProperty(
-					Level.PROPERTY_MINIMAP_X1));
-			int minY = Integer.valueOf(RGlobal.hero.getLevel().getProperty(
-					Level.PROPERTY_MINIMAP_Y1));
-			int maxX = Integer.valueOf(RGlobal.hero.getLevel().getProperty(
-					Level.PROPERTY_MINIMAP_X2));
-			int maxY = Integer.valueOf(RGlobal.hero.getLevel().getProperty(
-					Level.PROPERTY_MINIMAP_Y2));
-			int offX = (int) (minX + ((float) RGlobal.hero.getX() / 
-					(float) RGlobal.hero.getLevel().getWidthPixels()) * 
-					(maxX - minX));
-			int offY = (int)(minY - ((float) RGlobal.hero.getY() / 
-					(float) RGlobal.hero.getLevel().getHeightPixels()) * 
-					(maxY - minY) + (maxY - minY));
-			getBatch().setBlendFunction(GL20.GL_ONE, GL20.GL_ZERO);
-			Gdx.graphics.getGL20().glColorMask(false, false, false, true);
-			alphaMask.renderAt(getBatch(), x1, y1);
-			getBatch().setBlendFunction(GL20.GL_ONE_MINUS_DST_ALPHA, GL20.GL_DST_ALPHA);
-			Gdx.graphics.getGL20().glColorMask(true, true, true, true);
-			getBatch().begin();
-			getBatch().draw(minimap.getTexture(),
-					x1,
-					y1,
-					-mask.getWidth()/2 + offX, 
-					-mask.getHeight()/2 + offY,
-					mask.getWidth(),
-					mask.getHeight());
-			getBatch().end();
-			getBatch().setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-			mask.renderAt(getBatch(), x1, y1);
-		}
+		// TODO: display children
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.objects.Picture#queueRequiredAssets
+	 * @see net.wombatrpgs.rainfall.core.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		super.queueRequiredAssets(manager);
-		if (alphaMask != null) {
-			alphaMask.queueRequiredAssets(manager);
-		}
-		if (mask != null) {
-			mask.queueRequiredAssets(manager);
-		}
+		// TODO: assets
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.objects.Picture#postProcessing
+	 * @see net.wombatrpgs.rainfall.core.Queueable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		super.postProcessing(manager, pass);
-		if (mask != null) {
-			mask.postProcessing(manager, pass);
-		}
-		if (alphaMask != null) {
-			alphaMask.postProcessing(manager, pass);
-		}
-		switch (mdo.anchorDir) {
-		case DOWN:
-			x = (RGlobal.window.getWidth() - appearance.getWidth()) / 2;
-			y = 0;
-			break;
-		case UP:
-			x = (RGlobal.window.getWidth() - appearance.getWidth()) / 2;
-			y = RGlobal.window.getHeight() - appearance.getHeight();
-			break;
-		case LEFT:
-			x = 0;
-			y = (RGlobal.window.getHeight() - appearance.getHeight()) / 2;
-			break;
-		case RIGHT:
-			x = RGlobal.window.getWidth() - appearance.getWidth();
-			y = (RGlobal.window.getHeight() - appearance.getHeight()) / 2;
-			break;
-		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.rainfall.maps.objects.Picture#ignoresTint()
-	 */
-	@Override
-	public boolean ignoresTint() {
-		return ignoresTint;
+		// TODO: assets
 	}
 	
 	/**
-	 * This is a hack for the first time UI is displayed... sorry.
+	 * Sets whether the hud ignores tint. It should be ignoring tint for things
+	 * like environmental tint but following it for things like transitions.
+	 * Basically this solves the old RM problem that pictures would have to fade
+	 * out separately if you were using them as a HUD.
 	 * @param 	ignoreTint			True if this hud should ignore tint.
 	 */
 	public void setOverlayTintIgnore(boolean ignoreTint) {

@@ -43,7 +43,7 @@ public class CommandToggleHud extends SceneCommand {
 			finished = true;
 			Hud hud = RGlobal.ui.getHud();
 			if (turnOn && !hud.isEnabled()) {
-				RGlobal.screens.peek().addPicture(hud);
+				RGlobal.screens.peek().addScreenObject(hud);
 				hud.setEnabled(true);
 			} else if (turnOff && hud.isEnabled()) {
 				RGlobal.screens.peek().removePicture(hud);

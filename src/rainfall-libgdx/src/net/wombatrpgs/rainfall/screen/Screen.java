@@ -49,7 +49,7 @@ public abstract class Screen implements CommandListener,
 	/** The thing to draw if this canvas is visible */
 	protected ScreenShowable canvas;
 	/** These things will be drawn over top of the canvas */
-	protected List<ScreenShowable> pictures;
+	protected List<ScreenShowable> screenObjects;
 	/** What we'll use to render */
 	protected TrackerCam cam;
 	/** Depth, lower values are rendered last */
@@ -88,7 +88,7 @@ public abstract class Screen implements CommandListener,
 				RGlobal.window.getWidth(),
 				RGlobal.window.getHeight(),
 				false);
-		pictures = new ArrayList<ScreenShowable>();
+		screenObjects = new ArrayList<ScreenShowable>();
 		tint = new Color(0, 0, 0, 1);
 		shapes = new ShapeRenderer();
 		cam = new TrackerCam(RGlobal.window.getWidth(), RGlobal.window.getHeight());
@@ -206,7 +206,7 @@ public abstract class Screen implements CommandListener,
 		shapes.rect(0, 0, window.getWidth(), window.getHeight());
 		shapes.end();
 		canvas.render(cam);
-		for (ScreenShowable pic : pictures) {
+		for (ScreenShowable pic : screenObjects) {
 			pic.render(cam);
 		}
 		buffer.end();
@@ -252,7 +252,7 @@ public abstract class Screen implements CommandListener,
 	public void update(float elapsed) {
 		cam.update(elapsed);
 		canvas.update(elapsed);
-		for (ScreenShowable pic : pictures) {
+		for (ScreenShowable pic : screenObjects) {
 			pic.update(elapsed);
 		}
 		RGlobal.keymap.update(elapsed);
@@ -287,17 +287,21 @@ public abstract class Screen implements CommandListener,
 
 	/**
 	 * Adds a screen-showable picture to the screen.
-	 * @param 	pic				The picture to add
+	 * @param 	screenObject	The object to add
 	 */
-	public void addPicture(Picture pic) {
-		pictures.add(pic);
+	public void addScreenObject(ScreenShowable screenObject) {
+		screenObjects.add(screenObject);
 	}
 	
-	public void removePicture(ScreenShowable pic) {
-		if (pictures.contains(pic)) {
-			pictures.remove(pic);
+	/**
+	 * Removes a screen-showable picture from the screen.
+	 * @param	screenObject	The object to add
+	 */
+	public void removePicture(ScreenShowable screenObject) {
+		if (screenObjects.contains(screenObject)) {
+			screenObjects.remove(screenObject);
 		} else {
-			RGlobal.reporter.warn("Tried to remove non-existant picture from screen: " + pic);
+			RGlobal.reporter.warn("Tried to remove non-existant picture from screen: " + screenObject);
 		}
 	}
 

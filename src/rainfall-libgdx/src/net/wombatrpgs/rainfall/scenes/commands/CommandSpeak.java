@@ -86,14 +86,14 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 						(RGlobal.window.getWidth() - faceGraphic.getWidth()) / 2 - FACE_OFFSET,
 						(RGlobal.window.getHeight() - faceGraphic.getHeight()) / 2, 0);
 				facePic.setColor(new Color(1, 1, 1, 0));
-				RGlobal.screens.peek().addPicture(facePic);
+				RGlobal.screens.peek().addScreenObject(facePic);
 				facePic.tweenTo(new Color(1, 1, 1, 1), FADE_TIME);
 				RGlobal.ui.getBox().setBatch(facePic.batch);
 			} else {
 				RGlobal.ui.getBox().setBatch(new SpriteBatch());
 			}
 			RGlobal.ui.getBox().setColor(new Color(1, 1, 1, 0));
-			RGlobal.screens.peek().addPicture(RGlobal.ui.getBox());
+			RGlobal.screens.peek().addScreenObject(RGlobal.ui.getBox());
 			RGlobal.ui.getBox().tweenTo(new Color(1, 1, 1, 1), FADE_TIME);
 			block(this);
 			return false;
