@@ -18,7 +18,6 @@ import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.graphics.Graphic;
 import net.wombatrpgs.rainfall.maps.PositionSetable;
 import net.wombatrpgs.rainfall.screen.ScreenShowable;
-import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 
 /**
  * Replaces the old picture layer that the map had. This is exactly the RM
@@ -58,13 +57,13 @@ public class Picture implements Comparable<Picture>,
 	
 	/**
 	 * Creates a picture from data (a non-preloaded graphic).
-	 * @param 	mdo				The data for the graphic that we'll be using
+	 * @param 	fileName		The name of the file with the graphic (in UI)
 	 * @param 	x				The x-coord (in pixels) to render at
 	 * @param 	y				The y-coord (in pixels) to render at
 	 * @param 	z				The z-depth (number in RM terms) of the picture
 	 */
-	public Picture(GraphicMDO mdo, int x, int y, int z) {
-		this(new Graphic(mdo), z);
+	public Picture(String fileName, int x, int y, int z) {
+		this(new Graphic(fileName), z);
 		this.assets.add(appearance);
 		setX(x);
 		setY(y);
@@ -90,11 +89,11 @@ public class Picture implements Comparable<Picture>,
 	
 	/**
 	 * Creates a picture from data (a non-preloaded graphic) at 0,0.
-	 * @param 	mdo				The data for the graphic that we'll be using
+	 * @param 	fileName		The name of the file (in UI)
 	 * @param 	z				The z-depth (number in RM terms) of the picture
 	 */
-	public Picture(GraphicMDO mdo, int z) {
-		this(mdo, 0, 0, z);
+	public Picture(String fileName, int z) {
+		this(fileName, 0, 0, z);
 	}
 	
 	/**

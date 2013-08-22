@@ -26,7 +26,6 @@ import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfall.graphics.Disposable;
 import net.wombatrpgs.rainfall.io.CommandListener;
 import net.wombatrpgs.rainfall.io.CommandMap;
-import net.wombatrpgs.rainfall.maps.objects.Picture;
 import net.wombatrpgs.rainfallschema.io.data.InputCommand;
 
 /**

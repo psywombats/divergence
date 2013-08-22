@@ -8,7 +8,6 @@
 	"sound" : "None",
 	"staticAnimation" : "4dir_dummyattack2",
 	"movingAnimation" : "4dir_dummyattack2",
-	"graphic" : "None",
 	"damage" : 10,
 	"kick" : 256,
 	"stun" : 1.0

@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.rainfall.core.Constants;
 import net.wombatrpgs.rainfall.core.Queueable;
-import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 
 /**
  * Single-frame graphics instance. Not meant to appear on its own, really.
@@ -21,29 +20,20 @@ import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
  */
 public class Graphic implements Queueable {
 	
-	protected GraphicMDO mdo;
 	protected Texture texture;
 	protected TextureRegion appearance;
 	protected String filename;
 	protected int width, height;
 	
 	/**
-	 * Creates a new graphic from mdo data.
-	 * @param 	mdo				The MDO with file data.
+	 * Creates a new graphic from file data. Width and height are assumed to be
+	 * the same as the texture. Although this might not always be accurate, in
+	 * 90% of cases it doesn't matter. The other 10%, use the setters or
+	 * constructors.
+	 * @param 	fileName		The name of the file (in UI) with the picture
 	 */
-	public Graphic(GraphicMDO mdo) {
-		this.mdo = mdo;
-		this.filename = Constants.UI_DIR + mdo.file;
-		this.width = mdo.width;
-		this.height = mdo.height;
-	}
-	
-	/**
-	 * Creates a new graphic from a file path and width/height data.
-	 * @param 	filename		The fully qualified filename to the .png
-	 */
-	public Graphic(String filename) {
-		this.filename = filename;
+	public Graphic(String fileName) {
+		this.filename = Constants.UI_DIR + fileName;
 		this.width = -1;
 		this.height = -1;
 	}
@@ -64,8 +54,8 @@ public class Graphic implements Queueable {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		texture = manager.get(filename, Texture.class);
-		if (width == -1) width = texture.getWidth();
-		if (height == -1) height = texture.getHeight();
+		if (width <= 0) width = texture.getWidth();
+		if (height <= 0) height = texture.getHeight();
 		appearance = new TextureRegion(texture, 0, 0, width, height);
 	}
 	
@@ -74,6 +64,12 @@ public class Graphic implements Queueable {
 	
 	/** @return The basic height of this graphic (in px) */
 	public int getHeight() { return this.height; }
+	
+	/** @param width The width to set as the base texture width, in px */
+	public void setTextureWidth(int width) { this.width = width; }
+	
+	/** @param height The height to set as the base texture height, in px */
+	public void setTextureHeight(int height) { this.height = height; }
 	
 	/**
 	 * Returns the renderable portion of this image, if you want to be a dick

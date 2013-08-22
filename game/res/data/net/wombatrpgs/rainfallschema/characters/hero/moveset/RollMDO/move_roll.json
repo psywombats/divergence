@@ -8,7 +8,6 @@
 	"sound" : "None",
 	"staticAnimation" : "None",
 	"movingAnimation" : "4dir_talyssa_roll",
-	"graphic" : "None",
 	"length" : 72,
 	"kick" : 32
 }

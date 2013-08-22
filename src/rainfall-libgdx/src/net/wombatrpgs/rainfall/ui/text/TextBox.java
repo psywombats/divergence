@@ -19,7 +19,6 @@ import net.wombatrpgs.rainfall.io.audio.SoundObject;
 import net.wombatrpgs.rainfall.maps.MapThing;
 import net.wombatrpgs.rainfall.maps.objects.Picture;
 import net.wombatrpgs.rainfallschema.audio.SoundMDO;
-import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 import net.wombatrpgs.rainfallschema.ui.TextBoxMDO;
 
 /**
@@ -51,7 +50,7 @@ public class TextBox extends Picture {
 	 * @param 	font			The font to use in rendering, can change
 	 */
 	public TextBox(TextBoxMDO mdo, FontHolder font) {
-		super(RGlobal.data.getEntryFor(mdo.image, GraphicMDO.class), 0);
+		super(mdo.image, 0);
 		this.mdo = mdo;
 		this.font = font;
 		this.name = "";
@@ -63,8 +62,7 @@ public class TextBox extends Picture {
 		this.backer = appearance;
 		
 		if (MapThing.mdoHasProperty(mdo.image2)) {
-			GraphicMDO graphicMDO = RGlobal.data.getEntryFor(mdo.image2, GraphicMDO.class);
-			this.backer2 = new Graphic(graphicMDO);
+			this.backer2 = new Graphic(mdo.image2);
 			assets.add(backer2);
 		}
 		if (MapThing.mdoHasProperty(mdo.typeSfx)) {

@@ -15,7 +15,6 @@ import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.core.Updateable;
 import net.wombatrpgs.rainfall.graphics.FacesAnimation;
 import net.wombatrpgs.rainfall.graphics.FourDir;
-import net.wombatrpgs.rainfall.graphics.Graphic;
 import net.wombatrpgs.rainfall.io.audio.SoundObject;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.objects.TimerListener;
@@ -24,7 +23,6 @@ import net.wombatrpgs.rainfallschema.audio.SoundMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.data.MoveMDO;
 import net.wombatrpgs.rainfallschema.characters.hero.moveset.data.MoveMobility;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
-import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 
 /**
  * A superclass for all moves from the movesets that involve character animation
@@ -39,7 +37,6 @@ public abstract class MovesetAct implements Actionable,
 	protected CharacterEvent actor;
 	protected Level map;
 	protected FacesAnimation idleAppearance, walkingAppearance;
-	protected Graphic icon;
 	protected SoundObject sfx;
 	protected int maxRange;
 	protected boolean coolingDown;
@@ -57,10 +54,6 @@ public abstract class MovesetAct implements Actionable,
 		if (mdo.movingAnimation != null && !mdo.movingAnimation.equals(Constants.NULL_MDO)) {
 			FourDirMDO animMDO = RGlobal.data.getEntryFor(mdo.movingAnimation, FourDirMDO.class);
 			this.walkingAppearance = new FourDir(animMDO, actor);
-		}
-		if (mdo.graphic != null && !mdo.graphic.equals(Constants.NULL_MDO)) {
-			GraphicMDO iconMDO= RGlobal.data.getEntryFor(mdo.graphic, GraphicMDO.class);
-			this.icon = new Graphic(iconMDO);
 		}
 		if (mdo.sound != null && !mdo.sound.equals(Constants.NULL_MDO)) {
 			SoundMDO soundMDO = RGlobal.data.getEntryFor(mdo.sound, SoundMDO.class);
@@ -130,9 +123,6 @@ public abstract class MovesetAct implements Actionable,
 		if (idleAppearance != null) {
 			idleAppearance.queueRequiredAssets(manager);
 		}
-		if (icon != null) {
-			icon.queueRequiredAssets(manager);
-		}
 		if (sfx != null) {
 			sfx.queueRequiredAssets(manager);
 		}
@@ -156,9 +146,6 @@ public abstract class MovesetAct implements Actionable,
 			if (idleAppearance.getMaxRange() > maxRange) {
 				maxRange = idleAppearance.getMaxRange();
 			}
-		}
-		if (icon != null) {
-			icon.postProcessing(manager, pass);
 		}
 		if (sfx != null) {
 			sfx.postProcessing(manager, pass);
@@ -187,15 +174,6 @@ public abstract class MovesetAct implements Actionable,
 	 */
 	public void cancel() {
 		actor.stopAction(this);
-	}
-	
-	/**
-	 * Gets the icon displayed for this icon. To be displayed when this move is
-	 * bound to a command. Can be null
-	 * @return					The icon of this move, or null if none
-	 */
-	public Graphic getIcon() {
-		return icon;
 	}
 	
 	/**

@@ -8,6 +8,5 @@
 	"sound" : "None",
 	"staticAnimation" : "None",
 	"movingAnimation" : "4dir_talyssa_run",
-	"graphic" : "None",
 	"newRate" : 160
 }

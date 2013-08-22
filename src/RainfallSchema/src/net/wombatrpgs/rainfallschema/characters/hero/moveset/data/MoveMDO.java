@@ -13,7 +13,6 @@ import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.rainfallschema.audio.SoundMDO;
 import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
-import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 
 /**
  * Base class for all schema that form part of the moveset. Hopefully
@@ -43,10 +42,5 @@ public class MoveMDO extends MainSchema {
 	@SchemaLink(FourDirMDO.class)
 	@Nullable
 	public String movingAnimation;
-	
-	@Desc("Icon - displayed in the HUD or somewhere when this move is ready")
-	@SchemaLink(GraphicMDO.class)
-	@Nullable
-	public String graphic;
 
 }

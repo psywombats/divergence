@@ -7,12 +7,12 @@
 package net.wombatrpgs.rainfallschema.ui;
 
 import net.wombatrpgs.mgns.core.Annotations.Desc;
+import net.wombatrpgs.mgns.core.Annotations.FileLink;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.rainfallschema.audio.SoundMDO;
-import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 
 /**
  * Defines a textbox.
@@ -21,12 +21,12 @@ import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 public class TextBoxMDO extends MainSchema {
 	
 	@Desc("Graphic - ui box thing displayed beneath the text")
-	@SchemaLink(GraphicMDO.class)
+	@FileLink("ui")
 	@Nullable
 	public String image;
 	
 	@Desc("No-name Graphic - displayed like the ui box when speaker has no name")
-	@SchemaLink(GraphicMDO.class)
+	@FileLink("ui")
 	@Nullable
 	public String image2;
 	

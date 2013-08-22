@@ -35,7 +35,6 @@ import net.wombatrpgs.rainfall.physics.Hitbox;
 import net.wombatrpgs.rainfall.screen.Screen;
 import net.wombatrpgs.rainfall.screen.ScreenShowable;
 import net.wombatrpgs.rainfallschema.audio.MusicMDO;
-import net.wombatrpgs.rainfallschema.graphics.GraphicMDO;
 import net.wombatrpgs.rainfallschema.maps.MapMDO;
 
 /**
@@ -53,13 +52,7 @@ public class Level implements ScreenShowable {
 	
 	protected static final String PROPERTY_WIDTH = "width";
 	protected static final String PROPERTY_HEIGHT = "height";
-	
-	public static final String PROPERTY_MINIMAP_GRAPHIC = "minimap";
-	public static final String PROPERTY_MINIMAP_X1 = "minimap_x1";
-	public static final String PROPERTY_MINIMAP_Y1 = "minimap_y1";
-	public static final String PROPERTY_MINIMAP_X2 = "minimap_x2";
-	public static final String PROPERTY_MINIMAP_Y2 = "minimap_y2";
-	public static final String PROPERTY_BGM = "bgm";
+	protected static final String PROPERTY_BGM = "bgm";
 	
 	public static final int TILE_WIDTH = 32;
 	public static final int TILE_HEIGHT = 32;
@@ -191,9 +184,6 @@ public class Level implements ScreenShowable {
 	/** @return True if the level is in a suspended state */
 	public boolean isPaused() { return this.paused; }
 	
-	/** @return The graphic of the minimap to display on the map */
-	public Graphic getMinimap() { return this.minimap; }
-	
 	/** @return The default bgm for this level */
 	public MusicObject getBGM() { return this.bgm; }
 	
@@ -254,12 +244,6 @@ public class Level implements ScreenShowable {
 			}
 			for (Layer layer : layers) {
 				layer.finalizePassability();
-			}
-			if (getProperty(PROPERTY_MINIMAP_GRAPHIC) != null) {
-				String key = getProperty(PROPERTY_MINIMAP_GRAPHIC);
-				minimap = new Graphic(RGlobal.data.getEntryFor(key, GraphicMDO.class));
-				minimap.queueRequiredAssets(manager);
-				assets.add(minimap);
 			}
 			if (getProperty(PROPERTY_BGM) != null) {
 				String key = getProperty(PROPERTY_BGM);

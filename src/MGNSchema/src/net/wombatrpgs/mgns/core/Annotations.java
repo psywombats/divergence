@@ -59,7 +59,7 @@ public class Annotations {
 	@Target(ElementType.FIELD)
 	@Retention(RetentionPolicy.RUNTIME)
 	public @interface FileLink {
-		// this is the name of the subdirectory to look in (of project file)
+		// name of the subdirectory to look in (of project file), like "ui"
 		String value();
 	}
 	

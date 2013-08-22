@@ -19,6 +19,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 
 import net.wombatrpgs.mgns.core.MainSchema;
 
@@ -152,6 +153,9 @@ public class Database {
 			addData(object);
 		} catch (JsonParseException e) {
 			RGlobal.reporter.err("Malformatted data file " + data, e);
+		} catch (UnrecognizedPropertyException e) {
+			RGlobal.reporter.warn("Unknown field for class " + clazz.getName() +
+					": " + e.getUnrecognizedPropertyName());
 		} catch (JsonMappingException e) {
 			RGlobal.reporter.err("Data file doesn't match schema " + data, e);
 		} catch (IOException e) {
