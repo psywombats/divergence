@@ -155,6 +155,22 @@ public class CharacterEvent extends MapEvent {
 	}
 	
 	/**
+	 * Gets the RPG-like stats bundle of this character, up to date.
+	 * @return					The stats of the character
+	 */
+	public Stats getStats() {
+		return stats;
+	}
+	
+	/**
+	 * Gets the current health of this character.
+	 * @return					The health of the character, in hp
+	 */
+	public int getHP() {
+		return hp;
+	}
+	
+	/**
 	 * @see net.wombatrpgs.rainfall.maps.MapThing#update(float)
 	 */
 	@Override

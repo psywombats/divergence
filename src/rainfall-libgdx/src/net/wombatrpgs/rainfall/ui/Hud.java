@@ -6,11 +6,18 @@
  */
 package net.wombatrpgs.rainfall.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.rainfall.core.Queueable;
+import net.wombatrpgs.rainfall.core.RGlobal;
+import net.wombatrpgs.rainfall.graphics.Graphic;
 import net.wombatrpgs.rainfall.screen.ScreenShowable;
+import net.wombatrpgs.rainfallschema.maps.data.Direction;
 import net.wombatrpgs.rainfallschema.ui.HudMDO;
 
 /**
@@ -23,6 +30,13 @@ public class Hud implements ScreenShowable,
 							Queueable {
 	
 	protected HudMDO mdo;
+	
+	protected List<Queueable> assets;
+	protected SpriteBatch batch;
+	protected Graphic frame;
+	protected Graphic hpBase, hpRib, hpTail;
+	protected Graphic mpBase, mpRib, mpTail;
+	
 	protected boolean enabled;
 	protected boolean ignoresTint;
 
@@ -31,7 +45,19 @@ public class Hud implements ScreenShowable,
 	 * @param 	mdo				The data to create from
 	 */
 	public Hud(HudMDO mdo) {
+		this.mdo = mdo;
 		ignoresTint = true;
+		assets = new ArrayList<Queueable>();
+		frame = startGraphic(mdo.frameGraphic);
+		hpBase = startGraphic(mdo.hpBaseGraphic);
+		hpRib = startGraphic(mdo.hpRibGraphic);
+		hpTail = startGraphic(mdo.hpTailGraphic);
+		mpBase = startGraphic(mdo.mpBaseGraphic);
+		mpRib = startGraphic(mdo.mpRibGraphic);
+		mpTail = startGraphic(mdo.mpTailGraphic);
+		
+		frame.setTextureHeight(mdo.frameHeight);
+		frame.setTextureWidth(mdo.frameWidth);
 	}
 	
 	/** @return True if the hud is displaying right now */
@@ -57,7 +83,38 @@ public class Hud implements ScreenShowable,
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		// TODO: display children
+		if (batch == null) batch = new SpriteBatch();
+		if (mdo.anchorDir == Direction.DOWN) {
+			float mhp = RGlobal.hero.getStats().getMHP();
+			float hp = RGlobal.hero.getHP();
+			float mmp = 100;
+			float mp = 100;
+			float ratioHP = hp/mhp;
+			float ratioMP = mp/mmp;
+			if (hp > 0) {
+				hpBase.renderAt(batch, mdo.offX, mdo.offY);
+				hpRib.renderAt(batch,
+						mdo.offX + mdo.hpStartX,
+						mdo.offY + mdo.hpStartY,
+						ratioHP * mdo.hpWidth / 2.0f,
+						1);
+				hpTail.renderAt(batch,
+						mdo.offX + mdo.hpWidth * ratioHP,
+						mdo.offY);
+			}
+			if (mp > 0) {
+				mpBase.renderAt(batch, mdo.offX, mdo.offY);
+				mpRib.renderAt(batch,
+						mdo.offX + mdo.mpStartX,
+						mdo.offY + mdo.mpStartY,
+						ratioMP * mdo.mpWidth / 2.0f,
+						1);
+				mpTail.renderAt(batch,
+						mdo.offX + mdo.mpWidth * ratioMP,
+						mdo.offY);
+			}
+			frame.renderAt(batch, mdo.offX, mdo.offY);
+		}
 	}
 
 	/**
@@ -66,7 +123,9 @@ public class Hud implements ScreenShowable,
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		// TODO: assets
+		for (Queueable asset : assets) {
+			asset.queueRequiredAssets(manager);
+		}
 	}
 
 	/**
@@ -75,7 +134,9 @@ public class Hud implements ScreenShowable,
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		// TODO: assets
+		for (Queueable asset : assets) {
+			asset.postProcessing(manager, pass);
+		}
 	}
 	
 	/**
@@ -87,6 +148,17 @@ public class Hud implements ScreenShowable,
 	 */
 	public void setOverlayTintIgnore(boolean ignoreTint) {
 		this.ignoresTint = ignoreTint;
+	}
+	
+	/**
+	 * Initializes a graphic from file name and then adds it to assets.
+	 * @param 	fileName		The name of the file to load
+	 * @return					The created graphic
+	 */
+	public Graphic startGraphic(String fileName) {
+		Graphic graphic = new Graphic(fileName);
+		assets.add(graphic);
+		return graphic;
 	}
 
 }

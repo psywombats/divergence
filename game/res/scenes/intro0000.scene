@@ -1,4 +1,5 @@
 [camera-track hero]
 [tint 1 1 1 .5]
 [wait .5]
+[toggle-hud on]
 [teleport map_movementTest 1 1 basic]

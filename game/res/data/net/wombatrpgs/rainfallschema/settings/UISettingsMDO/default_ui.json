@@ -5,6 +5,6 @@
 	"description" : "MGNE looks for this MDO by key",
 	"font" : "font_c64rainfall",
 	"box" : "textbox_default",
-	"hud" : "None",
+	"hud" : "hud_default",
 	"icons" : "iconset_default"
 }

@@ -89,7 +89,7 @@ public class Graphic implements Queueable {
 	public Texture getTexture() {
 		return texture;
 	}
-	
+
 	/**
 	 * Renders itself at a specific location.
 	 * @param 	batch			The batch to render the graphic as part of
@@ -97,8 +97,20 @@ public class Graphic implements Queueable {
 	 * @param 	y				The y-coord to render at (in px)
 	 */
 	public void renderAt(SpriteBatch batch, float x, float y) {
+		renderAt(batch, x, y, 1, 1);
+	}
+	
+	/**
+	 * Renders itself at a specific location.
+	 * @param 	batch			The batch to render the graphic as part of
+	 * @param 	x				The x-coord to render at (in px)
+	 * @param 	y				The y-coord to render at (in px)
+	 * @param	scaleX			The scale for width, 1 is standard
+	 * @param	scaleY			The scale for height, 1 is standard
+	 */
+	public void renderAt(SpriteBatch batch, float x, float y, float scaleX, float scaleY) {
 		batch.begin();
-		batch.draw(appearance, x, y, getWidth(), getHeight());
+		batch.draw(appearance, x, y, getWidth() * scaleX, getHeight() * scaleY);
 		batch.end();
 	}
 
