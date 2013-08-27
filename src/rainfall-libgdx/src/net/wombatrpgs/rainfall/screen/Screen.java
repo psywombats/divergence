@@ -13,12 +13,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Vector3;
 
 import net.wombatrpgs.rainfall.core.Queueable;
 import net.wombatrpgs.rainfall.core.RGlobal;
@@ -51,6 +53,8 @@ public abstract class Screen implements CommandListener,
 	protected List<ScreenShowable> screenObjects;
 	/** What we'll use to render */
 	protected TrackerCam cam;
+	/** What we'll use to render UI */
+	protected OrthographicCamera uiCam;
 	/** Depth, lower values are rendered last */
 	protected float z;
 	/** If true, layers with higher z won't be rendered */
@@ -59,6 +63,8 @@ public abstract class Screen implements CommandListener,
 	protected SpriteBatch batch;
 	/** Batch used to render frame buffers */
 	protected SpriteBatch privateBatch;
+	/** Batch used to render UI and anything independent of camera */
+	protected SpriteBatch uiBatch;
 	/** Shader used to render background maps */
 	protected ShaderProgram mapShader;
 	/** Buffer we'll be using to draw to before scaling to screen */
@@ -83,6 +89,7 @@ public abstract class Screen implements CommandListener,
 		mapShader = null;
 		batch = new SpriteBatch();
 		privateBatch = new SpriteBatch();
+		uiBatch = new SpriteBatch();
 		buffer = new FrameBuffer(Format.RGB565, 
 				RGlobal.window.getWidth(),
 				RGlobal.window.getHeight(),
@@ -91,17 +98,14 @@ public abstract class Screen implements CommandListener,
 		tint = new Color(0, 0, 0, 1);
 		shapes = new ShapeRenderer();
 		cam = new TrackerCam(RGlobal.window.getWidth(), RGlobal.window.getHeight());
-	}
-	
-	/**
-	 * This time we won't create an apocalyptic camera.
-	 * @param 	cam				The camera to use instead
-	 */
-	public Screen(TrackerCam cam) {
-		transparent = false;
-		initialized = false;
-		z = 0;
-		this.cam = cam;
+		
+		uiCam = new OrthographicCamera();
+		uiCam.setToOrtho(false, RGlobal.window.getWidth(), RGlobal.window.getHeight());
+		uiCam.zoom = RGlobal.window.getZoom();
+		uiCam.position.x = RGlobal.window.getViewportWidth() / 2;
+		uiCam.position.y = RGlobal.window.getViewportHeight() / 2;
+		uiCam.update();
+		uiBatch.setProjectionMatrix(uiCam.combined);
 	}
 	
 	/**
@@ -141,8 +145,11 @@ public abstract class Screen implements CommandListener,
 	/** @return The camera this screen uses to render */
 	public TrackerCam getCamera() { return cam; }
 	
-	/** @return Batch used for rendering contents */
-	public SpriteBatch getBatch() { return batch; }
+	/** @return Batch used for rendering contents of the viewport */
+	public SpriteBatch getViewBatch() { return batch; }
+	
+	/** @return Batch used for UI components */
+	public SpriteBatch getUIBatch() { return uiBatch; }
 	
 	/** @return Buffer used for rendering contents */
 	public FrameBuffer getBuffer() { return buffer; }
@@ -282,6 +289,7 @@ public abstract class Screen implements CommandListener,
 		batch.dispose();
 		privateBatch.dispose();
 		buffer.dispose();
+		uiBatch.dispose();
 	}
 
 	/**

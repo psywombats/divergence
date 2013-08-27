@@ -137,7 +137,7 @@ public class Level implements ScreenShowable {
 	}
 	
 	/** @return The batch used to render sprites on this map */
-	public SpriteBatch getBatch() { return RGlobal.screens.peek().getBatch(); }
+	public SpriteBatch getBatch() { return RGlobal.screens.peek().getViewBatch(); }
 	
 	/** @return The width of this map, in pixels */
 	public int getWidthPixels() { return getWidth() * getTileWidth(); }

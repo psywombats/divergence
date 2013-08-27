@@ -107,9 +107,9 @@ public class TestScreen extends Screen {
 		batch.end();
 		
 		// this is actually legal wtf, used to be to-do here
-		getBatch().begin();
+		getViewBatch().begin();
 		if (box != null) box.render(cam);
-		getBatch().end();
+		getViewBatch().end();
 	}
 
 	/**

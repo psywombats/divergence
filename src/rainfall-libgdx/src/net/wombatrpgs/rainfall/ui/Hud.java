@@ -32,7 +32,6 @@ public class Hud implements ScreenShowable,
 	protected HudMDO mdo;
 	
 	protected List<Queueable> assets;
-	protected SpriteBatch batch;
 	protected Graphic frame;
 	protected Graphic hpBase, hpRib, hpTail;
 	protected Graphic mpBase, mpRib, mpTail;
@@ -83,7 +82,7 @@ public class Hud implements ScreenShowable,
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		if (batch == null) batch = new SpriteBatch();
+		SpriteBatch batch = RGlobal.screens.peek().getUIBatch();
 		if (mdo.anchorDir == Direction.DOWN) {
 			float mhp = RGlobal.hero.getStats().getMHP();
 			float hp = RGlobal.hero.getHP();
