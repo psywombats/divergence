@@ -67,6 +67,7 @@ public class CharacterEvent extends MapEvent {
 	protected FacesAnimation appearance;
 	protected Stack<FacesAnimation> walkStack, idleStack;
 	protected FacesAnimation walkAnim, idleAnim, stunAnim;
+	protected TimerObject stunTimer;
 	
 	protected boolean stunned;
 	protected boolean dead;
@@ -511,19 +512,23 @@ public class CharacterEvent extends MapEvent {
 		for (MovesetAct act : cancelledActs) {
 			act.cancel();
 		}
-		new TimerObject(duration, this, new TimerListener() {
-			@Override
-			public void onTimerZero(TimerObject source) {
-				appearance.setFlicker(false);
-				setStunned(false);
-				if (stunAnim != null) {
-					while (appearance == stunAnim) {
-						removeIdleAnim(stunAnim);
-						removeWalkAnim(walkAnim);
+		if (stunTimer == null) {
+			stunTimer = new TimerObject(duration, this, new TimerListener() {
+				@Override
+				public void onTimerZero(TimerObject source) {
+					appearance.setFlicker(false);
+					setStunned(false);
+					if (stunAnim != null) {
+						while (appearance == stunAnim) {
+							removeIdleAnim(stunAnim);
+							removeWalkAnim(walkAnim);
+						}
 					}
 				}
-			}
-		});
+			});
+		} else {
+			stunTimer.setTime(Math.max(duration, stunTimer.getTime()));
+		}
 	}
 	
 	/**

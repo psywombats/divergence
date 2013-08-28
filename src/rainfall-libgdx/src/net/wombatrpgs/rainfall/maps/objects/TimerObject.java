@@ -82,6 +82,11 @@ public class TimerObject extends MapThing {
 			completed = true;
 		}
 	}
+	
+	/** @return The time currently on the clock */
+	public float getTime() {
+		return timeRemaining;
+	}
 
 	/**
 	 * Sets the remaining time on the clock. Does not deal with pause status.
