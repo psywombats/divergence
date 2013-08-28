@@ -235,6 +235,7 @@ public abstract class FacesAnimation implements Renderable,
 		for (int i = 0; i < facings; i++) {
 			animations[i].reset();
 		}
+		time = 0;
 	}
 	
 	/**

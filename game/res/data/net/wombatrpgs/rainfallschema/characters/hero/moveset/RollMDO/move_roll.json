@@ -4,7 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"cooldown" : 1.0,
-	"mobility" : "IMMOBILE",
+	"mobility" : "STRAIGHT_LINE_ONLY",
 	"sound" : "None",
 	"staticAnimation" : "None",
 	"movingAnimation" : "4dir_talyssa_roll",

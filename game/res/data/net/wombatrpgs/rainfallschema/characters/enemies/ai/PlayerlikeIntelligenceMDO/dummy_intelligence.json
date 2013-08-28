@@ -4,8 +4,8 @@
 	"name" : "",
 	"description" : "",
 	"visionRadius" : 200,
-	"farRange" : 10,
-	"nearRange" : 0,
+	"farRange" : 15,
+	"nearRange" : 5,
 	"postType" : "RETREAT",
 	"aggression" : 50
 }

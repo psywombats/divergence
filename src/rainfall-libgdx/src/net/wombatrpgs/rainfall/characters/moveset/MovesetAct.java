@@ -94,15 +94,23 @@ public abstract class MovesetAct implements Actionable,
 		if (!actor.isMoveActive(this)) coreAct(map, actor);
 		this.map = map;
 		coolingDown = true;
+		if (mdo.mobility == MoveMobility.IMMOBILE) {
+			actor.halt();
+		}
+		if (idleAppearance != null) {
+			idleAppearance.reset();
+			idleAppearance.startMoving();
+		}
+		if (walkingAppearance != null) {
+			walkingAppearance.reset();
+			walkingAppearance.startMoving();
+		}
 		final MovesetAct parent = this;
 		new TimerObject(mdo.cooldown, actor, new TimerListener() {
 			@Override public void onTimerZero(TimerObject source) {
 				parent.coolingDown = false;
 			}
 		});
-		if (mdo.mobility == MoveMobility.IMMOBILE) {
-			actor.halt();
-		}
 	}
 	
 	/**
@@ -184,7 +192,7 @@ public abstract class MovesetAct implements Actionable,
 	 * Determines if this move should stop the hero from moving.
 	 */
 	public boolean disablesMovement() {
-		return mdo.mobility == MoveMobility.IMMOBILE;
+		return mdo.mobility == MoveMobility.IMMOBILE || mdo.mobility == MoveMobility.STRAIGHT_LINE_ONLY;
 	}
 	
 	/**
