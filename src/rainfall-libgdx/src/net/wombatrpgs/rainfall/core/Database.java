@@ -77,20 +77,6 @@ public class Database {
 	}
 	
 	/**
-	 * Fetches the entry with the supplied key from the database.
-	 * @param 	key		The key to look up
-	 * @return			The entry with that key
-	 */
-	@Deprecated
-	public MainSchema getEntryByKey(String key) {
-		MainSchema result = keyShelf.get(key);
-		if (result == null) {
-			RGlobal.reporter.err("Couldn't find an entry for key: " + key);
-		}
-		return result;
-	}
-	
-	/**
 	 * Fetches the entry with the supplied key from the database, then casts it
 	 * to the appropriate type for you. How convenient!
 	 * @param 	<T>		The type of schema expected
@@ -182,6 +168,19 @@ public class Database {
 		} else {
 			manager.load(dir.path(), DataEntry.class);
 		}
+	}
+	
+	/**
+	 * Fetches the entry with the supplied key from the database.
+	 * @param 	key		The key to look up
+	 * @return			The entry with that key
+	 */
+	protected MainSchema getEntryByKey(String key) {
+		MainSchema result = keyShelf.get(key);
+		if (result == null) {
+			RGlobal.reporter.err("Couldn't find an entry for key: " + key);
+		}
+		return result;
 	}
 
 }

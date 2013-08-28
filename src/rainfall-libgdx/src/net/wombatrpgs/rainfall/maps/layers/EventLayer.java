@@ -32,6 +32,8 @@ import net.wombatrpgs.rainfall.physics.RectHitbox;
  */
 public class EventLayer extends Layer {
 	
+	private static final boolean CHUNKING_ENABLED = true;
+	
 	protected Level parent;
 	protected boolean passable[][];
 	protected List<MapEvent> events;
@@ -74,7 +76,7 @@ public class EventLayer extends Layer {
 		Collections.sort(events);
 		parent.getBatch().begin();
 		for (MapEvent event : events) {
-			if (event.requiresChunking()) {
+			if (event.requiresChunking() && CHUNKING_ENABLED) {
 				// let's chunk 'em
 				// Our high level strategy: render the feet and body as the
 				// original z-layer, but the head and anything above that get

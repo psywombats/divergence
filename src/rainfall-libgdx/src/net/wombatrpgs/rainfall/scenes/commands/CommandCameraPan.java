@@ -59,7 +59,11 @@ public class CommandCameraPan extends SceneCommand {
 			target.setX((int) cam.position.x);
 			target.setY((int) cam.position.y);
 			target.setMaxVelocity(cam.getPanSpeed());
-			cam.track(target);
+			if (target == RGlobal.hero) { 
+				RGlobal.hero.getVisualCenter();
+			} else {
+				cam.track(target);
+			}
 			parent.getLevel().addEvent(target, 0);
 			runOnce = true;
 		}

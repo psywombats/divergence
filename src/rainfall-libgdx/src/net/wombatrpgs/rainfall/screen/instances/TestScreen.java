@@ -53,7 +53,7 @@ public class TestScreen extends Screen {
 		z = 0;
 		defaultFont = new BitmapFont();
 		batch = new SpriteBatch();
-		cam.track(RGlobal.hero);
+		cam.track(RGlobal.hero.getVisualCenter());
 		
 		init();
 	}

@@ -100,6 +100,9 @@ public abstract class MovesetAct implements Actionable,
 				parent.coolingDown = false;
 			}
 		});
+		if (mdo.mobility == MoveMobility.IMMOBILE) {
+			actor.halt();
+		}
 	}
 	
 	/**

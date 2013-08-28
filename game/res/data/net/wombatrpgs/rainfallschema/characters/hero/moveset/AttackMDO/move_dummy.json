@@ -4,10 +4,10 @@
 	"name" : "",
 	"description" : "",
 	"cooldown" : 0.5,
-	"mobility" : "MOBILE",
+	"mobility" : "IMMOBILE",
 	"sound" : "None",
-	"staticAnimation" : "4dir_dummyattack2",
-	"movingAnimation" : "4dir_dummyattack2",
+	"staticAnimation" : "4dir_talyssa_slash",
+	"movingAnimation" : "4dir_talyssa_slash",
 	"damage" : 10,
 	"kick" : 256,
 	"stun" : 1.0

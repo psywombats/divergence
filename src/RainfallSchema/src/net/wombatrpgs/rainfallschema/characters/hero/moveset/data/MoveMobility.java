@@ -12,6 +12,7 @@ package net.wombatrpgs.rainfallschema.characters.hero.moveset.data;
 public enum MoveMobility {
 	
 	MOBILE,
+	STRAIGHT_LINE_ONLY,
 	IMMOBILE,
 
 }

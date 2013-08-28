@@ -21,10 +21,12 @@ import net.wombatrpgs.rainfall.characters.moveset.ActAttack;
 import net.wombatrpgs.rainfall.characters.moveset.MovesetAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.core.Updateable;
+import net.wombatrpgs.rainfall.graphics.AnimationStrip;
 import net.wombatrpgs.rainfall.graphics.FacesAnimation;
 import net.wombatrpgs.rainfall.graphics.FacesAnimationFactory;
 import net.wombatrpgs.rainfall.io.audio.SoundObject;
 import net.wombatrpgs.rainfall.maps.Level;
+import net.wombatrpgs.rainfall.maps.Positionable;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.maps.objects.TimerListener;
 import net.wombatrpgs.rainfall.maps.objects.TimerObject;
@@ -68,6 +70,7 @@ public class CharacterEvent extends MapEvent {
 	protected Stack<FacesAnimation> walkStack, idleStack;
 	protected FacesAnimation walkAnim, idleAnim, stunAnim;
 	protected TimerObject stunTimer;
+	protected int anchorX, anchorY;
 	
 	protected boolean stunned;
 	protected boolean dead;
@@ -117,7 +120,12 @@ public class CharacterEvent extends MapEvent {
 	 * @param 	dir				The direction to face
 	 */
 	public void setFacing(Direction dir) {
-		if (appearance != null) this.appearance.setFacing(dir);
+		if (appearance != null) {
+			AnimationStrip anim1 = appearance.getStrip();
+			appearance.setFacing(dir);
+			AnimationStrip anim2 = appearance.getStrip();
+			adjustAnimation(anim1, anim2);
+		}
 		for (FacesAnimation anim : walkStack) {
 			anim.setFacing(dir);
 		}
@@ -131,9 +139,10 @@ public class CharacterEvent extends MapEvent {
 	 * @param 	appearance		The new anim for this character
 	 */
 	public void setIdleAppearance(FacesAnimation appearance) {
-		if (this.appearance == this.idleAnim) this.appearance = appearance;
+		if (this.appearance == this.idleAnim) {
+			replaceAppearance(appearance);
+		}
 		this.idleAnim = appearance;
-		if (stunAnim == null) appearance.setFlicker(stunned);
 	}
 	
 	/**
@@ -141,9 +150,10 @@ public class CharacterEvent extends MapEvent {
 	 * @param 	appearance		The new anim for this character
 	 */
 	public void setWalkingAppearance(FacesAnimation appearance) {
-		if (this.appearance == this.walkAnim) this.appearance = appearance;
+		if (this.appearance == this.walkAnim) {
+			replaceAppearance(appearance);
+		}
 		this.walkAnim = appearance;
-		if (stunAnim == null) appearance.setFlicker(stunned);
 	}
 	
 	/**
@@ -187,6 +197,9 @@ public class CharacterEvent extends MapEvent {
 		if (!pacing && appearance != null) {
 			appearance.update(elapsed);
 		}
+		if (stunTimer != null) {
+			stunTimer.update(elapsed);
+		}
 	}
 
 	/**
@@ -206,8 +219,7 @@ public class CharacterEvent extends MapEvent {
 					walkAnim.stopMoving();
 				}
 				if (appearance == walkAnim) {
-					idleAnim.setFacing(appearance.getFacing());
-					appearance = idleAnim;
+					replaceAppearance(idleAnim);
 				}
 		}
 	}
@@ -240,13 +252,13 @@ public class CharacterEvent extends MapEvent {
 			String dir = getProperty(PROPERTY_FACING);
 			if (dir != null) {
 				if (dir.equals(DIR_DOWN)) {
-					appearance.setFacing(Direction.DOWN);
+					setFacing(Direction.DOWN);
 				} else if (dir.equals(DIR_UP)) {
-					appearance.setFacing(Direction.UP);
+					setFacing(Direction.UP);
 				} else if (dir.equals(DIR_RIGHT)) {
-					appearance.setFacing(Direction.RIGHT);
+					setFacing(Direction.RIGHT);
 				} else if (dir.equals(DIR_LEFT)) {
-					appearance.setFacing(Direction.LEFT);
+					setFacing(Direction.LEFT);
 				} else {
 					RGlobal.reporter.warn("Not a valid direction on char " + this + 
 							" : " + dir);
@@ -457,6 +469,19 @@ public class CharacterEvent extends MapEvent {
 	public float getSpeed() {
 		return mobilityMDO.walkVelocity;
 	}
+	
+	public Positionable getVisualCenter() {
+		// TODO: speed this up
+		final CharacterEvent parent = this;
+		return new Positionable() {
+			@Override public float getX() {
+				return parent.getX() - anchorX;
+			}
+			@Override public float getY() {
+				return parent.getY() - anchorY;
+			}
+		};
+	}
 
 	/**
 	 * Makes this event face towards an object on the map.
@@ -529,6 +554,7 @@ public class CharacterEvent extends MapEvent {
 		} else {
 			stunTimer.setTime(Math.max(duration, stunTimer.getTime()));
 		}
+		stunTimer.set(true);
 	}
 	
 	/**
@@ -627,7 +653,7 @@ public class CharacterEvent extends MapEvent {
 			}
 			setFacing(newDir);
 			if (appearance == idleAnim) {
-				appearance = walkAnim;
+				replaceAppearance(walkAnim);
 			}
 			if (!walkAnim.isMoving()) {
 				walkAnim.startMoving();
@@ -674,8 +700,6 @@ public class CharacterEvent extends MapEvent {
 		} else {
 			RGlobal.reporter.warn("Removed an unperformed action 1: " + act);
 		}
-		walkStack.get(0).setFacing(appearance.getFacing());
-		idleStack.get(0).setFacing(appearance.getFacing());
 		if (act.getIdleAppearance() != null) {
 			removeIdleAnim(act.getIdleAppearance());
 		}
@@ -783,6 +807,9 @@ public class CharacterEvent extends MapEvent {
 		
 		stats = new Stats(mdo.stats);
 		hp = stats.getMHP();
+		
+		anchorX = 0;
+		anchorY = 0;
 	}
 	
 	/**
@@ -818,7 +845,9 @@ public class CharacterEvent extends MapEvent {
 	protected void removeIdleAnim(FacesAnimation anim) {
 		idleStack.remove(anim);
 		idleAnim = idleStack.peek();
-		if (appearance == anim) appearance = idleAnim;
+		if (appearance == anim) {
+			replaceAppearance(idleAnim);
+		}
 	}
 	
 	/**
@@ -828,7 +857,43 @@ public class CharacterEvent extends MapEvent {
 	protected void removeWalkAnim(FacesAnimation anim) {
 		walkStack.remove(anim);
 		walkAnim = walkStack.peek();
-		if (appearance == anim) appearance = walkAnim;
+		if (appearance == anim) {
+			replaceAppearance(walkAnim);
+		}
+	}
+	
+	/**
+	 * Bumps this character's x/y based on a change in the anchors of two
+	 * animation strips. Vital for multiple frame sizes.
+	 * @param 	anim1			What we are now
+	 * @param 	anim2			What we should be
+	 */
+	protected void adjustAnimation(AnimationStrip anim1, AnimationStrip anim2) {
+//		System.out.println("delta : " + (anim1.getHitbox().getX() - anim2.getHitbox().getX()) + ", " +
+//				(anim1.getHitbox().getY() - anim2.getHitbox().getY()));
+		float delta1 = (anim1.getHitbox().getX() - anim2.getHitbox().getX());
+		float delta2 = (anim1.getHitbox().getY() - anim2.getHitbox().getY());
+		if (Math.abs(delta1) > 8) {
+			this.x += delta1;
+			anchorX += delta1;
+		}
+		if (Math.abs(delta2) > 8) {
+			this.y += delta2;
+			anchorY += delta2;
+		}
+	}
+	
+	/**
+	 * Overwrites the current appearance and bumps based on anchor if needed.
+	 * @param	anim2			What we should look like
+	 */
+	protected void replaceAppearance(FacesAnimation newAnim) {
+		if (appearance != newAnim) {
+			newAnim.setFacing(appearance.getFacing());
+			adjustAnimation(appearance.getStrip(), newAnim.getStrip());
+		}
+		appearance = newAnim;
+		if (stunAnim == null) appearance.setFlicker(stunned);
 	}
 
 }

@@ -11,9 +11,9 @@
 	"offX" : 0,
 	"offY" : 0,
 	"animSpeed" : 6,
-	"hit1x" : 16,
-	"hit1y" : 41,
-	"hit2x" : 47,
+	"hit1x" : 14,
+	"hit1y" : 42,
+	"hit2x" : 46,
 	"hit2y" : 64,
 	"attackBoxes" : [
 		{

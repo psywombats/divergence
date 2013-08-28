@@ -103,6 +103,11 @@ public abstract class FacesAnimation implements Renderable,
 		return maxRange;
 	}
 	
+	/** @return The currently playing animation strip */
+	public AnimationStrip getStrip() {
+		return animations[currentDirOrdinal()];
+	}
+	
 	/** @return True if the anim is playing, false otherwise */
 	public boolean isMoving() {
 		return animations[currentDirOrdinal()].isMoving();

@@ -7,7 +7,7 @@
 package net.wombatrpgs.rainfall.scenes.commands;
 
 import net.wombatrpgs.rainfall.core.RGlobal;
-import net.wombatrpgs.rainfall.maps.events.MapEvent;
+import net.wombatrpgs.rainfall.maps.Positionable;
 import net.wombatrpgs.rainfall.scenes.SceneCommand;
 import net.wombatrpgs.rainfall.scenes.SceneParser;
 
@@ -18,7 +18,7 @@ public class CommandCameraTrack extends SceneCommand {
 	
 	protected static final String NULL_TARGET = "fix";
 	
-	protected MapEvent target;
+	protected Positionable target;
 	protected String arg;
 
 	/**
@@ -43,6 +43,9 @@ public class CommandCameraTrack extends SceneCommand {
 				target = parent.getLevel().getEventByName(arg);
 				if (target == null) {
 					RGlobal.reporter.warn("Couldn't find event to track named: " + arg);
+				}
+				if (target == RGlobal.hero) {
+					target = RGlobal.hero.getVisualCenter();
 				}
 			}
 			RGlobal.screens.getCamera().track(target);
