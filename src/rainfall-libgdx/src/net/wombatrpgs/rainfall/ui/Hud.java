@@ -19,6 +19,7 @@ import net.wombatrpgs.rainfall.graphics.Graphic;
 import net.wombatrpgs.rainfall.screen.ScreenShowable;
 import net.wombatrpgs.rainfallschema.maps.data.Direction;
 import net.wombatrpgs.rainfallschema.ui.HudMDO;
+import net.wombatrpgs.rainfallschema.ui.NumberSetMDO;
 
 /**
  * Heads-up display! Everybody's favorite piece of UI. This version is stuck
@@ -35,6 +36,7 @@ public class Hud implements ScreenShowable,
 	protected Graphic frame;
 	protected Graphic hpBase, hpRib, hpTail;
 	protected Graphic mpBase, mpRib, mpTail;
+	protected NumberSet numbers;
 	
 	protected boolean enabled;
 	protected boolean ignoresTint;
@@ -47,6 +49,7 @@ public class Hud implements ScreenShowable,
 		this.mdo = mdo;
 		ignoresTint = true;
 		assets = new ArrayList<Queueable>();
+		
 		frame = startGraphic(mdo.frameGraphic);
 		hpBase = startGraphic(mdo.hpBaseGraphic);
 		hpRib = startGraphic(mdo.hpRibGraphic);
@@ -57,6 +60,9 @@ public class Hud implements ScreenShowable,
 		
 		frame.setTextureHeight(mdo.frameHeight);
 		frame.setTextureWidth(mdo.frameWidth);
+		
+		numbers = new NumberSet(RGlobal.data.getEntryFor(mdo.numberSet, NumberSetMDO.class));
+		assets.add(numbers);
 	}
 	
 	/** @return True if the hud is displaying right now */
@@ -113,6 +119,11 @@ public class Hud implements ScreenShowable,
 						mdo.offY);
 			}
 			frame.renderAt(batch, mdo.offX, mdo.offY);
+			if (hp > 0) {
+				numbers.renderNumberAt((int) hp,
+						mdo.offX + mdo.numOffX,
+						mdo.offY + mdo.numOffY);
+			}
 		}
 	}
 

@@ -9,6 +9,7 @@ package net.wombatrpgs.rainfallschema.ui;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.FileLink;
 import net.wombatrpgs.mgns.core.Annotations.Path;
+import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.rainfallschema.maps.data.Direction;
 
@@ -38,6 +39,16 @@ public class HudMDO extends MainSchema {
 	
 	@Desc("Vertical offset, in px")
 	public Integer offY;
+	
+	@Desc("Number set for HP/MP numbers")
+	@SchemaLink(NumberSetMDO.class)
+	public String numberSet;
+	
+	@Desc("X offset of HP numbers, in px from lower left")
+	public Integer numOffX;
+	
+	@Desc("Y offset of HP numbers, in px from lower left")
+	public Integer numOffY;
 	
 	@Desc("HP bar base graphic")
 	@FileLink("ui")

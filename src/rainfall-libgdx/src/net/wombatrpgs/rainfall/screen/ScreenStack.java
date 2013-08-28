@@ -144,6 +144,7 @@ public class ScreenStack implements Disposable {
 		screens.get(0).update(elapsed);
 	}
 	
+	// TODO: delete this, it's allowing for ugly shit that'll suck w/ 2+ screens
 	/**
 	 * Gets the first screen on the stack without popping it.
 	 * @return					The topmost screen
