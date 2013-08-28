@@ -11,6 +11,7 @@ import net.wombatrpgs.rainfall.characters.moveset.MoveType;
 import net.wombatrpgs.rainfall.characters.moveset.MovesetAct;
 import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfallschema.characters.enemies.ai.PlayerlikeIntelligenceMDO;
+import net.wombatrpgs.rainfallschema.maps.data.Direction;
 
 /**
  * Intelligence for ABS-participants. Moves them like a human would, to some
@@ -34,16 +35,16 @@ public class PlayerlikeIntelligence extends Intelligence {
 	 */
 	@Override
 	public void act() {
+		if (actor.distanceTo(RGlobal.hero) < mdo.nearRange) {
+			retreat();
+			actor.faceToward(RGlobal.hero);
+			return;
+		}
 		if (maybeAttack()) {
 			return;
 		}
 		if (actor.distanceTo(RGlobal.hero) > mdo.visionRadius) {
 			idle();
-			return;
-		}
-		if (actor.distanceTo(RGlobal.hero) < mdo.nearRange) {
-			retreat();
-			actor.faceToward(RGlobal.hero);
 			return;
 		}
 		if (actor.distanceTo(RGlobal.hero) > mdo.farRange) {
@@ -94,9 +95,16 @@ public class PlayerlikeIntelligence extends Intelligence {
 	 */
 	private boolean maybeAttack() {
 		float dist = actor.distanceTo(RGlobal.hero);
+		Direction dir = actor.directionTo(RGlobal.hero);
 		for (MovesetAct attack : actor.getMoves()) {
-			int range = attack.getRange();
+			int range;
+			if (dir == Direction.LEFT || dir == Direction.RIGHT) {
+				range = attack.getRangeX();
+			} else {
+				range = attack.getRangeY();
+			}
 			if (range > dist && mdo.aggression > RGlobal.rand.nextInt(20)) {
+				actor.faceToward(RGlobal.hero);
 				attack.act(actor.getLevel(), actor);
 				return true;
 			}

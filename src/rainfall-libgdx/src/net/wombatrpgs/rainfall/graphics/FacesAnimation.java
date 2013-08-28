@@ -29,7 +29,7 @@ public abstract class FacesAnimation implements Renderable,
 	protected Direction currentDir;
 	protected MapEvent parent;
 	protected AnimationStrip[] animations;
-	protected int maxRange;
+	protected int rangeX, rangeY;
 	protected int facings;
 	protected boolean flickering;
 	protected float time;
@@ -46,7 +46,8 @@ public abstract class FacesAnimation implements Renderable,
 		animations = new AnimationStrip[facings];
 		flickering = false;
 		time = 0;
-		maxRange = 0;
+		rangeX = 0;
+		rangeY = 0;
 	}
 	
 	/** @return The direction currently facing */
@@ -98,9 +99,14 @@ public abstract class FacesAnimation implements Renderable,
 		return animations[currentDirOrdinal()].getMaxTime();
 	}
 	
-	/** @return The maximum range of any attack in this animation */
-	public int getMaxRange() {
-		return maxRange;
+	/** @return The maximum range of any horizontal attack in this animation */
+	public int getRangeX() {
+		return rangeX;
+	}
+	
+	/** @return The maximum range of any horizontal attack in this animation */
+	public int getRangeY() {
+		return rangeY;
 	}
 	
 	/** @return The currently playing animation strip */
@@ -144,8 +150,11 @@ public abstract class FacesAnimation implements Renderable,
 		for (int i = 0; i < facings; i++) {
 			animations[i].postProcessing(manager, pass);
 			animations[i].update(0);
-			if (animations[i].getMaxRange() > maxRange) {
-				maxRange = animations[i].getMaxRange();
+			if (animations[i].getRangeX() > rangeX) {
+				rangeX = animations[i].getRangeX();
+			}
+			if (animations[i].getRangeY() > rangeY) {
+				rangeY = animations[i].getRangeY();
 			}
 		}
 	}

@@ -38,7 +38,7 @@ public abstract class MovesetAct implements Actionable,
 	protected Level map;
 	protected FacesAnimation idleAppearance, walkingAppearance;
 	protected SoundObject sfx;
-	protected int maxRange;
+	protected int rangeX, rangeY;
 	protected boolean coolingDown;
 	
 	/**
@@ -72,8 +72,11 @@ public abstract class MovesetAct implements Actionable,
 	/** @return The character executing this move */
 	public CharacterEvent getActor() { return this.actor; }
 	
-	/** @return The range that this move attacks, 0 if none */
-	public int getRange() { return maxRange; }
+	/** @return The range that this move attacks horizontally, 0 if none */
+	public int getRangeX() { return rangeX; }
+	
+	/** @return The range that this move attacks vertically, 0 if none */
+	public int getRangeY() { return rangeY; }
 	
 	/**
 	 * @see net.wombatrpgs.rainfall.core.Updateable#update(float)
@@ -146,17 +149,24 @@ public abstract class MovesetAct implements Actionable,
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		maxRange = 0;
+		rangeX = 0;
+		rangeY = 0;
 		if (walkingAppearance != null) {
 			walkingAppearance.postProcessing(manager, pass);
-			if (walkingAppearance.getMaxRange() > maxRange) {
-				maxRange = walkingAppearance.getMaxRange();
+			if (walkingAppearance.getRangeX() > rangeX) {
+				rangeX = walkingAppearance.getRangeX();
+			}
+			if (walkingAppearance.getRangeY() > rangeY) {
+				rangeY = walkingAppearance.getRangeY();
 			}
 		}
 		if (idleAppearance != null) {
 			idleAppearance.postProcessing(manager, pass);
-			if (idleAppearance.getMaxRange() > maxRange) {
-				maxRange = idleAppearance.getMaxRange();
+			if (idleAppearance.getRangeX() > rangeX) {
+				rangeX = idleAppearance.getRangeX();
+			}
+			if (idleAppearance.getRangeY() > rangeY) {
+				rangeY = idleAppearance.getRangeY();
 			}
 		}
 		if (sfx != null) {
