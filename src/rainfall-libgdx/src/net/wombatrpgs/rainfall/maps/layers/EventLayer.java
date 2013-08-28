@@ -32,7 +32,7 @@ import net.wombatrpgs.rainfall.physics.RectHitbox;
  */
 public class EventLayer extends Layer {
 	
-	private static final boolean CHUNKING_ENABLED = true;
+	private static boolean CHUNKING_ENABLED = true;
 	
 	protected Level parent;
 	protected boolean passable[][];
@@ -83,7 +83,7 @@ public class EventLayer extends Layer {
 				// mapped to one z-layer higher
 				TextureRegion region = event.getRegion();
 				int deltaZ = (int) (z - event.getZ());
-				int maxHeight = (int) Math.ceil(region.getRegionHeight() / 32);
+				int maxHeight = (int) Math.floor(region.getRegionHeight() / 32) + 1;
 				if (deltaZ > maxHeight) {
 					break;
 				}

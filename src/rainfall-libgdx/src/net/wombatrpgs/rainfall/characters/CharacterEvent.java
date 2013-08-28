@@ -604,8 +604,6 @@ public class CharacterEvent extends MapEvent {
 	public void stopAction(MovesetAct act) {
 		if (activeMoves.contains(act)) {
 			toCancel.add(act);
-		} else {
-			RGlobal.reporter.warn("Removed an unperformed action 2: " + act);
 		}
 	}
 	
@@ -697,8 +695,6 @@ public class CharacterEvent extends MapEvent {
 	protected void internalStopAction(MovesetAct act) {
 		if (activeMoves.contains(act)) {
 			activeMoves.remove(act);
-		} else {
-			RGlobal.reporter.warn("Removed an unperformed action 1: " + act);
 		}
 		if (act.getIdleAppearance() != null) {
 			removeIdleAnim(act.getIdleAppearance());
