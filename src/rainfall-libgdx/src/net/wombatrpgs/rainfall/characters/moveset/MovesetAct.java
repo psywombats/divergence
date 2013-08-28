@@ -43,6 +43,7 @@ public abstract class MovesetAct implements Actionable,
 	
 	/**
 	 * Constructs a moveset act from data.
+	 * @param	actor			The actor to create the move for
 	 * @param 	mdo				The MDO with data to construct from
 	 */
 	public MovesetAct(CharacterEvent actor, MoveMDO mdo) {

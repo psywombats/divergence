@@ -123,6 +123,9 @@ public class AnimationStrip implements 	Renderable,
 	
 	/** @return True if this animation has attack box markup */
 	public boolean hasHitData() { return attackBoxes.size() > 0; }
+	
+	/** @return True if this animation is currently playing */
+	public boolean isMoving() { return moving; }
 
 	/**
 	 * @see net.wombatrpgs.rainfall.core.Updateable#update(float)

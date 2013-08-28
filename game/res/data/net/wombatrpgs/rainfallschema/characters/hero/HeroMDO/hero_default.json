@@ -5,6 +5,7 @@
 	"description" : " ",
 	"appearance" : "4dir_talyssa_walk",
 	"idleAnim" : "4dir_talyssa_idle",
+	"flinchAnim" : "4dir_talyssa_flinch",
 	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
 	"response" : "PUSHABLE",
 	"touch" : "NOTHING",

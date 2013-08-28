@@ -66,13 +66,12 @@ public class CharacterEvent extends MapEvent {
 	protected MobilityMDO mobilityMDO;
 	protected FacesAnimation appearance;
 	protected Stack<FacesAnimation> walkStack, idleStack;
-	protected FacesAnimation walkAnim, idleAnim;
+	protected FacesAnimation walkAnim, idleAnim, stunAnim;
 	
 	protected boolean stunned;
 	protected boolean dead;
 	protected boolean pacing;
 	
-	// TODO: move the fields below this line to a character-specific subclass
 	protected Stats stats;
 	protected int hp;
 
@@ -133,7 +132,7 @@ public class CharacterEvent extends MapEvent {
 	public void setIdleAppearance(FacesAnimation appearance) {
 		if (this.appearance == this.idleAnim) this.appearance = appearance;
 		this.idleAnim = appearance;
-		appearance.setFlicker(stunned);
+		if (stunAnim == null) appearance.setFlicker(stunned);
 	}
 	
 	/**
@@ -143,7 +142,7 @@ public class CharacterEvent extends MapEvent {
 	public void setWalkingAppearance(FacesAnimation appearance) {
 		if (this.appearance == this.walkAnim) this.appearance = appearance;
 		this.walkAnim = appearance;
-		appearance.setFlicker(stunned);
+		if (stunAnim == null) appearance.setFlicker(stunned);
 	}
 	
 	/**
@@ -198,10 +197,13 @@ public class CharacterEvent extends MapEvent {
 		if (pacing && appearance != null) {
 			appearance.update(elapsed);
 		}
-		if (!pacing && walkAnim != null)
+		// TODO: moonwalk flag
+		if (!pacing && walkAnim != null && !stunned)
 			if (Math.abs(vx) < .1 && Math.abs(vy) < .1 &&
 				Math.abs(targetVX) < .1 && Math.abs(targetVY) < .1) {
-				walkAnim.stopMoving();
+				if (walkAnim.isMoving()) {
+					walkAnim.stopMoving();
+				}
 				if (appearance == walkAnim) {
 					idleAnim.setFacing(appearance.getFacing());
 					appearance = idleAnim;
@@ -494,10 +496,14 @@ public class CharacterEvent extends MapEvent {
 	 */
 	public void stun(float duration) {
 		setStunned(true);
+		halt();
+		if (stunAnim != null) {
+			addWalkAnim(stunAnim);
+			addIdleAnim(stunAnim);
+		}
 		if (soundHurt != null) {
 			soundHurt.play();
 		}
-		halt();
 		List<MovesetAct> cancelledActs = new ArrayList<MovesetAct>();
 		for (MovesetAct act : activeMoves) {
 			cancelledActs.add(act);
@@ -510,6 +516,12 @@ public class CharacterEvent extends MapEvent {
 			public void onTimerZero(TimerObject source) {
 				appearance.setFlicker(false);
 				setStunned(false);
+				if (stunAnim != null) {
+					while (appearance == stunAnim) {
+						removeIdleAnim(stunAnim);
+						removeWalkAnim(walkAnim);
+					}
+				}
 			}
 		});
 	}
@@ -547,16 +559,10 @@ public class CharacterEvent extends MapEvent {
 		if (!canAct()) return;
 		activeMoves.add(act);
 		if (act.getIdleAppearance() != null) {
-			setIdleAppearance(act.getIdleAppearance());
-			idleStack.push(idleAnim);
-			act.getIdleAppearance().reset();
-			setFacing(walkAnim.getFacing());
+			addIdleAnim(act.getIdleAppearance());
 		}
 		if (act.getWalkingAppearance() != null) {
-			setWalkingAppearance(act.getWalkingAppearance());
-			walkStack.push(walkAnim);
-			act.getWalkingAppearance().reset();
-			setFacing(idleAnim.getFacing());
+			addWalkAnim(act.getWalkingAppearance());
 		}
 	}
 	
@@ -618,7 +624,9 @@ public class CharacterEvent extends MapEvent {
 			if (appearance == idleAnim) {
 				appearance = walkAnim;
 			}
-			walkAnim.startMoving();
+			if (!walkAnim.isMoving()) {
+				walkAnim.startMoving();
+			}
 		}
 		super.internalTargetVelocity(targetVX, targetVY);
 	}
@@ -629,6 +637,14 @@ public class CharacterEvent extends MapEvent {
 	@Override
 	protected boolean hidden() {
 		return super.hidden() || dead;
+	}
+	
+	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#isAnchored()
+	 */
+	@Override
+	protected boolean isAnchored() {
+		return super.isAnchored() && canAct();
 	}
 
 	/**
@@ -656,16 +672,10 @@ public class CharacterEvent extends MapEvent {
 		walkStack.get(0).setFacing(appearance.getFacing());
 		idleStack.get(0).setFacing(appearance.getFacing());
 		if (act.getIdleAppearance() != null) {
-			FacesAnimation old = act.getIdleAppearance();
-			idleStack.remove(old);
-			idleAnim = idleStack.peek();
-			if (appearance == old) appearance = idleAnim;
+			removeIdleAnim(act.getIdleAppearance());
 		}
 		if (act.getWalkingAppearance() != null) {
-			FacesAnimation old = act.getWalkingAppearance();
-			walkStack.remove(old);
-			walkAnim = walkStack.peek();
-			if (appearance == old) appearance = walkAnim;
+			removeWalkAnim(act.getWalkingAppearance());
 		}
 		if (targetVX != 0 && targetVY != 0) {
 			Direction newFace;
@@ -701,13 +711,15 @@ public class CharacterEvent extends MapEvent {
 	 */
 	protected void setStunned(boolean stunned) {
 		this.stunned = stunned;
-		for (FacesAnimation anim : walkStack) {
-			anim.setFlicker(stunned);
+		if (stunAnim == null) {
+			for (FacesAnimation anim : walkStack) {
+				anim.setFlicker(stunned);
+			}
+			for (FacesAnimation anim : idleStack) {
+				anim.setFlicker(stunned);
+			}
+			appearance.setFlicker(stunned);
 		}
-		for (FacesAnimation anim : idleStack) {
-			anim.setFlicker(stunned);
-		}
-		appearance.setFlicker(stunned);
 	}
 	
 	/**
@@ -739,6 +751,11 @@ public class CharacterEvent extends MapEvent {
 			soundHurt = new SoundObject(soundMDO);
 			assets.add(soundHurt);
 		}
+		if (mdoHasProperty(mdo.flinchAnim)) {
+			DirMDO flinchMDO = RGlobal.data.getEntryFor(mdo.flinchAnim, DirMDO.class);
+			stunAnim = FacesAnimationFactory.create(flinchMDO, this);
+			assets.add(stunAnim);
+		}
 		if (object != null) {
 			String convoKey = getProperty(PROPERTY_CONVO);
 			if (convoKey != null) {
@@ -762,13 +779,51 @@ public class CharacterEvent extends MapEvent {
 		stats = new Stats(mdo.stats);
 		hp = stats.getMHP();
 	}
-
+	
 	/**
-	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#isAnchored()
+	 * Properly adds an idle animation to the stack of playing animations.
+	 * Starts playing the animation right away.
+	 * @param	anim			The animation to add
 	 */
-	@Override
-	protected boolean isAnchored() {
-		return super.isAnchored() && canAct();
+	protected void addIdleAnim(FacesAnimation anim) {
+		setIdleAppearance(anim);
+		idleStack.push(idleAnim);
+		anim.reset();
+		setFacing(walkAnim.getFacing());
+		anim.startMoving();
+	}
+	
+	/**
+	 * Properly adds a walk animation to the stack of playing animations.
+	 * Starts playing the animation right away.
+	 * @param	anim			The animation to add
+	 */
+	protected void addWalkAnim(FacesAnimation anim) {
+		setWalkingAppearance(anim);
+		walkStack.push(walkAnim);
+		anim.reset();
+		setFacing(idleAnim.getFacing());
+		anim.startMoving();
+	}
+	
+	/**
+	 * Properly removes an idle animation from the stack of playing animations.
+	 * @param 	anim			The animation to remove
+	 */
+	protected void removeIdleAnim(FacesAnimation anim) {
+		idleStack.remove(anim);
+		idleAnim = idleStack.peek();
+		if (appearance == anim) appearance = idleAnim;
+	}
+	
+	/**
+	 * Propertly removes a walk animation from the stack of playing animations.
+	 * @param	anim			The animation to remove
+	 */
+	protected void removeWalkAnim(FacesAnimation anim) {
+		walkStack.remove(anim);
+		walkAnim = walkStack.peek();
+		if (appearance == anim) appearance = walkAnim;
 	}
 
 }

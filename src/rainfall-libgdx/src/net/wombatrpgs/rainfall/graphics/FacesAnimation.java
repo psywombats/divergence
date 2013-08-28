@@ -103,6 +103,11 @@ public abstract class FacesAnimation implements Renderable,
 		return maxRange;
 	}
 	
+	/** @return True if the anim is playing, false otherwise */
+	public boolean isMoving() {
+		return animations[currentDirOrdinal()].isMoving();
+	}
+	
 	/**
 	 * Reassigns the parent, in case the creator wants to disown us :(
 	 * @param 	parent			The new parent :)
