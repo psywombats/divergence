@@ -83,7 +83,7 @@ public class EventLayer extends Layer {
 				// mapped to one z-layer higher
 				TextureRegion region = event.getRegion();
 				int deltaZ = (int) (z - event.getZ());
-				int maxHeight = (int) Math.floor(region.getRegionHeight() / 32) + 1;
+				int maxHeight = (int) Math.ceil(region.getRegionHeight() / 32);
 				if (deltaZ > maxHeight) {
 					break;
 				}
@@ -230,6 +230,14 @@ public class EventLayer extends Layer {
 		}
 	}
 	
+	/**
+	 * Removes a map object from this layer.
+	 * @param 	event		The map object to remove
+	 */
+	public void remove(MapEvent event) {
+		events.remove(event);
+	}
+
 	/**
 	 * Removes a map object from this layer.
 	 * @param 	event		The map object to remove
