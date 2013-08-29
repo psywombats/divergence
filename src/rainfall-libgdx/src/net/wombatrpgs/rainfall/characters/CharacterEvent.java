@@ -409,6 +409,14 @@ public class CharacterEvent extends MapEvent {
 	}
 
 	/**
+	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#requiresChunking()
+	 */
+	@Override
+	public boolean requiresChunking() {
+		return (this.getRegion() != null && !isFalling());
+	}
+
+	/**
 	 * @see net.wombatrpgs.rainfall.maps.events.MapEvent#fallIntoHole(int, int)
 	 */
 	@Override

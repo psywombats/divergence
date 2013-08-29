@@ -4,7 +4,7 @@
 	"name" : "",
 	"description" : " ",
 	"appearance" : "4dir_talyssa_walk",
-	"idleAnim" : "4dir_talyssa_idle",
+	"idleAnim" : "4dir_talyssa_slash",
 	"flinchAnim" : "4dir_talyssa_flinch",
 	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
 	"response" : "PUSHABLE",

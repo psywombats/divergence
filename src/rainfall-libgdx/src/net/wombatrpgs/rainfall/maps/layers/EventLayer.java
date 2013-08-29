@@ -85,7 +85,7 @@ public class EventLayer extends Layer {
 				int deltaZ = (int) (z - event.getZ());
 				int maxHeight = (int) Math.ceil(region.getRegionHeight() / 32);
 				if (deltaZ > maxHeight) {
-					break;
+					continue;
 				}
 				int gap = (int) (Math.floor(event.getY())) % 32;
 				if (event.getY()+1 < 0) {
@@ -95,7 +95,7 @@ public class EventLayer extends Layer {
 				int topY = region.getRegionHeight() - (deltaZ+1) * 32 + gap;
 				if (botY > region.getRegionHeight()) botY = region.getRegionHeight();
 				if (topY < 0) topY = 0;
-				if (botY < 0) break;
+				if (botY < 0) continue;
 				TextureRegion chunk = new TextureRegion(region,
 						0, topY,
 						region.getRegionWidth(), botY - topY);
@@ -230,14 +230,6 @@ public class EventLayer extends Layer {
 		}
 	}
 	
-	/**
-	 * Removes a map object from this layer.
-	 * @param 	event		The map object to remove
-	 */
-	public void remove(MapEvent event) {
-		events.remove(event);
-	}
-
 	/**
 	 * Removes a map object from this layer.
 	 * @param 	event		The map object to remove

@@ -460,7 +460,7 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	 * @return
 	 */
 	public String getName() {
-		if (object != null) {
+		if (object != null && getProperty(PROPERTY_NAME) != null) {
 			return getProperty(PROPERTY_NAME);
 		} else {
 			return "(Anonymous)";
@@ -716,7 +716,7 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	 * @return					True if this event should be chunked
 	 */
 	public boolean requiresChunking() {
-		return (this.getRegion() != null && !isFalling());
+		return false;
 	}
 	
 	/**
