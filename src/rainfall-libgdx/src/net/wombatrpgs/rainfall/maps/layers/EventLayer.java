@@ -72,7 +72,7 @@ public class EventLayer extends Layer {
 	@Override
 	public void render(OrthographicCamera camera, float z) {
 		if (Math.round(z-.5) != z) return;
-		// TODO: this can be optimized, but it's not fucking likely
+		// this can be optimized, but it's not fucking likely
 		Collections.sort(events);
 		parent.getBatch().begin();
 		for (MapEvent event : events) {

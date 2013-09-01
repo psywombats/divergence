@@ -848,7 +848,11 @@ public class CharacterEvent extends MapEvent {
 	 */
 	protected void removeIdleAnim(FacesAnimation anim) {
 		idleStack.remove(anim);
-		idleAnim = idleStack.peek();
+		if (idleStack.size() > 0) {
+			idleAnim = idleStack.peek();
+		} else {
+			idleAnim = walkStack.get(0);
+		}
 		if (appearance == anim) {
 			replaceAppearance(idleAnim);
 		}
