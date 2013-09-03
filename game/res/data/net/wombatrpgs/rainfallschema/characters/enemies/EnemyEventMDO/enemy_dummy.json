@@ -5,7 +5,7 @@
 	"description" : "",
 	"appearance" : "4dir_bandit_walk",
 	"idleAnim" : "None",
-	"flinchAnim" : "None",
+	"flinchAnim" : "4dir_bandit_flinch",
 	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
 	"response" : "PUSHABLE",
 	"touch" : "NOTHING",
