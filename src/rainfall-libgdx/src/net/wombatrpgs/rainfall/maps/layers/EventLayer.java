@@ -32,7 +32,7 @@ import net.wombatrpgs.rainfall.physics.RectHitbox;
  */
 public class EventLayer extends Layer {
 	
-	private static boolean CHUNKING_ENABLED = true;
+	private static boolean CHUNKING_ENABLED = false;
 	
 	protected Level parent;
 	protected boolean passable[][];

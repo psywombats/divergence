@@ -40,10 +40,13 @@ public class Constants {
 	public static final String DATA_DIR = RESOURCE_DIR + "data/";
 	/** Directory where all the audio files are stored, prefix string */
 	public static final String AUDIO_DIR = RESOURCE_DIR + "audio/";
+	/** Directory where all the shaders are stored, prefix string */
 	public static final String SHADERS_DIR = RESOURCE_DIR + "shaders/";
 	
 	/** The key of the default window settings */
 	public static final String WINDOW_KEY = "window_data";
+	/** The key of the default graphics settings */
+	public static final String GRAPHICS_KEY = "graphics_default";
 	
 	/** Strings could be null or else this */
 	public static final String NULL_MDO = "None";

@@ -19,6 +19,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 import net.wombatrpgs.rainfall.characters.Hero;
 import net.wombatrpgs.rainfall.core.reporters.*;
+import net.wombatrpgs.rainfall.graphics.GraphicsSettings;
 import net.wombatrpgs.rainfall.io.DefaultKeymap;
 import net.wombatrpgs.rainfall.io.FileLoader;
 import net.wombatrpgs.rainfall.io.Keymap;
@@ -31,6 +32,7 @@ import net.wombatrpgs.rainfall.screen.ScreenStack;
 import net.wombatrpgs.rainfall.screen.WindowSettings;
 import net.wombatrpgs.rainfall.screen.instances.DefaultScreen;
 import net.wombatrpgs.rainfall.ui.UISettings;
+import net.wombatrpgs.rainfallschema.settings.GraphicsSettingsMDO;
 import net.wombatrpgs.rainfallschema.settings.TeleportSettingsMDO;
 import net.wombatrpgs.rainfallschema.settings.UISettingsMDO;
 import net.wombatrpgs.rainfallschema.settings.WindowSettingsMDO;
@@ -64,6 +66,8 @@ public class RGlobal {
 	public static boolean initialized = false;
 	/** Our current window settings */
 	public static WindowSettings window;
+	/** Our current graphics settings */
+	public static GraphicsSettings graphics;
 	/** Teleport settings, from database */
 	public static TeleportGlobal teleport;
 	/** Loader for simple text files */
@@ -122,12 +126,15 @@ public class RGlobal {
 			RGlobal.reporter.inform("Initializing data-dependant resources");
 			RGlobal.window = new WindowSettings(
 					RGlobal.data.getEntryFor(Constants.WINDOW_KEY, WindowSettingsMDO.class));
+			RGlobal.graphics = new GraphicsSettings(
+					RGlobal.data.getEntryFor(Constants.GRAPHICS_KEY, GraphicsSettingsMDO.class));
 			RGlobal.ui = new UISettings(RGlobal.data.getEntryFor(
 					UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
 			RGlobal.teleport = new TeleportGlobal(RGlobal.data.getEntryFor(
 					TeleportGlobal.DEFAULT_MDO_KEY, TeleportSettingsMDO.class));
 			toLoad.add(ui);
 			toLoad.add(teleport);
+			toLoad.add(graphics);
 			for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
 			for (int pass = 0; RGlobal.assetManager.getProgress() < 1; pass++) {
 				RGlobal.assetManager.finishLoading();

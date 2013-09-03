@@ -71,6 +71,7 @@ public class CharacterEvent extends MapEvent {
 	protected FacesAnimation walkAnim, idleAnim, stunAnim;
 	protected TimerObject stunTimer;
 	protected int anchorX, anchorY;
+	protected int shadowX, shadowY;
 	
 	protected boolean stunned;
 	protected boolean dead;
@@ -233,6 +234,7 @@ public class CharacterEvent extends MapEvent {
 		if (hidden()) return;
 		super.render(camera);
 		if (appearance != null) {
+			drawShadow(camera);
 			appearance.render(camera);
 		}
 	}
@@ -269,6 +271,7 @@ public class CharacterEvent extends MapEvent {
 				pacing = true;
 			}
 		}
+		initShadowAnchor();
 	}
 
 	/**
@@ -445,10 +448,20 @@ public class CharacterEvent extends MapEvent {
 	/**
 	 * Determines if the hero is currently in a state to act, based on the
 	 * actions the hero is currently carrying out and status conditions.
-	 * @return					True if we can act, false otherwise.
+	 * @return					True if we can act, false otherwise
 	 */
 	public boolean canAct() {
 		return canMove() && !hidden();
+	}
+	
+	/**
+	 * Checks if this event should use a shadow sprite underneath it. This is
+	 * usually checked during chunking/rendering. Shadow rendering isn't built
+	 * into the non-chunk render mode yet though.
+	 * @return					True if this event has a shadow, false otherwise
+	 */
+	public boolean usesShadows() {
+		return true;
 	}
 	
 	/**
@@ -879,15 +892,22 @@ public class CharacterEvent extends MapEvent {
 	protected void adjustAnimation(AnimationStrip anim1, AnimationStrip anim2) {
 //		System.out.println("delta : " + (anim1.getHitbox().getX() - anim2.getHitbox().getX()) + ", " +
 //				(anim1.getHitbox().getY() - anim2.getHitbox().getY()));
-		float delta1 = (anim1.getHitbox().getX() - anim2.getHitbox().getX());
-		float delta2 = (anim1.getHitbox().getY() - anim2.getHitbox().getY());
-		if (Math.abs(delta1) > 8) {
-			this.x += delta1;
-			anchorX += delta1;
+		float deltaX = (anim1.getHitbox().getX() - anim2.getHitbox().getX());
+		float deltaY = (anim1.getHitbox().getY() - anim2.getHitbox().getY());
+		TextureRegion tex = RGlobal.graphics.getShadow().getRegion();
+		float newShadeX = (anim2.getHitbox().getX() - getX())
+				- tex.getRegionWidth()/2 + anim2.getHitbox().getWidth()/2;
+		float newShadeY = (anim2.getHitbox().getY() - getY())
+				- tex.getRegionHeight()/2 + anim2.getHitbox().getHeight()/2;
+		if (Math.abs(deltaX) > 5) {
+			this.x += deltaX;
+			anchorX += deltaX;
+			shadowX = (int) newShadeX;
 		}
-		if (Math.abs(delta2) > 8) {
-			this.y += delta2;
-			anchorY += delta2;
+		if (Math.abs(deltaY) > 5) {
+			this.y += deltaY;
+			anchorY += deltaY;
+			shadowY = (int) newShadeY;
 		}
 	}
 	
@@ -902,6 +922,29 @@ public class CharacterEvent extends MapEvent {
 		}
 		appearance = newAnim;
 		if (stunAnim == null) appearance.setFlicker(stunned);
+	}
+	
+	/**
+	 * Draws the shadow at this event's feet.
+	 */
+	protected void drawShadow(OrthographicCamera camera) {
+		TextureRegion tex = RGlobal.graphics.getShadow().getRegion();
+		this.renderLocal(camera, tex, 
+				shadowX,
+				shadowY - RGlobal.graphics.getShadowY(),
+				0);
+	}
+	
+	/**
+	 * Makes sure the shadow's anchor is in the correct position for the current
+	 * appearance, obliterating any current anchor info.
+	 */
+	protected void initShadowAnchor() {
+		TextureRegion tex = RGlobal.graphics.getShadow().getRegion();
+		shadowX = (int) ((appearance.getHitbox().getX() - getX())
+				- tex.getRegionWidth()/2 + appearance.getHitbox().getWidth()/2);
+		shadowY = (int) ((appearance.getHitbox().getY() - getY())
+				- tex.getRegionHeight()/2 + appearance.getHitbox().getHeight()/2);
 	}
 
 }
