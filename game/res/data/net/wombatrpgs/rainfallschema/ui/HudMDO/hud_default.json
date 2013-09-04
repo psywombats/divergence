@@ -9,7 +9,7 @@
 	"frameHeight" : 44,
 	"offX" : 32,
 	"offY" : 32,
-	"numberSet" : "numberset_default",
+	"numberSet" : "numberset_ghost",
 	"numOffX" : 66,
 	"numOffY" : 32,
 	"hpBaseGraphic" : "hud_hp_base.png",
