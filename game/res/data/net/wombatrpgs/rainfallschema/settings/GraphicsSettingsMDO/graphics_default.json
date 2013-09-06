@@ -4,5 +4,6 @@
 	"name" : "",
 	"description" : "",
 	"shadowSprite" : "anim_shadow",
-	"shadowY" : 6
+	"shadowY" : 6,
+	"chunkingEnabled" : "ENABLED"
 }
