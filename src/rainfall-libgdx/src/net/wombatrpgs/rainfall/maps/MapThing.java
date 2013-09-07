@@ -126,6 +126,13 @@ public abstract class MapThing implements	Renderable,
 	}
 	
 	/**
+	 * Finishes up after rendering, once chunking is complete.
+	 */
+	public void finishChunking(OrthographicCamera camera) {
+		// override if needed
+	}
+	
+	/**
 	 * Called when the parent map loses focus due to the hero teleporting to
 	 * someplace else. Default does nothing.
 	 * @param 	map				The map that lost focus, should be our parent

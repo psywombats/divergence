@@ -12,7 +12,6 @@ import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 
@@ -31,8 +30,6 @@ import net.wombatrpgs.rainfall.physics.RectHitbox;
  * A renderable collection of map events, grouped into a layer in a level.
  */
 public class EventLayer extends Layer {
-	
-	private static boolean CHUNKING_ENABLED = false;
 	
 	protected Level parent;
 	protected boolean passable[][];
@@ -76,33 +73,7 @@ public class EventLayer extends Layer {
 		Collections.sort(events);
 		parent.getBatch().begin();
 		for (MapEvent event : events) {
-			if (event.requiresChunking() && CHUNKING_ENABLED) {
-				// let's chunk 'em
-				// Our high level strategy: render the feet and body as the
-				// original z-layer, but the head and anything above that get
-				// mapped to one z-layer higher
-				TextureRegion region = event.getRegion();
-				int deltaZ = (int) (z - event.getZ());
-				int maxHeight = (int) Math.ceil(region.getRegionHeight() / 32);
-				if (deltaZ > maxHeight) {
-					continue;
-				}
-				int gap = (int) (Math.floor(event.getY())) % 32;
-				if (event.getY()+1 < 0) {
-					gap *= -1;
-				}
-				int botY = region.getRegionHeight() - (deltaZ) * 32 + gap;
-				int topY = region.getRegionHeight() - (deltaZ+1) * 32 + gap;
-				if (botY > region.getRegionHeight()) botY = region.getRegionHeight();
-				if (topY < 0) topY = 0;
-				if (botY < 0) continue;
-				TextureRegion chunk = new TextureRegion(region,
-						0, topY,
-						region.getRegionWidth(), botY - topY);
-				event.renderLocal(camera, chunk, 0, region.getRegionHeight() - botY, 0);
-			} else if ((int) Math.floor(getZ()) == z) {
-				event.render(camera);
-			}
+			RGlobal.graphics.chunkEvent(event, camera, z, getZ());
 		}
 		parent.getBatch().end();
 	}

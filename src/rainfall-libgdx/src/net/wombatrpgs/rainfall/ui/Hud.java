@@ -36,6 +36,8 @@ public class Hud implements ScreenShowable,
 	protected Graphic frame;
 	protected Graphic hpBase, hpRib, hpTail;
 	protected Graphic mpBase, mpRib, mpTail;
+	protected Graphic nhpBase, nhpRib, nhpTail;
+	protected Graphic nmpBase, nmpRib, nmpTail;
 	protected NumberSet numbers;
 	
 	protected boolean enabled;
@@ -51,12 +53,19 @@ public class Hud implements ScreenShowable,
 		assets = new ArrayList<Queueable>();
 		
 		frame = startGraphic(mdo.frameGraphic);
+		
 		hpBase = startGraphic(mdo.hpBaseGraphic);
 		hpRib = startGraphic(mdo.hpRibGraphic);
 		hpTail = startGraphic(mdo.hpTailGraphic);
 		mpBase = startGraphic(mdo.mpBaseGraphic);
 		mpRib = startGraphic(mdo.mpRibGraphic);
 		mpTail = startGraphic(mdo.mpTailGraphic);
+		nhpBase = startGraphic(mdo.hpBaseGraphic);
+		nhpRib = startGraphic(mdo.nhpRibGraphic);
+		nhpTail = startGraphic(mdo.nhpTailGraphic);
+		nmpBase = startGraphic(mdo.nmpBaseGraphic);
+		nmpRib = startGraphic(mdo.nmpRibGraphic);
+		nmpTail = startGraphic(mdo.nmpTailGraphic);
 		
 		frame.setTextureHeight(mdo.frameHeight);
 		frame.setTextureWidth(mdo.frameWidth);
@@ -96,33 +105,30 @@ public class Hud implements ScreenShowable,
 			float mp = 100;
 			float ratioHP = hp/mhp;
 			float ratioMP = mp/mmp;
-			if (hp > 0) {
-				hpBase.renderAt(batch, mdo.offX, mdo.offY);
-				hpRib.renderAt(batch,
-						mdo.offX + mdo.hpStartX,
-						mdo.offY + mdo.hpStartY,
-						ratioHP * mdo.hpWidth / 2.0f,
-						1);
-				hpTail.renderAt(batch,
-						mdo.offX + mdo.hpWidth * ratioHP,
-						mdo.offY);
-			}
-			if (mp > 0) {
-				mpBase.renderAt(batch, mdo.offX, mdo.offY);
-				mpRib.renderAt(batch,
-						mdo.offX + mdo.mpStartX,
-						mdo.offY + mdo.mpStartY,
-						ratioMP * mdo.mpWidth / 2.0f,
-						1);
-				mpTail.renderAt(batch,
-						mdo.offX + mdo.mpWidth * ratioMP,
-						mdo.offY);
-			}
+			renderBar(camera, batch, nhpBase, nhpRib, nhpTail, mdo.hpStartX,
+					mdo.hpStartY, 1, mdo.hpWidth);
+			renderBar(camera, batch, hpBase, hpRib, hpTail, mdo.hpStartX,
+					mdo.hpStartY, ratioHP, mdo.hpWidth);
+			renderBar(camera, batch, nmpBase, nmpRib, nmpTail, mdo.mpStartX,
+					mdo.mpStartY, 1, mdo.mpWidth);
+			renderBar(camera, batch, mpBase, mpRib, mpTail, mdo.mpStartX,
+					mdo.mpStartY, ratioMP, mdo.mpWidth);
 			frame.renderAt(batch, mdo.offX, mdo.offY);
-			if (hp > 0) {
+			if (ratioHP > .31) {
 				numbers.renderNumberAt((int) hp,
 						mdo.offX + mdo.numOffX,
-						mdo.offY + mdo.numOffY);
+						mdo.offY + mdo.numOffY,
+						.8f, 1, .8f);
+			} else if (ratioHP > .11) {
+				numbers.renderNumberAt((int) hp,
+						mdo.offX + mdo.numOffX,
+						mdo.offY + mdo.numOffY,
+						1, 1, .6f);
+			} else if (ratioHP > 0) {
+				numbers.renderNumberAt((int) hp,
+						mdo.offX + mdo.numOffX,
+						mdo.offY + mdo.numOffY,
+						1, .6f, .6f);
 			}
 		}
 	}
@@ -169,6 +175,24 @@ public class Hud implements ScreenShowable,
 		Graphic graphic = new Graphic(fileName);
 		assets.add(graphic);
 		return graphic;
+	}
+	
+	/** A huge awful method for HP bars */
+	private void renderBar(OrthographicCamera camera, SpriteBatch batch,
+			Graphic base, Graphic rib, Graphic tail, int startX, int startY,
+			float ratio, int width) {
+		if (ratio <= 0) return;
+		base.renderAt(batch, mdo.offX, mdo.offY);
+		rib.renderAt(batch,
+				mdo.offX + startX,
+				mdo.offY + startY,
+				ratio * width / 2.0f,
+				1);
+		if (ratio == 1) {
+			tail.renderAt(batch,
+					mdo.offX + width * ratio,
+					mdo.offY);
+		}
 	}
 
 }

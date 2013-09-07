@@ -62,6 +62,18 @@ public class HudMDO extends MainSchema {
 	@FileLink("ui")
 	public String hpTailGraphic;
 	
+	@Desc("No HP bar base graphic")
+	@FileLink("ui")
+	public String nhpBaseGraphic;
+	
+	@Desc("No HP bar rib graphic")
+	@FileLink("ui")
+	public String nhpRibGraphic;
+	
+	@Desc("No HP bar tail graphic")
+	@FileLink("ui")
+	public String nhpTailGraphic;
+	
 	@Desc("HP bar length when at 100% hp, in px")
 	public Integer hpWidth;
 	
@@ -82,6 +94,18 @@ public class HudMDO extends MainSchema {
 	@Desc("MP bar tail graphic")
 	@FileLink("ui")
 	public String mpTailGraphic;
+	
+	@Desc("No MP bar base graphic")
+	@FileLink("ui")
+	public String nmpBaseGraphic;
+	
+	@Desc("No MP bar rib graphic")
+	@FileLink("ui")
+	public String nmpRibGraphic;
+	
+	@Desc("No MP bar tail graphic")
+	@FileLink("ui")
+	public String nmpTailGraphic;
 	
 	@Desc("MP bar length when at 100% mp, in px")
 	public Integer mpWidth;

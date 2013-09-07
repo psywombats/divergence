@@ -359,6 +359,22 @@ public class Level implements ScreenShowable {
 	}
 	
 	/**
+	 * Checks if any tile exists in a cell. Checks lower chip only.
+	 * @param	tileX			The x-coord to check at, in tiles
+	 * @param	tileY			The y-coord to check at, in tiles
+	 * @param	z				The z-coord to check at, in layer-z
+	 * @return					True if a tile exists at that loc
+	 */
+	public boolean tileExistsAt(int tileX, int tileY, int z) {
+		for (GridLayer layer : tileLayers) {
+			if (layer.getZ() == z && layer.tileExistsAt(tileX, tileY)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
 	 * Performs all collision detection between events, including collision
 	 * response and other things that happen when they collide
 	 * @param 	event			The event starring in the collisions

@@ -235,6 +235,18 @@ public class GridLayer extends Layer {
 		}
 		return false;
 	}
+	
+	/**
+	 * Checks if a Tiled tile exists at a given x/y. Absence of a tile means
+	 * hole on the bottom layer, nothing on lower layers that aren't the bottom,
+	 * and passable on upper layers.
+	 * @param 	tileX			The x-coord of the cell to check, in tiles
+	 * @param 	tileY			The y-coord of the cell to check, in tiles
+	 * @return					True if any tile exists there, false otherwise
+	 */
+	public boolean tileExistsAt(int tileX, int tileY) {
+		return getTileID(tileX, tileY) != 0;
+	}
 
 	/**
 	 * Adds an override to the normal passability of this grid layer. If an

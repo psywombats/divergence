@@ -7,6 +7,7 @@
 package net.wombatrpgs.rainfall.ui;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -76,12 +77,15 @@ public class NumberSet implements Queueable {
 	
 	/**
 	 * Renders a number at a given location. Takes into account kerning and
-	 * things like that. Only handles positive numbers right now
+	 * things like that. Only handles positive numbers right now. Also has tint!
 	 * @param 	num				The number to render
 	 * @param 	x				The x-coord to render at, in px
 	 * @param 	y				The y-coord to render at, in px
+	 * @param	r				The red compomenent of the tint, 0-1
+	 * @param	g				The green compomenent of the tint, 0-1
+	 * @param	b				The blue compomenent of the tint, 0-1
 	 */
-	public void renderNumberAt(int num, int x, int y) {
+	public void renderNumberAt(int num, int x, int y, float r, float g, float b) {
 		if (num < 0) {
 			RGlobal.reporter.warn("Negative number rendered!"  + num);
 			return;
@@ -89,6 +93,8 @@ public class NumberSet implements Queueable {
 		int atX = x;
 		String numStr = String.valueOf(num);
 		SpriteBatch batch = RGlobal.screens.peek().getUIBatch();
+		Color oldColor = batch.getColor();
+		batch.setColor(r, g, b, 1);
 		batch.begin();
 		for (int i = 0; i < numStr.length(); i++) {
 			// modular math my ass
@@ -97,6 +103,7 @@ public class NumberSet implements Queueable {
 			atX += (mdo.kerning + mdo.width);
 		}
 		batch.end();
+		batch.setColor(oldColor);
 	}
 
 }

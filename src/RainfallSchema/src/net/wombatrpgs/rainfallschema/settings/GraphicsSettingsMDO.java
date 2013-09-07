@@ -12,6 +12,7 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
+import net.wombatrpgs.rainfallschema.graphics.data.EffectEnabledType;
 
 /**
  * Controls some global graphics configurationy things.
@@ -28,5 +29,8 @@ public class GraphicsSettingsMDO extends MainSchema {
 	@Desc("Shadow offset Y - Fudge factor, higher values force shadows lower, "
 			+ "in px")
 	public Integer shadowY;
+	
+	@Desc("Chunking - (advanced) enables/disables the character order rendering algorithm")
+	public EffectEnabledType chunkingEnabled;
 
 }

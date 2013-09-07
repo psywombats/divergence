@@ -446,6 +446,16 @@ public class CharacterEvent extends MapEvent {
 	}
 
 	/**
+	 * @see net.wombatrpgs.rainfall.maps.MapThing#finishChunking
+	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 */
+	@Override
+	public void finishChunking(OrthographicCamera camera) {
+		super.finishChunking(camera);
+		drawShadow(camera);
+	}
+
+	/**
 	 * Determines if the hero is currently in a state to act, based on the
 	 * actions the hero is currently carrying out and status conditions.
 	 * @return					True if we can act, false otherwise
@@ -928,11 +938,7 @@ public class CharacterEvent extends MapEvent {
 	 * Draws the shadow at this event's feet.
 	 */
 	protected void drawShadow(OrthographicCamera camera) {
-		TextureRegion tex = RGlobal.graphics.getShadow().getRegion();
-		this.renderLocal(camera, tex, 
-				shadowX,
-				shadowY - RGlobal.graphics.getShadowY(),
-				0);
+		RGlobal.graphics.drawShadow(this, camera, shadowX, shadowY);
 	}
 	
 	/**
