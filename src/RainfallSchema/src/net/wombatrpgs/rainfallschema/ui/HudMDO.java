@@ -40,6 +40,11 @@ public class HudMDO extends MainSchema {
 	@Desc("Vertical offset, in px")
 	public Integer offY;
 	
+	@Desc("Display update speed - When a number changes on the HUD, there's a "
+			+ "wait time of this many seconds between each decrement to the "
+			+ "displayed numbers, zero for instant change")
+	public Float digitDelay;
+	
 	@Desc("Number set for HP/MP numbers")
 	@SchemaLink(NumberSetMDO.class)
 	public String numberSet;

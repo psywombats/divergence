@@ -42,6 +42,9 @@ public class Hud implements ScreenShowable,
 	
 	protected boolean enabled;
 	protected boolean ignoresTint;
+	protected boolean awaitingReset;
+	protected int currentHPDisplay;
+	protected float timeToNextDigit;
 
 	/**
 	 * Creates a new HUD from data. Requires queueing.
@@ -70,6 +73,9 @@ public class Hud implements ScreenShowable,
 		frame.setTextureHeight(mdo.frameHeight);
 		frame.setTextureWidth(mdo.frameWidth);
 		
+		awaitingReset = true;
+		currentHPDisplay = 0;
+		
 		numbers = new NumberSet(RGlobal.data.getEntryFor(mdo.numberSet, NumberSetMDO.class));
 		assets.add(numbers);
 	}
@@ -88,7 +94,22 @@ public class Hud implements ScreenShowable,
 	 */
 	@Override
 	public void update(float elapsed) {
-		// TODO: update and set based on HP
+		if (awaitingReset) {
+			currentHPDisplay = RGlobal.hero.getHP();
+			awaitingReset = false;
+			timeToNextDigit = 0;
+		}
+		if (currentHPDisplay != RGlobal.hero.getHP()) {
+			timeToNextDigit += elapsed;
+			while (timeToNextDigit > mdo.digitDelay) {
+				timeToNextDigit -= mdo.digitDelay;
+				if (currentHPDisplay > RGlobal.hero.getHP()) {
+					currentHPDisplay -= 1;
+				} else {
+					currentHPDisplay += 1;
+				}
+			}
+		}
 	}
 
 	/**
@@ -100,7 +121,7 @@ public class Hud implements ScreenShowable,
 		SpriteBatch batch = RGlobal.screens.peek().getUIBatch();
 		if (mdo.anchorDir == Direction.DOWN) {
 			float mhp = RGlobal.hero.getStats().getMHP();
-			float hp = RGlobal.hero.getHP();
+			float hp = currentHPDisplay; //RGlobal.hero.getHP();
 			float mmp = 100;
 			float mp = 100;
 			float ratioHP = hp/mhp;

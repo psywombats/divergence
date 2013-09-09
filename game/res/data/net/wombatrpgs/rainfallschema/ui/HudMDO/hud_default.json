@@ -9,6 +9,7 @@
 	"frameHeight" : 44,
 	"offX" : 32,
 	"offY" : 32,
+	"digitDelay" : 0.035,
 	"numberSet" : "numberset_ghost",
 	"numOffX" : 66,
 	"numOffY" : 32,
