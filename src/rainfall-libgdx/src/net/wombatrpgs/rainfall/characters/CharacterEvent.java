@@ -79,6 +79,7 @@ public class CharacterEvent extends MapEvent {
 	
 	protected Stats stats;
 	protected int hp;
+	protected float sp;
 
 	/**
 	 * Creates a new char event with the specified data at the specified coords.
@@ -108,10 +109,7 @@ public class CharacterEvent extends MapEvent {
 		super(parent);
 	}
 	
-	/**
-	 * Gets the direction this character is currently facing from its animation
-	 * @return					The direction currently facing
-	 */
+	/** @return The cardinal direction the character is facing */
 	public Direction getFacing() {
 		return appearance.getFacing();
 	}
@@ -158,28 +156,17 @@ public class CharacterEvent extends MapEvent {
 	}
 	
 	/**
-	 * Gets the current appearance of this character event.
-	 * @return					The current appearance of this character event
-	 */
-	public FacesAnimation getAppearance() {
-		return appearance;
-	}
+	 * @return The current appearance of this character */
+	public FacesAnimation getAppearance() { return appearance; }
 	
-	/**
-	 * Gets the RPG-like stats bundle of this character, up to date.
-	 * @return					The stats of the character
-	 */
-	public Stats getStats() {
-		return stats;
-	}
+	/** @return The RPG-like stats of this character */
+	public Stats getStats() { return stats; }
 	
-	/**
-	 * Gets the current health of this character.
-	 * @return					The health of the character, in hp
-	 */
-	public int getHP() {
-		return hp;
-	}
+	/** @return The current health of this character */
+	public int getHP() { return hp; }
+	
+	/** @return The current stamina of this character */
+	public int getSP() { return (int) Math.floor(sp); }
 	
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.MapThing#update(float)
@@ -201,6 +188,7 @@ public class CharacterEvent extends MapEvent {
 		if (stunTimer != null) {
 			stunTimer.update(elapsed);
 		}
+		sp = Math.min(sp + elapsed* stats.getSPRate(), stats.getMSP());
 	}
 
 	/**
@@ -493,14 +481,14 @@ public class CharacterEvent extends MapEvent {
 		this.dead = isDead;
 	}
 	
-	/**
-	 * Gets the speed from the mobility mdo.
-	 * @return					Normal speed of this event
-	 */
-	public float getSpeed() {
-		return mobilityMDO.walkVelocity;
-	}
+	/** @return Normal movement speed of this event, in px/s */
+	public float getSpeed() { return mobilityMDO.walkVelocity; }
 	
+	/**
+	 * Calculates the center of the anchor of the character, for use in
+	 * camera displays.
+	 * @return					The visual center, as a moving object
+	 */
 	public Positionable getVisualCenter() {
 		// TODO: speed this up
 		final CharacterEvent parent = this;
@@ -596,6 +584,29 @@ public class CharacterEvent extends MapEvent {
 		dead = true;
 		if (soundHurt != null) {
 			soundHurt.play();
+		}
+	}
+	
+	/**
+	 * Updates this character's stats based on the costs of the move.
+	 * @param 	action			The action that was performed
+	 */
+	public void deductMoveCosts(MovesetAct action) {
+		sp -= action.getStaminaCost();
+	}
+	
+	/**
+	 * Updates this character's stats based on an action that is currently
+	 * being performed as a continuous action, like running, and halts it if
+	 * the move's costs can't be met.
+	 * @param	elapsed			How much time has elapsed since last update
+	 * @param	action			The action to be checked
+	 */
+	public void deduceRunningCosts(float elapsed, MovesetAct action) {
+		sp -= action.getSustainedStaminaCost() * elapsed;
+		if (sp <= 0) {
+			sp = 0;
+			action.stop(getLevel(), this);
 		}
 	}
 	
@@ -834,6 +845,7 @@ public class CharacterEvent extends MapEvent {
 		
 		stats = new Stats(mdo.stats);
 		hp = stats.getMHP();
+		sp = stats.getMSP();
 		
 		anchorX = 0;
 		anchorY = 0;

@@ -18,5 +18,11 @@ public class StatsMDO extends HeadlessSchema {
 	
 	@Desc("Max HP")
 	public Integer mhp;
+	
+	@Desc("Max stamina")
+	public Integer msp;
+	
+	@Desc("Stamina regen rate, in points per second")
+	public Float staminaRegen;
 
 }

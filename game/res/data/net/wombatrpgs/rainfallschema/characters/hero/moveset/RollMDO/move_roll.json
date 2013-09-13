@@ -4,6 +4,8 @@
 	"name" : "",
 	"description" : "",
 	"cooldown" : 1.0,
+	"stamina" : 10,
+	"sustainStamina" : 0.0,
 	"mobility" : "STRAIGHT_LINE_ONLY",
 	"sound" : "None",
 	"staticAnimation" : "None",

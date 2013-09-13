@@ -16,6 +16,8 @@ import net.wombatrpgs.rainfallschema.characters.data.StatsMDO;
 public class Stats {
 	
 	private int mhp;
+	private int msp;
+	private float spRate;
 	
 	/**
 	 * Creates a new stats object from data.
@@ -23,9 +25,17 @@ public class Stats {
 	 */
 	public Stats(StatsMDO stats) {
 		this.mhp = stats.mhp;
+		this.msp = stats.msp;
+		this.spRate = stats.staminaRegen;
 	}
 	
 	/** @return Max health points */
 	public int getMHP() { return mhp; }
+	
+	/** @return Max stamina */
+	public int getMSP() { return msp; }
+	
+	/** @return How fast stamina is regenerated, in sp/s */
+	public float getSPRate() { return spRate; }
 
 }

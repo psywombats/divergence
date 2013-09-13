@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.rainfallschema.characters.hero.moveset.data;
 
+import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
@@ -23,7 +24,16 @@ import net.wombatrpgs.rainfallschema.graphics.FourDirMDO;
 public class MoveMDO extends MainSchema {
 	
 	@Desc("Cooldown time, in seconds")
+	@DefaultValue("0")
 	public Float cooldown;
+	
+	@Desc("Initial stamina cost, in SP")
+	@DefaultValue("0")
+	public Integer stamina;
+	
+	@Desc("Sustain stamina cost, in SP/s")
+	@DefaultValue("0")
+	public Float sustainStamina;
 	
 	@Desc("Mobility - should the hero be able to move while this move is active?")
 	public MoveMobility mobility;

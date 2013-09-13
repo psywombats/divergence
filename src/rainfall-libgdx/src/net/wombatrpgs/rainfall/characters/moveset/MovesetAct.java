@@ -78,12 +78,18 @@ public abstract class MovesetAct implements Actionable,
 	/** @return The range that this move attacks vertically, 0 if none */
 	public int getRangeY() { return rangeY; }
 	
+	/** @return How much stamina this move costs, in sp */
+	public int getStaminaCost() { return mdo.stamina; }
+	
+	/** @return How much stamina this move drains over time, in sp/s */
+	public float getSustainedStaminaCost() { return mdo.sustainStamina; }
+	
 	/**
 	 * @see net.wombatrpgs.rainfall.core.Updateable#update(float)
 	 */
 	@Override
 	public void update(float elapsed) {
-		// default does nothing
+		actor.deduceRunningCosts(elapsed, this);
 	}
 
 	/**
@@ -94,9 +100,11 @@ public abstract class MovesetAct implements Actionable,
 	public final void act(Level map, CharacterEvent actor) {
 		if (coolingDown) return;
 		if (!actor.canAct()) return;
+		if (!canAct()) return;
 		if (!actor.isMoveActive(this)) coreAct(map, actor);
 		this.map = map;
 		coolingDown = true;
+		actor.deductMoveCosts(this);
 		if (mdo.mobility == MoveMobility.IMMOBILE) {
 			actor.halt();
 		}
@@ -114,6 +122,16 @@ public abstract class MovesetAct implements Actionable,
 				parent.coolingDown = false;
 			}
 		});
+	}
+	
+	/**
+	 * Evaluates whether this move can be performed or not. This doesn't take
+	 * player state into account, but rather costs associated with the move.
+	 * Right now all this does is check stamina.
+	 * @return					True if move's costs are satisfied right now
+	 */
+	public boolean canAct() {
+		return actor.getSP() > mdo.stamina;
 	}
 	
 	/**

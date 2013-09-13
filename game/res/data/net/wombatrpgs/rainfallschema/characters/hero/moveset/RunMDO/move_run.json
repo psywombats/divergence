@@ -4,6 +4,8 @@
 	"name" : "",
 	"description" : "",
 	"cooldown" : 0.0,
+	"stamina" : 0,
+	"sustainStamina" : 3.0,
 	"mobility" : "MOBILE",
 	"sound" : "None",
 	"staticAnimation" : "None",

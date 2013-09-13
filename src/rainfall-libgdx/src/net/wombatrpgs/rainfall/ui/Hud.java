@@ -43,7 +43,7 @@ public class Hud implements ScreenShowable,
 	protected boolean enabled;
 	protected boolean ignoresTint;
 	protected boolean awaitingReset;
-	protected int currentHPDisplay;
+	protected int currentHPDisplay, currentMPDisplay;
 	protected float timeToNextDigit;
 
 	/**
@@ -75,6 +75,7 @@ public class Hud implements ScreenShowable,
 		
 		awaitingReset = true;
 		currentHPDisplay = 0;
+		currentMPDisplay = 0;
 		
 		numbers = new NumberSet(RGlobal.data.getEntryFor(mdo.numberSet, NumberSetMDO.class));
 		assets.add(numbers);
@@ -96,18 +97,22 @@ public class Hud implements ScreenShowable,
 	public void update(float elapsed) {
 		if (awaitingReset) {
 			currentHPDisplay = RGlobal.hero.getHP();
+			currentMPDisplay = RGlobal.hero.getSP();
 			awaitingReset = false;
 			timeToNextDigit = 0;
 		}
-		if (currentHPDisplay != RGlobal.hero.getHP()) {
-			timeToNextDigit += elapsed;
-			while (timeToNextDigit > mdo.digitDelay) {
-				timeToNextDigit -= mdo.digitDelay;
-				if (currentHPDisplay > RGlobal.hero.getHP()) {
-					currentHPDisplay -= 1;
-				} else {
-					currentHPDisplay += 1;
-				}
+		timeToNextDigit += elapsed;
+		while (timeToNextDigit > mdo.digitDelay) {
+			timeToNextDigit -= mdo.digitDelay;
+			if (currentHPDisplay > RGlobal.hero.getHP()) {
+				currentHPDisplay -= 1;
+			} else if (currentHPDisplay < RGlobal.hero.getHP()){
+				currentHPDisplay += 1;
+			}
+			if (currentMPDisplay > RGlobal.hero.getSP()) {
+				currentMPDisplay -= 1;
+			} else if (currentMPDisplay < RGlobal.hero.getSP()){
+				currentMPDisplay += 1;
 			}
 		}
 	}
@@ -121,9 +126,9 @@ public class Hud implements ScreenShowable,
 		SpriteBatch batch = RGlobal.screens.peek().getUIBatch();
 		if (mdo.anchorDir == Direction.DOWN) {
 			float mhp = RGlobal.hero.getStats().getMHP();
-			float hp = currentHPDisplay; //RGlobal.hero.getHP();
-			float mmp = 100;
-			float mp = 100;
+			float hp = currentHPDisplay;
+			float mmp = RGlobal.hero.getStats().getMSP();
+			float mp = currentMPDisplay;
 			float ratioHP = hp/mhp;
 			float ratioMP = mp/mmp;
 			renderBar(camera, batch, nhpBase, nhpRib, nhpTail, mdo.hpStartX,

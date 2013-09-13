@@ -2,7 +2,7 @@
 	"key" : "hero_default",
 	"subfolder" : "",
 	"name" : "",
-	"description" : " ",
+	"description" : "",
 	"appearance" : "4dir_talyssa_walk",
 	"idleAnim" : "4dir_talyssa_idle",
 	"flinchAnim" : "4dir_talyssa_flinch",
@@ -12,7 +12,9 @@
 	"soundHurt" : "None",
 	"mobility" : "mobility_hero",
 	"stats" : {
-		"mhp" : 100
+		"mhp" : 100,
+		"msp" : 100,
+		"staminaRegen" : 1.0
 	},
 	"deathSound" : "sound_click"
 }
