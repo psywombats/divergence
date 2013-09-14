@@ -38,13 +38,13 @@ public class Hud implements ScreenShowable,
 	protected Graphic mpBase, mpRib, mpTail;
 	protected Graphic nhpBase, nhpRib, nhpTail;
 	protected Graphic nmpBase, nmpRib, nmpTail;
-	protected NumberSet numbers;
+	protected NumberSet numbersHP, numbersMP;
 	
 	protected boolean enabled;
 	protected boolean ignoresTint;
 	protected boolean awaitingReset;
 	protected int currentHPDisplay, currentMPDisplay;
-	protected float timeToNextDigit;
+	protected float timeToDigitHP, timeToDigitMP;
 
 	/**
 	 * Creates a new HUD from data. Requires queueing.
@@ -77,8 +77,10 @@ public class Hud implements ScreenShowable,
 		currentHPDisplay = 0;
 		currentMPDisplay = 0;
 		
-		numbers = new NumberSet(RGlobal.data.getEntryFor(mdo.numberSet, NumberSetMDO.class));
-		assets.add(numbers);
+		numbersHP = new NumberSet(RGlobal.data.getEntryFor(mdo.numberSet, NumberSetMDO.class));
+		numbersMP = new NumberSet(RGlobal.data.getEntryFor(mdo.mpNumberSet, NumberSetMDO.class));
+		assets.add(numbersHP);
+		assets.add(numbersMP);
 	}
 	
 	/** @return True if the hud is displaying right now */
@@ -99,16 +101,21 @@ public class Hud implements ScreenShowable,
 			currentHPDisplay = RGlobal.hero.getHP();
 			currentMPDisplay = RGlobal.hero.getSP();
 			awaitingReset = false;
-			timeToNextDigit = 0;
+			timeToDigitHP = 0;
+			timeToDigitMP = 0;
 		}
-		timeToNextDigit += elapsed;
-		while (timeToNextDigit > mdo.digitDelay) {
-			timeToNextDigit -= mdo.digitDelay;
+		timeToDigitHP += elapsed;
+		timeToDigitMP += elapsed;
+		while (timeToDigitHP > mdo.digitDelay) {
+			timeToDigitHP -= mdo.digitDelay;
 			if (currentHPDisplay > RGlobal.hero.getHP()) {
 				currentHPDisplay -= 1;
 			} else if (currentHPDisplay < RGlobal.hero.getHP()){
 				currentHPDisplay += 1;
 			}
+		}
+		while (timeToDigitMP > mdo.mpDigitDelay) {
+			timeToDigitMP -= mdo.mpDigitDelay;
 			if (currentMPDisplay > RGlobal.hero.getSP()) {
 				currentMPDisplay -= 1;
 			} else if (currentMPDisplay < RGlobal.hero.getSP()){
@@ -141,21 +148,25 @@ public class Hud implements ScreenShowable,
 					mdo.mpStartY, ratioMP, mdo.mpWidth);
 			frame.renderAt(batch, mdo.offX, mdo.offY);
 			if (ratioHP > .31) {
-				numbers.renderNumberAt((int) hp,
+				numbersHP.renderNumberAt((int) hp,
 						mdo.offX + mdo.numOffX,
 						mdo.offY + mdo.numOffY,
 						.8f, 1, .8f);
 			} else if (ratioHP > .11) {
-				numbers.renderNumberAt((int) hp,
+				numbersHP.renderNumberAt((int) hp,
 						mdo.offX + mdo.numOffX,
 						mdo.offY + mdo.numOffY,
 						1, 1, .6f);
 			} else if (ratioHP > 0) {
-				numbers.renderNumberAt((int) hp,
+				numbersHP.renderNumberAt((int) hp,
 						mdo.offX + mdo.numOffX,
 						mdo.offY + mdo.numOffY,
 						1, .6f, .6f);
 			}
+			numbersMP.renderNumberAt((int) mp,
+						mdo.offX + mdo.numMPOffX,
+						mdo.offY + mdo.numMPOffY,
+						.8f, .8f, 1);
 		}
 	}
 

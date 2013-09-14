@@ -45,15 +45,28 @@ public class HudMDO extends MainSchema {
 			+ "displayed numbers, zero for instant change")
 	public Float digitDelay;
 	
-	@Desc("Number set for HP/MP numbers")
+	@Desc("MP display update speed - same as above")
+	public Float mpDigitDelay;
+	
+	@Desc("Number set for HP numbers")
 	@SchemaLink(NumberSetMDO.class)
 	public String numberSet;
+	
+	@Desc("Number set for MP numbers")
+	@SchemaLink(NumberSetMDO.class)
+	public String mpNumberSet;
 	
 	@Desc("X offset of HP numbers, in px from lower left")
 	public Integer numOffX;
 	
 	@Desc("Y offset of HP numbers, in px from lower left")
 	public Integer numOffY;
+	
+	@Desc("X offset of MP numbers, in px from lower left")
+	public Integer numMPOffX;
+	
+	@Desc("Y offset of MP numbers, in px from lower left")
+	public Integer numMPOffY;
 	
 	@Desc("HP bar base graphic")
 	@FileLink("ui")
