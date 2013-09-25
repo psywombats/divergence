@@ -223,5 +223,13 @@ public class Hero extends CharacterEvent {
 		});
 		RGlobal.teleport.getPre().run(getLevel());
 	}
+
+	/**
+	 * @see net.wombatrpgs.rainfall.characters.CharacterEvent#requiresChunking()
+	 */
+	@Override
+	public boolean requiresChunking() {
+		return true;
+	}
 	
 }

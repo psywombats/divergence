@@ -1,0 +1,16 @@
+{
+	"key" : "move_bandit_shock",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"cooldown" : 2.0,
+	"stamina" : 15,
+	"sustainStamina" : 0.0,
+	"mobility" : "IMMOBILE",
+	"sound" : "None",
+	"staticAnimation" : "4dir_bandit_shock",
+	"movingAnimation" : "4dir_bandit_shock",
+	"damage" : 10,
+	"kick" : 350,
+	"stun" : 1.3
+}

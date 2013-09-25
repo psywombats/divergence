@@ -18,8 +18,7 @@
 	},
 	"intelligence" : "dummy_intelligence",
 	"moveset" : [
-		"move_roll",
-		"move_dummy"
+		"move_bandit_shock"
 	],
 	"vulnerability" : "vulnerability_default",
 	"gibset" : "None",

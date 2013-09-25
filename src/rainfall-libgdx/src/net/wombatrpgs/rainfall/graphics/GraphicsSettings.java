@@ -125,7 +125,7 @@ public class GraphicsSettings implements Queueable {
 		if (event.requiresChunking() && mdo.chunkingEnabled == EffectEnabledType.ENABLED) {
 			TextureRegion region = event.getRegion();
 			int deltaZ = (int) (z - event.getZ());
-			int maxHeight = (int) Math.ceil(region.getRegionHeight() / 32);
+			int maxHeight = (int) Math.ceil(region.getRegionHeight() / 32.f);
 			if (deltaZ > maxHeight) {
 				return;
 			}
