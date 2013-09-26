@@ -31,4 +31,5 @@ void main() {
 	float alpha = v_color[3] * pow(minDist / r, u_exp) * u_factor + (1.0-u_factor);
 	gl_FragColor = vec4(v_color[0], v_color[1], v_color[2], alpha) * texture2D(u_texture, v_texCoords);
 	//gl_FragColor = vec4(0.0, minDist*minDist * v_color[3], 0.0, 1.0);
+	//gl_FragColor = vec4(v_color[0], v_color[1], v_color[2], alpha);
 }

@@ -14,6 +14,7 @@ import net.wombatrpgs.rainfall.graphics.ShaderFromData;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfall.maps.Positionable;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
+import net.wombatrpgs.rainfall.screen.TrackerCam;
 import net.wombatrpgs.rainfall.screen.WindowSettings;
 import net.wombatrpgs.rainfallschema.graphics.AnimationMDO;
 import net.wombatrpgs.rainfallschema.graphics.ShaderMDO;
@@ -58,12 +59,17 @@ public class EffectFog extends Effect {
 	@Override
 	public void render(OrthographicCamera camera) {
 		WindowSettings win = RGlobal.window;
+		TrackerCam cam = RGlobal.screens.peek().getCamera();
 		TextureRegion tex = anim.getRegion();
+		Positionable target = cam.getTarget();
 		
 		batch.begin();
-		Positionable target = RGlobal.screens.peek().getCamera().getTarget();
-		float atX = target.getX() - win.getWidth()/2;
-		float atY = target.getY() - win.getHeight()/2;
+		//float atX = target.getX() - win.getWidth()/2;
+		//float atY = target.getY() - win.getHeight()/2;
+		//System.out.println("atx: " + atX + " , atY: " + atY);
+		//System.out.println("camx: " + cam.position.x + " , camy: " + cam.position.y);
+		float atX = cam.position.x - win.getWidth()/2;
+		float atY = cam.position.y - win.getHeight()/2;
 		shader.setUniformf("u_atX", atX);
 		shader.setUniformf("u_atY", atY);
 		

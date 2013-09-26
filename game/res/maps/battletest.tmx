@@ -33,5 +33,15 @@
     <property name="key" value="enemy_dummy"/>
    </properties>
   </object>
+  <object name="Beacon" type="point" x="117" y="102">
+   <properties>
+    <property name="group" value="antifog_beacon"/>
+   </properties>
+  </object>
+  <object name="Beacon" type="point" x="409" y="303">
+   <properties>
+    <property name="group" value="antifog_beacon"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
