@@ -1,0 +1,27 @@
+{
+	"key" : "enemy_snake",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"appearance" : "4dir_snake_walk",
+	"idleAnim" : "None",
+	"flinchAnim" : "None",
+	"collision" : "ANIMATION_SPECIFIC_RECTANGLE",
+	"response" : "PUSHABLE",
+	"touch" : "NOTHING",
+	"soundHurt" : "None",
+	"mobility" : "mobility_snake",
+	"stats" : {
+		"mhp" : 50,
+		"msp" : 100,
+		"staminaRegen" : 1.0
+	},
+	"intelligence" : "dummy_intelligence",
+	"moveset" : [
+		"move_snakebite"
+	],
+	"vulnerability" : "vulnerability_default",
+	"gibset" : "None",
+	"emitter" : "None",
+	"dieAnim" : "None"
+}

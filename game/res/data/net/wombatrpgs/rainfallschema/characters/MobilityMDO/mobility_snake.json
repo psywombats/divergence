@@ -1,0 +1,9 @@
+{
+	"key" : "mobility_snake",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"walkVelocity" : 48,
+	"acceleration" : 480,
+	"decceleration" : 120
+}
