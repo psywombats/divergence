@@ -180,6 +180,12 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	@Override
 	public void setY(float y) { this.y = y; }
 	
+	/** @return x-coord of the center of this object, in px */
+	public float getCenterX() { return x; }
+	
+	/** @return y-coord of the center of this object, in px */
+	public float getCenterY() { return y; }
+	
 	/** @return Z-depth of this object according to its parent */
 	public int getZ() { return getLevel().getZ(this); }
 	

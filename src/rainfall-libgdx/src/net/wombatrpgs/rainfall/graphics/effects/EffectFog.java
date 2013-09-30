@@ -12,7 +12,6 @@ import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.graphics.AnimationStrip;
 import net.wombatrpgs.rainfall.graphics.ShaderFromData;
 import net.wombatrpgs.rainfall.maps.Level;
-import net.wombatrpgs.rainfall.maps.Positionable;
 import net.wombatrpgs.rainfall.maps.events.MapEvent;
 import net.wombatrpgs.rainfall.screen.TrackerCam;
 import net.wombatrpgs.rainfall.screen.WindowSettings;
@@ -61,7 +60,6 @@ public class EffectFog extends Effect {
 		WindowSettings win = RGlobal.window;
 		TrackerCam cam = RGlobal.screens.peek().getCamera();
 		TextureRegion tex = anim.getRegion();
-		Positionable target = cam.getTarget();
 		
 		batch.begin();
 		//float atX = target.getX() - win.getWidth()/2;

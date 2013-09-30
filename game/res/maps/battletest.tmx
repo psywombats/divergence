@@ -43,5 +43,10 @@
     <property name="group" value="antifog_beacon"/>
    </properties>
   </object>
+  <object name="Snake" type="event" x="96" y="544" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_snake"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

@@ -168,6 +168,15 @@ public class CharacterEvent extends MapEvent {
 	/** @return The current stamina of this character */
 	public int getSP() { return (int) Math.floor(sp); }
 	
+	/** @see net.wombatrpgs.rainfall.maps.events.MapEvent#getCenterX() */
+	@Override public float getCenterX() {
+		return (getHitbox().getX() + getHitbox().getWidth()) / 2.0f;
+	}
+	
+	/** @see net.wombatrpgs.rainfall.maps.events.MapEvent#getCenterY() */
+	@Override public float getCenterY() {
+		return (getHitbox().getY() + getHitbox().getHeight()) / 2.0f;
+	}
 	/**
 	 * @see net.wombatrpgs.rainfall.maps.MapThing#update(float)
 	 */
@@ -616,8 +625,8 @@ public class CharacterEvent extends MapEvent {
 	 * @param	velocity		The speed this event will be set to
 	 */
 	public void bounce(MapEvent other, int velocity) {
-		float dx = getX() - other.getX();
-		float dy = getY() - other.getY();
+		float dx = getCenterX() - other.getCenterX();
+		float dy = getCenterY() - other.getCenterY();
 		float hypo = (float) Math.sqrt(dx*dx + dy*dy);
 		dx /= hypo;
 		dy /= hypo;
