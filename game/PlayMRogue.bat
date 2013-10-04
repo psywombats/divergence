@@ -1,2 +1,2 @@
-java -jar Rainfall.jar
+java -jar MRogue.jar
 PAUSE

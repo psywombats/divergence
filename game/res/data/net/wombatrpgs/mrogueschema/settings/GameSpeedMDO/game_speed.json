@@ -3,5 +3,6 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
-	"framerate" : 60
+	"framerate" : 60,
+	"delay" : 0.05
 }
