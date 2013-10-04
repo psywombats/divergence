@@ -1,0 +1,11 @@
+{
+	"key" : "generator_test",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"generator" : "TEST",
+	"tiles" : [
+		"tile_stonesquare",
+		"tile_floor"
+	]
+}

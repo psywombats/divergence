@@ -1,0 +1,10 @@
+{
+	"key" : "hero_default",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"appearance" : "4dir_grandfather",
+	"stats" : {
+		"mhp" : 256
+	}
+}

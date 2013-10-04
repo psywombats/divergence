@@ -2,5 +2,9 @@
 	"key" : "map_blank",
 	"subfolder" : "",
 	"name" : "",
-	"description" : ""
+	"description" : "",
+	"mapWidth" : 20,
+	"mapHeight" : 15,
+	"generator" : "generator_test",
+	"effect" : "None"
 }

@@ -1,0 +1,8 @@
+{
+	"key" : "tile_stonesquare",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"passable" : "IMPASSABLE",
+	"appearance" : "stonesquare.png"
+}

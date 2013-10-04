@@ -1,9 +1,0 @@
-{
-	"key" : "mobility_hero",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "",
-	"walkVelocity" : 128,
-	"acceleration" : 1024,
-	"decceleration" : 512
-}
