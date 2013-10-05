@@ -99,7 +99,7 @@ public class Hud implements ScreenShowable,
 	public void update(float elapsed) {
 		// TODO: hud
 		if (awaitingReset) {
-			currentHPDisplay = MGlobal.hero.getHP();
+			currentHPDisplay = MGlobal.hero.getStats().getHP();
 			//currentMPDisplay = MGlobal.hero.getSP();
 			awaitingReset = false;
 			timeToDigitHP = 0;
@@ -109,9 +109,9 @@ public class Hud implements ScreenShowable,
 		timeToDigitMP += elapsed;
 		while (timeToDigitHP > mdo.digitDelay) {
 			timeToDigitHP -= mdo.digitDelay;
-			if (currentHPDisplay > MGlobal.hero.getHP()) {
+			if (currentHPDisplay > MGlobal.hero.getStats().getHP()) {
 				currentHPDisplay -= 1;
-			} else if (currentHPDisplay < MGlobal.hero.getHP()){
+			} else if (currentHPDisplay < MGlobal.hero.getStats().getHP()){
 				currentHPDisplay += 1;
 			}
 		}

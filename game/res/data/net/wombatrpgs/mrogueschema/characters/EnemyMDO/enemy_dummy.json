@@ -1,0 +1,11 @@
+{
+	"key" : "enemy_dummy",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"appearance" : "4dir_grandfather",
+	"stats" : {
+		"mhp" : 100
+	},
+	"intelligence" : "dummy_behavior"
+}

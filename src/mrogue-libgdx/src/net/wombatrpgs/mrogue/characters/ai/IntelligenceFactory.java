@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.mrogue.characters.ai;
 
-import net.wombatrpgs.mrogue.characters.EnemyEvent;
+import net.wombatrpgs.mrogue.characters.Enemy;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogueschema.characters.ai.BehaviorListMDO;
 import net.wombatrpgs.mrogueschema.characters.ai.data.IntelligenceMDO;
@@ -22,7 +22,7 @@ public class IntelligenceFactory {
 	 * @param 	mdo				The data to create intelligence from
 	 * @return					The created intelligence
 	 */
-	public static Intelligence create(EnemyEvent actor, IntelligenceMDO mdo) {
+	public static Intelligence create(Enemy actor, IntelligenceMDO mdo) {
 		if (BehaviorListMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new BehaviorList((BehaviorListMDO) mdo, actor);
 		} else {

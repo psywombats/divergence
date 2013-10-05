@@ -11,7 +11,7 @@ import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.mrogue.characters.EnemyEvent;
+import net.wombatrpgs.mrogue.characters.Enemy;
 import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogueschema.characters.ai.data.IntelligenceMDO;
 
@@ -23,14 +23,14 @@ import net.wombatrpgs.mrogueschema.characters.ai.data.IntelligenceMDO;
 public abstract class Intelligence implements Queueable {
 	
 	protected IntelligenceMDO mdo;
-	protected EnemyEvent actor;
+	protected Enemy actor;
 	protected List<Queueable> assets;
 	
 	/**
 	 * Creates a new intelligence to control a specific enemy.
 	 * @param 	actor			The enemy to control
 	 */
-	public Intelligence(IntelligenceMDO mdo, EnemyEvent actor) {
+	public Intelligence(IntelligenceMDO mdo, Enemy actor) {
 		this.actor = actor;
 		this.assets = new ArrayList<Queueable>();
 		this.mdo = mdo;

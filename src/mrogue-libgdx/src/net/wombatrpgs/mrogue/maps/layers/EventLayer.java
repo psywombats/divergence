@@ -151,18 +151,19 @@ public class EventLayer extends Layer {
 	}
 	
 	/**
-	 * Finds and returns the event at a given location, or null if nobody home.
+	 * Finds and returns all events at a given location.
 	 * @param	tileX			The x-coord of the event to find, in tiles
 	 * @param	tileY			The y-coord of the event to find, in tiles
-	 * @return					The even at that location, or null if none
+	 * @return					All events there, or empty if none
 	 */
-	public MapEvent getEventAt(int tileX, int tileY) {
+	public List<MapEvent> getEventsAt(int tileX, int tileY) {
+		List<MapEvent> results = new ArrayList<MapEvent>();
 		for (MapEvent event : events) {
 			if (event.getTileX() == tileX && event.getTileY() == tileY) {
-				return event;
+				results.add(event);
 			}
 		}
-		return null;
+		return results;
 	}
 
 }

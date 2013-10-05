@@ -7,8 +7,8 @@
 package net.wombatrpgs.mrogue.characters;
 
 import net.wombatrpgs.mrogue.maps.Level;
-import net.wombatrpgs.mrogueschema.characters.CharacterEventMDO;
-import net.wombatrpgs.mrogueschema.characters.EnemyEventMDO;
+import net.wombatrpgs.mrogueschema.characters.CharacterMDO;
+import net.wombatrpgs.mrogueschema.characters.EnemyMDO;
 import net.wombatrpgs.mrogueschema.characters.HeroMDO;
 
 /**
@@ -26,12 +26,12 @@ public class CharacterFactory {
 	 * @param y				The initial y-coord (in tiles)
 	 * @return
 	 */
-	public static CharacterEvent create(CharacterEventMDO mdo, Level parent) {
+	public static CharacterEvent create(CharacterMDO mdo, Level parent) {
 		// it may be possible to generalize this
 		if (HeroMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new Hero((HeroMDO) mdo, parent);
-		} else if (EnemyEventMDO.class.isAssignableFrom(mdo.getClass())) {
-			return new EnemyEvent((EnemyEventMDO) mdo, parent);
+		} else if (EnemyMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new Enemy((EnemyMDO) mdo, parent);
 		} else {
 			return new CharacterEvent(mdo, parent);
 		}

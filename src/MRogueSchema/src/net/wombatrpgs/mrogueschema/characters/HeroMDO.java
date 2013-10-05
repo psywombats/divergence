@@ -12,6 +12,6 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
  * Defines stuff about the hero and how it moves/acts.
  */
 @Path("characters/")
-public class HeroMDO extends CharacterEventMDO {
+public class HeroMDO extends CharacterMDO {
 
 }

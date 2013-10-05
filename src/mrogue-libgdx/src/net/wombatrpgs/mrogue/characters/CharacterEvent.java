@@ -12,13 +12,15 @@ import java.util.List;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import net.wombatrpgs.mrogue.characters.travel.BumpStep;
+import net.wombatrpgs.mrogue.characters.travel.MoveStep;
 import net.wombatrpgs.mrogue.characters.travel.Step;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.graphics.FacesAnimation;
 import net.wombatrpgs.mrogue.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
-import net.wombatrpgs.mrogueschema.characters.CharacterEventMDO;
+import net.wombatrpgs.mrogueschema.characters.CharacterMDO;
 import net.wombatrpgs.mrogueschema.graphics.DirMDO;
 import net.wombatrpgs.mrogueschema.maps.data.Direction;
 
@@ -31,23 +33,21 @@ import net.wombatrpgs.mrogueschema.maps.data.Direction;
  */
 public class CharacterEvent extends MapEvent {
 	
-	protected CharacterEventMDO mdo;
+	protected CharacterMDO mdo;
 	
 	protected FacesAnimation appearance;
 	protected boolean pacing;
-	
 	protected List<Step> travelPlan;
 	protected Step lastStep;
 	
-	protected Stats stats;
-	protected int hp;
+	protected GameUnit unit;
 
 	/**
 	 * Creates a new char event with the specified data.
 	 * @param 	mdo				The data to create the event with
 	 * @param	parent			The parent level of the event
 	 */
-	public CharacterEvent(CharacterEventMDO mdo, Level parent) {
+	public CharacterEvent(CharacterMDO mdo, Level parent) {
 		super(parent);
 		// TODO: CharacterEvent
 		init(mdo);
@@ -60,7 +60,7 @@ public class CharacterEvent extends MapEvent {
 	 * @param	tileX			The x-coord of the event (in tiles)
 	 * @param	tileY			The y-coord of the event (in tiles)
 	 */
-	public CharacterEvent(CharacterEventMDO mdo, Level parent, int tileX, int tileY) {
+	public CharacterEvent(CharacterMDO mdo, Level parent, int tileX, int tileY) {
 		this(mdo, parent);
 		this.tileX = tileX;
 		this.tileY = tileY;
@@ -72,7 +72,7 @@ public class CharacterEvent extends MapEvent {
 	 * Creates a new character event associated with no map from the MDO.
 	 * @param 	mdo				The MDO to create the event from
 	 */
-	public CharacterEvent(CharacterEventMDO mdo) {
+	public CharacterEvent(CharacterMDO mdo) {
 		super();
 		init(mdo);
 	}
@@ -116,10 +116,10 @@ public class CharacterEvent extends MapEvent {
 	public FacesAnimation getAppearance() { return appearance; }
 	
 	/** @return The RPG-like stats of this character */
-	public Stats getStats() { return stats; }
+	public Stats getStats() { return unit.getStats(); }
 	
-	/** @return The current health of this character */
-	public int getHP() { return hp; }
+	/** @return The RPG representation of this character */
+	public GameUnit getUnit() { return unit; }
 	
 	/**
 	 * @see net.wombatrpgs.mrogue.maps.MapThing#update(float)
@@ -141,12 +141,6 @@ public class CharacterEvent extends MapEvent {
 				}
 				toStep.update(elapsed);
 				lastStep = toStep;
-			}
-		} else {
-			if (lastStep != null) {
-				lastStep.onEnd();
-				lastStep = null;
-				travelPlan.clear();
 			}
 		}
 	}
@@ -232,6 +226,27 @@ public class CharacterEvent extends MapEvent {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#isPassable()
+	 */
+	@Override
+	public boolean isPassable() {
+		return false;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#stopMoving()
+	 */
+	@Override
+	public void stopMoving() {
+		super.stopMoving();
+		if (lastStep != null) {
+			lastStep.onEnd();
+			lastStep = null;
+			travelPlan.clear();
+		}
+	}
+
+	/**
 	 * Faces this event towards its current tile target.
 	 */
 	public void faceTarget() {
@@ -251,12 +266,50 @@ public class CharacterEvent extends MapEvent {
 			}
 		}
 	}
+	
+	/**
+	 * Attempts to move to a specified tile location next to this character. If
+	 * there's nothing there, the character will step to that location. If
+	 * there his something there, this will hit it. Also adds an appropriate
+	 * travel step.
+	 * @param	targetX			The target location x-coord, in pixels
+	 * @param	targetY			The target location y-coord, in pixels
+	 */
+	public void attemptStep(int targetX, int targetY) {
+		if (parent.isTilePassable(this, targetX, targetY)) {
+			List<MapEvent> events = parent.getEventsAt(targetX, targetY);
+			boolean colliding = false;
+			for (MapEvent event : events) {
+				if (!event.isPassable()) {
+					travelPlan.add(new BumpStep(this, directionToTile(targetX, targetY)));
+					event.collideWith(this);
+					colliding = true;
+				}
+			}
+			if (!colliding) {
+				travelPlan.add(new MoveStep(this, targetX, targetY));
+				tileX = targetX;
+				tileY = targetY;
+			}
+		} else {
+			travelPlan.add(new BumpStep(this, directionToTile(targetX, targetY)));
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#collideWith
+	 * (net.wombatrpgs.mrogue.characters.CharacterEvent)
+	 */
+	@Override
+	public void collideWith(CharacterEvent character) {
+		character.getUnit().attack(getUnit());
+	}
 
 	/**
 	 * Creates this event from an MDO.
 	 * @param 	mdo			The MDO to create the event from
 	 */
-	protected void init(CharacterEventMDO mdo) {
+	protected void init(CharacterMDO mdo) {
 		this.mdo = mdo;
 		if (mdoHasProperty(mdo.appearance)) {
 			DirMDO dirMDO = MGlobal.data.getEntryFor(mdo.appearance, DirMDO.class);
@@ -267,8 +320,7 @@ public class CharacterEvent extends MapEvent {
 		
 		travelPlan = new ArrayList<Step>();
 		
-		stats = new Stats(mdo.stats);
-		hp = stats.getMHP();
+		unit = new GameUnit(mdo, this);
 	}
 
 }

@@ -16,6 +16,7 @@ import net.wombatrpgs.mrogueschema.characters.data.StatsMDO;
 public class Stats {
 	
 	private int mhp;
+	private int hp;
 	
 	/**
 	 * Creates a new stats object from data.
@@ -23,9 +24,22 @@ public class Stats {
 	 */
 	public Stats(StatsMDO stats) {
 		this.mhp = stats.mhp;
+		hp = mhp;
 	}
 	
 	/** @return Max health points */
 	public int getMHP() { return mhp; }
+	
+	/** @return Current health points */
+	public int getHP() { return hp; }
+	
+	/**
+	 * Inflicts a set amount of HP damage. Just subtraction here.
+	 * @param	damage			The amount of damage inflicted
+	 */
+	public void takeDamage(int damage) {
+		hp -= damage;
+		if (hp < 0) hp = 0;
+	}
 
 }

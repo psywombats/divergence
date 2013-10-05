@@ -332,6 +332,8 @@ public class Level implements ScreenShowable {
 	 */
 	public void addEvent(MapEvent newEvent, int tileX, int tileY) {
 		addEventAbsolute(newEvent, tileX * getTileWidth(), tileY * getTileHeight());
+		newEvent.setTileX(tileX);
+		newEvent.setTileY(tileY);
 	}
 	
 	/**
@@ -381,13 +383,13 @@ public class Level implements ScreenShowable {
 	}
 	
 	/**
-	 * Finds and returns the event at a given location, or null if nobody home.
+	 * Finds and returns all events at a given location.
 	 * @param	tileX			The x-coord of the event to find, in tiles
 	 * @param	tileY			The y-coord of the event to find, in tiles
-	 * @return					The even at that location, or null if none
+	 * @return					All events there, or empty if none
 	 */
-	public MapEvent getEventAt(int tileX, int tileY) {
-		return eventLayer.getEventAt(tileX, tileY);
+	public List<MapEvent> getEventsAt(int tileX, int tileY) {
+		return eventLayer.getEventsAt(tileX, tileY);
 	}
 	
 	/**

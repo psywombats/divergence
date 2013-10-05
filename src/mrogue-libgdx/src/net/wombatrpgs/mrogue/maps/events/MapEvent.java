@@ -9,6 +9,7 @@ package net.wombatrpgs.mrogue.maps.events;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import net.wombatrpgs.mrogue.characters.CharacterEvent;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.graphics.PreRenderable;
 import net.wombatrpgs.mrogue.maps.Level;
@@ -86,6 +87,12 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	/** @see net.wombatrpgs.mrogue.maps.PositionSetable#setY(int) */
 	@Override
 	public void setY(float y) { this.y = y; }
+	
+	/** @param tileX The new x-coord of this event (in tiles) */
+	public void setTileX(int tileX) { this.tileX = tileX; }
+	
+	/** @param tileY The new y-coord of this event (in tiles) */
+	public void setTileY(int tileY) { this.tileY = tileY; }
 	
 	/** @return x-coord of the center of this object, in px */
 	public float getCenterX() { return x; }
@@ -262,6 +269,14 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	}
 	
 	/**
+	 * Determines if this object is passable by characters or not.
+	 * @return					True if the object is passable, false otherwise
+	 */
+	public boolean isPassable() {
+		return true;
+	}
+	
+	/**
 	 * Stops all movement in a key-friendly way.
 	 */
 	public void halt() {
@@ -373,6 +388,16 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 		float vx = (tileX*tWidth - x) / parent.getMoveTimeLeft();
 		float vy = (tileY*tHeight - y) / parent.getMoveTimeLeft();
 		setVelocity(vx, vy);
+	}
+	
+	/**
+	 * What happens when a character moves into this event? By default, nothing
+	 * happens, but characters should be attacked, items should be auto-grabbed,
+	 * and so on.
+	 * @param	character		The jerk that ran into us
+	 */
+	public void collideWith(CharacterEvent character) {
+		// default is nothing
 	}
 	
 	/**

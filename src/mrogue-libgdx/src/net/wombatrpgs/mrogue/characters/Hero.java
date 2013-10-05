@@ -6,8 +6,6 @@
  */
 package net.wombatrpgs.mrogue.characters;
 
-import net.wombatrpgs.mrogue.characters.travel.BumpStep;
-import net.wombatrpgs.mrogue.characters.travel.MoveStep;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.io.CommandListener;
 import net.wombatrpgs.mrogue.maps.Level;
@@ -90,13 +88,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 		default:
 			// nothing
 		}
-		if (parent.isTilePassable(this, targetX, targetY)) {
-			travelPlan.add(new MoveStep(this, targetX, targetY));
-			tileX = targetX;
-			tileY = targetY;
-		} else {
-			travelPlan.add(new BumpStep(this, directionToTile(targetX, targetY)));
-		}
+		attemptStep(targetX, targetY);
 		parent.startMoving();
 	}
 	

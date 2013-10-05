@@ -62,10 +62,10 @@ public class DefaultKeymap extends Keymap {
 			state.put(button, false);
 		}
 		
-//		constantButtons.add(InputButton.RIGHT);
-//		constantButtons.add(InputButton.UP);
-//		constantButtons.add(InputButton.LEFT);
-//		constantButtons.add(InputButton.DOWN);
+		constantButtons.add(InputButton.RIGHT);
+		constantButtons.add(InputButton.UP);
+		constantButtons.add(InputButton.LEFT);
+		constantButtons.add(InputButton.DOWN);
 	}
 
 	/**

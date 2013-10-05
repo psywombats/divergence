@@ -8,7 +8,7 @@ package net.wombatrpgs.mrogue.characters.ai;
 
 import java.util.PriorityQueue;
 
-import net.wombatrpgs.mrogue.characters.EnemyEvent;
+import net.wombatrpgs.mrogue.characters.Enemy;
 import net.wombatrpgs.mrogueschema.characters.ai.BehaviorListMDO;
 import net.wombatrpgs.mrogueschema.characters.ai.intent.IntentMDO;
 
@@ -33,7 +33,7 @@ public class BehaviorList extends Intelligence {
 	 * @param 	mdo				The data to create the intelligence from
 	 * @param 	actor			The actor to create the intelligence for
 	 */
-	public BehaviorList(BehaviorListMDO mdo, EnemyEvent actor) {
+	public BehaviorList(BehaviorListMDO mdo, Enemy actor) {
 		super(mdo, actor);
 		this.mdo = mdo;
 		this.actor = actor;

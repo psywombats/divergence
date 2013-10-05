@@ -6,10 +6,12 @@
  */
 package net.wombatrpgs.mrogue.maps.gen;
 
+import net.wombatrpgs.mrogue.characters.Enemy;
 import net.wombatrpgs.mrogue.characters.Hero;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Tile;
+import net.wombatrpgs.mrogueschema.characters.EnemyMDO;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
 
 /**
@@ -51,6 +53,9 @@ public class TestGenerator extends MapGenerator {
 			assets.add(MGlobal.hero);
 			parent.addEvent(MGlobal.hero);
 		}
+		
+		Enemy e = new Enemy(MGlobal.data.getEntryFor("enemy_dummy", EnemyMDO.class), parent);
+		parent.addEvent(e, parent.getWidth()-1, parent.getHeight()-1);
 	}
 
 }
