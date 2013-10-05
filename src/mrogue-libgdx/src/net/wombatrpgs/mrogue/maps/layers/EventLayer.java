@@ -7,6 +7,8 @@
 package net.wombatrpgs.mrogue.maps.layers;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -121,6 +123,32 @@ public class EventLayer extends Layer {
 	 */
 	public boolean contains(MapThing mapObject) {
 		return events.contains(mapObject);
+	}
+	
+	/**
+	 * Simulates the passage of time on all events until it's the hero's turn
+	 * to move again. This loops and blocks until the hero moves.
+	 */
+	public void integrate() {
+		while (true) {
+			Collections.sort(events, new Comparator<MapEvent>() {
+				@Override
+				public int compare(MapEvent a, MapEvent b) {
+					return a.ticksToAct() - b.ticksToAct();
+				}
+			});
+			MapEvent next = events.get(0);
+			int ticks = next.ticksToAct();
+			for (MapEvent event : events) {
+				event.simulateTime(ticks);
+			}
+			next.simulateTime(1);
+			if (next == MGlobal.hero) {
+				break;
+			} else {
+				next.act();
+			}
+		}
 	}
 	
 	/**

@@ -6,12 +6,10 @@
  */
 package net.wombatrpgs.mrogue.characters;
 
-import net.wombatrpgs.mrogue.characters.ai.Intelligence;
-import net.wombatrpgs.mrogue.characters.ai.IntelligenceFactory;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogueschema.characters.EnemyMDO;
-import net.wombatrpgs.mrogueschema.characters.ai.data.IntelligenceMDO;
+import net.wombatrpgs.mrogueschema.maps.data.Direction;
 
 /**
  * The one and only class for those pesky badniks that hunt down the valiant
@@ -20,7 +18,6 @@ import net.wombatrpgs.mrogueschema.characters.ai.data.IntelligenceMDO;
 public class Enemy extends CharacterEvent {
 	
 	protected EnemyMDO mdo;
-	protected Intelligence ai;
 	
 	/**
 	 * Creates a new enemy on a map from a database entry.
@@ -31,19 +28,16 @@ public class Enemy extends CharacterEvent {
 	public Enemy(EnemyMDO mdo, Level parent) {
 		super(mdo, parent);
 		this.mdo = mdo;
-		IntelligenceMDO aiMDO = MGlobal.data.getEntryFor(
-				mdo.intelligence, IntelligenceMDO.class);
-		ai = IntelligenceFactory.create(this, aiMDO);
-		assets.add(ai);
 	}
 
 	/**
-	 * @see net.wombatrpgs.mrogue.characters.CharacterEvent#update(float)
+	 * @see net.wombatrpgs.mrogue.characters.CharacterEvent#act()
 	 */
 	@Override
-	public void update(float elapsed) {
-		ai.act();
-		super.update(elapsed);
+	public void act() {
+		ticksRemaining += 1000;
+		Direction dir = Direction.values()[MGlobal.rand.nextInt(Direction.values().length)];
+		attemptStep(dir);
 	}
 
 }

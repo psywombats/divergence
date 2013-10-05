@@ -39,6 +39,7 @@ public class CharacterEvent extends MapEvent {
 	protected boolean pacing;
 	protected List<Step> travelPlan;
 	protected Step lastStep;
+	protected int ticksRemaining;
 	
 	protected GameUnit unit;
 
@@ -295,6 +296,16 @@ public class CharacterEvent extends MapEvent {
 			travelPlan.add(new BumpStep(this, directionToTile(targetX, targetY)));
 		}
 	}
+	
+	/**
+	 * Attempts to step in a particular direction
+	 * @param	dir				The direction to step.
+	 */
+	public void attemptStep(Direction dir) {
+		int targetX = (int) (tileX + dir.getVector().x);
+		int targetY = (int) (tileY + dir.getVector().y);
+		attemptStep(targetX, targetY);
+	}
 
 	/**
 	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#collideWith
@@ -303,6 +314,31 @@ public class CharacterEvent extends MapEvent {
 	@Override
 	public void collideWith(CharacterEvent character) {
 		character.getUnit().attack(getUnit());
+	}
+
+	/**
+	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#ticksToAct()
+	 */
+	@Override
+	public int ticksToAct() {
+		return ticksRemaining;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#simulateTime(int)
+	 */
+	@Override
+	public void simulateTime(int ticks) {
+		ticksRemaining -= ticks;
+	}
+
+	/**
+	 * Default waits for 1000 ticks.
+	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#act()
+	 */
+	@Override
+	public void act() {
+		ticksRemaining += 1000;
 	}
 
 	/**
@@ -321,6 +357,7 @@ public class CharacterEvent extends MapEvent {
 		travelPlan = new ArrayList<Step>();
 		
 		unit = new GameUnit(mdo, this);
+		ticksRemaining = 0;
 	}
 
 }

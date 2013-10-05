@@ -89,6 +89,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 			// nothing
 		}
 		attemptStep(targetX, targetY);
+		ticksRemaining += 1000;
 		parent.startMoving();
 	}
 	

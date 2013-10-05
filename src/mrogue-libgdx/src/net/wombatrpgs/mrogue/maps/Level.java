@@ -279,8 +279,11 @@ public class Level implements ScreenShowable {
 	
 	/**
 	 * Sets all events moving on their merry way towards their destinations!
+	 * Meant to be called by the hero when they make a move. This integrates
+	 * all other events and then starts them all moving.
 	 */
 	public void startMoving() {
+		eventLayer.integrate();
 		moving = true;
 		moveTime = MGlobal.constants.getDelay();
 		for (MapEvent event : eventLayer.getEvents()) {

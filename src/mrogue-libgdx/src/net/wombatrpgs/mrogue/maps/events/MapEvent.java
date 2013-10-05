@@ -27,7 +27,6 @@ import net.wombatrpgs.mrogueschema.maps.data.Direction;
  * thing that just lives on a map. It isn't necessarily a character
  */
 public abstract class MapEvent extends MapThing implements	PositionSetable,
-															Comparable<MapEvent>,
 															PreRenderable {
 	
 	/** A thingy to fool the prerenderable, a sort of no-appear flag */
@@ -44,7 +43,6 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	protected float x, y;
 	/** Coords in tiles, (0,0) is upper left */
 	protected int tileX, tileY;
-
 	/** Velocity the object is currently moving at in pixels/second */
 	protected float vx, vy;
 	/** Are we currently moving towards some preset destination? */
@@ -131,15 +129,6 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 		return 	isTracking() &&
 				Math.abs(lastX - x) < Math.abs(vx) / 2.f &&
 				Math.abs(lastY - y) < Math.abs(vy) / 2.f;
-	}
-	
-	/**
-	 * Sorts map objects based on z-depth.
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
-	@Override
-	public int compareTo(MapEvent other) {
-		return Math.round(other.getSortY() - getSortY());
 	}
 	
 	/** @see net.wombatrpgs.mrogue.graphics.PreRenderable#getRenderX() */
@@ -397,6 +386,35 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	 * @param	character		The jerk that ran into us
 	 */
 	public void collideWith(CharacterEvent character) {
+		// default is nothing
+	}
+	
+	/**
+	 * Calculates how long this event has to go before taking an action of its
+	 * own. The default never acts and just returns a large number.
+	 * @return					The number of ticks to go before moving
+	 */
+	public int ticksToAct() {
+		// most game actions should be like 1000 tops
+		return 10000;
+	}
+	
+	/**
+	 * Simulate the passage of a certain number of game ticks. This usually just
+	 * deducts an amount from the cost to move.
+	 * @param	ticks			The number of game ticks elapsed
+	 */
+	public void simulateTime(int ticks) {
+		// default is nothing
+	}
+	
+	/**
+	 * Do whatever it is you want to do on this turn. Default does nothing.
+	 * Events that care about energy costs etc should update their time to next
+	 * move here.
+	 * @return					How many game ticks spent this turn
+	 */
+	public void act() {
 		// default is nothing
 	}
 	
