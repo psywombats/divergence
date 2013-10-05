@@ -4,8 +4,14 @@
 	"name" : "",
 	"description" : "",
 	"generator" : "TEST",
-	"tiles" : [
-		"tile_stonesquare",
-		"tile_floor"
+	"floorTiles" : [
+		{
+			"appearance" : "tile_floor.png"
+		}
+	],
+	"wallTiles" : [
+		{
+			"appearance" : "stonesquare.png"
+		}
 	]
 }

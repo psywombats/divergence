@@ -26,7 +26,7 @@ import net.wombatrpgs.mrogue.io.Keymap;
 import net.wombatrpgs.mrogue.io.loaders.DataLoader;
 import net.wombatrpgs.mrogue.io.loaders.SceneLoader;
 import net.wombatrpgs.mrogue.maps.LevelManager;
-import net.wombatrpgs.mrogue.maps.gen.TileTypeManager;
+import net.wombatrpgs.mrogue.maps.gen.TileManager;
 import net.wombatrpgs.mrogue.scenes.SceneData;
 import net.wombatrpgs.mrogue.scenes.TeleportGlobal;
 import net.wombatrpgs.mrogue.screen.ScreenStack;
@@ -74,7 +74,7 @@ public class MGlobal {
 	/** Loader for simple text files */
 	public static FileLoader loader;
 	/** Manages all tile types and graphics etc */
-	public static TileTypeManager tiles;
+	public static TileManager tiles;
 	
 	private static List<Queueable> toLoad;
 	
@@ -118,7 +118,7 @@ public class MGlobal {
 			MGlobal.keymap = new DefaultKeymap();
 			MGlobal.loader = new FileLoader();
 			MGlobal.levelManager = new LevelManager();
-			MGlobal.tiles = new TileTypeManager();
+			MGlobal.tiles = new TileManager();
 			
 			// load secondary data
 			// TODO: load with a loading bar

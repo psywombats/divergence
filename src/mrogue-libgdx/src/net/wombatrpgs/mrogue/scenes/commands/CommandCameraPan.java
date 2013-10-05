@@ -35,8 +35,6 @@ public class CommandCameraPan extends SceneCommand {
 			@Override
 			protected void zeroCoords() {
 				super.zeroCoords();
-				this.acceleration = 10000; // big
-				this.decceleration = 10000; // big;
 			}
 		};
 		subCommand = new CommandMove(getParent(), 
@@ -54,7 +52,6 @@ public class CommandCameraPan extends SceneCommand {
 			oldTarget = cam.getTarget();
 			target.setX((int) cam.position.x);
 			target.setY((int) cam.position.y);
-			target.setMaxVelocity(cam.getPanSpeed());
 			cam.track(target);
 			parent.getLevel().addEvent(target);
 			runOnce = true;

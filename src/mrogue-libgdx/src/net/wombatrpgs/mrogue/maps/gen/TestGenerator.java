@@ -9,7 +9,7 @@ package net.wombatrpgs.mrogue.maps.gen;
 import net.wombatrpgs.mrogue.characters.Hero;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
-import net.wombatrpgs.mrogue.maps.TileType;
+import net.wombatrpgs.mrogue.maps.Tile;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
 
 /**
@@ -31,14 +31,17 @@ public class TestGenerator extends MapGenerator {
 	 */
 	@Override
 	public void generateMe() {
-		TileType[][] tiles = new TileType[parent.getHeight()][parent.getWidth()];
+		Tile[][] tiles = new Tile[parent.getHeight()][parent.getWidth()];
 		for (int x = 0; x < parent.getWidth(); x += 1) {
 			for (int y = 0; y < parent.getHeight(); y += 1) {
-//				if (y == 0) {
+				if (y > 0 && y < parent.getHeight()-1 &&
+						x > 0 && x < parent.getWidth()-1 &&
+						MGlobal.rand.nextBoolean()) {
+					tiles[y][x] = getRandomTile(wallTiles);
+				} else {
 					tiles[y][x] = getRandomTile(floorTiles);
-//				} else {
-//					tiles[y][x] = floorTiles.get(0);
-//				}
+				}
+				
 			}
 		}
 		addLayer(tiles, 0);

@@ -6,23 +6,17 @@
  */
 package net.wombatrpgs.mrogueschema.maps;
 
-import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.FileLink;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
-import net.wombatrpgs.mgns.core.MainSchema;
-import net.wombatrpgs.mrogueschema.maps.data.PassabilityType;
+import net.wombatrpgs.mgns.core.HeadlessSchema;
 
 /**
  * Tile archetype data.
  */
 @Path("maps/")
-public class TileMDO extends MainSchema {
-	
-	@Desc("Passability type - is this tile passable by characters?")
-	@DefaultValue("PASSABLE")
-	public PassabilityType passable;
+public class TileMDO extends HeadlessSchema {
 	
 	@Desc("Appearance - image that this tile looks like, a square PNG")
 	@FileLink("tiles")

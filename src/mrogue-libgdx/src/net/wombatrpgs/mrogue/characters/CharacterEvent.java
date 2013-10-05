@@ -6,9 +6,13 @@
  */
 package net.wombatrpgs.mrogue.characters;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import net.wombatrpgs.mrogue.characters.travel.Step;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.graphics.FacesAnimation;
 import net.wombatrpgs.mrogue.graphics.FacesAnimationFactory;
@@ -28,9 +32,12 @@ import net.wombatrpgs.mrogueschema.maps.data.Direction;
 public class CharacterEvent extends MapEvent {
 	
 	protected CharacterEventMDO mdo;
-	protected FacesAnimation appearance;
 	
+	protected FacesAnimation appearance;
 	protected boolean pacing;
+	
+	protected List<Step> travelPlan;
+	protected Step lastStep;
 	
 	protected Stats stats;
 	protected int hp;
@@ -124,6 +131,24 @@ public class CharacterEvent extends MapEvent {
 		if (pacing && appearance != null) {
 			appearance.update(elapsed);
 		}
+		if (parent.isMoving()) {
+			if (travelPlan.size() > 0 ) {
+				int step = (int) Math.floor((float) travelPlan.size() *
+						(parent.getMoveTimeElapsed() / MGlobal.constants.getDelay()));
+				Step toStep = travelPlan.get(step);
+				if (lastStep != toStep && lastStep != null) {
+					lastStep.onEnd();
+				}
+				toStep.update(elapsed);
+				lastStep = toStep;
+			}
+		} else {
+			if (lastStep != null) {
+				lastStep.onEnd();
+				lastStep = null;
+				travelPlan.clear();
+			}
+		}
 	}
 
 	/**
@@ -167,6 +192,15 @@ public class CharacterEvent extends MapEvent {
 	}
 	
 	/**
+	 * Makes this event face towards a tile location on the map.
+	 * @param	tileX			The x-coord of the tile to face (in tiles)
+	 * @param	tileY			The y-coord of the tile to face (in tiles)
+	 */
+	public void faceTowardTile(int tileX, int tileY) {
+		setFacing(directionToTile(tileX, tileY));
+	}
+	
+	/**
 	 * Face away from a particular map event.
 	 * @param	event			The object to face away from
 	 */
@@ -192,8 +226,9 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public void onMoveStart() {
-		super.onMoveStart();
-		faceTarget();
+		for (Step step : travelPlan) {
+			step.setTime(MGlobal.constants.getDelay() / travelPlan.size());
+		}
 	}
 
 	/**
@@ -216,33 +251,6 @@ public class CharacterEvent extends MapEvent {
 			}
 		}
 	}
-	
-	/**
-	 * @see net.wombatrpgs.mrogue.maps.MapThing#internalTargetVelocity(float, float)
-	 */
-	@Override
-	protected void internalTargetVelocity(float targetVX, float targetVY) {
-		if (appearance != null && 
-				(targetVX != this.targetVX || targetVY != this.targetVY) && 
-				(Math.abs(targetVX) > .1 || Math.abs(targetVY) > .1)) {
-			Direction newDir;
-			if (Math.abs(targetVX) >= Math.abs(targetVY)) {
-				if (targetVX * Direction.RIGHT.getVector().x > 0) {
-					newDir = Direction.RIGHT;
-				} else {
-					newDir = Direction.LEFT;
-				}
-			} else {
-				if (targetVY * Direction.DOWN.getVector().y > 0) {
-					newDir = Direction.DOWN;
-				} else {
-					newDir = Direction.UP;
-				}
-			}
-			setFacing(newDir);
-		}
-		super.internalTargetVelocity(targetVX, targetVY);
-	}
 
 	/**
 	 * Creates this event from an MDO.
@@ -256,6 +264,8 @@ public class CharacterEvent extends MapEvent {
 			assets.add(appearance);
 		}
 		setPacing(true);
+		
+		travelPlan = new ArrayList<Step>();
 		
 		stats = new Stats(mdo.stats);
 		hp = stats.getMHP();

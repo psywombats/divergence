@@ -157,8 +157,18 @@ public class Level implements ScreenShowable {
 	/** @return True if the map is between visible states, false otherwise */
 	public boolean isMoving() { return this.moving; }
 	
-	/** @return The time remaining in the current move update */
+	/** @return The time remaining in the current move update, in s */
 	public float getMoveTimeLeft() { return moveTime; }
+	
+	/** @return The time since the move started, in s */
+	public float getMoveTimeElapsed() { return MGlobal.constants.getDelay() - moveTime; }
+	
+	/** @see net.wombatrpgs.mrogue.screen.ScreenShowable#ignoresTint() */
+	@Override public boolean ignoresTint() { return false; }
+
+	/** @see java.lang.Object#toString() */
+	@Override
+	public String toString() { return mdo.key; }
 
 	/**
 	 * @see net.wombatrpgs.mrogue.graphics.Renderable#render(
@@ -258,13 +268,6 @@ public class Level implements ScreenShowable {
 		
 	}
 	
-	/** @see net.wombatrpgs.mrogue.screen.ScreenShowable#ignoresTint() */
-	@Override public boolean ignoresTint() { return false; }
-
-	/** @see java.lang.Object#toString() */
-	@Override
-	public String toString() { return mdo.key; }
-	
 	/**
 	 * Adds a grid layer to the level. This really shouldn't be called by
 	 * anyone but the map generator.
@@ -280,11 +283,14 @@ public class Level implements ScreenShowable {
 	public void startMoving() {
 		moving = true;
 		moveTime = MGlobal.constants.getDelay();
+		for (MapEvent event : eventLayer.getEvents()) {
+			event.onMoveStart();
+		}
 	}
 	
 	/**
-	 * Checks if a certain tile is passable by our stored layer data. This does
-	 * not check events at the momement.
+	 * Checks if a certain tile is passable by chip. This does not take into
+	 * account event passability.
 	 * @param	actor			The character that will be trying to pass
 	 * @param 	tileX			The checked x-coord (in tiles)
 	 * @param 	tileY			The checked y-coord (in tiles)
@@ -292,7 +298,7 @@ public class Level implements ScreenShowable {
 	 */
 	public boolean isTilePassable(MapEvent actor, int tileX, int tileY) {
 		for (GridLayer layer : gridLayers) {
-			if (layer.isPassable(actor, tileX, tileY)) {
+			if (!layer.isPassable(actor, tileX, tileY)) {
 				return false;
 			}
 		}
@@ -372,6 +378,16 @@ public class Level implements ScreenShowable {
 	 */
 	public List<MapEvent> getEventsByGroup(String groupName) {
 		return eventLayer.getEventsByGroup(groupName);
+	}
+	
+	/**
+	 * Finds and returns the event at a given location, or null if nobody home.
+	 * @param	tileX			The x-coord of the event to find, in tiles
+	 * @param	tileY			The y-coord of the event to find, in tiles
+	 * @return					The even at that location, or null if none
+	 */
+	public MapEvent getEventAt(int tileX, int tileY) {
+		return eventLayer.getEventAt(tileX, tileY);
 	}
 	
 	/**

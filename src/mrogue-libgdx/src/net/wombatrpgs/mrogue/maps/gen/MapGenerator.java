@@ -14,9 +14,11 @@ import com.badlogic.gdx.assets.AssetManager;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.maps.Level;
+import net.wombatrpgs.mrogue.maps.Tile;
 import net.wombatrpgs.mrogue.maps.TileType;
 import net.wombatrpgs.mrogue.maps.layers.GridLayer;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
+import net.wombatrpgs.mrogueschema.maps.TileMDO;
 
 /**
  * The thing that y'know generates maps. Each one is created with a specific
@@ -26,7 +28,8 @@ public abstract class MapGenerator implements Queueable {
 	
 	protected MapGeneratorMDO mdo;
 	protected Level parent;
-	protected List<TileType> floorTiles;
+	protected List<Tile> floorTiles;
+	protected List<Tile> wallTiles;
 	
 	protected List<Queueable> assets;
 	
@@ -39,9 +42,13 @@ public abstract class MapGenerator implements Queueable {
 		this.mdo = mdo;
 		this.parent = parent;
 		this.assets = new ArrayList<Queueable>();
-		this.floorTiles = new ArrayList<TileType>();
-		for (String mdoKey : mdo.tiles) {
-			floorTiles.add(MGlobal.tiles.getTile(mdoKey));
+		this.floorTiles = new ArrayList<Tile>();
+		this.wallTiles = new ArrayList<Tile>();
+		for (TileMDO tile : mdo.floorTiles) {
+			floorTiles.add(MGlobal.tiles.getTile(tile, TileType.FLOOR));
+		}
+		for (TileMDO tile : mdo.wallTiles) {
+			wallTiles.add(MGlobal.tiles.getTile(tile, TileType.WALL));
 		}
 	}
 	
@@ -79,7 +86,7 @@ public abstract class MapGenerator implements Queueable {
 	 * @param	tiles			The list of tiles to choose from
 	 * @return					A random element from that list
 	 */
-	protected TileType getRandomTile(List<TileType> tiles) {
+	protected Tile getRandomTile(List<Tile> tiles) {
 		return tiles.get(MGlobal.rand.nextInt(tiles.size()));
 	}
 	
@@ -88,7 +95,7 @@ public abstract class MapGenerator implements Queueable {
 	 * @param	tiles			The tile data for the layer
 	 * @param	z				The z-depth of the layer
 	 */
-	protected void addLayer(TileType[][] tiles, float z) {
+	protected void addLayer(Tile[][] tiles, float z) {
 		GridLayer layer = new GridLayer(parent, tiles, z);
 		parent.addGridLayer(layer);
 	}

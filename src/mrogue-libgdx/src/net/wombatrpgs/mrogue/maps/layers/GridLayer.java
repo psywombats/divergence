@@ -10,7 +10,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.mrogue.maps.Level;
-import net.wombatrpgs.mrogue.maps.TileType;
+import net.wombatrpgs.mrogue.maps.Tile;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
 
 /**
@@ -22,7 +22,7 @@ public class GridLayer extends Layer {
 	
 	protected Level parent;
 	protected boolean isLower;
-	protected TileType[][] tileData;
+	protected Tile[][] tileData;
 	protected float z;
 	
 	/**
@@ -32,7 +32,7 @@ public class GridLayer extends Layer {
 	 * @param	tileData		The actual info about tiles on this layer
 	 * @param	z				The z-depth of this layer
 	 */
-	public GridLayer(Level parent, TileType[][] tileData, float z) {
+	public GridLayer(Level parent, Tile[][] tileData, float z) {
 		this.z = z;
 		this.parent = parent;
 		this.tileData = tileData;
@@ -88,8 +88,9 @@ public class GridLayer extends Layer {
 	 */
 	@Override
 	public boolean isPassable(MapEvent actor, final int x, final int y) {
-		// TODO: isPassable
-		return false;
+		return	(x >= 0 && x < parent.getWidth()) &&
+				(y >= 0 && y < parent.getHeight()) &&
+				tileData[y][x].isPassable();
 	}
 	
 	/**

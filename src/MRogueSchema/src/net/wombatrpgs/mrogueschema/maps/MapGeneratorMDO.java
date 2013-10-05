@@ -7,7 +7,7 @@
 package net.wombatrpgs.mrogueschema.maps;
 
 import net.wombatrpgs.mgns.core.Annotations.Desc;
-import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
+import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mrogueschema.maps.data.GenerationType;
@@ -21,8 +21,13 @@ public class MapGeneratorMDO extends MainSchema {
 	@Desc("Generation type - parameters etc to the procedural algorithm that generates this area")
 	public GenerationType generator;
 	
-	@Desc("Tiles - a library of all tiles the algo can use for its floor")
-	@SchemaLink(TileMDO.class)
-	public String[] tiles;
+	@Desc("Floor tile(s)")
+	@InlineSchema(TileMDO.class)
+	public TileMDO[] floorTiles;
+	
+	@Desc("Wall tile(s)")
+	@InlineSchema(TileMDO.class)
+	public TileMDO[] wallTiles;
+	
 
 }

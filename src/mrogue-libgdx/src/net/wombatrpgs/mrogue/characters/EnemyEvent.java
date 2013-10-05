@@ -46,27 +46,4 @@ public class EnemyEvent extends CharacterEvent {
 		super.update(elapsed);
 	}
 
-	/**
-	 * @see net.wombatrpgs.mrogue.characters.CharacterEvent#reset()
-	 */
-	@Override
-	public void reset() {
-		// TODO: reset
-	}
-
-	/**
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		String name;
-		if (mdo.name != null && !mdo.name.equals("")) {
-			name = mdo.name;
-		} else {
-			name = mdo.appearance;
-		}
-		return "a " + getName() + ": " + name + " " + this.getX() + 
-				" " +	this.getY() + " rendering " + this.appearance;
-	}
-
 }

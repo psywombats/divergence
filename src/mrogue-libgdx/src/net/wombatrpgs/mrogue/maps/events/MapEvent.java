@@ -43,19 +43,9 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	protected float x, y;
 	/** Coords in tiles, (0,0) is upper left */
 	protected int tileX, tileY;
-	
-	/** Velocity the object is trying to reach in pixels/second */
-	protected float targetVX, targetVY;
+
 	/** Velocity the object is currently moving at in pixels/second */
 	protected float vx, vy;
-	
-	/** How fast this object accelerates when below its top speed, in px/s^2 */
-	protected float acceleration;
-	/** How fast this object deccelerates when above its top speed, in px/s^2 */
-	protected float decceleration;
-	/** The top speed this object can voluntarily reach, in px/s */
-	protected float maxVelocity;
-	
 	/** Are we currently moving towards some preset destination? */
 	protected boolean tracking;
 	/** The place we're possibly moving for */
@@ -123,12 +113,7 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	
 	/** @return True if this object is moving towards a location */
 	public boolean isTracking() { return tracking; }
-	
-	/** @return The max velocity of this event, including run bonus */ 
-	public float getMaxVelocity() { return this.calcAccelerationMaxVelocity(); }
-	
-	/** @param The new max targetable speed by this event */
-	public void setMaxVelocity(float maxVelocity) { this.maxVelocity = maxVelocity; }
+
 	
 	/**
 	 * Determines if this object is "stuck" or not. This means it's tracking
@@ -186,36 +171,6 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	public void update(float elapsed) {
 		super.update(elapsed);
 		
-		if (parent.isMoving() && !isTracking()) {
-			onMoveStart();
-			
-		}
-		
-		float deltaVX, deltaVY;
-		if (vx != targetVX) {
-			if (Math.abs(vx) < calcDecelerationMaxVelocity()) {
-				deltaVX = acceleration * elapsed;
-			} else {
-				deltaVX = decceleration * elapsed;
-			}
-			if (vx < targetVX) {
-				vx = Math.min(vx + deltaVX, targetVX);
-			} else {
-				vx = Math.max(vx - deltaVX, targetVX);
-			}
-		}
-		if (vy != targetVY) {
-			if (Math.abs(vy) < calcDecelerationMaxVelocity()) {
-				deltaVY = acceleration * elapsed;
-			} else {
-				deltaVY = decceleration * elapsed;
-			}
-			if (vy < targetVY) {
-				vy = Math.min(vy + deltaVY, targetVY);
-			} else {
-				vy = Math.max(vy - deltaVY, targetVY);
-			}
-		}
 		if (Float.isNaN(vx) || Float.isNaN(vy)) {
 			MGlobal.reporter.warn("NaN values in physics!! " + this);
 		}
@@ -224,38 +179,16 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 			if ((x < targetX && lastX > targetX) || (x > targetX && lastX < targetX)) {
 				x = targetX;
 				vx = 0;
-				targetVX = 0;
 			}
 			if ((y < targetY && lastY > targetY) || (y > targetY && lastY < targetY)) {
 				y = targetY;
 				vy = 0;
-				targetVY = 0;
 			}
 			if (x == targetX && y == targetY) {
 				tracking = false;
 			}
 		}
 		storeXY();
-	}
-
-	/**
-	 * This version kills itself unless it was present on the map in the first
-	 * place.
-	 * @see net.wombatrpgs.mrogue.maps.MapThing#reset()
-	 */
-	@Override
-	public void reset() {
-		// TODO: reset
-//		if (object == null) {
-//			if (getLevel() != null) {
-//				getLevel().removeEvent(this);
-//			} else {
-//				MGlobal.reporter.warn("Strange ordering of remove events... " + this);
-//			}
-//		} else {
-//			setX(extractX(parent, object));
-//			setY(extractY(parent, object));
-//		}
 	}
 	
 	/**
@@ -325,15 +258,13 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	 * @return					True if the object is moving, false otherwise
 	 */
 	public boolean isMoving() {
-		return Math.abs(vx) > .1 || Math.abs(vy) > .1;
+		return vx != 0 || vy != 0;
 	}
 	
 	/**
 	 * Stops all movement in a key-friendly way.
 	 */
 	public void halt() {
-		targetVX = 0;
-		targetVY = 0;
 		vx = 0;
 		vy = 0;
 	}
@@ -356,16 +287,6 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 		this.targetX = targetX;
 		this.targetY = targetY;
 		this.tracking = true;
-	}
-
-	/**
-	 * Updates the target velocity of this map object.
-	 * @param 	targetVX	The target x-velocity of the object, in px/s
-	 * @param 	targetVY	The target y-velocity of the object, in px/s
-	 */
-	public final void targetVelocity(float targetVX, float targetVY) {
-		internalTargetVelocity(targetVX, targetVY);
-		this.tracking = false;
 	}
 	
 	/**
@@ -395,8 +316,28 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	 * @return					The direction towards that event
 	 */
 	public Direction directionTo(MapEvent event) {
-		float dx = event.getX() - this.getX();
-		float dy = event.getY() - this.getY();
+		return directionTo(event.getX(), event.getY());
+	}
+	
+	/**
+	 * Calculates the direction towards some tile on the map.
+	 * @param	tileX			The x-coord to face towards (in tiles)
+	 * @param	tileY			The y-coord to face towards (in tiles)
+	 * @return					The direction to that tile
+	 */
+	public Direction directionToTile(int tileX, int tileY) {
+		return directionTo(tileX * parent.getTileWidth(), tileY * parent.getTileHeight());
+	}
+	
+	/**
+	 * Calculates the direction towards some point on the map.
+	 * @param	x				The x-coord to face towards (in gamespace px)
+	 * @param	y				The y-coord to face towards (in gamespace px)
+	 * @return
+	 */
+	public Direction directionTo(float x, float y) {
+		float dx = x - this.getX();
+		float dy = y - this.getY();
 		if (Math.abs(dx) > Math.abs(dy)) {
 			if (dx > 0) {
 				return Direction.RIGHT;
@@ -432,24 +373,6 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 		float vx = (tileX*tWidth - x) / parent.getMoveTimeLeft();
 		float vy = (tileY*tHeight - y) / parent.getMoveTimeLeft();
 		setVelocity(vx, vy);
-		targetVX = vx;
-		targetVY = vy;
-	}
-	
-	/**
-	 * Calculates max velocity for the purposes of accelerating.
-	 * @return					Target max velocity in px/s
-	 */
-	protected float calcAccelerationMaxVelocity() {
-		return maxVelocity;
-	}
-	
-	/**
-	 * Calculates max velocity for the purposes of slowing down
-	 * @return					Target max velocity in px/s
-	 */
-	protected float calcDecelerationMaxVelocity() {
-		return maxVelocity;
 	}
 	
 	/**
@@ -461,30 +384,13 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	}
 	
 	/**
-	 * Internal method of targeting velocities. Feel free to override this one.
-	 * @param 	targetVX			The new target x-velocity (in px/s)
-	 * @param 	targetVY			The new target y-velocity (in px/s)
-	 */
-	protected void internalTargetVelocity(float targetVX, float targetVY) {
-		this.targetVX = targetVX;
-		this.targetVY = targetVY;
-	}
-	
-	/**
 	 * Does some constructor-like stuff to reset physical variables.
 	 */
 	protected void zeroCoords() {
 		x = 0;
 		y = 0;
-		targetVX = 0;
-		targetVY = 0;
 		vx = 0;
 		vy = 0;
-		
-		// TODO: dummy movement
-		acceleration = 1000;
-		decceleration = 1000;
-		maxVelocity = 100000;
 	}
 	
 	/**
