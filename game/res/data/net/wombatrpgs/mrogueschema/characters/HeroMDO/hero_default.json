@@ -5,6 +5,7 @@
 	"description" : "",
 	"appearance" : "4dir_grandfather",
 	"stats" : {
-		"mhp" : 256
+		"mhp" : 256,
+		"speed" : 100
 	}
 }

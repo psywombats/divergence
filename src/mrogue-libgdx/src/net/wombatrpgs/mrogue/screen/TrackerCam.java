@@ -89,8 +89,8 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 	public Positionable getTarget() { return this.target; }
 
 	/**
-	 * Sets the camera to follow positionable object.
-	 * @param 	target			The location to follow
+	 * Sets the camera to follow positionable object. Setting to null locks.
+	 * @param 	target			The location to follow, or null for lock
 	 */
 	public void track(Positionable target) {
 		this.target = target;

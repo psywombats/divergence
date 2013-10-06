@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mrogue.characters.ai;
+package net.wombatrpgs.mrogue.characters;
 
 import java.util.ArrayList;
 import java.util.List;

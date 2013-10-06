@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.mrogueschema.characters.data;
 
+import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.HeadlessSchema;
@@ -18,5 +19,9 @@ public class StatsMDO extends HeadlessSchema {
 	
 	@Desc("Max HP")
 	public Integer mhp;
+	
+	@Desc("Speed - most things should have speed 100")
+	@DefaultValue("100")
+	public Integer speed;
 
 }

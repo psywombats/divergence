@@ -41,6 +41,7 @@ public class FloatField extends FieldPanel {
 		}
 		input.setColumns(10);
 		input.getDocument().addDocumentListener(this);
+		input.addPropertyChangeListener("value", this);
 		checkMute(input);
 		addConstrained(input);
 	}

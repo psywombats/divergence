@@ -152,7 +152,7 @@ public class EventLayer extends Layer {
 	}
 	
 	/**
-	 * Fetches the first event named appropriately. Call from map
+	 * Fetches the first event named appropriately. Call from map.
 	 * @param 	name			The string the event name has to match
 	 * @return					The event with matching name, or null if none
 	 */

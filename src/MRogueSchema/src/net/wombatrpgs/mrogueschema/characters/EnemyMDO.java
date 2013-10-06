@@ -14,7 +14,7 @@ import net.wombatrpgs.mrogueschema.characters.ai.data.IntelligenceMDO;
 /**
  * A thing on the ground that attempts to killlll youuuu.
  */
-@Path("characters/enemies/")
+@Path("characters/")
 public class EnemyMDO extends CharacterMDO {
 	
 	@Desc("Intelligence - the set of behaviors that control the enemy")

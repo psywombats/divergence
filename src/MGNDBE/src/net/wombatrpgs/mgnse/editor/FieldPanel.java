@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.lang.reflect.Field;
 
 import javax.swing.JComboBox;
@@ -31,7 +33,8 @@ import net.wombatrpgs.mgns.core.Schema;
  */
 public abstract class FieldPanel extends JPanel implements 	DocumentListener, 
 															ActionListener,
-															ItemListener {
+															ItemListener,
+															PropertyChangeListener {
 	
 	private static final long serialVersionUID = -2777827947566521485L;
 	
@@ -63,6 +66,8 @@ public abstract class FieldPanel extends JPanel implements 	DocumentListener,
 	public void actionPerformed(ActionEvent e) { parent.setDirty(true); }
 	@Override
 	public void itemStateChanged(ItemEvent e) { parent.setDirty(true); }
+	@Override
+	public void propertyChange(PropertyChangeEvent e) { parent.setDirty(true); }
 
 	/**
 	 * Selects a string in a drop-down list.

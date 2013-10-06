@@ -5,7 +5,8 @@
 	"description" : "",
 	"appearance" : "4dir_grandfather",
 	"stats" : {
-		"mhp" : 100
+		"mhp" : 100,
+		"speed" : 100
 	},
 	"intelligence" : "dummy_behavior"
 }

@@ -12,6 +12,8 @@ import java.util.List;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import net.wombatrpgs.mrogue.characters.ai.ActWait;
+import net.wombatrpgs.mrogue.characters.ai.Action;
 import net.wombatrpgs.mrogue.characters.travel.BumpStep;
 import net.wombatrpgs.mrogue.characters.travel.MoveStep;
 import net.wombatrpgs.mrogue.characters.travel.Step;
@@ -28,10 +30,10 @@ import net.wombatrpgs.mrogueschema.maps.data.Direction;
  * A character event is an event with an MDO and an animation that looks kind of
  * like a character. It's also a character in an RPG-like game, meaning it
  * should probably be split into RPG-chara and RM-chara at some point soon.
- * 
- * MR: This is yeah, a character. It'll be horrendous and bloated.
  */
 public class CharacterEvent extends MapEvent {
+	
+	protected static Action defaultWait;
 	
 	protected CharacterMDO mdo;
 	
@@ -167,6 +169,7 @@ public class CharacterEvent extends MapEvent {
 		if (hidden() || appearance == null) return null;
 		return appearance.getRegion();
 	}
+
 	/**
 	 * Overrides the pacing action of this character.
 	 * @param 	pacing			True if character should pace, false otherwise
@@ -333,12 +336,32 @@ public class CharacterEvent extends MapEvent {
 	}
 
 	/**
-	 * Default waits for 1000 ticks.
+	 * Default selects an action then waits for its duration.
 	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#act()
 	 */
 	@Override
 	public void act() {
-		ticksRemaining += 1000;
+		actAndWait(selectAction());
+	}
+	
+	/**
+	 * Performs an action and then waits an appropriate time for recovery, based
+	 * on the act's cost. Should be called from act, almost always.
+	 * @param	act				The action to perform
+	 */
+	public void actAndWait(Action act) {
+		act.setActor(this);
+		act.act();
+		ticksRemaining += act.getCost();
+	}
+	
+	/**
+	 * Automated way of selecting an action to use each turn. Enemies should
+	 * follow some AI, heroes will never call this, etc.
+	 * @return					The action to use
+	 */
+	public Action selectAction() {
+		return defaultWait;
 	}
 
 	/**
@@ -358,6 +381,10 @@ public class CharacterEvent extends MapEvent {
 		
 		unit = new GameUnit(mdo, this);
 		ticksRemaining = 0;
+		
+		if (defaultWait == null) {
+			defaultWait = new ActWait();
+		}
 	}
 
 }

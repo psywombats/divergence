@@ -42,6 +42,7 @@ public class EnumField extends FieldPanel {
 		}
 		input.addActionListener(this);
 		input.addItemListener(this);
+		input.addPropertyChangeListener("value", this);
 		addConstrained(input);
 		checkMute(input);
 	}

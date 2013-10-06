@@ -6,11 +6,13 @@
  */
 package net.wombatrpgs.mrogue.characters;
 
+import net.wombatrpgs.mrogue.characters.ai.ActStep;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.io.CommandListener;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogueschema.characters.HeroMDO;
 import net.wombatrpgs.mrogueschema.io.data.InputCommand;
+import net.wombatrpgs.mrogueschema.maps.data.Direction;
 
 /**
  * Placeholder class for the protagonist player.
@@ -18,6 +20,8 @@ import net.wombatrpgs.mrogueschema.io.data.InputCommand;
 public class Hero extends CharacterEvent implements CommandListener {
 	
 	protected static final String HERO_DEFAULT = "hero_default";
+	
+	protected ActStep step;
 
 	/**
 	 * Placeholder constructor. When the hero is finally initialized properly
@@ -34,6 +38,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 		// TODO: Hero
 		super(MGlobal.data.getEntryFor(HERO_DEFAULT, HeroMDO.class), parent, tileX, tileY);
 		MGlobal.hero = this;
+		step = new ActStep(this);
 	}
 	
 	/**
@@ -70,26 +75,17 @@ public class Hero extends CharacterEvent implements CommandListener {
 		if (parent.isMoving()) {
 			return;
 		}
-		int targetX = getTileX();
-		int targetY = getTileY();
+		Direction dir;
 		switch (command) {
-		case MOVE_UP:
-			targetY += 1;
-			break;
-		case MOVE_DOWN:
-			targetY -= 1;
-			break;
-		case MOVE_LEFT:
-			targetX -= 1;
-			break;
-		case MOVE_RIGHT:
-			targetX += 1;
-			break;
-		default:
-			// nothing
+		case MOVE_DOWN:		dir = Direction.DOWN;	break;
+		case MOVE_LEFT:		dir = Direction.LEFT;	break;
+		case MOVE_RIGHT:	dir = Direction.RIGHT;	break;
+		case MOVE_UP:		dir = Direction.UP;		break;
+		default:			dir = null;				break;
 		}
-		attemptStep(targetX, targetY);
-		ticksRemaining += 1000;
+		step.setDirection(dir);
+		step.act();
+		ticksRemaining += step.getCost();
 		parent.startMoving();
 	}
 	

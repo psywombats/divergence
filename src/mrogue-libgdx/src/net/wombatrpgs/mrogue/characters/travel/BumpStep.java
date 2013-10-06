@@ -7,6 +7,7 @@
 package net.wombatrpgs.mrogue.characters.travel;
 
 import net.wombatrpgs.mrogue.characters.CharacterEvent;
+import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogueschema.maps.data.Direction;
 
 /**
@@ -40,6 +41,9 @@ public class BumpStep extends Step {
 	public void update(float elapsed) {
 		super.update(elapsed);
 		if (!started) {
+			if (actor == MGlobal.hero) {
+				MGlobal.screens.peek().getCamera().track(null);
+			}
 			started = true;
 			startX = actor.getX();
 			startY = actor.getY();
@@ -68,6 +72,9 @@ public class BumpStep extends Step {
 		super.onEnd();
 		actor.setX(startX);
 		actor.setY(startY);
+		if (actor == MGlobal.hero) {
+			MGlobal.screens.peek().getCamera().track(MGlobal.hero);
+		}
 	}
 
 }

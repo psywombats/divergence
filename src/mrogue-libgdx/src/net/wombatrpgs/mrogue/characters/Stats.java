@@ -15,7 +15,7 @@ import net.wombatrpgs.mrogueschema.characters.data.StatsMDO;
  */
 public class Stats {
 	
-	private int mhp;
+	private StatsMDO mdo;
 	private int hp;
 	
 	/**
@@ -23,15 +23,18 @@ public class Stats {
 	 * @param	stats			The stats data to create from
 	 */
 	public Stats(StatsMDO stats) {
-		this.mhp = stats.mhp;
-		hp = mhp;
+		this.mdo = stats;
+		hp = stats.mhp;
 	}
 	
 	/** @return Max health points */
-	public int getMHP() { return mhp; }
+	public int getMHP() { return mdo.mhp; }
 	
 	/** @return Current health points */
 	public int getHP() { return hp; }
+	
+	/** @return The speed modifier, as a float% */
+	public float getSpeed() { return ((float) mdo.speed) / 100.f; }
 	
 	/**
 	 * Inflicts a set amount of HP damage. Just subtraction here.
