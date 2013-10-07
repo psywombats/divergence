@@ -3,5 +3,6 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
-	"chunkingEnabled" : "ENABLED"
+	"chunkingEnabled" : "ENABLED",
+	"shaderDebug" : "ENABLED"
 }

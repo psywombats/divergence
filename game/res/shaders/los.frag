@@ -33,7 +33,7 @@ void main() {
 		alpha = 1.0;
 	} else if (visible(tileX, tileY) == 0) {
 		alpha = 1.0;
-		float mod;
+		float mod = 0.0;
 		int left = visible(tileX-1, tileY);
 		int right = visible(tileX+1, tileY);
 		int down = visible(tileX, tileY-1);
@@ -51,16 +51,20 @@ void main() {
 			if (spareY > 16.0) alpha *= 1.0-(spareY-16.0)/16.0;
 		}
 		if (left==0 && down==0 && visible(tileX-1, tileY-1)==1) {
-			if (spareX + spareY < 16.0) alpha *= (spareX+spareY)/16.0;
+			mod = sqrt(spareX*spareX+spareY*spareY)/16.0;
+			if (mod < 1.0 && mod > 0.0) alpha *= mod;
 		}
 		if (left==0 && up==0 && visible(tileX-1, tileY+1)==1) {
-			if (spareX + (32.0-spareY) < 16.0) alpha *= (spareX+(32.0-spareY))/16.0;
+			mod = sqrt(spareX*spareX+(32.0-spareY)*(32.0-spareY))/16.0;
+			if (mod < 1.0 && mod > 0.0) alpha *= mod;
 		}
 		if (right==0 && down==0 && visible(tileX+1, tileY-1)==1) {
-			if ((32.0-spareX) + spareY < 16.0) alpha *= ((32.0-spareX)+spareY)/16.0;
+			mod = sqrt((32.0-spareX)*(32.0-spareX)+spareY*spareY)/16.0;
+			if (mod < 1.0 && mod > 0.0) alpha *= mod;
 		}
 		if (right==0 && up==0 && visible(tileX+1, tileY+1)==1) {
-			if ((32.0-spareX) + (32.0-spareY) < 16.0) alpha *= ((32.0-spareX)+(32.0-spareY))/16.0;
+			mod = sqrt((32.0-spareX)*(32.0-spareX)+(32.0-spareY)*(32.0-spareY))/16.0;
+			if (mod < 1.0 && mod > 0.0) alpha *= mod;
 		}
 	}
 	gl_FragColor = vec4(v_color[0], v_color[1], v_color[2], alpha) * texture2D(u_texture, v_texCoords);
