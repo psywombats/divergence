@@ -23,5 +23,9 @@ public class StatsMDO extends HeadlessSchema {
 	@Desc("Speed - most things should have speed 100")
 	@DefaultValue("100")
 	public Integer speed;
+	
+	@Desc("Vision radius - in tiles")
+	@DefaultValue("6")
+	public Integer vision;
 
 }

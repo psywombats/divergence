@@ -6,5 +6,5 @@
 	"mapWidth" : 20,
 	"mapHeight" : 15,
 	"generator" : "generator_test",
-	"effect" : "None"
+	"effect" : "effect_los"
 }

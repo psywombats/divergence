@@ -356,6 +356,68 @@ public class CharacterEvent extends MapEvent {
 	}
 	
 	/**
+	 * Checks to see if a given location is in the hero's line of sight.
+	 * @param	tileX			The x-coord of the tile to check, in tiles
+	 * @param	tileY			The y-coord of the tile to check, in tiles
+	 * @return					True if that tile is visible, false otherwise
+	 */
+	public boolean inLoS(int targetX, int targetY) {
+		if (tileDistanceTo(targetX, targetY) > getStats().getVision()) return false;
+		// This algo copied from 2011SDRL
+		boolean good = true;
+		double m;
+		double bend = .3; // 0-1. Higher values mean stricter sight around corners.
+		double atX = getTileX();
+		double atY = getTileY();
+		int dx = -(getTileX()-targetX);
+		int dy = -(getTileY()-targetY);
+		if (dx==0 && dy==0) return true;
+		if (dx == 0) m = 999; // HUGE_VALUE
+		else m = (double)dy / (double)dx;
+		// This is so we increment by no more than 1 tile on the path at a time
+		if (Math.abs(m) < 1) {
+			while (Math.abs(atX-targetX) > 1.1) {
+				atX += (dx > 0) ? 1.0 : -1.0;
+				atY += ((dx > 0) ? 1.0 : -1.0) * m;
+				if (!parent.isTransparentAt((int)Math.floor(atX), (int)Math.floor(atY+bend))) {
+					good = false;
+					break;
+				}
+			}
+			if (good) return true;
+			atX = getTileX();
+			atY = getTileY();
+			while (Math.abs(atX-targetX) > 1.1) {
+				atX += (dx > 0) ? 1.0 : -1.0;
+				atY += ((dx > 0) ? 1.0 : -1.0) * m;
+				if (!parent.isTransparentAt((int)Math.floor(atX), (int)Math.floor(atY+bend))) {
+					return false;
+				}
+			}
+		} else {
+			while (Math.abs(atY-targetY) > 1.1) {
+				atY += (dy > 0) ? 1.0 : -1.0;
+				if (m!=999) atX += ((dy > 0) ? 1.0 : -1.0)/m;
+				if (!parent.isTransparentAt((int)Math.floor(atX+bend), (int)Math.floor(atY))) {
+					good=false;
+					break;
+				}
+			}
+			if (good) return true;
+			atX = getTileX();
+			atY = getTileY();
+			while (Math.abs(atY-targetY) > 1.1) {
+				atY += (dy > 0) ? 1.0 : -1.0;
+				if (m!=999) atX += ((dy > 0) ? 1.0 : -1.0)/m;
+				if (!parent.isTransparentAt((int)Math.ceil(atX-bend), (int)Math.floor(atY))) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	/**
 	 * Automated way of selecting an action to use each turn. Enemies should
 	 * follow some AI, heroes will never call this, etc.
 	 * @return					The action to use

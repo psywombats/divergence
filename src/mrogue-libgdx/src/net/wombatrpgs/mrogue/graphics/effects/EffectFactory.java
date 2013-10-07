@@ -8,8 +8,9 @@ package net.wombatrpgs.mrogue.graphics.effects;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
-import net.wombatrpgs.mrogueschema.graphics.effects.data.EffectFogMDO;
-import net.wombatrpgs.mrogueschema.graphics.effects.data.EffectMDO;
+import net.wombatrpgs.mrogueschema.graphics.effects.EffectFogMDO;
+import net.wombatrpgs.mrogueschema.graphics.effects.EffectLoSMDO;
+import net.wombatrpgs.mrogueschema.graphics.effects.EffectMDO;
 
 /**
  * Creates effects from MDOs.
@@ -25,6 +26,8 @@ public class EffectFactory {
 	public static Effect create(Level creator, EffectMDO mdo) {
 		if (EffectFogMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new EffectFog(creator, (EffectFogMDO) mdo);
+		} else if (EffectLoSMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new EffectLoS(creator, (EffectLoSMDO) mdo);
 		} else {
 			MGlobal.reporter.warn("Unkown EffectMDO subclass: " + mdo.getClass());
 			return null;

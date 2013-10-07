@@ -396,6 +396,25 @@ public class Level implements ScreenShowable {
 	}
 	
 	/**
+	 * Determines whether a certain location is see-through.
+	 * @param	tileX			The x-coord of the tile to check, in tiles
+	 * @param	tileY			The y-coord of the tile to check, in tiles
+	 * @return					True if tile is transparent, false otherwise
+	 */
+	public boolean isTransparentAt(int tileX, int tileY) {
+		// TODO: precompute this
+		if (tileX < 0 || tileY < 0 || tileX >= mapWidth || tileY >= mapHeight) {
+			return false;
+		}
+		for (GridLayer layer : gridLayers) {
+			if (!layer.isTransparentAt(tileX, tileY)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
 	 * Adds a new object to this map. Called externally for anything wanting to
 	 * add non-events to this map.
 	 * @param 	object			The new object to add

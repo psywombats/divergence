@@ -43,9 +43,14 @@ public class Tile implements Queueable {
 		}
 	}
 	
-	/** @return True if characters can pass this tile, false otherwise */
+	/** @return True if characters can pass this tile */
 	public boolean isPassable() { 
 		return type.isPassable();
+	}
+	
+	/** @return True if this tile is see-through */
+	public boolean isTransparent() {
+		return type.isTransparent();
 	}
 	
 	/** @return The texture representing this tile */

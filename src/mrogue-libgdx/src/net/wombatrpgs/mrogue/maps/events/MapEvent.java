@@ -419,6 +419,16 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	}
 	
 	/**
+	 * Calculates the manhattan distance between this and some other location.
+	 * @param	tileX			The x-coord to calc distance to, in tiles
+	 * @param	tileY			The y-coord to calc distance to, in tiles
+	 * @return
+	 */
+	public int tileDistanceTo(int tileX, int tileY) {
+		return Math.abs(tileX - this.tileX) + Math.abs(tileY - this.tileY); 
+	}
+	
+	/**
 	 * Determines if an event is "hidden" either by switch or command.
 	 * @return					True if the event is hidden, false otherwise
 	 */

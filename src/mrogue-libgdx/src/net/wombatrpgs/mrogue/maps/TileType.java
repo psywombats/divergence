@@ -12,15 +12,21 @@ package net.wombatrpgs.mrogue.maps;
  */
 public enum TileType {
 	
-	FLOOR		(true),
-	WALL		(false);
+	FLOOR		(true,	true),
+	WALL		(false,	false);
 	
 	private boolean passable;
-	TileType(boolean passable) {
+	private boolean transparent;
+	
+	TileType(boolean passable, boolean transparent) {
 		this.passable = passable;
+		this.transparent = transparent;
 	}
 	
 	/** @return True if this tile can be stepped on, false otherwise */
 	public boolean isPassable() { return passable; }
+	
+	/** @return True if this tile is see-through */
+	public boolean isTransparent() { return transparent; }
 
 }

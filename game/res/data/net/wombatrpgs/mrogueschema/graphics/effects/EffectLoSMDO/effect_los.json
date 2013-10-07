@@ -1,0 +1,9 @@
+{
+	"key" : "effect_los",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"shader" : "shader_los",
+	"tex" : "anim_fog",
+	"velocity" : 32
+}

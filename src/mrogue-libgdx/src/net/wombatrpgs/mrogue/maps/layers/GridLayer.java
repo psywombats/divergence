@@ -9,6 +9,7 @@ package net.wombatrpgs.mrogue.maps.layers;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
+import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Tile;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
@@ -94,6 +95,17 @@ public class GridLayer extends Layer {
 	}
 	
 	/**
+	 * Checks if a tile at the given location is see-through. Does not check
+	 * for out of bounds.
+	 * @param	tileX			The x-coord of the tile to check (in tiles)
+	 * @param	tileY			The y-coord of the tile to check (in tiles)
+	 * @return					True if tile is transparent, false otherwise
+	 */
+	public boolean isTransparentAt(int tileX, int tileY) {
+		return tileData[tileY][tileX].isTransparent();
+	}
+	
+	/**
 	 * Does an extremely inefficient rendering pass.
 	 * @param	cam				The camera to render with
 	 */
@@ -101,6 +113,7 @@ public class GridLayer extends Layer {
 		parent.getBatch().begin();
 		for (int x = 0; x < parent.getWidth(); x += 1) {
 			for (int y = 0; y < parent.getHeight(); y += 1) {
+				//if (!MGlobal.hero.inLoS(x, y)) continue;
 				float atX = parent.getTileWidth() * x;
 				float atY = parent.getTileHeight() * y;
 				tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);

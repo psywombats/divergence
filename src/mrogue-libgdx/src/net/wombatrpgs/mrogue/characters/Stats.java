@@ -36,6 +36,8 @@ public class Stats {
 	/** @return The speed modifier, as a float% */
 	public float getSpeed() { return ((float) mdo.speed) / 100.f; }
 	
+	public int getVision() { return mdo.vision; }
+	
 	/**
 	 * Inflicts a set amount of HP damage. Just subtraction here.
 	 * @param	damage			The amount of damage inflicted

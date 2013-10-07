@@ -17,7 +17,7 @@ import net.wombatrpgs.mrogue.screen.TrackerCam;
 import net.wombatrpgs.mrogue.screen.WindowSettings;
 import net.wombatrpgs.mrogueschema.graphics.AnimationMDO;
 import net.wombatrpgs.mrogueschema.graphics.ShaderMDO;
-import net.wombatrpgs.mrogueschema.graphics.effects.data.EffectFogMDO;
+import net.wombatrpgs.mrogueschema.graphics.effects.EffectFogMDO;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;

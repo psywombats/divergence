@@ -20,8 +20,12 @@ import net.wombatrpgs.mrogueschema.maps.data.Direction;
 public class Hero extends CharacterEvent implements CommandListener {
 	
 	protected static final String HERO_DEFAULT = "hero_default";
+	protected static final float SIGHT_VISIBLE = 1;
+	protected static final float SIGHT_INVISIBLE = 0;
 	
 	protected ActStep step;
+	// this is in float to facilitate shader calls... ugly, I know
+	protected float[] viewCache;
 
 	/**
 	 * Placeholder constructor. When the hero is finally initialized properly
@@ -51,6 +55,17 @@ public class Hero extends CharacterEvent implements CommandListener {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mrogue.maps.MapThing#onAddedToMap
+	 * (net.wombatrpgs.mrogue.maps.Level)
+	 */
+	@Override
+	public void onAddedToMap(Level map) {
+		super.onAddedToMap(map);
+		viewCache = new float[map.getHeight() * map.getWidth()];
+		refreshVisibilityMap();
+	}
+
+	/**
 	 * @see net.wombatrpgs.mrogue.characters.CharacterEvent#reset()
 	 */
 	@Override
@@ -65,6 +80,14 @@ public class Hero extends CharacterEvent implements CommandListener {
 	public String getName() {
 		return "hero";
 	}
+
+//	/**
+//	 * @see net.wombatrpgs.mrogue.characters.CharacterEvent#inLoS(int, int)
+//	 */
+//	@Override
+//	public boolean inLoS(int targetX, int targetY) {
+//		return viewCache[targetY*parent.getWidth() + targetX] == SIGHT_VISIBLE;
+//	}
 
 	/**
 	 * @see net.wombatrpgs.mrogue.io.CommandListener#onCommand
@@ -85,8 +108,28 @@ public class Hero extends CharacterEvent implements CommandListener {
 		}
 		step.setDirection(dir);
 		step.act();
+		refreshVisibilityMap();
 		ticksRemaining += step.getCost();
 		parent.startMoving();
 	}
 	
+	/**
+	 * Creates a cached table of which squares are in view. Call when things
+	 * move etc.
+	 */
+	public void refreshVisibilityMap() {
+		for (int x = 0; x < parent.getWidth(); x += 1) {
+			for (int y = 0; y < parent.getHeight(); y += 1) {
+				viewCache[y*parent.getWidth() + x] = super.inLoS(x, y) ? SIGHT_VISIBLE : SIGHT_INVISIBLE;
+			}
+		}
+	}
+	
+	/**
+	 * A very technical thing that returns technical things. For shaders.
+	 * @return					I wrote this with a bad cold.
+	 */
+	public float[] getVisibleData() {
+		return viewCache;
+	}
 }
