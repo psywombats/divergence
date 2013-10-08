@@ -10,6 +10,7 @@ import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mrogueschema.graphics.data.EffectEnabledType;
+import net.wombatrpgs.mrogueschema.test.data.TestState;
 
 /**
  * Controls some global graphics configurationy things.
@@ -19,5 +20,8 @@ public class GraphicsSettingsMDO extends MainSchema {
 	
 	@Desc("Chunking - (advanced) enables/disables the character order rendering algorithm")
 	public EffectEnabledType chunkingEnabled;
+	
+	@Desc("Some printouts for when shaders bug out")
+	public TestState shaderDebug;
 
 }

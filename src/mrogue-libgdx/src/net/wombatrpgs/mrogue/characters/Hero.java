@@ -6,6 +6,12 @@
  */
 package net.wombatrpgs.mrogue.characters;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Pixmap.Blending;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+
 import net.wombatrpgs.mrogue.characters.ai.ActStep;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.io.CommandListener;
@@ -20,12 +26,12 @@ import net.wombatrpgs.mrogueschema.maps.data.Direction;
 public class Hero extends CharacterEvent implements CommandListener {
 	
 	protected static final String HERO_DEFAULT = "hero_default";
-	protected static final float SIGHT_VISIBLE = 1;
-	protected static final float SIGHT_INVISIBLE = 0;
 	
 	protected ActStep step;
-	// this is in float to facilitate shader calls... ugly, I know
-	protected float[] viewCache;
+	// to facilitate shader calls, viewtex is like a b/w image version of cache
+	protected boolean[][] viewCache;
+	protected Pixmap p;
+	protected Texture viewTex;
 
 	/**
 	 * Placeholder constructor. When the hero is finally initialized properly
@@ -61,7 +67,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 	@Override
 	public void onAddedToMap(Level map) {
 		super.onAddedToMap(map);
-		viewCache = new float[map.getHeight() * map.getWidth()];
+		viewCache = new boolean[map.getHeight()][map.getWidth()];
 		refreshVisibilityMap();
 	}
 
@@ -81,13 +87,13 @@ public class Hero extends CharacterEvent implements CommandListener {
 		return "hero";
 	}
 
-//	/**
-//	 * @see net.wombatrpgs.mrogue.characters.CharacterEvent#inLoS(int, int)
-//	 */
-//	@Override
-//	public boolean inLoS(int targetX, int targetY) {
-//		return viewCache[targetY*parent.getWidth() + targetX] == SIGHT_VISIBLE;
-//	}
+	/**
+	 * @see net.wombatrpgs.mrogue.characters.CharacterEvent#inLoS(int, int)
+	 */
+	@Override
+	public boolean inLoS(int targetX, int targetY) {
+		return viewCache[targetY][targetX];
+	}
 
 	/**
 	 * @see net.wombatrpgs.mrogue.io.CommandListener#onCommand
@@ -118,18 +124,30 @@ public class Hero extends CharacterEvent implements CommandListener {
 	 * move etc.
 	 */
 	public void refreshVisibilityMap() {
+		if (viewTex != null) {
+			p.dispose();
+		}
+		p = new Pixmap(parent.getWidth(), parent.getHeight(), Format.RGBA8888);
+		Pixmap.setBlending(Blending.None);
+		p.setColor(Color.BLACK);
+		p.fillRectangle(0, 0, parent.getWidth(), parent.getHeight());
+		p.setColor(Color.WHITE);
 		for (int x = 0; x < parent.getWidth(); x += 1) {
 			for (int y = 0; y < parent.getHeight(); y += 1) {
-				viewCache[y*parent.getWidth() + x] = super.inLoS(x, y) ? SIGHT_VISIBLE : SIGHT_INVISIBLE;
+				boolean result = super.inLoS(x, y);
+				viewCache[y][x] = result;
+				if (result) p.drawPixel(x, y);
 			}
 		}
+		Pixmap.setBlending(Blending.SourceOver);
+		viewTex = new Texture(p);
 	}
 	
 	/**
 	 * A very technical thing that returns technical things. For shaders.
 	 * @return					I wrote this with a bad cold.
 	 */
-	public float[] getVisibleData() {
-		return viewCache;
+	public Texture getVisibleData() {
+		return viewTex;
 	}
 }

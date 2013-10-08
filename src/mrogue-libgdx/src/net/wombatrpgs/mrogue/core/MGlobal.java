@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics.DisplayMode;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -154,10 +153,6 @@ public class MGlobal {
 					MGlobal.window.getResolutionWidth(),
 					MGlobal.window.getResolutionHeight(), 
 					fullscreen);
-			// TODO: adjust for available resilutuons
-			for (DisplayMode disp : Gdx.graphics.getDisplayModes()) {
-				System.out.println("w, h: " + disp.width +" , " + disp.height);
-			}
 			Gdx.graphics.setTitle(MGlobal.window.getTitle());
 			//Gdx.graphics.setVSync(true);
 			Gdx.input.setInputProcessor(MGlobal.keymap);

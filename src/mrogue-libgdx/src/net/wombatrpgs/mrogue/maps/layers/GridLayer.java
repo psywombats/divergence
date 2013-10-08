@@ -9,7 +9,6 @@ package net.wombatrpgs.mrogue.maps.layers;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Tile;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;

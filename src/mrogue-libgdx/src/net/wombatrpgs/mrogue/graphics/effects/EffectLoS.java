@@ -6,8 +6,11 @@
  */
 package net.wombatrpgs.mrogue.graphics.effects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
@@ -32,6 +35,8 @@ public class EffectLoS extends Effect {
 	protected EffectLoSMDO mdo;
 	protected AnimationStrip anim;
 	protected ShaderProgram shader;
+	protected Texture viewTex;
+	protected boolean firstDone, updated;
 	protected float offset;
 
 	/**
@@ -42,10 +47,18 @@ public class EffectLoS extends Effect {
 	public EffectLoS(Level parent, EffectLoSMDO mdo) {
 		super(parent, mdo);
 		this.mdo = mdo;
+		firstDone = false;
 		anim = new AnimationStrip(MGlobal.data.getEntryFor(mdo.tex, AnimationMDO.class));
+		if (MGlobal.graphics.isShaderDebugEnabled()) {
+			MGlobal.reporter.inform("Attempting to create LoS shader...");
+		}
 		shader = new ShaderFromData(MGlobal.data.getEntryFor(mdo.shader, ShaderMDO.class));
+		if (MGlobal.graphics.isShaderDebugEnabled()) {
+			MGlobal.reporter.inform("LoS shader successfully init'd");
+		}
 		batch.setShader(shader);
 		offset = 0;
+		updated = false;
 	}
 
 	/**
@@ -54,9 +67,16 @@ public class EffectLoS extends Effect {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
+		if (!updated) return;
+		if (MGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
+			MGlobal.reporter.inform("LoS shader draw start");
+		}
 		WindowSettings win = MGlobal.window;
 		TextureRegion tex = anim.getRegion();
 		batch.begin();
+		
+		MGlobal.hero.getVisibleData().bind(1);
+		Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
 
 		// forward +wrap
 		batch.draw(
@@ -107,6 +127,14 @@ public class EffectLoS extends Effect {
 				180);
 		
 		batch.end();
+		if (MGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
+			MGlobal.reporter.inform("LoS shader draw end");
+		}
+		firstDone = true;
+		
+//		MGlobal.screens.peek().getViewBatch().begin();
+//		MGlobal.screens.peek().getViewBatch().draw(MGlobal.hero.getVisibleData(), 0, 0);
+//		MGlobal.screens.peek().getViewBatch().end();
 	}
 
 	/**
@@ -124,11 +152,17 @@ public class EffectLoS extends Effect {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
+		if (MGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
+			MGlobal.reporter.inform("LoS post-processing start");
+		}
 		anim.postProcessing(manager, pass);
 		shader.begin();
-		shader.setUniformf("u_tilesize", parent.getTileWidth(), parent.getTileHeight());
-		shader.setUniformf("u_mapsize", parent.getWidth(), parent.getHeight());
+		shader.setUniformi("u_tilesize", parent.getTileWidth(), parent.getTileHeight());
+		shader.setUniformi("u_mapsize", parent.getWidth(), parent.getHeight());
 		shader.end();
+		if (MGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
+			MGlobal.reporter.inform("LoS post-processing end");
+		}
 	}
 
 	/**
@@ -136,21 +170,26 @@ public class EffectLoS extends Effect {
 	 */
 	@Override
 	public void update(float elapsed) {
-		
+		if (MGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
+			MGlobal.reporter.inform("LoS shader update start");
+		}
 		offset += mdo.velocity * elapsed;
 		if (offset > MGlobal.window.getWidth()) {
 			offset -= MGlobal.window.getWidth();
 		}
 		
-		float[] visible = MGlobal.hero.getVisibleData();
 		TrackerCam cam  = MGlobal.screens.peek().getCamera();
 		super.update(elapsed);
 		shader.begin();
-		shader.setUniform1fv("u_visibility", visible, 0, visible.length);
+		shader.setUniformi("u_visibility", 1);
 		shader.setUniformf("u_offset",
 				cam.position.x - MGlobal.window.getWidth()/2.f,
 				cam.position.y - MGlobal.window.getHeight()/2.f);
 		shader.end();
+		updated = true;
+		if (MGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
+			MGlobal.reporter.inform("LoS shader update end");
+		}
 	}
 
 }
