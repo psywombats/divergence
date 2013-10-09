@@ -1,0 +1,13 @@
+{
+	"key" : "effect_rain_simple",
+	"subfolder" : "",
+	"name" : null,
+	"description" : null,
+	"shader" : null,
+	"tex" : null,
+	"velocity" : null,
+	"density" : null,
+	"radius" : null,
+	"factor" : null,
+	"exponent" : null
+}

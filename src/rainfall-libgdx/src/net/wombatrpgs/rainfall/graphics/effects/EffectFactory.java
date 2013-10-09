@@ -10,6 +10,7 @@ import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfallschema.graphics.effects.data.EffectFogMDO;
 import net.wombatrpgs.rainfallschema.graphics.effects.data.EffectMDO;
+import net.wombatrpgs.rainfallschema.graphics.effects.data.EffectPixelWeatherMDO;
 
 /**
  * Creates effects from MDOs.
@@ -25,6 +26,8 @@ public class EffectFactory {
 	public static Effect create(Level creator, EffectMDO mdo) {
 		if (EffectFogMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new EffectFog(creator, (EffectFogMDO) mdo);
+		} else if (EffectPixelWeatherMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new EffectPixelWeather(creator, (EffectPixelWeatherMDO) mdo);
 		} else {
 			RGlobal.reporter.warn("Unkown EffectMDO subclass: " + mdo.getClass());
 			return null;

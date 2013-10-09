@@ -4,5 +4,5 @@
 	"name" : "",
 	"description" : "",
 	"map" : "battletest.tmx",
-	"effect" : "None"
+	"effect" : "effect_rain_simple"
 }
