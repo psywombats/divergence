@@ -68,6 +68,9 @@ public class EventLayer extends Layer {
 	 */
 	@Override
 	public void render(OrthographicCamera camera, float z) {
+		if (z == 0) {
+			parent.renderOver();
+		}
 		if (Math.round(z-.5) != z) return;
 		// this can be optimized, but it's not fucking likely
 		Collections.sort(events);

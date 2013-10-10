@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.rainfall.graphics.effects;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.rainfall.maps.Level;
@@ -42,5 +43,14 @@ public abstract class Effect implements ScreenShowable {
 	 */
 	@Override
 	public void update(float elapsed) { }
+	
+	/**
+	 * Called before events get rendered. Useful for shading things on the
+	 * ground.
+	 * @param	cam				The camera to use
+	 */
+	public void renderOver(OrthographicCamera cam) {
+		
+	}
 
 }

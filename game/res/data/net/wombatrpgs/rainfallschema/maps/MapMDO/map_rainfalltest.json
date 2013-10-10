@@ -1,0 +1,8 @@
+{
+	"key" : "map_rainfalltest",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"map" : "rainfalltest.tmx",
+	"effect" : "effect_rainfall"
+}

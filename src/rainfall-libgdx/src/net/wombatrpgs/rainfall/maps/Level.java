@@ -12,7 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Pixmap.Blending;
+import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -104,6 +109,9 @@ public class Level implements ScreenShowable {
 	protected String mapPath;
 	
 	private List<Queueable> assets;
+	
+	protected Pixmap p;
+	protected Texture viewTex;
 	
 	/**
 	 * Generates a level from the supplied level data.
@@ -269,6 +277,22 @@ public class Level implements ScreenShowable {
 				asset.postProcessing(manager, pass - 1);
 			}
 		}
+		p = new Pixmap(getWidth(), getHeight(), Format.RGBA8888);
+		Pixmap.setBlending(Blending.None);
+		p.setColor(Color.BLACK);
+		p.fillRectangle(0, 0, getWidth(), getHeight());
+		p.setColor(Color.WHITE);
+		for (int x = 0; x < getWidth(); x += 1) {
+			for (int y = 0; y < getHeight(); y += 1) {
+				boolean result = true;
+				for (GridLayer layer : tileLayers) {
+					result = result && (layer.isPassable(null, x, y));
+				}
+				if (result) p.drawPixel(x, y);
+			}
+		}
+		Pixmap.setBlending(Blending.SourceOver);
+		viewTex = new Texture(p);
 	}
 	
 	/**
@@ -633,6 +657,20 @@ public class Level implements ScreenShowable {
 	 */
 	public CustomEvent getCustomObject(String id) {
 		return customObjects.get(id);
+	}
+	
+	/**
+	 * Renders the underground effect.
+	 */
+	public void renderOver() {
+		if (effect != null) {
+			effect.renderOver(RGlobal.screens.peek().getCamera());
+		}
+	}
+	
+	/** @return The image representation of this level's passability */
+	public Texture getPassTex() {
+		return viewTex;
 	}
 	
 	/**

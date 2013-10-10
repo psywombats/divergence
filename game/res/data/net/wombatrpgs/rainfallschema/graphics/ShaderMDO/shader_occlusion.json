@@ -1,0 +1,8 @@
+{
+	"key" : "shader_occlusion",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"vertexFile" : "occ.vert",
+	"fragmentFile" : "occ.frag"
+}

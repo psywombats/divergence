@@ -1,0 +1,10 @@
+{
+	"key" : "effect_rainfall",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"allAnim" : "anim_rain",
+	"groundAnim" : "anim_droplet",
+	"allShader" : "shader_standard",
+	"groundShader" : "shader_occlusion"
+}

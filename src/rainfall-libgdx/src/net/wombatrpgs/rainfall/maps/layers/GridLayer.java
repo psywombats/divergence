@@ -273,6 +273,16 @@ public class GridLayer extends Layer {
 			RGlobal.reporter.warn("Tried to remove a pass that wasn't here: " + box);
 		}
 	}
+	
+	/**
+	 * Checks for chip passability at the given location on this layer.
+	 * @param	tileX			The x-coord of the location to check, in tiles
+	 * @param	tileY			The y-coord of the location to check, in tiles
+	 * @return
+	 */
+	public boolean isChipPassableAt(int tileX, int tileY) {
+		return passability[tileY][tileX];
+	}
 
 
 	/**

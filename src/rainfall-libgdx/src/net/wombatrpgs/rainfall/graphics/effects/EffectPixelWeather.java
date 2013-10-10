@@ -35,7 +35,8 @@ public class EffectPixelWeather extends Effect {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render(com.badlogic.gdx.graphics.OrthographicCamera)
+	 * @see net.wombatrpgs.rainfall.graphics.Renderable#render
+	 * (com.badlogic.gdx.graphics.OrthographicCamera)
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
@@ -49,7 +50,8 @@ public class EffectPixelWeather extends Effect {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.rainfall.core.Queueable#queueRequiredAssets(com.badlogic.gdx.assets.AssetManager)
+	 * @see net.wombatrpgs.rainfall.core.Queueable#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
@@ -57,7 +59,8 @@ public class EffectPixelWeather extends Effect {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.core.Queueable#postProcessing(com.badlogic.gdx.assets.AssetManager, int)
+	 * @see net.wombatrpgs.rainfall.core.Queueable#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {

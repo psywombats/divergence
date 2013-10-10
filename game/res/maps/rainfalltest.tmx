@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="26" height="21" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="nomadtileset" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <image source="tilesets/nomadtileset.png" trans="ff00ff" width="1280" height="960"/>
+  <tile id="86">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="318">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Lower 1" width="26" height="21">
+  <properties>
+   <property name="z" value="0"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJx7zcDA8JpMHI4Dk2veQNtjz4gdj9ozsuwZxcMf07osGa720CvvjdozuO2hNgYAsQfGAA==
+  </data>
+ </layer>
+ <layer name="Upper 1" width="26" height="21">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMApGwSgYGAAACIgAAQ==
+  </data>
+ </layer>
+ <objectgroup name="Event 1" width="26" height="21">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <object name="Trigger" type="trigger" x="800" y="0" width="32" height="32">
+   <properties>
+    <property name="id" value="scene_test0000"/>
+   </properties>
+  </object>
+  <object name="Dummy" type="event" x="464" y="304" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_dummy"/>
+   </properties>
+  </object>
+  <object name="Beacon" type="point" x="117" y="102">
+   <properties>
+    <property name="group" value="antifog_beacon"/>
+   </properties>
+  </object>
+  <object name="Beacon" type="point" x="409" y="303">
+   <properties>
+    <property name="group" value="antifog_beacon"/>
+   </properties>
+  </object>
+  <object name="Snake" type="event" x="96" y="544" width="32" height="32">
+   <properties>
+    <property name="key" value="enemy_snake"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

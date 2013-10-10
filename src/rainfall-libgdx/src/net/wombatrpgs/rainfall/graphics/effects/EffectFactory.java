@@ -10,6 +10,7 @@ import net.wombatrpgs.rainfall.core.RGlobal;
 import net.wombatrpgs.rainfall.maps.Level;
 import net.wombatrpgs.rainfallschema.graphics.effects.data.EffectFogMDO;
 import net.wombatrpgs.rainfallschema.graphics.effects.data.EffectMDO;
+import net.wombatrpgs.rainfallschema.graphics.effects.data.EffectOcclusionMDO;
 import net.wombatrpgs.rainfallschema.graphics.effects.data.EffectPixelWeatherMDO;
 
 /**
@@ -28,6 +29,8 @@ public class EffectFactory {
 			return new EffectFog(creator, (EffectFogMDO) mdo);
 		} else if (EffectPixelWeatherMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new EffectPixelWeather(creator, (EffectPixelWeatherMDO) mdo);
+		} else if (EffectOcclusionMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new EffectOcclusion(creator, (EffectOcclusionMDO) mdo);
 		} else {
 			RGlobal.reporter.warn("Unkown EffectMDO subclass: " + mdo.getClass());
 			return null;
