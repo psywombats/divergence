@@ -8,6 +8,7 @@ uniform sampler2D u_texture;
 uniform ivec2 u_tilesize;
 uniform ivec2 u_mapsize;
 uniform vec2 u_offset;
+uniform float u_scale;
 uniform sampler2D u_visibility;
 
 int passable(int tileX, int tileY) {
@@ -26,10 +27,8 @@ void main() {
 	float alpha = 0.0;
 	float screenX = (gl_FragCoord[0]);
 	float screenY = (gl_FragCoord[1]);
-	int tileX = int(floor((u_offset.x + screenX) / float(u_tilesize.x)));
-	int tileY = int(floor((u_offset.y + screenY) / float(u_tilesize.y)));
-	float spareX = (u_offset.x + screenX) - float(tileX * u_tilesize.x);
-	float spareY = (u_offset.y + screenY) - float(tileY * u_tilesize.y);
+	int tileX = int(floor((u_offset.x + screenX)*u_scale / float(u_tilesize.x)));
+	int tileY = int(floor((u_offset.y + screenY)*u_scale / float(u_tilesize.y)));
 	if (tileX < 0 || tileY < 0 || tileX >= u_mapsize.x || tileY >= u_mapsize.y) {
 		alpha = 0.0;
 	} else if (passable(tileX, tileY) == 0) {

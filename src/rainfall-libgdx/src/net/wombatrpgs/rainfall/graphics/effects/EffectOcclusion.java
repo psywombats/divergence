@@ -55,11 +55,14 @@ public class EffectOcclusion extends Effect {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
+		TextureRegion tex = allAnim.getRegion();
+		float width = (float) tex.getRegionWidth() / camera.zoom;
+		float height = (float) tex.getRegionHeight() / camera.zoom;
 		batch.setShader(allShader);
 		batch.begin();
-		for (int x = 0; x < RGlobal.window.getViewportWidth(); x += allAnim.getWidth()) {
-			for (int y = 0; y < RGlobal.window.getViewportHeight(); y += allAnim.getHeight()) {
-				batch.draw(allAnim.getRegion(), x, y);
+		for (int x = 0; x < RGlobal.window.getWidth(); x += width) {
+			for (int y = 0; y < RGlobal.window.getHeight(); y += height) {
+				batch.draw(tex, x, y, width, height);
 			}
 		}
 		batch.end();
@@ -102,13 +105,14 @@ public class EffectOcclusion extends Effect {
 		}
 		allAnim.update(elapsed);
 		groundAnim.update(elapsed);
-		
 		TrackerCam cam  = RGlobal.screens.peek().getCamera();
+		System.out.println(cam.position.x + " " + cam.position.y);
 		groundShader.begin();
+		groundShader.setUniformf("u_scale", cam.zoom);
 		groundShader.setUniformi("u_visibility", 1);
 		groundShader.setUniformf("u_offset",
-				cam.position.x - RGlobal.window.getWidth()/2.f,
-				cam.position.y - RGlobal.window.getHeight()/2.f);
+				(cam.position.x - RGlobal.window.getViewportWidth()/2.f) / cam.zoom,
+				(cam.position.y - RGlobal.window.getViewportHeight()/2.f) / cam.zoom);
 		groundShader.end();
 	}
 
@@ -117,18 +121,22 @@ public class EffectOcclusion extends Effect {
 	 * (com.badlogic.gdx.graphics.OrthographicCamera)
 	 */
 	@Override
-	public void renderOver(OrthographicCamera cam) {
-		super.renderOver(cam);
+	public void renderOver(OrthographicCamera camera) {
+		super.renderOver(camera);
 		batch.setShader(groundShader);
 		WindowSettings win = RGlobal.window;
-		TextureRegion tex = groundAnim.getRegion();
-		batch.begin();
 		
+		TextureRegion tex = groundAnim.getRegion();
+		float width = (float) tex.getRegionWidth() / camera.zoom;
+		float height = (float) tex.getRegionHeight() / camera.zoom;
+		
+		
+		batch.begin();
 		parent.getPassTex().bind(1);
 		Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
-		for (int x = 0; x < win.getViewportWidth(); x += groundAnim.getWidth()) {
-			for (int y = 0; y < win.getViewportHeight(); y += groundAnim.getHeight()) {
-				batch.draw(tex, x, y);
+		for (int x = 0; x < win.getWidth(); x += width) {
+			for (int y = 0; y < win.getHeight(); y += height) {
+				batch.draw(tex, x, y, width, height);
 			}
 		}
 		batch.end();
