@@ -9,5 +9,5 @@
 		"speed" : 100,
 		"vision" : 6
 	},
-	"intelligence" : "dummy_behavior"
+	"intelligence" : "behavior_herostep"
 }

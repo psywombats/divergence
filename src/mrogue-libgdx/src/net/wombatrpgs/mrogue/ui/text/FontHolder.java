@@ -7,6 +7,7 @@
 package net.wombatrpgs.mrogue.ui.text;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -72,10 +73,31 @@ public class FontHolder implements Queueable {
 	}
 	
 	/**
+	 * Sets this font's alpha. 1 is full, 0 is transparent. Make sure to set
+	 * this to something reasonable when you're done.
+	 * @param	a				The new alpha value
+	 */
+	public void setAlpha(float a) {
+		Color c = font.getColor();
+		c.a = a;
+		font.setColor(c);
+	}
+	
+	/**
 	 * Gets the distance between two lines of text, usually used in a text box.
 	 * @return					The distance between two lines of text (in px)
 	 */
 	public float getLineHeight() {
 		return font.getLineHeight();
+	}
+	
+	/**
+	 * Determines if a given string is too long to fit in this text box.
+	 * @param	format			The text box format we are using
+	 * @param	text			The text to check
+	 * @return					True if this text would wrap, false otherwise
+	 */
+	public boolean isTooLong(TextBoxFormat format, String text) {
+		return font.getBounds(text).width > format.width;
 	}
 }

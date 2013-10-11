@@ -68,6 +68,8 @@ public class GameScreen extends Screen {
 			mapShader = (testShader);
 		}
 		
+		addScreenObject(MGlobal.ui.getNarrator());
+		
 		init();
 	}
 	

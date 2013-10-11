@@ -17,6 +17,7 @@ import net.wombatrpgs.mrogueschema.graphics.IconSetMDO;
 import net.wombatrpgs.mrogueschema.settings.UISettingsMDO;
 import net.wombatrpgs.mrogueschema.ui.FontMDO;
 import net.wombatrpgs.mrogueschema.ui.HudMDO;
+import net.wombatrpgs.mrogueschema.ui.NarratorMDO;
 import net.wombatrpgs.mrogueschema.ui.TextBoxMDO;
 
 /**
@@ -35,6 +36,7 @@ public class UISettings implements Queueable {
 	protected TextBox box;
 	protected Hud hud;
 	protected IconSet icons;
+	protected Narrator narrator;
 	
 	/**
 	 * Creates a new UI settings using MDO data for defaults.
@@ -48,6 +50,7 @@ public class UISettings implements Queueable {
 			hud = new Hud(MGlobal.data.getEntryFor(mdo.hud, HudMDO.class));
 		}
 		icons = new IconSet(MGlobal.data.getEntryFor(mdo.icons, IconSetMDO.class));
+		narrator = new Narrator(MGlobal.data.getEntryFor(mdo.narrator, NarratorMDO.class), font);
 	}
 
 	/**
@@ -79,6 +82,9 @@ public class UISettings implements Queueable {
 	
 	/** @return The font associated with these settings */
 	public FontHolder getFont() { return this.font; }
+	
+	/** return The narrator associated with these settings */
+	public Narrator getNarrator() { return this.narrator; }
 	
 	/** @return The HUD associated with these settings */
 	public Hud getHud() { return this.hud; }

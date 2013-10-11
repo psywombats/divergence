@@ -6,12 +6,11 @@
  */
 package net.wombatrpgs.mrogueschema.characters.ai.intent;
 
-import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
+import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.HeadlessSchema;
-import net.wombatrpgs.mrogueschema.characters.ai.data.ActionType;
-import net.wombatrpgs.mrogueschema.characters.ai.data.ConditionType;
+import net.wombatrpgs.mrogueschema.characters.ai.data.ActionMDO;
 
 /**
  * An intent is something an ai wants to do if certain conditions are met. A
@@ -21,13 +20,9 @@ import net.wombatrpgs.mrogueschema.characters.ai.data.ConditionType;
 @ExcludeFromTree
 public class IntentMDO extends HeadlessSchema {
 	
-	@Desc("Action - will do this if condition is met")
-	@DefaultValue("SIT_STILL")
-	public ActionType action;
-	
-	@Desc("Condition - will action is this is met")
-	@DefaultValue("DEFAULT")
-	public ConditionType condition;
+	@Desc("Action - this is what we'll try to do")
+	@SchemaLink(ActionMDO.class)
+	public String action;
 	
 	@Desc("Priority - which action to do first (0 is lowest, 100 etc is high)")
 	public Integer priority;

@@ -12,8 +12,7 @@ import java.util.List;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.wombatrpgs.mrogue.characters.ai.ActWait;
-import net.wombatrpgs.mrogue.characters.ai.Action;
+import net.wombatrpgs.mrogue.characters.act.ActWait;
 import net.wombatrpgs.mrogue.characters.travel.BumpStep;
 import net.wombatrpgs.mrogue.characters.travel.MoveStep;
 import net.wombatrpgs.mrogue.characters.travel.Step;
@@ -138,6 +137,7 @@ public class CharacterEvent extends MapEvent {
 			if (travelPlan.size() > 0 ) {
 				int step = (int) Math.floor((float) travelPlan.size() *
 						(parent.getMoveTimeElapsed() / MGlobal.constants.getDelay()));
+				if (step > travelPlan.size()-1) step = travelPlan.size()-1;
 				Step toStep = travelPlan.get(step);
 				if (lastStep != toStep && lastStep != null) {
 					lastStep.onEnd();
@@ -415,6 +415,15 @@ public class CharacterEvent extends MapEvent {
 			}
 		}
 		return true;
+	}
+	
+	/**
+	 * Checks if a given event is visible by this character.
+	 * @param	event			The event to check if visible
+	 * @return					True if event is visible, false otherwise
+	 */
+	public boolean inLoS(MapEvent event) {
+		return inLoS(event.getTileX(), event.getTileY());
 	}
 	
 	/**

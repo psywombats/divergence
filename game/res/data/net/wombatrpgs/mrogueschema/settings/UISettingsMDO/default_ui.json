@@ -6,5 +6,6 @@
 	"font" : "font_c64rainfall",
 	"box" : "textbox_default",
 	"hud" : "hud_default",
-	"icons" : "iconset_default"
+	"icons" : "iconset_default",
+	"narrator" : "narrator_default"
 }

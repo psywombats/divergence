@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.mrogue.characters;
 
+import net.wombatrpgs.mrogue.core.MGlobal;
+import net.wombatrpgs.mrogue.ui.Narrator;
 import net.wombatrpgs.mrogueschema.characters.CharacterMDO;
 
 /**
@@ -18,6 +20,9 @@ import net.wombatrpgs.mrogueschema.characters.CharacterMDO;
  * the two manifestation classes.
  */
 public class GameUnit {
+	
+	/** lol this thing is because I'm too lazy to type MGlobal.ughhhh.nar ugh */
+	protected static Narrator out;
 	
 	protected CharacterMDO mdo;
 	protected CharacterEvent parent;
@@ -35,6 +40,7 @@ public class GameUnit {
 		this.parent = parent;
 		baseStats = new Stats(mdo.stats);
 		currentStats = new Stats(mdo.stats);
+		if (out == null) out = MGlobal.ui.getNarrator();
 	}
 	
 	/** @return The current stats of this unit */
@@ -45,13 +51,15 @@ public class GameUnit {
 	 * @param other
 	 */
 	public void attack(GameUnit other) {
-		other.takeDamage(10);
+		int damage = 10;
+		out.msg(getName() + " attacks " + other.getName() + " for " + damage + " damages.");
+		other.takeDamage(damage);
 	}
 	
 	/**
 	 * Inflicts a set amount of damage. Handles ugly things like death as well,
 	 * but not stats such as attack or defense.
-	 * @param damage
+	 * @param	damage			The amount of damage to take, in hp
 	 */
 	public void takeDamage(int damage) {
 		currentStats.takeDamage(damage);
@@ -67,6 +75,19 @@ public class GameUnit {
 	 */
 	public void die() {
 		parent.getLevel().removeEvent(parent);
+		out.msg(getName() + " is killed.");
+	}
+	
+	/**
+	 * Gives this character its player-visible name.
+	 * @return					The name of this unit
+	 */
+	public String getName() {
+		if (parent == MGlobal.hero) {
+			return "the fearless hero";
+		} else {
+			return "the nameless moron";
+		}
 	}
 
 }

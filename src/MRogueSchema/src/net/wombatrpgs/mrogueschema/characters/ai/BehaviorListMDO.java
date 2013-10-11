@@ -17,7 +17,7 @@ import net.wombatrpgs.mrogueschema.characters.ai.intent.IntentMDO;
  * an AI moves itself. This is currently limited to enemies though the system
  * is probably flexible enough to support any sort of state machine behavior.
  */
-@Path("characters/enemies/")
+@Path("characters/ai/")
 public class BehaviorListMDO extends IntelligenceMDO {
 	
 	@Desc("Intents - all actions the AI can take, but leave blank for ABS intelligence")

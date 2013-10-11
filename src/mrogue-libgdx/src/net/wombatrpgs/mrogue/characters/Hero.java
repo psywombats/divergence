@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Pixmap.Blending;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 
-import net.wombatrpgs.mrogue.characters.ai.ActStep;
+import net.wombatrpgs.mrogue.characters.act.ActStep;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.io.CommandListener;
 import net.wombatrpgs.mrogue.maps.Level;
