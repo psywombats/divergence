@@ -5,6 +5,7 @@ precision mediump float;
 varying vec4 v_color; 
 varying vec2 v_texCoords; 
 uniform sampler2D u_texture;
+uniform int u_colorcomp;
 uniform ivec2 u_tilesize;
 uniform ivec2 u_mapsize;
 uniform vec2 u_offset;
@@ -14,9 +15,8 @@ int visible(int tileX, int tileY) {
 	if (tileX < 0 || tileY < 0 || tileX >= u_mapsize.x || tileY >= u_mapsize.y) {
 		return 0;
 	}
-	//int index = u_mapsize.x*tileY + tileX;
 	ivec2 index = ivec2(tileX, tileY);
-	if (texelFetch(u_visibility, index, 0).r == 1.0) {
+	if (texelFetch(u_visibility, index, 0)[u_colorcomp] == 1.0) {
 		return 1;
 	} else {
 		return 0;

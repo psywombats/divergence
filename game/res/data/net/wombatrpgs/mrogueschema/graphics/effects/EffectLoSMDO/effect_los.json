@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"shader" : "shader_los",
-	"tex" : "anim_fog",
+	"invisibleTex" : "anim_fog",
+	"unseenTex" : "anim_black",
 	"velocity" : 32
 }

@@ -1,6 +1,6 @@
 ================================================================================
 = MROGUE v. 20131010  -not intended for public release-                        =
-= running on MGNENGINE v. 20131003                                             =
+= running on MGNENGINE v. 20131103                                             =
 = contact: aking (psy_wombats@wombatrpgs.net)                                  =
 ================================================================================
 
@@ -26,3 +26,4 @@ with the database editor and break stuff and it'll be awesome.
 SO FAR:
 Well uh so far there's a map thing and you can move. I'm still overhauling the
 engine from an ABS to a dungeon crawl. If that sounds crazy it's because it is.
+Oh, there's a narrator and a cool formal AI system now.

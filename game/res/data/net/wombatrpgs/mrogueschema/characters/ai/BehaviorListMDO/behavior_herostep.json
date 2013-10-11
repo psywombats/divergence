@@ -1,0 +1,12 @@
+{
+	"key" : "behavior_herostep",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"intents" : [
+		{
+			"action" : "act_herostep",
+			"priority" : 100
+		}
+	]
+}
