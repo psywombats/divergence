@@ -2,7 +2,7 @@
 	"key" : "hud_default",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "",
+	"description" : " ",
 	"anchorDir" : "DOWN",
 	"frameGraphic" : "hud_frame_temp.png",
 	"frameWidth" : 126,
@@ -34,5 +34,8 @@
 	"nmpTailGraphic" : "hud_nmp_tail.png",
 	"mpWidth" : 50,
 	"mpStartX" : 55,
-	"mpStartY" : 15
+	"mpStartY" : 15,
+	"alphaMask" : "hud_alphamask.png",
+	"headX" : 22,
+	"headY" : 23
 }

@@ -33,7 +33,7 @@ public class EffectLoS extends Effect {
 	protected static final int MAX_TILES = 2400;
 	
 	protected EffectLoSMDO mdo;
-	protected AnimationStrip anim;
+	protected AnimationStrip invisibleAnim, unseenAnim;
 	protected ShaderProgram shader;
 	protected Texture viewTex;
 	protected boolean firstDone, updated;
@@ -48,7 +48,8 @@ public class EffectLoS extends Effect {
 		super(parent, mdo);
 		this.mdo = mdo;
 		firstDone = false;
-		anim = new AnimationStrip(MGlobal.data.getEntryFor(mdo.tex, AnimationMDO.class));
+		invisibleAnim = new AnimationStrip(MGlobal.data.getEntryFor(mdo.invisibleTex, AnimationMDO.class));
+		unseenAnim = new AnimationStrip(MGlobal.data.getEntryFor(mdo.unseenTex, AnimationMDO.class));
 		if (MGlobal.graphics.isShaderDebugEnabled()) {
 			MGlobal.reporter.inform("Attempting to create LoS shader...");
 		}
@@ -72,9 +73,13 @@ public class EffectLoS extends Effect {
 			MGlobal.reporter.inform("LoS shader draw start");
 		}
 		WindowSettings win = MGlobal.window;
-		TextureRegion tex = anim.getRegion();
-		batch.begin();
+		TextureRegion tex = invisibleAnim.getRegion();
+		TextureRegion tex2 = unseenAnim.getRegion();
 		
+		shader.begin();
+		shader.setUniformi("u_colorcomp", 0);
+		shader.end();
+		batch.begin();
 		MGlobal.hero.getVisibleData().bind(1);
 		Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
 
@@ -127,6 +132,26 @@ public class EffectLoS extends Effect {
 				180);
 		
 		batch.end();
+		
+		shader.begin();
+		shader.setUniformi("u_colorcomp", 1);
+		shader.end();
+		batch.begin();
+		MGlobal.hero.getVisibleData().bind(1);
+		Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
+		batch.draw(
+				tex2,
+				0,
+				0,
+				win.getWidth() / 2,
+				win.getHeight() / 2, 
+				win.getWidth(),
+				win.getHeight(),
+				1,
+				1,
+				0);
+		batch.end();
+		
 		if (MGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
 			MGlobal.reporter.inform("LoS shader draw end");
 		}
@@ -143,7 +168,8 @@ public class EffectLoS extends Effect {
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		anim.queueRequiredAssets(manager);
+		invisibleAnim.queueRequiredAssets(manager);
+		unseenAnim.queueRequiredAssets(manager);
 	}
 
 	/**
@@ -155,7 +181,8 @@ public class EffectLoS extends Effect {
 		if (MGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
 			MGlobal.reporter.inform("LoS post-processing start");
 		}
-		anim.postProcessing(manager, pass);
+		invisibleAnim.postProcessing(manager, pass);
+		unseenAnim.postProcessing(manager, pass);
 		shader.begin();
 		shader.setUniformi("u_tilesize", parent.getTileWidth(), parent.getTileHeight());
 		shader.setUniformi("u_mapsize", parent.getWidth(), parent.getHeight());

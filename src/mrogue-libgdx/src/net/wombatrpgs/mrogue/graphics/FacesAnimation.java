@@ -180,6 +180,17 @@ public abstract class FacesAnimation implements Renderable,
 	}
 	
 	/**
+	 * Fetches a specific frame of the animation. Wonky because it takes an
+	 * ordinal, not a direction.
+	 * @param	dirOrdinal		The ordinal of the direction to fetch
+	 * @param	frame			The number of the frame to fetch
+	 * @return					The texture region for that frame
+	 */
+	public TextureRegion getFrame(int dirOrdinal, int frame) {
+		return animations[currentDirOrdinal()].getFrame(frame);
+	}
+	
+	/**
 	 * @see net.wombatrpgs.mrogue.graphics.PreRenderable#getRenderX()
 	 */
 	@Override

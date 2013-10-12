@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.mrogue.characters.act.ActWait;
+import net.wombatrpgs.mrogue.characters.act.Action;
 import net.wombatrpgs.mrogue.characters.travel.BumpStep;
 import net.wombatrpgs.mrogue.characters.travel.MoveStep;
 import net.wombatrpgs.mrogue.characters.travel.Step;
@@ -156,7 +157,7 @@ public class CharacterEvent extends MapEvent {
 	public void render(OrthographicCamera camera) {
 		if (hidden()) return;
 		super.render(camera);
-		if (appearance != null) {
+		if (appearance != null && MGlobal.hero.inLoS(this)) {
 			appearance.render(camera);
 		}
 	}

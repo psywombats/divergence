@@ -133,5 +133,15 @@ public class HudMDO extends MainSchema {
 	
 	@Desc("Y coord where MP bar stretch starts, relative to bottom left, in px")
 	public Integer mpStartY;
+	
+	@Desc("Head alpha mask")
+	@FileLink("ui")
+	public String alphaMask;
+	
+	@Desc("Head x, from bottom left")
+	public Integer headX;
+	
+	@Desc("Head y, from bottom left")
+	public Integer headY;
 
 }

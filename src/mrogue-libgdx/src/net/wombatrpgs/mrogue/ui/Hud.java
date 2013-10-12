@@ -9,9 +9,12 @@ package net.wombatrpgs.mrogue.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
@@ -38,6 +41,7 @@ public class Hud implements ScreenShowable,
 	protected Graphic mpBase, mpRib, mpTail;
 	protected Graphic nhpBase, nhpRib, nhpTail;
 	protected Graphic nmpBase, nmpRib, nmpTail;
+	protected Graphic alphaMask;
 	protected NumberSet numbersHP, numbersMP;
 	
 	protected boolean enabled;
@@ -56,6 +60,7 @@ public class Hud implements ScreenShowable,
 		assets = new ArrayList<Queueable>();
 		
 		frame = startGraphic(mdo.frameGraphic);
+		alphaMask = startGraphic(mdo.alphaMask);
 		
 		hpBase = startGraphic(mdo.hpBaseGraphic);
 		hpRib = startGraphic(mdo.hpRibGraphic);
@@ -169,6 +174,20 @@ public class Hud implements ScreenShowable,
 //						mdo.offX + mdo.numMPOffX,
 //						mdo.offY + mdo.numMPOffY,
 //						.8f, .8f, 1);
+			
+			// head masking
+			batch.setBlendFunction(GL20.GL_ONE, GL20.GL_ZERO);
+			Gdx.graphics.getGL20().glColorMask(false, false, false, true);
+			alphaMask.renderAt(batch, mdo.offX, mdo.offY);
+			batch.setBlendFunction(GL20.GL_ONE_MINUS_DST_ALPHA, GL20.GL_DST_ALPHA);
+			Gdx.graphics.getGL20().glColorMask(true, true, true, true);
+			batch.begin();
+			TextureRegion tex = MGlobal.hero.getAppearance().getFrame(3, 1);
+			batch.draw(tex,
+					mdo.offX + mdo.headX - tex.getRegionWidth()/2,
+					mdo.offY + mdo.headY - tex.getRegionHeight()/2);
+			batch.end();
+			batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		}
 	}
 

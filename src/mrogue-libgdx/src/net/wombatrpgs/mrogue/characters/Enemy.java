@@ -8,6 +8,7 @@ package net.wombatrpgs.mrogue.characters;
 
 import net.wombatrpgs.mrogue.characters.ai.BTNode;
 import net.wombatrpgs.mrogue.characters.ai.IntelligenceFactory;
+import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogueschema.characters.EnemyMDO;
 
@@ -37,8 +38,29 @@ public class Enemy extends CharacterEvent {
 	 */
 	@Override
 	public void act() {
-		if (unit.getStats().getHP() <= 0) return;
-		intelligence.getStatusAndAct();
+		if (unit.getStats().getHP() <= 0) {
+			this.ticksRemaining += 100000;
+			return;
+		} else {
+			intelligence.getStatusAndAct();
+		}
+	}
+	
+	/**
+	 * Adds itself to its parent map in a position not viewable by the hero.
+	 * This is kind of a dumb implementation that relies on rand, be warned.
+	 */
+	public void spawnUnseen() {
+		// 100 tries max
+		for (int i = 0; i < 100; i++) {
+			int tileX = MGlobal.rand.nextInt(parent.getWidth());
+			int tileY = MGlobal.rand.nextInt(parent.getHeight());
+			if (MGlobal.hero.inLoS(tileX, tileY)) continue;
+			if (!parent.isTilePassable(this, tileX, tileY)) continue;
+			parent.addEvent(this, tileX, tileY);
+			return;
+		}
+		MGlobal.reporter.warn("Waited 100 turns to spawn a " + this);
 	}
 
 }

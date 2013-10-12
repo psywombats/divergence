@@ -22,9 +22,13 @@ public class EffectLoSMDO extends EffectMDO {
 	@SchemaLink(ShaderMDO.class)
 	public String shader;
 	
-	@Desc("Texture/anim")
+	@Desc("Unseen texture")
 	@SchemaLink(AnimationMDO.class)
-	public String tex;
+	public String invisibleTex;
+	
+	@Desc("Never seen texture")
+	@SchemaLink(AnimationMDO.class)
+	public String unseenTex;
 	
 	@Desc("Fog velocity - in px/s")
 	public Integer velocity;

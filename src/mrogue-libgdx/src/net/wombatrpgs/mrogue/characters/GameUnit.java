@@ -27,6 +27,8 @@ public class GameUnit {
 	protected CharacterMDO mdo;
 	protected CharacterEvent parent;
 	
+	protected String name;
+	
 	protected Stats baseStats;
 	protected Stats currentStats;
 	
@@ -45,6 +47,12 @@ public class GameUnit {
 	
 	/** @return The current stats of this unit */
 	public Stats getStats() { return currentStats; }
+	
+	/** @return This unit's player-facing name */
+	public String getName() { return name; }
+	
+	/** @param This unit's new player-facing name */
+	public void setName(String name) { this.name = name; }
 	
 	/**
 	 * Launches a basic melee attack against the other unit.
@@ -76,18 +84,6 @@ public class GameUnit {
 	public void die() {
 		parent.getLevel().removeEvent(parent);
 		out.msg(getName() + " is killed.");
-	}
-	
-	/**
-	 * Gives this character its player-visible name.
-	 * @return					The name of this unit
-	 */
-	public String getName() {
-		if (parent == MGlobal.hero) {
-			return "the fearless hero";
-		} else {
-			return "the nameless moron";
-		}
 	}
 
 }

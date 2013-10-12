@@ -35,6 +35,8 @@ public class AnimationStrip implements 	Renderable,
 	protected Texture spritesheet;
 	protected TextureRegion[] frames;
 	protected TextureRegion currentFrame;
+	protected boolean queued;
+	protected boolean processed;
 	
 	protected float time;
 	protected float maxTime;
@@ -59,6 +61,8 @@ public class AnimationStrip implements 	Renderable,
 		if (mdo.hit1y == null) mdo.hit1y = 0;
 		if (mdo.hit2x == null) mdo.hit2x = mdo.frameWidth;
 		if (mdo.hit2y == null) mdo.hit2y = mdo.frameHeight;
+		queued = false;
+		processed = false;
 	}
 	
 	/**
@@ -82,6 +86,9 @@ public class AnimationStrip implements 	Renderable,
 	/** @return How many frames this anim goes through in a second */
 	public float getFPS() { return this.mdo.animSpeed; }
 	
+	/** @return The frame with the given ordinal */
+	public TextureRegion getFrame(int frame) { return frames[frame]; }
+	
 	/** @return The width (in px) of current frames */
 	public int getWidth() { return currentFrame.getRegionWidth(); }
 	
@@ -96,6 +103,9 @@ public class AnimationStrip implements 	Renderable,
 	 */
 	@Override
 	public void update(float elapsed) {
+		if (!processed) {
+			MGlobal.reporter.err("Unprocessed strip: " + this + ", key: " + mdo.key);
+		}
 		if (moving) {
 			time += elapsed;
 		}
@@ -120,6 +130,7 @@ public class AnimationStrip implements 	Renderable,
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
 		MGlobal.assetManager.load(Constants.SPRITES_DIR + mdo.file, Texture.class);
+		queued = true;
 	}
 
 	/**
@@ -156,8 +167,9 @@ public class AnimationStrip implements 	Renderable,
 				break;
 			}
 		} else {
-			MGlobal.reporter.warn("Spritesheet not loaded: " + filename);
+			MGlobal.reporter.err("Spritesheet not loaded: " + filename + " from " + this);
 		}
+		processed = true;
 		update(0);
 	}
 	

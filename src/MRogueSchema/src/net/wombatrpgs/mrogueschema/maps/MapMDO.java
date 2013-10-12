@@ -11,6 +11,7 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
+import net.wombatrpgs.mrogueschema.characters.MonsterGeneratorMDO;
 import net.wombatrpgs.mrogueschema.graphics.effects.EffectMDO;
 
 /**
@@ -30,6 +31,11 @@ public class MapMDO extends MainSchema {
 	@Desc("Generator - The algorithm that will be used to generate this map")
 	@SchemaLink(MapGeneratorMDO.class)
 	public String generator;
+	
+	@Desc("Enemy generator")
+	@SchemaLink(MonsterGeneratorMDO.class)
+	@Nullable
+	public String enemies;
 	
 	@Desc("Effect - graphical effect that plays on map, or none")
 	@SchemaLink(EffectMDO.class)

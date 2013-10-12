@@ -112,7 +112,7 @@ public class GridLayer extends Layer {
 		parent.getBatch().begin();
 		for (int x = 0; x < parent.getWidth(); x += 1) {
 			for (int y = 0; y < parent.getHeight(); y += 1) {
-				//if (!MGlobal.hero.inLoS(x, y)) continue;
+				//if (!MGlobal.hero.seen(x, y)) continue;
 				float atX = parent.getTileWidth() * x;
 				float atY = parent.getTileHeight() * y;
 				tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);

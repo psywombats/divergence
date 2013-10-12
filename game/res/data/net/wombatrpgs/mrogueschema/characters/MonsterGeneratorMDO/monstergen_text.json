@@ -1,0 +1,20 @@
+{
+	"key" : "monstergen_text",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"names" : [
+		{
+			"typeName" : "whatever",
+			"archetype" : "enemy_dummy"
+		}
+	],
+	"prefixes" : [
+		{
+			"prefix" : "brainless"
+		},
+		{
+			"prefix" : "spineless"
+		}
+	]
+}

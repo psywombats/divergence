@@ -13,8 +13,11 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.mrogue.characters.Enemy;
+import net.wombatrpgs.mrogue.characters.MonsterGenerator;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
+import net.wombatrpgs.mrogue.core.Turnable;
 import net.wombatrpgs.mrogue.graphics.effects.Effect;
 import net.wombatrpgs.mrogue.graphics.effects.EffectFactory;
 import net.wombatrpgs.mrogue.io.audio.MusicObject;
@@ -25,6 +28,7 @@ import net.wombatrpgs.mrogue.maps.layers.EventLayer;
 import net.wombatrpgs.mrogue.maps.layers.GridLayer;
 import net.wombatrpgs.mrogue.screen.Screen;
 import net.wombatrpgs.mrogue.screen.ScreenShowable;
+import net.wombatrpgs.mrogueschema.characters.MonsterGeneratorMDO;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
 import net.wombatrpgs.mrogueschema.maps.MapMDO;
 
@@ -44,7 +48,8 @@ import net.wombatrpgs.mrogueschema.maps.MapMDO;
  * (everything on it) will be empty.
  * Also note that there is only one z layer for objects.
  */
-public class Level implements ScreenShowable {
+public class Level implements	ScreenShowable,
+								Turnable {
 	
 	public static final int TILE_WIDTH = 32;
 	public static final int TILE_HEIGHT = 32;
@@ -86,6 +91,7 @@ public class Level implements ScreenShowable {
 	protected MapGenerator generator;
 	protected boolean moving;
 	protected float moveTime;
+	protected MonsterGenerator monsters;
 	
 	/**
 	 * Generates a level from the supplied level data.
@@ -106,6 +112,11 @@ public class Level implements ScreenShowable {
 		// etc
 		if (MapThing.mdoHasProperty(mdo.effect)) {
 			effect = EffectFactory.create(this, mdo.effect);
+			assets.add(effect);
+		}
+		if (MapThing.mdoHasProperty(mdo.enemies)) {
+			monsters = new MonsterGenerator(this, MGlobal.data.getEntryFor(mdo.enemies, MonsterGeneratorMDO.class));
+			assets.add(monsters);
 		}
 		paused = false;
 		reseting = false;
@@ -160,8 +171,13 @@ public class Level implements ScreenShowable {
 	/** @return The time remaining in the current move update, in s */
 	public float getMoveTimeLeft() { return moveTime; }
 	
+	/** @return The thing in charge of making monsters for us */
+	public MonsterGenerator getMonsterGenerator() { return monsters; }
+	
 	/** @return The time since the move started, in s */
 	public float getMoveTimeElapsed() { return MGlobal.constants.getDelay() - moveTime; }
+	
+	public int getPopulation() { return eventLayer.getEvents().size(); }
 	
 	/** @see net.wombatrpgs.mrogue.screen.ScreenShowable#ignoresTint() */
 	@Override public boolean ignoresTint() { return false; }
@@ -209,10 +225,6 @@ public class Level implements ScreenShowable {
 //			bgm.queueRequiredAssets(manager);
 //			assets.add(bgm);
 //		}
-		if (effect != null) {
-			effect.queueRequiredAssets(manager);
-			assets.add(effect);
-		}
 		for (Queueable asset : assets) {
 			asset.queueRequiredAssets(manager);
 		}
@@ -268,6 +280,14 @@ public class Level implements ScreenShowable {
 		
 	}
 	
+	/**
+	 * @see net.wombatrpgs.mrogue.core.Turnable#onTurn()
+	 */
+	@Override
+	public void onTurn() {
+		monsters.onTurn();
+	}
+
 	/**
 	 * Adds a grid layer to the level. This really shouldn't be called by
 	 * anyone but the map generator.
@@ -475,6 +495,15 @@ public class Level implements ScreenShowable {
 			if (object == other) return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Generates an enemy for this map.
+	 * @return					The enemy generated, or null if no generator
+	 */
+	public Enemy generateEnemy() {
+		if (monsters == null) return null;
+		return monsters.createEnemy();
 	}
 	
 	/**

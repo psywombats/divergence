@@ -7,7 +7,6 @@ import com.badlogic.gdx.ApplicationListener;
 
 public class MRogueGame implements ApplicationListener, FocusListener {
 	
-	private FocusReporter focusReporter;
 	private boolean paused;
 	
 	/**
@@ -17,8 +16,8 @@ public class MRogueGame implements ApplicationListener, FocusListener {
 	 */
 	public MRogueGame(FocusReporter focusReporter) {
 		super();
-		focusReporter.registerListener(this);
-		this.focusReporter = focusReporter;
+		//focusReporter.registerListener(this);
+		//this.focusReporter = focusReporter;
 		paused = false;
 		// Don't you dare do anything fancy in here
 	}
@@ -36,7 +35,7 @@ public class MRogueGame implements ApplicationListener, FocusListener {
 
 	@Override
 	public void render() {		
-		focusReporter.update();
+		//focusReporter.update();
 		if (!paused) {			
 			MGlobal.screens.render();
 		}

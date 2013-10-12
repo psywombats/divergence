@@ -30,6 +30,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 	protected ActStep step;
 	// to facilitate shader calls, viewtex is like a b/w image version of cache
 	protected boolean[][] viewCache;
+	protected boolean[][] seenCache;
 	protected Pixmap p;
 	protected Texture viewTex;
 
@@ -47,6 +48,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 	public Hero(Level parent, int tileX, int tileY) {
 		// TODO: Hero
 		super(MGlobal.data.getEntryFor(HERO_DEFAULT, HeroMDO.class), parent, tileX, tileY);
+		this.unit = new HeroUnit(mdo);
 		MGlobal.hero = this;
 		step = new ActStep(this);
 	}
@@ -68,6 +70,12 @@ public class Hero extends CharacterEvent implements CommandListener {
 	public void onAddedToMap(Level map) {
 		super.onAddedToMap(map);
 		viewCache = new boolean[map.getHeight()][map.getWidth()];
+		seenCache = new boolean[map.getHeight()][map.getWidth()];
+		for (int x = 0; x < map.getWidth(); x += 1) {
+			for (int y = 0; y < map.getHeight(); y += 1) {
+				seenCache[y][x] = false;
+			}
+		}
 		refreshVisibilityMap();
 	}
 
@@ -114,6 +122,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 		}
 		step.setDirection(dir);
 		step.act();
+		parent.onTurn();
 		refreshVisibilityMap();
 		ticksRemaining += step.getCost();
 		parent.startMoving();
@@ -131,12 +140,15 @@ public class Hero extends CharacterEvent implements CommandListener {
 		Pixmap.setBlending(Blending.None);
 		p.setColor(Color.BLACK);
 		p.fillRectangle(0, 0, parent.getWidth(), parent.getHeight());
-		p.setColor(Color.WHITE);
 		for (int x = 0; x < parent.getWidth(); x += 1) {
 			for (int y = 0; y < parent.getHeight(); y += 1) {
 				boolean result = super.inLoS(x, y);
 				viewCache[y][x] = result;
-				if (result) p.drawPixel(x, y);
+				if (result) seenCache[y][x] = true;
+				float r = result ? 1 : 0;
+				float g = seenCache[y][x] ? 1 : 0;
+				p.setColor(r, g, 0, 1);
+				p.drawPixel(x, y);
 			}
 		}
 		Pixmap.setBlending(Blending.SourceOver);
@@ -149,5 +161,15 @@ public class Hero extends CharacterEvent implements CommandListener {
 	 */
 	public Texture getVisibleData() {
 		return viewTex;
+	}
+	
+	/**
+	 * Checks if the hero has visited a particular tile on the map.
+	 * @param	tileX			The x-coord of the tile to check, in tiles
+	 * @param	tileY			The y-coord of the tile to check, in tiles
+	 * @return					True if tile was visited, false otherwise
+	 */
+	public boolean seen(int tileX, int tileY) {
+		return seenCache[tileY][tileX];
 	}
 }
