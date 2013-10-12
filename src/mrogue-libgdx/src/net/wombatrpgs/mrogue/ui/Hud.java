@@ -20,7 +20,7 @@ import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.graphics.Graphic;
 import net.wombatrpgs.mrogue.screen.ScreenShowable;
-import net.wombatrpgs.mrogueschema.maps.data.Direction;
+import net.wombatrpgs.mrogueschema.maps.data.OrthoDir;
 import net.wombatrpgs.mrogueschema.ui.HudMDO;
 import net.wombatrpgs.mrogueschema.ui.NumberSetMDO;
 
@@ -138,7 +138,7 @@ public class Hud implements ScreenShowable,
 	public void render(OrthographicCamera camera) {
 		// TODO: HUD
 		SpriteBatch batch = MGlobal.screens.peek().getUIBatch();
-		if (mdo.anchorDir == Direction.DOWN) {
+		if (mdo.anchorDir == OrthoDir.SOUTH) {
 			float mhp = MGlobal.hero.getStats().getMHP();
 			float hp = currentHPDisplay;
 //			float mmp = MGlobal.hero.getStats().getMSP();

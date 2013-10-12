@@ -9,7 +9,7 @@ package net.wombatrpgs.mrogue.characters.ai;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.wombatrpgs.mrogueschema.maps.data.Direction;
+import net.wombatrpgs.mrogueschema.maps.data.EightDir;
 
 /**
  * A partial path to a destination on a map. Only stores destination, not
@@ -18,7 +18,7 @@ import net.wombatrpgs.mrogueschema.maps.data.Direction;
 public class Path implements Comparable<Path> {
 	
 	/** How to get from the starting point to where we are now */
-	protected List<Direction> steps;
+	protected List<EightDir> steps;
 	
 	/** Where we're aiming for, in tiles */
 	protected int destX, destY;
@@ -35,7 +35,7 @@ public class Path implements Comparable<Path> {
 	 * @param 	atY			Where the search originates y in tiles
 	 */
 	public Path(int destX, int destY, int atX, int atY) {
-		this.steps = new ArrayList<Direction>();
+		this.steps = new ArrayList<EightDir>();
 		this.destX = destX;
 		this.destY = destY;
 		this.atX = atX;
@@ -51,7 +51,7 @@ public class Path implements Comparable<Path> {
 	 * @param 	fromX			Parent's current location x in tiles
 	 * @param 	fromY			Parent's current location y in tiles
 	 */
-	public Path(List<Direction> parent, Direction step, 
+	public Path(List<EightDir> parent, EightDir step, 
 			int destX, int destY, int fromX, int fromY) {
 		this(destX, destY, (int) (fromX + step.getVector().x),  (int) (fromY + step.getVector().y));
 		this.steps.addAll(parent);
@@ -63,7 +63,7 @@ public class Path implements Comparable<Path> {
 	 * @param 	parent			The path that spawned this one
 	 * @param 	step			The direction that this path forks
 	 */
-	public Path(Path parent, Direction step) {
+	public Path(Path parent, EightDir step) {
 		this(parent.steps, step, parent.destX, parent.destY, parent.atX, parent.atY);
 	}
 
@@ -79,7 +79,7 @@ public class Path implements Comparable<Path> {
 	}
 	
 	/** @return The steps to take to follow the path */
-	public List<Direction> getSteps() {
+	public List<EightDir> getSteps() {
 		return steps;
 	}
 	

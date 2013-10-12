@@ -10,7 +10,7 @@ import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
 import net.wombatrpgs.mrogueschema.graphics.AnimationMDO;
 import net.wombatrpgs.mrogueschema.graphics.FourDirMDO;
-import net.wombatrpgs.mrogueschema.maps.data.Direction;
+import net.wombatrpgs.mrogueschema.maps.data.OrthoDir;
 
 /**
  * A holder for four different animations that make up a character's up, right,
@@ -26,7 +26,7 @@ public class FourDir extends FacesAnimation {
 	 * @param 	parent			The parent this 4dir is tied to
 	 */
 	public FourDir(FourDirMDO mdo, MapEvent parent) {
-		super(parent, Direction.values().length);
+		super(parent, OrthoDir.values().length);
 		this.mdo = mdo;
 		sliceAnimations();
 		
@@ -49,13 +49,13 @@ public class FourDir extends FacesAnimation {
 	 */
 	@Override
 	protected void sliceAnimations() {
-		animations[Direction.DOWN.ordinal()] = new AnimationStrip(
+		animations[OrthoDir.SOUTH.ordinal()] = new AnimationStrip(
 				MGlobal.data.getEntryFor(mdo.downAnim, AnimationMDO.class), parent);
-		animations[Direction.UP.ordinal()] = new AnimationStrip(
+		animations[OrthoDir.NORTH.ordinal()] = new AnimationStrip(
 				MGlobal.data.getEntryFor(mdo.upAnim, AnimationMDO.class), parent);
-		animations[Direction.LEFT.ordinal()] = new AnimationStrip(
+		animations[OrthoDir.WEST.ordinal()] = new AnimationStrip(
 				MGlobal.data.getEntryFor(mdo.leftAnim, AnimationMDO.class), parent);
-		animations[Direction.RIGHT.ordinal()] = new AnimationStrip(
+		animations[OrthoDir.EAST.ordinal()] = new AnimationStrip(
 				MGlobal.data.getEntryFor(mdo.rightAnim, AnimationMDO.class), parent);
 	}
 	

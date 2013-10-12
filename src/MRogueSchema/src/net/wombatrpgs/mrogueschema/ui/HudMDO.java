@@ -11,7 +11,7 @@ import net.wombatrpgs.mgns.core.Annotations.FileLink;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
-import net.wombatrpgs.mrogueschema.maps.data.Direction;
+import net.wombatrpgs.mrogueschema.maps.data.OrthoDir;
 
 /**
  * A graphic that is display on top of the screen.
@@ -20,7 +20,7 @@ import net.wombatrpgs.mrogueschema.maps.data.Direction;
 public class HudMDO extends MainSchema {
 	
 	@Desc("Anchor side - graphic will be pinned to this side of the screen")
-	public Direction anchorDir;
+	public OrthoDir anchorDir;
 	
 	// Eventually stuff should go here about charas to track
 	

@@ -42,7 +42,6 @@ public class MoveStep extends Step {
 				float t = allotted - totalElapsed;
 				actor.setVelocity(dx / t, dy / t);
 				actor.targetLocation(targetX, targetY);
-				actor.faceTowardTile(tileX, tileY);
 			}
 		}
 	}

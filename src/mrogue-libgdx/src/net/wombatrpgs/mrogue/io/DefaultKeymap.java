@@ -41,6 +41,16 @@ public class DefaultKeymap extends Keymap {
 		map.put(Keys.LEFT, 		InputButton.LEFT);
 		map.put(Keys.RIGHT, 	InputButton.RIGHT);
 		
+		map.put(Keys.NUM_1,		InputButton.DIR_SW);
+		map.put(Keys.NUM_2,		InputButton.DIR_S);
+		map.put(Keys.NUM_3,		InputButton.DIR_SE);
+		map.put(Keys.NUM_4,		InputButton.DIR_W);
+		map.put(Keys.NUM_5,		InputButton.WAIT);
+		map.put(Keys.NUM_6,		InputButton.DIR_E);
+		map.put(Keys.NUM_7,		InputButton.DIR_NW);
+		map.put(Keys.NUM_8,		InputButton.DIR_N);
+		map.put(Keys.NUM_9,		InputButton.DIR_NE);
+		
 		// buttans
 		map.put(Keys.Z, 		InputButton.BUTTON_1);
 		map.put(Keys.SPACE, 	InputButton.BUTTON_1);

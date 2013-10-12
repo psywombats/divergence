@@ -3,7 +3,7 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : " ",
-	"anchorDir" : "DOWN",
+	"anchorDir" : "SOUTH",
 	"frameGraphic" : "hud_frame_temp.png",
 	"frameWidth" : 126,
 	"frameHeight" : 48,

@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.mrogue.core.Updateable;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
-import net.wombatrpgs.mrogueschema.maps.data.Direction;
+import net.wombatrpgs.mrogueschema.maps.data.OrthoDir;
 
 /**
  * Any animation used to represent a moving entity on the map. Generally it's
@@ -25,7 +25,7 @@ public abstract class FacesAnimation implements Renderable,
 	
 	protected static final float FLICKER_DURATION = .3f; // in s
 	
-	protected Direction currentDir;
+	protected OrthoDir currentDir;
 	protected MapEvent parent;
 	protected AnimationStrip[] animations;
 	protected int rangeX, rangeY;
@@ -41,7 +41,7 @@ public abstract class FacesAnimation implements Renderable,
 	public FacesAnimation(MapEvent parent, int facings) {
 		this.parent = parent;
 		this.facings = facings;
-		setFacing(Direction.DOWN);
+		setFacing(OrthoDir.SOUTH);
 		animations = new AnimationStrip[facings];
 		flickering = false;
 		time = 0;
@@ -50,10 +50,10 @@ public abstract class FacesAnimation implements Renderable,
 	}
 	
 	/** @return The direction currently facing */
-	public Direction getFacing() { return currentDir; }
+	public OrthoDir getFacing() { return currentDir; }
 	
 	/** @param dir The new current direction */
-	public void setFacing(Direction dir) { this.currentDir = dir; }
+	public void setFacing(OrthoDir dir) { this.currentDir = dir; }
 	
 	/**
 	 * The /real/ rendering method.

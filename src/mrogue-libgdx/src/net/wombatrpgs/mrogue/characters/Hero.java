@@ -18,7 +18,7 @@ import net.wombatrpgs.mrogue.io.CommandListener;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogueschema.characters.HeroMDO;
 import net.wombatrpgs.mrogueschema.io.data.InputCommand;
-import net.wombatrpgs.mrogueschema.maps.data.Direction;
+import net.wombatrpgs.mrogueschema.maps.data.EightDir;
 
 /**
  * Placeholder class for the protagonist player.
@@ -112,13 +112,17 @@ public class Hero extends CharacterEvent implements CommandListener {
 		if (parent.isMoving()) {
 			return;
 		}
-		Direction dir;
+		EightDir dir;
 		switch (command) {
-		case MOVE_DOWN:		dir = Direction.DOWN;	break;
-		case MOVE_LEFT:		dir = Direction.LEFT;	break;
-		case MOVE_RIGHT:	dir = Direction.RIGHT;	break;
-		case MOVE_UP:		dir = Direction.UP;		break;
-		default:			dir = null;				break;
+		case MOVE_NORTH:		dir = EightDir.NORTH;		break;
+		case MOVE_NORTHEAST:	dir = EightDir.NORTHEAST;	break;
+		case MOVE_EAST:			dir = EightDir.EAST;		break;
+		case MOVE_SOUTHEAST:	dir = EightDir.SOUTHEAST;	break;
+		case MOVE_SOUTH:		dir = EightDir.SOUTH;		break;
+		case MOVE_SOUTHWEST:	dir = EightDir.SOUTHWEST;	break;
+		case MOVE_WEST:			dir = EightDir.WEST;		break;
+		case MOVE_NORTHWEST:	dir = EightDir.NORTHWEST;	break;
+		default:				dir = null;					break;
 		}
 		step.setDirection(dir);
 		step.act();
@@ -172,4 +176,5 @@ public class Hero extends CharacterEvent implements CommandListener {
 	public boolean seen(int tileX, int tileY) {
 		return seenCache[tileY][tileX];
 	}
+	
 }

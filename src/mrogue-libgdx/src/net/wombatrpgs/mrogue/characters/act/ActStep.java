@@ -7,7 +7,7 @@
 package net.wombatrpgs.mrogue.characters.act;
 
 import net.wombatrpgs.mrogue.characters.CharacterEvent;
-import net.wombatrpgs.mrogueschema.maps.data.Direction;
+import net.wombatrpgs.mrogueschema.maps.data.EightDir;
 
 /**
  * Step in the appropriate direction, attacking whatever's there if necessary.
@@ -15,7 +15,7 @@ import net.wombatrpgs.mrogueschema.maps.data.Direction;
  */
 public class ActStep extends Action {
 	
-	protected Direction dir;
+	protected EightDir dir;
 	
 	/**
 	 * Creates a new step action with no direction. Direction must be set before
@@ -31,13 +31,13 @@ public class ActStep extends Action {
 	 * @param	actor			The chara that will be stepping
 	 * @param	dir				The direction to step in
 	 */
-	public ActStep(CharacterEvent actor, Direction dir) {
+	public ActStep(CharacterEvent actor, EightDir dir) {
 		this(actor);
 		this.dir = dir;
 	}
 	
 	/** @param dir The new direction to step in */
-	public void setDirection(Direction dir) { this.dir = dir; }
+	public void setDirection(EightDir dir) { this.dir = dir; }
 
 	/**
 	 * @see net.wombatrpgs.mrogue.characters.act.Action#act()

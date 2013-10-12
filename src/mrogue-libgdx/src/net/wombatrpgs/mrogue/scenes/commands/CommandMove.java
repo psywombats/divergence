@@ -17,7 +17,7 @@ import net.wombatrpgs.mrogue.maps.events.MapEvent;
 import net.wombatrpgs.mrogue.scenes.SceneCommand;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogueschema.maps.data.DirVector;
-import net.wombatrpgs.mrogueschema.maps.data.Direction;
+import net.wombatrpgs.mrogueschema.maps.data.EightDir;
 
 /**
  * A command to move a character a certain distance a certain direction,
@@ -121,7 +121,7 @@ public class CommandMove extends SceneCommand {
 				if (step.dir != null) {
 					if (CharacterEvent.class.isAssignableFrom(mapEvent.getClass())) { 
 						CharacterEvent event = (CharacterEvent) mapEvent;
-						event.setFacing(step.dir);
+						event.setFacing(step.dir.toOrtho(event.getFacing()));
 					} else {
 						MGlobal.reporter.warn("Tried to set dir of non-character: " + mapEvent);
 					}
@@ -162,16 +162,16 @@ public class CommandMove extends SceneCommand {
 				line = "";
 			}
 			
-			Direction dir = null;
-			if (dirString.equals(DIR_UP)) dir = Direction.UP;
-			if (dirString.equals(DIR_DOWN)) dir = Direction.DOWN;
-			if (dirString.equals(DIR_LEFT)) dir = Direction.LEFT;
-			if (dirString.equals(DIR_RIGHT)) dir = Direction.RIGHT;
+			EightDir dir = null;
+			if (dirString.equals(DIR_UP)) dir = EightDir.NORTH;
+			if (dirString.equals(DIR_DOWN)) dir = EightDir.SOUTH;
+			if (dirString.equals(DIR_LEFT)) dir = EightDir.WEST;
+			if (dirString.equals(DIR_RIGHT)) dir = EightDir.EAST;
 			if (dir == null) {
-				if (dirString.equals(FACEDIR_UP)) dir = Direction.UP;
-				if (dirString.equals(FACEDIR_DOWN)) dir = Direction.DOWN;
-				if (dirString.equals(FACEDIR_LEFT)) dir = Direction.LEFT;
-				if (dirString.equals(FACEDIR_RIGHT)) dir = Direction.RIGHT;
+				if (dirString.equals(FACEDIR_UP)) dir = EightDir.NORTH;
+				if (dirString.equals(FACEDIR_DOWN)) dir = EightDir.SOUTH;
+				if (dirString.equals(FACEDIR_LEFT)) dir = EightDir.WEST;
+				if (dirString.equals(FACEDIR_RIGHT)) dir = EightDir.EAST;
 				if (dir == null) MGlobal.reporter.warn("Non-dir string in move " +
 						"command" + dirString);
 				steps.add(0, new MoveStep(dir));
@@ -196,12 +196,12 @@ public class CommandMove extends SceneCommand {
 
 	public class MoveStep {
 		public int deltaX, deltaY;
-		public Direction dir;
+		public EightDir dir;
 		public MoveStep(int deltaX, int deltaY) {
 			this.deltaX = deltaX;
 			this.deltaY = deltaY;
 		}
-		public MoveStep(Direction dir) {
+		public MoveStep(EightDir dir) {
 			this.dir = dir;
 			deltaX = 0;
 			deltaY = 0;

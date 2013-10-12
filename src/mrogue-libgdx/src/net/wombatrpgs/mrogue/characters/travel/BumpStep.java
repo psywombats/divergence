@@ -8,7 +8,7 @@ package net.wombatrpgs.mrogue.characters.travel;
 
 import net.wombatrpgs.mrogue.characters.CharacterEvent;
 import net.wombatrpgs.mrogue.core.MGlobal;
-import net.wombatrpgs.mrogueschema.maps.data.Direction;
+import net.wombatrpgs.mrogueschema.maps.data.EightDir;
 
 /**
  * Bump into a wall or into a hostile enemy!!
@@ -18,7 +18,7 @@ public class BumpStep extends Step {
 	/** Pixels we jut out for bumping */
 	protected static final int BUMP_SIZE = 8;
 	
-	protected Direction dir;
+	protected EightDir dir;
 	protected float startX, startY;
 	boolean started, halfway;
 
@@ -27,7 +27,7 @@ public class BumpStep extends Step {
 	 * @param	actor			The dude doing the bumping
 	 * @param	dir				The direction of the bump
 	 */
-	public BumpStep(CharacterEvent actor, Direction dir) {
+	public BumpStep(CharacterEvent actor, EightDir dir) {
 		super(actor);
 		this.dir = dir;
 		started = false;
@@ -47,7 +47,7 @@ public class BumpStep extends Step {
 			started = true;
 			startX = actor.getX();
 			startY = actor.getY();
-			actor.setFacing(dir);
+			actor.setFacing(dir.toOrtho(actor.getFacing()));
 			float dx = dir.getVector().x * BUMP_SIZE;
 			float dy = dir.getVector().y * BUMP_SIZE;
 			float t = (allotted/2.f) - totalElapsed;

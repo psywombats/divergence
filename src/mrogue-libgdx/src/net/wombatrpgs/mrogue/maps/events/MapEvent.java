@@ -16,7 +16,7 @@ import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.MapThing;
 import net.wombatrpgs.mrogue.maps.PositionSetable;
 import net.wombatrpgs.mrogue.maps.layers.EventLayer;
-import net.wombatrpgs.mrogueschema.maps.data.Direction;
+import net.wombatrpgs.mrogueschema.maps.data.EightDir;
 
 /**
  * A map event is any map object defined in Tiled, including characters and
@@ -319,42 +319,30 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	 * @param 	event			The event to get direction towards
 	 * @return					The direction towards that event
 	 */
-	public Direction directionTo(MapEvent event) {
-		return directionTo(event.getX(), event.getY());
-	}
-	
-	/**
-	 * Calculates the direction towards some tile on the map.
-	 * @param	tileX			The x-coord to face towards (in tiles)
-	 * @param	tileY			The y-coord to face towards (in tiles)
-	 * @return					The direction to that tile
-	 */
-	public Direction directionToTile(int tileX, int tileY) {
-		return directionTo(tileX * parent.getTileWidth(), tileY * parent.getTileHeight());
+	public EightDir directionTo(MapEvent event) {
+		return directionTo(event.getTileX(), event.getTileY());
 	}
 	
 	/**
 	 * Calculates the direction towards some point on the map.
-	 * @param	x				The x-coord to face towards (in gamespace px)
-	 * @param	y				The y-coord to face towards (in gamespace px)
+	 * @param	tileX			The x-coord to face towards (in tiles)
+	 * @param	tileY			The y-coord to face towards (in tiles)
 	 * @return
 	 */
-	public Direction directionTo(float x, float y) {
-		float dx = x - this.getX();
-		float dy = y - this.getY();
-		if (Math.abs(dx) > Math.abs(dy)) {
-			if (dx > 0) {
-				return Direction.RIGHT;
-			} else {
-				return Direction.LEFT;
-			}
-		} else {
-			if (dy > 0) {
-				return Direction.UP;
-			} else {
-				return Direction.DOWN;
-			}
-		}
+	public EightDir directionTo(int tileX, int tileY) {
+		float dx = this.getTileX() - tileX;
+		float dy = this.getTileY() - tileY;
+		float a = (float) Math.atan2(dx, dy);
+		if (a <=  1f*Math.PI/8f && a >= -1f*Math.PI/8f) return EightDir.SOUTH;
+		if (a <= -1f*Math.PI/8f && a >= -3f*Math.PI/8f) return EightDir.SOUTHEAST;
+		if (a <= -3f*Math.PI/8f && a >= -5f*Math.PI/8f) return EightDir.EAST;
+		if (a <= -5f*Math.PI/8f && a >= -7f*Math.PI/8f) return EightDir.NORTHEAST;
+		if (a <= -7f*Math.PI/8f || a >=  7f*Math.PI/8f) return EightDir.NORTH;
+		if (a <=  7f*Math.PI/8f && a >=  5f*Math.PI/8f) return EightDir.NORTHWEST;
+		if (a <=  5f*Math.PI/8f && a >=  3f*Math.PI/8f) return EightDir.WEST;
+		if (a <=  3f*Math.PI/8f && a >=  1f*Math.PI/8f) return EightDir.SOUTHWEST;
+		MGlobal.reporter.warn("NaN or something in direction: " + a + " , " + dx + " , " + dy);
+		return EightDir.NORTH;
 	}
 	
 	/**

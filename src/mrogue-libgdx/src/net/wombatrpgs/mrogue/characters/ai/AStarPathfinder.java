@@ -15,7 +15,7 @@ import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
 import net.wombatrpgs.mrogueschema.maps.data.DirVector;
-import net.wombatrpgs.mrogueschema.maps.data.Direction;
+import net.wombatrpgs.mrogueschema.maps.data.EightDir;
 
 /**
  * Pathfinds towards a destination. Ooooh, spooky! It uses black magic to work
@@ -78,7 +78,7 @@ public class AStarPathfinder {
 	 * @param	actor			The event that will be pathing
 	 * @return					The steps to get to destination, or null if none
 	 */
-	public List<Direction> getPath(MapEvent actor) {
+	public List<EightDir> getPath(MapEvent actor) {
 		Queue<Path> queue = new PriorityQueue<Path>();
 		queue.add(new Path(toX, toY, fromX, fromY));
 		// I can't believe I'm making a 2D array like this
@@ -102,7 +102,7 @@ public class AStarPathfinder {
 					MGlobal.reporter.inform("Path found, expanded " + nodes);
 					return node.getSteps();
 				}
-				for (Direction dir : Direction.values()) {
+				for (EightDir dir : EightDir.values()) {
 					DirVector vec = dir.getVector();
 					int nextX = (int) (vec.x + node.getAtX());
 					int nextY = (int) (vec.y + node.getAtY());

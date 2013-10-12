@@ -36,10 +36,20 @@ public class TestCommandMap extends CommandMap {
 		upMap = new HashMap<InputButton, InputCommand>();
 		pressed = new ArrayList<InputButton>();
 		
-		downMap.put(InputButton.DOWN, 		InputCommand.MOVE_DOWN);
-		downMap.put(InputButton.LEFT, 		InputCommand.MOVE_LEFT);
-		downMap.put(InputButton.RIGHT, 		InputCommand.MOVE_RIGHT);
-		downMap.put(InputButton.UP, 		InputCommand.MOVE_UP);
+		downMap.put(InputButton.UP, 		InputCommand.MOVE_NORTH);
+		downMap.put(InputButton.RIGHT, 		InputCommand.MOVE_EAST);
+		downMap.put(InputButton.DOWN, 		InputCommand.MOVE_SOUTH);
+		downMap.put(InputButton.LEFT, 		InputCommand.MOVE_WEST);
+		
+		downMap.put(InputButton.DIR_N, 		InputCommand.MOVE_NORTH);
+		downMap.put(InputButton.DIR_NE, 	InputCommand.MOVE_NORTHEAST);
+		downMap.put(InputButton.DIR_E, 		InputCommand.MOVE_EAST);
+		downMap.put(InputButton.DIR_SE, 	InputCommand.MOVE_SOUTHEAST);
+		downMap.put(InputButton.DIR_S, 		InputCommand.MOVE_SOUTH);
+		downMap.put(InputButton.DIR_SW, 	InputCommand.MOVE_SOUTHWEST);
+		downMap.put(InputButton.DIR_W, 		InputCommand.MOVE_WEST);
+		downMap.put(InputButton.DIR_NW, 	InputCommand.MOVE_NORTHWEST);
+		
 		downMap.put(InputButton.MENU,		InputCommand.INTENT_EXIT);
 		downMap.put(InputButton.FULLSCREEN,	InputCommand.INTENT_FULLSCREEN);
 		

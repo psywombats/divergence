@@ -24,7 +24,8 @@ import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
 import net.wombatrpgs.mrogueschema.characters.CharacterMDO;
 import net.wombatrpgs.mrogueschema.graphics.DirMDO;
-import net.wombatrpgs.mrogueschema.maps.data.Direction;
+import net.wombatrpgs.mrogueschema.maps.data.EightDir;
+import net.wombatrpgs.mrogueschema.maps.data.OrthoDir;
 
 /**
  * A character event is an event with an MDO and an animation that looks kind of
@@ -89,7 +90,7 @@ public class CharacterEvent extends MapEvent {
 	}
 	
 	/** @return The cardinal direction the character is facing */
-	public Direction getFacing() {
+	public OrthoDir getFacing() {
 		return appearance.getFacing();
 	}
 	
@@ -97,7 +98,7 @@ public class CharacterEvent extends MapEvent {
 	 * Tells the animation to face a specific direction.
 	 * @param 	dir				The direction to face
 	 */
-	public void setFacing(Direction dir) {
+	public void setFacing(OrthoDir dir) {
 		if (appearance != null) {
 			appearance.setFacing(dir);
 		}
@@ -187,7 +188,7 @@ public class CharacterEvent extends MapEvent {
 	 * @param 	event			The object to face
 	 */
 	public void faceToward(MapEvent event) {
-		setFacing(directionTo(event));
+		faceToward(event.getTileX(), event.getTileY());
 	}
 	
 	/**
@@ -195,8 +196,8 @@ public class CharacterEvent extends MapEvent {
 	 * @param	tileX			The x-coord of the tile to face (in tiles)
 	 * @param	tileY			The y-coord of the tile to face (in tiles)
 	 */
-	public void faceTowardTile(int tileX, int tileY) {
-		setFacing(directionToTile(tileX, tileY));
+	public void faceToward(int tileX, int tileY) {
+		setFacing(directionTo(tileX, tileY).toOrtho(getFacing()));
 	}
 	
 	/**
@@ -204,7 +205,7 @@ public class CharacterEvent extends MapEvent {
 	 * @param	event			The object to face away from
 	 */
 	public void faceAway(MapEvent event) {
-		setFacing(Direction.getOpposite(directionTo(event)));
+		setFacing(EightDir.getOpposite(directionTo(event)).toOrtho(getFacing()));
 	}
 	
 	/**
@@ -259,15 +260,15 @@ public class CharacterEvent extends MapEvent {
 		float dy = tileY*parent.getTileHeight() - y;
 		if (Math.abs(dx) > Math.abs(dy)) {
 			if (dx > 0) {
-				setFacing(Direction.RIGHT);
+				setFacing(OrthoDir.EAST);
 			} else if (dx < 0) {
-				setFacing(Direction.LEFT);
+				setFacing(OrthoDir.WEST);
 			}
 		} else {
 			if (dy < 0) {
-				setFacing(Direction.DOWN);
+				setFacing(OrthoDir.SOUTH);
 			} else if (dy > 0) {
-				setFacing(Direction.UP);
+				setFacing(OrthoDir.NORTH);
 			}
 		}
 	}
@@ -281,12 +282,13 @@ public class CharacterEvent extends MapEvent {
 	 * @param	targetY			The target location y-coord, in pixels
 	 */
 	public void attemptStep(int targetX, int targetY) {
+		faceToward(targetX, targetY);
 		if (parent.isTilePassable(this, targetX, targetY)) {
 			List<MapEvent> events = parent.getEventsAt(targetX, targetY);
 			boolean colliding = false;
 			for (MapEvent event : events) {
 				if (!event.isPassable()) {
-					travelPlan.add(new BumpStep(this, directionToTile(targetX, targetY)));
+					travelPlan.add(new BumpStep(this, directionTo(targetX, targetY)));
 					event.collideWith(this);
 					colliding = true;
 				}
@@ -297,7 +299,7 @@ public class CharacterEvent extends MapEvent {
 				tileY = targetY;
 			}
 		} else {
-			travelPlan.add(new BumpStep(this, directionToTile(targetX, targetY)));
+			travelPlan.add(new BumpStep(this, directionTo(targetX, targetY)));
 		}
 	}
 	
@@ -305,7 +307,7 @@ public class CharacterEvent extends MapEvent {
 	 * Attempts to step in a particular direction
 	 * @param	dir				The direction to step.
 	 */
-	public void attemptStep(Direction dir) {
+	public void attemptStep(OrthoDir dir) {
 		int targetX = (int) (tileX + dir.getVector().x);
 		int targetY = (int) (tileY + dir.getVector().y);
 		attemptStep(targetX, targetY);

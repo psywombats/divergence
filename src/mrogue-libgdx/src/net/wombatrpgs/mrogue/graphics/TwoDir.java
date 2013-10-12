@@ -10,7 +10,7 @@ import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
 import net.wombatrpgs.mrogueschema.graphics.AnimationMDO;
 import net.wombatrpgs.mrogueschema.graphics.TwoDirMDO;
-import net.wombatrpgs.mrogueschema.maps.data.Direction;
+import net.wombatrpgs.mrogueschema.maps.data.OrthoDir;
 
 /**
  * The same thing as a FourDir, but with a left/right facing only.
@@ -36,14 +36,14 @@ public class TwoDir extends FacesAnimation {
 
 	/**
 	 * @see net.wombatrpgs.mrogue.graphics.FacesAnimation#setFacing
-	 * (net.wombatrpgs.mrogueschema.maps.data.Direction)
+	 * (net.wombatrpgs.mrogueschema.maps.data.OrthoDir)
 	 */
 	@Override
-	public void setFacing(Direction dir) {
+	public void setFacing(OrthoDir dir) {
 		super.setFacing(dir);
-		if (dir == Direction.LEFT) {
+		if (dir == OrthoDir.WEST) {
 			effectiveIndex = LEFT_INDEX;
-		} else if (dir == Direction.RIGHT) {
+		} else if (dir == OrthoDir.EAST) {
 			effectiveIndex = RIGHT_INDEX;
 		}
 	}

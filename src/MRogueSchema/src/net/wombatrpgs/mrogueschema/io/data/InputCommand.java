@@ -13,10 +13,14 @@ package net.wombatrpgs.mrogueschema.io.data;
  */
 public enum InputCommand {
 
-	MOVE_UP,
-	MOVE_DOWN,
-	MOVE_LEFT,
-	MOVE_RIGHT,
+	MOVE_NORTH,
+	MOVE_NORTHEAST,
+	MOVE_EAST,
+	MOVE_SOUTHEAST,
+	MOVE_SOUTH,
+	MOVE_SOUTHWEST,
+	MOVE_WEST,
+	MOVE_NORTHWEST,
 	
 	INTENT_CONFIRM,
 	INTENT_CANCEL,
