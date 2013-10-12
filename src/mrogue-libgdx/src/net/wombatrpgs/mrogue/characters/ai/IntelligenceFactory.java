@@ -15,11 +15,13 @@ import java.util.List;
 import net.wombatrpgs.mrogue.characters.CharacterEvent;
 import net.wombatrpgs.mrogue.characters.act.ActStepHero;
 import net.wombatrpgs.mrogue.characters.act.ActWait;
+import net.wombatrpgs.mrogue.characters.act.ActWander;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogueschema.characters.ai.BehaviorListMDO;
 import net.wombatrpgs.mrogueschema.characters.ai.data.ActionMDO;
 import net.wombatrpgs.mrogueschema.characters.ai.data.IntelligenceMDO;
 import net.wombatrpgs.mrogueschema.characters.ai.intent.ActionHeroStepMDO;
+import net.wombatrpgs.mrogueschema.characters.ai.intent.ActionWanderMDO;
 import net.wombatrpgs.mrogueschema.characters.ai.intent.IntentMDO;
 
 /**
@@ -68,7 +70,7 @@ public class IntelligenceFactory {
 		List<IntentMDO> intents = new ArrayList<IntentMDO>(Arrays.asList(mdo.intents));
 		Collections.sort(intents, new Comparator<IntentMDO>() {
 			@Override public int compare(IntentMDO mdo1, IntentMDO mdo2) {
-				return mdo1.priority - mdo2.priority;
+				return mdo2.priority - mdo1.priority;
 			}
 		});
 		BTSelector selector = new BTSelector(actor);
@@ -102,6 +104,8 @@ public class IntelligenceFactory {
 			});
 			seq.addChild(new BTAction(actor, new ActStepHero(actor), true));
 			return seq;
+		} else if (ActionWanderMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new BTAction(actor, new ActWander(actor), true);
 		} else {
 			MGlobal.reporter.warn("Unknown intent mdo: " + mdo);
 			return null;

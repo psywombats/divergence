@@ -235,6 +235,13 @@ public class Hud implements ScreenShowable,
 		return graphic;
 	}
 	
+	/**
+	 * Forces the HUD to update its numerical displays.
+	 */
+	public void forceReset() {
+		currentHPDisplay = MGlobal.hero.getStats().getHP();
+	}
+	
 	/** A huge awful method for HP bars */
 	private void renderBar(OrthographicCamera camera, SpriteBatch batch,
 			Graphic base, Graphic rib, Graphic tail, int startX, int startY,

@@ -113,23 +113,24 @@ public class Hero extends CharacterEvent implements CommandListener {
 			return;
 		}
 		EightDir dir;
-		switch (command) {
-		case MOVE_NORTH:		dir = EightDir.NORTH;		break;
-		case MOVE_NORTHEAST:	dir = EightDir.NORTHEAST;	break;
-		case MOVE_EAST:			dir = EightDir.EAST;		break;
-		case MOVE_SOUTHEAST:	dir = EightDir.SOUTHEAST;	break;
-		case MOVE_SOUTH:		dir = EightDir.SOUTH;		break;
-		case MOVE_SOUTHWEST:	dir = EightDir.SOUTHWEST;	break;
-		case MOVE_WEST:			dir = EightDir.WEST;		break;
-		case MOVE_NORTHWEST:	dir = EightDir.NORTHWEST;	break;
-		default:				dir = null;					break;
+		if (command == InputCommand.MOVE_WAIT) {
+			actAndWait(defaultWait);
+		} else {
+			switch (command) {
+			case MOVE_NORTH:		dir = EightDir.NORTH;		break;
+			case MOVE_NORTHEAST:	dir = EightDir.NORTHEAST;	break;
+			case MOVE_EAST:			dir = EightDir.EAST;		break;
+			case MOVE_SOUTHEAST:	dir = EightDir.SOUTHEAST;	break;
+			case MOVE_SOUTH:		dir = EightDir.SOUTH;		break;
+			case MOVE_SOUTHWEST:	dir = EightDir.SOUTHWEST;	break;
+			case MOVE_WEST:			dir = EightDir.WEST;		break;
+			case MOVE_NORTHWEST:	dir = EightDir.NORTHWEST;	break;
+			default:				dir = null;					break;
+			}
+			step.setDirection(dir);
+			actAndWait(step);
 		}
-		step.setDirection(dir);
-		step.act();
 		parent.onTurn();
-		refreshVisibilityMap();
-		ticksRemaining += step.getCost();
-		parent.startMoving();
 	}
 	
 	/**

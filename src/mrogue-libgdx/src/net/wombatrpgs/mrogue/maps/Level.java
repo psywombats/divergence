@@ -286,6 +286,9 @@ public class Level implements	ScreenShowable,
 	@Override
 	public void onTurn() {
 		monsters.onTurn();
+		MGlobal.ui.getHud().forceReset();
+		MGlobal.hero.refreshVisibilityMap();
+		startMoving();
 	}
 
 	/**

@@ -49,6 +49,7 @@ public class TestCommandMap extends CommandMap {
 		downMap.put(InputButton.DIR_SW, 	InputCommand.MOVE_SOUTHWEST);
 		downMap.put(InputButton.DIR_W, 		InputCommand.MOVE_WEST);
 		downMap.put(InputButton.DIR_NW, 	InputCommand.MOVE_NORTHWEST);
+		downMap.put(InputButton.WAIT,		InputCommand.MOVE_WAIT);
 		
 		downMap.put(InputButton.MENU,		InputCommand.INTENT_EXIT);
 		downMap.put(InputButton.FULLSCREEN,	InputCommand.INTENT_FULLSCREEN);
