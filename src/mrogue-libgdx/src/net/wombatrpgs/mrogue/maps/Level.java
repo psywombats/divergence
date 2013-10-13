@@ -124,6 +124,10 @@ public class Level implements	ScreenShowable,
 		moving = false;
 		
 		// map gen!
+		if (MGlobal.hero == null) {
+			MGlobal.hero = new Hero(this, 0, 0);
+			assets.add(MGlobal.hero);
+		}
 		eventLayer = new EventLayer(this);
 		assets.add(eventLayer);
 		this.generator = MapGeneratorFactory.createGenerator(
@@ -132,11 +136,6 @@ public class Level implements	ScreenShowable,
 		assets.add(generator);
 		this.mapWidth = mdo.mapWidth;
 		this.mapHeight = mdo.mapHeight;
-		if (MGlobal.hero == null) {
-			MGlobal.hero = new Hero(this, 0, 0);
-			assets.add(MGlobal.hero);
-			addEvent(MGlobal.hero);
-		}
 	}
 	
 	/** @return The batch used to render sprites on this map */
@@ -254,6 +253,7 @@ public class Level implements	ScreenShowable,
 			MGlobal.hero.setTileX(MGlobal.rand.nextInt(getWidth()));
 			MGlobal.hero.setTileY(MGlobal.rand.nextInt(getHeight()));
 		}
+		addEvent(MGlobal.hero);
 		MGlobal.hero.setX(MGlobal.hero.getTileX()*getTileWidth());
 		MGlobal.hero.setY(MGlobal.hero.getTileY()*getTileHeight());
 		MGlobal.levelManager.screen.getCamera().track(MGlobal.hero);

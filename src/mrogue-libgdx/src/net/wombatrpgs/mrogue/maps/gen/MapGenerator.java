@@ -22,7 +22,9 @@ import net.wombatrpgs.mrogue.maps.gen.dec.Decorator;
 import net.wombatrpgs.mrogue.maps.gen.dec.DecoratorFactory;
 import net.wombatrpgs.mrogue.maps.layers.GridLayer;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
+import net.wombatrpgs.mrogueschema.maps.TileMDO;
 import net.wombatrpgs.mrogueschema.maps.data.TileType;
+import net.wombatrpgs.mrogueschema.maps.data.WallTilesMDO;
 import net.wombatrpgs.mrogueschema.maps.decorators.data.DecoratorMDO;
 
 /**
@@ -54,10 +56,17 @@ public abstract class MapGenerator implements Queueable {
 		this.assets = new ArrayList<Queueable>();
 		this.tileMap = new HashMap<TileType, Tile>();
 		this.decorators = new ArrayList<Decorator>();
-		tileMap.put(TileType.FLOOR, MGlobal.tiles.getTile(mdo.floorTiles, TileType.FLOOR));
-		tileMap.put(TileType.CEILING, MGlobal.tiles.getTile(mdo.ceilingTiles, TileType.CEILING));
-		tileMap.put(TileType.WALL_UPPER, MGlobal.tiles.getTile(mdo.wallTiles.upper, TileType.WALL_UPPER));
-		tileMap.put(TileType.WALL_LOWER, MGlobal.tiles.getTile(mdo.wallTiles.lower, TileType.WALL_LOWER));
+		addTile(mdo.floorTiles, TileType.FLOOR);
+		addTile(mdo.ceilingTiles, TileType.CEILING);
+		WallTilesMDO walls = MGlobal.data.getEntryFor(mdo.wallTiles, WallTilesMDO.class);
+		addTile(walls.b, TileType.WALL_BOTTOM);
+		addTile(walls.t, TileType.WALL_TOP);
+		addTile(walls.br, TileType.WALL_BRIGHT);
+		addTile(walls.bl, TileType.WALL_BLEFT);
+		addTile(walls.tr, TileType.WALL_TRIGHT);
+		addTile(walls.tl, TileType.WALL_TLEFT);
+		addTile(walls.tm, TileType.WALL_TMID);
+		addTile(walls.bm, TileType.WALL_BMID);
 		for (String key : mdo.decorators) {
 			DecoratorMDO decMDO = MGlobal.data.getEntryFor(key, DecoratorMDO.class);
 			decorators.add(DecoratorFactory.createDecor(decMDO, this));
@@ -65,7 +74,7 @@ public abstract class MapGenerator implements Queueable {
 		assets.addAll(decorators);
 		
 		r = new Random();
-		r.setSeed(MGlobal.rand.nextLong());
+		r.setSeed(1);
 	}
 	
 	/** @return The width of this map, in tiles */
@@ -169,24 +178,41 @@ public abstract class MapGenerator implements Queueable {
 	}
 	
 	/**
+	 * Registers a tile to be converted later. It's a tile table thing.
+	 * @param	tileMDO			The tile to set
+	 * @param	type			The type of tile to replace
+	 */
+	protected void addTile(TileMDO tileMDO, TileType type) {
+		tileMap.put(type, MGlobal.tiles.getTile(tileMDO, type));
+	}
+	
+	/**
 	 * Turns ceiling into wall based on passability of surrounding tiles.
 	 * @param	types			The type array to work with
 	 */
 	protected void applyWalls(TileType[][] types) {
 		for (int x = 0; x < parent.getWidth(); x += 1) {
 			for (int y = 0; y < parent.getHeight(); y += 1) {
+				if (x == 22 && y == 18) {
+					System.out.println();
+				}
 				if (isPassable(types, x, y-1) &&
 						isType(types, TileType.CEILING, x, y) &&
 						isType(types, TileType.CEILING, x, y+1) &&
 						isType(types, TileType.CEILING, x, y+2)) {
-					types[y][x] = TileType.WALL_LOWER;
-				}
-			}
-		}
-		for (int x = 0; x < parent.getWidth(); x += 1) {
-			for (int y = 0; y < parent.getHeight(); y += 1) {
-				if (isType(types, TileType.WALL_LOWER, x, y-1)) {
-					types[y][x] = TileType.WALL_UPPER;
+					if (isPassable(types, x-1, y) && isPassable(types, x+1, y)) {
+						types[y+1][x] = TileType.WALL_TMID;
+						types[y][x] = TileType.WALL_BMID;
+					} else if (isPassable(types, x-1, y)) {
+						types[y+1][x] = TileType.WALL_TLEFT;
+						types[y][x] = TileType.WALL_BLEFT;
+					} else if (isPassable(types, x+1, y)) {
+						types[y+1][x] = TileType.WALL_TRIGHT;
+						types[y][x] = TileType.WALL_BRIGHT;
+					} else {
+						types[y+1][x] = TileType.WALL_TOP;
+						types[y][x] = TileType.WALL_BOTTOM;
+					}
 				}
 			}
 		}
@@ -200,9 +226,11 @@ public abstract class MapGenerator implements Queueable {
 	protected void purgeFloatingWalls(TileType[][] types, TileType value) {
 		for (int x = 0; x < parent.getWidth(); x += 1) {
 			for (int y = 0; y < parent.getHeight(); y += 1) {
-				if (isType(types, TileType.CEILING, x, y) &&
-						(isPassable(types, x, y-1) || isPassable(types, x, y-2))) {
-					types[y][x] = value;
+				if (isType(types, TileType.CEILING, x, y) && (
+						(isPassable(types, x, y-1) && isPassable(types, x, y+1)) ||
+						(isPassable(types, x, y-1) && isPassable(types, x, y+2)) ||
+						(isPassable(types, x, y-2) && isPassable(types, x, y+1)))) {
+					types[y][x] = TileType.FLOOR;
 				}
 			}
 		}

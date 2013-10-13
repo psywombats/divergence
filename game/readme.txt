@@ -24,6 +24,5 @@ things I'll actually start working from Dropbox and everyone can mess around
 with the database editor and break stuff and it'll be awesome.
 
 SO FAR:
-Well uh so far there's a map thing and you can move. I'm still overhauling the
-engine from an ABS to a dungeon crawl. If that sounds crazy it's because it is.
-Oh, there's a narrator and a cool formal AI system now.
+There's a map. You can run around on it and get yourself killed. It's randomly
+generated every time. ...just play it, it's awesome.

@@ -6,30 +6,30 @@
 	"chance" : 0.02,
 	"original" : "FLOOR",
 	"ul" : {
-		"appearance" : "carpettopleft03.png"
+		"appearance" : "carpettopleft04.png"
 	},
 	"u" : {
-		"appearance" : "carpettop03.png"
+		"appearance" : "carpettop04.png"
 	},
 	"ur" : {
-		"appearance" : "carpettopright03.png"
+		"appearance" : "carpettopright04.png"
 	},
 	"r" : {
-		"appearance" : "carpetright03.png"
+		"appearance" : "carpetright04.png"
 	},
 	"c" : {
-		"appearance" : "carpetmiddle03.png"
+		"appearance" : "carpetmiddle04.png"
 	},
 	"l" : {
-		"appearance" : "carpetleft03.png"
+		"appearance" : "carpetleft04.png"
 	},
 	"br" : {
-		"appearance" : "carpetbottomright03.png"
+		"appearance" : "carpetbottomright04.png"
 	},
 	"b" : {
-		"appearance" : "carpetbottom03.png"
+		"appearance" : "carpetbottom04.png"
 	},
 	"bl" : {
-		"appearance" : "carpetbottomleft03.png"
+		"appearance" : "carpetbottomleft04.png"
 	}
 }

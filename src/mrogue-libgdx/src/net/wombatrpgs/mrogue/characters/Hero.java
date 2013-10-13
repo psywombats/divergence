@@ -95,6 +95,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 	 */
 	@Override
 	public boolean inLoS(int targetX, int targetY) {
+		if (viewCache == null) return false;
 		return viewCache[targetY][targetX];
 	}
 

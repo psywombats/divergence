@@ -27,8 +27,8 @@ public class MapGeneratorMDO extends MainSchema {
 	public TileMDO floorTiles;
 
 	@Desc("Wall tile(s)")
-	@InlineSchema(WallTilesMDO.class)
-	public WallTilesMDO wallTiles;
+	@SchemaLink(WallTilesMDO.class)
+	public String wallTiles;
 	
 	@Desc("Ceiling tile(s)")
 	@InlineSchema(TileMDO.class)

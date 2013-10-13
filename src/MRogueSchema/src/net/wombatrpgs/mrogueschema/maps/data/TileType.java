@@ -14,8 +14,14 @@ public enum TileType {
 	
 	FLOOR		(true,	true),
 	CEILING		(false, false),
-	WALL_UPPER	(false,	true),
-	WALL_LOWER	(false, true);
+	WALL_TLEFT	(false, true),
+	WALL_BLEFT	(false, true),
+	WALL_TOP	(false,	true),
+	WALL_BOTTOM	(false, true),
+	WALL_TRIGHT	(false, true),
+	WALL_BRIGHT	(false, true),
+	WALL_TMID	(false, true),
+	WALL_BMID	(false, true);
 	
 	private boolean passable;
 	private boolean transparent;

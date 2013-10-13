@@ -64,8 +64,8 @@ public class ClassicGenerator extends MapGenerator {
 			}
 			gen += 1;
 		}
-		applyWalls(types);
 		purgeFloatingWalls(types, TileType.FLOOR);
+		applyWalls(types);
 		addLayer(types, 0);
 	}
 

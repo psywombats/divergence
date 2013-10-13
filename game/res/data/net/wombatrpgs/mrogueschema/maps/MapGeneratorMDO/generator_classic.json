@@ -6,14 +6,7 @@
 	"floorTiles" : {
 		"appearance" : "tile_floor.png"
 	},
-	"wallTiles" : {
-		"upper" : {
-			"appearance" : "stonebrick_top.png"
-		},
-		"lower" : {
-			"appearance" : "stonebrick_bottom.png"
-		}
-	},
+	"wallTiles" : "wall_woodish",
 	"ceilingTiles" : {
 		"appearance" : "stonesquare.png"
 	},

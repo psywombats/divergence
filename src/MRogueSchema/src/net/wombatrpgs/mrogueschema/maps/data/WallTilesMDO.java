@@ -8,20 +8,46 @@ package net.wombatrpgs.mrogueschema.maps.data;
 
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
-import net.wombatrpgs.mgns.core.HeadlessSchema;
+import net.wombatrpgs.mgns.core.Annotations.Path;
+import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mrogueschema.maps.TileMDO;
 
 /**
  * Wall tiles that make up a wall.
  */
-public class WallTilesMDO extends HeadlessSchema {
+@Path("maps/")
+public class WallTilesMDO extends MainSchema {
 	
-	@Desc("Upper tile")
+	@Desc("Bottom tile")
 	@InlineSchema(TileMDO.class)
-	public TileMDO upper;
+	public TileMDO b;
 	
-	@Desc("Lower tile")
+	@Desc("Top tile")
 	@InlineSchema(TileMDO.class)
-	public TileMDO lower;
+	public TileMDO t;
+	
+	@Desc("Bottom pillar tile")
+	@InlineSchema(TileMDO.class)
+	public TileMDO bm;
+	
+	@Desc("Top pillar tile")
+	@InlineSchema(TileMDO.class)
+	public TileMDO tm;
+	
+	@Desc("Bottom right tile")
+	@InlineSchema(TileMDO.class)
+	public TileMDO br;
+	
+	@Desc("Top right tile")
+	@InlineSchema(TileMDO.class)
+	public TileMDO tr;
+	
+	@Desc("Bottom left tile")
+	@InlineSchema(TileMDO.class)
+	public TileMDO bl;
+	
+	@Desc("Top left tile")
+	@InlineSchema(TileMDO.class)
+	public TileMDO tl;
 
 }
