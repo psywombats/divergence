@@ -5,7 +5,7 @@
 	"description" : "",
 	"mapWidth" : 200,
 	"mapHeight" : 200,
-	"generator" : "generator_test",
-	"enemies" : "monstergen_all",
+	"generator" : "generator_graphicstest",
+	"enemies" : "monstergen_default",
 	"effect" : "effect_los"
 }

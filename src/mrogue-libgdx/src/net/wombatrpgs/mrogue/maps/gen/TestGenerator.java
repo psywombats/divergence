@@ -10,8 +10,8 @@ import net.wombatrpgs.mrogue.characters.Hero;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Tile;
-import net.wombatrpgs.mrogue.maps.TileType;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
+import net.wombatrpgs.mrogueschema.maps.data.TileType;
 
 /**
  * The most basic generator!
@@ -36,10 +36,10 @@ public class TestGenerator extends MapGenerator {
 		int h = parent.getHeight();
 		TileType types[][] = new TileType[h][w];
 		fillRect(types, TileType.CEILING, 0, 0, w-1, h-1);
-		carve(types, TileType.FLOOR, 0,		0,		w-1,	0);
-		carve(types, TileType.FLOOR, w-1,	0,		w-1,	h-1);
-		carve(types, TileType.FLOOR, w-1,	h-1,	0,		h-1);
-		carve(types, TileType.FLOOR, 0,		h-1,	0,		0);
+		carve(types, TileType.FLOOR, 0,		0,		w-1,	0,		Halt.NONE);
+		carve(types, TileType.FLOOR, w-1,	0,		w-1,	h-1,	Halt.NONE);
+		carve(types, TileType.FLOOR, w-1,	h-1,	0,		h-1,	Halt.NONE);
+		carve(types, TileType.FLOOR, 0,		h-1,	0,		0,		Halt.NONE);
 		
 		Tile tiles[][] = new Tile[h][w];
 		applyWalls(types);

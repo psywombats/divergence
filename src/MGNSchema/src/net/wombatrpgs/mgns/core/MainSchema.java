@@ -37,4 +37,13 @@ public class MainSchema extends Schema {
 	@Header
 	public String description;
 
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		if (key != null) return key + "(" + super.toString() + ")";
+		else return super.toString();
+	}
+
 }

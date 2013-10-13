@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mrogue.characters.Enemy;
+import net.wombatrpgs.mrogue.characters.Hero;
 import net.wombatrpgs.mrogue.characters.MonsterGenerator;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
@@ -23,14 +24,14 @@ import net.wombatrpgs.mrogue.graphics.effects.EffectFactory;
 import net.wombatrpgs.mrogue.io.audio.MusicObject;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
 import net.wombatrpgs.mrogue.maps.gen.MapGenerator;
-import net.wombatrpgs.mrogue.maps.gen.TestGenerator;
+import net.wombatrpgs.mrogue.maps.gen.MapGeneratorFactory;
 import net.wombatrpgs.mrogue.maps.layers.EventLayer;
 import net.wombatrpgs.mrogue.maps.layers.GridLayer;
 import net.wombatrpgs.mrogue.screen.Screen;
 import net.wombatrpgs.mrogue.screen.ScreenShowable;
-import net.wombatrpgs.mrogueschema.characters.MonsterGeneratorMDO;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
 import net.wombatrpgs.mrogueschema.maps.MapMDO;
+import net.wombatrpgs.mrogueschema.maps.MonsterGeneratorMDO;
 
 /**
  * A Level is comprised of a .tmx tiled map background and a bunch of events
@@ -125,11 +126,17 @@ public class Level implements	ScreenShowable,
 		// map gen!
 		eventLayer = new EventLayer(this);
 		assets.add(eventLayer);
-		this.generator = new TestGenerator(MGlobal.data.getEntryFor(mdo.generator, MapGeneratorMDO.class), this);
+		this.generator = MapGeneratorFactory.createGenerator(
+				MGlobal.data.getEntryFor(mdo.generator, MapGeneratorMDO.class),
+				this);
 		assets.add(generator);
 		this.mapWidth = mdo.mapWidth;
 		this.mapHeight = mdo.mapHeight;
-		generator.generateMe();
+		if (MGlobal.hero == null) {
+			MGlobal.hero = new Hero(this, 0, 0);
+			assets.add(MGlobal.hero);
+			addEvent(MGlobal.hero);
+		}
 	}
 	
 	/** @return The batch used to render sprites on this map */
@@ -239,6 +246,19 @@ public class Level implements	ScreenShowable,
 		for (Queueable asset : assets) {
 			asset.postProcessing(manager, pass);
 		}
+		generator.generateMe();
+		if (monsters != null) {
+			monsters.spawnToDensity();
+		}
+		while (!isTilePassable(MGlobal.hero, MGlobal.hero.getTileX(), MGlobal.hero.getTileY())) {
+			MGlobal.hero.setTileX(MGlobal.rand.nextInt(getWidth()));
+			MGlobal.hero.setTileY(MGlobal.rand.nextInt(getHeight()));
+		}
+		MGlobal.hero.setX(MGlobal.hero.getTileX()*getTileWidth());
+		MGlobal.hero.setY(MGlobal.hero.getTileY()*getTileHeight());
+		MGlobal.levelManager.screen.getCamera().track(MGlobal.hero);
+		MGlobal.levelManager.screen.getCamera().update(0);
+		MGlobal.hero.refreshVisibilityMap();
 	}
 	
 	/**
@@ -285,7 +305,9 @@ public class Level implements	ScreenShowable,
 	 */
 	@Override
 	public void onTurn() {
-		monsters.onTurn();
+		if (monsters != null) {
+			monsters.onTurn();
+		}
 		MGlobal.ui.getHud().forceReset();
 		startMoving();
 	}

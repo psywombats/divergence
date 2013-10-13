@@ -15,8 +15,8 @@ int visible(int tileX, int tileY) {
 	if (tileX < 0 || tileY < 0 || tileX >= u_mapsize.x || tileY >= u_mapsize.y) {
 		return 0;
 	}
-	ivec2 index = ivec2(tileX, tileY);
-	if (texelFetch(u_visibility, index, 0)[u_colorcomp] == 1.0) {
+	vec2 index = vec2((2.0*float(tileX) + 1.0)/(2.0*float(u_mapsize.x)), (2.0*float(tileY) + 1.0)/(2.0*float(u_mapsize.y)));
+	if (texture2D(u_visibility, index)[u_colorcomp] == 1.0) {
 		return 1;
 	} else {
 		return 0;

@@ -1,0 +1,38 @@
+{
+	"key" : "generator_graphicstest",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"floorTiles" : {
+		"appearance" : "floor01.png"
+	},
+	"wallTiles" : {
+		"upper" : {
+			"appearance" : "stonebrick_top.png"
+		},
+		"lower" : {
+			"appearance" : "stonebrick_bottom.png"
+		}
+	},
+	"ceilingTiles" : {
+		"appearance" : "stonesquare.png"
+	},
+	"generator" : "CLASSIC_ROOMS",
+	"minRoomWidth" : 5,
+	"minRoomHeight" : 4,
+	"maxRoomWidth" : 10,
+	"maxRoomHeight" : 8,
+	"density" : 0.3,
+	"connectivity" : 1.0,
+	"decorators" : [
+		"decor_blood1",
+		"decor_blood2",
+		"decor_blood3",
+		"decor_blood4",
+		"decor_blood5",
+		"decor_carpet1",
+		"decor_carpet2",
+		"decor_carpet3",
+		"decor_carpet4"
+	]
+}

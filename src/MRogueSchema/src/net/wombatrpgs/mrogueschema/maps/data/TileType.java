@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mrogue.maps;
+package net.wombatrpgs.mrogueschema.maps.data;
 
 /**
  * The possible roles of a tile, such as wall, ceiling, floor, etc. Dictates

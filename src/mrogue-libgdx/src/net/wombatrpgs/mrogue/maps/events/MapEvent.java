@@ -417,6 +417,18 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	}
 	
 	/**
+	 * Calcualtes the euclidean distance between this and some other tile loc.
+	 * @param	tileX			The other's tile x-coord
+	 * @param	tileY			The other's tile y-coord
+	 * @return
+	 */
+	public float euclideanTileDistanceTo(int tileX, int tileY) {
+		float dx = this.tileX - tileX;
+		float dy = this.tileY - tileY;
+		return (float) Math.sqrt(dx*dx + dy*dy);
+	}
+	
+	/**
 	 * Determines if an event is "hidden" either by switch or command.
 	 * @return					True if the event is hidden, false otherwise
 	 */

@@ -1,6 +1,6 @@
 ================================================================================
 = MROGUE v. 20131012  -not intended for public release-                        =
-= running on MGNENGINE v. 20131103                                             =
+= running on MGNENGINE v. 20131013                                             =
 = contact: aking (psy_wombats@wombatrpgs.net)                                  =
 ================================================================================
 

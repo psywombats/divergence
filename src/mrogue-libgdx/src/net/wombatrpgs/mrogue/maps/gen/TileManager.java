@@ -13,8 +13,8 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Tile;
-import net.wombatrpgs.mrogue.maps.TileType;
 import net.wombatrpgs.mrogueschema.maps.TileMDO;
+import net.wombatrpgs.mrogueschema.maps.data.TileType;
 
 /**
  * Just a simple thing to keep track of which tiles are in memory yet.
@@ -46,16 +46,6 @@ public class TileManager {
 			unloadedTiles.put(tileMDO, tile);
 		}
 	}
-	
-//	/**
-//	 * Make sure the MDO indicated by the name is prepated to handle a tile.
-//	 * @param	manager			The manager to process from
-//	 * @param	mdoKey			The name of the MDO file with data to load
-//	 */
-//	public void requestTile(AssetManager manager, String mdoKey) {
-//		TileMDO mdo = MGlobal.data.getEntryFor(mdoKey, TileMDO.class);
-//		requestTile(manager, mdo);
-//	}
 	
 	/**
 	 * Finishes processing any new tiles.

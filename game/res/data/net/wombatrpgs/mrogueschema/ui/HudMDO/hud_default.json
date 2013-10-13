@@ -9,7 +9,7 @@
 	"frameHeight" : 48,
 	"offX" : 32,
 	"offY" : 32,
-	"digitDelay" : 0.035,
+	"digitDelay" : 0.02,
 	"mpDigitDelay" : 0.01,
 	"numberSet" : "numberset_ghost",
 	"mpNumberSet" : "numberset_small",

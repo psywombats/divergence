@@ -16,9 +16,10 @@ import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.core.Turnable;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogueschema.characters.EnemyMDO;
-import net.wombatrpgs.mrogueschema.characters.MonsterGeneratorMDO;
+import net.wombatrpgs.mrogueschema.characters.GlobalMonsterListMDO;
 import net.wombatrpgs.mrogueschema.characters.data.MonsterNameMDO;
 import net.wombatrpgs.mrogueschema.characters.data.MonsterNamePreMDO;
+import net.wombatrpgs.mrogueschema.maps.MonsterGeneratorMDO;
 
 /**
  * Generates random enemies from given text files and weights for danger and the
@@ -29,6 +30,7 @@ public class MonsterGenerator implements	Turnable,
 											Queueable {
 	
 	protected MonsterGeneratorMDO mdo;
+	protected GlobalMonsterListMDO listMDO;
 	protected List<Enemy> loaderDummies;
 	protected Level parent;
 	
@@ -41,7 +43,8 @@ public class MonsterGenerator implements	Turnable,
 		this.parent = parent;
 		this.loaderDummies = new ArrayList<Enemy>();
 		List<String> neededTypes = new ArrayList<String>();
-		for (MonsterNameMDO name : mdo.names) {
+		listMDO = MGlobal.data.getEntryFor(mdo.list, GlobalMonsterListMDO.class);
+		for (MonsterNameMDO name : listMDO.names) {
 			if (!neededTypes.contains(name.archetype)) {
 				neededTypes.add(name.archetype);
 			}
@@ -57,8 +60,8 @@ public class MonsterGenerator implements	Turnable,
 	 * @param	parent			The parent level to gen for
 	 */
 	public Enemy createEnemy() {
-		MonsterNameMDO name = mdo.names[MGlobal.rand.nextInt(mdo.names.length)];
-		MonsterNamePreMDO pre = mdo.prefixes[MGlobal.rand.nextInt(mdo.prefixes.length)];
+		MonsterNameMDO name = listMDO.names[MGlobal.rand.nextInt(listMDO.names.length)];
+		MonsterNamePreMDO pre = listMDO.prefixes[MGlobal.rand.nextInt(listMDO.prefixes.length)];
 		Enemy enemy = new Enemy(MGlobal.data.getEntryFor(name.archetype, EnemyMDO.class), parent);
 		enemy.getUnit().setName(pre.prefix + " " + name.typeName);
 		return enemy;
@@ -90,11 +93,37 @@ public class MonsterGenerator implements	Turnable,
 	 */
 	@Override
 	public void onTurn() {
-		if (parent.getPopulation() < 3) {
-			Enemy e = createEnemy();
-			e.postProcessing(MGlobal.assetManager, 0);
-			e.spawnUnseen();
+		for (int i = parent.getPopulation()-1; i < getCapacity(); i += 1) {
+			if (MGlobal.rand.nextInt(mdo.respawnRate) == 0) {
+				spawn();
+			}
 		}
+	}
+	
+	/**
+	 * Generates monster up to the mdo-specified value.
+	 */
+	public void spawnToDensity() {
+		while (parent.getPopulation()-1 < getCapacity()) {
+			spawn();
+		}
+	}
+	
+	/**
+	 * Spawns a hidden enemy to the map.
+	 */
+	public void spawn() {
+		Enemy e = createEnemy();
+		e.postProcessing(MGlobal.assetManager, 0);
+		e.spawnUnseen();
+	}
+	
+	/**
+	 * Calculates how many monsters should max be on this map.
+	 * @return					The max monsters supported by this map
+	 */
+	protected int getCapacity() {
+		return (int) Math.ceil(mdo.density * (float)(parent.getWidth()*parent.getHeight() / (100f*100f)));
 	}
 
 }

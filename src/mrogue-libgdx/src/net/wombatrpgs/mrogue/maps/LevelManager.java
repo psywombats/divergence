@@ -40,6 +40,14 @@ public class LevelManager {
 	}
 	
 	/**
+	 * Gets the screen levels use.
+	 * @return =				The screen levels use
+	 */
+	public Screen getScreen() {
+		return screen;
+	}
+	
+	/**
 	 * Converts a string id into a level, either by fetching it or loading it
 	 * up. WARNING: right now it loads the entire goddamn level if it hasn't
 	 * been loaded yet.

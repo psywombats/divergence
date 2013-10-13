@@ -17,7 +17,7 @@ import net.wombatrpgs.mrogueschema.characters.data.MonsterNamePreMDO;
  * A generator for monsters from a prefix/suffix format.
  */
 @Path("characters/")
-public class MonsterGeneratorMDO extends MainSchema {
+public class GlobalMonsterListMDO extends MainSchema {
 	
 	@Desc("Types")
 	@InlineSchema(MonsterNameMDO.class)

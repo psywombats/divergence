@@ -1,0 +1,28 @@
+{
+	"key" : "generator_classic",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"floorTiles" : {
+		"appearance" : "tile_floor.png"
+	},
+	"wallTiles" : {
+		"upper" : {
+			"appearance" : "stonebrick_top.png"
+		},
+		"lower" : {
+			"appearance" : "stonebrick_bottom.png"
+		}
+	},
+	"ceilingTiles" : {
+		"appearance" : "stonesquare.png"
+	},
+	"generator" : "CLASSIC_ROOMS",
+	"minRoomWidth" : 5,
+	"minRoomHeight" : 4,
+	"maxRoomWidth" : 10,
+	"maxRoomHeight" : 8,
+	"density" : 0.3,
+	"connectivity" : 1.0,
+	"decorators" : [ ]
+}

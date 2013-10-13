@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Pixmap.Blending;
 import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture.TextureWrap;
 
 import net.wombatrpgs.mrogue.characters.act.ActStep;
 import net.wombatrpgs.mrogue.core.MGlobal;
@@ -69,13 +70,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 	@Override
 	public void onAddedToMap(Level map) {
 		super.onAddedToMap(map);
-		viewCache = new boolean[map.getHeight()][map.getWidth()];
 		seenCache = new boolean[map.getHeight()][map.getWidth()];
-		for (int x = 0; x < map.getWidth(); x += 1) {
-			for (int y = 0; y < map.getHeight(); y += 1) {
-				seenCache[y][x] = false;
-			}
-		}
 		refreshVisibilityMap();
 	}
 
@@ -143,22 +138,35 @@ public class Hero extends CharacterEvent implements CommandListener {
 			p.dispose();
 		}
 		p = new Pixmap(parent.getWidth(), parent.getHeight(), Format.RGBA8888);
-		Pixmap.setBlending(Blending.None);
+		viewCache = new boolean[parent.getHeight()][parent.getWidth()];
+		Pixmap.setBlending(Blending.SourceOver);
 		p.setColor(Color.BLACK);
 		p.fillRectangle(0, 0, parent.getWidth(), parent.getHeight());
-		for (int x = 0; x < parent.getWidth(); x += 1) {
-			for (int y = 0; y < parent.getHeight(); y += 1) {
+		int startTX = tileX - getStats().getVision();
+		int startTY = tileY - getStats().getVision();
+		int endTX = tileX + getStats().getVision();
+		int endTY = tileY + getStats().getVision();
+		if (startTX < 0) startTX = 0;
+		if (startTY < 0) startTY = 0;
+		if (endTX > parent.getWidth()) endTX = parent.getWidth();
+		if (endTY > parent.getHeight()) endTY = parent.getHeight();
+		for (int x = startTX; x < endTX; x += 1) {
+			for (int y = startTY; y < endTY; y += 1) {
 				boolean result = super.inLoS(x, y);
 				viewCache[y][x] = result;
 				if (result) seenCache[y][x] = true;
-				float r = result ? 1 : 0;
+			}
+		}
+		for (int x = 0; x < parent.getWidth(); x += 1) {
+			for (int y = 0; y < parent.getHeight(); y += 1) {
+				float r = viewCache[y][x] ? 1 : 0;
 				float g = seenCache[y][x] ? 1 : 0;
 				p.setColor(r, g, 0, 1);
 				p.drawPixel(x, y);
 			}
 		}
-		Pixmap.setBlending(Blending.SourceOver);
-		viewTex = new Texture(p);
+		viewTex = new Texture(p, false);
+		viewTex.setWrap(TextureWrap.ClampToEdge, TextureWrap.ClampToEdge);
 	}
 	
 	/**

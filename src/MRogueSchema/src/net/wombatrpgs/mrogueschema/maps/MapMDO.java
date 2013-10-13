@@ -11,7 +11,6 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
-import net.wombatrpgs.mrogueschema.characters.MonsterGeneratorMDO;
 import net.wombatrpgs.mrogueschema.graphics.effects.EffectMDO;
 
 /**
@@ -19,7 +18,6 @@ import net.wombatrpgs.mrogueschema.graphics.effects.EffectMDO;
  * MR: This now just contains info on how to generate the map, not its file.
  */
 @Path("maps/")
-
 public class MapMDO extends MainSchema {
 	
 	@Desc("Map width, in tiles")

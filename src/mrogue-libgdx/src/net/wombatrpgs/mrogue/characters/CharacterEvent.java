@@ -365,7 +365,7 @@ public class CharacterEvent extends MapEvent {
 	 * @return					True if that tile is visible, false otherwise
 	 */
 	public boolean inLoS(int targetX, int targetY) {
-		if (tileDistanceTo(targetX, targetY) > getStats().getVision()) return false;
+		if (euclideanTileDistanceTo(targetX, targetY) > getStats().getVision()) return false;
 		// This algo copied from 2011SDRL
 		boolean good = true;
 		double m;
