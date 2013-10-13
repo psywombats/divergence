@@ -9,9 +9,11 @@ package net.wombatrpgs.mrogue.maps.layers;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
+import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Tile;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
+import net.wombatrpgs.mrogue.screen.TrackerCam;
 
 /**
  * A layer of tiles that is part of a level. It's named "grid" so as to not
@@ -109,9 +111,18 @@ public class GridLayer extends Layer {
 	 * @param	cam				The camera to render with
 	 */
 	protected void dumbRender(OrthographicCamera camera) {
+		TrackerCam cam  = MGlobal.screens.peek().getCamera();
+		int startX = (int) Math.floor((cam.position.x - MGlobal.window.getWidth()/2.f) / parent.getTileWidth());
+		int startY = (int) Math.floor((cam.position.y - MGlobal.window.getHeight()/2.f) / parent.getTileHeight());
+		int endX = (int) Math.ceil((cam.position.x + MGlobal.window.getWidth()/2.f) / parent.getTileWidth());
+		int endY = (int) Math.ceil((cam.position.y + MGlobal.window.getHeight()/2.f) / parent.getTileHeight());
+		if (startX < 0) startX = 0;
+		if (startY < 0) startY = 0;
+		if (endX > parent.getWidth()) endX = parent.getWidth();
+		if (endY > parent.getHeight()) endY = parent.getHeight();
 		parent.getBatch().begin();
-		for (int x = 0; x < parent.getWidth(); x += 1) {
-			for (int y = 0; y < parent.getHeight(); y += 1) {
+		for (int x = startX; x < endX; x += 1) {
+			for (int y = startY; y < endY; y += 1) {
 				//if (!MGlobal.hero.seen(x, y)) continue;
 				float atX = parent.getTileWidth() * x;
 				float atY = parent.getTileHeight() * y;
