@@ -10,6 +10,7 @@ import net.wombatrpgs.mrogue.characters.Hero;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Tile;
+import net.wombatrpgs.mrogue.maps.TileType;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
 
 /**
@@ -31,19 +32,18 @@ public class TestGenerator extends MapGenerator {
 	 */
 	@Override
 	public void generateMe() {
-		Tile[][] tiles = new Tile[parent.getHeight()][parent.getWidth()];
-		for (int x = 0; x < parent.getWidth(); x += 1) {
-			for (int y = 0; y < parent.getHeight(); y += 1) {
-				if (y > 0 && y < parent.getHeight()-1 &&
-						x > 0 && x < parent.getWidth()-1 &&
-						MGlobal.rand.nextBoolean()) {
-					tiles[y][x] = getRandomTile(wallTiles);
-				} else {
-					tiles[y][x] = getRandomTile(floorTiles);
-				}
-				
-			}
-		}
+		int w = parent.getWidth();
+		int h = parent.getHeight();
+		TileType types[][] = new TileType[h][w];
+		fillRect(types, TileType.CEILING, 0, 0, w-1, h-1);
+		carve(types, TileType.FLOOR, 0,		0,		w-1,	0);
+		carve(types, TileType.FLOOR, w-1,	0,		w-1,	h-1);
+		carve(types, TileType.FLOOR, w-1,	h-1,	0,		h-1);
+		carve(types, TileType.FLOOR, 0,		h-1,	0,		0);
+		
+		Tile tiles[][] = new Tile[h][w];
+		applyWalls(types);
+		fillTiles(types, tiles);
 		addLayer(tiles, 0);
 		
 		if (MGlobal.hero == null) {

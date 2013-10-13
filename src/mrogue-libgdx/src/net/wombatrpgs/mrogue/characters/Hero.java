@@ -48,7 +48,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 	public Hero(Level parent, int tileX, int tileY) {
 		// TODO: Hero
 		super(MGlobal.data.getEntryFor(HERO_DEFAULT, HeroMDO.class), parent, tileX, tileY);
-		this.unit = new HeroUnit(mdo);
+		this.unit = new HeroUnit(mdo, this);
 		MGlobal.hero = this;
 		step = new ActStep(this);
 	}
@@ -130,6 +130,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 			step.setDirection(dir);
 			actAndWait(step);
 		}
+		refreshVisibilityMap();
 		parent.onTurn();
 	}
 	

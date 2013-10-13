@@ -13,7 +13,9 @@ package net.wombatrpgs.mrogue.maps;
 public enum TileType {
 	
 	FLOOR		(true,	true),
-	WALL		(false,	false);
+	CEILING		(false, false),
+	WALL_UPPER	(false,	true),
+	WALL_LOWER	(false, true);
 	
 	private boolean passable;
 	private boolean transparent;

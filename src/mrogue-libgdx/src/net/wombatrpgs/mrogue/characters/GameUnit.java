@@ -49,7 +49,7 @@ public class GameUnit {
 	public Stats getStats() { return currentStats; }
 	
 	/** @return This unit's player-facing name */
-	public String getName() { return name; }
+	public String getName() { return MGlobal.hero.inLoS(parent) ? name : "something"; }
 	
 	/** @param This unit's new player-facing name */
 	public void setName(String name) { this.name = name; }
@@ -60,7 +60,9 @@ public class GameUnit {
 	 */
 	public void attack(GameUnit other) {
 		int damage = 10;
-		out.msg(getName() + " attacks " + other.getName() + " for " + damage + " damages.");
+		if (MGlobal.hero.inLoS(parent)) {
+			out.msg(getName() + " attacks " + other.getName() + " for " + damage + " damages.");
+		}
 		other.takeDamage(damage);
 	}
 	

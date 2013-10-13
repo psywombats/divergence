@@ -11,6 +11,16 @@
 	],
 	"wallTiles" : [
 		{
+			"upper" : {
+				"appearance" : "stonebrick_top.png"
+			},
+			"lower" : {
+				"appearance" : "stonebrick_bottom.png"
+			}
+		}
+	],
+	"ceilingTiles" : [
+		{
 			"appearance" : "stonesquare.png"
 		}
 	]

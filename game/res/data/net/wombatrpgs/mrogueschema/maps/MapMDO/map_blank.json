@@ -3,8 +3,8 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
-	"mapWidth" : 20,
-	"mapHeight" : 15,
+	"mapWidth" : 40,
+	"mapHeight" : 40,
 	"generator" : "generator_test",
 	"enemies" : "monstergen_all",
 	"effect" : "effect_los"

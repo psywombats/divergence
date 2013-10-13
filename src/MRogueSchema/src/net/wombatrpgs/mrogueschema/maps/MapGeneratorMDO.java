@@ -11,6 +11,7 @@ import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mrogueschema.maps.data.GenerationType;
+import net.wombatrpgs.mrogueschema.maps.data.WallTilesMDO;
 
 /**
  * Something to procedurally generate maps.
@@ -26,8 +27,11 @@ public class MapGeneratorMDO extends MainSchema {
 	public TileMDO[] floorTiles;
 	
 	@Desc("Wall tile(s)")
-	@InlineSchema(TileMDO.class)
-	public TileMDO[] wallTiles;
+	@InlineSchema(WallTilesMDO.class)
+	public WallTilesMDO[] wallTiles;
 	
+	@Desc("Ceiling tile(s)")
+	@InlineSchema(TileMDO.class)
+	public TileMDO[] ceilingTiles;
 
 }

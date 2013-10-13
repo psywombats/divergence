@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.mrogue.characters;
 
-import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogueschema.characters.CharacterMDO;
 
 /**
@@ -17,9 +16,10 @@ public class HeroUnit extends GameUnit {
 	/**
 	 * Constructs the hero unit.
 	 * @param	mdo				The character data to make from
+	 * @param	hero			That's us!
 	 */
-	public HeroUnit(CharacterMDO mdo) {
-		super(mdo, MGlobal.hero);
+	public HeroUnit(CharacterMDO mdo, Hero hero) {
+		super(mdo, hero);
 		setName("hero");
 	}
 
