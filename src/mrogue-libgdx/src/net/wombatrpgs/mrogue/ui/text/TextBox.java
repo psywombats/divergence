@@ -18,7 +18,9 @@ import net.wombatrpgs.mrogue.graphics.Graphic;
 import net.wombatrpgs.mrogue.io.audio.SoundObject;
 import net.wombatrpgs.mrogue.maps.MapThing;
 import net.wombatrpgs.mrogue.maps.objects.Picture;
+import net.wombatrpgs.mrogue.screen.WindowSettings;
 import net.wombatrpgs.mrogueschema.audio.SoundMDO;
+import net.wombatrpgs.mrogueschema.ui.AnchorType;
 import net.wombatrpgs.mrogueschema.ui.TextBoxMDO;
 
 /**
@@ -39,9 +41,10 @@ public class TextBox extends Picture {
 	protected Graphic backer, backer2;
 	protected SoundObject typeSfx;
 	protected String name;
-	protected float elapsed;
-	protected int oldChars;
+	protected float sinceChar;
+	protected int visibleChars;
 	protected int totalLength;
+	protected boolean waiting;
 	
 	/**
 	 * Creates a new text box from data. Does not deal with the loading of its
@@ -54,12 +57,13 @@ public class TextBox extends Picture {
 		this.mdo = mdo;
 		this.font = font;
 		this.name = "";
-		this.oldChars = 0;
-		this.elapsed = 0;
+		this.visibleChars = 0;
+		this.sinceChar = 0;
 		this.bodyFormat = new TextBoxFormat();
 		this.nameFormat = new TextBoxFormat();
 		this.visibleLines = new ArrayList<String>();
 		this.backer = appearance;
+		this.waiting = false;
 		
 		if (MapThing.mdoHasProperty(mdo.image2)) {
 			this.backer2 = new Graphic(mdo.image2);
@@ -107,11 +111,20 @@ public class TextBox extends Picture {
 		if (backer2 != null) {
 			backer2.postProcessing(manager, pass);
 		}
-		bodyFormat.x = mdo.x1;
-		bodyFormat.y = backer.getHeight() - mdo.y1;
-		bodyFormat.align = HAlignment.LEFT;
-		bodyFormat.height = mdo.y2 - mdo.y1;
-		bodyFormat.width = mdo.x2 - mdo.x1;
+		WindowSettings win = MGlobal.window;
+		if (mdo.anchor == AnchorType.ANCHOR) {
+			bodyFormat.x = win.getWidth()/2 - backer.getWidth()/2 + mdo.x1;
+			bodyFormat.y = win.getHeight()/2 + backer.getHeight()/2 - mdo.y1;
+			bodyFormat.align = HAlignment.LEFT;
+			bodyFormat.width = backer.getWidth() - mdo.x1 - mdo.x2;
+			bodyFormat.height = backer.getHeight() - mdo.y1 - mdo.y2;
+		} else {
+			bodyFormat.x = mdo.x1;
+			bodyFormat.y = backer.getHeight() - mdo.y1;
+			bodyFormat.align = HAlignment.LEFT;
+			bodyFormat.height = mdo.y2 - mdo.y1;
+			bodyFormat.width = mdo.x2 - mdo.x1;
+		}
 		nameFormat.x = mdo.nameX;
 		nameFormat.y = backer.getHeight() - mdo.nameY;
 		nameFormat.align = HAlignment.LEFT;
@@ -126,34 +139,52 @@ public class TextBox extends Picture {
 	public void update(float elapsed) {
 		super.update(elapsed);
 		
-		this.elapsed += elapsed;
-		int charsVisible = getVisibleCharCount();
-		if (charsVisible > totalLength) {
-			visibleLines = lines;
-			return;
+		if (mdo.anchor == AnchorType.ANCHOR) {
+			setX(MGlobal.window.getWidth()/2 - backer.getWidth()/2);
+			setY(MGlobal.window.getHeight()/2 - backer.getHeight()/2);
 		}
-		if (charsVisible != oldChars) {
-			oldChars = charsVisible;
-			int toGo = charsVisible;
+		if (waiting) return;
+		
+		sinceChar += elapsed;
+		boolean playedType = false;
+		for (; sinceChar > 1f/mdo.typeSpeed; sinceChar -= 1f/mdo.typeSpeed) {
+			visibleChars += 1;
+			if (visibleChars > totalLength) {
+				visibleLines = lines;
+				return;
+			}
+			int at = visibleChars;
 			for (int atLine = 0; atLine < lines.size(); atLine++) {
 				String line = lines.get(atLine);
-				if (line.length() < toGo) {
+				if (line.length() < at) {
 					visibleLines.set(atLine, line);
-					toGo -= line.length();
+					at -= line.length();
 				} else {
-					String newLine = line.substring(0, toGo);
-					visibleLines.set(atLine, newLine);
+					String newLine = line.substring(0, at);
 					if (newLine.length() > 1) {
 						char lastChar = newLine.charAt(newLine.length() - 1);
-						if (Character.isLetter(lastChar) || Character.isDigit(lastChar)) {
-							typeSfx.play();
+						if (lastChar == '\\') {
+							char special = line.charAt(at);
+							if (special == '\\') {
+								typeSfx.play();
+							} else if (special == 'n') {
+								waiting = true;
+								lines.set(atLine, line.substring(0, line.indexOf("\\n")));
+								sinceChar = 0;
+								break;
+							}
+						} else if (Character.isLetter(lastChar) || Character.isDigit(lastChar)) {
+							if (!playedType) {
+								typeSfx.play();
+								playedType = true;
+							}
 						}
 					}
+					visibleLines.set(atLine, newLine);
 					break;
 				}
 			}
 		}
-		
 	}
 
 	/**
@@ -177,7 +208,7 @@ public class TextBox extends Picture {
 		for (int i = 0; i < lines.size(); i++) {
 			visibleLines.add("");
 		}
-		this.elapsed = 0;
+		this.sinceChar = 0;
 		for (String line : lines) {
 			totalLength += line.length();
 		}
@@ -194,15 +225,22 @@ public class TextBox extends Picture {
 		} else {
 			this.appearance = (backer2);
 		}
-		setX(mdo.graphicX);
-		setY(MGlobal.window.getHeight() - mdo.graphicY - appearance.getHeight());
+		if (mdo.anchor == AnchorType.OFFSET) {
+			setX(mdo.graphicX);
+			setY(MGlobal.window.getHeight() - mdo.graphicY - appearance.getHeight());
+		}
 	}
 	
 	/**
-	 * Instantly displays all characters in the box.
+	 * Speeds up this box's movement, either by tnstantly displaying all
+	 * characters in the box or by unsetting its most recent wait.
 	 */
-	public void displayAll() {
-		elapsed = totalLength * mdo.typeSpeed;
+	public void hurryUp() {
+		if (waiting) {
+			waiting = false;
+		} else {
+			sinceChar = Float.MAX_VALUE;
+		}
 	}
 	
 	/**
@@ -210,16 +248,7 @@ public class TextBox extends Picture {
 	 * @return				True if this text box is done, false otherwise
 	 */
 	public boolean isFinished() {
-		return getVisibleCharCount() >= totalLength;
-	}
-	
-	/**
-	 * Calculates number of characters that should be visible in the box.
-	 * @return				The number of chars visible in this box
-	 */
-	private int getVisibleCharCount() {
-		int speed = mdo.typeSpeed;
-		return (int) Math.floor(speed * this.elapsed);
+		return visibleChars >= totalLength;
 	}
 
 }

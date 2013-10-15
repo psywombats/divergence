@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.mrogueschema.maps;
 
+import net.wombatrpgs.mgns.core.Annotations.FileLink;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
@@ -39,5 +40,10 @@ public class MapMDO extends MainSchema {
 	@SchemaLink(EffectMDO.class)
 	@Nullable
 	public String effect;
+	
+	@Desc("Cutscene - .scene file that plays when the user enters this level for the first time")
+	@FileLink("scenes")
+	@Nullable
+	public String scene;
 
 }

@@ -19,8 +19,8 @@ import net.wombatrpgs.mrogue.scenes.SceneParser;
  */
 public class CommandSpeakAll extends SceneCommand {
 	
-	public static final int CHARS_PER_LINE = 54;
-	public static final int LINES_PER_BOX = 3;
+	public static final int CHARS_PER_LINE = 57;
+	public static final int LINES_PER_BOX = 25;
 	
 	protected List<CommandSpeak> subCommands;
 
@@ -32,16 +32,22 @@ public class CommandSpeakAll extends SceneCommand {
 		while (allText.length() > 0) {
 			List<String> lines = new ArrayList<String>();
 			for (int i = 0; i < LINES_PER_BOX && allText.length() > 0; i++) {
-				if (allText.length() < CHARS_PER_LINE) {
-					lines.add(allText);
-					allText = "";
+				int nindex = allText.indexOf("\\n");
+				if (nindex < CHARS_PER_LINE && nindex != -1) {
+					lines.add(allText.substring(0, nindex+2));
+					lines.add("");
+					allText = allText.substring(nindex+2);
 				} else {
-					String full = allText.substring(0, CHARS_PER_LINE);
-					lines.add(full.substring(0, full.lastIndexOf(' ')));
-					allText = allText.substring(CHARS_PER_LINE);
-					allText = full.substring(full.lastIndexOf(' ') + 1) + allText;
+					if (allText.length() < CHARS_PER_LINE) {
+						lines.add(allText);
+						allText = "";
+					} else {
+						String full = allText.substring(0, CHARS_PER_LINE);
+						lines.add(full.substring(0, full.lastIndexOf(' ')));
+						allText = allText.substring(CHARS_PER_LINE);
+						allText = full.substring(full.lastIndexOf(' ') + 1) + allText;
+					}
 				}
-
 			}
 			subCommands.add(new CommandSpeak(parent, speakerKey, lines));
 		}

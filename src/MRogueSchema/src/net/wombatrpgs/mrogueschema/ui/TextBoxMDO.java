@@ -20,6 +20,9 @@ import net.wombatrpgs.mrogueschema.audio.SoundMDO;
 @Path("ui/")
 public class TextBoxMDO extends MainSchema {
 	
+	@Desc("Anchor type, like where this displays on page")
+	public AnchorType anchor;
+	
 	@Desc("Graphic - ui box thing displayed beneath the text")
 	@FileLink("ui")
 	@Nullable

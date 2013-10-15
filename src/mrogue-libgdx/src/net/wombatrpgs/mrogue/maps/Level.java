@@ -27,6 +27,7 @@ import net.wombatrpgs.mrogue.maps.gen.MapGenerator;
 import net.wombatrpgs.mrogue.maps.gen.MapGeneratorFactory;
 import net.wombatrpgs.mrogue.maps.layers.EventLayer;
 import net.wombatrpgs.mrogue.maps.layers.GridLayer;
+import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogue.screen.Screen;
 import net.wombatrpgs.mrogue.screen.ScreenShowable;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
@@ -93,6 +94,7 @@ public class Level implements	ScreenShowable,
 	protected boolean moving;
 	protected float moveTime;
 	protected MonsterGenerator monsters;
+	protected SceneParser scene;
 	
 	/**
 	 * Generates a level from the supplied level data.
@@ -118,6 +120,10 @@ public class Level implements	ScreenShowable,
 		if (MapThing.mdoHasProperty(mdo.enemies)) {
 			monsters = new MonsterGenerator(this, MGlobal.data.getEntryFor(mdo.enemies, MonsterGeneratorMDO.class));
 			assets.add(monsters);
+		}
+		if (MapThing.mdoHasProperty(mdo.scene)) {
+			scene = new SceneParser(mdo.scene, this);
+			assets.add(scene);
 		}
 		paused = false;
 		reseting = false;
@@ -267,6 +273,9 @@ public class Level implements	ScreenShowable,
 	@Override
 	public void update(float elapsed) {
 		updating = true;
+		if (!paused && scene != null && !scene.hasExecuted()) {
+			scene.run(this);
+		}
 		for (MapThing toRemove : removalObjects) {
 			toRemove.onRemovedFromMap(this);
 			internalRemoveObject(toRemove);
@@ -381,6 +390,9 @@ public class Level implements	ScreenShowable,
 		addEventAbsolute(newEvent, tileX * getTileWidth(), tileY * getTileHeight());
 		newEvent.setTileX(tileX);
 		newEvent.setTileY(tileY);
+		if (newEvent == MGlobal.hero) {
+			scene.run(this);
+		}
 	}
 	
 	/**

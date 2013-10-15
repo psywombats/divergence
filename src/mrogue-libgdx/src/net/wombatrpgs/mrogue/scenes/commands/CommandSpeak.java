@@ -132,8 +132,8 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 		if (MGlobal.ui.getBox().isFinished()) {
 			if (facePic != null) {
 				facePic.tweenTo(new Color(1, 1, 1, 0), FADE_TIME);
-				MGlobal.ui.getBox().tweenTo(new Color(1, 1, 1, 0), FADE_TIME);
 			}
+			MGlobal.ui.getBox().tweenTo(new Color(1, 1, 1, 0), FADE_TIME);
 			final CommandSpeak speak = this;
 			final TimerListener listener = new TimerListener() {
 				@Override public void onTimerZero(TimerObject source) {
@@ -145,10 +145,11 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 					super.onMapFocusLost(map);
 					speak.zero();
 					map.removeObject(this);
+					removeListener(listener);
 				}
 			};
 		} else {
-			MGlobal.ui.getBox().displayAll();
+			MGlobal.ui.getBox().hurryUp();
 			block(this);
 		}
 	}

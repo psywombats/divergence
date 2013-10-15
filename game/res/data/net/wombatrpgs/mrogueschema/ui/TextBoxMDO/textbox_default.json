@@ -3,6 +3,7 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
+	"anchor" : "OFFSET",
 	"image" : "blockbound_icy_chatbox.png",
 	"image2" : "blockbound_icy_chatbox_noname.png",
 	"graphicX" : 0,

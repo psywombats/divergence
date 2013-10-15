@@ -49,19 +49,27 @@ public class SceneParser extends MapThing {
 	}
 	
 	/**
+	 * Creates a new scene parser for a given file. No autoplay. Assumes no
+	 * repeat.
+	 * @param	fileName		The filename to load, relative to scenes dir
+	 * @param	parent			The level to make for
+	 */
+	public SceneParser(String filename, Level parent) {
+		this.mdo = new SceneMDO();
+		this.parent = parent;
+		mdo.file = filename;
+		mdo.repeat = TriggerRepeatType.RUN_ONLY_ONCE;
+		init();
+	}
+	
+	/**
 	 * Creates a new scene parser from data without a parent. Does not auto-
 	 * play. Assumes you will add it to the map yourself before playing.
 	 * @param 	mdo				The data to construct from
 	 */
 	public SceneParser(SceneMDO mdo) {
 		this.mdo = mdo;
-		this.executed = false;
-		this.running = false;
-		this.filename = Constants.SCENES_DIR + mdo.file;
-		this.controlledEvents = new ArrayList<MapEvent>();
-		this.listeners = new ArrayList<FinishListener>();
-		this.timeSinceStart = 0;
-		setPauseLevel(PauseLevel.PAUSE_RESISTANT);
+		init();
 	}
 	
 	/**
@@ -195,8 +203,8 @@ public class SceneParser extends MapThing {
 		running = true;
 		parent.setPause(true);
 		timeSinceStart = 0;
-		oldMap = MGlobal.screens.peek().getCommandContext();
-		MGlobal.screens.peek().setCommandContext(new SceneCommandMap());
+		oldMap = MGlobal.levelManager.getScreen().getCommandContext();
+		MGlobal.levelManager.getScreen().setCommandContext(new SceneCommandMap());
 	}
 	
 	/**
@@ -226,9 +234,8 @@ public class SceneParser extends MapThing {
 	 */
 	protected void terminate() {
 		MGlobal.reporter.inform("Terminated a scene: " + this);
-		MGlobal.screens.peek().setCommandContext(oldMap);
+		MGlobal.levelManager.getScreen().setCommandContext(oldMap);
 		parent.setPause(false);
-		parent.removeObject(this);
 		running = false;
 		executed = true;
 		if (MGlobal.hero != null) {
@@ -238,6 +245,19 @@ public class SceneParser extends MapThing {
 			listener.onFinish(parent);
 		}
 		listeners.clear();
+	}
+	
+	/**
+	 * Common post-constructor.
+	 */
+	protected void init() {
+		this.executed = false;
+		this.running = false;
+		this.filename = Constants.SCENES_DIR + mdo.file;
+		this.controlledEvents = new ArrayList<MapEvent>();
+		this.listeners = new ArrayList<FinishListener>();
+		this.timeSinceStart = 0;
+		setPauseLevel(PauseLevel.PAUSE_RESISTANT);
 	}
 
 }

@@ -11,11 +11,11 @@
 		"appearance" : "stonesquare.png"
 	},
 	"generator" : "CLASSIC_ROOMS",
-	"minRoomWidth" : 5,
-	"minRoomHeight" : 4,
-	"maxRoomWidth" : 10,
-	"maxRoomHeight" : 8,
-	"density" : 0.3,
+	"minRoomWidth" : 3,
+	"minRoomHeight" : 2,
+	"maxRoomWidth" : 4,
+	"maxRoomHeight" : 4,
+	"density" : 0.2,
 	"connectivity" : 1.0,
 	"decorators" : [
 		"decor_blood1",
