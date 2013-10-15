@@ -1,0 +1,18 @@
+{
+	"key" : "decor_window",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"chance" : 0.05,
+	"original" : "ANY_MIDDLE_WALL",
+	"b" : {
+		"appearance" : "window01.png"
+	},
+	"m" : {
+		"appearance" : "window02.png"
+	},
+	"t" : {
+		"appearance" : "window03.png"
+	},
+	"bottomType" : "FLOOR"
+}

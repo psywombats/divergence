@@ -38,7 +38,7 @@ public class Decorator1x1 extends Decorator {
 	public void apply(Tile[][] tiles) {
 		for (int x = 0; x < gen.getWidth(); x += 1) {
 			for (int y = 0; y < gen.getHeight(); y += 1) {
-				if (!gen.isType(tiles, gen.getTile(mdo.original), x, y)) continue;
+				if (!gen.isTile(tiles, mdo.original, x, y)) continue;
 				if (mdo.chance < gen.rand().nextFloat()) continue;
 				tiles[y][x] = MGlobal.tiles.getTile(mdo.tile);
 			}

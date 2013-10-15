@@ -12,16 +12,18 @@ package net.wombatrpgs.mrogueschema.maps.data;
  */
 public enum TileType {
 	
-	FLOOR		(true,	true),
-	CEILING		(false, false),
-	WALL_TLEFT	(false, true),
-	WALL_BLEFT	(false, true),
-	WALL_TOP	(false,	true),
-	WALL_BOTTOM	(false, true),
-	WALL_TRIGHT	(false, true),
-	WALL_BRIGHT	(false, true),
-	WALL_TMID	(false, true),
-	WALL_BMID	(false, true);
+	FLOOR			(true,	true),
+	CEILING			(false, false),
+	ANY_MIDDLE_WALL	(false, true),			// for MDO use only
+	ANY_WALL		(false, true),			// for MDO use only
+	WALL_TLEFT		(false, true),
+	WALL_BLEFT		(false, true),
+	WALL_TOP		(false,	true),
+	WALL_BOTTOM		(false, true),
+	WALL_TRIGHT		(false, true),
+	WALL_BRIGHT		(false, true),
+	WALL_TMID		(false, true),
+	WALL_BMID		(false, true);
 	
 	private boolean passable;
 	private boolean transparent;

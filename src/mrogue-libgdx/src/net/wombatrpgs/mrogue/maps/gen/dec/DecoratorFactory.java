@@ -9,6 +9,10 @@ package net.wombatrpgs.mrogue.maps.gen.dec;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.gen.MapGenerator;
 import net.wombatrpgs.mrogueschema.maps.decorators.Decorator1x1MDO;
+import net.wombatrpgs.mrogueschema.maps.decorators.Decorator1x2MDO;
+import net.wombatrpgs.mrogueschema.maps.decorators.Decorator1x3SpecialMDO;
+import net.wombatrpgs.mrogueschema.maps.decorators.Decorator2x1MDO;
+import net.wombatrpgs.mrogueschema.maps.decorators.Decorator2x2MDO;
 import net.wombatrpgs.mrogueschema.maps.decorators.Decorator3x3MDO;
 import net.wombatrpgs.mrogueschema.maps.decorators.data.DecoratorMDO;
 
@@ -28,6 +32,14 @@ public class DecoratorFactory {
 			return new Decorator1x1((Decorator1x1MDO) mdo, gen);
 		} else if (Decorator3x3MDO.class.isAssignableFrom(mdo.getClass())) {
 			return new Decorator3x3((Decorator3x3MDO) mdo, gen);
+		} else if (Decorator2x2MDO.class.isAssignableFrom(mdo.getClass())) {
+			return new Decorator2x2((Decorator2x2MDO) mdo, gen);
+		} else if (Decorator1x2MDO.class.isAssignableFrom(mdo.getClass())) {
+			return new Decorator1x2((Decorator1x2MDO) mdo, gen);
+		} else if (Decorator2x1MDO.class.isAssignableFrom(mdo.getClass())) {
+			return new Decorator2x1((Decorator2x1MDO) mdo, gen);
+		} else if (Decorator1x3SpecialMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new Decorator1x3Special((Decorator1x3SpecialMDO) mdo, gen);
 		}
 		MGlobal.reporter.warn("Unknown decorator mdo: " + mdo);
 		return null;

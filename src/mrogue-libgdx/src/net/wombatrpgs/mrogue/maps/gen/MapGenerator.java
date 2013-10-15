@@ -7,10 +7,13 @@
 package net.wombatrpgs.mrogue.maps.gen;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import com.badlogic.gdx.assets.AssetManager;
 
@@ -33,6 +36,12 @@ import net.wombatrpgs.mrogueschema.maps.decorators.data.DecoratorMDO;
  */
 public abstract class MapGenerator implements Queueable {
 	
+	protected static Set<TileType> walls = Collections.synchronizedSet(EnumSet.of(
+			TileType.WALL_TLEFT, TileType.WALL_TMID, TileType.WALL_TRIGHT, TileType.WALL_TOP,
+			TileType.WALL_BLEFT, TileType.WALL_BMID, TileType.WALL_TRIGHT, TileType.WALL_BOTTOM,
+			TileType.ANY_MIDDLE_WALL, TileType.ANY_WALL));
+	protected static Set<TileType> middleWalls = Collections.synchronizedSet(EnumSet.of(
+			TileType.WALL_TOP, TileType.WALL_BOTTOM, TileType.ANY_MIDDLE_WALL));
 	protected enum Halt {
 		NONE, FIRST, CHANGE,
 	}
@@ -155,6 +164,32 @@ public abstract class MapGenerator implements Queueable {
 			return false;
 		} else {
 			return data[y][x] == value;
+		}
+	}
+	
+	/**
+	 * Checks if the given type matches at that location in the array. Not a
+	 * straight lookup due to bounds checking. Also has a special case for walls
+	 * if the wall wildcard is given.
+	 * @param	data			The data to check
+	 * @param	value			The object to check equality with
+	 * @param	x				The col to check
+	 * @param	y				The row to check
+	 * @return					True if the object at that location matches
+	 */
+	public boolean isTile(Tile[][] data, TileType value, int x, int y) {
+		if (value == TileType.ANY_WALL) {
+			for (TileType type : walls) {
+				if (isType(data, getTile(type), x, y)) return true;
+			}
+			return false;
+		} else if (value == TileType.ANY_MIDDLE_WALL) {
+			for (TileType type : middleWalls) {
+				if (isType(data, getTile(type), x, y)) return true;
+			}
+			return false;
+		} else {
+			return isType(data, getTile(value), x, y);
 		}
 	}
 	

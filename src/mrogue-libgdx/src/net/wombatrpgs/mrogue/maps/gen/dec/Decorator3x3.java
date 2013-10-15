@@ -39,15 +39,15 @@ public class Decorator3x3 extends Decorator {
 		for (int x = 0; x < gen.getWidth(); x += 1) {
 			for (int y = 0; y < gen.getHeight(); y += 1) {
 				if (mdo.chance < gen.rand().nextFloat()) continue;
-				if (!gen.isType(tiles, gen.getTile(mdo.original), x+1, y+1)) continue;
-				if (!gen.isType(tiles, gen.getTile(mdo.original), x+1, y)) continue;
-				if (!gen.isType(tiles, gen.getTile(mdo.original), x+1, y-1)) continue;
-				if (!gen.isType(tiles, gen.getTile(mdo.original), x, y-1)) continue;
-				if (!gen.isType(tiles, gen.getTile(mdo.original), x, y)) continue;
-				if (!gen.isType(tiles, gen.getTile(mdo.original), x, y+1)) continue;
-				if (!gen.isType(tiles, gen.getTile(mdo.original), x-1, y+1)) continue;
-				if (!gen.isType(tiles, gen.getTile(mdo.original), x-1, y)) continue;
-				if (!gen.isType(tiles, gen.getTile(mdo.original), x-1, y-1)) continue;
+				if (!gen.isTile(tiles, mdo.original, x+1, y+1)) continue;
+				if (!gen.isTile(tiles, mdo.original, x+1, y)) continue;
+				if (!gen.isTile(tiles, mdo.original, x+1, y-1)) continue;
+				if (!gen.isTile(tiles, mdo.original, x, y-1)) continue;
+				if (!gen.isTile(tiles, mdo.original, x, y)) continue;
+				if (!gen.isTile(tiles, mdo.original, x, y+1)) continue;
+				if (!gen.isTile(tiles, mdo.original, x-1, y+1)) continue;
+				if (!gen.isTile(tiles, mdo.original, x-1, y)) continue;
+				if (!gen.isTile(tiles, mdo.original, x-1, y-1)) continue;
 				tiles[y+1][x-1] = MGlobal.tiles.getTile(mdo.ul);
 				tiles[y+1][x] = MGlobal.tiles.getTile(mdo.u);
 				tiles[y+1][x+1] = MGlobal.tiles.getTile(mdo.ur);
