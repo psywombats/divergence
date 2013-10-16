@@ -1,0 +1,18 @@
+{
+	"key" : "enemy_human",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "     ",
+	"appearance" : "4dir_normal_man",
+	"stats" : {
+		"mhp" : 70,
+		"hp" : 70,
+		"speed" : 90,
+		"vision" : 6,
+		"dodge" : 10,
+		"armor" : 0,
+		"dmgBase" : 5,
+		"dmgRange" : 3
+	},
+	"intelligence" : "behavior_herostep"
+}

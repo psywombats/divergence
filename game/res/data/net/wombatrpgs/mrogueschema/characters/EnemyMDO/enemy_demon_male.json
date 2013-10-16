@@ -1,0 +1,18 @@
+{
+	"key" : "enemy_demon_male",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "      ",
+	"appearance" : "4dir_infected_man",
+	"stats" : {
+		"mhp" : 100,
+		"hp" : 100,
+		"speed" : 105,
+		"vision" : 4,
+		"dodge" : 0,
+		"armor" : 0,
+		"dmgBase" : 5,
+		"dmgRange" : 3
+	},
+	"intelligence" : "behavior_herostep"
+}

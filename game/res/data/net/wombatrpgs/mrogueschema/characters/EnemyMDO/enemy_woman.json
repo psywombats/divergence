@@ -1,0 +1,18 @@
+{
+	"key" : "enemy_woman",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "       ",
+	"appearance" : "4dir_normal_woman",
+	"stats" : {
+		"mhp" : 70,
+		"hp" : 70,
+		"speed" : 90,
+		"vision" : 6,
+		"dodge" : 15,
+		"armor" : 0,
+		"dmgBase" : 5,
+		"dmgRange" : 2
+	},
+	"intelligence" : "behavior_herostep"
+}

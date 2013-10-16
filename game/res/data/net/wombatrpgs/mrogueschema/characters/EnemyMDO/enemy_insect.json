@@ -1,0 +1,18 @@
+{
+	"key" : "enemy_insect",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "       ",
+	"appearance" : "4dir_dragonfly",
+	"stats" : {
+		"mhp" : 22,
+		"hp" : 22,
+		"speed" : 135,
+		"vision" : 4,
+		"dodge" : 30,
+		"armor" : 0,
+		"dmgBase" : 4,
+		"dmgRange" : 3
+	},
+	"intelligence" : "behavior_herostep"
+}

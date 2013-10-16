@@ -1,0 +1,18 @@
+{
+	"key" : "enemy_imp",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "      ",
+	"appearance" : "4dir_imp",
+	"stats" : {
+		"mhp" : 55,
+		"hp" : 55,
+		"speed" : 110,
+		"vision" : 6,
+		"dodge" : 0,
+		"armor" : 0,
+		"dmgBase" : 2,
+		"dmgRange" : 3
+	},
+	"intelligence" : "behavior_herostep"
+}

@@ -17,15 +17,37 @@ import net.wombatrpgs.mgns.core.HeadlessSchema;
 @Path("characters/")
 public class StatsMDO extends HeadlessSchema {
 	
-	@Desc("Max HP")
+	@Desc("Max HP - max health value of a character, in HP")
+	@DefaultValue("0")
 	public Integer mhp;
 	
-	@Desc("Speed - most things should have speed 100")
-	@DefaultValue("100")
+	@Desc("HP - current health value of a character, in HP")
+	@DefaultValue("0")
+	public Integer hp;
+
+	
+	@Desc("Speed - base is 100, 110 for example is a 10% speed increase")
+	@DefaultValue("0")
 	public Integer speed;
 	
 	@Desc("Vision radius - in tiles")
-	@DefaultValue("6")
+	@DefaultValue("0")
 	public Integer vision;
+	
+	@Desc("Defense - likeliness to dodge, 0-100")
+	@DefaultValue("0")
+	public Integer dodge;
+	
+	@Desc("Armor - deduction from melee attacks, in HP")
+	@DefaultValue("0")
+	public Integer armor;
+	
+	@Desc("Base damage - minimum melee damage output, in HP")
+	@DefaultValue("0")
+	public Integer dmgBase;
+	
+	@Desc("Damage range - maximum melee damage is (base+range)")
+	@DefaultValue("0")
+	public Integer dmgRange;
 
 }

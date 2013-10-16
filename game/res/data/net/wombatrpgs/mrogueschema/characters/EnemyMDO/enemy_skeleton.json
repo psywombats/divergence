@@ -1,0 +1,18 @@
+{
+	"key" : "enemy_skeleton",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "        ",
+	"appearance" : "4dir_skeleton",
+	"stats" : {
+		"mhp" : 32,
+		"hp" : 32,
+		"speed" : 90,
+		"vision" : 4,
+		"dodge" : 0,
+		"armor" : 5,
+		"dmgBase" : 5,
+		"dmgRange" : 3
+	},
+	"intelligence" : "behavior_herostep"
+}

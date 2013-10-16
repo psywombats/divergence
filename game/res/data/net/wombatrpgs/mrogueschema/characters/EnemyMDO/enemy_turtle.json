@@ -1,0 +1,18 @@
+{
+	"key" : "enemy_turtle",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "  ",
+	"appearance" : "4dir_turtle",
+	"stats" : {
+		"mhp" : 70,
+		"hp" : 70,
+		"speed" : 80,
+		"vision" : 6,
+		"dodge" : 0,
+		"armor" : 7,
+		"dmgBase" : 2,
+		"dmgRange" : 2
+	},
+	"intelligence" : "behavior_herostep"
+}

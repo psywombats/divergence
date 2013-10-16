@@ -1,0 +1,18 @@
+{
+	"key" : "enemy_lizardman",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "      ",
+	"appearance" : "4dir_lizard_general",
+	"stats" : {
+		"mhp" : 70,
+		"hp" : 70,
+		"speed" : 95,
+		"vision" : 4,
+		"dodge" : 5,
+		"armor" : 2,
+		"dmgBase" : 5,
+		"dmgRange" : 3
+	},
+	"intelligence" : "behavior_herostep"
+}

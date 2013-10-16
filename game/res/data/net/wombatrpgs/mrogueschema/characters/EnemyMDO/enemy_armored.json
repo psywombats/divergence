@@ -1,0 +1,18 @@
+{
+	"key" : "enemy_armored",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "     ",
+	"appearance" : "4dir_armor",
+	"stats" : {
+		"mhp" : 30,
+		"hp" : 30,
+		"speed" : 70,
+		"vision" : 3,
+		"dodge" : 0,
+		"armor" : 7,
+		"dmgBase" : 5,
+		"dmgRange" : 3
+	},
+	"intelligence" : "behavior_herostep"
+}

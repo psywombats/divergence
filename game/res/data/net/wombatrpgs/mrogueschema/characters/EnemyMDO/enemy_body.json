@@ -1,0 +1,18 @@
+{
+	"key" : "enemy_body",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "       ",
+	"appearance" : "4dir_wounded_man",
+	"stats" : {
+		"mhp" : 120,
+		"hp" : 120,
+		"speed" : 120,
+		"vision" : 2,
+		"dodge" : 0,
+		"armor" : 1,
+		"dmgBase" : 2,
+		"dmgRange" : 2
+	},
+	"intelligence" : "behavior_herostep"
+}

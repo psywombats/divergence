@@ -49,7 +49,7 @@ public abstract class Action {
 	 * @return					The cost associated with this action, in ticks
 	 */
 	public final int getCost() {
-		return (int) Math.ceil((float) baseCost() * actor.getStats().getSpeed());
+		return (int) Math.ceil((float) baseCost() * actor.getStats().getSpeedMod());
 	}
 	
 	/**

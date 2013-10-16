@@ -1,0 +1,18 @@
+{
+	"key" : "enemy_ghostknight",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "      ",
+	"appearance" : "4dir_ghost_knight",
+	"stats" : {
+		"mhp" : 60,
+		"hp" : 60,
+		"speed" : 95,
+		"vision" : 4,
+		"dodge" : 15,
+		"armor" : 3,
+		"dmgBase" : 5,
+		"dmgRange" : 3
+	},
+	"intelligence" : "behavior_herostep"
+}

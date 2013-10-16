@@ -2,11 +2,16 @@
 	"key" : "hero_default",
 	"subfolder" : "",
 	"name" : "",
-	"description" : " ",
+	"description" : "  ",
 	"appearance" : "4dir_grandfather",
 	"stats" : {
 		"mhp" : 256,
+		"hp" : 256,
 		"speed" : 100,
-		"vision" : 6
+		"vision" : 6,
+		"dodge" : 10,
+		"armor" : 3,
+		"dmgBase" : 8,
+		"dmgRange" : 10
 	}
 }

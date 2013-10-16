@@ -1,0 +1,18 @@
+{
+	"key" : "enemy_crab",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "    ",
+	"appearance" : "4dir_crab",
+	"stats" : {
+		"mhp" : 50,
+		"hp" : 50,
+		"speed" : 110,
+		"vision" : 5,
+		"dodge" : 15,
+		"armor" : 0,
+		"dmgBase" : 3,
+		"dmgRange" : 5
+	},
+	"intelligence" : "behavior_herostep"
+}

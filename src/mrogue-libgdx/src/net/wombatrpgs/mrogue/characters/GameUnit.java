@@ -48,6 +48,9 @@ public class GameUnit {
 	/** @return The current stats of this unit */
 	public Stats getStats() { return currentStats; }
 	
+	/** @return The physical manifestation of this game unit */
+	public CharacterEvent getParent() { return parent; }
+	
 	/** @return This unit's player-facing name */
 	public String getName() { return MGlobal.hero.inLoS(parent) ? name : "something"; }
 	
@@ -59,20 +62,49 @@ public class GameUnit {
 	 * @param other
 	 */
 	public void attack(GameUnit other) {
-		int damage = 10;
-		if (MGlobal.hero.inLoS(parent)) {
-			out.msg(getName() + " attacks " + other.getName() + " for " + damage + " damages.");
+		String us = getName();
+		String them = other.getName();
+		if (other.getStats().getDodgeChance() < MGlobal.rand.nextFloat()) {
+			int dealt = other.takePhysicalDamage(getStats().getDamage());
+			if (visible(this, other)) {
+				if (dealt > 0) {
+					out.msg(us + " attacks " + them + " for " + dealt + " damages.");
+				} else {
+					out.msg(us + " fails to harm " + them + ".");
+				}
+			}
+			other.ensureAlive();
+		} else {
+			if (visible(this, other)) {
+				out.msg(us + " misses " + them + ".");
+			}
 		}
-		other.takeDamage(damage);
 	}
 	
 	/**
-	 * Inflicts a set amount of damage. Handles ugly things like death as well,
-	 * but not stats such as attack or defense.
+	 * Inflicts a set amount of damage. Does not handle death or any other
+	 * stats like attack or defense.
 	 * @param	damage			The amount of damage to take, in hp
 	 */
-	public void takeDamage(int damage) {
-		currentStats.takeDamage(damage);
+	public void takeRawDamage(int damage) {
+		currentStats.takeRawDamage(damage);
+	}
+	
+	/**
+	 * Inflicts an amount of physical damage on this character. Deals with
+	 * armor but not death. This is mostly so that printouts complete in the
+	 * correct order.
+	 * @param	damage			The amount of physical damage to deal, in hp
+	 * @return					The amount of damage actually dealt, in hp
+	 */
+	public int takePhysicalDamage(int damage) {
+		return currentStats.takePhysicalDamage(damage);
+	}
+	
+	/**
+	 * Makes sure our health is above 0. If it isn't, kill self.
+	 */
+	public void ensureAlive() {
 		if (currentStats.getHP() <= 0) {
 			die();
 		}
@@ -86,6 +118,21 @@ public class GameUnit {
 	public void die() {
 		parent.getLevel().removeEvent(parent);
 		out.msg(getName() + " is killed.");
+	}
+	
+	/**
+	 * A shortcut for an ugly if statement. Checks if the hero can see any of
+	 * the units provided.
+	 * @param	units			The list of units to check
+	 * @return					True if any of the units are visible
+	 */
+	public boolean visible(GameUnit... units) {
+		for (GameUnit unit : units) {
+			if (MGlobal.hero.inLoS(unit.getParent())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

@@ -1,0 +1,18 @@
+{
+	"key" : "enemy_giant",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "       ",
+	"appearance" : "4dir_giant",
+	"stats" : {
+		"mhp" : 100,
+		"hp" : 100,
+		"speed" : 70,
+		"vision" : 3,
+		"dodge" : 1,
+		"armor" : 3,
+		"dmgBase" : 5,
+		"dmgRange" : 5
+	},
+	"intelligence" : "behavior_herostep"
+}

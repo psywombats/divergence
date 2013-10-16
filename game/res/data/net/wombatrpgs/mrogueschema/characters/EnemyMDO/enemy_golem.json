@@ -1,0 +1,18 @@
+{
+	"key" : "enemy_golem",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "      ",
+	"appearance" : "4dir_red_giant",
+	"stats" : {
+		"mhp" : 150,
+		"hp" : 150,
+		"speed" : 50,
+		"vision" : 4,
+		"dodge" : 0,
+		"armor" : 3,
+		"dmgBase" : 4,
+		"dmgRange" : 3
+	},
+	"intelligence" : "behavior_herostep"
+}

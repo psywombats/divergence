@@ -1,472 +1,472 @@
 {
 	"key" : "monsterlist_all",
 	"subfolder" : "",
-	"name" : "monstergen_all.json",
-	"description" : "monstergen_all.json",
+	"name" : "monsterlist_all.json",
+	"description" : "monsterlist_all.json",
 	"names" : [
 		{
 			"typeName" : "skeleton",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_skeleton"
 		},
 		{
 			"typeName" : "zombie",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_demon_male"
 		},
 		{
 			"typeName" : "wraith",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_ghost"
 		},
 		{
 			"typeName" : "ghost",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_ghost"
 		},
 		{
 			"typeName" : "spirit",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_ghost"
 		},
 		{
 			"typeName" : "shade",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_shadow"
 		},
 		{
 			"typeName" : "werewolf",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_dog"
 		},
 		{
 			"typeName" : "werebear",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_dog"
 		},
 		{
 			"typeName" : "lich",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_shadow"
 		},
 		{
 			"typeName" : "vampire",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_human"
 		},
 		{
 			"typeName" : "ghoul",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_shadow"
 		},
 		{
 			"typeName" : "wight",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_shadow"
 		},
 		{
 			"typeName" : "goblin",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_lizardman"
 		},
 		{
 			"typeName" : "specter",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_ghost"
 		},
 		{
 			"typeName" : "floating eye",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_imp"
 		},
 		{
 			"typeName" : "eyeball",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_imp"
 		},
 		{
 			"typeName" : "heart",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_flame"
 		},
 		{
 			"typeName" : "slime",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_slime"
 		},
 		{
 			"typeName" : "jelly",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_slime"
 		},
 		{
 			"typeName" : "ooze",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_slime"
 		},
 		{
 			"typeName" : "pudding",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_slime"
 		},
 		{
 			"typeName" : "shadow",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_shadow"
 		},
 		{
 			"typeName" : "wolf",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_dog"
 		},
 		{
 			"typeName" : "chimera",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_crab"
 		},
 		{
 			"typeName" : "manticore",
-			"archetype" : "enemy_dummy"
-		},
-		{
-			"typeName" : "dragon",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_crab"
 		},
 		{
 			"typeName" : "wyrm",
-			"archetype" : "enemy_dummy"
-		},
-		{
-			"typeName" : "wyvern",
-			"archetype" : "enemy_dummy"
-		},
-		{
-			"typeName" : "lamia",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_giant"
 		},
 		{
 			"typeName" : "gorgon",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_demon_female"
 		},
 		{
 			"typeName" : "harpy",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_demon_female"
 		},
 		{
 			"typeName" : "horror",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_wurm"
 		},
 		{
 			"typeName" : "titan",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_golem"
 		},
 		{
 			"typeName" : "giant",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_giant"
 		},
 		{
 			"typeName" : "beast",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_dog"
 		},
 		{
 			"typeName" : "elemental",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_flame"
 		},
 		{
 			"typeName" : "suit of armor",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_armored"
 		},
 		{
 			"typeName" : "rooster",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_reptile"
 		},
 		{
 			"typeName" : "cyclops",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_giant"
 		},
 		{
 			"typeName" : "hydra",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_reptile"
 		},
 		{
 			"typeName" : "banshee",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_ghost"
 		},
 		{
 			"typeName" : "troll",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_giant"
 		},
 		{
 			"typeName" : "ogre",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_giant"
 		},
 		{
 			"typeName" : "gryphon",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_dog"
 		},
 		{
 			"typeName" : "golem",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_golem"
 		},
 		{
 			"typeName" : "gargoyle",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_golem"
 		},
 		{
 			"typeName" : "incubus",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_demon_male"
 		},
 		{
 			"typeName" : "succubus",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_demon_female"
 		},
 		{
 			"typeName" : "mummy",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_demon_male"
 		},
 		{
 			"typeName" : "hound",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_dog"
 		},
 		{
 			"typeName" : "hellhound",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_dog"
 		},
 		{
 			"typeName" : "phantom",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_ghost"
 		},
 		{
 			"typeName" : "imp",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_imp"
 		},
 		{
 			"typeName" : "demon",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_imp"
 		},
 		{
 			"typeName" : "demon lord",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_human"
 		},
 		{
 			"typeName" : "cockatrise",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_reptile"
 		},
 		{
 			"typeName" : "lilith",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_demon_female"
 		},
 		{
 			"typeName" : "ghast",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_ghost"
 		},
 		{
 			"typeName" : "revenant",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_shadow"
 		},
 		{
 			"typeName" : "tortoise",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_turtle"
 		},
 		{
 			"typeName" : "mass",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_wurm"
 		},
 		{
 			"typeName" : "abomination",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_crab"
 		},
 		{
 			"typeName" : "mound",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_giant"
 		},
 		{
 			"typeName" : "horseman",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_dog"
 		},
 		{
 			"typeName" : "mimic",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_wurm"
 		},
 		{
 			"typeName" : "fish",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_reptile"
 		},
 		{
-			"typeName" : "man",
-			"archetype" : "enemy_dummy"
+			"typeName" : "human",
+			"archetype" : "enemy_human"
 		},
 		{
 			"typeName" : "centaur",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_human"
 		},
 		{
-			"typeName" : "half-man",
-			"archetype" : "enemy_dummy"
+			"typeName" : "half-human",
+			"archetype" : "enemy_demon_male"
 		},
 		{
-			"typeName" : "once-man",
-			"archetype" : "enemy_dummy"
+			"typeName" : "once-human",
+			"archetype" : "enemy_shadow"
 		},
 		{
 			"typeName" : "cobra",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_reptile"
 		},
 		{
 			"typeName" : "serpent",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_reptile"
 		},
 		{
 			"typeName" : "millipede",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_insect"
 		},
 		{
 			"typeName" : "centipede",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_insect"
 		},
 		{
 			"typeName" : "giant ant",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_insect"
 		},
 		{
 			"typeName" : "giant maggot",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_insect"
 		},
 		{
 			"typeName" : "beetle swarm",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_insect"
 		},
 		{
 			"typeName" : "mass of worms",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_wurm"
 		},
 		{
 			"typeName" : "rat",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_dog"
 		},
 		{
 			"typeName" : "rat king",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_dog"
 		},
 		{
 			"typeName" : "panther",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_dog"
 		},
 		{
 			"typeName" : "wildcat",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_dog"
 		},
 		{
 			"typeName" : "dog",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_dog"
 		},
 		{
 			"typeName" : "illusion",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_shadow"
 		},
 		{
 			"typeName" : "lion",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_dog"
 		},
 		{
 			"typeName" : "bat",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_imp"
 		},
 		{
 			"typeName" : "vampire bat",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_imp"
 		},
 		{
 			"typeName" : "wretch",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_demon_male"
 		},
 		{
 			"typeName" : "murderer",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_human"
 		},
 		{
 			"typeName" : "killer",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_human"
 		},
 		{
 			"typeName" : "thief",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_human"
 		},
 		{
 			"typeName" : "corpse",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_body"
 		},
 		{
 			"typeName" : "body",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_body"
 		},
 		{
 			"typeName" : "severed head",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_body"
 		},
 		{
 			"typeName" : "severed arm",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_body"
 		},
 		{
 			"typeName" : "sword",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_armored"
 		},
 		{
 			"typeName" : "axe",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_armored"
 		},
 		{
 			"typeName" : "statue",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_armored"
 		},
 		{
 			"typeName" : "ex-priest",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_demon_male"
 		},
 		{
 			"typeName" : "ex-monk",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_demon_male"
 		},
 		{
 			"typeName" : "ex-nun",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_demon_female"
 		},
 		{
 			"typeName" : "guardsman",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_human"
 		},
 		{
 			"typeName" : "midget",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_human"
 		},
 		{
 			"typeName" : "brute",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_demon_male"
 		},
 		{
 			"typeName" : "sorcerer",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_woman"
 		},
 		{
 			"typeName" : "siren",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_demon_female"
 		},
 		{
 			"typeName" : "woman",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_woman"
 		},
 		{
 			"typeName" : "seductress",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_woman"
 		},
 		{
 			"typeName" : "carnivorous plant",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_wurm"
 		},
 		{
 			"typeName" : "doppelganger",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_human"
 		},
 		{
 			"typeName" : "lamb",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_reptile"
 		},
 		{
 			"typeName" : "executioner",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_demon_male"
 		},
 		{
 			"typeName" : "doctor",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_demon_male"
 		},
 		{
 			"typeName" : "marionette",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_armored"
 		},
 		{
 			"typeName" : "doll",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_armored"
 		},
 		{
 			"typeName" : "puppet",
-			"archetype" : "enemy_dummy"
+			"archetype" : "enemy_armored"
+		},
+		{
+			"typeName" : "cultist",
+			"archetype" : "enemy_woman"
+		},
+		{
+			"typeName" : "mutant",
+			"archetype" : "enemy_giant"
+		},
+		{
+			"typeName" : "amoeba",
+			"archetype" : "enemy_slime"
 		}
 	],
 	"prefixes" : [

@@ -83,7 +83,7 @@ public abstract class MapGenerator implements Queueable {
 		assets.addAll(decorators);
 		
 		r = new Random();
-		r.setSeed(1);
+		r.setSeed(MGlobal.rand.nextLong());
 	}
 	
 	/** @return The width of this map, in tiles */

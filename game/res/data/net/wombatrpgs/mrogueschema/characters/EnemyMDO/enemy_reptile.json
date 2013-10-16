@@ -1,0 +1,18 @@
+{
+	"key" : "enemy_reptile",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "      ",
+	"appearance" : "4dir_creeper",
+	"stats" : {
+		"mhp" : 100,
+		"hp" : 100,
+		"speed" : 90,
+		"vision" : 4,
+		"dodge" : 0,
+		"armor" : 0,
+		"dmgBase" : 3,
+		"dmgRange" : 3
+	},
+	"intelligence" : "behavior_herostep"
+}
