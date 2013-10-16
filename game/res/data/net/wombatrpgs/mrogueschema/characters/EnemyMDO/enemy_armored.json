@@ -2,8 +2,9 @@
 	"key" : "enemy_armored",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "     ",
+	"description" : "      ",
 	"appearance" : "4dir_armor",
+	"faction" : "ENEMIES",
 	"stats" : {
 		"mhp" : 30,
 		"hp" : 30,

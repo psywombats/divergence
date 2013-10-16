@@ -2,8 +2,9 @@
 	"key" : "enemy_crab",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "    ",
+	"description" : "   ",
 	"appearance" : "4dir_crab",
+	"faction" : "ANIMALS",
 	"stats" : {
 		"mhp" : 50,
 		"hp" : 50,

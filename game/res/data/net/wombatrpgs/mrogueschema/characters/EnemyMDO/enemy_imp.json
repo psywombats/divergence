@@ -2,8 +2,9 @@
 	"key" : "enemy_imp",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "      ",
+	"description" : "     ",
 	"appearance" : "4dir_imp",
+	"faction" : "ENEMIES",
 	"stats" : {
 		"mhp" : 55,
 		"hp" : 55,

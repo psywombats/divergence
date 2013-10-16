@@ -2,8 +2,9 @@
 	"key" : "enemy_turtle",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "  ",
+	"description" : " ",
 	"appearance" : "4dir_turtle",
+	"faction" : "ANIMALS",
 	"stats" : {
 		"mhp" : 70,
 		"hp" : 70,

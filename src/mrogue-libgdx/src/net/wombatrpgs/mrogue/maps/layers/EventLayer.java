@@ -14,6 +14,7 @@ import java.util.List;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
+import net.wombatrpgs.mrogue.characters.CharacterEvent;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.MapThing;
@@ -26,6 +27,7 @@ public class EventLayer extends Layer {
 	
 	protected Level parent;
 	protected List<MapEvent> events;
+	protected List<CharacterEvent> charas;
 	
 	/**
 	 * Creates a new object layer with a parent level and no objects.
@@ -36,6 +38,7 @@ public class EventLayer extends Layer {
 	public EventLayer(Level parent) {
 		this.parent = parent;
 		events = new ArrayList<MapEvent>();
+		charas = new ArrayList<CharacterEvent>();
 	}
 
 	/**
@@ -96,7 +99,8 @@ public class EventLayer extends Layer {
 	public List<MapEvent> getEvents() { return events; }
 
 	/**
-	 * Adds another map event to this layer.
+	 * Adds another map event to this layer. Charas should be added from their
+	 * own method.
 	 * @param 	event			The map event to add
 	 */
 	public void add(MapEvent event) {
@@ -109,11 +113,30 @@ public class EventLayer extends Layer {
 	}
 	
 	/**
+	 * Adds a character to this layer. This only adds it to the list of
+	 * characters, so really only characters should call it.
+	 * @param	chara			The character to add
+	 */
+	public void addChara(CharacterEvent chara) {
+		charas.add(chara);
+	}
+	
+	/**
 	 * Removes a map object from this layer.
 	 * @param 	event		The map object to remove
 	 */
 	public void remove(MapEvent event) {
 		events.remove(event);
+		event.onRemove(this);
+	}
+	
+	/**
+	 * Removes a character from the layer. This only removes from the charas
+	 * list, not the global list, so only the character itself should call this.
+	 * @param	chara			The chara that left us
+	 */
+	public void removeCharacter(CharacterEvent chara) {
+		charas.remove(chara);
 	}
 	
 	/**
@@ -126,26 +149,26 @@ public class EventLayer extends Layer {
 	}
 	
 	/**
-	 * Simulates the passage of time on all events until it's the hero's turn
-	 * to move again. This loops and blocks until the hero moves.
+	 * Runs timestep integration until the hero moves again.
 	 */
 	public void integrate() {
 		while (true) {
-			Collections.sort(events, new Comparator<MapEvent>() {
+			Collections.sort(charas, new Comparator<CharacterEvent>() {
 				@Override
-				public int compare(MapEvent a, MapEvent b) {
+				public int compare(CharacterEvent a, CharacterEvent b) {
 					return a.ticksToAct() - b.ticksToAct();
 				}
 			});
-			MapEvent next = events.get(0);
+			CharacterEvent next = charas.get(0);
 			int ticks = next.ticksToAct();
-			for (MapEvent event : events) {
-				event.simulateTime(ticks);
+			for (CharacterEvent chara : charas) {
+				chara.simulateTime(ticks);
 			}
 			next.simulateTime(1);
 			if (next == MGlobal.hero) {
 				break;
 			} else {
+				next.onTurn();
 				next.act();
 			}
 		}
@@ -192,6 +215,14 @@ public class EventLayer extends Layer {
 			}
 		}
 		return results;
+	}
+	
+	/**
+	 * Gets all the characters on this map.
+	 * @return					The list containing all of our characters
+	 */
+	public List<CharacterEvent> getCharacters() {
+		return charas;
 	}
 
 }

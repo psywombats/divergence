@@ -13,6 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.mrogue.characters.CharacterEvent;
 import net.wombatrpgs.mrogue.characters.Enemy;
 import net.wombatrpgs.mrogue.characters.Hero;
 import net.wombatrpgs.mrogue.characters.MonsterGenerator;
@@ -61,22 +62,18 @@ public class Level implements	ScreenShowable,
 	/** The screen we render to */
 	protected Screen screen;
 
-	/** The single active event layer */
+	/** The layers */
 	protected EventLayer eventLayer;
-	/** All tile layers, in order by Z */
 	protected List<GridLayer> gridLayers;
 	
 	/** List of all map object in the level (some are in layers) */
 	protected List<MapThing> objects;
 	
-	/** List of all map events to remove next loop */
+	/** List of all events to remove next loop */
 	protected List<MapEvent> removalEvents;
-	/** List of all map objects to remove next loop */
 	protected List<MapThing> removalObjects;
 	
-	/** herp derp I wonder what this is */
 	protected MusicObject bgm;
-	/** An effect that plays on this map, or null */
 	protected Effect effect;
 	
 	/** Should game state be suspended */
@@ -189,7 +186,11 @@ public class Level implements	ScreenShowable,
 	/** @return The time since the move started, in s */
 	public float getMoveTimeElapsed() { return MGlobal.constants.getDelay() - moveTime; }
 	
-	public int getPopulation() { return eventLayer.getEvents().size(); }
+	/** @return The number of characters on the map */
+	public int getPopulation() { return eventLayer.getCharacters().size(); }
+	
+	/** @return All the characters currently on this map */
+	public List<CharacterEvent> getCharacters() { return eventLayer.getCharacters(); }
 	
 	/** @see net.wombatrpgs.mrogue.screen.ScreenShowable#ignoresTint() */
 	@Override public boolean ignoresTint() { return false; }
@@ -336,7 +337,10 @@ public class Level implements	ScreenShowable,
 	 * all other events and then starts them all moving.
 	 */
 	public void startMoving() {
+		// integration step
 		eventLayer.integrate();
+		
+		// move step
 		moving = true;
 		moveTime = MGlobal.constants.getDelay();
 		for (MapEvent event : eventLayer.getEvents()) {

@@ -12,6 +12,7 @@ import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
+import net.wombatrpgs.mrogueschema.characters.data.Faction;
 import net.wombatrpgs.mrogueschema.characters.data.StatsMDO;
 import net.wombatrpgs.mrogueschema.graphics.DirMDO;
 
@@ -26,6 +27,9 @@ public class CharacterMDO extends MainSchema {
 	@SchemaLink(DirMDO.class)
 	@Nullable
 	public String appearance;
+	
+	@Desc("Allegiance - what faction does this character belong to?")
+	public Faction faction;
 	
 //	@Desc("Hurt sound - plays when this character is damaged")
 //	@SchemaLink(SoundMDO.class)

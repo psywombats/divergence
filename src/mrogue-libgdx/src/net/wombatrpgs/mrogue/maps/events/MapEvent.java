@@ -196,7 +196,7 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 		if (hidden()) return;
 		super.render(camera);
 	}
-	
+
 	/**
 	 * Sets the hide status of this map event via event command. Hidden events
 	 * do not update or interact with other events. It's a way of having objects
@@ -346,13 +346,21 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	}
 	
 	/**
-	 * Called when this object is added to an object layer. Nothing by default.
+	 * Called when this object is added to an object layer.
 	 * @param 	layer			The layer this object is being added to
 	 */
 	public void onAdd(EventLayer layer) {
 		this.lastX = getX();
 		this.lastY = getY();
-		// nothing by default
+	}
+	
+	/**
+	 * Called when this event is removed from an event layer. Nothing by
+	 * default.
+	 * @param	layer			The layer that kicked us out
+	 */
+	public void onRemove(EventLayer layer) {
+		// noop
 	}
 	
 	/**
@@ -374,35 +382,6 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	 * @param	character		The jerk that ran into us
 	 */
 	public void collideWith(CharacterEvent character) {
-		// default is nothing
-	}
-	
-	/**
-	 * Calculates how long this event has to go before taking an action of its
-	 * own. The default never acts and just returns a large number.
-	 * @return					The number of ticks to go before moving
-	 */
-	public int ticksToAct() {
-		// most game actions should be like 1000 tops
-		return 10000;
-	}
-	
-	/**
-	 * Simulate the passage of a certain number of game ticks. This usually just
-	 * deducts an amount from the cost to move.
-	 * @param	ticks			The number of game ticks elapsed
-	 */
-	public void simulateTime(int ticks) {
-		// default is nothing
-	}
-	
-	/**
-	 * Do whatever it is you want to do on this turn. Default does nothing.
-	 * Events that care about energy costs etc should update their time to next
-	 * move here.
-	 * @return					How many game ticks spent this turn
-	 */
-	public void act() {
 		// default is nothing
 	}
 	

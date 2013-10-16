@@ -1,5 +1,5 @@
 ================================================================================
-= MROGUE v. 20131012  -not intended for public release-                        =
+= MROGUE v. 20131016  -not intended for public release-                        =
 = running on MGNENGINE v. 20131013                                             =
 = contact: aking (psy_wombats@wombatrpgs.net)                                  =
 ================================================================================
@@ -24,5 +24,6 @@ things I'll actually start working from Dropbox and everyone can mess around
 with the database editor and break stuff and it'll be awesome.
 
 SO FAR:
-There's a map. You can run around on it and get yourself killed. It's randomly
-generated every time. ...just play it, it's awesome.
+There's a map. There are enemies. The enemies will fight amongst themselves, and
+maybe they'll attack you too if they're the right type. Factions! Their pathfind
+is still wicked stupid.

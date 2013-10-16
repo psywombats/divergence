@@ -2,8 +2,9 @@
 	"key" : "enemy_ghost",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "      ",
+	"description" : "     ",
 	"appearance" : "4dir_ghost",
+	"faction" : "UNDEAD",
 	"stats" : {
 		"mhp" : 60,
 		"hp" : 60,

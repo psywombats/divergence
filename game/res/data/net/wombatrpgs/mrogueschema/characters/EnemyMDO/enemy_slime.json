@@ -2,8 +2,9 @@
 	"key" : "enemy_slime",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "      ",
+	"description" : "     ",
 	"appearance" : "4dir_black_slime",
+	"faction" : "ENEMIES",
 	"stats" : {
 		"mhp" : 80,
 		"hp" : 80,

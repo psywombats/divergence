@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "      ",
 	"appearance" : "4dir_infected_man",
+	"faction" : "EXHUMANS",
 	"stats" : {
 		"mhp" : 100,
 		"hp" : 100,

@@ -2,8 +2,9 @@
 	"key" : "enemy_reptile",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "      ",
+	"description" : "     ",
 	"appearance" : "4dir_creeper",
+	"faction" : "ANIMALS",
 	"stats" : {
 		"mhp" : 100,
 		"hp" : 100,

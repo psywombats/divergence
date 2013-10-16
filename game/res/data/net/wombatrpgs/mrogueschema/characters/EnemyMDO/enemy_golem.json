@@ -2,8 +2,9 @@
 	"key" : "enemy_golem",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "      ",
+	"description" : "     ",
 	"appearance" : "4dir_red_giant",
+	"faction" : "ENEMIES",
 	"stats" : {
 		"mhp" : 150,
 		"hp" : 150,

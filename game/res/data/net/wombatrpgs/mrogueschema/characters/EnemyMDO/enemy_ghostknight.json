@@ -2,8 +2,9 @@
 	"key" : "enemy_ghostknight",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "      ",
+	"description" : "     ",
 	"appearance" : "4dir_ghost_knight",
+	"faction" : "UNDEAD",
 	"stats" : {
 		"mhp" : 60,
 		"hp" : 60,

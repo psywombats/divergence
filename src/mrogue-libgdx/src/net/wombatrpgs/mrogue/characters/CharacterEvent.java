@@ -12,16 +12,18 @@ import java.util.List;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.wombatrpgs.mrogue.characters.act.ActWait;
-import net.wombatrpgs.mrogue.characters.act.Action;
+import net.wombatrpgs.mrogue.characters.ai.act.ActWait;
+import net.wombatrpgs.mrogue.characters.ai.act.Action;
 import net.wombatrpgs.mrogue.characters.travel.BumpStep;
 import net.wombatrpgs.mrogue.characters.travel.MoveStep;
 import net.wombatrpgs.mrogue.characters.travel.Step;
 import net.wombatrpgs.mrogue.core.MGlobal;
+import net.wombatrpgs.mrogue.core.Turnable;
 import net.wombatrpgs.mrogue.graphics.FacesAnimation;
 import net.wombatrpgs.mrogue.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
+import net.wombatrpgs.mrogue.maps.layers.EventLayer;
 import net.wombatrpgs.mrogueschema.characters.CharacterMDO;
 import net.wombatrpgs.mrogueschema.graphics.DirMDO;
 import net.wombatrpgs.mrogueschema.maps.data.EightDir;
@@ -30,9 +32,10 @@ import net.wombatrpgs.mrogueschema.maps.data.OrthoDir;
 /**
  * A character event is an event with an MDO and an animation that looks kind of
  * like a character. It's also a character in an RPG-like game, meaning it
- * should probably be split into RPG-chara and RM-chara at some point soon.
+ * should probably be split into RPG-chara and RM-chara at some point soon. It
+ * can act on a turn, unlike a map event.
  */
-public class CharacterEvent extends MapEvent {
+public class CharacterEvent extends MapEvent implements Turnable {
 	
 	protected static Action defaultWait;
 	
@@ -40,6 +43,7 @@ public class CharacterEvent extends MapEvent {
 	
 	protected FacesAnimation appearance;
 	protected boolean pacing;
+	protected List<Turnable> turnChildren;
 	protected List<Step> travelPlan;
 	protected Step lastStep;
 	protected int ticksRemaining;
@@ -173,6 +177,26 @@ public class CharacterEvent extends MapEvent {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#onAdd
+	 * (net.wombatrpgs.mrogue.maps.layers.EventLayer)
+	 */
+	@Override
+	public void onAdd(EventLayer layer) {
+		super.onAdd(layer);
+		layer.addChara(this);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#onRemove
+	 * (net.wombatrpgs.mrogue.maps.layers.EventLayer)
+	 */
+	@Override
+	public void onRemove(EventLayer layer) {
+		super.onRemove(layer);
+		layer.removeCharacter(this);
+	}
+
+	/**
 	 * Overrides the pacing action of this character.
 	 * @param 	pacing			True if character should pace, false otherwise
 	 */
@@ -251,6 +275,16 @@ public class CharacterEvent extends MapEvent {
 			travelPlan.clear();
 		}
 	}
+	
+	/**
+	 * @see net.wombatrpgs.mrogue.core.Turnable#onTurn()
+	 */
+	@Override
+	public void onTurn() {
+		for (Turnable t : turnChildren) {
+			t.onTurn();
+		}
+	}
 
 	/**
 	 * Faces this event towards its current tile target.
@@ -319,30 +353,31 @@ public class CharacterEvent extends MapEvent {
 	 */
 	@Override
 	public void collideWith(CharacterEvent character) {
-		character.getUnit().attack(getUnit());
+		if (getUnit().getRelationTo(character).attackIfBored) {
+			character.getUnit().attack(getUnit());
+		}
 	}
 
 	/**
-	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#ticksToAct()
+	 * Calculates the ticks until we next move.
+	 * @return					The remaining ticks, in game ticks
 	 */
-	@Override
 	public int ticksToAct() {
 		return ticksRemaining;
 	}
 
 	/**
-	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#simulateTime(int)
+	 * Simulates the passage of time in the game world.
+	 * @param	ticks			The number of ticks elapsed, in game ticks
 	 */
-	@Override
 	public void simulateTime(int ticks) {
 		ticksRemaining -= ticks;
 	}
 
 	/**
-	 * Default selects an action then waits for its duration.
-	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#act()
+	 * Called every time we make a turn. Default selects an action then waits
+	 * for its duration.
 	 */
-	@Override
 	public void act() {
 		actAndWait(selectAction());
 	}
@@ -444,6 +479,7 @@ public class CharacterEvent extends MapEvent {
 	 */
 	protected void init(CharacterMDO mdo) {
 		this.mdo = mdo;
+		this.turnChildren = new ArrayList<Turnable>();
 		if (mdoHasProperty(mdo.appearance)) {
 			DirMDO dirMDO = MGlobal.data.getEntryFor(mdo.appearance, DirMDO.class);
 			appearance = FacesAnimationFactory.create(dirMDO, this);
@@ -454,6 +490,7 @@ public class CharacterEvent extends MapEvent {
 		travelPlan = new ArrayList<Step>();
 		
 		unit = new GameUnit(mdo, this);
+		turnChildren.add(unit);
 		ticksRemaining = 0;
 		
 		if (defaultWait == null) {

@@ -6,9 +6,14 @@
  */
 package net.wombatrpgs.mrogue.characters;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.wombatrpgs.mrogue.core.MGlobal;
+import net.wombatrpgs.mrogue.core.Turnable;
 import net.wombatrpgs.mrogue.ui.Narrator;
 import net.wombatrpgs.mrogueschema.characters.CharacterMDO;
+import net.wombatrpgs.mrogueschema.characters.data.Relation;
 
 /**
  * A GameUnit is designed to factor out some of that shittiness that happens
@@ -19,18 +24,19 @@ import net.wombatrpgs.mrogueschema.characters.CharacterMDO;
  * character is sill the same, it just gets its functionality split between
  * the two manifestation classes.
  */
-public class GameUnit {
+public class GameUnit implements Turnable {
 	
 	/** lol this thing is because I'm too lazy to type MGlobal.ughhhh.nar ugh */
 	protected static Narrator out;
 	
 	protected CharacterMDO mdo;
 	protected CharacterEvent parent;
+	protected List<Turnable> turnChildren;
 	
 	protected String name;
-	
 	protected Stats baseStats;
 	protected Stats currentStats;
+	protected Allegiance allegiance;
 	
 	/**
 	 * Creates a new character from data.
@@ -40,8 +46,12 @@ public class GameUnit {
 	public GameUnit(CharacterMDO mdo, CharacterEvent parent) {
 		this.mdo = mdo;
 		this.parent = parent;
+		this.turnChildren = new ArrayList<Turnable>();
 		baseStats = new Stats(mdo.stats);
 		currentStats = new Stats(mdo.stats);
+		allegiance = new Allegiance(this, mdo.faction);
+		turnChildren.add(allegiance);
+		
 		if (out == null) out = MGlobal.ui.getNarrator();
 	}
 	
@@ -57,6 +67,40 @@ public class GameUnit {
 	/** @param This unit's new player-facing name */
 	public void setName(String name) { this.name = name; }
 	
+	/** @return The political views of this unit */
+	public Allegiance getAllegiance() { return this.allegiance; }
+	
+	/** @return True if this unit has fallen in mortal combat */
+	public boolean isDead() { return getStats().getHP() <= 0; }
+	
+	/**
+	 * Determines how we respond to another unit.
+	 * @param	other			The unit to respond to
+	 * @return					How we respond to them
+	 */
+	public Relation getRelationTo(GameUnit other) {
+		return allegiance.getRelationTo(other);
+	}
+	
+	/**
+	 * Determines how we respond to another character.
+	 * @param	other			The chara we respond to
+	 * @return					How we respond to them
+	 */
+	public Relation getRelationTo(CharacterEvent other) {
+		return getRelationTo(other.getUnit());
+	}
+	
+	/**
+	 * @see net.wombatrpgs.mrogue.core.Turnable#onTurn()
+	 */
+	@Override
+	public void onTurn() {
+		for (Turnable t : turnChildren) {
+			t.onTurn();
+		}
+	}
+
 	/**
 	 * Launches a basic melee attack against the other unit.
 	 * @param other
@@ -77,6 +121,23 @@ public class GameUnit {
 		} else {
 			if (visible(this, other)) {
 				out.msg(us + " misses " + them + ".");
+			}
+		}
+		other.onAttackBy(this);
+	}
+	
+	/**
+	 * Called whenever a hit launches an attack against us, successful or not.
+	 * The outcome of the attack itself is handled elsewhere.
+	 * @param	other			The unit that launched the attack
+	 */
+	public void onAttackBy(GameUnit other) {
+		allegiance.addToHitlist(other);
+		for (CharacterEvent chara : parent.getLevel().getCharacters()) {
+			if (chara!= parent && chara.inLoS(parent) && chara.inLoS(other.parent)) {
+				if (chara.getUnit().getRelationTo(this).avenge) {
+					chara.getUnit().getAllegiance().addToHitlist(other);
+				}
 			}
 		}
 	}
@@ -117,7 +178,41 @@ public class GameUnit {
 	 */
 	public void die() {
 		parent.getLevel().removeEvent(parent);
-		out.msg(getName() + " is killed.");
+		if (visible(this)) {
+			out.msg(getName() + " is killed.");
+		}
+	}
+	
+	/**
+	 * Gathers a list of all enemy units in sight. Relies on other LoS methods.
+	 * @return					A list of all hostiles in the area
+	 */
+	public List<GameUnit> getVisibleEnemies() {
+		List<GameUnit> units = getVisibleUnits();
+		List<GameUnit> enemies = new ArrayList<GameUnit>();
+		for (GameUnit unit : units) {
+			if (getRelationTo(unit).attackOnSight && !(unit == this)) {
+				enemies.add(unit);
+			}
+		}
+		return enemies;
+	}
+	
+	/**
+	 * Gathers a list of all units in our line of sight. In practice this is
+	 * achieved by querying everyone on the map for their position information,
+	 * checking if they're in LoS. It's probably kind of cumbersome, and it may
+	 * be worth handling this differently in the future.
+	 * @return					A list of all units in the area
+	 */	
+	public List<GameUnit> getVisibleUnits() {
+		List<GameUnit> units = new ArrayList<GameUnit>();
+		for (CharacterEvent chara : parent.getLevel().getCharacters()) {
+			if (parent.inLoS(chara)) {
+				units.add(chara.getUnit());
+			}
+		}
+		return units;
 	}
 	
 	/**

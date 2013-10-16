@@ -2,10 +2,10 @@
 	"key" : "behavior_herostep",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "",
+	"description" : " ",
 	"intents" : [
 		{
-			"action" : "act_herostep",
+			"action" : "act_attackenemies",
 			"priority" : 100
 		},
 		{

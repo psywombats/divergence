@@ -2,8 +2,9 @@
 	"key" : "enemy_body",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "       ",
+	"description" : "      ",
 	"appearance" : "4dir_wounded_man",
+	"faction" : "UNDEAD",
 	"stats" : {
 		"mhp" : 120,
 		"hp" : 120,

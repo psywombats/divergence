@@ -2,8 +2,9 @@
 	"key" : "enemy_human",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "     ",
+	"description" : "    ",
 	"appearance" : "4dir_normal_man",
+	"faction" : "HUMANS",
 	"stats" : {
 		"mhp" : 70,
 		"hp" : 70,
