@@ -1,0 +1,11 @@
+{
+	"key" : "decorset_spiderwebs",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"decorators" : [
+		"decor_spiderweb1",
+		"decor_spiderweb2",
+		"decor_smallweb"
+	]
+}

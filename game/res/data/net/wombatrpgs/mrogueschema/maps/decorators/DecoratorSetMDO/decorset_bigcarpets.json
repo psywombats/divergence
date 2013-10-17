@@ -1,0 +1,12 @@
+{
+	"key" : "decorset_bigcarpets",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"decorators" : [
+		"decor_carpet1",
+		"decor_carpet2",
+		"decor_carpet3",
+		"decor_carpet4"
+	]
+}
