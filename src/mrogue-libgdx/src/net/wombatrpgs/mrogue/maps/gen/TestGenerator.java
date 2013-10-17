@@ -28,10 +28,10 @@ public class TestGenerator extends MapGenerator {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mrogue.maps.gen.MapGenerator#generateMe()
+	 * @see net.wombatrpgs.mrogue.maps.gen.MapGenerator#generateInternal()
 	 */
 	@Override
-	public void generateMe() {
+	public void generateInternal() {
 		int w = parent.getWidth();
 		int h = parent.getHeight();
 		TileType types[][] = new TileType[h][w];

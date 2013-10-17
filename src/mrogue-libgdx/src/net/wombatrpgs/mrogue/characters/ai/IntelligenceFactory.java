@@ -16,7 +16,7 @@ import net.wombatrpgs.mrogue.characters.CharacterEvent;
 import net.wombatrpgs.mrogue.characters.ai.act.ActStepHero;
 import net.wombatrpgs.mrogue.characters.ai.act.ActWait;
 import net.wombatrpgs.mrogue.characters.ai.act.ActWander;
-import net.wombatrpgs.mrogue.characters.ai.seq.RoutineAttackEnemies;
+import net.wombatrpgs.mrogue.characters.ai.seq.RoutineMeleeEnemies;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogueschema.characters.ai.BehaviorListMDO;
 import net.wombatrpgs.mrogueschema.characters.ai.data.ActionMDO;
@@ -109,7 +109,7 @@ public class IntelligenceFactory {
 		} else if (ActionWanderMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new BTAction(actor, new ActWander(actor), true);
 		} else if (ActionAttackEnemiesMDO.class.isAssignableFrom(mdo.getClass())) {
-			return new RoutineAttackEnemies(actor);
+			return new RoutineMeleeEnemies(actor);
 		} else {
 			MGlobal.reporter.warn("Unknown intent mdo: " + mdo);
 			return null;

@@ -25,10 +25,10 @@ public class ClassicGenerator extends MapGenerator {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mrogue.maps.gen.MapGenerator#generateMe()
+	 * @see net.wombatrpgs.mrogue.maps.gen.MapGenerator#generateInternal()
 	 */
 	@Override
-	public void generateMe() {
+	protected void generateInternal() {
 		int w = parent.getWidth();
 		int h = parent.getHeight();
 		int roomCount = roomCount();

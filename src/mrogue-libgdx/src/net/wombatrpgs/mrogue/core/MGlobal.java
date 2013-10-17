@@ -100,7 +100,9 @@ public class MGlobal {
 			MGlobal.reporter.inform("Initializing error reporting");
 			MGlobal.assetManager = new AssetManager();
 			MGlobal.reporter.inform("Initializing primary globals");
-			MGlobal.rand = new Random(System.currentTimeMillis());
+			long seed = 0;//System.currentTimeMillis();
+			MGlobal.rand = new Random(seed);
+			MGlobal.reporter.inform("Using global seed " + seed);
 			MGlobal.data = new Database();
 			
 			// load up data marked essential, this will always be ugly

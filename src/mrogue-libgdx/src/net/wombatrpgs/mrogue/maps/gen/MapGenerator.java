@@ -83,7 +83,11 @@ public abstract class MapGenerator implements Queueable {
 		assets.addAll(decorators);
 		
 		r = new Random();
-		r.setSeed(MGlobal.rand.nextLong());
+		long seed = MGlobal.rand.nextLong();
+		r.setSeed(seed);
+		
+		MGlobal.reporter.inform("Generator initialized for " + parent + ", "
+				+ "using " + mdo.key + " algorithm and seed " + seed);
 	}
 	
 	/** @return The width of this map, in tiles */
@@ -97,9 +101,19 @@ public abstract class MapGenerator implements Queueable {
 	
 	/**
 	 * Perform the actual construction of the level by bossing it around and
-	 * making its layers.
+	 * making its layers. This isn't directly overridden in subclasses, but
+	 * instead delegated. This method wraps some info calls.
 	 */
-	abstract public void generateMe();
+	public final void generateMe() {
+		MGlobal.reporter.inform("Generation algorithm begin for " + parent +
+				"(" + parent.getWidth() + ", " + parent.getHeight() + ")");
+		long startTime = System.currentTimeMillis();
+		generateInternal();
+		long endTime = System.currentTimeMillis();
+		float elapsed = (endTime - startTime) / 1000f;
+		MGlobal.reporter.inform("Generation finished for " + parent + ", " +
+				"elapsed time: " + elapsed + " seconds");
+	}
 	
 	/**
 	 * Fetches the default tile that this generator uses to generate.
@@ -211,6 +225,11 @@ public abstract class MapGenerator implements Queueable {
 			d.apply(tiles);
 		}
 	}
+	
+	/**
+	 * The actual bulk of generation should occur here.
+	 */
+	protected abstract void generateInternal();
 	
 	/**
 	 * Registers a tile to be converted later. It's a tile table thing.

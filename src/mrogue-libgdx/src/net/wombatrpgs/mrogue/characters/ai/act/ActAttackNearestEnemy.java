@@ -7,7 +7,6 @@
 package net.wombatrpgs.mrogue.characters.ai.act;
 
 import net.wombatrpgs.mrogue.characters.CharacterEvent;
-import net.wombatrpgs.mrogue.characters.GameUnit;
 import net.wombatrpgs.mrogue.core.MGlobal;
 
 /**
@@ -15,7 +14,7 @@ import net.wombatrpgs.mrogue.core.MGlobal;
  */
 public class ActAttackNearestEnemy extends Action {
 	
-	protected ActStepChara step;
+	protected ActPathfindToChar pather;
 
 	/**
 	 * Creates a new attack step for an actor.
@@ -23,7 +22,7 @@ public class ActAttackNearestEnemy extends Action {
 	 */
 	public ActAttackNearestEnemy(CharacterEvent actor) {
 		super(actor);
-		step = new ActStepChara(actor);
+		pather = new ActPathfindToChar(actor);
 	}
 	
 	/**
@@ -31,20 +30,12 @@ public class ActAttackNearestEnemy extends Action {
 	 */
 	@Override
 	public void act() {
-		float minDist = Float.MAX_VALUE;
-		CharacterEvent best = null;
-		for (GameUnit enemy : actor.getUnit().getVisibleEnemies()) {
-			float dist = enemy.getParent().distanceTo(actor);
-			if (dist < minDist) {
-				minDist = dist;
-				best = enemy.getParent();
-			}
-		}
+		CharacterEvent best = actor.getUnit().getTarget().getParent();
 		if (best == null) {
 			MGlobal.reporter.warn("AANE'd but no enemies in range of " + actor);
 		} else {
-			step.setTarget(best);
-			step.act();
+			pather.setTarget(best);
+			pather.act();
 		}
 	}
 

@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
 import net.wombatrpgs.mrogueschema.maps.data.DirVector;
@@ -33,6 +32,14 @@ public class AStarPathfinder {
 	protected int z;
 	
 	/**
+	 * Creates a new shell of a pathfinder. This can be used for a reusable
+	 * pathfinder, but make sure you set the fields first.
+	 */
+	public AStarPathfinder() {
+		
+	}
+	
+	/**
 	 * Sets up a new pathfinding task on a level. Does not actually evaluate
 	 * anything unless you tell it to. You can probably reuse it by changing
 	 * around its to/from. That should help for android optimizations if it
@@ -45,6 +52,20 @@ public class AStarPathfinder {
 	 * @param	z				The z-depth where everything takes place
 	 */
 	public AStarPathfinder(Level map, int fromX, int fromY, int toX, int toY, int z) {
+		this();
+		setInfo(map, fromX, fromY, toX, toY, z);
+	}
+	
+	/**
+	 * Sets the tracking information for the pathfinding.
+	 * @param 	map				The map that this task runs on
+	 * @param 	fromX			Where search starts from x (in tiles)
+	 * @param 	fromY			Where search starts from y (in tiles)
+	 * @param 	toX				Where search starts from x (in tiles)
+	 * @param 	toY				Where search starts from y (in tiles)
+	 * @param	z				The z-depth where everything takes place
+	 */
+	public void setInfo(Level map, int fromX, int fromY, int toX, int toY, int z) {
 		this.map = map;
 		this.fromX = fromX;
 		this.fromY = fromY;
@@ -74,6 +95,14 @@ public class AStarPathfinder {
 	}
 	
 	/**
+	 * Sets the map the search takes place on.
+	 * @param	map				The map this search takes place on
+	 */
+	public void setMap(Level map) {
+		this.map = map;
+	}
+	
+	/**
 	 * Calculates the path to the location. Woo hoo!
 	 * @param	actor			The event that will be pathing
 	 * @return					The steps to get to destination, or null if none
@@ -89,6 +118,7 @@ public class AStarPathfinder {
 				visited.get(y).add(x, false);
 			}
 		}
+		@SuppressWarnings("unused")
 		int nodes = 0;
 		while (queue.size() > 0) {
 			Path node = queue.poll();
@@ -99,7 +129,7 @@ public class AStarPathfinder {
 			} else {
 				visited.get(node.getAtY()).set(node.getAtX(), true);
 				if (node.getAtX() == toX && node.getAtY() == toY) {
-					MGlobal.reporter.inform("Path found, expanded " + nodes);
+					//MGlobal.reporter.inform("Path found, expanded " + nodes);
 					return node.getSteps();
 				}
 				for (EightDir dir : EightDir.values()) {

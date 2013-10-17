@@ -184,6 +184,24 @@ public class GameUnit implements Turnable {
 	}
 	
 	/**
+	 * Gets what we're supposed to be killing at the moment, or null if no
+	 * target. This scans visible enemies and identifies the nearest enemy.
+	 * @return
+	 */
+	public GameUnit getTarget() {
+		float minDist = Float.MAX_VALUE;
+		GameUnit best = null;
+		for (GameUnit enemy : getVisibleEnemies()) {
+			float dist = enemy.getParent().distanceTo(getParent());
+			if (dist < minDist) {
+				minDist = dist;
+				best = enemy;
+			}
+		}
+		return best;
+	}
+	
+	/**
 	 * Gathers a list of all enemy units in sight. Relies on other LoS methods.
 	 * @return					A list of all hostiles in the area
 	 */
