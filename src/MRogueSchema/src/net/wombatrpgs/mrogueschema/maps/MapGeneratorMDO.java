@@ -12,6 +12,7 @@ import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.Path;
+import net.wombatrpgs.mrogueschema.maps.data.CeilTilesMDO;
 import net.wombatrpgs.mrogueschema.maps.data.GenerationType;
 import net.wombatrpgs.mrogueschema.maps.data.WallTilesMDO;
 import net.wombatrpgs.mrogueschema.maps.decorators.data.DecoratorMDO;
@@ -31,8 +32,8 @@ public class MapGeneratorMDO extends MainSchema {
 	public String wallTiles;
 	
 	@Desc("Ceiling tile(s)")
-	@InlineSchema(TileMDO.class)
-	public TileMDO ceilingTiles;
+	@SchemaLink(CeilTilesMDO.class)
+	public String ceilingTiles;
 	
 	@Desc("Generation algorithm")
 	public GenerationType generator;

@@ -2,14 +2,12 @@
 	"key" : "generator_test",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "",
+	"description" : " ",
 	"floorTiles" : {
 		"appearance" : "floor01.png"
 	},
 	"wallTiles" : "wall_woodish",
-	"ceilingTiles" : {
-		"appearance" : "stonesquare.png"
-	},
+	"ceilingTiles" : "ceil_woodish",
 	"generator" : "TEST",
 	"minRoomWidth" : 5,
 	"minRoomHeight" : 4,

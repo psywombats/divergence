@@ -13,7 +13,10 @@ package net.wombatrpgs.mrogueschema.maps.data;
 public enum TileType {
 	
 	FLOOR			(true,	true),
-	CEILING			(false, false),
+	ANY_CEILING		(false, false),
+	CEILING_TOP		(false, false),
+	CEILING_BOTTOM	(false, true),
+	CEILING_MIDDLE	(false, true),
 	ANY_MIDDLE_WALL	(false, true),			// for MDO use only
 	ANY_WALL		(false, true),			// for MDO use only
 	WALL_TLEFT		(false, true),

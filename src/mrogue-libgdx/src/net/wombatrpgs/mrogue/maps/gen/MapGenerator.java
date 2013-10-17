@@ -26,6 +26,7 @@ import net.wombatrpgs.mrogue.maps.gen.dec.DecoratorFactory;
 import net.wombatrpgs.mrogue.maps.layers.GridLayer;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
 import net.wombatrpgs.mrogueschema.maps.TileMDO;
+import net.wombatrpgs.mrogueschema.maps.data.CeilTilesMDO;
 import net.wombatrpgs.mrogueschema.maps.data.TileType;
 import net.wombatrpgs.mrogueschema.maps.data.WallTilesMDO;
 import net.wombatrpgs.mrogueschema.maps.decorators.data.DecoratorMDO;
@@ -42,12 +43,17 @@ public abstract class MapGenerator implements Queueable {
 			TileType.ANY_MIDDLE_WALL, TileType.ANY_WALL));
 	protected static Set<TileType> middleWalls = Collections.synchronizedSet(EnumSet.of(
 			TileType.WALL_TOP, TileType.WALL_BOTTOM, TileType.ANY_MIDDLE_WALL));
+	
 	protected enum Halt {
 		NONE, FIRST, CHANGE,
+	}
+	protected enum ConversionState {
+		INIT, GENERATING, WALLS, CEILING, CONVERSION, FINISHED,
 	}
 	
 	protected MapGeneratorMDO mdo;
 	protected Random r;
+	protected ConversionState state;
 	protected Level parent;
 	protected Map<TileType, Tile> tileMap;
 	protected List<Decorator> decorators;
@@ -65,9 +71,9 @@ public abstract class MapGenerator implements Queueable {
 		this.assets = new ArrayList<Queueable>();
 		this.tileMap = new HashMap<TileType, Tile>();
 		this.decorators = new ArrayList<Decorator>();
-		addTile(mdo.floorTiles, TileType.FLOOR);
-		addTile(mdo.ceilingTiles, TileType.CEILING);
+		CeilTilesMDO ceils = MGlobal.data.getEntryFor(mdo.ceilingTiles, CeilTilesMDO.class);
 		WallTilesMDO walls = MGlobal.data.getEntryFor(mdo.wallTiles, WallTilesMDO.class);
+		addTile(mdo.floorTiles, TileType.FLOOR);
 		addTile(walls.b, TileType.WALL_BOTTOM);
 		addTile(walls.t, TileType.WALL_TOP);
 		addTile(walls.br, TileType.WALL_BRIGHT);
@@ -76,6 +82,9 @@ public abstract class MapGenerator implements Queueable {
 		addTile(walls.tl, TileType.WALL_TLEFT);
 		addTile(walls.tm, TileType.WALL_TMID);
 		addTile(walls.bm, TileType.WALL_BMID);
+		addTile(ceils.b, TileType.CEILING_BOTTOM);
+		addTile(ceils.m, TileType.CEILING_MIDDLE);
+		addTile(ceils.t, TileType.CEILING_TOP);
 		for (String key : mdo.decorators) {
 			DecoratorMDO decMDO = MGlobal.data.getEntryFor(key, DecoratorMDO.class);
 			decorators.add(DecoratorFactory.createDecor(decMDO, this));
@@ -86,6 +95,7 @@ public abstract class MapGenerator implements Queueable {
 		long seed = MGlobal.rand.nextLong();
 		r.setSeed(seed);
 		
+		state = ConversionState.INIT;
 		MGlobal.reporter.inform("Generator initialized for " + parent + ", "
 				+ "using " + mdo.key + " algorithm and seed " + seed);
 	}
@@ -105,6 +115,12 @@ public abstract class MapGenerator implements Queueable {
 	 * instead delegated. This method wraps some info calls.
 	 */
 	public final void generateMe() {
+		if (state != ConversionState.INIT) {
+			MGlobal.reporter.warn("Reusing a map generator for " + parent);
+			return;
+		} else {
+			state = ConversionState.GENERATING;
+		}
 		MGlobal.reporter.inform("Generation algorithm begin for " + parent +
 				"(" + parent.getWidth() + ", " + parent.getHeight() + ")");
 		long startTime = System.currentTimeMillis();
@@ -216,6 +232,11 @@ public abstract class MapGenerator implements Queueable {
 	 * @param	tiles			The tiles to assign to
 	 */
 	public void fillTiles(TileType[][] types, Tile[][] tiles) {
+		if (state != ConversionState.CEILING) {
+			MGlobal.reporter.warn("Bad fill order for " + parent);
+		} else {
+			state = ConversionState.FINISHED;
+		}
 		for (int x = 0; x < parent.getWidth(); x += 1) {
 			for (int y = 0; y < parent.getHeight(); y += 1) {
 				tiles[y][x] = getTile(types[y][x]);
@@ -245,15 +266,20 @@ public abstract class MapGenerator implements Queueable {
 	 * @param	types			The type array to work with
 	 */
 	protected void applyWalls(TileType[][] types) {
+		if (state != ConversionState.GENERATING) {
+			MGlobal.reporter.warn("Bad order wall generation for " + parent);
+		} else {
+			state = ConversionState.WALLS;
+		}
 		for (int x = 0; x < parent.getWidth(); x += 1) {
 			for (int y = 0; y < parent.getHeight(); y += 1) {
 				if (x == 22 && y == 18) {
 					System.out.println();
 				}
 				if (isPassable(types, x, y-1) &&
-						isType(types, TileType.CEILING, x, y) &&
-						isType(types, TileType.CEILING, x, y+1) &&
-						isType(types, TileType.CEILING, x, y+2)) {
+						isType(types, TileType.ANY_CEILING, x, y) &&
+						isType(types, TileType.ANY_CEILING, x, y+1) &&
+						isType(types, TileType.ANY_CEILING, x, y+2)) {
 					if (isPassable(types, x-1, y) && isPassable(types, x+1, y)) {
 						types[y+1][x] = TileType.WALL_TMID;
 						types[y][x] = TileType.WALL_BMID;
@@ -273,6 +299,34 @@ public abstract class MapGenerator implements Queueable {
 	}
 	
 	/**
+	 * Converts from a one-ceiling to a two-ceiling system, like with walls.
+	 */
+	protected void applyCeilings(TileType[][] types) {
+		if (state != ConversionState.WALLS) {
+			MGlobal.reporter.warn("Bad order ceil generation for " + parent);
+		} else {
+			state = ConversionState.CEILING;
+		}
+		for (int x = 0; x < parent.getWidth(); x += 1) {
+			for (int y = 0; y < parent.getHeight(); y += 1) {
+				if (isType(types, TileType.ANY_CEILING, x, y)) {
+					if (isType(types, TileType.CEILING_TOP, x, y-1)) {
+						types[y][x] = TileType.CEILING_TOP;
+					} else if (isType(types, TileType.CEILING_MIDDLE, x, y-1)) {
+						types[y][x] = TileType.CEILING_TOP;
+					} else if (isType(types, TileType.CEILING_BOTTOM, x, y-1)) {
+						types[y][x] = TileType.CEILING_MIDDLE;
+					} else if (y == 0) {
+						types[y][x] = TileType.CEILING_TOP;
+					} else {
+						types[y][x] = TileType.CEILING_BOTTOM;
+					}
+				}
+			}
+		}
+	}
+	
+	/**
 	 * Replaces all islands of ceiling with the specified value.
 	 * @param	types			The data to operate on
 	 * @param	value			The value to set
@@ -280,7 +334,7 @@ public abstract class MapGenerator implements Queueable {
 	protected void purgeFloatingWalls(TileType[][] types, TileType value) {
 		for (int x = 0; x < parent.getWidth(); x += 1) {
 			for (int y = 0; y < parent.getHeight(); y += 1) {
-				if (isType(types, TileType.CEILING, x, y) && (
+				if (isType(types, TileType.ANY_CEILING, x, y) && (
 						(isPassable(types, x, y-1) && isPassable(types, x, y+1)) ||
 						(isPassable(types, x, y-1) && isPassable(types, x, y+2)) ||
 						(isPassable(types, x, y-2) && isPassable(types, x, y+1)))) {

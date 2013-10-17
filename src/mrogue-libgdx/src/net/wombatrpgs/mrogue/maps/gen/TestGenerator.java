@@ -35,7 +35,7 @@ public class TestGenerator extends MapGenerator {
 		int w = parent.getWidth();
 		int h = parent.getHeight();
 		TileType types[][] = new TileType[h][w];
-		fillRect(types, TileType.CEILING, 0, 0, w-1, h-1);
+		fillRect(types, TileType.ANY_CEILING, 0, 0, w-1, h-1);
 		carve(types, TileType.FLOOR, 0,		0,		w-1,	0,		Halt.NONE);
 		carve(types, TileType.FLOOR, w-1,	0,		w-1,	h-1,	Halt.NONE);
 		carve(types, TileType.FLOOR, w-1,	h-1,	0,		h-1,	Halt.NONE);

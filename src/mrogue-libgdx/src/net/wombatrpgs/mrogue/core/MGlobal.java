@@ -100,7 +100,7 @@ public class MGlobal {
 			MGlobal.reporter.inform("Initializing error reporting");
 			MGlobal.assetManager = new AssetManager();
 			MGlobal.reporter.inform("Initializing primary globals");
-			long seed = 0;//System.currentTimeMillis();
+			long seed = System.currentTimeMillis();
 			MGlobal.rand = new Random(seed);
 			MGlobal.reporter.inform("Using global seed " + seed);
 			MGlobal.data = new Database();

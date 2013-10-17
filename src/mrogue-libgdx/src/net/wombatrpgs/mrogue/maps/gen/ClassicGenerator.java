@@ -34,7 +34,7 @@ public class ClassicGenerator extends MapGenerator {
 		int roomCount = roomCount();
 		Room[] rooms = new Room[roomCount];
 		TileType types[][] = new TileType[h][w];
-		fillRect(types, TileType.CEILING, 0, 0, w-1, h-1);
+		fillRect(types, TileType.ANY_CEILING, 0, 0, w-1, h-1);
 		int gen = 0;
 		while (gen < roomCount) {
 			int rw = mdo.minRoomWidth + r.nextInt(mdo.maxRoomWidth-mdo.minRoomWidth);
@@ -66,6 +66,7 @@ public class ClassicGenerator extends MapGenerator {
 		}
 		purgeFloatingWalls(types, TileType.FLOOR);
 		applyWalls(types);
+		applyCeilings(types);
 		addLayer(types, 0);
 	}
 
