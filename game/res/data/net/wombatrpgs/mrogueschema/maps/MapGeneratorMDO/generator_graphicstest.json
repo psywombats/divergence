@@ -2,7 +2,7 @@
 	"key" : "generator_graphicstest",
 	"subfolder" : "",
 	"name" : "",
-	"description" : " ",
+	"description" : "   ",
 	"floorTiles" : {
 		"appearance" : "floor01.png"
 	},
@@ -16,29 +16,12 @@
 	"density" : 0.2,
 	"connectivity" : 1.0,
 	"decorators" : [
-		"decor_blood1",
-		"decor_blood2",
-		"decor_blood3",
-		"decor_blood4",
-		"decor_blood5",
-		"decor_carpet1",
-		"decor_carpet2",
-		"decor_carpet3",
-		"decor_carpet4",
-		"dec_crack1",
-		"dec_crack2",
-		"dec_crack3",
-		"decor_bloodwall1",
-		"decor_bloodwall2",
-		"decor_bloodwall3",
-		"decor_bloodwall4",
+		"decorset_paintings",
+		"decorset_bloodwalls",
+		"decorset_bloodfloors",
+		"decorset_bigcarpets",
 		"decor_window",
-		"decor_painting1",
-		"decor_painting2",
-		"decor_painting3",
-		"decor_painting4",
-		"decor_painting5",
-		"decor_painting6",
-		"decor_painting7"
+		"decorset_lights",
+		"decorset_spiderwebs"
 	]
 }

@@ -15,8 +15,8 @@ public enum TileType {
 	FLOOR			(true,	true),
 	ANY_CEILING		(false, false),
 	CEILING_TOP		(false, false),
-	CEILING_BOTTOM	(false, true),
-	CEILING_MIDDLE	(false, true),
+	CEILING_BOTTOM	(false, false),
+	CEILING_MIDDLE	(false, false),
 	ANY_MIDDLE_WALL	(false, true),			// for MDO use only
 	ANY_WALL		(false, true),			// for MDO use only
 	WALL_TLEFT		(false, true),

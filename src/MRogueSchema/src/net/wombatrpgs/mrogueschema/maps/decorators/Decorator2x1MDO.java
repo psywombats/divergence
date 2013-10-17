@@ -10,13 +10,13 @@ import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mrogueschema.maps.TileMDO;
-import net.wombatrpgs.mrogueschema.maps.decorators.data.DecoratorMDO;
+import net.wombatrpgs.mrogueschema.maps.decorators.data.SingleDecoratorMDO;
 
 /**
  * Whose idea was this?
  */
 @Path("maps/decorators/")
-public class Decorator2x1MDO extends DecoratorMDO {
+public class Decorator2x1MDO extends SingleDecoratorMDO {
 	
 	@Desc("The left tile to replace with")
 	@InlineSchema(TileMDO.class)

@@ -1,26 +1,19 @@
 /**
  *  DecoratorMDO.java
- *  Created on Oct 13, 2013 6:00:04 AM for project MRogueSchema
+ *  Created on Oct 17, 2013 2:46:40 PM for project MRogueSchema
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
 package net.wombatrpgs.mrogueschema.maps.decorators.data;
 
-import net.wombatrpgs.mgns.core.Annotations.Desc;
-import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
-import net.wombatrpgs.mrogueschema.maps.data.TileType;
+import net.wombatrpgs.mgns.core.MainSchema;
 
 /**
- * Head of all decorators!
+ * A decorator is the thing that adds decoration tiles. Its children include
+ * lists of itself and singletons.
  */
 @ExcludeFromTree
 public class DecoratorMDO extends MainSchema {
-	
-	@Desc("Probabililty this decoration will trigger, 0 is never 1 is always")
-	public Float chance;
-	
-	@Desc("The tile type to replace")
-	public TileType original;
 
 }

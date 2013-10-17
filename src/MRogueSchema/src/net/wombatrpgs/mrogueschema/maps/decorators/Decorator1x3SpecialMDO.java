@@ -11,13 +11,13 @@ import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mrogueschema.maps.TileMDO;
 import net.wombatrpgs.mrogueschema.maps.data.TileType;
-import net.wombatrpgs.mrogueschema.maps.decorators.data.DecoratorMDO;
+import net.wombatrpgs.mrogueschema.maps.decorators.data.SingleDecoratorMDO;
 
 /**
  * A decorator 1x3
  */
 @Path("maps/decorators/")
-public class Decorator1x3SpecialMDO extends DecoratorMDO {
+public class Decorator1x3SpecialMDO extends SingleDecoratorMDO {
 	
 	@Desc("The top tile to replace with")
 	@InlineSchema(TileMDO.class)

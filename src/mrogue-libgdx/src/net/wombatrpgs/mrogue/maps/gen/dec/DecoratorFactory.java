@@ -13,7 +13,9 @@ import net.wombatrpgs.mrogueschema.maps.decorators.Decorator1x2MDO;
 import net.wombatrpgs.mrogueschema.maps.decorators.Decorator1x3SpecialMDO;
 import net.wombatrpgs.mrogueschema.maps.decorators.Decorator2x1MDO;
 import net.wombatrpgs.mrogueschema.maps.decorators.Decorator2x2MDO;
+import net.wombatrpgs.mrogueschema.maps.decorators.Decorator2x2SpecialMDO;
 import net.wombatrpgs.mrogueschema.maps.decorators.Decorator3x3MDO;
+import net.wombatrpgs.mrogueschema.maps.decorators.DecoratorSetMDO;
 import net.wombatrpgs.mrogueschema.maps.decorators.data.DecoratorMDO;
 
 /**
@@ -22,13 +24,26 @@ import net.wombatrpgs.mrogueschema.maps.decorators.data.DecoratorMDO;
 public class DecoratorFactory {
 	
 	/**
+	 * Creates a decorator based on stored data with the given key.
+	 * @param	key				The key to look up in the database
+	 * @param	gen				The generator to create the decorator for
+	 * @return					The decorator we created
+	 */
+	public static Decorator createDecor(String key, MapGenerator gen) {
+		DecoratorMDO mdo = MGlobal.data.getEntryFor(key, DecoratorMDO.class);
+		return createDecor(mdo, gen);
+	}
+	
+	/**
 	 * Creates a decorator based on MDO class.
 	 * @param	mdo				The data to generate from
 	 * @param	gen				The generator to generate for
 	 * @return					The created decorator
 	 */
 	public static Decorator createDecor(DecoratorMDO mdo, MapGenerator gen) {
-		if (Decorator1x1MDO.class.isAssignableFrom(mdo.getClass())) {
+		if (DecoratorSetMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new DecoratorSet((DecoratorSetMDO) mdo, gen);
+		} else if (Decorator1x1MDO.class.isAssignableFrom(mdo.getClass())) {
 			return new Decorator1x1((Decorator1x1MDO) mdo, gen);
 		} else if (Decorator3x3MDO.class.isAssignableFrom(mdo.getClass())) {
 			return new Decorator3x3((Decorator3x3MDO) mdo, gen);
@@ -40,6 +55,8 @@ public class DecoratorFactory {
 			return new Decorator2x1((Decorator2x1MDO) mdo, gen);
 		} else if (Decorator1x3SpecialMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new Decorator1x3Special((Decorator1x3SpecialMDO) mdo, gen);
+		} else if (Decorator2x2SpecialMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new Decorator2x2Special((Decorator2x2SpecialMDO) mdo, gen);
 		}
 		MGlobal.reporter.warn("Unknown decorator mdo: " + mdo);
 		return null;
