@@ -2,17 +2,22 @@
 	"key" : "hero_default",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "   ",
+	"description" : "     ",
 	"appearance" : "4dir_grandfather",
 	"faction" : "HERO",
 	"stats" : {
 		"mhp" : 256,
 		"hp" : 256,
+		"mmp" : 100,
+		"mp" : 100,
 		"speed" : 100,
 		"vision" : 6,
 		"dodge" : 10,
 		"armor" : 3,
 		"dmgBase" : 8,
 		"dmgRange" : 10
-	}
+	},
+	"abilities" : [
+		"ability_punch_self_in_face"
+	]
 }

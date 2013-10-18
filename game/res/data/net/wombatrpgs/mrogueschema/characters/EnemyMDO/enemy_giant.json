@@ -2,12 +2,14 @@
 	"key" : "enemy_giant",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "      ",
+	"description" : "       ",
 	"appearance" : "4dir_giant",
 	"faction" : "ENEMIES",
 	"stats" : {
 		"mhp" : 100,
 		"hp" : 100,
+		"mmp" : 0,
+		"mp" : 0,
 		"speed" : 70,
 		"vision" : 3,
 		"dodge" : 1,
@@ -15,5 +17,6 @@
 		"dmgBase" : 5,
 		"dmgRange" : 5
 	},
+	"abilities" : [ ],
 	"intelligence" : "behavior_herostep"
 }

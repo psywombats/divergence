@@ -10,7 +10,7 @@ import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogueschema.graphics.effects.EffectFogMDO;
 import net.wombatrpgs.mrogueschema.graphics.effects.EffectLoSMDO;
-import net.wombatrpgs.mrogueschema.graphics.effects.EffectMDO;
+import net.wombatrpgs.mrogueschema.graphics.effects.data.EffectMDO;
 
 /**
  * Creates effects from MDOs.

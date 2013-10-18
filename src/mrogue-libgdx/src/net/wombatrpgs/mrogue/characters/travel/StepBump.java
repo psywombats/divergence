@@ -13,7 +13,7 @@ import net.wombatrpgs.mrogueschema.maps.data.EightDir;
 /**
  * Bump into a wall or into a hostile enemy!!
  */
-public class BumpStep extends Step {
+public class StepBump extends Step {
 	
 	/** Pixels we jut out for bumping */
 	protected static final int BUMP_SIZE = 8;
@@ -27,7 +27,7 @@ public class BumpStep extends Step {
 	 * @param	actor			The dude doing the bumping
 	 * @param	dir				The direction of the bump
 	 */
-	public BumpStep(CharacterEvent actor, EightDir dir) {
+	public StepBump(CharacterEvent actor, EightDir dir) {
 		super(actor);
 		this.dir = dir;
 		started = false;

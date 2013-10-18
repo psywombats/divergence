@@ -39,5 +39,9 @@ public class CharacterMDO extends MainSchema {
 	@Desc("Stats - RPG-like character base stats")
 	@InlineSchema(StatsMDO.class)
 	public StatsMDO stats;
+	
+	@Desc("Abilities - available to the player, maybe used by AI?")
+	@SchemaLink(AbilityMDO.class)
+	public String[] abilities;
 
 }

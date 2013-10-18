@@ -7,9 +7,9 @@
 package net.wombatrpgs.mrogue.characters.ai.seq;
 
 import net.wombatrpgs.mrogue.characters.CharacterEvent;
+import net.wombatrpgs.mrogue.characters.act.ActAttackNearestEnemy;
 import net.wombatrpgs.mrogue.characters.ai.BTAction;
 import net.wombatrpgs.mrogue.characters.ai.BTSequence;
-import net.wombatrpgs.mrogue.characters.ai.act.ActAttackNearestEnemy;
 import net.wombatrpgs.mrogue.characters.ai.cond.CondEnemiesSighted;
 
 /**

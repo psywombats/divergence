@@ -11,6 +11,7 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mrogueschema.graphics.AnimationMDO;
 import net.wombatrpgs.mrogueschema.graphics.ShaderMDO;
+import net.wombatrpgs.mrogueschema.graphics.effects.data.EffectMDO;
 
 /**
  * LoS obscuring effect.

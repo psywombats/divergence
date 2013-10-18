@@ -9,9 +9,11 @@ package net.wombatrpgs.mrogue.characters;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.wombatrpgs.mrogue.characters.abilities.Ability;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Turnable;
 import net.wombatrpgs.mrogue.ui.Narrator;
+import net.wombatrpgs.mrogueschema.characters.AbilityMDO;
 import net.wombatrpgs.mrogueschema.characters.CharacterMDO;
 import net.wombatrpgs.mrogueschema.characters.data.Relation;
 
@@ -37,6 +39,7 @@ public class GameUnit implements Turnable {
 	protected Stats baseStats;
 	protected Stats currentStats;
 	protected Allegiance allegiance;
+	protected List<Ability> abilities;
 	
 	/**
 	 * Creates a new character from data.
@@ -52,8 +55,17 @@ public class GameUnit implements Turnable {
 		allegiance = new Allegiance(this, mdo.faction);
 		turnChildren.add(allegiance);
 		
+		abilities = new ArrayList<Ability>();
+		for (String mdoKey : mdo.abilities) {
+			abilities.add(new Ability(parent,
+					MGlobal.data.getEntryFor(mdoKey, AbilityMDO.class)));
+		}
+		
 		if (out == null) out = MGlobal.ui.getNarrator();
 	}
+	
+	/** @return Laziness personified */
+	public static Narrator out() { return out; }
 	
 	/** @return The current stats of this unit */
 	public Stats getStats() { return currentStats; }
@@ -72,6 +84,9 @@ public class GameUnit implements Turnable {
 	
 	/** @return True if this unit has fallen in mortal combat */
 	public boolean isDead() { return getStats().getHP() <= 0; }
+	
+	/** @return The list of all the abilities this unit can perform */
+	public List<Ability> getAbilities() { return abilities; }
 	
 	/**
 	 * Determines how we respond to another unit.
@@ -133,7 +148,7 @@ public class GameUnit implements Turnable {
 	 */
 	public void onAttackBy(GameUnit other) {
 		allegiance.addToHitlist(other);
-		for (CharacterEvent chara : parent.getLevel().getCharacters()) {
+		for (CharacterEvent chara : parent.getParent().getCharacters()) {
 			if (chara!= parent && chara.inLoS(parent) && chara.inLoS(other.parent)) {
 				if (chara.getUnit().getRelationTo(this).avenge) {
 					chara.getUnit().getAllegiance().addToHitlist(other);
@@ -163,6 +178,30 @@ public class GameUnit implements Turnable {
 	}
 	
 	/**
+	 * Checks status effects, MP cost, etc to see if a unit is in a position to
+	 * use an ability. Doesn't worry about if there are any targets in range, 
+	 * or other logical things. Just hard rules.
+	 * @param	abil			The ability to check
+	 * @return					True if the ability can be used, false otherwise
+	 */
+	public boolean canUse(Ability abil) {
+		return currentStats.getMP() >= abil.getMP();
+	}
+	
+	/**
+	 * A callback for when this unit uses any sort of ability. The ability
+	 * itself will call this method. MP costs and the like should be deducted
+	 * here.
+	 * @param	abil			The ability that was used
+	 */
+	public void onAbilityUsed(Ability abil) {
+		currentStats.addMP(abil.getMP() * -1);
+		if (visible(this)) {
+			out.msg(getName() + " uses " + abil.getName() + ".");
+		}
+	}
+	
+	/**
 	 * Makes sure our health is above 0. If it isn't, kill self.
 	 */
 	public void ensureAlive() {
@@ -177,7 +216,7 @@ public class GameUnit implements Turnable {
 	 * kill credits and whatever should go here.
 	 */
 	public void die() {
-		parent.getLevel().removeEvent(parent);
+		parent.getParent().removeEvent(parent);
 		if (visible(this)) {
 			out.msg(getName() + " is killed.");
 		}
@@ -225,7 +264,7 @@ public class GameUnit implements Turnable {
 	 */	
 	public List<GameUnit> getVisibleUnits() {
 		List<GameUnit> units = new ArrayList<GameUnit>();
-		for (CharacterEvent chara : parent.getLevel().getCharacters()) {
+		for (CharacterEvent chara : parent.getParent().getCharacters()) {
 			if (parent.inLoS(chara)) {
 				units.add(chara.getUnit());
 			}

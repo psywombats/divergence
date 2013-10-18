@@ -56,7 +56,7 @@ public class Enemy extends CharacterEvent {
 			int tileX = MGlobal.rand.nextInt(parent.getWidth());
 			int tileY = MGlobal.rand.nextInt(parent.getHeight());
 			if (MGlobal.hero != null &&
-					MGlobal.hero.getLevel() == parent &&
+					MGlobal.hero.getParent() == parent &&
 					MGlobal.hero.inLoS(tileX, tileY)) {
 				continue;
 			}

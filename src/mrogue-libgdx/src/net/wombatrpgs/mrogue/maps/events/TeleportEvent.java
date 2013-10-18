@@ -79,7 +79,7 @@ public class TeleportEvent extends MapEvent {
 	 */
 	protected void teleport(MapEvent other) {
 		if (other != MGlobal.hero) return;
-		if (getLevel().contains(MGlobal.teleport.getPre())) return;
+		if (getParent().contains(MGlobal.teleport.getPre())) return;
 		MGlobal.teleport.getPre().addListener(new FinishListener() {
 			@Override
 			public void onFinish(Level map) {
@@ -90,7 +90,7 @@ public class TeleportEvent extends MapEvent {
 				triggered = false;
 			}
 		});
-		MGlobal.teleport.getPre().run(MGlobal.hero.getLevel());
+		MGlobal.teleport.getPre().run(MGlobal.hero.getParent());
 	}
 	
 }

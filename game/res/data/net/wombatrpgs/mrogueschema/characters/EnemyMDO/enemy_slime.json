@@ -2,12 +2,14 @@
 	"key" : "enemy_slime",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "     ",
+	"description" : "      ",
 	"appearance" : "4dir_black_slime",
 	"faction" : "ENEMIES",
 	"stats" : {
 		"mhp" : 80,
 		"hp" : 80,
+		"mmp" : 0,
+		"mp" : 0,
 		"speed" : 75,
 		"vision" : 3,
 		"dodge" : 0,
@@ -15,5 +17,6 @@
 		"dmgBase" : 4,
 		"dmgRange" : 3
 	},
+	"abilities" : [ ],
 	"intelligence" : "behavior_herostep"
 }

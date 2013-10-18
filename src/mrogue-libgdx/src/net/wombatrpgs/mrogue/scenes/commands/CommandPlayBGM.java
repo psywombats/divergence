@@ -44,9 +44,9 @@ public class CommandPlayBGM extends SceneCommand {
 		if (!finished) {
 			if (bgm != null) {
 				bgm.play();
-				parent.getLevel().setBGM(bgm);
+				parent.getParent().setBGM(bgm);
 			} else {
-				parent.getLevel().getBGM().stop();
+				parent.getParent().getBGM().stop();
 			}
 		}
 		finished = true;

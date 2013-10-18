@@ -40,7 +40,7 @@ public class CommandCameraTrack extends SceneCommand {
 			if (arg.equals(NULL_TARGET)) {
 				target = null;
 			} else {
-				target = parent.getLevel().getEventByName(arg);
+				target = parent.getParent().getEventByName(arg);
 				if (target == null) {
 					MGlobal.reporter.warn("Couldn't find event to track named: " + arg);
 				}

@@ -12,7 +12,7 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
-import net.wombatrpgs.mrogueschema.graphics.effects.EffectMDO;
+import net.wombatrpgs.mrogueschema.graphics.effects.data.EffectMDO;
 
 /**
  * A map contains not only a TMX but other vital data as well!

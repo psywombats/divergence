@@ -41,11 +41,11 @@ public class CommandSetLocation extends SceneCommand {
 	@Override
 	public boolean run() {
 		if (finished) return true;
-		MapEvent event = parent.getLevel().getEventByName(eventName);
+		MapEvent event = parent.getParent().getEventByName(eventName);
 		if (event == null) {
 			MGlobal.reporter.warn("Tried to set location of null event: " + eventName);
 		} else {
-			Level map = parent.getLevel();
+			Level map = parent.getParent();
 			event.setX(teleX * map.getTileWidth());
 			event.setY(map.getHeightPixels() - (teleY+1) * map.getTileHeight());
 		}

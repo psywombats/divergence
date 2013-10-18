@@ -18,6 +18,7 @@ public class Stats {
 	
 	private StatsMDO mdo;
 	private int mhp, hp;
+	private int mmp, mp;
 	private int speed;
 	private int vision;
 	private int armor, defense;
@@ -31,6 +32,8 @@ public class Stats {
 		this.mdo = stats;
 		hp			= stats.hp;
 		mhp			= stats.mhp;
+		mp			= stats.mp;
+		mmp			= stats.mmp;
 		speed		= stats.speed;
 		vision		= stats.vision;
 		armor		= stats.armor;
@@ -45,17 +48,35 @@ public class Stats {
 	/** @param mhp The new max health value */
 	public void setMHP(int mhp) { this.mhp = mhp; }
 	
-	/** @param mhp The amount to increase max health by, in hp */
+	/** @param mhp The amount to increase max health by */
 	public void addMHP(int mhp) { this.mhp += mhp; }
 	
 	/** @return Current health points */
 	public int getHP() { return hp; }
 	
-	/** @param newHP This stats new health value */
+	/** @param newHP This stats new special value */
 	public void setHP(int newHP) { this.hp = newHP; }
 	
-	/** @param hp The amount of health to add or deduct */
+	/** @param hp The amount of special to add or deduct */
 	public void addHP(int hp) { this.hp += hp; }
+	
+	/** @return Max special points */
+	public int getMMP() { return mmp; }
+	
+	/** @param mmp The new max special value */
+	public void setMMP(int mmp) { this.mmp = mmp; }
+	
+	/** @param mmp The amount to increase special points by */
+	public void addMMP(int mmp) { this.mmp += mmp; }
+	
+	/** @return Current special points */
+	public int getMP() { return mp; }
+	
+	/** @param newMP This stats new health value */
+	public void setMP(int newMP) { this.mp = newMP; }
+	
+	/** @param mp The amount of health to add or deduct */
+	public void addMP(int mp) { this.mp += mp; }
 	
 	/** @return The absolute speed of this character */
 	public int getSpeed() { return speed; }

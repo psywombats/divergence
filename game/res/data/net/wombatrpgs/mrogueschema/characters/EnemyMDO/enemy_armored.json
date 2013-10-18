@@ -2,12 +2,14 @@
 	"key" : "enemy_armored",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "      ",
+	"description" : "     ",
 	"appearance" : "4dir_armor",
 	"faction" : "ENEMIES",
 	"stats" : {
 		"mhp" : 30,
 		"hp" : 30,
+		"mmp" : 0,
+		"mp" : 0,
 		"speed" : 70,
 		"vision" : 3,
 		"dodge" : 0,
@@ -15,5 +17,6 @@
 		"dmgBase" : 5,
 		"dmgRange" : 3
 	},
+	"abilities" : [ ],
 	"intelligence" : "behavior_herostep"
 }

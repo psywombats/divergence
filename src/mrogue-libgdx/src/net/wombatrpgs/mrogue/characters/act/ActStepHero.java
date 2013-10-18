@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mrogue.characters.ai.act;
+package net.wombatrpgs.mrogue.characters.act;
 
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mrogue.characters.CharacterEvent;

@@ -45,7 +45,7 @@ public class Particle extends MapEvent {
 	public Particle(EmitterMDO mdo, Emitter source, TextureRegion appearance) {
 		this.source = source;
 		this.appearance = appearance;
-		this.parent = source.getLevel();
+		this.parent = source.getParent();
 		this.angle = MGlobal.rand.nextInt(360);
 		this.bounce = mdo.bounce;
 		this.reflect = mdo.reflect;

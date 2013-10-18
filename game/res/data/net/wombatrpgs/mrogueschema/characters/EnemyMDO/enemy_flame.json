@@ -2,12 +2,14 @@
 	"key" : "enemy_flame",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "     ",
+	"description" : "      ",
 	"appearance" : "4dir_fireball",
 	"faction" : "ENEMIES",
 	"stats" : {
 		"mhp" : 50,
 		"hp" : 50,
+		"mmp" : 0,
+		"mp" : 0,
 		"speed" : 140,
 		"vision" : 5,
 		"dodge" : 20,
@@ -15,5 +17,6 @@
 		"dmgBase" : 2,
 		"dmgRange" : 2
 	},
+	"abilities" : [ ],
 	"intelligence" : "behavior_herostep"
 }

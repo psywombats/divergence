@@ -102,10 +102,9 @@ public class Hud implements ScreenShowable,
 	 */
 	@Override
 	public void update(float elapsed) {
-		// TODO: hud
 		if (awaitingReset) {
 			currentHPDisplay = MGlobal.hero.getStats().getHP();
-			//currentMPDisplay = MGlobal.hero.getSP();
+			currentMPDisplay = MGlobal.hero.getStats().getMP();
 			awaitingReset = false;
 			timeToDigitHP = 0;
 			timeToDigitMP = 0;
@@ -120,14 +119,14 @@ public class Hud implements ScreenShowable,
 				currentHPDisplay += 1;
 			}
 		}
-//		while (timeToDigitMP > mdo.mpDigitDelay) {
-//			timeToDigitMP -= mdo.mpDigitDelay;
-//			if (currentMPDisplay > MGlobal.hero.getSP()) {
-//				currentMPDisplay -= 1;
-//			} else if (currentMPDisplay < MGlobal.hero.getSP()){
-//				currentMPDisplay += 1;
-//			}
-//		}
+		while (timeToDigitMP > mdo.mpDigitDelay) {
+			timeToDigitMP -= mdo.mpDigitDelay;
+			if (currentMPDisplay > MGlobal.hero.getStats().getMP()) {
+				currentMPDisplay -= 1;
+			} else if (currentMPDisplay < MGlobal.hero.getStats().getMP()){
+				currentMPDisplay += 1;
+			}
+		}
 	}
 
 	/**
@@ -141,18 +140,18 @@ public class Hud implements ScreenShowable,
 		if (mdo.anchorDir == OrthoDir.SOUTH) {
 			float mhp = MGlobal.hero.getStats().getMHP();
 			float hp = currentHPDisplay;
-//			float mmp = MGlobal.hero.getStats().getMSP();
-//			float mp = currentMPDisplay;
+			float mmp = MGlobal.hero.getStats().getMMP();
+			float mp = currentMPDisplay;
 			float ratioHP = hp/mhp;
-//			float ratioMP = mp/mmp;
+			float ratioMP = mp/mmp;
 			renderBar(camera, batch, nhpBase, nhpRib, nhpTail, mdo.hpStartX,
 					mdo.hpStartY, 1, mdo.hpWidth);
 			renderBar(camera, batch, hpBase, hpRib, hpTail, mdo.hpStartX,
 					mdo.hpStartY, ratioHP, mdo.hpWidth);
-//			renderBar(camera, batch, nmpBase, nmpRib, nmpTail, mdo.mpStartX,
-//					mdo.mpStartY, 1, mdo.mpWidth);
-//			renderBar(camera, batch, mpBase, mpRib, mpTail, mdo.mpStartX,
-//					mdo.mpStartY, ratioMP, mdo.mpWidth);
+			renderBar(camera, batch, nmpBase, nmpRib, nmpTail, mdo.mpStartX,
+					mdo.mpStartY, 1, mdo.mpWidth);
+			renderBar(camera, batch, mpBase, mpRib, mpTail, mdo.mpStartX,
+					mdo.mpStartY, ratioMP, mdo.mpWidth);
 			frame.renderAt(batch, mdo.offX, mdo.offY);
 			if (ratioHP > .31) {
 				numbersHP.renderNumberAt((int) hp,
@@ -170,10 +169,10 @@ public class Hud implements ScreenShowable,
 						mdo.offY + mdo.numOffY,
 						1, .6f, .6f);
 			}
-//			numbersMP.renderNumberAt((int) mp,
-//						mdo.offX + mdo.numMPOffX,
-//						mdo.offY + mdo.numMPOffY,
-//						.8f, .8f, 1);
+			numbersMP.renderNumberAt((int) mp,
+						mdo.offX + mdo.numMPOffX,
+						mdo.offY + mdo.numMPOffY,
+						.8f, .8f, 1);
 			
 			// head masking
 			batch.setBlendFunction(GL20.GL_ONE, GL20.GL_ZERO);
@@ -240,6 +239,7 @@ public class Hud implements ScreenShowable,
 	 */
 	public void forceReset() {
 		currentHPDisplay = MGlobal.hero.getStats().getHP();
+		currentMPDisplay = MGlobal.hero.getStats().getMP();
 	}
 	
 	/** A huge awful method for HP bars */

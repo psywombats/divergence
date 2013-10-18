@@ -11,7 +11,7 @@ import net.wombatrpgs.mrogue.characters.CharacterEvent;
 /**
  * The step for travel.
  */
-public class MoveStep extends Step {
+public class StepMove extends Step {
 	
 	protected int tileX, tileY;
 
@@ -21,7 +21,7 @@ public class MoveStep extends Step {
 	 * @param	tileX			The x-coord of the tile to move to (in tiles)
 	 * @param	tileY			The y-coord of the tile to move to (in tiles)
 	 */
-	public MoveStep(CharacterEvent actor, int tileX, int tileY) {
+	public StepMove(CharacterEvent actor, int tileX, int tileY) {
 		super(actor);
 		this.tileX = tileX;
 		this.tileY = tileY;
@@ -34,8 +34,8 @@ public class MoveStep extends Step {
 	public void update(float elapsed) {
 		super.update(elapsed);
 		if (!actor.isMoving()) {
-			float targetX = tileX * actor.getLevel().getTileWidth();
-			float targetY = tileY * actor.getLevel().getTileHeight();
+			float targetX = tileX * actor.getParent().getTileWidth();
+			float targetY = tileY * actor.getParent().getTileHeight();
 			if (actor.getX() != targetX || actor.getY() != targetY) {
 				float dx = targetX - actor.getX();
 				float dy = targetY - actor.getY();
@@ -52,8 +52,8 @@ public class MoveStep extends Step {
 	@Override
 	public void onEnd() {
 		super.onEnd();
-		float targetX = tileX * actor.getLevel().getTileWidth();
-		float targetY = tileY * actor.getLevel().getTileHeight();
+		float targetX = tileX * actor.getParent().getTileWidth();
+		float targetY = tileY * actor.getParent().getTileHeight();
 		actor.setX(targetX);
 		actor.setY(targetY);
 		actor.halt();

@@ -2,12 +2,14 @@
 	"key" : "enemy_insect",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "      ",
+	"description" : "        ",
 	"appearance" : "4dir_dragonfly",
 	"faction" : "ANIMALS",
 	"stats" : {
 		"mhp" : 22,
 		"hp" : 22,
+		"mmp" : 0,
+		"mp" : 0,
 		"speed" : 135,
 		"vision" : 4,
 		"dodge" : 30,
@@ -15,5 +17,6 @@
 		"dmgBase" : 4,
 		"dmgRange" : 3
 	},
+	"abilities" : [ ],
 	"intelligence" : "behavior_herostep"
 }

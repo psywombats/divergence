@@ -12,10 +12,9 @@ import java.util.List;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.wombatrpgs.mrogue.characters.ai.act.ActWait;
-import net.wombatrpgs.mrogue.characters.ai.act.Action;
-import net.wombatrpgs.mrogue.characters.travel.BumpStep;
-import net.wombatrpgs.mrogue.characters.travel.MoveStep;
+import net.wombatrpgs.mrogue.characters.act.ActWait;
+import net.wombatrpgs.mrogue.characters.travel.StepBump;
+import net.wombatrpgs.mrogue.characters.travel.StepMove;
 import net.wombatrpgs.mrogue.characters.travel.Step;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Turnable;
@@ -323,17 +322,17 @@ public class CharacterEvent extends MapEvent implements Turnable {
 			for (MapEvent event : events) {
 				event.collideWith(this);
 				if (!event.isPassable()) {
-					travelPlan.add(new BumpStep(this, directionTo(targetX, targetY)));
+					travelPlan.add(new StepBump(this, directionTo(targetX, targetY)));
 					colliding = true;
 				}
 			}
 			if (!colliding) {
-				travelPlan.add(new MoveStep(this, targetX, targetY));
+				travelPlan.add(new StepMove(this, targetX, targetY));
 				tileX = targetX;
 				tileY = targetY;
 			}
 		} else {
-			travelPlan.add(new BumpStep(this, directionTo(targetX, targetY)));
+			travelPlan.add(new StepBump(this, directionTo(targetX, targetY)));
 			List<MapEvent> events = parent.getEventsAt(getTileX(), getTileY());
 			for (MapEvent event : events) {
 				if (event != this) {

@@ -35,6 +35,13 @@ public enum InputButton {
 	BUTTON_5,
 	BUTTON_6,
 	
+	ABIL_1,
+	ABIL_2,
+	ABIL_3,
+	ABIL_4,
+	ABIL_5,
+	ABIL_6,
+	
 	
 	MENU,
 	FULLSCREEN,

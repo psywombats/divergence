@@ -73,7 +73,7 @@ public class CommandTint extends SceneCommand {
 				}	
 			};
 			child.setPauseLevel(PauseLevel.PAUSE_RESISTANT);
-			parent.getLevel().addObject(child);
+			parent.getParent().addObject(child);
 			finished = true;
 		}
 		return true;

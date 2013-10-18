@@ -23,6 +23,13 @@ public enum InputCommand {
 	MOVE_NORTHWEST,
 	MOVE_WAIT,
 	
+	ABIL_1,
+	ABIL_2,
+	ABIL_3,
+	ABIL_4,
+	ABIL_5,
+	ABIL_6,
+	
 	INTENT_CONFIRM,
 	INTENT_CANCEL,
 	INTENT_EXIT,

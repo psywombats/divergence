@@ -96,7 +96,7 @@ public abstract class MapThing implements	Renderable,
 	}
 	
 	/** @return The map we are currently on */
-	public Level getLevel() { return parent; }
+	public Level getParent() { return parent; }
 	
 	/** @return How this object responds to pausing */
 	public PauseLevel getPauseLevel() { return this.pauseLevel; }

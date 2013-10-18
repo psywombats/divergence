@@ -48,13 +48,14 @@ public class StatsModifier {
 	protected void apply(Stats stats, int sign) {
 		stats.addHP(sign * mdo.hp);
 		stats.addMHP(sign * mdo.mhp);
+		stats.addMP(sign * mdo.mp);
+		stats.addMMP(sign * mdo.mmp);
 		stats.addSpeed(sign * mdo.speed);
 		stats.addVision(sign * mdo.vision);
 		stats.addBaseDmg(sign * mdo.dmgBase);
 		stats.addDmgRange(sign * mdo.dmgRange);
 		stats.addDefense(sign * mdo.dodge);
 		stats.addArmor(sign * mdo.armor);
-		
 	}
 
 }

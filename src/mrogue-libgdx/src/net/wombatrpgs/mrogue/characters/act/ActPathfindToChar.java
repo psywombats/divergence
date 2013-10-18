@@ -4,10 +4,11 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mrogue.characters.ai.act;
+package net.wombatrpgs.mrogue.characters.act;
 
 import java.util.List;
 
+import net.wombatrpgs.mrogue.characters.Action;
 import net.wombatrpgs.mrogue.characters.CharacterEvent;
 import net.wombatrpgs.mrogue.characters.ai.AStarPathfinder;
 import net.wombatrpgs.mrogue.core.MGlobal;
@@ -51,11 +52,11 @@ public class ActPathfindToChar extends Action {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mrogue.characters.ai.act.Action#act()
+	 * @see net.wombatrpgs.mrogue.characters.Action#act()
 	 */
 	@Override
 	public void act() {
-		finder.setMap(actor.getLevel());
+		finder.setMap(actor.getParent());
 		finder.setStart(actor.getTileX(), actor.getTileY());
 		finder.setTarget(target.getTileX(), target.getTileY());
 		List<EightDir> path = finder.getPath(actor);

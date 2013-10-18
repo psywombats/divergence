@@ -2,12 +2,14 @@
 	"key" : "enemy_body",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "      ",
+	"description" : "       ",
 	"appearance" : "4dir_wounded_man",
 	"faction" : "UNDEAD",
 	"stats" : {
 		"mhp" : 120,
 		"hp" : 120,
+		"mmp" : 0,
+		"mp" : 0,
 		"speed" : 120,
 		"vision" : 2,
 		"dodge" : 0,
@@ -15,5 +17,6 @@
 		"dmgBase" : 2,
 		"dmgRange" : 2
 	},
+	"abilities" : [ ],
 	"intelligence" : "behavior_herostep"
 }

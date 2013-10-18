@@ -6,8 +6,8 @@
  */
 package net.wombatrpgs.mrogue.characters.ai;
 
+import net.wombatrpgs.mrogue.characters.Action;
 import net.wombatrpgs.mrogue.characters.CharacterEvent;
-import net.wombatrpgs.mrogue.characters.ai.act.Action;
 
 /**
  * A wrapper for a normal game action to fit into the behavior tree spec.

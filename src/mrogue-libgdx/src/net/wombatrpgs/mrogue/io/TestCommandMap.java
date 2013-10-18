@@ -51,6 +51,13 @@ public class TestCommandMap extends CommandMap {
 		downMap.put(InputButton.DIR_NW, 	InputCommand.MOVE_NORTHWEST);
 		downMap.put(InputButton.WAIT,		InputCommand.MOVE_WAIT);
 		
+		downMap.put(InputButton.ABIL_1,		InputCommand.ABIL_1);
+		downMap.put(InputButton.ABIL_2,		InputCommand.ABIL_2);
+		downMap.put(InputButton.ABIL_3,		InputCommand.ABIL_3);
+		downMap.put(InputButton.ABIL_4,		InputCommand.ABIL_4);
+		downMap.put(InputButton.ABIL_5,		InputCommand.ABIL_5);
+		downMap.put(InputButton.ABIL_6,		InputCommand.ABIL_6);
+		
 		downMap.put(InputButton.MENU,		InputCommand.INTENT_EXIT);
 		downMap.put(InputButton.FULLSCREEN,	InputCommand.INTENT_FULLSCREEN);
 		

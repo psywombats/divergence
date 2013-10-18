@@ -2,12 +2,14 @@
 	"key" : "enemy_wurm",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "     ",
+	"description" : "      ",
 	"appearance" : "4dir_wurm",
 	"faction" : "ENEMIES",
 	"stats" : {
 		"mhp" : 70,
 		"hp" : 70,
+		"mmp" : 0,
+		"mp" : 0,
 		"speed" : 75,
 		"vision" : 4,
 		"dodge" : 0,
@@ -15,5 +17,6 @@
 		"dmgBase" : 1,
 		"dmgRange" : 10
 	},
+	"abilities" : [ ],
 	"intelligence" : "behavior_herostep"
 }

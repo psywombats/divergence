@@ -24,8 +24,15 @@ public class StatsMDO extends HeadlessSchema {
 	@Desc("HP - current health value of a character, in HP")
 	@DefaultValue("0")
 	public Integer hp;
-
 	
+	@Desc("Max MP - max special points of a character, in MP")
+	@DefaultValue("0")
+	public Integer mmp;
+	
+	@Desc("MP - current special points of a character, in MP")
+	@DefaultValue("0")
+	public Integer mp;
+
 	@Desc("Speed - base is 100, 110 for example is a 10% speed increase")
 	@DefaultValue("0")
 	public Integer speed;

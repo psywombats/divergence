@@ -1,0 +1,10 @@
+{
+	"key" : "ability_punch_self_in_face",
+	"subfolder" : "",
+	"name" : "punch-self-in-face",
+	"description" : " ",
+	"target" : "USER",
+	"effect" : "effect_dummy",
+	"energyCost" : 1000,
+	"mpCost" : 5
+}

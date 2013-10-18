@@ -2,12 +2,14 @@
 	"key" : "enemy_demon_male",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "      ",
+	"description" : "     ",
 	"appearance" : "4dir_infected_man",
 	"faction" : "EXHUMANS",
 	"stats" : {
 		"mhp" : 100,
 		"hp" : 100,
+		"mmp" : 0,
+		"mp" : 0,
 		"speed" : 105,
 		"vision" : 4,
 		"dodge" : 0,
@@ -15,5 +17,6 @@
 		"dmgBase" : 5,
 		"dmgRange" : 3
 	},
+	"abilities" : [ ],
 	"intelligence" : "behavior_herostep"
 }

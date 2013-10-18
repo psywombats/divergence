@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.screen.ScreenShowable;
-import net.wombatrpgs.mrogueschema.graphics.effects.EffectMDO;
+import net.wombatrpgs.mrogueschema.graphics.effects.data.EffectMDO;
 
 /**
  * A thing that represents a graphical effect on a map such as weather, fog,

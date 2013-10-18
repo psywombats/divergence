@@ -2,12 +2,14 @@
 	"key" : "enemy_shadow",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "       ",
+	"description" : "        ",
 	"appearance" : "4dir_shadow",
 	"faction" : "UNDEAD",
 	"stats" : {
 		"mhp" : 50,
 		"hp" : 50,
+		"mmp" : 0,
+		"mp" : 0,
 		"speed" : 80,
 		"vision" : 8,
 		"dodge" : 15,
@@ -15,5 +17,6 @@
 		"dmgBase" : 4,
 		"dmgRange" : 3
 	},
+	"abilities" : [ ],
 	"intelligence" : "behavior_herostep"
 }

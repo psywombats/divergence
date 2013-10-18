@@ -54,16 +54,16 @@ public class CommandTeleport extends SceneCommand {
 		SceneParser pre = MGlobal.teleport.getPre();
 		SceneParser post = MGlobal.teleport.getPost();
 		if (!phase2 && !basic) {
-			parent.getLevel().addObject(pre);
-			pre.run(parent.getLevel());
+			parent.getParent().addObject(pre);
+			pre.run(parent.getParent());
 			getParent().setChild(pre);
 			post.reset();
 			phase2 = true;
 		}
 		if (pre.hasExecuted() || basic) {
 			if ((!post.isRunning() && !post.hasExecuted()) || basic) {
-				if (!basic) parent.getLevel().removeObject(pre);
-				parent.getLevel().removeObject(parent);
+				if (!basic) parent.getParent().removeObject(pre);
+				parent.getParent().removeObject(parent);
 				if (map == null) {
 					map = MGlobal.levelManager.getLevel(mapID);
 				}

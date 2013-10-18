@@ -4,9 +4,8 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mrogue.characters.ai.act;
+package net.wombatrpgs.mrogue.characters;
 
-import net.wombatrpgs.mrogue.characters.CharacterEvent;
 
 
 /**
@@ -24,6 +23,9 @@ public abstract class Action {
 	public Action() {
 		// welp
 	}
+	
+	/** @return The character performing this action */
+	public CharacterEvent getActor() { return actor; }
 	
 	/**
 	 * Creates a new action for a specified event. Can be changed later.

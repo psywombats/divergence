@@ -13,7 +13,8 @@ import com.badlogic.gdx.graphics.Pixmap.Blending;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
 
-import net.wombatrpgs.mrogue.characters.ai.act.ActStep;
+import net.wombatrpgs.mrogue.characters.abilities.Ability;
+import net.wombatrpgs.mrogue.characters.act.ActStep;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.io.CommandListener;
 import net.wombatrpgs.mrogue.maps.Level;
@@ -108,24 +109,37 @@ public class Hero extends CharacterEvent implements CommandListener {
 		if (parent.isMoving()) {
 			return;
 		}
-		EightDir dir;
-		if (command == InputCommand.MOVE_WAIT) {
-			actAndWait(defaultWait);
-		} else {
-			switch (command) {
-			case MOVE_NORTH:		dir = EightDir.NORTH;		break;
-			case MOVE_NORTHEAST:	dir = EightDir.NORTHEAST;	break;
-			case MOVE_EAST:			dir = EightDir.EAST;		break;
-			case MOVE_SOUTHEAST:	dir = EightDir.SOUTHEAST;	break;
-			case MOVE_SOUTH:		dir = EightDir.SOUTH;		break;
-			case MOVE_SOUTHWEST:	dir = EightDir.SOUTHWEST;	break;
-			case MOVE_WEST:			dir = EightDir.WEST;		break;
-			case MOVE_NORTHWEST:	dir = EightDir.NORTHWEST;	break;
-			default:				dir = null;					break;
-			}
-			step.setDirection(dir);
-			actAndWait(step);
+		MGlobal.ui.getHud().forceReset();
+		
+		switch (command) {
+		
+		// WAIT
+		case MOVE_WAIT:			actAndWait(defaultWait);	break;
+		
+		// MOVE
+		case MOVE_NORTH:		move(EightDir.NORTH);		break;
+		case MOVE_NORTHEAST:	move(EightDir.NORTHEAST);	break;
+		case MOVE_EAST:			move(EightDir.EAST);		break;
+		case MOVE_SOUTHEAST:	move(EightDir.SOUTHEAST);	break;
+		case MOVE_SOUTH:		move(EightDir.SOUTH);		break;
+		case MOVE_SOUTHWEST:	move(EightDir.SOUTHWEST);	break;
+		case MOVE_WEST:			move(EightDir.WEST);		break;
+		case MOVE_NORTHWEST:	move(EightDir.NORTHWEST);	break;
+		
+		// ABIL
+		case ABIL_1:			abil(0);					break;
+		case ABIL_2:			abil(1);					break;
+		case ABIL_3:			abil(2);					break;
+		case ABIL_4:			abil(3);					break;
+		case ABIL_5:			abil(4);					break;
+		case ABIL_6:			abil(5);					break;
+			
+		// DEFAULT
+		default:
+			MGlobal.reporter.warn("Unknown command " + command);
+			return;
 		}
+
 		refreshVisibilityMap();
 		parent.onTurn();
 	}
@@ -186,6 +200,32 @@ public class Hero extends CharacterEvent implements CommandListener {
 	 */
 	public boolean seen(int tileX, int tileY) {
 		return seenCache[tileY][tileX];
+	}
+	
+	/**
+	 * Movement subcommand.
+	 * @param	dir				The direction the hero was ordered in
+	 */
+	protected void move(EightDir dir) {
+		step.setDirection(dir);
+		actAndWait(step);
+	}
+	
+	/**
+	 * Ability subcommand.
+	 * @param	no				The index of the ability ordered
+	 */
+	protected void abil(int no) {
+		if (getUnit().getAbilities().size() <= no) {
+			// ability out of range
+			return;
+		}
+		Ability abil = getUnit().getAbilities().get(no);
+		if (!getUnit().canUse(abil)) {
+			GameUnit.out().msg("ability not available.");
+			return;
+		}
+		actAndWait(abil);
 	}
 	
 }

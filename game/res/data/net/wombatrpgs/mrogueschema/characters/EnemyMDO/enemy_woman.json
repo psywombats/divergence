@@ -2,12 +2,14 @@
 	"key" : "enemy_woman",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "      ",
+	"description" : "       ",
 	"appearance" : "4dir_normal_woman",
 	"faction" : "HUMANS",
 	"stats" : {
 		"mhp" : 70,
 		"hp" : 70,
+		"mmp" : 0,
+		"mp" : 0,
 		"speed" : 90,
 		"vision" : 6,
 		"dodge" : 15,
@@ -15,5 +17,6 @@
 		"dmgBase" : 5,
 		"dmgRange" : 2
 	},
+	"abilities" : [ ],
 	"intelligence" : "behavior_herostep"
 }

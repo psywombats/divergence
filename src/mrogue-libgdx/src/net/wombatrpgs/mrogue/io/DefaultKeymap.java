@@ -60,8 +60,16 @@ public class DefaultKeymap extends Keymap {
 		map.put(Keys.S, 		InputButton.BUTTON_5);
 		map.put(Keys.D, 		InputButton.BUTTON_6);
 		
+		// attax
+		map.put(Keys.F1,		InputButton.ABIL_1);
+		map.put(Keys.F2,		InputButton.ABIL_2);
+		map.put(Keys.F3,		InputButton.ABIL_3);
+		map.put(Keys.F4,		InputButton.ABIL_4);
+		map.put(Keys.F5,		InputButton.ABIL_5);
+		map.put(Keys.F6,		InputButton.ABIL_6);
+		
 		map.put(Keys.ESCAPE, 	InputButton.MENU);
-		map.put(Keys.F4,		InputButton.FULLSCREEN);
+		map.put(Keys.F12,		InputButton.FULLSCREEN);
 		
 		for (Object key : map.keySet()) {
 			backmap.put(map.get(key), (Integer) key);

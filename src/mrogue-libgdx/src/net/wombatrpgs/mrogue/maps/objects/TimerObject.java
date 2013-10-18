@@ -38,8 +38,8 @@ public class TimerObject extends MapThing {
 		addListener(listener);
 		set(true);
 		this.parent = parent;
-		this.parent.getLevel().addObject(this);
-		if (parent.getLevel().isPaused()) {
+		this.parent.getParent().addObject(this);
+		if (parent.getParent().isPaused()) {
 			this.setPauseLevel(PauseLevel.PAUSE_RESISTANT);
 		}
 		completed = false;
@@ -76,8 +76,8 @@ public class TimerObject extends MapThing {
 			for (TimerListener listener : listeners) {
 				listener.onTimerZero(this);
 			}
-			if (parent != null && parent.getLevel() != null) {
-				parent.getLevel().removeObject(this);
+			if (parent != null && parent.getParent() != null) {
+				parent.getParent().removeObject(this);
 			}
 			completed = true;
 		}

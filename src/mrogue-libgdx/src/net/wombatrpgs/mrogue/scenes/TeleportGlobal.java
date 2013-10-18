@@ -72,7 +72,7 @@ public class TeleportGlobal implements Queueable {
 	public void teleport(Level map, int tileX, int tileY) {
 		
 		MapEvent victim = MGlobal.hero;
-		Level old = victim.getLevel();
+		Level old = victim.getParent();
 		
 		if (MGlobal.ui.getHud() != null) {
 			MGlobal.ui.getHud().setOverlayTintIgnore(false);

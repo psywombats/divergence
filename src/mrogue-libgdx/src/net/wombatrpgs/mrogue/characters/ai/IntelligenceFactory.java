@@ -13,9 +13,9 @@ import java.util.Comparator;
 import java.util.List;
 
 import net.wombatrpgs.mrogue.characters.CharacterEvent;
-import net.wombatrpgs.mrogue.characters.ai.act.ActStepHero;
-import net.wombatrpgs.mrogue.characters.ai.act.ActWait;
-import net.wombatrpgs.mrogue.characters.ai.act.ActWander;
+import net.wombatrpgs.mrogue.characters.act.ActStepHero;
+import net.wombatrpgs.mrogue.characters.act.ActWait;
+import net.wombatrpgs.mrogue.characters.act.ActWander;
 import net.wombatrpgs.mrogue.characters.ai.seq.RoutineMeleeEnemies;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogueschema.characters.ai.BehaviorListMDO;
