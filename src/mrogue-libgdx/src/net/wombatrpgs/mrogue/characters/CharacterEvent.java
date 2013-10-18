@@ -523,7 +523,8 @@ public class CharacterEvent extends MapEvent implements Turnable {
 		
 		travelPlan = new ArrayList<Step>();
 		
-		unit = new GameUnit(mdo, this);
+		initUnit();
+		assets.add(unit);
 		turnChildren.add(unit);
 		ticksRemaining = 0;
 		
@@ -533,10 +534,17 @@ public class CharacterEvent extends MapEvent implements Turnable {
 		if (rayLoS == null) {
 			rayLoS = new RayCheck() {
 				@Override public boolean bad(int tileX, int tileY) {
-					return !parent.isTransparentAt(tileX, tileY);
+					return !MGlobal.hero.getParent().isTransparentAt(tileX, tileY);
 				}
 			};
 		}
+	}
+	
+	/**
+	 * Creates the game unit. Separate for overriding purposes.
+	 */
+	protected void initUnit() {
+		unit = new GameUnit(mdo, this);
 	}
 	
 	public abstract class RayCheck {

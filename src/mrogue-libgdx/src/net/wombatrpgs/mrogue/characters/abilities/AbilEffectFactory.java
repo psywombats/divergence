@@ -8,12 +8,13 @@ package net.wombatrpgs.mrogue.characters.abilities;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogueschema.characters.data.AbilityEffectMDO;
+import net.wombatrpgs.mrogueschema.characters.effects.AbilHalveHpMDO;
 import net.wombatrpgs.mrogueschema.characters.effects.AbilMeleeAttackMDO;
 
 /**
  * Another one of these shitty instanceof/getclass constructions for MDOs.
  */
-public class EffectFactory {
+public class AbilEffectFactory {
 	
 	/**
 	 * Creates an effect given data key, parent.
@@ -21,7 +22,7 @@ public class EffectFactory {
 	 * @param	abil			The ability to generate for
 	 * @return
 	 */
-	public static Effect createEffect(String mdoKey, Ability abil) {
+	public static AbilEffect createEffect(String mdoKey, Ability abil) {
 		AbilityEffectMDO mdo = MGlobal.data.getEntryFor(mdoKey, AbilityEffectMDO.class);
 		return createEffect(mdo, abil);
 	}
@@ -32,9 +33,11 @@ public class EffectFactory {
 	 * @param	abil			The ability to generate for
 	 * @return
 	 */
-	public static Effect createEffect(AbilityEffectMDO mdo, Ability abil) {
+	public static AbilEffect createEffect(AbilityEffectMDO mdo, Ability abil) {
 		if (AbilMeleeAttackMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new AbilMeleeAttack((AbilMeleeAttackMDO) mdo, abil);
+		} else if (AbilHalveHpMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new AbilHalveHP((AbilHalveHpMDO) mdo, abil);
 		} else {
 			MGlobal.reporter.err("Unknown ability type " + mdo);
 			return null;

@@ -9,12 +9,18 @@ package net.wombatrpgs.mrogue.characters.abilities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.assets.AssetManager;
+
 import net.wombatrpgs.mrogue.characters.Action;
 import net.wombatrpgs.mrogue.characters.CharacterEvent;
 import net.wombatrpgs.mrogue.characters.CharacterEvent.RayCheck;
 import net.wombatrpgs.mrogue.characters.GameUnit;
 import net.wombatrpgs.mrogue.characters.travel.Step;
 import net.wombatrpgs.mrogue.core.MGlobal;
+import net.wombatrpgs.mrogue.core.Queueable;
+import net.wombatrpgs.mrogue.graphics.effects.AbilFX;
+import net.wombatrpgs.mrogue.graphics.effects.AbilFxFactory;
+import net.wombatrpgs.mrogue.maps.MapThing;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
 import net.wombatrpgs.mrogueschema.characters.AbilityMDO;
 
@@ -23,12 +29,15 @@ import net.wombatrpgs.mrogueschema.characters.AbilityMDO;
  * hero, and it's not necessarily part of an AI routine. Actually it's kind of
  * a typical thing then... it's just constructed from a special ability MDO.
  */
-public class Ability extends Action {
+public class Ability extends Action implements Queueable {
 	
 	protected AbilityMDO mdo;
-	protected Effect effect;
+	protected AbilEffect effect;
 	protected RayCheck check;
 	protected MapEvent firstHit;
+	protected List<GameUnit> targets;
+	protected AbilFX fx;
+	protected List<Queueable> assets;
 	
 	/**
 	 * Creates a new ability for a particular actor from data.
@@ -37,7 +46,13 @@ public class Ability extends Action {
 	public Ability(CharacterEvent actor, AbilityMDO mdo) {
 		super(actor);
 		this.mdo = mdo;
-		this.effect = EffectFactory.createEffect(mdo.effect, this);
+		this.effect = AbilEffectFactory.createEffect(mdo.effect, this);
+		this.assets = new ArrayList<Queueable>();
+		
+		if (MapThing.mdoHasProperty(mdo.fx)) {
+			fx = AbilFxFactory.createFX(mdo.fx, this);
+			assets.add(fx);
+		}
 		
 		final CharacterEvent actor2 = actor;
 		switch (mdo.target) {
@@ -50,10 +65,10 @@ public class Ability extends Action {
 					for (MapEvent event : actor2.getParent().getEventsAt(tileX, tileY)) {
 						if (!event.isPassable() && event != actor2) {
 							firstHit = event;
-							return false;
+							return true;
 						}
 					}
-					return true;
+					return false;
 				}
 			};
 			break;
@@ -61,9 +76,9 @@ public class Ability extends Action {
 			check = actor.new RayCheck() {
 				@Override public boolean bad(int tileX, int tileY) {
 					if (!actor2.getParent().isTilePassable(actor2, tileX, tileY)) {
-						return false;
+						return true;
 					}
-					return true;
+					return false;
 				}
 			};
 			break;
@@ -81,6 +96,12 @@ public class Ability extends Action {
 	/** @return The step animation of this ability */
 	public Step getStep() { return effect.getStep(); }
 	
+	/** @return All the units currently targeted by this ability */
+	public List<GameUnit> getTargets() { return targets; }
+	
+	/** @return The range of this ability, in fractional tiles (radius) */
+	public Float getRange() { return mdo.range; }
+	
 	/**
 	 * @see java.lang.Object#toString()
 	 */
@@ -89,6 +110,27 @@ public class Ability extends Action {
 		return getName() + "(" + mdo.key + ")";
 	}
 
+	/**
+	 * @see net.wombatrpgs.mrogue.core.Queueable#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		for (Queueable asset : assets) {
+			asset.queueRequiredAssets(manager);
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.mrogue.core.Queueable#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager, int pass) {
+		for (Queueable asset : assets) {
+			asset.postProcessing(manager, pass);
+		}
+	}
 
 	/**
 	 * @see net.wombatrpgs.mrogue.characters.Action#act()
@@ -98,6 +140,15 @@ public class Ability extends Action {
 		actor.getUnit().onAbilityUsed(this);
 		effect.act(acquireTargets());
 		actor.addStep(getStep());
+		
+		if (MapThing.mdoHasProperty(mdo.fx) && MGlobal.hero.inLoS(actor)) {
+			if (fx == null) {
+				fx = AbilFxFactory.createFX(mdo.fx, this);
+				fx.postProcessing(MGlobal.assetManager, 0);
+			}
+			fx.spawn();
+			fx = null;
+		}
 	}
 	
 	/**

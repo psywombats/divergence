@@ -8,11 +8,13 @@ package net.wombatrpgs.mrogueschema.characters;
 
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
+import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mrogueschema.characters.data.AbilityEffectMDO;
 import net.wombatrpgs.mrogueschema.characters.data.AbilityTargetType;
+import net.wombatrpgs.mrogueschema.graphics.effects.data.AbilFxMDO;
 
 /**
  * Something a little more subtle than walking into a character.
@@ -40,5 +42,10 @@ public class AbilityMDO extends MainSchema {
 	@Desc("Resource cost - How much mp/mana/sp/stamina etc this takes")
 	@DefaultValue("0")
 	public Integer mpCost;
+	
+	@Desc("Graphical fx - Special animations for this ability!!")
+	@SchemaLink(AbilFxMDO.class)
+	@Nullable
+	public String fx;
 
 }

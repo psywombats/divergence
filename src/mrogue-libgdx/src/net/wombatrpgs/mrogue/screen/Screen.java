@@ -25,6 +25,7 @@ import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.core.Updateable;
 import net.wombatrpgs.mrogue.graphics.Disposable;
+import net.wombatrpgs.mrogue.graphics.PostRenderable;
 import net.wombatrpgs.mrogue.io.CommandListener;
 import net.wombatrpgs.mrogue.io.CommandMap;
 import net.wombatrpgs.mrogueschema.io.data.InputCommand;
@@ -67,7 +68,7 @@ public abstract class Screen implements CommandListener,
 	/** Shader used to render background maps */
 	protected ShaderProgram mapShader;
 	/** Buffer we'll be using to draw to before scaling to screen */
-	protected FrameBuffer buffer;
+	protected FrameBuffer buffer, lastBuffer;
 	/** What we'll be tinting the screen before each render */
 	protected Color tint;
 	/** Used to draw the background rects */
@@ -76,6 +77,7 @@ public abstract class Screen implements CommandListener,
 	protected boolean initialized;
 	
 	protected List<Queueable> assets;
+	protected List<PostRenderable> postRenders;
 
 	
 	/**
@@ -89,10 +91,15 @@ public abstract class Screen implements CommandListener,
 		initialized = false;
 		z = 0;
 		mapShader = null;
+		postRenders = new ArrayList<PostRenderable>();
 		batch = new SpriteBatch();
 		privateBatch = new SpriteBatch();
 		uiBatch = new SpriteBatch();
 		buffer = new FrameBuffer(Format.RGB565, 
+				MGlobal.window.getWidth(),
+				MGlobal.window.getHeight(),
+				false);
+		lastBuffer = new FrameBuffer(Format.RGB565, 
 				MGlobal.window.getWidth(),
 				MGlobal.window.getHeight(),
 				false);
@@ -156,11 +163,20 @@ public abstract class Screen implements CommandListener,
 	/** @return Buffer used for rendering contents */
 	public FrameBuffer getBuffer() { return buffer; }
 	
+	/** @return Buffer used to accumulate frame data */
+	public FrameBuffer getLastBuffer() { return lastBuffer; }
+	
 	/** @return Game screen whole tint */
 	public Color getTint() { return tint; }
 	
 	/** @return The shader used to render maps */
 	public ShaderProgram getMapShader() { return mapShader; }
+	
+	/** @param pr The new post renderable to render */
+	public void registerPostRender(PostRenderable pr) { postRenders.add(pr); }
+	
+	/** @param pr The post render to no longer render */
+	public void removePostRender(PostRenderable pr) { postRenders.remove(pr); }
 	
 	/**
 	 * Gets the command parser used on this screen. Usually only used by engine.
@@ -218,6 +234,31 @@ public abstract class Screen implements CommandListener,
 			pic.render(cam);
 		}
 		buffer.end();
+		
+		// Draw the normal screen buffer into the last-buffer
+		privateBatch.begin();
+		lastBuffer.begin();
+		privateBatch.draw(
+				buffer.getColorBufferTexture(),			// texture
+				0, 0,									// x/y in screen space
+				0, 0,									// origin x/y screen
+				window.getWidth(), window.getHeight(),	// width/height screen
+				1, 1,									// scale x/y
+				0,										// rotation in degrees
+				0, 0,									// x/y in texel space
+				window.getWidth(), window.getHeight(),	// width/height texel
+				false, true								// flip horiz/vert
+			);
+		privateBatch.end();
+		lastBuffer.end();
+		
+		buffer.begin();
+		for (PostRenderable pr : postRenders) {
+			pr.renderPost();
+		}
+		buffer.end();
+		
+		// now draw the results to the screen
 		privateBatch.setColor(tint);
 		privateBatch.begin();
 		// oh god I'm so sorry
@@ -295,6 +336,7 @@ public abstract class Screen implements CommandListener,
 		batch.dispose();
 		privateBatch.dispose();
 		buffer.dispose();
+		lastBuffer.dispose();
 		uiBatch.dispose();
 	}
 

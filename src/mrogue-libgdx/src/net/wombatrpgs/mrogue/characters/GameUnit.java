@@ -9,8 +9,11 @@ package net.wombatrpgs.mrogue.characters;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.assets.AssetManager;
+
 import net.wombatrpgs.mrogue.characters.abilities.Ability;
 import net.wombatrpgs.mrogue.core.MGlobal;
+import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.core.Turnable;
 import net.wombatrpgs.mrogue.ui.Narrator;
 import net.wombatrpgs.mrogueschema.characters.AbilityMDO;
@@ -26,7 +29,7 @@ import net.wombatrpgs.mrogueschema.characters.data.Relation;
  * character is sill the same, it just gets its functionality split between
  * the two manifestation classes.
  */
-public class GameUnit implements Turnable {
+public class GameUnit implements Turnable, Queueable {
 	
 	/** lol this thing is because I'm too lazy to type MGlobal.ughhhh.nar ugh */
 	protected static Narrator out;
@@ -34,6 +37,7 @@ public class GameUnit implements Turnable {
 	protected CharacterMDO mdo;
 	protected CharacterEvent parent;
 	protected List<Turnable> turnChildren;
+	protected List<Queueable> assets;
 	
 	protected String name;
 	protected Stats baseStats;
@@ -50,6 +54,7 @@ public class GameUnit implements Turnable {
 		this.mdo = mdo;
 		this.parent = parent;
 		this.turnChildren = new ArrayList<Turnable>();
+		this.assets = new ArrayList<Queueable>();
 		baseStats = new Stats(mdo.stats);
 		currentStats = new Stats(mdo.stats);
 		allegiance = new Allegiance(this, mdo.faction);
@@ -60,6 +65,7 @@ public class GameUnit implements Turnable {
 			abilities.add(new Ability(parent,
 					MGlobal.data.getEntryFor(mdoKey, AbilityMDO.class)));
 		}
+		assets.addAll(abilities);
 		
 		if (out == null) out = MGlobal.ui.getNarrator();
 	}
@@ -88,6 +94,30 @@ public class GameUnit implements Turnable {
 	/** @return The list of all the abilities this unit can perform */
 	public List<Ability> getAbilities() { return abilities; }
 	
+	
+	
+	/**
+	 * @see net.wombatrpgs.mrogue.core.Queueable#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		for (Queueable asset : assets) {
+			asset.queueRequiredAssets(manager);
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.mrogue.core.Queueable#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager, int pass) {
+		for (Queueable asset : assets) {
+			asset.postProcessing(manager, pass);
+		}
+	}
+
 	/**
 	 * Determines how we respond to another unit.
 	 * @param	other			The unit to respond to

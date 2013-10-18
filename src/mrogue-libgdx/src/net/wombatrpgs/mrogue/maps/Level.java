@@ -291,7 +291,9 @@ public class Level implements	ScreenShowable,
 			if (moveTime <= 0) {
 				moving = false;
 				for (MapEvent event : eventLayer.getEvents()) {
-					event.stopMoving();
+					if (event.getParent() == this) {
+						event.stopMoving();
+					}
 				}
 			}
 		}
@@ -408,7 +410,6 @@ public class Level implements	ScreenShowable,
 	public void addEvent(MapEvent newEvent) {
 		eventLayer.add(newEvent);
 		addObject(newEvent);
-		newEvent.onAddedToMap(this);
 	}
 	
 	/**

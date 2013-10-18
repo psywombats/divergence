@@ -473,6 +473,8 @@ public abstract class MapGenerator implements Queueable {
 				if (isPassable(types, x-1, y-2)) continue;
 				if (isPassable(types, x+1, y-3)) continue;
 				if (isPassable(types, x-1, y-3)) continue;
+				if (isPassable(types, x+1, y-4)) continue;
+				if (isPassable(types, x-1, y-4)) continue;
 				
 				// cool!
 				types[y][x] = TileType.DSTAIR_TOP;

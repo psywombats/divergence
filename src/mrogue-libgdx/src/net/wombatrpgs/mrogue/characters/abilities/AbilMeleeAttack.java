@@ -16,7 +16,7 @@ import net.wombatrpgs.mrogueschema.maps.data.OrthoDir;
 /**
  * Like you walked into something.
  */
-public class AbilMeleeAttack extends Effect {
+public class AbilMeleeAttack extends AbilEffect {
 	
 	protected AbilMeleeAttackMDO mdo;
 
@@ -31,7 +31,7 @@ public class AbilMeleeAttack extends Effect {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mrogue.characters.abilities.Effect#internalAct
+	 * @see net.wombatrpgs.mrogue.characters.abilities.AbilEffect#internalAct
 	 * (java.util.List)
 	 */
 	@Override
@@ -42,7 +42,7 @@ public class AbilMeleeAttack extends Effect {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mrogue.characters.abilities.Effect#getStep()
+	 * @see net.wombatrpgs.mrogue.characters.abilities.AbilEffect#getStep()
 	 */
 	@Override
 	public Step getStep() {

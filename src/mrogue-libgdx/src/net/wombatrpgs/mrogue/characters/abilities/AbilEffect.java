@@ -18,7 +18,7 @@ import net.wombatrpgs.mrogueschema.characters.data.AbilityEffectMDO;
 /**
  * This is the core thing behind an ability.
  */
-public abstract class Effect {
+public abstract class AbilEffect {
 	
 	protected AbilityEffectMDO mdo;
 	protected Ability abil;
@@ -33,7 +33,7 @@ public abstract class Effect {
 	 * @param	mdo				The mdo to generate from
 	 * @param	abil			The parent ability
 	 */
-	public Effect(AbilityEffectMDO mdo, Ability abil) {
+	public AbilEffect(AbilityEffectMDO mdo, Ability abil) {
 		this.mdo = mdo;
 		this.abil = abil;
 	}

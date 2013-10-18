@@ -33,7 +33,16 @@ public class Graphic implements Queueable {
 	 * @param 	fileName		The name of the file (in UI) with the picture
 	 */
 	public Graphic(String fileName) {
-		this.filename = Constants.UI_DIR + fileName;
+		this(Constants.UI_DIR, fileName);
+	}
+	
+	/**
+	 * For creating a non-UI graphic.
+	 * @param	dir				The dir to load from
+	 * @param	filename		The file to load
+	 */
+	public Graphic(String dir, String filename) {
+		this.filename = dir + filename;
 		this.width = -1;
 		this.height = -1;
 	}
