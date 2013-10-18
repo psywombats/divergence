@@ -8,6 +8,7 @@ package net.wombatrpgs.mrogue.characters.abilities;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogueschema.characters.data.AbilityEffectMDO;
+import net.wombatrpgs.mrogueschema.characters.effects.AbilArmorPierceMDO;
 import net.wombatrpgs.mrogueschema.characters.effects.AbilHalveHpMDO;
 import net.wombatrpgs.mrogueschema.characters.effects.AbilMeleeAttackMDO;
 
@@ -38,6 +39,8 @@ public class AbilEffectFactory {
 			return new AbilMeleeAttack((AbilMeleeAttackMDO) mdo, abil);
 		} else if (AbilHalveHpMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new AbilHalveHP((AbilHalveHpMDO) mdo, abil);
+		} else if (AbilArmorPierceMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new AbilArmorPierce((AbilArmorPierceMDO) mdo, abil);
 		} else {
 			MGlobal.reporter.err("Unknown ability type " + mdo);
 			return null;

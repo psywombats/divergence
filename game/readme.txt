@@ -26,4 +26,4 @@ with the database editor and break stuff and it'll be awesome.
 SO FAR:
 There's a map. There are enemies. The enemies will fight amongst themselves, and
 maybe they'll attack you too if they're the right type. Factions! Their pathfind
-is not longer idiotic.
+is not longer idiotic. F1/F2/F3 trigger some basic abilities.

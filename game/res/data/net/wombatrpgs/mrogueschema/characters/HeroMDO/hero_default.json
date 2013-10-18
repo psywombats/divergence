@@ -2,7 +2,7 @@
 	"key" : "hero_default",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "       ",
+	"description" : "        ",
 	"appearance" : "4dir_grandfather",
 	"faction" : "HERO",
 	"stats" : {
@@ -20,6 +20,7 @@
 	"abilities" : [
 		"ability_punch_self_in_face",
 		"ability_whirlwind",
-		"ability_distortionfield"
+		"ability_distortionfield",
+		"ability_fireball"
 	]
 }

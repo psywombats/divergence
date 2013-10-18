@@ -9,6 +9,7 @@ package net.wombatrpgs.mrogue.graphics.effects;
 import net.wombatrpgs.mrogue.characters.abilities.Ability;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogueschema.graphics.effects.AbilFxDistortMDO;
+import net.wombatrpgs.mrogueschema.graphics.effects.AbilFxFlamesMDO;
 import net.wombatrpgs.mrogueschema.graphics.effects.AbilFxTestMDO;
 import net.wombatrpgs.mrogueschema.graphics.effects.data.AbilFxMDO;
 
@@ -39,6 +40,8 @@ public class AbilFxFactory {
 			return new AbilFxTest((AbilFxTestMDO) mdo, parent);
 		} else if (AbilFxDistortMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new AbilFxDistort((AbilFxDistortMDO) mdo, parent);
+		} else if (AbilFxFlamesMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new AbilFxFlames((AbilFxFlamesMDO) mdo, parent);
 		} else {
 			MGlobal.reporter.err("Unknown abilfx type: " + mdo);
 			return null;
