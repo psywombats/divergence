@@ -74,6 +74,8 @@ public abstract class Screen implements CommandListener,
 	protected ShapeRenderer shapes;
 	/** Have we been set up yet? */
 	protected boolean initialized;
+	
+	protected List<Queueable> assets;
 
 	
 	/**
@@ -82,6 +84,7 @@ public abstract class Screen implements CommandListener,
 	 * create one for ourselves, potentially reformatting the game window.
 	 */
 	public Screen() {
+		assets = new ArrayList<Queueable>();
 		transparent = false;
 		initialized = false;
 		z = 0;
@@ -238,7 +241,9 @@ public abstract class Screen implements CommandListener,
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		//canvas.queueRequiredAssets(manager);
+		for (Queueable asset : assets) {
+			asset.queueRequiredAssets(manager);
+		}
 	}
 
 	/**
@@ -247,7 +252,9 @@ public abstract class Screen implements CommandListener,
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		//canvas.postProcessing(manager);
+		for (Queueable asset : assets) {
+			asset.postProcessing(manager, pass);
+		}
 	}
 	
 	/**

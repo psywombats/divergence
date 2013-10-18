@@ -97,7 +97,8 @@ public class MGlobal {
 		// debugging is needed first
 		MGlobal.reporter = new PrintReporter();
 		try {
-			MGlobal.reporter.inform("Initializing error reporting");
+			long startTime = System.currentTimeMillis();
+			MGlobal.reporter.inform("Initialized error reporting");
 			MGlobal.assetManager = new AssetManager();
 			MGlobal.reporter.inform("Initializing primary globals");
 			long seed = System.currentTimeMillis();
@@ -109,7 +110,12 @@ public class MGlobal {
 			MGlobal.reporter.inform("Loading essential data");
 			setHandlers();
 			MGlobal.data.queueData(assetManager, Constants.PRELOAD_SCHEMA);
+			long assetStart = System.currentTimeMillis();
 			assetManager.finishLoading();
+			long assetEnd = System.currentTimeMillis();
+			float assetElapsed = (assetEnd - assetStart) / 1000f;
+			MGlobal.reporter.inform("Finished loading essential data, " +
+					"elapsed time: " + assetElapsed + "seconds");
 			
 			// here on out, these may require essential data
 			toLoad = new ArrayList<Queueable>();
@@ -125,7 +131,11 @@ public class MGlobal {
 			// TODO: load with a loading bar
 			MGlobal.reporter.inform("Loading secondary data");
 			MGlobal.data.queueFilesInDir(assetManager, Gdx.files.internal(Constants.DATA_DIR));
+			assetEnd = System.currentTimeMillis();
 			assetManager.finishLoading();
+			assetEnd = System.currentTimeMillis();
+			MGlobal.reporter.inform("Finished loading secondary data, " +
+					"elapsed time: " + assetElapsed + "seconds");
 	
 			// initialize everything that needed data
 			MGlobal.reporter.inform("Initializing data-dependant resources");
@@ -142,7 +152,11 @@ public class MGlobal {
 			toLoad.add(graphics);
 			for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
 			for (int pass = 0; MGlobal.assetManager.getProgress() < 1; pass++) {
+				assetStart = System.currentTimeMillis();
 				MGlobal.assetManager.finishLoading();
+				assetEnd = System.currentTimeMillis();
+				assetElapsed = (assetEnd - assetStart) / 1000f;
+				MGlobal.reporter.inform("Loading pass " + pass + ", took " + assetElapsed);
 				for (Queueable q : toLoad) q.postProcessing(MGlobal.assetManager, pass);
 			}
 			
@@ -161,15 +175,20 @@ public class MGlobal {
 			
 			MGlobal.reporter.inform("Loading level assets");
 			MGlobal.screens.push(new GameScreen());
-			toLoad.add(MGlobal.screens.peek());
 			for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
 			for (int pass = 0; MGlobal.assetManager.getProgress() < 1; pass++) {
+				MGlobal.reporter.inform("Loading pass " + pass + ", took " + assetElapsed);
 				MGlobal.assetManager.finishLoading();
 				for (Queueable q : toLoad) q.postProcessing(MGlobal.assetManager, pass);
+				assetEnd = System.currentTimeMillis();
+				assetElapsed = (assetEnd - assetStart) / 1000f;
 			}
 			
 			initialized = true;
-			MGlobal.reporter.inform("Done loading");
+			long endTime = System.currentTimeMillis();
+			float elapsed = (endTime - startTime) / 1000f;
+			MGlobal.reporter.inform("Done loading, elasped time: " + elapsed + 
+					" seconds");
 			
 		} catch (Exception e) {
 			// TODO: proper init error handling

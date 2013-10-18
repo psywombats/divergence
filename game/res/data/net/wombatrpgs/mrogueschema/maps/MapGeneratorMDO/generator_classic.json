@@ -2,12 +2,14 @@
 	"key" : "generator_classic",
 	"subfolder" : "",
 	"name" : "",
-	"description" : " ",
+	"description" : "    ",
 	"floorTiles" : {
 		"appearance" : "tile_floor.png"
 	},
 	"wallTiles" : "wall_woodish",
 	"ceilingTiles" : "ceil_woodish",
+	"upstairTiles" : "stairs_marble_up",
+	"downstairTiles" : "stairs_marble_down",
 	"generator" : "CLASSIC_ROOMS",
 	"minRoomWidth" : 5,
 	"minRoomHeight" : 4,

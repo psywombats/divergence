@@ -83,6 +83,8 @@ public class TeleportGlobal implements Queueable {
 		old.update(0);
 		
 		map.addEvent(MGlobal.hero, tileX, tileY);
+		MGlobal.hero.refreshVisibilityMap();
+		MGlobal.levelManager.getScreen().getCamera().update(0);
 		if (MGlobal.ui.getHud() != null) {
 			MGlobal.ui.getHud().setOverlayTintIgnore(true);
 		}
@@ -90,7 +92,7 @@ public class TeleportGlobal implements Queueable {
 		// TODO: make sure this only applies to maps that want it
 		//MGlobal.screens.getCamera().constrainMaps(map);
 		
-		MGlobal.screens.peek().setCanvas(map);
+		MGlobal.levelManager.getScreen().setCanvas(map);
 		
 	}
 

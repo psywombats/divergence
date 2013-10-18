@@ -15,7 +15,8 @@ import net.wombatrpgs.mrogueschema.maps.MapMDO;
 
 /**
  * Manages levels so that they don't have to be created multiple times. It
- * should probably support asynchronous loading at some point.
+ * should probably support asynchronous loading at some point. This... This is
+ * probably a memory hog.
  */
 public class LevelManager {
 	
@@ -70,21 +71,24 @@ public class LevelManager {
 			}
 			MapMDO mapMDO = MGlobal.data.getEntryFor(mapID, MapMDO.class);
 			Level map = new Level(mapMDO, screen);
+			long startTime = System.currentTimeMillis();
 			map.queueRequiredAssets(MGlobal.assetManager);
 			for (int pass = 0; MGlobal.assetManager.getProgress() < 1; pass++) {
 				MGlobal.assetManager.finishLoading();
 				map.postProcessing(MGlobal.assetManager, pass);
 			}
+			long endTime = System.currentTimeMillis();
+			float elapsed  = (endTime - startTime) / 1000f;
+			MGlobal.reporter.inform("Loaded level " + mapID + ", elapsed " +
+						"time: " + elapsed + " seconds");
 			levels.put(mapID, map);
 			if (MGlobal.screens.size() > 0) {
 				MGlobal.screens.peek().getTint().r = oldR;
 				MGlobal.screens.peek().getTint().g = oldG;
 				MGlobal.screens.peek().getTint().b = oldB;
 			}
-		} else {
-			levels.get(mapID).reset();
 		}
 		return levels.get(mapID);
 	}
-
+	
 }

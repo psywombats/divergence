@@ -64,6 +64,8 @@ public class ActPathfindToChar extends Action {
 			step.setDirection(actor.directionTo(target));
 		} else if (path.size() == 0) {
 			MGlobal.reporter.warn("Pathfinding to self?");
+			step.setDirection(actor.getFacing().toEight());
+			step.act();
 		} else {
 			step.setDirection(path.get(0));
 		}

@@ -13,6 +13,10 @@ package net.wombatrpgs.mrogueschema.maps.data;
 public enum TileType {
 	
 	FLOOR			(true,	true),
+	USTAIR_TOP		(false,	true),
+	USTAIR_BOTTOM	(true,	true),
+	DSTAIR_TOP		(true,	true),
+	DSTAIR_BOTTOM	(false,	true),
 	ANY_CEILING		(false, false),
 	CEILING_TOP		(false, false),
 	CEILING_BOTTOM	(false, false),

@@ -62,10 +62,6 @@ public class EffectFog extends Effect {
 		TextureRegion tex = anim.getRegion();
 		
 		batch.begin();
-		//float atX = target.getX() - win.getWidth()/2;
-		//float atY = target.getY() - win.getHeight()/2;
-		//System.out.println("atx: " + atX + " , atY: " + atY);
-		//System.out.println("camx: " + cam.position.x + " , camy: " + cam.position.y);
 		float atX = cam.position.x - win.getWidth()/2;
 		float atY = cam.position.y - win.getHeight()/2;
 		shader.setUniformf("u_atX", atX);

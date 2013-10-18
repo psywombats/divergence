@@ -1,0 +1,16 @@
+{
+	"key" : "map_level00",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "     ",
+	"mapWidth" : 50,
+	"mapHeight" : 50,
+	"generator" : "generator_graphicstest",
+	"enemies" : "monstergen_default",
+	"effect" : "effect_los",
+	"scene" : "None",
+	"pathsUp" : [
+		"map_level01"
+	],
+	"pathsDown" : [ ]
+}

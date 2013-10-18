@@ -244,6 +244,7 @@ public class SceneParser extends MapThing {
 		for (FinishListener listener : listeners) {
 			listener.onFinish(parent);
 		}
+		parent.removeObject(this);
 		listeners.clear();
 	}
 	

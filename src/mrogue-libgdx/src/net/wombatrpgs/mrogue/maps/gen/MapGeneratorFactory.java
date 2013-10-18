@@ -24,11 +24,11 @@ public class MapGeneratorFactory {
 	 */
 	public static MapGenerator createGenerator(MapGeneratorMDO mdo, Level parent) {
 		switch(mdo.generator) {
-		case TEST:				return new TestGenerator(mdo, parent);
-		case CLASSIC_ROOMS:		return new ClassicGenerator(mdo, parent);
+		case TEST:				return new GeneratorTest(mdo, parent);
+		case CLASSIC_ROOMS:		return new GeneratorClassic(mdo, parent);
 		}
 		MGlobal.reporter.warn("No generator found for mdo type: " + mdo.generator);
-		return new TestGenerator(mdo, parent);
+		return new GeneratorTest(mdo, parent);
 	}
 
 }

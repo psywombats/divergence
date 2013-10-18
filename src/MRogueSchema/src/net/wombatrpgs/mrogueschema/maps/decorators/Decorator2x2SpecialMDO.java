@@ -9,7 +9,7 @@ package net.wombatrpgs.mrogueschema.maps.decorators;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.Annotations.Path;
-import net.wombatrpgs.mrogueschema.maps.TileMDO;
+import net.wombatrpgs.mrogueschema.maps.data.TileMDO;
 import net.wombatrpgs.mrogueschema.maps.data.TileType;
 import net.wombatrpgs.mrogueschema.maps.decorators.data.SingleDecoratorMDO;
 

@@ -7,7 +7,9 @@
 package net.wombatrpgs.mrogue.maps;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -15,7 +17,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mrogue.characters.CharacterEvent;
 import net.wombatrpgs.mrogue.characters.Enemy;
-import net.wombatrpgs.mrogue.characters.Hero;
 import net.wombatrpgs.mrogue.characters.MonsterGenerator;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
@@ -57,39 +58,30 @@ public class Level implements	ScreenShowable,
 	public static final int TILE_WIDTH = 32;
 	public static final int TILE_HEIGHT = 32;
 	
-	/** The data this level was created from */
 	protected MapMDO mdo;
-	/** The screen we render to */
 	protected Screen screen;
 
-	/** The layers */
 	protected EventLayer eventLayer;
 	protected List<GridLayer> gridLayers;
 	
-	/** List of all map object in the level (some are in layers) */
 	protected List<MapThing> objects;
-	
-	/** List of all events to remove next loop */
 	protected List<MapEvent> removalEvents;
 	protected List<MapThing> removalObjects;
 	
 	protected MusicObject bgm;
 	protected Effect effect;
-	
-	/** Should game state be suspended */
 	protected boolean paused;
-	/** Is the level in an update cycle in which there was a reset */
 	protected boolean reseting;
-	/** Are we in the process of updating ? */
 	protected boolean updating;
+	protected boolean moving;
+	protected float moveTime;
 	
-	private List<Queueable> assets;
+	protected List<Queueable> assets;
+	protected Map<String, Loc> teleLocations; // string ID to incoming location
 	
 	// MR mappy stuff
 	protected int mapWidth, mapHeight;
 	protected MapGenerator generator;
-	protected boolean moving;
-	protected float moveTime;
 	protected MonsterGenerator monsters;
 	protected SceneParser scene;
 	
@@ -108,6 +100,7 @@ public class Level implements	ScreenShowable,
 		removalObjects = new ArrayList<MapThing>();
 		removalEvents = new ArrayList<MapEvent>();
 		assets = new ArrayList<Queueable>();
+		teleLocations = new HashMap<String, Loc>();
 		
 		// etc
 		if (MapThing.mdoHasProperty(mdo.effect)) {
@@ -127,10 +120,6 @@ public class Level implements	ScreenShowable,
 		moving = false;
 		
 		// map gen!
-		if (MGlobal.hero == null) {
-			MGlobal.hero = new Hero(this, 0, 0);
-			assets.add(MGlobal.hero);
-		}
 		eventLayer = new EventLayer(this);
 		assets.add(eventLayer);
 		this.generator = MapGeneratorFactory.createGenerator(
@@ -191,6 +180,15 @@ public class Level implements	ScreenShowable,
 	
 	/** @return All the characters currently on this map */
 	public List<CharacterEvent> getCharacters() { return eventLayer.getCharacters(); }
+	
+	/** @return The key to this map's mdo */
+	public String getKey() { return mdo.key; }
+	
+	/** @return The map keys of all neighbors that are reached by ascending */
+	public String[] getUpKeys() { return mdo.pathsUp; }
+	
+	/** @return The map keys of all neighbors that are reached by descending */
+	public String[] getDownKeys() { return mdo.pathsDown; }
 	
 	/** @see net.wombatrpgs.mrogue.screen.ScreenShowable#ignoresTint() */
 	@Override public boolean ignoresTint() { return false; }
@@ -256,16 +254,6 @@ public class Level implements	ScreenShowable,
 		if (monsters != null) {
 			monsters.spawnToDensity();
 		}
-		while (!isTilePassable(MGlobal.hero, MGlobal.hero.getTileX(), MGlobal.hero.getTileY())) {
-			MGlobal.hero.setTileX(MGlobal.rand.nextInt(getWidth()));
-			MGlobal.hero.setTileY(MGlobal.rand.nextInt(getHeight()));
-		}
-		addEvent(MGlobal.hero);
-		MGlobal.hero.setX(MGlobal.hero.getTileX()*getTileWidth());
-		MGlobal.hero.setY(MGlobal.hero.getTileY()*getTileHeight());
-		MGlobal.levelManager.screen.getCamera().track(MGlobal.hero);
-		MGlobal.levelManager.screen.getCamera().update(0);
-		MGlobal.hero.refreshVisibilityMap();
 	}
 	
 	/**
@@ -394,7 +382,7 @@ public class Level implements	ScreenShowable,
 		addEventAbsolute(newEvent, tileX * getTileWidth(), tileY * getTileHeight());
 		newEvent.setTileX(tileX);
 		newEvent.setTileY(tileY);
-		if (newEvent == MGlobal.hero) {
+		if (newEvent == MGlobal.hero && scene != null) {
 			scene.run(this);
 		}
 	}
@@ -456,6 +444,32 @@ public class Level implements	ScreenShowable,
 	}
 	
 	/**
+	 * Looks up where to teleport in were a hero to try and warp from the
+	 * designated map.
+	 * @param	mapID			The MDO key of the map to look up
+	 * @return					The location of incoming characters from there
+	 */
+	public Loc getTeleInLoc(String mapID) {
+		Loc loc = teleLocations.get(mapID);
+		if (loc == null) {
+			MGlobal.reporter.err("No map found from " + this + " to " + mapID);
+		}
+		return loc;
+	}
+	
+	/**
+	 * Designates a teleport location for a specific map. Complains if we
+	 * already have a path to that map. Note that this prevents a map from
+	 * having multiple connections to the same map, but not >2 connections in
+	 * general.
+	 * @param	mapID			The ID of the map teleporting from
+	 * @param	teleLoc			The location on this map where we arrive
+	 */
+	public void setTeleInLoc(String mapID, Loc arriveLoc) {
+		teleLocations.put(mapID, arriveLoc);
+	}
+	
+	/**
 	 * Determines whether a certain location is see-through.
 	 * @param	tileX			The x-coord of the tile to check, in tiles
 	 * @param	tileY			The y-coord of the tile to check, in tiles
@@ -489,6 +503,7 @@ public class Level implements	ScreenShowable,
 				MGlobal.reporter.inform("Overlapped remove/add object: " + object);
 			} else {
 				MGlobal.reporter.warn("Added the same object twice: " + object);
+				return;
 			}
 		}
 		objects.add(object);

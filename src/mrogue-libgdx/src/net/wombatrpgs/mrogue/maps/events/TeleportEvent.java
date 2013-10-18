@@ -6,52 +6,91 @@
  */
 package net.wombatrpgs.mrogue.maps.events;
 
+import net.wombatrpgs.mrogue.characters.CharacterEvent;
+import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
-import net.wombatrpgs.mrogueschema.maps.MapMDO;
+import net.wombatrpgs.mrogue.maps.Loc;
+import net.wombatrpgs.mrogue.scenes.FinishListener;
 
 /**
  * Constructs a teleportation device! (or event, just depends on your
  * perspective...)
+ * MR: Contains a link to some map data. If that map doesn't exist, generate it.
+ * This is meant to be the payload of any staircase map event, and they should
+ * extend it.
  */
 public class TeleportEvent extends MapEvent {
 	
-	protected MapMDO mdo;
-	protected int targetX;
-	protected int targetY;
+	protected String mapKey;
+	
+	protected boolean triggered;
+	protected MapEvent victim;
 
 	/**
 	 * Creates a new teleport for the supplied parent level using coordinates
 	 * inferred from the tiled object. Called from the superclass's factory
 	 * method.
-	 * @param 	parent		The parent levelt to make teleport for
+	 * @param 	parent			The level we want to teleport from
+	 * @param	mapKey			The MDO key of the map we want to teleport to
+	 * @param	dir				Whether the stairs go up or down
 	 */
-	public TeleportEvent(Level parent) {
+	public TeleportEvent(Level parent, String mapKey) {
 		super(parent);
-		// TODO: TeleportEvent
+		this.mapKey = mapKey;
+		
+		triggered = false;
+		victim = null;
 	}
 
-	// TODO: teleport
-//	public boolean teleport(MapEvent other) {
-//		if (other != MGlobal.hero) return true;
-//		if (getLevel().contains(MGlobal.teleport.getPre())) return true;
-//		final TeleportEvent parent = this;
-//		MGlobal.teleport.getPre().addListener(new FinishListener() {
-//			@Override
-//			public void onFinish(Level map) {
-//				Level newMap = MGlobal.levelManager.getLevel(mapID);
-//				MGlobal.teleport.teleport(
-//						newMap, 
-//						targetX, 
-//						newMap.getHeight() - targetY - 1);
-//				MGlobal.teleport.getPost().run(newMap);
-//				if (parent.getProperty(PROPERTY_Z) != null) {
-//					newMap.changeZ(MGlobal.hero, 
-//							Float.valueOf(parent.getProperty(PROPERTY_Z))+.5f);
-//				}
-//			}
-//		});
-//		MGlobal.teleport.getPre().run(MGlobal.hero.getLevel());
-//		return true;
-//	}
+	/**
+	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		super.update(elapsed);
+		if (triggered && !parent.isMoving()) {
+			teleport(victim);
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#collideWith
+	 * (net.wombatrpgs.mrogue.characters.CharacterEvent)
+	 */
+	@Override
+	public void collideWith(CharacterEvent character) {
+		if (!triggered) {
+			triggered = true;
+			victim = character;
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#isPassable()
+	 */
+	@Override
+	public boolean isPassable() {
+		return true;
+	}
+	
+	/**
+	 * Teleports the hero from one map to another.
+	 * @param	other			The event that triggered this (hero)	
+	 */
+	protected void teleport(MapEvent other) {
+		if (other != MGlobal.hero) return;
+		if (getLevel().contains(MGlobal.teleport.getPre())) return;
+		MGlobal.teleport.getPre().addListener(new FinishListener() {
+			@Override
+			public void onFinish(Level map) {
+				Level newMap = MGlobal.levelManager.getLevel(mapKey);
+				Loc to = newMap.getTeleInLoc(parent.getKey());
+				MGlobal.teleport.teleport(newMap, to.x, to.y);
+				MGlobal.teleport.getPost().run(newMap);
+				triggered = false;
+			}
+		});
+		MGlobal.teleport.getPre().run(MGlobal.hero.getLevel());
+	}
 	
 }

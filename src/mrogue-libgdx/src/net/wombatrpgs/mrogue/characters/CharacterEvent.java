@@ -321,9 +321,9 @@ public class CharacterEvent extends MapEvent implements Turnable {
 			List<MapEvent> events = parent.getEventsAt(targetX, targetY);
 			boolean colliding = false;
 			for (MapEvent event : events) {
+				event.collideWith(this);
 				if (!event.isPassable()) {
 					travelPlan.add(new BumpStep(this, directionTo(targetX, targetY)));
-					event.collideWith(this);
 					colliding = true;
 				}
 			}
@@ -334,6 +334,12 @@ public class CharacterEvent extends MapEvent implements Turnable {
 			}
 		} else {
 			travelPlan.add(new BumpStep(this, directionTo(targetX, targetY)));
+			List<MapEvent> events = parent.getEventsAt(getTileX(), getTileY());
+			for (MapEvent event : events) {
+				if (event != this) {
+					event.collideWith(this);
+				}
+			}
 		}
 	}
 	

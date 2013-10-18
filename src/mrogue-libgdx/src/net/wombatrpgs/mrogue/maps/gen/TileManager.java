@@ -13,7 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Tile;
-import net.wombatrpgs.mrogueschema.maps.TileMDO;
+import net.wombatrpgs.mrogueschema.maps.data.TileMDO;
 import net.wombatrpgs.mrogueschema.maps.data.TileType;
 
 /**

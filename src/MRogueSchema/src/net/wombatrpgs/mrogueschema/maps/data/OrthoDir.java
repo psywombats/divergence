@@ -44,4 +44,14 @@ public enum OrthoDir {
 		default: return null;
 		}
 	}
+
+	public EightDir toEight() {
+		switch (this) {
+		case NORTH: return EightDir.NORTH;
+		case EAST: return EightDir.EAST;
+		case SOUTH: return EightDir.SOUTH;
+		case WEST: return EightDir.WEST;
+		default: return null;
+		}
+	}
 }

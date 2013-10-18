@@ -45,5 +45,13 @@ public class MapMDO extends MainSchema {
 	@FileLink("scenes")
 	@Nullable
 	public String scene;
+	
+	@Desc("All levels that can be reached by ascending")
+	@SchemaLink(MapMDO.class)
+	public String[] pathsUp;
+	
+	@Desc("All levels that can be reached by descending")
+	@SchemaLink(MapMDO.class)
+	public String[] pathsDown;
 
 }

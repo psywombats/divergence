@@ -15,7 +15,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import net.wombatrpgs.mrogue.core.Constants;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
-import net.wombatrpgs.mrogueschema.maps.TileMDO;
+import net.wombatrpgs.mrogueschema.maps.data.TileMDO;
 import net.wombatrpgs.mrogueschema.maps.data.TileType;
 
 /**

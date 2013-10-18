@@ -20,15 +20,18 @@ import com.badlogic.gdx.assets.AssetManager;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.maps.Level;
+import net.wombatrpgs.mrogue.maps.Loc;
 import net.wombatrpgs.mrogue.maps.Tile;
+import net.wombatrpgs.mrogue.maps.events.TeleportEvent;
 import net.wombatrpgs.mrogue.maps.gen.dec.Decorator;
 import net.wombatrpgs.mrogue.maps.gen.dec.DecoratorFactory;
 import net.wombatrpgs.mrogue.maps.layers.GridLayer;
+import net.wombatrpgs.mrogueschema.maps.CeilTilesMDO;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
-import net.wombatrpgs.mrogueschema.maps.TileMDO;
-import net.wombatrpgs.mrogueschema.maps.data.CeilTilesMDO;
+import net.wombatrpgs.mrogueschema.maps.StairTilesMDO;
+import net.wombatrpgs.mrogueschema.maps.WallTilesMDO;
+import net.wombatrpgs.mrogueschema.maps.data.TileMDO;
 import net.wombatrpgs.mrogueschema.maps.data.TileType;
-import net.wombatrpgs.mrogueschema.maps.data.WallTilesMDO;
 import net.wombatrpgs.mrogueschema.maps.decorators.data.DecoratorMDO;
 
 /**
@@ -43,6 +46,8 @@ public abstract class MapGenerator implements Queueable {
 			TileType.ANY_MIDDLE_WALL, TileType.ANY_WALL));
 	protected static Set<TileType> middleWalls = Collections.synchronizedSet(EnumSet.of(
 			TileType.WALL_TOP, TileType.WALL_BOTTOM, TileType.ANY_MIDDLE_WALL));
+	protected static Set<TileType> ceilings = Collections.synchronizedSet(EnumSet.of(
+			TileType.CEILING_BOTTOM, TileType.CEILING_MIDDLE, TileType.CEILING_TOP, TileType.ANY_CEILING));
 	
 	protected enum Halt {
 		NONE, FIRST, CHANGE,
@@ -57,6 +62,7 @@ public abstract class MapGenerator implements Queueable {
 	protected Level parent;
 	protected Map<TileType, Tile> tileMap;
 	protected List<Decorator> decorators;
+	protected Map<String, TeleportEvent> stairTeles;	// mapID to tele
 	
 	protected List<Queueable> assets;
 	
@@ -71,8 +77,12 @@ public abstract class MapGenerator implements Queueable {
 		this.assets = new ArrayList<Queueable>();
 		this.tileMap = new HashMap<TileType, Tile>();
 		this.decorators = new ArrayList<Decorator>();
+		this.stairTeles = new HashMap<String, TeleportEvent>();
+		
 		CeilTilesMDO ceils = MGlobal.data.getEntryFor(mdo.ceilingTiles, CeilTilesMDO.class);
 		WallTilesMDO walls = MGlobal.data.getEntryFor(mdo.wallTiles, WallTilesMDO.class);
+		StairTilesMDO ustairs = MGlobal.data.getEntryFor(mdo.upstairTiles, StairTilesMDO.class);
+		StairTilesMDO dstairs = MGlobal.data.getEntryFor(mdo.downstairTiles, StairTilesMDO.class);
 		addTile(mdo.floorTiles, TileType.FLOOR);
 		addTile(walls.b, TileType.WALL_BOTTOM);
 		addTile(walls.t, TileType.WALL_TOP);
@@ -85,6 +95,10 @@ public abstract class MapGenerator implements Queueable {
 		addTile(ceils.b, TileType.CEILING_BOTTOM);
 		addTile(ceils.m, TileType.CEILING_MIDDLE);
 		addTile(ceils.t, TileType.CEILING_TOP);
+		addTile(ustairs.b, TileType.USTAIR_BOTTOM);
+		addTile(ustairs.t, TileType.USTAIR_TOP);
+		addTile(dstairs.b, TileType.DSTAIR_BOTTOM);
+		addTile(dstairs.t, TileType.DSTAIR_TOP);
 		for (String key : mdo.decorators) {
 			DecoratorMDO decMDO = MGlobal.data.getEntryFor(key, DecoratorMDO.class);
 			decorators.add(DecoratorFactory.createDecor(decMDO, this));
@@ -181,7 +195,8 @@ public abstract class MapGenerator implements Queueable {
 	
 	/**
 	 * Checks if the given type matches at that location in the array. Not a
-	 * straight lookup due to bounds checking.
+	 * straight lookup due to bounds checking. The value fetched is considered
+	 * equivalent to null if out of bounds.
 	 * @param	<T>				The type of the data to deal with
 	 * @param	data			The data to check
 	 * @param	value			The object to check equality with
@@ -189,11 +204,46 @@ public abstract class MapGenerator implements Queueable {
 	 * @param	y				The row to check
 	 * @return					True if the object at that location matches
 	 */
-	public <T> boolean isType(T[][] data, T value, int x, int y) {
+	public <T> boolean isValue(T[][] data, T value, int x, int y) {
+		return get(data, x, y) == value;
+	}
+	
+	/**
+	 * Array lookup method with bounds checking. Returns null if outside bounds.
+	 * @param	<T>				The type of the data being operated on
+	 * @param	data			The data to operate on
+	 * @param	x				The x-coord to look up (in tiles)
+	 * @param	y				The y-coord to look up (in tiles)
+	 * @return					The value at that location in the array
+	 */
+	public <T> T get(T[][] data, int x, int y) {
 		if (x < 0 || x >= parent.getWidth() || y < 0 || y >= parent.getHeight()) {
-			return false;
+			return null;
 		} else {
-			return data[y][x] == value;
+			return data[y][x];
+		}
+	}
+	
+	/**
+	 * Performs an equality check in the array using wildcards. Makes use of
+	 * bounds checking.
+	 * @param	data			The data to operate on
+	 * @param	value			The value to check for
+	 * @param	x				The x-coord to look up (in tiles)
+	 * @param	y				The y-coord to look up (in tiles)
+	 * @return					True if the values are equivalent
+	 */
+	public boolean isType(TileType[][] data, TileType value, int x, int y) {
+		if (x < 0 || x >= parent.getWidth() || y < 0 || y >= parent.getHeight()) {
+			return (value == TileType.ANY_CEILING) || (value == TileType.CEILING_TOP);
+		} else if (value == TileType.ANY_WALL) {
+			return walls.contains(get(data, x, y));
+		} else if (value == TileType.ANY_MIDDLE_WALL) {
+			return middleWalls.contains(get(data, x, y));
+		} else if (value == TileType.ANY_CEILING) {
+			return ceilings.contains(get(data, x, y));
+		} else {
+			return isValue(data, value, x, y);
 		}
 	}
 	
@@ -210,16 +260,21 @@ public abstract class MapGenerator implements Queueable {
 	public boolean isTile(Tile[][] data, TileType value, int x, int y) {
 		if (value == TileType.ANY_WALL) {
 			for (TileType type : walls) {
-				if (isType(data, getTile(type), x, y)) return true;
+				if (isValue(data, getTile(type), x, y)) return true;
 			}
 			return false;
 		} else if (value == TileType.ANY_MIDDLE_WALL) {
 			for (TileType type : middleWalls) {
-				if (isType(data, getTile(type), x, y)) return true;
+				if (isValue(data, getTile(type), x, y)) return true;
+			}
+			return false;
+		} else if (value == TileType.ANY_CEILING) {
+			for (TileType type : ceilings) {
+				if (isValue(data, getTile(type), x, y)) return true;
 			}
 			return false;
 		} else {
-			return isType(data, getTile(value), x, y);
+			return isValue(data, getTile(value), x, y);
 		}
 	}
 	
@@ -248,6 +303,16 @@ public abstract class MapGenerator implements Queueable {
 	}
 	
 	/**
+	 * Looks up the teleport event associated with a given map ID, or null if no
+	 * staircase here leads to that location.
+	 * @param	mapID			The ID of the map to look up for
+	 * @return					The teleport event associated to travel there
+	 */
+	public TeleportEvent getTeleFor(String mapID) {
+		return stairTeles.get(mapID);
+	}
+	
+	/**
 	 * The actual bulk of generation should occur here.
 	 */
 	protected abstract void generateInternal();
@@ -273,13 +338,10 @@ public abstract class MapGenerator implements Queueable {
 		}
 		for (int x = 0; x < parent.getWidth(); x += 1) {
 			for (int y = 0; y < parent.getHeight(); y += 1) {
-				if (x == 22 && y == 18) {
-					System.out.println();
-				}
 				if (isPassable(types, x, y-1) &&
-						isType(types, TileType.ANY_CEILING, x, y) &&
-						isType(types, TileType.ANY_CEILING, x, y+1) &&
-						isType(types, TileType.ANY_CEILING, x, y+2)) {
+						isValue(types, TileType.ANY_CEILING, x, y) &&
+						isValue(types, TileType.ANY_CEILING, x, y+1) &&
+						isValue(types, TileType.ANY_CEILING, x, y+2)) {
 					if (isPassable(types, x-1, y) && isPassable(types, x+1, y)) {
 						types[y+1][x] = TileType.WALL_TMID;
 						types[y][x] = TileType.WALL_BMID;
@@ -309,12 +371,12 @@ public abstract class MapGenerator implements Queueable {
 		}
 		for (int x = 0; x < parent.getWidth(); x += 1) {
 			for (int y = 0; y < parent.getHeight(); y += 1) {
-				if (isType(types, TileType.ANY_CEILING, x, y)) {
-					if (isType(types, TileType.CEILING_TOP, x, y-1)) {
+				if (isValue(types, TileType.ANY_CEILING, x, y)) {
+					if (isValue(types, TileType.CEILING_TOP, x, y-1)) {
 						types[y][x] = TileType.CEILING_TOP;
-					} else if (isType(types, TileType.CEILING_MIDDLE, x, y-1)) {
+					} else if (isValue(types, TileType.CEILING_MIDDLE, x, y-1)) {
 						types[y][x] = TileType.CEILING_TOP;
-					} else if (isType(types, TileType.CEILING_BOTTOM, x, y-1)) {
+					} else if (isValue(types, TileType.CEILING_BOTTOM, x, y-1)) {
 						types[y][x] = TileType.CEILING_MIDDLE;
 					} else if (y == 0) {
 						types[y][x] = TileType.CEILING_TOP;
@@ -334,13 +396,113 @@ public abstract class MapGenerator implements Queueable {
 	protected void purgeFloatingWalls(TileType[][] types, TileType value) {
 		for (int x = 0; x < parent.getWidth(); x += 1) {
 			for (int y = 0; y < parent.getHeight(); y += 1) {
-				if (isType(types, TileType.ANY_CEILING, x, y) && (
+				if (isValue(types, TileType.ANY_CEILING, x, y) && (
 						(isPassable(types, x, y-1) && isPassable(types, x, y+1)) ||
 						(isPassable(types, x, y-1) && isPassable(types, x, y+2)) ||
 						(isPassable(types, x, y-2) && isPassable(types, x, y+1)))) {
 					types[y][x] = TileType.FLOOR;
 				}
 			}
+		}
+	}
+	
+	/**
+	 * Adds some random upstaircase in a physically correct manner. Call this
+	 * after walls are generated. Returns null if not possible to generate a
+	 * staircase (this should never happen, statistically, but it's hard to
+	 * guarantee)
+	 * @param	types			The data to operate on
+	 * @return					Where the staircase was placed (connecting tile)
+	 */
+	protected Loc addUpstairs(TileType[][] types) {
+		if (state == ConversionState.GENERATING) {
+			MGlobal.reporter.warn("Bad conversion state stair for " + parent);
+			return null;
+		}
+		int off = r.nextInt(parent.getWidth());
+		for (int ix = 0; ix <= parent.getWidth(); ix += 1) {
+			int x = (off + ix) % parent.getWidth();
+			for (int y = 0; y < parent.getHeight()-2; y += 1) {
+				if (!isType(types, TileType.FLOOR, x, y-1)) continue;
+				if (!isType(types, TileType.ANY_WALL, x, y)) continue;
+				if (!isType(types, TileType.ANY_WALL, x, y+1)) continue;
+				if (!isType(types, TileType.ANY_CEILING, x, y+2)) continue;
+				
+				if (isPassable(types, x+1, y)) continue;
+				if (isPassable(types, x-1, y)) continue;
+				if (isPassable(types, x+1, y+1)) continue;
+				if (isPassable(types, x-1, y+1)) continue;
+				if (isPassable(types, x+1, y+2)) continue;
+				if (isPassable(types, x-1, y+2)) continue;
+				
+				// cool!
+				types[y][x] = TileType.USTAIR_BOTTOM;
+				types[y+1][x] = TileType.USTAIR_TOP;
+				return new Loc(x, y);
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Adds some random downstaircase in a physically correct manner. Call this
+	 * after walls are generated. Returns null if not possible to generate a
+	 * staircase (this should never happen, statistically, but it's hard to
+	 * guarantee)
+	 * @param	types			The data to operate on
+	 * @return					Where the staircase was placed (connecting tile)
+	 */
+	protected Loc addDownstairs(TileType[][] types) {
+		if (state == ConversionState.GENERATING) {
+			MGlobal.reporter.warn("Bad conversion state stair for " + parent);
+			return null;
+		}
+		while (true) {
+			int x = r.nextInt(parent.getWidth()-2) + 1;
+			for (int y = 2; y < parent.getHeight(); y += 1) {
+				if (!isType(types, TileType.FLOOR, x, y+1)) continue;
+				if (!isType(types, TileType.ANY_CEILING, x, y)) continue;
+				if (!isType(types, TileType.ANY_CEILING, x, y-1)) continue;
+				if (!isType(types, TileType.ANY_CEILING, x, y-2)) continue;
+				
+				if (isPassable(types, x+1, y)) continue;
+				if (isPassable(types, x-1, y)) continue;
+				if (isPassable(types, x+1, y-1)) continue;
+				if (isPassable(types, x-1, y-1)) continue;
+				if (isPassable(types, x+1, y-2)) continue;
+				if (isPassable(types, x-1, y-2)) continue;
+				if (isPassable(types, x+1, y-3)) continue;
+				if (isPassable(types, x-1, y-3)) continue;
+				
+				// cool!
+				types[y][x] = TileType.DSTAIR_TOP;
+				types[y-1][x] = TileType.DSTAIR_BOTTOM;
+				return new Loc(x, y);
+			}
+		}
+	}
+	
+	/**
+	 * Adds staircases based on the parent map's connections.
+	 * @param	types			The tile types to operate on
+	 */
+	protected void addStaircases(TileType[][] types) {
+		if (state == ConversionState.GENERATING) {
+			MGlobal.reporter.warn("Bad conversion state stair for " + parent);
+		}
+		for (String upKey : parent.getUpKeys()) {
+			Loc loc = addUpstairs(types);
+			TeleportEvent tele = new TeleportEvent(parent, upKey);
+			parent.addEvent(tele, loc.x, loc.y);
+			parent.setTeleInLoc(upKey, loc);
+			stairTeles.put(upKey, tele);
+		}
+		for (String downKey : parent.getDownKeys()) {
+			Loc loc = addDownstairs(types);
+			TeleportEvent tele = new TeleportEvent(parent, downKey);
+			parent.addEvent(tele, loc.x, loc.y);
+			parent.setTeleInLoc(downKey, loc);
+			stairTeles.put(downKey, tele);
 		}
 	}
 	

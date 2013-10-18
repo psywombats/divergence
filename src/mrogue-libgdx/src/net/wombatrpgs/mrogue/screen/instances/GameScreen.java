@@ -12,10 +12,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
+import net.wombatrpgs.mrogue.characters.Hero;
 import net.wombatrpgs.mrogue.core.Constants;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.io.TestCommandMap;
 import net.wombatrpgs.mrogue.maps.Level;
+import net.wombatrpgs.mrogue.maps.Loc;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogue.screen.Screen;
 import net.wombatrpgs.mrogueschema.cutscene.SceneMDO;
@@ -68,6 +70,9 @@ public class GameScreen extends Screen {
 			mapShader = (testShader);
 		}
 		
+		MGlobal.hero = new Hero(map, 0, 0);
+		assets.add(MGlobal.hero);
+		
 		addScreenObject(MGlobal.ui.getNarrator());
 		addScreenObject(MGlobal.ui.getHud());
 		
@@ -116,7 +121,20 @@ public class GameScreen extends Screen {
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
 		introParser.postProcessing(manager, pass);
-		// the map should be done already
+		
+		if (pass == 0) {
+			while (!map.isTilePassable(MGlobal.hero, MGlobal.hero.getTileX(), MGlobal.hero.getTileY())) {
+				MGlobal.hero.setTileX(MGlobal.rand.nextInt(map.getWidth()));
+				MGlobal.hero.setTileY(MGlobal.rand.nextInt(map.getHeight()));
+			}
+			map.addEvent(MGlobal.hero);
+			map.setTeleInLoc("hero", new Loc(MGlobal.hero.getTileX(), MGlobal.hero.getTileY()));
+			MGlobal.hero.setX(MGlobal.hero.getTileX()*map.getTileWidth());
+			MGlobal.hero.setY(MGlobal.hero.getTileY()*map.getTileHeight());
+			getCamera().track(MGlobal.hero);
+			getCamera().update(0);
+			MGlobal.hero.refreshVisibilityMap();
+		}
 	}
 	
 	/**
