@@ -37,6 +37,7 @@ import net.wombatrpgs.mrogueschema.maps.data.OrthoDir;
 public class CharacterEvent extends MapEvent implements Turnable {
 	
 	protected static Action defaultWait;
+	protected static RayCheck rayLoS;
 	
 	protected CharacterMDO mdo;
 	
@@ -127,6 +128,9 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	
 	/** @return The RPG representation of this character */
 	public GameUnit getUnit() { return unit; }
+	
+	/** @param s Another step on the ol' block */
+	public void addStep(Step s) { travelPlan.add(s); }
 	
 	/**
 	 * @see net.wombatrpgs.mrogue.maps.MapThing#update(float)
@@ -406,6 +410,31 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	 */
 	public boolean inLoS(int targetX, int targetY) {
 		if (euclideanTileDistanceTo(targetX, targetY) > getStats().getVision()) return false;
+		return rayExistsTo(targetX, targetY, rayLoS);
+	}
+	
+	/**
+	 * Runs the raycasting routine to an event instead of a point.
+	 * @param	event			The event to raycast at
+	 * @param	chk				The checking routeine to use
+	 * @return
+	 */
+	public boolean rayExistsTo(MapEvent event, RayCheck chk) {
+		return rayExistsTo(event.getTileX(), event.getTileY(), chk);
+	}
+	
+	/**
+	 * A tile-based raycasting algorithm. Checks whether a ray can be cast from
+	 * this character to some other point on the map. The data parameters mean
+	 * this can be used for line attacks or sight. To avoid hogging memory, the
+	 * last object hit by the raycast is stored in the character's memory and
+	 * can be queried there.
+	 * @param	targetX			The x-coord to raycast to, in tiles
+	 * @param	targetY			The y-coord to raycast to, in tiles
+	 * @param	chk				The class with the failure condition
+	 * @return					True if an unobstructed ray exists to there
+	 */
+	public boolean rayExistsTo(int targetX, int targetY, RayCheck chk) {
 		// This algo copied from 2011SDRL
 		boolean good = true;
 		double m;
@@ -422,7 +451,7 @@ public class CharacterEvent extends MapEvent implements Turnable {
 			while (Math.abs(atX-targetX) > 1.1) {
 				atX += (dx > 0) ? 1.0 : -1.0;
 				atY += ((dx > 0) ? 1.0 : -1.0) * m;
-				if (!parent.isTransparentAt((int)Math.floor(atX), (int)Math.floor(atY+bend))) {
+				if (chk.bad((int)Math.floor(atX), (int)Math.floor(atY+bend))) {
 					good = false;
 					break;
 				}
@@ -433,7 +462,7 @@ public class CharacterEvent extends MapEvent implements Turnable {
 			while (Math.abs(atX-targetX) > 1.1) {
 				atX += (dx > 0) ? 1.0 : -1.0;
 				atY += ((dx > 0) ? 1.0 : -1.0) * m;
-				if (!parent.isTransparentAt((int)Math.floor(atX), (int)Math.floor(atY+bend))) {
+				if (chk.bad((int)Math.floor(atX), (int)Math.floor(atY+bend))) {
 					return false;
 				}
 			}
@@ -441,7 +470,7 @@ public class CharacterEvent extends MapEvent implements Turnable {
 			while (Math.abs(atY-targetY) > 1.1) {
 				atY += (dy > 0) ? 1.0 : -1.0;
 				if (m!=999) atX += ((dy > 0) ? 1.0 : -1.0)/m;
-				if (!parent.isTransparentAt((int)Math.floor(atX+bend), (int)Math.floor(atY))) {
+				if (chk.bad((int)Math.floor(atX+bend), (int)Math.floor(atY))) {
 					good=false;
 					break;
 				}
@@ -452,7 +481,7 @@ public class CharacterEvent extends MapEvent implements Turnable {
 			while (Math.abs(atY-targetY) > 1.1) {
 				atY += (dy > 0) ? 1.0 : -1.0;
 				if (m!=999) atX += ((dy > 0) ? 1.0 : -1.0)/m;
-				if (!parent.isTransparentAt((int)Math.ceil(atX-bend), (int)Math.floor(atY))) {
+				if (chk.bad((int)Math.ceil(atX-bend), (int)Math.floor(atY))) {
 					return false;
 				}
 			}
@@ -501,6 +530,23 @@ public class CharacterEvent extends MapEvent implements Turnable {
 		if (defaultWait == null) {
 			defaultWait = new ActWait();
 		}
+		if (rayLoS == null) {
+			rayLoS = new RayCheck() {
+				@Override public boolean bad(int tileX, int tileY) {
+					return !parent.isTransparentAt(tileX, tileY);
+				}
+			};
+		}
+	}
+	
+	public abstract class RayCheck {
+		/**
+		 * A very messy inner condition for raycasting from 2011.
+		 * @param	tileX			The current x-coord, in tiles
+		 * @param	tileY			The current y-coord, in tiles
+		 * @return					True if raycasting has hit an obstruction
+		 */
+		public abstract boolean bad(int tileX, int tileY);
 	}
 
 }

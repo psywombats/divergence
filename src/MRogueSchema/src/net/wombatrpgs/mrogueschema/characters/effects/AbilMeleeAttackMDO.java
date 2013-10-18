@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.mrogueschema.characters.effects;
 
-import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mrogueschema.characters.data.AbilityEffectMDO;
 
@@ -15,8 +14,5 @@ import net.wombatrpgs.mrogueschema.characters.data.AbilityEffectMDO;
  */
 @Path("characters/effects/")
 public class AbilMeleeAttackMDO extends AbilityEffectMDO {
-	
-	@Desc("Damage - fixed amount of damage dealt... weak, I know")
-	public Integer baseDamage;
 
 }

@@ -9,7 +9,9 @@ package net.wombatrpgs.mrogue.characters.abilities;
 import java.util.List;
 
 import net.wombatrpgs.mrogue.characters.GameUnit;
+import net.wombatrpgs.mrogue.characters.travel.Step;
 import net.wombatrpgs.mrogueschema.characters.effects.AbilMeleeAttackMDO;
+import net.wombatrpgs.mrogueschema.maps.data.OrthoDir;
 
 /**
  * Like you walked into something.
@@ -37,6 +39,33 @@ public class AbilMeleeAttack extends Effect {
 		for (GameUnit target : targets) {
 			actor.getUnit().attack(target);
 		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.mrogue.characters.abilities.Effect#getStep()
+	 */
+	@Override
+	public Step getStep() {
+		int start = 0;
+		final int fstart;
+		for (int i = 0; i < OrthoDir.values().length; i += 1) {
+			if (actor.getFacing() == OrthoDir.values()[i]) {
+				start = i;
+				break;
+			}
+		}
+		fstart = start;
+		return new Step(abil.getActor()) {
+			@Override public void update(float elapsed) {
+				super.update(elapsed);
+				int step = (int) Math.floor(totalElapsed * (float)OrthoDir.values().length / allotted);
+				actor.setFacing(OrthoDir.values()[(step+fstart) % OrthoDir.values().length]);
+			}
+			@Override public void onEnd() {
+				super.onEnd();
+				actor.setFacing(OrthoDir.values()[fstart]);
+			}
+		};
 	}
 
 }

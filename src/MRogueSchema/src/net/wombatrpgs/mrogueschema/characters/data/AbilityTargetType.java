@@ -12,5 +12,8 @@ package net.wombatrpgs.mrogueschema.characters.data;
 public enum AbilityTargetType {
 	
 	USER,
+	BALL,
+	BEAM,
+	PROJECTILE,
 
 }

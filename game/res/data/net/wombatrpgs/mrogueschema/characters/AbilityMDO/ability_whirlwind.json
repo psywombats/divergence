@@ -1,0 +1,11 @@
+{
+	"key" : "ability_whirlwind",
+	"subfolder" : "",
+	"name" : "whirlwind",
+	"description" : " ",
+	"target" : "BALL",
+	"range" : 1.9,
+	"effect" : "effect_dummy",
+	"energyCost" : 1500,
+	"mpCost" : 10
+}

@@ -26,6 +26,9 @@ public class AbilityMDO extends MainSchema {
 	@Desc("Target - What or where this ability targets")
 	public AbilityTargetType target;
 	
+	@Desc("Range - In tiles, could be used for some targeting types")
+	public Float range;
+	
 	@Desc("Effect - The code operating behind this ability")
 	@SchemaLink(AbilityEffectMDO.class)
 	public String effect;

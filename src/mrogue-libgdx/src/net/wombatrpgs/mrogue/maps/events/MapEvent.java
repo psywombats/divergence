@@ -396,7 +396,7 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	}
 	
 	/**
-	 * Calcualtes the euclidean distance between this and some other tile loc.
+	 * Calculates the euclidean distance between this and some other tile loc.
 	 * @param	tileX			The other's tile x-coord
 	 * @param	tileY			The other's tile y-coord
 	 * @return
@@ -405,6 +405,15 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 		float dx = this.tileX - tileX;
 		float dy = this.tileY - tileY;
 		return (float) Math.sqrt(dx*dx + dy*dy);
+	}
+	
+	/**
+	 * Calculates the euclidean distance between this and some other event.
+	 * @param	event			The event to get dist to
+	 * @return					The distance to that event
+	 */
+	public float euclideanTileDistanceTo(MapEvent event) {
+		return euclideanTileDistanceTo(event.getTileX(), event.getTileY());
 	}
 	
 	/**

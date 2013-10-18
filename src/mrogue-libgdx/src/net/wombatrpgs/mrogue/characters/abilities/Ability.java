@@ -11,9 +11,11 @@ import java.util.List;
 
 import net.wombatrpgs.mrogue.characters.Action;
 import net.wombatrpgs.mrogue.characters.CharacterEvent;
+import net.wombatrpgs.mrogue.characters.CharacterEvent.RayCheck;
 import net.wombatrpgs.mrogue.characters.GameUnit;
 import net.wombatrpgs.mrogue.characters.travel.Step;
 import net.wombatrpgs.mrogue.core.MGlobal;
+import net.wombatrpgs.mrogue.maps.events.MapEvent;
 import net.wombatrpgs.mrogueschema.characters.AbilityMDO;
 
 /**
@@ -25,6 +27,8 @@ public class Ability extends Action {
 	
 	protected AbilityMDO mdo;
 	protected Effect effect;
+	protected RayCheck check;
+	protected MapEvent firstHit;
 	
 	/**
 	 * Creates a new ability for a particular actor from data.
@@ -34,6 +38,38 @@ public class Ability extends Action {
 		super(actor);
 		this.mdo = mdo;
 		this.effect = EffectFactory.createEffect(mdo.effect, this);
+		
+		final CharacterEvent actor2 = actor;
+		switch (mdo.target) {
+		case PROJECTILE:
+			check = actor.new RayCheck() {
+				@Override public boolean bad(int tileX, int tileY) {
+					if (!actor2.getParent().isTilePassable(actor2, tileX, tileY)) {
+						return false;
+					}
+					for (MapEvent event : actor2.getParent().getEventsAt(tileX, tileY)) {
+						if (!event.isPassable() && event != actor2) {
+							firstHit = event;
+							return false;
+						}
+					}
+					return true;
+				}
+			};
+			break;
+		case BALL: case BEAM:
+			check = actor.new RayCheck() {
+				@Override public boolean bad(int tileX, int tileY) {
+					if (!actor2.getParent().isTilePassable(actor2, tileX, tileY)) {
+						return false;
+					}
+					return true;
+				}
+			};
+			break;
+		default:
+			// it's fine, we don't need raycasting
+		}
 	}
 	
 	/** @return The MP cost of this ability */
@@ -44,6 +80,15 @@ public class Ability extends Action {
 	
 	/** @return The step animation of this ability */
 	public Step getStep() { return effect.getStep(); }
+	
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getName() + "(" + mdo.key + ")";
+	}
+
 
 	/**
 	 * @see net.wombatrpgs.mrogue.characters.Action#act()
@@ -52,6 +97,7 @@ public class Ability extends Action {
 	final public void act() {
 		actor.getUnit().onAbilityUsed(this);
 		effect.act(acquireTargets());
+		actor.addStep(getStep());
 	}
 	
 	/**
@@ -65,9 +111,18 @@ public class Ability extends Action {
 		case USER:
 			targets.add(actor.getUnit());
 			break;
+		case BALL:
+			for (CharacterEvent chara : actor.getParent().getCharacters()) {
+				if (actor.euclideanTileDistanceTo(chara) <= mdo.range &&
+						actor.rayExistsTo(chara, check) &&
+						chara != actor) {
+					targets.add(chara.getUnit());
+				}
+			}
+			break;
 		default:
 			MGlobal.reporter.warn("Unknown ability target type " + mdo.target +
-					" for ability + " + mdo);
+					" for ability + " + mdo.key);
 		}
 		return targets;
 	}
@@ -79,13 +134,5 @@ public class Ability extends Action {
 	protected int baseCost() {
 		return mdo.energyCost;
 	}
-
-	/**
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getName() + "(" + mdo.key + ")";
-	}
-
+	
 }
