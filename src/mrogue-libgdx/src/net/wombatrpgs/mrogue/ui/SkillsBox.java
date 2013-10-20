@@ -15,11 +15,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import net.wombatrpgs.mrogue.characters.Hero;
-import net.wombatrpgs.mrogue.characters.abilities.Ability;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.graphics.Graphic;
+import net.wombatrpgs.mrogue.rpg.Hero;
+import net.wombatrpgs.mrogue.rpg.abil.Ability;
 import net.wombatrpgs.mrogue.screen.ScreenShowable;
 import net.wombatrpgs.mrogue.ui.text.FontHolder;
 import net.wombatrpgs.mrogue.ui.text.TextBoxFormat;

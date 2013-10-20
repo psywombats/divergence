@@ -9,13 +9,13 @@ package net.wombatrpgs.mrogue.maps.events;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.wombatrpgs.mrogue.characters.CharacterEvent;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.graphics.PreRenderable;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.MapThing;
 import net.wombatrpgs.mrogue.maps.PositionSetable;
 import net.wombatrpgs.mrogue.maps.layers.EventLayer;
+import net.wombatrpgs.mrogue.rpg.CharacterEvent;
 import net.wombatrpgs.mrogueschema.maps.data.EightDir;
 
 /**

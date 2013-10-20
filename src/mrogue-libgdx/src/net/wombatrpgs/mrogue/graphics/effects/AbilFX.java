@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import net.wombatrpgs.mrogue.characters.abilities.Ability;
 import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.graphics.Disposable;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
 import net.wombatrpgs.mrogue.maps.objects.TimerListener;
 import net.wombatrpgs.mrogue.maps.objects.TimerObject;
+import net.wombatrpgs.mrogue.rpg.abil.Ability;
 import net.wombatrpgs.mrogueschema.graphics.effects.data.AbilFxMDO;
 
 /**

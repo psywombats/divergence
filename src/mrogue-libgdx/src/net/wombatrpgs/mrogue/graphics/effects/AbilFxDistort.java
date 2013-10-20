@@ -13,12 +13,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
-import net.wombatrpgs.mrogue.characters.abilities.Ability;
 import net.wombatrpgs.mrogue.core.Constants;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.graphics.Graphic;
 import net.wombatrpgs.mrogue.graphics.PostRenderable;
 import net.wombatrpgs.mrogue.graphics.ShaderFromData;
+import net.wombatrpgs.mrogue.rpg.abil.Ability;
 import net.wombatrpgs.mrogue.screen.Screen;
 import net.wombatrpgs.mrogue.screen.WindowSettings;
 import net.wombatrpgs.mrogueschema.graphics.ShaderMDO;

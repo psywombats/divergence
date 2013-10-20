@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import net.wombatrpgs.mrogue.characters.CharacterEvent;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.PauseLevel;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
+import net.wombatrpgs.mrogue.rpg.CharacterEvent;
 import net.wombatrpgs.mrogue.scenes.SceneCommand;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogueschema.maps.data.DirVector;

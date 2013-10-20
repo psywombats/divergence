@@ -12,12 +12,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
-import net.wombatrpgs.mrogue.characters.Hero;
 import net.wombatrpgs.mrogue.core.Constants;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.io.TestCommandMap;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Loc;
+import net.wombatrpgs.mrogue.rpg.Hero;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogue.screen.Screen;
 import net.wombatrpgs.mrogueschema.cutscene.SceneMDO;

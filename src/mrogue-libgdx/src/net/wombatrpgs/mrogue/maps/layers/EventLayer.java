@@ -14,11 +14,11 @@ import java.util.List;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import net.wombatrpgs.mrogue.characters.CharacterEvent;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.MapThing;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
+import net.wombatrpgs.mrogue.rpg.CharacterEvent;
 
 /**
  * A renderable collection of map events, grouped into a layer in a level.

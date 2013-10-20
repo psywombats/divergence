@@ -9,9 +9,9 @@ package net.wombatrpgs.mrogue.graphics.effects;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 
-import net.wombatrpgs.mrogue.characters.abilities.Ability;
 import net.wombatrpgs.mrogue.core.Constants;
 import net.wombatrpgs.mrogue.graphics.Graphic;
+import net.wombatrpgs.mrogue.rpg.abil.Ability;
 import net.wombatrpgs.mrogueschema.graphics.effects.AbilFxTestMDO;
 
 /**

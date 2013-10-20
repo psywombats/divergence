@@ -6,10 +6,10 @@
  */
 package net.wombatrpgs.mrogue.maps.events;
 
-import net.wombatrpgs.mrogue.characters.CharacterEvent;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Loc;
+import net.wombatrpgs.mrogue.rpg.CharacterEvent;
 import net.wombatrpgs.mrogue.scenes.FinishListener;
 
 /**
@@ -55,7 +55,7 @@ public class TeleportEvent extends MapEvent {
 
 	/**
 	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#collideWith
-	 * (net.wombatrpgs.mrogue.characters.CharacterEvent)
+	 * (net.wombatrpgs.mrogue.rpg.CharacterEvent)
 	 */
 	@Override
 	public void collideWith(CharacterEvent character) {

@@ -9,11 +9,11 @@ package net.wombatrpgs.mrogue.scenes.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.wombatrpgs.mrogue.characters.CharacterEvent;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.graphics.FacesAnimation;
 import net.wombatrpgs.mrogue.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
+import net.wombatrpgs.mrogue.rpg.CharacterEvent;
 import net.wombatrpgs.mrogue.scenes.SceneCommand;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogueschema.graphics.DirMDO;

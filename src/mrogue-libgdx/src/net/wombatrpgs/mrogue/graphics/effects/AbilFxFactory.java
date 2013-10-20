@@ -6,8 +6,8 @@
  */
 package net.wombatrpgs.mrogue.graphics.effects;
 
-import net.wombatrpgs.mrogue.characters.abilities.Ability;
 import net.wombatrpgs.mrogue.core.MGlobal;
+import net.wombatrpgs.mrogue.rpg.abil.Ability;
 import net.wombatrpgs.mrogueschema.graphics.effects.AbilFxDistortMDO;
 import net.wombatrpgs.mrogueschema.graphics.effects.AbilFxFlamesMDO;
 import net.wombatrpgs.mrogueschema.graphics.effects.AbilFxTestMDO;

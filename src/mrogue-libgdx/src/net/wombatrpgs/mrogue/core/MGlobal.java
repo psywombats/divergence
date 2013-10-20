@@ -16,7 +16,6 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
-import net.wombatrpgs.mrogue.characters.Hero;
 import net.wombatrpgs.mrogue.core.reporters.*;
 import net.wombatrpgs.mrogue.graphics.GraphicsSettings;
 import net.wombatrpgs.mrogue.io.DefaultKeymap;
@@ -26,6 +25,7 @@ import net.wombatrpgs.mrogue.io.loaders.DataLoader;
 import net.wombatrpgs.mrogue.io.loaders.SceneLoader;
 import net.wombatrpgs.mrogue.maps.LevelManager;
 import net.wombatrpgs.mrogue.maps.gen.TileManager;
+import net.wombatrpgs.mrogue.rpg.Hero;
 import net.wombatrpgs.mrogue.scenes.SceneData;
 import net.wombatrpgs.mrogue.scenes.TeleportGlobal;
 import net.wombatrpgs.mrogue.screen.ScreenStack;

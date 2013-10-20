@@ -6,10 +6,10 @@
  */
 package net.wombatrpgs.mrogue.maps.gen;
 
-import net.wombatrpgs.mrogue.characters.Hero;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Tile;
+import net.wombatrpgs.mrogue.rpg.Hero;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
 import net.wombatrpgs.mrogueschema.maps.data.TileType;
 
