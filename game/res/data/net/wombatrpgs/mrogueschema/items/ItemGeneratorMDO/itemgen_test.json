@@ -1,0 +1,10 @@
+{
+	"key" : "itemgen_test",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"items" : [
+		"spellbook_test"
+	],
+	"firstTreasure" : 40
+}
