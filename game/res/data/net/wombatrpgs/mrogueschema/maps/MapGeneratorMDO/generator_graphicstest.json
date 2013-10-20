@@ -2,7 +2,7 @@
 	"key" : "generator_graphicstest",
 	"subfolder" : "",
 	"name" : "",
-	"description" : " ",
+	"description" : "   ",
 	"floorTiles" : {
 		"appearance" : "floor01.png"
 	},
@@ -27,6 +27,7 @@
 		"decorset_spiderwebs"
 	],
 	"upDecorators" : [
-		"decorset_tables"
+		"decorset_tables",
+		"decorset_drawers"
 	]
 }

@@ -11,21 +11,21 @@ import com.badlogic.gdx.assets.AssetManager;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Tile;
 import net.wombatrpgs.mrogue.maps.gen.MapGenerator;
-import net.wombatrpgs.mrogueschema.maps.decorators.Decorator2x2SpecialMDO;
+import net.wombatrpgs.mrogueschema.maps.decorators.Decorator1x2SpecialMDO;
 
 /**
- * Generates a 2x2 with specific-er tile requirements.
+ * Generates a wall hanger thing.
  */
-public class Decorator2x2Special extends DecoratorSingle {
+public class Decorator1x2Special extends DecoratorSingle {
 	
-	protected Decorator2x2SpecialMDO mdo;
+	protected Decorator1x2SpecialMDO mdo;
 
 	/**
 	 * Generates a decorator from data.
 	 * @param	mdo				The data to generate from
 	 * @param	gen				The generator to generate for
 	 */
-	public Decorator2x2Special(Decorator2x2SpecialMDO mdo, MapGenerator gen) {
+	public Decorator1x2Special(Decorator1x2SpecialMDO mdo, MapGenerator gen) {
 		super(mdo, gen);
 		this.mdo = mdo;
 	}
@@ -36,17 +36,14 @@ public class Decorator2x2Special extends DecoratorSingle {
 	 */
 	@Override
 	public void apply(Tile[][] tilesOld, Tile[][] tilesNew) {
+		this.tilesNew = tilesNew;
 		for (int x = 0; x < gen.getWidth(); x += 1) {
 			for (int y = 0; y < gen.getHeight(); y += 1) {
 				if (mdo.chance < gen.rand().nextFloat()) continue;
-				if (!gen.isTile(tilesOld, mdo.brOriginal, x+1, y-1)) continue;
-				if (!gen.isTile(tilesOld, mdo.trOriginal, x+1, y)) continue;
-				if (!gen.isTile(tilesOld, mdo.blOriginal, x, y-1)) continue;
-				if (!gen.isTile(tilesOld, mdo.tlOriginal, x, y)) continue;
-				tilesOld[y][x] = MGlobal.tiles.getTile(mdo.tl);
-				tilesOld[y][x+1] = MGlobal.tiles.getTile(mdo.tr);
-				tilesOld[y-1][x] = MGlobal.tiles.getTile(mdo.bl);
-				tilesOld[y-1][x+1] = MGlobal.tiles.getTile(mdo.br);
+				if (!legal(tilesOld, mdo.original, mdo.original, x, y-1)) continue;
+				if (!legal(tilesOld, mdo.originalT, mdo.originalT, x, y)) continue;
+				tilesNew[y][x] = MGlobal.tiles.getTile(mdo.t);
+				tilesNew[y-1][x] = MGlobal.tiles.getTile(mdo.b);
 			}
 		}
 	}
@@ -58,10 +55,8 @@ public class Decorator2x2Special extends DecoratorSingle {
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
-		MGlobal.tiles.requestTile(manager, mdo.tl, mdo.tlOriginal);
-		MGlobal.tiles.requestTile(manager, mdo.tr, mdo.trOriginal);
-		MGlobal.tiles.requestTile(manager, mdo.bl, mdo.blOriginal);
-		MGlobal.tiles.requestTile(manager, mdo.br, mdo.brOriginal);
+		MGlobal.tiles.requestTile(manager, mdo.t, mdo.originalT);
+		MGlobal.tiles.requestTile(manager, mdo.b, mdo.original);
 	}
 
 }

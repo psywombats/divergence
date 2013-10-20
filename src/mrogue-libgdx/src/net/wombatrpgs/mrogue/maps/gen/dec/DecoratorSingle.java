@@ -43,12 +43,27 @@ public abstract class DecoratorSingle extends Decorator {
 	/**
 	 * Checks if a certain square is legal according to our replacement scheme.
 	 * Different from a straight lookup as it never creates inaccessible areas.
+	 * Uses the default original/replace values.
 	 * @param	tiles			The tiles to look up
 	 * @param	x				The x-coord to look up, in tiles
 	 * @param	y				The y-coord to look up, in tiles
 	 * @return
 	 */
 	public boolean legal(Tile[][] tiles, int x, int y) {
+		return legal(tiles, original, replace, x, y);
+	}
+
+	/**
+	 * Checks if a certain square is legal according to our replacement scheme.
+	 * Different from a straight lookup as it never creates inaccessible areas.
+	 * @param	tiles			The tiles to look up
+	 * @param	original		The original tile type
+	 * @param	replace			The replacement tile type
+	 * @param	x				The x-coord to look up, in tiles
+	 * @param	y				The y-coord to look up, in tiles
+	 * @return
+	 */
+	public boolean legal(Tile[][] tiles, TileType original, TileType replace, int x, int y) {
 		if (x < 0 || x >= gen.getWidth() || y < 0 || y > gen.getHeight()) {
 			return false;
 		}
