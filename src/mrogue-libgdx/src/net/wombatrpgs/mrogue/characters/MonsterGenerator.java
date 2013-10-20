@@ -57,7 +57,7 @@ public class MonsterGenerator implements	Turnable,
 	
 	/**
 	 * Creates an enemy for the parent level.
-	 * @param	parent			The parent level to gen for
+	 * @param	host			The parent level to gen for
 	 */
 	public Enemy createEnemy() {
 		MonsterNameMDO name = listMDO.names[MGlobal.rand.nextInt(listMDO.names.length)];

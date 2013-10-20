@@ -212,6 +212,7 @@ public class TextBox extends Picture {
 		for (String line : lines) {
 			totalLength += line.length();
 		}
+		sinceChar = 0;
 	}
 	
 	/**
@@ -238,6 +239,7 @@ public class TextBox extends Picture {
 	public void hurryUp() {
 		if (waiting) {
 			waiting = false;
+			sinceChar = 0;
 		} else {
 			sinceChar = Float.MAX_VALUE;
 		}

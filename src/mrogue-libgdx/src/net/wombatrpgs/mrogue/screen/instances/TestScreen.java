@@ -50,7 +50,6 @@ public class TestScreen extends Screen {
 		}
 		
 		pushCommandContext(new TestCommandMap());
-		z = 0;
 		defaultFont = new BitmapFont();
 		batch = new SpriteBatch();
 		cam.track(MGlobal.hero);

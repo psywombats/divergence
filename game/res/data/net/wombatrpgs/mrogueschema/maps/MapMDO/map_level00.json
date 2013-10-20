@@ -8,7 +8,7 @@
 	"generator" : "generator_graphicstest",
 	"enemies" : "monstergen_default",
 	"effect" : "effect_los",
-	"scene" : "test2.scene",
+	"scene" : "cutscene_test.scene",
 	"pathsUp" : [
 		"map_level01"
 	],

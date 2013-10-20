@@ -2,12 +2,12 @@
 	"key" : "decor_wardrobe2",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "   ",
+	"description" : "    ",
 	"chance" : 0.01,
 	"original" : "FLOOR",
 	"replacement" : "FLOOR",
 	"t" : {
-		"appearance" : "chestofdraws01bottom.png"
+		"appearance" : "chestofdraws01top.png"
 	},
 	"originalT" : "ANY_WALL",
 	"b" : {

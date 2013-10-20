@@ -27,8 +27,10 @@ import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.core.Updateable;
 import net.wombatrpgs.mrogue.graphics.Disposable;
 import net.wombatrpgs.mrogue.graphics.PostRenderable;
+import net.wombatrpgs.mrogue.io.ButtonListener;
 import net.wombatrpgs.mrogue.io.CommandListener;
 import net.wombatrpgs.mrogue.io.CommandMap;
+import net.wombatrpgs.mrogueschema.io.data.InputButton;
 import net.wombatrpgs.mrogueschema.io.data.InputCommand;
 
 /**
@@ -41,10 +43,10 @@ import net.wombatrpgs.mrogueschema.io.data.InputCommand;
  * More info in the ScreenStack class.
  */
 public abstract class Screen implements CommandListener,
-										Comparable<Screen>,
 										Updateable,
 										Queueable,
-										Disposable {
+										Disposable,
+										ButtonListener {
 	
 	/** Command map to use while this screen is active */
 	protected Stack<CommandMap> commandContext;
@@ -56,8 +58,6 @@ public abstract class Screen implements CommandListener,
 	protected TrackerCam cam;
 	/** What we'll use to render UI */
 	protected OrthographicCamera uiCam;
-	/** Depth, lower values are rendered last */
-	protected float z;
 	/** If true, layers with higher z won't be rendered */
 	protected boolean transparent;
 	/** Batch used to render sprites */
@@ -91,7 +91,6 @@ public abstract class Screen implements CommandListener,
 		commandContext = new Stack<CommandMap>();
 		transparent = false;
 		initialized = false;
-		z = 0;
 		mapShader = null;
 		postRenders = new ArrayList<PostRenderable>();
 		batch = new SpriteBatch();
@@ -133,24 +132,6 @@ public abstract class Screen implements CommandListener,
 	 */
 	public void onFocusGained() {
 		// nothing
-	}
-	
-	/**
-	 * Sets the z value (depth) of the screen. Higher z values are rendered
-	 * later.
-	 * @param 	z			The new z-value
-	 */
-	public void setZ(float z) {
-		this.z = z;
-	}
-	
-	/**
-	 * Returns the z value (depth) of the screen. Higher z values are rendered
-	 * later.
-	 * @return					The current z-value
-	 */
-	public float getZ() {
-		return z;
 	}
 	
 	/** @return The camera this screen uses to render */
@@ -206,12 +187,15 @@ public abstract class Screen implements CommandListener,
 	 */
 	public void pushCommandContext(CommandMap map) {
 		if (commandContext.size() > 0) {
-			MGlobal.keymap.unregisterListener(getTopCommandContext());
-			getTopCommandContext().unregisterListener(this);
+			CommandMap old = getTopCommandContext();
+			MGlobal.keymap.unregisterListener(old);
+			for (CommandListener listener : getTopCommandContext().getListener()) {
+				old.unregisterListener(listener);
+				map.registerListener(listener);
+			}
 		}
 		commandContext.push(map);
 		MGlobal.keymap.registerListener(getTopCommandContext());
-		getTopCommandContext().registerListener(this);
 	}
 	
 	/**
@@ -226,19 +210,23 @@ public abstract class Screen implements CommandListener,
 			getTopCommandContext().registerListener(this);
 		}
 	}
-	
+
 	/**
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 * @see net.wombatrpgs.mrogue.io.ButtonListener#onButtonPressed
+	 * (net.wombatrpgs.mrogueschema.io.data.InputButton)
 	 */
 	@Override
-	public int compareTo(Screen other) {
-		if (z < other.z) {
-			return (int) Math.floor(z - other.z) - 1;
-		} else if (z > other.z) {
-			return 0;
-		} else {
-			return (int) Math.floor(z - other.z) + 1;
-		}
+	public void onButtonPressed(InputButton button) {
+		getTopCommandContext().onButtonPressed(button);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mrogue.io.ButtonListener#onButtonReleased
+	 * (net.wombatrpgs.mrogueschema.io.data.InputButton)
+	 */
+	@Override
+	public void onButtonReleased(InputButton button) {
+		getTopCommandContext().onButtonReleased(button);
 	}
 
 	/**

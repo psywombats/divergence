@@ -6,14 +6,14 @@
  */
 package net.wombatrpgs.mrogue.screen;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Stack;
 
 import com.badlogic.gdx.Gdx;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.graphics.Disposable;
+import net.wombatrpgs.mrogue.io.ButtonListener;
+import net.wombatrpgs.mrogueschema.io.data.InputButton;
 
 /**
  * A bunch of screens stacked on top of each other that make up the game
@@ -21,15 +21,17 @@ import net.wombatrpgs.mrogue.graphics.Disposable;
  * manager. This is the object that should be rendering every frame regardless
  * of whatever the hell else is going on.
  */
-public class ScreenStack implements Disposable {
+public class ScreenStack implements	Disposable,
+									ButtonListener {
 	
-	private List<Screen> screens;
+	private Stack<Screen> screens;
 	
 	/**
 	 * Creates and initializes a new empty stack of screens.
 	 */
 	public ScreenStack() {
-		screens = new ArrayList<Screen>();
+		screens = new Stack<Screen>();
+		MGlobal.keymap.registerListener(this);
 	}
 	
 	/**
@@ -48,15 +50,11 @@ public class ScreenStack implements Disposable {
 	 * @param	screen		The screen to put on top
 	 */
 	public void push(Screen screen) {
-		if (screens.size() == 0) {
-			screens.add(screen);
-		} else {
-			Screen oldTop = screens.get(0);
-			screen.setZ(oldTop.z - 1);
-			screens.add(0, screen);
-			sortStack();
+		screens.push(screen);
+		if (screens.size() > 0) {
+			screens.peek().onFocusLost();
 		}
-		focus(screen);
+		screen.onFocusGained();
 	}
 	
 	/**
@@ -67,14 +65,10 @@ public class ScreenStack implements Disposable {
 		if (screens.size() == 0) {
 			MGlobal.reporter.warn("No screens left in the stack, but popping.");
 			return null;
-		} else {
-			Screen oldTop = screens.get(0);
-			unfocus(oldTop);
-			if (screens.size() > 0) {
-				focus(screens.get(0));
-			}
-			return oldTop;
 		}
+		Screen oldTop = screens.pop();
+		oldTop.onFocusLost();
+		return oldTop;
 	}
 	
 	/**
@@ -108,6 +102,24 @@ public class ScreenStack implements Disposable {
 //		}
 //	}
 	
+	/**
+	 * @see net.wombatrpgs.mrogue.io.ButtonListener#onButtonPressed
+	 * (net.wombatrpgs.mrogueschema.io.data.InputButton)
+	 */
+	@Override
+	public void onButtonPressed(InputButton button) {
+		peek().onButtonPressed(button);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mrogue.io.ButtonListener#onButtonReleased
+	 * (net.wombatrpgs.mrogueschema.io.data.InputButton)
+	 */
+	@Override
+	public void onButtonReleased(InputButton button) {
+		peek().onButtonReleased(button);
+	}
+
 	/**
 	 * Renders the top screen on the stack.
 	 * @param	camera			The camera to render with
@@ -150,7 +162,7 @@ public class ScreenStack implements Disposable {
 	 * @return					The topmost screen
 	 */
 	public Screen peek() {
-		return screens.get(0);
+		return screens.peek();
 	}
 	
 	/**
@@ -159,32 +171,6 @@ public class ScreenStack implements Disposable {
 	 */
 	public int size() {
 		return screens.size();
-	}
-	
-	/**
-	 * Sorts the stack of game screens by their z-value.
-	 */
-	private void sortStack() {
-		Collections.sort(screens);
-	}
-	
-	/**
-	 * Called whenever a screen gains focus.
-	 * @param	 screen			The screen that gained focus
-	 */
-	private void focus(Screen screen) {
-		screen.onFocusGained();
-		MGlobal.keymap.registerListener(screen.getTopCommandContext());
-	}
-	
-	/**
-	 * Called whenever a screen loses focus.
-	 * @param 	screen			The screen that lost focus
-	 */
-	private void unfocus(Screen screen) {
-		screen.onFocusLost();
-		screens.remove(screen);
-		MGlobal.keymap.unregisterListener(screen.getTopCommandContext());
 	}
 
 }

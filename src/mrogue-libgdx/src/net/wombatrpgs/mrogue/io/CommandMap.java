@@ -26,19 +26,34 @@ import net.wombatrpgs.mrogueschema.io.data.InputCommand;
 public abstract class CommandMap implements ButtonListener {
 	
 	private List<CommandListener> listeners;
+	private List<CommandListener> toRemove;
+	private List<CommandListener> toAdd;
 	
 	/**
 	 * Creates and initializes a new command map.
 	 */
 	public CommandMap() {
 		listeners = new ArrayList<CommandListener>();
+		toRemove = new ArrayList<CommandListener>();
+		toAdd = new ArrayList<CommandListener>();
 	}
+	
+	/** @return A list of all our listeners */
+	public List<CommandListener> getListener() { return listeners; }
 	
 	/**
 	 * Adds a new listener to listen for commands from the player.
 	 * @param 	listener		The listener to register
 	 */
 	public final void registerListener(CommandListener listener) {
+		toAdd.add(listener);
+	}
+	
+	/**
+	 * Adds a new listener to listen for commands from the player. The real.
+	 * @param 	listener		The listener to register
+	 */
+	private final void internalRegisterListener(CommandListener listener) {
 		listeners.add(listener);
 	}
 	
@@ -47,6 +62,15 @@ public abstract class CommandMap implements ButtonListener {
 	 * @param 	listener		The listener to unregister
 	 */
 	public final void unregisterListener(CommandListener listener) {
+		toRemove.add(listener);
+	}
+	
+	/**
+	 * Unsubscribes a give listener from commands from the player. The real
+	 * version.
+	 * @param 	listener		The listener to unregister
+	 */
+	private final void internalUnregisterListener(CommandListener listener) {
 		if (listeners.contains(listener)) {
 			listeners.remove(listener);
 		} else {
@@ -61,9 +85,17 @@ public abstract class CommandMap implements ButtonListener {
 	 */
 	protected final void signal(InputCommand command) {
 		// there were concurrent mod problems here
-		for (int i = 0; i < listeners.size(); i++) {
-			listeners.get(i).onCommand(command);
+		for (CommandListener listener : listeners) {
+			listener.onCommand(command);
 		}
+		for (CommandListener listener : toRemove) {
+			internalUnregisterListener(listener);
+		}
+		for (CommandListener listener : toAdd) {
+			internalRegisterListener(listener);
+		}
+		toAdd.clear();
+		toRemove.clear();
 	}
 	
 }

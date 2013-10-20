@@ -105,6 +105,7 @@ public class MGlobal {
 			MGlobal.rand = new Random(seed);
 			MGlobal.reporter.inform("Using global seed " + seed);
 			MGlobal.data = new Database();
+			MGlobal.keymap = new DefaultKeymap();
 			
 			// load up data marked essential, this will always be ugly
 			MGlobal.reporter.inform("Loading essential data");
@@ -122,7 +123,6 @@ public class MGlobal {
 			MGlobal.reporter.inform("Intializing secondary globals");
 			MGlobal.constants = new Constants();
 			MGlobal.screens = new ScreenStack();
-			MGlobal.keymap = new DefaultKeymap();
 			MGlobal.loader = new FileLoader();
 			MGlobal.levelManager = new LevelManager();
 			MGlobal.tiles = new TileManager();

@@ -144,8 +144,6 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 				@Override public void onMapFocusLost(Level map) {
 					super.onMapFocusLost(map);
 					speak.zero();
-					map.removeObject(this);
-					removeListener(listener);
 				}
 			};
 		} else {

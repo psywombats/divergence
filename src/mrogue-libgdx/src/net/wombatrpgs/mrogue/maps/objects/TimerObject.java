@@ -20,7 +20,7 @@ import net.wombatrpgs.mrogue.maps.PauseLevel;
 public class TimerObject extends MapThing {
 	
 	protected List<TimerListener> listeners;
-	protected MapThing parent;
+	protected MapThing host;
 	protected float timeRemaining; // in seconds
 	protected float lastTime; // in seconds
 	protected boolean running, completed;
@@ -37,8 +37,8 @@ public class TimerObject extends MapThing {
 		this(remaining);
 		addListener(listener);
 		set(true);
-		this.parent = parent;
-		this.parent.getParent().addObject(this);
+		this.host = parent;
+		this.host.getParent().addObject(this);
 		if (parent.getParent().isPaused()) {
 			this.setPauseLevel(PauseLevel.PAUSE_RESISTANT);
 		}
@@ -76,8 +76,8 @@ public class TimerObject extends MapThing {
 			for (TimerListener listener : listeners) {
 				listener.onTimerZero(this);
 			}
-			if (parent != null && parent.getParent() != null) {
-				parent.getParent().removeObject(this);
+			if (host != null && parent != null) {
+				parent.removeObject(this);
 			}
 			completed = true;
 		}
