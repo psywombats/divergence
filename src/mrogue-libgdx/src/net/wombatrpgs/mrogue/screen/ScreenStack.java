@@ -174,7 +174,7 @@ public class ScreenStack implements Disposable {
 	 */
 	private void focus(Screen screen) {
 		screen.onFocusGained();
-		MGlobal.keymap.registerListener(screen.getCommandContext());
+		MGlobal.keymap.registerListener(screen.getTopCommandContext());
 	}
 	
 	/**
@@ -184,7 +184,7 @@ public class ScreenStack implements Disposable {
 	private void unfocus(Screen screen) {
 		screen.onFocusLost();
 		screens.remove(screen);
-		MGlobal.keymap.unregisterListener(screen.getCommandContext());
+		MGlobal.keymap.unregisterListener(screen.getTopCommandContext());
 	}
 
 }

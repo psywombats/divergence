@@ -16,7 +16,7 @@ import net.wombatrpgs.mrogueschema.maps.decorators.Decorator2x1MDO;
 /**
  * Generates a wall hanger thing.
  */
-public class Decorator2x1 extends Decorator {
+public class Decorator2x1 extends DecoratorSingle {
 	
 	protected Decorator2x1MDO mdo;
 
@@ -35,14 +35,15 @@ public class Decorator2x1 extends Decorator {
 	 * (net.wombatrpgs.mrogue.maps.Tile[][])
 	 */
 	@Override
-	public void apply(Tile[][] tiles) {
+	public void apply(Tile[][] tilesOld, Tile[][] tilesNew) {
+		this.tilesNew = tilesNew;
 		for (int x = 0; x < gen.getWidth(); x += 1) {
 			for (int y = 0; y < gen.getHeight(); y += 1) {
 				if (mdo.chance < gen.rand().nextFloat()) continue;
-				if (!gen.isTile(tiles, mdo.original, x, y)) continue;
-				if (!gen.isTile(tiles, mdo.original, x+1, y)) continue;
-				tiles[y][x] = MGlobal.tiles.getTile(mdo.l);
-				tiles[y][x+1] = MGlobal.tiles.getTile(mdo.r);
+				if (!legal(tilesOld, x, y)) continue;
+				if (!legal(tilesOld, x+1, y)) continue;
+				tilesNew[y][x] = MGlobal.tiles.getTile(mdo.l);
+				tilesNew[y][x+1] = MGlobal.tiles.getTile(mdo.r);
 			}
 		}
 	}
@@ -54,8 +55,8 @@ public class Decorator2x1 extends Decorator {
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
-		MGlobal.tiles.requestTile(manager, mdo.l, mdo.original);
-		MGlobal.tiles.requestTile(manager, mdo.r, mdo.original);
+		MGlobal.tiles.requestTile(manager, mdo.l, replace);
+		MGlobal.tiles.requestTile(manager, mdo.r, replace);
 	}
 
 }

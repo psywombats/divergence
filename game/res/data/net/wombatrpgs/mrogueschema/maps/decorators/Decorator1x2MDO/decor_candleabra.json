@@ -1,0 +1,14 @@
+{
+	"key" : "decor_candleabra",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"chance" : 0.005,
+	"original" : "FLOOR",
+	"t" : {
+		"appearance" : "candletop01.png"
+	},
+	"b" : {
+		"appearance" : "candlebase01.png"
+	}
+}

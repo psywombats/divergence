@@ -55,7 +55,7 @@ public class GameScreen extends Screen {
 		map = MGlobal.levelManager.getLevel(introMDO.map);
 		introParser = new SceneParser(sceneMDO);
 		this.canvas = map;
-		this.commandContext = new TestCommandMap();
+		pushCommandContext(new TestCommandMap());
 		defaultFont = new BitmapFont();
 		batch = new SpriteBatch();
 		

@@ -16,7 +16,7 @@ import net.wombatrpgs.mrogueschema.maps.decorators.Decorator2x2MDO;
 /**
  * Generates a painting thing.
  */
-public class Decorator2x2 extends Decorator {
+public class Decorator2x2 extends DecoratorSingle {
 	
 	protected Decorator2x2MDO mdo;
 
@@ -35,18 +35,19 @@ public class Decorator2x2 extends Decorator {
 	 * (net.wombatrpgs.mrogue.maps.Tile[][])
 	 */
 	@Override
-	public void apply(Tile[][] tiles) {
+	public void apply(Tile[][] tilesOld, Tile[][] tilesNew) {
+		this.tilesNew = tilesNew;
 		for (int x = 0; x < gen.getWidth(); x += 1) {
 			for (int y = 0; y < gen.getHeight(); y += 1) {
 				if (mdo.chance < gen.rand().nextFloat()) continue;
-				if (!gen.isTile(tiles, mdo.original, x+1, y-1)) continue;
-				if (!gen.isTile(tiles, mdo.original, x+1, y)) continue;
-				if (!gen.isTile(tiles, mdo.original, x, y-1)) continue;
-				if (!gen.isTile(tiles, mdo.original, x, y)) continue;
-				tiles[y][x] = MGlobal.tiles.getTile(mdo.tl);
-				tiles[y][x+1] = MGlobal.tiles.getTile(mdo.tr);
-				tiles[y-1][x] = MGlobal.tiles.getTile(mdo.bl);
-				tiles[y-1][x+1] = MGlobal.tiles.getTile(mdo.br);
+				if (!legal(tilesOld, x+1, y-1)) continue;
+				if (!legal(tilesOld, x+1, y)) continue;
+				if (!legal(tilesOld, x, y-1)) continue;
+				if (!legal(tilesOld, x, y)) continue;
+				tilesOld[y][x] = MGlobal.tiles.getTile(mdo.tl);
+				tilesOld[y][x+1] = MGlobal.tiles.getTile(mdo.tr);
+				tilesOld[y-1][x] = MGlobal.tiles.getTile(mdo.bl);
+				tilesOld[y-1][x+1] = MGlobal.tiles.getTile(mdo.br);
 			}
 		}
 	}
@@ -58,10 +59,10 @@ public class Decorator2x2 extends Decorator {
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
-		MGlobal.tiles.requestTile(manager, mdo.tl, mdo.original);
-		MGlobal.tiles.requestTile(manager, mdo.tr, mdo.original);
-		MGlobal.tiles.requestTile(manager, mdo.bl, mdo.original);
-		MGlobal.tiles.requestTile(manager, mdo.br, mdo.original);
+		MGlobal.tiles.requestTile(manager, mdo.tl, replace);
+		MGlobal.tiles.requestTile(manager, mdo.tr, replace);
+		MGlobal.tiles.requestTile(manager, mdo.bl, replace);
+		MGlobal.tiles.requestTile(manager, mdo.br, replace);
 	}
 
 }

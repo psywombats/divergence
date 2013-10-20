@@ -16,7 +16,7 @@ import net.wombatrpgs.mrogueschema.maps.decorators.Decorator1x1MDO;
 /**
  * Generates an individual patch.
  */
-public class Decorator1x1 extends Decorator {
+public class Decorator1x1 extends DecoratorSingle {
 	
 	protected Decorator1x1MDO mdo;
 
@@ -35,12 +35,13 @@ public class Decorator1x1 extends Decorator {
 	 * (net.wombatrpgs.mrogue.maps.Tile[][])
 	 */
 	@Override
-	public void apply(Tile[][] tiles) {
+	public void apply(Tile[][] tilesOld, Tile[][] tilesNew) {
+		this.tilesNew = tilesNew;
 		for (int x = 0; x < gen.getWidth(); x += 1) {
 			for (int y = 0; y < gen.getHeight(); y += 1) {
-				if (!gen.isTile(tiles, mdo.original, x, y)) continue;
+				if (!legal(tilesOld, x, y)) continue;
 				if (mdo.chance < gen.rand().nextFloat()) continue;
-				tiles[y][x] = MGlobal.tiles.getTile(mdo.tile);
+				tilesNew[y][x] = MGlobal.tiles.getTile(mdo.tile);
 			}
 		}
 	}
@@ -52,7 +53,7 @@ public class Decorator1x1 extends Decorator {
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
-		MGlobal.tiles.requestTile(manager, mdo.tile, mdo.original);
+		MGlobal.tiles.requestTile(manager, mdo.tile, replace);
 	}
 
 }

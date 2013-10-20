@@ -13,6 +13,7 @@ package net.wombatrpgs.mrogueschema.maps.data;
 public enum TileType {
 	
 	FLOOR			(true,	true),
+	OBSTACLE		(false, true),
 	USTAIR_TOP		(false,	true),
 	USTAIR_BOTTOM	(true,	true),
 	DSTAIR_TOP		(true,	true),

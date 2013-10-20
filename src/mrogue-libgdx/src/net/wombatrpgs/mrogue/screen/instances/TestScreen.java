@@ -49,7 +49,7 @@ public class TestScreen extends Screen {
 			box.setText(testMDO.text);
 		}
 		
-		commandContext = new TestCommandMap();
+		pushCommandContext(new TestCommandMap());
 		z = 0;
 		defaultFont = new BitmapFont();
 		batch = new SpriteBatch();

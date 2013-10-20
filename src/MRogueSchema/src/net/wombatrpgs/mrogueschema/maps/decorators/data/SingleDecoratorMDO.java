@@ -21,5 +21,8 @@ public class SingleDecoratorMDO extends DecoratorMDO {
 	
 	@Desc("The tile type to replace")
 	public TileType original;
+	
+	@Desc("The new tile type to replace it with")
+	public TileType replacement;
 
 }

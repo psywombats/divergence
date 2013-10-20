@@ -76,7 +76,7 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	public void onCommand(InputCommand command) {
 		if (blocking && command == InputCommand.INTENT_CONFIRM) {
 			blocking = false;
-			MGlobal.screens.peek().getCommandContext().unregisterListener(this);
+			MGlobal.screens.peek().getTopCommandContext().unregisterListener(this);
 			UnblockedListener oldListener = listener;
 			listener = null;
 			oldListener.onUnblock();
@@ -118,7 +118,7 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	 */
 	public void block(UnblockedListener listener) {
 		this.listener = listener;
-		MGlobal.screens.peek().getCommandContext().registerListener(this);
+		MGlobal.screens.peek().getTopCommandContext().registerListener(this);
 		blocking = true;
 	}
 

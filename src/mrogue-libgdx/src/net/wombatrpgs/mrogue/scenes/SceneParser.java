@@ -33,7 +33,7 @@ public class SceneParser extends MapThing {
 	protected List<SceneCommand> commands;
 	protected List<MapEvent> controlledEvents;
 	protected List<FinishListener> listeners;
-	protected CommandMap oldMap;
+	protected CommandMap ourMap;
 	protected String filename;
 	protected boolean executed, running;
 	protected float timeSinceStart;
@@ -203,8 +203,8 @@ public class SceneParser extends MapThing {
 		running = true;
 		parent.setPause(true);
 		timeSinceStart = 0;
-		oldMap = MGlobal.levelManager.getScreen().getCommandContext();
-		MGlobal.levelManager.getScreen().setCommandContext(new SceneCommandMap());
+		ourMap = new SceneCommandMap();
+		MGlobal.levelManager.getScreen().pushCommandContext(ourMap);
 	}
 	
 	/**
@@ -234,7 +234,7 @@ public class SceneParser extends MapThing {
 	 */
 	protected void terminate() {
 		MGlobal.reporter.inform("Terminated a scene: " + this);
-		MGlobal.levelManager.getScreen().setCommandContext(oldMap);
+		MGlobal.levelManager.getScreen().removeCommandContext(ourMap);
 		parent.setPause(false);
 		running = false;
 		executed = true;

@@ -35,18 +35,18 @@ public class Decorator2x2Special extends Decorator {
 	 * (net.wombatrpgs.mrogue.maps.Tile[][])
 	 */
 	@Override
-	public void apply(Tile[][] tiles) {
+	public void apply(Tile[][] tilesOld, Tile[][] tilesNew) {
 		for (int x = 0; x < gen.getWidth(); x += 1) {
 			for (int y = 0; y < gen.getHeight(); y += 1) {
 				if (mdo.chance < gen.rand().nextFloat()) continue;
-				if (!gen.isTile(tiles, mdo.brOriginal, x+1, y-1)) continue;
-				if (!gen.isTile(tiles, mdo.trOriginal, x+1, y)) continue;
-				if (!gen.isTile(tiles, mdo.blOriginal, x, y-1)) continue;
-				if (!gen.isTile(tiles, mdo.tlOriginal, x, y)) continue;
-				tiles[y][x] = MGlobal.tiles.getTile(mdo.tl);
-				tiles[y][x+1] = MGlobal.tiles.getTile(mdo.tr);
-				tiles[y-1][x] = MGlobal.tiles.getTile(mdo.bl);
-				tiles[y-1][x+1] = MGlobal.tiles.getTile(mdo.br);
+				if (!gen.isTile(tilesOld, mdo.brOriginal, x+1, y-1)) continue;
+				if (!gen.isTile(tilesOld, mdo.trOriginal, x+1, y)) continue;
+				if (!gen.isTile(tilesOld, mdo.blOriginal, x, y-1)) continue;
+				if (!gen.isTile(tilesOld, mdo.tlOriginal, x, y)) continue;
+				tilesOld[y][x] = MGlobal.tiles.getTile(mdo.tl);
+				tilesOld[y][x+1] = MGlobal.tiles.getTile(mdo.tr);
+				tilesOld[y-1][x] = MGlobal.tiles.getTile(mdo.bl);
+				tilesOld[y-1][x+1] = MGlobal.tiles.getTile(mdo.br);
 			}
 		}
 	}

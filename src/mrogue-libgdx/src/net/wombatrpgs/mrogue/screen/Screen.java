@@ -8,6 +8,7 @@ package net.wombatrpgs.mrogue.screen;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -46,7 +47,7 @@ public abstract class Screen implements CommandListener,
 										Disposable {
 	
 	/** Command map to use while this screen is active */
-	protected CommandMap commandContext;
+	protected Stack<CommandMap> commandContext;
 	/** The thing to draw if this canvas is visible */
 	protected ScreenShowable canvas;
 	/** These things will be drawn over top of the canvas */
@@ -87,6 +88,7 @@ public abstract class Screen implements CommandListener,
 	 */
 	public Screen() {
 		assets = new ArrayList<Queueable>();
+		commandContext = new Stack<CommandMap>();
 		transparent = false;
 		initialized = false;
 		z = 0;
@@ -182,20 +184,47 @@ public abstract class Screen implements CommandListener,
 	 * Gets the command parser used on this screen. Usually only used by engine.
 	 * @return					The command parser used on this screen
 	 */
-	public CommandMap getCommandContext() {
-		return commandContext;
+	public CommandMap getTopCommandContext() {
+		return commandContext.peek();
+	}
+	
+	/**
+	 * Removes an explicit command map from the stack.
+	 * @param	map				The map to remove
+	 */
+	public void removeCommandContext(CommandMap map) {
+		if (map == getTopCommandContext()) {
+			popCommandContext();
+		} else {
+			commandContext.remove(map);
+		}
 	}
 	
 	/**
 	 * Sets the command parser used on the screen. Usually only used by engine.
 	 * @param 	map				The command map to use instead
 	 */
-	public void setCommandContext(CommandMap map) {
-		if (commandContext != null) {
-			MGlobal.keymap.unregisterListener(commandContext);
+	public void pushCommandContext(CommandMap map) {
+		if (commandContext.size() > 0) {
+			MGlobal.keymap.unregisterListener(getTopCommandContext());
+			getTopCommandContext().unregisterListener(this);
 		}
-		this.commandContext = map;
-		MGlobal.keymap.registerListener(commandContext);
+		commandContext.push(map);
+		MGlobal.keymap.registerListener(getTopCommandContext());
+		getTopCommandContext().registerListener(this);
+	}
+	
+	/**
+	 * Removes the last active command context.
+	 */
+	public void popCommandContext() {
+		CommandMap old = commandContext.pop();
+		MGlobal.keymap.unregisterListener(old);
+		old.unregisterListener(this);
+		if (commandContext.size() > 0) {
+			MGlobal.keymap.registerListener(getTopCommandContext());
+			getTopCommandContext().registerListener(this);
+		}
 	}
 	
 	/**
@@ -370,8 +399,6 @@ public abstract class Screen implements CommandListener,
 		}
 		if (commandContext == null) {
 			MGlobal.reporter.warn("No command context for screen " + this);
-		} else {
-			commandContext.registerListener(this);
 		}
 		// TODO: load with a loading bar
 		this.queueRequiredAssets(MGlobal.assetManager);

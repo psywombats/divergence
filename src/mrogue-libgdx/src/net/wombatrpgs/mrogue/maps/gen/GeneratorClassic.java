@@ -7,6 +7,8 @@
 package net.wombatrpgs.mrogue.maps.gen;
 
 import net.wombatrpgs.mrogue.maps.Level;
+import net.wombatrpgs.mrogue.maps.Tile;
+import net.wombatrpgs.mrogue.maps.gen.dec.Decorator;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
 import net.wombatrpgs.mrogueschema.maps.data.TileType;
 
@@ -68,7 +70,16 @@ public class GeneratorClassic extends MapGenerator {
 		applyWalls(types);
 		addStaircases(types);
 		applyCeilings(types);
-		addLayer(types, 0);
+		Tile lowerTiles[][] = new Tile[h][w];
+		convertTiles(types, null, lowerTiles);
+		addLayer(lowerTiles, 0);
+		
+		// upper chip
+		Tile upperTiles[][] = new Tile[h][w];
+		for (Decorator d : upDecorators) {
+			d.apply(lowerTiles, upperTiles);
+		}
+		addLayer(upperTiles, .5f);
 	}
 
 }

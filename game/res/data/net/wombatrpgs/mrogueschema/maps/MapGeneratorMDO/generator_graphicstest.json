@@ -25,5 +25,8 @@
 		"decor_window",
 		"decorset_lights",
 		"decorset_spiderwebs"
+	],
+	"upDecorators" : [
+		"decorset_tables"
 	]
 }

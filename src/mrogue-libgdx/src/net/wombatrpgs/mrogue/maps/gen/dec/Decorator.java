@@ -32,10 +32,11 @@ public abstract class Decorator implements Queueable {
 	}
 	
 	/**
-	 * Mutates the tile list to add decorations.
-	 * @param	tiles			The set of tiles to operate on
+	 * Adds the decoration tiles to the scene.
+	 * @param	tilesOld		The set of tiles to refer for overwrite type
+	 * @param	tilesNew		The set of tiles to mutate
 	 */
-	public abstract void apply(Tile[][] tiles);
+	public abstract void apply(Tile[][] tilesOld, Tile[][] tilesNew);
 
 	/**
 	 * @see net.wombatrpgs.mrogue.core.Queueable#queueRequiredAssets

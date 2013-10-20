@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mrogue.characters.Hero;
 import net.wombatrpgs.mrogue.characters.abilities.Ability;
@@ -62,16 +64,24 @@ public class SkillsBox implements ScreenShowable {
 	@Override
 	public void render(OrthographicCamera camera) {
 		List<Ability> abilities = MGlobal.hero.getUnit().getAbilities();
+		SpriteBatch batch = MGlobal.screens.peek().getUIBatch();
+		Color oldColor = batch.getColor();
 		for (int i = 0; i < Hero.ABILITIES_MAX; i += 1) {
 			Graphic icon;
 			String cost, key;
 			if (i < abilities.size()) {
 				Ability abil = abilities.get(i);
+				if (!MGlobal.hero.getUnit().canUse(abil)) {
+					batch.setColor(1, .5f, .5f, .5f);
+				} else {
+					batch.setColor(1, 1, 1, 1);
+				}
 				icon = abil.getIcon();
 				cost = "  MP:" + String.valueOf(abil.getMP());
 				// TODO: KEY INPUT HAX, look up the real key!
 				key = "F" + (i+1);
 			} else {
+				batch.setColor(1, .5f, .5f, .5f);
 				icon = noAbil;
 				cost = "";
 				key = "";
@@ -82,8 +92,9 @@ public class SkillsBox implements ScreenShowable {
 			format.x = atX + icon.getWidth()/2 - MAX_TEXT_WIDTH/2;
 			format.y = atY + mdo.textY;
 			String text = key + cost;
-			font.draw(MGlobal.screens.peek().getUIBatch(), format, text, 0);
+			font.draw(batch, format, text, 0);
 		}
+		batch.setColor(oldColor);
 	}
 
 	/**
@@ -113,7 +124,6 @@ public class SkillsBox implements ScreenShowable {
 	 */
 	@Override
 	public void update(float elapsed) {
-		// TODO Auto-generated method stub
 
 	}
 

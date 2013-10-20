@@ -38,6 +38,7 @@ public class GridLayer extends Layer {
 		this.z = z;
 		this.parent = parent;
 		this.tileData = tileData;
+		this.isLower = Math.floor(z) == z;
 	}
 	
 	/**
@@ -92,7 +93,7 @@ public class GridLayer extends Layer {
 	public boolean isPassable(MapEvent actor, final int x, final int y) {
 		return	(x >= 0 && x < parent.getWidth()) &&
 				(y >= 0 && y < parent.getHeight()) &&
-				tileData[y][x].isPassable();
+				(tileData[y][x] == null || tileData[y][x].isPassable());
 	}
 	
 	/**
@@ -103,7 +104,8 @@ public class GridLayer extends Layer {
 	 * @return					True if tile is transparent, false otherwise
 	 */
 	public boolean isTransparentAt(int tileX, int tileY) {
-		return tileData[tileY][tileX].isTransparent();
+		return tileData[tileY][tileX] == null ||
+				tileData[tileY][tileX].isTransparent();
 	}
 	
 	/**
@@ -123,10 +125,11 @@ public class GridLayer extends Layer {
 		parent.getBatch().begin();
 		for (int x = startX; x < endX; x += 1) {
 			for (int y = startY; y < endY; y += 1) {
-				//if (!MGlobal.hero.seen(x, y)) continue;
 				float atX = parent.getTileWidth() * x;
 				float atY = parent.getTileHeight() * y;
-				tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
+				if (tileData[y][x] != null) {
+					tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
+				}
 			}
 		}
 		parent.getBatch().end();

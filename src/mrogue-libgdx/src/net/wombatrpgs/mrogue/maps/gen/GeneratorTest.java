@@ -43,7 +43,7 @@ public class GeneratorTest extends MapGenerator {
 		
 		Tile tiles[][] = new Tile[h][w];
 		applyWalls(types);
-		fillTiles(types, tiles);
+		convertTiles(types, null, tiles);
 		addLayer(tiles, 0);
 		
 		if (MGlobal.hero == null) {

@@ -61,7 +61,7 @@ public abstract class MapGenerator implements Queueable {
 	protected ConversionState state;
 	protected Level parent;
 	protected Map<TileType, Tile> tileMap;
-	protected List<Decorator> decorators;
+	protected List<Decorator> decorators, upDecorators;
 	protected Map<String, TeleportEvent> stairTeles;	// mapID to tele
 	
 	protected List<Queueable> assets;
@@ -77,6 +77,7 @@ public abstract class MapGenerator implements Queueable {
 		this.assets = new ArrayList<Queueable>();
 		this.tileMap = new HashMap<TileType, Tile>();
 		this.decorators = new ArrayList<Decorator>();
+		this.upDecorators = new ArrayList<Decorator>();
 		this.stairTeles = new HashMap<String, TeleportEvent>();
 		
 		CeilTilesMDO ceils = MGlobal.data.getEntryFor(mdo.ceilingTiles, CeilTilesMDO.class);
@@ -99,15 +100,21 @@ public abstract class MapGenerator implements Queueable {
 		addTile(ustairs.t, TileType.USTAIR_TOP);
 		addTile(dstairs.b, TileType.DSTAIR_BOTTOM);
 		addTile(dstairs.t, TileType.DSTAIR_TOP);
+		
 		for (String key : mdo.decorators) {
 			DecoratorMDO decMDO = MGlobal.data.getEntryFor(key, DecoratorMDO.class);
 			decorators.add(DecoratorFactory.createDecor(decMDO, this));
 		}
 		assets.addAll(decorators);
+		for (String key : mdo.upDecorators) {
+			DecoratorMDO decMDO = MGlobal.data.getEntryFor(key, DecoratorMDO.class);
+			upDecorators.add(DecoratorFactory.createDecor(decMDO, this));
+		}
+		assets.addAll(upDecorators);
 		
 		r = new Random();
 		long seed = MGlobal.rand.nextLong();
-		r.setSeed(seed);
+		r.setSeed(0);
 		
 		state = ConversionState.INIT;
 		MGlobal.reporter.inform("Generator initialized for " + parent + ", "
@@ -146,11 +153,13 @@ public abstract class MapGenerator implements Queueable {
 	}
 	
 	/**
-	 * Fetches the default tile that this generator uses to generate.
+	 * Fetches the default tile that this generator uses to generate. Returns
+	 * null if given null.
 	 * @param	type			The archetype to search for
 	 * @return					The default tile used to fill that archetype
 	 */
 	public Tile getTile(TileType type) {
+		if (type == null) return null;
 		return tileMap.get(type);
 	}
 
@@ -190,6 +199,22 @@ public abstract class MapGenerator implements Queueable {
 			return false;
 		} else {
 			return pass[y][x].isPassable();
+		}
+	}
+	
+	/**
+	 * Checks for passability in a tile array. This isn't just a lookup because
+	 * tiles need to be checked as well as bounds.
+	 * @param	tiles			The data to check
+	 * @param	x				The col to check
+	 * @param	y				The row to check
+	 * @return
+	 */
+	public boolean isPassable(Tile[][] tiles, int x, int y) {
+		if (x < 0 || x >= parent.getWidth() || y < 0 || y >= parent.getHeight()) {
+			return false;
+		} else {
+			return tiles[y][x] == null || tiles[y][x].isPassable();
 		}
 	}
 	
@@ -283,22 +308,18 @@ public abstract class MapGenerator implements Queueable {
 	 * that the tile array has already been initialized and the type array is
 	 * completely full of tile types. It also assumes the MDO has at least one
 	 * tile per tile type.
-	 * @param	types			The types to assign from
+	 * @param	types			The types that we should read from
+	 * @param	decoratorRef	The types that decorators should read from
 	 * @param	tiles			The tiles to assign to
 	 */
-	public void fillTiles(TileType[][] types, Tile[][] tiles) {
-		if (state != ConversionState.CEILING) {
-			MGlobal.reporter.warn("Bad fill order for " + parent);
-		} else {
-			state = ConversionState.FINISHED;
-		}
+	public void convertTiles(TileType[][] types, Tile[][] decoratorRef, Tile[][] tiles) {
 		for (int x = 0; x < parent.getWidth(); x += 1) {
 			for (int y = 0; y < parent.getHeight(); y += 1) {
 				tiles[y][x] = getTile(types[y][x]);
 			}
 		}
 		for (Decorator d : decorators) {
-			d.apply(tiles);
+			d.apply(decoratorRef == null ? tiles : decoratorRef, tiles);
 		}
 	}
 	
@@ -562,13 +583,15 @@ public abstract class MapGenerator implements Queueable {
 	}
 	
 	/**
-	 * Assigns tiles to a finished array of types and adds it to the map.
+	 * Assigns tiles to a finished array of types and adds it to the map. If no
+	 * decorator reference is given, will use own output instead.
 	 * @param	types			The tile types for the layer
+	 * @param	decoratorRef	The types decorators should read from
 	 * @param	z				The z-depth of the layer
 	 */
-	protected void addLayer(TileType[][] types, float z) {
+	protected void addLayer(TileType[][] types, Tile[][] decoratorRef, float z) {
 		Tile[][] tiles = new Tile[parent.getHeight()][parent.getWidth()];
-		fillTiles(types, tiles);
+		convertTiles(types, decoratorRef, tiles);
 		addLayer(tiles, z);
 	}
 	

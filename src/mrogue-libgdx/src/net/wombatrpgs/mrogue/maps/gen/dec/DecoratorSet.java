@@ -65,9 +65,9 @@ public class DecoratorSet extends Decorator {
 	 * (net.wombatrpgs.mrogue.maps.Tile[][])
 	 */
 	@Override
-	public void apply(Tile[][] tiles) {
+	public void apply(Tile[][] tilesOld, Tile[][] tilesNew){
 		for (Decorator child : children) {
-			child.apply(tiles);
+			child.apply(tilesOld, tilesNew);
 		}
 	}
 

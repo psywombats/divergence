@@ -62,9 +62,7 @@ public class MapGeneratorMDO extends MainSchema {
 	@DefaultValue(".3")
 	public Float density;
 	
-	@Desc("Connectivity - used in some heuristics, may change later, but right "
-			+ "now 0.0 is unconnected rooms, 1.0 is (roughly) minimal "
-			+ "connected rooms, and anything more has redundencies.")
+	@Desc("Connectivity - used in some heuristics, weird value but try to keep it 0-2 or so")
 	@DefaultValue("1.0")
 	public Float connectivity;
 	
@@ -72,5 +70,9 @@ public class MapGeneratorMDO extends MainSchema {
 			+ "and add special effects")
 	@SchemaLink(DecoratorMDO.class)
 	public String[] decorators;
+	
+	@Desc("Upper decorators - same thing but these get added to upper chip instead")
+	@SchemaLink(DecoratorMDO.class)
+	public String[] upDecorators;
 
 }
