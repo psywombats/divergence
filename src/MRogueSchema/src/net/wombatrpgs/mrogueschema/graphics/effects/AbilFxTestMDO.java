@@ -18,7 +18,7 @@ import net.wombatrpgs.mrogueschema.graphics.effects.data.AbilFxMDO;
 public class AbilFxTestMDO extends AbilFxMDO {
 	
 	@Desc("Graphic to display on top of actor")
-	@FileLink("sprites")
+	@FileLink("textures")
 	public String graphic;
 
 }

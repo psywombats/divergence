@@ -24,23 +24,23 @@ public class AbilFxFlamesMDO extends AbilFxMDO {
 	public String shader;
 	
 	@Desc("Texture to use for circular mask")
-	@FileLink("sprites")
+	@FileLink("textures")
 	public String mask;
 	
 	@Desc("Texture to use for flame map")
-	@FileLink("sprites")
+	@FileLink("textures")
 	public String flames;
 	
 	@Desc("Texture to use for perturbrance 1")
-	@FileLink("sprites")
+	@FileLink("textures")
 	public String noise1;
 	
 	@Desc("Texture to use for perturbrance 2")
-	@FileLink("sprites")
+	@FileLink("textures")
 	public String noise2;
 	
 	@Desc("Texture to use for perturbrance 3")
-	@FileLink("sprites")
+	@FileLink("textures")
 	public String noise3;
 	
 	@Desc("Fadein/expand duration")

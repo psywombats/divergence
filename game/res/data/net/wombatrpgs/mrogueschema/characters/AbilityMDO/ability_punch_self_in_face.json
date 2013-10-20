@@ -2,9 +2,12 @@
 	"key" : "ability_punch_self_in_face",
 	"subfolder" : "",
 	"name" : "punch-self-in-face",
-	"description" : " ",
+	"description" : "  ",
 	"target" : "USER",
+	"range" : 0.0,
 	"effect" : "effect_dummy",
+	"icon" : "icon_twoswords.png",
 	"energyCost" : 1000,
-	"mpCost" : 5
+	"mpCost" : 5,
+	"fx" : "None"
 }

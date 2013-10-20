@@ -6,11 +6,14 @@
  */
 package net.wombatrpgs.mrogue.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.mrogue.core.Constants;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
+import net.wombatrpgs.mrogue.maps.MapThing;
 import net.wombatrpgs.mrogue.ui.text.FontHolder;
 import net.wombatrpgs.mrogue.ui.text.TextBox;
 import net.wombatrpgs.mrogueschema.graphics.IconSetMDO;
@@ -18,6 +21,7 @@ import net.wombatrpgs.mrogueschema.settings.UISettingsMDO;
 import net.wombatrpgs.mrogueschema.ui.FontMDO;
 import net.wombatrpgs.mrogueschema.ui.HudMDO;
 import net.wombatrpgs.mrogueschema.ui.NarratorMDO;
+import net.wombatrpgs.mrogueschema.ui.SkillsBoxMDO;
 import net.wombatrpgs.mrogueschema.ui.TextBoxMDO;
 
 /**
@@ -35,8 +39,11 @@ public class UISettings implements Queueable {
 	protected FontHolder font;
 	protected TextBox box;
 	protected Hud hud;
+	protected SkillsBox skills;
 	protected IconSet icons;
 	protected Narrator narrator;
+	
+	protected List<Queueable> assets;
 	
 	/**
 	 * Creates a new UI settings using MDO data for defaults.
@@ -44,13 +51,23 @@ public class UISettings implements Queueable {
 	 */
 	public UISettings(UISettingsMDO mdo) {
 		this.mdo = mdo;
+		this.assets = new ArrayList<Queueable>();
 		font = new FontHolder(MGlobal.data.getEntryFor(mdo.font, FontMDO.class));
+		assets.add(font);
 		box = new TextBox(MGlobal.data.getEntryFor(mdo.box, TextBoxMDO.class), font);
-		if (!mdo.hud.equals(Constants.NULL_MDO)) {
+		assets.add(box);
+		if (MapThing.mdoHasProperty(mdo.hud)) {
 			hud = new Hud(MGlobal.data.getEntryFor(mdo.hud, HudMDO.class));
+			assets.add(hud);
+		}
+		if (MapThing.mdoHasProperty(mdo.skills)) {
+			skills = new SkillsBox(MGlobal.data.getEntryFor(mdo.skills, SkillsBoxMDO.class));
+			assets.add(skills);
 		}
 		icons = new IconSet(MGlobal.data.getEntryFor(mdo.icons, IconSetMDO.class));
+		assets.add(icons);
 		narrator = new Narrator(MGlobal.data.getEntryFor(mdo.narrator, NarratorMDO.class), font);
+		assets.add(narrator);
 	}
 
 	/**
@@ -59,10 +76,9 @@ public class UISettings implements Queueable {
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		font.queueRequiredAssets(manager);
-		box.queueRequiredAssets(manager);
-		if (hud != null) hud.queueRequiredAssets(manager);
-		icons.queueRequiredAssets(manager);
+		for (Queueable asset : assets) {
+			asset.queueRequiredAssets(manager);
+		}
 	}
 
 	/**
@@ -71,10 +87,9 @@ public class UISettings implements Queueable {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		font.postProcessing(manager, pass);
-		box.postProcessing(manager, pass);
-		if (hud != null) hud.postProcessing(manager, pass);
-		icons.postProcessing(manager, pass);
+		for (Queueable asset : assets) {
+			asset.postProcessing(manager, pass);
+		}
 	}
 	
 	/** @return The text box associated with these settings */
@@ -85,6 +100,9 @@ public class UISettings implements Queueable {
 	
 	/** return The narrator associated with these settings */
 	public Narrator getNarrator() { return this.narrator; }
+	
+	/** @return The skills associated with these settings */
+	public SkillsBox getSkills() { return this.skills; }
 	
 	/** @return The HUD associated with these settings */
 	public Hud getHud() { return this.hud; }

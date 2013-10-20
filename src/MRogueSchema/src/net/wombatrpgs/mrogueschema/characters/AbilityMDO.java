@@ -8,6 +8,7 @@ package net.wombatrpgs.mrogueschema.characters;
 
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
+import net.wombatrpgs.mgns.core.Annotations.FileLink;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
@@ -34,6 +35,11 @@ public class AbilityMDO extends MainSchema {
 	@Desc("Effect - The code operating behind this ability")
 	@SchemaLink(AbilityEffectMDO.class)
 	public String effect;
+	
+	@Desc("Icon - file used for this ability in the UI")
+	@FileLink("ui")
+	@Nullable
+	public String icon;
 	
 	@Desc("Energy cost - How long it takes to use this action (1000 default, 2000 is twice as long, etc")
 	@DefaultValue("1000")

@@ -24,7 +24,7 @@ public class AbilFxDistortMDO extends AbilFxMDO {
 	public String shader;
 	
 	@Desc("Texture to use for alpha map")
-	@FileLink("sprites")
+	@FileLink("textures")
 	public String graphic;
 	
 	@Desc("Fadein/expand duration")

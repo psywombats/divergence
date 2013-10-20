@@ -30,7 +30,7 @@ public class AbilFxTest extends AbilFX {
 	public AbilFxTest(AbilFxTestMDO mdo, Ability abil) {
 		super(mdo, abil);
 		this.mdo = mdo;
-		sphere = new Graphic(Constants.SPRITES_DIR, mdo.graphic);
+		sphere = new Graphic(Constants.TEXTURES_DIR, mdo.graphic);
 		assets.add(sphere);
 	}
 

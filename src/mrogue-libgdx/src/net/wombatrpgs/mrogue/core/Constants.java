@@ -37,6 +37,7 @@ public class Constants {
 	public static final String AUDIO_DIR = RESOURCE_DIR + "audio/";
 	public static final String SHADERS_DIR = RESOURCE_DIR + "shaders/";
 	public static final String TILES_DIR = RESOURCE_DIR + "tiles/";
+	public static final String TEXTURES_DIR = RESOURCE_DIR + "textures/";
 	
 	/** The key of the default window settings */
 	public static final String WINDOW_KEY = "window_data";

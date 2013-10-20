@@ -59,7 +59,7 @@ public class TeleportEvent extends MapEvent {
 	 */
 	@Override
 	public void collideWith(CharacterEvent character) {
-		if (!triggered) {
+		if (!triggered && character == MGlobal.hero) {
 			triggered = true;
 			victim = character;
 		}

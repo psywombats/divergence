@@ -42,7 +42,7 @@ public class AbilFxDistort extends AbilFX implements PostRenderable {
 	public AbilFxDistort(AbilFxDistortMDO mdo, Ability abil) {
 		super(mdo, abil);
 		this.mdo = mdo;
-		sphere = new Graphic(Constants.SPRITES_DIR, mdo.graphic);
+		sphere = new Graphic(Constants.TEXTURES_DIR, mdo.graphic);
 		shader = new ShaderFromData(MGlobal.data.getEntryFor(mdo.shader, ShaderMDO.class));
 		assets.add(sphere);
 		

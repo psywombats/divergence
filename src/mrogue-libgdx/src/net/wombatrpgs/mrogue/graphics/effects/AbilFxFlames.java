@@ -40,15 +40,15 @@ public class AbilFxFlames extends AbilFX {
 	public AbilFxFlames(AbilFxFlamesMDO mdo, Ability abil) {
 		super(mdo, abil);
 		this.mdo = mdo;
-		flames = new Graphic(Constants.SPRITES_DIR, mdo.flames);
+		flames = new Graphic(Constants.TEXTURES_DIR, mdo.flames);
 		assets.add(flames);
-		noise1 = new Graphic(Constants.SPRITES_DIR, mdo.noise1);
+		noise1 = new Graphic(Constants.TEXTURES_DIR, mdo.noise1);
 		assets.add(noise1);
-		noise2 = new Graphic(Constants.SPRITES_DIR, mdo.noise2);
+		noise2 = new Graphic(Constants.TEXTURES_DIR, mdo.noise2);
 		assets.add(noise2);
-		noise3 = new Graphic(Constants.SPRITES_DIR, mdo.noise3);
+		noise3 = new Graphic(Constants.TEXTURES_DIR, mdo.noise3);
 		assets.add(noise3);
-		mask = new Graphic(Constants.SPRITES_DIR, mdo.mask);
+		mask = new Graphic(Constants.TEXTURES_DIR, mdo.mask);
 		assets.add(mask);
 		shader = new ShaderFromData(MGlobal.data.getEntryFor(mdo.shader, ShaderMDO.class));
 		
@@ -67,18 +67,27 @@ public class AbilFxFlames extends AbilFX {
 		getParent().getBatch().end();
 		
 		Texture t = flames.getTexture();
-		float scale = abil.getRange() * 2.5f * ((float) parent.getTileWidth() / (float) t.getWidth());
-		float restrict = 1.f;
-		if (totalElapsed < mdo.fadein) {
-			//restrict = totalElapsed/mdo.fadein;
-			scale *= (totalElapsed/mdo.fadein);
-		} else if (totalElapsed > (mdo.duration-mdo.fadein)) {
-			restrict = (mdo.duration-totalElapsed) / mdo.fadein;
-		} else {
-			//restrict = 1f;
+		
+		float scale, restrict, atX, atY;
+		switch(abil.getType()) {
+		case BALL:
+			scale = abil.getRange() * 2.5f * ((float) parent.getTileWidth() / (float) t.getWidth());
+			restrict = 1.f;
+			if (totalElapsed < mdo.fadein) {
+				//restrict = totalElapsed/mdo.fadein;
+				scale *= (totalElapsed/mdo.fadein);
+			} else if (totalElapsed > (mdo.duration-mdo.fadein)) {
+				restrict = (mdo.duration-totalElapsed) / mdo.fadein;
+			} else {
+				//restrict = 1f;
+			}
+			atX = getX() + parent.getTileWidth()/2f - t.getWidth()*scale/2f;
+			atY = getY() + parent.getTileHeight()/2f - t.getHeight()*scale/2f;
+			break;
+		case PROJECTILE:
+		default:
+			atX = 0; atY = 0; restrict = 0; scale = 1;
 		}
-		float atX = getX() + parent.getTileWidth()/2f - t.getWidth()*scale/2f;
-		float atY = getY() + parent.getTileHeight()/2f - t.getHeight()*scale/2f;
 		
 		shader.begin();
 		shader.setUniformf("u_restrict", restrict);

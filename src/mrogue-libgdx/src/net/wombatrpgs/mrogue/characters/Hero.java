@@ -27,6 +27,8 @@ import net.wombatrpgs.mrogueschema.maps.data.EightDir;
  */
 public class Hero extends CharacterEvent implements CommandListener {
 	
+	public static final int ABILITIES_MAX = 6;
+	
 	protected static final String HERO_DEFAULT = "hero_default";
 	
 	protected ActStep step;

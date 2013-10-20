@@ -18,11 +18,13 @@ import net.wombatrpgs.mrogue.characters.GameUnit;
 import net.wombatrpgs.mrogue.characters.travel.Step;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
+import net.wombatrpgs.mrogue.graphics.Graphic;
 import net.wombatrpgs.mrogue.graphics.effects.AbilFX;
 import net.wombatrpgs.mrogue.graphics.effects.AbilFxFactory;
 import net.wombatrpgs.mrogue.maps.MapThing;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
 import net.wombatrpgs.mrogueschema.characters.AbilityMDO;
+import net.wombatrpgs.mrogueschema.characters.data.AbilityTargetType;
 
 /**
  * An ability is a special sort of action. It can be used by a character or a
@@ -38,6 +40,7 @@ public class Ability extends Action implements Queueable {
 	protected List<GameUnit> targets;
 	protected AbilFX fx;
 	protected List<Queueable> assets;
+	protected Graphic icon;
 	
 	/**
 	 * Creates a new ability for a particular actor from data.
@@ -52,6 +55,10 @@ public class Ability extends Action implements Queueable {
 		if (MapThing.mdoHasProperty(mdo.fx)) {
 			fx = AbilFxFactory.createFX(mdo.fx, this);
 			assets.add(fx);
+		}
+		if (MapThing.mdoHasProperty(mdo.icon)) {
+			icon = new Graphic(mdo.icon);
+			assets.add(icon);
 		}
 		
 		final CharacterEvent actor2 = actor;
@@ -101,6 +108,11 @@ public class Ability extends Action implements Queueable {
 	
 	/** @return The range of this ability, in fractional tiles (radius) */
 	public Float getRange() { return mdo.range; }
+	
+	/** @return This ability's targeting type */
+	public AbilityTargetType getType() { return mdo.target; }
+	
+	public Graphic getIcon() { return icon; }
 	
 	/**
 	 * @see java.lang.Object#toString()

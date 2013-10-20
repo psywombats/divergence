@@ -25,6 +25,10 @@ public class FontHolder implements Queueable {
 	protected FontMDO mdo;
 	protected BitmapFont font;
 	
+	/**
+	 * Creates a new font holder from data.
+	 * @param	mdo				The data to generate from
+	 */
 	public FontHolder(FontMDO mdo) {
 		this.mdo = mdo;
 	}
