@@ -76,6 +76,7 @@ public class GameScreen extends Screen {
 		addScreenObject(MGlobal.ui.getNarrator());
 		addScreenObject(MGlobal.ui.getHud());
 		addScreenObject(MGlobal.ui.getSkills());
+		addScreenObject(MGlobal.ui.getInventory());
 		
 		init();
 	}
@@ -89,7 +90,7 @@ public class GameScreen extends Screen {
 		//RGlobal.reporter.inform("Command received: " + command);
 		if (super.onCommand(command)) return true;
 		switch (command) {
-		case INTENT_EXIT:
+		case INTENT_QUIT:
 			Gdx.app.exit();
 			return true;
 		case INTENT_FULLSCREEN:
@@ -97,6 +98,9 @@ public class GameScreen extends Screen {
 					MGlobal.window.getResolutionWidth(), 
 					MGlobal.window.getResolutionHeight(), 
 					!Gdx.graphics.isFullscreen());
+			return true;
+		case INTENT_INVENTORY:
+			MGlobal.ui.getInventory().show();
 			return true;
 		default:
 			return MGlobal.hero.onCommand(command);

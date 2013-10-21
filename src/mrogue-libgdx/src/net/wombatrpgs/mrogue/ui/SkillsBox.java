@@ -6,21 +6,17 @@
  */
 package net.wombatrpgs.mrogue.ui;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
-import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.graphics.Graphic;
 import net.wombatrpgs.mrogue.rpg.Hero;
 import net.wombatrpgs.mrogue.rpg.abil.Ability;
-import net.wombatrpgs.mrogue.screen.ScreenShowable;
 import net.wombatrpgs.mrogue.ui.text.FontHolder;
 import net.wombatrpgs.mrogue.ui.text.TextBoxFormat;
 import net.wombatrpgs.mrogueschema.ui.FontMDO;
@@ -29,12 +25,11 @@ import net.wombatrpgs.mrogueschema.ui.SkillsBoxMDO;
 /**
  * UI for skills etc.
  */
-public class SkillsBox implements ScreenShowable {
+public class SkillsBox extends UIElement {
 	
 	protected static final int MAX_TEXT_WIDTH = 256;
 	
 	protected SkillsBoxMDO mdo;
-	protected List<Queueable> assets;
 	protected Graphic noAbil;
 	protected FontHolder font;
 	protected TextBoxFormat format;
@@ -45,7 +40,6 @@ public class SkillsBox implements ScreenShowable {
 	 */
 	public SkillsBox(SkillsBoxMDO mdo) {
 		this.mdo = mdo;
-		this.assets = new ArrayList<Queueable>();
 		noAbil = new Graphic(mdo.empty);
 		assets.add(noAbil);
 		font = new FontHolder(MGlobal.data.getEntryFor(mdo.font, FontMDO.class));
@@ -98,41 +92,11 @@ public class SkillsBox implements ScreenShowable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mrogue.core.Queueable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		for (Queueable asset : assets) {
-			asset.queueRequiredAssets(manager);
-		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.mrogue.core.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		for (Queueable asset : assets) {
-			asset.postProcessing(manager, pass);
-		}
-	}
-
-	/**
 	 * @see net.wombatrpgs.mrogue.core.Updateable#update(float)
 	 */
 	@Override
 	public void update(float elapsed) {
 
-	}
-
-	/**
-	 * @see net.wombatrpgs.mrogue.screen.ScreenShowable#ignoresTint()
-	 */
-	@Override
-	public boolean ignoresTint() {
-		return true;
 	}
 
 }

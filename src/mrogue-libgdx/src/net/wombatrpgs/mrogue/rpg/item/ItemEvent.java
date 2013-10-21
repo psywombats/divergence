@@ -87,7 +87,7 @@ public class ItemEvent extends MapEvent {
 	 */
 	@Override
 	protected float getZ() {
-		return super.getZ() - parent.getHeightPixels();
+		return super.getZ() + parent.getHeightPixels();
 	}
 
 }

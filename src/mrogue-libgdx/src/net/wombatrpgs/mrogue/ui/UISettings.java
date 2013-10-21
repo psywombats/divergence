@@ -20,6 +20,7 @@ import net.wombatrpgs.mrogueschema.graphics.IconSetMDO;
 import net.wombatrpgs.mrogueschema.settings.UISettingsMDO;
 import net.wombatrpgs.mrogueschema.ui.FontMDO;
 import net.wombatrpgs.mrogueschema.ui.HudMDO;
+import net.wombatrpgs.mrogueschema.ui.InventoryMenuMDO;
 import net.wombatrpgs.mrogueschema.ui.NarratorMDO;
 import net.wombatrpgs.mrogueschema.ui.SkillsBoxMDO;
 import net.wombatrpgs.mrogueschema.ui.TextBoxMDO;
@@ -42,6 +43,7 @@ public class UISettings implements Queueable {
 	protected SkillsBox skills;
 	protected IconSet icons;
 	protected Narrator narrator;
+	protected InventoryMenu inventory;
 	
 	protected List<Queueable> assets;
 	
@@ -68,6 +70,8 @@ public class UISettings implements Queueable {
 		assets.add(icons);
 		narrator = new Narrator(MGlobal.data.getEntryFor(mdo.narrator, NarratorMDO.class), font);
 		assets.add(narrator);
+		inventory = new InventoryMenu(MGlobal.data.getEntryFor(mdo.inventory, InventoryMenuMDO.class));
+		assets.add(inventory);
 	}
 
 	/**
@@ -106,5 +110,8 @@ public class UISettings implements Queueable {
 	
 	/** @return The HUD associated with these settings */
 	public Hud getHud() { return this.hud; }
+	
+	/** @return The inventory menu associated with these settings */
+	public InventoryMenu getInventory() { return this.inventory; }
 
 }

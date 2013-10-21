@@ -70,7 +70,7 @@ public class FontHolder implements Queueable {
 		TextBounds bounds = font.drawWrapped(batch, text, 
 				format.x, format.y + offY, 
 				format.width, format.align);
-		if (bounds.height > format.height) {
+		if (bounds.height > format.height + offY) {
 			MGlobal.reporter.warn("A string was oversized: \"" + text + "\"");
 		}
 		batch.end();

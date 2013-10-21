@@ -4,7 +4,9 @@
 	"name" : "",
 	"description" : "",
 	"items" : [
-		"spellbook_test"
+		"potion_hp",
+		"potion_mp",
+		"potion_booststrength"
 	],
 	"firstTreasure" : 40
 }

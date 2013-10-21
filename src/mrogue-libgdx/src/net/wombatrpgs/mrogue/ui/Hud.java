@@ -6,20 +6,14 @@
  */
 package net.wombatrpgs.mrogue.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
-import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.graphics.Graphic;
-import net.wombatrpgs.mrogue.screen.ScreenShowable;
 import net.wombatrpgs.mrogueschema.maps.data.OrthoDir;
 import net.wombatrpgs.mrogueschema.ui.HudMDO;
 import net.wombatrpgs.mrogueschema.ui.NumberSetMDO;
@@ -30,12 +24,10 @@ import net.wombatrpgs.mrogueschema.ui.NumberSetMDO;
  * This specific HUD is probably overridden on a per-game basis. Christ knows I
  * just ripped it apart for Rainfall. Ugh.
  */
-public class Hud implements ScreenShowable,
-							Queueable {
+public class Hud extends UIElement {
 	
 	protected HudMDO mdo;
 	
-	protected List<Queueable> assets;
 	protected Graphic frame;
 	protected Graphic hpBase, hpRib, hpTail;
 	protected Graphic mpBase, mpRib, mpTail;
@@ -57,7 +49,6 @@ public class Hud implements ScreenShowable,
 	public Hud(HudMDO mdo) {
 		this.mdo = mdo;
 		ignoresTint = true;
-		assets = new ArrayList<Queueable>();
 		
 		frame = startGraphic(mdo.frameGraphic);
 		alphaMask = startGraphic(mdo.alphaMask);
@@ -135,8 +126,7 @@ public class Hud implements ScreenShowable,
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		// TODO: HUD
-		SpriteBatch batch = MGlobal.screens.peek().getUIBatch();
+		SpriteBatch batch = getBatch();
 		if (mdo.anchorDir == OrthoDir.SOUTH) {
 			float mhp = MGlobal.hero.getStats().getMHP();
 			float hp = currentHPDisplay;
@@ -189,28 +179,6 @@ public class Hud implements ScreenShowable,
 			batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		}
 	}
-
-	/**
-	 * @see net.wombatrpgs.mrogue.core.Queueable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		for (Queueable asset : assets) {
-			asset.queueRequiredAssets(manager);
-		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.mrogue.core.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		for (Queueable asset : assets) {
-			asset.postProcessing(manager, pass);
-		}
-	}
 	
 	/**
 	 * Sets whether the hud ignores tint. It should be ignoring tint for things
@@ -221,17 +189,6 @@ public class Hud implements ScreenShowable,
 	 */
 	public void setOverlayTintIgnore(boolean ignoreTint) {
 		this.ignoresTint = ignoreTint;
-	}
-	
-	/**
-	 * Initializes a graphic from file name and then adds it to assets.
-	 * @param 	fileName		The name of the file to load
-	 * @return					The created graphic
-	 */
-	public Graphic startGraphic(String fileName) {
-		Graphic graphic = new Graphic(fileName);
-		assets.add(graphic);
-		return graphic;
 	}
 	
 	/**

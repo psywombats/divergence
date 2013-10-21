@@ -22,6 +22,15 @@ public class Spellbook extends Item {
 	 */
 	public Spellbook(SpellbookMDO mdo) {
 		super(mdo);
+		this.mdo = mdo;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mrogue.rpg.item.Item#internalUse()
+	 */
+	@Override
+	protected void internalUse() {
+		// TODO spellbook
 	}
 
 }

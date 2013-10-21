@@ -14,6 +14,7 @@ import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mrogueschema.graphics.IconSetMDO;
 import net.wombatrpgs.mrogueschema.ui.FontMDO;
 import net.wombatrpgs.mrogueschema.ui.HudMDO;
+import net.wombatrpgs.mrogueschema.ui.InventoryMenuMDO;
 import net.wombatrpgs.mrogueschema.ui.NarratorMDO;
 import net.wombatrpgs.mrogueschema.ui.SkillsBoxMDO;
 import net.wombatrpgs.mrogueschema.ui.TextBoxMDO;
@@ -49,5 +50,9 @@ public class UISettingsMDO extends MainSchema {
 	@Desc("Default narrator")
 	@SchemaLink(NarratorMDO.class)
 	public String narrator;
+	
+	@Desc("Default inventory")
+	@SchemaLink(InventoryMenuMDO.class)
+	public String inventory;
 
 }

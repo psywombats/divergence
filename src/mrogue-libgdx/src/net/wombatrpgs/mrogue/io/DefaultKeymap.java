@@ -54,7 +54,9 @@ public class DefaultKeymap extends Keymap {
 		// buttans
 		map.put(Keys.Z, 		InputButton.BUTTON_1);
 		map.put(Keys.SPACE, 	InputButton.BUTTON_1);
+		map.put(Keys.ENTER, 	InputButton.BUTTON_1);
 		map.put(Keys.X, 		InputButton.BUTTON_2);
+		map.put(Keys.BACKSPACE,	InputButton.BUTTON_2);
 		map.put(Keys.C, 		InputButton.BUTTON_3);
 		map.put(Keys.V, 		InputButton.BUTTON_4);
 		map.put(Keys.S, 		InputButton.BUTTON_5);
@@ -70,6 +72,7 @@ public class DefaultKeymap extends Keymap {
 		
 		map.put(Keys.ESCAPE, 	InputButton.MENU);
 		map.put(Keys.F12,		InputButton.FULLSCREEN);
+		map.put(Keys.TAB,		InputButton.TAB);
 		
 		for (Object key : map.keySet()) {
 			backmap.put(map.get(key), (Integer) key);
@@ -120,7 +123,10 @@ public class DefaultKeymap extends Keymap {
 	 */
 	@Override
 	public boolean isButtonDown(InputButton button) {
-		return Gdx.input.isKeyPressed(backmap.get(button));
+		if (backmap.containsKey(button)) {
+			return Gdx.input.isKeyPressed(backmap.get(button));
+		}
+		return false;
 	}
 
 	/**

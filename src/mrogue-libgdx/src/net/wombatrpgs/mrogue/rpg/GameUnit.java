@@ -16,6 +16,7 @@ import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.core.Turnable;
 import net.wombatrpgs.mrogue.rpg.abil.Ability;
 import net.wombatrpgs.mrogue.rpg.ai.Allegiance;
+import net.wombatrpgs.mrogue.rpg.item.Inventory;
 import net.wombatrpgs.mrogue.rpg.item.Item;
 import net.wombatrpgs.mrogue.ui.Narrator;
 import net.wombatrpgs.mrogueschema.characters.AbilityMDO;
@@ -38,13 +39,14 @@ public class GameUnit implements Turnable, Queueable {
 	
 	protected CharacterMDO mdo;
 	protected CharacterEvent parent;
-	protected List<Turnable> turnChildren;
+	protected List<Turnable> turnChildren, toRemove;
 	protected List<Queueable> assets;
 	
 	protected String name;
 	protected Stats baseStats;
 	protected Stats currentStats;
 	protected Allegiance allegiance;
+	protected Inventory inventory;
 	protected List<Ability> abilities;
 	
 	/**
@@ -56,10 +58,12 @@ public class GameUnit implements Turnable, Queueable {
 		this.mdo = mdo;
 		this.parent = parent;
 		this.turnChildren = new ArrayList<Turnable>();
+		this.toRemove = new ArrayList<Turnable>();
 		this.assets = new ArrayList<Queueable>();
 		baseStats = new Stats(mdo.stats);
 		currentStats = new Stats(mdo.stats);
 		allegiance = new Allegiance(this, mdo.faction);
+		inventory = new Inventory(this);
 		turnChildren.add(allegiance);
 		
 		abilities = new ArrayList<Ability>();
@@ -95,6 +99,15 @@ public class GameUnit implements Turnable, Queueable {
 	
 	/** @return The list of all the abilities this unit can perform */
 	public List<Ability> getAbilities() { return abilities; }
+	
+	/** @return The inventory of all carried items */
+	public Inventory getInventory() { return inventory; }
+	
+	/** @param turn The new turn child to register */
+	public void addTurnChild(Turnable turn) { turnChildren.add(turn); }
+	
+	/** @param turn The old turn child to remove */
+	public void removeTurnChild(Turnable turn) { toRemove.add(turn); }
 	
 	
 	
@@ -145,6 +158,9 @@ public class GameUnit implements Turnable, Queueable {
 	public void onTurn() {
 		for (Turnable t : turnChildren) {
 			t.onTurn();
+		}
+		for (Turnable t : toRemove) {
+			turnChildren.remove(t);
 		}
 	}
 
@@ -312,6 +328,7 @@ public class GameUnit implements Turnable, Queueable {
 		if (visible(this)) {
 			out.msg(getName() + " picked up " + item.getName() + ".");
 		}
+		inventory.addItem(item);
 	}
 	
 	/**

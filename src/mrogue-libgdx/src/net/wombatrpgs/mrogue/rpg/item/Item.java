@@ -15,6 +15,7 @@ import net.wombatrpgs.mrogue.core.Constants;
 import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.graphics.Graphic;
 import net.wombatrpgs.mrogue.rpg.GameUnit;
+import net.wombatrpgs.mrogue.rpg.act.Action;
 import net.wombatrpgs.mrogueschema.items.data.ItemMDO;
 
 /**
@@ -24,9 +25,11 @@ import net.wombatrpgs.mrogueschema.items.data.ItemMDO;
  * that an RPG character uses and an ItemEvent that dies when the item is
  * picked up and spawned when dropped. This is a rather general superclass, and
  * it's abstract because all items will be things like potions, book, weapons,
- * etc.
+ * etc.<br><br>
+ * 
+ * It extends action as it can be used as an action during a character's turn.
  */
-public abstract class Item implements Queueable {
+public abstract class Item extends Action implements Queueable {
 	
 	protected ItemMDO mdo;
 	protected GameUnit owner;
@@ -64,6 +67,9 @@ public abstract class Item implements Queueable {
 	/** @return The in-game name of this object */
 	public String getName() { return mdo.name; }
 	
+	/** @return The in-game description of this object */
+	public String getDescription() { return mdo.gameDesc; }
+	
 	/**
 	 * @see net.wombatrpgs.mrogue.core.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
@@ -87,6 +93,14 @@ public abstract class Item implements Queueable {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mrogue.rpg.act.Action#act()
+	 */
+	@Override
+	public void act() {
+		use();
+	}
+
+	/**
 	 * This should be called to simulate a character picking up this item. Is
 	 * called exlusively from its ItemEvent parent.
 	 * @param	unit			The chara picking us up
@@ -94,7 +108,25 @@ public abstract class Item implements Queueable {
 	public void onPickup(GameUnit unit) {
 		this.owner = unit;
 		parent = null;
+		setActor(unit.getParent());
 		unit.pickUp(this);
 	}
+	
+	/**
+	 * Call this when the character opts to spend their turn and use the item.
+	 */
+	public void use() {
+		owner.getInventory().removeItem(this);
+		internalUse();
+		owner = null;
+		parent = null;
+		assets.clear();
+	}
+	
+	/**
+	 * Called by the item when it's time to apply whatever this item's effect
+	 * is. So do your main thing. Inventory is taken care of elsewhere.
+	 */
+	protected abstract void internalUse();
 
 }

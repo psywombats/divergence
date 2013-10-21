@@ -56,6 +56,11 @@ public class StatsModifier {
 		stats.addDmgRange(sign * mdo.dmgRange);
 		stats.addDefense(sign * mdo.dodge);
 		stats.addArmor(sign * mdo.armor);
+		
+		if (stats.getHP() < 0) stats.setHP(0);
+		if (stats.getHP() > stats.getMHP()) stats.setHP(stats.getMHP());
+		if (stats.getMP() < 0) stats.setMP(0);
+		if (stats.getMP() > stats.getMMP()) stats.setMP(stats.getMMP());
 	}
 
 }

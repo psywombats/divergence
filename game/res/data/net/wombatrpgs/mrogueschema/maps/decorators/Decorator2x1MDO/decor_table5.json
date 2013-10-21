@@ -2,9 +2,10 @@
 	"key" : "decor_table5",
 	"subfolder" : "",
 	"name" : "",
-	"description" : " ",
+	"description" : "  ",
 	"chance" : 0.005,
 	"original" : "FLOOR",
+	"replacement" : "OBSTACLE",
 	"l" : {
 		"appearance" : "table05_01.png"
 	},

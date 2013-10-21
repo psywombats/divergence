@@ -18,6 +18,7 @@ import net.wombatrpgs.mrogue.io.CommandListener;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.rpg.abil.Ability;
 import net.wombatrpgs.mrogue.rpg.act.ActStep;
+import net.wombatrpgs.mrogue.rpg.act.Action;
 import net.wombatrpgs.mrogueschema.characters.HeroMDO;
 import net.wombatrpgs.mrogueschema.io.data.InputCommand;
 import net.wombatrpgs.mrogueschema.maps.data.EightDir;
@@ -100,6 +101,24 @@ public class Hero extends CharacterEvent implements CommandListener {
 		if (viewCache == null) return false;
 		return viewCache[targetY][targetX];
 	}
+	
+	/**
+	 * @see net.wombatrpgs.mrogue.rpg.CharacterEvent#actAndWait(net.wombatrpgs.mrogue.rpg.act.Action)
+	 */
+	@Override
+	public void actAndWait(Action act) {
+		if (parent.isMoving()) {
+			return;
+		}
+		MGlobal.ui.getHud().forceReset();
+		MGlobal.ui.getNarrator().onTurn();
+		
+		super.actAndWait(act);
+		
+		refreshVisibilityMap();
+		parent.onTurn();
+	}
+	
 
 	/**
 	 * @see net.wombatrpgs.mrogue.io.CommandListener#onCommand
@@ -107,10 +126,6 @@ public class Hero extends CharacterEvent implements CommandListener {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-		if (parent.isMoving()) {
-			return true;
-		}
-		MGlobal.ui.getHud().forceReset();
 		
 		switch (command) {
 		
@@ -140,9 +155,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 			MGlobal.reporter.warn("Unknown command " + command);
 			return false;
 		}
-
-		refreshVisibilityMap();
-		parent.onTurn();
+		
 		return true;
 	}
 	
@@ -237,5 +250,5 @@ public class Hero extends CharacterEvent implements CommandListener {
 		}
 		actAndWait(abil);
 	}
-	
+
 }

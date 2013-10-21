@@ -9,13 +9,11 @@ package net.wombatrpgs.mrogue.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
-import net.wombatrpgs.mrogue.maps.PositionSetable;
-import net.wombatrpgs.mrogue.screen.ScreenShowable;
+import net.wombatrpgs.mrogue.core.Turnable;
 import net.wombatrpgs.mrogue.ui.text.FontHolder;
 import net.wombatrpgs.mrogue.ui.text.TextBoxFormat;
 import net.wombatrpgs.mrogueschema.ui.NarratorMDO;
@@ -23,11 +21,12 @@ import net.wombatrpgs.mrogueschema.ui.NarratorMDO;
 /**
  * A UI element that happily spits out game info as it happens.
  */
-public class Narrator implements ScreenShowable, PositionSetable {
+public class Narrator extends UIElement implements Turnable {
 	
 	protected NarratorMDO mdo;
 	protected FontHolder font;
 	protected TextBoxFormat format;
+	protected boolean stale;
 	protected float x, y;
 	
 	protected List<Line> lines;
@@ -39,6 +38,7 @@ public class Narrator implements ScreenShowable, PositionSetable {
 	public Narrator(NarratorMDO mdo, FontHolder font) {
 		this.mdo = mdo;
 		this.font = font;
+		stale = false;
 		lines = new ArrayList<Line>();
 		format = new TextBoxFormat();
 		format.x = mdo.offsetX;
@@ -47,22 +47,14 @@ public class Narrator implements ScreenShowable, PositionSetable {
 		format.height = MGlobal.window.getHeight();
 		format.align = HAlignment.LEFT;
 	}
-	
-	/** @see net.wombatrpgs.mrogue.maps.Positionable#getX() */
-	@Override public float getX() { return x; }
 
-	/** @see net.wombatrpgs.mrogue.maps.Positionable#getY() */
-	@Override public float getY() { return y; }
-
-	/** @see net.wombatrpgs.mrogue.maps.PositionSetable#setX(float) */
-	@Override public void setX(float x) { this.x = x; }
-
-	/** @see net.wombatrpgs.mrogue.maps.PositionSetable#setY(float) */
-	@Override public void setY(float y) { this.y = y; }
-
-	/** @see net.wombatrpgs.mrogue.screen.ScreenShowable#ignoresTint() */
-	@Override public boolean ignoresTint() { return true; }
-
+	/**
+	 * @see net.wombatrpgs.mrogue.core.Turnable#onTurn()
+	 */
+	@Override
+	public void onTurn() {
+		stale = true;
+	}
 
 	/**
 	 * @see net.wombatrpgs.mrogue.graphics.Renderable#render
@@ -77,29 +69,8 @@ public class Narrator implements ScreenShowable, PositionSetable {
 			} else {
 				font.setAlpha(1.f);
 			}
-			font.draw(MGlobal.screens.peek().getUIBatch(), format,
-					line.line, (int) (font.getLineHeight() * -i));
+			font.draw(getBatch(), format, line.line, (int) (font.getLineHeight() * -i));
 		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.mrogue.core.Queueable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/**
-	 * @see net.wombatrpgs.mrogue.core.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -125,6 +96,10 @@ public class Narrator implements ScreenShowable, PositionSetable {
 	 * @param	msg				What to say to the player.
 	 */
 	public void msg(String msg) {
+		if (stale) {
+			lines.clear();
+			stale = false;
+		}
 		String thisLine;
 		int split;
 		if (msg.length() > mdo.chars) {

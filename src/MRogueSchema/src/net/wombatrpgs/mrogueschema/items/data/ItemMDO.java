@@ -19,7 +19,10 @@ public class ItemMDO extends MainSchema {
 	
 	@Desc("Name - displayed in-game")
 	public String name;
-
+	
+	@Desc("Description - displayed in-game")
+	public String gameDesc;
+	
 	@Desc("Icon - what this item looks like on the ground")
 	@FileLink("items")
 	public String icon;
