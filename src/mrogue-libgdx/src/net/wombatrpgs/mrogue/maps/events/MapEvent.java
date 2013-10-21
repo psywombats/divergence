@@ -27,6 +27,7 @@ import net.wombatrpgs.mrogueschema.maps.data.EightDir;
  * thing that just lives on a map. It isn't necessarily a character
  */
 public abstract class MapEvent extends MapThing implements	PositionSetable,
+															Comparable<MapEvent>,
 															PreRenderable {
 	
 	/** A thingy to fool the prerenderable, a sort of no-appear flag */
@@ -195,6 +196,14 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	public void render(OrthographicCamera camera) {
 		if (hidden()) return;
 		super.render(camera);
+	}
+
+	/**
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(MapEvent other) {
+		return -Math.round(getZ() - other.getZ());
 	}
 
 	/**
@@ -414,6 +423,14 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	 */
 	public float euclideanTileDistanceTo(MapEvent event) {
 		return euclideanTileDistanceTo(event.getTileX(), event.getTileY());
+	}
+	
+	/**
+	 * Calculates the z-sort for this event.
+	 * @return					The z-layer of this event
+	 */
+	protected float getZ() {
+		return y;
 	}
 	
 	/**

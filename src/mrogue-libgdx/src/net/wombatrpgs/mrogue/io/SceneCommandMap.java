@@ -33,25 +33,22 @@ public class SceneCommandMap extends CommandMap {
 		downMap.put(InputButton.MENU,		InputCommand.INTENT_EXIT);
 		downMap.put(InputButton.FULLSCREEN,	InputCommand.INTENT_FULLSCREEN);
 	}
-
+	
 	/**
-	 * @see net.wombatrpgs.mrogue.io.ButtonListener#onButtonPressed
-	 * (net.wombatrpgs.mrogueschema.io.data.InputButton)
+	 * @see net.wombatrpgs.mrogue.io.CommandMap#get
+	 * (net.wombatrpgs.mrogueschema.io.data.InputButton, boolean)
 	 */
 	@Override
-	public void onButtonPressed(InputButton button) {
-		if (downMap.containsKey(button)) {
-			this.signal(downMap.get(button));
+	public InputCommand get(InputButton button, boolean wasRelease) {
+		if (wasRelease) {
+			return null;
+		} else {
+			if (downMap.containsKey(button)) {
+				return downMap.get(button);
+			} else {
+				return null;
+			}
 		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.mrogue.io.ButtonListener#onButtonReleased
-	 * (net.wombatrpgs.mrogueschema.io.data.InputButton)
-	 */
-	@Override
-	public void onButtonReleased(InputButton button) {
-		// fuck it
 	}
 
 }

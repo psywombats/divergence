@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
-import net.wombatrpgs.mrogue.io.TestCommandMap;
+import net.wombatrpgs.mrogue.io.HardcodedCommandMap;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.screen.Screen;
 import net.wombatrpgs.mrogue.ui.text.FontHolder;
@@ -49,7 +49,7 @@ public class TestScreen extends Screen {
 			box.setText(testMDO.text);
 		}
 		
-		pushCommandContext(new TestCommandMap());
+		pushCommandContext(new HardcodedCommandMap());
 		defaultFont = new BitmapFont();
 		batch = new SpriteBatch();
 		cam.track(MGlobal.hero);
@@ -62,7 +62,7 @@ public class TestScreen extends Screen {
 	 * (net.wombatrpgs.mrogueschema.io.data.InputCommand)
 	 */
 	@Override
-	public void onCommand(InputCommand command) {
+	public boolean onCommand(InputCommand command) {
 		//RGlobal.reporter.inform("Command received: " + command);
 		
 		/* We no longer do this because it's very shaky to convey button presses
@@ -92,7 +92,7 @@ public class TestScreen extends Screen {
 //			RGlobal.hero.stopMove(Direction.UP);
 //		}
 		
-		// TODO: onCommand
+		return false;
 	}
 
 	/**

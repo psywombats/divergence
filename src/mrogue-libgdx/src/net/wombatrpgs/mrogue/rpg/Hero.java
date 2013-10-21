@@ -106,9 +106,9 @@ public class Hero extends CharacterEvent implements CommandListener {
 	 * (net.wombatrpgs.mrogueschema.io.data.InputCommand)
 	 */
 	@Override
-	public void onCommand(InputCommand command) {
+	public boolean onCommand(InputCommand command) {
 		if (parent.isMoving()) {
-			return;
+			return true;
 		}
 		MGlobal.ui.getHud().forceReset();
 		
@@ -138,11 +138,12 @@ public class Hero extends CharacterEvent implements CommandListener {
 		// DEFAULT
 		default:
 			MGlobal.reporter.warn("Unknown command " + command);
-			return;
+			return false;
 		}
 
 		refreshVisibilityMap();
 		parent.onTurn();
+		return true;
 	}
 	
 	/**

@@ -1,5 +1,5 @@
 ================================================================================
-= MROGUE v. 20131016  -not intended for public release-                        =
+= MROGUE v. 20131021  -not intended for public release-                        =
 = running on MGNENGINE v. 20131013                                             =
 = contact: aking (psy_wombats@wombatrpgs.net)                                  =
 ================================================================================
@@ -24,6 +24,5 @@ things I'll actually start working from Dropbox and everyone can mess around
 with the database editor and break stuff and it'll be awesome.
 
 SO FAR:
-There's a map. There are enemies. The enemies will fight amongst themselves, and
-maybe they'll attack you too if they're the right type. Factions! Their pathfind
-is not longer idiotic. F1/F2/F3/F4 trigger some basic abilities.
+There are three levels and some enemies to kill, some abilities to use, and some
+junk to pick off the floor. Recent additions: upper chip, items, ability UI.

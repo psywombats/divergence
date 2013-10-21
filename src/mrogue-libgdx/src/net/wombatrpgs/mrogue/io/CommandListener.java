@@ -17,8 +17,9 @@ public interface CommandListener {
 	
 	/**
 	 * Called whenever a specific command is indicated by the player.
-	 * @param	command		The command indicated
+	 * @param	command			The command indicated
+	 * @return					True=command consumed, false=continue processing
 	 */
-	public void onCommand(InputCommand command);
+	public boolean onCommand(InputCommand command);
 
 }

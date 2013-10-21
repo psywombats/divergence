@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import net.wombatrpgs.mrogue.core.Constants;
 import net.wombatrpgs.mrogue.core.MGlobal;
-import net.wombatrpgs.mrogue.io.TestCommandMap;
+import net.wombatrpgs.mrogue.io.HardcodedCommandMap;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Loc;
 import net.wombatrpgs.mrogue.rpg.Hero;
@@ -55,7 +55,7 @@ public class GameScreen extends Screen {
 		map = MGlobal.levelManager.getLevel(introMDO.map);
 		introParser = new SceneParser(sceneMDO);
 		this.canvas = map;
-		pushCommandContext(new TestCommandMap());
+		pushCommandContext(new HardcodedCommandMap());
 		defaultFont = new BitmapFont();
 		batch = new SpriteBatch();
 		
@@ -85,20 +85,21 @@ public class GameScreen extends Screen {
 	 * (net.wombatrpgs.mrogueschema.io.data.InputCommand)
 	 */
 	@Override
-	public void onCommand(InputCommand command) {
+	public boolean onCommand(InputCommand command) {
 		//RGlobal.reporter.inform("Command received: " + command);
+		if (super.onCommand(command)) return true;
 		switch (command) {
 		case INTENT_EXIT:
 			Gdx.app.exit();
-			break;
+			return true;
 		case INTENT_FULLSCREEN:
 			Gdx.graphics.setDisplayMode(
 					MGlobal.window.getResolutionWidth(), 
 					MGlobal.window.getResolutionHeight(), 
 					!Gdx.graphics.isFullscreen());
-			break;
+			return true;
 		default:
-			MGlobal.hero.onCommand(command);
+			return MGlobal.hero.onCommand(command);
 		}
 		
 	}

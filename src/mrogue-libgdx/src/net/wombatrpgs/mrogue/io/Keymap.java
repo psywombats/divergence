@@ -13,6 +13,7 @@ import java.util.Map;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Updateable;
+import net.wombatrpgs.mrogue.screen.ScreenStack;
 import net.wombatrpgs.mrogueschema.io.data.InputButton;
 
 import com.badlogic.gdx.InputProcessor;
@@ -41,7 +42,7 @@ public abstract class Keymap implements InputProcessor,
 	 * Registers a new object to listen for meta-button presses.
 	 * @param 	listener		The listener to register
 	 */
-	public final void registerListener(ButtonListener listener) {
+	public final void registerListener(ScreenStack listener) {
 		listeners.add(listener);
 	}
 	
@@ -49,7 +50,7 @@ public abstract class Keymap implements InputProcessor,
 	 * Unregisters an existing listener from meta-button presses.
 	 * @param 	listener		The listener to unregister
 	 */
-	public final void unregisterListener(ButtonListener listener) {
+	public final void unregisterListener(ScreenStack listener) {
 		if (listeners.contains(listener)) {
 			listeners.remove(listener);
 		} else {

@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mrogue.rpg;
+package net.wombatrpgs.mrogue.rpg.ai;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import net.wombatrpgs.mrogue.core.Turnable;
+import net.wombatrpgs.mrogue.rpg.GameUnit;
 import net.wombatrpgs.mrogueschema.characters.data.Faction;
 import net.wombatrpgs.mrogueschema.characters.data.Relation;
 

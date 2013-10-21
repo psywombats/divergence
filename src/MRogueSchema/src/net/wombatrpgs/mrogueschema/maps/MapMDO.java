@@ -13,6 +13,7 @@ import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mrogueschema.graphics.effects.data.EffectMDO;
+import net.wombatrpgs.mrogueschema.items.ItemGeneratorMDO;
 
 /**
  * A map contains not only a TMX but other vital data as well!
@@ -35,6 +36,11 @@ public class MapMDO extends MainSchema {
 	@SchemaLink(MonsterGeneratorMDO.class)
 	@Nullable
 	public String enemies;
+	
+	@Desc("Item generator")
+	@SchemaLink(ItemGeneratorMDO.class)
+	@Nullable
+	public String items;
 	
 	@Desc("Effect - graphical effect that plays on map, or none")
 	@SchemaLink(EffectMDO.class)

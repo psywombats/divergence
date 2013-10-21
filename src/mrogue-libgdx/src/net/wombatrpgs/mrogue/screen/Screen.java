@@ -74,11 +74,11 @@ public abstract class Screen implements CommandListener,
 	protected Color tint;
 	/** Used to draw the background rects */
 	protected ShapeRenderer shapes;
-	/** Have we been set up yet? */
 	protected boolean initialized;
 	
 	protected List<Queueable> assets;
 	protected List<PostRenderable> postRenders;
+	protected List<CommandListener> commandListeners;
 
 	
 	/**
@@ -93,6 +93,7 @@ public abstract class Screen implements CommandListener,
 		initialized = false;
 		mapShader = null;
 		postRenders = new ArrayList<PostRenderable>();
+		commandListeners = new ArrayList<CommandListener>();
 		batch = new SpriteBatch();
 		privateBatch = new SpriteBatch();
 		uiBatch = new SpriteBatch();
@@ -161,13 +162,11 @@ public abstract class Screen implements CommandListener,
 	/** @param pr The post render to no longer render */
 	public void removePostRender(PostRenderable pr) { postRenders.remove(pr); }
 	
-	/**
-	 * Gets the command parser used on this screen. Usually only used by engine.
-	 * @return					The command parser used on this screen
-	 */
-	public CommandMap getTopCommandContext() {
-		return commandContext.peek();
-	}
+	/** @param listener The listener to receive command updates */
+	public void registerCommandListener(CommandListener listener) { commandListeners.add(listener); }
+	
+	/** @param listener The listener to stop receiving command updates */
+	public void unregisterCommandListener(CommandListener listener) { commandListeners.remove(listener); }
 	
 	/**
 	 * Removes an explicit command map from the stack.
@@ -186,29 +185,14 @@ public abstract class Screen implements CommandListener,
 	 * @param 	map				The command map to use instead
 	 */
 	public void pushCommandContext(CommandMap map) {
-		if (commandContext.size() > 0) {
-			CommandMap old = getTopCommandContext();
-			MGlobal.keymap.unregisterListener(old);
-			for (CommandListener listener : getTopCommandContext().getListener()) {
-				old.unregisterListener(listener);
-				map.registerListener(listener);
-			}
-		}
 		commandContext.push(map);
-		MGlobal.keymap.registerListener(getTopCommandContext());
 	}
 	
 	/**
 	 * Removes the last active command context.
 	 */
 	public void popCommandContext() {
-		CommandMap old = commandContext.pop();
-		MGlobal.keymap.unregisterListener(old);
-		old.unregisterListener(this);
-		if (commandContext.size() > 0) {
-			MGlobal.keymap.registerListener(getTopCommandContext());
-			getTopCommandContext().registerListener(this);
-		}
+		commandContext.pop();
 	}
 
 	/**
@@ -217,7 +201,12 @@ public abstract class Screen implements CommandListener,
 	 */
 	@Override
 	public void onButtonPressed(InputButton button) {
-		getTopCommandContext().onButtonPressed(button);
+		InputCommand cmd = getTopCommandContext().get(button, false);
+		if (cmd == null) {
+			// we have no use for this key
+		} else {
+			onCommand(cmd);
+		}
 	}
 
 	/**
@@ -226,7 +215,12 @@ public abstract class Screen implements CommandListener,
 	 */
 	@Override
 	public void onButtonReleased(InputButton button) {
-		getTopCommandContext().onButtonReleased(button);
+		InputCommand cmd = getTopCommandContext().get(button, true);
+		if (cmd == null) {
+			// we have no use for this key
+		} else {
+			onCommand(cmd);
+		}
 	}
 
 	/**
@@ -333,8 +327,11 @@ public abstract class Screen implements CommandListener,
 	 * (net.wombatrpgs.mrogueschema.io.data.InputCommand)
 	 */
 	@Override
-	public void onCommand(InputCommand command) {
-		// default does nothing I think
+	public boolean onCommand(InputCommand command) {
+		for (CommandListener listener : commandListeners) {
+			if (listener.onCommand(command)) return true;
+		}
+		return false;
 	}
 
 	/**
@@ -393,6 +390,14 @@ public abstract class Screen implements CommandListener,
 		MGlobal.assetManager.finishLoading();
 		this.postProcessing(MGlobal.assetManager, 0);
 		initialized = true;
+	}
+	
+	/**
+	 * Gets the command parser used on this screen. Usually only used by engine.
+	 * @return					The command parser used on this screen
+	 */
+	protected CommandMap getTopCommandContext() {
+		return commandContext.peek();
 	}
 
 }

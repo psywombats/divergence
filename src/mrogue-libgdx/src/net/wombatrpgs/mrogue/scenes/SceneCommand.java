@@ -9,7 +9,6 @@ package net.wombatrpgs.mrogue.scenes;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
@@ -73,20 +72,16 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	 * (net.wombatrpgs.mrogueschema.io.data.InputCommand)
 	 */
 	@Override
-	public void onCommand(InputCommand command) {
+	public boolean onCommand(InputCommand command) {
 		if (blocking && command == InputCommand.INTENT_CONFIRM) {
 			blocking = false;
-			MGlobal.screens.peek().getTopCommandContext().unregisterListener(this);
+			MGlobal.screens.peek().unregisterCommandListener(this);
 			UnblockedListener oldListener = listener;
 			listener = null;
 			oldListener.onUnblock();
-		} else if (command == InputCommand.INTENT_EXIT) {
-			Gdx.app.exit();
-		} else if (command == InputCommand.INTENT_FULLSCREEN) {
-			Gdx.graphics.setDisplayMode(
-					MGlobal.window.getResolutionWidth(), 
-					MGlobal.window.getResolutionHeight(), 
-					!Gdx.graphics.isFullscreen());
+			return true;
+		} else {
+			return false;
 		}
 	}
 	
@@ -118,7 +113,7 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	 */
 	public void block(UnblockedListener listener) {
 		this.listener = listener;
-		MGlobal.screens.peek().getTopCommandContext().registerListener(this);
+		MGlobal.screens.peek().registerCommandListener(this);
 		blocking = true;
 	}
 

@@ -6,10 +6,7 @@
  */
 package net.wombatrpgs.mrogue.io;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.wombatrpgs.mrogue.core.MGlobal;
+import net.wombatrpgs.mrogueschema.io.data.InputButton;
 import net.wombatrpgs.mrogueschema.io.data.InputCommand;
 
 /**
@@ -21,81 +18,26 @@ import net.wombatrpgs.mrogueschema.io.data.InputCommand;
  * somewhere.<br><br>
  * 
  * Also of note: these should be specific to a context, so the command map for
- * menus shouldn't be the same as gameplay, etc.
+ * menus shouldn't be the same as gameplay, etc.<br><br>
+ * 
+ * As of 2013-10-20, no longer operates on a listener basis. Instead, does
+ * translation like a normal map.
  */
-public abstract class CommandMap implements ButtonListener {
-	
-	private List<CommandListener> listeners;
-	private List<CommandListener> toRemove;
-	private List<CommandListener> toAdd;
+public abstract class CommandMap {
 	
 	/**
 	 * Creates and initializes a new command map.
 	 */
 	public CommandMap() {
-		listeners = new ArrayList<CommandListener>();
-		toRemove = new ArrayList<CommandListener>();
-		toAdd = new ArrayList<CommandListener>();
-	}
-	
-	/** @return A list of all our listeners */
-	public List<CommandListener> getListener() { return listeners; }
-	
-	/**
-	 * Adds a new listener to listen for commands from the player.
-	 * @param 	listener		The listener to register
-	 */
-	public final void registerListener(CommandListener listener) {
-		toAdd.add(listener);
+		
 	}
 	
 	/**
-	 * Adds a new listener to listen for commands from the player. The real.
-	 * @param 	listener		The listener to register
+	 * Translates from input button to input command.
+	 * @param	button			The virtual button that was pressed
+	 * @param	wasRelease		True if this was a release of a button
+	 * @return					The command that button indicates
 	 */
-	private final void internalRegisterListener(CommandListener listener) {
-		listeners.add(listener);
-	}
-	
-	/**
-	 * Unsubscribes a give listener from commands from the player.
-	 * @param 	listener		The listener to unregister
-	 */
-	public final void unregisterListener(CommandListener listener) {
-		toRemove.add(listener);
-	}
-	
-	/**
-	 * Unsubscribes a give listener from commands from the player. The real
-	 * version.
-	 * @param 	listener		The listener to unregister
-	 */
-	private final void internalUnregisterListener(CommandListener listener) {
-		if (listeners.contains(listener)) {
-			listeners.remove(listener);
-		} else {
-			MGlobal.reporter.warn("Listener " + listener + " was not actually " +
-					"in the listeners list for " + this);
-		}
-	}
-	
-	/**
-	 * Signal to the listeners that a command has been indicated by the player.
-	 * @param 	command			The command that was indicated
-	 */
-	protected final void signal(InputCommand command) {
-		// there were concurrent mod problems here
-		for (CommandListener listener : listeners) {
-			listener.onCommand(command);
-		}
-		for (CommandListener listener : toRemove) {
-			internalUnregisterListener(listener);
-		}
-		for (CommandListener listener : toAdd) {
-			internalRegisterListener(listener);
-		}
-		toAdd.clear();
-		toRemove.clear();
-	}
+	public abstract InputCommand get(InputButton button, boolean wasRelease);
 	
 }

@@ -15,6 +15,8 @@ import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.core.Turnable;
 import net.wombatrpgs.mrogue.rpg.abil.Ability;
+import net.wombatrpgs.mrogue.rpg.ai.Allegiance;
+import net.wombatrpgs.mrogue.rpg.item.Item;
 import net.wombatrpgs.mrogue.ui.Narrator;
 import net.wombatrpgs.mrogueschema.characters.AbilityMDO;
 import net.wombatrpgs.mrogueschema.characters.CharacterMDO;
@@ -300,6 +302,16 @@ public class GameUnit implements Turnable, Queueable {
 			}
 		}
 		return units;
+	}
+	
+	/**
+	 * Called by items when we pick them up. Add to inventory or something.
+	 * @param	item			The item to pick up
+	 */
+	public void pickUp(Item item) {
+		if (visible(this)) {
+			out.msg(getName() + " picked up " + item.getName() + ".");
+		}
 	}
 	
 	/**

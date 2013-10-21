@@ -28,10 +28,10 @@ import net.wombatrpgs.mrogue.maps.layers.EventLayer;
 import net.wombatrpgs.mrogue.maps.layers.GridLayer;
 import net.wombatrpgs.mrogue.rpg.CharacterEvent;
 import net.wombatrpgs.mrogue.rpg.Enemy;
-import net.wombatrpgs.mrogue.rpg.MonsterGenerator;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogue.screen.Screen;
 import net.wombatrpgs.mrogue.screen.ScreenShowable;
+import net.wombatrpgs.mrogueschema.items.ItemGeneratorMDO;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
 import net.wombatrpgs.mrogueschema.maps.MapMDO;
 import net.wombatrpgs.mrogueschema.maps.MonsterGeneratorMDO;
@@ -81,8 +81,9 @@ public class Level implements	ScreenShowable,
 	
 	// MR mappy stuff
 	protected int mapWidth, mapHeight;
-	protected MapGenerator generator;
-	protected MonsterGenerator monsters;
+	protected MapGenerator mapGen;
+	protected ItemGenerator itemGen;
+	protected MonsterGenerator monGen;
 	protected SceneParser scene;
 	
 	/**
@@ -108,8 +109,12 @@ public class Level implements	ScreenShowable,
 			assets.add(effect);
 		}
 		if (MapThing.mdoHasProperty(mdo.enemies)) {
-			monsters = new MonsterGenerator(this, MGlobal.data.getEntryFor(mdo.enemies, MonsterGeneratorMDO.class));
-			assets.add(monsters);
+			monGen = new MonsterGenerator(this, MGlobal.data.getEntryFor(mdo.enemies, MonsterGeneratorMDO.class));
+			assets.add(monGen);
+		}
+		if (MapThing.mdoHasProperty(mdo.items)) {
+			itemGen = new ItemGenerator(this, MGlobal.data.getEntryFor(mdo.items, ItemGeneratorMDO.class));
+			assets.add(itemGen);
 		}
 		if (MapThing.mdoHasProperty(mdo.scene)) {
 			scene = new SceneParser(mdo.scene, this);
@@ -122,10 +127,10 @@ public class Level implements	ScreenShowable,
 		// map gen!
 		eventLayer = new EventLayer(this);
 		assets.add(eventLayer);
-		this.generator = MapGeneratorFactory.createGenerator(
+		this.mapGen = MapGeneratorFactory.createGenerator(
 				MGlobal.data.getEntryFor(mdo.generator, MapGeneratorMDO.class),
 				this);
-		assets.add(generator);
+		assets.add(mapGen);
 		this.mapWidth = mdo.mapWidth;
 		this.mapHeight = mdo.mapHeight;
 	}
@@ -170,7 +175,10 @@ public class Level implements	ScreenShowable,
 	public float getMoveTimeLeft() { return moveTime; }
 	
 	/** @return The thing in charge of making monsters for us */
-	public MonsterGenerator getMonsterGenerator() { return monsters; }
+	public MonsterGenerator getMonsterGenerator() { return monGen; }
+	
+	/** @reutrn The thing in charge of making items for us */
+	public ItemGenerator getItemGenerator() { return itemGen; }
 	
 	/** @return The time since the move started, in s */
 	public float getMoveTimeElapsed() { return MGlobal.constants.getDelay() - moveTime; }
@@ -250,9 +258,12 @@ public class Level implements	ScreenShowable,
 		for (Queueable asset : assets) {
 			asset.postProcessing(manager, pass);
 		}
-		generator.generateMe();
-		if (monsters != null) {
-			monsters.spawnToDensity();
+		mapGen.generateMe();
+		if (monGen != null) {
+			monGen.spawnToDensity();
+		}
+		if (itemGen != null) {
+			itemGen.spawnOnCreate();
 		}
 	}
 	
@@ -305,8 +316,8 @@ public class Level implements	ScreenShowable,
 	 */
 	@Override
 	public void onTurn() {
-		if (monsters != null) {
-			monsters.onTurn();
+		if (monGen != null) {
+			monGen.onTurn();
 		}
 		startMoving();
 	}
@@ -557,8 +568,8 @@ public class Level implements	ScreenShowable,
 	 * @return					The enemy generated, or null if no generator
 	 */
 	public Enemy generateEnemy() {
-		if (monsters == null) return null;
-		return monsters.createEnemy();
+		if (monGen == null) return null;
+		return monGen.createEnemy();
 	}
 	
 	/**

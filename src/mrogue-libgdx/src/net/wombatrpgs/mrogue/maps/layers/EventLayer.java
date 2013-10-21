@@ -48,6 +48,7 @@ public class EventLayer extends Layer {
 	@Override
 	public void render(OrthographicCamera camera) {
 		parent.getBatch().begin();
+		Collections.sort(events);
 		for (MapEvent event : events) {
 			event.render(camera);
 		}
