@@ -16,13 +16,18 @@ import net.wombatrpgs.mrogueschema.characters.data.StatsMDO;
  */
 public class Stats {
 	
-	private StatsMDO mdo;
-	private int mhp, hp;
-	private int mmp, mp;
-	private int speed;
-	private int vision;
-	private int armor, defense;
-	private int dmgBase, dmgRange;
+	protected StatsMDO mdo;
+	
+	// there used to be a zillion getters/setters here, now there aren't
+	// ...so use responsibly
+	public int mhp, hp;
+	public int mmp, mp;
+	public int speed;
+	public int walkEP, attackEP;
+	public int vision;
+	public int defense;
+	public int dmgBase, dmgRange, armor;
+	public int magBase, magRange, magArmor;
 	
 	/**
 	 * Creates a new stats object from data.
@@ -40,85 +45,18 @@ public class Stats {
 		defense		= stats.dodge;
 		dmgBase		= stats.dmgBase;
 		dmgRange	= stats.dmgRange;
+		magBase		= stats.magBase;
+		magRange	= stats.magRange;
+		magArmor	= stats.magArmor;
+		walkEP		= stats.walkCost;
+		attackEP	= stats.attackCost;
 	}
-	
-	/** @return Max health points */
-	public int getMHP() { return mhp; }
-	
-	/** @param mhp The new max health value */
-	public void setMHP(int mhp) { this.mhp = mhp; }
-	
-	/** @param mhp The amount to increase max health by */
-	public void addMHP(int mhp) { this.mhp += mhp; }
-	
-	/** @return Current health points */
-	public int getHP() { return hp; }
-	
-	/** @param newHP This stats new special value */
-	public void setHP(int newHP) { this.hp = newHP; }
-	
-	/** @param hp The amount of special to add or deduct */
-	public void addHP(int hp) { this.hp += hp; }
-	
-	/** @return Max special points */
-	public int getMMP() { return mmp; }
-	
-	/** @param mmp The new max special value */
-	public void setMMP(int mmp) { this.mmp = mmp; }
-	
-	/** @param mmp The amount to increase special points by */
-	public void addMMP(int mmp) { this.mmp += mmp; }
-	
-	/** @return Current special points */
-	public int getMP() { return mp; }
-	
-	/** @param newMP This stats new health value */
-	public void setMP(int newMP) { this.mp = newMP; }
-	
-	/** @param mp The amount of health to add or deduct */
-	public void addMP(int mp) { this.mp += mp; }
-	
-	/** @return The absolute speed of this character */
-	public int getSpeed() { return speed; }
-	
-	/** @param speed The amount of absolute speed to add */
-	public void addSpeed(int speed) { this.speed= speed; }
-	
-	/** @return The speed modifier, as a float% */
-	public float getSpeedMod() { return 100f / (float) mdo.speed; }
-	
-	/** @return The vision radius, in tiles */
-	public int getVision() { return vision; }
-	
-	/** @param vision The amount to increase vision by, in tiles */
-	public void addVision(int vision) { this.vision += vision; }
-	
-	/** @return The armor rating, in HP */
-	public int getArmor() { return this.armor; }
-	
-	/** @param Armor The amount of armor to add, in HP */
-	public void addArmor(int armor) { this.armor += armor; }
-	
-	/** @return The dodge, 0-100 */
-	public int getDefense() { return this.defense; }
 	
 	/** @return The likeliness to dodge, a percent 0-1 */
 	public float getDodgeChance() { return (float) defense / 100f; }
 	
-	/** @param def The amount to increase def by, 0-100 chance */
-	public void addDefense(int def) { this.defense += def; }
-	
-	/** @return The minimum melee damage, in HP */
-	public int getDmgBase() { return this.dmgBase; }
-	
-	/** @param dmg The amount to increase min damage, in HP */
-	public void addBaseDmg(int dmg) { this.dmgBase += dmg; }
-	
-	/** @return The damage variance, in HP */
-	public int getDmgRange() { return this.dmgRange; }
-	
-	/** @param dmg The amount of damage potential to add, in HP */
-	public void addDmgRange(int dmg) { this.dmgRange += dmg; }
+	/** @return The speed modifier, as a float% */
+	public float getSpeedMod() { return 100f / (float) mdo.speed; }
 	
 	/** 
 	 * Calculates some damage via base, range, and the RNG.
@@ -144,7 +82,23 @@ public class Stats {
 	 * @return					The amount of raw damage inflicted
 	 */
 	public int takePhysicalDamage(int damage) {
-		int toDeal = damage - getArmor();
+		int toDeal = damage - armor;
+		if (toDeal < 0) {
+			return 0;
+		} else {
+			takeRawDamage(toDeal);
+			return toDeal;
+		}
+	}
+	
+	/**
+	 * Inflicts an amount of damage based on incoming damage and this unit's
+	 * defenses.
+	 * @param	damage			The magical damage to be dealt
+	 * @return					The amount of raw damage inflicted
+	 */
+	public int takeMagicDamage(int damage) {
+		int toDeal = damage - magArmor;
 		if (toDeal < 0) {
 			return 0;
 		} else {

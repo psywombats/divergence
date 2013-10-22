@@ -1,14 +1,16 @@
 {
-	"key" : "potion_hp",
+	"key" : "potiontype_standard",
 	"subfolder" : "",
-	"name" : "a health potion",
-	"description" : "  ",
-	"gameDesc" : "Restores 100 health to the drinker.",
-	"icon" : "potion_red.png",
+	"name" : "",
+	"description" : "",
+	"typename" : "potion",
+	"typedesc" : "",
 	"duration" : 0,
-	"mod" : {
+	"rate" : 1.0,
+	"extraDuration" : 0,
+	"extraStats" : {
 		"mhp" : 0,
-		"hp" : 100,
+		"hp" : 0,
 		"mmp" : 0,
 		"mp" : 0,
 		"speed" : 0,

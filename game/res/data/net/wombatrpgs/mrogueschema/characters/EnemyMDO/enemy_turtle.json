@@ -2,7 +2,7 @@
 	"key" : "enemy_turtle",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "  ",
+	"description" : "   ",
 	"appearance" : "4dir_turtle",
 	"faction" : "ANIMALS",
 	"stats" : {
@@ -11,11 +11,16 @@
 		"mmp" : 0,
 		"mp" : 0,
 		"speed" : 80,
+		"walkCost" : 1000,
+		"attackCost" : 1000,
 		"vision" : 6,
 		"dodge" : 0,
-		"armor" : 7,
 		"dmgBase" : 2,
-		"dmgRange" : 2
+		"dmgRange" : 2,
+		"armor" : 7,
+		"magBase" : 3,
+		"magRange" : 1,
+		"magArmor" : 4
 	},
 	"abilities" : [ ],
 	"intelligence" : "behavior_herostep"

@@ -37,6 +37,14 @@ public class StatsMDO extends HeadlessSchema {
 	@DefaultValue("0")
 	public Integer speed;
 	
+	@Desc("Walk EP cost - base is 1000, 900 for example is a 10% speed increase")
+	@DefaultValue("0")
+	public Integer walkCost;
+	
+	@Desc("Attack EP cost - base is 1000, 900 for example is a 10% speed increase")
+	@DefaultValue("0")
+	public Integer attackCost;
+	
 	@Desc("Vision radius - in tiles")
 	@DefaultValue("0")
 	public Integer vision;
@@ -45,16 +53,28 @@ public class StatsMDO extends HeadlessSchema {
 	@DefaultValue("0")
 	public Integer dodge;
 	
+	@Desc("Base melee damage - minimum melee damage output, in HP")
+	@DefaultValue("0")
+	public Integer dmgBase;
+	
+	@Desc("Melee damage range - maximum melee damage is (base+range)")
+	@DefaultValue("0")
+	public Integer dmgRange;
+	
 	@Desc("Armor - deduction from melee attacks, in HP")
 	@DefaultValue("0")
 	public Integer armor;
 	
-	@Desc("Base damage - minimum melee damage output, in HP")
+	@Desc("Base magic damage - minimum melee damage output, in HP")
 	@DefaultValue("0")
-	public Integer dmgBase;
+	public Integer magBase;
 	
-	@Desc("Damage range - maximum melee damage is (base+range)")
+	@Desc("Magic damage range - maximum melee damage is (base+range)")
 	@DefaultValue("0")
-	public Integer dmgRange;
+	public Integer magRange;
+	
+	@Desc("Magic armor - deduction from melee attacks, in HP")
+	@DefaultValue("0")
+	public Integer magArmor;
 
 }

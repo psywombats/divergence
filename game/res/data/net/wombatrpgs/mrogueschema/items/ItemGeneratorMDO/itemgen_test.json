@@ -4,9 +4,10 @@
 	"name" : "",
 	"description" : "",
 	"items" : [
-		"potion_hp",
+		"genpotion_standard",
 		"potion_mp",
-		"potion_booststrength"
+		"potion_hp",
+		"genpotion_exotic"
 	],
 	"firstTreasure" : 40
 }

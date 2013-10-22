@@ -2,7 +2,7 @@
 	"key" : "enemy_ghostknight",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "      ",
+	"description" : "       ",
 	"appearance" : "4dir_ghost_knight",
 	"faction" : "UNDEAD",
 	"stats" : {
@@ -11,11 +11,16 @@
 		"mmp" : 0,
 		"mp" : 0,
 		"speed" : 95,
+		"walkCost" : 1000,
+		"attackCost" : 1000,
 		"vision" : 4,
 		"dodge" : 15,
-		"armor" : 3,
 		"dmgBase" : 5,
-		"dmgRange" : 3
+		"dmgRange" : 3,
+		"armor" : 3,
+		"magBase" : 4,
+		"magRange" : 4,
+		"magArmor" : 10
 	},
 	"abilities" : [ ],
 	"intelligence" : "behavior_herostep"

@@ -94,8 +94,8 @@ public class Hud extends UIElement {
 	@Override
 	public void update(float elapsed) {
 		if (awaitingReset) {
-			currentHPDisplay = MGlobal.hero.getStats().getHP();
-			currentMPDisplay = MGlobal.hero.getStats().getMP();
+			currentHPDisplay = MGlobal.hero.getStats().hp;
+			currentMPDisplay = MGlobal.hero.getStats().mp;
 			awaitingReset = false;
 			timeToDigitHP = 0;
 			timeToDigitMP = 0;
@@ -104,17 +104,17 @@ public class Hud extends UIElement {
 		timeToDigitMP += elapsed;
 		while (timeToDigitHP > mdo.digitDelay) {
 			timeToDigitHP -= mdo.digitDelay;
-			if (currentHPDisplay > MGlobal.hero.getStats().getHP()) {
+			if (currentHPDisplay > MGlobal.hero.getStats().hp) {
 				currentHPDisplay -= 1;
-			} else if (currentHPDisplay < MGlobal.hero.getStats().getHP()){
+			} else if (currentHPDisplay < MGlobal.hero.getStats().hp){
 				currentHPDisplay += 1;
 			}
 		}
 		while (timeToDigitMP > mdo.mpDigitDelay) {
 			timeToDigitMP -= mdo.mpDigitDelay;
-			if (currentMPDisplay > MGlobal.hero.getStats().getMP()) {
+			if (currentMPDisplay > MGlobal.hero.getStats().mp) {
 				currentMPDisplay -= 1;
-			} else if (currentMPDisplay < MGlobal.hero.getStats().getMP()){
+			} else if (currentMPDisplay < MGlobal.hero.getStats().mp){
 				currentMPDisplay += 1;
 			}
 		}
@@ -128,9 +128,9 @@ public class Hud extends UIElement {
 	public void render(OrthographicCamera camera) {
 		SpriteBatch batch = getBatch();
 		if (mdo.anchorDir == OrthoDir.SOUTH) {
-			float mhp = MGlobal.hero.getStats().getMHP();
+			float mhp = MGlobal.hero.getStats().mhp;
 			float hp = currentHPDisplay;
-			float mmp = MGlobal.hero.getStats().getMMP();
+			float mmp = MGlobal.hero.getStats().mmp;
 			float mp = currentMPDisplay;
 			float ratioHP = hp/mhp;
 			float ratioMP = mp/mmp;
@@ -195,8 +195,8 @@ public class Hud extends UIElement {
 	 * Forces the HUD to update its numerical displays.
 	 */
 	public void forceReset() {
-		currentHPDisplay = MGlobal.hero.getStats().getHP();
-		currentMPDisplay = MGlobal.hero.getStats().getMP();
+		currentHPDisplay = MGlobal.hero.getStats().hp;
+		currentMPDisplay = MGlobal.hero.getStats().mp;
 	}
 	
 	/** A huge awful method for HP bars */

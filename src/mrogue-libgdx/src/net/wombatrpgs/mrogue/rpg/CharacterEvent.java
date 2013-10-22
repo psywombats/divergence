@@ -411,7 +411,7 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	 * @return					True if that tile is visible, false otherwise
 	 */
 	public boolean inLoS(int targetX, int targetY) {
-		if (euclideanTileDistanceTo(targetX, targetY) > getStats().getVision()) return false;
+		if (euclideanTileDistanceTo(targetX, targetY) > getStats().vision) return false;
 		return rayExistsTo(targetX, targetY, rayLoS);
 	}
 	

@@ -172,10 +172,10 @@ public class Hero extends CharacterEvent implements CommandListener {
 		Pixmap.setBlending(Blending.SourceOver);
 		p.setColor(Color.BLACK);
 		p.fillRectangle(0, 0, parent.getWidth(), parent.getHeight());
-		int startTX = tileX - getStats().getVision();
-		int startTY = tileY - getStats().getVision();
-		int endTX = tileX + getStats().getVision();
-		int endTY = tileY + getStats().getVision();
+		int startTX = tileX - getStats().vision;
+		int startTY = tileY - getStats().vision;
+		int endTX = tileX + getStats().vision;
+		int endTY = tileY + getStats().vision;
 		if (startTX < 0) startTX = 0;
 		if (startTY < 0) startTY = 0;
 		if (endTX > parent.getWidth()) endTX = parent.getWidth();

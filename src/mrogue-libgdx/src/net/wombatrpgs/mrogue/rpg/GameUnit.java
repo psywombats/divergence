@@ -95,7 +95,7 @@ public class GameUnit implements Turnable, Queueable {
 	public Allegiance getAllegiance() { return this.allegiance; }
 	
 	/** @return True if this unit has fallen in mortal combat */
-	public boolean isDead() { return getStats().getHP() <= 0; }
+	public boolean isDead() { return getStats().hp <= 0; }
 	
 	/** @return The list of all the abilities this unit can perform */
 	public List<Ability> getAbilities() { return abilities; }
@@ -233,7 +233,7 @@ public class GameUnit implements Turnable, Queueable {
 	 * @return					True if the ability can be used, false otherwise
 	 */
 	public boolean canUse(Ability abil) {
-		return currentStats.getMP() >= abil.getMP();
+		return currentStats.mp >= abil.getMP();
 	}
 	
 	/**
@@ -243,7 +243,7 @@ public class GameUnit implements Turnable, Queueable {
 	 * @param	abil			The ability that was used
 	 */
 	public void onAbilityUsed(Ability abil) {
-		currentStats.addMP(abil.getMP() * -1);
+		currentStats.mp -= abil.getMP();
 		if (visible(this)) {
 			out.msg(getName() + " uses " + abil.getName() + ".");
 		}
@@ -253,7 +253,7 @@ public class GameUnit implements Turnable, Queueable {
 	 * Makes sure our health is above 0. If it isn't, kill self.
 	 */
 	public void ensureAlive() {
-		if (currentStats.getHP() <= 0) {
+		if (currentStats.hp <= 0) {
 			die();
 		}
 	}

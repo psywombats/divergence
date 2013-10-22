@@ -1,14 +1,16 @@
 {
-	"key" : "potion_hp",
+	"key" : "potiontype_weak",
 	"subfolder" : "",
-	"name" : "a health potion",
-	"description" : "  ",
-	"gameDesc" : "Restores 100 health to the drinker.",
-	"icon" : "potion_red.png",
+	"name" : "",
+	"description" : "",
+	"typename" : "weak potion",
+	"typedesc" : "Doesn't have a very large effect.",
 	"duration" : 0,
-	"mod" : {
+	"rate" : 0.6,
+	"extraDuration" : 0,
+	"extraStats" : {
 		"mhp" : 0,
-		"hp" : 100,
+		"hp" : 0,
 		"mmp" : 0,
 		"mp" : 0,
 		"speed" : 0,

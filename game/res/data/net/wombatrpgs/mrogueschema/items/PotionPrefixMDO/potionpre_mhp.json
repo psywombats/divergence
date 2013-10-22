@@ -1,14 +1,13 @@
 {
-	"key" : "potion_hp",
+	"key" : "potionpre_mhp",
 	"subfolder" : "",
-	"name" : "a health potion",
-	"description" : "  ",
-	"gameDesc" : "Restores 100 health to the drinker.",
-	"icon" : "potion_red.png",
-	"duration" : 0,
-	"mod" : {
-		"mhp" : 0,
-		"hp" : 100,
+	"name" : "",
+	"description" : "",
+	"prename" : "warrior's",
+	"predesc" : "Increases maximum HP.",
+	"stats" : {
+		"mhp" : 12,
+		"hp" : 0,
 		"mmp" : 0,
 		"mp" : 0,
 		"speed" : 0,

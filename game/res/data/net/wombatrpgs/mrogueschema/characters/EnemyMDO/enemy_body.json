@@ -2,7 +2,7 @@
 	"key" : "enemy_body",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "       ",
+	"description" : "        ",
 	"appearance" : "4dir_wounded_man",
 	"faction" : "UNDEAD",
 	"stats" : {
@@ -11,11 +11,16 @@
 		"mmp" : 0,
 		"mp" : 0,
 		"speed" : 120,
-		"vision" : 2,
+		"walkCost" : 10000,
+		"attackCost" : 1000,
+		"vision" : 1,
 		"dodge" : 0,
-		"armor" : 1,
 		"dmgBase" : 2,
-		"dmgRange" : 2
+		"dmgRange" : 2,
+		"armor" : 1,
+		"magBase" : 5,
+		"magRange" : 5,
+		"magArmor" : 0
 	},
 	"abilities" : [ ],
 	"intelligence" : "behavior_herostep"

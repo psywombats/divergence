@@ -7,6 +7,7 @@
 package net.wombatrpgs.mrogue.rpg.item;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
+import net.wombatrpgs.mrogueschema.items.GeneratedPotionMDO;
 import net.wombatrpgs.mrogueschema.items.PotionMDO;
 import net.wombatrpgs.mrogueschema.items.SpellbookMDO;
 import net.wombatrpgs.mrogueschema.items.data.ItemMDO;
@@ -33,6 +34,8 @@ public class ItemFactory {
 	public static Item createItem(ItemMDO mdo) {
 		if (SpellbookMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new Spellbook((SpellbookMDO) mdo);
+		} else if (GeneratedPotionMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new GeneratedPotion((GeneratedPotionMDO) mdo);
 		} else if (PotionMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new Potion((PotionMDO) mdo);
 		} else {

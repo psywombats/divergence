@@ -1,14 +1,13 @@
 {
-	"key" : "potion_hp",
+	"key" : "potionpre_armor",
 	"subfolder" : "",
-	"name" : "a health potion",
-	"description" : "  ",
-	"gameDesc" : "Restores 100 health to the drinker.",
-	"icon" : "potion_red.png",
-	"duration" : 0,
-	"mod" : {
+	"name" : "",
+	"description" : "",
+	"prename" : "knight's",
+	"predesc" : "Decreases the damage taken from melee attacks.",
+	"stats" : {
 		"mhp" : 0,
-		"hp" : 100,
+		"hp" : 0,
 		"mmp" : 0,
 		"mp" : 0,
 		"speed" : 0,
@@ -18,7 +17,7 @@
 		"dodge" : 0,
 		"dmgBase" : 0,
 		"dmgRange" : 0,
-		"armor" : 0,
+		"armor" : 1,
 		"magBase" : 0,
 		"magRange" : 0,
 		"magArmor" : 0

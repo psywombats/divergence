@@ -38,7 +38,7 @@ public class Enemy extends CharacterEvent {
 	 */
 	@Override
 	public void act() {
-		if (unit.getStats().getHP() <= 0) {
+		if (unit.getStats().hp <= 0) {
 			this.ticksRemaining += 100000;
 			return;
 		} else {
