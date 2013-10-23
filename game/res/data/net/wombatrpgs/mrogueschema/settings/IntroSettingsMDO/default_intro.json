@@ -2,7 +2,7 @@
 	"key" : "default_intro",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "engine searches for this mdo by name",
+	"description" : " engine searches for this mdo by name",
 	"immScene" : "scene_title01",
 	"titleScene" : "sceneset_scenario",
 	"scene" : "scene_title02",

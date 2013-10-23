@@ -22,6 +22,7 @@ public class TitleSettingsMDO extends MainSchema {
 	public String bg;
 	
 	@Desc("Prompt")
+	@FileLink("ui")
 	public String prompt;
 	
 	@Desc("Prompt x - pixels from bottom left to draw prompt at")

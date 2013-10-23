@@ -2,7 +2,7 @@
 	"key" : "characters_zs2",
 	"subfolder" : "",
 	"name" : "",
-	"description" : " ",
+	"description" : "  ",
 	"typeName" : [
 		{
 			"charname" : "HERO",
@@ -21,7 +21,7 @@
 				},
 				{
 					"fullname" : "exiled Calcedonian prince Luke Lloyd Piedmont",
-					"charaname" : "Luke Lloyd"
+					"charaname" : "Luke"
 				}
 			]
 		},

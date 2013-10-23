@@ -191,6 +191,17 @@ public class MGlobal {
 	}
 	
 	/**
+	 * Dumps the old level manager and associated state and then starts all
+	 * over. This is separate from the global init for some reason.
+	 */
+	public static void newGame() {
+		MGlobal.screens.reset();
+		MGlobal.levelManager.reset();
+		MGlobal.hero = null;
+		MGlobal.screens.push(new TitleScreen());
+	}
+	
+	/**
 	 * Sets all the file handlers used by the asset manager.
 	 */
 	public static void setHandlers() {

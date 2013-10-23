@@ -27,6 +27,7 @@ public class SceneFactory {
 	
 	// from set mdo key to list of file names
 	protected Map<String, List<String>> sets;
+	// from charas mdo to charas
 	protected Map<String, CharacterSet> charas;
 	
 	/**
@@ -59,9 +60,11 @@ public class SceneFactory {
 				for (HeadlessSceneMDO headless : setMDO.scenes) {
 					files.add(headless.file);
 				}
-				CharacterSetMDO charasMDO = MGlobal.data.getEntryFor(setMDO.charas, CharacterSetMDO.class);
 				sets.put(setMDO.key, files);
-				charas.put(setMDO.key, new CharacterSet(charasMDO));
+			}
+			if (!charas.containsKey(setMDO.charas)) {
+				CharacterSetMDO charasMDO = MGlobal.data.getEntryFor(setMDO.charas, CharacterSetMDO.class);
+				charas.put(setMDO.charas, new CharacterSet(charasMDO));
 			}
 			List<String> files = sets.get(setMDO.key);
 			if (files.size() == 0) {
@@ -71,11 +74,19 @@ public class SceneFactory {
 			int index = MGlobal.rand.nextInt(files.size());
 			String file = files.get(index);
 			files.remove(index);
-			return new SceneParser(file, parent, charas.get(setMDO.key));
+			return new SceneParser(file, parent, charas.get(setMDO.charas));
 		} else {
 			MGlobal.reporter.err("Unknown parser mdo: " + mdo);
 			return null;
 		}
+	}
+	
+	/**
+	 * Awful thing that I hate. Why is this here?
+	 * @return
+	 */
+	public String getHeroName() {
+		return charas.get(charas.keySet().toArray()[0]).toName("HERO");
 	}
 
 }

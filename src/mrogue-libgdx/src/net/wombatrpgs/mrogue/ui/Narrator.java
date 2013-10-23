@@ -71,6 +71,7 @@ public class Narrator extends UIElement implements Turnable {
 			}
 			font.draw(getBatch(), format, line.line, (int) (font.getLineHeight() * -i));
 		}
+		font.setAlpha(1);
 	}
 
 	/**

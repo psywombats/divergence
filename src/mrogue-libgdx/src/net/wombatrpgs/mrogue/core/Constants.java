@@ -45,6 +45,7 @@ public class Constants {
 	public static final String KEY_GRAPHICS = "graphics_default";
 	public static final String KEY_TITLE = "default_title";
 	public static final String KEY_INTRO = "default_intro";
+	public static final String KEY_DEATH = "default_death";
 	
 	/** Strings could be null or else this */
 	public static final String NULL_MDO = "None";

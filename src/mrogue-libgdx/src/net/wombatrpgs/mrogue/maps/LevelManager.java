@@ -55,6 +55,21 @@ public class LevelManager {
 	/** @return The teleport processor for these levels */
 	public TeleportManager getTele() { return this.teleport; }
 	
+	/** @return The name of the hero in these levels */
+	public String getHeroName() { return cutsceneGen.getHeroName(); }
+	
+	/**
+	 * Resets like it's a new game.
+	 */
+	public void reset() {
+		screen = null;
+		active = null;
+		teleport = null;
+		levels.clear();
+		levels = new HashMap<String, Level>();
+		cutsceneGen = new SceneFactory();
+	}
+	
 	/**
 	 * Converts a string id into a level, either by fetching it or loading it
 	 * up. WARNING: right now it loads the entire goddamn level if it hasn't

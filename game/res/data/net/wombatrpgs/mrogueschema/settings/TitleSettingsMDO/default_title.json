@@ -4,8 +4,8 @@
 	"name" : "",
 	"description" : "Looked up by key",
 	"bg" : "titlescreen.png",
-	"prompt" : "PRESS SPACE TO BEGIN",
-	"promptX" : 400,
-	"promptY" : 200,
+	"prompt" : "prompt.png",
+	"promptX" : 668,
+	"promptY" : 8,
 	"cycle" : 0.8
 }

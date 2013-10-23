@@ -82,11 +82,13 @@ public class TextBox extends Picture {
 	@Override
 	public void render(OrthographicCamera camera) {
 		super.render(camera);
+		font.setAlpha(currentColor.a);
 		for (int i = 0; i < visibleLines.size(); i++) {
 			font.draw(getBatch(), bodyFormat,
 					visibleLines.get(i), (int) (font.getLineHeight() * -i));
 		}
 		font.draw(getBatch(), nameFormat, name, 0);
+		font.setAlpha(1);
 	}
 
 	/**
@@ -251,6 +253,14 @@ public class TextBox extends Picture {
 	 */
 	public boolean isFinished() {
 		return visibleChars >= totalLength;
+	}
+	
+	/**
+	 * Resets this text box.
+	 */
+	public void reset() {
+		sinceChar = 0;
+		visibleChars = 0;
 	}
 
 }

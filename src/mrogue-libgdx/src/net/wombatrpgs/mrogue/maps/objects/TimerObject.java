@@ -100,6 +100,15 @@ public class TimerObject implements Updateable {
 	}
 	
 	/**
+	 * Parasitically attaches to a screen.
+	 * @param	host			The screen to associate with
+	 */
+	public void attach(Screen host) {
+		host.addChild(this);
+		this.host = host;
+	}
+	
+	/**
 	 * Stops or starts the timer.
 	 * @param 	run				True to start the clock, false to pause/stop it
 	 */

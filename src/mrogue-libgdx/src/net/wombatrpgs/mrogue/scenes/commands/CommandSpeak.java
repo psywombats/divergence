@@ -73,6 +73,7 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 		if (!running) {
 			running = true;
 			MGlobal.ui.getBox().setLines(lines);
+			MGlobal.ui.getBox().reset();
 			if (system) {
 				MGlobal.ui.getBox().setName("");
 			} else {

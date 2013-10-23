@@ -13,15 +13,19 @@ import com.badlogic.gdx.graphics.Pixmap.Blending;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
 
+import net.wombatrpgs.mrogue.core.Constants;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.io.CommandListener;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.rpg.abil.Ability;
 import net.wombatrpgs.mrogue.rpg.act.ActStep;
 import net.wombatrpgs.mrogue.rpg.act.Action;
+import net.wombatrpgs.mrogue.scenes.SceneParser;
+import net.wombatrpgs.mrogue.screen.instances.GameOverScreen;
 import net.wombatrpgs.mrogueschema.characters.HeroMDO;
 import net.wombatrpgs.mrogueschema.io.data.InputCommand;
 import net.wombatrpgs.mrogueschema.maps.data.EightDir;
+import net.wombatrpgs.mrogueschema.settings.DeathSettingsMDO;
 
 /**
  * Placeholder class for the protagonist player.
@@ -31,6 +35,8 @@ public class Hero extends CharacterEvent implements CommandListener {
 	public static final int ABILITIES_MAX = 6;
 	
 	protected static final String HERO_DEFAULT = "hero_default";
+	
+	protected SceneParser deathScene;
 	
 	protected ActStep step;
 	// to facilitate shader calls, viewtex is like a b/w image version of cache
@@ -55,6 +61,10 @@ public class Hero extends CharacterEvent implements CommandListener {
 		super(MGlobal.data.getEntryFor(HERO_DEFAULT, HeroMDO.class), parent, tileX, tileY);
 		MGlobal.hero = this;
 		step = new ActStep(this);
+		DeathSettingsMDO deathMDO = MGlobal.data.getEntryFor(
+				Constants.KEY_DEATH, DeathSettingsMDO.class);
+		deathScene = MGlobal.levelManager.getCutscene(deathMDO.scene);
+		assets.add(deathScene);
 	}
 	
 	/**
@@ -119,6 +129,23 @@ public class Hero extends CharacterEvent implements CommandListener {
 		parent.onTurn();
 	}
 	
+	/**
+	 * @see net.wombatrpgs.mrogue.rpg.CharacterEvent#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		super.update(elapsed);
+		if (unit.isDead()) {
+			if (!deathScene.hasExecuted()) {
+				if (!deathScene.isRunning()) {
+					deathScene.run();
+				}
+			} else {
+				MGlobal.screens.pop();
+				MGlobal.screens.push(new GameOverScreen());
+			}
+		}
+	}
 
 	/**
 	 * @see net.wombatrpgs.mrogue.io.CommandListener#onCommand

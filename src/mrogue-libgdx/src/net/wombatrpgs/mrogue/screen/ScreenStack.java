@@ -42,6 +42,7 @@ public class ScreenStack implements	Disposable,
 		for (Screen screen :  screens) {
 			screen.dispose();
 		}
+		screens.clear();
 	}
 
 	/**
@@ -69,6 +70,16 @@ public class ScreenStack implements	Disposable,
 		Screen oldTop = screens.pop();
 		oldTop.onFocusLost();
 		return oldTop;
+	}
+	
+	/**
+	 * Resets like it's a new game.
+	 */
+	public void reset() {
+		for (Screen s : screens) {
+			s.dispose();
+		}
+		screens.clear();
 	}
 	
 	/**

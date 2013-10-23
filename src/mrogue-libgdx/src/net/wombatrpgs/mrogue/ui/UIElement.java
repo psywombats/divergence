@@ -60,7 +60,7 @@ public abstract class UIElement implements	ScreenShowable,
 	 */
 	@Override
 	public boolean ignoresTint() {
-		return true;
+		return false;
 	}
 	
 	/**

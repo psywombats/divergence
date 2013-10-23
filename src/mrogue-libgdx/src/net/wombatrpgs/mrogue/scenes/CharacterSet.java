@@ -57,6 +57,7 @@ public class CharacterSet {
 	public String substitute(String text) {
 		for (String name : getNames()) {
 			text = text.replace(name + FULL_PRE, charas.get(name).fullname);
+			text = text.replace(name + ":", charas.get(name).charaname.toUpperCase() + ":");
 			text = text.replace(name, charas.get(name).charaname);
 		}
 		return text;
