@@ -55,9 +55,9 @@ public class CommandShowHide extends SceneCommand {
 		List<MapEvent> events = new ArrayList<MapEvent>();
 		if (events.size() == 0) {
 			if (eventName.equals(ARG_GROUP)) {
-				events.addAll(parent.getParent().getEventsByGroup(groupName));
+				events.addAll(parent.getLevel().getEventsByGroup(groupName));
 			} else {
-				events.add(parent.getParent().getEventByName(eventName));
+				events.add(parent.getLevel().getEventByName(eventName));
 				if (events.get(0) == null) {
 					MGlobal.reporter.warn("Show/hide a null event named: " + eventName);
 				}

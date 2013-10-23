@@ -48,37 +48,24 @@ public abstract class Screen implements CommandListener,
 										Disposable,
 										ButtonListener {
 	
-	/** Command map to use while this screen is active */
-	protected Stack<CommandMap> commandContext;
-	/** The thing to draw if this canvas is visible */
-	protected ScreenShowable canvas;
-	/** These things will be drawn over top of the canvas */
-	protected List<ScreenShowable> screenObjects;
-	/** What we'll use to render */
 	protected TrackerCam cam;
-	/** What we'll use to render UI */
 	protected OrthographicCamera uiCam;
-	/** If true, layers with higher z won't be rendered */
-	protected boolean transparent;
-	/** Batch used to render sprites */
 	protected SpriteBatch batch;
-	/** Batch used to render frame buffers */
 	protected SpriteBatch privateBatch;
-	/** Batch used to render UI and anything independent of camera */
 	protected SpriteBatch uiBatch;
-	/** Shader used to render background maps */
 	protected ShaderProgram mapShader;
-	/** Buffer we'll be using to draw to before scaling to screen */
 	protected FrameBuffer buffer, lastBuffer;
-	/** What we'll be tinting the screen before each render */
 	protected Color tint;
-	/** Used to draw the background rects */
 	protected ShapeRenderer shapes;
-	protected boolean initialized;
 	
 	protected List<Queueable> assets;
 	protected List<PostRenderable> postRenders;
 	protected List<CommandListener> commandListeners;
+	protected List<Updateable> updateChildren, removeChildren, addChildren;
+	protected List<ScreenShowable> screenObjects;
+	protected Stack<CommandMap> commandContext;
+	
+	protected boolean initialized;
 
 	
 	/**
@@ -89,11 +76,15 @@ public abstract class Screen implements CommandListener,
 	public Screen() {
 		assets = new ArrayList<Queueable>();
 		commandContext = new Stack<CommandMap>();
-		transparent = false;
-		initialized = false;
-		mapShader = null;
 		postRenders = new ArrayList<PostRenderable>();
 		commandListeners = new ArrayList<CommandListener>();
+		updateChildren = new ArrayList<Updateable>();
+		removeChildren = new ArrayList<Updateable>();
+		addChildren = new ArrayList<Updateable>();
+		screenObjects = new ArrayList<ScreenShowable>();
+		
+		initialized = false;
+		mapShader = null;
 		batch = new SpriteBatch();
 		privateBatch = new SpriteBatch();
 		uiBatch = new SpriteBatch();
@@ -105,7 +96,6 @@ public abstract class Screen implements CommandListener,
 				MGlobal.window.getWidth(),
 				MGlobal.window.getHeight(),
 				false);
-		screenObjects = new ArrayList<ScreenShowable>();
 		tint = new Color(0, 0, 0, 1);
 		shapes = new ShapeRenderer();
 		cam = new TrackerCam(MGlobal.window.getWidth(), MGlobal.window.getHeight());
@@ -117,6 +107,9 @@ public abstract class Screen implements CommandListener,
 		uiCam.position.y = MGlobal.window.getViewportHeight() / 2;
 		uiCam.update();
 		uiBatch.setProjectionMatrix(uiCam.combined);
+		
+		updateChildren.add(cam);
+		updateChildren.add(MGlobal.keymap);
 	}
 	
 	/**
@@ -167,6 +160,12 @@ public abstract class Screen implements CommandListener,
 	
 	/** @param listener The listener to stop receiving command updates */
 	public void unregisterCommandListener(CommandListener listener) { commandListeners.remove(listener); }
+	
+	/** @param u The updateable child to add */
+	public void addChild(Updateable u) { addChildren.add(u); }
+	
+	/** @param u The updateable child to (eventually) remove */
+	public void removeChild(Updateable u) { removeChildren.add(u); }
 	
 	/**
 	 * Removes an explicit command map from the stack.
@@ -240,7 +239,6 @@ public abstract class Screen implements CommandListener,
 		shapes.begin(ShapeType.Filled);
 		shapes.rect(0, 0, window.getWidth(), window.getHeight());
 		shapes.end();
-		canvas.render(cam);
 		for (ScreenShowable pic : screenObjects) {
 			pic.render(cam);
 		}
@@ -314,12 +312,17 @@ public abstract class Screen implements CommandListener,
 	 */
 	@Override
 	public void update(float elapsed) {
-		cam.update(elapsed);
-		canvas.update(elapsed);
-		for (ScreenShowable pic : screenObjects) {
-			pic.update(elapsed);
+		for (Updateable up : updateChildren) {
+			up.update(elapsed);
 		}
-		MGlobal.keymap.update(elapsed);
+		for (Updateable up : addChildren) {
+			updateChildren.add(up);
+		}
+		addChildren.clear();
+		for (Updateable up : removeChildren) {
+			updateChildren.remove(up);
+		}
+		removeChildren.clear();
 	}
 
 	/**
@@ -331,17 +334,21 @@ public abstract class Screen implements CommandListener,
 		for (CommandListener listener : commandListeners) {
 			if (listener.onCommand(command)) return true;
 		}
-		return false;
+		switch (command) {
+		case INTENT_QUIT:
+			Gdx.app.exit();
+			return true;
+		case INTENT_FULLSCREEN:
+			Gdx.graphics.setDisplayMode(
+					MGlobal.window.getResolutionWidth(), 
+					MGlobal.window.getResolutionHeight(), 
+					!Gdx.graphics.isFullscreen());
+			return true;
+		default:
+			return false;
+		}
 	}
 
-	/**
-	 * Changes the screen's canvas.
-	 * @param 	newCanvas		The new renderable canvas
-	 */
-	public void setCanvas(ScreenShowable newCanvas) {
-		this.canvas = newCanvas;
-	}
-	
 	/**
 	 * @see net.wombatrpgs.mrogue.graphics.Disposable#dispose()
 	 */
@@ -360,15 +367,17 @@ public abstract class Screen implements CommandListener,
 	 */
 	public void addScreenObject(ScreenShowable screenObject) {
 		screenObjects.add(screenObject);
+		addChildren.add(screenObject);
 	}
 	
 	/**
 	 * Removes a screen-showable picture from the screen.
 	 * @param	screenObject	The object to add
 	 */
-	public void removePicture(ScreenShowable screenObject) {
+	public void removeScreenObject(ScreenShowable screenObject) {
 		if (screenObjects.contains(screenObject)) {
 			screenObjects.remove(screenObject);
+			removeChild(screenObject);
 		} else {
 			MGlobal.reporter.warn("Tried to remove non-existant picture from screen: " + screenObject);
 		}
@@ -379,13 +388,6 @@ public abstract class Screen implements CommandListener,
 	 * the constructor.
 	 */
 	protected final void init() {
-		if (canvas == null) {
-			MGlobal.reporter.warn("No canvas for screen " + this);
-		}
-		if (commandContext == null) {
-			MGlobal.reporter.warn("No command context for screen " + this);
-		}
-		// TODO: load with a loading bar
 		this.queueRequiredAssets(MGlobal.assetManager);
 		MGlobal.assetManager.finishLoading();
 		this.postProcessing(MGlobal.assetManager, 0);

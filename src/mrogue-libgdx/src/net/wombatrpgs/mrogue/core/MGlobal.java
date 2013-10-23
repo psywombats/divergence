@@ -27,13 +27,11 @@ import net.wombatrpgs.mrogue.maps.LevelManager;
 import net.wombatrpgs.mrogue.maps.gen.TileManager;
 import net.wombatrpgs.mrogue.rpg.Hero;
 import net.wombatrpgs.mrogue.scenes.SceneData;
-import net.wombatrpgs.mrogue.scenes.TeleportGlobal;
 import net.wombatrpgs.mrogue.screen.ScreenStack;
 import net.wombatrpgs.mrogue.screen.WindowSettings;
-import net.wombatrpgs.mrogue.screen.instances.GameScreen;
+import net.wombatrpgs.mrogue.screen.instances.TitleScreen;
 import net.wombatrpgs.mrogue.ui.UISettings;
 import net.wombatrpgs.mrogueschema.settings.GraphicsSettingsMDO;
-import net.wombatrpgs.mrogueschema.settings.TeleportSettingsMDO;
 import net.wombatrpgs.mrogueschema.settings.UISettingsMDO;
 import net.wombatrpgs.mrogueschema.settings.WindowSettingsMDO;
 
@@ -68,8 +66,6 @@ public class MGlobal {
 	public static WindowSettings window;
 	/** Our current graphics settings */
 	public static GraphicsSettings graphics;
-	/** Teleport settings, from database */
-	public static TeleportGlobal teleport;
 	/** Loader for simple text files */
 	public static FileLoader loader;
 	/** Manages all tile types and graphics etc */
@@ -124,8 +120,8 @@ public class MGlobal {
 			MGlobal.constants = new Constants();
 			MGlobal.screens = new ScreenStack();
 			MGlobal.loader = new FileLoader();
-			MGlobal.levelManager = new LevelManager();
 			MGlobal.tiles = new TileManager();
+			MGlobal.levelManager = new LevelManager();
 			
 			// load secondary data
 			// TODO: load with a loading bar
@@ -145,11 +141,9 @@ public class MGlobal {
 					MGlobal.data.getEntryFor(Constants.GRAPHICS_KEY, GraphicsSettingsMDO.class));
 			MGlobal.ui = new UISettings(MGlobal.data.getEntryFor(
 					UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
-			MGlobal.teleport = new TeleportGlobal(MGlobal.data.getEntryFor(
-					TeleportGlobal.DEFAULT_MDO_KEY, TeleportSettingsMDO.class));
 			toLoad.add(ui);
-			toLoad.add(teleport);
 			toLoad.add(graphics);
+			MGlobal.screens.push(new TitleScreen());
 			for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
 			for (int pass = 0; MGlobal.assetManager.getProgress() < 1; pass++) {
 				assetStart = System.currentTimeMillis();
@@ -161,7 +155,7 @@ public class MGlobal {
 			}
 			
 			// initializing graphics
-			MGlobal.reporter.inform("Creating screen and graphics");
+			MGlobal.reporter.inform("Creating level-dependant data");
 			toLoad.clear();
 			String result = loader.getText(Constants.CONFIG_FILE);
 			boolean fullscreen = result.indexOf("true") != -1;
@@ -174,7 +168,6 @@ public class MGlobal {
 			Gdx.input.setInputProcessor(MGlobal.keymap);
 			
 			MGlobal.reporter.inform("Loading level assets");
-			MGlobal.screens.push(new GameScreen());
 			for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
 			for (int pass = 0; MGlobal.assetManager.getProgress() < 1; pass++) {
 				MGlobal.reporter.inform("Loading pass " + pass + ", took " + assetElapsed);

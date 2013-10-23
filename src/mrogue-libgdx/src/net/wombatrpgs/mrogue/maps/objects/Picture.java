@@ -24,6 +24,7 @@ import net.wombatrpgs.mrogue.screen.ScreenShowable;
  * equivalent. The only difference it has with the map object is that it
  * can be compared against other pictures to sort by z-depth.
  */
+// TODO: refactor or delete picture/screenshowable/graphic
 public class Picture implements Comparable<Picture>,
 								ScreenShowable,
 								PositionSetable {

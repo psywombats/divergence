@@ -85,9 +85,9 @@ public class CommandMove extends SceneCommand {
 		if (finished) return true;
 		if (events.size() == 0) {
 			if (eventName.equals(ARG_GROUP)) {
-				events.addAll(parent.getParent().getEventsByGroup(groupName));
+				events.addAll(parent.getLevel().getEventsByGroup(groupName));
 			} else {
-				events.add(parent.getParent().getEventByName(eventName));
+				events.add(parent.getLevel().getEventByName(eventName));
 				if (events.get(0) == null) {
 					MGlobal.reporter.warn("Couldn't move event by name: " + eventName);
 				}
@@ -186,8 +186,8 @@ public class CommandMove extends SceneCommand {
 					line = line.substring(line.indexOf(' ') + 1);
 				}
 				int paces = Integer.valueOf(countString);
-				int deltaX = (int) vec.x * paces * parent.getParent().getTileWidth();
-				int deltaY = (int) vec.y * paces * parent.getParent().getTileHeight();
+				int deltaX = (int) vec.x * paces * parent.getLevel().getTileWidth();
+				int deltaY = (int) vec.y * paces * parent.getLevel().getTileHeight();
 				steps.add(0, new MoveStep(deltaX, deltaY));
 			}
 

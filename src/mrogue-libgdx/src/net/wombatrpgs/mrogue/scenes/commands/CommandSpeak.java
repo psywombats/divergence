@@ -14,7 +14,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import net.wombatrpgs.mrogue.core.Constants;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.graphics.Graphic;
 import net.wombatrpgs.mrogue.maps.Level;
@@ -58,12 +57,12 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 		if (speakerKey.equals(NAME_SYSTEM)) {
 			system = true;
 		} else {
-			this.mdo = speakers.get(speakerKey);
-			if (mdo == null) {
-				MGlobal.reporter.warn("Speaker key not in database: " + speakerKey);
-			} else if (mdo.file != null) {
-				faceGraphic = new Graphic(Constants.UI_DIR + mdo.file);
-			}
+//			this.mdo = speakers.get(speakerKey);
+//			if (mdo == null) {
+//				MGlobal.reporter.warn("Speaker key not in database: " + speakerKey);
+//			} else if (mdo.file != null) {
+//				faceGraphic = new Graphic(Constants.UI_DIR + mdo.file);
+//			}
 		}
 	}
 
@@ -78,7 +77,7 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 			if (system) {
 				MGlobal.ui.getBox().setName("");
 			} else {
-				MGlobal.ui.getBox().setName(mdo.name);
+				//MGlobal.ui.getBox().setName(mdo.name);
 			}
 			// TODO: figure out why the text box default batch is broken
 			if (faceGraphic != null) {
@@ -140,7 +139,7 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 					speak.zero();
 				}
 			};
-			new TimerObject(FADE_TIME, getParent(), listener) {
+			new TimerObject(FADE_TIME, MGlobal.hero, listener) {
 				@Override public void onMapFocusLost(Level map) {
 					super.onMapFocusLost(map);
 					speak.zero();
@@ -165,9 +164,9 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	 * Called when timer reaches zero-ish. For pic fadeout.
 	 */
 	protected void zero() {
-		MGlobal.screens.peek().removePicture(MGlobal.ui.getBox());
+		MGlobal.screens.peek().removeScreenObject(MGlobal.ui.getBox());
 		if (facePic != null) {
-			MGlobal.screens.peek().removePicture(facePic);
+			MGlobal.screens.peek().removeScreenObject(facePic);
 		}
 	}
 

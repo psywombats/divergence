@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
-import net.wombatrpgs.mrogue.io.HardcodedCommandMap;
+import net.wombatrpgs.mrogue.io.GameCommandMap;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.screen.Screen;
 import net.wombatrpgs.mrogue.ui.text.FontHolder;
@@ -38,7 +38,7 @@ public class TestScreen extends Screen {
 		super();
 		MapLoadTestMDO mapTestMDO = MGlobal.data.getEntryFor("map_test", MapLoadTestMDO.class);
 		Level map = MGlobal.levelManager.getLevel(mapTestMDO.map);
-		this.canvas = map;
+		addScreenObject(map);
 		
 		TextBoxTestMDO testMDO = MGlobal.data.getEntryFor("test_textbox", TextBoxTestMDO.class);
 		if (testMDO != null && testMDO.enabled == TestState.ENABLED) {
@@ -49,7 +49,7 @@ public class TestScreen extends Screen {
 			box.setText(testMDO.text);
 		}
 		
-		pushCommandContext(new HardcodedCommandMap());
+		pushCommandContext(new GameCommandMap());
 		defaultFont = new BitmapFont();
 		batch = new SpriteBatch();
 		cam.track(MGlobal.hero);

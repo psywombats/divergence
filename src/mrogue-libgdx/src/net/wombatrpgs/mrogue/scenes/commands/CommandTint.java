@@ -9,8 +9,7 @@ package net.wombatrpgs.mrogue.scenes.commands;
 import com.badlogic.gdx.graphics.Color;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
-import net.wombatrpgs.mrogue.maps.MapThing;
-import net.wombatrpgs.mrogue.maps.PauseLevel;
+import net.wombatrpgs.mrogue.core.Updateable;
 import net.wombatrpgs.mrogue.scenes.SceneCommand;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 
@@ -55,11 +54,10 @@ public class CommandTint extends SceneCommand {
 			final float oldR = MGlobal.screens.peek().getTint().r;
 			final float oldG = MGlobal.screens.peek().getTint().g;
 			final float oldB = MGlobal.screens.peek().getTint().b;
-			MapThing child = new MapThing() {
+			Updateable child = new Updateable() {
 				protected Color tint;
 				@Override
 				public void update(float elapsed) {
-					super.update(elapsed);
 					float ratio = (parser.getTimeSinceStart() - startTime) / duration;
 					if (ratio >= 1) ratio = 1;
 					if (tint == null) tint = MGlobal.screens.peek().getTint();
@@ -67,13 +65,12 @@ public class CommandTint extends SceneCommand {
 					tint.g = oldG + ratio * (g - oldG);
 					tint.b = oldB + ratio * (b - oldB);
 					if (ratio >= 1) {
-						parent.removeObject(this);
+						getScreen().removeChild(this);
 						tinting = false;
 					}
 				}	
 			};
-			child.setPauseLevel(PauseLevel.PAUSE_RESISTANT);
-			parent.getParent().addObject(child);
+			getScreen().addChild(child);
 			finished = true;
 		}
 		return true;

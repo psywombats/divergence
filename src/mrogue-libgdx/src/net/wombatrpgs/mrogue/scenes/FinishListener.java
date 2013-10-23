@@ -6,8 +6,6 @@
  */
 package net.wombatrpgs.mrogue.scenes;
 
-import net.wombatrpgs.mrogue.maps.Level;
-
 /**
  * Called when a scene is done parsing.
  */
@@ -15,8 +13,7 @@ public interface FinishListener {
 	
 	/**
 	 * Called when the scene ends.
-	 * @param	map				The level the scene was on
 	 */
-	public void onFinish(Level map);
+	public void onFinish();
 
 }

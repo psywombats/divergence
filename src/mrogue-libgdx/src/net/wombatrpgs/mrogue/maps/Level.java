@@ -70,7 +70,6 @@ public class Level implements	ScreenShowable,
 	
 	protected MusicObject bgm;
 	protected Effect effect;
-	protected boolean paused;
 	protected boolean reseting;
 	protected boolean updating;
 	protected boolean moving;
@@ -109,18 +108,19 @@ public class Level implements	ScreenShowable,
 			assets.add(effect);
 		}
 		if (MapThing.mdoHasProperty(mdo.enemies)) {
-			monGen = new MonsterGenerator(this, MGlobal.data.getEntryFor(mdo.enemies, MonsterGeneratorMDO.class));
+			monGen = new MonsterGenerator(this,
+					MGlobal.data.getEntryFor(mdo.enemies, MonsterGeneratorMDO.class));
 			assets.add(monGen);
 		}
 		if (MapThing.mdoHasProperty(mdo.items)) {
-			itemGen = new ItemGenerator(this, MGlobal.data.getEntryFor(mdo.items, ItemGeneratorMDO.class));
+			itemGen = new ItemGenerator(this,
+					MGlobal.data.getEntryFor(mdo.items, ItemGeneratorMDO.class));
 			assets.add(itemGen);
 		}
 		if (MapThing.mdoHasProperty(mdo.scene)) {
-			scene = new SceneParser(mdo.scene, this);
+			scene = MGlobal.levelManager.getCutscene(mdo.scene);
 			assets.add(scene);
 		}
-		paused = false;
 		reseting = false;
 		moving = false;
 		
@@ -155,12 +155,6 @@ public class Level implements	ScreenShowable,
 	
 	/** @return The height of each tile on this map, in pixels */
 	public int getTileHeight() { return TILE_HEIGHT; }
-	
-	/** @param pause The map object to pause on */
-	public void setPause(boolean paused) { this.paused = paused; }
-	
-	/** @return True if the level is in a suspended state */
-	public boolean isPaused() { return this.paused; }
 	
 	/** @return The default bgm for this level */
 	public MusicObject getBGM() { return this.bgm; }
@@ -198,12 +192,14 @@ public class Level implements	ScreenShowable,
 	/** @return The map keys of all neighbors that are reached by descending */
 	public String[] getDownKeys() { return mdo.pathsDown; }
 	
+	/** @return The screen this map is placed on */
+	public Screen getScreen() { return MGlobal.levelManager.getScreen(); }
+	
 	/** @see net.wombatrpgs.mrogue.screen.ScreenShowable#ignoresTint() */
 	@Override public boolean ignoresTint() { return false; }
 
 	/** @see java.lang.Object#toString() */
-	@Override
-	public String toString() { return mdo.key; }
+	@Override public String toString() { return mdo.key; }
 
 	/**
 	 * @see net.wombatrpgs.mrogue.graphics.Renderable#render(
@@ -273,8 +269,8 @@ public class Level implements	ScreenShowable,
 	@Override
 	public void update(float elapsed) {
 		updating = true;
-		if (!paused && scene != null && !scene.hasExecuted()) {
-			scene.run(this);
+		if (scene != null && !scene.hasExecuted()) {
+			scene.run();
 		}
 		for (MapThing toRemove : removalObjects) {
 			toRemove.onRemovedFromMap(this);
@@ -287,10 +283,8 @@ public class Level implements	ScreenShowable,
 		removalEvents.clear();
 		for (int i = 0; i < objects.size(); i++) {
 			MapThing object = objects.get(i);
-			if (!paused || object.getPauseLevel() != PauseLevel.SURRENDERS_EASILY) {
-				object.update(elapsed);
-				if (reseting) break;
-			}
+			object.update(elapsed);
+			if (reseting) break;
 		}
 		if (effect != null) {
 			effect.update(elapsed);
@@ -395,7 +389,7 @@ public class Level implements	ScreenShowable,
 		newEvent.setTileX(tileX);
 		newEvent.setTileY(tileY);
 		if (newEvent == MGlobal.hero && scene != null) {
-			scene.run(this);
+			scene.run();
 		}
 	}
 	

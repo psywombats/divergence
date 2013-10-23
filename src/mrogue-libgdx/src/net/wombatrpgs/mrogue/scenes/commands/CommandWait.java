@@ -55,12 +55,12 @@ public class CommandWait extends SceneCommand {
 		if (finished) return true;
 		if (!running) {
 			startTime = parent.getTimeSinceStart();
-			if (soft) parent.getParent().setPause(false);
+			//if (soft) parent.getParent().setPause(false);
 			running = true;
 		}
 		if (startTime + duration <= parent.getTimeSinceStart()) {
 			finished = true;
-			if (soft) parent.getParent().setPause(true);
+			//if (soft) parent.getParent().setPause(true);
 		}
 		return false;
 	}

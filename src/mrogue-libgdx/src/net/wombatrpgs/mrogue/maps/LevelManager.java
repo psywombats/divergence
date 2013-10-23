@@ -10,8 +10,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
+import net.wombatrpgs.mrogue.scenes.SceneFactory;
+import net.wombatrpgs.mrogue.scenes.SceneParser;
+import net.wombatrpgs.mrogue.scenes.TeleportManager;
 import net.wombatrpgs.mrogue.screen.Screen;
+import net.wombatrpgs.mrogueschema.cutscene.data.SceneParentMDO;
 import net.wombatrpgs.mrogueschema.maps.MapMDO;
+import net.wombatrpgs.mrogueschema.settings.TeleportSettingsMDO;
 
 /**
  * Manages levels so that they don't have to be created multiple times. It
@@ -22,31 +27,33 @@ public class LevelManager {
 	
 	/** Goes from map IDs to their level manifestation */
 	protected Map<String, Level> levels;
-	/** The screen that will be showing all the levels */
 	protected Screen screen;
+	protected SceneFactory cutsceneGen;
+	protected Level active;
+	protected TeleportManager teleport;
 	
 	/**
 	 * Creates and initializes a new level manager.
 	 */
 	public LevelManager() {
 		levels = new HashMap<String, Level>();
+		cutsceneGen = new SceneFactory();
 	}
 	
-	/**
-	 * Levels will render to the new screen.
-	 * @param screen			The screen that will be showing levels
-	 */
-	public void setScreen(Screen screen) {
-		this.screen = screen;
-	}
+	/** @param screen The screen that will be showing levels */
+	public void setScreen(Screen screen) { this.screen = screen; }
 	
-	/**
-	 * Gets the screen levels use.
-	 * @return =				The screen levels use
-	 */
-	public Screen getScreen() {
-		return screen;
-	}
+	/** @return The screen levels use */
+	public Screen getScreen() { return screen; }
+	
+	/** @return The currently active level */
+	public Level getActive() { return active; }
+	
+	/** @param active The new active level */
+	public void setActive(Level active) { this.active = active; }
+	
+	/** @return The teleport processor for these levels */
+	public TeleportManager getTele() { return this.teleport; }
 	
 	/**
 	 * Converts a string id into a level, either by fetching it or loading it
@@ -55,8 +62,12 @@ public class LevelManager {
 	 * @param 	mapID		The map id to load up
 	 * @return				The map, either gen'd or stored
 	 */
-	// TODO: make this pretty loading
 	public Level getLevel(String mapID) {
+		if (teleport == null) {
+			teleport = new TeleportManager(MGlobal.data.getEntryFor(
+					TeleportManager.MD0_KEY, TeleportSettingsMDO.class));
+			teleport.queueRequiredAssets(MGlobal.assetManager);
+		}
 		if (!levels.containsKey(mapID)) {
 			// TODO: figure out this tint bullshit and why it's needed
 			// it's buggy, this shouldn't be necessary
@@ -76,6 +87,7 @@ public class LevelManager {
 			for (int pass = 0; MGlobal.assetManager.getProgress() < 1; pass++) {
 				MGlobal.assetManager.finishLoading();
 				map.postProcessing(MGlobal.assetManager, pass);
+				teleport.postProcessing(MGlobal.assetManager, pass);
 			}
 			long endTime = System.currentTimeMillis();
 			float elapsed  = (endTime - startTime) / 1000f;
@@ -89,6 +101,17 @@ public class LevelManager {
 			}
 		}
 		return levels.get(mapID);
+	}
+	
+	/**
+	 * Children should call this to create their cutscenes.
+	 * @param	mdoKey			The key of the mdo of the scen to generate
+	 * @param	parent			The map to generate for
+	 * @return					A scene from that mdo
+	 */
+	public SceneParser getCutscene(String mdoKey) {
+		SceneParentMDO mdo = MGlobal.data.getEntryFor(mdoKey, SceneParentMDO.class);
+		return cutsceneGen.createScene(mdo, getScreen());
 	}
 	
 }

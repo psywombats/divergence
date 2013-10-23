@@ -2,7 +2,7 @@
 	"key" : "potionpre_dmgrange",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "",
+	"description" : " ",
 	"prename" : "gambler's",
 	"predesc" : "Increases potential melee and magic damage.",
 	"stats" : {
@@ -15,11 +15,11 @@
 		"attackCost" : 0,
 		"vision" : 0,
 		"dodge" : 0,
-		"dmgBase" : 0,
-		"dmgRange" : 3,
+		"dmgBase" : -2,
+		"dmgRange" : 5,
 		"armor" : 0,
-		"magBase" : 0,
-		"magRange" : 3,
+		"magBase" : -1,
+		"magRange" : 4,
 		"magArmor" : 0
 	}
 }

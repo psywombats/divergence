@@ -18,9 +18,9 @@ import net.wombatrpgs.mrogueschema.settings.TeleportSettingsMDO;
 /**
  * A thing to keep track of which scene scripts play before/after teleports
  */
-public class TeleportGlobal implements Queueable {
+public class TeleportManager implements Queueable {
 	
-	public static final String DEFAULT_MDO_KEY = "default_teleport";
+	public static final String MD0_KEY = "default_teleport";
 	
 	protected TeleportSettingsMDO mdo;
 	protected SceneParser preParser, postParser;
@@ -29,10 +29,14 @@ public class TeleportGlobal implements Queueable {
 	 * Constructs teleport settings from data.
 	 * @param 	mdo				The settings to use to construct the settings
 	 */
-	public TeleportGlobal(TeleportSettingsMDO mdo) {
+	public TeleportManager(TeleportSettingsMDO mdo) {
 		this.mdo = mdo;
-		preParser = new SceneParser(MGlobal.data.getEntryFor(mdo.pre, SceneMDO.class));
-		postParser = new SceneParser(MGlobal.data.getEntryFor(mdo.post, SceneMDO.class));
+		preParser = new SceneParser(
+				MGlobal.data.getEntryFor(mdo.pre, SceneMDO.class),
+				MGlobal.levelManager.getScreen());
+		postParser = new SceneParser(
+				MGlobal.data.getEntryFor(mdo.post, SceneMDO.class),
+				MGlobal.levelManager.getScreen());
 	}
 	
 	/** @return The parser to play before a teleport */
@@ -89,10 +93,11 @@ public class TeleportGlobal implements Queueable {
 			MGlobal.ui.getHud().setOverlayTintIgnore(true);
 		}
 		if (map.getBGM() != null && !map.getBGM().matches(old.getBGM())) map.getBGM().play();
-		// TODO: make sure this only applies to maps that want it
+
 		//MGlobal.screens.getCamera().constrainMaps(map);
 		
-		MGlobal.levelManager.getScreen().setCanvas(map);
+		MGlobal.levelManager.getScreen().addScreenObject(map);
+		MGlobal.levelManager.getScreen().removeScreenObject(old);
 		
 	}
 

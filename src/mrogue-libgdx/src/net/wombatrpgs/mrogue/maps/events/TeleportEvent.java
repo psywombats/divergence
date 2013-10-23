@@ -50,6 +50,7 @@ public class TeleportEvent extends MapEvent {
 		super.update(elapsed);
 		if (triggered && !parent.isMoving()) {
 			teleport(victim);
+			triggered = false;
 		}
 	}
 
@@ -79,18 +80,16 @@ public class TeleportEvent extends MapEvent {
 	 */
 	protected void teleport(MapEvent other) {
 		if (other != MGlobal.hero) return;
-		if (getParent().contains(MGlobal.teleport.getPre())) return;
-		MGlobal.teleport.getPre().addListener(new FinishListener() {
+		MGlobal.levelManager.getTele().getPre().addListener(new FinishListener() {
 			@Override
-			public void onFinish(Level map) {
+			public void onFinish() {
 				Level newMap = MGlobal.levelManager.getLevel(mapKey);
 				Loc to = newMap.getTeleInLoc(parent.getKey());
-				MGlobal.teleport.teleport(newMap, to.x, to.y);
-				MGlobal.teleport.getPost().run(newMap);
-				triggered = false;
+				MGlobal.levelManager.getTele().teleport(newMap, to.x, to.y);
+				MGlobal.levelManager.getTele().getPost().run();
 			}
 		});
-		MGlobal.teleport.getPre().run(MGlobal.hero.getParent());
+		MGlobal.levelManager.getTele().getPre().run();
 	}
 	
 }

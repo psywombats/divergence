@@ -13,12 +13,13 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mrogue.core.Constants;
 import net.wombatrpgs.mrogue.core.MGlobal;
+import net.wombatrpgs.mrogue.core.Queueable;
+import net.wombatrpgs.mrogue.core.Updateable;
 import net.wombatrpgs.mrogue.io.CommandMap;
 import net.wombatrpgs.mrogue.io.SceneCommandMap;
 import net.wombatrpgs.mrogue.maps.Level;
-import net.wombatrpgs.mrogue.maps.MapThing;
-import net.wombatrpgs.mrogue.maps.PauseLevel;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
+import net.wombatrpgs.mrogue.screen.Screen;
 import net.wombatrpgs.mrogueschema.cutscene.SceneMDO;
 import net.wombatrpgs.mrogueschema.cutscene.data.TriggerRepeatType;
 
@@ -26,14 +27,18 @@ import net.wombatrpgs.mrogueschema.cutscene.data.TriggerRepeatType;
  * This thing takes a scene and then hijacks its parent level into doing its
  * bidding.
  */
-public class SceneParser extends MapThing {
+public class SceneParser implements	Updateable,
+									Queueable {
 	
 	protected SceneMDO mdo;
+	protected Screen parent;
+	
 	protected SceneParser childParser;
 	protected List<SceneCommand> commands;
 	protected List<MapEvent> controlledEvents;
 	protected List<FinishListener> listeners;
 	protected CommandMap ourMap;
+	protected CharacterSet charas;
 	protected String filename;
 	protected boolean executed, running;
 	protected float timeSinceStart;
@@ -41,20 +46,21 @@ public class SceneParser extends MapThing {
 	/**
 	 * Creates a new scene parser from data. Does not autoplay.
 	 * @param 	mdo				The data to create from
-	 * @param	parent			The level we'll be parsing on
+	 * @param	parent			The screen we'll be parsing on
 	 */
-	public SceneParser(SceneMDO mdo, Level parent) {
-		this(mdo);
-		parent.addObject(this);
+	public SceneParser(SceneMDO mdo, Screen parent) {
+		this.mdo = mdo;
+		this.parent = parent;
+		init();
 	}
 	
 	/**
 	 * Creates a new scene parser for a given file. No autoplay. Assumes no
 	 * repeat.
 	 * @param	fileName		The filename to load, relative to scenes dir
-	 * @param	parent			The level to make for
+	 * @param	parent			The screen to make for
 	 */
-	public SceneParser(String filename, Level parent) {
+	public SceneParser(String filename, Screen parent) {
 		this.mdo = new SceneMDO();
 		this.parent = parent;
 		mdo.file = filename;
@@ -63,14 +69,22 @@ public class SceneParser extends MapThing {
 	}
 	
 	/**
-	 * Creates a new scene parser from data without a parent. Does not auto-
-	 * play. Assumes you will add it to the map yourself before playing.
-	 * @param 	mdo				The data to construct from
+	 * Creates a new scene parser for a given file. No autoplay. Assumes no
+	 * repeat. Substitutes character names on the supplied list.
+	 * @param	fileName		The filename to load, relative to scenes dir
+	 * @param	parent			The screen to make for
+	 * @param	charas			The character substitutions to make
 	 */
-	public SceneParser(SceneMDO mdo) {
-		this.mdo = mdo;
-		init();
+	public SceneParser(String filename, Screen parent, CharacterSet charas) {
+		this(filename, parent);
+		this.charas = charas;
 	}
+	
+	/** @retrun The character substitutions to make in these commands */
+	public CharacterSet getCharas() { return charas; }
+	
+	/** @return The screen we're running on */
+	public Screen getScreen() { return parent; }
 	
 	/**
 	 * @see net.wombatrpgs.mrogue.maps.MapThing#queueRequiredAssets
@@ -78,8 +92,7 @@ public class SceneParser extends MapThing {
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		super.queueRequiredAssets(manager);
-		manager.load(filename, SceneData.class);
+		manager.load(Constants.SCENES_DIR + mdo.file, SceneData.class);
 	}
 
 	/**
@@ -88,7 +101,6 @@ public class SceneParser extends MapThing {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		super.postProcessing(manager, pass);
 		if (pass > 1) {
 			return;
 		} else if (pass == 1) {
@@ -113,7 +125,6 @@ public class SceneParser extends MapThing {
 	 */
 	@Override
 	public void update(float elapsed) {
-		super.update(elapsed);
 		timeSinceStart += elapsed;
 		if (running) {
 			for (SceneCommand command : commands) {
@@ -134,10 +145,8 @@ public class SceneParser extends MapThing {
 	}
 
 	/**
-	 * ...should we really be overriding this?
-	 * @see net.wombatrpgs.mrogue.maps.MapThing#reset()
+	 * Resets the scene?
 	 */
-	@Override
 	public void reset() {
 		this.executed = false;
 		this.childParser = null;
@@ -154,6 +163,9 @@ public class SceneParser extends MapThing {
 	
 	/** @param parser The thing to wait until done */
 	public void setChild(SceneParser parser) { this.childParser = parser; }
+	
+	/** @return The level currently active. Same as the static call */
+	public Level getLevel() { return MGlobal.levelManager.getActive(); }
 	
 	/**
 	 * Gets all map events that have been touched by movements by this parser.
@@ -174,37 +186,26 @@ public class SceneParser extends MapThing {
 	 * now the only context is if a scene has been played before.
 	 * @param	level			The level this command was executed on
 	 */
-	public void run(Level level) {
-		this.parent = level;
+	public void run() {
 		if (!running && (!executed || mdo.repeat == TriggerRepeatType.RUN_EVERY_TIME)) {
 			if (executed) reset();
-			forceRun(level);
+			forceRun();
 		}
 	}
 	
 	/**
 	 * Just run the scene, regardless of context.
 	 */
-	public void forceRun(Level level) {
+	public void forceRun() {
 		if (running) {
 			MGlobal.reporter.inform("Aborted a parser on " + parent + ": " + this);
 			terminate();
 		}
-		if (parent != level) {
-			if (parent != null && parent.contains(this)) {
-				MGlobal.reporter.inform("Removed a parser on " + parent + ": " + this);
-			}
-			this.parent = level;
-		}
-		if (!level.contains(this)) {
-			level.addObject(this);
-		}
 		MGlobal.reporter.inform("Now running a scene: " + this);
 		running = true;
-		parent.setPause(true);
 		timeSinceStart = 0;
 		ourMap = new SceneCommandMap();
-		MGlobal.levelManager.getScreen().pushCommandContext(ourMap);
+		parent.pushCommandContext(ourMap);
 	}
 	
 	/**
@@ -234,17 +235,16 @@ public class SceneParser extends MapThing {
 	 */
 	protected void terminate() {
 		MGlobal.reporter.inform("Terminated a scene: " + this);
-		MGlobal.levelManager.getScreen().removeCommandContext(ourMap);
-		parent.setPause(false);
+		parent.removeCommandContext(ourMap);
 		running = false;
 		executed = true;
 		if (MGlobal.hero != null) {
 			MGlobal.hero.halt();
 		}
 		for (FinishListener listener : listeners) {
-			listener.onFinish(parent);
+			listener.onFinish();
 		}
-		parent.removeObject(this);
+		parent.removeChild(this);
 		listeners.clear();
 	}
 	
@@ -258,7 +258,8 @@ public class SceneParser extends MapThing {
 		this.controlledEvents = new ArrayList<MapEvent>();
 		this.listeners = new ArrayList<FinishListener>();
 		this.timeSinceStart = 0;
-		setPauseLevel(PauseLevel.PAUSE_RESISTANT);
+		
+		parent.addChild(this);
 	}
 
 }

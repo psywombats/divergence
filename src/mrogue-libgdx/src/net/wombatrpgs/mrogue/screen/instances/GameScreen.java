@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import net.wombatrpgs.mrogue.core.Constants;
 import net.wombatrpgs.mrogue.core.MGlobal;
-import net.wombatrpgs.mrogue.io.HardcodedCommandMap;
+import net.wombatrpgs.mrogue.io.GameCommandMap;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Loc;
 import net.wombatrpgs.mrogue.rpg.Hero;
@@ -31,17 +31,15 @@ import net.wombatrpgs.mrogueschema.test.data.TestState;
  * This is the default screen that appears when the game is first loaded. Once
  * on this screen, the opening scene is played.
  */
-// TODO: there's some sloppy fullscreen shit here that should be generalized
 public class GameScreen extends Screen {
 	
-	protected SceneParser introParser;
 	protected Level map;
 	protected BitmapFont defaultFont;
+	protected SceneParser introParser;
 	
 	// tests
 	protected FramerateTestMDO fpsMDO;
 	protected ShaderTestMDO shaderMDO;
-	
 	protected ShaderProgram testShader;
 	
 	/**
@@ -53,9 +51,10 @@ public class GameScreen extends Screen {
 		SceneMDO sceneMDO = MGlobal.data.getEntryFor(introMDO.scene, SceneMDO.class);
 		MGlobal.levelManager.setScreen(this);
 		map = MGlobal.levelManager.getLevel(introMDO.map);
-		introParser = new SceneParser(sceneMDO);
-		this.canvas = map;
-		pushCommandContext(new HardcodedCommandMap());
+		MGlobal.levelManager.setActive(map);
+		introParser = new SceneParser(sceneMDO, this);
+		addScreenObject(map);
+		pushCommandContext(new GameCommandMap());
 		defaultFont = new BitmapFont();
 		batch = new SpriteBatch();
 		
@@ -87,18 +86,8 @@ public class GameScreen extends Screen {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-		//RGlobal.reporter.inform("Command received: " + command);
 		if (super.onCommand(command)) return true;
 		switch (command) {
-		case INTENT_QUIT:
-			Gdx.app.exit();
-			return true;
-		case INTENT_FULLSCREEN:
-			Gdx.graphics.setDisplayMode(
-					MGlobal.window.getResolutionWidth(), 
-					MGlobal.window.getResolutionHeight(), 
-					!Gdx.graphics.isFullscreen());
-			return true;
 		case INTENT_INVENTORY:
 			MGlobal.ui.getInventory().show();
 			return true;
@@ -167,7 +156,7 @@ public class GameScreen extends Screen {
 	public void update(float elapsed) {
 		super.update(elapsed);
 		if (!introParser.isRunning() && !introParser.hasExecuted()) {
-			introParser.run(map);
+			introParser.run();
 		}
 	}
 

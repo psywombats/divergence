@@ -15,6 +15,7 @@ import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.io.CommandListener;
 import net.wombatrpgs.mrogue.scenes.commands.UnblockedListener;
+import net.wombatrpgs.mrogue.screen.Screen;
 import net.wombatrpgs.mrogueschema.io.data.InputCommand;
 
 /**
@@ -87,6 +88,9 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	
 	/** @return The parent parser that will execute this command */
 	public SceneParser getParent() { return this.parent; }
+	
+	/** @return The screen this command is running on */
+	public Screen getScreen() { return parent.getScreen(); }
 	
 	/** @return True if this command is done running */
 	public boolean isFinished() { return this.finished; }

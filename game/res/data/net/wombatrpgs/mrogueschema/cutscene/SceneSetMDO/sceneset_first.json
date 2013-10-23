@@ -1,0 +1,12 @@
+{
+	"key" : "sceneset_first",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"charas" : "characters_zs2",
+	"scenes" : [
+		{
+			"file" : "first01.scene"
+		}
+	]
+}

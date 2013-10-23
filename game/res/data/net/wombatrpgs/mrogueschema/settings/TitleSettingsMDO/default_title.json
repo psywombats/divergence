@@ -1,0 +1,11 @@
+{
+	"key" : "default_title",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "Looked up by key",
+	"bg" : "titlescreen.png",
+	"prompt" : "PRESS SPACE TO BEGIN",
+	"promptX" : 400,
+	"promptY" : 200,
+	"cycle" : 0.8
+}

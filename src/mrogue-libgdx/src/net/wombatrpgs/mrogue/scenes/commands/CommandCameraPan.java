@@ -53,13 +53,13 @@ public class CommandCameraPan extends SceneCommand {
 			target.setX((int) cam.position.x);
 			target.setY((int) cam.position.y);
 			cam.track(target);
-			parent.getParent().addEvent(target);
+			parent.getLevel().addEvent(target);
 			runOnce = true;
 		}
 		if (subCommand.isFinished() && !finished) {
 //			TrackerCam cam = RGlobal.screens.getCamera();
 //			cam.track(oldTarget);
-			parent.getParent().removeEvent(target);
+			parent.getLevel().removeEvent(target);
 			finished = true;
 		}
 		return subCommand.run();

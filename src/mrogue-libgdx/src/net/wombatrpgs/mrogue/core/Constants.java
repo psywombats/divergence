@@ -11,6 +11,7 @@ import java.util.List;
 
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mrogueschema.settings.GameSpeedMDO;
+import net.wombatrpgs.mrogueschema.settings.TitleSettingsMDO;
 import net.wombatrpgs.mrogueschema.settings.UISettingsMDO;
 import net.wombatrpgs.mrogueschema.settings.WindowSettingsMDO;
 
@@ -44,6 +45,8 @@ public class Constants {
 	public static final String WINDOW_KEY = "window_data";
 	/** The key of the default graphics settings */
 	public static final String GRAPHICS_KEY = "graphics_default";
+	/** The key of the default title settings */
+	public static final String TITLE_KEY = "default_title";
 	
 	/** Strings could be null or else this */
 	public static final String NULL_MDO = "None";
@@ -56,6 +59,7 @@ public class Constants {
 		PRELOAD_SCHEMA.add(WindowSettingsMDO.class);
 		PRELOAD_SCHEMA.add(GameSpeedMDO.class);
 		PRELOAD_SCHEMA.add(UISettingsMDO.class);
+		PRELOAD_SCHEMA.add(TitleSettingsMDO.class);
 	}
 	
 	private int rate;

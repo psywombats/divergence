@@ -11,7 +11,6 @@ import java.util.List;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.MapThing;
-import net.wombatrpgs.mrogue.maps.PauseLevel;
 
 /**
  * A timer counts down to zero, then sends messages off to its listeners. It
@@ -39,9 +38,6 @@ public class TimerObject extends MapThing {
 		set(true);
 		this.host = parent;
 		this.host.getParent().addObject(this);
-		if (parent.getParent().isPaused()) {
-			this.setPauseLevel(PauseLevel.PAUSE_RESISTANT);
-		}
 		completed = false;
 	}
 

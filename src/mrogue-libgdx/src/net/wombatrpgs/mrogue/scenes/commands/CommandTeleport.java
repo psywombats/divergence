@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.mrogue.scenes.commands;
 
-import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.scenes.SceneCommand;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
@@ -51,38 +50,38 @@ public class CommandTeleport extends SceneCommand {
 	@Override
 	public boolean run() {
 		if (finished) return true;
-		SceneParser pre = MGlobal.teleport.getPre();
-		SceneParser post = MGlobal.teleport.getPost();
-		if (!phase2 && !basic) {
-			parent.getParent().addObject(pre);
-			pre.run(parent.getParent());
-			getParent().setChild(pre);
-			post.reset();
-			phase2 = true;
-		}
-		if (pre.hasExecuted() || basic) {
-			if ((!post.isRunning() && !post.hasExecuted()) || basic) {
-				if (!basic) parent.getParent().removeObject(pre);
-				parent.getParent().removeObject(parent);
-				if (map == null) {
-					map = MGlobal.levelManager.getLevel(mapID);
-				}
-				MGlobal.teleport.teleport(
-						map, 
-						teleX,
-						map.getHeight() - teleY - 1);
-				map.addObject(parent);
-				if (!basic) {
-					map.addObject(post);
-					post.run(map);
-					getParent().setChild(post);
-				}
-				finished = basic;
-				return finished;
-			} else {
-				finished = true;
-			}
-		}
+//		SceneParser pre = MGlobal.teleport.getPre();
+//		SceneParser post = MGlobal.teleport.getPost();
+//		if (!phase2 && !basic) {
+//			parent.getL().addObject(pre);
+//			pre.run(parent.getParent());
+//			getParent().setChild(pre);
+//			post.reset();
+//			phase2 = true;
+//		}
+//		if (pre.hasExecuted() || basic) {
+//			if ((!post.isRunning() && !post.hasExecuted()) || basic) {
+//				if (!basic) parent.getLevel().removeObject(pre);
+//				parent.getParent().removeObject(parent);
+//				if (map == null) {
+//					map = MGlobal.levelManager.getLevel(mapID);
+//				}
+//				MGlobal.teleport.teleport(
+//						map, 
+//						teleX,
+//						map.getHeight() - teleY - 1);
+//				map.addObject(parent);
+//				if (!basic) {
+//					map.addObject(post);
+//					post.run(map);
+//					getParent().setChild(post);
+//				}
+//				finished = basic;
+//				return finished;
+//			} else {
+//				finished = true;
+//			}
+//		}
 		return false;
 	}
 

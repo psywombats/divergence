@@ -51,7 +51,7 @@ public class CommandSetGraphic extends SceneCommand {
 		if (eventName.equals(ARG_HERO)) {
 			events.add(MGlobal.hero);
 		} else {
-			events.add(parent.getParent().getEventByName(eventName));
+			events.add(parent.getLevel().getEventByName(eventName));
 		}
 		if (events.get(0) == null) {
 			MGlobal.reporter.warn("Couldn't find ev to set anim: " + eventName);
