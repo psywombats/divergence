@@ -9,7 +9,7 @@
 	"enemies" : "monstergen_default",
 	"items" : "itemgen_test",
 	"effect" : "effect_los",
-	"scene" : "sceneset_scenario",
+	"scene" : "None",
 	"pathsUp" : [
 		"map_level01"
 	],

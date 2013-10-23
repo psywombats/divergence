@@ -10,16 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
-import net.wombatrpgs.mrogue.maps.MapThing;
+import net.wombatrpgs.mrogue.core.Updateable;
+import net.wombatrpgs.mrogue.screen.Screen;
 
 /**
  * A timer counts down to zero, then sends messages off to its listeners. It
  * updates in the context of a level that it's a part of.
  */
-public class TimerObject extends MapThing {
+public class TimerObject implements Updateable {
 	
 	protected List<TimerListener> listeners;
-	protected MapThing host;
+	protected Screen host;
 	protected float timeRemaining; // in seconds
 	protected float lastTime; // in seconds
 	protected boolean running, completed;
@@ -28,16 +29,16 @@ public class TimerObject extends MapThing {
 	 * A pre-built timer package! Sets some time on the clock, registers the
 	 * listener, then starts counting down. Auto-kills itself when time runs
 	 * out the first time.
-	 * @param remaining				The time to notify after elapsed
-	 * @param parent				The thing to jetison from once elapsed
-	 * @param listener				The single listener to notify when done
+	 * @param 	remaining			The time to notify after elapsed
+	 * @param 	scr					The thing to jetison from once elapsed
+	 * @param 	listener			The single listener to notify when done
 	 */
-	public TimerObject(float remaining, MapThing parent, TimerListener listener) {
+	public TimerObject(float remaining, Screen scr, TimerListener listener) {
 		this(remaining);
 		addListener(listener);
 		set(true);
-		this.host = parent;
-		this.host.getParent().addObject(this);
+		this.host = scr;
+		scr.addChild(this);
 		completed = false;
 	}
 
@@ -64,7 +65,6 @@ public class TimerObject extends MapThing {
 	 */
 	@Override
 	public void update(float elapsed) {
-		super.update(elapsed);
 		timeRemaining -= elapsed;
 		if (timeRemaining <= 0) {
 			reset();
@@ -72,9 +72,7 @@ public class TimerObject extends MapThing {
 			for (TimerListener listener : listeners) {
 				listener.onTimerZero(this);
 			}
-			if (host != null && parent != null) {
-				parent.removeObject(this);
-			}
+			host.removeChild(this);
 			completed = true;
 		}
 	}

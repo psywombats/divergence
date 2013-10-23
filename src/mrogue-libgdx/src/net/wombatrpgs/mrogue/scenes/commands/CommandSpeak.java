@@ -16,7 +16,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.graphics.Graphic;
-import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.objects.Picture;
 import net.wombatrpgs.mrogue.maps.objects.TimerListener;
 import net.wombatrpgs.mrogue.maps.objects.TimerObject;
@@ -34,7 +33,7 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	
 	protected static final String NAME_SYSTEM = "SYSTEM";
 	protected static final int FACE_OFFSET = 160; // px from center
-	protected static final float FADE_TIME = .08f; // in s
+	protected static final float FADE_TIME = .2f; // in s
 	
 	protected static Map<String, SpeakerMDO> speakers;
 	
@@ -134,17 +133,11 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 			}
 			MGlobal.ui.getBox().tweenTo(new Color(1, 1, 1, 0), FADE_TIME);
 			final CommandSpeak speak = this;
-			final TimerListener listener = new TimerListener() {
+			new TimerObject(FADE_TIME, getScreen(), new TimerListener() {
 				@Override public void onTimerZero(TimerObject source) {
 					speak.zero();
 				}
-			};
-			new TimerObject(FADE_TIME, MGlobal.hero, listener) {
-				@Override public void onMapFocusLost(Level map) {
-					super.onMapFocusLost(map);
-					speak.zero();
-				}
-			};
+			});
 		} else {
 			MGlobal.ui.getBox().hurryUp();
 			block(this);

@@ -10,7 +10,7 @@ import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
-import net.wombatrpgs.mrogueschema.cutscene.SceneMDO;
+import net.wombatrpgs.mrogueschema.cutscene.data.SceneParentMDO;
 import net.wombatrpgs.mrogueschema.maps.MapMDO;
 
 /**
@@ -19,8 +19,16 @@ import net.wombatrpgs.mrogueschema.maps.MapMDO;
 @Path("settings/")
 public class IntroSettingsMDO extends MainSchema {
 	
-	@Desc("Scene - the scene script to play on game load")
-	@SchemaLink(SceneMDO.class)
+	@Desc("Immediate scene - the scene to play on arrival to title")
+	@SchemaLink(SceneParentMDO.class)
+	public String immScene;
+	
+	@Desc("Title start scene - the scene script to play on the title screen")
+	@SchemaLink(SceneParentMDO.class)
+	public String titleScene;
+	
+	@Desc("Game enter scene - the scene script to play on entering game scene")
+	@SchemaLink(SceneParentMDO.class)
 	public String scene;
 	
 	@Desc("Map - the map that things open on, usually a blank screen with the hero on it")

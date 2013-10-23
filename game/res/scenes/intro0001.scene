@@ -1,1 +1,3 @@
-SYSTEM: Welcome to Zephyr Skies: Fall into Madness.\nMove with the numpad (0123456789) with 5 to wait. Move into an enemy to attack it. Good luck.
+[camera-track hero]
+[tint 1 1 1 1]
+[wait 1]

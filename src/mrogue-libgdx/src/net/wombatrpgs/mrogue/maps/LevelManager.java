@@ -106,12 +106,21 @@ public class LevelManager {
 	/**
 	 * Children should call this to create their cutscenes.
 	 * @param	mdoKey			The key of the mdo of the scen to generate
-	 * @param	parent			The map to generate for
 	 * @return					A scene from that mdo
 	 */
 	public SceneParser getCutscene(String mdoKey) {
+		return getCutscene(mdoKey, getScreen());
+	}
+	
+	/**
+	 * Children should call this to create their cutscenes.
+	 * @param	mdoKey			The key of the mdo of the scen to generate
+	 * @param	other			The screen to generate for
+	 * @return					A scene from that mdo
+	 */
+	public SceneParser getCutscene(String mdoKey, Screen other) {
 		SceneParentMDO mdo = MGlobal.data.getEntryFor(mdoKey, SceneParentMDO.class);
-		return cutsceneGen.createScene(mdo, getScreen());
+		return cutsceneGen.createScene(mdo, other);
 	}
 	
 }

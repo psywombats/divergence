@@ -8,8 +8,6 @@ package net.wombatrpgs.mrogue.screen.instances;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import net.wombatrpgs.mrogue.core.Constants;
@@ -34,7 +32,6 @@ import net.wombatrpgs.mrogueschema.test.data.TestState;
 public class GameScreen extends Screen {
 	
 	protected Level map;
-	protected BitmapFont defaultFont;
 	protected SceneParser introParser;
 	
 	// tests
@@ -47,6 +44,7 @@ public class GameScreen extends Screen {
 	 * parser and map.
 	 */
 	public GameScreen() {
+		super();
 		IntroSettingsMDO introMDO=MGlobal.data.getEntryFor("default_intro", IntroSettingsMDO.class);
 		SceneMDO sceneMDO = MGlobal.data.getEntryFor(introMDO.scene, SceneMDO.class);
 		MGlobal.levelManager.setScreen(this);
@@ -55,8 +53,6 @@ public class GameScreen extends Screen {
 		introParser = new SceneParser(sceneMDO, this);
 		addScreenObject(map);
 		pushCommandContext(new GameCommandMap());
-		defaultFont = new BitmapFont();
-		batch = new SpriteBatch();
 		
 		fpsMDO = MGlobal.data.getEntryFor("test_fps", FramerateTestMDO.class);
 		

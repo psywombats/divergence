@@ -41,12 +41,10 @@ public class Constants {
 	public static final String TEXTURES_DIR = RESOURCE_DIR + "textures/";
 	public static final String ITEMS_DIR = RESOURCE_DIR + "items/";
 	
-	/** The key of the default window settings */
-	public static final String WINDOW_KEY = "window_data";
-	/** The key of the default graphics settings */
-	public static final String GRAPHICS_KEY = "graphics_default";
-	/** The key of the default title settings */
-	public static final String TITLE_KEY = "default_title";
+	public static final String KEY_WINDOW = "window_data";
+	public static final String KEY_GRAPHICS = "graphics_default";
+	public static final String KEY_TITLE = "default_title";
+	public static final String KEY_INTRO = "default_intro";
 	
 	/** Strings could be null or else this */
 	public static final String NULL_MDO = "None";

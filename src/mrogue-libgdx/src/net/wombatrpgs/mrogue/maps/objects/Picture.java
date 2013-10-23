@@ -78,7 +78,7 @@ public class Picture implements Comparable<Picture>,
 	public Picture(Graphic appearance, int z) {
 		this.z = z;
 		this.appearance = appearance;
-		this.ignoresTint = true;
+		this.ignoresTint = false;
 		this.tweening = false;
 		this.batch = new SpriteBatch();
 		this.currentColor = new Color(1, 1, 1, 1);

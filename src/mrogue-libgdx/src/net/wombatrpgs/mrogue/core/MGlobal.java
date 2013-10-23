@@ -136,14 +136,13 @@ public class MGlobal {
 			// initialize everything that needed data
 			MGlobal.reporter.inform("Initializing data-dependant resources");
 			MGlobal.window = new WindowSettings(
-					MGlobal.data.getEntryFor(Constants.WINDOW_KEY, WindowSettingsMDO.class));
+					MGlobal.data.getEntryFor(Constants.KEY_WINDOW, WindowSettingsMDO.class));
 			MGlobal.graphics = new GraphicsSettings(
-					MGlobal.data.getEntryFor(Constants.GRAPHICS_KEY, GraphicsSettingsMDO.class));
+					MGlobal.data.getEntryFor(Constants.KEY_GRAPHICS, GraphicsSettingsMDO.class));
 			MGlobal.ui = new UISettings(MGlobal.data.getEntryFor(
 					UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
 			toLoad.add(ui);
 			toLoad.add(graphics);
-			MGlobal.screens.push(new TitleScreen());
 			for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
 			for (int pass = 0; MGlobal.assetManager.getProgress() < 1; pass++) {
 				assetStart = System.currentTimeMillis();
@@ -163,6 +162,7 @@ public class MGlobal {
 					MGlobal.window.getResolutionWidth(),
 					MGlobal.window.getResolutionHeight(), 
 					fullscreen);
+			MGlobal.screens.push(new TitleScreen());
 			Gdx.graphics.setTitle(MGlobal.window.getTitle());
 			//Gdx.graphics.setVSync(true);
 			Gdx.input.setInputProcessor(MGlobal.keymap);

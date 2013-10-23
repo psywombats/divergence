@@ -65,7 +65,7 @@ public abstract class AbilFX extends MapEvent implements Disposable {
 		x = tileX * parent.getTileWidth();
 		y = tileY * parent.getTileHeight();
 		update(0);
-		new TimerObject(mdo.duration, this, new TimerListener() {
+		new TimerObject(mdo.duration, parent.getScreen(), new TimerListener() {
 			@Override public void onTimerZero(TimerObject source) {
 				parent.removeEvent(fx);
 				totalElapsed = mdo.duration;

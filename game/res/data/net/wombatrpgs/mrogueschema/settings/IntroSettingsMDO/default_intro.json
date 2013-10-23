@@ -3,6 +3,8 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "engine searches for this mdo by name",
-	"scene" : "scene_intro",
+	"immScene" : "scene_title01",
+	"titleScene" : "sceneset_scenario",
+	"scene" : "scene_title02",
 	"map" : "map_level00"
 }

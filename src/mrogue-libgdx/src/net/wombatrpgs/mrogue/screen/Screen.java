@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
@@ -57,6 +58,7 @@ public abstract class Screen implements CommandListener,
 	protected FrameBuffer buffer, lastBuffer;
 	protected Color tint;
 	protected ShapeRenderer shapes;
+	protected BitmapFont defaultFont;
 	
 	protected List<Queueable> assets;
 	protected List<PostRenderable> postRenders;
@@ -98,6 +100,7 @@ public abstract class Screen implements CommandListener,
 				false);
 		tint = new Color(0, 0, 0, 1);
 		shapes = new ShapeRenderer();
+		defaultFont = new BitmapFont();
 		cam = new TrackerCam(MGlobal.window.getWidth(), MGlobal.window.getHeight());
 		
 		uiCam = new OrthographicCamera();
