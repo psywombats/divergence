@@ -6,36 +6,25 @@
  */
 package net.wombatrpgs.mrogue.maps.objects;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.graphics.Graphic;
 import net.wombatrpgs.mrogue.maps.PositionSetable;
-import net.wombatrpgs.mrogue.screen.ScreenShowable;
+import net.wombatrpgs.mrogue.screen.ScreenObject;
 
 /**
  * Replaces the old picture layer that the map had. This is exactly the RM
  * equivalent. The only difference it has with the map object is that it
  * can be compared against other pictures to sort by z-depth.
  */
-// TODO: refactor or delete picture/screenshowable/graphic
-public class Picture implements Comparable<Picture>,
-								ScreenShowable,
-								PositionSetable {
+public class Picture extends ScreenObject implements PositionSetable {
 	
-	protected List<Queueable> assets;
 	public SpriteBatch batch;
 	protected Graphic appearance;
 	protected Color currentColor;
 	protected float x, y;
-	protected int z; // z is depth-y
-	protected boolean ignoresTint;
 	
 	protected boolean tweening;
 	protected Color tweenTargetColor;
@@ -78,14 +67,11 @@ public class Picture implements Comparable<Picture>,
 	public Picture(Graphic appearance, int z) {
 		this.z = z;
 		this.appearance = appearance;
-		this.ignoresTint = false;
 		this.tweening = false;
 		this.batch = new SpriteBatch();
 		this.currentColor = new Color(1, 1, 1, 1);
 		this.tweenBaseColor = new Color(1, 1, 1, 1);
 		this.tweenTargetColor = new Color(1, 1, 1, 1);
-		
-		this.assets = new ArrayList<Queueable>();
 	}
 	
 	/**
@@ -127,26 +113,7 @@ public class Picture implements Comparable<Picture>,
 		batch.setColor(currentColor);
 		appearance.renderAt(batch, x, y);
 	}
-	/**
-	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		for (Queueable asset : assets) {
-			asset.queueRequiredAssets(manager);
-		}
-	}
-	/**
-	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		for (Queueable asset : assets) {
-			asset.postProcessing(manager, pass);
-		}
-	}
+
 	/**
 	 * @see net.wombatrpgs.mrogue.maps.Positionable#getX()
 	 */
@@ -175,22 +142,6 @@ public class Picture implements Comparable<Picture>,
 	@Override
 	public void setY(float y) {
 		this.y = y;
-	}
-	/**
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
-	@Override
-	public int compareTo(Picture other) {
-		return z - other.z;
-	}
-	
-	/**
-	 * @see net.wombatrpgs.mrogue.screen.ScreenShowable#ignoresTint()
-	 */
-	@Override
-	@Deprecated
-	public boolean ignoresTint() {
-		return ignoresTint;
 	}
 	
 	/**

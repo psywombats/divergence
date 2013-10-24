@@ -65,7 +65,7 @@ public abstract class Screen implements CommandListener,
 	protected List<PostRenderable> postRenders;
 	protected List<CommandListener> commandListeners;
 	protected List<Updateable> updateChildren, removeChildren, addChildren;
-	protected List<ScreenShowable> screenObjects;
+	protected List<ScreenObject> screenObjects;
 	protected Stack<CommandMap> commandContext;
 	
 	protected boolean initialized;
@@ -84,7 +84,7 @@ public abstract class Screen implements CommandListener,
 		updateChildren = new ArrayList<Updateable>();
 		removeChildren = new ArrayList<Updateable>();
 		addChildren = new ArrayList<Updateable>();
-		screenObjects = new ArrayList<ScreenShowable>();
+		screenObjects = new ArrayList<ScreenObject>();
 		
 		initialized = false;
 		mapShader = null;
@@ -243,7 +243,7 @@ public abstract class Screen implements CommandListener,
 		shapes.begin(ShapeType.Filled);
 		shapes.rect(0, 0, window.getWidth(), window.getHeight());
 		shapes.end();
-		for (ScreenShowable pic : screenObjects) {
+		for (ScreenObject pic : screenObjects) {
 			pic.render(cam);
 		}
 		buffer.end();
@@ -316,7 +316,7 @@ public abstract class Screen implements CommandListener,
 	 */
 	@Override
 	public void update(float elapsed) {
-		//Collections.sort(screenObjects);
+		Collections.sort(screenObjects);
 		for (Updateable up : updateChildren) {
 			up.update(elapsed);
 		}
@@ -370,7 +370,7 @@ public abstract class Screen implements CommandListener,
 	 * Adds a screen-showable picture to the screen.
 	 * @param 	screenObject	The object to add
 	 */
-	public void addScreenObject(ScreenShowable screenObject) {
+	public void addScreenObject(ScreenObject screenObject) {
 		screenObjects.add(screenObject);
 		addChildren.add(screenObject);
 	}
@@ -379,7 +379,7 @@ public abstract class Screen implements CommandListener,
 	 * Removes a screen-showable picture from the screen.
 	 * @param	screenObject	The object to add
 	 */
-	public void removeScreenObject(ScreenShowable screenObject) {
+	public void removeScreenObject(ScreenObject screenObject) {
 		if (screenObjects.contains(screenObject)) {
 			screenObjects.remove(screenObject);
 			removeChild(screenObject);

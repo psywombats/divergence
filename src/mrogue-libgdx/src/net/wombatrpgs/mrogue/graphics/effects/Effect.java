@@ -9,14 +9,14 @@ package net.wombatrpgs.mrogue.graphics.effects;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mrogue.maps.Level;
-import net.wombatrpgs.mrogue.screen.ScreenShowable;
+import net.wombatrpgs.mrogue.screen.ScreenObject;
 import net.wombatrpgs.mrogueschema.graphics.effects.data.EffectMDO;
 
 /**
  * A thing that represents a graphical effect on a map such as weather, fog,
  * etc.
  */
-public abstract class Effect implements ScreenShowable {
+public abstract class Effect extends ScreenObject {
 	
 	protected EffectMDO mdo;
 	protected Level parent;
@@ -32,15 +32,5 @@ public abstract class Effect implements ScreenShowable {
 		this.parent = parent;
 		batch = new SpriteBatch();
 	}
-
-	/** @see net.wombatrpgs.mrogue.screen.ScreenShowable#ignoresTint() */
-	@Override public boolean ignoresTint() { return false; }
-
-	/**
-	 * Update if you need it.
-	 * @see net.wombatrpgs.mrogue.core.Updateable#update(float)
-	 */
-	@Override
-	public void update(float elapsed) { }
 
 }

@@ -2,7 +2,7 @@
 	"key" : "map_level01",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "          ",
+	"description" : "           ",
 	"mapWidth" : 30,
 	"mapHeight" : 30,
 	"generator" : "generator_celltest",
@@ -14,6 +14,6 @@
 		"map_level00"
 	],
 	"pathsDown" : [
-		"map_level01"
+		"map_level02"
 	]
 }

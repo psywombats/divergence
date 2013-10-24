@@ -47,6 +47,7 @@ public class InventoryMenu extends UIElement implements CommandListener {
 	 */
 	public InventoryMenu(InventoryMenuMDO mdo) {
 		this.mdo = mdo;
+		this.z = 2;
 		backer = startGraphic(mdo.backer);
 		highlight = startGraphic(mdo.highlight);
 		tab = startGraphic(mdo.tab);

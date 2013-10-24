@@ -6,72 +6,25 @@
  */
 package net.wombatrpgs.mrogue.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
-import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.graphics.Graphic;
-import net.wombatrpgs.mrogue.screen.ScreenShowable;
+import net.wombatrpgs.mrogue.screen.ScreenObject;
 
 /**
  * Superclass to wrap some common UI functionality. It really shouldn't do much
  * other than manage assets.
  */
-public abstract class UIElement implements	ScreenShowable,
-											Queueable {
-	
-	protected List<Queueable> assets;
+public abstract class UIElement extends ScreenObject {
 	
 	/**
-	 * Creates a new UI element.
+	 * Creates a new UI element on the first z layer above the map.
 	 */
 	public UIElement() {
-		assets = new ArrayList<Queueable>();
+		super(1);
 	}
 
-	/**
-	 * @see net.wombatrpgs.mrogue.core.Queueable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		for (Queueable asset : assets) {
-			asset.queueRequiredAssets(manager);
-		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.mrogue.core.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		for (Queueable asset : assets) {
-			asset.postProcessing(manager, pass);
-		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.mrogue.screen.ScreenShowable#ignoresTint()
-	 */
-	@Override
-	public boolean ignoresTint() {
-		return false;
-	}
-	
-	/**
-	 * Default does nothing.
-	 * @see net.wombatrpgs.mrogue.core.Updateable#update(float)
-	 */
-	@Override
-	public void update(float elapsed) {
-		// noop
-	}
-	
 	/**
 	 * Initializes a graphic from file name and then adds it to assets.
 	 * @param 	fileName		The name of the file to load

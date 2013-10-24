@@ -16,7 +16,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
-import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.core.Turnable;
 import net.wombatrpgs.mrogue.graphics.effects.Effect;
 import net.wombatrpgs.mrogue.graphics.effects.EffectFactory;
@@ -30,7 +29,7 @@ import net.wombatrpgs.mrogue.rpg.CharacterEvent;
 import net.wombatrpgs.mrogue.rpg.Enemy;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogue.screen.Screen;
-import net.wombatrpgs.mrogue.screen.ScreenShowable;
+import net.wombatrpgs.mrogue.screen.ScreenObject;
 import net.wombatrpgs.mrogueschema.items.ItemGeneratorMDO;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
 import net.wombatrpgs.mrogueschema.maps.MapMDO;
@@ -52,8 +51,7 @@ import net.wombatrpgs.mrogueschema.maps.MonsterGeneratorMDO;
  * (everything on it) will be empty.
  * Also note that there is only one z layer for objects.
  */
-public class Level implements	ScreenShowable,
-								Turnable {
+public class Level extends ScreenObject implements Turnable {
 	
 	public static final int TILE_WIDTH = 32;
 	public static final int TILE_HEIGHT = 32;
@@ -75,7 +73,6 @@ public class Level implements	ScreenShowable,
 	protected boolean moving;
 	protected float moveTime;
 	
-	protected List<Queueable> assets;
 	protected Map<String, Loc> teleLocations; // string ID to incoming location
 	
 	// MR mappy stuff
@@ -91,6 +88,7 @@ public class Level implements	ScreenShowable,
 	 * @param	screen			The screen we render to
 	 */
 	public Level(MapMDO mdo, Screen screen) {
+		super(0);
 		this.screen = screen;
 		this.mdo = mdo;
 		
@@ -99,7 +97,6 @@ public class Level implements	ScreenShowable,
 		objects = new ArrayList<MapThing>();
 		removalObjects = new ArrayList<MapThing>();
 		removalEvents = new ArrayList<MapEvent>();
-		assets = new ArrayList<Queueable>();
 		teleLocations = new HashMap<String, Loc>();
 		
 		// etc
@@ -195,7 +192,7 @@ public class Level implements	ScreenShowable,
 	/** @return The screen this map is placed on */
 	public Screen getScreen() { return MGlobal.levelManager.getScreen(); }
 	
-	/** @see net.wombatrpgs.mrogue.screen.ScreenShowable#ignoresTint() */
+	/** @see net.wombatrpgs.mrogue.screen.ScreenObject#ignoresTint() */
 	@Override public boolean ignoresTint() { return false; }
 
 	/** @see java.lang.Object#toString() */
@@ -230,6 +227,7 @@ public class Level implements	ScreenShowable,
 	 * first, but this should happen in the constructor.
 	 */
 	public void queueRequiredAssets(AssetManager manager) {
+		super.queueRequiredAssets(manager);
 		// We should be loading the spritesheet etc here, anything in the map
 		
 		// We can also do this crap here now that it's in the mdo
@@ -240,9 +238,6 @@ public class Level implements	ScreenShowable,
 //			bgm.queueRequiredAssets(manager);
 //			assets.add(bgm);
 //		}
-		for (Queueable asset : assets) {
-			asset.queueRequiredAssets(manager);
-		}
 	}
 	
 	/**
@@ -251,9 +246,7 @@ public class Level implements	ScreenShowable,
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		for (Queueable asset : assets) {
-			asset.postProcessing(manager, pass);
-		}
+		super.postProcessing(manager, pass);
 		mapGen.generateMe();
 		if (monGen != null) {
 			monGen.spawnToDensity();

@@ -85,7 +85,7 @@ public class Hud extends UIElement {
 	/** @param True if the hud is going to be displayed */
 	public void setEnabled(boolean enabled) { this.enabled = enabled; }
 	
-	/** @see net.wombatrpgs.mrogue.screen.ScreenShowable#ignoresTint() */
+	/** @see net.wombatrpgs.mrogue.screen.ScreenObject#ignoresTint() */
 	@Override public boolean ignoresTint() { return ignoresTint; }
 
 	/**
