@@ -1,0 +1,13 @@
+{
+	"key" : "decorset_chairs",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"decorators" : [
+		"decor_chair1",
+		"decor_chair2",
+		"decor_chair3",
+		"decor_chair4",
+		"decor_chair5"
+	]
+}

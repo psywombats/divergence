@@ -26,6 +26,7 @@ public class MapGeneratorFactory {
 		switch(mdo.generator) {
 		case TEST:				return new GeneratorTest(mdo, parent);
 		case CLASSIC_ROOMS:		return new GeneratorClassic(mdo, parent);
+		case CELLULAR_INTERIOR:	return new GeneratorCellular(mdo, parent);
 		}
 		MGlobal.reporter.warn("No generator found for mdo type: " + mdo.generator);
 		return new GeneratorTest(mdo, parent);

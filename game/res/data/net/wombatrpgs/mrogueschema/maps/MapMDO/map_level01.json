@@ -2,17 +2,18 @@
 	"key" : "map_level01",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "        ",
+	"description" : "          ",
 	"mapWidth" : 30,
 	"mapHeight" : 30,
-	"generator" : "generator_graphicstest",
+	"generator" : "generator_celltest",
 	"enemies" : "monstergen_default",
+	"items" : "None",
 	"effect" : "effect_los",
 	"scene" : "None",
 	"pathsUp" : [
-		"map_level02"
+		"map_level00"
 	],
 	"pathsDown" : [
-		"map_level00"
+		"map_level01"
 	]
 }

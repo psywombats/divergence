@@ -244,7 +244,6 @@ public class SceneParser implements	Updateable,
 		for (FinishListener listener : listeners) {
 			listener.onFinish();
 		}
-		parent.removeChild(this);
 		listeners.clear();
 	}
 	

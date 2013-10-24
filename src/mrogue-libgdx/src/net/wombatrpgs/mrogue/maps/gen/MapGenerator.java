@@ -114,7 +114,7 @@ public abstract class MapGenerator implements Queueable {
 		
 		r = new Random();
 		long seed = MGlobal.rand.nextLong();
-		r.setSeed(0);
+		r.setSeed(seed);
 		
 		state = ConversionState.INIT;
 		MGlobal.reporter.inform("Generator initialized for " + parent + ", "

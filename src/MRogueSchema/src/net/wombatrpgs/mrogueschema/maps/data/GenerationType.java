@@ -13,5 +13,6 @@ public enum GenerationType {
 	
 	TEST,
 	CLASSIC_ROOMS,
+	CELLULAR_INTERIOR,
 
 }

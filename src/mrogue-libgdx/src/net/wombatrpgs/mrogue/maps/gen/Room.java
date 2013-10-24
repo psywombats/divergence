@@ -30,10 +30,10 @@ public class Room {
 		this.rh = height;
 	}
 	
-	public float cx() { return (float) (x + rw) / 2f; }
-	public float cy() { return (float) (y + rh) / 2f; }
-	public int ctx() { return  (x + rw) / 2; }
-	public int cty() { return  (y + rh) / 2; }
+	public float cx() { return x + (float) rw / 2f; }
+	public float cy() { return y + (float) rh / 2f; }
+	public int ctx() { return  (int) Math.floor(cx()); }
+	public int cty() { return  (int) Math.floor(cy()); }
 	
 	public int rx(Random r) { return x + r.nextInt(rw); }
 	public int ry(Random r) { return y + r.nextInt(rh); }

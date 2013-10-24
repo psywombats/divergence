@@ -7,6 +7,7 @@
 package net.wombatrpgs.mrogue.screen;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
@@ -315,6 +316,7 @@ public abstract class Screen implements CommandListener,
 	 */
 	@Override
 	public void update(float elapsed) {
+		//Collections.sort(screenObjects);
 		for (Updateable up : updateChildren) {
 			up.update(elapsed);
 		}

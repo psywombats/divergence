@@ -1,5 +1,5 @@
 ================================================================================
-= MROGUE v. 20131021  -not intended for public release-                        =
+= MROGUE v. 20131023  -not intended for public release-                        =
 = running on MGNENGINE v. 20131013                                             =
 = contact: aking (psy_wombats@wombatrpgs.net)                                  =
 ================================================================================
@@ -25,4 +25,4 @@ with the database editor and break stuff and it'll be awesome.
 
 SO FAR:
 There are three levels and some enemies to kill, some abilities to use, and some
-junk to pick off the floor. Recent additions: upper chip, items, ability UI.
+junk to pick off the floor. Recent additions: cutscenes, game over.
