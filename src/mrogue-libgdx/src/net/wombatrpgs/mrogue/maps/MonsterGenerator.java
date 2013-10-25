@@ -60,10 +60,14 @@ public class MonsterGenerator implements	Turnable,
 	 * @param	host			The parent level to gen for
 	 */
 	public Enemy createEnemy() {
-		MonsterNameMDO name = listMDO.names[MGlobal.rand.nextInt(listMDO.names.length)];
-		MonsterNamePreMDO pre = listMDO.prefixes[MGlobal.rand.nextInt(listMDO.prefixes.length)];
-		Enemy enemy = new Enemy(MGlobal.data.getEntryFor(name.archetype, EnemyMDO.class), parent);
-		enemy.getUnit().setName(pre.prefix + " " + name.typeName);
+		Enemy enemy = null;
+		while (enemy == null || enemy.getDangerLevel() > parent.getDanger()) {
+			MonsterNameMDO name = listMDO.names[MGlobal.rand.nextInt(listMDO.names.length)];
+			MonsterNamePreMDO pre = listMDO.prefixes[MGlobal.rand.nextInt(listMDO.prefixes.length)];
+			enemy = new Enemy(MGlobal.data.getEntryFor(name.archetype, EnemyMDO.class), parent);
+			enemy.getUnit().setName(pre.prefix + " " + name.typeName);
+		}
+		
 		return enemy;
 	}
 

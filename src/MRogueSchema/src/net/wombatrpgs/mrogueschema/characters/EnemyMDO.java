@@ -20,5 +20,8 @@ public class EnemyMDO extends CharacterMDO {
 	@Desc("Intelligence - the set of behaviors that control the enemy")
 	@SchemaLink(IntelligenceMDO.class)
 	public String intelligence;
+	
+	@Desc("Danger level - minimum danger on which this enemy spawns")
+	public Integer danger;
 
 }

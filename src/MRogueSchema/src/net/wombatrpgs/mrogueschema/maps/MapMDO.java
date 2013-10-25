@@ -28,6 +28,9 @@ public class MapMDO extends MainSchema {
 	@Desc("Map height, in tiles")
 	public Integer mapHeight;
 	
+	@Desc("Danger level - approximate depth")
+	public Integer danger;
+	
 	@Desc("Generator - The algorithm that will be used to generate this map")
 	@SchemaLink(MapGeneratorMDO.class)
 	public String generator;

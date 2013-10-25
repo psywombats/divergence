@@ -67,6 +67,9 @@ public abstract class DecoratorSingle extends Decorator {
 		if (x < 0 || x >= gen.getWidth() || y < 0 || y > gen.getHeight()) {
 			return false;
 		}
+		if (tilesNew != tiles && tilesNew[y][x] != null) {
+			return false;
+		}
 		if (!gen.isTile(tiles, original, x, y)) {
 			return false;
 		}

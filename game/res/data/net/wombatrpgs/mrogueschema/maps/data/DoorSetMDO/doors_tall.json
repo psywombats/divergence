@@ -1,0 +1,8 @@
+{
+	"key" : "doors_tall",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"closeAnim" : "4dir_door_closed_tall",
+	"openAnim" : "4dir_door_open_tall"
+}

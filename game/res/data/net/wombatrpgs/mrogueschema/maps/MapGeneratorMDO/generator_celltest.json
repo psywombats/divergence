@@ -2,7 +2,7 @@
 	"key" : "generator_celltest",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "  ",
+	"description" : "   ",
 	"floorTiles" : {
 		"appearance" : "floor01.png"
 	},
@@ -10,6 +10,7 @@
 	"ceilingTiles" : "ceil_classic",
 	"upstairTiles" : "stairs_marble_up",
 	"downstairTiles" : "stairs_marble_down",
+	"doors" : "doors_tall",
 	"generator" : "CELLULAR_INTERIOR",
 	"minRoomWidth" : 5,
 	"minRoomHeight" : 4,

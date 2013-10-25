@@ -23,5 +23,6 @@
 		"magArmor" : 1
 	},
 	"abilities" : [ ],
-	"intelligence" : "behavior_herostep"
+	"intelligence" : "behavior_herostep",
+	"danger" : 0
 }

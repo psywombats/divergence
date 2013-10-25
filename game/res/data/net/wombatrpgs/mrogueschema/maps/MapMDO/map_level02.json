@@ -5,6 +5,7 @@
 	"description" : "       ",
 	"mapWidth" : 50,
 	"mapHeight" : 50,
+	"danger" : 2,
 	"generator" : "generator_celltest",
 	"enemies" : "monstergen_default",
 	"items" : "None",

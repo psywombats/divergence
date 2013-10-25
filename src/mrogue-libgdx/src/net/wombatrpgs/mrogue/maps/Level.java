@@ -192,6 +192,9 @@ public class Level extends ScreenObject implements Turnable {
 	/** @return The screen this map is placed on */
 	public Screen getScreen() { return MGlobal.levelManager.getScreen(); }
 	
+	/** @return The danger level of this map */
+	public int getDanger() { return mdo.danger; }
+	
 	/** @see net.wombatrpgs.mrogue.screen.ScreenObject#ignoresTint() */
 	@Override public boolean ignoresTint() { return false; }
 
@@ -475,6 +478,9 @@ public class Level extends ScreenObject implements Turnable {
 	 */
 	public boolean isTransparentAt(int tileX, int tileY) {
 		// TODO: precompute this
+		if (tileX == 29 && tileY == 6) {
+			System.out.println("a");
+		}
 		if (tileX < 0 || tileY < 0 || tileX >= mapWidth || tileY >= mapHeight) {
 			return false;
 		}
@@ -482,6 +488,9 @@ public class Level extends ScreenObject implements Turnable {
 			if (!layer.isTransparentAt(tileX, tileY)) {
 				return false;
 			}
+		}
+		for (MapEvent event : eventLayer.getEventsAt(tileX, tileY)) {
+			if (!event.isTransparent()) return false;
 		}
 		return true;
 	}

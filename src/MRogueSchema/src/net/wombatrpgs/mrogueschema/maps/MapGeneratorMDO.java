@@ -12,6 +12,7 @@ import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.Path;
+import net.wombatrpgs.mrogueschema.maps.data.DoorSetMDO;
 import net.wombatrpgs.mrogueschema.maps.data.GenerationType;
 import net.wombatrpgs.mrogueschema.maps.data.TileMDO;
 import net.wombatrpgs.mrogueschema.maps.decorators.data.DecoratorMDO;
@@ -41,6 +42,10 @@ public class MapGeneratorMDO extends MainSchema {
 	@Desc("Stair downwards tiles")
 	@SchemaLink(StairTilesMDO.class)
 	public String downstairTiles;
+	
+	@Desc("Door appearance")
+	@SchemaLink(DoorSetMDO.class)
+	public String doors;
 	
 	@Desc("Generation algorithm")
 	public GenerationType generator;

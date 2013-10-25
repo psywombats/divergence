@@ -275,6 +275,14 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	}
 	
 	/**
+	 * Determines if this object blocks vision or not. Most don't.
+	 * @return					True if the object is transparent, else false
+	 */
+	public boolean isTransparent() {
+		return true;
+	}
+	
+	/**
 	 * Stops all movement in a key-friendly way.
 	 */
 	public void halt() {

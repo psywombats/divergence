@@ -175,15 +175,15 @@ public class GameUnit implements Turnable, Queueable {
 			int dealt = other.takePhysicalDamage(getStats().getDamage());
 			if (visible(this, other)) {
 				if (dealt > 0) {
-					out.msg(us + " attacks " + them + " for " + dealt + " damages.");
+					out.msg(us + " attacked " + them + " for " + dealt + " damages.");
 				} else {
-					out.msg(us + " fails to harm " + them + ".");
+					out.msg(us + " failed to harm " + them + ".");
 				}
 			}
 			other.ensureAlive();
 		} else {
 			if (visible(this, other)) {
-				out.msg(us + " misses " + them + ".");
+				out.msg(us + " missed " + them + ".");
 			}
 		}
 		other.onAttackBy(this);
@@ -245,7 +245,7 @@ public class GameUnit implements Turnable, Queueable {
 	public void onAbilityUsed(Ability abil) {
 		currentStats.mp -= abil.getMP();
 		if (visible(this)) {
-			out.msg(getName() + " uses " + abil.getName() + ".");
+			out.msg(getName() + " used " + abil.getName() + ".");
 		}
 	}
 	
@@ -266,7 +266,7 @@ public class GameUnit implements Turnable, Queueable {
 	public void die() {
 		parent.getParent().removeEvent(parent);
 		if (visible(this)) {
-			out.msg(getName() + " is killed.");
+			out.msg(getName() + " was killed.");
 		}
 	}
 	

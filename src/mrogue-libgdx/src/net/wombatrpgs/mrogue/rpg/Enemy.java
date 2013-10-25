@@ -66,5 +66,15 @@ public class Enemy extends CharacterEvent {
 		}
 		MGlobal.reporter.warn("Waited 100 turns to spawn a " + this);
 	}
+	
+	/**
+	 * Computes the danger level of this enemy. This is equal to the danger of
+	 * its archetype plus danger for any addon stats.
+	 * @return					The danger of this enemy.
+	 */
+	public int getDangerLevel() {
+		// the rest will come later
+		return mdo.danger;
+	}
 
 }
