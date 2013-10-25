@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.wombatrpgs.mrogue.maps.Level;
-import net.wombatrpgs.mrogue.maps.Loc;
 import net.wombatrpgs.mrogue.maps.Tile;
 import net.wombatrpgs.mrogue.maps.events.DoorEvent;
 import net.wombatrpgs.mrogue.maps.gen.dec.Decorator;
+import net.wombatrpgs.mrogue.rpg.Enemy;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
 import net.wombatrpgs.mrogueschema.maps.data.OrthoDir;
 import net.wombatrpgs.mrogueschema.maps.data.TileType;
@@ -47,7 +47,7 @@ public class GeneratorCellular extends MapGenerator {
 		int cellsW = 0;
 		for (int i = 1; true; i += 1) {
 			int width;
-			if (lastWidth != 1 && r.nextBoolean()) {
+			if (lastWidth != 1 && r.nextFloat() > .7f) {
 				width = 1;
 			} else {
 				width = mdo.minRoomWidth + r.nextInt(mdo.maxRoomWidth-mdo.minRoomWidth);
@@ -76,57 +76,69 @@ public class GeneratorCellular extends MapGenerator {
 			cellsH += 1;
 			lastHeight = height;
 		}
+		List<CRoom> allrooms = new ArrayList<CRoom>();
+		CRoom[][] rooms = new CRoom[cellsH][cellsW];
 		for (int x = 0; x < cellsW; x += 1) {
 			for (int y = 0; y < cellsH; y += 1) {
-				fillRect(types, TileType.FLOOR,
+				CRoom cr = new CRoom(
+						x, y,
 						cellStartX[x],
-						cellStartY[y], 
-						cellStartX[x+1]-2,
-						cellStartY[y+1]-4);
+						cellStartY[y],
+						cellStartX[x+1]-cellStartX[x]-1, 
+						cellStartY[y+1]-cellStartY[y]-3);
+				allrooms.add(cr);
+				rooms[y][x] = cr;
+				fillRect(types, TileType.FLOOR,
+						cr.x,
+						cr.y, 
+						cr.x + cr.rw-1,
+						cr.y + cr.rh-1);
 			}
 		}
-		boolean in[][] = new boolean[cellsH][cellsW];
-		List<Loc> fringe = new ArrayList<Loc>();
-		fringe.add(new Loc(r.nextInt(cellsW), r.nextInt(cellsH)));
+		List<CRoom> fringe = new ArrayList<CRoom>();
+		CRoom origin = allrooms.get(r.nextInt(allrooms.size()));
+		origin.added = true;
+		fringe.add(origin);
 		while (fringe.size() > 0) {
-			Loc at = fringe.get(r.nextInt(fringe.size()));
+			CRoom cr = fringe.get(r.nextInt(fringe.size()));
+			if (!cr.hallway && r.nextBoolean()) continue;
 			int off = r.nextInt(OrthoDir.values().length);
 			int dirs = OrthoDir.values().length;
-			OrthoDir d;
-			int nx = 0, ny = 0, i;
-			for (i = 0; i < dirs; i += 1) {
+			OrthoDir d = null;
+			CRoom cr2 = null;
+			for (int i = 0; i < dirs; i += 1) {
 				d = OrthoDir.values()[(i + off) % dirs];
-				nx = (int) (at.x + d.getVector().x);
-				ny = (int) (at.y + d.getVector().y);
+				int nx = (int) (cr.cellX + d.getVector().x);
+				int ny = (int) (cr.cellY + d.getVector().y);
 				if (nx < 0 || nx >= cellsW) continue;
 				if (ny < 0 || ny >= cellsH) continue;
-				if (in[ny][nx]) continue;
+				cr2 = rooms[ny][nx];
+				if (cr2.added) {
+					cr2 = null;
+					continue;
+				}
 				break;
 			}
-			if (i == dirs) {
-				fringe.remove(at);
+			if (cr2 == null) {
+				fringe.remove(cr);
 				continue;
 			}
+			if (!cr2.hallway && r.nextBoolean()) continue;
 			
-			in[ny][nx] = true;
-			fringe.add(new Loc(nx, ny));
+			cr.tensionAvailable = false;
+			cr2.added = true;
+			cr2.addside = OrthoDir.getOpposite(d);
+			fringe.add(cr2);
 			
-			Room arm = new Room(cellStartX[at.x], cellStartY[at.y],
-					cellStartX[at.x+1] - cellStartX[at.x] - 2,
-					cellStartY[at.y+1] - cellStartY[at.y] - 4);
-			Room nrm = new Room(cellStartX[nx], cellStartY[ny],
-					cellStartX[nx+1] - cellStartX[nx] - 2,
-					cellStartY[ny+1] - cellStartY[ny] - 4);
-			if (r.nextFloat() > .1 &&
-					nrm.rw > 1 && nrm.rh > 1 &&
-					arm.rw > 1 && arm.rh > 1) {
-				if (nrm.x == arm.x) {
-					fillRect(types, TileType.FLOOR, arm.x, arm.y, nrm.x + nrm.rw, nrm.y);
+			if (r.nextFloat() > .1 && !cr2.hallway && !cr.hallway) {
+				cr2.tensionAvailable = false;
+				if (cr2.x == cr.x) {
+					fillRect(types, TileType.FLOOR, cr.x, cr.y, cr2.x + cr2.rw-1, cr2.y);
 				} else {
-					fillRect(types, TileType.FLOOR, arm.x, arm.y, nrm.x, nrm.y + nrm.rh);
+					fillRect(types, TileType.FLOOR, cr.x, cr.y, cr2.x, cr2.y + cr2.rh-1);
 				}
 			} else {
-				carve(types, TileType.FLOOR, arm.ctx(), arm.cty(), nrm.ctx(), nrm.cty(), Halt.NONE);
+				carve(types, TileType.FLOOR, cr.ctx(), cr.cty(), cr2.ctx(), cr2.cty(), Halt.NONE);
 			}
 		}
 		
@@ -184,12 +196,12 @@ public class GeneratorCellular extends MapGenerator {
 							if (atX < mid && !isPassable(types, atX+2, atY)) {
 								DoorEvent door = genDoor();
 								parent.addEvent(door, atX, atY);
-								door.setFacing(OrthoDir.EAST);
+								door.setFacing(OrthoDir.WEST);
 							}
 							if (atX > mid && !isPassable(types, atX-2, atY)) {
 								DoorEvent door = genDoor();
 								parent.addEvent(door, atX, atY);
-								door.setFacing(OrthoDir.WEST);
+								door.setFacing(OrthoDir.EAST);
 							}
 						}
 					}
@@ -217,6 +229,21 @@ public class GeneratorCellular extends MapGenerator {
 					}
 				}
 			}
+		}
+		
+		for (CRoom cr : allrooms) {
+			if (!cr.tensionAvailable) continue;
+			//if (r.nextFloat() < .8) continue;
+			cr.tensionSelected = true;
+			int count = (cr.x + cr.rw - 1) * (cr.y + cr.rh - 1);
+			List<Enemy> enemies = parent.getMonsterGenerator().createSet(count);
+			for (int x = cr.x; x < cr.x + cr.rw; x += 1) {
+				for (int y = cr.y; y < cr.y + cr.rh; y += 1) {
+					parent.addEvent(enemies.get(0), x, y);
+					enemies.remove(0);
+				}
+			}
+			break;
 		}
 		
 		applyWalls(types);

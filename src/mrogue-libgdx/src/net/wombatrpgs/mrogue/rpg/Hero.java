@@ -127,7 +127,6 @@ public class Hero extends CharacterEvent implements CommandListener {
 		
 		refreshVisibilityMap();
 		parent.onTurn();
-		System.out.println("x, y" + getTileX() + " , " + getTileY());
 	}
 	
 	/**

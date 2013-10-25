@@ -25,6 +25,7 @@ import net.wombatrpgs.mrogueschema.characters.data.Relation;
 public class Allegiance implements Turnable {
 	
 	protected List<GameUnit> hitlist;
+	protected List<GameUnit> friendlist;
 	protected Set<Faction> factions;
 	
 	/**
@@ -36,6 +37,7 @@ public class Allegiance implements Turnable {
 	public Allegiance(GameUnit parent, Faction...factions) {
 		this.factions = EnumSet.copyOf(Arrays.asList(factions));
 		this.hitlist = new ArrayList<GameUnit>();
+		this.friendlist = new ArrayList<GameUnit>();
 	}
 	
 	/**
@@ -63,6 +65,8 @@ public class Allegiance implements Turnable {
 	public Relation getRelationTo(GameUnit other) {
 		if (hitlist.contains(other)) {
 			return Relation.HOSTILE;
+		} else if (friendlist.contains(other)) {
+			return Relation.ALLIED;
 		} else {
 			Relation result = Relation.ALLIED;		// highest friendliness
 			for (Faction f1 : this.factions) {
@@ -85,6 +89,17 @@ public class Allegiance implements Turnable {
 	public void addToHitlist(GameUnit jerk) {
 		if (getRelationTo(jerk).retaliate && !hitlist.contains(jerk)) {
 			hitlist.add(jerk);
+		}
+	}
+	
+	/**
+	 * This is really only called to give unnatural monsters some allegiance to
+	 * each other, like when monsters spawn in a tension room.
+	 * @param	buddy			The cool guy who's our friend now
+	 */
+	public void addToFriendlist(GameUnit buddy) {
+		if (!friendlist.contains(buddy)) {
+			friendlist.add(buddy);
 		}
 	}
 

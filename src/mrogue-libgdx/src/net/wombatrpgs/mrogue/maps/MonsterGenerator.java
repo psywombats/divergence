@@ -70,6 +70,48 @@ public class MonsterGenerator implements	Turnable,
 		
 		return enemy;
 	}
+	
+	/**
+	 * Creates a bunch of similar enemies. Good for tension rooms etc.
+	 * @param	count			How many goblins are you ordering, madam?
+	 * @return					We'll have your shipment ready by Tuesday
+	 */
+	public List<Enemy> createSet(int count) {
+		List<Enemy> results = new ArrayList<Enemy>();
+		if (MGlobal.rand.nextBoolean()) {
+			Enemy sample = null;
+			EnemyMDO template = null;
+			MonsterNameMDO name = null;
+			while (sample == null || sample.getDangerLevel() > parent.getDanger()) {
+				name = listMDO.names[MGlobal.rand.nextInt(listMDO.names.length)];
+				template = MGlobal.data.getEntryFor(name.archetype, EnemyMDO.class);
+				sample = new Enemy(template, parent);
+			}
+			for (int i = 0; i < count; i += 1) {
+				Enemy enemy = new Enemy(template, parent);
+				MonsterNamePreMDO pre = listMDO.prefixes[MGlobal.rand.nextInt(listMDO.prefixes.length)];
+				enemy.getUnit().setName(pre.prefix + " " + name.typeName);
+				results.add(enemy);
+			}
+		} else {
+			MonsterNamePreMDO pre = listMDO.prefixes[MGlobal.rand.nextInt(listMDO.prefixes.length)];
+			for (int i = 0; i < count; i += 1) {
+				Enemy enemy = null;
+				while (enemy == null || enemy.getDangerLevel() > parent.getDanger()) {
+					MonsterNameMDO name = listMDO.names[MGlobal.rand.nextInt(listMDO.names.length)];
+					enemy = new Enemy(MGlobal.data.getEntryFor(name.archetype, EnemyMDO.class), parent);
+					enemy.getUnit().setName(pre.prefix + " " + name.typeName);
+				}
+				results.add(enemy);
+			}
+		}
+		for (Enemy enemy : results) {
+			for (Enemy enemy2 : results) {
+				enemy.getUnit().ally(enemy2.getUnit());
+			}
+		}
+		return results;
+	}
 
 	/**
 	 * @see net.wombatrpgs.mrogue.core.Queueable#queueRequiredAssets(com.badlogic.gdx.assets.AssetManager)

@@ -478,9 +478,6 @@ public class Level extends ScreenObject implements Turnable {
 	 */
 	public boolean isTransparentAt(int tileX, int tileY) {
 		// TODO: precompute this
-		if (tileX == 29 && tileY == 6) {
-			System.out.println("a");
-		}
 		if (tileX < 0 || tileY < 0 || tileX >= mapWidth || tileY >= mapHeight) {
 			return false;
 		}

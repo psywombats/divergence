@@ -117,7 +117,7 @@ public abstract class MapGenerator implements Queueable {
 		assets.add(new DoorEvent(MGlobal.data.getEntryFor(mdo.doors, DoorSetMDO.class), parent));
 		
 		r = new Random();
-		long seed = 0;
+		long seed = MGlobal.rand.nextLong();
 		r.setSeed(seed);
 		
 		state = ConversionState.INIT;

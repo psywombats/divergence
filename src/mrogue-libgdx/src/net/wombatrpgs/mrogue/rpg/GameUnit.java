@@ -271,6 +271,15 @@ public class GameUnit implements Turnable, Queueable {
 	}
 	
 	/**
+	 * Allies ourselves with a particular other unit.
+	 * @param	other			The unit to ally with
+	 */
+	public void ally(GameUnit other) {
+		allegiance.addToFriendlist(other);
+		other.allegiance.addToFriendlist(this);
+	}
+	
+	/**
 	 * Gets what we're supposed to be killing at the moment, or null if no
 	 * target. This scans visible enemies and identifies the nearest enemy.
 	 * @return
