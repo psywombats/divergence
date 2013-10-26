@@ -4,11 +4,12 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mrogue.io;
+package net.wombatrpgs.mrogue.io.command;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import net.wombatrpgs.mrogue.io.CommandMap;
 import net.wombatrpgs.mrogueschema.io.data.InputButton;
 import net.wombatrpgs.mrogueschema.io.data.InputCommand;
 
@@ -16,7 +17,7 @@ import net.wombatrpgs.mrogueschema.io.data.InputCommand;
  * Map used when cutscenes are in play.
  */
 // TODO: shift this and all other maps to database
-public class SceneCommandMap extends CommandMap {
+public class CMapScene extends CommandMap {
 	
 	// shitty solution - every key is mapped to one command
 	private Map<InputButton, InputCommand> downMap;
@@ -25,7 +26,7 @@ public class SceneCommandMap extends CommandMap {
 	 * Creates and initializes the cutscene command map. Should be called new
 	 * for each command? eugh
 	 */
-	public SceneCommandMap() {
+	public CMapScene() {
 		downMap = new HashMap<InputButton, InputCommand>();
 		
 		downMap.put(InputButton.BUTTON_1, 	InputCommand.INTENT_CONFIRM);

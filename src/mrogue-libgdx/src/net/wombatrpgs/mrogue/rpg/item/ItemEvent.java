@@ -73,6 +73,14 @@ public class ItemEvent extends MapEvent {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#mouseoverMessage()
+	 */
+	@Override
+	public String mouseoverMessage() {
+		return item.getName() + " is lying here.";
+	}
+
+	/**
 	 * Simulates being picked up by a character event. This should be called
 	 * when someone stumbles over this item.
 	 * @param character
@@ -87,7 +95,7 @@ public class ItemEvent extends MapEvent {
 	 */
 	@Override
 	protected float getZ() {
-		return super.getZ() + parent.getHeightPixels();
+		return super.getZ() + parent.getTileHeight();
 	}
 
 }

@@ -97,6 +97,7 @@ public class Narrator extends UIElement implements Turnable {
 	 * @param	msg				What to say to the player.
 	 */
 	public void msg(String msg) {
+		msg = Character.toUpperCase(msg.charAt(0)) + msg.substring(1, msg.length());
 		if (stale) {
 			lines.clear();
 			stale = false;

@@ -11,11 +11,13 @@ import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
+import net.wombatrpgs.mrogueschema.graphics.AnimationMDO;
 import net.wombatrpgs.mrogueschema.graphics.IconSetMDO;
 import net.wombatrpgs.mrogueschema.ui.FontMDO;
 import net.wombatrpgs.mrogueschema.ui.HudMDO;
 import net.wombatrpgs.mrogueschema.ui.InventoryMenuMDO;
 import net.wombatrpgs.mrogueschema.ui.NarratorMDO;
+import net.wombatrpgs.mrogueschema.ui.PromptMDO;
 import net.wombatrpgs.mrogueschema.ui.SkillsBoxMDO;
 import net.wombatrpgs.mrogueschema.ui.TextBoxMDO;
 
@@ -54,5 +56,13 @@ public class UISettingsMDO extends MainSchema {
 	@Desc("Default inventory")
 	@SchemaLink(InventoryMenuMDO.class)
 	public String inventory;
+	
+	@Desc("Exit game prompt")
+	@SchemaLink(PromptMDO.class)
+	public String prompt;
+	
+	@Desc("Cursor graphic")
+	@SchemaLink(AnimationMDO.class)
+	public String cursor;
 
 }

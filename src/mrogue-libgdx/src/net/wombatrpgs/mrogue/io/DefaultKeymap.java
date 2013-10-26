@@ -62,6 +62,9 @@ public class DefaultKeymap extends Keymap {
 		map.put(Keys.S, 		InputButton.BUTTON_5);
 		map.put(Keys.D, 		InputButton.BUTTON_6);
 		
+		// etc
+		map.put(Keys.L,			InputButton.LOOK);
+		
 		// attax
 		map.put(Keys.F1,		InputButton.ABIL_1);
 		map.put(Keys.F2,		InputButton.ABIL_2);

@@ -134,6 +134,14 @@ public class DoorEvent extends MapEvent {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#mouseoverMessage()
+	 */
+	@Override
+	public String mouseoverMessage() {
+		return ("A " + (open ? "open" : "closed") + " door.");
+	}
+
+	/**
 	 * Sets this door's facing. Should really only be called once, ever.
 	 * @param	dir				The direction to face
 	 */

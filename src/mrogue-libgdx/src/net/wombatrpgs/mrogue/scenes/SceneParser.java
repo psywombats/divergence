@@ -16,7 +16,7 @@ import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.core.Updateable;
 import net.wombatrpgs.mrogue.io.CommandMap;
-import net.wombatrpgs.mrogue.io.SceneCommandMap;
+import net.wombatrpgs.mrogue.io.command.CMapScene;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
 import net.wombatrpgs.mrogue.screen.Screen;
@@ -204,7 +204,7 @@ public class SceneParser implements	Updateable,
 		MGlobal.reporter.inform("Now running a scene: " + this);
 		running = true;
 		timeSinceStart = 0;
-		ourMap = new SceneCommandMap();
+		ourMap = new CMapScene();
 		parent.pushCommandContext(ourMap);
 	}
 	

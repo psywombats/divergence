@@ -1,0 +1,11 @@
+{
+	"key" : "prompt_exit",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"backer" : "dialog_1.png",
+	"cursor" : "cursor.png",
+	"prompt" : "Really quit?",
+	"choice1" : "NO",
+	"choice2" : "YES"
+}

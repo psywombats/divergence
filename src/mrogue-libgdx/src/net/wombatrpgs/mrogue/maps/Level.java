@@ -250,7 +250,9 @@ public class Level extends ScreenObject implements Turnable {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
-		mapGen.generateMe();
+		if (pass == 0) {
+			mapGen.generateMe();
+		}
 		if (monGen != null) {
 			monGen.spawnToDensity();
 		}

@@ -201,6 +201,14 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#mouseoverMessage()
+	 */
+	@Override
+	public String mouseoverMessage() {
+		return unit.getName() + " is standing here.";
+	}
+
+	/**
 	 * Overrides the pacing action of this character.
 	 * @param 	pacing			True if character should pace, false otherwise
 	 */

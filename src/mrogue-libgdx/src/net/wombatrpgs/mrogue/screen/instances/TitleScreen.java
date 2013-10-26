@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 
 import net.wombatrpgs.mrogue.core.Constants;
 import net.wombatrpgs.mrogue.core.MGlobal;
-import net.wombatrpgs.mrogue.io.SplashCommandMap;
+import net.wombatrpgs.mrogue.io.command.CMapSplash;
 import net.wombatrpgs.mrogue.maps.objects.Picture;
 import net.wombatrpgs.mrogue.maps.objects.TimerListener;
 import net.wombatrpgs.mrogue.maps.objects.TimerObject;
@@ -35,7 +35,7 @@ public class TitleScreen extends Screen {
 		screen = new Picture(mdo.bg, 0, 0, 0);
 		assets.add(screen);
 		addScreenObject(screen);
-		pushCommandContext(new SplashCommandMap());
+		pushCommandContext(new CMapSplash());
 		shouldIntroduce = false;
 		
 		IntroSettingsMDO introMDO=MGlobal.data.getEntryFor(Constants.KEY_INTRO, IntroSettingsMDO.class);

@@ -203,7 +203,7 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	 */
 	@Override
 	public int compareTo(MapEvent other) {
-		return -Math.round(getZ() - other.getZ());
+		return -Math.round(10f * (getZ() - other.getZ()));
 	}
 
 	/**
@@ -431,6 +431,15 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	 */
 	public float euclideanTileDistanceTo(MapEvent event) {
 		return euclideanTileDistanceTo(event.getTileX(), event.getTileY());
+	}
+	
+	/**
+	 * Called when the cursor hovers over this mouse event. Should return
+	 * something that will be fed to the player. Default returns "".
+	 * @return					The player-facing description of this event
+	 */
+	public String mouseoverMessage() {
+		return "";
 	}
 	
 	/**

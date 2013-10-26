@@ -13,15 +13,18 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
+import net.wombatrpgs.mrogue.graphics.AnimationStrip;
 import net.wombatrpgs.mrogue.maps.MapThing;
 import net.wombatrpgs.mrogue.ui.text.FontHolder;
 import net.wombatrpgs.mrogue.ui.text.TextBox;
+import net.wombatrpgs.mrogueschema.graphics.AnimationMDO;
 import net.wombatrpgs.mrogueschema.graphics.IconSetMDO;
 import net.wombatrpgs.mrogueschema.settings.UISettingsMDO;
 import net.wombatrpgs.mrogueschema.ui.FontMDO;
 import net.wombatrpgs.mrogueschema.ui.HudMDO;
 import net.wombatrpgs.mrogueschema.ui.InventoryMenuMDO;
 import net.wombatrpgs.mrogueschema.ui.NarratorMDO;
+import net.wombatrpgs.mrogueschema.ui.PromptMDO;
 import net.wombatrpgs.mrogueschema.ui.SkillsBoxMDO;
 import net.wombatrpgs.mrogueschema.ui.TextBoxMDO;
 
@@ -44,6 +47,8 @@ public class UISettings implements Queueable {
 	protected IconSet icons;
 	protected Narrator narrator;
 	protected InventoryMenu inventory;
+	protected AnimationStrip cursor;
+	protected Prompt quitPrompt;
 	
 	protected List<Queueable> assets;
 	
@@ -72,6 +77,11 @@ public class UISettings implements Queueable {
 		assets.add(narrator);
 		inventory = new InventoryMenu(MGlobal.data.getEntryFor(mdo.inventory, InventoryMenuMDO.class));
 		assets.add(inventory);
+		cursor = new AnimationStrip(MGlobal.data.getEntryFor(mdo.cursor, AnimationMDO.class));
+		assets.add(cursor);
+		quitPrompt = new Prompt(MGlobal.data.getEntryFor(mdo.prompt, PromptMDO.class));
+		assets.add(quitPrompt);
+		
 	}
 
 	/**
@@ -113,5 +123,11 @@ public class UISettings implements Queueable {
 	
 	/** @return The inventory menu associated with these settings */
 	public InventoryMenu getInventory() { return this.inventory; }
+	
+	/** @return The animation to use for the map cursor */
+	public AnimationStrip getCursor() { return this.cursor; }
+	
+	/** @return The prompt for quit game */
+	public Prompt getPrompt() { return this.quitPrompt; }
 
 }

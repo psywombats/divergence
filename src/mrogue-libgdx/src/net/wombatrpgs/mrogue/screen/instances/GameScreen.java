@@ -12,9 +12,10 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import net.wombatrpgs.mrogue.core.Constants;
 import net.wombatrpgs.mrogue.core.MGlobal;
-import net.wombatrpgs.mrogue.io.GameCommandMap;
+import net.wombatrpgs.mrogue.io.command.CMapGame;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Loc;
+import net.wombatrpgs.mrogue.maps.events.Cursor;
 import net.wombatrpgs.mrogue.rpg.Hero;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogue.screen.Screen;
@@ -33,6 +34,7 @@ public class GameScreen extends Screen {
 	
 	protected Level map;
 	protected SceneParser introParser;
+	protected Cursor cursor;
 	
 	// tests
 	protected FramerateTestMDO fpsMDO;
@@ -52,7 +54,7 @@ public class GameScreen extends Screen {
 		MGlobal.levelManager.setActive(map);
 		introParser = new SceneParser(sceneMDO, this);
 		addScreenObject(map);
-		pushCommandContext(new GameCommandMap());
+		pushCommandContext(new CMapGame());
 		
 		fpsMDO = MGlobal.data.getEntryFor("test_fps", FramerateTestMDO.class);
 		
@@ -67,6 +69,8 @@ public class GameScreen extends Screen {
 		
 		MGlobal.hero = new Hero(map, 0, 0);
 		assets.add(MGlobal.hero);
+		cursor = new Cursor();
+		assets.add(cursor);
 		
 		addScreenObject(MGlobal.ui.getNarrator());
 		addScreenObject(MGlobal.ui.getHud());
@@ -86,6 +90,9 @@ public class GameScreen extends Screen {
 		switch (command) {
 		case INTENT_INVENTORY:
 			MGlobal.ui.getInventory().show();
+			return true;
+		case INTENT_LOOK:
+			cursor.activate();
 			return true;
 		default:
 			return MGlobal.hero.onCommand(command);

@@ -8,14 +8,11 @@ package net.wombatrpgs.mrogue.ui;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.graphics.Graphic;
-import net.wombatrpgs.mrogue.io.CommandListener;
-import net.wombatrpgs.mrogue.io.InventoryCommandMap;
 import net.wombatrpgs.mrogue.rpg.item.FlatInventory;
 import net.wombatrpgs.mrogue.rpg.item.FlatInventory.FlatItem;
-import net.wombatrpgs.mrogue.screen.Screen;
 import net.wombatrpgs.mrogue.ui.text.FontHolder;
 import net.wombatrpgs.mrogue.ui.text.TextBoxFormat;
-import net.wombatrpgs.mrogueschema.io.data.InputCommand;
+import net.wombatrpgs.mrogueschema.maps.data.OrthoDir;
 import net.wombatrpgs.mrogueschema.ui.FontMDO;
 import net.wombatrpgs.mrogueschema.ui.InventoryMenuMDO;
 
@@ -25,20 +22,16 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 /**
  * The pull-out tab for item selection
  */
-public class InventoryMenu extends UIElement implements CommandListener {
-	
-	protected static final int MAX_TEXT_WIDTH = 800;	// centering thing
+public class InventoryMenu extends Popup {
 	
 	public InventoryMenuMDO mdo;
 	protected Graphic backer, highlight, tab;
-	protected InventoryCommandMap commands;
 	protected FontHolder font;
 	protected TextBoxFormat amtFormat, descFormat;
 	
 	protected FlatInventory flats;
 	int selected, maxSelect;
 	int scroll, maxScroll;
-	protected boolean active;
 	protected float x, y;
 	
 	/**
@@ -51,7 +44,6 @@ public class InventoryMenu extends UIElement implements CommandListener {
 		backer = startGraphic(mdo.backer);
 		highlight = startGraphic(mdo.highlight);
 		tab = startGraphic(mdo.tab);
-		commands = new InventoryCommandMap();
 		font = new FontHolder(MGlobal.data.getEntryFor(mdo.font, FontMDO.class));
 		assets.add(font);
 		
@@ -61,44 +53,29 @@ public class InventoryMenu extends UIElement implements CommandListener {
 		
 		amtFormat = new TextBoxFormat();
 		amtFormat.align = BitmapFont.HAlignment.CENTER;
-		amtFormat.width = MAX_TEXT_WIDTH;
-		amtFormat.height = 64;
+		amtFormat.width = TEXT_WIDTH;
+		amtFormat.height = TEXT_HEIGHT;
 		descFormat = new TextBoxFormat();
 		descFormat.align = BitmapFont.HAlignment.LEFT;
-		descFormat.width = MAX_TEXT_WIDTH;
-		descFormat.height = 64;
+		descFormat.width = TEXT_WIDTH;
+		descFormat.height = TEXT_HEIGHT;
 	}
 	
 	/** @return True if this inventory menu is up on the screen */
 	public boolean isDisplaying() { return active; }
-	
+
 	/**
-	 * Call this whenever the inventory menu should show up. Will switch the
-	 * command context and animate the transition.
+	 * @see net.wombatrpgs.mrogue.ui.Popup#show()
 	 */
+	@Override
 	public void show() {
-		Screen s = MGlobal.screens.peek();
-		s.registerCommandListener(this);
-		s.pushCommandContext(commands);
-		active = true;
-		
+		super.show();
 		flats = MGlobal.hero.getUnit().getInventory().flatten();
 		selected = 0;
 		scroll = 0;
 		maxSelect = Math.min(flats.size(), mdo.itemCount);
 		maxScroll = flats.size() - mdo.itemCount;
 		if (maxScroll < 1) maxScroll = 1;
-	}
-	
-	/**
-	 * Call this whenever this inventory menu should go away. Will switch the
-	 * command context and animation the transition.
-	 */
-	public void hide() {
-		Screen s = MGlobal.screens.peek();
-		s.unregisterCommandListener(this);
-		s.popCommandContext();
-		active = false;
 	}
 
 	/**
@@ -115,7 +92,7 @@ public class InventoryMenu extends UIElement implements CommandListener {
 				FlatItem flat = flats.getFlat(i + scroll);
 				if (flat != null) {
 					flat.item.getIcon().renderAt(getBatch(), atX, atY);
-					amtFormat.x = atX - MAX_TEXT_WIDTH / 2 + flat.item.getIcon().getWidth() / 2;
+					amtFormat.x = atX - TEXT_WIDTH / 2 + flat.item.getIcon().getWidth() / 2;
 					amtFormat.y = atY - mdo.amyOffX;
 					font.draw(getBatch(), amtFormat, "x"+flat.amt, 0);
 					if (selected == i) {
@@ -152,20 +129,13 @@ public class InventoryMenu extends UIElement implements CommandListener {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mrogue.io.CommandListener#onCommand
-	 * (net.wombatrpgs.mrogueschema.io.data.InputCommand)
+	 * @see net.wombatrpgs.mrogue.ui.Popup#onCursorMove
+	 * (net.wombatrpgs.mrogueschema.maps.data.OrthoDir)
 	 */
 	@Override
-	public boolean onCommand(InputCommand command) {
-		switch (command) {
-		case INTENT_CANCEL:
-			hide();
-			return true;
-		case INTENT_CONFIRM:
-			MGlobal.hero.actAndWait(flats.getFlat(scroll + selected).item);
-			hide();
-			return true;
-		case CURSOR_LEFT:
+	protected boolean onCursorMove(OrthoDir dir) {
+		switch (dir) {
+		case WEST:
 			if (selected > 0) {
 				selected -= 1;
 			} else if (scroll > 0) {
@@ -175,7 +145,7 @@ public class InventoryMenu extends UIElement implements CommandListener {
 				selected = maxSelect - 1;
 			}
 			return true;
-		case CURSOR_RIGHT:
+		case EAST:
 			if (selected < maxSelect - 1) {
 				selected += 1;
 			} else if (scroll < maxScroll - 1) {
@@ -188,6 +158,16 @@ public class InventoryMenu extends UIElement implements CommandListener {
 		default:
 			return false;
 		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.mrogue.ui.Popup#confirm()
+	 */
+	@Override
+	protected boolean confirm() {
+		MGlobal.hero.actAndWait(flats.getFlat(scroll + selected).item);
+		hide();
+		return true;
 	}
 
 }

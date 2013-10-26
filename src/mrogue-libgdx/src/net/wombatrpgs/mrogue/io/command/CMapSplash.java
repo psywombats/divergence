@@ -4,25 +4,26 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mrogue.io;
+package net.wombatrpgs.mrogue.io.command;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import net.wombatrpgs.mrogue.io.CommandMap;
 import net.wombatrpgs.mrogueschema.io.data.InputButton;
 import net.wombatrpgs.mrogueschema.io.data.InputCommand;
 
 /**
  * Map for title and game over.
  */
-public class SplashCommandMap extends CommandMap {
+public class CMapSplash extends CommandMap {
 	
 	protected Map<InputButton, InputCommand> downMap;
 
 	/**
 	 * Creates a new command map.
 	 */
-	public SplashCommandMap() {
+	public CMapSplash() {
 		downMap = new HashMap<InputButton, InputCommand>();
 		
 		downMap.put(InputButton.BUTTON_1,	InputCommand.INTENT_CONFIRM);

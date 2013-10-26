@@ -4,11 +4,12 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mrogue.io;
+package net.wombatrpgs.mrogue.io.command;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import net.wombatrpgs.mrogue.io.CommandMap;
 import net.wombatrpgs.mrogueschema.io.data.InputButton;
 import net.wombatrpgs.mrogueschema.io.data.InputCommand;
 
@@ -17,7 +18,7 @@ import net.wombatrpgs.mrogueschema.io.data.InputCommand;
  * basically, and command maps probably need to be swapped in and out depending
  * on context.
  */
-public class GameCommandMap extends CommandMap {
+public class CMapLook extends CommandMap {
 	
 	// stopgap solution - every key is mapped to one command
 	private Map<InputButton, InputCommand> downMap;
@@ -27,7 +28,7 @@ public class GameCommandMap extends CommandMap {
 	 * Creates and initializes the default command map. Should probably only
 	 * need to be created once but w/e.
 	 */
-	public GameCommandMap() {
+	public CMapLook() {
 		downMap = new HashMap<InputButton, InputCommand>();
 		upMap = new HashMap<InputButton, InputCommand>();
 		
@@ -46,16 +47,9 @@ public class GameCommandMap extends CommandMap {
 		downMap.put(InputButton.DIR_NW, 	InputCommand.MOVE_NORTHWEST);
 		downMap.put(InputButton.WAIT,		InputCommand.MOVE_WAIT);
 		
-		downMap.put(InputButton.ABIL_1,		InputCommand.ABIL_1);
-		downMap.put(InputButton.ABIL_2,		InputCommand.ABIL_2);
-		downMap.put(InputButton.ABIL_3,		InputCommand.ABIL_3);
-		downMap.put(InputButton.ABIL_4,		InputCommand.ABIL_4);
-		downMap.put(InputButton.ABIL_5,		InputCommand.ABIL_5);
-		downMap.put(InputButton.ABIL_6,		InputCommand.ABIL_6);
-		
-		downMap.put(InputButton.MENU,		InputCommand.INTENT_QUIT);
-		downMap.put(InputButton.FULLSCREEN,	InputCommand.INTENT_FULLSCREEN);
-		downMap.put(InputButton.TAB,		InputCommand.INTENT_INVENTORY);
+		downMap.put(InputButton.MENU,		InputCommand.INTENT_CANCEL);
+		downMap.put(InputButton.LOOK,		InputCommand.INTENT_CANCEL);
+		downMap.put(InputButton.BUTTON_2,	InputCommand.INTENT_CANCEL);
 		
 	}
 

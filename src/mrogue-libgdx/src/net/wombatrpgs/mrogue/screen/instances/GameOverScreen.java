@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 
 import net.wombatrpgs.mrogue.core.Constants;
 import net.wombatrpgs.mrogue.core.MGlobal;
-import net.wombatrpgs.mrogue.io.SplashCommandMap;
+import net.wombatrpgs.mrogue.io.command.CMapSplash;
 import net.wombatrpgs.mrogue.maps.objects.Picture;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogue.screen.Screen;
@@ -31,7 +31,7 @@ public class GameOverScreen extends Screen {
 		screen = new Picture(mdo.bg, 0, 0, 0);
 		assets.add(screen);
 		addScreenObject(screen);
-		pushCommandContext(new SplashCommandMap());
+		pushCommandContext(new CMapSplash());
 		shouldIntroduce = false;
 		
 		immParser = MGlobal.levelManager.getCutscene(mdo.immScene, this);

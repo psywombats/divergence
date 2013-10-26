@@ -1,0 +1,21 @@
+{
+	"key" : "decor_emptyshelf",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"chance" : 0.0,
+	"original" : "FLOOR",
+	"replacement" : "FLOOR",
+	"tl" : {
+		"appearance" : "emptybookshelf02.png"
+	},
+	"tr" : {
+		"appearance" : "emptybookshelf03.png"
+	},
+	"bl" : {
+		"appearance" : "emptybookshelf01.png"
+	},
+	"br" : {
+		"appearance" : "emptybookshelf04.png"
+	}
+}
