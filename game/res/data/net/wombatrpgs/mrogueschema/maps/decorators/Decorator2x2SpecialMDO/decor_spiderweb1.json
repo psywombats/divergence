@@ -5,6 +5,7 @@
 	"description" : "",
 	"chance" : 0.1,
 	"original" : "FLOOR",
+	"replacement" : "FLOOR",
 	"tl" : {
 		"appearance" : "spiderwebtopleft02.png"
 	},
@@ -20,5 +21,6 @@
 	"br" : {
 		"appearance" : "spiderwebbottomright02.png"
 	},
-	"brOriginal" : "WALL_BRIGHT"
+	"brOriginal" : "WALL_BRIGHT",
+	"shelfMode" : "NOT_SHELF"
 }

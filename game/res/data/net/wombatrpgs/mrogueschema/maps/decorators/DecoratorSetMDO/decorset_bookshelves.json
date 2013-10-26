@@ -1,0 +1,12 @@
+{
+	"key" : "decorset_bookshelves",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "  ",
+	"decorators" : [
+		"decor_halfemptyshelf",
+		"decor_halfemptyshelf2",
+		"decor_fullshelf",
+		"decor_emptyshelf"
+	]
+}

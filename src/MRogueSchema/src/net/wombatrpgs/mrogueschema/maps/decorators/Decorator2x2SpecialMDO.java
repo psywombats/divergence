@@ -11,6 +11,7 @@ import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mrogueschema.maps.data.TileMDO;
 import net.wombatrpgs.mrogueschema.maps.data.TileType;
+import net.wombatrpgs.mrogueschema.maps.decorators.data.ShelfMode;
 import net.wombatrpgs.mrogueschema.maps.decorators.data.SingleDecoratorMDO;
 
 /**
@@ -46,5 +47,8 @@ public class Decorator2x2SpecialMDO extends SingleDecoratorMDO {
 	
 	@Desc("The bottom right tile type to replace")
 	public TileType brOriginal;
+	
+	@Desc("How to handle shelves")
+	public ShelfMode shelfMode;
 
 }

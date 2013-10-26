@@ -2,7 +2,7 @@
 	"key" : "generator_celltest",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "   ",
+	"description" : "    ",
 	"floorTiles" : {
 		"appearance" : "floor01.png"
 	},
@@ -22,7 +22,8 @@
 		"decorset_spiderwebs"
 	],
 	"upDecorators" : [
-		"decorset_drawers",
-		"decorset_tables"
+		"decorset_bookshelves",
+		"decorset_bookshelves",
+		"decorset_bookshelves"
 	]
 }
