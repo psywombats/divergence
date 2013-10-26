@@ -9,6 +9,7 @@ package net.wombatrpgs.mrogue.rpg;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -390,6 +391,15 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	 */
 	public void simulateTime(int ticks) {
 		ticksRemaining -= ticks;
+	}
+	
+	/**
+	 * Flashes our appearance a certain color for a certain time.
+	 * @param	c				The color to flash
+	 * @param	duration		How long the flash should take in total
+	 */
+	public void flash(Color c, float duration) {
+		appearance.flash(c, duration);
 	}
 
 	/**

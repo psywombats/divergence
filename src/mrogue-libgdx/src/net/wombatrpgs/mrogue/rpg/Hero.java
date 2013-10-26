@@ -44,6 +44,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 	protected boolean[][] seenCache;
 	protected Pixmap p;
 	protected Texture viewTex;
+	protected Ability blockingAbil;
 
 	/**
 	 * Placeholder constructor. When the hero is finally initialized properly
@@ -143,6 +144,11 @@ public class Hero extends CharacterEvent implements CommandListener {
 			} else {
 				MGlobal.screens.pop();
 				MGlobal.screens.push(new GameOverScreen());
+			}
+		}
+		if (blockingAbil != null) {
+			if (blockingAbil.useAndBlock()) {
+				blockingAbil = null;
 			}
 		}
 	}
@@ -262,7 +268,10 @@ public class Hero extends CharacterEvent implements CommandListener {
 	}
 	
 	/**
-	 * Ability subcommand.
+	 * Ability subcommand. There's some logic for blocking abilities included,
+	 * ie, an ability must first be set active, then told to act. The idea here
+	 * is that an ability should be able to ask the player for further input
+	 * before forcing the world to move around it.
 	 * @param	no				The index of the ability ordered
 	 */
 	protected void abil(int no) {
@@ -275,7 +284,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 			GameUnit.out().msg("ability not available.");
 			return;
 		}
-		actAndWait(abil);
+		blockingAbil = abil;
 	}
 
 }

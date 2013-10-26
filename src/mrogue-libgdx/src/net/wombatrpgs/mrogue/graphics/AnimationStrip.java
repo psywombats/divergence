@@ -14,6 +14,7 @@ import net.wombatrpgs.mrogueschema.graphics.AnimationMDO;
 import net.wombatrpgs.mrogueschema.graphics.data.AnimationType;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -43,6 +44,10 @@ public class AnimationStrip implements 	Renderable,
 	protected float bump;
 	protected boolean moving;
 	protected boolean looping;
+	
+	protected Color flashColor;
+	protected float flashElapsed;
+	protected float flashDuration;
 	
 	/**
 	 * Creates a new animation from the relevant information and with the
@@ -110,6 +115,12 @@ public class AnimationStrip implements 	Renderable,
 			time += elapsed;
 		}
 		currentFrame = anim.getKeyFrame(time + bump, looping);
+		if (flashColor != null) {
+			flashElapsed += elapsed;
+			if (flashElapsed > flashDuration) {
+				flashColor = null;
+			}
+		}
 	}
 
 	/**
@@ -119,7 +130,29 @@ public class AnimationStrip implements 	Renderable,
 	@Override
 	public void render(OrthographicCamera camera) {
 		if (currentFrame != null) {
+			Color old = null;
+			if (flashColor != null) {
+				parent.getParent().getBatch().end();
+				old = parent.getParent().getBatch().getColor().cpy();
+				float r;
+				r = 2f * flashElapsed / (flashDuration);
+				if (flashElapsed > flashDuration / 2f) {
+					r = 2f - r;
+				}
+				Color cur = new Color(
+						old.r * (1f-r) + flashColor.r * r,
+						old.g * (1f-r) + flashColor.g * r,
+						old.b * (1f-r) + flashColor.b * r,
+						old.a * (1f-r) + flashColor.a * r);
+				parent.getParent().getBatch().setColor(cur);
+				parent.getParent().getBatch().begin();
+			}
 			parent.renderLocal(camera, currentFrame, 0, 0, 0);
+			if (flashColor != null) {
+				parent.getParent().getBatch().end();
+				parent.getParent().getBatch().setColor(old);
+				parent.getParent().getBatch().begin();
+			}
 		}
 	}
 
@@ -234,6 +267,17 @@ public class AnimationStrip implements 	Renderable,
 	 */
 	public void reset() {
 		time = 0;
+	}
+	
+	/**
+	 * Flashes a certain color for a certain time.
+	 * @param	c				The color to flash
+	 * @param	duration		How long the flash should take in total
+	 */
+	public void flash(Color c, float duration) {
+		this.flashColor = c;
+		this.flashDuration = duration;
+		flashElapsed = 0;
 	}
 	
 	/**

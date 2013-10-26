@@ -7,6 +7,7 @@
 package net.wombatrpgs.mrogue.graphics;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -240,6 +241,17 @@ public abstract class FacesAnimation implements Renderable,
 	 */
 	public void setFlicker(boolean flicker) {
 		this.flickering = flicker;
+	}
+	
+	/**
+	 * Flashes a certain color for a certain time.
+	 * @param	c				The color to flash
+	 * @param	duration		How long the flash should take in total
+	 */
+	public void flash(Color c, float duration) {
+		for (AnimationStrip strip : animations) {
+			strip.flash(c, duration);
+		}
 	}
 	
 	/**

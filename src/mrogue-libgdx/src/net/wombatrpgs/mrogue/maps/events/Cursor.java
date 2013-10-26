@@ -12,7 +12,7 @@ import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.graphics.AnimationStrip;
 import net.wombatrpgs.mrogue.io.CommandListener;
 import net.wombatrpgs.mrogue.io.CommandMap;
-import net.wombatrpgs.mrogue.io.command.CMapLook;
+import net.wombatrpgs.mrogue.io.command.CMapDirections;
 import net.wombatrpgs.mrogueschema.io.data.InputCommand;
 import net.wombatrpgs.mrogueschema.maps.data.EightDir;
 
@@ -30,7 +30,7 @@ public class Cursor extends MapEvent implements CommandListener {
 	public Cursor() {
 		appearance = MGlobal.ui.getCursor();
 		appearance.setParent(this);
-		commands = new CMapLook();
+		commands = new CMapDirections();
 	}
 
 	/**

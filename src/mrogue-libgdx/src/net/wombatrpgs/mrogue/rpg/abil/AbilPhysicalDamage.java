@@ -10,21 +10,21 @@ import java.util.List;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.rpg.GameUnit;
-import net.wombatrpgs.mrogueschema.characters.effects.AbilArmorPierceMDO;
+import net.wombatrpgs.mrogueschema.characters.effects.AbilPhysicalDamageMDO;
 
 /**
- * Most spell damage falls into this category.
+ * Deals damage like an attack.
  */
-public class AbilArmorPierce extends AbilEffect {
+public class AbilPhysicalDamage extends AbilEffect {
 	
-	protected AbilArmorPierceMDO mdo;
+	protected AbilPhysicalDamageMDO mdo;
 	
 	/**
 	 * Creates an effect given data, ability.
 	 * @param	mdo				The data to generate from
 	 * @param	abil			The ability to generate for
 	 */
-	public AbilArmorPierce(AbilArmorPierceMDO mdo, Ability abil) {
+	public AbilPhysicalDamage(AbilPhysicalDamageMDO mdo, Ability abil) {
 		super(mdo, abil);
 		this.mdo = mdo;
 	}
@@ -36,11 +36,18 @@ public class AbilArmorPierce extends AbilEffect {
 	protected void internalAct(List<GameUnit> targets) {
 		for (GameUnit target : targets) {
 			int dmg = actor.getUnit().getStats().getDamage();
-			dmg -= Math.floor((float) target.getStats().armor * mdo.pierce);
-			target.takeRawDamage(dmg);
+			dmg *= mdo.mult;
+			dmg += mdo.base;
+			dmg = target.takePhysicalDamage(dmg);
 			if (MGlobal.hero.inLoS(target.getParent())) {
-				GameUnit.out().msg(target.getName() + " takes " + dmg + " damage.");
+				if (dmg > 0) {
+					GameUnit.out().msg(target.getName() + " takes " + dmg + " damage.");
+				} else {
+					GameUnit.out().msg(target.getName() + " is unharmed.");
+				}
 			}
+			target.onAttackBy(actor.getUnit());
+			target.ensureAlive();
 		}
 	}
 

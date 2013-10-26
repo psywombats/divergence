@@ -18,6 +18,7 @@ import net.wombatrpgs.mrogue.maps.events.MapEvent;
 import net.wombatrpgs.mrogue.maps.objects.TimerListener;
 import net.wombatrpgs.mrogue.maps.objects.TimerObject;
 import net.wombatrpgs.mrogue.rpg.abil.Ability;
+import net.wombatrpgs.mrogueschema.characters.data.AbilityTargetType;
 import net.wombatrpgs.mrogueschema.graphics.effects.data.AbilFxMDO;
 
 /**
@@ -60,8 +61,13 @@ public abstract class AbilFX extends MapEvent implements Disposable {
 		final Level parent = abil.getActor().getParent();
 		parent.addEvent(this);
 		totalElapsed = 0;
-		tileX = abil.getActor().getTileX();
-		tileY = abil.getActor().getTileY();
+		if (abil.getType() == AbilityTargetType.BALL) {
+			tileX = abil.getActor().getTileX();
+			tileY = abil.getActor().getTileY();
+		} else {
+			tileX = abil.getTargets().get(0).getParent().getTileX();
+			tileY = abil.getTargets().get(0).getParent().getTileY();
+		}
 		x = tileX * parent.getTileWidth();
 		y = tileY * parent.getTileHeight();
 		update(0);
@@ -75,7 +81,6 @@ public abstract class AbilFX extends MapEvent implements Disposable {
 	
 	/** @return True if this ability has finished playing and erased itself */
 	public boolean isFinished() { return totalElapsed >= mdo.duration; }
-
 
 	/**
 	 * @see net.wombatrpgs.mrogue.graphics.Renderable#render
@@ -112,6 +117,14 @@ public abstract class AbilFX extends MapEvent implements Disposable {
 	@Override
 	public void dispose() {
 		privateBatch.dispose();
+	}
+
+	/**
+	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#getZ()
+	 */
+	@Override
+	protected float getZ() {
+		return super.getZ() - parent.getHeightPixels();
 	}
 
 }

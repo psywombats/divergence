@@ -18,7 +18,7 @@ import net.wombatrpgs.mrogueschema.io.data.InputCommand;
  * basically, and command maps probably need to be swapped in and out depending
  * on context.
  */
-public class CMapLook extends CommandMap {
+public class CMapDirections extends CommandMap {
 	
 	// stopgap solution - every key is mapped to one command
 	private Map<InputButton, InputCommand> downMap;
@@ -28,7 +28,7 @@ public class CMapLook extends CommandMap {
 	 * Creates and initializes the default command map. Should probably only
 	 * need to be created once but w/e.
 	 */
-	public CMapLook() {
+	public CMapDirections() {
 		downMap = new HashMap<InputButton, InputCommand>();
 		upMap = new HashMap<InputButton, InputCommand>();
 		

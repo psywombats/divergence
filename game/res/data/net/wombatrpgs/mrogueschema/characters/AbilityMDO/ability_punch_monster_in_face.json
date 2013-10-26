@@ -1,0 +1,13 @@
+{
+	"key" : "ability_punch_monster_in_face",
+	"subfolder" : "",
+	"name" : "punch-monster-in-face",
+	"description" : " ",
+	"target" : "MELEE",
+	"range" : 1.0,
+	"effect" : "effect_dummy",
+	"icon" : "icon_twoswords.png",
+	"energyCost" : 1000,
+	"mpCost" : 1,
+	"fx" : "None"
+}

@@ -5,7 +5,7 @@
 	"description" : "  ",
 	"target" : "BALL",
 	"range" : 4.0,
-	"effect" : "effect_armorpierce",
+	"effect" : "effect_magic",
 	"icon" : "icon_fireball.png",
 	"energyCost" : 1000,
 	"mpCost" : 12,

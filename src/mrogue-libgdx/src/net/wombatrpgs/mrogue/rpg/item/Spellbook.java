@@ -6,6 +6,9 @@
  */
 package net.wombatrpgs.mrogue.rpg.item;
 
+import net.wombatrpgs.mrogue.core.MGlobal;
+import net.wombatrpgs.mrogue.rpg.abil.Ability;
+import net.wombatrpgs.mrogueschema.characters.AbilityMDO;
 import net.wombatrpgs.mrogueschema.items.SpellbookMDO;
 
 /**
@@ -15,14 +18,25 @@ import net.wombatrpgs.mrogueschema.items.SpellbookMDO;
 public class Spellbook extends Item {
 	
 	protected SpellbookMDO mdo;
+	protected AbilityMDO abilMDO;
 
 	/**
-	 * Creates a spellbook from data.
+	 * Creates a spellbook from data, and will look up its ability later.
 	 * @param	mdo				The data to generate from
 	 */
 	public Spellbook(SpellbookMDO mdo) {
 		super(mdo);
 		this.mdo = mdo;
+	}
+	
+	/**
+	 * Creates a spellbook from data, but will not use the ability field.
+	 * @param	mdo				The data to generate from
+	 * @param	abilMDO			The ability data to use
+	 */
+	protected Spellbook(SpellbookMDO mdo, AbilityMDO abilMDO) {
+		this(mdo);
+		this.abilMDO = abilMDO;
 	}
 
 	/**
@@ -30,7 +44,18 @@ public class Spellbook extends Item {
 	 */
 	@Override
 	protected void internalUse() {
-		// TODO spellbook
+		if (owner.getAbilities().size() >= 6) {
+			MGlobal.ui.getNarrator().msg("Sorry, your brain is full.");
+			return;
+		}
+		if (abilMDO == null) {
+			abilMDO = MGlobal.data.getEntryFor(mdo.ability, AbilityMDO.class);
+		}
+		Ability abil = new Ability(owner.getParent(), abilMDO);
+		abil.queueRequiredAssets(MGlobal.assetManager);
+		abil.postProcessing(MGlobal.assetManager, 0);
+		owner.getAbilities().add(abil);
+		MGlobal.ui.getNarrator().msg(owner.getName() + " mastered " + abil.getName() + ".");
 	}
 
 }

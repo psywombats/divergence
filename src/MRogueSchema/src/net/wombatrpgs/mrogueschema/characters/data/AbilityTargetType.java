@@ -15,5 +15,6 @@ public enum AbilityTargetType {
 	BALL,
 	BEAM,
 	PROJECTILE,
+	MELEE,
 
 }

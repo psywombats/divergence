@@ -66,6 +66,14 @@ public class Stats {
 		return dmgBase + MGlobal.rand.nextInt(dmgRange+1);
 	}
 	
+	/** 
+	 * Calculates some magic damage via base, range, and the RNG.
+	 * @return					The damage to be dealt.
+	 */
+	public int getMagDamage() {
+		return magBase + MGlobal.rand.nextInt(magRange+1);
+	}
+	
 	/**
 	 * Inflicts a set amount of HP damage. Just subtraction here.
 	 * @param	damage			The amount of damage inflicted

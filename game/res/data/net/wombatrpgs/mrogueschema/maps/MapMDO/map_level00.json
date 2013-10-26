@@ -8,7 +8,7 @@
 	"danger" : 0,
 	"generator" : "generator_celltest",
 	"enemies" : "monstergen_default",
-	"items" : "None",
+	"items" : "itemgen_test",
 	"effect" : "effect_los",
 	"scene" : "None",
 	"pathsUp" : [ ],

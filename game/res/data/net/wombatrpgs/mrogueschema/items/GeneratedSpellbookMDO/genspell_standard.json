@@ -1,0 +1,18 @@
+{
+	"key" : "genspell_standard",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"gameDesc" : "",
+	"icon" : "book_green.png",
+	"prefixes" : [
+		"spellpre_blade",
+		"spellpre_distortion",
+		"spellpre_fire"
+	],
+	"types" : [
+		"spelltype_aura",
+		"spelltype_ball",
+		"spelltype_touch"
+	]
+}

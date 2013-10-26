@@ -233,7 +233,7 @@ public class GeneratorCellular extends MapGenerator {
 		
 		for (CRoom cr : allrooms) {
 			if (!cr.tensionAvailable) continue;
-			//if (r.nextFloat() < .8) continue;
+			if (r.nextFloat() < .99) continue;
 			cr.tensionSelected = true;
 			int count = (cr.x + cr.rw - 1) * (cr.y + cr.rh - 1);
 			List<Enemy> enemies = parent.getMonsterGenerator().createSet(count);

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
@@ -212,6 +213,7 @@ public class GameUnit implements Turnable, Queueable {
 	 */
 	public void takeRawDamage(int damage) {
 		currentStats.takeRawDamage(damage);
+		parent.flash(Color.RED, MGlobal.constants.getDelay()*1.6f);
 	}
 	
 	/**
@@ -222,7 +224,26 @@ public class GameUnit implements Turnable, Queueable {
 	 * @return					The amount of damage actually dealt, in hp
 	 */
 	public int takePhysicalDamage(int damage) {
-		return currentStats.takePhysicalDamage(damage);
+		int dealt = currentStats.takePhysicalDamage(damage);
+		if (dealt > 0) {
+			parent.flash(Color.RED, MGlobal.constants.getDelay()*1.6f);
+		}
+		return dealt;
+	}
+	
+	/**
+	 * Inflicts an amount of magic damage on this character. Deals with armor
+	 * but not death. This is mostly so that printouts complete in the
+	 * correct order.
+	 * @param	damage			The amount of magic damage to deal, in hp
+	 * @return					The amount of damage actually dealt, in hp
+	 */
+	public int takeMagicDamage(int damage) {
+		int dealt = currentStats.takeMagicDamage(damage);
+		if (dealt > 0) {
+			parent.flash(Color.RED, MGlobal.constants.getDelay()*1.6f);
+		}
+		return dealt;
 	}
 	
 	/**

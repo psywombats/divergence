@@ -2,12 +2,9 @@
 	"key" : "itemgen_test",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "",
+	"description" : " ",
 	"items" : [
-		"genpotion_standard",
-		"potion_mp",
-		"potion_hp",
-		"genpotion_exotic"
+		"genspell_standard"
 	],
 	"firstTreasure" : 40
 }

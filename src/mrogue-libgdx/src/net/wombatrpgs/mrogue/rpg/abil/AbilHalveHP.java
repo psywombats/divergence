@@ -41,6 +41,7 @@ public class AbilHalveHP extends AbilEffect {
 				GameUnit.out().msg(unit.getName() + " suffers " + damage + " distortion damage.");
 			}
 			unit.takeRawDamage(damage);
+			unit.onAttackBy(actor.getUnit());
 		}
 	}
 
