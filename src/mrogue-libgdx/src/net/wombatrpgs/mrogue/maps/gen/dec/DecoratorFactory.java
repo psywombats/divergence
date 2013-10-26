@@ -16,6 +16,7 @@ import net.wombatrpgs.mrogueschema.maps.decorators.Decorator2x1MDO;
 import net.wombatrpgs.mrogueschema.maps.decorators.Decorator2x2MDO;
 import net.wombatrpgs.mrogueschema.maps.decorators.Decorator2x2SpecialMDO;
 import net.wombatrpgs.mrogueschema.maps.decorators.Decorator3x1MDO;
+import net.wombatrpgs.mrogueschema.maps.decorators.Decorator3x2MDO;
 import net.wombatrpgs.mrogueschema.maps.decorators.Decorator3x3MDO;
 import net.wombatrpgs.mrogueschema.maps.decorators.DecoratorSetMDO;
 import net.wombatrpgs.mrogueschema.maps.decorators.data.DecoratorMDO;
@@ -47,6 +48,8 @@ public class DecoratorFactory {
 			return new DecoratorSet((DecoratorSetMDO) mdo, gen);
 		} else if (Decorator3x1MDO.class.isAssignableFrom(mdo.getClass())) {
 			return new Decorator3x1((Decorator3x1MDO) mdo, gen);
+		} else if (Decorator3x2MDO.class.isAssignableFrom(mdo.getClass())) {
+			return new Decorator3x2((Decorator3x2MDO) mdo, gen);
 		} else if (Decorator1x2SpecialMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new Decorator1x2Special((Decorator1x2SpecialMDO) mdo, gen);
 		} else if (Decorator1x1MDO.class.isAssignableFrom(mdo.getClass())) {

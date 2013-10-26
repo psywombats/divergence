@@ -74,7 +74,7 @@ public class InventoryMenu extends Popup {
 		selected = 0;
 		scroll = 0;
 		maxSelect = Math.min(flats.size(), mdo.itemCount);
-		maxScroll = flats.size() - mdo.itemCount;
+		maxScroll = flats.size() - mdo.itemCount + 1;
 		if (maxScroll < 1) maxScroll = 1;
 	}
 

@@ -67,7 +67,9 @@ public class MonsterGenerator implements	Turnable,
 			enemy = new Enemy(MGlobal.data.getEntryFor(name.archetype, EnemyMDO.class), parent);
 			enemy.getUnit().setName(pre.prefix + " " + name.typeName);
 		}
-		
+		if (parent.getItemGenerator() != null & MGlobal.rand.nextFloat() < mdo.loot) {
+			enemy.getUnit().getInventory().addItem(parent.getItemGenerator().createEvent().getItem());
+		}
 		return enemy;
 	}
 	

@@ -78,7 +78,7 @@ public class Level extends ScreenObject implements Turnable {
 	// MR mappy stuff
 	protected int mapWidth, mapHeight;
 	protected MapGenerator mapGen;
-	protected ItemGenerator itemGen;
+	protected ItemGenerator itemGen, lootGen;
 	protected MonsterGenerator monGen;
 	protected SceneParser scene;
 	
@@ -113,6 +113,13 @@ public class Level extends ScreenObject implements Turnable {
 			itemGen = new ItemGenerator(this,
 					MGlobal.data.getEntryFor(mdo.items, ItemGeneratorMDO.class));
 			assets.add(itemGen);
+		}
+		if (MapThing.mdoHasProperty(mdo.goodItems)) {
+			lootGen = new ItemGenerator(this,
+					MGlobal.data.getEntryFor(mdo.goodItems, ItemGeneratorMDO.class));
+			assets.add(lootGen);
+		} else if (itemGen != null) {
+			lootGen = itemGen;
 		}
 		if (MapThing.mdoHasProperty(mdo.scene)) {
 			scene = MGlobal.levelManager.getCutscene(mdo.scene);
@@ -170,6 +177,9 @@ public class Level extends ScreenObject implements Turnable {
 	
 	/** @reutrn The thing in charge of making items for us */
 	public ItemGenerator getItemGenerator() { return itemGen; }
+	
+	/** @reutrn The thing in charge of making good items for us */
+	public ItemGenerator getLootGenerator() { return lootGen; }
 	
 	/** @return The time since the move started, in s */
 	public float getMoveTimeElapsed() { return MGlobal.constants.getDelay() - moveTime; }

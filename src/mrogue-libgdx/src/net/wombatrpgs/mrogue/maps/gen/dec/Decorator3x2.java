@@ -38,8 +38,8 @@ public class Decorator3x2 extends DecoratorSingle {
 	public void apply(Tile[][] tilesOld, Tile[][] tilesNew) {
 		this.tilesNew = tilesNew;
 		this.tilesNew = tilesNew;
-		for (int x = 0; x < gen.getWidth(); x += 1) {
-			for (int y = 0; y < gen.getHeight(); y += 1) {
+		for (int x = 0; x < gen.getWidth() - 1; x += 1) {
+			for (int y = 0; y < gen.getHeight() - 1; y += 1) {
 				if (mdo.chance < gen.rand().nextFloat()) continue;
 				if (!legal(tilesOld, x+1, y+1)) continue;
 				if (!legal(tilesOld, x+1, y)) continue;

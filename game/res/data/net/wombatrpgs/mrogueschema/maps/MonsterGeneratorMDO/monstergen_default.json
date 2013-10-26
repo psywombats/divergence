@@ -2,8 +2,9 @@
 	"key" : "monstergen_default",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "",
+	"description" : " ",
 	"list" : "monsterlist_all",
 	"density" : 30.0,
-	"respawnRate" : 5
+	"respawnRate" : 5,
+	"loot" : 0.4
 }

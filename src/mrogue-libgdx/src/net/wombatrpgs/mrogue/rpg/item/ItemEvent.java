@@ -36,6 +36,7 @@ public class ItemEvent extends MapEvent {
 		this.mdo = me.getMDO();
 		this.setTileX(tileX);
 		this.setTileY(tileY);
+		me.setParent(this);
 	}
 	
 	/** @return The item that we're holding */

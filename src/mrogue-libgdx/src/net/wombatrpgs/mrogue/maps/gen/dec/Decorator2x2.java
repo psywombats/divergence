@@ -44,10 +44,10 @@ public class Decorator2x2 extends DecoratorSingle {
 				if (!legal(tilesOld, x+1, y)) continue;
 				if (!legal(tilesOld, x, y-1)) continue;
 				if (!legal(tilesOld, x, y)) continue;
-				tilesOld[y][x] = MGlobal.tiles.getTile(mdo.tl);
-				tilesOld[y][x+1] = MGlobal.tiles.getTile(mdo.tr);
-				tilesOld[y-1][x] = MGlobal.tiles.getTile(mdo.bl);
-				tilesOld[y-1][x+1] = MGlobal.tiles.getTile(mdo.br);
+				tilesNew[y][x] = MGlobal.tiles.getTile(mdo.tl);
+				tilesNew[y][x+1] = MGlobal.tiles.getTile(mdo.tr);
+				tilesNew[y-1][x] = MGlobal.tiles.getTile(mdo.bl);
+				tilesNew[y-1][x+1] = MGlobal.tiles.getTile(mdo.br);
 			}
 		}
 	}

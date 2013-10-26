@@ -56,7 +56,7 @@ public abstract class Item extends Action implements Queueable {
 	public GameUnit getOwner() { return owner; }
 	
 	/** @return The in-map representation of this item */
-	public ItemEvent getItem() { return parent; }
+	public ItemEvent getEvent() { return parent; }
 	
 	/** @return The visual for this item */
 	public Graphic getIcon() { return icon; }

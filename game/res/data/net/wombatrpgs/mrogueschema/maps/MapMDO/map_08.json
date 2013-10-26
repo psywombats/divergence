@@ -1,0 +1,21 @@
+{
+	"key" : "map_08",
+	"subfolder" : "part3",
+	"name" : "",
+	"description" : "  ",
+	"mapWidth" : 40,
+	"mapHeight" : 35,
+	"danger" : 8,
+	"generator" : "generator_surreal",
+	"enemies" : "monstergen_default",
+	"items" : "itemgen_all",
+	"goodItems" : "itemgen_best",
+	"effect" : "effect_los",
+	"scene" : "None",
+	"pathsUp" : [
+		"map_07"
+	],
+	"pathsDown" : [
+		"map_09"
+	]
+}

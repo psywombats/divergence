@@ -45,6 +45,11 @@ public class MapMDO extends MainSchema {
 	@Nullable
 	public String items;
 	
+	@Desc("Boss loot item generator")
+	@SchemaLink(ItemGeneratorMDO.class)
+	@Nullable
+	public String goodItems;
+	
 	@Desc("Effect - graphical effect that plays on map, or none")
 	@SchemaLink(EffectMDO.class)
 	@Nullable

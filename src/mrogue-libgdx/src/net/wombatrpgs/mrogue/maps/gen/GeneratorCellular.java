@@ -47,10 +47,14 @@ public class GeneratorCellular extends MapGenerator {
 		int cellsW = 0;
 		for (int i = 1; true; i += 1) {
 			int width;
-			if (lastWidth != 1 && r.nextFloat() > .7f) {
+			if (lastWidth != 1 && r.nextFloat() > mdo.connectivity) {
 				width = 1;
 			} else {
-				width = mdo.minRoomWidth + r.nextInt(mdo.maxRoomWidth-mdo.minRoomWidth);
+				if (mdo.maxRoomWidth-mdo.minRoomWidth == 0) {
+					width = mdo.minRoomWidth;
+				} else {
+					width = mdo.minRoomWidth + r.nextInt(mdo.maxRoomWidth-mdo.minRoomWidth);
+				}
 			}
 			totalWidth += (width + 1);
 			cellStartX[i] = cellStartX[i-1] + 1 + width;
@@ -68,7 +72,11 @@ public class GeneratorCellular extends MapGenerator {
 			if (lastHeight != 1 && r.nextBoolean()) {
 				height = 1;
 			} else {
-				height = mdo.minRoomHeight + r.nextInt(mdo.maxRoomHeight-mdo.minRoomHeight);
+				if (mdo.maxRoomHeight-mdo.minRoomHeight == 0) {
+					height = mdo.minRoomHeight;
+				} else {
+					height = mdo.minRoomHeight + r.nextInt(mdo.maxRoomHeight-mdo.minRoomHeight);
+				}
 			}
 			totalHeight += (height + 3);
 			cellStartY[i] = cellStartY[i-1] + 3 + height;
@@ -130,7 +138,7 @@ public class GeneratorCellular extends MapGenerator {
 			cr2.addside = OrthoDir.getOpposite(d);
 			fringe.add(cr2);
 			
-			if (r.nextFloat() > .1 && !cr2.hallway && !cr.hallway) {
+			if (r.nextFloat() < mdo.density && !cr2.hallway && !cr.hallway) {
 				cr2.tensionAvailable = false;
 				if (cr2.x == cr.x) {
 					fillRect(types, TileType.FLOOR, cr.x, cr.y, cr2.x + cr2.rw-1, cr2.y);
@@ -231,21 +239,6 @@ public class GeneratorCellular extends MapGenerator {
 			}
 		}
 		
-		for (CRoom cr : allrooms) {
-			if (!cr.tensionAvailable) continue;
-			if (r.nextFloat() < .99) continue;
-			cr.tensionSelected = true;
-			int count = (cr.x + cr.rw - 1) * (cr.y + cr.rh - 1);
-			List<Enemy> enemies = parent.getMonsterGenerator().createSet(count);
-			for (int x = cr.x; x < cr.x + cr.rw; x += 1) {
-				for (int y = cr.y; y < cr.y + cr.rh; y += 1) {
-					parent.addEvent(enemies.get(0), x, y);
-					enemies.remove(0);
-				}
-			}
-			break;
-		}
-		
 		applyWalls(types);
 		addStaircases(types);
 		applyCeilings(types);
@@ -259,6 +252,33 @@ public class GeneratorCellular extends MapGenerator {
 			d.apply(lowerTiles, upperTiles);
 		}
 		addLayer(upperTiles, .5f);
+		
+		for (CRoom cr : allrooms) {
+			if (!cr.tensionAvailable) continue;
+			if (cr.rw * cr.rh > 30) continue;
+			if (r.nextFloat() < .6) continue;
+			cr.tensionSelected = true;
+			int count = (cr.x + cr.rw - 1) * (cr.y + cr.rh - 1);
+			List<Enemy> enemies = parent.getMonsterGenerator().createSet(count);
+			for (int x = cr.x; x < cr.x + cr.rw; x += 1) {
+				for (int y = cr.y; y < cr.y + cr.rh; y += 1) {
+					if (r.nextFloat() > .1 && parent.isTilePassable(null, x, y)) {
+						parent.addEvent(enemies.get(0), x, y);
+						enemies.remove(0);
+					}
+				}
+			}
+			for (int loot = 0; loot <= 2 || r.nextBoolean(); loot += 1) {
+				int spawnX = 0;
+				int spawnY = 0;
+				while (!parent.isTilePassable(null, spawnX, spawnY)) {
+					spawnX = cr.ctx() + r.nextInt(3)-2;
+					spawnY = cr.cty() + r.nextInt(3)-2;
+				}
+				parent.addEvent(parent.getLootGenerator().createEvent(), spawnX, spawnY);
+			}
+			break;
+		}
 	}
 
 }

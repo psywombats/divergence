@@ -289,6 +289,9 @@ public class GameUnit implements Turnable, Queueable {
 		if (visible(this)) {
 			out.msg(getName() + " was killed.");
 		}
+		for (Item i : inventory.getItems()) {
+			parent.getParent().addEvent(i.getEvent(), parent.getTileX(), parent.getTileY());
+		}
 	}
 	
 	/**

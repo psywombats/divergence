@@ -32,5 +32,8 @@ public class MonsterGeneratorMDO extends MainSchema {
 	@Desc("Respawn rate - average number of turns it takes for a monster to "
 			+ "be regenerated after death")
 	public Integer respawnRate;
+	
+	@Desc("Loot rate - chance that monsters carry loot, 0-1")
+	public Float loot;
 
 }

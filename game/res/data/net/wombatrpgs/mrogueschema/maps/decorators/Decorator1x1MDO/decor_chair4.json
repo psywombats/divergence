@@ -2,9 +2,10 @@
 	"key" : "decor_chair4",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "   ",
-	"chance" : 0.005,
+	"description" : "    ",
+	"chance" : 0.002,
 	"original" : "FLOOR",
+	"replacement" : "FLOOR",
 	"tile" : {
 		"appearance" : "chairpink.png"
 	}

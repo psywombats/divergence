@@ -1,0 +1,12 @@
+{
+	"key" : "itemgen_standard",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"items" : [
+		"potion_hp",
+		"potion_mp",
+		"genpotion_standard"
+	],
+	"firstTreasure" : 3
+}

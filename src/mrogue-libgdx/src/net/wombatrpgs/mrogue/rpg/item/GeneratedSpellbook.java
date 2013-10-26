@@ -43,6 +43,7 @@ public class GeneratedSpellbook extends Spellbook {
 		SpellbookTypeMDO typeMDO = MGlobal.data.getEntryFor(
 				mdo.types[MGlobal.rand.nextInt(mdo.types.length)],
 				SpellbookTypeMDO.class);
+		typeMDO.icon = mdo.icon;
 		return new GeneratedSpellbook(preMDO, typeMDO);
 	}
 	

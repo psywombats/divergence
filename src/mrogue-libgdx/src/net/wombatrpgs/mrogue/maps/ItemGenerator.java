@@ -65,7 +65,7 @@ public class ItemGenerator implements Queueable {
 	
 	/**
 	 * Magics a suitable item out of thin air!!
-	 * @return
+	 * @return					The magically generated item
 	 */
 	public Item createItem() {
 		String key = mdo.items[MGlobal.rand.nextInt(mdo.items.length)];
@@ -75,11 +75,20 @@ public class ItemGenerator implements Queueable {
 	}
 	
 	/**
+	 * Creates an item event for you.
+	 * @return					The generated item
+	 */
+	public ItemEvent createEvent() {
+		Item item = createItem();
+		ItemEvent event = new ItemEvent(parent, item, 0, 0);
+		return event;
+	}
+	
+	/**
 	 * Spawns an item somewhere on the floor of the map.	
 	 */
 	public void spawnItem() {
-		Item item = createItem();
-		ItemEvent event = new ItemEvent(parent, item, 0, 0);
+		ItemEvent event = createEvent();
 		parent.addEvent(event);
 		for (int i = 0; i < 100; i += 1) {
 			if (!parent.isTilePassable(event, event.getTileX(), event.getTileY())) {

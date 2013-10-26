@@ -53,6 +53,7 @@ public class Spellbook extends Item {
 		}
 		Ability abil = new Ability(owner.getParent(), abilMDO);
 		abil.queueRequiredAssets(MGlobal.assetManager);
+		MGlobal.assetManager.finishLoading();
 		abil.postProcessing(MGlobal.assetManager, 0);
 		owner.getAbilities().add(abil);
 		MGlobal.ui.getNarrator().msg(owner.getName() + " mastered " + abil.getName() + ".");

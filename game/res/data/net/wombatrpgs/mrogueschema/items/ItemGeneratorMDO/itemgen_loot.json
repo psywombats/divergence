@@ -1,0 +1,13 @@
+{
+	"key" : "itemgen_loot",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"items" : [
+		"genspell_exotic",
+		"genspell_standard",
+		"genpotion_exotic",
+		"genpotion_standard"
+	],
+	"firstTreasure" : 0
+}

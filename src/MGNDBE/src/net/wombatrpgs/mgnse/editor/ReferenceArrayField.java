@@ -25,6 +25,8 @@ import net.wombatrpgs.mgnse.tree.SchemaNode;
 public class ReferenceArrayField extends ArrayField<JComboBox<String>> {
 
 	private static final long serialVersionUID = -2192741043903713950L;
+	
+	protected JComboBox<String> input;
 
 	public ReferenceArrayField(EditorPanel parent, String[] defaultData, Field field) {
 		super(parent, field, true);
@@ -61,13 +63,23 @@ public class ReferenceArrayField extends ArrayField<JComboBox<String>> {
 	protected JComboBox<String> genInput() {
 		Class<? extends MainSchema> schema = source.getAnnotation(SchemaLink.class).value();
 		ArrayList<SchemaNode> nodes = Global.instance().getImplementers(schema);
-		JComboBox<String> input = new JComboBox<String>();
+		input = new JComboBox<String>();
 		for (SchemaNode node : nodes) {
 			for (int i = 0; i < node.getChildCount(); i++) {
-				input.addItem(((SchemaNode) node.getChildAt(i)).getObjectName());
+				recursivelyAdd((SchemaNode) node.getChildAt(i));
 			}
 		}
 		return input;
+	}
+	
+	protected void recursivelyAdd(SchemaNode node) {
+		if (node.isLeaf()) {
+			input.addItem(node.getObjectName());
+		} else {
+			for (int i = 0; i < node.getChildCount(); i++) {
+				recursivelyAdd((SchemaNode) node.getChildAt(i));
+			}
+		}
 	}
 
 }

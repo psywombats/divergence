@@ -1,0 +1,36 @@
+{
+	"key" : "generator_cozy",
+	"subfolder" : "parttwo",
+	"name" : "",
+	"description" : " ",
+	"floorTiles" : {
+		"appearance" : "floor01.png"
+	},
+	"wallTiles" : "wall_woodish",
+	"ceilingTiles" : "ceil_classic",
+	"upstairTiles" : "stairs_marble_up",
+	"downstairTiles" : "stairs_marble_down",
+	"doors" : "doors_tall",
+	"generator" : "CELLULAR_INTERIOR",
+	"minRoomWidth" : 2,
+	"minRoomHeight" : 2,
+	"maxRoomWidth" : 4,
+	"maxRoomHeight" : 4,
+	"density" : 0.3,
+	"connectivity" : 0.3,
+	"decorators" : [
+		"decorset_bigcarpets",
+		"decorset_lights",
+		"decorset_lights",
+		"decorset_bigcarpets",
+		"decorset_bigcarpets",
+		"decorset_bigcarpets"
+	],
+	"upDecorators" : [
+		"decorset_chairs",
+		"decorset_tables",
+		"decorset_chairs",
+		"decorset_tables",
+		"decorset_drawers"
+	]
+}
