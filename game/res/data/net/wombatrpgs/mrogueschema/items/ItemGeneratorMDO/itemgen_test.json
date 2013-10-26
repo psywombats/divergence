@@ -4,7 +4,12 @@
 	"name" : "",
 	"description" : " ",
 	"items" : [
-		"genspell_standard"
+		"genspell_standard",
+		"genspell_exotic",
+		"potion_hp",
+		"potion_mp",
+		"genpotion_exotic",
+		"genpotion_standard"
 	],
 	"firstTreasure" : 40
 }

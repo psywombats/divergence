@@ -1,0 +1,14 @@
+{
+	"key" : "abilfx_gas",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"duration" : 1.2,
+	"shader" : "shader_flames",
+	"mask" : "cloud.png",
+	"flames" : "gassy.png",
+	"noise1" : "cnoise1.png",
+	"noise2" : "cnoise2.png",
+	"noise3" : "noise3.png",
+	"fadein" : 0.2
+}

@@ -1,0 +1,12 @@
+{
+	"key" : "spellpre_armorpierce",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"effectName" : "armorpiercing",
+	"effectDesc" : "Deals physical damage that ignores target's armor.",
+	"effect" : "effect_armorpierce",
+	"cost" : 6.0,
+	"icon" : "icon_twoswords.png",
+	"fx" : "None"
+}

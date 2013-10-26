@@ -2,12 +2,12 @@
 	"key" : "ability_fireball",
 	"subfolder" : "",
 	"name" : "fireball",
-	"description" : "  ",
+	"description" : "   ",
 	"target" : "BALL",
-	"range" : 4.0,
+	"range" : 5.0,
 	"effect" : "effect_magic",
 	"icon" : "icon_fireball.png",
 	"energyCost" : 1000,
 	"mpCost" : 12,
-	"fx" : "abilfx_flames"
+	"fx" : "abilfx_gas"
 }

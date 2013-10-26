@@ -1,0 +1,12 @@
+{
+	"key" : "spellpre_poison",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"effectName" : "poisonous",
+	"effectDesc" : "Poisons the enemy.",
+	"effect" : "effect_poison",
+	"cost" : 5.0,
+	"icon" : "icon_poison.png",
+	"fx" : "abilfx_gas"
+}

@@ -39,7 +39,8 @@ void main() {
 	off += (1.0 - texture2D(u_noise3, indexp3)[0]*1.5);
 	off *= dist;
 	
-	float alpha = texture2D(u_mask, perturb(v_texCoords, off * (1.0/u_restrict)))[3];
+	float alpha = texture2D(u_mask, perturb(v_texCoords, off))[3];
+	if (alpha > u_restrict) alpha = u_restrict;
 	
-	gl_FragColor = vec4(v_color[0], v_color[1], v_color[2], alpha) * texture2D(u_texture, v_texCoords);
+	gl_FragColor = vec4(v_color[0], v_color[1], v_color[2], alpha) * texture2D(u_texture, perturb(v_texCoords, off));
 }

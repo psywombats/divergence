@@ -1,0 +1,23 @@
+{
+	"key" : "genspell_exotic",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"gameDesc" : "",
+	"icon" : "book_blue.png",
+	"prefixes" : [
+		"spellpre_blade",
+		"spellpre_distortion",
+		"spellpre_fire",
+		"spellpre_poison",
+		"spellpre_mightblow",
+		"spellpre_deathblow",
+		"spellpre_darkness",
+		"spellpre_armorpierce"
+	],
+	"types" : [
+		"spelltype_aura",
+		"spelltype_ball",
+		"spelltype_touch"
+	]
+}

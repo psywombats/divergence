@@ -2,7 +2,7 @@
 	"key" : "hero_default",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "              ",
+	"description" : "               ",
 	"appearance" : "4dir_grandfather",
 	"faction" : "HERO",
 	"stats" : {
@@ -22,10 +22,5 @@
 		"magRange" : 10,
 		"magArmor" : 0
 	},
-	"abilities" : [
-		"ability_whirlwind",
-		"ability_distortionfield",
-		"ability_fireball",
-		"ability_burninghands"
-	]
+	"abilities" : [ ]
 }
