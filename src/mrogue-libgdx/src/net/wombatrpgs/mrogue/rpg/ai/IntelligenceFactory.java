@@ -19,6 +19,7 @@ import net.wombatrpgs.mrogue.rpg.act.ActWait;
 import net.wombatrpgs.mrogue.rpg.act.ActWander;
 import net.wombatrpgs.mrogue.rpg.ai.seq.RoutineMeleeEnemies;
 import net.wombatrpgs.mrogueschema.characters.ai.BehaviorListMDO;
+import net.wombatrpgs.mrogueschema.characters.ai.BossIntelligenceMDO;
 import net.wombatrpgs.mrogueschema.characters.ai.data.ActionMDO;
 import net.wombatrpgs.mrogueschema.characters.ai.data.IntelligenceMDO;
 import net.wombatrpgs.mrogueschema.characters.ai.intent.ActionAttackEnemiesMDO;
@@ -36,21 +37,6 @@ import net.wombatrpgs.mrogueschema.characters.ai.intent.IntentMDO;
 public class IntelligenceFactory {
 	
 	/**
-	 * Creates an intelligence given some intelligence data.
-	 * @param	mdo				The data to create an intelligence from
-	 * @param	actor			The actor to create intelligence for
-	 * @return					A BTNode based on that data
-	 */
-	public static BTNode createIntelligence(IntelligenceMDO mdo, CharacterEvent actor) {
-		if (BehaviorListMDO.class.isAssignableFrom(mdo.getClass())) {
-			return createBehaviorList((BehaviorListMDO) mdo, actor);
-		} else {
-			MGlobal.reporter.warn("Invalid intelligence mdo: " + mdo);
-			return null;
-		}
-	}
-	
-	/**
 	 * Creates an intelligence given the key to some data.
 	 * @param	mdoKey			The key of the data to build from
 	 * @param	actor			The actor to create for
@@ -60,6 +46,23 @@ public class IntelligenceFactory {
 		return createIntelligence(MGlobal.data.getEntryFor(mdoKey, IntelligenceMDO.class), actor);
 	}
 	
+	/**
+	 * Creates an intelligence given some intelligence data.
+	 * @param	mdo				The data to create an intelligence from
+	 * @param	actor			The actor to create intelligence for
+	 * @return					A BTNode based on that data
+	 */
+	public static BTNode createIntelligence(IntelligenceMDO mdo, CharacterEvent actor) {
+		if (BossIntelligenceMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new BossAI(actor, (BossIntelligenceMDO) mdo);
+		} else if (BehaviorListMDO.class.isAssignableFrom(mdo.getClass())) {
+			return createBehaviorList((BehaviorListMDO) mdo, actor);
+		} else {
+			MGlobal.reporter.warn("Invalid intelligence mdo: " + mdo);
+			return null;
+		}
+	}
+
 	/**
 	 * Creates a behavior list from data. A behavior list is just a selector
 	 * that iterates over very simple sequences, usually in the form condition->

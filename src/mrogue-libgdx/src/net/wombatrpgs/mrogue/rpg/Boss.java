@@ -20,7 +20,7 @@ import net.wombatrpgs.mrogueschema.characters.data.AbilityTargetType;
 /**
  * Just the boss of the game, nbd.
  */
-public class Boss extends CharacterEvent {
+public class Boss extends Enemy {
 	
 	protected static final String BOSS_DEFAULT = "boss_default";
 	
@@ -28,6 +28,7 @@ public class Boss extends CharacterEvent {
 	protected Effect effect;
 	protected Ability fxAbil;
 	protected SceneParser scene;
+	protected boolean seen;
 	
 	/**
 	 * Creates a new boss character. I'm not sure how this'll work yet.
@@ -36,9 +37,11 @@ public class Boss extends CharacterEvent {
 	 * @param	tileY			The tile to spawn at
 	 */
 	public Boss(Level parent, int tileX, int tileY) {
-		super(MGlobal.data.getEntryFor(BOSS_DEFAULT, BossMDO.class), parent, tileX, tileY);
+		super(MGlobal.data.getEntryFor(BOSS_DEFAULT, BossMDO.class), parent);
 		this.mdo = MGlobal.data.getEntryFor(BOSS_DEFAULT, BossMDO.class);
 		unit.setName(MGlobal.levelManager.getBossName());
+		seen = false;
+		
 		if (mdoHasProperty(mdo.effect)) {
 			effect = EffectFactory.create(parent, mdo.effect);
 			assets.add(effect);
@@ -57,7 +60,11 @@ public class Boss extends CharacterEvent {
 			scene = MGlobal.levelManager.getCutscene(mdo.sightedScene);
 			assets.add(scene);
 		}
+		
 	}
+	
+	/** @return True if the hero has spotted us */
+	public boolean hasBeenSighted() { return seen; }
 
 	/**
 	 * @see net.wombatrpgs.mrogue.maps.events.MapEvent#getName()
@@ -85,11 +92,9 @@ public class Boss extends CharacterEvent {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
-		if (scene != null &&
-				!scene.hasExecuted() &&
-				!scene.isRunning() &&
-				MGlobal.hero.inLoS(this)) {
+		if (scene != null && !seen && MGlobal.hero.inLoS(this)) {
 			scene.run();
+			seen = true;
 		}
 	}
 

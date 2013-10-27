@@ -3,6 +3,7 @@
 	"subfolder" : "",
 	"name" : " ",
 	"description" : " engine searches for this mdo by name",
+	"music" : "music_belleroshort",
 	"immScene" : "scene_title01",
 	"titleScene" : "sceneset_scenario",
 	"scene" : "sceneset_first",

@@ -28,7 +28,7 @@ void main() {
 	float yin = (gl_FragCoord[1])/float(u_screensize[1]) + off[1];
 	vec2 p = vec2(2.0*xin - 1.0, 2.0*(1.0-yin) - 1.0);
 	
-	float pow = sin(u_done) * u_power * alpha;
+	float pow = (sin(u_done*1.3)*.7 + .3) * u_power * alpha;
 	vec2 index = distort(p, pow);
 	index[0] -= off[0];
 	index[1] += off[1];

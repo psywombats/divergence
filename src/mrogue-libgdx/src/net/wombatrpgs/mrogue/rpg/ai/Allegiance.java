@@ -38,6 +38,8 @@ public class Allegiance implements Turnable {
 		this.factions = EnumSet.copyOf(Arrays.asList(factions));
 		this.hitlist = new ArrayList<GameUnit>();
 		this.friendlist = new ArrayList<GameUnit>();
+		
+		friendlist.add(parent);
 	}
 	
 	/**

@@ -1,0 +1,13 @@
+{
+	"key" : "ability_distorttouch",
+	"subfolder" : "",
+	"name" : "distorting touch",
+	"description" : "",
+	"target" : "MELEE",
+	"range" : 1.0,
+	"effect" : "effect_halvehp",
+	"icon" : "None",
+	"energyCost" : 1000,
+	"mpCost" : 0,
+	"fx" : "abilfx_distort"
+}

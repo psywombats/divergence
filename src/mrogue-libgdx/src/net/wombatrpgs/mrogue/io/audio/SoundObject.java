@@ -72,4 +72,9 @@ public class SoundObject extends AudioObject {
 		coreSound = (Sound) manager.get(filename, getLoaderClass());
 	}
 
+	@Override
+	public void update(float elapsed) {
+
+	}
+
 }

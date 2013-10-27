@@ -138,6 +138,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 			if (!deathScene.hasExecuted()) {
 				if (!deathScene.isRunning()) {
 					deathScene.run();
+					parent.getBGM().stop();
 				}
 			} else {
 				MGlobal.screens.pop();

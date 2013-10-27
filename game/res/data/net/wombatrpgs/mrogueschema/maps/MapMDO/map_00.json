@@ -12,6 +12,7 @@
 	"goodItems" : "itemgen_loot",
 	"effect" : "effect_los",
 	"scene" : "None",
+	"bgm" : "music_ambient",
 	"characters" : [
 		"boss_default"
 	],

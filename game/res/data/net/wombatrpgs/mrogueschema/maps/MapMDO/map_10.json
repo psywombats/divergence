@@ -12,6 +12,8 @@
 	"goodItems" : "itemgen_best",
 	"effect" : "effect_los",
 	"scene" : "None",
+	"bgm" : "music_slaughterhouse",
+	"characters" : [ ],
 	"pathsUp" : [
 		"map_09"
 	],

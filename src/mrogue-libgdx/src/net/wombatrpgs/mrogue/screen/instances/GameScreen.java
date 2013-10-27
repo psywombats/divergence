@@ -51,6 +51,10 @@ public class GameScreen extends Screen {
 		IntroSettingsMDO introMDO=MGlobal.data.getEntryFor("default_intro", IntroSettingsMDO.class);
 		map = MGlobal.levelManager.getLevel(introMDO.map);
 		MGlobal.levelManager.setActive(map);
+		if (map.getBGM() != null) {
+			map.getBGM().fadeIn(.5f);
+			addChild(map.getBGM());
+		}
 		introParser = MGlobal.levelManager.getCutscene(introMDO.scene);
 		assets.add(introParser);
 		tutorialParser = MGlobal.levelManager.getCutscene(introMDO.tutorialScene);

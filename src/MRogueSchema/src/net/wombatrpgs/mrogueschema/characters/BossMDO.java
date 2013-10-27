@@ -10,7 +10,6 @@ import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
-import net.wombatrpgs.mrogueschema.characters.data.CharacterMDO;
 import net.wombatrpgs.mrogueschema.cutscene.data.SceneParentMDO;
 import net.wombatrpgs.mrogueschema.graphics.effects.data.AbilFxMDO;
 import net.wombatrpgs.mrogueschema.graphics.effects.data.EffectMDO;
@@ -19,7 +18,7 @@ import net.wombatrpgs.mrogueschema.graphics.effects.data.EffectMDO;
  * Endgame boss.
  */
 @Path("characters/")
-public class BossMDO extends CharacterMDO {
+public class BossMDO extends EnemyMDO {
 	
 	@Desc("Scene that plays when boss is sighted")
 	@SchemaLink(SceneParentMDO.class)

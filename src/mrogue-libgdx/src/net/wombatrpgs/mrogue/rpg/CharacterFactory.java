@@ -32,10 +32,10 @@ public class CharacterFactory {
 		// it may be possible to generalize this
 		if (HeroMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new Hero((HeroMDO) mdo, parent);
-		} else if (EnemyMDO.class.isAssignableFrom(mdo.getClass())) {
-			return new Enemy((EnemyMDO) mdo, parent);
 		} else if (BossMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new Boss(parent, 0, 0);
+		} else if (EnemyMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new Enemy((EnemyMDO) mdo, parent);
 		} else {
 			MGlobal.reporter.warn("Generic character spawned: " + mdo.key);
 			return new CharacterEvent(mdo, parent);

@@ -12,6 +12,8 @@
 	"goodItems" : "itemgen_loot",
 	"effect" : "effect_los",
 	"scene" : "sceneset_library",
+	"bgm" : "music_libraries",
+	"characters" : [ ],
 	"pathsUp" : [
 		"map_01"
 	],

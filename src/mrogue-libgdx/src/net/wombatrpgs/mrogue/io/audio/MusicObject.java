@@ -18,6 +18,11 @@ public class MusicObject extends AudioObject {
 	
 	protected MusicMDO mdo;
 	protected Music coreMusic;
+	
+	protected float fadeTime;
+	protected float previous;
+	protected float targetVolume;
+	protected float elapsed;
 
 	/**
 	 * Generate music for wherever. It'll automagically follow the hero.
@@ -26,6 +31,9 @@ public class MusicObject extends AudioObject {
 	public MusicObject(MusicMDO mdo) {
 		super(mdo);
 		this.mdo = mdo;
+		
+		fadeTime = 0;
+		targetVolume = (float) mdo.volume / 100f;
 	}
 	
 	/**
@@ -36,6 +44,31 @@ public class MusicObject extends AudioObject {
 		coreMusic.dispose();
 	}
 	
+	/**
+	 * @see net.wombatrpgs.mrogue.core.Updateable#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		this.elapsed += elapsed;
+		if (fadeTime != 0) {
+			if (this.elapsed >= fadeTime) {
+				this.elapsed = fadeTime;
+			}
+			if (coreMusic.getVolume() < targetVolume) {
+				coreMusic.setVolume(targetVolume * this.elapsed / fadeTime);
+			} else {
+				if (this.elapsed >= fadeTime) {
+					coreStop();
+				} else {
+					coreMusic.setVolume((1f - (this.elapsed / fadeTime)) * previous + targetVolume * (this.elapsed / fadeTime));
+				}
+			}
+			if (this.elapsed == fadeTime) {
+				fadeTime = 0;
+			}
+		}
+	}
+
 	/**
 	 * Pauses music playback for things like losing screen focus or whatever.
 	 */
@@ -51,6 +84,32 @@ public class MusicObject extends AudioObject {
 	public boolean matches(MusicObject object) {
 		if (object == null) return false;
 		return this.mdo == object.mdo;
+	}
+	
+	/**
+	 * Sets this music to fade in in a certain duration. Starts playing if not
+	 * already playing.
+	 * @param	time			How long it should take to fade in (in s)
+	 */
+	public void fadeIn(float time) {
+		if (!coreMusic.isPlaying()) {
+			corePlay();
+		}
+		this.fadeTime = time;
+		elapsed = 0;
+		targetVolume = (float) mdo.volume / 100f;
+	}
+	
+	/**
+	 * Sets this music to fade out in a certain duration. Stops playing when
+	 * finished.
+	 * @param	time			How long it should take to fade out (in s)
+	 */
+	public void fadeOut(float time) {
+		this.fadeTime = time;
+		elapsed = 0;
+		targetVolume = 0;
+		previous = coreMusic.getVolume();
 	}
 
 	/**
@@ -87,7 +146,7 @@ public class MusicObject extends AudioObject {
 	protected void postAudioProcessing(AssetManager manager) {
 		coreMusic = (Music) manager.get(filename, getLoaderClass());
 		coreMusic.setLooping(true);
-		coreMusic.setVolume((float) mdo.volume / 100.f);
+		coreMusic.setVolume((float) mdo.volume / 100f);
 	}
 
 }

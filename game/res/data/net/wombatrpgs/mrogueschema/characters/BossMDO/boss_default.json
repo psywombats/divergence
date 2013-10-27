@@ -2,7 +2,7 @@
 	"key" : "boss_default",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "  ",
+	"description" : "   ",
 	"appearance" : "4dir_shadow",
 	"faction" : "ENEMIES",
 	"stats" : {
@@ -22,7 +22,14 @@
 		"magRange" : 10,
 		"magArmor" : 20
 	},
-	"abilities" : [ ],
+	"abilities" : [
+		"ability_blink",
+		"ability_teleport",
+		"ability_distorttouch",
+		"ability_fireball"
+	],
+	"intelligence" : "intelligence_boss",
+	"danger" : 0,
 	"sightedScene" : "sceneset_bossfight",
 	"effect" : "effect_reality",
 	"abilFX" : "abilfx_darknessboss"

@@ -31,6 +31,7 @@ import net.wombatrpgs.mrogue.rpg.Enemy;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogue.screen.Screen;
 import net.wombatrpgs.mrogue.screen.ScreenObject;
+import net.wombatrpgs.mrogueschema.audio.MusicMDO;
 import net.wombatrpgs.mrogueschema.characters.data.CharacterMDO;
 import net.wombatrpgs.mrogueschema.items.ItemGeneratorMDO;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
@@ -126,6 +127,10 @@ public class Level extends ScreenObject implements Turnable {
 		if (MapThing.mdoHasProperty(mdo.scene)) {
 			scene = MGlobal.levelManager.getCutscene(mdo.scene);
 			assets.add(scene);
+		}
+		if (MapThing.mdoHasProperty(mdo.bgm)) {
+			bgm = new MusicObject(MGlobal.data.getEntryFor(mdo.bgm, MusicMDO.class));
+			assets.add(bgm);
 		}
 		reseting = false;
 		moving = false;
@@ -234,25 +239,6 @@ public class Level extends ScreenObject implements Turnable {
 		if (effect != null) {
 			effect.render(camera);
 		}
-	}
-	
-	/**
-	 * Queues up all the assets required to render this level in the resource
-	 * manager. Does not actually load them. The level should be initialized
-	 * first, but this should happen in the constructor.
-	 */
-	public void queueRequiredAssets(AssetManager manager) {
-		super.queueRequiredAssets(manager);
-		// We should be loading the spritesheet etc here, anything in the map
-		
-		// We can also do this crap here now that it's in the mdo
-		// bgm here
-//		if (MapThing.getProperty(PROPERTY_BGM) != null) {
-//			String key = getProperty(PROPERTY_BGM);
-//			bgm = new MusicObject(RGlobal.data.getEntryFor(key, MusicMDO.class));
-//			bgm.queueRequiredAssets(manager);
-//			assets.add(bgm);
-//		}
 	}
 	
 	/**

@@ -9,5 +9,5 @@
 	"icon" : "icon_fireball.png",
 	"energyCost" : 1000,
 	"mpCost" : 12,
-	"fx" : "abilfx_gas"
+	"fx" : "abilfx_flames"
 }

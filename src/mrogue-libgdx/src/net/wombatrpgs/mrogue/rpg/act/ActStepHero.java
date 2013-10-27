@@ -24,4 +24,13 @@ public class ActStepHero extends ActStepChara {
 		super(actor, MGlobal.hero);
 	}
 
+	/**
+	 * @see net.wombatrpgs.mrogue.rpg.act.ActStepChara#act()
+	 */
+	@Override
+	public void act() {
+		this.other = MGlobal.hero;
+		super.act();
+	}
+
 }

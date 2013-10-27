@@ -9,8 +9,9 @@ package net.wombatrpgs.mrogue.io.audio;
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mrogue.core.Constants;
+import net.wombatrpgs.mrogue.core.Queueable;
+import net.wombatrpgs.mrogue.core.Updateable;
 import net.wombatrpgs.mrogue.graphics.Disposable;
-import net.wombatrpgs.mrogue.maps.MapThing;
 import net.wombatrpgs.mrogueschema.audio.data.AudioMDO;
 
 /**
@@ -18,8 +19,12 @@ import net.wombatrpgs.mrogueschema.audio.data.AudioMDO;
  * Honestly 90% of the time I write these class descriptions before I actually
  * write the class. AAND yep it just turned abstract. Shouldn't write these so
  * fast. Actually now it's a factory for libgdx sounds.
+ * 
+ * MR: does not handle maps
  */
-public abstract class AudioObject extends MapThing implements Disposable {
+public abstract class AudioObject implements	Disposable,
+												Queueable,
+												Updateable {
 	
 	protected AudioMDO mdo;
 	protected String filename;
@@ -39,7 +44,6 @@ public abstract class AudioObject extends MapThing implements Disposable {
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		super.queueRequiredAssets(manager);
 		manager.load(filename, getLoaderClass());
 	}
 
@@ -49,21 +53,23 @@ public abstract class AudioObject extends MapThing implements Disposable {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		super.postProcessing(manager, pass);
 		postAudioProcessing(manager);
 	}
 	
+	/**
+	 * Default does nothing
+	 * @see net.wombatrpgs.mrogue.graphics.Disposable#dispose()
+	 */
+	@Override
+	public void dispose() {
+		// noop
+	}
+
 	/**
 	 * The real legit play thing that handles both playing the sound and
 	 * managing the map that we're a part of.
 	 */
 	public void play() {
-//		if (getLevel() != parent.getLevel()) {
-//			if (getLevel() != null) {
-//				getLevel().removeObject(this);
-//			}
-//			parent.getLevel().addObject(this);
-//		}
 		corePlay();
 	}
 	
@@ -72,9 +78,6 @@ public abstract class AudioObject extends MapThing implements Disposable {
 	 */
 	public void stop() {
 		coreStop();
-		if (getParent() != null) {
-			getParent().removeObject(this);
-		}
 	}
 	
 	/**

@@ -5,12 +5,15 @@ import com.badlogic.gdx.graphics.Color;
 
 import net.wombatrpgs.mrogue.core.Constants;
 import net.wombatrpgs.mrogue.core.MGlobal;
+import net.wombatrpgs.mrogue.io.audio.MusicObject;
 import net.wombatrpgs.mrogue.io.command.CMapSplash;
+import net.wombatrpgs.mrogue.maps.MapThing;
 import net.wombatrpgs.mrogue.maps.objects.Picture;
 import net.wombatrpgs.mrogue.maps.objects.TimerListener;
 import net.wombatrpgs.mrogue.maps.objects.TimerObject;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogue.screen.Screen;
+import net.wombatrpgs.mrogueschema.audio.MusicMDO;
 import net.wombatrpgs.mrogueschema.io.data.InputCommand;
 import net.wombatrpgs.mrogueschema.settings.IntroSettingsMDO;
 import net.wombatrpgs.mrogueschema.settings.TitleSettingsMDO;
@@ -24,6 +27,7 @@ public class TitleScreen extends Screen {
 	protected Picture screen, prompt;
 	protected SceneParser introParser, immParser;
 	protected TimerObject timer;
+	protected MusicObject music;
 	protected boolean shouldIntroduce;
 
 	/**
@@ -43,6 +47,12 @@ public class TitleScreen extends Screen {
 		immParser = MGlobal.levelManager.getCutscene(introMDO.immScene, this);
 		assets.add(introParser);
 		assets.add(immParser);
+		
+		if (MapThing.mdoHasProperty(introMDO.music)) {
+			music = new MusicObject(MGlobal.data.getEntryFor(introMDO.music, MusicMDO.class));
+			assets.add(music);
+			updateChildren.add(music);
+		}
 		
 		prompt = new Picture(mdo.prompt, mdo.promptX, mdo.promptY, 1);
 		prompt.setColor(new Color(1, 1, 1, 0));
@@ -99,16 +109,35 @@ public class TitleScreen extends Screen {
 		super.update(elapsed);
 		if (!immParser.isRunning() && !immParser.hasExecuted()) {
 			immParser.run();
+			if (music != null) {
+				music.fadeIn(.5f);
+			}
 		}
 		if (shouldIntroduce) {
 			if (introParser.hasExecuted()) {
 				MGlobal.screens.pop();
 				MGlobal.levelManager.setScreen(new GameScreen());
 				MGlobal.screens.push(MGlobal.levelManager.getScreen());
+				if (music != null) {
+					MGlobal.levelManager.getScreen().addChild(music);
+					removeChild(music);
+					music.fadeOut(.5f);
+				}
 			} else if (!introParser.isRunning()) {
 				introParser.run();
 				removeScreenObject(prompt);
 			}
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.mrogue.screen.Screen#dispose()
+	 */
+	@Override
+	public void dispose() {
+		super.dispose();
+		if (music != null) {
+			music.dispose();
 		}
 	}
 

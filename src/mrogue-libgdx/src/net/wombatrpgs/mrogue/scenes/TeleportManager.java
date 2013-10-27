@@ -10,6 +10,7 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
+import net.wombatrpgs.mrogue.io.audio.MusicObject;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
 import net.wombatrpgs.mrogueschema.cutscene.SceneMDO;
@@ -81,7 +82,10 @@ public class TeleportManager implements Queueable {
 		if (MGlobal.ui.getHud() != null) {
 			MGlobal.ui.getHud().setOverlayTintIgnore(false);
 		}
-		if (old.getBGM() != null && !old.getBGM().matches(map.getBGM())) old.getBGM().stop();	
+		if (old.getBGM() != null && !old.getBGM().matches(map.getBGM())) {
+			MusicObject oldBGM = old.getBGM();
+			oldBGM.fadeOut(.5f);
+		}
 		old.onFocusLost();
 		old.removeEvent(victim);
 		old.update(0);
@@ -92,7 +96,11 @@ public class TeleportManager implements Queueable {
 		if (MGlobal.ui.getHud() != null) {
 			MGlobal.ui.getHud().setOverlayTintIgnore(true);
 		}
-		if (map.getBGM() != null && !map.getBGM().matches(old.getBGM())) map.getBGM().play();
+		if (map.getBGM() != null && !map.getBGM().matches(old.getBGM())) {
+			MusicObject newBGM = map.getBGM();
+			map.getBGM().fadeIn(.5f);
+			MGlobal.levelManager.getScreen().addChild(newBGM);
+		}
 
 		//MGlobal.screens.getCamera().constrainMaps(map);
 		

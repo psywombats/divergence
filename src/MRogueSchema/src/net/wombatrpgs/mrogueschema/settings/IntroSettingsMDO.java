@@ -10,6 +10,7 @@ import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
+import net.wombatrpgs.mrogueschema.audio.MusicMDO;
 import net.wombatrpgs.mrogueschema.cutscene.data.SceneParentMDO;
 import net.wombatrpgs.mrogueschema.maps.MapMDO;
 
@@ -18,6 +19,10 @@ import net.wombatrpgs.mrogueschema.maps.MapMDO;
  */
 @Path("settings/")
 public class IntroSettingsMDO extends MainSchema {
+	
+	@Desc("Tile screen music")
+	@SchemaLink(MusicMDO.class)
+	public String music;
 	
 	@Desc("Immediate scene - the scene to play on arrival to title")
 	@SchemaLink(SceneParentMDO.class)

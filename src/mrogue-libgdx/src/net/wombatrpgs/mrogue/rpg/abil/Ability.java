@@ -118,7 +118,11 @@ public class Ability extends Action implements Queueable, CommandListener {
 	/** @return This ability's targeting type */
 	public AbilityTargetType getType() { return mdo.target; }
 	
+	/** @return How this ability should look in the UI */
 	public Graphic getIcon() { return icon; }
+	
+	/** @return The class of effect this ability has */
+	public Class<? extends AbilEffect> getEffectClass() { return effect.getClass(); }
 	
 	/**
 	 * @see java.lang.Object#toString()
@@ -126,6 +130,14 @@ public class Ability extends Action implements Queueable, CommandListener {
 	@Override
 	public String toString() {
 		return getName() + "(" + mdo.key + ")";
+	}
+	
+	/**
+	 * @see net.wombatrpgs.mrogue.rpg.act.Action#baseCost()
+	 */
+	@Override
+	public int baseCost() {
+		return mdo.energyCost;
 	}
 
 	/**
@@ -235,6 +247,19 @@ public class Ability extends Action implements Queueable, CommandListener {
 	}
 	
 	/**
+	 * Checks if this ability has any valid targets. Useful for AI.
+	 * @return					True if any targets are in range
+	 */
+	public boolean anyInRange() {
+		acquireTargets();
+		if (targets == null) return false;
+		for (GameUnit target : targets) {
+			if (actor.getUnit().getRelationTo(target).attackIfBored) return true;
+		}
+		return false;
+	}
+	
+	/**
 	 * Switches on the ability targeting type and gets all victims affected by
 	 * this attack. Sets the resulting list to the corresponding field.
 	 * @return					The characters affected by this ability
@@ -268,21 +293,19 @@ public class Ability extends Action implements Queueable, CommandListener {
 					blocking = true;
 				}
 			} else {
-				MGlobal.reporter.warn("Enemy abilities not yet implemented");
+				targets = new ArrayList<GameUnit>();
+				for (CharacterEvent chara : actor.getParent().getCharacters()) {
+					if (actor.euclideanTileDistanceTo(chara) < 1.5) {
+						targets.add(chara.getUnit());
+						break;
+					}
+				}
 			}
 			break;
 		default:
 			MGlobal.reporter.warn("Unknown ability target type " + mdo.target +
 					" for ability + " + mdo.key);
 		}
-	}
-	
-	/**
-	 * @see net.wombatrpgs.mrogue.rpg.act.Action#baseCost()
-	 */
-	@Override
-	protected int baseCost() {
-		return mdo.energyCost;
 	}
 	
 	/**
