@@ -2,8 +2,10 @@
 	"key" : "abilfx_distort",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "   ",
+	"description" : "     ",
 	"duration" : 1.2,
+	"tracking" : "STATIONARY",
+	"z" : "ABOVE",
 	"shader" : "shader_distortion",
 	"graphic" : "sphere.png",
 	"fadein" : 0.2

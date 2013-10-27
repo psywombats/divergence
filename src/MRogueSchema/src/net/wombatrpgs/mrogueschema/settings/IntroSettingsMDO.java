@@ -31,6 +31,10 @@ public class IntroSettingsMDO extends MainSchema {
 	@SchemaLink(SceneParentMDO.class)
 	public String scene;
 	
+	@Desc("Tutorial scene - plays after the opening cutscene")
+	@SchemaLink(SceneParentMDO.class)
+	public String tutorialScene;
+	
 	@Desc("Map - the map that things open on, usually a blank screen with the hero on it")
 	@SchemaLink(MapMDO.class)
 	public String map;

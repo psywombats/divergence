@@ -8,7 +8,7 @@
 	"danger" : 0,
 	"generator" : "generator_furnished",
 	"enemies" : "monstergen_default",
-	"items" : "itemgen_standard",
+	"items" : "itemgen_test",
 	"goodItems" : "itemgen_loot",
 	"effect" : "effect_los",
 	"scene" : "None",

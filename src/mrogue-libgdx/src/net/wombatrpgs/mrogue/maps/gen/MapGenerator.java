@@ -447,7 +447,7 @@ public abstract class MapGenerator implements Queueable {
 		int off = r.nextInt(parent.getWidth());
 		for (int ix = 0; ix <= parent.getWidth(); ix += 1) {
 			int x = (off + ix) % parent.getWidth();
-			for (int y = 0; y < parent.getHeight()-2; y += 1) {
+			for (int y = parent.getHeight()-3; y > 0; y -= 1) {
 				if (!isType(types, TileType.FLOOR, x, y-1)) continue;
 				if (!isType(types, TileType.ANY_WALL, x, y)) continue;
 				if (!isType(types, TileType.ANY_WALL, x, y+1)) continue;

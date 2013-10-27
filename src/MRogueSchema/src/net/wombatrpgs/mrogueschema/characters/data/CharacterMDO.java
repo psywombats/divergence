@@ -4,23 +4,22 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mrogueschema.characters;
+package net.wombatrpgs.mrogueschema.characters.data;
 
 import net.wombatrpgs.mgns.core.Annotations.Desc;
+import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
 import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
-import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
-import net.wombatrpgs.mrogueschema.characters.data.Faction;
-import net.wombatrpgs.mrogueschema.characters.data.StatsMDO;
+import net.wombatrpgs.mrogueschema.characters.AbilityMDO;
 import net.wombatrpgs.mrogueschema.graphics.DirMDO;
 
 /**
  * An interactive component on the map is called an "Event." (it's an entity,
  * but let's pretend, okay?)
  */
-@Path("characters/")
+@ExcludeFromTree
 public class CharacterMDO extends MainSchema {
 	
 	@Desc("Animation - what this event looks like")

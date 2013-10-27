@@ -26,10 +26,12 @@ import net.wombatrpgs.mrogue.maps.gen.MapGeneratorFactory;
 import net.wombatrpgs.mrogue.maps.layers.EventLayer;
 import net.wombatrpgs.mrogue.maps.layers.GridLayer;
 import net.wombatrpgs.mrogue.rpg.CharacterEvent;
+import net.wombatrpgs.mrogue.rpg.CharacterFactory;
 import net.wombatrpgs.mrogue.rpg.Enemy;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogue.screen.Screen;
 import net.wombatrpgs.mrogue.screen.ScreenObject;
+import net.wombatrpgs.mrogueschema.characters.data.CharacterMDO;
 import net.wombatrpgs.mrogueschema.items.ItemGeneratorMDO;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
 import net.wombatrpgs.mrogueschema.maps.MapMDO;
@@ -259,9 +261,18 @@ public class Level extends ScreenObject implements Turnable {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		super.postProcessing(manager, pass);
+		super.postProcessing(manager, 0);
 		if (pass == 0) {
 			mapGen.generateMe();
+			if (mdo.characters != null) {
+				for (String key : mdo.characters) {
+					CharacterMDO charaMDO = MGlobal.data.getEntryFor(key, CharacterMDO.class);
+					CharacterEvent chara = CharacterFactory.create(charaMDO, this);
+					chara.spawnUnseen();
+					assets.add(chara);
+					chara.queueRequiredAssets(manager);
+				}
+			}
 		}
 		if (monGen != null) {
 			monGen.spawnToDensity();

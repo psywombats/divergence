@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"gameDesc" : "",
+	"rarity" : 0.0,
 	"icon" : "book_blue.png",
 	"prefixes" : [
 		"spellpre_blade",
@@ -13,7 +14,8 @@
 		"spellpre_mightblow",
 		"spellpre_deathblow",
 		"spellpre_darkness",
-		"spellpre_armorpierce"
+		"spellpre_armorpierce",
+		"spellpre_banish"
 	],
 	"types" : [
 		"spelltype_aura",

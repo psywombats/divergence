@@ -88,5 +88,13 @@ public class SceneFactory {
 	public String getHeroName() {
 		return charas.get(charas.keySet().toArray()[0]).toName("HERO");
 	}
+	
+	/**
+	 * Why am I doing this again?
+	 * @return
+	 */
+	public String getBossName() {
+		return charas.get(charas.keySet().toArray()[0]).toName("EVIL");
+	}
 
 }

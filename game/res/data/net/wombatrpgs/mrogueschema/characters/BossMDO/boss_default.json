@@ -1,0 +1,29 @@
+{
+	"key" : "boss_default",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "  ",
+	"appearance" : "4dir_shadow",
+	"faction" : "ENEMIES",
+	"stats" : {
+		"mhp" : 500,
+		"hp" : 500,
+		"mmp" : 500,
+		"mp" : 500,
+		"speed" : 120,
+		"walkCost" : 800,
+		"attackCost" : 1000,
+		"vision" : 7,
+		"dodge" : 25,
+		"dmgBase" : 20,
+		"dmgRange" : 10,
+		"armor" : 5,
+		"magBase" : 30,
+		"magRange" : 10,
+		"magArmor" : 20
+	},
+	"abilities" : [ ],
+	"sightedScene" : "sceneset_bossfight",
+	"effect" : "effect_reality",
+	"abilFX" : "abilfx_darknessboss"
+}

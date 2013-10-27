@@ -19,7 +19,6 @@ import net.wombatrpgs.mrogue.maps.events.Cursor;
 import net.wombatrpgs.mrogue.rpg.Hero;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogue.screen.Screen;
-import net.wombatrpgs.mrogueschema.cutscene.SceneMDO;
 import net.wombatrpgs.mrogueschema.io.data.InputCommand;
 import net.wombatrpgs.mrogueschema.settings.IntroSettingsMDO;
 import net.wombatrpgs.mrogueschema.test.FramerateTestMDO;
@@ -33,7 +32,7 @@ import net.wombatrpgs.mrogueschema.test.data.TestState;
 public class GameScreen extends Screen {
 	
 	protected Level map;
-	protected SceneParser introParser;
+	protected SceneParser introParser, tutorialParser;
 	protected Cursor cursor;
 	
 	// tests
@@ -47,12 +46,16 @@ public class GameScreen extends Screen {
 	 */
 	public GameScreen() {
 		super();
-		IntroSettingsMDO introMDO=MGlobal.data.getEntryFor("default_intro", IntroSettingsMDO.class);
-		SceneMDO sceneMDO = MGlobal.data.getEntryFor(introMDO.scene, SceneMDO.class);
 		MGlobal.levelManager.setScreen(this);
+		
+		IntroSettingsMDO introMDO=MGlobal.data.getEntryFor("default_intro", IntroSettingsMDO.class);
 		map = MGlobal.levelManager.getLevel(introMDO.map);
 		MGlobal.levelManager.setActive(map);
-		introParser = new SceneParser(sceneMDO, this);
+		introParser = MGlobal.levelManager.getCutscene(introMDO.scene);
+		assets.add(introParser);
+		tutorialParser = MGlobal.levelManager.getCutscene(introMDO.tutorialScene);
+		assets.add(tutorialParser);
+		
 		addScreenObject(map);
 		pushCommandContext(new CMapGame());
 		
@@ -101,24 +104,12 @@ public class GameScreen extends Screen {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mrogue.screen.Screen#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		super.queueRequiredAssets(manager);
-		introParser.queueRequiredAssets(manager);
-		// the map should be done already
-	}
-
-	/**
 	 * @see net.wombatrpgs.mrogue.screen.Screen#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
-		introParser.postProcessing(manager, pass);
 		
 		if (pass == 0) {
 			while (!map.isTilePassable(MGlobal.hero, MGlobal.hero.getTileX(), MGlobal.hero.getTileY())) {
@@ -160,6 +151,9 @@ public class GameScreen extends Screen {
 		super.update(elapsed);
 		if (!introParser.isRunning() && !introParser.hasExecuted()) {
 			introParser.run();
+		}
+		if (introParser.hasExecuted() && !tutorialParser.isRunning() && !tutorialParser.hasExecuted()) {
+			tutorialParser.run();
 		}
 	}
 

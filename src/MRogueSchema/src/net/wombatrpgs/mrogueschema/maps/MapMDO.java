@@ -11,6 +11,7 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
+import net.wombatrpgs.mrogueschema.characters.data.CharacterMDO;
 import net.wombatrpgs.mrogueschema.cutscene.data.SceneParentMDO;
 import net.wombatrpgs.mrogueschema.graphics.effects.data.EffectMDO;
 import net.wombatrpgs.mrogueschema.items.ItemGeneratorMDO;
@@ -59,6 +60,10 @@ public class MapMDO extends MainSchema {
 	@SchemaLink(SceneParentMDO.class)
 	@Nullable
 	public String scene;
+	
+	@Desc("Characters to spawn here (offscreen)")
+	@SchemaLink(CharacterMDO.class)
+	public String[] characters;
 	
 	@Desc("All levels that can be reached by ascending")
 	@SchemaLink(MapMDO.class)

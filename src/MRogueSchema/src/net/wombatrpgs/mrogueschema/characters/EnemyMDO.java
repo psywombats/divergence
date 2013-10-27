@@ -10,6 +10,7 @@ import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mrogueschema.characters.ai.data.IntelligenceMDO;
+import net.wombatrpgs.mrogueschema.characters.data.CharacterMDO;
 
 /**
  * A thing on the ground that attempts to killlll youuuu.

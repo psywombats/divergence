@@ -10,6 +10,7 @@ import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogueschema.graphics.effects.EffectFogMDO;
 import net.wombatrpgs.mrogueschema.graphics.effects.EffectLoSMDO;
+import net.wombatrpgs.mrogueschema.graphics.effects.EffectRealityMDO;
 import net.wombatrpgs.mrogueschema.graphics.effects.data.EffectMDO;
 
 /**
@@ -28,6 +29,8 @@ public class EffectFactory {
 			return new EffectFog(creator, (EffectFogMDO) mdo);
 		} else if (EffectLoSMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new EffectLoS(creator, (EffectLoSMDO) mdo);
+		} else if (EffectRealityMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new EffectReality(creator, (EffectRealityMDO) mdo);
 		} else {
 			MGlobal.reporter.warn("Unkown EffectMDO subclass: " + mdo.getClass());
 			return null;

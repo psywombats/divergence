@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.mrogueschema.items.data;
 
+import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.FileLink;
 import net.wombatrpgs.mgns.core.MainSchema;
@@ -22,6 +23,10 @@ public class ItemMDO extends MainSchema {
 	
 	@Desc("Description - displayed in-game")
 	public String gameDesc;
+	
+	@Desc("Rarity - will be discarded with this %, 0-1")
+	@DefaultValue("0")
+	public Float rarity;
 	
 	@Desc("Icon - what this item looks like on the ground")
 	@FileLink("items")

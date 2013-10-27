@@ -6,10 +6,12 @@
  */
 package net.wombatrpgs.mrogue.rpg;
 
+import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
-import net.wombatrpgs.mrogueschema.characters.CharacterMDO;
+import net.wombatrpgs.mrogueschema.characters.BossMDO;
 import net.wombatrpgs.mrogueschema.characters.EnemyMDO;
 import net.wombatrpgs.mrogueschema.characters.HeroMDO;
+import net.wombatrpgs.mrogueschema.characters.data.CharacterMDO;
 
 /**
  * A factory for creating characters from a generic MDO.
@@ -32,7 +34,10 @@ public class CharacterFactory {
 			return new Hero((HeroMDO) mdo, parent);
 		} else if (EnemyMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new Enemy((EnemyMDO) mdo, parent);
+		} else if (BossMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new Boss(parent, 0, 0);
 		} else {
+			MGlobal.reporter.warn("Generic character spawned: " + mdo.key);
 			return new CharacterEvent(mdo, parent);
 		}
 	}

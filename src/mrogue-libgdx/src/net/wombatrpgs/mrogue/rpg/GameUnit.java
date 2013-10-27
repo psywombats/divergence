@@ -21,7 +21,7 @@ import net.wombatrpgs.mrogue.rpg.item.Inventory;
 import net.wombatrpgs.mrogue.rpg.item.Item;
 import net.wombatrpgs.mrogue.ui.Narrator;
 import net.wombatrpgs.mrogueschema.characters.AbilityMDO;
-import net.wombatrpgs.mrogueschema.characters.CharacterMDO;
+import net.wombatrpgs.mrogueschema.characters.data.CharacterMDO;
 import net.wombatrpgs.mrogueschema.characters.data.Relation;
 
 /**
@@ -86,10 +86,7 @@ public class GameUnit implements Turnable, Queueable {
 	/** @return The physical manifestation of this game unit */
 	public CharacterEvent getParent() { return parent; }
 	
-	/** @return This unit's player-facing name */
-	public String getName() { return MGlobal.hero.inLoS(parent) ? name : "something"; }
-	
-	/** @param This unit's new player-facing name */
+	/** @param name This unit's new player-facing name */
 	public void setName(String name) { this.name = name; }
 	
 	/** @return The political views of this unit */
@@ -109,8 +106,6 @@ public class GameUnit implements Turnable, Queueable {
 	
 	/** @param turn The old turn child to remove */
 	public void removeTurnChild(Turnable turn) { toRemove.add(turn); }
-	
-	
 	
 	/**
 	 * @see net.wombatrpgs.mrogue.core.Queueable#queueRequiredAssets
@@ -132,6 +127,15 @@ public class GameUnit implements Turnable, Queueable {
 		for (Queueable asset : assets) {
 			asset.postProcessing(manager, pass);
 		}
+	}
+	
+	/**
+	 * Fetches the player-facing name of this unit. This takes in-game
+	 * considerations into effect, such as if the hero can see us.
+	 * @return					This unit's player-facing name
+	 */
+	public String getName() {
+		return MGlobal.hero.inLoS(parent) ? name : "something";
 	}
 
 	/**

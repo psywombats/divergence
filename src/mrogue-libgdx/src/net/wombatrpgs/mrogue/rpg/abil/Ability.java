@@ -166,11 +166,7 @@ public class Ability extends Action implements Queueable, CommandListener {
 		if (MapThing.mdoHasProperty(mdo.fx) &&
 				MGlobal.hero.inLoS(actor) &&
 				(targets.size() > 0 || mdo.target == AbilityTargetType.BALL)) {
-			if (fx == null) {
-				fx = AbilFxFactory.createFX(mdo.fx, this);
-				fx.postProcessing(MGlobal.assetManager, 0);
-			}
-			fx.spawn();
+			fxSpawn();
 			fx = null;
 		}
 		
@@ -225,6 +221,17 @@ public class Ability extends Action implements Queueable, CommandListener {
 			return true;
 		}
 		return !blocking;
+	}
+	
+	/**
+	 * Spawns a graphical representation of this ability.
+	 */
+	public void fxSpawn() {
+		if (fx == null) {
+			fx = AbilFxFactory.createFX(mdo.fx, this);
+			fx.postProcessing(MGlobal.assetManager, 0);
+		}
+		fx.spawn();
 	}
 	
 	/**

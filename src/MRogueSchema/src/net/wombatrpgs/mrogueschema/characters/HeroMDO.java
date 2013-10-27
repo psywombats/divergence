@@ -7,6 +7,7 @@
 package net.wombatrpgs.mrogueschema.characters;
 
 import net.wombatrpgs.mgns.core.Annotations.Path;
+import net.wombatrpgs.mrogueschema.characters.data.CharacterMDO;
 
 /**
  * Defines stuff about the hero and how it moves/acts.

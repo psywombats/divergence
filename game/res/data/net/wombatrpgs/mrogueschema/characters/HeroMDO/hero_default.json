@@ -22,5 +22,8 @@
 		"magRange" : 10,
 		"magArmor" : 0
 	},
-	"abilities" : [ ]
+	"abilities" : [
+		"ability_teleport",
+		"ability_blink"
+	]
 }

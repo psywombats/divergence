@@ -14,6 +14,7 @@ import net.wombatrpgs.mrogueschema.characters.effects.AbilMagicDamageMDO;
 import net.wombatrpgs.mrogueschema.characters.effects.AbilMeleeAttackMDO;
 import net.wombatrpgs.mrogueschema.characters.effects.AbilPhysicalDamageMDO;
 import net.wombatrpgs.mrogueschema.characters.effects.AbilPoisonMDO;
+import net.wombatrpgs.mrogueschema.characters.effects.AbilTeleportMDO;
 
 /**
  * Another one of these shitty instanceof/getclass constructions for MDOs.
@@ -42,6 +43,8 @@ public class AbilEffectFactory {
 			return new AbilMeleeAttack((AbilMeleeAttackMDO) mdo, abil);
 		} else if (AbilPoisonMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new AbilPoison((AbilPoisonMDO) mdo, abil);
+		} else if (AbilTeleportMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new AbilTeleport((AbilTeleportMDO) mdo, abil);
 		} else if (AbilHalveHpMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new AbilHalveHP((AbilHalveHpMDO) mdo, abil);
 		} else if (AbilPhysicalDamageMDO.class.isAssignableFrom(mdo.getClass())) {

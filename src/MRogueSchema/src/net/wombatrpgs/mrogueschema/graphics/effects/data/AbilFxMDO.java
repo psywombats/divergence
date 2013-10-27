@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.mrogueschema.graphics.effects.data;
 
+import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
@@ -18,5 +19,13 @@ public class AbilFxMDO extends MainSchema {
 	
 	@Desc("Duration - how long this effect lasts for, in s")
 	public Float duration;
+	
+	@Desc("Tracking - does this event follow the target around?")
+	@DefaultValue("STATIONARY")
+	public TrackingType tracking;
+	
+	@Desc("Z type - does this event appear above or below hero?")
+	@DefaultValue("ABOVE")
+	public ZType z;
 
 }

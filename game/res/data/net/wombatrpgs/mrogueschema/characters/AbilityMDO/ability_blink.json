@@ -1,0 +1,13 @@
+{
+	"key" : "ability_blink",
+	"subfolder" : "",
+	"name" : "blink",
+	"description" : " ",
+	"target" : "USER",
+	"range" : 0.0,
+	"effect" : "effect_blink",
+	"icon" : "icon_staff.png",
+	"energyCost" : 1000,
+	"mpCost" : 5,
+	"fx" : "None"
+}

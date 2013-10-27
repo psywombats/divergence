@@ -34,7 +34,7 @@ public class TextBox extends Picture {
 	protected static final float FADE_IN_TIME = .5f;
 	
 	protected List<String> lines;
-	protected List<String> visibleLines;
+	protected List<String> visibleLines, mutatedLines;
 	protected TextBoxMDO mdo;
 	protected FontHolder font;
 	protected TextBoxFormat bodyFormat, nameFormat;
@@ -53,7 +53,7 @@ public class TextBox extends Picture {
 	 * @param 	font			The font to use in rendering, can change
 	 */
 	public TextBox(TextBoxMDO mdo, FontHolder font) {
-		super(mdo.image, 0);
+		super(mdo.image, 1);
 		this.mdo = mdo;
 		this.font = font;
 		this.name = "";
@@ -62,6 +62,7 @@ public class TextBox extends Picture {
 		this.bodyFormat = new TextBoxFormat();
 		this.nameFormat = new TextBoxFormat();
 		this.visibleLines = new ArrayList<String>();
+		this.mutatedLines = new ArrayList<String>();
 		this.backer = appearance;
 		this.waiting = false;
 		
@@ -83,9 +84,9 @@ public class TextBox extends Picture {
 	public void render(OrthographicCamera camera) {
 		super.render(camera);
 		font.setAlpha(currentColor.a);
-		for (int i = 0; i < visibleLines.size(); i++) {
+		for (int i = 0; i < mutatedLines.size(); i++) {
 			font.draw(getBatch(), bodyFormat,
-					visibleLines.get(i), (int) (font.getLineHeight() * -i));
+					mutatedLines.get(i), (int) (font.getLineHeight() * -i));
 		}
 		font.draw(getBatch(), nameFormat, name, 0);
 		font.setAlpha(1);
@@ -145,6 +146,20 @@ public class TextBox extends Picture {
 			setX(MGlobal.window.getWidth()/2 - backer.getWidth()/2);
 			setY(MGlobal.window.getHeight()/2 - backer.getHeight()/2);
 		}
+		
+		boolean mutate = false;
+		for (String line : visibleLines) {
+			if (line.contains("*")) {
+				mutate = true;
+				break;
+			}
+		}
+		if (mutate) {
+			mutatedLines = mutate(visibleLines);
+		} else {
+			mutatedLines = visibleLines;
+		}
+		
 		if (waiting) return;
 		
 		sinceChar += elapsed;
@@ -156,7 +171,8 @@ public class TextBox extends Picture {
 				return;
 			}
 			int at = visibleChars;
-			for (int atLine = 0; atLine < lines.size(); atLine++) {
+			int atLine = 0;
+			for (atLine = 0; atLine < lines.size(); atLine++) {
 				String line = lines.get(atLine);
 				if (line.length() < at) {
 					visibleLines.set(atLine, line);
@@ -185,6 +201,9 @@ public class TextBox extends Picture {
 					visibleLines.set(atLine, newLine);
 					break;
 				}
+			}
+			if (atLine == lines.size()) {
+				visibleChars = totalLength;
 			}
 		}
 	}
@@ -261,6 +280,26 @@ public class TextBox extends Picture {
 	public void reset() {
 		sinceChar = 0;
 		visibleChars = 0;
+	}
+	
+	/**
+	 * Given a bunch of strings, runs a randomizing algorithm over them.
+	 * @param	input			The strings to mutate
+	 * @return					The result of the mutation
+	 */
+	protected List<String> mutate(List<String> input) {
+		List<String> output = new ArrayList<String>();
+		for (String in : input) {
+			char out[] = new char[in.length()];
+			for (int i = 0; i < in.length(); i += 1) {
+				out[i] = in.charAt(i);
+				if (out[i] == '*') {
+					out[i] = (char)(MGlobal.rand.nextInt(26) + 'a');
+				}
+			}
+			output.add(new String(out));
+		}
+		return output;
 	}
 
 }

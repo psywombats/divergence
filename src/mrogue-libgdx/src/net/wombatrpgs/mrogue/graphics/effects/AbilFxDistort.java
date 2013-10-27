@@ -25,7 +25,7 @@ import net.wombatrpgs.mrogueschema.graphics.ShaderMDO;
 import net.wombatrpgs.mrogueschema.graphics.effects.AbilFxDistortMDO;
 
 /**
- * Some dumb proof of concept.
+ * Some really cool proof of concept.
  */
 public class AbilFxDistort extends AbilFX implements PostRenderable {
 	

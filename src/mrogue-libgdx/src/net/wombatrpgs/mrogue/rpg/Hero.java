@@ -58,7 +58,6 @@ public class Hero extends CharacterEvent implements CommandListener {
 	 * @param	tileY			The y-coord to start on, in tiles
 	 */
 	public Hero(Level parent, int tileX, int tileY) {
-		// TODO: Hero
 		super(MGlobal.data.getEntryFor(HERO_DEFAULT, HeroMDO.class), parent, tileX, tileY);
 		MGlobal.hero = this;
 		step = new ActStep(this);
@@ -85,7 +84,6 @@ public class Hero extends CharacterEvent implements CommandListener {
 	public void onAddedToMap(Level map) {
 		super.onAddedToMap(map);
 		seenCache = new boolean[map.getHeight()][map.getWidth()];
-		refreshVisibilityMap();
 	}
 
 	/**

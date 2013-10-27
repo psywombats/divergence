@@ -20,6 +20,8 @@ import net.wombatrpgs.mrogue.maps.objects.TimerObject;
 import net.wombatrpgs.mrogue.rpg.abil.Ability;
 import net.wombatrpgs.mrogueschema.characters.data.AbilityTargetType;
 import net.wombatrpgs.mrogueschema.graphics.effects.data.AbilFxMDO;
+import net.wombatrpgs.mrogueschema.graphics.effects.data.TrackingType;
+import net.wombatrpgs.mrogueschema.graphics.effects.data.ZType;
 
 /**
  * A special effect designed for use with an ability.
@@ -32,6 +34,7 @@ public abstract class AbilFX extends MapEvent implements Disposable {
 	protected SpriteBatch privateBatch;
 	protected float totalElapsed;
 	protected float done;
+	protected boolean initialized;
 	
 	/**
 	 * Creates an effect given data, parent.
@@ -46,6 +49,7 @@ public abstract class AbilFX extends MapEvent implements Disposable {
 		
 		privateBatch = new SpriteBatch();
 		assets = new ArrayList<Queueable>();
+		initialized = false;
 	}
 	
 	/**
@@ -61,15 +65,6 @@ public abstract class AbilFX extends MapEvent implements Disposable {
 		final Level parent = abil.getActor().getParent();
 		parent.addEvent(this);
 		totalElapsed = 0;
-		if (abil.getType() == AbilityTargetType.BALL) {
-			tileX = abil.getActor().getTileX();
-			tileY = abil.getActor().getTileY();
-		} else {
-			tileX = abil.getTargets().get(0).getParent().getTileX();
-			tileY = abil.getTargets().get(0).getParent().getTileY();
-		}
-		x = tileX * parent.getTileWidth();
-		y = tileY * parent.getTileHeight();
 		update(0);
 		new TimerObject(mdo.duration, parent.getScreen(), new TimerListener() {
 			@Override public void onTimerZero(TimerObject source) {
@@ -97,6 +92,18 @@ public abstract class AbilFX extends MapEvent implements Disposable {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
+		if (!initialized || mdo.tracking == TrackingType.TRACKS) {
+			MapEvent target;
+			if (abil.getType() == AbilityTargetType.BALL) {
+				target = abil.getActor();
+			} else {
+				target = abil.getTargets().get(0).getParent();
+			}
+			tileX = target.getTileX();
+			tileY = target.getTileY();
+			x = target.getX();
+			y = target.getY();
+		}
 		totalElapsed += elapsed;
 		done = (totalElapsed / mdo.duration);
 	}
@@ -124,7 +131,11 @@ public abstract class AbilFX extends MapEvent implements Disposable {
 	 */
 	@Override
 	protected float getZ() {
-		return super.getZ() - parent.getHeightPixels();
+		if (mdo.z == ZType.ABOVE) {
+			return super.getZ() - parent.getHeightPixels();
+		} else {
+			return super.getZ() + parent.getHeightPixels();
+		}
 	}
 
 }

@@ -25,7 +25,7 @@ import net.wombatrpgs.mrogue.rpg.act.Action;
 import net.wombatrpgs.mrogue.rpg.travel.Step;
 import net.wombatrpgs.mrogue.rpg.travel.StepBump;
 import net.wombatrpgs.mrogue.rpg.travel.StepMove;
-import net.wombatrpgs.mrogueschema.characters.CharacterMDO;
+import net.wombatrpgs.mrogueschema.characters.data.CharacterMDO;
 import net.wombatrpgs.mrogueschema.graphics.DirMDO;
 import net.wombatrpgs.mrogueschema.maps.data.EightDir;
 import net.wombatrpgs.mrogueschema.maps.data.OrthoDir;
@@ -243,6 +243,27 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	 */
 	public void faceAway(MapEvent event) {
 		setFacing(EightDir.getOpposite(directionTo(event)).toOrtho(getFacing()));
+	}
+	
+	/**
+	 * Adds itself to its parent map in a position not viewable by the hero.
+	 * This is kind of a dumb implementation that relies on rand, be warned.
+	 */
+	public void spawnUnseen() {
+		// 100 tries max
+		for (int i = 0; i < 100; i++) {
+			int tileX = MGlobal.rand.nextInt(parent.getWidth());
+			int tileY = MGlobal.rand.nextInt(parent.getHeight());
+			if (MGlobal.hero != null &&
+					MGlobal.hero.getParent() == parent &&
+					MGlobal.hero.inLoS(tileX, tileY)) {
+				continue;
+			}
+			if (!parent.isTilePassable(this, tileX, tileY)) continue;
+			parent.addEvent(this, tileX, tileY);
+			return;
+		}
+		MGlobal.reporter.warn("Waited 100 turns to spawn a " + this);
 	}
 	
 	/**

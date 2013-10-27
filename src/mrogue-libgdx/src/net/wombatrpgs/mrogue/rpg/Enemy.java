@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.mrogue.rpg;
 
-import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.rpg.ai.BTNode;
 import net.wombatrpgs.mrogue.rpg.ai.IntelligenceFactory;
@@ -44,27 +43,6 @@ public class Enemy extends CharacterEvent {
 		} else {
 			intelligence.getStatusAndAct();
 		}
-	}
-	
-	/**
-	 * Adds itself to its parent map in a position not viewable by the hero.
-	 * This is kind of a dumb implementation that relies on rand, be warned.
-	 */
-	public void spawnUnseen() {
-		// 100 tries max
-		for (int i = 0; i < 100; i++) {
-			int tileX = MGlobal.rand.nextInt(parent.getWidth());
-			int tileY = MGlobal.rand.nextInt(parent.getHeight());
-			if (MGlobal.hero != null &&
-					MGlobal.hero.getParent() == parent &&
-					MGlobal.hero.inLoS(tileX, tileY)) {
-				continue;
-			}
-			if (!parent.isTilePassable(this, tileX, tileY)) continue;
-			parent.addEvent(this, tileX, tileY);
-			return;
-		}
-		MGlobal.reporter.warn("Waited 100 turns to spawn a " + this);
 	}
 	
 	/**

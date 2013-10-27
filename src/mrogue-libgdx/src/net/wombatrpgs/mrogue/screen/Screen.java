@@ -246,7 +246,9 @@ public abstract class Screen implements CommandListener,
 		shapes.rect(0, 0, window.getWidth(), window.getHeight());
 		shapes.end();
 		for (ScreenObject pic : screenObjects) {
-			pic.render(cam);
+			if (pic.getZ() == 0) {
+				pic.render(cam);
+			}
 		}
 		buffer.end();
 		
@@ -270,6 +272,11 @@ public abstract class Screen implements CommandListener,
 		buffer.begin();
 		for (PostRenderable pr : postRenders) {
 			pr.renderPost();
+		}
+		for (ScreenObject pic : screenObjects) {
+			if (pic.getZ() > 0) {
+				pic.render(cam);
+			}
 		}
 		buffer.end();
 		
@@ -381,6 +388,7 @@ public abstract class Screen implements CommandListener,
 	public void addScreenObject(ScreenObject screenObject) {
 		screenObjects.add(screenObject);
 		addChildren.add(screenObject);
+		screenObject.onAddedToScreen();
 	}
 	
 	/**
@@ -391,6 +399,7 @@ public abstract class Screen implements CommandListener,
 		if (screenObjects.contains(screenObject)) {
 			screenObjects.remove(screenObject);
 			removeChild(screenObject);
+			screenObject.onRemovedFromScreen();
 		} else {
 			MGlobal.reporter.warn("Tried to remove non-existant picture from screen: " + screenObject);
 		}

@@ -58,7 +58,7 @@ public class GeneratedSpellbook extends Spellbook {
 		SpellbookMDO mdo = new SpellbookMDO();	
 		mdo.gameDesc = preMDO.effectDesc + " " + typeMDO.typeDesc;
 		mdo.icon = typeMDO.icon;
-		mdo.name = "a book of " + preMDO.effectName + "-" + typeMDO.typeName;
+		mdo.name = "a book of " + preMDO.effectName + " " + typeMDO.typeName;
 		return mdo;
 	}
 	
@@ -76,7 +76,7 @@ public class GeneratedSpellbook extends Spellbook {
 		abilMDO.fx = preMDO.fx;
 		abilMDO.icon = preMDO.icon;
 		abilMDO.mpCost = Math.round(preMDO.cost * typeMDO.costMult);
-		abilMDO.name = preMDO.effectName + "-" + typeMDO.typeName;
+		abilMDO.name = preMDO.effectName + " " + typeMDO.typeName;
 		abilMDO.range = typeMDO.range;
 		abilMDO.target = typeMDO.target;
 		return abilMDO;

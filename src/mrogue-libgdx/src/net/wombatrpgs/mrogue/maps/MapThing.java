@@ -171,7 +171,7 @@ public abstract class MapThing implements	Renderable,
 		float atY = y;
 		Color c = parent.getBatch().getColor().cpy();
 		float tint = (fallTime < .5f) ? 1-fallTime*2 : 0;
-		parent.getBatch().setColor(tint*c.r, tint*c.b, tint*c.g, 1);
+		parent.getBatch().setColor(tint*c.r, tint*c.b, tint*c.g, tint*c.a);
 		parent.getBatch().draw(
 				sprite,
 				atX, 

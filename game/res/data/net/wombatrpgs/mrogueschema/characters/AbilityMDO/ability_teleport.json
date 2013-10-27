@@ -1,0 +1,13 @@
+{
+	"key" : "ability_teleport",
+	"subfolder" : "",
+	"name" : "teleport",
+	"description" : "",
+	"target" : "USER",
+	"range" : 0.0,
+	"effect" : "effect_teleport",
+	"icon" : "icon_staff.png",
+	"energyCost" : 1000,
+	"mpCost" : 0,
+	"fx" : "None"
+}

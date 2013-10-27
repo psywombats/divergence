@@ -42,6 +42,9 @@ public abstract class ScreenObject implements	Renderable,
 		this();
 		this.z = z;
 	}
+	
+	/** @return The z-layer of this object */
+	public int getZ() { return z; }
 
 	/**
 	 * @see net.wombatrpgs.mrogue.core.Queueable#queueRequiredAssets
@@ -101,6 +104,20 @@ public abstract class ScreenObject implements	Renderable,
 	 */
 	public boolean ignoresTint() {
 		return false;
+	}
+	
+	/**
+	 * Called when this object is added to the screen. Default is nothing.
+	 */
+	public void onAddedToScreen() {
+		// noop
+	}
+	
+	/**
+	 * Called when this object is removed from the screen. Default is nothing.
+	 */
+	public void onRemovedFromScreen() {
+		// noop
 	}
 
 }

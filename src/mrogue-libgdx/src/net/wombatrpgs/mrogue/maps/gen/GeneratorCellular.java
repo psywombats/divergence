@@ -257,6 +257,7 @@ public class GeneratorCellular extends MapGenerator {
 			if (!cr.tensionAvailable) continue;
 			if (cr.rw * cr.rh > 30) continue;
 			if (r.nextFloat() < .6) continue;
+			if (parent.getDanger() < 2) continue;
 			cr.tensionSelected = true;
 			int count = (cr.x + cr.rw - 1) * (cr.y + cr.rh - 1);
 			List<Enemy> enemies = parent.getMonsterGenerator().createSet(count);
