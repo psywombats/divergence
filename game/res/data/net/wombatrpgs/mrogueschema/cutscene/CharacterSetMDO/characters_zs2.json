@@ -2,7 +2,7 @@
 	"key" : "characters_zs2",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "  ",
+	"description" : "    ",
 	"typeName" : [
 		{
 			"charname" : "HERO",
@@ -87,8 +87,37 @@
 					"charaname" : "Elanna"
 				},
 				{
-					"fullname" : "a robot named Borg MK.II",
+					"fullname" : "a robot named Borg Mk.7",
 					"charaname" : "Borg"
+				}
+			]
+		},
+		{
+			"charname" : "EVIL",
+			"entries" : [
+				{
+					"fullname" : "Great Sage Aven",
+					"charaname" : "Aven"
+				},
+				{
+					"fullname" : "the ghost of the Great Sage Aven",
+					"charaname" : "Aven"
+				},
+				{
+					"fullname" : "The Necromancer Abel",
+					"charaname" : "Abel"
+				},
+				{
+					"fullname" : "Aven the Necromancer",
+					"charaname" : "Aven"
+				},
+				{
+					"fullname" : "Dark King Reginald Scott Piedmont",
+					"charaname" : "Reginald"
+				},
+				{
+					"fullname" : "The Regicide",
+					"charaname" : "Regicide"
 				}
 			]
 		}

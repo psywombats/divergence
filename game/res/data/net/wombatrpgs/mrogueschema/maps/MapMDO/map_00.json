@@ -12,6 +12,9 @@
 	"goodItems" : "itemgen_loot",
 	"effect" : "effect_los",
 	"scene" : "None",
+	"characters" : [
+		"boss_default"
+	],
 	"pathsUp" : [ ],
 	"pathsDown" : [
 		"map_01"

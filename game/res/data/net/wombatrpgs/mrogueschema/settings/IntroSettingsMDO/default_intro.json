@@ -1,10 +1,11 @@
 {
 	"key" : "default_intro",
 	"subfolder" : "",
-	"name" : "",
+	"name" : " ",
 	"description" : " engine searches for this mdo by name",
 	"immScene" : "scene_title01",
 	"titleScene" : "sceneset_scenario",
-	"scene" : "scene_title02",
+	"scene" : "sceneset_first",
+	"tutorialScene" : "scene_tutorial",
 	"map" : "map_00"
 }

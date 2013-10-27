@@ -2,7 +2,7 @@
 	"key" : "map_02",
 	"subfolder" : "part1",
 	"name" : "",
-	"description" : "        ",
+	"description" : "Library        ",
 	"mapWidth" : 50,
 	"mapHeight" : 50,
 	"danger" : 2,
@@ -11,7 +11,7 @@
 	"items" : "itemgen_standard",
 	"goodItems" : "itemgen_loot",
 	"effect" : "effect_los",
-	"scene" : "None",
+	"scene" : "sceneset_library",
 	"pathsUp" : [
 		"map_01"
 	],
