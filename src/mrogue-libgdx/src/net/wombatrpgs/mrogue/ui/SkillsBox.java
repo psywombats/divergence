@@ -71,9 +71,19 @@ public class SkillsBox extends UIElement {
 					batch.setColor(1, 1, 1, 1);
 				}
 				icon = abil.getIcon();
-				cost = "  MP:" + String.valueOf(abil.getMP());
+				if (MGlobal.raveMode) {
+					cost = String.valueOf((char)(MGlobal.rand.nextInt(26) + 'A')) +
+							String.valueOf((char)(MGlobal.rand.nextInt(26) + 'A')) +
+							": " + MGlobal.rand.nextInt(100);
+				} else {
+					cost = "  MP:" + String.valueOf(abil.getMP());
+				}
 				// TODO: KEY INPUT HAX, look up the real key!
-				key = "F" + (i+1);
+				if (MGlobal.raveMode) {
+					key = String.valueOf((char)(MGlobal.rand.nextInt(26) + 'a')) + MGlobal.rand.nextInt(10);
+				} else {
+					key = "F" + (i+1);
+				}
 			} else {
 				batch.setColor(1, .5f, .5f, .5f);
 				icon = noAbil;
@@ -82,11 +92,13 @@ public class SkillsBox extends UIElement {
 			}
 			int atX = mdo.allOffX + i * mdo.paddingX;
 			int atY = mdo.allOffY;
-			icon.renderAt(MGlobal.screens.peek().getUIBatch(), atX, atY);
-			format.x = atX + icon.getWidth()/2 - MAX_TEXT_WIDTH/2;
-			format.y = atY + mdo.textY;
-			String text = key + cost;
-			font.draw(batch, format, text, 0);
+			if (icon != null) {
+				icon.renderAt(MGlobal.screens.peek().getUIBatch(), atX, atY);
+				format.x = atX + icon.getWidth()/2 - MAX_TEXT_WIDTH/2;
+				format.y = atY + mdo.textY;
+				String text = key + cost;
+				font.draw(batch, format, text, 0);
+			}
 		}
 		batch.setColor(oldColor);
 	}

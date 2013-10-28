@@ -134,7 +134,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
-		if (unit.isDead()) {
+		if (unit.isDead() && !MGlobal.raveMode) {
 			if (!deathScene.hasExecuted()) {
 				if (!deathScene.isRunning()) {
 					deathScene.run();

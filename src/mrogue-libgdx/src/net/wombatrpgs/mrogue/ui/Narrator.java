@@ -69,7 +69,7 @@ public class Narrator extends UIElement implements Turnable {
 			} else {
 				font.setAlpha(1.f);
 			}
-			font.draw(getBatch(), format, line.line, (int) (font.getLineHeight() * -i));
+			font.draw(getBatch(), format, line.mutant, (int) (font.getLineHeight() * -i));
 		}
 		font.setAlpha(1);
 	}
@@ -79,8 +79,10 @@ public class Narrator extends UIElement implements Turnable {
 	 */
 	@Override
 	public void update(float elapsed) {
+		if (MGlobal.stasis) return;
 		for (Line line : lines) {
 			line.ttl -= elapsed;
+			line.mutant = mutate(line.line);
 		}
 		while (lines.size() > 0) {
 			Line line = lines.get(0);
@@ -122,12 +124,32 @@ public class Narrator extends UIElement implements Turnable {
 		
 	}
 	
+	/**
+	 * Creates a mutant string based on an input string. Character substitution
+	 * for cthulu mode.
+	 * @param	line			The line to mutate
+	 * @return					The mutated version of the input
+	 */
+	protected String mutate(String line) {
+		if (!line.contains("*")) return line;
+		char out[] = new char[line.length()];
+		for (int i = 0; i < line.length(); i += 1) {
+			out[i] = line.charAt(i);
+			if (out[i] == '*') {
+				out[i] = (char)(MGlobal.rand.nextInt(26) + 'a');
+			}
+		}
+		return new String(out);
+	}
+	
 	class Line {
 		public String line;
+		public String mutant;
 		public float ttl;
 		public Line(String line, float ttl) {
 			this.line = line;
 			this.ttl = ttl;
+			this.mutant = line;
 		}
 	}
 	

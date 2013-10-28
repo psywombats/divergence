@@ -10,6 +10,7 @@ import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.rpg.abil.Ability;
 import net.wombatrpgs.mrogueschema.graphics.effects.AbilFxDistortMDO;
 import net.wombatrpgs.mrogueschema.graphics.effects.AbilFxFlamesMDO;
+import net.wombatrpgs.mrogueschema.graphics.effects.AbilFxFlybyMDO;
 import net.wombatrpgs.mrogueschema.graphics.effects.AbilFxTestMDO;
 import net.wombatrpgs.mrogueschema.graphics.effects.data.AbilFxMDO;
 
@@ -38,6 +39,8 @@ public class AbilFxFactory {
 	public static AbilFX createFX(AbilFxMDO mdo, Ability parent) {
 		if (AbilFxTestMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new AbilFxTest((AbilFxTestMDO) mdo, parent);
+		} else if (AbilFxFlybyMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new AbilFxFlyby((AbilFxFlybyMDO) mdo, parent);
 		} else if (AbilFxDistortMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new AbilFxDistort((AbilFxDistortMDO) mdo, parent);
 		} else if (AbilFxFlamesMDO.class.isAssignableFrom(mdo.getClass())) {

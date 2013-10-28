@@ -345,6 +345,7 @@ public abstract class Screen implements CommandListener,
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
+		if (MGlobal.stasis) return true;
 		for (CommandListener listener : commandListeners) {
 			if (listener.onCommand(command)) return true;
 		}

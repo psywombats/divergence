@@ -151,6 +151,7 @@ public class EffectReality extends Effect implements	PostRenderable,
 	 */
 	@Override
 	public void update(float elapsed) {
+		if (MGlobal.stasis) return;
 		super.update(elapsed);
 		this.elapsed += elapsed;
 	}

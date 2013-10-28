@@ -36,6 +36,8 @@ public class Hud extends UIElement {
 	protected Graphic alphaMask;
 	protected NumberSet numbersHP, numbersMP;
 	
+	protected float mp, mmp, hp, mhp;
+	
 	protected boolean enabled;
 	protected boolean ignoresTint;
 	protected boolean awaitingReset;
@@ -93,6 +95,7 @@ public class Hud extends UIElement {
 	 */
 	@Override
 	public void update(float elapsed) {
+		if (MGlobal.stasis) return;
 		if (awaitingReset) {
 			currentHPDisplay = MGlobal.hero.getStats().hp;
 			currentMPDisplay = MGlobal.hero.getStats().mp;
@@ -118,6 +121,14 @@ public class Hud extends UIElement {
 				currentMPDisplay += 1;
 			}
 		}
+		mhp = MGlobal.hero.getStats().mhp;
+		hp = currentHPDisplay;
+		mmp = MGlobal.hero.getStats().mmp;
+		mp = currentMPDisplay;
+		if (MGlobal.raveMode) {
+			hp = MGlobal.rand.nextInt((int) (MGlobal.hero.getStats().mhp * 2.5f));
+			mp = MGlobal.rand.nextInt((int) (MGlobal.hero.getStats().mmp * 2.5f));
+		}
 	}
 
 	/**
@@ -128,10 +139,6 @@ public class Hud extends UIElement {
 	public void render(OrthographicCamera camera) {
 		SpriteBatch batch = getBatch();
 		if (mdo.anchorDir == OrthoDir.SOUTH) {
-			float mhp = MGlobal.hero.getStats().mhp;
-			float hp = currentHPDisplay;
-			float mmp = MGlobal.hero.getStats().mmp;
-			float mp = currentMPDisplay;
 			float ratioHP = hp/mhp;
 			float ratioMP = mp/mmp;
 			renderBar(camera, batch, nhpBase, nhpRib, nhpTail, mdo.hpStartX,
@@ -143,6 +150,7 @@ public class Hud extends UIElement {
 			renderBar(camera, batch, mpBase, mpRib, mpTail, mdo.mpStartX,
 					mdo.mpStartY, ratioMP, mdo.mpWidth);
 			frame.renderAt(batch, mdo.offX, mdo.offY);
+			
 			if (ratioHP > .31) {
 				numbersHP.renderNumberAt((int) hp,
 						mdo.offX + mdo.numOffX,

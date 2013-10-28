@@ -7,16 +7,20 @@
 package net.wombatrpgs.mrogue.graphics.effects;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.graphics.Disposable;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
 import net.wombatrpgs.mrogue.maps.objects.TimerListener;
 import net.wombatrpgs.mrogue.maps.objects.TimerObject;
+import net.wombatrpgs.mrogue.rpg.CharacterEvent;
+import net.wombatrpgs.mrogue.rpg.GameUnit;
 import net.wombatrpgs.mrogue.rpg.abil.Ability;
 import net.wombatrpgs.mrogueschema.characters.data.AbilityTargetType;
 import net.wombatrpgs.mrogueschema.graphics.effects.data.AbilFxMDO;
@@ -32,6 +36,7 @@ public abstract class AbilFX extends MapEvent implements Disposable {
 	protected AbilFxMDO mdo;
 	protected Ability abil;
 	protected SpriteBatch privateBatch;
+	protected List<CharacterEvent> targets;
 	protected float totalElapsed;
 	protected float done;
 	protected boolean initialized;
@@ -65,6 +70,16 @@ public abstract class AbilFX extends MapEvent implements Disposable {
 		final Level parent = abil.getActor().getParent();
 		parent.addEvent(this);
 		totalElapsed = 0;
+		
+		targets = new ArrayList<CharacterEvent>();
+		if (abil.getType() == AbilityTargetType.BALL) {
+			targets.add(abil.getActor());
+		} else {
+			for (GameUnit target : abil.getTargets()) {
+				targets.add(target.getParent());
+			}
+		}
+		
 		update(0);
 		new TimerObject(mdo.duration, parent.getScreen(), new TimerListener() {
 			@Override public void onTimerZero(TimerObject source) {
@@ -91,14 +106,10 @@ public abstract class AbilFX extends MapEvent implements Disposable {
 	 */
 	@Override
 	public void update(float elapsed) {
+		if (MGlobal.stasis) return;
 		super.update(elapsed);
 		if (!initialized || mdo.tracking == TrackingType.TRACKS) {
-			MapEvent target;
-			if (abil.getType() == AbilityTargetType.BALL) {
-				target = abil.getActor();
-			} else {
-				target = abil.getTargets().get(0).getParent();
-			}
+			MapEvent target = targets.get(0);
 			tileX = target.getTileX();
 			tileY = target.getTileY();
 			x = target.getX();

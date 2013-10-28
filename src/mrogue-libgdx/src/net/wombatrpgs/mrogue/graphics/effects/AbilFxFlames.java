@@ -62,6 +62,7 @@ public class AbilFxFlames extends AbilFX {
 	@Override
 	public void render(OrthographicCamera camera) {
 		super.render(camera);
+		if (MGlobal.won) return;
 		
 		Screen sc = MGlobal.screens.peek();
 		getParent().getBatch().end();

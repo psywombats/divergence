@@ -70,6 +70,8 @@ public class MGlobal {
 	public static FileLoader loader;
 	/** Manages all tile types and graphics etc */
 	public static TileManager tiles;
+	/** ZS2 weird shit */
+	public static boolean raveMode, stasis, won;
 	
 	private static List<Queueable> toLoad;
 	

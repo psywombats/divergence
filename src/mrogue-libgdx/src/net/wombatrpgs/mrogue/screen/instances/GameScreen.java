@@ -16,6 +16,7 @@ import net.wombatrpgs.mrogue.io.command.CMapGame;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Loc;
 import net.wombatrpgs.mrogue.maps.events.Cursor;
+import net.wombatrpgs.mrogue.rpg.Boss;
 import net.wombatrpgs.mrogue.rpg.Hero;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogue.screen.Screen;
@@ -34,6 +35,8 @@ public class GameScreen extends Screen {
 	protected Level map;
 	protected SceneParser introParser, tutorialParser;
 	protected Cursor cursor;
+	
+	protected boolean stasisMode;
 	
 	// tests
 	protected FramerateTestMDO fpsMDO;
@@ -158,6 +161,11 @@ public class GameScreen extends Screen {
 		}
 		if (introParser.hasExecuted() && !tutorialParser.isRunning() && !tutorialParser.hasExecuted()) {
 			tutorialParser.run();
+		}
+		if (MGlobal.stasis && !stasisMode) {
+			stasisMode = true;
+			Boss boss = (Boss) MGlobal.levelManager.getActive().getEventByName("boss");
+			boss.onStasis();
 		}
 	}
 

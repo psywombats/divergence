@@ -2,7 +2,7 @@
 	"key" : "hero_default",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "               ",
+	"description" : "                ",
 	"appearance" : "4dir_grandfather",
 	"faction" : "HERO",
 	"stats" : {
@@ -23,7 +23,6 @@
 		"magArmor" : 0
 	},
 	"abilities" : [
-		"ability_teleport",
-		"ability_blink"
+		"ability_lucifer"
 	]
 }

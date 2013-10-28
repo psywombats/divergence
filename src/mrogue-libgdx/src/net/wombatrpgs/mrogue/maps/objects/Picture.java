@@ -83,6 +83,12 @@ public class Picture extends ScreenObject implements PositionSetable {
 		this(fileName, 0, 0, z);
 	}
 	
+	/** @return The width of the underlying graphic, in px */
+	public int getWidth() { return appearance.getWidth(); }
+	
+	/** @return The height of the underlying graphic, in px */
+	public int getHeight() { return appearance.getHeight(); }
+	
 	/**
 	 * @see net.wombatrpgs.mrogue.core.Updateable#update(float)
 	 */

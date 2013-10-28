@@ -438,7 +438,6 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	 */
 	public void actAndWait(Action act) {
 		act.setActor(this);
-		onTurn();
 		act.act();
 		ticksRemaining += act.getCost();
 	}

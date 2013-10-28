@@ -2,12 +2,12 @@
 	"key" : "boss_default",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "   ",
+	"description" : "      ",
 	"appearance" : "4dir_shadow",
 	"faction" : "ENEMIES",
 	"stats" : {
-		"mhp" : 500,
-		"hp" : 500,
+		"mhp" : 25,
+		"hp" : 25,
 		"mmp" : 500,
 		"mp" : 500,
 		"speed" : 120,
@@ -32,5 +32,43 @@
 	"danger" : 0,
 	"sightedScene" : "sceneset_bossfight",
 	"effect" : "effect_reality",
-	"abilFX" : "abilfx_darknessboss"
+	"abilFX" : "abilfx_darknessboss",
+	"deathScene" : "sceneset_bossmid",
+	"raveAbility" : "ability_lucifer",
+	"glitchMusic" : "music_ughhhhhh",
+	"bsod" : "bsod.png",
+	"bsodMessage" : "bsod_prompt.png",
+	"deadScene" : "scene_win",
+	"gos" : [
+		{
+			"file" : "xgameover00.png"
+		},
+		{
+			"file" : "xgameover01.png"
+		},
+		{
+			"file" : "xgameover02.png"
+		},
+		{
+			"file" : "xgameover03.png"
+		},
+		{
+			"file" : "xgameover04.png"
+		},
+		{
+			"file" : "xgameover05.png"
+		},
+		{
+			"file" : "xgameover06.png"
+		},
+		{
+			"file" : "xgameover07.png"
+		},
+		{
+			"file" : "xgameover08.png"
+		},
+		{
+			"file" : "xgameover09.png"
+		}
+	]
 }
