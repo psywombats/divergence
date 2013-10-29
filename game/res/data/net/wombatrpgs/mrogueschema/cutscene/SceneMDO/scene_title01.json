@@ -4,5 +4,5 @@
 	"name" : "",
 	"description" : "",
 	"file" : "intro0000.scene",
-	"repeat" : "RUN_ONLY_ONCE"
+	"repeat" : "RUN_EVERY_TIME"
 }

@@ -1,13 +1,14 @@
 {
-	"key" : "ability_punch_monster_in_face",
+	"key" : "ability_armorpierce",
 	"subfolder" : "",
-	"name" : "punch-monster-in-face",
+	"name" : "armor pierce",
 	"description" : " ",
+	"abilDesc" : "Ignores enemy armor",
 	"target" : "MELEE",
 	"range" : 1.0,
-	"effect" : "effect_dummy",
+	"effect" : "effect_armorpierce",
 	"icon" : "icon_twoswords.png",
 	"energyCost" : 1000,
-	"mpCost" : 1,
+	"mpCost" : 2,
 	"fx" : "None"
 }

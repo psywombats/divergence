@@ -2,12 +2,13 @@
 	"key" : "ability_teleport",
 	"subfolder" : "",
 	"name" : "teleport",
-	"description" : "",
+	"description" : " ",
+	"abilDesc" : "Warp to a distant location",
 	"target" : "USER",
 	"range" : 0.0,
 	"effect" : "effect_teleport",
 	"icon" : "icon_staff.png",
 	"energyCost" : 1000,
-	"mpCost" : 0,
+	"mpCost" : 10,
 	"fx" : "None"
 }

@@ -3,6 +3,7 @@
 	"subfolder" : "",
 	"name" : "blink",
 	"description" : " ",
+	"abilDesc" : "Jump to a random nearby location",
 	"target" : "USER",
 	"range" : 0.0,
 	"effect" : "effect_blink",

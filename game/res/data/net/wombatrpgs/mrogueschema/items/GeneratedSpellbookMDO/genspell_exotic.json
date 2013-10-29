@@ -15,7 +15,8 @@
 		"spellpre_deathblow",
 		"spellpre_darkness",
 		"spellpre_armorpierce",
-		"spellpre_banish"
+		"spellpre_banish",
+		"spellpre_vampirism"
 	],
 	"types" : [
 		"spelltype_aura",

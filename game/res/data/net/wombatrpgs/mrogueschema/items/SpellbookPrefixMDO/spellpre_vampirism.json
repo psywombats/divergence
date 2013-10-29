@@ -1,0 +1,12 @@
+{
+	"key" : "spellpre_vampirism",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"effectName" : "vampiric",
+	"effectDesc" : "Heals the user for half the damage dealt.",
+	"effect" : "effect_vampirism_mag",
+	"cost" : 6.0,
+	"icon" : "icon_blood.png",
+	"fx" : "abilfx_darkness"
+}
