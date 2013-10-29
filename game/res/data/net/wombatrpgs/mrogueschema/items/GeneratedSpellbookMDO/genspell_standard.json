@@ -2,17 +2,19 @@
 	"key" : "genspell_standard",
 	"subfolder" : "",
 	"name" : "",
-	"description" : " ",
+	"description" : "       ",
 	"gameDesc" : "",
+	"rarity" : 0.05,
 	"icon" : "book_green.png",
 	"prefixes" : [
-		"spellpre_distortion",
+		"spellpre_blade",
 		"spellpre_fire",
 		"spellpre_poison"
 	],
 	"types" : [
 		"spelltype_aura",
 		"spelltype_ball",
-		"spelltype_touch"
+		"spelltype_touch",
+		"spelltype_spear"
 	]
 }

@@ -2,8 +2,9 @@
 	"key" : "potion_mp",
 	"subfolder" : "",
 	"name" : "a magic elixir",
-	"description" : "  ",
+	"description" : "    ",
 	"gameDesc" : "Restores 80 mana to the drinker.",
+	"rarity" : 0.0,
 	"icon" : "potion_blue.png",
 	"duration" : 0,
 	"mod" : {

@@ -2,8 +2,9 @@
 	"key" : "potion_hp",
 	"subfolder" : "",
 	"name" : "a health potion",
-	"description" : "  ",
+	"description" : "    ",
 	"gameDesc" : "Restores 100 health to the drinker.",
+	"rarity" : 0.0,
 	"icon" : "potion_red.png",
 	"duration" : 0,
 	"mod" : {

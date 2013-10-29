@@ -1,0 +1,12 @@
+{
+	"key" : "spelltype_spear",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"typeName" : "spear",
+	"typeDesc" : "Hits a foe up to 5 tiles away.",
+	"target" : "PROJECTILE",
+	"range" : 5.0,
+	"costMult" : 1.5,
+	"icon" : "book_pink.png"
+}

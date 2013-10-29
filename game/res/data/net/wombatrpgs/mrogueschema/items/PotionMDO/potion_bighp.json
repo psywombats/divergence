@@ -2,8 +2,9 @@
 	"key" : "potion_bighp",
 	"subfolder" : "",
 	"name" : "a life potion",
-	"description" : " ",
+	"description" : "   ",
 	"gameDesc" : "Restores all health to the drinker.",
+	"rarity" : 0.85,
 	"icon" : "potion_red.png",
 	"duration" : 0,
 	"mod" : {

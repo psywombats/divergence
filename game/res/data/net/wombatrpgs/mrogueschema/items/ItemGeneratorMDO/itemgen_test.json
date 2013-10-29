@@ -9,7 +9,10 @@
 		"potion_hp",
 		"potion_mp",
 		"genpotion_exotic",
-		"genpotion_standard"
+		"genpotion_standard",
+		"spellbook_teleport",
+		"spellbook_blink",
+		"potion_bighp"
 	],
 	"firstTreasure" : 40
 }

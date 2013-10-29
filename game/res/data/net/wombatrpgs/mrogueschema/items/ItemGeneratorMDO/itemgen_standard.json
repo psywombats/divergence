@@ -6,7 +6,9 @@
 	"items" : [
 		"potion_hp",
 		"potion_mp",
-		"genpotion_standard"
+		"genpotion_standard",
+		"spellbook_blink",
+		"spellbook_teleport"
 	],
 	"firstTreasure" : 3
 }

@@ -2,9 +2,9 @@
 	"key" : "genspell_exotic",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "",
+	"description" : "    ",
 	"gameDesc" : "",
-	"rarity" : 0.0,
+	"rarity" : 0.05,
 	"icon" : "book_blue.png",
 	"prefixes" : [
 		"spellpre_blade",
@@ -20,6 +20,7 @@
 	"types" : [
 		"spelltype_aura",
 		"spelltype_ball",
-		"spelltype_touch"
+		"spelltype_touch",
+		"spelltype_spear"
 	]
 }
