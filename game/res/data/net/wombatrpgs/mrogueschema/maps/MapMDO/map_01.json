@@ -2,7 +2,7 @@
 	"key" : "map_01",
 	"subfolder" : "part1",
 	"name" : "",
-	"description" : "            ",
+	"description" : "              ",
 	"mapWidth" : 35,
 	"mapHeight" : 30,
 	"danger" : 1,
@@ -11,11 +11,9 @@
 	"items" : "itemgen_standard",
 	"goodItems" : "itemgen_loot",
 	"effect" : "effect_los",
-	"scene" : "sceneset_bossvoice",
+	"scene" : "None",
 	"bgm" : "music_ambient",
-	"characters" : [
-		"boss_default"
-	],
+	"characters" : [ ],
 	"pathsUp" : [
 		"map_00"
 	],

@@ -72,6 +72,7 @@ public class MGlobal {
 	public static TileManager tiles;
 	/** ZS2 weird shit */
 	public static boolean raveMode, stasis, won;
+	public static int deathCount;
 	
 	private static List<Queueable> toLoad;
 	

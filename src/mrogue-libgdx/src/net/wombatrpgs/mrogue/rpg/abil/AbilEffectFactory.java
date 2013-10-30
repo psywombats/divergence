@@ -9,12 +9,14 @@ package net.wombatrpgs.mrogue.rpg.abil;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogueschema.characters.data.AbilityEffectMDO;
 import net.wombatrpgs.mrogueschema.characters.effects.AbilArmorPierceMDO;
+import net.wombatrpgs.mrogueschema.characters.effects.AbilFixedDamageMDO;
 import net.wombatrpgs.mrogueschema.characters.effects.AbilHalveHpMDO;
 import net.wombatrpgs.mrogueschema.characters.effects.AbilMagicDamageMDO;
 import net.wombatrpgs.mrogueschema.characters.effects.AbilMeleeAttackMDO;
 import net.wombatrpgs.mrogueschema.characters.effects.AbilPhysicalDamageMDO;
 import net.wombatrpgs.mrogueschema.characters.effects.AbilPoisonMDO;
 import net.wombatrpgs.mrogueschema.characters.effects.AbilTeleportMDO;
+import net.wombatrpgs.mrogueschema.characters.effects.AbilVampirismMDO;
 
 /**
  * Another one of these shitty instanceof/getclass constructions for MDOs.
@@ -41,6 +43,10 @@ public class AbilEffectFactory {
 	public static AbilEffect createEffect(AbilityEffectMDO mdo, Ability abil) {
 		if (AbilMeleeAttackMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new AbilMeleeAttack((AbilMeleeAttackMDO) mdo, abil);
+		} else if (AbilVampirismMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new AbilVampirism((AbilVampirismMDO) mdo, abil);
+		} else if (AbilFixedDamageMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new AbilFixedDamage((AbilFixedDamageMDO) mdo, abil);
 		} else if (AbilPoisonMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new AbilPoison((AbilPoisonMDO) mdo, abil);
 		} else if (AbilTeleportMDO.class.isAssignableFrom(mdo.getClass())) {

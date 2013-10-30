@@ -81,6 +81,7 @@ public class Stats {
 	public void takeRawDamage(int damage) {
 		hp -= damage;
 		if (hp < 0) hp = 0;
+		if (hp > mhp) hp = mhp;
 	}
 	
 	/**

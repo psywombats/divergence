@@ -6,11 +6,11 @@
  */
 package net.wombatrpgs.mrogue.maps.events;
 
+import net.wombatrpgs.mrogue.core.FinishListener;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Loc;
 import net.wombatrpgs.mrogue.rpg.CharacterEvent;
-import net.wombatrpgs.mrogue.scenes.FinishListener;
 
 /**
  * Constructs a teleportation device! (or event, just depends on your

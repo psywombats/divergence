@@ -2,12 +2,12 @@
 	"key" : "enemy_armored",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "      ",
+	"description" : "       ",
 	"appearance" : "4dir_armor",
 	"faction" : "ENEMIES",
 	"stats" : {
-		"mhp" : 30,
-		"hp" : 30,
+		"mhp" : 20,
+		"hp" : 20,
 		"mmp" : 0,
 		"mp" : 0,
 		"speed" : 70,
@@ -17,12 +17,12 @@
 		"dodge" : 0,
 		"dmgBase" : 5,
 		"dmgRange" : 3,
-		"armor" : 7,
+		"armor" : 15,
 		"magBase" : 2,
 		"magRange" : 2,
 		"magArmor" : -5
 	},
 	"abilities" : [ ],
 	"intelligence" : "behavior_herostep",
-	"danger" : 0
+	"danger" : 2
 }

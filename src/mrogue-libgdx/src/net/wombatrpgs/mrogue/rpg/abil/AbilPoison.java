@@ -37,7 +37,7 @@ public class AbilPoison extends AbilEffect {
 	protected void internalAct(List<GameUnit> targets) {
 		for (GameUnit target : targets) {
 			if (MGlobal.hero.inLoS(target.getParent())) {
-				GameUnit.out().msg(target.getName() + " is poisoned.");
+				GameUnit.out().msg(target.getName() + " was poisoned.");
 			}
 			target.onAttackBy(actor.getUnit());
 			

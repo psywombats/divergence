@@ -111,6 +111,11 @@ public class MusicObject extends AudioObject {
 		targetVolume = 0;
 		previous = coreMusic.getVolume();
 	}
+	
+	/** @return The volume */
+	public float getVolume() {
+		return coreMusic.getVolume();
+	}
 
 	/**
 	 * @see net.wombatrpgs.mrogue.io.audio.AudioObject#corePlay()

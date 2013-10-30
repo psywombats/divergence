@@ -168,10 +168,10 @@ public abstract class Screen implements CommandListener,
 	public void unregisterCommandListener(CommandListener listener) { commandListeners.remove(listener); }
 	
 	/** @param u The updateable child to add */
-	public void addChild(Updateable u) { addChildren.add(u); }
+	public void addUChild(Updateable u) { addChildren.add(u); }
 	
 	/** @param u The updateable child to (eventually) remove */
-	public void removeChild(Updateable u) { removeChildren.add(u); }
+	public void removeUChild(Updateable u) { removeChildren.add(u); }
 	
 	/**
 	 * Removes an explicit command map from the stack.
@@ -386,7 +386,7 @@ public abstract class Screen implements CommandListener,
 	 * Adds a screen-showable picture to the screen.
 	 * @param 	screenObject	The object to add
 	 */
-	public void addScreenObject(ScreenObject screenObject) {
+	public void addObject(ScreenObject screenObject) {
 		screenObjects.add(screenObject);
 		addChildren.add(screenObject);
 		screenObject.onAddedToScreen();
@@ -396,10 +396,10 @@ public abstract class Screen implements CommandListener,
 	 * Removes a screen-showable picture from the screen.
 	 * @param	screenObject	The object to add
 	 */
-	public void removeScreenObject(ScreenObject screenObject) {
+	public void removeObject(ScreenObject screenObject) {
 		if (screenObjects.contains(screenObject)) {
 			screenObjects.remove(screenObject);
-			removeChild(screenObject);
+			removeUChild(screenObject);
 			screenObject.onRemovedFromScreen();
 		} else {
 			MGlobal.reporter.warn("Tried to remove non-existant picture from screen: " + screenObject);
@@ -410,7 +410,7 @@ public abstract class Screen implements CommandListener,
 	 * Run some final safety checks and finish initialization. Call once during
 	 * the constructor.
 	 */
-	protected final void init() {
+	public final void init() {
 		this.queueRequiredAssets(MGlobal.assetManager);
 		MGlobal.assetManager.finishLoading();
 		this.postProcessing(MGlobal.assetManager, 0);

@@ -2,11 +2,11 @@
 	"key" : "itemgen_best",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "",
+	"description" : "  ",
 	"items" : [
 		"genpotion_exotic",
 		"genspell_exotic",
 		"potion_bighp"
 	],
-	"firstTreasure" : 1
+	"firstTreasure" : 5
 }

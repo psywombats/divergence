@@ -85,6 +85,7 @@ public class TeleportManager implements Queueable {
 		if (old.getBGM() != null && !old.getBGM().matches(map.getBGM())) {
 			MusicObject oldBGM = old.getBGM();
 			oldBGM.fadeOut(.5f);
+			MGlobal.levelManager.getScreen().addUChild(oldBGM);
 		}
 		old.onFocusLost();
 		old.removeEvent(victim);
@@ -93,19 +94,20 @@ public class TeleportManager implements Queueable {
 		map.addEvent(MGlobal.hero, tileX, tileY);
 		MGlobal.hero.refreshVisibilityMap();
 		MGlobal.levelManager.getScreen().getCamera().update(0);
+		MGlobal.levelManager.setActive(map);
 		if (MGlobal.ui.getHud() != null) {
 			MGlobal.ui.getHud().setOverlayTintIgnore(true);
 		}
 		if (map.getBGM() != null && !map.getBGM().matches(old.getBGM())) {
 			MusicObject newBGM = map.getBGM();
 			map.getBGM().fadeIn(.5f);
-			MGlobal.levelManager.getScreen().addChild(newBGM);
+			MGlobal.levelManager.getScreen().addUChild(newBGM);
 		}
 
 		//MGlobal.screens.getCamera().constrainMaps(map);
 		
-		MGlobal.levelManager.getScreen().addScreenObject(map);
-		MGlobal.levelManager.getScreen().removeScreenObject(old);
+		MGlobal.levelManager.getScreen().addObject(map);
+		MGlobal.levelManager.getScreen().removeObject(old);
 		
 	}
 

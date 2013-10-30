@@ -2,12 +2,12 @@
 	"key" : "boss_default",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "       ",
+	"description" : "        ",
 	"appearance" : "4dir_shadow",
 	"faction" : "ENEMIES",
 	"stats" : {
-		"mhp" : 120,
-		"hp" : 120,
+		"mhp" : 700,
+		"hp" : 700,
 		"mmp" : 500,
 		"mp" : 500,
 		"speed" : 120,
@@ -20,7 +20,7 @@
 		"armor" : 5,
 		"magBase" : 30,
 		"magRange" : 10,
-		"magArmor" : 20
+		"magArmor" : 5
 	},
 	"abilities" : [
 		"ability_blink",

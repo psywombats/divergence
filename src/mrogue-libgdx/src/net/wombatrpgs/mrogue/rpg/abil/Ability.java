@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
 
+import net.wombatrpgs.mrogue.core.FinishListener;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.graphics.Graphic;
@@ -19,6 +20,7 @@ import net.wombatrpgs.mrogue.graphics.effects.AbilFxFactory;
 import net.wombatrpgs.mrogue.io.CommandListener;
 import net.wombatrpgs.mrogue.io.command.CMapDirections;
 import net.wombatrpgs.mrogue.maps.MapThing;
+import net.wombatrpgs.mrogue.maps.events.Cursor;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
 import net.wombatrpgs.mrogue.rpg.CharacterEvent;
 import net.wombatrpgs.mrogue.rpg.GameUnit;
@@ -42,9 +44,11 @@ public class Ability extends Action implements Queueable, CommandListener {
 	protected RayCheck check;
 	protected MapEvent firstHit;
 	protected List<GameUnit> targets;
+	protected List<GameUnit> lastTargets;
 	protected AbilFX fx;
 	protected List<Queueable> assets;
 	protected Graphic icon;
+	protected Cursor targetCursor;
 	protected boolean blocking;
 	
 	/**
@@ -57,6 +61,9 @@ public class Ability extends Action implements Queueable, CommandListener {
 		this.effect = AbilEffectFactory.createEffect(mdo.effect, this);
 		this.assets = new ArrayList<Queueable>();
 		blocking = false;
+		
+		targetCursor = new Cursor();
+		assets.add(targetCursor);
 		
 		if (MapThing.mdoHasProperty(mdo.fx)) {
 			fx = AbilFxFactory.createFX(mdo.fx, this);
@@ -106,6 +113,9 @@ public class Ability extends Action implements Queueable, CommandListener {
 	/** @return The in-game name of this ability */
 	public String getName() { return mdo.name; }
 	
+	/** @return The in-game desc of this ability */
+	public String getDesc() { return mdo.abilDesc; }
+	
 	/** @return The step animation of this ability */
 	public Step getStep() { return effect.getStep(); }
 	
@@ -138,6 +148,25 @@ public class Ability extends Action implements Queueable, CommandListener {
 	@Override
 	public int baseCost() {
 		return mdo.energyCost;
+	}
+	
+	/**
+	 * Looks up the radius of this ability. This will be the same as the range
+	 * in most cases, but beams and projectiles have radius 1.5. Right now only
+	 * really suited for abilfx.
+	 * @return					The radius of this ability
+	 */
+	public float getRadius() {
+		switch (mdo.target) {
+		case BALL:
+			return mdo.range;
+		case USER: case MELEE:
+			return 1f;
+		case BEAM: case PROJECTILE:
+			return 1.5f;
+		default:
+			return 0;
+		}
 	}
 
 	/**
@@ -229,7 +258,11 @@ public class Ability extends Action implements Queueable, CommandListener {
 	public boolean useAndBlock() {
 		acquireTargets();
 		if (targets != null) {
-			MGlobal.hero.actAndWait(this);
+			lastTargets = targets;
+			if (targets.size() > 0 || mdo.target == AbilityTargetType.BALL) {
+				MGlobal.hero.actAndWait(this);
+			}
+			targets = null;
 			return true;
 		}
 		return !blocking;
@@ -252,7 +285,7 @@ public class Ability extends Action implements Queueable, CommandListener {
 	 */
 	public boolean anyInRange() {
 		acquireTargets();
-		if (targets == null) return false;
+		if (targets == null || targets.size() == 0) return false;
 		for (GameUnit target : targets) {
 			if (actor.getUnit().getRelationTo(target).attackIfBored) return true;
 		}
@@ -295,8 +328,63 @@ public class Ability extends Action implements Queueable, CommandListener {
 			} else {
 				targets = new ArrayList<GameUnit>();
 				for (CharacterEvent chara : actor.getParent().getCharacters()) {
-					if (actor.euclideanTileDistanceTo(chara) < 1.5) {
+					if (actor.euclideanTileDistanceTo(chara) < 1.5 && actor != chara) {
 						targets.add(chara.getUnit());
+						break;
+					}
+				}
+			}
+			break;
+		case PROJECTILE:
+			if (actor == MGlobal.hero) {
+				if (targets != null) {
+					return;
+				}
+				if (!targetCursor.isActive()) {
+					targets = null;
+					CharacterEvent last = null;
+					if (lastTargets != null && lastTargets.size() > 0) {
+						last = lastTargets.get(0).getParent();
+						if (!actor.inLoS(last) ||
+								last.getUnit().isDead() ||
+								actor.euclideanTileDistanceTo(last) > mdo.range) {
+							last = null;
+						}
+					}
+					if (last == null) {
+						for (GameUnit unit : actor.getUnit().getVisibleEnemies()) {
+							if (actor.euclideanTileDistanceTo(unit.getParent()) < mdo.range) {
+								last = unit.getParent();
+								break;
+							}
+						}
+					}
+					targetCursor.activate(true);
+					targetCursor.setRange(mdo.range);
+					if (last != null) {
+						targetCursor.setTileX(last.getTileX());
+						targetCursor.setTileY(last.getTileY());
+						targetCursor.setX(last.getTileX() * last.getParent().getTileWidth());
+						targetCursor.setY(last.getTileY() * last.getParent().getTileHeight());
+						targetCursor.setLastTarget(last);
+					}
+					targetCursor.registerFinishListener(new FinishListener() {
+						@Override public void onFinish() {
+							targets = new ArrayList<GameUnit>();
+							if (targetCursor.getLastTarget() != null) {
+								targets.add(targetCursor.getLastTarget().getUnit());
+							}
+							blocking = false;
+						}
+					});
+					MGlobal.ui.getNarrator().msg("Select a target...");
+					blocking = true;
+				}
+			} else {
+				targets = new ArrayList<GameUnit>();
+				for (GameUnit enemy : actor.getUnit().getVisibleEnemies()) {
+					if (actor.distanceTo(enemy.getParent()) <= mdo.range) {
+						targets.add(enemy);
 						break;
 					}
 				}

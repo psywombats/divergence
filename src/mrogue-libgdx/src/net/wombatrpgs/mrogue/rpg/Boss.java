@@ -9,6 +9,7 @@ package net.wombatrpgs.mrogue.rpg;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
+import net.wombatrpgs.mrogue.core.FinishListener;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Turnable;
 import net.wombatrpgs.mrogue.graphics.BossPicSet;
@@ -23,7 +24,6 @@ import net.wombatrpgs.mrogue.maps.objects.TimerListener;
 import net.wombatrpgs.mrogue.maps.objects.TimerObject;
 import net.wombatrpgs.mrogue.rpg.abil.Ability;
 import net.wombatrpgs.mrogue.rpg.ai.BTAction;
-import net.wombatrpgs.mrogue.scenes.FinishListener;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogueschema.audio.MusicMDO;
 import net.wombatrpgs.mrogueschema.characters.AbilityMDO;
@@ -121,7 +121,7 @@ public class Boss extends Enemy {
 		if (fxAbil != null) {
 			fxAbil.fxSpawn();
 		}
-		parent.getScreen().addScreenObject(effect);
+		parent.getScreen().addObject(effect);
 	}
 
 	/**
@@ -131,7 +131,7 @@ public class Boss extends Enemy {
 	@Override
 	public void onRemove(EventLayer layer) {
 		super.onRemove(layer);
-		MGlobal.levelManager.getScreen().removeScreenObject(effect);
+		MGlobal.levelManager.getScreen().removeObject(effect);
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class Boss extends Enemy {
 			scene.run();
 			seen = true;
 		}
-		if (!MGlobal.raveMode && !raveScene.isRunning() && getStats().hp < getStats().mhp / 3f) {
+		if (!MGlobal.raveMode && !raveScene.isRunning() && getStats().hp < getStats().mhp * .9f) {
 			raveScene.run();
 			raveScene.addListener(new FinishListener() {
 				@Override public void onFinish() {
@@ -176,9 +176,9 @@ public class Boss extends Enemy {
 		final Boss boss = this;
 		final TimerListener goTimer = new TimerListener() {
 			@Override public void onTimerZero(TimerObject source) {
-				MGlobal.levelManager.getScreen().addScreenObject(gos);
-				MGlobal.levelManager.getScreen().removeScreenObject(bsodPic);
-				MGlobal.levelManager.getScreen().removeScreenObject(promptPic);
+				MGlobal.levelManager.getScreen().addObject(gos);
+				MGlobal.levelManager.getScreen().removeObject(bsodPic);
+				MGlobal.levelManager.getScreen().removeObject(promptPic);
 				MGlobal.won = true;
 				parent.removeEvent(boss);
 			}
@@ -201,7 +201,7 @@ public class Boss extends Enemy {
 					}
 					
 				};
-				MGlobal.levelManager.getScreen().addScreenObject(promptPic);
+				MGlobal.levelManager.getScreen().addObject(promptPic);
 				new TimerObject(5.0f, MGlobal.levelManager.getScreen(), goTimer);
 			}
 		};
@@ -210,7 +210,7 @@ public class Boss extends Enemy {
 				raveMusic.stop();
 				bsodMode = true;
 				bsodPic = new Picture(bsod, 999);
-				MGlobal.levelManager.getScreen().addScreenObject(bsodPic);
+				MGlobal.levelManager.getScreen().addObject(bsodPic);
 				new TimerObject(2.0f, MGlobal.levelManager.getScreen(), bsodTimer);
 			}
 		});
@@ -218,9 +218,10 @@ public class Boss extends Enemy {
 	
 	public void onStasisEnd() {
 		MGlobal.hero.getStats().hp = MGlobal.hero.getStats().mhp;
-		MGlobal.levelManager.getScreen().removeScreenObject(gos);
+		MGlobal.levelManager.getScreen().removeObject(gos);
 		MGlobal.stasis = false;
 		MGlobal.raveMode = false;
+		parent.getBGM().fadeIn(2f);
 		if (!winScene.isRunning() && !winScene.hasExecuted()) {
 			winScene.run();
 			winScene.addListener(new FinishListener() {

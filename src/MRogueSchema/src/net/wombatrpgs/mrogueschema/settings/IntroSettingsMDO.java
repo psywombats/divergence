@@ -24,9 +24,13 @@ public class IntroSettingsMDO extends MainSchema {
 	@SchemaLink(MusicMDO.class)
 	public String music;
 	
-	@Desc("Immediate scene - the scene to play on arrival to title")
+	@Desc("Immediate scene - the scene to play on arrival to title, fade in")
 	@SchemaLink(SceneParentMDO.class)
 	public String immScene;
+	
+	@Desc("Ending scene - the scene to play on leave from title, fade out")
+	@SchemaLink(SceneParentMDO.class)
+	public String outScene;
 	
 	@Desc("Title start scene - the scene script to play on the title screen")
 	@SchemaLink(SceneParentMDO.class)

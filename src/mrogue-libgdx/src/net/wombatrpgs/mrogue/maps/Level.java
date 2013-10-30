@@ -15,6 +15,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.mrogue.core.FinishListener;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Turnable;
 import net.wombatrpgs.mrogue.graphics.effects.Effect;
@@ -277,6 +278,16 @@ public class Level extends ScreenObject implements Turnable {
 		if (MGlobal.stasis) return;
 		if (scene != null && !scene.hasExecuted()) {
 			scene.run();
+			scene.addListener(new FinishListener() {
+				@Override public void onFinish() {
+					if (bgm != null) {
+						if (bgm.getVolume() < .5) {
+							bgm.stop();
+							bgm.fadeIn(.5f);
+						}
+					}
+				}
+			});
 		}
 		for (MapThing toRemove : removalObjects) {
 			toRemove.onRemovedFromMap(this);

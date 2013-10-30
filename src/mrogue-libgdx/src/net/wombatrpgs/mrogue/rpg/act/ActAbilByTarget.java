@@ -29,7 +29,6 @@ public class ActAbilByTarget extends ActRandAbility {
 	public ActAbilByTarget(CharacterEvent actor, AbilityTargetType type) {
 		super(actor);
 		this.type = type;
-		loadNextAbil();
 	}
 
 	/**

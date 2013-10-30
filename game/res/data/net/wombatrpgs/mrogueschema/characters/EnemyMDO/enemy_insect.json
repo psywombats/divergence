@@ -2,7 +2,7 @@
 	"key" : "enemy_insect",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "         ",
+	"description" : "          ",
 	"appearance" : "4dir_dragonfly",
 	"faction" : "ANIMALS",
 	"stats" : {
@@ -17,7 +17,7 @@
 		"dodge" : 30,
 		"dmgBase" : 4,
 		"dmgRange" : 3,
-		"armor" : 0,
+		"armor" : 4,
 		"magBase" : 2,
 		"magRange" : 2,
 		"magArmor" : 0

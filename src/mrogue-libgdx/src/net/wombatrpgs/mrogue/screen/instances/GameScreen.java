@@ -17,7 +17,6 @@ import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Loc;
 import net.wombatrpgs.mrogue.maps.events.Cursor;
 import net.wombatrpgs.mrogue.rpg.Boss;
-import net.wombatrpgs.mrogue.rpg.Hero;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogue.screen.Screen;
 import net.wombatrpgs.mrogueschema.io.data.InputCommand;
@@ -56,14 +55,14 @@ public class GameScreen extends Screen {
 		MGlobal.levelManager.setActive(map);
 		if (map.getBGM() != null) {
 			map.getBGM().fadeIn(.5f);
-			addChild(map.getBGM());
+			addUChild(map.getBGM());
 		}
 		introParser = MGlobal.levelManager.getCutscene(introMDO.scene);
 		assets.add(introParser);
 		tutorialParser = MGlobal.levelManager.getCutscene(introMDO.tutorialScene);
 		assets.add(tutorialParser);
 		
-		addScreenObject(map);
+		addObject(map);
 		pushCommandContext(new CMapGame());
 		
 		fpsMDO = MGlobal.data.getEntryFor("test_fps", FramerateTestMDO.class);
@@ -77,17 +76,16 @@ public class GameScreen extends Screen {
 			mapShader = (testShader);
 		}
 		
-		MGlobal.hero = new Hero(map, 0, 0);
-		assets.add(MGlobal.hero);
 		cursor = new Cursor();
 		assets.add(cursor);
 		
-		addScreenObject(MGlobal.ui.getNarrator());
-		addScreenObject(MGlobal.ui.getHud());
-		addScreenObject(MGlobal.ui.getSkills());
-		addScreenObject(MGlobal.ui.getInventory());
+		addObject(MGlobal.ui.getNarrator());
+		addObject(MGlobal.ui.getHud());
+		addObject(MGlobal.ui.getSkills());
+		addObject(MGlobal.ui.getInventory());
 		
-		init();
+		// will be called later
+		//init();
 	}
 	
 	/**
@@ -102,7 +100,7 @@ public class GameScreen extends Screen {
 			MGlobal.ui.getInventory().show();
 			return true;
 		case INTENT_LOOK:
-			cursor.activate();
+			cursor.activate(false);
 			return true;
 		default:
 			return MGlobal.hero.onCommand(command);

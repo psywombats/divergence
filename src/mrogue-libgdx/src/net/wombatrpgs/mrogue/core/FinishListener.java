@@ -4,15 +4,15 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mrogue.scenes;
+package net.wombatrpgs.mrogue.core;
 
 /**
- * Called when a scene is done parsing.
+ * Called when somthing is done running.
  */
 public interface FinishListener {
 	
 	/**
-	 * Called when the scene ends.
+	 * Called when the thing ends.
 	 */
 	public void onFinish();
 

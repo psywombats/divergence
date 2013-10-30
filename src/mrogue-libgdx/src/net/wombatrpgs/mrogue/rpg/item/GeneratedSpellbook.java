@@ -59,6 +59,7 @@ public class GeneratedSpellbook extends Spellbook {
 		mdo.gameDesc = preMDO.effectDesc + " " + typeMDO.typeDesc;
 		mdo.icon = typeMDO.icon;
 		mdo.name = "a book of " + preMDO.effectName + " " + typeMDO.typeName;
+		mdo.rarity = 0f;
 		return mdo;
 	}
 	

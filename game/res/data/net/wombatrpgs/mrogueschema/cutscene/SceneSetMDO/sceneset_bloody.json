@@ -1,0 +1,21 @@
+{
+	"key" : "sceneset_bloody",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"charas" : "characters_zs2",
+	"scenes" : [
+		{
+			"file" : "bloody00.scene"
+		},
+		{
+			"file" : "bloody01.scene"
+		},
+		{
+			"file" : "bloody02.scene"
+		},
+		{
+			"file" : "bloody03.scene"
+		}
+	]
+}

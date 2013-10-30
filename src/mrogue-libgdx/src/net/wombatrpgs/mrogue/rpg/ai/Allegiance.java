@@ -24,6 +24,7 @@ import net.wombatrpgs.mrogueschema.characters.data.Relation;
  */
 public class Allegiance implements Turnable {
 	
+	protected GameUnit parent;
 	protected List<GameUnit> hitlist;
 	protected List<GameUnit> friendlist;
 	protected Set<Faction> factions;
@@ -36,6 +37,7 @@ public class Allegiance implements Turnable {
 	 */
 	public Allegiance(GameUnit parent, Faction...factions) {
 		this.factions = EnumSet.copyOf(Arrays.asList(factions));
+		this.parent = parent;
 		this.hitlist = new ArrayList<GameUnit>();
 		this.friendlist = new ArrayList<GameUnit>();
 		
@@ -89,6 +91,7 @@ public class Allegiance implements Turnable {
 	 * @param	jerk			The idiot who hit us
 	 */
 	public void addToHitlist(GameUnit jerk) {
+		if (parent == jerk) return;
 		if (getRelationTo(jerk).retaliate && !hitlist.contains(jerk)) {
 			hitlist.add(jerk);
 		}

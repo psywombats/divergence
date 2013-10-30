@@ -85,14 +85,14 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 						(MGlobal.window.getWidth() - faceGraphic.getWidth()) / 2 - FACE_OFFSET,
 						(MGlobal.window.getHeight() - faceGraphic.getHeight()) / 2, 0);
 				facePic.setColor(new Color(1, 1, 1, 0));
-				MGlobal.screens.peek().addScreenObject(facePic);
+				MGlobal.screens.peek().addObject(facePic);
 				facePic.tweenTo(new Color(1, 1, 1, 1), FADE_TIME);
 				MGlobal.ui.getBox().setBatch(facePic.batch);
 			} else {
 				MGlobal.ui.getBox().setBatch(new SpriteBatch());
 			}
 			MGlobal.ui.getBox().setColor(new Color(1, 1, 1, 0));
-			MGlobal.screens.peek().addScreenObject(MGlobal.ui.getBox());
+			MGlobal.screens.peek().addObject(MGlobal.ui.getBox());
 			MGlobal.ui.getBox().tweenTo(new Color(1, 1, 1, 1), FADE_TIME);
 			block(this);
 			return false;
@@ -158,9 +158,9 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	 * Called when timer reaches zero-ish. For pic fadeout.
 	 */
 	protected void zero() {
-		MGlobal.screens.peek().removeScreenObject(MGlobal.ui.getBox());
+		MGlobal.screens.peek().removeObject(MGlobal.ui.getBox());
 		if (facePic != null) {
-			MGlobal.screens.peek().removeScreenObject(facePic);
+			MGlobal.screens.peek().removeObject(facePic);
 		}
 	}
 

@@ -1,0 +1,10 @@
+{
+	"key" : "monstergen_treasure",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"list" : "monsterlist_all",
+	"density" : 70.0,
+	"respawnRate" : 5,
+	"loot" : 0.0
+}

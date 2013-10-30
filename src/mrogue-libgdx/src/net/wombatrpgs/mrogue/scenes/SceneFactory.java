@@ -51,7 +51,7 @@ public class SceneFactory {
 			return new SceneParser((SceneMDO) mdo, parent);
 		} else if (SceneSetMDO.class.isAssignableFrom(mdo.getClass())) {
 			if (parent == null) {
-				MGlobal.reporter.err("No level passed, but mdo is list");
+				MGlobal.reporter.err("No screen passed, but mdo is list");
 				return null;
 			}
 			SceneSetMDO setMDO = (SceneSetMDO) mdo;

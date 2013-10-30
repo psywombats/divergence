@@ -10,8 +10,8 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
+import net.wombatrpgs.mrogueschema.characters.data.EnemyModEntryMDO;
 import net.wombatrpgs.mrogueschema.characters.data.MonsterNameMDO;
-import net.wombatrpgs.mrogueschema.characters.data.MonsterNamePreMDO;
 
 /**
  * A generator for monsters from a prefix/suffix format.
@@ -24,7 +24,7 @@ public class GlobalMonsterListMDO extends MainSchema {
 	public MonsterNameMDO[] names;
 	
 	@Desc("Prefixes")
-	@InlineSchema(MonsterNamePreMDO.class)
-	public MonsterNamePreMDO[] prefixes;
+	@InlineSchema(EnemyModEntryMDO.class)
+	public EnemyModEntryMDO[] prefixes;
 
 }

@@ -70,7 +70,11 @@ public class ItemGenerator implements Queueable {
 	public Item createItem() {
 		String key = mdo.items[MGlobal.rand.nextInt(mdo.items.length)];
 		Item i = ItemFactory.createItem(key);
-		i.postProcessing(MGlobal.assetManager, 0);
+		if (MGlobal.rand.nextFloat() < i.getRarity()) {
+			return createItem();
+		} else {
+			i.postProcessing(MGlobal.assetManager, 0);
+		}
 		return i;
 	}
 	

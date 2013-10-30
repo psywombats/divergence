@@ -149,7 +149,7 @@ public class TextBox extends Picture {
 		
 		boolean mutate = false;
 		for (String line : visibleLines) {
-			if (line.contains("*")) {
+			if (line.contains("*") || line.contains("$")) {
 				mutate = true;
 				break;
 			}
@@ -291,13 +291,27 @@ public class TextBox extends Picture {
 		List<String> output = new ArrayList<String>();
 		for (String in : input) {
 			char out[] = new char[in.length()];
+			int fillAt = 0;
 			for (int i = 0; i < in.length(); i += 1) {
-				out[i] = in.charAt(i);
-				if (out[i] == '*') {
-					out[i] = (char)(MGlobal.rand.nextInt(26) + 'a');
+				out[fillAt] = in.charAt(i);
+				if (out[fillAt] == '*') {
+					out[fillAt] = (char)(MGlobal.rand.nextInt(26) + 'a');
 				}
+				if (out[fillAt] == '$') {
+					if (i < in.length()-1) {
+						i += 1;
+						if (MGlobal.rand.nextFloat() < .01) {
+							out[fillAt] = (char)(MGlobal.rand.nextInt(26) + 'a');
+						} else {
+							out[fillAt] = in.charAt(i); 
+						}
+					} else {
+						out[fillAt] = ' ';
+					}
+				}
+				fillAt += 1;
 			}
-			output.add(new String(out));
+			output.add(new String(out, 0, fillAt));
 		}
 		return output;
 	}

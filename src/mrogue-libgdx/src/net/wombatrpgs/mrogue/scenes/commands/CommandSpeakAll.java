@@ -22,7 +22,7 @@ public class CommandSpeakAll extends SceneCommand {
 	protected static final String FULL_SUFFIX = "FULL";
 	
 	public static final int CHARS_PER_LINE = 57;
-	public static final int LINES_PER_BOX = 25;
+	public static final int LINES_PER_BOX = 15;
 	
 	protected List<CommandSpeak> subCommands;
 

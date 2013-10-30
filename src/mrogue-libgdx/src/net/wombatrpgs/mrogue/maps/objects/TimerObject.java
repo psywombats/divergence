@@ -38,7 +38,7 @@ public class TimerObject implements Updateable {
 		addListener(listener);
 		set(true);
 		this.host = scr;
-		scr.addChild(this);
+		scr.addUChild(this);
 		completed = false;
 	}
 
@@ -72,7 +72,7 @@ public class TimerObject implements Updateable {
 			for (TimerListener listener : listeners) {
 				listener.onTimerZero(this);
 			}
-			host.removeChild(this);
+			host.removeUChild(this);
 			completed = true;
 		}
 	}
@@ -104,7 +104,7 @@ public class TimerObject implements Updateable {
 	 * @param	host			The screen to associate with
 	 */
 	public void attach(Screen host) {
-		host.addChild(this);
+		host.addUChild(this);
 		this.host = host;
 	}
 	

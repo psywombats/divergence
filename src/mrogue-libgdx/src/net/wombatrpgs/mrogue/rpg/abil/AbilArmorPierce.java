@@ -36,11 +36,12 @@ public class AbilArmorPierce extends AbilEffect {
 	protected void internalAct(List<GameUnit> targets) {
 		for (GameUnit target : targets) {
 			int dmg = actor.getUnit().getStats().getDamage();
-			dmg -= Math.floor((float) target.getStats().armor * mdo.pierce);
+			dmg -= Math.floor((float) target.getStats().armor * (1f-mdo.pierce));
 			target.takeRawDamage(dmg);
 			if (MGlobal.hero.inLoS(target.getParent())) {
-				GameUnit.out().msg(target.getName() + " takes " + dmg + " damage.");
+				GameUnit.out().msg(target.getName() + " took " + dmg + " damage.");
 			}
+			target.ensureAlive();
 		}
 	}
 

@@ -41,7 +41,7 @@ public class AbilPhysicalDamage extends AbilEffect {
 			dmg = target.takePhysicalDamage(dmg);
 			if (MGlobal.hero.inLoS(target.getParent())) {
 				if (dmg > 0) {
-					GameUnit.out().msg(target.getName() + " takes " + dmg + " damage.");
+					GameUnit.out().msg(target.getName() + " took " + dmg + " damage.");
 				} else {
 					GameUnit.out().msg(target.getName() + " is unharmed.");
 				}

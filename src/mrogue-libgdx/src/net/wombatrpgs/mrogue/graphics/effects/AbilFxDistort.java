@@ -70,11 +70,11 @@ public class AbilFxDistort extends AbilFX implements PostRenderable {
 		Screen sc = MGlobal.screens.peek();
 		float scale = (parent.getTileWidth()*1.5f) / (float) t.getWidth();
 		if (totalElapsed < mdo.fadein) {
-			scale *= abil.getRange()*2 * totalElapsed / mdo.fadein;
+			scale *= abil.getRadius()*2 * totalElapsed / mdo.fadein;
 		} else if (totalElapsed > (mdo.duration-mdo.fadein)) {
-			scale *= abil.getRange()*2 * (mdo.duration-totalElapsed) / mdo.fadein;
+			scale *= abil.getRadius()*2 * (mdo.duration-totalElapsed) / mdo.fadein;
 		} else {
-			scale *= abil.getRange()*2;
+			scale *= abil.getRadius()*2;
 		}
 		
 		float atX = getX() + parent.getTileWidth()/2f - t.getWidth()*scale/2f;

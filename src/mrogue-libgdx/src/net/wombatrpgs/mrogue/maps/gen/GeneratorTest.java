@@ -6,10 +6,8 @@
  */
 package net.wombatrpgs.mrogue.maps.gen;
 
-import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Tile;
-import net.wombatrpgs.mrogue.rpg.Hero;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
 import net.wombatrpgs.mrogueschema.maps.data.TileType;
 
@@ -46,11 +44,11 @@ public class GeneratorTest extends MapGenerator {
 		convertTiles(types, null, tiles);
 		addLayer(tiles, 0);
 		
-		if (MGlobal.hero == null) {
-			MGlobal.hero = new Hero(parent, 0, 0);
-			assets.add(MGlobal.hero);
-			parent.addEvent(MGlobal.hero);
-		}
+//		if (MGlobal.hero == null) {
+//			MGlobal.hero = new Hero(parent, 0, 0);
+//			assets.add(MGlobal.hero);
+//			parent.addEvent(MGlobal.hero);
+//		}
 		
 	}
 

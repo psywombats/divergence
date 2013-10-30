@@ -2,7 +2,7 @@
 	"key" : "enemy_turtle",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "   ",
+	"description" : "    ",
 	"appearance" : "4dir_turtle",
 	"faction" : "ANIMALS",
 	"stats" : {
@@ -17,7 +17,7 @@
 		"dodge" : 0,
 		"dmgBase" : 2,
 		"dmgRange" : 2,
-		"armor" : 7,
+		"armor" : 11,
 		"magBase" : 3,
 		"magRange" : 1,
 		"magArmor" : 4

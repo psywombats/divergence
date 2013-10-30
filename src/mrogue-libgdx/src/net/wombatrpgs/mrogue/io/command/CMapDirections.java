@@ -47,6 +47,8 @@ public class CMapDirections extends CommandMap {
 		downMap.put(InputButton.DIR_NW, 	InputCommand.MOVE_NORTHWEST);
 		downMap.put(InputButton.WAIT,		InputCommand.MOVE_WAIT);
 		
+		downMap.put(InputButton.BUTTON_1,	InputCommand.INTENT_CONFIRM);
+		
 		downMap.put(InputButton.MENU,		InputCommand.INTENT_CANCEL);
 		downMap.put(InputButton.LOOK,		InputCommand.INTENT_CANCEL);
 		downMap.put(InputButton.BUTTON_2,	InputCommand.INTENT_CANCEL);

@@ -70,6 +70,9 @@ public abstract class Item extends Action implements Queueable {
 	/** @return The in-game description of this object */
 	public String getDescription() { return mdo.gameDesc; }
 	
+	/** @return How often this item will be discarded */
+	public float getRarity() { return mdo.rarity; }
+	
 	/**
 	 * @see net.wombatrpgs.mrogue.core.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)

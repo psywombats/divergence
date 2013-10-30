@@ -1,0 +1,31 @@
+{
+	"key" : "mod_shadowy",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"danger" : 1,
+	"color" : {
+		"r" : 0.3,
+		"g" : 0.3,
+		"b" : 0.3,
+		"a" : 0.5
+	},
+	"abilities" : [ ],
+	"stats" : {
+		"mhp" : 0,
+		"hp" : 0,
+		"mmp" : 0,
+		"mp" : 0,
+		"speed" : 0,
+		"walkCost" : 0,
+		"attackCost" : 0,
+		"vision" : 0,
+		"dodge" : 10,
+		"dmgBase" : 0,
+		"dmgRange" : 0,
+		"armor" : 0,
+		"magBase" : 0,
+		"magRange" : 0,
+		"magArmor" : 0
+	}
+}

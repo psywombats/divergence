@@ -2,7 +2,7 @@
 	"key" : "itemgen_all",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "",
+	"description" : " ",
 	"items" : [
 		"potion_hp",
 		"potion_mp",
@@ -15,5 +15,5 @@
 		"spellbook_blink",
 		"spellbook_teleport"
 	],
-	"firstTreasure" : 3
+	"firstTreasure" : 5
 }

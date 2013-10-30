@@ -18,6 +18,7 @@ import net.wombatrpgs.mrogue.rpg.act.ActStepHero;
 import net.wombatrpgs.mrogue.rpg.act.ActWait;
 import net.wombatrpgs.mrogue.rpg.act.ActWander;
 import net.wombatrpgs.mrogue.rpg.ai.seq.RoutineMeleeEnemies;
+import net.wombatrpgs.mrogue.rpg.ai.seq.RoutineOffenseAbility;
 import net.wombatrpgs.mrogueschema.characters.ai.BehaviorListMDO;
 import net.wombatrpgs.mrogueschema.characters.ai.BossIntelligenceMDO;
 import net.wombatrpgs.mrogueschema.characters.ai.data.ActionMDO;
@@ -79,6 +80,7 @@ public class IntelligenceFactory {
 			}
 		});
 		BTSelector selector = new BTSelector(actor);
+		selector.addChild(new RoutineOffenseAbility(actor, .3f));
 		for (IntentMDO intent : intents) {
 			BTSequence seq = new BTSequence(actor);
 			ActionMDO actionMDO = MGlobal.data.getEntryFor(intent.action, ActionMDO.class);

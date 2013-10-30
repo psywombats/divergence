@@ -217,7 +217,11 @@ public class GameUnit implements Turnable, Queueable {
 	 */
 	public void takeRawDamage(int damage) {
 		currentStats.takeRawDamage(damage);
-		parent.flash(Color.RED, MGlobal.constants.getDelay()*1.6f);
+		if (damage > 0) {
+			parent.flash(Color.RED, MGlobal.constants.getDelay()*1.6f);
+		} else if (damage < 0) {
+			parent.flash(Color.BLUE, MGlobal.constants.getDelay()*1.6f);
+		}
 	}
 	
 	/**
@@ -248,6 +252,17 @@ public class GameUnit implements Turnable, Queueable {
 			parent.flash(Color.RED, MGlobal.constants.getDelay()*1.6f);
 		}
 		return dealt;
+	}
+	
+	/**
+	 * Heals the unit by some amount up to its maximum HP.
+	 * @param	healAmt			The amount to heal
+	 * @return					The amount actually healed
+	 */
+	public int heal(int healAmt) {
+		int healt = Math.min(currentStats.mhp - currentStats.hp, healAmt);
+		currentStats.hp += healt;
+		return healt;
 	}
 	
 	/**

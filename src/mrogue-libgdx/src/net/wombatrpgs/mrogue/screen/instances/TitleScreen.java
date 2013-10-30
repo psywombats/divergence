@@ -25,7 +25,7 @@ public class TitleScreen extends Screen {
 	
 	protected TitleSettingsMDO mdo;
 	protected Picture screen, prompt;
-	protected SceneParser introParser, immParser;
+	protected SceneParser introParser, inParser, outParser;
 	protected TimerObject timer;
 	protected MusicObject music;
 	protected boolean shouldIntroduce;
@@ -38,15 +38,17 @@ public class TitleScreen extends Screen {
 		mdo = MGlobal.data.getEntryFor(Constants.KEY_TITLE, TitleSettingsMDO.class);
 		screen = new Picture(mdo.bg, 0, 0, 0);
 		assets.add(screen);
-		addScreenObject(screen);
+		addObject(screen);
 		pushCommandContext(new CMapSplash());
 		shouldIntroduce = false;
 		
 		IntroSettingsMDO introMDO=MGlobal.data.getEntryFor(Constants.KEY_INTRO, IntroSettingsMDO.class);
 		introParser = MGlobal.levelManager.getCutscene(introMDO.titleScene, this);
-		immParser = MGlobal.levelManager.getCutscene(introMDO.immScene, this);
+		inParser = MGlobal.levelManager.getCutscene(introMDO.immScene, this);
+		outParser = MGlobal.levelManager.getCutscene(introMDO.outScene, this);
 		assets.add(introParser);
-		assets.add(immParser);
+		assets.add(inParser);
+		assets.add(outParser);
 		
 		if (MapThing.mdoHasProperty(introMDO.music)) {
 			music = new MusicObject(MGlobal.data.getEntryFor(introMDO.music, MusicMDO.class));
@@ -74,7 +76,7 @@ public class TitleScreen extends Screen {
 		});
 		timer.set(true);
 		assets.add(prompt);
-		addScreenObject(prompt);
+		addObject(prompt);
 		timer.attach(this);
 		
 		init();
@@ -89,6 +91,7 @@ public class TitleScreen extends Screen {
 		if (super.onCommand(command)) {
 			return true;
 		}
+		if (shouldIntroduce) return true;
 		switch (command) {
 		case INTENT_QUIT:
 			Gdx.app.exit();
@@ -107,25 +110,29 @@ public class TitleScreen extends Screen {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
-		if (!immParser.isRunning() && !immParser.hasExecuted()) {
-			immParser.run();
+		if (!inParser.isRunning() && !inParser.hasExecuted()) {
+			inParser.run();
 			if (music != null) {
 				music.fadeIn(.5f);
 			}
 		}
 		if (shouldIntroduce) {
 			if (introParser.hasExecuted()) {
-				MGlobal.screens.pop();
-				MGlobal.levelManager.setScreen(new GameScreen());
-				MGlobal.screens.push(MGlobal.levelManager.getScreen());
-				if (music != null) {
-					MGlobal.levelManager.getScreen().addChild(music);
-					removeChild(music);
-					music.fadeOut(.5f);
+				if (outParser.hasExecuted()) {
+					MGlobal.screens.pop();
+					Screen classScreen = new ClassScreen();
+					MGlobal.screens.push(classScreen);
+					if (music != null) {
+						classScreen.addUChild(music);
+						removeUChild(music);
+						music.fadeOut(2f);
+					}
+				} else if (!outParser.isRunning()) {
+					outParser.run();
 				}
 			} else if (!introParser.isRunning()) {
 				introParser.run();
-				removeScreenObject(prompt);
+				removeObject(prompt);
 			}
 		}
 	}

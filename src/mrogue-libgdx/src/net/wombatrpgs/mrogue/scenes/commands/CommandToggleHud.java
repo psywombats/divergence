@@ -43,10 +43,10 @@ public class CommandToggleHud extends SceneCommand {
 			finished = true;
 			Hud hud = MGlobal.ui.getHud();
 			if (turnOn && !hud.isEnabled()) {
-				MGlobal.screens.peek().addScreenObject(hud);
+				MGlobal.screens.peek().addObject(hud);
 				hud.setEnabled(true);
 			} else if (turnOff && hud.isEnabled()) {
-				MGlobal.screens.peek().removeScreenObject(hud);
+				MGlobal.screens.peek().removeObject(hud);
 				hud.setEnabled(false);
 			}
 		}

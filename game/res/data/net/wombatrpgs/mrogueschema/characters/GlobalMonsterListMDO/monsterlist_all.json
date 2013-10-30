@@ -42,7 +42,7 @@
 		},
 		{
 			"typeName" : "vampire",
-			"archetype" : "enemy_human"
+			"archetype" : "enemy_demon_male"
 		},
 		{
 			"typeName" : "ghoul",
@@ -226,7 +226,7 @@
 		},
 		{
 			"typeName" : "revenant",
-			"archetype" : "enemy_shadow"
+			"archetype" : "enemy_ghostknight"
 		},
 		{
 			"typeName" : "tortoise",
@@ -374,11 +374,11 @@
 		},
 		{
 			"typeName" : "sword",
-			"archetype" : "enemy_armored"
+			"archetype" : "enemy_sword"
 		},
 		{
 			"typeName" : "axe",
-			"archetype" : "enemy_armored"
+			"archetype" : "enemy_sword"
 		},
 		{
 			"typeName" : "statue",
@@ -471,355 +471,472 @@
 	],
 	"prefixes" : [
 		{
-			"prefix" : "skeletal"
+			"modName" : "skeletal",
+			"modMDO" : "mod_light_armor"
 		},
 		{
-			"prefix" : "shambling"
+			"modName" : "shambling",
+			"modMDO" : "mod_slow"
 		},
 		{
-			"prefix" : "shrieking"
+			"modName" : "shrieking",
+			"modMDO" : "mod_shrieks"
 		},
 		{
-			"prefix" : "gelatinous"
+			"modName" : "gelatinous",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "slender"
+			"modName" : "slender",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "worm-ridden"
+			"modName" : "worm-ridden",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "shriveled"
+			"modName" : "shriveled",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "ghostly"
+			"modName" : "ghostly",
+			"modMDO" : "mod_transparent"
 		},
 		{
-			"prefix" : "incorporeal"
+			"modName" : "incorporeal",
+			"modMDO" : "mod_transparent"
 		},
 		{
-			"prefix" : "black"
+			"modName" : "black",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "gray"
+			"modName" : "gray",
+			"modMDO" : "mod_transparent"
 		},
 		{
-			"prefix" : "bloody"
+			"modName" : "bloody",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "undead"
+			"modName" : "undead",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "whispering"
+			"modName" : "whispering",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "shadowy"
+			"modName" : "shadowy",
+			"modMDO" : "mod_shadowy"
 		},
 		{
-			"prefix" : "gibbering"
+			"modName" : "gibbering",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "rotting"
+			"modName" : "rotting",
+			"modMDO" : "mod_acidspit"
 		},
 		{
-			"prefix" : "decayed"
+			"modName" : "decayed",
+			"modMDO" : "mod_slow"
 		},
 		{
-			"prefix" : "disfigured"
+			"modName" : "disfigured",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "weeping"
+			"modName" : "weeping",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "haunted"
+			"modName" : "haunted",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "haunting"
+			"modName" : "haunting",
+			"modMDO" : "mod_shrieks"
 		},
 		{
-			"prefix" : "drowned"
+			"modName" : "drowned",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "livid"
+			"modName" : "livid",
+			"modMDO" : "mod_fast_attack"
 		},
 		{
-			"prefix" : "raw"
+			"modName" : "raw",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "tortured"
+			"modName" : "tortured",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "dead"
+			"modName" : "dead",
+			"modMDO" : "mod_shadowy"
 		},
 		{
-			"prefix" : "pale"
+			"modName" : "pale",
+			"modMDO" : "mod_transparent"
 		},
 		{
-			"prefix" : "groovy"
+			"modName" : "groovy",
+			"modMDO" : "mod_purple"
 		},
 		{
-			"prefix" : "hungry"
+			"modName" : "hungry",
+			"modMDO" : "mod_fast_move"
 		},
 		{
-			"prefix" : "howling"
+			"modName" : "howling",
+			"modMDO" : "mod_shrieks"
 		},
 		{
-			"prefix" : "illusory"
+			"modName" : "illusory",
+			"modMDO" : "mod_transparent"
 		},
 		{
-			"prefix" : "writhing"
+			"modName" : "writhing",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "gun"
+			"modName" : "gun",
+			"modMDO" : "mod_ranger"
 		},
 		{
-			"prefix" : "muscle"
+			"modName" : "muscle",
+			"modMDO" : "mod_strong"
 		},
 		{
-			"prefix" : "flesh"
+			"modName" : "flesh",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "sword"
+			"modName" : "sword",
+			"modMDO" : "mod_strong"
 		},
 		{
-			"prefix" : "fire"
+			"modName" : "fire",
+			"modMDO" : "mod_firespells"
 		},
 		{
-			"prefix" : "stone"
+			"modName" : "stone",
+			"modMDO" : "mod_heavy_armor"
 		},
 		{
-			"prefix" : "adamant"
+			"modName" : "adamant",
+			"modMDO" : "mod_heavy_armor"
 		},
 		{
-			"prefix" : "laughing"
+			"modName" : "laughing",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "long"
+			"modName" : "long",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "brittle"
+			"modName" : "brittle",
+			"modMDO" : "mod_no_armor"
 		},
 		{
-			"prefix" : "gilded"
+			"modName" : "gilded",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "ethereal"
+			"modName" : "ethereal",
+			"modMDO" : "mod_transparent"
 		},
 		{
-			"prefix" : "armored"
+			"modName" : "armored",
+			"modMDO" : "mod_heavy_armor"
 		},
 		{
-			"prefix" : "oozing"
+			"modName" : "oozing",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "flesh-eating"
+			"modName" : "flesh-eating",
+			"modMDO" : "mod_bites"
 		},
 		{
-			"prefix" : "seven-eyed"
+			"modName" : "seven-eyed",
+			"modMDO" : "mod_good_sight"
 		},
 		{
-			"prefix" : "blind"
+			"modName" : "blind",
+			"modMDO" : "mod_blind"
 		},
 		{
-			"prefix" : "one-eyed"
+			"modName" : "one-eyed",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "six-legged"
+			"modName" : "six-legged",
+			"modMDO" : "mod_fast_move"
 		},
 		{
-			"prefix" : "twenty-legged"
+			"modName" : "twenty-legged",
+			"modMDO" : "mod_fast_move"
 		},
 		{
-			"prefix" : "behooved"
+			"modName" : "behooved",
+			"modMDO" : "mod_fast_move"
 		},
 		{
-			"prefix" : "six-armed"
+			"modName" : "six-armed",
+			"modMDO" : "mod_fast_attack"
 		},
 		{
-			"prefix" : "two-headed"
+			"modName" : "two-headed",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "seven-headed"
+			"modName" : "seven-headed",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "mouse-sized"
+			"modName" : "mouse-sized",
+			"modMDO" : "mod_pathetic"
 		},
 		{
-			"prefix" : "house-sized"
+			"modName" : "house-sized",
+			"modMDO" : "mod_collosal"
 		},
 		{
-			"prefix" : "glass"
+			"modName" : "glass",
+			"modMDO" : "mod_no_armor"
 		},
 		{
-			"prefix" : "iron"
+			"modName" : "iron",
+			"modMDO" : "mod_light_armor"
 		},
 		{
-			"prefix" : "steel"
+			"modName" : "steel",
+			"modMDO" : "mod_heavy_armor"
 		},
 		{
-			"prefix" : "charismatic"
+			"modName" : "charismatic",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "hypnotic"
+			"modName" : "hypnotic",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "kindly"
+			"modName" : "kindly",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "plaguebearing"
+			"modName" : "plaguebearing",
+			"modMDO" : "mod_poisonous"
 		},
 		{
-			"prefix" : "beetle-covered"
+			"modName" : "beetle-covered",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "puss-covered"
+			"modName" : "puss-covered",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "vomit-spewing"
+			"modName" : "vomit-spewing",
+			"modMDO" : "mod_acidspit"
 		},
 		{
-			"prefix" : "flea-ridden"
+			"modName" : "flea-ridden",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "maggot-ridden"
+			"modName" : "maggot-ridden",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "half-dissolved"
+			"modName" : "half-dissolved",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "half-crushed"
+			"modName" : "half-crushed",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "acid-spitting"
+			"modName" : "acid-spitting",
+			"modMDO" : "mod_acidspit"
 		},
 		{
-			"prefix" : "raging"
+			"modName" : "raging",
+			"modMDO" : "mod_fast_attack"
 		},
 		{
-			"prefix" : "sore-covered"
+			"modName" : "sore-covered",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "dwarf"
+			"modName" : "dwarf",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "talking"
+			"modName" : "talking",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "living"
+			"modName" : "living",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "breathing"
+			"modName" : "breathing",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "vampiric"
+			"modName" : "vampiric",
+			"modMDO" : "mod_bites"
 		},
 		{
-			"prefix" : "six-tongued"
+			"modName" : "six-tongued",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "eight-mouthed"
+			"modName" : "eight-mouthed",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "mouth-covered"
+			"modName" : "mouth-covered",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "eyeball-covered"
+			"modName" : "eyeball-covered",
+			"modMDO" : "mod_good_sight"
 		},
 		{
-			"prefix" : "arm-covered"
+			"modName" : "arm-covered",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "electric"
+			"modName" : "electric",
+			"modMDO" : "mod_magical"
 		},
 		{
-			"prefix" : "elderly"
+			"modName" : "elderly",
+			"modMDO" : "mod_pathetic"
 		},
 		{
-			"prefix" : "sword-wielding"
+			"modName" : "sword-wielding",
+			"modMDO" : "mod_strong"
 		},
 		{
-			"prefix" : "axe-wielding"
+			"modName" : "axe-wielding",
+			"modMDO" : "mod_strong"
 		},
 		{
-			"prefix" : "spell-casting"
+			"modName" : "spell-casting",
+			"modMDO" : "mod_spellcaster"
 		},
 		{
-			"prefix" : "muttering"
+			"modName" : "muttering",
+			"modMDO" : "mod_spellcaster"
 		},
 		{
-			"prefix" : "dog-sized"
+			"modName" : "dog-sized",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "sleeping"
+			"modName" : "sleeping",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "death"
+			"modName" : "death",
+			"modMDO" : "mod_darkaura"
 		},
 		{
-			"prefix" : "darkness"
+			"modName" : "darkness",
+			"modMDO" : "mod_darkaura"
 		},
 		{
-			"prefix" : "magic"
+			"modName" : "magic",
+			"modMDO" : "mod_magical"
 		},
 		{
-			"prefix" : "decapitated"
+			"modName" : "decapitated",
+			"modMDO" : "mod_mute"
 		},
 		{
-			"prefix" : "hell"
+			"modName" : "hell",
+			"modMDO" : "mod_firespells"
 		},
 		{
-			"prefix" : "dancing"
+			"modName" : "dancing",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "legless"
+			"modName" : "legless",
+			"modMDO" : "mod_slow"
 		},
 		{
-			"prefix" : "headless"
+			"modName" : "headless",
+			"modMDO" : "mod_mute"
 		},
 		{
-			"prefix" : "mouthless"
+			"modName" : "mouthless",
+			"modMDO" : "mod_mute"
 		},
 		{
-			"prefix" : "snake-nosed"
+			"modName" : "snake-nosed",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "flesh-woven"
+			"modName" : "flesh-woven",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "phantom"
+			"modName" : "phantom",
+			"modMDO" : "mod_transparent"
 		},
 		{
-			"prefix" : "ghost"
+			"modName" : "ghost",
+			"modMDO" : "mod_transparent"
 		},
 		{
-			"prefix" : "hooded"
+			"modName" : "hooded",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "acid"
+			"modName" : "acid",
+			"modMDO" : "mod_acidspit"
 		},
 		{
-			"prefix" : "bug-eyed"
+			"modName" : "bug-eyed",
+			"modMDO" : "mod_good_sight"
 		},
 		{
-			"prefix" : "chitinous"
+			"modName" : "chitinous",
+			"modMDO" : "mod_light_armor"
 		},
 		{
-			"prefix" : "tentacled"
+			"modName" : "tentacled",
+			"modMDO" : "mod_defensive"
 		},
 		{
-			"prefix" : "winged"
+			"modName" : "winged",
+			"modMDO" : "mod_fast_move"
 		},
 		{
-			"prefix" : "seductive"
+			"modName" : "seductive",
+			"modMDO" : "mod_bites"
 		},
 		{
-			"prefix" : "clockwork"
+			"modName" : "clockwork",
+			"modMDO" : "mod_light_armor"
 		},
 		{
-			"prefix" : "emaciated"
+			"modName" : "emaciated",
+			"modMDO" : "mod_dummy"
 		},
 		{
-			"prefix" : "sanguine"
+			"modName" : "sanguine",
+			"modMDO" : "mod_dummy"
 		}
 	]
 }

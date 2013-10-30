@@ -2,7 +2,7 @@
 	"key" : "itemgen_loot",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "",
+	"description" : "   ",
 	"items" : [
 		"genspell_exotic",
 		"genspell_standard",
@@ -10,5 +10,5 @@
 		"genpotion_standard",
 		"potion_bighp"
 	],
-	"firstTreasure" : 0
+	"firstTreasure" : 5
 }

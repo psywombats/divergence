@@ -62,16 +62,17 @@ public class SkillsBox extends UIElement {
 		Color oldColor = batch.getColor();
 		for (int i = 0; i < Hero.ABILITIES_MAX; i += 1) {
 			Graphic icon;
-			String cost, key;
+			String cost, key, name;
 			if (i < abilities.size()) {
 				Ability abil = abilities.get(i);
+				name = abil.getName();
 				if (!MGlobal.hero.getUnit().canUse(abil)) {
 					batch.setColor(1, .5f, .5f, .5f);
 				} else {
 					batch.setColor(1, 1, 1, 1);
 				}
 				icon = abil.getIcon();
-				if (MGlobal.raveMode) {
+				if (MGlobal.raveMode && !MGlobal.stasis) {
 					cost = String.valueOf((char)(MGlobal.rand.nextInt(26) + 'A')) +
 							String.valueOf((char)(MGlobal.rand.nextInt(26) + 'A')) +
 							": " + MGlobal.rand.nextInt(100);
@@ -79,7 +80,7 @@ public class SkillsBox extends UIElement {
 					cost = "  MP:" + String.valueOf(abil.getMP());
 				}
 				// TODO: KEY INPUT HAX, look up the real key!
-				if (MGlobal.raveMode) {
+				if (MGlobal.raveMode && !MGlobal.stasis) {
 					key = String.valueOf((char)(MGlobal.rand.nextInt(26) + 'a')) + MGlobal.rand.nextInt(10);
 				} else {
 					key = "F" + (i+1);
@@ -89,26 +90,29 @@ public class SkillsBox extends UIElement {
 				icon = noAbil;
 				cost = "";
 				key = "";
+				name = "";
 			}
 			int atX = mdo.allOffX + i * mdo.paddingX;
 			int atY = mdo.allOffY;
 			if (icon != null) {
 				icon.renderAt(MGlobal.screens.peek().getUIBatch(), atX, atY);
+				
 				format.x = atX + icon.getWidth()/2 - MAX_TEXT_WIDTH/2;
 				format.y = atY + mdo.textY;
 				String text = key + cost;
 				font.draw(batch, format, text, 0);
+				
+				if (i % 2 == 0) {
+					format.y = (int) (atY + (mdo.textY - font.getLineHeight()));
+				} else {
+					format.y = (int) (atY + -mdo.textY + icon.getHeight() + font.getLineHeight()*1.2f);
+				}
+				if (!MGlobal.raveMode) {
+					font.draw(batch, format, name, 0);
+				}
 			}
 		}
 		batch.setColor(oldColor);
-	}
-
-	/**
-	 * @see net.wombatrpgs.mrogue.core.Updateable#update(float)
-	 */
-	@Override
-	public void update(float elapsed) {
-
 	}
 
 }

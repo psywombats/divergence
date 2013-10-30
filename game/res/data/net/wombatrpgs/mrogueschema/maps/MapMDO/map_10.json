@@ -2,7 +2,7 @@
 	"key" : "map_10",
 	"subfolder" : "part3",
 	"name" : "",
-	"description" : "  ",
+	"description" : "     ",
 	"mapWidth" : 60,
 	"mapHeight" : 50,
 	"danger" : 10,
@@ -11,7 +11,7 @@
 	"items" : "itemgen_all",
 	"goodItems" : "itemgen_best",
 	"effect" : "effect_los",
-	"scene" : "None",
+	"scene" : "sceneset_paintings",
 	"bgm" : "music_slaughterhouse",
 	"characters" : [ ],
 	"pathsUp" : [

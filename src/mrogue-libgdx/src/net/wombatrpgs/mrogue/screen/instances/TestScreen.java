@@ -38,7 +38,7 @@ public class TestScreen extends Screen {
 		super();
 		MapLoadTestMDO mapTestMDO = MGlobal.data.getEntryFor("map_test", MapLoadTestMDO.class);
 		Level map = MGlobal.levelManager.getLevel(mapTestMDO.map);
-		addScreenObject(map);
+		addObject(map);
 		
 		TextBoxTestMDO testMDO = MGlobal.data.getEntryFor("test_textbox", TextBoxTestMDO.class);
 		if (testMDO != null && testMDO.enabled == TestState.ENABLED) {

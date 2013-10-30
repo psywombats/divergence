@@ -30,7 +30,7 @@ public class GameOverScreen extends Screen {
 		mdo = MGlobal.data.getEntryFor(Constants.KEY_DEATH, DeathSettingsMDO.class);
 		screen = new Picture(mdo.bg, 0, 0, 0);
 		assets.add(screen);
-		addScreenObject(screen);
+		addObject(screen);
 		pushCommandContext(new CMapSplash());
 		shouldIntroduce = false;
 		

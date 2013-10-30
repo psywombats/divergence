@@ -12,6 +12,7 @@ import java.util.List;
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mrogue.core.Constants;
+import net.wombatrpgs.mrogue.core.FinishListener;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.core.Updateable;
@@ -258,7 +259,7 @@ public class SceneParser implements	Updateable,
 		this.listeners = new ArrayList<FinishListener>();
 		this.timeSinceStart = 0;
 		
-		parent.addChild(this);
+		parent.addUChild(this);
 	}
 
 }

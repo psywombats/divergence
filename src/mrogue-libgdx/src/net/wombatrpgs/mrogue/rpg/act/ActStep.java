@@ -58,7 +58,7 @@ public class ActStep extends Action {
 		int targetX = (int) (actor.getX() + dir.getVector().x);
 		int targetY = (int) (actor.getY() + dir.getVector().y);
 		for (MapEvent event : (actor.getParent().getEventsAt(targetX, targetY))) {
-			if (event.isPassable()) {
+			if (!event.isPassable()) {
 				return actor.getStats().attackEP;
 			}
 		}

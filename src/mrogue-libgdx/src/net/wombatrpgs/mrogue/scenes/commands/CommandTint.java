@@ -65,12 +65,12 @@ public class CommandTint extends SceneCommand {
 					tint.g = oldG + ratio * (g - oldG);
 					tint.b = oldB + ratio * (b - oldB);
 					if (ratio >= 1) {
-						getScreen().removeChild(this);
+						getScreen().removeUChild(this);
 						tinting = false;
 					}
 				}	
 			};
-			getScreen().addChild(child);
+			getScreen().addUChild(child);
 			finished = true;
 		}
 		return true;

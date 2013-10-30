@@ -1,0 +1,14 @@
+{
+	"key" : "ability_shriek",
+	"subfolder" : "enemy",
+	"name" : "shriek",
+	"description" : "",
+	"abilDesc" : "",
+	"target" : "BALL",
+	"range" : 4.0,
+	"effect" : "abil_hit10",
+	"icon" : "None",
+	"energyCost" : 1000,
+	"mpCost" : 10,
+	"fx" : "None"
+}

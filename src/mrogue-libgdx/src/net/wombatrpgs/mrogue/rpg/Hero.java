@@ -51,14 +51,12 @@ public class Hero extends CharacterEvent implements CommandListener {
 	 * this will change. Right now it sets up the hero on the map like any other
 	 * event. Also sets up the moveset called "default_moveset" though that
 	 * should be put in the hero MDO when it gets created.
-	 * MR: Creates the hero, places it on a map, sets its x/y.
-	 * @param	object			The tiled obejct that generated the character
-	 * @param 	parent			The level the hero starts on
-	 * @param	tileX			The x-coord to start on, in tiles
-	 * @param	tileY			The y-coord to start on, in tiles
+	 * MR: Creates the hero
+	 * @param	parent			The level to make the hero on
 	 */
-	public Hero(Level parent, int tileX, int tileY) {
-		super(MGlobal.data.getEntryFor(HERO_DEFAULT, HeroMDO.class), parent, tileX, tileY);
+	public Hero(Level parent) {
+		super(MGlobal.data.getEntryFor(HERO_DEFAULT, HeroMDO.class));
+		this.parent = parent;
 		MGlobal.hero = this;
 		step = new ActStep(this);
 		DeathSettingsMDO deathMDO = MGlobal.data.getEntryFor(
@@ -121,6 +119,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 		}
 		MGlobal.ui.getHud().forceReset();
 		MGlobal.ui.getNarrator().onTurn();
+		this.onTurn();
 		
 		super.actAndWait(act);
 		
@@ -137,6 +136,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 		if (unit.isDead() && !MGlobal.raveMode) {
 			if (!deathScene.hasExecuted()) {
 				if (!deathScene.isRunning()) {
+					MGlobal.deathCount += 1;
 					deathScene.run();
 					parent.getBGM().stop();
 				}

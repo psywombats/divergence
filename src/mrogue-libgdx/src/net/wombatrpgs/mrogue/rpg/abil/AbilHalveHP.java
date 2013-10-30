@@ -38,7 +38,7 @@ public class AbilHalveHP extends AbilEffect {
 			int damage = (int) Math.floor(unit.getStats().hp * mdo.factor);
 			if (damage > mdo.maxDamage) damage = mdo.maxDamage;
 			if (MGlobal.hero.inLoS(unit.getParent())) {
-				GameUnit.out().msg(unit.getName() + " suffers " + damage + " distortion damage.");
+				GameUnit.out().msg(unit.getName() + " suffered " + damage + " distortion damage.");
 			}
 			unit.takeRawDamage(damage);
 			unit.onAttackBy(actor.getUnit());

@@ -26,6 +26,9 @@ public class AbilityMDO extends MainSchema {
 	@Desc("Name - displayed in-game")
 	public String name;
 	
+	@Desc("Description - displayed in-game only at the class select screen")
+	public String abilDesc;
+	
 	@Desc("Target - What or where this ability targets")
 	public AbilityTargetType target;
 	

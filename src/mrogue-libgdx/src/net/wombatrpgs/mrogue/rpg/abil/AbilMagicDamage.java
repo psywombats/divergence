@@ -41,9 +41,9 @@ public class AbilMagicDamage extends AbilEffect {
 			dmg = target.takeMagicDamage(dmg);
 			if (MGlobal.hero.inLoS(target.getParent())) {
 				if (dmg > 0) {
-					GameUnit.out().msg(target.getName() + " takes " + dmg + " magical damage.");
+					GameUnit.out().msg(target.getName() + " took " + dmg + " magical damage.");
 				} else {
-					GameUnit.out().msg(target.getName() + " is unaffected.");
+					GameUnit.out().msg(target.getName() + " was unaffected.");
 				}
 			}
 			target.onAttackBy(actor.getUnit());

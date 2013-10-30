@@ -16,9 +16,10 @@ import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.core.Turnable;
 import net.wombatrpgs.mrogue.rpg.Enemy;
 import net.wombatrpgs.mrogueschema.characters.EnemyMDO;
+import net.wombatrpgs.mrogueschema.characters.EnemyModMDO;
 import net.wombatrpgs.mrogueschema.characters.GlobalMonsterListMDO;
+import net.wombatrpgs.mrogueschema.characters.data.EnemyModEntryMDO;
 import net.wombatrpgs.mrogueschema.characters.data.MonsterNameMDO;
-import net.wombatrpgs.mrogueschema.characters.data.MonsterNamePreMDO;
 import net.wombatrpgs.mrogueschema.maps.MonsterGeneratorMDO;
 
 /**
@@ -43,14 +44,24 @@ public class MonsterGenerator implements	Turnable,
 		this.parent = parent;
 		this.loaderDummies = new ArrayList<Enemy>();
 		List<String> neededTypes = new ArrayList<String>();
+		List<String> neededMods = new ArrayList<String>();
 		listMDO = MGlobal.data.getEntryFor(mdo.list, GlobalMonsterListMDO.class);
 		for (MonsterNameMDO name : listMDO.names) {
 			if (!neededTypes.contains(name.archetype)) {
 				neededTypes.add(name.archetype);
 			}
 		}
+		for (EnemyModEntryMDO mod : listMDO.prefixes) {
+			if (!neededMods.contains(mod.modMDO)) {
+				neededMods.add(mod.modMDO);
+			}
+		}
 		for (String key : neededTypes) {
 			Enemy e = new Enemy(MGlobal.data.getEntryFor(key, EnemyMDO.class), parent);
+			loaderDummies.add(e);
+		}
+		for (String key : neededMods) {
+			Enemy e = new Enemy(MGlobal.data.getEntryFor(key, EnemyModMDO.class), parent);
 			loaderDummies.add(e);
 		}
 	}
@@ -63,9 +74,12 @@ public class MonsterGenerator implements	Turnable,
 		Enemy enemy = null;
 		while (enemy == null || enemy.getDangerLevel() > parent.getDanger()) {
 			MonsterNameMDO name = listMDO.names[MGlobal.rand.nextInt(listMDO.names.length)];
-			MonsterNamePreMDO pre = listMDO.prefixes[MGlobal.rand.nextInt(listMDO.prefixes.length)];
-			enemy = new Enemy(MGlobal.data.getEntryFor(name.archetype, EnemyMDO.class), parent);
-			enemy.getUnit().setName(pre.prefix + " " + name.typeName);
+			EnemyModEntryMDO pre = listMDO.prefixes[MGlobal.rand.nextInt(listMDO.prefixes.length)];
+			enemy = new Enemy(
+					MGlobal.data.getEntryFor(name.archetype, EnemyMDO.class),
+					MGlobal.data.getEntryFor(pre.modMDO, EnemyModMDO.class),
+					parent);
+			enemy.getUnit().setName(pre.modName + " " + name.typeName);
 		}
 		if (parent.getItemGenerator() != null & MGlobal.rand.nextFloat() < mdo.loot) {
 			enemy.getUnit().getInventory().addItem(parent.getItemGenerator().createEvent().getItem());
@@ -84,25 +98,38 @@ public class MonsterGenerator implements	Turnable,
 			Enemy sample = null;
 			EnemyMDO template = null;
 			MonsterNameMDO name = null;
-			while (sample == null || sample.getDangerLevel() > parent.getDanger()) {
+			while (sample == null ||
+					sample.getDangerLevel() > parent.getDanger() ||
+					sample.getDangerLevel() < parent.getDanger() - 8) {
 				name = listMDO.names[MGlobal.rand.nextInt(listMDO.names.length)];
 				template = MGlobal.data.getEntryFor(name.archetype, EnemyMDO.class);
 				sample = new Enemy(template, parent);
 			}
 			for (int i = 0; i < count; i += 1) {
-				Enemy enemy = new Enemy(template, parent);
-				MonsterNamePreMDO pre = listMDO.prefixes[MGlobal.rand.nextInt(listMDO.prefixes.length)];
-				enemy.getUnit().setName(pre.prefix + " " + name.typeName);
+				EnemyModEntryMDO pre = listMDO.prefixes[MGlobal.rand.nextInt(listMDO.prefixes.length)];
+				Enemy enemy = new Enemy(template,
+						MGlobal.data.getEntryFor(pre.modMDO, EnemyModMDO.class),
+						parent);
+				enemy.getUnit().setName(pre.modName + " " + name.typeName);
 				results.add(enemy);
 			}
 		} else {
-			MonsterNamePreMDO pre = listMDO.prefixes[MGlobal.rand.nextInt(listMDO.prefixes.length)];
+			Enemy sample = null;
+			EnemyModMDO template = null;
+			EnemyModEntryMDO pre = null;
+			while (sample == null || sample.getDangerLevel() > parent.getDanger()) {
+				pre = listMDO.prefixes[MGlobal.rand.nextInt(listMDO.prefixes.length)];
+				template = MGlobal.data.getEntryFor(pre.modMDO, EnemyModMDO.class);
+				sample = new Enemy(template, parent);
+			}
 			for (int i = 0; i < count; i += 1) {
 				Enemy enemy = null;
 				while (enemy == null || enemy.getDangerLevel() > parent.getDanger()) {
 					MonsterNameMDO name = listMDO.names[MGlobal.rand.nextInt(listMDO.names.length)];
-					enemy = new Enemy(MGlobal.data.getEntryFor(name.archetype, EnemyMDO.class), parent);
-					enemy.getUnit().setName(pre.prefix + " " + name.typeName);
+					enemy = new Enemy(
+							MGlobal.data.getEntryFor(name.archetype, EnemyMDO.class),
+							template, parent);
+					enemy.getUnit().setName(pre.modName + " " + name.typeName);
 				}
 				results.add(enemy);
 			}

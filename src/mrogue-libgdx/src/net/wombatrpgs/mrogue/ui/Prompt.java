@@ -124,7 +124,7 @@ public class Prompt extends Popup {
 		} else {
 			alpha -= elapsed / .2f;
 			if (alpha <= 0) {
-				MGlobal.screens.peek().removeScreenObject(this);
+				MGlobal.screens.peek().removeObject(this);
 			}
 		}
 	}
@@ -136,7 +136,7 @@ public class Prompt extends Popup {
 	 * @param	listener			Who to notify when finished
 	 */
 	public void ask(BinaryChoiceResultListener listener) {
-		MGlobal.screens.peek().addScreenObject(this);
+		MGlobal.screens.peek().addObject(this);
 		this.listener = listener;
 		show();
 	}
