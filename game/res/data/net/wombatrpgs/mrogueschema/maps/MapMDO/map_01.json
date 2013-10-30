@@ -2,7 +2,7 @@
 	"key" : "map_01",
 	"subfolder" : "part1",
 	"name" : "",
-	"description" : "              ",
+	"description" : "               ",
 	"mapWidth" : 35,
 	"mapHeight" : 30,
 	"danger" : 1,
@@ -13,7 +13,9 @@
 	"effect" : "effect_los",
 	"scene" : "None",
 	"bgm" : "music_ambient",
-	"characters" : [ ],
+	"characters" : [
+		"boss_default"
+	],
 	"pathsUp" : [
 		"map_00"
 	],

@@ -1,7 +1,7 @@
 {
 	"key" : "test_fps",
 	"subfolder" : "",
-	"name" : "",
+	"name" : " ",
 	"description" : "by name",
-	"enabled" : "ENABLED"
+	"enabled" : "DISABLED"
 }

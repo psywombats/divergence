@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.mrogue.rpg;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.mrogue.core.FinishListener;
@@ -25,6 +24,7 @@ import net.wombatrpgs.mrogue.maps.objects.TimerObject;
 import net.wombatrpgs.mrogue.rpg.abil.Ability;
 import net.wombatrpgs.mrogue.rpg.ai.BTAction;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
+import net.wombatrpgs.mrogue.screen.instances.EndingScreen;
 import net.wombatrpgs.mrogueschema.audio.MusicMDO;
 import net.wombatrpgs.mrogueschema.characters.AbilityMDO;
 import net.wombatrpgs.mrogueschema.characters.BossMDO;
@@ -41,6 +41,7 @@ public class Boss extends Enemy {
 	protected Effect effect;
 	protected Ability fxAbil;
 	protected SceneParser scene, winScene;
+	protected MusicObject music;
 	protected boolean seen;
 	
 	// rave mode
@@ -80,6 +81,11 @@ public class Boss extends Enemy {
 		if (mdoHasProperty(mdo.sightedScene)) {
 			scene = MGlobal.levelManager.getCutscene(mdo.sightedScene);
 			assets.add(scene);
+		}
+		if (mdoHasProperty(mdo.music)) {
+			music = new MusicObject(MGlobal.data.getEntryFor(mdo.music, MusicMDO.class));
+			assets.add(music);
+			
 		}
 		
 		// rave mode
@@ -221,12 +227,15 @@ public class Boss extends Enemy {
 		MGlobal.levelManager.getScreen().removeObject(gos);
 		MGlobal.stasis = false;
 		MGlobal.raveMode = false;
-		parent.getBGM().fadeIn(2f);
+		music.fadeIn(2f);
 		if (!winScene.isRunning() && !winScene.hasExecuted()) {
 			winScene.run();
 			winScene.addListener(new FinishListener() {
 				@Override public void onFinish() {
-					Gdx.app.exit();
+					music.stop();
+					MGlobal.won2 = true;
+					MGlobal.screens.pop();
+					MGlobal.screens.push(new EndingScreen());
 				}
 			});
 		}

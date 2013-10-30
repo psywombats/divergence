@@ -82,7 +82,9 @@ public class TextBox extends Picture {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		super.render(camera);
+		if (!MGlobal.won2) {
+			super.render(camera);
+		}
 		font.setAlpha(currentColor.a);
 		for (int i = 0; i < mutatedLines.size(); i++) {
 			font.draw(getBatch(), bodyFormat,

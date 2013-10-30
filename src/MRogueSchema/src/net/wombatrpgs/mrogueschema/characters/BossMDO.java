@@ -28,6 +28,10 @@ public class BossMDO extends EnemyMDO {
 	@SchemaLink(SceneParentMDO.class)
 	public String sightedScene;
 	
+	@Desc("Music that plays on cut end")
+	@SchemaLink(MusicMDO.class)
+	public String music;
+	
 	@Desc("Ambient graphical effect")
 	@SchemaLink(EffectMDO.class)
 	@Nullable
