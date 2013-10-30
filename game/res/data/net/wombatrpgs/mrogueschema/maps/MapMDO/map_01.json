@@ -2,7 +2,7 @@
 	"key" : "map_01",
 	"subfolder" : "part1",
 	"name" : "",
-	"description" : "                ",
+	"description" : "                 ",
 	"mapWidth" : 35,
 	"mapHeight" : 30,
 	"danger" : 1,
@@ -12,6 +12,7 @@
 	"goodItems" : "itemgen_loot",
 	"effect" : "effect_los",
 	"scene" : "None",
+	"floor" : "2",
 	"bgm" : "music_ambient",
 	"characters" : [ ],
 	"pathsUp" : [

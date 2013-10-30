@@ -2,10 +2,10 @@
 	"key" : "decor_painting6",
 	"subfolder" : "",
 	"name" : "",
-	"description" : " ",
+	"description" : "  ",
 	"chance" : 0.02,
 	"original" : "ANY_MIDDLE_WALL",
-	"replacement" : "FLOOR",
+	"replacement" : "OBSTACLE",
 	"t" : {
 		"appearance" : "frametop02.png"
 	},

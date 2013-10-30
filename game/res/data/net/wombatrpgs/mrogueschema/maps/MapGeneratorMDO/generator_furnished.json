@@ -2,9 +2,9 @@
 	"key" : "generator_furnished",
 	"subfolder" : "partone",
 	"name" : "",
-	"description" : " ",
+	"description" : "  ",
 	"floorTiles" : {
-		"appearance" : "floor01.png"
+		"appearance" : "tiled.png"
 	},
 	"wallTiles" : "wall_woodish",
 	"ceilingTiles" : "ceil_classic",

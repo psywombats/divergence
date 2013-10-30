@@ -1,7 +1,7 @@
 {
 	"key" : "map_07",
 	"subfolder" : "part2",
-	"name" : "",
+	"name" : " ",
 	"description" : "  ",
 	"mapWidth" : 34,
 	"mapHeight" : 29,
@@ -12,6 +12,7 @@
 	"goodItems" : "itemgen_best",
 	"effect" : "effect_los",
 	"scene" : "None",
+	"floor" : "8",
 	"bgm" : "music_ambient",
 	"characters" : [ ],
 	"pathsUp" : [

@@ -2,12 +2,12 @@
 	"key" : "mod_spellcaster",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "  ",
+	"description" : "   ",
 	"danger" : 2,
 	"color" : {
 		"r" : 0.0,
-		"g" : 1.0,
 		"b" : 0.0,
+		"g" : 1.0,
 		"a" : 1.0
 	},
 	"abilities" : [
@@ -26,8 +26,8 @@
 		"dmgBase" : 0,
 		"dmgRange" : 0,
 		"armor" : 0,
-		"magBase" : 2,
-		"magRange" : 2,
+		"magBase" : 3,
+		"magRange" : 3,
 		"magArmor" : 2
 	}
 }

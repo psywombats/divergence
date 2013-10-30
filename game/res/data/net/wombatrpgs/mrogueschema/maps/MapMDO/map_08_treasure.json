@@ -2,7 +2,7 @@
 	"key" : "map_08_treasure",
 	"subfolder" : "part3",
 	"name" : "",
-	"description" : "  ",
+	"description" : "    ",
 	"mapWidth" : 20,
 	"mapHeight" : 20,
 	"danger" : 12,
@@ -12,6 +12,7 @@
 	"goodItems" : "itemgen_best",
 	"effect" : "effect_los",
 	"scene" : "None",
+	"floor" : "9B",
 	"bgm" : "music_portraits",
 	"characters" : [ ],
 	"pathsUp" : [

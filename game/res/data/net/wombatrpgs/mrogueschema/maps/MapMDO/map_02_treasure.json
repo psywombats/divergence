@@ -2,7 +2,7 @@
 	"key" : "map_02_treasure",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "  ",
+	"description" : "    ",
 	"mapWidth" : 20,
 	"mapHeight" : 18,
 	"danger" : 5,
@@ -12,6 +12,7 @@
 	"goodItems" : "itemgen_all",
 	"effect" : "effect_los",
 	"scene" : "None",
+	"floor" : "3B",
 	"bgm" : "music_libraries",
 	"characters" : [ ],
 	"pathsUp" : [

@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "  ",
 	"anchorDir" : "SOUTH",
+	"font" : "font_c64mrogue_small",
 	"frameGraphic" : "hud_frame_temp.png",
 	"frameWidth" : 126,
 	"frameHeight" : 48,

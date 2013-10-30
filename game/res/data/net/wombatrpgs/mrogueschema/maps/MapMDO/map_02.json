@@ -1,7 +1,7 @@
 {
 	"key" : "map_02",
 	"subfolder" : "part1",
-	"name" : "  ",
+	"name" : "   ",
 	"description" : "Library        ",
 	"mapWidth" : 50,
 	"mapHeight" : 50,
@@ -12,6 +12,7 @@
 	"goodItems" : "itemgen_loot",
 	"effect" : "effect_los",
 	"scene" : "sceneset_library",
+	"floor" : "3",
 	"bgm" : "music_libraries",
 	"characters" : [ ],
 	"pathsUp" : [

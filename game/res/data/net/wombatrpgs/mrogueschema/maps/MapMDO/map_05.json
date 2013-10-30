@@ -2,7 +2,7 @@
 	"key" : "map_05",
 	"subfolder" : "part2",
 	"name" : "",
-	"description" : " ",
+	"description" : "  ",
 	"mapWidth" : 34,
 	"mapHeight" : 29,
 	"danger" : 5,
@@ -12,6 +12,7 @@
 	"goodItems" : "itemgen_best",
 	"effect" : "effect_los",
 	"scene" : "None",
+	"floor" : "6",
 	"bgm" : "music_ambient",
 	"characters" : [ ],
 	"pathsUp" : [

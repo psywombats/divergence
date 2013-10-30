@@ -1,7 +1,7 @@
 {
 	"key" : "map_06",
 	"subfolder" : "part2",
-	"name" : " ",
+	"name" : "  ",
 	"description" : "Bloody",
 	"mapWidth" : 45,
 	"mapHeight" : 45,
@@ -12,6 +12,7 @@
 	"goodItems" : "itemgen_best",
 	"effect" : "effect_los",
 	"scene" : "sceneset_bloody",
+	"floor" : "7",
 	"bgm" : "music_slaughterhouse",
 	"characters" : [ ],
 	"pathsUp" : [

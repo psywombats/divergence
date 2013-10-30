@@ -2,9 +2,9 @@
 	"key" : "class_gamereviewer",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "   ",
+	"description" : "    ",
 	"className" : "Contest Judge",
-	"classDesc" : "A very handsome and likeable fellow. Has died a couple times and is feeling rather frustrated, so he chose to play as this guy. This is by no means to be construed as an insult.",
+	"classDesc" : "A very handsome and likeable fellow. Has died a couple times, so he chose to play as this guy. This is by no means to be construed as an insult.",
 	"appearance" : "4dir_grandfather_2",
 	"stats" : {
 		"mhp" : 300,
@@ -28,6 +28,6 @@
 		"ability_distorttouch",
 		"ability_leech",
 		"ability_light",
-		"ability_fireball"
+		"ability_fireball2"
 	]
 }

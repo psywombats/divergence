@@ -2,22 +2,20 @@
 	"key" : "mod_acidspit",
 	"subfolder" : "",
 	"name" : "",
-	"description" : " ",
+	"description" : "    ",
 	"danger" : 2,
 	"color" : {
 		"r" : 0.0,
-		"g" : 0.0,
 		"b" : 0.6,
+		"g" : 0.0,
 		"a" : 1.0
 	},
-	"abilities" : [
-		"ability_acidspit"
-	],
+	"abilities" : [ ],
 	"stats" : {
 		"mhp" : 0,
 		"hp" : 0,
-		"mmp" : 25,
-		"mp" : 25,
+		"mmp" : 50,
+		"mp" : 50,
 		"speed" : 0,
 		"walkCost" : 0,
 		"attackCost" : 0,
@@ -26,8 +24,8 @@
 		"dmgBase" : 0,
 		"dmgRange" : 0,
 		"armor" : 0,
-		"magBase" : 0,
-		"magRange" : 0,
+		"magBase" : 4,
+		"magRange" : 2,
 		"magArmor" : 0
 	}
 }

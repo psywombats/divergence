@@ -2,9 +2,9 @@
 	"key" : "map_12",
 	"subfolder" : "part3",
 	"name" : "",
-	"description" : "      ",
-	"mapWidth" : 80,
-	"mapHeight" : 70,
+	"description" : "       ",
+	"mapWidth" : 50,
+	"mapHeight" : 40,
 	"danger" : 12,
 	"generator" : "generator_spacious",
 	"enemies" : "monstergen_default",
@@ -12,6 +12,7 @@
 	"goodItems" : "itemgen_best",
 	"effect" : "effect_los",
 	"scene" : "sceneset_bossvoice",
+	"floor" : "13",
 	"bgm" : "music_theme",
 	"characters" : [
 		"boss_default"

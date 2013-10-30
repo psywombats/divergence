@@ -2,12 +2,12 @@
 	"key" : "mod_firespells",
 	"subfolder" : "",
 	"name" : "",
-	"description" : " ",
+	"description" : "  ",
 	"danger" : 1,
 	"color" : {
 		"r" : 1.0,
-		"g" : 0.0,
 		"b" : 0.0,
+		"g" : 0.0,
 		"a" : 1.0
 	},
 	"abilities" : [
@@ -27,8 +27,8 @@
 		"dmgBase" : 0,
 		"dmgRange" : 0,
 		"armor" : 0,
-		"magBase" : 0,
-		"magRange" : 0,
+		"magBase" : 2,
+		"magRange" : 2,
 		"magArmor" : 0
 	}
 }
