@@ -10,6 +10,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Pixmap;
 
 import net.wombatrpgs.mrogue.core.Constants;
+import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogueschema.graphics.IconSetMDO;
 
@@ -51,8 +52,7 @@ public class IconSet implements Queueable {
 		maps[0] = manager.get(Constants.UI_DIR + mdo.icon16, Pixmap.class);
 		maps[1] = manager.get(Constants.UI_DIR + mdo.icon32, Pixmap.class);
 		maps[2] = manager.get(Constants.UI_DIR + mdo.icon128, Pixmap.class);
-		// TODO: figure out icons
-		//Gdx.graphics.setIcon(maps);
+		MGlobal.platform.setIcon(maps);
 	}
 
 }

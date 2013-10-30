@@ -70,6 +70,8 @@ public class MGlobal {
 	public static FileLoader loader;
 	/** Manages all tile types and graphics etc */
 	public static TileManager tiles;
+	/** Desktop mode */
+	public static Platform platform;
 	/** ZS2 weird shit */
 	public static boolean raveMode, stasis, won, won2;
 	public static int deathCount;

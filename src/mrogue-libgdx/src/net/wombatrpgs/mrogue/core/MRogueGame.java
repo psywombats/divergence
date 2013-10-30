@@ -14,8 +14,9 @@ public class MRogueGame implements ApplicationListener, FocusListener {
 	 * dependant.
 	 * @param 	focusReporter		The thing that tells if focus is lost
 	 */
-	public MRogueGame(FocusReporter focusReporter) {
+	public MRogueGame(Platform platform, FocusReporter focusReporter) {
 		super();
+		MGlobal.platform = platform;
 		//focusReporter.registerListener(this);
 		//this.focusReporter = focusReporter;
 		paused = false;

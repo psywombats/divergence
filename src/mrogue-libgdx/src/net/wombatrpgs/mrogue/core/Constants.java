@@ -24,7 +24,7 @@ import net.wombatrpgs.mrogueschema.settings.WindowSettingsMDO;
 public class Constants {
 	
 	/** Where the game start info is */
-	public static final String CONFIG_FILE = "mrogue.cfg";
+	public static final String CONFIG_FILE = "config.cfg";
 	
 	/** Directories where resources are stored (prefix string) */
 	public static final String RESOURCE_DIR = "res/";
