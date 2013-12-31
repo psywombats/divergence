@@ -22,6 +22,10 @@ public class HudMDO extends MainSchema {
 	@Desc("Anchor side - graphic will be pinned to this side of the screen")
 	public OrthoDir anchorDir;
 	
+	@Desc("Font - for others")
+	@SchemaLink(FontMDO.class)
+	public String font;
+	
 	// Eventually stuff should go here about charas to track
 	
 	@Desc("Frame graphic")

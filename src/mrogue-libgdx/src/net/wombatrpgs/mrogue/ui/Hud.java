@@ -11,10 +11,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.graphics.Graphic;
+import net.wombatrpgs.mrogue.ui.text.FontHolder;
+import net.wombatrpgs.mrogue.ui.text.TextBoxFormat;
 import net.wombatrpgs.mrogueschema.maps.data.OrthoDir;
+import net.wombatrpgs.mrogueschema.ui.FontMDO;
 import net.wombatrpgs.mrogueschema.ui.HudMDO;
 import net.wombatrpgs.mrogueschema.ui.NumberSetMDO;
 
@@ -26,6 +30,8 @@ import net.wombatrpgs.mrogueschema.ui.NumberSetMDO;
  */
 public class Hud extends UIElement {
 	
+	protected static final int TEXT_WIDTH = 256;
+	
 	protected HudMDO mdo;
 	
 	protected Graphic frame;
@@ -35,6 +41,8 @@ public class Hud extends UIElement {
 	protected Graphic nmpBase, nmpRib, nmpTail;
 	protected Graphic alphaMask;
 	protected NumberSet numbersHP, numbersMP;
+	protected TextBoxFormat format;
+	protected FontHolder font;
 	
 	protected float mp, mmp, hp, mhp;
 	
@@ -79,6 +87,10 @@ public class Hud extends UIElement {
 		numbersMP = new NumberSet(MGlobal.data.getEntryFor(mdo.mpNumberSet, NumberSetMDO.class));
 		assets.add(numbersHP);
 		assets.add(numbersMP);
+		
+		format = new TextBoxFormat();
+		font = new FontHolder(MGlobal.data.getEntryFor(mdo.font, FontMDO.class));
+		assets.add(font);
 	}
 	
 	/** @return True if the hud is displaying right now */
@@ -185,6 +197,14 @@ public class Hud extends UIElement {
 					mdo.offY + mdo.headY - tex.getRegionHeight()/2);
 			batch.end();
 			batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+			
+			format.align = HAlignment.LEFT;
+			format.x = mdo.offX - 14;
+			format.y = (int) (mdo.offY - font.getLineHeight());
+			format.width = TEXT_WIDTH;
+			format.height = 32;
+			String text = "floor: " + MGlobal.hero.getParent().getFloor() + "/13";
+			if (!MGlobal.raveMode) font.draw(batch, format, text, 0);
 		}
 	}
 	

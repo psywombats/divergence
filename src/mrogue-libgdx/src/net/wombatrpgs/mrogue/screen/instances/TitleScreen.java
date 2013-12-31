@@ -53,7 +53,6 @@ public class TitleScreen extends Screen {
 		if (MapThing.mdoHasProperty(introMDO.music)) {
 			music = new MusicObject(MGlobal.data.getEntryFor(introMDO.music, MusicMDO.class));
 			assets.add(music);
-			updateChildren.add(music);
 		}
 		
 		prompt = new Picture(mdo.prompt, mdo.promptX, mdo.promptY, 1);
@@ -113,7 +112,7 @@ public class TitleScreen extends Screen {
 		if (!inParser.isRunning() && !inParser.hasExecuted()) {
 			inParser.run();
 			if (music != null) {
-				music.fadeIn(.5f);
+				MGlobal.screens.playMusic(music, false);
 			}
 		}
 		if (shouldIntroduce) {
@@ -122,11 +121,6 @@ public class TitleScreen extends Screen {
 					MGlobal.screens.pop();
 					Screen classScreen = new ClassScreen();
 					MGlobal.screens.push(classScreen);
-					if (music != null) {
-						classScreen.addUChild(music);
-						removeUChild(music);
-						music.fadeOut(2f);
-					}
 				} else if (!outParser.isRunning()) {
 					outParser.run();
 				}
@@ -143,9 +137,9 @@ public class TitleScreen extends Screen {
 	@Override
 	public void dispose() {
 		super.dispose();
-		if (music != null) {
-			music.dispose();
-		}
+//		if (music != null) {
+//			music.dispose();
+//		}
 	}
 
 }

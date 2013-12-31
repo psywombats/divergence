@@ -138,11 +138,12 @@ public class Hero extends CharacterEvent implements CommandListener {
 				if (!deathScene.isRunning()) {
 					MGlobal.deathCount += 1;
 					deathScene.run();
-					parent.getBGM().stop();
+					MGlobal.screens.playMusic(null, false);
 				}
 			} else {
 				MGlobal.screens.pop();
 				MGlobal.screens.push(new GameOverScreen());
+				MGlobal.screens.playMusic(null, false);
 			}
 		}
 		if (blockingAbil != null) {

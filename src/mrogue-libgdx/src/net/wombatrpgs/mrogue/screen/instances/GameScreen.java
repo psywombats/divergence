@@ -54,8 +54,7 @@ public class GameScreen extends Screen {
 		map = MGlobal.levelManager.getLevel(introMDO.map);
 		MGlobal.levelManager.setActive(map);
 		if (map.getBGM() != null) {
-			map.getBGM().fadeIn(.5f);
-			addUChild(map.getBGM());
+			MGlobal.screens.playMusic(map.getBGM(), false);
 		}
 		introParser = MGlobal.levelManager.getCutscene(introMDO.scene);
 		assets.add(introParser);

@@ -62,6 +62,9 @@ public class MapMDO extends MainSchema {
 	@Nullable
 	public String scene;
 	
+	@Desc("Floor # - displays in UI")
+	public String floor;
+	
 	@Desc("BGM")
 	@SchemaLink(MusicMDO.class)
 	@Nullable

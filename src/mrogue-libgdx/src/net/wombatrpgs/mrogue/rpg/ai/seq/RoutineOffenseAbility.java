@@ -24,7 +24,8 @@ public class RoutineOffenseAbility extends BTSequence {
 	protected static final List<AbilityTargetType> offenseTargets =
 			new ArrayList<AbilityTargetType>(EnumSet.of(
 					AbilityTargetType.BALL,
-					AbilityTargetType.MELEE));
+					AbilityTargetType.MELEE,
+					AbilityTargetType.PROJECTILE));
 
 	/**
 	 * Creates an offensive ability routine.

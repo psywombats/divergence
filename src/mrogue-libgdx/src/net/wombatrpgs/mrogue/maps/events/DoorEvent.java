@@ -103,6 +103,9 @@ public class DoorEvent extends MapEvent {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
+		if (!MGlobal.graphics.isShaderEnabled() && !MGlobal.hero.inLoS(this)) {
+			return;
+		}
 		if (open) {
 			openAnim.render(camera);
 		} else {

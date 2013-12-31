@@ -24,7 +24,7 @@ public class DefaultKeymap extends Keymap {
 	
 	private Map<Integer, InputButton> map;
 	private Map<InputButton, Integer> backmap;
-	private Map<InputButton, Boolean> state;
+	private Map<InputButton, PressState> state;
 	private List<InputButton> constantButtons;
 	
 	/**
@@ -81,15 +81,24 @@ public class DefaultKeymap extends Keymap {
 			backmap.put(map.get(key), (Integer) key);
 		}
 		
-		state = new HashMap<InputButton, Boolean>();
+		state = new HashMap<InputButton, PressState>();
 		for (InputButton button : InputButton.values()) {
-			state.put(button, false);
+			state.put(button, new PressState(false));
 		}
 		
-//		constantButtons.add(InputButton.RIGHT);
-//		constantButtons.add(InputButton.UP);
-//		constantButtons.add(InputButton.LEFT);
-//		constantButtons.add(InputButton.DOWN);
+		constantButtons.add(InputButton.RIGHT);
+		constantButtons.add(InputButton.UP);
+		constantButtons.add(InputButton.LEFT);
+		constantButtons.add(InputButton.DOWN);
+		
+		constantButtons.add(InputButton.DIR_N);
+		constantButtons.add(InputButton.DIR_NE);
+		constantButtons.add(InputButton.DIR_E);
+		constantButtons.add(InputButton.DIR_SE);
+		constantButtons.add(InputButton.DIR_S);
+		constantButtons.add(InputButton.DIR_SW);
+		constantButtons.add(InputButton.DIR_W);
+		constantButtons.add(InputButton.DIR_NW);
 	}
 
 	/**
@@ -98,8 +107,8 @@ public class DefaultKeymap extends Keymap {
 	@Override
 	public boolean keyDown(int keycode) {
 		if (map.containsKey(keycode)) {
-			if (!state.get(map.get(keycode))) {
-				state.put(map.get(keycode), true);
+			if (!state.get(map.get(keycode)).down) {
+				state.put(map.get(keycode), new PressState(true));
 				this.signal(map.get(keycode), true);
 			}
 		}
@@ -112,8 +121,8 @@ public class DefaultKeymap extends Keymap {
 	@Override
 	public boolean keyUp(int keycode) {
 		if (map.containsKey(keycode)) {
-			if (state.get(map.get(keycode))) {
-				state.put(map.get(keycode), false);
+			if (state.get(map.get(keycode)).down) {
+				state.put(map.get(keycode), new PressState(false));
 				this.signal(map.get(keycode), false);
 			}
 		}
@@ -139,7 +148,8 @@ public class DefaultKeymap extends Keymap {
 	public void update(float elapsed) {
 		// awful keyrepeat
 		for (InputButton button : constantButtons) {
-			if (isButtonDown(button)) {
+			state.get(button).lastPushed += elapsed;
+			if (state.get(button).down && state.get(button).lastPushed > .3f) {
 				signal(button, true);
 			}
 		}
@@ -169,6 +179,15 @@ public class DefaultKeymap extends Keymap {
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
 		return false;
+	}
+	
+	private class PressState {
+		public boolean down;
+		public float lastPushed;
+		public PressState(boolean down) {
+			this.down = down;
+			this.lastPushed = 0;
+		}
 	}
 	
 }

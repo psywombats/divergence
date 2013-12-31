@@ -13,6 +13,7 @@ import com.badlogic.gdx.Gdx;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.graphics.Disposable;
 import net.wombatrpgs.mrogue.io.ButtonListener;
+import net.wombatrpgs.mrogue.io.audio.MusicObject;
 import net.wombatrpgs.mrogueschema.io.data.InputButton;
 
 /**
@@ -25,6 +26,7 @@ public class ScreenStack implements	Disposable,
 									ButtonListener {
 	
 	private Stack<Screen> screens;
+	protected MusicObject current, fadeOut;
 	
 	/**
 	 * Creates and initializes a new empty stack of screens.
@@ -165,6 +167,8 @@ public class ScreenStack implements	Disposable,
 //			elapsed = (1.0f / RGlobal.constants.rate());
 //		}
 		screens.get(0).update(elapsed);
+		if (current != null) current.update(elapsed);
+		if (fadeOut != null) fadeOut.update(elapsed);
 	}
 	
 	// TODO: delete this, it's allowing for ugly shit that'll suck w/ 2+ screens
@@ -182,6 +186,27 @@ public class ScreenStack implements	Disposable,
 	 */
 	public int size() {
 		return screens.size();
+	}
+	
+	/**
+	 * Will update music to play! Because before there were way too many bugs.
+	 * @param	music			The music to play
+	 * @param	immediate		True to instaplay, false otherwise
+	 */
+	public void playMusic(MusicObject music, boolean immediate) {
+		if (fadeOut != null) {
+			fadeOut.stop();
+		}
+		fadeOut = current;
+		if (current != null) {
+			if (immediate) current.stop();
+			else current.fadeOut(.5f);
+		}
+		current = music;
+		if (music != null) {
+			if (immediate) music.play();
+			else music.fadeIn(.5f);
+		}
 	}
 
 }

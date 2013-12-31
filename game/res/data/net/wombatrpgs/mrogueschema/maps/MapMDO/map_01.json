@@ -11,10 +11,12 @@
 	"items" : "itemgen_standard",
 	"goodItems" : "itemgen_loot",
 	"effect" : "effect_los",
-	"scene" : "None",
+	"scene" : "sceneset_bossvoice",
 	"floor" : "2",
 	"bgm" : "music_ambient",
-	"characters" : [ ],
+	"characters" : [
+		"boss_default"
+	],
 	"pathsUp" : [
 		"map_00"
 	],

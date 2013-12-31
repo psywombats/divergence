@@ -50,14 +50,16 @@ public class EffectLoS extends Effect {
 		firstDone = false;
 		invisibleAnim = new AnimationStrip(MGlobal.data.getEntryFor(mdo.invisibleTex, AnimationMDO.class));
 		unseenAnim = new AnimationStrip(MGlobal.data.getEntryFor(mdo.unseenTex, AnimationMDO.class));
-		if (MGlobal.graphics.isShaderDebugEnabled()) {
-			MGlobal.reporter.inform("Attempting to create LoS shader...");
+		if (MGlobal.graphics.isShaderEnabled()) {
+			if (MGlobal.graphics.isShaderDebugEnabled()) {
+				MGlobal.reporter.inform("Attempting to create LoS shader...");
+			}
+			shader = new ShaderFromData(MGlobal.data.getEntryFor(mdo.shader, ShaderMDO.class));
+			if (MGlobal.graphics.isShaderDebugEnabled()) {
+				MGlobal.reporter.inform("LoS shader successfully init'd");
+			}
+			batch.setShader(shader);
 		}
-		shader = new ShaderFromData(MGlobal.data.getEntryFor(mdo.shader, ShaderMDO.class));
-		if (MGlobal.graphics.isShaderDebugEnabled()) {
-			MGlobal.reporter.inform("LoS shader successfully init'd");
-		}
-		batch.setShader(shader);
 		offset = 0;
 		updated = false;
 	}
@@ -69,6 +71,7 @@ public class EffectLoS extends Effect {
 	@Override
 	public void render(OrthographicCamera camera) {
 		if (!updated) return;
+		if (!MGlobal.graphics.isShaderEnabled()) return;
 		if (MGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
 			MGlobal.reporter.inform("LoS shader draw start");
 		}
@@ -178,6 +181,7 @@ public class EffectLoS extends Effect {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
+		if (!MGlobal.graphics.isShaderEnabled()) return;
 		if (MGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
 			MGlobal.reporter.inform("LoS post-processing start");
 		}
@@ -197,6 +201,7 @@ public class EffectLoS extends Effect {
 	 */
 	@Override
 	public void update(float elapsed) {
+		if (!MGlobal.graphics.isShaderEnabled()) return;
 		if (MGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
 			MGlobal.reporter.inform("LoS shader update start");
 		}

@@ -10,6 +10,7 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogueschema.settings.GraphicsSettingsMDO;
+import net.wombatrpgs.mrogueschema.settings.data.ShaderEnabledState;
 import net.wombatrpgs.mrogueschema.test.data.TestState;
 
 /**
@@ -54,5 +55,7 @@ public class GraphicsSettings implements Queueable {
 	
 	/** @return True if we should be running shader debug prints */
 	public boolean isShaderDebugEnabled() { return mdo.shaderDebug == TestState.ENABLED; }
+	
+	public boolean isShaderEnabled() { return mdo.enabled == ShaderEnabledState.ENABLED; }
 
 }

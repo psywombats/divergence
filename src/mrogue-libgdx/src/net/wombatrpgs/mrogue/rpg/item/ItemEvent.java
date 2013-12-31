@@ -56,6 +56,9 @@ public class ItemEvent extends MapEvent {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
+		if (!MGlobal.graphics.isShaderEnabled() && !MGlobal.hero.inLoS(this)) {
+			return;
+		}
 		setX(getTileX() * parent.getTileWidth());
 		setY(getTileY() * parent.getTileHeight());
 		parent.getBatch().draw(item.getIcon().getGraphic(), x, y);

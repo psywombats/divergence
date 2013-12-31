@@ -66,6 +66,9 @@ public class MusicObject extends AudioObject {
 			if (this.elapsed == fadeTime) {
 				fadeTime = 0;
 			}
+		} else {
+			if (!coreMusic.isPlaying()) { coreMusic.play(); }
+			coreMusic.setVolume(targetVolume);
 		}
 	}
 
@@ -122,6 +125,7 @@ public class MusicObject extends AudioObject {
 	 */
 	@Override
 	protected void corePlay() {
+		this.targetVolume = mdo.volume;
 		if (!coreMusic.isPlaying()) {
 			coreMusic.play();
 		}
@@ -133,6 +137,7 @@ public class MusicObject extends AudioObject {
 	@Override
 	protected void coreStop() {
 		coreMusic.stop();
+		targetVolume = 0;
 	}
 
 	/**

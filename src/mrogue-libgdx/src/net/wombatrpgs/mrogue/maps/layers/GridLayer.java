@@ -7,6 +7,7 @@
 package net.wombatrpgs.mrogue.maps.layers;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.mrogue.core.MGlobal;
@@ -122,16 +123,31 @@ public class GridLayer extends Layer {
 		if (startY < 0) startY = 0;
 		if (endX > parent.getWidth()) endX = parent.getWidth();
 		if (endY > parent.getHeight()) endY = parent.getHeight();
+		boolean shaders = MGlobal.graphics.isShaderEnabled();
+		Color old = parent.getBatch().getColor().cpy();
+		Color trans = parent.getBatch().getColor().cpy();
+		trans.a = .5f;
 		parent.getBatch().begin();
 		for (int x = startX; x < endX; x += 1) {
 			for (int y = startY; y < endY; y += 1) {
 				float atX = parent.getTileWidth() * x;
 				float atY = parent.getTileHeight() * y;
 				if (tileData[y][x] != null) {
-					tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
+					if (shaders) {
+						tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
+					} else {
+						if (MGlobal.hero.inLoS(x, y)) {
+							tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
+						} else if (MGlobal.hero.seen(x, y)) {
+							parent.getBatch().setColor(trans);
+							tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
+							parent.getBatch().setColor(old);
+						}
+					}
 				}
 			}
 		}
 		parent.getBatch().end();
+		parent.getBatch().setColor(old);
 	}
 }

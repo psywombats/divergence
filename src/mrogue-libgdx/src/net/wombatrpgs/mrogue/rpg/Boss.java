@@ -65,7 +65,7 @@ public class Boss extends Enemy {
 		unit.setName(MGlobal.levelManager.getBossName());
 		seen = false;
 		
-		if (mdoHasProperty(mdo.effect)) {
+		if (mdoHasProperty(mdo.effect) && MGlobal.graphics.isShaderEnabled()) {
 			effect = EffectFactory.create(parent, mdo.effect);
 			assets.add(effect);
 		}
@@ -127,7 +127,9 @@ public class Boss extends Enemy {
 		if (fxAbil != null) {
 			fxAbil.fxSpawn();
 		}
-		parent.getScreen().addObject(effect);
+		if (MGlobal.graphics.isShaderEnabled()) {
+			parent.getScreen().addObject(effect);
+		}
 	}
 
 	/**
@@ -137,7 +139,9 @@ public class Boss extends Enemy {
 	@Override
 	public void onRemove(EventLayer layer) {
 		super.onRemove(layer);
-		MGlobal.levelManager.getScreen().removeObject(effect);
+		if (MGlobal.graphics.isShaderEnabled()) {
+			MGlobal.levelManager.getScreen().removeObject(effect);
+		}
 	}
 
 	/**
@@ -177,8 +181,7 @@ public class Boss extends Enemy {
 	 * Rave modeeee.
 	 */
 	public void onStasis() {
-		parent.getBGM().stop();
-		raveMusic.play();
+		MGlobal.screens.playMusic(raveMusic, true);
 		final Boss boss = this;
 		final TimerListener goTimer = new TimerListener() {
 			@Override public void onTimerZero(TimerObject source) {
@@ -227,12 +230,12 @@ public class Boss extends Enemy {
 		MGlobal.levelManager.getScreen().removeObject(gos);
 		MGlobal.stasis = false;
 		MGlobal.raveMode = false;
-		music.fadeIn(2f);
+		MGlobal.screens.playMusic(music, false);
 		if (!winScene.isRunning() && !winScene.hasExecuted()) {
 			winScene.run();
 			winScene.addListener(new FinishListener() {
 				@Override public void onFinish() {
-					music.stop();
+					MGlobal.screens.playMusic(null, false);
 					MGlobal.won2 = true;
 					MGlobal.screens.pop();
 					MGlobal.screens.push(new EndingScreen());

@@ -65,7 +65,7 @@ public class Ability extends Action implements Queueable, CommandListener {
 		targetCursor = new Cursor();
 		assets.add(targetCursor);
 		
-		if (MapThing.mdoHasProperty(mdo.fx)) {
+		if (MapThing.mdoHasProperty(mdo.fx) && MGlobal.graphics.isShaderEnabled()) {
 			fx = AbilFxFactory.createFX(mdo.fx, this);
 			assets.add(fx);
 		}
@@ -272,11 +272,13 @@ public class Ability extends Action implements Queueable, CommandListener {
 	 * Spawns a graphical representation of this ability.
 	 */
 	public void fxSpawn() {
-		if (fx == null) {
-			fx = AbilFxFactory.createFX(mdo.fx, this);
-			fx.postProcessing(MGlobal.assetManager, 0);
+		if (MGlobal.graphics.isShaderEnabled()) {
+			if (fx == null) {
+				fx = AbilFxFactory.createFX(mdo.fx, this);
+				fx.postProcessing(MGlobal.assetManager, 0);
+			}
+			fx.spawn();
 		}
-		fx.spawn();
 	}
 	
 	/**
@@ -383,7 +385,9 @@ public class Ability extends Action implements Queueable, CommandListener {
 			} else {
 				targets = new ArrayList<GameUnit>();
 				for (GameUnit enemy : actor.getUnit().getVisibleEnemies()) {
-					if (actor.distanceTo(enemy.getParent()) <= mdo.range) {
+					if (actor.euclideanTileDistanceTo(enemy.getParent()) <= mdo.range &&
+							actor != enemy.getParent() &&
+							actor.getUnit().getRelationTo(enemy).attackIfBored) {
 						targets.add(enemy);
 						break;
 					}

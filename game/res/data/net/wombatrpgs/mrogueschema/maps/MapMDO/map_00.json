@@ -9,7 +9,7 @@
 	"generator" : "generator_furnished",
 	"enemies" : "monstergen_default",
 	"items" : "itemgen_standard",
-	"goodItems" : "itemgen_loot",
+	"goodItems" : "itemgen_test",
 	"effect" : "effect_los",
 	"scene" : "None",
 	"floor" : "1",
