@@ -150,9 +150,10 @@ public class RGlobal {
 					RGlobal.window.getResolutionWidth(),
 					RGlobal.window.getResolutionHeight(), 
 					fullscreen);
-			// TODO: adjust for available resilutuons
+			// TODO: adjust for available resolutuons
+			reporter.inform("Available display modes:");
 			for (DisplayMode disp : Gdx.graphics.getDisplayModes()) {
-				System.out.println("w, h: " + disp.width +" , " + disp.height);
+				reporter.inform("w, h: " + disp.width +" , " + disp.height);
 			}
 			Gdx.graphics.setTitle(RGlobal.window.getTitle());
 			//Gdx.graphics.setVSync(true);

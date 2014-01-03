@@ -106,7 +106,7 @@ public class EffectOcclusion extends Effect {
 		allAnim.update(elapsed);
 		groundAnim.update(elapsed);
 		TrackerCam cam  = RGlobal.screens.peek().getCamera();
-		System.out.println(cam.position.x + " " + cam.position.y);
+		//System.out.println(cam.position.x + " " + cam.position.y);
 		groundShader.begin();
 		groundShader.setUniformf("u_scale", cam.zoom);
 		groundShader.setUniformi("u_visibility", 1);
