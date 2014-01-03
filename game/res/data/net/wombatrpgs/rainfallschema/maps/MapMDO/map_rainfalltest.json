@@ -4,5 +4,5 @@
 	"name" : "",
 	"description" : "",
 	"map" : "rainfalltest.tmx",
-	"effect" : "effect_rainfall"
+	"effect" : "None"
 }
