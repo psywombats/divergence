@@ -1,0 +1,18 @@
+{
+	"key" : "sceneset_paintings",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"charas" : "characters_zs2",
+	"scenes" : [
+		{
+			"file" : "leadin00.scene"
+		},
+		{
+			"file" : "leadin01.scene"
+		},
+		{
+			"file" : "leadin02.scene"
+		}
+	]
+}

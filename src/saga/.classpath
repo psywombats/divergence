@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="libs/gdx.jar" sourcepath="libs/gdx-sources.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/MGNSchema"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/MRogueSchema"/>
+	<classpathentry kind="lib" path="/MGNDBE/lib/jackson-core-2.0.4.jar" sourcepath="C:/Users/aking_2/Desktop/portable_executables/eclipse/workspace/jackson-core/src"/>
+	<classpathentry kind="lib" path="/MGNDBE/lib/jackson-databind-2.0.4.jar" sourcepath="C:/Users/aking_2/Desktop/portable_executables/eclipse/workspace/jackson-databind/src"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

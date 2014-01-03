@@ -1,0 +1,14 @@
+{
+	"key" : "ability_arrowshot",
+	"subfolder" : "",
+	"name" : "arrow shot",
+	"description" : " ",
+	"abilDesc" : "Attacks from a range",
+	"target" : "PROJECTILE",
+	"range" : 5.0,
+	"effect" : "effect_physical",
+	"icon" : "icon_arrow.png",
+	"energyCost" : 1200,
+	"mpCost" : 2,
+	"fx" : "None"
+}

@@ -1,0 +1,18 @@
+{
+	"key" : "sceneset_bossvoice",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"charas" : "characters_zs2",
+	"scenes" : [
+		{
+			"file" : "bossvoice00.scene"
+		},
+		{
+			"file" : "bossvoice01.scene"
+		},
+		{
+			"file" : "bossvoice02.scene"
+		}
+	]
+}

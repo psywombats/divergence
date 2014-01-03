@@ -1,0 +1,28 @@
+{
+	"key" : "enemy_giant",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "         ",
+	"appearance" : "4dir_giant",
+	"faction" : "ENEMIES",
+	"stats" : {
+		"mhp" : 45,
+		"hp" : 45,
+		"mmp" : 0,
+		"mp" : 0,
+		"speed" : 70,
+		"walkCost" : 1000,
+		"attackCost" : 1000,
+		"vision" : 3,
+		"dodge" : 1,
+		"dmgBase" : 12,
+		"dmgRange" : 5,
+		"armor" : 3,
+		"magBase" : 1,
+		"magRange" : 1,
+		"magArmor" : -1
+	},
+	"abilities" : [ ],
+	"intelligence" : "behavior_herostep",
+	"danger" : 1
+}

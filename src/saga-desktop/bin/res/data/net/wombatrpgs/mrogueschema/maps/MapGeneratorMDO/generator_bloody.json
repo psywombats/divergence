@@ -1,0 +1,34 @@
+{
+	"key" : "generator_bloody",
+	"subfolder" : "parttwo",
+	"name" : "",
+	"description" : " ",
+	"floorTiles" : {
+		"appearance" : "floor01.png"
+	},
+	"wallTiles" : "wall_woodish",
+	"ceilingTiles" : "ceil_classic",
+	"upstairTiles" : "stairs_marble_up",
+	"downstairTiles" : "stairs_marble_down",
+	"doors" : "doors_tall",
+	"generator" : "CELLULAR_INTERIOR",
+	"minRoomWidth" : 4,
+	"minRoomHeight" : 3,
+	"maxRoomWidth" : 7,
+	"maxRoomHeight" : 6,
+	"density" : 0.7,
+	"connectivity" : 0.9,
+	"decorators" : [
+		"decorset_bloodfloors",
+		"decorset_bloodfloors",
+		"decorset_bloodfloors",
+		"decorset_bloodwalls",
+		"decorset_bloodwalls",
+		"decorset_bloodwalls",
+		"decorset_bloodfloors",
+		"decorset_paintings"
+	],
+	"upDecorators" : [
+		"decorset_chairs"
+	]
+}

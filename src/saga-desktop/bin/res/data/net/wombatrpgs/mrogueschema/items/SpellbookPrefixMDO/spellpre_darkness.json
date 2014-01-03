@@ -1,0 +1,12 @@
+{
+	"key" : "spellpre_darkness",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"effectName" : "darkness",
+	"effectDesc" : "Deals large amounts of magic damage.",
+	"effect" : "effect_supermagic",
+	"cost" : 18.0,
+	"icon" : "icon_death.png",
+	"fx" : "abilfx_darkness"
+}

@@ -1,0 +1,31 @@
+{
+	"key" : "mod_magical",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "  ",
+	"danger" : 0,
+	"color" : {
+		"r" : 0.3,
+		"g" : 1.0,
+		"b" : 0.3,
+		"a" : 0.7
+	},
+	"abilities" : [ ],
+	"stats" : {
+		"mhp" : 0,
+		"hp" : 0,
+		"mmp" : 100,
+		"mp" : 0,
+		"speed" : 0,
+		"walkCost" : 0,
+		"attackCost" : 0,
+		"vision" : 0,
+		"dodge" : 0,
+		"dmgBase" : 0,
+		"dmgRange" : 0,
+		"armor" : 0,
+		"magBase" : 4,
+		"magRange" : 4,
+		"magArmor" : 5
+	}
+}

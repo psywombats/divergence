@@ -1,0 +1,11 @@
+{
+	"key" : "decorset_lights",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"decorators" : [
+		"decor_light1",
+		"decor_light2",
+		"decor_light3"
+	]
+}

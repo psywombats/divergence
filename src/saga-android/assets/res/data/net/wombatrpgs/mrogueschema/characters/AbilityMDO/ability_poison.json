@@ -1,0 +1,14 @@
+{
+	"key" : "ability_poison",
+	"subfolder" : "",
+	"name" : "poison",
+	"description" : "  ",
+	"abilDesc" : "Poisons a single enemy",
+	"target" : "MELEE",
+	"range" : 1.0,
+	"effect" : "effect_poison",
+	"icon" : "icon_poison.png",
+	"energyCost" : 1000,
+	"mpCost" : 2,
+	"fx" : "abilfx_gas"
+}

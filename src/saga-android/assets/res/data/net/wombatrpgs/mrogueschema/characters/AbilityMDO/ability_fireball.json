@@ -1,0 +1,14 @@
+{
+	"key" : "ability_fireball",
+	"subfolder" : "",
+	"name" : "fireball",
+	"description" : "    ",
+	"abilDesc" : "Inflicts fire damage on nearby enemies",
+	"target" : "BALL",
+	"range" : 5.0,
+	"effect" : "effect_magic",
+	"icon" : "icon_fireball.png",
+	"energyCost" : 1000,
+	"mpCost" : 30,
+	"fx" : "abilfx_flames"
+}

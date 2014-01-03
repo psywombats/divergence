@@ -1,0 +1,24 @@
+{
+	"key" : "map_04",
+	"subfolder" : "part2",
+	"name" : " ",
+	"description" : " Cozy",
+	"mapWidth" : 60,
+	"mapHeight" : 40,
+	"danger" : 4,
+	"generator" : "generator_cozy",
+	"enemies" : "monstergen_default",
+	"items" : "itemgen_standard",
+	"goodItems" : "itemgen_best",
+	"effect" : "effect_los",
+	"scene" : "None",
+	"floor" : "5",
+	"bgm" : "music_ambient",
+	"characters" : [ ],
+	"pathsUp" : [
+		"map_03"
+	],
+	"pathsDown" : [
+		"map_05"
+	]
+}

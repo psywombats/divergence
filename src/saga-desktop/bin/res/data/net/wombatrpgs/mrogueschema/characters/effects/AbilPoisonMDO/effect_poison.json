@@ -1,0 +1,10 @@
+{
+	"key" : "effect_poison",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"durationMin" : 4,
+	"durationMax" : 6,
+	"mult" : 0.25,
+	"base" : 1
+}

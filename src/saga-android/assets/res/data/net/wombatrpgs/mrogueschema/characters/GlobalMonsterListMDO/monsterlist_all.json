@@ -1,0 +1,942 @@
+{
+	"key" : "monsterlist_all",
+	"subfolder" : "",
+	"name" : "monsterlist_all.json",
+	"description" : "monsterlist_all.json",
+	"names" : [
+		{
+			"typeName" : "skeleton",
+			"archetype" : "enemy_skeleton"
+		},
+		{
+			"typeName" : "zombie",
+			"archetype" : "enemy_demon_male"
+		},
+		{
+			"typeName" : "wraith",
+			"archetype" : "enemy_ghost"
+		},
+		{
+			"typeName" : "ghost",
+			"archetype" : "enemy_ghost"
+		},
+		{
+			"typeName" : "spirit",
+			"archetype" : "enemy_ghost"
+		},
+		{
+			"typeName" : "shade",
+			"archetype" : "enemy_shadow"
+		},
+		{
+			"typeName" : "werewolf",
+			"archetype" : "enemy_dog"
+		},
+		{
+			"typeName" : "werebear",
+			"archetype" : "enemy_dog"
+		},
+		{
+			"typeName" : "lich",
+			"archetype" : "enemy_shadow"
+		},
+		{
+			"typeName" : "vampire",
+			"archetype" : "enemy_demon_male"
+		},
+		{
+			"typeName" : "ghoul",
+			"archetype" : "enemy_shadow"
+		},
+		{
+			"typeName" : "wight",
+			"archetype" : "enemy_shadow"
+		},
+		{
+			"typeName" : "goblin",
+			"archetype" : "enemy_lizardman"
+		},
+		{
+			"typeName" : "specter",
+			"archetype" : "enemy_ghost"
+		},
+		{
+			"typeName" : "floating eye",
+			"archetype" : "enemy_imp"
+		},
+		{
+			"typeName" : "eyeball",
+			"archetype" : "enemy_imp"
+		},
+		{
+			"typeName" : "heart",
+			"archetype" : "enemy_flame"
+		},
+		{
+			"typeName" : "slime",
+			"archetype" : "enemy_slime"
+		},
+		{
+			"typeName" : "jelly",
+			"archetype" : "enemy_slime"
+		},
+		{
+			"typeName" : "ooze",
+			"archetype" : "enemy_slime"
+		},
+		{
+			"typeName" : "pudding",
+			"archetype" : "enemy_slime"
+		},
+		{
+			"typeName" : "shadow",
+			"archetype" : "enemy_shadow"
+		},
+		{
+			"typeName" : "wolf",
+			"archetype" : "enemy_dog"
+		},
+		{
+			"typeName" : "chimera",
+			"archetype" : "enemy_crab"
+		},
+		{
+			"typeName" : "manticore",
+			"archetype" : "enemy_crab"
+		},
+		{
+			"typeName" : "wyrm",
+			"archetype" : "enemy_giant"
+		},
+		{
+			"typeName" : "gorgon",
+			"archetype" : "enemy_demon_female"
+		},
+		{
+			"typeName" : "harpy",
+			"archetype" : "enemy_demon_female"
+		},
+		{
+			"typeName" : "horror",
+			"archetype" : "enemy_wurm"
+		},
+		{
+			"typeName" : "titan",
+			"archetype" : "enemy_golem"
+		},
+		{
+			"typeName" : "giant",
+			"archetype" : "enemy_giant"
+		},
+		{
+			"typeName" : "beast",
+			"archetype" : "enemy_dog"
+		},
+		{
+			"typeName" : "elemental",
+			"archetype" : "enemy_flame"
+		},
+		{
+			"typeName" : "suit of armor",
+			"archetype" : "enemy_armored"
+		},
+		{
+			"typeName" : "rooster",
+			"archetype" : "enemy_reptile"
+		},
+		{
+			"typeName" : "cyclops",
+			"archetype" : "enemy_giant"
+		},
+		{
+			"typeName" : "hydra",
+			"archetype" : "enemy_reptile"
+		},
+		{
+			"typeName" : "banshee",
+			"archetype" : "enemy_ghost"
+		},
+		{
+			"typeName" : "troll",
+			"archetype" : "enemy_giant"
+		},
+		{
+			"typeName" : "ogre",
+			"archetype" : "enemy_giant"
+		},
+		{
+			"typeName" : "gryphon",
+			"archetype" : "enemy_dog"
+		},
+		{
+			"typeName" : "golem",
+			"archetype" : "enemy_golem"
+		},
+		{
+			"typeName" : "gargoyle",
+			"archetype" : "enemy_golem"
+		},
+		{
+			"typeName" : "incubus",
+			"archetype" : "enemy_demon_male"
+		},
+		{
+			"typeName" : "succubus",
+			"archetype" : "enemy_demon_female"
+		},
+		{
+			"typeName" : "mummy",
+			"archetype" : "enemy_demon_male"
+		},
+		{
+			"typeName" : "hound",
+			"archetype" : "enemy_dog"
+		},
+		{
+			"typeName" : "hellhound",
+			"archetype" : "enemy_dog"
+		},
+		{
+			"typeName" : "phantom",
+			"archetype" : "enemy_ghost"
+		},
+		{
+			"typeName" : "imp",
+			"archetype" : "enemy_imp"
+		},
+		{
+			"typeName" : "demon",
+			"archetype" : "enemy_imp"
+		},
+		{
+			"typeName" : "demon lord",
+			"archetype" : "enemy_human"
+		},
+		{
+			"typeName" : "cockatrise",
+			"archetype" : "enemy_reptile"
+		},
+		{
+			"typeName" : "lilith",
+			"archetype" : "enemy_demon_female"
+		},
+		{
+			"typeName" : "ghast",
+			"archetype" : "enemy_ghost"
+		},
+		{
+			"typeName" : "revenant",
+			"archetype" : "enemy_ghostknight"
+		},
+		{
+			"typeName" : "tortoise",
+			"archetype" : "enemy_turtle"
+		},
+		{
+			"typeName" : "mass",
+			"archetype" : "enemy_wurm"
+		},
+		{
+			"typeName" : "abomination",
+			"archetype" : "enemy_crab"
+		},
+		{
+			"typeName" : "mound",
+			"archetype" : "enemy_giant"
+		},
+		{
+			"typeName" : "horseman",
+			"archetype" : "enemy_dog"
+		},
+		{
+			"typeName" : "mimic",
+			"archetype" : "enemy_wurm"
+		},
+		{
+			"typeName" : "fish",
+			"archetype" : "enemy_reptile"
+		},
+		{
+			"typeName" : "human",
+			"archetype" : "enemy_human"
+		},
+		{
+			"typeName" : "centaur",
+			"archetype" : "enemy_human"
+		},
+		{
+			"typeName" : "half-human",
+			"archetype" : "enemy_demon_male"
+		},
+		{
+			"typeName" : "once-human",
+			"archetype" : "enemy_shadow"
+		},
+		{
+			"typeName" : "cobra",
+			"archetype" : "enemy_reptile"
+		},
+		{
+			"typeName" : "serpent",
+			"archetype" : "enemy_reptile"
+		},
+		{
+			"typeName" : "millipede",
+			"archetype" : "enemy_insect"
+		},
+		{
+			"typeName" : "centipede",
+			"archetype" : "enemy_insect"
+		},
+		{
+			"typeName" : "giant ant",
+			"archetype" : "enemy_insect"
+		},
+		{
+			"typeName" : "giant maggot",
+			"archetype" : "enemy_insect"
+		},
+		{
+			"typeName" : "beetle swarm",
+			"archetype" : "enemy_insect"
+		},
+		{
+			"typeName" : "mass of worms",
+			"archetype" : "enemy_wurm"
+		},
+		{
+			"typeName" : "rat",
+			"archetype" : "enemy_dog"
+		},
+		{
+			"typeName" : "rat king",
+			"archetype" : "enemy_dog"
+		},
+		{
+			"typeName" : "panther",
+			"archetype" : "enemy_dog"
+		},
+		{
+			"typeName" : "wildcat",
+			"archetype" : "enemy_dog"
+		},
+		{
+			"typeName" : "dog",
+			"archetype" : "enemy_dog"
+		},
+		{
+			"typeName" : "illusion",
+			"archetype" : "enemy_shadow"
+		},
+		{
+			"typeName" : "lion",
+			"archetype" : "enemy_dog"
+		},
+		{
+			"typeName" : "bat",
+			"archetype" : "enemy_imp"
+		},
+		{
+			"typeName" : "vampire bat",
+			"archetype" : "enemy_imp"
+		},
+		{
+			"typeName" : "wretch",
+			"archetype" : "enemy_demon_male"
+		},
+		{
+			"typeName" : "murderer",
+			"archetype" : "enemy_human"
+		},
+		{
+			"typeName" : "killer",
+			"archetype" : "enemy_human"
+		},
+		{
+			"typeName" : "thief",
+			"archetype" : "enemy_human"
+		},
+		{
+			"typeName" : "corpse",
+			"archetype" : "enemy_body"
+		},
+		{
+			"typeName" : "body",
+			"archetype" : "enemy_body"
+		},
+		{
+			"typeName" : "severed head",
+			"archetype" : "enemy_body"
+		},
+		{
+			"typeName" : "severed arm",
+			"archetype" : "enemy_body"
+		},
+		{
+			"typeName" : "sword",
+			"archetype" : "enemy_sword"
+		},
+		{
+			"typeName" : "axe",
+			"archetype" : "enemy_sword"
+		},
+		{
+			"typeName" : "statue",
+			"archetype" : "enemy_armored"
+		},
+		{
+			"typeName" : "ex-priest",
+			"archetype" : "enemy_demon_male"
+		},
+		{
+			"typeName" : "ex-monk",
+			"archetype" : "enemy_demon_male"
+		},
+		{
+			"typeName" : "ex-nun",
+			"archetype" : "enemy_demon_female"
+		},
+		{
+			"typeName" : "guardsman",
+			"archetype" : "enemy_human"
+		},
+		{
+			"typeName" : "midget",
+			"archetype" : "enemy_human"
+		},
+		{
+			"typeName" : "brute",
+			"archetype" : "enemy_demon_male"
+		},
+		{
+			"typeName" : "sorcerer",
+			"archetype" : "enemy_woman"
+		},
+		{
+			"typeName" : "siren",
+			"archetype" : "enemy_demon_female"
+		},
+		{
+			"typeName" : "woman",
+			"archetype" : "enemy_woman"
+		},
+		{
+			"typeName" : "seductress",
+			"archetype" : "enemy_woman"
+		},
+		{
+			"typeName" : "carnivorous plant",
+			"archetype" : "enemy_wurm"
+		},
+		{
+			"typeName" : "doppelganger",
+			"archetype" : "enemy_human"
+		},
+		{
+			"typeName" : "lamb",
+			"archetype" : "enemy_reptile"
+		},
+		{
+			"typeName" : "executioner",
+			"archetype" : "enemy_demon_male"
+		},
+		{
+			"typeName" : "doctor",
+			"archetype" : "enemy_demon_male"
+		},
+		{
+			"typeName" : "marionette",
+			"archetype" : "enemy_armored"
+		},
+		{
+			"typeName" : "doll",
+			"archetype" : "enemy_armored"
+		},
+		{
+			"typeName" : "puppet",
+			"archetype" : "enemy_armored"
+		},
+		{
+			"typeName" : "cultist",
+			"archetype" : "enemy_woman"
+		},
+		{
+			"typeName" : "mutant",
+			"archetype" : "enemy_giant"
+		},
+		{
+			"typeName" : "amoeba",
+			"archetype" : "enemy_slime"
+		}
+	],
+	"prefixes" : [
+		{
+			"modName" : "skeletal",
+			"modMDO" : "mod_light_armor"
+		},
+		{
+			"modName" : "shambling",
+			"modMDO" : "mod_slow"
+		},
+		{
+			"modName" : "shrieking",
+			"modMDO" : "mod_shrieks"
+		},
+		{
+			"modName" : "gelatinous",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "slender",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "worm-ridden",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "shriveled",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "ghostly",
+			"modMDO" : "mod_transparent"
+		},
+		{
+			"modName" : "incorporeal",
+			"modMDO" : "mod_transparent"
+		},
+		{
+			"modName" : "black",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "gray",
+			"modMDO" : "mod_transparent"
+		},
+		{
+			"modName" : "bloody",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "undead",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "whispering",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "shadowy",
+			"modMDO" : "mod_shadowy"
+		},
+		{
+			"modName" : "gibbering",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "rotting",
+			"modMDO" : "mod_acidspit"
+		},
+		{
+			"modName" : "decayed",
+			"modMDO" : "mod_slow"
+		},
+		{
+			"modName" : "disfigured",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "weeping",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "haunted",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "haunting",
+			"modMDO" : "mod_shrieks"
+		},
+		{
+			"modName" : "drowned",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "livid",
+			"modMDO" : "mod_fast_attack"
+		},
+		{
+			"modName" : "raw",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "tortured",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "dead",
+			"modMDO" : "mod_shadowy"
+		},
+		{
+			"modName" : "pale",
+			"modMDO" : "mod_transparent"
+		},
+		{
+			"modName" : "groovy",
+			"modMDO" : "mod_purple"
+		},
+		{
+			"modName" : "hungry",
+			"modMDO" : "mod_fast_move"
+		},
+		{
+			"modName" : "howling",
+			"modMDO" : "mod_shrieks"
+		},
+		{
+			"modName" : "illusory",
+			"modMDO" : "mod_transparent"
+		},
+		{
+			"modName" : "writhing",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "gun",
+			"modMDO" : "mod_ranger"
+		},
+		{
+			"modName" : "muscle",
+			"modMDO" : "mod_strong"
+		},
+		{
+			"modName" : "flesh",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "sword",
+			"modMDO" : "mod_strong"
+		},
+		{
+			"modName" : "fire",
+			"modMDO" : "mod_firespells"
+		},
+		{
+			"modName" : "stone",
+			"modMDO" : "mod_heavy_armor"
+		},
+		{
+			"modName" : "adamant",
+			"modMDO" : "mod_heavy_armor"
+		},
+		{
+			"modName" : "laughing",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "long",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "brittle",
+			"modMDO" : "mod_no_armor"
+		},
+		{
+			"modName" : "gilded",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "ethereal",
+			"modMDO" : "mod_transparent"
+		},
+		{
+			"modName" : "armored",
+			"modMDO" : "mod_heavy_armor"
+		},
+		{
+			"modName" : "oozing",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "flesh-eating",
+			"modMDO" : "mod_bites"
+		},
+		{
+			"modName" : "seven-eyed",
+			"modMDO" : "mod_good_sight"
+		},
+		{
+			"modName" : "blind",
+			"modMDO" : "mod_blind"
+		},
+		{
+			"modName" : "one-eyed",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "six-legged",
+			"modMDO" : "mod_fast_move"
+		},
+		{
+			"modName" : "twenty-legged",
+			"modMDO" : "mod_fast_move"
+		},
+		{
+			"modName" : "behooved",
+			"modMDO" : "mod_fast_move"
+		},
+		{
+			"modName" : "six-armed",
+			"modMDO" : "mod_fast_attack"
+		},
+		{
+			"modName" : "two-headed",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "seven-headed",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "mouse-sized",
+			"modMDO" : "mod_pathetic"
+		},
+		{
+			"modName" : "house-sized",
+			"modMDO" : "mod_collosal"
+		},
+		{
+			"modName" : "glass",
+			"modMDO" : "mod_no_armor"
+		},
+		{
+			"modName" : "iron",
+			"modMDO" : "mod_light_armor"
+		},
+		{
+			"modName" : "steel",
+			"modMDO" : "mod_heavy_armor"
+		},
+		{
+			"modName" : "charismatic",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "hypnotic",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "kindly",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "plaguebearing",
+			"modMDO" : "mod_poisonous"
+		},
+		{
+			"modName" : "beetle-covered",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "puss-covered",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "vomit-spewing",
+			"modMDO" : "mod_acidspit"
+		},
+		{
+			"modName" : "flea-ridden",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "maggot-ridden",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "half-dissolved",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "half-crushed",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "acid-spitting",
+			"modMDO" : "mod_acidspit"
+		},
+		{
+			"modName" : "raging",
+			"modMDO" : "mod_fast_attack"
+		},
+		{
+			"modName" : "sore-covered",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "dwarf",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "talking",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "living",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "breathing",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "vampiric",
+			"modMDO" : "mod_bites"
+		},
+		{
+			"modName" : "six-tongued",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "eight-mouthed",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "mouth-covered",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "eyeball-covered",
+			"modMDO" : "mod_good_sight"
+		},
+		{
+			"modName" : "arm-covered",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "electric",
+			"modMDO" : "mod_magical"
+		},
+		{
+			"modName" : "elderly",
+			"modMDO" : "mod_pathetic"
+		},
+		{
+			"modName" : "sword-wielding",
+			"modMDO" : "mod_strong"
+		},
+		{
+			"modName" : "axe-wielding",
+			"modMDO" : "mod_strong"
+		},
+		{
+			"modName" : "spell-casting",
+			"modMDO" : "mod_spellcaster"
+		},
+		{
+			"modName" : "muttering",
+			"modMDO" : "mod_spellcaster"
+		},
+		{
+			"modName" : "dog-sized",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "sleeping",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "death",
+			"modMDO" : "mod_darkaura"
+		},
+		{
+			"modName" : "darkness",
+			"modMDO" : "mod_darkaura"
+		},
+		{
+			"modName" : "magic",
+			"modMDO" : "mod_magical"
+		},
+		{
+			"modName" : "decapitated",
+			"modMDO" : "mod_mute"
+		},
+		{
+			"modName" : "hell",
+			"modMDO" : "mod_firespells"
+		},
+		{
+			"modName" : "dancing",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "legless",
+			"modMDO" : "mod_slow"
+		},
+		{
+			"modName" : "headless",
+			"modMDO" : "mod_mute"
+		},
+		{
+			"modName" : "mouthless",
+			"modMDO" : "mod_mute"
+		},
+		{
+			"modName" : "snake-nosed",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "flesh-woven",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "phantom",
+			"modMDO" : "mod_transparent"
+		},
+		{
+			"modName" : "ghost",
+			"modMDO" : "mod_transparent"
+		},
+		{
+			"modName" : "hooded",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "acid",
+			"modMDO" : "mod_acidspit"
+		},
+		{
+			"modName" : "bug-eyed",
+			"modMDO" : "mod_good_sight"
+		},
+		{
+			"modName" : "chitinous",
+			"modMDO" : "mod_light_armor"
+		},
+		{
+			"modName" : "tentacled",
+			"modMDO" : "mod_defensive"
+		},
+		{
+			"modName" : "winged",
+			"modMDO" : "mod_fast_move"
+		},
+		{
+			"modName" : "seductive",
+			"modMDO" : "mod_bites"
+		},
+		{
+			"modName" : "clockwork",
+			"modMDO" : "mod_light_armor"
+		},
+		{
+			"modName" : "emaciated",
+			"modMDO" : "mod_dummy"
+		},
+		{
+			"modName" : "sanguine",
+			"modMDO" : "mod_dummy"
+		}
+	]
+}

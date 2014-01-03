@@ -1,0 +1,8 @@
+{
+	"key" : "doors_blockbound",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"closeAnim" : "4dir_door_closed",
+	"openAnim" : "4dir_door_open"
+}

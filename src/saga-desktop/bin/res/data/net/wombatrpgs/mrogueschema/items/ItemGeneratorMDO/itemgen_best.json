@@ -1,0 +1,12 @@
+{
+	"key" : "itemgen_best",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "  ",
+	"items" : [
+		"genpotion_exotic",
+		"genspell_exotic",
+		"potion_bighp"
+	],
+	"firstTreasure" : 5
+}

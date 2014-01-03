@@ -1,0 +1,5 @@
+{
+	"name" : "MRogue database",
+	"data" : "data",
+	"schema" : "jar/MRogueSchema.jar"
+}

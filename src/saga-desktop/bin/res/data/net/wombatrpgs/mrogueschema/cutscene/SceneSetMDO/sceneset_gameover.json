@@ -1,0 +1,27 @@
+{
+	"key" : "sceneset_gameover",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"charas" : "characters_zs2",
+	"scenes" : [
+		{
+			"file" : "gameover00.scene"
+		},
+		{
+			"file" : "gameover01.scene"
+		},
+		{
+			"file" : "gameover02.scene"
+		},
+		{
+			"file" : "gameover03.scene"
+		},
+		{
+			"file" : "gameover04.scene"
+		},
+		{
+			"file" : "gameover05.scene"
+		}
+	]
+}

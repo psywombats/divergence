@@ -1,0 +1,25 @@
+{
+	"key" : "potionpre_mhp",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"prename" : "warrior's",
+	"predesc" : "Increases maximum HP.",
+	"stats" : {
+		"mhp" : 12,
+		"hp" : 0,
+		"mmp" : 0,
+		"mp" : 0,
+		"speed" : 0,
+		"walkCost" : 0,
+		"attackCost" : 0,
+		"vision" : 0,
+		"dodge" : 0,
+		"dmgBase" : 0,
+		"dmgRange" : 0,
+		"armor" : 0,
+		"magBase" : 0,
+		"magRange" : 0,
+		"magArmor" : 0
+	}
+}

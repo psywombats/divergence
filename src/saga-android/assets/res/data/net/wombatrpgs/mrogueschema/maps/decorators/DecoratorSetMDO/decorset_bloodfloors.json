@@ -1,0 +1,13 @@
+{
+	"key" : "decorset_bloodfloors",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"decorators" : [
+		"decor_blood1",
+		"decor_blood2",
+		"decor_blood3",
+		"decor_blood4",
+		"decor_blood5"
+	]
+}

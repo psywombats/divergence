@@ -1,0 +1,14 @@
+{
+	"key" : "itemgen_library",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"items" : [
+		"potion_hp",
+		"spellbook_blink",
+		"spellbook_teleport",
+		"genspell_exotic",
+		"genspell_standard"
+	],
+	"firstTreasure" : 10
+}

@@ -1,0 +1,28 @@
+{
+	"key" : "enemy_sword",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "   ",
+	"appearance" : "4dir_sword",
+	"faction" : "ENEMIES",
+	"stats" : {
+		"mhp" : 20,
+		"hp" : 20,
+		"mmp" : 20,
+		"mp" : 20,
+		"speed" : 100,
+		"walkCost" : 900,
+		"attackCost" : 800,
+		"vision" : 0,
+		"dodge" : 10,
+		"dmgBase" : 10,
+		"dmgRange" : 2,
+		"armor" : 5,
+		"magBase" : 1,
+		"magRange" : 1,
+		"magArmor" : 0
+	},
+	"abilities" : [ ],
+	"intelligence" : "behavior_herostep",
+	"danger" : 1
+}

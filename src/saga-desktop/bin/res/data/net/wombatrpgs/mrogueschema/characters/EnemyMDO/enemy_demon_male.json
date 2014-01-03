@@ -1,0 +1,28 @@
+{
+	"key" : "enemy_demon_male",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "      ",
+	"appearance" : "4dir_infected_man",
+	"faction" : "EXHUMANS",
+	"stats" : {
+		"mhp" : 50,
+		"hp" : 50,
+		"mmp" : 12,
+		"mp" : 12,
+		"speed" : 95,
+		"walkCost" : 1000,
+		"attackCost" : 1000,
+		"vision" : 4,
+		"dodge" : 10,
+		"dmgBase" : 10,
+		"dmgRange" : 3,
+		"armor" : 2,
+		"magBase" : 4,
+		"magRange" : 4,
+		"magArmor" : 1
+	},
+	"abilities" : [ ],
+	"intelligence" : "behavior_herostep",
+	"danger" : 3
+}

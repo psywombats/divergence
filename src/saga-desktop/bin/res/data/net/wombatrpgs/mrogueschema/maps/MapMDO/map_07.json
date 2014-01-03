@@ -1,0 +1,24 @@
+{
+	"key" : "map_07",
+	"subfolder" : "part2",
+	"name" : " ",
+	"description" : "  ",
+	"mapWidth" : 34,
+	"mapHeight" : 29,
+	"danger" : 7,
+	"generator" : "generator_furnished",
+	"enemies" : "monstergen_default",
+	"items" : "itemgen_standard",
+	"goodItems" : "itemgen_best",
+	"effect" : "effect_los",
+	"scene" : "None",
+	"floor" : "8",
+	"bgm" : "music_ambient",
+	"characters" : [ ],
+	"pathsUp" : [
+		"map_06"
+	],
+	"pathsDown" : [
+		"map_08"
+	]
+}

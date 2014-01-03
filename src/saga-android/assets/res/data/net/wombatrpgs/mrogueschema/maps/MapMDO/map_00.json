@@ -1,0 +1,22 @@
+{
+	"key" : "map_00",
+	"subfolder" : "part1",
+	"name" : "",
+	"description" : "                   ",
+	"mapWidth" : 35,
+	"mapHeight" : 30,
+	"danger" : 0,
+	"generator" : "generator_furnished",
+	"enemies" : "monstergen_default",
+	"items" : "itemgen_standard",
+	"goodItems" : "itemgen_test",
+	"effect" : "effect_los",
+	"scene" : "None",
+	"floor" : "1",
+	"bgm" : "music_ambient",
+	"characters" : [ ],
+	"pathsUp" : [ ],
+	"pathsDown" : [
+		"map_01"
+	]
+}

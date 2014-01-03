@@ -1,0 +1,24 @@
+{
+	"key" : "sceneset_library",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"charas" : "characters_zs2",
+	"scenes" : [
+		{
+			"file" : "library00.scene"
+		},
+		{
+			"file" : "library01.scene"
+		},
+		{
+			"file" : "library02.scene"
+		},
+		{
+			"file" : "library03.scene"
+		},
+		{
+			"file" : "library04.scene"
+		}
+	]
+}

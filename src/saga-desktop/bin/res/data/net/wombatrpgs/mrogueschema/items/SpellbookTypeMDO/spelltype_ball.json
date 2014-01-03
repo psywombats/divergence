@@ -1,0 +1,12 @@
+{
+	"key" : "spelltype_ball",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"typeName" : "ball",
+	"typeDesc" : "Affects all within 4 tiles.",
+	"target" : "BALL",
+	"range" : 4.0,
+	"costMult" : 3.0,
+	"icon" : "book_green.png"
+}

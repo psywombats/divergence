@@ -1,0 +1,16 @@
+{
+	"key" : "decor_wardrobe1",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "  ",
+	"chance" : 0.01,
+	"original" : "FLOOR",
+	"replacement" : "FLOOR",
+	"t" : {
+		"appearance" : "wardrobe_01.png"
+	},
+	"originalT" : "ANY_WALL",
+	"b" : {
+		"appearance" : "wardrobe_02.png"
+	}
+}

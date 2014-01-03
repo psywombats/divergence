@@ -1,0 +1,12 @@
+{
+	"key" : "spellpre_fire",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"effectName" : "fire",
+	"effectDesc" : "Inflicts magical damage.",
+	"effect" : "effect_magic",
+	"cost" : 4.5,
+	"icon" : "icon_fireball.png",
+	"fx" : "abilfx_flames"
+}

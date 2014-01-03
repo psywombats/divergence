@@ -1,0 +1,13 @@
+{
+	"key" : "narrator_default",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "  ",
+	"offsetX" : 16,
+	"offsetY" : 16,
+	"width" : 800,
+	"chars" : 80,
+	"lines" : 5,
+	"ttl" : 2.0,
+	"fadeout" : 1.0
+}

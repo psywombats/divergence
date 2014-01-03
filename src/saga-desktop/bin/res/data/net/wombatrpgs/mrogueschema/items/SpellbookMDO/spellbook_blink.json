@@ -1,0 +1,10 @@
+{
+	"key" : "spellbook_blink",
+	"subfolder" : "",
+	"name" : "a spellbook of blink",
+	"description" : "  ",
+	"gameDesc" : "Warps to a random nearby tile.",
+	"rarity" : 0.95,
+	"icon" : "book_pink.png",
+	"ability" : "ability_blink"
+}

@@ -1,0 +1,26 @@
+{
+	"key" : "hero_default",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "                  ",
+	"appearance" : "4dir_grandfather",
+	"faction" : "HERO",
+	"stats" : {
+		"mhp" : 200,
+		"hp" : 200,
+		"mmp" : 100,
+		"mp" : 100,
+		"speed" : 100,
+		"walkCost" : 1000,
+		"attackCost" : 1000,
+		"vision" : 6,
+		"dodge" : 10,
+		"dmgBase" : 6,
+		"dmgRange" : 10,
+		"armor" : 2,
+		"magBase" : 6,
+		"magRange" : 10,
+		"magArmor" : 0
+	},
+	"abilities" : [ ]
+}

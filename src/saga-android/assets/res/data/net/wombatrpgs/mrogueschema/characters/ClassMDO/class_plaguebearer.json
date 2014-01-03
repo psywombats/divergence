@@ -1,0 +1,29 @@
+{
+	"key" : "class_plaguebearer",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "  ",
+	"className" : "Plaguebearer",
+	"classDesc" : "You've been bitten. By something. This class is meant to simulate playing a member of the horde. Horrendous speed balanced by massive attack, low dodge balanced by huge HP.",
+	"appearance" : "4dir_grandfather_3",
+	"stats" : {
+		"mhp" : 200,
+		"hp" : 200,
+		"mmp" : 0,
+		"mp" : 0,
+		"speed" : -40,
+		"walkCost" : 0,
+		"attackCost" : 0,
+		"vision" : 0,
+		"dodge" : -5,
+		"dmgBase" : 0,
+		"dmgRange" : 10,
+		"armor" : 0,
+		"magBase" : 0,
+		"magRange" : 0,
+		"magArmor" : 0
+	},
+	"abilities" : [
+		"ability_bite"
+	]
+}

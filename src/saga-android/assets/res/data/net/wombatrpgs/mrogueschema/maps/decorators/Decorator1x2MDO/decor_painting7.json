@@ -1,0 +1,15 @@
+{
+	"key" : "decor_painting7",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "   ",
+	"chance" : 0.02,
+	"original" : "ANY_MIDDLE_WALL",
+	"replacement" : "OBSTACLE",
+	"t" : {
+		"appearance" : "frametop03.png"
+	},
+	"b" : {
+		"appearance" : "framebottom03.png"
+	}
+}

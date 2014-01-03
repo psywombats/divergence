@@ -1,0 +1,35 @@
+{
+	"key" : "decor_carpet1",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"chance" : 0.02,
+	"original" : "FLOOR",
+	"ul" : {
+		"appearance" : "carpettopleft01.png"
+	},
+	"u" : {
+		"appearance" : "carpettop01.png"
+	},
+	"ur" : {
+		"appearance" : "carpettopright01.png"
+	},
+	"r" : {
+		"appearance" : "carpetright01.png"
+	},
+	"c" : {
+		"appearance" : "carpetmiddle01.png"
+	},
+	"l" : {
+		"appearance" : "carpetleft01.png"
+	},
+	"br" : {
+		"appearance" : "carpetbottomright01.png"
+	},
+	"b" : {
+		"appearance" : "carpetbottom01.png"
+	},
+	"bl" : {
+		"appearance" : "carpetbottomleft01.png"
+	}
+}

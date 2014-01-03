@@ -1,0 +1,28 @@
+{
+	"key" : "enemy_imp",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "         ",
+	"appearance" : "4dir_imp",
+	"faction" : "ENEMIES",
+	"stats" : {
+		"mhp" : 25,
+		"hp" : 25,
+		"mmp" : 0,
+		"mp" : 0,
+		"speed" : 110,
+		"walkCost" : 1000,
+		"attackCost" : 1000,
+		"vision" : 6,
+		"dodge" : 20,
+		"dmgBase" : 2,
+		"dmgRange" : 3,
+		"armor" : 0,
+		"magBase" : 4,
+		"magRange" : 4,
+		"magArmor" : 0
+	},
+	"abilities" : [ ],
+	"intelligence" : "behavior_herostep",
+	"danger" : 0
+}

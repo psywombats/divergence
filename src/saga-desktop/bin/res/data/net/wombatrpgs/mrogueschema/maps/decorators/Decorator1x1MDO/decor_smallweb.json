@@ -1,0 +1,11 @@
+{
+	"key" : "decor_smallweb",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"chance" : 0.05,
+	"original" : "WALL_TOP",
+	"tile" : {
+		"appearance" : "spiderweb01.png"
+	}
+}

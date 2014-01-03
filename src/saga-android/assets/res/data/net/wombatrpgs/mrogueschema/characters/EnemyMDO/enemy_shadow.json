@@ -1,0 +1,28 @@
+{
+	"key" : "enemy_shadow",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "           ",
+	"appearance" : "4dir_shadow",
+	"faction" : "UNDEAD",
+	"stats" : {
+		"mhp" : 40,
+		"hp" : 40,
+		"mmp" : 20,
+		"mp" : 20,
+		"speed" : 80,
+		"walkCost" : 1000,
+		"attackCost" : 1000,
+		"vision" : 8,
+		"dodge" : 15,
+		"dmgBase" : 4,
+		"dmgRange" : 3,
+		"armor" : 0,
+		"magBase" : 4,
+		"magRange" : 5,
+		"magArmor" : 2
+	},
+	"abilities" : [ ],
+	"intelligence" : "behavior_herostep",
+	"danger" : 0
+}

@@ -1,0 +1,26 @@
+{
+	"key" : "decor_spiderweb1",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"chance" : 0.1,
+	"original" : "FLOOR",
+	"replacement" : "FLOOR",
+	"tl" : {
+		"appearance" : "spiderwebtopleft02.png"
+	},
+	"tlOriginal" : "WALL_TOP",
+	"tr" : {
+		"appearance" : "spiderwebtopright02.png"
+	},
+	"trOriginal" : "WALL_TRIGHT",
+	"bl" : {
+		"appearance" : "spiderwebbottomleft02.png"
+	},
+	"blOriginal" : "WALL_BOTTOM",
+	"br" : {
+		"appearance" : "spiderwebbottomright02.png"
+	},
+	"brOriginal" : "WALL_BRIGHT",
+	"shelfMode" : "NOT_SHELF"
+}

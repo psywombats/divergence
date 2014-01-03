@@ -1,0 +1,35 @@
+{
+	"key" : "generator_library",
+	"subfolder" : "partone",
+	"name" : "",
+	"description" : " ",
+	"floorTiles" : {
+		"appearance" : "floor01.png"
+	},
+	"wallTiles" : "wall_woodish",
+	"ceilingTiles" : "ceil_classic",
+	"upstairTiles" : "stairs_marble_up",
+	"downstairTiles" : "stairs_marble_down",
+	"doors" : "doors_tall",
+	"generator" : "CELLULAR_INTERIOR",
+	"minRoomWidth" : 5,
+	"minRoomHeight" : 4,
+	"maxRoomWidth" : 5,
+	"maxRoomHeight" : 4,
+	"density" : 0.0,
+	"connectivity" : 0.7,
+	"decorators" : [
+		"decorset_spiderwebs"
+	],
+	"upDecorators" : [
+		"decorset_bookshelves",
+		"decorset_bookshelves",
+		"decorset_bookshelves",
+		"decorset_bookshelves",
+		"decorset_chairs",
+		"decorset_tables",
+		"decorset_bookshelves",
+		"decorset_bookshelves",
+		"decorset_bookshelves"
+	]
+}

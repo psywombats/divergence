@@ -1,0 +1,12 @@
+{
+	"key" : "behavior_idle",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"intents" : [
+		{
+			"action" : "act_wander",
+			"priority" : 0
+		}
+	]
+}

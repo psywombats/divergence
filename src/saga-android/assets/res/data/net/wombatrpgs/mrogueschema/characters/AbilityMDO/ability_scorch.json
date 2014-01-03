@@ -1,0 +1,14 @@
+{
+	"key" : "ability_scorch",
+	"subfolder" : "",
+	"name" : "scorch",
+	"description" : "  ",
+	"abilDesc" : "Deals holy damage at a range",
+	"target" : "PROJECTILE",
+	"range" : 4.0,
+	"effect" : "effect_magic",
+	"icon" : "icon_holy.png",
+	"energyCost" : 1000,
+	"mpCost" : 10,
+	"fx" : "abilfx_holy"
+}

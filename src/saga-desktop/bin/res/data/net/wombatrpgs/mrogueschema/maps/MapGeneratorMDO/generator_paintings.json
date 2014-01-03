@@ -1,0 +1,36 @@
+{
+	"key" : "generator_paintings",
+	"subfolder" : "partthree",
+	"name" : "",
+	"description" : " ",
+	"floorTiles" : {
+		"appearance" : "floor01.png"
+	},
+	"wallTiles" : "wall_woodish",
+	"ceilingTiles" : "ceil_woodish",
+	"upstairTiles" : "stairs_marble_up",
+	"downstairTiles" : "stairs_marble_down",
+	"doors" : "doors_tall",
+	"generator" : "CLASSIC_ROOMS",
+	"minRoomWidth" : 5,
+	"minRoomHeight" : 4,
+	"maxRoomWidth" : 8,
+	"maxRoomHeight" : 6,
+	"density" : 0.2,
+	"connectivity" : 1.0,
+	"decorators" : [
+		"decorset_paintings",
+		"decorset_bloodfloors",
+		"decorset_bloodwalls",
+		"decorset_bigcarpets",
+		"decorset_paintings",
+		"decorset_paintings",
+		"decorset_paintings",
+		"decorset_paintings",
+		"decorset_paintings"
+	],
+	"upDecorators" : [
+		"decorset_tables",
+		"decorset_drawers"
+	]
+}

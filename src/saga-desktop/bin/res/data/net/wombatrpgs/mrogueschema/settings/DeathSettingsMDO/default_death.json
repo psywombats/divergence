@@ -1,0 +1,9 @@
+{
+	"key" : "default_death",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"scene" : "sceneset_gameover",
+	"immScene" : "scene_title01",
+	"bg" : "gameover.png"
+}

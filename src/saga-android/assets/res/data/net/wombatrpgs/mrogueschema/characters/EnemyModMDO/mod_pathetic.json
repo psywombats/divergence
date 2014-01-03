@@ -1,0 +1,31 @@
+{
+	"key" : "mod_pathetic",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"danger" : 0,
+	"color" : {
+		"r" : 1.0,
+		"g" : 1.0,
+		"b" : 1.0,
+		"a" : 1.0
+	},
+	"abilities" : [ ],
+	"stats" : {
+		"mhp" : -19,
+		"hp" : -19,
+		"mmp" : 0,
+		"mp" : 0,
+		"speed" : 0,
+		"walkCost" : 0,
+		"attackCost" : 0,
+		"vision" : 0,
+		"dodge" : 5,
+		"dmgBase" : -10,
+		"dmgRange" : 0,
+		"armor" : -5,
+		"magBase" : 0,
+		"magRange" : 0,
+		"magArmor" : 0
+	}
+}

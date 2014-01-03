@@ -1,0 +1,14 @@
+{
+	"key" : "decor_bloodwall1",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "  ",
+	"chance" : 0.0,
+	"original" : "WALL_BOTTOM",
+	"l" : {
+		"appearance" : "wallbloodlong01.png"
+	},
+	"r" : {
+		"appearance" : "wallbloodlong02.png"
+	}
+}

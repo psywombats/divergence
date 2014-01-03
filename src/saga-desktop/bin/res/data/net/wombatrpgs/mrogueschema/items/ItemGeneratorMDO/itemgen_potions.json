@@ -1,0 +1,10 @@
+{
+	"key" : "itemgen_potions",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"items" : [
+		"genpotion_exotic"
+	],
+	"firstTreasure" : 6
+}

@@ -1,0 +1,18 @@
+{
+	"key" : "anim_fog",
+	"subfolder" : "effects",
+	"name" : "",
+	"description" : "",
+	"file" : "fog1.png",
+	"mode" : "REPEAT",
+	"frameCount" : 1,
+	"frameWidth" : 320,
+	"frameHeight" : 240,
+	"offX" : 0,
+	"offY" : 0,
+	"animSpeed" : 1,
+	"hit1x" : 0,
+	"hit1y" : 0,
+	"hit2x" : 0,
+	"hit2y" : 0
+}

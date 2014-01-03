@@ -1,0 +1,12 @@
+{
+	"key" : "spelltype_touch",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"typeName" : "touch",
+	"typeDesc" : "Affects a single enemy.",
+	"target" : "MELEE",
+	"range" : 1.0,
+	"costMult" : 0.8,
+	"icon" : "book_green.png"
+}

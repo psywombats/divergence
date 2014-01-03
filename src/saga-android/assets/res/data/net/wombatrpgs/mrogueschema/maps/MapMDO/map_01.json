@@ -1,0 +1,26 @@
+{
+	"key" : "map_01",
+	"subfolder" : "part1",
+	"name" : "",
+	"description" : "                 ",
+	"mapWidth" : 35,
+	"mapHeight" : 30,
+	"danger" : 1,
+	"generator" : "generator_furnished",
+	"enemies" : "monstergen_default",
+	"items" : "itemgen_standard",
+	"goodItems" : "itemgen_loot",
+	"effect" : "effect_los",
+	"scene" : "sceneset_bossvoice",
+	"floor" : "2",
+	"bgm" : "music_ambient",
+	"characters" : [
+		"boss_default"
+	],
+	"pathsUp" : [
+		"map_00"
+	],
+	"pathsDown" : [
+		"map_02"
+	]
+}

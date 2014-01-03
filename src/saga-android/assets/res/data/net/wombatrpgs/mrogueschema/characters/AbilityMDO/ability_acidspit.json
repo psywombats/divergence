@@ -1,0 +1,14 @@
+{
+	"key" : "ability_acidspit",
+	"subfolder" : "",
+	"name" : "acid spit",
+	"description" : " ",
+	"abilDesc" : "spits acid",
+	"target" : "PROJECTILE",
+	"range" : 5.0,
+	"effect" : "effect_poison",
+	"icon" : "icon_poison.png",
+	"energyCost" : 1000,
+	"mpCost" : 5,
+	"fx" : "abilfx_gas"
+}

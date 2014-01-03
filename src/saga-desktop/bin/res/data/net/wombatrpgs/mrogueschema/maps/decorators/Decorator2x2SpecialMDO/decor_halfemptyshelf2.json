@@ -1,0 +1,26 @@
+{
+	"key" : "decor_halfemptyshelf2",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "     ",
+	"chance" : 0.01,
+	"original" : "FLOOR",
+	"replacement" : "OBSTACLE",
+	"tl" : {
+		"appearance" : "halffullbookshelfB02.png"
+	},
+	"tlOriginal" : "ANY_WALL",
+	"tr" : {
+		"appearance" : "halffullbookshelfB03.png"
+	},
+	"trOriginal" : "ANY_WALL",
+	"bl" : {
+		"appearance" : "halffullbookshelfB01.png"
+	},
+	"blOriginal" : "FLOOR",
+	"br" : {
+		"appearance" : "halffullbookshelfB04.png"
+	},
+	"brOriginal" : "FLOOR",
+	"shelfMode" : "IS_SHELF"
+}

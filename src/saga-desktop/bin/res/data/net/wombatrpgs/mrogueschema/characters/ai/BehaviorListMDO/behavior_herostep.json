@@ -1,0 +1,16 @@
+{
+	"key" : "behavior_herostep",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"intents" : [
+		{
+			"action" : "act_attackenemies",
+			"priority" : 100
+		},
+		{
+			"action" : "act_wander",
+			"priority" : 0
+		}
+	]
+}

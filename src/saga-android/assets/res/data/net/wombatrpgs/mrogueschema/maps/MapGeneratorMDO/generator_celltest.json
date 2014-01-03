@@ -1,0 +1,29 @@
+{
+	"key" : "generator_celltest",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "    ",
+	"floorTiles" : {
+		"appearance" : "floor01.png"
+	},
+	"wallTiles" : "wall_woodish",
+	"ceilingTiles" : "ceil_classic",
+	"upstairTiles" : "stairs_marble_up",
+	"downstairTiles" : "stairs_marble_down",
+	"doors" : "doors_tall",
+	"generator" : "CELLULAR_INTERIOR",
+	"minRoomWidth" : 5,
+	"minRoomHeight" : 4,
+	"maxRoomWidth" : 8,
+	"maxRoomHeight" : 6,
+	"density" : 1.0,
+	"connectivity" : 1.5,
+	"decorators" : [
+		"decorset_spiderwebs"
+	],
+	"upDecorators" : [
+		"decorset_bookshelves",
+		"decorset_bookshelves",
+		"decorset_bookshelves"
+	]
+}

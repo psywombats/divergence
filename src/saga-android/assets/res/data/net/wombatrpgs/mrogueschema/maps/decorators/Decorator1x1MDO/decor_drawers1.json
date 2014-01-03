@@ -1,0 +1,11 @@
+{
+	"key" : "decor_drawers1",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"chance" : 0.005,
+	"original" : "FLOOR",
+	"tile" : {
+		"appearance" : "chestofdraws03.png"
+	}
+}

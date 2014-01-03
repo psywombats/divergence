@@ -1,0 +1,14 @@
+{
+	"key" : "ability_leech",
+	"subfolder" : "",
+	"name" : "leech",
+	"description" : " ",
+	"abilDesc" : "Drains the health of all in range",
+	"target" : "BALL",
+	"range" : 1.5,
+	"effect" : "effect_vampirism_mag",
+	"icon" : "icon_blood.png",
+	"energyCost" : 1000,
+	"mpCost" : 20,
+	"fx" : "abilfx_darkness"
+}

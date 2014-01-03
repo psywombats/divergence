@@ -1,0 +1,28 @@
+{
+	"key" : "enemy_woman",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "           ",
+	"appearance" : "4dir_normal_woman",
+	"faction" : "HUMANS",
+	"stats" : {
+		"mhp" : 60,
+		"hp" : 60,
+		"mmp" : 60,
+		"mp" : 60,
+		"speed" : 90,
+		"walkCost" : 1000,
+		"attackCost" : 1000,
+		"vision" : 6,
+		"dodge" : 15,
+		"dmgBase" : 5,
+		"dmgRange" : 2,
+		"armor" : 0,
+		"magBase" : 10,
+		"magRange" : 2,
+		"magArmor" : 1
+	},
+	"abilities" : [ ],
+	"intelligence" : "behavior_herostep",
+	"danger" : 0
+}

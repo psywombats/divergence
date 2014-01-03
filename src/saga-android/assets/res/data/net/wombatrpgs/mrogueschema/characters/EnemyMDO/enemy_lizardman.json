@@ -1,0 +1,28 @@
+{
+	"key" : "enemy_lizardman",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "       ",
+	"appearance" : "4dir_lizard_general",
+	"faction" : "ENEMIES",
+	"stats" : {
+		"mhp" : 60,
+		"hp" : 60,
+		"mmp" : 0,
+		"mp" : 0,
+		"speed" : 95,
+		"walkCost" : 1000,
+		"attackCost" : 1000,
+		"vision" : 4,
+		"dodge" : 5,
+		"dmgBase" : 5,
+		"dmgRange" : 3,
+		"armor" : 2,
+		"magBase" : 3,
+		"magRange" : 3,
+		"magArmor" : 0
+	},
+	"abilities" : [ ],
+	"intelligence" : "behavior_herostep",
+	"danger" : 0
+}

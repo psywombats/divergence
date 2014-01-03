@@ -1,0 +1,12 @@
+{
+	"key" : "stairs_marble_down",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "  ",
+	"t" : {
+		"appearance" : "stairs01.png"
+	},
+	"b" : {
+		"appearance" : "stairs02.png"
+	}
+}

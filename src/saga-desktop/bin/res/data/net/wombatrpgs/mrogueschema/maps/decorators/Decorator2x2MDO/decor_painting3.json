@@ -1,0 +1,21 @@
+{
+	"key" : "decor_painting3",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "    ",
+	"chance" : 0.03,
+	"original" : "ANY_MIDDLE_WALL",
+	"replacement" : "ANY_MIDDLE_WALL",
+	"tl" : {
+		"appearance" : "framelefttop03.png"
+	},
+	"tr" : {
+		"appearance" : "framerighttop03.png"
+	},
+	"bl" : {
+		"appearance" : "frameleftbottom03.png"
+	},
+	"br" : {
+		"appearance" : "framerightbottom03.png"
+	}
+}

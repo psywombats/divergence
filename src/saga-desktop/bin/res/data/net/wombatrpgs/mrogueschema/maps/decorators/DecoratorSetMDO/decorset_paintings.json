@@ -1,0 +1,15 @@
+{
+	"key" : "decorset_paintings",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"decorators" : [
+		"decor_painting1",
+		"decor_painting2",
+		"decor_painting3",
+		"decor_painting4",
+		"decor_painting5",
+		"decor_painting6",
+		"decor_painting7"
+	]
+}

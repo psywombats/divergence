@@ -1,0 +1,24 @@
+{
+	"key" : "map_11",
+	"subfolder" : "part3",
+	"name" : "",
+	"description" : "      ",
+	"mapWidth" : 40,
+	"mapHeight" : 35,
+	"danger" : 9,
+	"generator" : "generator_surreal",
+	"enemies" : "monstergen_default",
+	"items" : "itemgen_all",
+	"goodItems" : "itemgen_best",
+	"effect" : "effect_los",
+	"scene" : "None",
+	"floor" : "12",
+	"bgm" : "music_portraits",
+	"characters" : [ ],
+	"pathsUp" : [
+		"map_10"
+	],
+	"pathsDown" : [
+		"map_12"
+	]
+}

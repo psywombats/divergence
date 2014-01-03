@@ -1,0 +1,13 @@
+{
+	"key" : "ability_lucifer",
+	"subfolder" : "boss",
+	"name" : "*l*u*c*i*f*e*r*",
+	"description" : "",
+	"target" : "BALL",
+	"range" : 5.0,
+	"effect" : "effect_magic",
+	"icon" : "None",
+	"energyCost" : 1000,
+	"mpCost" : 0,
+	"fx" : "abilfx_lucifer"
+}

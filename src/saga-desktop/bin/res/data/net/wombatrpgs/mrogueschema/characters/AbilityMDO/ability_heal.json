@@ -1,0 +1,14 @@
+{
+	"key" : "ability_heal",
+	"subfolder" : "",
+	"name" : "heal",
+	"description" : "     ",
+	"abilDesc" : "Heals 50 hp to the user",
+	"target" : "USER",
+	"range" : 0.0,
+	"effect" : "abil_heal50",
+	"icon" : "icon_hp.png",
+	"energyCost" : 1000,
+	"mpCost" : 20,
+	"fx" : "None"
+}

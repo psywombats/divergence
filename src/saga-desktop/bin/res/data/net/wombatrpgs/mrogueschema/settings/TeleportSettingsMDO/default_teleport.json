@@ -1,0 +1,8 @@
+{
+	"key" : "default_teleport",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "Engine gets this by name",
+	"pre" : "scene_pre",
+	"post" : "scene_post"
+}

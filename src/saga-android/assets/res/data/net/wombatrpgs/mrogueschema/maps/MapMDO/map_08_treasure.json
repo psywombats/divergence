@@ -1,0 +1,22 @@
+{
+	"key" : "map_08_treasure",
+	"subfolder" : "part3",
+	"name" : "",
+	"description" : "    ",
+	"mapWidth" : 20,
+	"mapHeight" : 20,
+	"danger" : 12,
+	"generator" : "generator_library",
+	"enemies" : "monstergen_treasure",
+	"items" : "itemgen_best2",
+	"goodItems" : "itemgen_best",
+	"effect" : "effect_los",
+	"scene" : "None",
+	"floor" : "9B",
+	"bgm" : "music_portraits",
+	"characters" : [ ],
+	"pathsUp" : [
+		"map_08"
+	],
+	"pathsDown" : [ ]
+}

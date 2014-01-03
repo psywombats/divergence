@@ -1,0 +1,14 @@
+{
+	"key" : "ability_distorttouch",
+	"subfolder" : "",
+	"name" : "warped touch",
+	"description" : "   ",
+	"abilDesc" : "Halve enemy health",
+	"target" : "MELEE",
+	"range" : 1.0,
+	"effect" : "effect_halvehp",
+	"icon" : "icon_distortion.png",
+	"energyCost" : 1000,
+	"mpCost" : 3,
+	"fx" : "abilfx_distort"
+}

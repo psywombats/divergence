@@ -1,0 +1,12 @@
+{
+	"key" : "decor_table6",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"chance" : 0.005,
+	"original" : "FLOOR",
+	"replacement" : "OBSTACLE",
+	"tile" : {
+		"appearance" : "table06.png"
+	}
+}

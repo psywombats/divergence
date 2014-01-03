@@ -1,0 +1,10 @@
+{
+	"key" : "effect_vampirism_phys",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"physMult" : 1.0,
+	"magMult" : 0.0,
+	"base" : 0,
+	"healMult" : 0.5
+}

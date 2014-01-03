@@ -1,0 +1,3 @@
+SYSTEM: HERO: Why can't I move?\nSECOND: HERO! Stand up! Stand up!\nHERO: ...goodbye.
+[tint 0 0 0 2.0]
+[wait 2]

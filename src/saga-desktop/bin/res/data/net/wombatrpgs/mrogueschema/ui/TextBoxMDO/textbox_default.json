@@ -1,0 +1,19 @@
+{
+	"key" : "textbox_default",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"anchor" : "OFFSET",
+	"image" : "blockbound_icy_chatbox.png",
+	"image2" : "blockbound_icy_chatbox_noname.png",
+	"graphicX" : 0,
+	"graphicY" : 384,
+	"x1" : 10,
+	"y1" : 52,
+	"x2" : 634,
+	"y2" : 88,
+	"nameX" : 10,
+	"nameY" : 20,
+	"typeSpeed" : 32,
+	"typeSfx" : "sound_click"
+}

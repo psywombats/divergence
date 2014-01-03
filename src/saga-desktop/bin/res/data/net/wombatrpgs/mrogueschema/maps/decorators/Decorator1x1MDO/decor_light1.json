@@ -1,0 +1,11 @@
+{
+	"key" : "decor_light1",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"chance" : 0.05,
+	"original" : "WALL_TOP",
+	"tile" : {
+		"appearance" : "light01.png"
+	}
+}

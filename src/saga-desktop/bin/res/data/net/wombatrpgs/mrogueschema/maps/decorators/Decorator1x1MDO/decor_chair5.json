@@ -1,0 +1,12 @@
+{
+	"key" : "decor_chair5",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "    ",
+	"chance" : 0.003,
+	"original" : "FLOOR",
+	"replacement" : "FLOOR",
+	"tile" : {
+		"appearance" : "chairred.png"
+	}
+}

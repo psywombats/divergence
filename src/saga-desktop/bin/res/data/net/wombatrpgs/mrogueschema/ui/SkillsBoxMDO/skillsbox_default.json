@@ -1,0 +1,14 @@
+{
+	"key" : "skillsbox_default",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "     ",
+	"font" : "font_c64mrogue_small",
+	"empty" : "icon_frame.png",
+	"anchor" : "ANCHOR",
+	"allOffX" : 256,
+	"allOffY" : 32,
+	"paddingX" : 64,
+	"textY" : 0,
+	"textX" : -16
+}

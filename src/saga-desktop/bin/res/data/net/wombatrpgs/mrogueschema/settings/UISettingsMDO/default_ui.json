@@ -1,0 +1,15 @@
+{
+	"key" : "default_ui",
+	"subfolder" : "",
+	"name" : " ",
+	"description" : " MGNE looks for this MDO by key ",
+	"font" : "font_c64mrogue",
+	"box" : "textbox_insert",
+	"hud" : "hud_default",
+	"skills" : "skillsbox_default",
+	"icons" : "iconset_default",
+	"narrator" : "narrator_default",
+	"inventory" : "inventory_default",
+	"prompt" : "prompt_exit",
+	"cursor" : "anim_cursor"
+}

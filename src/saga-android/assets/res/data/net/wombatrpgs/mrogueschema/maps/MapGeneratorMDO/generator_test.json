@@ -1,0 +1,23 @@
+{
+	"key" : "generator_test",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "   ",
+	"floorTiles" : {
+		"appearance" : "floor01.png"
+	},
+	"wallTiles" : "wall_woodish",
+	"ceilingTiles" : "ceil_woodish",
+	"upstairTiles" : "stairs_marble_up",
+	"downstairTiles" : "stairs_marble_down",
+	"doors" : "doors_blockbound",
+	"generator" : "TEST",
+	"minRoomWidth" : 5,
+	"minRoomHeight" : 4,
+	"maxRoomWidth" : 10,
+	"maxRoomHeight" : 8,
+	"density" : 0.3,
+	"connectivity" : 1.0,
+	"decorators" : [ ],
+	"upDecorators" : [ ]
+}

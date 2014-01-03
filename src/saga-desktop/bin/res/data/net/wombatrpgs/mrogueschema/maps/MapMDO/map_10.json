@@ -1,0 +1,24 @@
+{
+	"key" : "map_10",
+	"subfolder" : "part3",
+	"name" : "",
+	"description" : "      ",
+	"mapWidth" : 50,
+	"mapHeight" : 50,
+	"danger" : 10,
+	"generator" : "generator_paintings",
+	"enemies" : "monstergen_default",
+	"items" : "itemgen_all",
+	"goodItems" : "itemgen_best",
+	"effect" : "effect_los",
+	"scene" : "sceneset_paintings",
+	"floor" : "11",
+	"bgm" : "music_slaughterhouse",
+	"characters" : [ ],
+	"pathsUp" : [
+		"map_09"
+	],
+	"pathsDown" : [
+		"map_11"
+	]
+}

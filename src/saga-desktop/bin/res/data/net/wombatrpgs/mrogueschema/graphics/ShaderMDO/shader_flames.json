@@ -1,0 +1,8 @@
+{
+	"key" : "shader_flames",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "   ",
+	"vertexFile" : "flames.vert",
+	"fragmentFile" : "flames.frag"
+}

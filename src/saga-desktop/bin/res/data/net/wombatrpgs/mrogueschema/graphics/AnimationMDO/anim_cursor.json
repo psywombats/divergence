@@ -1,0 +1,19 @@
+{
+	"key" : "anim_cursor",
+	"subfolder" : "ui",
+	"name" : "",
+	"description" : "   ",
+	"file" : "cursor.png",
+	"mode" : "REPEAT",
+	"frameCount" : 1,
+	"frameWidth" : 48,
+	"frameHeight" : 48,
+	"offX" : 0,
+	"offY" : 0,
+	"animSpeed" : 1,
+	"hit1x" : 0,
+	"hit1y" : 0,
+	"hit2x" : 0,
+	"hit2y" : 0,
+	"attackBoxes" : [ ]
+}

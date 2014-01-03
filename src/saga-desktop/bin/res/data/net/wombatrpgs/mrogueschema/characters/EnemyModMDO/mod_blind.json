@@ -1,0 +1,31 @@
+{
+	"key" : "mod_blind",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"danger" : 0,
+	"color" : {
+		"r" : 1.0,
+		"g" : 1.0,
+		"b" : 1.0,
+		"a" : 1.0
+	},
+	"abilities" : [ ],
+	"stats" : {
+		"mhp" : 0,
+		"hp" : 0,
+		"mmp" : 0,
+		"mp" : 0,
+		"speed" : 0,
+		"walkCost" : 0,
+		"attackCost" : 0,
+		"vision" : -4,
+		"dodge" : 0,
+		"dmgBase" : 0,
+		"dmgRange" : 0,
+		"armor" : 0,
+		"magBase" : 0,
+		"magRange" : 0,
+		"magArmor" : 0
+	}
+}

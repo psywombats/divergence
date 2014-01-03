@@ -1,0 +1,28 @@
+{
+	"key" : "enemy_skeleton",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "           ",
+	"appearance" : "4dir_skeleton",
+	"faction" : "UNDEAD",
+	"stats" : {
+		"mhp" : 20,
+		"hp" : 20,
+		"mmp" : 0,
+		"mp" : 0,
+		"speed" : 90,
+		"walkCost" : 1000,
+		"attackCost" : 1000,
+		"vision" : 4,
+		"dodge" : 0,
+		"dmgBase" : 7,
+		"dmgRange" : 3,
+		"armor" : 6,
+		"magBase" : 1,
+		"magRange" : 2,
+		"magArmor" : 4
+	},
+	"abilities" : [ ],
+	"intelligence" : "behavior_herostep",
+	"danger" : 0
+}

@@ -1,0 +1,34 @@
+{
+	"key" : "generator_graphicstest",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "    ",
+	"floorTiles" : {
+		"appearance" : "floor01.png"
+	},
+	"wallTiles" : "wall_woodish",
+	"ceilingTiles" : "ceil_woodish",
+	"upstairTiles" : "stairs_marble_up",
+	"downstairTiles" : "stairs_marble_down",
+	"doors" : "doors_blockbound",
+	"generator" : "CLASSIC_ROOMS",
+	"minRoomWidth" : 3,
+	"minRoomHeight" : 2,
+	"maxRoomWidth" : 4,
+	"maxRoomHeight" : 4,
+	"density" : 0.2,
+	"connectivity" : 1.0,
+	"decorators" : [
+		"decorset_paintings",
+		"decorset_bloodwalls",
+		"decorset_bloodfloors",
+		"decorset_bigcarpets",
+		"decor_window",
+		"decorset_lights",
+		"decorset_spiderwebs"
+	],
+	"upDecorators" : [
+		"decorset_tables",
+		"decorset_drawers"
+	]
+}

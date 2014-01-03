@@ -1,0 +1,10 @@
+{
+	"key" : "abilfx_test",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "   ",
+	"duration" : 2.0,
+	"tracking" : "STATIONARY",
+	"z" : "ABOVE",
+	"graphic" : "sphere.png"
+}

@@ -1,0 +1,30 @@
+{
+	"key" : "wall_woodish",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"b" : {
+		"appearance" : "Wall01.png"
+	},
+	"t" : {
+		"appearance" : "Wall02.png"
+	},
+	"bm" : {
+		"appearance" : "Wallcenterbottom.png"
+	},
+	"tm" : {
+		"appearance" : "Wallcentertop.png"
+	},
+	"br" : {
+		"appearance" : "Wallright01.png"
+	},
+	"tr" : {
+		"appearance" : "Wallright02.png"
+	},
+	"bl" : {
+		"appearance" : "Wallleft01.png"
+	},
+	"tl" : {
+		"appearance" : "Wallleft02.png"
+	}
+}

@@ -1,0 +1,25 @@
+{
+	"key" : "potionpre_walk",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"prename" : "scout's",
+	"predesc" : "Increases the speed of walking.",
+	"stats" : {
+		"mhp" : 0,
+		"hp" : 0,
+		"mmp" : 0,
+		"mp" : 0,
+		"speed" : 0,
+		"walkCost" : -80,
+		"attackCost" : 0,
+		"vision" : 0,
+		"dodge" : 0,
+		"dmgBase" : 0,
+		"dmgRange" : 0,
+		"armor" : 0,
+		"magBase" : 0,
+		"magRange" : 0,
+		"magArmor" : 0
+	}
+}

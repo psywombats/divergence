@@ -1,0 +1,14 @@
+{
+	"key" : "ability_light",
+	"subfolder" : "",
+	"name" : "light",
+	"description" : "",
+	"abilDesc" : "Deals holy damage to all in range",
+	"target" : "BALL",
+	"range" : 3.0,
+	"effect" : "effect_magic",
+	"icon" : "icon_holy.png",
+	"energyCost" : 1000,
+	"mpCost" : 4,
+	"fx" : "abilfx_holy"
+}

@@ -1,0 +1,22 @@
+{
+	"key" : "map_02_treasure",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "    ",
+	"mapWidth" : 20,
+	"mapHeight" : 18,
+	"danger" : 5,
+	"generator" : "generator_cozy",
+	"enemies" : "monstergen_treasure",
+	"items" : "itemgen_potions",
+	"goodItems" : "itemgen_all",
+	"effect" : "effect_los",
+	"scene" : "None",
+	"floor" : "3B",
+	"bgm" : "music_libraries",
+	"characters" : [ ],
+	"pathsUp" : [
+		"map_02"
+	],
+	"pathsDown" : [ ]
+}

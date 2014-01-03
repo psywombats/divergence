@@ -1,0 +1,15 @@
+{
+	"key" : "sceneset_bossfight",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"charas" : "characters_zs2",
+	"scenes" : [
+		{
+			"file" : "bossfight00.scene"
+		},
+		{
+			"file" : "bossfight01.scene"
+		}
+	]
+}

@@ -1,0 +1,14 @@
+{
+	"key" : "ability_darkaura",
+	"subfolder" : "enemy",
+	"name" : "dark aura",
+	"description" : " ",
+	"abilDesc" : "dark aura",
+	"target" : "BALL",
+	"range" : 1.5,
+	"effect" : "effect_supermagic",
+	"icon" : "icon_death.png",
+	"energyCost" : 1000,
+	"mpCost" : 12,
+	"fx" : "abilfx_darkness"
+}

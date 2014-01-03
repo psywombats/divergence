@@ -1,0 +1,8 @@
+{
+	"key" : "game_speed",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"framerate" : 60,
+	"delay" : 0.1
+}

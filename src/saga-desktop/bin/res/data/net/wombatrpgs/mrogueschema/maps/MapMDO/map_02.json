@@ -1,0 +1,25 @@
+{
+	"key" : "map_02",
+	"subfolder" : "part1",
+	"name" : "   ",
+	"description" : "Library        ",
+	"mapWidth" : 50,
+	"mapHeight" : 50,
+	"danger" : 2,
+	"generator" : "generator_library",
+	"enemies" : "monstergen_default",
+	"items" : "itemgen_library",
+	"goodItems" : "itemgen_loot",
+	"effect" : "effect_los",
+	"scene" : "sceneset_library",
+	"floor" : "3",
+	"bgm" : "music_libraries",
+	"characters" : [ ],
+	"pathsUp" : [
+		"map_01"
+	],
+	"pathsDown" : [
+		"map_03",
+		"map_02_treasure"
+	]
+}

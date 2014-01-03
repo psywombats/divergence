@@ -1,0 +1,18 @@
+{
+	"key" : "itemgen_test",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "  ",
+	"items" : [
+		"genspell_standard",
+		"genspell_exotic",
+		"potion_hp",
+		"potion_mp",
+		"genpotion_exotic",
+		"genpotion_standard",
+		"spellbook_teleport",
+		"spellbook_blink",
+		"potion_bighp"
+	],
+	"firstTreasure" : 40
+}

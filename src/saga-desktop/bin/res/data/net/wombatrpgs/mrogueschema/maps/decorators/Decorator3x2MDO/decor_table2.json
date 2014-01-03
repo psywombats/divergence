@@ -1,0 +1,27 @@
+{
+	"key" : "decor_table2",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "  ",
+	"chance" : 0.007,
+	"original" : "FLOOR",
+	"replacement" : "OBSTACLE",
+	"ul" : {
+		"appearance" : "tableE02.png"
+	},
+	"u" : {
+		"appearance" : "tableE03.png"
+	},
+	"ur" : {
+		"appearance" : "tableE06.png"
+	},
+	"br" : {
+		"appearance" : "tableE05.png"
+	},
+	"b" : {
+		"appearance" : "tableE04.png"
+	},
+	"bl" : {
+		"appearance" : "tableE01.png"
+	}
+}

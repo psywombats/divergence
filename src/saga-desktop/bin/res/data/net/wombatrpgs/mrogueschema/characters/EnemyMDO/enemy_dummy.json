@@ -1,0 +1,28 @@
+{
+	"key" : "enemy_dummy",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "     ",
+	"appearance" : "4dir_ghost",
+	"faction" : "ENEMIES",
+	"stats" : {
+		"mhp" : 70,
+		"hp" : 70,
+		"mmp" : 0,
+		"mp" : 0,
+		"speed" : 90,
+		"walkCost" : 1000,
+		"attackCost" : 1000,
+		"vision" : 4,
+		"dodge" : 0,
+		"dmgBase" : 5,
+		"dmgRange" : 3,
+		"armor" : 0,
+		"magBase" : 0,
+		"magRange" : 0,
+		"magArmor" : 0
+	},
+	"abilities" : [ ],
+	"intelligence" : "behavior_herostep",
+	"danger" : 0
+}

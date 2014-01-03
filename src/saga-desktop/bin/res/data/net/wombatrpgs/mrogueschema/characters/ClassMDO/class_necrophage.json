@@ -1,0 +1,31 @@
+{
+	"key" : "class_necrophage",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "    ",
+	"className" : "Necrophage",
+	"classDesc" : "You feed on the undead. Close proximity with unlife grants control over vampirism and other dark magic, as well as improved speed. Beware the Necrophage's poor health and armor.",
+	"appearance" : "4dir_grandfather_3",
+	"stats" : {
+		"mhp" : 0,
+		"hp" : 0,
+		"mmp" : 50,
+		"mp" : 50,
+		"speed" : -15,
+		"walkCost" : 0,
+		"attackCost" : 0,
+		"vision" : 0,
+		"dodge" : 3,
+		"dmgBase" : 0,
+		"dmgRange" : 0,
+		"armor" : -3,
+		"magBase" : 7,
+		"magRange" : 4,
+		"magArmor" : 2
+	},
+	"abilities" : [
+		"ability_poison",
+		"ability_curse",
+		"ability_leech"
+	]
+}

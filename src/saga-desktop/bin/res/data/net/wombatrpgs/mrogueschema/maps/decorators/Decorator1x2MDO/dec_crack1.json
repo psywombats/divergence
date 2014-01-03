@@ -1,0 +1,14 @@
+{
+	"key" : "dec_crack1",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"chance" : 0.02,
+	"original" : "ANY_MIDDLE_WALL",
+	"t" : {
+		"appearance" : "cracktop01.png"
+	},
+	"b" : {
+		"appearance" : "crackbottom01.png"
+	}
+}

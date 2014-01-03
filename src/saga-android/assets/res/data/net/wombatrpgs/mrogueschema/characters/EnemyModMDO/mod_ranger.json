@@ -1,0 +1,33 @@
+{
+	"key" : "mod_ranger",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"danger" : 2,
+	"color" : {
+		"r" : 0.2,
+		"g" : 0.2,
+		"b" : 1.0,
+		"a" : 0.8
+	},
+	"abilities" : [
+		"ability_arrowshot"
+	],
+	"stats" : {
+		"mhp" : 0,
+		"hp" : 0,
+		"mmp" : 40,
+		"mp" : 40,
+		"speed" : 0,
+		"walkCost" : 0,
+		"attackCost" : 0,
+		"vision" : 0,
+		"dodge" : 0,
+		"dmgBase" : 0,
+		"dmgRange" : 0,
+		"armor" : 0,
+		"magBase" : 0,
+		"magRange" : 0,
+		"magArmor" : 0
+	}
+}

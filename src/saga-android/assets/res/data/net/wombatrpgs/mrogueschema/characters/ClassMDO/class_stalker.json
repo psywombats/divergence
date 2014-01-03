@@ -1,0 +1,29 @@
+{
+	"key" : "class_stalker",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "    ",
+	"className" : "Stalker",
+	"classDesc" : "An augur of ill fortune. Stalkers specialize in quick work with high speed and damage output, but must rely on evasion when faced with multiple enemies.",
+	"appearance" : "4dir_freelancer_red",
+	"stats" : {
+		"mhp" : 0,
+		"hp" : 0,
+		"mmp" : -15,
+		"mp" : -15,
+		"speed" : 20,
+		"walkCost" : 0,
+		"attackCost" : 0,
+		"vision" : 0,
+		"dodge" : 25,
+		"dmgBase" : 5,
+		"dmgRange" : 3,
+		"armor" : -1,
+		"magBase" : 3,
+		"magRange" : 0,
+		"magArmor" : 0
+	},
+	"abilities" : [
+		"ability_blink"
+	]
+}

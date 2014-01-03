@@ -1,0 +1,27 @@
+{
+	"key" : "genpotion_exotic",
+	"subfolder" : "",
+	"name" : "ignored",
+	"description" : "  ",
+	"gameDesc" : "ignored",
+	"rarity" : 0.0,
+	"icon" : "potion_yellow.png",
+	"prefixes" : [
+		"potionpre_strength",
+		"potionpre_defense",
+		"potionpre_armor",
+		"potionpre_magic",
+		"potionpre_mhp",
+		"potionpre_speed",
+		"potionpre_walk",
+		"potionpre_dmgrange",
+		"potionpre_badwizard"
+	],
+	"types" : [
+		"potiontype_standard",
+		"potiontype_dizzy",
+		"potiontype_boost",
+		"potiontype_extreme",
+		"potiontype_weak"
+	]
+}

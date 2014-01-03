@@ -1,0 +1,30 @@
+{
+	"key" : "sceneset_first",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"charas" : "characters_zs2",
+	"scenes" : [
+		{
+			"file" : "first00.scene"
+		},
+		{
+			"file" : "first01.scene"
+		},
+		{
+			"file" : "first02.scene"
+		},
+		{
+			"file" : "first03.scene"
+		},
+		{
+			"file" : "first04.scene"
+		},
+		{
+			"file" : "first05.scene"
+		},
+		{
+			"file" : "first06.scene"
+		}
+	]
+}

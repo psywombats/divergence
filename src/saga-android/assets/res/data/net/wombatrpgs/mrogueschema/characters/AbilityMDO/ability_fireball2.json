@@ -1,0 +1,14 @@
+{
+	"key" : "ability_fireball2",
+	"subfolder" : "",
+	"name" : "fireball",
+	"description" : "    ",
+	"abilDesc" : "MAKE THEM PAY",
+	"target" : "USER",
+	"range" : 5.0,
+	"effect" : "effect_bane",
+	"icon" : "icon_fireball.png",
+	"energyCost" : 1000,
+	"mpCost" : 15,
+	"fx" : "abilfx_flames"
+}

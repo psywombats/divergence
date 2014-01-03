@@ -1,0 +1,12 @@
+{
+	"key" : "spellpre_distortion",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"effectName" : "distortion",
+	"effectDesc" : "Halves health.",
+	"effect" : "effect_halvehp",
+	"cost" : 12.0,
+	"icon" : "icon_distortion.png",
+	"fx" : "abilfx_distort"
+}

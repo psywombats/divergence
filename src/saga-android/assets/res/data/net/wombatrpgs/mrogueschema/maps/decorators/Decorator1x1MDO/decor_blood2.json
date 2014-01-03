@@ -1,0 +1,11 @@
+{
+	"key" : "decor_blood2",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"chance" : 0.01,
+	"original" : "FLOOR",
+	"tile" : {
+		"appearance" : "floor03.png"
+	}
+}

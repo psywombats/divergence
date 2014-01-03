@@ -1,0 +1,28 @@
+{
+	"key" : "enemy_insect",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "          ",
+	"appearance" : "4dir_dragonfly",
+	"faction" : "ANIMALS",
+	"stats" : {
+		"mhp" : 22,
+		"hp" : 22,
+		"mmp" : 0,
+		"mp" : 0,
+		"speed" : 135,
+		"walkCost" : 1000,
+		"attackCost" : 1000,
+		"vision" : 4,
+		"dodge" : 30,
+		"dmgBase" : 4,
+		"dmgRange" : 3,
+		"armor" : 4,
+		"magBase" : 2,
+		"magRange" : 2,
+		"magArmor" : 0
+	},
+	"abilities" : [ ],
+	"intelligence" : "behavior_herostep",
+	"danger" : 0
+}

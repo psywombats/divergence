@@ -1,0 +1,12 @@
+{
+	"key" : "spelltype_aura",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"typeName" : "aura",
+	"typeDesc" : "Affects all within melee range.",
+	"target" : "BALL",
+	"range" : 1.5,
+	"costMult" : 2.0,
+	"icon" : "book_green.png"
+}

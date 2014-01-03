@@ -1,0 +1,15 @@
+{
+	"key" : "ceil_woodish",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "   ",
+	"t" : {
+		"appearance" : "black.png"
+	},
+	"m" : {
+		"appearance" : "Wall04.png"
+	},
+	"b" : {
+		"appearance" : "Wall03.png"
+	}
+}

@@ -1,0 +1,14 @@
+{
+	"key" : "decorset_tables",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "  ",
+	"decorators" : [
+		"decor_table3",
+		"decor_table4",
+		"decor_table5",
+		"decor_table6",
+		"decor_table1",
+		"decor_table2"
+	]
+}

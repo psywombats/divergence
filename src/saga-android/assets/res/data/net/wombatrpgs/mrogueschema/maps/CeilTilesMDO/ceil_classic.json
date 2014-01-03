@@ -1,0 +1,15 @@
+{
+	"key" : "ceil_classic",
+	"subfolder" : "",
+	"name" : "",
+	"description" : " ",
+	"t" : {
+		"appearance" : "stonesquare.png"
+	},
+	"m" : {
+		"appearance" : "stonesquare.png"
+	},
+	"b" : {
+		"appearance" : "stonesquare.png"
+	}
+}

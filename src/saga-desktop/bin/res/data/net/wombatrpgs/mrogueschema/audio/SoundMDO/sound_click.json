@@ -1,0 +1,9 @@
+{
+	"key" : "sound_click",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"file" : "click.wav",
+	"volume" : 100,
+	"repeats" : "PLAY_ONCE"
+}

@@ -1,0 +1,11 @@
+{
+	"key" : "decorset_drawers",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"decorators" : [
+		"decor_wardrobe1",
+		"decor_wardrobe2",
+		"decor_wardrobe3"
+	]
+}

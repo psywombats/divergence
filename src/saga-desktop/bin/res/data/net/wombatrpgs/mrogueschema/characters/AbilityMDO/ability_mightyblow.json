@@ -1,0 +1,14 @@
+{
+	"key" : "ability_mightyblow",
+	"subfolder" : "",
+	"name" : "mighty blow",
+	"description" : "   ",
+	"abilDesc" : "Slow attack, deals heavy damage",
+	"target" : "MELEE",
+	"range" : 1.0,
+	"effect" : "effect_superphysical",
+	"icon" : "icon_twoswords.png",
+	"energyCost" : 2000,
+	"mpCost" : 3,
+	"fx" : "None"
+}
