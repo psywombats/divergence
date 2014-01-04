@@ -121,7 +121,7 @@ public abstract class AbilFX extends MapEvent implements Disposable {
 
 	/**
 	 * @see net.wombatrpgs.mrogue.maps.MapThing#onRemovedFromMap
-	 * (net.wombatrpgs.mrogue.maps.Level)
+	 * (net.net.wombatrpgs.mrogue.maps.Level)
 	 */
 	@Override
 	public void onRemovedFromMap(Level map) {

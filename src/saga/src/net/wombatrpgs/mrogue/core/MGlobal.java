@@ -28,6 +28,7 @@ import net.wombatrpgs.mrogue.rpg.Hero;
 import net.wombatrpgs.mrogue.scenes.SceneData;
 import net.wombatrpgs.mrogue.screen.ScreenStack;
 import net.wombatrpgs.mrogue.screen.WindowSettings;
+import net.wombatrpgs.mrogue.screen.instances.GameScreen;
 import net.wombatrpgs.mrogue.screen.instances.TitleScreen;
 import net.wombatrpgs.mrogue.ui.UISettings;
 import net.wombatrpgs.mrogueschema.settings.GraphicsSettingsMDO;
@@ -166,7 +167,7 @@ public class MGlobal {
 					MGlobal.window.getResolutionWidth(),
 					MGlobal.window.getResolutionHeight(), 
 					fullscreen);
-			MGlobal.screens.push(new TitleScreen());
+			MGlobal.screens.push(new GameScreen());
 			Gdx.graphics.setTitle(MGlobal.window.getTitle());
 			//Gdx.graphics.setVSync(true);
 			Gdx.input.setInputProcessor(MGlobal.keymap);

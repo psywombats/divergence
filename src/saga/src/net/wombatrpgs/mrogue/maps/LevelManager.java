@@ -15,7 +15,7 @@ import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogue.scenes.TeleportManager;
 import net.wombatrpgs.mrogue.screen.Screen;
 import net.wombatrpgs.mrogueschema.cutscene.data.SceneParentMDO;
-import net.wombatrpgs.mrogueschema.maps.MapMDO;
+import net.wombatrpgs.mrogueschema.maps.GeneratedMapMDO;
 import net.wombatrpgs.mrogueschema.settings.TeleportSettingsMDO;
 
 /**
@@ -98,8 +98,8 @@ public class LevelManager {
 				MGlobal.screens.peek().getTint().g = 1;
 				MGlobal.screens.peek().getTint().b = 1;
 			}
-			MapMDO mapMDO = MGlobal.data.getEntryFor(mapID, MapMDO.class);
-			Level map = new Level(mapMDO, screen);
+			GeneratedMapMDO mapMDO = MGlobal.data.getEntryFor(mapID, GeneratedMapMDO.class);
+			Level map = new GeneratedLevel(mapMDO, screen);
 			long startTime = System.currentTimeMillis();
 			map.queueRequiredAssets(MGlobal.assetManager);
 			for (int pass = 0; MGlobal.assetManager.getProgress() < 1; pass++) {

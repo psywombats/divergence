@@ -17,6 +17,7 @@ import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Loc;
 import net.wombatrpgs.mrogue.maps.events.Cursor;
 import net.wombatrpgs.mrogue.rpg.Boss;
+import net.wombatrpgs.mrogue.rpg.Hero;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogue.screen.Screen;
 import net.wombatrpgs.mrogueschema.io.data.InputCommand;
@@ -83,8 +84,13 @@ public class GameScreen extends Screen {
 		addObject(MGlobal.ui.getSkills());
 		addObject(MGlobal.ui.getInventory());
 		
+		// all this stuff is crap
+		MGlobal.hero = new Hero(MGlobal.levelManager.getActive());
+		assets.add(MGlobal.hero);
+		
 		// will be called later
-		//init();
+		// normally
+		init();
 	}
 	
 	/**

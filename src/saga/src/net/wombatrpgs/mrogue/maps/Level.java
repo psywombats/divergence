@@ -1,6 +1,6 @@
 /**
  *  Level.java
- *  Created on Nov 12, 2012 6:08:39 AM for project rainfall-libgdx
+ *  Created on Jan 3, 2014 8:02:39 PM for project saga
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
@@ -35,33 +35,28 @@ import net.wombatrpgs.mrogueschema.audio.MusicMDO;
 import net.wombatrpgs.mrogueschema.characters.data.CharacterMDO;
 import net.wombatrpgs.mrogueschema.items.ItemGeneratorMDO;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
-import net.wombatrpgs.mrogueschema.maps.MapMDO;
 import net.wombatrpgs.mrogueschema.maps.MonsterGeneratorMDO;
+import net.wombatrpgs.mrogueschema.maps.data.MapMDO;
 
 /**
- * A Level is comprised of a .tmx tiled map background and a bunch of events
- * that populate it. I can hear you already, "IT'S CALLED A MAP." No need to 
- * conflict with the data structure. Anyway this thing is a wrapper around Tiled
- * with a few RPG-specific functions built in, like rendering its layers in
- * order so that the player's sprite can appear say above the ground but below a
- * cloud or other upper chip object.
- * 
- * MR note: This is no longer linked to a .tmx file!! This is a strange thing.
- * Instead, it uses a generator to generate itself. This means there will be a
- * whole mess of variables in here related to tile properties and bullshit. This
- * is mitigated by having the old layer handle most of themselves. In 99% of
- * cases though, all layers but 1 gridlayer (the map layout) and 1 event layer
- * (everything on it) will be empty.
- * Also note that there is only one z layer for objects.
+ * Superclass of both generated and loaded levels. It should probably have most
+ * of the getters/setters used by pretty much everything. The old doc for
+ * generated vs loaded levels is in those subclasses. In saga this thing should
+ * be responsible for having tile/event layers, while the events themselves
+ * should be on those layers. Mostly the functions here should be searches for
+ * events across layers, passability checks, and turn management. Note that
+ * turn management might be a bit weird as this whole thing is based on a
+ * variable number of steps per turn, even if that's always 1 in an RPG, or
+ * an infinitesmal amount in a rainfall-like ARPG.
  */
-public class Level extends ScreenObject implements Turnable {
+public abstract class Level extends ScreenObject implements Turnable {
 	
 	public static final int TILE_WIDTH = 32;
 	public static final int TILE_HEIGHT = 32;
 	
 	protected MapMDO mdo;
 	protected Screen screen;
-
+	
 	protected EventLayer eventLayer;
 	protected List<GridLayer> gridLayers;
 	
@@ -77,23 +72,22 @@ public class Level extends ScreenObject implements Turnable {
 	protected float moveTime;
 	
 	protected Map<String, Loc> teleLocations; // string ID to incoming location
+	protected SceneParser scene;
 	
-	// MR mappy stuff
-	protected int mapWidth, mapHeight;
 	protected MapGenerator mapGen;
 	protected ItemGenerator itemGen, lootGen;
 	protected MonsterGenerator monGen;
-	protected SceneParser scene;
+	protected int mapWidth, mapHeight;
 	
 	/**
-	 * Generates a level from the supplied level data.
-	 * @param 	mdo				The data to make level from
-	 * @param	screen			The screen we render to
+	 * Sets up a level, both generated and loaded stuff here.
+	 * @param	mdo				The data to generate/load from
+	 * @param	screen			The screen to associate with
 	 */
 	public Level(MapMDO mdo, Screen screen) {
 		super(0);
-		this.screen = screen;
 		this.mdo = mdo;
+		this.screen = screen;
 		
 		// list init
 		gridLayers = new ArrayList<GridLayer>();
@@ -106,6 +100,10 @@ public class Level extends ScreenObject implements Turnable {
 		if (MapThing.mdoHasProperty(mdo.effect)) {
 			effect = EffectFactory.create(this, mdo.effect);
 			assets.add(effect);
+		}
+		if (MapThing.mdoHasProperty(mdo.scene)) {
+			scene = MGlobal.levelManager.getCutscene(mdo.scene);
+			assets.add(scene);
 		}
 		if (MapThing.mdoHasProperty(mdo.enemies)) {
 			monGen = new MonsterGenerator(this,
@@ -123,10 +121,6 @@ public class Level extends ScreenObject implements Turnable {
 			assets.add(lootGen);
 		} else if (itemGen != null) {
 			lootGen = itemGen;
-		}
-		if (MapThing.mdoHasProperty(mdo.scene)) {
-			scene = MGlobal.levelManager.getCutscene(mdo.scene);
-			assets.add(scene);
 		}
 		if (MapThing.mdoHasProperty(mdo.bgm)) {
 			bgm = new MusicObject(MGlobal.data.getEntryFor(mdo.bgm, MusicMDO.class));
@@ -179,15 +173,6 @@ public class Level extends ScreenObject implements Turnable {
 	/** @return The time remaining in the current move update, in s */
 	public float getMoveTimeLeft() { return moveTime; }
 	
-	/** @return The thing in charge of making monsters for us */
-	public MonsterGenerator getMonsterGenerator() { return monGen; }
-	
-	/** @reutrn The thing in charge of making items for us */
-	public ItemGenerator getItemGenerator() { return itemGen; }
-	
-	/** @reutrn The thing in charge of making good items for us */
-	public ItemGenerator getLootGenerator() { return lootGen; }
-	
 	/** @return The time since the move started, in s */
 	public float getMoveTimeElapsed() { return MGlobal.constants.getDelay() - moveTime; }
 	
@@ -196,6 +181,15 @@ public class Level extends ScreenObject implements Turnable {
 	
 	/** @return All the characters currently on this map */
 	public List<CharacterEvent> getCharacters() { return eventLayer.getCharacters(); }
+	
+	/** @return The thing in charge of making monsters for us */
+	public MonsterGenerator getMonsterGenerator() { return monGen; }
+	
+	/** @reutrn The thing in charge of making items for us */
+	public ItemGenerator getItemGenerator() { return itemGen; }
+	
+	/** @reutrn The thing in charge of making good items for us */
+	public ItemGenerator getLootGenerator() { return lootGen; }
 	
 	/** @return The key to this map's mdo */
 	public String getKey() { return mdo.key; }
@@ -220,7 +214,7 @@ public class Level extends ScreenObject implements Turnable {
 	
 	/** @return The UI floor of this level */
 	public String getFloor() { return mdo.floor; }
-
+	
 	/**
 	 * @see net.wombatrpgs.mrogue.graphics.Renderable#render(
 	 * com.badlogic.gdx.graphics.OrthographicCamera)

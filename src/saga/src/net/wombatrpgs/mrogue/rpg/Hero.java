@@ -76,7 +76,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 
 	/**
 	 * @see net.wombatrpgs.mrogue.maps.MapThing#onAddedToMap
-	 * (net.wombatrpgs.mrogue.maps.Level)
+	 * (net.net.wombatrpgs.mrogue.maps.Level)
 	 */
 	@Override
 	public void onAddedToMap(Level map) {
