@@ -170,7 +170,7 @@ public class EventLayer extends Layer {
 				break;
 			} else {
 				next.onTurn();
-				next.act();
+				// TODO: action system
 			}
 		}
 	}

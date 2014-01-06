@@ -15,12 +15,8 @@ import com.badlogic.gdx.graphics.Color;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.core.Turnable;
-import net.wombatrpgs.mrogue.rpg.abil.Ability;
 import net.wombatrpgs.mrogue.rpg.ai.Allegiance;
-import net.wombatrpgs.mrogue.rpg.item.Inventory;
-import net.wombatrpgs.mrogue.rpg.item.Item;
 import net.wombatrpgs.mrogue.ui.Narrator;
-import net.wombatrpgs.mrogueschema.characters.AbilityMDO;
 import net.wombatrpgs.mrogueschema.characters.data.CharacterMDO;
 import net.wombatrpgs.mrogueschema.characters.data.Relation;
 
@@ -47,8 +43,6 @@ public class GameUnit implements Turnable, Queueable {
 	protected Stats baseStats;
 	protected Stats currentStats;
 	protected Allegiance allegiance;
-	protected Inventory inventory;
-	protected List<Ability> abilities;
 	
 	/**
 	 * Creates a new character from data.
@@ -64,15 +58,7 @@ public class GameUnit implements Turnable, Queueable {
 		baseStats = new Stats(mdo.stats);
 		currentStats = new Stats(mdo.stats);
 		allegiance = new Allegiance(this, mdo.faction);
-		inventory = new Inventory(this);
 		turnChildren.add(allegiance);
-		
-		abilities = new ArrayList<Ability>();
-		for (String mdoKey : mdo.abilities) {
-			abilities.add(new Ability(parent,
-					MGlobal.data.getEntryFor(mdoKey, AbilityMDO.class)));
-		}
-		assets.addAll(abilities);
 		
 		if (out == null) out = MGlobal.ui.getNarrator();
 	}
@@ -94,12 +80,6 @@ public class GameUnit implements Turnable, Queueable {
 	
 	/** @return True if this unit has fallen in mortal combat */
 	public boolean isDead() { return getStats().hp <= 0; }
-	
-	/** @return The list of all the abilities this unit can perform */
-	public List<Ability> getAbilities() { return abilities; }
-	
-	/** @return The inventory of all carried items */
-	public Inventory getInventory() { return inventory; }
 	
 	/** @param turn The new turn child to register */
 	public void addTurnChild(Turnable turn) { turnChildren.add(turn); }
@@ -266,30 +246,6 @@ public class GameUnit implements Turnable, Queueable {
 	}
 	
 	/**
-	 * Checks status effects, MP cost, etc to see if a unit is in a position to
-	 * use an ability. Doesn't worry about if there are any targets in range, 
-	 * or other logical things. Just hard rules.
-	 * @param	abil			The ability to check
-	 * @return					True if the ability can be used, false otherwise
-	 */
-	public boolean canUse(Ability abil) {
-		return currentStats.mp >= abil.getMP();
-	}
-	
-	/**
-	 * A callback for when this unit uses any sort of ability. The ability
-	 * itself will call this method. MP costs and the like should be deducted
-	 * here.
-	 * @param	abil			The ability that was used
-	 */
-	public void onAbilityUsed(Ability abil) {
-		currentStats.mp -= abil.getMP();
-		if (visible(this)) {
-			out.msg(getName() + " used " + abil.getName() + ".");
-		}
-	}
-	
-	/**
 	 * Makes sure our health is above 0. If it isn't, kill self.
 	 */
 	public void ensureAlive() {
@@ -307,9 +263,6 @@ public class GameUnit implements Turnable, Queueable {
 		parent.getParent().removeEvent(parent);
 		if (visible(this)) {
 			out.msg(getName() + " was killed.");
-		}
-		for (Item i : inventory.getItems()) {
-			parent.getParent().addEvent(i.getEvent(), parent.getTileX(), parent.getTileY());
 		}
 	}
 	
@@ -370,17 +323,6 @@ public class GameUnit implements Turnable, Queueable {
 			}
 		}
 		return units;
-	}
-	
-	/**
-	 * Called by items when we pick them up. Add to inventory or something.
-	 * @param	item			The item to pick up
-	 */
-	public void pickUp(Item item) {
-		if (visible(this)) {
-			out.msg(getName() + " picked up " + item.getName() + ".");
-		}
-		inventory.addItem(item);
 	}
 	
 	/**

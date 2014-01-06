@@ -30,10 +30,6 @@ public class CommandSpeakAll extends SceneCommand {
 		super(parent, line);
 		String speakerKey = line.substring(0, line.indexOf(':'));
 		String allText = line.substring(line.indexOf(':') + 2);
-		if (parent.getCharas() != null) {
-			speakerKey = parent.getCharas().substitute(speakerKey);
-			allText = parent.getCharas().substitute(allText);
-		}
 		subCommands = new ArrayList<CommandSpeak>();
 		while (allText.length() > 0) {
 			List<String> lines = new ArrayList<String>();

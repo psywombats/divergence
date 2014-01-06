@@ -20,8 +20,6 @@ import net.wombatrpgs.mrogue.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.events.MapEvent;
 import net.wombatrpgs.mrogue.maps.layers.EventLayer;
-import net.wombatrpgs.mrogue.rpg.act.ActWait;
-import net.wombatrpgs.mrogue.rpg.act.Action;
 import net.wombatrpgs.mrogue.rpg.travel.Step;
 import net.wombatrpgs.mrogue.rpg.travel.StepBump;
 import net.wombatrpgs.mrogue.rpg.travel.StepMove;
@@ -38,7 +36,6 @@ import net.wombatrpgs.mrogueschema.maps.data.OrthoDir;
  */
 public class CharacterEvent extends MapEvent implements Turnable {
 	
-	protected static Action defaultWait;
 	protected static RayCheck rayLoS;
 	
 	protected CharacterMDO mdo;
@@ -59,7 +56,6 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	 */
 	public CharacterEvent(CharacterMDO mdo, Level parent) {
 		super(parent);
-		// TODO: CharacterEvent
 		init(mdo);
 	}
 	
@@ -422,25 +418,6 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	public void flash(Color c, float duration) {
 		appearance.flash(c, duration);
 	}
-
-	/**
-	 * Called every time we make a turn. Default selects an action then waits
-	 * for its duration.
-	 */
-	public void act() {
-		actAndWait(selectAction());
-	}
-	
-	/**
-	 * Performs an action and then waits an appropriate time for recovery, based
-	 * on the act's cost. Should be called from act, almost always.
-	 * @param	act				The action to perform
-	 */
-	public void actAndWait(Action act) {
-		act.setActor(this);
-		act.act();
-		ticksRemaining += act.getCost();
-	}
 	
 	/**
 	 * Checks to see if a given location is in the hero's line of sight.
@@ -537,15 +514,6 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	public boolean inLoS(MapEvent event) {
 		return inLoS(event.getTileX(), event.getTileY());
 	}
-	
-	/**
-	 * Automated way of selecting an action to use each turn. Enemies should
-	 * follow some AI, heroes will never call this, etc.
-	 * @return					The action to use
-	 */
-	public Action selectAction() {
-		return defaultWait;
-	}
 
 	/**
 	 * Creates this event from an MDO.
@@ -568,9 +536,6 @@ public class CharacterEvent extends MapEvent implements Turnable {
 		turnChildren.add(unit);
 		ticksRemaining = 0;
 		
-		if (defaultWait == null) {
-			defaultWait = new ActWait();
-		}
 		if (rayLoS == null) {
 			rayLoS = new RayCheck() {
 				@Override public boolean bad(int tileX, int tileY) {

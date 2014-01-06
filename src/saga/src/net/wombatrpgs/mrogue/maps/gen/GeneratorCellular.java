@@ -11,9 +11,7 @@ import java.util.List;
 
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Tile;
-import net.wombatrpgs.mrogue.maps.events.DoorEvent;
 import net.wombatrpgs.mrogue.maps.gen.dec.Decorator;
-import net.wombatrpgs.mrogue.rpg.Enemy;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
 import net.wombatrpgs.mrogueschema.maps.data.OrthoDir;
 import net.wombatrpgs.mrogueschema.maps.data.TileType;
@@ -194,50 +192,50 @@ public class GeneratorCellular extends MapGenerator {
 				}
 			}
 		}
-		for (int x = 0; x < cellsW; x += 1) {
-			if (cellStartX[x+1] - cellStartX[x] <= 2) {
-				for (int atX = cellStartX[x]-1; atX <= cellStartX[x]+1; atX++) {
-					int mid = cellStartX[x];
-					if (atX == mid) continue;
-					for (int atY = 1; atY < h-1; atY += 1) {
-						if (isPassable(types, atX, atY)) {
-							if (atX < mid && !isPassable(types, atX+2, atY)) {
-								DoorEvent door = genDoor();
-								parent.addEvent(door, atX, atY);
-								door.setFacing(OrthoDir.WEST);
-							}
-							if (atX > mid && !isPassable(types, atX-2, atY)) {
-								DoorEvent door = genDoor();
-								parent.addEvent(door, atX, atY);
-								door.setFacing(OrthoDir.EAST);
-							}
-						}
-					}
-				}
-			}
-		}
-		for (int y = 0; y < cellsH; y += 1) {
-			if (cellStartY[y+1] - cellStartY[y] <= 4) {
-				for (int atY = cellStartY[y]-1; atY <= cellStartY[y]+1; atY++) {
-					int mid = cellStartY[y];
-					if (atY == mid) continue;
-					for (int atX = 1; atX < w-1; atX += 1) {
-						if (isPassable(types, atX, atY)) {
-							if (atY < mid && !isPassable(types, atX, atY+2)) {
-								DoorEvent door = genDoor();
-								parent.addEvent(door, atX, atY-2);
-								door.setFacing(OrthoDir.NORTH);
-							}
-							if (atY > mid && !isPassable(types, atX, atY-2)) {
-								DoorEvent door = genDoor();
-								parent.addEvent(door, atX, atY);
-								door.setFacing(OrthoDir.SOUTH);
-							}
-						}
-					}
-				}
-			}
-		}
+//		for (int x = 0; x < cellsW; x += 1) {
+//			if (cellStartX[x+1] - cellStartX[x] <= 2) {
+//				for (int atX = cellStartX[x]-1; atX <= cellStartX[x]+1; atX++) {
+//					int mid = cellStartX[x];
+//					if (atX == mid) continue;
+//					for (int atY = 1; atY < h-1; atY += 1) {
+//						if (isPassable(types, atX, atY)) {
+//							if (atX < mid && !isPassable(types, atX+2, atY)) {
+//								DoorEvent door = genDoor();
+//								parent.addEvent(door, atX, atY);
+//								door.setFacing(OrthoDir.WEST);
+//							}
+//							if (atX > mid && !isPassable(types, atX-2, atY)) {
+//								DoorEvent door = genDoor();
+//								parent.addEvent(door, atX, atY);
+//								door.setFacing(OrthoDir.EAST);
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//		for (int y = 0; y < cellsH; y += 1) {
+//			if (cellStartY[y+1] - cellStartY[y] <= 4) {
+//				for (int atY = cellStartY[y]-1; atY <= cellStartY[y]+1; atY++) {
+//					int mid = cellStartY[y];
+//					if (atY == mid) continue;
+//					for (int atX = 1; atX < w-1; atX += 1) {
+//						if (isPassable(types, atX, atY)) {
+//							if (atY < mid && !isPassable(types, atX, atY+2)) {
+//								DoorEvent door = genDoor();
+//								parent.addEvent(door, atX, atY-2);
+//								door.setFacing(OrthoDir.NORTH);
+//							}
+//							if (atY > mid && !isPassable(types, atX, atY-2)) {
+//								DoorEvent door = genDoor();
+//								parent.addEvent(door, atX, atY);
+//								door.setFacing(OrthoDir.SOUTH);
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
 		
 		applyWalls(types);
 		addStaircases(types);
@@ -253,33 +251,33 @@ public class GeneratorCellular extends MapGenerator {
 		}
 		addLayer(upperTiles, .5f);
 		
-		for (CRoom cr : allrooms) {
-			if (!cr.tensionAvailable) continue;
-			if (cr.rw * cr.rh > 30) continue;
-			if (r.nextFloat() < .6) continue;
-			if (parent.getDanger() < 2) continue;
-			cr.tensionSelected = true;
-			int count = (cr.x + cr.rw - 1) * (cr.y + cr.rh - 1);
-			List<Enemy> enemies = parent.getMonsterGenerator().createSet(count);
-			for (int x = cr.x; x < cr.x + cr.rw; x += 1) {
-				for (int y = cr.y; y < cr.y + cr.rh; y += 1) {
-					if (r.nextFloat() > .1 && parent.isTilePassable(null, x, y)) {
-						parent.addEvent(enemies.get(0), x, y);
-						enemies.remove(0);
-					}
-				}
-			}
-			for (int loot = 0; loot <= 2 || r.nextBoolean(); loot += 1) {
-				int spawnX = 0;
-				int spawnY = 0;
-				while (!parent.isTilePassable(null, spawnX, spawnY)) {
-					spawnX = cr.ctx() + r.nextInt(3)-2;
-					spawnY = cr.cty() + r.nextInt(3)-2;
-				}
-				parent.addEvent(parent.getLootGenerator().createEvent(), spawnX, spawnY);
-			}
-			break;
-		}
+//		for (CRoom cr : allrooms) {
+//			if (!cr.tensionAvailable) continue;
+//			if (cr.rw * cr.rh > 30) continue;
+//			if (r.nextFloat() < .6) continue;
+//			if (parent.getDanger() < 2) continue;
+//			cr.tensionSelected = true;
+//			int count = (cr.x + cr.rw - 1) * (cr.y + cr.rh - 1);
+//			List<Enemy> enemies = parent.getMonsterGenerator().createSet(count);
+//			for (int x = cr.x; x < cr.x + cr.rw; x += 1) {
+//				for (int y = cr.y; y < cr.y + cr.rh; y += 1) {
+//					if (r.nextFloat() > .1 && parent.isTilePassable(null, x, y)) {
+//						parent.addEvent(enemies.get(0), x, y);
+//						enemies.remove(0);
+//					}
+//				}
+//			}
+//			for (int loot = 0; loot <= 2 || r.nextBoolean(); loot += 1) {
+//				int spawnX = 0;
+//				int spawnY = 0;
+//				while (!parent.isTilePassable(null, spawnX, spawnY)) {
+//					spawnX = cr.ctx() + r.nextInt(3)-2;
+//					spawnY = cr.cty() + r.nextInt(3)-2;
+//				}
+////				parent.addEvent(parent.getLootGenerator().createEvent(), spawnX, spawnY);
+//			}
+//			break;
+//		}
 	}
 
 }

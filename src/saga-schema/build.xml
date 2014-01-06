@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<!-- Configuration of the Ant build system to generate a Jar file --> 
+<project name="RainfallSchema" default="CreateJar">
+	<target name="CreateJar" description="Export schema jar">
+		<jar destfile="../../game/res/jar/RainfallSchema.jar"
+		    basedir="bin"
+		    includes="net/wombatrpgs/**" />
+	</target>
+</project>

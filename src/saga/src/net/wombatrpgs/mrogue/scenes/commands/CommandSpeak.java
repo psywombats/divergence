@@ -6,9 +6,7 @@
  */
 package net.wombatrpgs.mrogue.scenes.commands;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
@@ -21,7 +19,6 @@ import net.wombatrpgs.mrogue.maps.objects.TimerListener;
 import net.wombatrpgs.mrogue.maps.objects.TimerObject;
 import net.wombatrpgs.mrogue.scenes.SceneCommand;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
-import net.wombatrpgs.mrogueschema.cutscene.SpeakerMDO;
 
 /**
  * An individual character speaks. As of 2013-02-14 this thing is a designated
@@ -35,10 +32,7 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	protected static final int FACE_OFFSET = 160; // px from center
 	protected static final float FADE_TIME = .2f; // in s
 	
-	protected static Map<String, SpeakerMDO> speakers;
-	
 	protected List<String> lines;
-	protected SpeakerMDO mdo;
 	protected Graphic faceGraphic;
 	protected Picture facePic;
 	protected boolean running;
@@ -46,12 +40,6 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	
 	public CommandSpeak(SceneParser parent, String speakerKey, List<String> lines) {
 		super(parent, "[subcommand]");
-		if (speakers == null) {
-			speakers = new HashMap<String, SpeakerMDO>();
-			for (SpeakerMDO speakerMDO : MGlobal.data.getEntriesByClass(SpeakerMDO.class)) {
-				speakers.put(speakerMDO.id, speakerMDO);
-			}
-		}
 		this.lines = lines;
 		if (speakerKey.equals(NAME_SYSTEM)) {
 			system = true;

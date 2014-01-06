@@ -119,8 +119,7 @@ public class TitleScreen extends Screen {
 			if (introParser.hasExecuted()) {
 				if (outParser.hasExecuted()) {
 					MGlobal.screens.pop();
-					Screen classScreen = new ClassScreen();
-					MGlobal.screens.push(classScreen);
+					// TODO: transition out from game screen
 				} else if (!outParser.isRunning()) {
 					outParser.run();
 				}

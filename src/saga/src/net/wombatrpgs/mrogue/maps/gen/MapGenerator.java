@@ -22,7 +22,6 @@ import net.wombatrpgs.mrogue.core.Queueable;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Loc;
 import net.wombatrpgs.mrogue.maps.Tile;
-import net.wombatrpgs.mrogue.maps.events.DoorEvent;
 import net.wombatrpgs.mrogue.maps.events.TeleportEvent;
 import net.wombatrpgs.mrogue.maps.gen.dec.Decorator;
 import net.wombatrpgs.mrogue.maps.gen.dec.DecoratorFactory;
@@ -31,7 +30,6 @@ import net.wombatrpgs.mrogueschema.maps.CeilTilesMDO;
 import net.wombatrpgs.mrogueschema.maps.MapGeneratorMDO;
 import net.wombatrpgs.mrogueschema.maps.StairTilesMDO;
 import net.wombatrpgs.mrogueschema.maps.WallTilesMDO;
-import net.wombatrpgs.mrogueschema.maps.data.DoorSetMDO;
 import net.wombatrpgs.mrogueschema.maps.data.TileMDO;
 import net.wombatrpgs.mrogueschema.maps.data.TileType;
 import net.wombatrpgs.mrogueschema.maps.decorators.data.DecoratorMDO;
@@ -113,8 +111,6 @@ public abstract class MapGenerator implements Queueable {
 			upDecorators.add(DecoratorFactory.createDecor(decMDO, this));
 		}
 		assets.addAll(upDecorators);
-		
-		assets.add(new DoorEvent(MGlobal.data.getEntryFor(mdo.doors, DoorSetMDO.class), parent));
 		
 		r = new Random();
 		long seed = MGlobal.rand.nextLong();
@@ -720,17 +716,6 @@ public abstract class MapGenerator implements Queueable {
 				data[y][x] = value;
 			}
 		}
-	}
-	
-	/**
-	 * Generates a door and returns it for the subclass's placement.
-	 * @return					The generated door
-	 */
-	protected DoorEvent genDoor() {
-		DoorEvent door = new DoorEvent(MGlobal.data.getEntryFor(mdo.doors, DoorSetMDO.class), parent);
-		door.queueRequiredAssets(MGlobal.assetManager);
-		door.postProcessing(MGlobal.assetManager, 0);
-		return door;
 	}
 
 }

@@ -55,12 +55,6 @@ public class LevelManager {
 	/** @return The teleport processor for these levels */
 	public TeleportManager getTele() { return this.teleport; }
 	
-	/** @return The name of the hero in these levels */
-	public String getHeroName() { return cutsceneGen.getHeroName(); }
-	
-	/** @return The name of the boss in these levels */
-	public String getBossName() { return cutsceneGen.getBossName(); }
-	
 	/**
 	 * Resets like it's a new game.
 	 */

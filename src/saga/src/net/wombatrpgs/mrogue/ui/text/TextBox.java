@@ -20,8 +20,8 @@ import net.wombatrpgs.mrogue.maps.MapThing;
 import net.wombatrpgs.mrogue.maps.objects.Picture;
 import net.wombatrpgs.mrogue.screen.WindowSettings;
 import net.wombatrpgs.mrogueschema.audio.SoundMDO;
-import net.wombatrpgs.mrogueschema.ui.AnchorType;
 import net.wombatrpgs.mrogueschema.ui.TextBoxMDO;
+import net.wombatrpgs.mrogueschema.ui.data.AnchorType;
 
 /**
  * A box that appears on-screen and does its dirty business. Hmph. Actually it

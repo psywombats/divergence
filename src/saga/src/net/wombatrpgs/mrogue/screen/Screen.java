@@ -32,8 +32,6 @@ import net.wombatrpgs.mrogue.graphics.PostRenderable;
 import net.wombatrpgs.mrogue.io.ButtonListener;
 import net.wombatrpgs.mrogue.io.CommandListener;
 import net.wombatrpgs.mrogue.io.CommandMap;
-import net.wombatrpgs.mrogue.ui.BinaryChoice;
-import net.wombatrpgs.mrogue.ui.BinaryChoiceResultListener;
 import net.wombatrpgs.mrogueschema.io.data.InputButton;
 import net.wombatrpgs.mrogueschema.io.data.InputCommand;
 
@@ -351,13 +349,7 @@ public abstract class Screen implements CommandListener,
 		}
 		switch (command) {
 		case INTENT_QUIT:
-			MGlobal.ui.getPrompt().ask(new BinaryChoiceResultListener() {
-				@Override public void onDecision(BinaryChoice result) {
-					if (result == BinaryChoice.OPTION_2) {
-						Gdx.app.exit();
-					}
-				}
-			});
+			// TODO: quit
 			return true;
 		case INTENT_FULLSCREEN:
 			Gdx.graphics.setDisplayMode(

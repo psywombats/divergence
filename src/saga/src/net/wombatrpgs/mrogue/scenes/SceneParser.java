@@ -39,7 +39,6 @@ public class SceneParser implements	Updateable,
 	protected List<MapEvent> controlledEvents;
 	protected List<FinishListener> listeners;
 	protected CommandMap ourMap;
-	protected CharacterSet charas;
 	protected String filename;
 	protected boolean executed, running;
 	protected float timeSinceStart;
@@ -68,21 +67,6 @@ public class SceneParser implements	Updateable,
 		mdo.repeat = TriggerRepeatType.RUN_ONLY_ONCE;
 		init();
 	}
-	
-	/**
-	 * Creates a new scene parser for a given file. No autoplay. Assumes no
-	 * repeat. Substitutes character names on the supplied list.
-	 * @param	fileName		The filename to load, relative to scenes dir
-	 * @param	parent			The screen to make for
-	 * @param	charas			The character substitutions to make
-	 */
-	public SceneParser(String filename, Screen parent, CharacterSet charas) {
-		this(filename, parent);
-		this.charas = charas;
-	}
-	
-	/** @retrun The character substitutions to make in these commands */
-	public CharacterSet getCharas() { return charas; }
 	
 	/** @return The screen we're running on */
 	public Screen getScreen() { return parent; }

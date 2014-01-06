@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.mrogue.rpg;
 
-import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogueschema.characters.data.CharacterMDO;
 
 /**
@@ -21,7 +20,6 @@ public class HeroUnit extends GameUnit {
 	 */
 	public HeroUnit(CharacterMDO mdo, Hero hero) {
 		super(mdo, hero);
-		setName(MGlobal.levelManager.getHeroName());
 	}
 
 	/**

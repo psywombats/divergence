@@ -17,14 +17,10 @@ import net.wombatrpgs.mrogue.core.Constants;
 import net.wombatrpgs.mrogue.core.MGlobal;
 import net.wombatrpgs.mrogue.io.CommandListener;
 import net.wombatrpgs.mrogue.maps.Level;
-import net.wombatrpgs.mrogue.rpg.abil.Ability;
-import net.wombatrpgs.mrogue.rpg.act.ActStep;
-import net.wombatrpgs.mrogue.rpg.act.Action;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogue.screen.instances.GameOverScreen;
 import net.wombatrpgs.mrogueschema.characters.HeroMDO;
 import net.wombatrpgs.mrogueschema.io.data.InputCommand;
-import net.wombatrpgs.mrogueschema.maps.data.EightDir;
 import net.wombatrpgs.mrogueschema.settings.DeathSettingsMDO;
 
 /**
@@ -38,13 +34,11 @@ public class Hero extends CharacterEvent implements CommandListener {
 	
 	protected SceneParser deathScene;
 	
-	protected ActStep step;
 	// to facilitate shader calls, viewtex is like a b/w image version of cache
 	protected boolean[][] viewCache;
 	protected boolean[][] seenCache;
 	protected Pixmap p;
 	protected Texture viewTex;
-	protected Ability blockingAbil;
 
 	/**
 	 * Placeholder constructor. When the hero is finally initialized properly
@@ -58,7 +52,6 @@ public class Hero extends CharacterEvent implements CommandListener {
 		super(MGlobal.data.getEntryFor(HERO_DEFAULT, HeroMDO.class));
 		this.parent = parent;
 		MGlobal.hero = this;
-		step = new ActStep(this);
 		DeathSettingsMDO deathMDO = MGlobal.data.getEntryFor(
 				Constants.KEY_DEATH, DeathSettingsMDO.class);
 		deathScene = MGlobal.levelManager.getCutscene(deathMDO.scene);
@@ -110,24 +103,6 @@ public class Hero extends CharacterEvent implements CommandListener {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.mrogue.rpg.CharacterEvent#actAndWait(net.wombatrpgs.mrogue.rpg.act.Action)
-	 */
-	@Override
-	public void actAndWait(Action act) {
-		if (parent.isMoving()) {
-			return;
-		}
-		MGlobal.ui.getHud().forceReset();
-		MGlobal.ui.getNarrator().onTurn();
-		this.onTurn();
-		
-		super.actAndWait(act);
-		
-		refreshVisibilityMap();
-		parent.onTurn();
-	}
-	
-	/**
 	 * @see net.wombatrpgs.mrogue.rpg.CharacterEvent#update(float)
 	 */
 	@Override
@@ -146,11 +121,6 @@ public class Hero extends CharacterEvent implements CommandListener {
 				MGlobal.screens.playMusic(null, false);
 			}
 		}
-		if (blockingAbil != null) {
-			if (blockingAbil.useAndBlock()) {
-				blockingAbil = null;
-			}
-		}
 	}
 
 	/**
@@ -159,36 +129,7 @@ public class Hero extends CharacterEvent implements CommandListener {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-		
-		switch (command) {
-		
-		// WAIT
-		case MOVE_WAIT:			actAndWait(defaultWait);	break;
-		
-		// MOVE
-		case MOVE_NORTH:		move(EightDir.NORTH);		break;
-		case MOVE_NORTHEAST:	move(EightDir.NORTHEAST);	break;
-		case MOVE_EAST:			move(EightDir.EAST);		break;
-		case MOVE_SOUTHEAST:	move(EightDir.SOUTHEAST);	break;
-		case MOVE_SOUTH:		move(EightDir.SOUTH);		break;
-		case MOVE_SOUTHWEST:	move(EightDir.SOUTHWEST);	break;
-		case MOVE_WEST:			move(EightDir.WEST);		break;
-		case MOVE_NORTHWEST:	move(EightDir.NORTHWEST);	break;
-		
-		// ABIL
-		case ABIL_1:			abil(0);					break;
-		case ABIL_2:			abil(1);					break;
-		case ABIL_3:			abil(2);					break;
-		case ABIL_4:			abil(3);					break;
-		case ABIL_5:			abil(4);					break;
-		case ABIL_6:			abil(5);					break;
-			
-		// DEFAULT
-		default:
-			MGlobal.reporter.warn("Unknown command " + command);
-			return false;
-		}
-		
+		// TODO: onCommand
 		return true;
 	}
 	
@@ -257,34 +198,4 @@ public class Hero extends CharacterEvent implements CommandListener {
 	protected void initUnit() {
 		this.unit = new HeroUnit(mdo, this);
 	}
-
-	/**
-	 * Movement subcommand.
-	 * @param	dir				The direction the hero was ordered in
-	 */
-	protected void move(EightDir dir) {
-		step.setDirection(dir);
-		actAndWait(step);
-	}
-	
-	/**
-	 * Ability subcommand. There's some logic for blocking abilities included,
-	 * ie, an ability must first be set active, then told to act. The idea here
-	 * is that an ability should be able to ask the player for further input
-	 * before forcing the world to move around it.
-	 * @param	no				The index of the ability ordered
-	 */
-	protected void abil(int no) {
-		if (getUnit().getAbilities().size() <= no) {
-			// ability out of range
-			return;
-		}
-		Ability abil = getUnit().getAbilities().get(no);
-		if (!getUnit().canUse(abil)) {
-			GameUnit.out().msg("ability not available.");
-			return;
-		}
-		blockingAbil = abil;
-	}
-
 }

@@ -22,7 +22,6 @@ import net.wombatrpgs.mrogue.scenes.commands.CommandShowHide;
 import net.wombatrpgs.mrogue.scenes.commands.CommandSpeakAll;
 import net.wombatrpgs.mrogue.scenes.commands.CommandTeleport;
 import net.wombatrpgs.mrogue.scenes.commands.CommandTint;
-import net.wombatrpgs.mrogue.scenes.commands.CommandToggleHud;
 import net.wombatrpgs.mrogue.scenes.commands.CommandWait;
 import net.wombatrpgs.mrogue.scenes.commands.CommandWaitAll;
 
@@ -98,8 +97,6 @@ public class CommandFactory {
 				return new CommandWait(parent, line);
 			} else if (commandName.equals(COMMAND_TINT)) {
 				return new CommandTint(parent, line);
-			} else if (commandName.equals(COMMAND_TOGGLE_HUD)) {
-				return new CommandToggleHud(parent, line);
 			} else if (commandName.equals(COMMAND_TELE)) {
 				return new CommandTeleport(parent, line);
 			} else {

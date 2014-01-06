@@ -7,7 +7,6 @@
 package net.wombatrpgs.mrogue.rpg.ai;
 
 import net.wombatrpgs.mrogue.rpg.CharacterEvent;
-import net.wombatrpgs.mrogue.rpg.act.Action;
 
 /**
  * A wrapper for a normal game action to fit into the behavior tree spec.
@@ -46,7 +45,7 @@ public class BTAction extends BTNode {
 		if (done && !repeatable) {
 			return BTState.SUCCESS;
 		} else {
-			actor.actAndWait(act);
+			act.performWith(actor);
 			return BTState.RUNNING;
 		}
 	}

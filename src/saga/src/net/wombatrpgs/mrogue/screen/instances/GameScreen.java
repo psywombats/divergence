@@ -16,7 +16,6 @@ import net.wombatrpgs.mrogue.io.command.CMapGame;
 import net.wombatrpgs.mrogue.maps.Level;
 import net.wombatrpgs.mrogue.maps.Loc;
 import net.wombatrpgs.mrogue.maps.events.Cursor;
-import net.wombatrpgs.mrogue.rpg.Boss;
 import net.wombatrpgs.mrogue.rpg.Hero;
 import net.wombatrpgs.mrogue.scenes.SceneParser;
 import net.wombatrpgs.mrogue.screen.Screen;
@@ -80,9 +79,6 @@ public class GameScreen extends Screen {
 		assets.add(cursor);
 		
 		addObject(MGlobal.ui.getNarrator());
-		addObject(MGlobal.ui.getHud());
-		addObject(MGlobal.ui.getSkills());
-		addObject(MGlobal.ui.getInventory());
 		
 		// all this stuff is crap
 		MGlobal.hero = new Hero(MGlobal.levelManager.getActive());
@@ -101,9 +97,6 @@ public class GameScreen extends Screen {
 	public boolean onCommand(InputCommand command) {
 		if (super.onCommand(command)) return true;
 		switch (command) {
-		case INTENT_INVENTORY:
-			MGlobal.ui.getInventory().show();
-			return true;
 		case INTENT_LOOK:
 			cursor.activate(false);
 			return true;
@@ -164,11 +157,6 @@ public class GameScreen extends Screen {
 		}
 		if (introParser.hasExecuted() && !tutorialParser.isRunning() && !tutorialParser.hasExecuted()) {
 			tutorialParser.run();
-		}
-		if (MGlobal.stasis && !stasisMode) {
-			stasisMode = true;
-			Boss boss = (Boss) MGlobal.levelManager.getActive().getEventByName("boss");
-			boss.onStasis();
 		}
 	}
 

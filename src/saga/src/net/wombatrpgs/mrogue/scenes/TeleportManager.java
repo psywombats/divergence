@@ -78,9 +78,6 @@ public class TeleportManager implements Queueable {
 		MapEvent victim = MGlobal.hero;
 		Level old = victim.getParent();
 		
-		if (MGlobal.ui.getHud() != null) {
-			MGlobal.ui.getHud().setOverlayTintIgnore(false);
-		}
 		if (old.getBGM() != null && !old.getBGM().matches(map.getBGM())) {
 			MGlobal.screens.playMusic(map.getBGM(), false);
 		}
@@ -92,9 +89,6 @@ public class TeleportManager implements Queueable {
 		MGlobal.hero.refreshVisibilityMap();
 		MGlobal.levelManager.getScreen().getCamera().update(0);
 		MGlobal.levelManager.setActive(map);
-		if (MGlobal.ui.getHud() != null) {
-			MGlobal.ui.getHud().setOverlayTintIgnore(true);
-		}
 
 		//MGlobal.screens.getCamera().constrainMaps(map);
 		
