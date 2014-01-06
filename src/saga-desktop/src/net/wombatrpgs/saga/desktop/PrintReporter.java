@@ -10,8 +10,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
-import net.wombatrpgs.mrogue.core.Reporter;
-import net.wombatrpgs.mrogue.core.reporters.DebugReporter;
+import net.wombatrpgs.saga.core.Reporter;
+import net.wombatrpgs.saga.core.reporters.DebugReporter;
 
 /**
  * A reporter that prints out to files if it has problems. Also writes stuff to
@@ -40,7 +40,7 @@ public class PrintReporter implements Reporter {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mrogue.core.Reporter#inform(java.lang.String)
+	 * @see net.wombatrpgs.saga.core.Reporter#inform(java.lang.String)
 	 */
 	@Override
 	public void inform(String info) {
@@ -50,7 +50,7 @@ public class PrintReporter implements Reporter {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mrogue.core.Reporter#warn(java.lang.String)
+	 * @see net.wombatrpgs.saga.core.Reporter#warn(java.lang.String)
 	 */
 	@Override
 	public void warn(String warning) {
@@ -60,7 +60,7 @@ public class PrintReporter implements Reporter {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mrogue.core.Reporter#warn(java.lang.String, java.lang.Exception)
+	 * @see net.wombatrpgs.saga.core.Reporter#warn(java.lang.String, java.lang.Exception)
 	 */
 	@Override
 	public void warn(String error, Exception e) {
@@ -70,7 +70,7 @@ public class PrintReporter implements Reporter {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mrogue.core.Reporter#err(java.lang.String)
+	 * @see net.wombatrpgs.saga.core.Reporter#err(java.lang.String)
 	 */
 	@Override
 	public void err(String error) {
@@ -80,7 +80,7 @@ public class PrintReporter implements Reporter {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mrogue.core.Reporter#err(java.lang.String, java.lang.Exception)
+	 * @see net.wombatrpgs.saga.core.Reporter#err(java.lang.String, java.lang.Exception)
 	 */
 	@Override
 	public void err(String error, Exception e) {
@@ -90,7 +90,7 @@ public class PrintReporter implements Reporter {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mrogue.core.Reporter#err(java.lang.Exception)
+	 * @see net.wombatrpgs.saga.core.Reporter#err(java.lang.Exception)
 	 */
 	@Override
 	public void err(Exception e) {

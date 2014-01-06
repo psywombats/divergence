@@ -21,6 +21,5 @@
 		"magBase" : 6,
 		"magRange" : 10,
 		"magArmor" : 0
-	},
-	"abilities" : [ ]
+	}
 }

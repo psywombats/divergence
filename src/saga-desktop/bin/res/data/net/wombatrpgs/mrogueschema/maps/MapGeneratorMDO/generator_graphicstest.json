@@ -10,7 +10,6 @@
 	"ceilingTiles" : "ceil_woodish",
 	"upstairTiles" : "stairs_marble_up",
 	"downstairTiles" : "stairs_marble_down",
-	"doors" : "doors_blockbound",
 	"generator" : "CLASSIC_ROOMS",
 	"minRoomWidth" : 3,
 	"minRoomHeight" : 2,

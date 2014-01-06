@@ -1,8 +1,8 @@
 package net.wombatrpgs.saga.desktop;
 
-import net.wombatrpgs.mrogue.core.MRogueGame;
-import net.wombatrpgs.mrogue.core.Platform;
-import net.wombatrpgs.mrogue.core.Reporter;
+import net.wombatrpgs.saga.core.MRogueGame;
+import net.wombatrpgs.saga.core.Platform;
+import net.wombatrpgs.saga.core.Reporter;
 
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
