@@ -14,6 +14,7 @@ import net.wombatrpgs.saga.scenes.SceneFactory;
 import net.wombatrpgs.saga.scenes.SceneParser;
 import net.wombatrpgs.saga.scenes.TeleportManager;
 import net.wombatrpgs.saga.screen.Screen;
+import net.wombatrpgs.saga.screen.instances.GameScreen;
 import net.wombatrpgs.sagaschema.cutscene.data.SceneParentMDO;
 import net.wombatrpgs.sagaschema.maps.GeneratedMapMDO;
 import net.wombatrpgs.sagaschema.maps.LoadedMapMDO;
@@ -29,7 +30,7 @@ public class LevelManager {
 	
 	/** Goes from map IDs to their level manifestation */
 	protected Map<String, Level> levels;
-	protected Screen screen;
+	protected GameScreen screen;
 	protected SceneFactory cutsceneGen;
 	protected Level active;
 	protected TeleportManager teleport;
@@ -43,10 +44,10 @@ public class LevelManager {
 	}
 	
 	/** @param screen The screen that will be showing levels */
-	public void setScreen(Screen screen) { this.screen = screen; }
+	public void setScreen(GameScreen screen) { this.screen = screen; }
 	
 	/** @return The screen levels use */
-	public Screen getScreen() { return screen; }
+	public GameScreen getScreen() { return screen; }
 	
 	/** @return The currently active level */
 	public Level getActive() { return active; }

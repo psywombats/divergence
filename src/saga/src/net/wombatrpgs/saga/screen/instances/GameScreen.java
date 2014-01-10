@@ -15,7 +15,7 @@ import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.io.command.CMapGame;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.maps.Loc;
-import net.wombatrpgs.saga.rpg.Hero;
+import net.wombatrpgs.saga.rpg.Avatar;
 import net.wombatrpgs.saga.screen.Screen;
 import net.wombatrpgs.sagaschema.io.data.InputCommand;
 import net.wombatrpgs.sagaschema.settings.IntroSettingsMDO;
@@ -30,6 +30,7 @@ import net.wombatrpgs.sagaschema.test.data.TestState;
 public class GameScreen extends Screen {
 	
 	protected Level map;
+	protected Avatar hero;
 	
 	protected boolean stasisMode;
 	
@@ -70,8 +71,8 @@ public class GameScreen extends Screen {
 		addObject(SGlobal.ui.getNarrator());
 		
 		// all this stuff is crap
-		SGlobal.hero = new Hero(SGlobal.levelManager.getActive());
-		assets.add(SGlobal.hero);
+		hero = new Avatar(SGlobal.levelManager.getActive());
+		assets.add(hero);
 		
 		// will be called later
 		// normally
@@ -88,7 +89,7 @@ public class GameScreen extends Screen {
 		switch (command) {
 			// TODO: screen-based commands
 		default:
-			return SGlobal.hero.onCommand(command);
+			return hero.onCommand(command);
 		}
 		
 	}
@@ -102,17 +103,17 @@ public class GameScreen extends Screen {
 		super.postProcessing(manager, pass);
 		
 		if (pass == 0) {
-			while (!map.isTilePassable(SGlobal.hero, SGlobal.hero.getTileX(), SGlobal.hero.getTileY())) {
-				SGlobal.hero.setTileX(SGlobal.rand.nextInt(map.getWidth()));
-				SGlobal.hero.setTileY(SGlobal.rand.nextInt(map.getHeight()));
+			while (!map.isTilePassable(hero, hero.getTileX(), hero.getTileY())) {
+				hero.setTileX(SGlobal.rand.nextInt(map.getWidth()));
+				hero.setTileY(SGlobal.rand.nextInt(map.getHeight()));
 			}
-			map.addEvent(SGlobal.hero);
-			map.setTeleInLoc("hero", new Loc(SGlobal.hero.getTileX(), SGlobal.hero.getTileY()));
-			SGlobal.hero.setX(SGlobal.hero.getTileX()*map.getTileWidth());
-			SGlobal.hero.setY(SGlobal.hero.getTileY()*map.getTileHeight());
-			getCamera().track(SGlobal.hero);
+			map.addEvent(hero);
+			map.setTeleInLoc("hero", new Loc(hero.getTileX(), hero.getTileY()));
+			hero.setX(hero.getTileX()*map.getTileWidth());
+			hero.setY(hero.getTileY()*map.getTileHeight());
+			getCamera().track(hero);
 			getCamera().update(0);
-			SGlobal.hero.refreshVisibilityMap();
+			hero.refreshVisibilityMap();
 		}
 	}
 	
@@ -131,6 +132,16 @@ public class GameScreen extends Screen {
 					cam.position.y + SGlobal.window.getHeight()/2*wr - 8);
 		}
 		batch.end();
+	}
+	
+	/**
+	 * Fetches the player's avatar that's parading around on the map. This
+	 * replaces one of those public static monstrosities that's been kicking
+	 * around for forever.
+	 * @return					The representation of the player on the map
+	 */
+	public Avatar getHero() {
+		return hero;
 	}
 
 }

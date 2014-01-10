@@ -52,7 +52,7 @@ public class TestScreen extends Screen {
 		pushCommandContext(new CMapGame());
 		defaultFont = new BitmapFont();
 		batch = new SpriteBatch();
-		cam.track(SGlobal.hero);
+		cam.track(SGlobal.getHero());
 		
 		init();
 	}

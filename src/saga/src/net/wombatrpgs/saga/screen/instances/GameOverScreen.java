@@ -72,7 +72,7 @@ public class GameOverScreen extends Screen {
 		}
 		if (shouldIntroduce) {
 			if (immParser.hasExecuted()) {
-				SGlobal.newGame();
+				// TODO: gameover?
 			}
 		}
 	}

@@ -163,7 +163,7 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	public void render(OrthographicCamera camera) {
 		if (hidden()) return;
 		super.render(camera);
-		if (appearance != null && SGlobal.hero.inLoS(this)) {
+		if (appearance != null && SGlobal.getHero().inLoS(this)) {
 			appearance.render(camera);
 		}
 	}
@@ -239,27 +239,6 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	 */
 	public void faceAway(MapEvent event) {
 		setFacing(EightDir.getOpposite(directionTo(event)).toOrtho(getFacing()));
-	}
-	
-	/**
-	 * Adds itself to its parent map in a position not viewable by the hero.
-	 * This is kind of a dumb implementation that relies on rand, be warned.
-	 */
-	public void spawnUnseen() {
-		// 100 tries max
-		for (int i = 0; i < 100; i++) {
-			int tileX = SGlobal.rand.nextInt(parent.getWidth());
-			int tileY = SGlobal.rand.nextInt(parent.getHeight());
-			if (SGlobal.hero != null &&
-					SGlobal.hero.getParent() == parent &&
-					SGlobal.hero.inLoS(tileX, tileY)) {
-				continue;
-			}
-			if (!parent.isTilePassable(this, tileX, tileY)) continue;
-			parent.addEvent(this, tileX, tileY);
-			return;
-		}
-		SGlobal.reporter.warn("Waited 100 turns to spawn a " + this);
 	}
 	
 	/**
@@ -535,14 +514,6 @@ public class CharacterEvent extends MapEvent implements Turnable {
 		assets.add(unit);
 		turnChildren.add(unit);
 		ticksRemaining = 0;
-		
-		if (rayLoS == null) {
-			rayLoS = new RayCheck() {
-				@Override public boolean bad(int tileX, int tileY) {
-					return !SGlobal.hero.getParent().isTransparentAt(tileX, tileY);
-				}
-			};
-		}
 	}
 	
 	/**

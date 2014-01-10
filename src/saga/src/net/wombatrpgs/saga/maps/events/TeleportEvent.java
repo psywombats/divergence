@@ -60,7 +60,7 @@ public class TeleportEvent extends MapEvent {
 	 */
 	@Override
 	public void collideWith(CharacterEvent character) {
-		if (!triggered && character == SGlobal.hero) {
+		if (!triggered && character == SGlobal.getHero()) {
 			triggered = true;
 			victim = character;
 		}
@@ -79,7 +79,7 @@ public class TeleportEvent extends MapEvent {
 	 * @param	other			The event that triggered this (hero)	
 	 */
 	protected void teleport(MapEvent other) {
-		if (other != SGlobal.hero) return;
+		if (other != SGlobal.getHero()) return;
 		SGlobal.levelManager.getTele().getPre().addListener(new FinishListener() {
 			@Override
 			public void onFinish() {

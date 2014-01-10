@@ -115,7 +115,7 @@ public class GameUnit implements Turnable, Queueable {
 	 * @return					This unit's player-facing name
 	 */
 	public String getName() {
-		return SGlobal.hero.inLoS(parent) ? name : "something";
+		return name;
 	}
 
 	/**
@@ -333,7 +333,7 @@ public class GameUnit implements Turnable, Queueable {
 	 */
 	public boolean visible(GameUnit... units) {
 		for (GameUnit unit : units) {
-			if (SGlobal.hero.inLoS(unit.getParent())) {
+			if (SGlobal.getHero().inLoS(unit.getParent())) {
 				return true;
 			}
 		}

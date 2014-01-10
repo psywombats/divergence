@@ -101,9 +101,9 @@ public class GeneratedGridLayer extends GridLayer {
 					if (shaders) {
 						tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
 					} else {
-						if (SGlobal.hero.inLoS(x, y)) {
+						if (SGlobal.getHero().inLoS(x, y)) {
 							tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
-						} else if (SGlobal.hero.seen(x, y)) {
+						} else if (SGlobal.getHero().seen(x, y)) {
 							parent.getBatch().setColor(trans);
 							tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
 							parent.getBatch().setColor(old);

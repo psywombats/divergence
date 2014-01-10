@@ -18,7 +18,7 @@ public class HeroUnit extends GameUnit {
 	 * @param	mdo				The character data to make from
 	 * @param	hero			That's us!
 	 */
-	public HeroUnit(CharacterMDO mdo, Hero hero) {
+	public HeroUnit(CharacterMDO mdo, Avatar hero) {
 		super(mdo, hero);
 	}
 

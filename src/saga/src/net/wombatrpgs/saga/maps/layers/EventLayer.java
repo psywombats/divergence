@@ -165,7 +165,7 @@ public class EventLayer extends Layer {
 				chara.simulateTime(ticks);
 			}
 			next.simulateTime(1);
-			if (next == SGlobal.hero) {
+			if (next == SGlobal.getHero()) {
 				break;
 			} else {
 				next.onTurn();

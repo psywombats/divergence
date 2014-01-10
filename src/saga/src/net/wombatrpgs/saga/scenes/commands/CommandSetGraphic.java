@@ -49,7 +49,7 @@ public class CommandSetGraphic extends SceneCommand {
 			SGlobal.reporter.warn("Graphic group assigments aren't really implemented yet");
 		}
 		if (eventName.equals(ARG_HERO)) {
-			events.add(SGlobal.hero);
+			events.add(SGlobal.getHero());
 		} else {
 			events.add(parent.getLevel().getEventByName(eventName));
 		}

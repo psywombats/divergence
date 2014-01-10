@@ -75,7 +75,7 @@ public class TeleportManager implements Queueable {
 	 */
 	public void teleport(Level map, int tileX, int tileY) {
 		
-		MapEvent victim = SGlobal.hero;
+		MapEvent victim = SGlobal.getHero();
 		Level old = victim.getParent();
 		
 		if (old.getBGM() != null && !old.getBGM().matches(map.getBGM())) {
@@ -85,8 +85,7 @@ public class TeleportManager implements Queueable {
 		old.removeEvent(victim);
 		old.update(0);
 		
-		map.addEvent(SGlobal.hero, tileX, tileY);
-		SGlobal.hero.refreshVisibilityMap();
+		map.addEvent(SGlobal.getHero(), tileX, tileY);
 		SGlobal.levelManager.getScreen().getCamera().update(0);
 		SGlobal.levelManager.setActive(map);
 

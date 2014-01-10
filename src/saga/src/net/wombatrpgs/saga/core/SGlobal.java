@@ -24,12 +24,11 @@ import net.wombatrpgs.saga.io.loaders.DataLoader;
 import net.wombatrpgs.saga.io.loaders.SceneLoader;
 import net.wombatrpgs.saga.maps.LevelManager;
 import net.wombatrpgs.saga.maps.gen.TileManager;
-import net.wombatrpgs.saga.rpg.Hero;
+import net.wombatrpgs.saga.rpg.Avatar;
 import net.wombatrpgs.saga.scenes.SceneData;
 import net.wombatrpgs.saga.screen.ScreenStack;
 import net.wombatrpgs.saga.screen.WindowSettings;
 import net.wombatrpgs.saga.screen.instances.GameScreen;
-import net.wombatrpgs.saga.screen.instances.TitleScreen;
 import net.wombatrpgs.saga.ui.UISettings;
 import net.wombatrpgs.sagaschema.settings.GraphicsSettingsMDO;
 import net.wombatrpgs.sagaschema.settings.UISettingsMDO;
@@ -52,8 +51,6 @@ public class SGlobal {
 	public static Keymap keymap;
 	/** All magic numbers and stuff */
 	public static Constants constants;
-	/** My hero~~~~ <3 <3 <3 (the player's physical representation */
-	public static Hero hero;
 	/** Stores all of our levels */
 	public static LevelManager levelManager;
 	/** A single-source RNG */
@@ -196,14 +193,12 @@ public class SGlobal {
 	}
 	
 	/**
-	 * Dumps the old level manager and associated state and then starts all
-	 * over. This is separate from the global init for some reason.
+	 * Replacement for the public static field. This gets the hero from the
+	 * game screen, which is owned by the level manager.
+	 * @return					The player avatar on the world map
 	 */
-	public static void newGame() {
-		SGlobal.screens.reset();
-		SGlobal.levelManager.reset();
-		SGlobal.hero = null;
-		SGlobal.screens.push(new TitleScreen());
+	public static Avatar getHero() {
+		return levelManager.getScreen().getHero();
 	}
 	
 	/**

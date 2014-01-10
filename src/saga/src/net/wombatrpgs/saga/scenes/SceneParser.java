@@ -223,8 +223,8 @@ public class SceneParser implements	Updateable,
 		parent.removeCommandContext(ourMap);
 		running = false;
 		executed = true;
-		if (SGlobal.hero != null) {
-			SGlobal.hero.halt();
+		if (SGlobal.getHero() != null) {
+			SGlobal.getHero().halt();
 		}
 		for (FinishListener listener : listeners) {
 			listener.onFinish();
