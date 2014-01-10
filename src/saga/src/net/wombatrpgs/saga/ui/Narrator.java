@@ -12,7 +12,7 @@ import java.util.List;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Turnable;
 import net.wombatrpgs.saga.ui.text.FontHolder;
 import net.wombatrpgs.saga.ui.text.TextBoxFormat;
@@ -42,9 +42,9 @@ public class Narrator extends UIElement implements Turnable {
 		lines = new ArrayList<Line>();
 		format = new TextBoxFormat();
 		format.x = mdo.offsetX;
-		format.y = MGlobal.window.getHeight() - mdo.offsetY;
+		format.y = SGlobal.window.getHeight() - mdo.offsetY;
 		format.width = mdo.width;
-		format.height = MGlobal.window.getHeight();
+		format.height = SGlobal.window.getHeight();
 		format.align = HAlignment.LEFT;
 	}
 
@@ -79,7 +79,7 @@ public class Narrator extends UIElement implements Turnable {
 	 */
 	@Override
 	public void update(float elapsed) {
-		if (MGlobal.stasis) return;
+		if (SGlobal.stasis) return;
 		for (Line line : lines) {
 			line.ttl -= elapsed;
 			line.mutant = mutate(line.line);
@@ -136,7 +136,7 @@ public class Narrator extends UIElement implements Turnable {
 		for (int i = 0; i < line.length(); i += 1) {
 			out[i] = line.charAt(i);
 			if (out[i] == '*') {
-				out[i] = (char)(MGlobal.rand.nextInt(26) + 'a');
+				out[i] = (char)(SGlobal.rand.nextInt(26) + 'a');
 			}
 		}
 		return new String(out);

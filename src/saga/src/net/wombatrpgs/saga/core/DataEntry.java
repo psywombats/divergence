@@ -25,7 +25,7 @@ public class DataEntry {
 	 */
 	public DataEntry(FileHandle handle) {
 		data = handle.readString();
-		MGlobal.data.parseString(data, getSchemaByFile(handle));
+		SGlobal.data.parseString(data, getSchemaByFile(handle));
 	}
 	
 	/** @return The string blob (really json) that made up the data file */
@@ -52,11 +52,11 @@ public class DataEntry {
 			// If not something else will need to be done...
 			Class<?> rawClass = Class.forName(className);
 			if (!MainSchema.class.isAssignableFrom(rawClass)) {
-				MGlobal.reporter.warn("Loaded class " + rawClass + " didn't extend base schema");
+				SGlobal.reporter.warn("Loaded class " + rawClass + " didn't extend base schema");
 			}
 			return (Class<? extends MainSchema>) rawClass;
 		} catch (ClassNotFoundException e) {
-			MGlobal.reporter.err("Couldn't find a class " + className, e);
+			SGlobal.reporter.err("Couldn't find a class " + className, e);
 			return null;
 		}
 	}

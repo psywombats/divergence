@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.saga.core.Constants;
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Queueable;
 import net.wombatrpgs.sagaschema.ui.NumberSetMDO;
 
@@ -67,9 +67,9 @@ public class NumberSet implements Queueable {
 	 */
 	public void renderDigitAt(int digit, int x, int y) {
 		if (digit < 0 || digit > 9) {
-			MGlobal.reporter.warn("Rendering negative digit! " + digit);
+			SGlobal.reporter.warn("Rendering negative digit! " + digit);
 		}
-		SpriteBatch batch = MGlobal.screens.peek().getUIBatch();
+		SpriteBatch batch = SGlobal.screens.peek().getUIBatch();
 		batch.begin();
 		batch.draw(numberTextures[digit], x, y);
 		batch.end();
@@ -87,12 +87,12 @@ public class NumberSet implements Queueable {
 	 */
 	public void renderNumberAt(int num, int x, int y, float r, float g, float b) {
 		if (num < 0) {
-			MGlobal.reporter.warn("Negative number rendered!"  + num);
+			SGlobal.reporter.warn("Negative number rendered!"  + num);
 			return;
 		}
 		int atX = x;
 		String numStr = String.valueOf(num);
-		SpriteBatch batch = MGlobal.screens.peek().getUIBatch();
+		SpriteBatch batch = SGlobal.screens.peek().getUIBatch();
 		Color oldColor = batch.getColor();
 		batch.setColor(r, g, b, 1);
 		batch.begin();

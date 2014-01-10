@@ -11,7 +11,7 @@ import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Queueable;
 import net.wombatrpgs.saga.ui.text.FontHolder;
 import net.wombatrpgs.saga.ui.text.TextBox;
@@ -47,13 +47,13 @@ public class UISettings implements Queueable {
 	public UISettings(UISettingsMDO mdo) {
 		this.mdo = mdo;
 		this.assets = new ArrayList<Queueable>();
-		font = new FontHolder(MGlobal.data.getEntryFor(mdo.font, FontMDO.class));
+		font = new FontHolder(SGlobal.data.getEntryFor(mdo.font, FontMDO.class));
 		assets.add(font);
-		box = new TextBox(MGlobal.data.getEntryFor(mdo.box, TextBoxMDO.class), font);
+		box = new TextBox(SGlobal.data.getEntryFor(mdo.box, TextBoxMDO.class), font);
 		assets.add(box);
-		icons = new IconSet(MGlobal.data.getEntryFor(mdo.icons, IconSetMDO.class));
+		icons = new IconSet(SGlobal.data.getEntryFor(mdo.icons, IconSetMDO.class));
 		assets.add(icons);
-		narrator = new Narrator(MGlobal.data.getEntryFor(mdo.narrator, NarratorMDO.class), font);
+		narrator = new Narrator(SGlobal.data.getEntryFor(mdo.narrator, NarratorMDO.class), font);
 		assets.add(narrator);
 	}
 

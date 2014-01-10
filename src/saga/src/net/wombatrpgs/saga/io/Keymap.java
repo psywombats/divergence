@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Updateable;
 import net.wombatrpgs.saga.screen.ScreenStack;
 import net.wombatrpgs.sagaschema.io.data.InputButton;
@@ -54,7 +54,7 @@ public abstract class Keymap implements InputProcessor,
 		if (listeners.contains(listener)) {
 			listeners.remove(listener);
 		} else {
-			MGlobal.reporter.warn("The listener " + listener + " is not " +
+			SGlobal.reporter.warn("The listener " + listener + " is not " +
 					"actually listening to " + this);
 		}
 	}

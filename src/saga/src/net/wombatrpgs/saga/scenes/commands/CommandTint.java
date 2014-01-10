@@ -8,7 +8,7 @@ package net.wombatrpgs.saga.scenes.commands;
 
 import com.badlogic.gdx.graphics.Color;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Updateable;
 import net.wombatrpgs.saga.scenes.SceneCommand;
 import net.wombatrpgs.saga.scenes.SceneParser;
@@ -51,16 +51,16 @@ public class CommandTint extends SceneCommand {
 			tinting = true;
 			startTime = parent.getTimeSinceStart();
 			final SceneParser parser = parent;
-			final float oldR = MGlobal.screens.peek().getTint().r;
-			final float oldG = MGlobal.screens.peek().getTint().g;
-			final float oldB = MGlobal.screens.peek().getTint().b;
+			final float oldR = SGlobal.screens.peek().getTint().r;
+			final float oldG = SGlobal.screens.peek().getTint().g;
+			final float oldB = SGlobal.screens.peek().getTint().b;
 			Updateable child = new Updateable() {
 				protected Color tint;
 				@Override
 				public void update(float elapsed) {
 					float ratio = (parser.getTimeSinceStart() - startTime) / duration;
 					if (ratio >= 1) ratio = 1;
-					if (tint == null) tint = MGlobal.screens.peek().getTint();
+					if (tint == null) tint = SGlobal.screens.peek().getTint();
 					tint.r = oldR + ratio * (r - oldR);
 					tint.g = oldG + ratio * (g - oldG);
 					tint.b = oldB + ratio * (b - oldB);

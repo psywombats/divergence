@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.Pixmap.Blending;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.io.CommandListener;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.sagaschema.characters.HeroMDO;
@@ -43,9 +43,9 @@ public class Hero extends CharacterEvent implements CommandListener {
 	 * @param	parent			The level to make the hero on
 	 */
 	public Hero(Level parent) {
-		super(MGlobal.data.getEntryFor(HERO_DEFAULT, HeroMDO.class));
+		super(SGlobal.data.getEntryFor(HERO_DEFAULT, HeroMDO.class));
 		this.parent = parent;
-		MGlobal.hero = this;
+		SGlobal.hero = this;
 	}
 	
 	/**

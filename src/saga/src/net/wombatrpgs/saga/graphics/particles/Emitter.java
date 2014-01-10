@@ -11,7 +11,7 @@ import java.util.List;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.events.MapEvent;
 import net.wombatrpgs.sagaschema.graphics.EmitterMDO;
 
@@ -59,20 +59,20 @@ public class Emitter extends MapEvent {
 	 */
 	protected void fireSingle(float xComp, float yComp) {
 		Particle part = set.generateParticle(this);
-		int angle = MGlobal.rand.nextInt(360);
+		int angle = SGlobal.rand.nextInt(360);
 		float vx = (float) (mdo.velocity * Math.cos(angle));
 		float vy = (float) (mdo.velocity * Math.sin(angle));
 		vx += xComp * mdo.velocity;
 		vy += yComp * mdo.velocity;
-		vx *= (MGlobal.rand.nextFloat()/2 + .5f);
-		vy *= (MGlobal.rand.nextFloat()/2 + .5f);
+		vx *= (SGlobal.rand.nextFloat()/2 + .5f);
+		vy *= (SGlobal.rand.nextFloat()/2 + .5f);
 		part.setVelocity(vx, vy);
-		part.setAngularVelocity(mdo.rotationalVelocity * MGlobal.rand.nextFloat()*2-1);
-		part.setLife(MGlobal.rand.nextFloat() * (mdo.maxLife - mdo.minLife) + mdo.minLife);
+		part.setAngularVelocity(mdo.rotationalVelocity * SGlobal.rand.nextFloat()*2-1);
+		part.setLife(SGlobal.rand.nextFloat() * (mdo.maxLife - mdo.minLife) + mdo.minLife);
 		particles.add(part);
 		parent.addEventAbsolute(part, 
-				getX() + MGlobal.rand.nextInt(32), 
-				getY() + MGlobal.rand.nextInt(32));
+				getX() + SGlobal.rand.nextInt(32), 
+				getY() + SGlobal.rand.nextInt(32));
 	}
 
 	/**

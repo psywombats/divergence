@@ -3,7 +3,7 @@ package net.wombatrpgs.saga.screen.instances;
 import com.badlogic.gdx.Gdx;
 
 import net.wombatrpgs.saga.core.Constants;
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.io.command.CMapSplash;
 import net.wombatrpgs.saga.maps.objects.Picture;
 import net.wombatrpgs.saga.scenes.SceneParser;
@@ -27,14 +27,14 @@ public class GameOverScreen extends Screen {
 	 */
 	public GameOverScreen() {
 		super();
-		mdo = MGlobal.data.getEntryFor(Constants.KEY_DEATH, DeathSettingsMDO.class);
+		mdo = SGlobal.data.getEntryFor(Constants.KEY_DEATH, DeathSettingsMDO.class);
 		screen = new Picture(mdo.bg, 0, 0, 0);
 		assets.add(screen);
 		addObject(screen);
 		pushCommandContext(new CMapSplash());
 		shouldIntroduce = false;
 		
-		immParser = MGlobal.levelManager.getCutscene(mdo.immScene, this);
+		immParser = SGlobal.levelManager.getCutscene(mdo.immScene, this);
 		assets.add(immParser);
 		
 		init();
@@ -72,7 +72,7 @@ public class GameOverScreen extends Screen {
 		}
 		if (shouldIntroduce) {
 			if (immParser.hasExecuted()) {
-				MGlobal.newGame();
+				SGlobal.newGame();
 			}
 		}
 	}

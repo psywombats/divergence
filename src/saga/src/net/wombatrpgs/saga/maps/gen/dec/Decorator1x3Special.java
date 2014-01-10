@@ -8,7 +8,7 @@ package net.wombatrpgs.saga.maps.gen.dec;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.Tile;
 import net.wombatrpgs.saga.maps.gen.MapGenerator;
 import net.wombatrpgs.sagaschema.maps.decorators.Decorator1x3SpecialMDO;
@@ -42,9 +42,9 @@ public class Decorator1x3Special extends DecoratorSingle {
 				if (!gen.isTile(tilesOld, mdo.bottomType, x, y-2)) continue;
 				if (!gen.isTile(tilesOld, mdo.original, x, y-1)) continue;
 				if (!gen.isTile(tilesOld, mdo.original, x, y)) continue;
-				tilesNew[y][x] = MGlobal.tiles.getTile(mdo.t);
-				tilesNew[y-1][x] = MGlobal.tiles.getTile(mdo.m);
-				tilesNew[y-2][x] = MGlobal.tiles.getTile(mdo.b);
+				tilesNew[y][x] = SGlobal.tiles.getTile(mdo.t);
+				tilesNew[y-1][x] = SGlobal.tiles.getTile(mdo.m);
+				tilesNew[y-2][x] = SGlobal.tiles.getTile(mdo.b);
 			}
 		}
 	}
@@ -56,9 +56,9 @@ public class Decorator1x3Special extends DecoratorSingle {
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
-		MGlobal.tiles.requestTile(manager, mdo.t, mdo.original);
-		MGlobal.tiles.requestTile(manager, mdo.m, mdo.original);
-		MGlobal.tiles.requestTile(manager, mdo.b, mdo.bottomType);
+		SGlobal.tiles.requestTile(manager, mdo.t, mdo.original);
+		SGlobal.tiles.requestTile(manager, mdo.m, mdo.original);
+		SGlobal.tiles.requestTile(manager, mdo.b, mdo.bottomType);
 	}
 
 }

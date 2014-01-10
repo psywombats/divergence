@@ -7,7 +7,7 @@
 package net.wombatrpgs.saga.graphics;
 
 import net.wombatrpgs.saga.core.Constants;
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Updateable;
 import net.wombatrpgs.saga.maps.events.MapEvent;
 import net.wombatrpgs.sagaschema.graphics.AnimationMDO;
@@ -109,7 +109,7 @@ public class AnimationStrip implements 	Renderable,
 	@Override
 	public void update(float elapsed) {
 		if (!processed) {
-			MGlobal.reporter.err("Unprocessed strip: " + this + ", key: " + mdo.key);
+			SGlobal.reporter.err("Unprocessed strip: " + this + ", key: " + mdo.key);
 		}
 		if (moving) {
 			time += elapsed;
@@ -162,7 +162,7 @@ public class AnimationStrip implements 	Renderable,
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		MGlobal.assetManager.load(Constants.SPRITES_DIR + mdo.file, Texture.class);
+		SGlobal.assetManager.load(Constants.SPRITES_DIR + mdo.file, Texture.class);
 		queued = true;
 	}
 
@@ -173,8 +173,8 @@ public class AnimationStrip implements 	Renderable,
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		String filename = Constants.SPRITES_DIR+mdo.file;
-		if (MGlobal.assetManager.isLoaded(filename)) {
-			spritesheet = MGlobal.assetManager.get(filename, Texture.class);
+		if (SGlobal.assetManager.isLoaded(filename)) {
+			spritesheet = SGlobal.assetManager.get(filename, Texture.class);
 			frames = new TextureRegion[mdo.frameCount];
 			for (int i = 0; i < mdo.frameCount; i++) {
 				frames[i] = new TextureRegion(spritesheet,
@@ -200,7 +200,7 @@ public class AnimationStrip implements 	Renderable,
 				break;
 			}
 		} else {
-			MGlobal.reporter.err("Spritesheet not loaded: " + filename + " from " + this);
+			SGlobal.reporter.err("Spritesheet not loaded: " + filename + " from " + this);
 		}
 		processed = true;
 		update(0);

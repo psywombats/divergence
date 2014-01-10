@@ -11,7 +11,7 @@ import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Queueable;
 import net.wombatrpgs.saga.io.CommandListener;
 import net.wombatrpgs.saga.scenes.commands.UnblockedListener;
@@ -76,7 +76,7 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	public boolean onCommand(InputCommand command) {
 		if (blocking && command == InputCommand.INTENT_CONFIRM) {
 			blocking = false;
-			MGlobal.screens.peek().unregisterCommandListener(this);
+			SGlobal.screens.peek().unregisterCommandListener(this);
 			UnblockedListener oldListener = listener;
 			listener = null;
 			oldListener.onUnblock();
@@ -117,7 +117,7 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	 */
 	public void block(UnblockedListener listener) {
 		this.listener = listener;
-		MGlobal.screens.peek().registerCommandListener(this);
+		SGlobal.screens.peek().registerCommandListener(this);
 		blocking = true;
 	}
 

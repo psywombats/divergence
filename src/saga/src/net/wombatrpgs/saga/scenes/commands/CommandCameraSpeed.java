@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.saga.scenes.commands;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.scenes.SceneCommand;
 import net.wombatrpgs.saga.scenes.SceneParser;
 
@@ -35,7 +35,7 @@ public class CommandCameraSpeed extends SceneCommand {
 	public boolean run() {
 		if (!finished) {
 			finished = true;
-			MGlobal.screens.getCamera().setPanSpeed(speed);
+			SGlobal.screens.getCamera().setPanSpeed(speed);
 		}
 		return true;
 	}

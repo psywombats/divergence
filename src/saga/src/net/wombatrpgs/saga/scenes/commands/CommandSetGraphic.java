@@ -9,7 +9,7 @@ package net.wombatrpgs.saga.scenes.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.graphics.FacesAnimation;
 import net.wombatrpgs.saga.graphics.FacesAnimationFactory;
 import net.wombatrpgs.saga.maps.events.MapEvent;
@@ -46,15 +46,15 @@ public class CommandSetGraphic extends SceneCommand {
 		if (eventName.equals(ARG_GROUP)) {
 //			line = line.substring(line.indexOf(' ') + 1);
 //			groupName = line.substring(0, line.indexOf(' '));
-			MGlobal.reporter.warn("Graphic group assigments aren't really implemented yet");
+			SGlobal.reporter.warn("Graphic group assigments aren't really implemented yet");
 		}
 		if (eventName.equals(ARG_HERO)) {
-			events.add(MGlobal.hero);
+			events.add(SGlobal.hero);
 		} else {
 			events.add(parent.getLevel().getEventByName(eventName));
 		}
 		if (events.get(0) == null) {
-			MGlobal.reporter.warn("Couldn't find ev to set anim: " + eventName);
+			SGlobal.reporter.warn("Couldn't find ev to set anim: " + eventName);
 		}
 		line = line.substring(line.indexOf(' ') + 1);
 		String mdoKey;
@@ -67,10 +67,10 @@ public class CommandSetGraphic extends SceneCommand {
 			if (arg.equals(ARG_AUTOPLAY)) {
 				autoplay = true;
 			} else {
-				MGlobal.reporter.warn("Unknown arg to setgraphic: " + arg);
+				SGlobal.reporter.warn("Unknown arg to setgraphic: " + arg);
 			}
 		}
-		DirMDO dirMDO = MGlobal.data.getEntryFor(mdoKey, DirMDO.class);
+		DirMDO dirMDO = SGlobal.data.getEntryFor(mdoKey, DirMDO.class);
 		graphic = FacesAnimationFactory.create(dirMDO, events.get(0));
 		assets.add(graphic);
 	}
@@ -88,7 +88,7 @@ public class CommandSetGraphic extends SceneCommand {
 				event.setPacing(autoplay);
 				event.halt();
 			} else {
-				MGlobal.reporter.warn("Tried to set anim of non-character: " + mapEvent);
+				SGlobal.reporter.warn("Tried to set anim of non-character: " + mapEvent);
 			}
 		}
 		finished = true;

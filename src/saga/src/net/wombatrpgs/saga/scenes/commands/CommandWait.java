@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.saga.scenes.commands;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.scenes.SceneCommand;
 import net.wombatrpgs.saga.scenes.SceneParser;
 
@@ -37,9 +37,9 @@ public class CommandWait extends SceneCommand {
 			arg = arg.substring(arg.indexOf(' ' ) + 1);
 			if (arg.equals(ARG_SOFT)) {
 				soft = true;
-				MGlobal.reporter.warn("Soft pause is not fully implemented");
+				SGlobal.reporter.warn("Soft pause is not fully implemented");
 			} else {
-				MGlobal.reporter.warn("Unknown wait argument: " + arg);
+				SGlobal.reporter.warn("Unknown wait argument: " + arg);
 			}
 		} else {
 			duration = Float.valueOf(arg);

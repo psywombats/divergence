@@ -13,7 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.graphics.Graphic;
 import net.wombatrpgs.saga.io.audio.SoundObject;
 import net.wombatrpgs.saga.maps.MapThing;
@@ -71,7 +71,7 @@ public class TextBox extends Picture {
 			assets.add(backer2);
 		}
 		if (MapThing.mdoHasProperty(mdo.typeSfx)) {
-			typeSfx = new SoundObject(MGlobal.data.getEntryFor(mdo.typeSfx, SoundMDO.class));
+			typeSfx = new SoundObject(SGlobal.data.getEntryFor(mdo.typeSfx, SoundMDO.class));
 			assets.add(typeSfx);
 		}
 	}
@@ -82,7 +82,7 @@ public class TextBox extends Picture {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		if (!MGlobal.won2) {
+		if (!SGlobal.won2) {
 			super.render(camera);
 		}
 		font.setAlpha(currentColor.a);
@@ -116,7 +116,7 @@ public class TextBox extends Picture {
 		if (backer2 != null) {
 			backer2.postProcessing(manager, pass);
 		}
-		WindowSettings win = MGlobal.window;
+		WindowSettings win = SGlobal.window;
 		if (mdo.anchor == AnchorType.ANCHOR) {
 			bodyFormat.x = win.getWidth()/2 - backer.getWidth()/2 + mdo.x1;
 			bodyFormat.y = win.getHeight()/2 + backer.getHeight()/2 - mdo.y1;
@@ -145,8 +145,8 @@ public class TextBox extends Picture {
 		super.update(elapsed);
 		
 		if (mdo.anchor == AnchorType.ANCHOR) {
-			setX(MGlobal.window.getWidth()/2 - backer.getWidth()/2);
-			setY(MGlobal.window.getHeight()/2 - backer.getHeight()/2);
+			setX(SGlobal.window.getWidth()/2 - backer.getWidth()/2);
+			setY(SGlobal.window.getHeight()/2 - backer.getHeight()/2);
 		}
 		
 		boolean mutate = false;
@@ -251,7 +251,7 @@ public class TextBox extends Picture {
 		}
 		if (mdo.anchor == AnchorType.OFFSET) {
 			setX(mdo.graphicX);
-			setY(MGlobal.window.getHeight() - mdo.graphicY - appearance.getHeight());
+			setY(SGlobal.window.getHeight() - mdo.graphicY - appearance.getHeight());
 		}
 	}
 	
@@ -297,13 +297,13 @@ public class TextBox extends Picture {
 			for (int i = 0; i < in.length(); i += 1) {
 				out[fillAt] = in.charAt(i);
 				if (out[fillAt] == '*') {
-					out[fillAt] = (char)(MGlobal.rand.nextInt(26) + 'a');
+					out[fillAt] = (char)(SGlobal.rand.nextInt(26) + 'a');
 				}
 				if (out[fillAt] == '$') {
 					if (i < in.length()-1) {
 						i += 1;
-						if (MGlobal.rand.nextFloat() < .01) {
-							out[fillAt] = (char)(MGlobal.rand.nextInt(26) + 'a');
+						if (SGlobal.rand.nextFloat() < .01) {
+							out[fillAt] = (char)(SGlobal.rand.nextInt(26) + 'a');
 						} else {
 							out[fillAt] = in.charAt(i); 
 						}

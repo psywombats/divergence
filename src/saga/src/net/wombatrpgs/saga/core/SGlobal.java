@@ -38,7 +38,7 @@ import net.wombatrpgs.sagaschema.settings.WindowSettingsMDO;
 /**
  * Rainfall's version of the MGNDB global.
  */
-public class MGlobal {
+public class SGlobal {
 	
 	/** Error-reporting dispatcher */
 	public static Reporter reporter;
@@ -83,10 +83,10 @@ public class MGlobal {
 	 */
 	@Deprecated
 	public static void setupRGlobalForTesting() {
-		MGlobal.assetManager = new AssetManager();
-		MGlobal.screens = new ScreenStack();
-		MGlobal.keymap = new DefaultKeymap();
-		MGlobal.rand = new Random(System.currentTimeMillis());
+		SGlobal.assetManager = new AssetManager();
+		SGlobal.screens = new ScreenStack();
+		SGlobal.keymap = new DefaultKeymap();
+		SGlobal.rand = new Random(System.currentTimeMillis());
 		//Global.setupGlobalForTesting();
 	}
 	
@@ -96,88 +96,88 @@ public class MGlobal {
 	public static void globalInit() {
 		
 		// debugging is needed first
-		MGlobal.reporter = platform.getReporter();
+		SGlobal.reporter = platform.getReporter();
 		try {
 			long startTime = System.currentTimeMillis();
-			MGlobal.reporter.inform("Initialized error reporting");
-			MGlobal.assetManager = new AssetManager();
-			MGlobal.reporter.inform("Initializing primary globals");
+			SGlobal.reporter.inform("Initialized error reporting");
+			SGlobal.assetManager = new AssetManager();
+			SGlobal.reporter.inform("Initializing primary globals");
 			long seed = System.currentTimeMillis();
-			MGlobal.rand = new Random(seed);
-			MGlobal.reporter.inform("Using global seed " + seed);
-			MGlobal.data = new Database();
-			MGlobal.keymap = new DefaultKeymap();
+			SGlobal.rand = new Random(seed);
+			SGlobal.reporter.inform("Using global seed " + seed);
+			SGlobal.data = new Database();
+			SGlobal.keymap = new DefaultKeymap();
 			
 			// load up data marked essential, this will always be ugly
-			MGlobal.reporter.inform("Loading essential data");
+			SGlobal.reporter.inform("Loading essential data");
 			setHandlers();
-			MGlobal.data.queueData(assetManager, Constants.PRELOAD_SCHEMA);
+			SGlobal.data.queueData(assetManager, Constants.PRELOAD_SCHEMA);
 			long assetStart = System.currentTimeMillis();
 			assetManager.finishLoading();
 			long assetEnd = System.currentTimeMillis();
 			float assetElapsed = (assetEnd - assetStart) / 1000f;
-			MGlobal.reporter.inform("Finished loading essential data, " +
+			SGlobal.reporter.inform("Finished loading essential data, " +
 					"elapsed time: " + assetElapsed + "seconds");
 			
 			// here on out, these may require essential data
 			toLoad = new ArrayList<Queueable>();
-			MGlobal.reporter.inform("Intializing secondary globals");
-			MGlobal.constants = new Constants();
-			MGlobal.screens = new ScreenStack();
-			MGlobal.loader = new FileLoader();
-			MGlobal.tiles = new TileManager();
-			MGlobal.levelManager = new LevelManager();
+			SGlobal.reporter.inform("Intializing secondary globals");
+			SGlobal.constants = new Constants();
+			SGlobal.screens = new ScreenStack();
+			SGlobal.loader = new FileLoader();
+			SGlobal.tiles = new TileManager();
+			SGlobal.levelManager = new LevelManager();
 			
 			// load secondary data
 			// TODO: load with a loading bar
-			MGlobal.reporter.inform("Loading secondary data");
-			MGlobal.data.queueFilesInDir(assetManager, Gdx.files.internal(Constants.DATA_DIR));
+			SGlobal.reporter.inform("Loading secondary data");
+			SGlobal.data.queueFilesInDir(assetManager, Gdx.files.internal(Constants.DATA_DIR));
 			assetEnd = System.currentTimeMillis();
 			assetManager.finishLoading();
 			assetEnd = System.currentTimeMillis();
-			MGlobal.reporter.inform("Finished loading secondary data, " +
+			SGlobal.reporter.inform("Finished loading secondary data, " +
 					"elapsed time: " + assetElapsed + "seconds");
 	
 			// initialize everything that needed data
-			MGlobal.reporter.inform("Initializing data-dependant resources");
-			MGlobal.window = new WindowSettings(
-					MGlobal.data.getEntryFor(Constants.KEY_WINDOW, WindowSettingsMDO.class));
-			MGlobal.graphics = new GraphicsSettings(
-					MGlobal.data.getEntryFor(Constants.KEY_GRAPHICS, GraphicsSettingsMDO.class));
-			MGlobal.ui = new UISettings(MGlobal.data.getEntryFor(
+			SGlobal.reporter.inform("Initializing data-dependant resources");
+			SGlobal.window = new WindowSettings(
+					SGlobal.data.getEntryFor(Constants.KEY_WINDOW, WindowSettingsMDO.class));
+			SGlobal.graphics = new GraphicsSettings(
+					SGlobal.data.getEntryFor(Constants.KEY_GRAPHICS, GraphicsSettingsMDO.class));
+			SGlobal.ui = new UISettings(SGlobal.data.getEntryFor(
 					UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
 			toLoad.add(ui);
 			toLoad.add(graphics);
 			for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
-			for (int pass = 0; MGlobal.assetManager.getProgress() < 1; pass++) {
+			for (int pass = 0; SGlobal.assetManager.getProgress() < 1; pass++) {
 				assetStart = System.currentTimeMillis();
-				MGlobal.assetManager.finishLoading();
+				SGlobal.assetManager.finishLoading();
 				assetEnd = System.currentTimeMillis();
 				assetElapsed = (assetEnd - assetStart) / 1000f;
-				MGlobal.reporter.inform("Loading pass " + pass + ", took " + assetElapsed);
-				for (Queueable q : toLoad) q.postProcessing(MGlobal.assetManager, pass);
+				SGlobal.reporter.inform("Loading pass " + pass + ", took " + assetElapsed);
+				for (Queueable q : toLoad) q.postProcessing(SGlobal.assetManager, pass);
 			}
 			
 			// initializing graphics
-			MGlobal.reporter.inform("Creating level-dependant data");
+			SGlobal.reporter.inform("Creating level-dependant data");
 			toLoad.clear();
 			String result = loader.getText(Constants.CONFIG_FILE);
 			boolean fullscreen = result.indexOf("true") != -1;
 			Gdx.graphics.setDisplayMode(
-					MGlobal.window.getResolutionWidth(),
-					MGlobal.window.getResolutionHeight(), 
+					SGlobal.window.getResolutionWidth(),
+					SGlobal.window.getResolutionHeight(), 
 					fullscreen);
-			MGlobal.screens.push(new GameScreen());
-			Gdx.graphics.setTitle(MGlobal.window.getTitle());
+			SGlobal.screens.push(new GameScreen());
+			Gdx.graphics.setTitle(SGlobal.window.getTitle());
 			//Gdx.graphics.setVSync(true);
-			Gdx.input.setInputProcessor(MGlobal.keymap);
+			Gdx.input.setInputProcessor(SGlobal.keymap);
 			
-			MGlobal.reporter.inform("Loading level assets");
+			SGlobal.reporter.inform("Loading level assets");
 			for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
-			for (int pass = 0; MGlobal.assetManager.getProgress() < 1; pass++) {
-				MGlobal.reporter.inform("Loading pass " + pass + ", took " + assetElapsed);
-				MGlobal.assetManager.finishLoading();
-				for (Queueable q : toLoad) q.postProcessing(MGlobal.assetManager, pass);
+			for (int pass = 0; SGlobal.assetManager.getProgress() < 1; pass++) {
+				SGlobal.reporter.inform("Loading pass " + pass + ", took " + assetElapsed);
+				SGlobal.assetManager.finishLoading();
+				for (Queueable q : toLoad) q.postProcessing(SGlobal.assetManager, pass);
 				assetEnd = System.currentTimeMillis();
 				assetElapsed = (assetEnd - assetStart) / 1000f;
 			}
@@ -185,12 +185,12 @@ public class MGlobal {
 			initialized = true;
 			long endTime = System.currentTimeMillis();
 			float elapsed = (endTime - startTime) / 1000f;
-			MGlobal.reporter.inform("Done loading, elasped time: " + elapsed + 
+			SGlobal.reporter.inform("Done loading, elasped time: " + elapsed + 
 					" seconds");
 			
 		} catch (Exception e) {
 			// TODO: proper init error handling
-			MGlobal.reporter.err("Exception during initialization: ", e);
+			SGlobal.reporter.err("Exception during initialization: ", e);
 			Gdx.app.exit();
 		}
 	}
@@ -200,10 +200,10 @@ public class MGlobal {
 	 * over. This is separate from the global init for some reason.
 	 */
 	public static void newGame() {
-		MGlobal.screens.reset();
-		MGlobal.levelManager.reset();
-		MGlobal.hero = null;
-		MGlobal.screens.push(new TitleScreen());
+		SGlobal.screens.reset();
+		SGlobal.levelManager.reset();
+		SGlobal.hero = null;
+		SGlobal.screens.push(new TitleScreen());
 	}
 	
 	/**

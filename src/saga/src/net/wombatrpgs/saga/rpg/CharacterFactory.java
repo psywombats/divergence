@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.saga.rpg;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.sagaschema.characters.HeroMDO;
 import net.wombatrpgs.sagaschema.characters.data.CharacterMDO;
@@ -30,7 +30,7 @@ public class CharacterFactory {
 		if (HeroMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new Hero((HeroMDO) mdo, parent);
 		} else {
-			MGlobal.reporter.warn("Generic character spawned: " + mdo.key);
+			SGlobal.reporter.warn("Generic character spawned: " + mdo.key);
 			return new CharacterEvent(mdo, parent);
 		}
 	}

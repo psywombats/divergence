@@ -7,7 +7,7 @@
 package net.wombatrpgs.saga.maps.events;
 
 import net.wombatrpgs.saga.core.FinishListener;
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.maps.Loc;
 import net.wombatrpgs.saga.rpg.CharacterEvent;
@@ -60,7 +60,7 @@ public class TeleportEvent extends MapEvent {
 	 */
 	@Override
 	public void collideWith(CharacterEvent character) {
-		if (!triggered && character == MGlobal.hero) {
+		if (!triggered && character == SGlobal.hero) {
 			triggered = true;
 			victim = character;
 		}
@@ -79,17 +79,17 @@ public class TeleportEvent extends MapEvent {
 	 * @param	other			The event that triggered this (hero)	
 	 */
 	protected void teleport(MapEvent other) {
-		if (other != MGlobal.hero) return;
-		MGlobal.levelManager.getTele().getPre().addListener(new FinishListener() {
+		if (other != SGlobal.hero) return;
+		SGlobal.levelManager.getTele().getPre().addListener(new FinishListener() {
 			@Override
 			public void onFinish() {
-				Level newMap = MGlobal.levelManager.getLevel(mapKey);
+				Level newMap = SGlobal.levelManager.getLevel(mapKey);
 				Loc to = newMap.getTeleInLoc(parent.getKey());
-				MGlobal.levelManager.getTele().teleport(newMap, to.x, to.y);
-				MGlobal.levelManager.getTele().getPost().run();
+				SGlobal.levelManager.getTele().teleport(newMap, to.x, to.y);
+				SGlobal.levelManager.getTele().getPost().run();
 			}
 		});
-		MGlobal.levelManager.getTele().getPre().run();
+		SGlobal.levelManager.getTele().getPre().run();
 	}
 	
 }

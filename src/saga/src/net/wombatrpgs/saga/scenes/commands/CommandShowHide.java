@@ -9,7 +9,7 @@ package net.wombatrpgs.saga.scenes.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.events.MapEvent;
 import net.wombatrpgs.saga.scenes.SceneCommand;
 import net.wombatrpgs.saga.scenes.SceneParser;
@@ -59,7 +59,7 @@ public class CommandShowHide extends SceneCommand {
 			} else {
 				events.add(parent.getLevel().getEventByName(eventName));
 				if (events.get(0) == null) {
-					MGlobal.reporter.warn("Show/hide a null event named: " + eventName);
+					SGlobal.reporter.warn("Show/hide a null event named: " + eventName);
 				}
 			}
 		}

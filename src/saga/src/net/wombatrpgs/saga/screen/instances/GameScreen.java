@@ -11,7 +11,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import net.wombatrpgs.saga.core.Constants;
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.io.command.CMapGame;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.maps.Loc;
@@ -44,34 +44,34 @@ public class GameScreen extends Screen {
 	 */
 	public GameScreen() {
 		super();
-		MGlobal.levelManager.setScreen(this);
+		SGlobal.levelManager.setScreen(this);
 		
-		IntroSettingsMDO introMDO=MGlobal.data.getEntryFor("default_intro", IntroSettingsMDO.class);
-		map = MGlobal.levelManager.getLevel(introMDO.map);
-		MGlobal.levelManager.setActive(map);
+		IntroSettingsMDO introMDO=SGlobal.data.getEntryFor("default_intro", IntroSettingsMDO.class);
+		map = SGlobal.levelManager.getLevel(introMDO.map);
+		SGlobal.levelManager.setActive(map);
 		if (map.getBGM() != null) {
-			MGlobal.screens.playMusic(map.getBGM(), false);
+			SGlobal.screens.playMusic(map.getBGM(), false);
 		}
 		
 		addObject(map);
 		pushCommandContext(new CMapGame());
 		
-		fpsMDO = MGlobal.data.getEntryFor("test_fps", FramerateTestMDO.class);
+		fpsMDO = SGlobal.data.getEntryFor("test_fps", FramerateTestMDO.class);
 		
-		shaderMDO = MGlobal.data.getEntryFor("test_shader", ShaderTestMDO.class);
+		shaderMDO = SGlobal.data.getEntryFor("test_shader", ShaderTestMDO.class);
 		if (shaderMDO.enabled == TestState.ENABLED) {
 			testShader = new ShaderProgram(
-					MGlobal.loader.getText(Constants.SHADERS_DIR + shaderMDO.vertexFile),
-					MGlobal.loader.getText(Constants.SHADERS_DIR + shaderMDO.fragmentFile));
+					SGlobal.loader.getText(Constants.SHADERS_DIR + shaderMDO.vertexFile),
+					SGlobal.loader.getText(Constants.SHADERS_DIR + shaderMDO.fragmentFile));
 			batch.setShader(testShader);
 			mapShader = (testShader);
 		}
 		
-		addObject(MGlobal.ui.getNarrator());
+		addObject(SGlobal.ui.getNarrator());
 		
 		// all this stuff is crap
-		MGlobal.hero = new Hero(MGlobal.levelManager.getActive());
-		assets.add(MGlobal.hero);
+		SGlobal.hero = new Hero(SGlobal.levelManager.getActive());
+		assets.add(SGlobal.hero);
 		
 		// will be called later
 		// normally
@@ -88,7 +88,7 @@ public class GameScreen extends Screen {
 		switch (command) {
 			// TODO: screen-based commands
 		default:
-			return MGlobal.hero.onCommand(command);
+			return SGlobal.hero.onCommand(command);
 		}
 		
 	}
@@ -102,17 +102,17 @@ public class GameScreen extends Screen {
 		super.postProcessing(manager, pass);
 		
 		if (pass == 0) {
-			while (!map.isTilePassable(MGlobal.hero, MGlobal.hero.getTileX(), MGlobal.hero.getTileY())) {
-				MGlobal.hero.setTileX(MGlobal.rand.nextInt(map.getWidth()));
-				MGlobal.hero.setTileY(MGlobal.rand.nextInt(map.getHeight()));
+			while (!map.isTilePassable(SGlobal.hero, SGlobal.hero.getTileX(), SGlobal.hero.getTileY())) {
+				SGlobal.hero.setTileX(SGlobal.rand.nextInt(map.getWidth()));
+				SGlobal.hero.setTileY(SGlobal.rand.nextInt(map.getHeight()));
 			}
-			map.addEvent(MGlobal.hero);
-			map.setTeleInLoc("hero", new Loc(MGlobal.hero.getTileX(), MGlobal.hero.getTileY()));
-			MGlobal.hero.setX(MGlobal.hero.getTileX()*map.getTileWidth());
-			MGlobal.hero.setY(MGlobal.hero.getTileY()*map.getTileHeight());
-			getCamera().track(MGlobal.hero);
+			map.addEvent(SGlobal.hero);
+			map.setTeleInLoc("hero", new Loc(SGlobal.hero.getTileX(), SGlobal.hero.getTileY()));
+			SGlobal.hero.setX(SGlobal.hero.getTileX()*map.getTileWidth());
+			SGlobal.hero.setY(SGlobal.hero.getTileY()*map.getTileHeight());
+			getCamera().track(SGlobal.hero);
 			getCamera().update(0);
-			MGlobal.hero.refreshVisibilityMap();
+			SGlobal.hero.refreshVisibilityMap();
 		}
 	}
 	
@@ -124,11 +124,11 @@ public class GameScreen extends Screen {
 		super.render();
 		batch.begin();
 		if (fpsMDO.enabled == TestState.ENABLED) {
-			float wr = MGlobal.window.getZoom();
-			float wh = MGlobal.window.getZoom();
+			float wr = SGlobal.window.getZoom();
+			float wh = SGlobal.window.getZoom();
 			defaultFont.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(),
-					cam.position.x - MGlobal.window.getWidth()/2*wh + 8,
-					cam.position.y + MGlobal.window.getHeight()/2*wr - 8);
+					cam.position.x - SGlobal.window.getWidth()/2*wh + 8,
+					cam.position.y + SGlobal.window.getHeight()/2*wr - 8);
 		}
 		batch.end();
 	}

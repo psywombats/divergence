@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.saga.scenes.commands;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.Positionable;
 import net.wombatrpgs.saga.maps.events.MapEvent;
 import net.wombatrpgs.saga.scenes.SceneCommand;
@@ -48,7 +48,7 @@ public class CommandCameraPan extends SceneCommand {
 	@Override
 	public boolean run() {
 		if (!runOnce) {
-			TrackerCam cam = MGlobal.screens.getCamera();
+			TrackerCam cam = SGlobal.screens.getCamera();
 			oldTarget = cam.getTarget();
 			target.setX((int) cam.position.x);
 			target.setY((int) cam.position.y);

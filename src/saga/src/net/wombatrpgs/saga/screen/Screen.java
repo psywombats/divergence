@@ -24,7 +24,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Queueable;
 import net.wombatrpgs.saga.core.Updateable;
 import net.wombatrpgs.saga.graphics.Disposable;
@@ -92,28 +92,28 @@ public abstract class Screen implements CommandListener,
 		privateBatch = new SpriteBatch();
 		uiBatch = new SpriteBatch();
 		buffer = new FrameBuffer(Format.RGB565, 
-				MGlobal.window.getWidth(),
-				MGlobal.window.getHeight(),
+				SGlobal.window.getWidth(),
+				SGlobal.window.getHeight(),
 				false);
 		lastBuffer = new FrameBuffer(Format.RGB565, 
-				MGlobal.window.getWidth(),
-				MGlobal.window.getHeight(),
+				SGlobal.window.getWidth(),
+				SGlobal.window.getHeight(),
 				false);
 		tint = new Color(1, 1, 1, 1);
 		shapes = new ShapeRenderer();
 		defaultFont = new BitmapFont();
-		cam = new TrackerCam(MGlobal.window.getWidth(), MGlobal.window.getHeight());
+		cam = new TrackerCam(SGlobal.window.getWidth(), SGlobal.window.getHeight());
 		
 		uiCam = new OrthographicCamera();
-		uiCam.setToOrtho(false, MGlobal.window.getWidth(), MGlobal.window.getHeight());
-		uiCam.zoom = MGlobal.window.getZoom();
-		uiCam.position.x = MGlobal.window.getViewportWidth() / 2;
-		uiCam.position.y = MGlobal.window.getViewportHeight() / 2;
+		uiCam.setToOrtho(false, SGlobal.window.getWidth(), SGlobal.window.getHeight());
+		uiCam.zoom = SGlobal.window.getZoom();
+		uiCam.position.x = SGlobal.window.getViewportWidth() / 2;
+		uiCam.position.y = SGlobal.window.getViewportHeight() / 2;
 		uiCam.update();
 		uiBatch.setProjectionMatrix(uiCam.combined);
 		
 		updateChildren.add(cam);
-		updateChildren.add(MGlobal.keymap);
+		updateChildren.add(SGlobal.keymap);
 	}
 	
 	/**
@@ -231,11 +231,11 @@ public abstract class Screen implements CommandListener,
 	 */
 	public void render() {
 		if (!initialized) {
-			MGlobal.reporter.warn("Forgot to intialize screen " + this);
+			SGlobal.reporter.warn("Forgot to intialize screen " + this);
 		}
 		cam.update(0);
 		batch.setProjectionMatrix(cam.combined);
-		WindowSettings window = MGlobal.window;
+		WindowSettings window = SGlobal.window;
 		buffer.begin();
 		Gdx.gl.glClearColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -343,7 +343,7 @@ public abstract class Screen implements CommandListener,
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-		if (MGlobal.stasis) return true;
+		if (SGlobal.stasis) return true;
 		for (CommandListener listener : commandListeners) {
 			if (listener.onCommand(command)) return true;
 		}
@@ -353,8 +353,8 @@ public abstract class Screen implements CommandListener,
 			return true;
 		case INTENT_FULLSCREEN:
 			Gdx.graphics.setDisplayMode(
-					MGlobal.window.getResolutionWidth(), 
-					MGlobal.window.getResolutionHeight(), 
+					SGlobal.window.getResolutionWidth(), 
+					SGlobal.window.getResolutionHeight(), 
 					!Gdx.graphics.isFullscreen());
 			return true;
 		default:
@@ -394,7 +394,7 @@ public abstract class Screen implements CommandListener,
 			removeUChild(screenObject);
 			screenObject.onRemovedFromScreen();
 		} else {
-			MGlobal.reporter.warn("Tried to remove non-existant picture from screen: " + screenObject);
+			SGlobal.reporter.warn("Tried to remove non-existant picture from screen: " + screenObject);
 		}
 	}
 
@@ -403,9 +403,9 @@ public abstract class Screen implements CommandListener,
 	 * the constructor.
 	 */
 	public final void init() {
-		this.queueRequiredAssets(MGlobal.assetManager);
-		MGlobal.assetManager.finishLoading();
-		this.postProcessing(MGlobal.assetManager, 0);
+		this.queueRequiredAssets(SGlobal.assetManager);
+		SGlobal.assetManager.finishLoading();
+		this.postProcessing(SGlobal.assetManager, 0);
 		initialized = true;
 	}
 	

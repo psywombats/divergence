@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.saga.scenes;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.scenes.commands.CommandBlock;
 import net.wombatrpgs.saga.scenes.commands.CommandCameraPan;
 import net.wombatrpgs.saga.scenes.commands.CommandCameraSpeed;
@@ -100,13 +100,13 @@ public class CommandFactory {
 			} else if (commandName.equals(COMMAND_TELE)) {
 				return new CommandTeleport(parent, line);
 			} else {
-				MGlobal.reporter.warn("Did not recognize a command: " + commandName);
+				SGlobal.reporter.warn("Did not recognize a command: " + commandName);
 				return null;
 			}
 		} else if (line.contains(":")) {
 			return new CommandSpeakAll(parent, line);
 		} else {
-			MGlobal.reporter.warn("Found something weird in a scene file: " + line);
+			SGlobal.reporter.warn("Found something weird in a scene file: " + line);
 			return null;
 		}
 	}

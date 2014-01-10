@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.saga.scenes.commands;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.io.audio.MusicObject;
 import net.wombatrpgs.saga.scenes.SceneCommand;
 import net.wombatrpgs.saga.scenes.SceneParser;
@@ -32,7 +32,7 @@ public class CommandPlayBGM extends SceneCommand {
 		super(parent, line);
 		String arg = line.substring(line.indexOf(' ' )+1, line.indexOf(']'));
 		if (!arg.equals(ARG_NO_BGM)) {
-			bgm = new MusicObject(MGlobal.data.getEntryFor(arg, MusicMDO.class));
+			bgm = new MusicObject(SGlobal.data.getEntryFor(arg, MusicMDO.class));
 		}
 	}
 

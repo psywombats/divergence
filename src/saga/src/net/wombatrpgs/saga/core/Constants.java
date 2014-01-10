@@ -86,8 +86,8 @@ public class Constants {
 	 */
 	public Constants() {
 		// load everything up~
-		rate = MGlobal.data.getEntryFor("game_speed", GameSpeedMDO.class).framerate;
-		delay = MGlobal.data.getEntryFor("game_speed", GameSpeedMDO.class).delay;
+		rate = SGlobal.data.getEntryFor("game_speed", GameSpeedMDO.class).framerate;
+		delay = SGlobal.data.getEntryFor("game_speed", GameSpeedMDO.class).delay;
 	}
 	
 	/** @return The target game framerate */

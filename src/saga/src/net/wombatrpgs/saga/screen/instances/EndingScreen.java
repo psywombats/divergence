@@ -3,7 +3,7 @@ package net.wombatrpgs.saga.screen.instances;
 import com.badlogic.gdx.Gdx;
 
 import net.wombatrpgs.saga.core.Constants;
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.io.command.CMapSplash;
 import net.wombatrpgs.saga.maps.objects.Picture;
 import net.wombatrpgs.saga.scenes.SceneParser;
@@ -28,16 +28,16 @@ public class EndingScreen extends Screen {
 	 */
 	public EndingScreen() {
 		super();
-		mdo = MGlobal.data.getEntryFor(KEY_ENDING, EndSettingsMDO.class);
+		mdo = SGlobal.data.getEntryFor(KEY_ENDING, EndSettingsMDO.class);
 		screen = new Picture(mdo.bg, 0, 0, 0);
 		assets.add(screen);
 		addObject(screen);
 		pushCommandContext(new CMapSplash());
 		
-		IntroSettingsMDO introMDO=MGlobal.data.getEntryFor(Constants.KEY_INTRO, IntroSettingsMDO.class);
-		outroParser = MGlobal.levelManager.getCutscene(mdo.ending, this);
-		inParser = MGlobal.levelManager.getCutscene(introMDO.immScene, this);
-		outParser = MGlobal.levelManager.getCutscene(introMDO.outScene, this);
+		IntroSettingsMDO introMDO=SGlobal.data.getEntryFor(Constants.KEY_INTRO, IntroSettingsMDO.class);
+		outroParser = SGlobal.levelManager.getCutscene(mdo.ending, this);
+		inParser = SGlobal.levelManager.getCutscene(introMDO.immScene, this);
+		outParser = SGlobal.levelManager.getCutscene(introMDO.outScene, this);
 		assets.add(outroParser);
 		assets.add(inParser);
 		assets.add(outParser);

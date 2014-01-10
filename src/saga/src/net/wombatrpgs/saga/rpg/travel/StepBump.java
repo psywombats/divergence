@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.saga.rpg.travel;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.CharacterEvent;
 import net.wombatrpgs.sagaschema.maps.data.EightDir;
 
@@ -41,8 +41,8 @@ public class StepBump extends Step {
 	public void update(float elapsed) {
 		super.update(elapsed);
 		if (!started) {
-			if (actor == MGlobal.hero) {
-				MGlobal.screens.peek().getCamera().track(null);
+			if (actor == SGlobal.hero) {
+				SGlobal.screens.peek().getCamera().track(null);
 			}
 			started = true;
 			startX = actor.getX();
@@ -72,8 +72,8 @@ public class StepBump extends Step {
 		super.onEnd();
 		actor.setX(startX);
 		actor.setY(startY);
-		if (actor == MGlobal.hero) {
-			MGlobal.screens.peek().getCamera().track(MGlobal.hero);
+		if (actor == SGlobal.hero) {
+			SGlobal.screens.peek().getCamera().track(SGlobal.hero);
 		}
 	}
 

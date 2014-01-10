@@ -8,7 +8,7 @@ package net.wombatrpgs.saga.maps.gen.dec;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.Tile;
 import net.wombatrpgs.saga.maps.gen.MapGenerator;
 import net.wombatrpgs.sagaschema.maps.decorators.Decorator1x1MDO;
@@ -41,7 +41,7 @@ public class Decorator1x1 extends DecoratorSingle {
 			for (int y = 0; y < gen.getHeight(); y += 1) {
 				if (!legal(tilesOld, x, y)) continue;
 				if (mdo.chance < gen.rand().nextFloat()) continue;
-				tilesNew[y][x] = MGlobal.tiles.getTile(mdo.tile);
+				tilesNew[y][x] = SGlobal.tiles.getTile(mdo.tile);
 			}
 		}
 	}
@@ -53,7 +53,7 @@ public class Decorator1x1 extends DecoratorSingle {
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
-		MGlobal.tiles.requestTile(manager, mdo.tile, replace);
+		SGlobal.tiles.requestTile(manager, mdo.tile, replace);
 	}
 
 }

@@ -13,7 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.saga.core.Constants;
 import net.wombatrpgs.saga.core.FinishListener;
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Queueable;
 import net.wombatrpgs.saga.core.Updateable;
 import net.wombatrpgs.saga.io.CommandMap;
@@ -150,7 +150,7 @@ public class SceneParser implements	Updateable,
 	public void setChild(SceneParser parser) { this.childParser = parser; }
 	
 	/** @return The level currently active. Same as the static call */
-	public Level getLevel() { return MGlobal.levelManager.getActive(); }
+	public Level getLevel() { return SGlobal.levelManager.getActive(); }
 	
 	/**
 	 * Gets all map events that have been touched by movements by this parser.
@@ -183,10 +183,10 @@ public class SceneParser implements	Updateable,
 	 */
 	public void forceRun() {
 		if (running) {
-			MGlobal.reporter.inform("Aborted a parser on " + parent + ": " + this);
+			SGlobal.reporter.inform("Aborted a parser on " + parent + ": " + this);
 			terminate();
 		}
-		MGlobal.reporter.inform("Now running a scene: " + this);
+		SGlobal.reporter.inform("Now running a scene: " + this);
 		running = true;
 		timeSinceStart = 0;
 		ourMap = new CMapScene();
@@ -211,7 +211,7 @@ public class SceneParser implements	Updateable,
 		if (listeners.contains(listener)) {
 			listeners.remove(listener);
 		} else {
-			MGlobal.reporter.warn("Tried to remove a non-listener: " + listener);
+			SGlobal.reporter.warn("Tried to remove a non-listener: " + listener);
 		}
 	}
 	
@@ -219,12 +219,12 @@ public class SceneParser implements	Updateable,
 	 * Called when this parser finishes execution.
 	 */
 	protected void terminate() {
-		MGlobal.reporter.inform("Terminated a scene: " + this);
+		SGlobal.reporter.inform("Terminated a scene: " + this);
 		parent.removeCommandContext(ourMap);
 		running = false;
 		executed = true;
-		if (MGlobal.hero != null) {
-			MGlobal.hero.halt();
+		if (SGlobal.hero != null) {
+			SGlobal.hero.halt();
 		}
 		for (FinishListener listener : listeners) {
 			listener.onFinish();

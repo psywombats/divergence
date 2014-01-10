@@ -12,7 +12,7 @@ import java.util.List;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.graphics.AnimationStrip;
 import net.wombatrpgs.sagaschema.graphics.AnimationMDO;
 
@@ -97,7 +97,7 @@ public class AnimationPlayer extends MapEvent {
 		if (listeners.contains(listener)) {
 			listeners.remove(listener);
 		} else {
-			MGlobal.reporter.warn("Unregistered a non-listener: " + listener);
+			SGlobal.reporter.warn("Unregistered a non-listener: " + listener);
 		}
 	}
 

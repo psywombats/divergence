@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.screen.Screen;
 import net.wombatrpgs.sagaschema.cutscene.SceneMDO;
 import net.wombatrpgs.sagaschema.cutscene.data.SceneParentMDO;
@@ -43,7 +43,7 @@ public class SceneFactory {
 			// explicit, fine
 			return new SceneParser((SceneMDO) mdo, parent);
 		} else {
-			MGlobal.reporter.err("A scene parsing doesn't work");
+			SGlobal.reporter.err("A scene parsing doesn't work");
 			return null;
 		}
 	}

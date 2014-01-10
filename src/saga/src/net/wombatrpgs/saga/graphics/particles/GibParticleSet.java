@@ -7,7 +7,7 @@
 package net.wombatrpgs.saga.graphics.particles;
 
 import net.wombatrpgs.saga.core.Constants;
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.sagaschema.graphics.GibsetMDO;
 
 /**
@@ -33,7 +33,7 @@ public class GibParticleSet extends ParticleSet {
 	@Override
 	public Particle generateParticle(Emitter source) {
 		Particle part = new Particle(source.mdo, source,
-				particleSources[MGlobal.rand.nextInt(mdo.count)]);
+				particleSources[SGlobal.rand.nextInt(mdo.count)]);
 		return part;
 	}
 

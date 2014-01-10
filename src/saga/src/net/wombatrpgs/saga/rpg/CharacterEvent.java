@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Turnable;
 import net.wombatrpgs.saga.graphics.FacesAnimation;
 import net.wombatrpgs.saga.graphics.FacesAnimationFactory;
@@ -143,7 +143,7 @@ public class CharacterEvent extends MapEvent implements Turnable {
 		if (parent.isMoving()) {
 			if (travelPlan.size() > 0 ) {
 				int step = (int) Math.floor((float) travelPlan.size() *
-						(parent.getMoveTimeElapsed() / MGlobal.constants.getDelay()));
+						(parent.getMoveTimeElapsed() / SGlobal.constants.getDelay()));
 				if (step > travelPlan.size()-1) step = travelPlan.size()-1;
 				Step toStep = travelPlan.get(step);
 				if (lastStep != toStep && lastStep != null) {
@@ -163,7 +163,7 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	public void render(OrthographicCamera camera) {
 		if (hidden()) return;
 		super.render(camera);
-		if (appearance != null && MGlobal.hero.inLoS(this)) {
+		if (appearance != null && SGlobal.hero.inLoS(this)) {
 			appearance.render(camera);
 		}
 	}
@@ -248,18 +248,18 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	public void spawnUnseen() {
 		// 100 tries max
 		for (int i = 0; i < 100; i++) {
-			int tileX = MGlobal.rand.nextInt(parent.getWidth());
-			int tileY = MGlobal.rand.nextInt(parent.getHeight());
-			if (MGlobal.hero != null &&
-					MGlobal.hero.getParent() == parent &&
-					MGlobal.hero.inLoS(tileX, tileY)) {
+			int tileX = SGlobal.rand.nextInt(parent.getWidth());
+			int tileY = SGlobal.rand.nextInt(parent.getHeight());
+			if (SGlobal.hero != null &&
+					SGlobal.hero.getParent() == parent &&
+					SGlobal.hero.inLoS(tileX, tileY)) {
 				continue;
 			}
 			if (!parent.isTilePassable(this, tileX, tileY)) continue;
 			parent.addEvent(this, tileX, tileY);
 			return;
 		}
-		MGlobal.reporter.warn("Waited 100 turns to spawn a " + this);
+		SGlobal.reporter.warn("Waited 100 turns to spawn a " + this);
 	}
 	
 	/**
@@ -281,7 +281,7 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	@Override
 	public void onMoveStart() {
 		for (Step step : travelPlan) {
-			step.setTime(MGlobal.constants.getDelay() / travelPlan.size());
+			step.setTime(SGlobal.constants.getDelay() / travelPlan.size());
 		}
 	}
 
@@ -523,7 +523,7 @@ public class CharacterEvent extends MapEvent implements Turnable {
 		this.mdo = mdo;
 		this.turnChildren = new ArrayList<Turnable>();
 		if (mdoHasProperty(mdo.appearance)) {
-			DirMDO dirMDO = MGlobal.data.getEntryFor(mdo.appearance, DirMDO.class);
+			DirMDO dirMDO = SGlobal.data.getEntryFor(mdo.appearance, DirMDO.class);
 			appearance = FacesAnimationFactory.create(dirMDO, this);
 			assets.add(appearance);
 		}
@@ -539,7 +539,7 @@ public class CharacterEvent extends MapEvent implements Turnable {
 		if (rayLoS == null) {
 			rayLoS = new RayCheck() {
 				@Override public boolean bad(int tileX, int tileY) {
-					return !MGlobal.hero.getParent().isTransparentAt(tileX, tileY);
+					return !SGlobal.hero.getParent().isTransparentAt(tileX, tileY);
 				}
 			};
 		}

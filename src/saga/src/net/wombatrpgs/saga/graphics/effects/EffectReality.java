@@ -15,7 +15,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
 import net.wombatrpgs.saga.core.Constants;
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.graphics.Disposable;
 import net.wombatrpgs.saga.graphics.Graphic;
 import net.wombatrpgs.saga.graphics.PostRenderable;
@@ -49,7 +49,7 @@ public class EffectReality extends Effect implements	PostRenderable,
 		super(parent, mdo);
 		this.mdo = mdo;
 		sphere = new Graphic(Constants.TEXTURES_DIR, mdo.graphic);
-		shader = new ShaderFromData(MGlobal.data.getEntryFor(mdo.shader, ShaderMDO.class));
+		shader = new ShaderFromData(SGlobal.data.getEntryFor(mdo.shader, ShaderMDO.class));
 		assets.add(sphere);
 		elapsed = 0;
 		
@@ -65,8 +65,8 @@ public class EffectReality extends Effect implements	PostRenderable,
 	public void renderPost() {
 		
 		Texture t = sphere.getTexture();
-		WindowSettings win = MGlobal.window;
-		Screen sc = MGlobal.screens.peek();
+		WindowSettings win = SGlobal.window;
+		Screen sc = SGlobal.screens.peek();
 		float scale = (parent.getTileWidth()*1.5f) / (float) t.getWidth() * 4f;
 		
 		MapEvent boss = parent.getEventByName("boss");
@@ -77,8 +77,8 @@ public class EffectReality extends Effect implements	PostRenderable,
 		shader.begin();
 		shader.setUniformi("u_mask", 1);
 		shader.setUniformf("u_at",
-				-(boss.getX() - MGlobal.hero.getX()) - parent.getTileWidth() / 2f,
-				-(boss.getY() - MGlobal.hero.getY()) - parent.getTileHeight() / 2f);
+				-(boss.getX() - SGlobal.hero.getX()) - parent.getTileWidth() / 2f,
+				-(boss.getY() - SGlobal.hero.getY()) - parent.getTileHeight() / 2f);
 		shader.setUniformf("u_screensize", win.getResolutionWidth(), win.getResolutionHeight());
 		shader.setUniformf("u_power", .06f);
 		shader.setUniformf("u_done", 1.2f * elapsed);
@@ -112,7 +112,7 @@ public class EffectReality extends Effect implements	PostRenderable,
 	public void dispose() {
 		buffer.dispose();
 		shader.dispose();
-		MGlobal.levelManager.getScreen().removePostRender(this);
+		SGlobal.levelManager.getScreen().removePostRender(this);
 	}
 
 	/**
@@ -134,7 +134,7 @@ public class EffectReality extends Effect implements	PostRenderable,
 	@Override
 	public void onAddedToScreen() {
 		super.onAddedToScreen();
-		MGlobal.levelManager.getScreen().registerPostRender(this);
+		SGlobal.levelManager.getScreen().registerPostRender(this);
 	}
 
 	/**
@@ -143,7 +143,7 @@ public class EffectReality extends Effect implements	PostRenderable,
 	@Override
 	public void onRemovedFromScreen() {
 		super.onRemovedFromScreen();
-		MGlobal.levelManager.getScreen().removePostRender(this);
+		SGlobal.levelManager.getScreen().removePostRender(this);
 	}
 
 	/**
@@ -151,7 +151,7 @@ public class EffectReality extends Effect implements	PostRenderable,
 	 */
 	@Override
 	public void update(float elapsed) {
-		if (MGlobal.stasis) return;
+		if (SGlobal.stasis) return;
 		super.update(elapsed);
 		this.elapsed += elapsed;
 	}

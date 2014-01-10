@@ -9,7 +9,7 @@ package net.wombatrpgs.saga.maps.objects;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Updateable;
 import net.wombatrpgs.saga.screen.Screen;
 
@@ -141,7 +141,7 @@ public class TimerObject implements Updateable {
 		if (listeners.contains(listener)) { 
 			listeners.remove(listener);
 		} else {
-			MGlobal.reporter.warn("Removed a non-listening timer: " + listener);
+			SGlobal.reporter.warn("Removed a non-listening timer: " + listener);
 		}
 	}
 

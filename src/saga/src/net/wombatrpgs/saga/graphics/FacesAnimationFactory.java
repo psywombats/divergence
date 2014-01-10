@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.saga.graphics;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.events.MapEvent;
 import net.wombatrpgs.sagaschema.graphics.AnimationMDO;
 import net.wombatrpgs.sagaschema.graphics.DirMDO;
@@ -34,7 +34,7 @@ public class FacesAnimationFactory {
 		} else if (AnimationMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new OneDir((AnimationMDO) mdo, parent);
 		} else {
-			MGlobal.reporter.warn("Unknown subclass of DirMDO: " + mdo);
+			SGlobal.reporter.warn("Unknown subclass of DirMDO: " + mdo);
 			return null;
 		}
 	}
@@ -48,7 +48,7 @@ public class FacesAnimationFactory {
 	 * @return					That object, formatted and shit
 	 */
 	public static FacesAnimation create(String mdoKey, MapEvent parent) {
-		DirMDO mdo = MGlobal.data.getEntryFor(mdoKey, DirMDO.class);
+		DirMDO mdo = SGlobal.data.getEntryFor(mdoKey, DirMDO.class);
 		return create(mdo, parent);
 	}
 

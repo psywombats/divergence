@@ -10,7 +10,7 @@ import java.util.Stack;
 
 import com.badlogic.gdx.Gdx;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.graphics.Disposable;
 import net.wombatrpgs.saga.io.ButtonListener;
 import net.wombatrpgs.saga.io.audio.MusicObject;
@@ -33,7 +33,7 @@ public class ScreenStack implements	Disposable,
 	 */
 	public ScreenStack() {
 		screens = new Stack<Screen>();
-		MGlobal.keymap.registerListener(this);
+		SGlobal.keymap.registerListener(this);
 	}
 	
 	/**
@@ -66,7 +66,7 @@ public class ScreenStack implements	Disposable,
 	 */
 	public Screen pop() {
 		if (screens.size() == 0) {
-			MGlobal.reporter.warn("No screens left in the stack, but popping.");
+			SGlobal.reporter.warn("No screens left in the stack, but popping.");
 			return null;
 		}
 		Screen oldTop = screens.pop();
@@ -139,19 +139,19 @@ public class ScreenStack implements	Disposable,
 	 */
 	public void render() {
 		if (screens.size() == 0) {
-			MGlobal.reporter.warn("No screens in stack, but told to render");
+			SGlobal.reporter.warn("No screens in stack, but told to render");
 		} else {
 			try {
 				screens.get(0).render();
 			} catch (Exception e) {
-				MGlobal.reporter.err("Exception during render: ", e);
+				SGlobal.reporter.err("Exception during render: ", e);
 				Gdx.app.exit();
 			}
 		}
 		try {
 			update();
 		} catch (Exception e) {
-			MGlobal.reporter.err("Exception during render: ", e);
+			SGlobal.reporter.err("Exception during render: ", e);
 			Gdx.app.exit();
 		}
 	}

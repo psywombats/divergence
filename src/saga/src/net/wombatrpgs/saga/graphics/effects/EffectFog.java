@@ -8,7 +8,7 @@ package net.wombatrpgs.saga.graphics.effects;
 
 import java.util.List;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.graphics.AnimationStrip;
 import net.wombatrpgs.saga.graphics.ShaderFromData;
 import net.wombatrpgs.saga.maps.Level;
@@ -44,10 +44,10 @@ public class EffectFog extends Effect {
 	public EffectFog(Level parent, EffectFogMDO mdo) {
 		super(parent, mdo);
 		this.mdo = mdo;
-		anim = new AnimationStrip(MGlobal.data.getEntryFor(mdo.tex, AnimationMDO.class));
+		anim = new AnimationStrip(SGlobal.data.getEntryFor(mdo.tex, AnimationMDO.class));
 		offset = 0;
 		batch.setColor(1, 1, 1, mdo.density);
-		shader = new ShaderFromData(MGlobal.data.getEntryFor(mdo.shader, ShaderMDO.class));
+		shader = new ShaderFromData(SGlobal.data.getEntryFor(mdo.shader, ShaderMDO.class));
 		batch.setShader(shader);
 	}
 
@@ -57,8 +57,8 @@ public class EffectFog extends Effect {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		WindowSettings win = MGlobal.window;
-		TrackerCam cam = MGlobal.screens.peek().getCamera();
+		WindowSettings win = SGlobal.window;
+		TrackerCam cam = SGlobal.screens.peek().getCamera();
 		TextureRegion tex = anim.getRegion();
 		
 		batch.begin();
@@ -159,8 +159,8 @@ public class EffectFog extends Effect {
 		super.update(elapsed);
 		anim.update(elapsed);
 		offset += mdo.velocity * elapsed;
-		if (offset > MGlobal.window.getWidth()) {
-			offset -= MGlobal.window.getWidth();
+		if (offset > SGlobal.window.getWidth()) {
+			offset -= SGlobal.window.getWidth();
 		}
 	}
 

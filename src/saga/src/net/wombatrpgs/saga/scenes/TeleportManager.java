@@ -8,7 +8,7 @@ package net.wombatrpgs.saga.scenes;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Queueable;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.maps.events.MapEvent;
@@ -32,11 +32,11 @@ public class TeleportManager implements Queueable {
 	public TeleportManager(TeleportSettingsMDO mdo) {
 		this.mdo = mdo;
 		preParser = new SceneParser(
-				MGlobal.data.getEntryFor(mdo.pre, SceneMDO.class),
-				MGlobal.levelManager.getScreen());
+				SGlobal.data.getEntryFor(mdo.pre, SceneMDO.class),
+				SGlobal.levelManager.getScreen());
 		postParser = new SceneParser(
-				MGlobal.data.getEntryFor(mdo.post, SceneMDO.class),
-				MGlobal.levelManager.getScreen());
+				SGlobal.data.getEntryFor(mdo.post, SceneMDO.class),
+				SGlobal.levelManager.getScreen());
 	}
 	
 	/** @return The parser to play before a teleport */
@@ -75,25 +75,25 @@ public class TeleportManager implements Queueable {
 	 */
 	public void teleport(Level map, int tileX, int tileY) {
 		
-		MapEvent victim = MGlobal.hero;
+		MapEvent victim = SGlobal.hero;
 		Level old = victim.getParent();
 		
 		if (old.getBGM() != null && !old.getBGM().matches(map.getBGM())) {
-			MGlobal.screens.playMusic(map.getBGM(), false);
+			SGlobal.screens.playMusic(map.getBGM(), false);
 		}
 		old.onFocusLost();
 		old.removeEvent(victim);
 		old.update(0);
 		
-		map.addEvent(MGlobal.hero, tileX, tileY);
-		MGlobal.hero.refreshVisibilityMap();
-		MGlobal.levelManager.getScreen().getCamera().update(0);
-		MGlobal.levelManager.setActive(map);
+		map.addEvent(SGlobal.hero, tileX, tileY);
+		SGlobal.hero.refreshVisibilityMap();
+		SGlobal.levelManager.getScreen().getCamera().update(0);
+		SGlobal.levelManager.setActive(map);
 
 		//MGlobal.screens.getCamera().constrainMaps(map);
 		
-		MGlobal.levelManager.getScreen().addObject(map);
-		MGlobal.levelManager.getScreen().removeObject(old);
+		SGlobal.levelManager.getScreen().addObject(map);
+		SGlobal.levelManager.getScreen().removeObject(old);
 		
 	}
 

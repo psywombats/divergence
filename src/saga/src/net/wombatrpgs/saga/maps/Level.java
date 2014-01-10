@@ -14,7 +14,7 @@ import java.util.Map;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Turnable;
 import net.wombatrpgs.saga.graphics.effects.Effect;
 import net.wombatrpgs.saga.graphics.effects.EffectFactory;
@@ -91,7 +91,7 @@ public abstract class Level extends ScreenObject implements Turnable {
 			assets.add(effect);
 		}
 		if (MapThing.mdoHasProperty(mdo.bgm)) {
-			bgm = new MusicObject(MGlobal.data.getEntryFor(mdo.bgm, MusicMDO.class));
+			bgm = new MusicObject(SGlobal.data.getEntryFor(mdo.bgm, MusicMDO.class));
 			assets.add(bgm);
 		}
 		reseting = false;
@@ -99,7 +99,7 @@ public abstract class Level extends ScreenObject implements Turnable {
 	}
 	
 	/** @return The batch used to render sprites on this map */
-	public SpriteBatch getBatch() { return MGlobal.levelManager.getScreen().getViewBatch(); }
+	public SpriteBatch getBatch() { return SGlobal.levelManager.getScreen().getViewBatch(); }
 	
 	/** @return The width of this map, in pixels */
 	public int getWidthPixels() { return getWidth() * getTileWidth(); }
@@ -132,7 +132,7 @@ public abstract class Level extends ScreenObject implements Turnable {
 	public float getMoveTimeLeft() { return moveTime; }
 	
 	/** @return The time since the move started, in s */
-	public float getMoveTimeElapsed() { return MGlobal.constants.getDelay() - moveTime; }
+	public float getMoveTimeElapsed() { return SGlobal.constants.getDelay() - moveTime; }
 	
 	/** @return The number of characters on the map */
 	public int getPopulation() { return eventLayer.getCharacters().size(); }
@@ -144,7 +144,7 @@ public abstract class Level extends ScreenObject implements Turnable {
 	public String getKey() { return mdo.key; }
 	
 	/** @return The screen this map is placed on */
-	public Screen getScreen() { return MGlobal.levelManager.getScreen(); }
+	public Screen getScreen() { return SGlobal.levelManager.getScreen(); }
 	
 	/** @see net.wombatrpgs.saga.screen.ScreenObject#ignoresTint() */
 	@Override public boolean ignoresTint() { return false; }
@@ -182,7 +182,7 @@ public abstract class Level extends ScreenObject implements Turnable {
 	@Override
 	public void update(float elapsed) {
 		updating = true;
-		if (MGlobal.stasis) return;
+		if (SGlobal.stasis) return;
 		for (MapThing toRemove : removalObjects) {
 			toRemove.onRemovedFromMap(this);
 			internalRemoveObject(toRemove);
@@ -244,7 +244,7 @@ public abstract class Level extends ScreenObject implements Turnable {
 		
 		// move step
 		moving = true;
-		moveTime = MGlobal.constants.getDelay();
+		moveTime = SGlobal.constants.getDelay();
 		for (MapEvent event : eventLayer.getEvents()) {
 			event.onMoveStart();
 		}
@@ -362,7 +362,7 @@ public abstract class Level extends ScreenObject implements Turnable {
 	public Loc getTeleInLoc(String mapID) {
 		Loc loc = teleLocations.get(mapID);
 		if (loc == null) {
-			MGlobal.reporter.err("No map found from " + this + " to " + mapID);
+			SGlobal.reporter.err("No map found from " + this + " to " + mapID);
 		}
 		return loc;
 	}
@@ -399,12 +399,12 @@ public abstract class Level extends ScreenObject implements Turnable {
 		if (objects.contains(object)) {
 			if (removalEvents.contains(object)) {
 				internalRemoveEvent((MapEvent) object);
-				MGlobal.reporter.inform("Overlapped remove/add event: " + object);
+				SGlobal.reporter.inform("Overlapped remove/add event: " + object);
 			} else if (removalObjects.contains(object)) {
 				internalRemoveObject(object);
-				MGlobal.reporter.inform("Overlapped remove/add object: " + object);
+				SGlobal.reporter.inform("Overlapped remove/add object: " + object);
 			} else {
-				MGlobal.reporter.warn("Added the same object twice: " + object);
+				SGlobal.reporter.warn("Added the same object twice: " + object);
 				return;
 			}
 		}

@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.saga.rpg.ai.cond;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.CharacterEvent;
 import net.wombatrpgs.saga.rpg.ai.BTCondition;
 
@@ -32,7 +32,7 @@ public class CondChance extends BTCondition {
 	 */
 	@Override
 	protected boolean isMet() {
-		return MGlobal.rand.nextFloat() <= chance;
+		return SGlobal.rand.nextFloat() <= chance;
 	}
 
 }

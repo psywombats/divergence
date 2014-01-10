@@ -12,7 +12,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.graphics.Graphic;
 import net.wombatrpgs.saga.maps.objects.Picture;
 import net.wombatrpgs.saga.maps.objects.TimerListener;
@@ -60,28 +60,28 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	public boolean run() {
 		if (!running) {
 			running = true;
-			MGlobal.ui.getBox().setLines(lines);
-			MGlobal.ui.getBox().reset();
+			SGlobal.ui.getBox().setLines(lines);
+			SGlobal.ui.getBox().reset();
 			if (system) {
-				MGlobal.ui.getBox().setName("");
+				SGlobal.ui.getBox().setName("");
 			} else {
 				//MGlobal.ui.getBox().setName(mdo.name);
 			}
 			// TODO: figure out why the text box default batch is broken
 			if (faceGraphic != null) {
 				facePic = new Picture(faceGraphic,
-						(MGlobal.window.getWidth() - faceGraphic.getWidth()) / 2 - FACE_OFFSET,
-						(MGlobal.window.getHeight() - faceGraphic.getHeight()) / 2, 0);
+						(SGlobal.window.getWidth() - faceGraphic.getWidth()) / 2 - FACE_OFFSET,
+						(SGlobal.window.getHeight() - faceGraphic.getHeight()) / 2, 0);
 				facePic.setColor(new Color(1, 1, 1, 0));
-				MGlobal.screens.peek().addObject(facePic);
+				SGlobal.screens.peek().addObject(facePic);
 				facePic.tweenTo(new Color(1, 1, 1, 1), FADE_TIME);
-				MGlobal.ui.getBox().setBatch(facePic.batch);
+				SGlobal.ui.getBox().setBatch(facePic.batch);
 			} else {
-				MGlobal.ui.getBox().setBatch(new SpriteBatch());
+				SGlobal.ui.getBox().setBatch(new SpriteBatch());
 			}
-			MGlobal.ui.getBox().setColor(new Color(1, 1, 1, 0));
-			MGlobal.screens.peek().addObject(MGlobal.ui.getBox());
-			MGlobal.ui.getBox().tweenTo(new Color(1, 1, 1, 1), FADE_TIME);
+			SGlobal.ui.getBox().setColor(new Color(1, 1, 1, 0));
+			SGlobal.screens.peek().addObject(SGlobal.ui.getBox());
+			SGlobal.ui.getBox().tweenTo(new Color(1, 1, 1, 1), FADE_TIME);
 			block(this);
 			return false;
 		}
@@ -116,11 +116,11 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	 */
 	@Override
 	public void onUnblock() {
-		if (MGlobal.ui.getBox().isFinished()) {
+		if (SGlobal.ui.getBox().isFinished()) {
 			if (facePic != null) {
 				facePic.tweenTo(new Color(1, 1, 1, 0), FADE_TIME);
 			}
-			MGlobal.ui.getBox().tweenTo(new Color(1, 1, 1, 0), FADE_TIME);
+			SGlobal.ui.getBox().tweenTo(new Color(1, 1, 1, 0), FADE_TIME);
 			final CommandSpeak speak = this;
 			new TimerObject(FADE_TIME, getScreen(), new TimerListener() {
 				@Override public void onTimerZero(TimerObject source) {
@@ -128,7 +128,7 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 				}
 			});
 		} else {
-			MGlobal.ui.getBox().hurryUp();
+			SGlobal.ui.getBox().hurryUp();
 			block(this);
 		}
 	}
@@ -146,9 +146,9 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	 * Called when timer reaches zero-ish. For pic fadeout.
 	 */
 	protected void zero() {
-		MGlobal.screens.peek().removeObject(MGlobal.ui.getBox());
+		SGlobal.screens.peek().removeObject(SGlobal.ui.getBox());
 		if (facePic != null) {
-			MGlobal.screens.peek().removeObject(facePic);
+			SGlobal.screens.peek().removeObject(facePic);
 		}
 	}
 

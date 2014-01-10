@@ -13,7 +13,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import net.wombatrpgs.saga.core.Constants;
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.LoadedLevel;
 import net.wombatrpgs.saga.maps.events.MapEvent;
 
@@ -37,7 +37,7 @@ public class LoadedGridLayer extends GridLayer {
 		this.parent = parent;
 		this.layer = layer;
 		if (getProperty(Constants.PROPERTY_Z) == null) {
-			MGlobal.reporter.warn("Layer with no Z exists on map " + parent);
+			SGlobal.reporter.warn("Layer with no Z exists on map " + parent);
 		}
 	}
 	

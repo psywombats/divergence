@@ -11,7 +11,7 @@ import java.util.Map;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.Tile;
 import net.wombatrpgs.sagaschema.maps.data.TileMDO;
 import net.wombatrpgs.sagaschema.maps.data.TileType;
@@ -73,7 +73,7 @@ public class TileManager {
 			return unloadedTiles.get(tileMDO);
 		} else {
 			// I don't like accessing the global here, it's janky
-			requestTile(MGlobal.assetManager, tileMDO, type);
+			requestTile(SGlobal.assetManager, tileMDO, type);
 			return getTile(tileMDO, type);
 		}
 		
@@ -90,7 +90,7 @@ public class TileManager {
 		} else if (unloadedTiles.containsKey(tileMDO)) {
 			return unloadedTiles.get(tileMDO);
 		} else {
-			MGlobal.reporter.warn("No tile found for: " + tileMDO);
+			SGlobal.reporter.warn("No tile found for: " + tileMDO);
 			return null;
 		}
 	}

@@ -8,7 +8,7 @@ package net.wombatrpgs.saga.ui;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.graphics.Graphic;
 import net.wombatrpgs.saga.screen.ScreenObject;
 
@@ -41,7 +41,7 @@ public abstract class UIElement extends ScreenObject {
 	 * @return					The UI batch to render with
 	 */
 	protected SpriteBatch getBatch() {
-		return MGlobal.screens.peek().getUIBatch();
+		return SGlobal.screens.peek().getUIBatch();
 	}
 
 }

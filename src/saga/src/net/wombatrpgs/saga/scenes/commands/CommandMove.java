@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.PauseLevel;
 import net.wombatrpgs.saga.maps.events.MapEvent;
 import net.wombatrpgs.saga.rpg.CharacterEvent;
@@ -89,7 +89,7 @@ public class CommandMove extends SceneCommand {
 			} else {
 				events.add(parent.getLevel().getEventByName(eventName));
 				if (events.get(0) == null) {
-					MGlobal.reporter.warn("Couldn't move event by name: " + eventName);
+					SGlobal.reporter.warn("Couldn't move event by name: " + eventName);
 				}
 			}
 		}
@@ -123,7 +123,7 @@ public class CommandMove extends SceneCommand {
 						CharacterEvent event = (CharacterEvent) mapEvent;
 						event.setFacing(step.dir.toOrtho(event.getFacing()));
 					} else {
-						MGlobal.reporter.warn("Tried to set dir of non-character: " + mapEvent);
+						SGlobal.reporter.warn("Tried to set dir of non-character: " + mapEvent);
 					}
 				}
 				if (!parent.getControlledEvents().contains(mapEvent)) {
@@ -172,7 +172,7 @@ public class CommandMove extends SceneCommand {
 				if (dirString.equals(FACEDIR_DOWN)) dir = EightDir.SOUTH;
 				if (dirString.equals(FACEDIR_LEFT)) dir = EightDir.WEST;
 				if (dirString.equals(FACEDIR_RIGHT)) dir = EightDir.EAST;
-				if (dir == null) MGlobal.reporter.warn("Non-dir string in move " +
+				if (dir == null) SGlobal.reporter.warn("Non-dir string in move " +
 						"command" + dirString);
 				steps.add(0, new MoveStep(dir));
 			} else {

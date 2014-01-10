@@ -9,7 +9,7 @@ package net.wombatrpgs.saga.maps;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.scenes.SceneFactory;
 import net.wombatrpgs.saga.scenes.SceneParser;
 import net.wombatrpgs.saga.scenes.TeleportManager;
@@ -78,40 +78,40 @@ public class LevelManager {
 	 */
 	public Level getLevel(String mapID) {
 		if (teleport == null) {
-			teleport = new TeleportManager(MGlobal.data.getEntryFor(
+			teleport = new TeleportManager(SGlobal.data.getEntryFor(
 					TeleportManager.MD0_KEY, TeleportSettingsMDO.class));
-			teleport.queueRequiredAssets(MGlobal.assetManager);
+			teleport.queueRequiredAssets(SGlobal.assetManager);
 		}
 		if (!levels.containsKey(mapID)) {
 			// TODO: figure out this tint bullshit and why it's needed
 			// it's buggy, this shouldn't be necessary
 			float oldR = 0, oldG = 0, oldB = 0;
-			if (MGlobal.screens.size() > 0) {
-				oldR = MGlobal.screens.peek().getTint().r;
-				oldG = MGlobal.screens.peek().getTint().g;
-				oldB = MGlobal.screens.peek().getTint().b;
-				MGlobal.screens.peek().getTint().r = 1;
-				MGlobal.screens.peek().getTint().g = 1;
-				MGlobal.screens.peek().getTint().b = 1;
+			if (SGlobal.screens.size() > 0) {
+				oldR = SGlobal.screens.peek().getTint().r;
+				oldG = SGlobal.screens.peek().getTint().g;
+				oldB = SGlobal.screens.peek().getTint().b;
+				SGlobal.screens.peek().getTint().r = 1;
+				SGlobal.screens.peek().getTint().g = 1;
+				SGlobal.screens.peek().getTint().b = 1;
 			}
-			MapMDO mapMDO = MGlobal.data.getEntryFor(mapID, MapMDO.class);
+			MapMDO mapMDO = SGlobal.data.getEntryFor(mapID, MapMDO.class);
 			Level map = createMap(mapMDO, screen);
 			long startTime = System.currentTimeMillis();
-			map.queueRequiredAssets(MGlobal.assetManager);
-			for (int pass = 0; MGlobal.assetManager.getProgress() < 1; pass++) {
-				MGlobal.assetManager.finishLoading();
-				map.postProcessing(MGlobal.assetManager, pass);
-				teleport.postProcessing(MGlobal.assetManager, pass);
+			map.queueRequiredAssets(SGlobal.assetManager);
+			for (int pass = 0; SGlobal.assetManager.getProgress() < 1; pass++) {
+				SGlobal.assetManager.finishLoading();
+				map.postProcessing(SGlobal.assetManager, pass);
+				teleport.postProcessing(SGlobal.assetManager, pass);
 			}
 			long endTime = System.currentTimeMillis();
 			float elapsed  = (endTime - startTime) / 1000f;
-			MGlobal.reporter.inform("Loaded level " + mapID + ", elapsed " +
+			SGlobal.reporter.inform("Loaded level " + mapID + ", elapsed " +
 						"time: " + elapsed + " seconds");
 			levels.put(mapID, map);
-			if (MGlobal.screens.size() > 0) {
-				MGlobal.screens.peek().getTint().r = oldR;
-				MGlobal.screens.peek().getTint().g = oldG;
-				MGlobal.screens.peek().getTint().b = oldB;
+			if (SGlobal.screens.size() > 0) {
+				SGlobal.screens.peek().getTint().r = oldR;
+				SGlobal.screens.peek().getTint().g = oldG;
+				SGlobal.screens.peek().getTint().b = oldB;
 			}
 		}
 		return levels.get(mapID);
@@ -133,7 +133,7 @@ public class LevelManager {
 	 * @return					A scene from that mdo
 	 */
 	public SceneParser getCutscene(String mdoKey, Screen other) {
-		SceneParentMDO mdo = MGlobal.data.getEntryFor(mdoKey, SceneParentMDO.class);
+		SceneParentMDO mdo = SGlobal.data.getEntryFor(mdoKey, SceneParentMDO.class);
 		return cutsceneGen.createScene(mdo, other);
 	}
 	
@@ -149,7 +149,7 @@ public class LevelManager {
 		} else if (LoadedMapMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new LoadedLevel((LoadedMapMDO) mdo, screen);
 		} else {
-			MGlobal.reporter.err("Unknown subtype of mapmdo :" + mdo.getClass());
+			SGlobal.reporter.err("Unknown subtype of mapmdo :" + mdo.getClass());
 			return null;
 		}
 	}

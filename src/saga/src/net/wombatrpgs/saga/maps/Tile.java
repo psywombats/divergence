@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.saga.core.Constants;
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Queueable;
 import net.wombatrpgs.sagaschema.maps.data.TileMDO;
 import net.wombatrpgs.sagaschema.maps.data.TileType;
@@ -80,8 +80,8 @@ public class Tile implements Queueable {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		if (!MapThing.mdoHasProperty(mdo.appearance)) return;
-		if (!MGlobal.assetManager.isLoaded(filename)) {
-			MGlobal.reporter.err("No tile loaded for file:" + mdo);
+		if (!SGlobal.assetManager.isLoaded(filename)) {
+			SGlobal.reporter.err("No tile loaded for file:" + mdo);
 			return;
 		}
 		Texture sheet = manager.get(filename, Texture.class);

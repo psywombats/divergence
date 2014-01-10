@@ -10,7 +10,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Queueable;
 
 /**
@@ -52,7 +52,7 @@ public abstract class ParticleSet implements Queueable {
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		MGlobal.assetManager.load(fileName, Texture.class);
+		SGlobal.assetManager.load(fileName, Texture.class);
 	}
 
 	/**
@@ -61,8 +61,8 @@ public abstract class ParticleSet implements Queueable {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		if (MGlobal.assetManager.isLoaded(fileName)) {
-			Texture spritesheet = MGlobal.assetManager.get(fileName, Texture.class);
+		if (SGlobal.assetManager.isLoaded(fileName)) {
+			Texture spritesheet = SGlobal.assetManager.get(fileName, Texture.class);
 			particleSources = new TextureRegion[frameCount];
 			for (int i = 0; i < frameCount; i++) {
 				particleSources[i] = new TextureRegion(spritesheet,
@@ -70,7 +70,7 @@ public abstract class ParticleSet implements Queueable {
 						frameWidth, frameHeight);
 			}
 		} else {
-			MGlobal.reporter.warn("Particlesheet not loaded: " + fileName);
+			SGlobal.reporter.warn("Particlesheet not loaded: " + fileName);
 		}
 	}
 

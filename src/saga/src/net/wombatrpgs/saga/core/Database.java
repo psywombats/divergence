@@ -91,7 +91,7 @@ public class Database {
 		try {
 			result = (T) candidate;
 		} catch (ClassCastException e) {
-			MGlobal.reporter.err("Wrong class for " + key, e);
+			SGlobal.reporter.err("Wrong class for " + key, e);
 		}
 		return result;
 	}
@@ -138,14 +138,14 @@ public class Database {
 			object = mapper.readValue(data, clazz);
 			addData(object);
 		} catch (JsonParseException e) {
-			MGlobal.reporter.err("Malformatted data file " + data, e);
+			SGlobal.reporter.err("Malformatted data file " + data, e);
 		} catch (UnrecognizedPropertyException e) {
-			MGlobal.reporter.warn("Unknown field for class " + clazz.getName() +
+			SGlobal.reporter.warn("Unknown field for class " + clazz.getName() +
 					": " + e.getUnrecognizedPropertyName());
 		} catch (JsonMappingException e) {
-			MGlobal.reporter.err("Data file doesn't match schema " + data, e);
+			SGlobal.reporter.err("Data file doesn't match schema " + data, e);
 		} catch (IOException e) {
-			MGlobal.reporter.err("Couldn't read data file " + data, e);
+			SGlobal.reporter.err("Couldn't read data file " + data, e);
 		}
 	}
 	
@@ -178,7 +178,7 @@ public class Database {
 	protected MainSchema getEntryByKey(String key) {
 		MainSchema result = keyShelf.get(key);
 		if (result == null) {
-			MGlobal.reporter.err("Couldn't find an entry for key: " + key);
+			SGlobal.reporter.err("Couldn't find an entry for key: " + key);
 		}
 		return result;
 	}

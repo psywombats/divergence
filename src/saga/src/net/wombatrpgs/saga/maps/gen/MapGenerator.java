@@ -17,7 +17,7 @@ import java.util.Set;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Queueable;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.maps.Loc;
@@ -80,10 +80,10 @@ public abstract class MapGenerator implements Queueable {
 		this.upDecorators = new ArrayList<Decorator>();
 		this.stairTeles = new HashMap<String, TeleportEvent>();
 		
-		CeilTilesMDO ceils = MGlobal.data.getEntryFor(mdo.ceilingTiles, CeilTilesMDO.class);
-		WallTilesMDO walls = MGlobal.data.getEntryFor(mdo.wallTiles, WallTilesMDO.class);
-		StairTilesMDO ustairs = MGlobal.data.getEntryFor(mdo.upstairTiles, StairTilesMDO.class);
-		StairTilesMDO dstairs = MGlobal.data.getEntryFor(mdo.downstairTiles, StairTilesMDO.class);
+		CeilTilesMDO ceils = SGlobal.data.getEntryFor(mdo.ceilingTiles, CeilTilesMDO.class);
+		WallTilesMDO walls = SGlobal.data.getEntryFor(mdo.wallTiles, WallTilesMDO.class);
+		StairTilesMDO ustairs = SGlobal.data.getEntryFor(mdo.upstairTiles, StairTilesMDO.class);
+		StairTilesMDO dstairs = SGlobal.data.getEntryFor(mdo.downstairTiles, StairTilesMDO.class);
 		addTile(mdo.floorTiles, TileType.FLOOR);
 		addTile(walls.b, TileType.WALL_BOTTOM);
 		addTile(walls.t, TileType.WALL_TOP);
@@ -102,22 +102,22 @@ public abstract class MapGenerator implements Queueable {
 		addTile(dstairs.t, TileType.DSTAIR_TOP);
 		
 		for (String key : mdo.decorators) {
-			DecoratorMDO decMDO = MGlobal.data.getEntryFor(key, DecoratorMDO.class);
+			DecoratorMDO decMDO = SGlobal.data.getEntryFor(key, DecoratorMDO.class);
 			decorators.add(DecoratorFactory.createDecor(decMDO, this));
 		}
 		assets.addAll(decorators);
 		for (String key : mdo.upDecorators) {
-			DecoratorMDO decMDO = MGlobal.data.getEntryFor(key, DecoratorMDO.class);
+			DecoratorMDO decMDO = SGlobal.data.getEntryFor(key, DecoratorMDO.class);
 			upDecorators.add(DecoratorFactory.createDecor(decMDO, this));
 		}
 		assets.addAll(upDecorators);
 		
 		r = new Random();
-		long seed = MGlobal.rand.nextLong();
+		long seed = SGlobal.rand.nextLong();
 		r.setSeed(seed);
 		
 		state = ConversionState.INIT;
-		MGlobal.reporter.inform("Generator initialized for " + parent + ", "
+		SGlobal.reporter.inform("Generator initialized for " + parent + ", "
 				+ "using " + mdo.key + " algorithm and seed " + seed);
 	}
 	
@@ -137,18 +137,18 @@ public abstract class MapGenerator implements Queueable {
 	 */
 	public final void generateMe() {
 		if (state != ConversionState.INIT) {
-			MGlobal.reporter.warn("Reusing a map generator for " + parent);
+			SGlobal.reporter.warn("Reusing a map generator for " + parent);
 			return;
 		} else {
 			state = ConversionState.GENERATING;
 		}
-		MGlobal.reporter.inform("Generation algorithm begin for " + parent +
+		SGlobal.reporter.inform("Generation algorithm begin for " + parent +
 				"(" + parent.getWidth() + ", " + parent.getHeight() + ")");
 		long startTime = System.currentTimeMillis();
 		generateInternal();
 		long endTime = System.currentTimeMillis();
 		float elapsed = (endTime - startTime) / 1000f;
-		MGlobal.reporter.inform("Generation finished for " + parent + ", " +
+		SGlobal.reporter.inform("Generation finished for " + parent + ", " +
 				"elapsed time: " + elapsed + " seconds");
 	}
 	
@@ -183,7 +183,7 @@ public abstract class MapGenerator implements Queueable {
 		for (Queueable asset : assets) {
 			asset.postProcessing(manager, pass);
 		}
-		MGlobal.tiles.postProcessing(manager, pass);
+		SGlobal.tiles.postProcessing(manager, pass);
 	}
 	
 	/**
@@ -344,7 +344,7 @@ public abstract class MapGenerator implements Queueable {
 	 * @param	type			The type of tile to replace
 	 */
 	protected void addTile(TileMDO tileMDO, TileType type) {
-		tileMap.put(type, MGlobal.tiles.getTile(tileMDO, type));
+		tileMap.put(type, SGlobal.tiles.getTile(tileMDO, type));
 	}
 	
 	/**
@@ -353,7 +353,7 @@ public abstract class MapGenerator implements Queueable {
 	 */
 	protected void applyWalls(TileType[][] types) {
 		if (state != ConversionState.GENERATING) {
-			MGlobal.reporter.warn("Bad order wall generation for " + parent);
+			SGlobal.reporter.warn("Bad order wall generation for " + parent);
 		} else {
 			state = ConversionState.WALLS;
 		}
@@ -386,7 +386,7 @@ public abstract class MapGenerator implements Queueable {
 	 */
 	protected void applyCeilings(TileType[][] types) {
 		if (state != ConversionState.WALLS) {
-			MGlobal.reporter.warn("Bad order ceil generation for " + parent);
+			SGlobal.reporter.warn("Bad order ceil generation for " + parent);
 		} else {
 			state = ConversionState.CEILING;
 		}
@@ -437,7 +437,7 @@ public abstract class MapGenerator implements Queueable {
 	 */
 	protected Loc addUpstairs(TileType[][] types) {
 		if (state == ConversionState.GENERATING) {
-			MGlobal.reporter.warn("Bad conversion state stair for " + parent);
+			SGlobal.reporter.warn("Bad conversion state stair for " + parent);
 			return null;
 		}
 		int off = r.nextInt(parent.getWidth());
@@ -475,7 +475,7 @@ public abstract class MapGenerator implements Queueable {
 	 */
 	protected Loc addDownstairs(TileType[][] types) {
 		if (state == ConversionState.GENERATING) {
-			MGlobal.reporter.warn("Bad conversion state stair for " + parent);
+			SGlobal.reporter.warn("Bad conversion state stair for " + parent);
 			return null;
 		}
 		while (true) {
@@ -511,7 +511,7 @@ public abstract class MapGenerator implements Queueable {
 	 */
 	protected void addStaircases(TileType[][] types) {
 		if (state == ConversionState.GENERATING) {
-			MGlobal.reporter.warn("Bad conversion state stair for " + parent);
+			SGlobal.reporter.warn("Bad conversion state stair for " + parent);
 		}
 		// TODO: generating stairwells
 //		for (String upKey : parent.getUpKeys()) {
@@ -536,7 +536,7 @@ public abstract class MapGenerator implements Queueable {
 	 * @return					A random element from that list
 	 */
 	protected Tile getRandomTile(List<Tile> tiles) {
-		return tiles.get(MGlobal.rand.nextInt(tiles.size()));
+		return tiles.get(SGlobal.rand.nextInt(tiles.size()));
 	}
 	
 	/**

@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.saga.maps.gen.dec;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.gen.MapGenerator;
 import net.wombatrpgs.sagaschema.maps.decorators.Decorator1x1MDO;
 import net.wombatrpgs.sagaschema.maps.decorators.Decorator1x2MDO;
@@ -33,7 +33,7 @@ public class DecoratorFactory {
 	 * @return					The decorator we created
 	 */
 	public static Decorator createDecor(String key, MapGenerator gen) {
-		DecoratorMDO mdo = MGlobal.data.getEntryFor(key, DecoratorMDO.class);
+		DecoratorMDO mdo = SGlobal.data.getEntryFor(key, DecoratorMDO.class);
 		return createDecor(mdo, gen);
 	}
 	
@@ -67,7 +67,7 @@ public class DecoratorFactory {
 		} else if (Decorator2x2SpecialMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new Decorator2x2Special((Decorator2x2SpecialMDO) mdo, gen);
 		}
-		MGlobal.reporter.warn("Unknown decorator mdo: " + mdo);
+		SGlobal.reporter.warn("Unknown decorator mdo: " + mdo);
 		return null;
 	}
 

@@ -8,7 +8,7 @@ package net.wombatrpgs.saga.maps.gen.dec;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.Tile;
 import net.wombatrpgs.saga.maps.gen.MapGenerator;
 import net.wombatrpgs.sagaschema.maps.decorators.Decorator3x2MDO;
@@ -47,12 +47,12 @@ public class Decorator3x2 extends DecoratorSingle {
 				if (!legal(tilesOld, x, y)) continue;
 				if (!legal(tilesOld, x-1, y+1)) continue;
 				if (!legal(tilesOld, x-1, y)) continue;
-				tilesNew[y+1][x-1] = MGlobal.tiles.getTile(mdo.ul);
-				tilesNew[y+1][x] = MGlobal.tiles.getTile(mdo.u);
-				tilesNew[y+1][x+1] = MGlobal.tiles.getTile(mdo.ur);
-				tilesNew[y][x-1] = MGlobal.tiles.getTile(mdo.bl);
-				tilesNew[y][x] = MGlobal.tiles.getTile(mdo.b);
-				tilesNew[y][x+1] = MGlobal.tiles.getTile(mdo.br);
+				tilesNew[y+1][x-1] = SGlobal.tiles.getTile(mdo.ul);
+				tilesNew[y+1][x] = SGlobal.tiles.getTile(mdo.u);
+				tilesNew[y+1][x+1] = SGlobal.tiles.getTile(mdo.ur);
+				tilesNew[y][x-1] = SGlobal.tiles.getTile(mdo.bl);
+				tilesNew[y][x] = SGlobal.tiles.getTile(mdo.b);
+				tilesNew[y][x+1] = SGlobal.tiles.getTile(mdo.br);
 			}
 		}
 	}
@@ -64,12 +64,12 @@ public class Decorator3x2 extends DecoratorSingle {
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
-		MGlobal.tiles.requestTile(manager, mdo.ul, replace);
-		MGlobal.tiles.requestTile(manager, mdo.u, replace);
-		MGlobal.tiles.requestTile(manager, mdo.ur, replace);
-		MGlobal.tiles.requestTile(manager, mdo.bl, replace);
-		MGlobal.tiles.requestTile(manager, mdo.b, replace);
-		MGlobal.tiles.requestTile(manager, mdo.br, replace);
+		SGlobal.tiles.requestTile(manager, mdo.ul, replace);
+		SGlobal.tiles.requestTile(manager, mdo.u, replace);
+		SGlobal.tiles.requestTile(manager, mdo.ur, replace);
+		SGlobal.tiles.requestTile(manager, mdo.bl, replace);
+		SGlobal.tiles.requestTile(manager, mdo.b, replace);
+		SGlobal.tiles.requestTile(manager, mdo.br, replace);
 	}
 
 }

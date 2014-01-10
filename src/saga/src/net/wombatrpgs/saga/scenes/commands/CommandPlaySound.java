@@ -8,7 +8,7 @@ package net.wombatrpgs.saga.scenes.commands;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.io.audio.SoundObject;
 import net.wombatrpgs.saga.scenes.SceneCommand;
 import net.wombatrpgs.saga.scenes.SceneParser;
@@ -29,7 +29,7 @@ public class CommandPlaySound extends SceneCommand {
 	public CommandPlaySound(SceneParser parent, String line) {
 		super(parent, line);
 		String arg = line.substring(line.indexOf(' ' )+1, line.indexOf(']'));
-		sfx = new SoundObject(MGlobal.data.getEntryFor(arg, SoundMDO.class));
+		sfx = new SoundObject(SGlobal.data.getEntryFor(arg, SoundMDO.class));
 	}
 
 	/**

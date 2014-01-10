@@ -15,7 +15,7 @@ public class MRogueGame implements ApplicationListener, FocusListener {
 	 */
 	public MRogueGame(Platform platform) {
 		super();
-		MGlobal.platform = platform;
+		SGlobal.platform = platform;
 		//focusReporter.registerListener(this);
 		//this.focusReporter = focusReporter;
 		paused = false;
@@ -24,20 +24,20 @@ public class MRogueGame implements ApplicationListener, FocusListener {
 	
 	@Override
 	public void create() {
-		MGlobal.globalInit();
+		SGlobal.globalInit();
 	}
 
 	@Override
 	public void dispose() {
-		MGlobal.assetManager.dispose();
-		MGlobal.screens.dispose();
+		SGlobal.assetManager.dispose();
+		SGlobal.screens.dispose();
 	}
 
 	@Override
 	public void render() {		
 		//focusReporter.update();
 		if (!paused) {			
-			MGlobal.screens.render();
+			SGlobal.screens.render();
 		}
 	}
 
@@ -56,7 +56,7 @@ public class MRogueGame implements ApplicationListener, FocusListener {
 	@Override
 	public void pause() {
 		paused = true;
-		MGlobal.keymap.onPause();
+		SGlobal.keymap.onPause();
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class MRogueGame implements ApplicationListener, FocusListener {
 	@Override
 	public void resume() {
 		paused = false;
-		MGlobal.keymap.onResume();
+		SGlobal.keymap.onResume();
 	}
 
 	/**

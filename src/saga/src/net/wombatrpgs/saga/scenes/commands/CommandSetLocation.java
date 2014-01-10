@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.saga.scenes.commands;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.maps.events.MapEvent;
 import net.wombatrpgs.saga.scenes.SceneCommand;
@@ -43,7 +43,7 @@ public class CommandSetLocation extends SceneCommand {
 		if (finished) return true;
 		MapEvent event = parent.getLevel().getEventByName(eventName);
 		if (event == null) {
-			MGlobal.reporter.warn("Tried to set location of null event: " + eventName);
+			SGlobal.reporter.warn("Tried to set location of null event: " + eventName);
 		} else {
 			Level map = parent.getLevel();
 			event.setX(teleX * map.getTileWidth());

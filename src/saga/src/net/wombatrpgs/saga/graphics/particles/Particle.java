@@ -9,7 +9,7 @@ package net.wombatrpgs.saga.graphics.particles;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.events.MapEvent;
 import net.wombatrpgs.sagaschema.graphics.EmitterMDO;
 import net.wombatrpgs.sagaschema.graphics.data.BounceType;
@@ -46,7 +46,7 @@ public class Particle extends MapEvent {
 		this.source = source;
 		this.appearance = appearance;
 		this.parent = source.getParent();
-		this.angle = MGlobal.rand.nextInt(360);
+		this.angle = SGlobal.rand.nextInt(360);
 		this.bounce = mdo.bounce;
 		this.reflect = mdo.reflect;
 		this.bounceY = 0;

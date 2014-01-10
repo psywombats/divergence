@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.saga.scenes.commands;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.Positionable;
 import net.wombatrpgs.saga.scenes.SceneCommand;
 import net.wombatrpgs.saga.scenes.SceneParser;
@@ -42,10 +42,10 @@ public class CommandCameraTrack extends SceneCommand {
 			} else {
 				target = parent.getLevel().getEventByName(arg);
 				if (target == null) {
-					MGlobal.reporter.warn("Couldn't find event to track named: " + arg);
+					SGlobal.reporter.warn("Couldn't find event to track named: " + arg);
 				}
 			}
-			MGlobal.screens.getCamera().track(target);
+			SGlobal.screens.getCamera().track(target);
 			finished = true;
 		}
 		return true;

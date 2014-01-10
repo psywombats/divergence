@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.saga.core.Constants;
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Queueable;
 import net.wombatrpgs.sagaschema.ui.FontMDO;
 
@@ -39,7 +39,7 @@ public class FontHolder implements Queueable {
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		MGlobal.assetManager.load(Constants.FONTS_DIR + mdo.file, BitmapFont.class);
+		SGlobal.assetManager.load(Constants.FONTS_DIR + mdo.file, BitmapFont.class);
 	}
 
 	/**
@@ -49,10 +49,10 @@ public class FontHolder implements Queueable {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		String filename = Constants.FONTS_DIR+mdo.file;
-		if (MGlobal.assetManager.isLoaded(filename)) {
-			font = MGlobal.assetManager.get(filename, BitmapFont.class);
+		if (SGlobal.assetManager.isLoaded(filename)) {
+			font = SGlobal.assetManager.get(filename, BitmapFont.class);
 		} else {
-			MGlobal.reporter.warn("Did not load font: " + filename);
+			SGlobal.reporter.warn("Did not load font: " + filename);
 		}
 	}
 
@@ -71,7 +71,7 @@ public class FontHolder implements Queueable {
 				format.x, format.y + offY, 
 				format.width, format.align);
 		if (bounds.height > format.height + offY) {
-			MGlobal.reporter.warn("A string was oversized: \"" + text + "\"");
+			SGlobal.reporter.warn("A string was oversized: \"" + text + "\"");
 		}
 		batch.end();
 	}

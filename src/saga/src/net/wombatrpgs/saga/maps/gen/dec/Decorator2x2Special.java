@@ -8,7 +8,7 @@ package net.wombatrpgs.saga.maps.gen.dec;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.Tile;
 import net.wombatrpgs.saga.maps.gen.MapGenerator;
 import net.wombatrpgs.sagaschema.maps.decorators.Decorator2x2SpecialMDO;
@@ -50,10 +50,10 @@ public class Decorator2x2Special extends DecoratorSingle {
 				}
 				if (!gen.isTile(tilesOld, mdo.trOriginal, x+1, y)) continue;
 				if (!gen.isTile(tilesOld, mdo.tlOriginal, x, y)) continue;
-				tilesNew[y][x] = MGlobal.tiles.getTile(mdo.tl);
-				tilesNew[y][x+1] = MGlobal.tiles.getTile(mdo.tr);
-				tilesNew[y-1][x] = MGlobal.tiles.getTile(mdo.bl);
-				tilesNew[y-1][x+1] = MGlobal.tiles.getTile(mdo.br);
+				tilesNew[y][x] = SGlobal.tiles.getTile(mdo.tl);
+				tilesNew[y][x+1] = SGlobal.tiles.getTile(mdo.tr);
+				tilesNew[y-1][x] = SGlobal.tiles.getTile(mdo.bl);
+				tilesNew[y-1][x+1] = SGlobal.tiles.getTile(mdo.br);
 			}
 		}
 	}
@@ -65,14 +65,14 @@ public class Decorator2x2Special extends DecoratorSingle {
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
 		super.queueRequiredAssets(manager);
-		MGlobal.tiles.requestTile(manager, mdo.tl, mdo.tlOriginal);
-		MGlobal.tiles.requestTile(manager, mdo.tr, mdo.trOriginal);
+		SGlobal.tiles.requestTile(manager, mdo.tl, mdo.tlOriginal);
+		SGlobal.tiles.requestTile(manager, mdo.tr, mdo.trOriginal);
 		if (mdo.shelfMode == ShelfMode.NOT_SHELF) {
-			MGlobal.tiles.requestTile(manager, mdo.bl, mdo.blOriginal);
-			MGlobal.tiles.requestTile(manager, mdo.br, mdo.brOriginal);
+			SGlobal.tiles.requestTile(manager, mdo.bl, mdo.blOriginal);
+			SGlobal.tiles.requestTile(manager, mdo.br, mdo.brOriginal);
 		} else {
-			MGlobal.tiles.requestTile(manager, mdo.bl, mdo.replacement);
-			MGlobal.tiles.requestTile(manager, mdo.br, mdo.replacement);
+			SGlobal.tiles.requestTile(manager, mdo.bl, mdo.replacement);
+			SGlobal.tiles.requestTile(manager, mdo.br, mdo.replacement);
 		}
 	}
 

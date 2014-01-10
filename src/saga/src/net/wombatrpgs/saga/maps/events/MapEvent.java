@@ -9,7 +9,7 @@ package net.wombatrpgs.saga.maps.events;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.graphics.PreRenderable;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.maps.MapThing;
@@ -169,7 +169,7 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 		super.update(elapsed);
 		
 		if (Float.isNaN(vx) || Float.isNaN(vy)) {
-			MGlobal.reporter.warn("NaN values in physics!! " + this);
+			SGlobal.reporter.warn("NaN values in physics!! " + this);
 		}
 		integrate(elapsed);
 		if (tracking) {
@@ -358,7 +358,7 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 		if (a <=  7f*Math.PI/8f && a >=  5f*Math.PI/8f) return EightDir.NORTHWEST;
 		if (a <=  5f*Math.PI/8f && a >=  3f*Math.PI/8f) return EightDir.WEST;
 		if (a <=  3f*Math.PI/8f && a >=  1f*Math.PI/8f) return EightDir.SOUTHWEST;
-		MGlobal.reporter.warn("NaN or something in direction: " + a + " , " + dx + " , " + dy);
+		SGlobal.reporter.warn("NaN or something in direction: " + a + " , " + dx + " , " + dy);
 		return EightDir.NORTH;
 	}
 	

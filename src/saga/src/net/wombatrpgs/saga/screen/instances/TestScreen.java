@@ -11,7 +11,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.io.command.CMapGame;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.screen.Screen;
@@ -36,15 +36,15 @@ public class TestScreen extends Screen {
 	
 	public TestScreen() {
 		super();
-		MapLoadTestMDO mapTestMDO = MGlobal.data.getEntryFor("map_test", MapLoadTestMDO.class);
-		Level map = MGlobal.levelManager.getLevel(mapTestMDO.map);
+		MapLoadTestMDO mapTestMDO = SGlobal.data.getEntryFor("map_test", MapLoadTestMDO.class);
+		Level map = SGlobal.levelManager.getLevel(mapTestMDO.map);
 		addObject(map);
 		
-		TextBoxTestMDO testMDO = MGlobal.data.getEntryFor("test_textbox", TextBoxTestMDO.class);
+		TextBoxTestMDO testMDO = SGlobal.data.getEntryFor("test_textbox", TextBoxTestMDO.class);
 		if (testMDO != null && testMDO.enabled == TestState.ENABLED) {
-			FontMDO fontMDO = MGlobal.data.getEntryFor(testMDO.font, FontMDO.class);
+			FontMDO fontMDO = SGlobal.data.getEntryFor(testMDO.font, FontMDO.class);
 			font = new FontHolder(fontMDO);
-			TextBoxMDO textMDO = MGlobal.data.getEntryFor(testMDO.box, TextBoxMDO.class);
+			TextBoxMDO textMDO = SGlobal.data.getEntryFor(testMDO.box, TextBoxMDO.class);
 			box = new TextBox(textMDO, font);
 			box.setText(testMDO.text);
 		}
@@ -52,7 +52,7 @@ public class TestScreen extends Screen {
 		pushCommandContext(new CMapGame());
 		defaultFont = new BitmapFont();
 		batch = new SpriteBatch();
-		cam.track(MGlobal.hero);
+		cam.track(SGlobal.hero);
 		
 		init();
 	}

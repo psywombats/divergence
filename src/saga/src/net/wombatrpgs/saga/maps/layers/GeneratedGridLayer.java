@@ -9,7 +9,7 @@ package net.wombatrpgs.saga.maps.layers;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.maps.Tile;
 import net.wombatrpgs.saga.maps.events.MapEvent;
@@ -79,16 +79,16 @@ public class GeneratedGridLayer extends GridLayer {
 	 * @param	cam				The camera to render with
 	 */
 	protected void dumbRender(OrthographicCamera camera) {
-		TrackerCam cam  = MGlobal.screens.peek().getCamera();
-		int startX = (int) Math.floor((cam.position.x - MGlobal.window.getWidth()/2.f) / parent.getTileWidth());
-		int startY = (int) Math.floor((cam.position.y - MGlobal.window.getHeight()/2.f) / parent.getTileHeight());
-		int endX = (int) Math.ceil((cam.position.x + MGlobal.window.getWidth()/2.f) / parent.getTileWidth());
-		int endY = (int) Math.ceil((cam.position.y + MGlobal.window.getHeight()/2.f) / parent.getTileHeight());
+		TrackerCam cam  = SGlobal.screens.peek().getCamera();
+		int startX = (int) Math.floor((cam.position.x - SGlobal.window.getWidth()/2.f) / parent.getTileWidth());
+		int startY = (int) Math.floor((cam.position.y - SGlobal.window.getHeight()/2.f) / parent.getTileHeight());
+		int endX = (int) Math.ceil((cam.position.x + SGlobal.window.getWidth()/2.f) / parent.getTileWidth());
+		int endY = (int) Math.ceil((cam.position.y + SGlobal.window.getHeight()/2.f) / parent.getTileHeight());
 		if (startX < 0) startX = 0;
 		if (startY < 0) startY = 0;
 		if (endX > parent.getWidth()) endX = parent.getWidth();
 		if (endY > parent.getHeight()) endY = parent.getHeight();
-		boolean shaders = MGlobal.graphics.isShaderEnabled();
+		boolean shaders = SGlobal.graphics.isShaderEnabled();
 		Color old = parent.getBatch().getColor().cpy();
 		Color trans = parent.getBatch().getColor().cpy();
 		trans.a = .5f;
@@ -101,9 +101,9 @@ public class GeneratedGridLayer extends GridLayer {
 					if (shaders) {
 						tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
 					} else {
-						if (MGlobal.hero.inLoS(x, y)) {
+						if (SGlobal.hero.inLoS(x, y)) {
 							tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
-						} else if (MGlobal.hero.seen(x, y)) {
+						} else if (SGlobal.hero.seen(x, y)) {
 							parent.getBatch().setColor(trans);
 							tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
 							parent.getBatch().setColor(old);

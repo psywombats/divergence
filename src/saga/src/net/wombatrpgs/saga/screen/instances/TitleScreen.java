@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 
 import net.wombatrpgs.saga.core.Constants;
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.io.audio.MusicObject;
 import net.wombatrpgs.saga.io.command.CMapSplash;
 import net.wombatrpgs.saga.maps.MapThing;
@@ -35,23 +35,23 @@ public class TitleScreen extends Screen {
 	 */
 	public TitleScreen() {
 		super();
-		mdo = MGlobal.data.getEntryFor(Constants.KEY_TITLE, TitleSettingsMDO.class);
+		mdo = SGlobal.data.getEntryFor(Constants.KEY_TITLE, TitleSettingsMDO.class);
 		screen = new Picture(mdo.bg, 0, 0, 0);
 		assets.add(screen);
 		addObject(screen);
 		pushCommandContext(new CMapSplash());
 		shouldIntroduce = false;
 		
-		IntroSettingsMDO introMDO=MGlobal.data.getEntryFor(Constants.KEY_INTRO, IntroSettingsMDO.class);
-		introParser = MGlobal.levelManager.getCutscene(introMDO.titleScene, this);
-		inParser = MGlobal.levelManager.getCutscene(introMDO.immScene, this);
-		outParser = MGlobal.levelManager.getCutscene(introMDO.outScene, this);
+		IntroSettingsMDO introMDO=SGlobal.data.getEntryFor(Constants.KEY_INTRO, IntroSettingsMDO.class);
+		introParser = SGlobal.levelManager.getCutscene(introMDO.titleScene, this);
+		inParser = SGlobal.levelManager.getCutscene(introMDO.immScene, this);
+		outParser = SGlobal.levelManager.getCutscene(introMDO.outScene, this);
 		assets.add(introParser);
 		assets.add(inParser);
 		assets.add(outParser);
 		
 		if (MapThing.mdoHasProperty(introMDO.music)) {
-			music = new MusicObject(MGlobal.data.getEntryFor(introMDO.music, MusicMDO.class));
+			music = new MusicObject(SGlobal.data.getEntryFor(introMDO.music, MusicMDO.class));
 			assets.add(music);
 		}
 		
@@ -112,13 +112,13 @@ public class TitleScreen extends Screen {
 		if (!inParser.isRunning() && !inParser.hasExecuted()) {
 			inParser.run();
 			if (music != null) {
-				MGlobal.screens.playMusic(music, false);
+				SGlobal.screens.playMusic(music, false);
 			}
 		}
 		if (shouldIntroduce) {
 			if (introParser.hasExecuted()) {
 				if (outParser.hasExecuted()) {
-					MGlobal.screens.pop();
+					SGlobal.screens.pop();
 					// TODO: transition out from game screen
 				} else if (!outParser.isRunning()) {
 					outParser.run();

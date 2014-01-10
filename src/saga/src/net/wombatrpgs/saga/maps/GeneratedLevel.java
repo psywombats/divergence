@@ -8,7 +8,7 @@ package net.wombatrpgs.saga.maps;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.gen.MapGeneratorFactory;
 import net.wombatrpgs.saga.maps.layers.EventLayer;
 import net.wombatrpgs.saga.screen.Screen;
@@ -42,7 +42,7 @@ public class GeneratedLevel extends Level {
 		eventLayer = new EventLayer(this);
 		assets.add(eventLayer);
 		this.mapGen = MapGeneratorFactory.createGenerator(
-				MGlobal.data.getEntryFor(mdo.generator, MapGeneratorMDO.class),
+				SGlobal.data.getEntryFor(mdo.generator, MapGeneratorMDO.class),
 				this);
 		assets.add(mapGen);
 		this.mapWidth = mdo.mapWidth;

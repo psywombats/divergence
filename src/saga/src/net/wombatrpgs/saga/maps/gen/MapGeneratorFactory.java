@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.saga.maps.gen;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.sagaschema.maps.MapGeneratorMDO;
 
@@ -28,7 +28,7 @@ public class MapGeneratorFactory {
 		case CLASSIC_ROOMS:		return new GeneratorClassic(mdo, parent);
 		case CELLULAR_INTERIOR:	return new GeneratorCellular(mdo, parent);
 		}
-		MGlobal.reporter.warn("No generator found for mdo type: " + mdo.generator);
+		SGlobal.reporter.warn("No generator found for mdo type: " + mdo.generator);
 		return new GeneratorTest(mdo, parent);
 	}
 

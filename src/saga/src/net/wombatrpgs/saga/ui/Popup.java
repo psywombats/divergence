@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.saga.ui;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.io.CommandListener;
 import net.wombatrpgs.saga.io.CommandMap;
 import net.wombatrpgs.saga.io.command.CMapDialog;
@@ -110,7 +110,7 @@ public class Popup extends UIElement implements CommandListener {
 	 * Registers our command listener with parent screen.
 	 */
 	protected final void activateCommands() {
-		Screen s = MGlobal.screens.peek();
+		Screen s = SGlobal.screens.peek();
 		s.registerCommandListener(this);
 		s.pushCommandContext(commands);
 	}
@@ -119,7 +119,7 @@ public class Popup extends UIElement implements CommandListener {
 	 * Unregisters our command listener from parent screen.
 	 */
 	protected final void deactivateCommands() {
-		Screen s = MGlobal.screens.peek();
+		Screen s = SGlobal.screens.peek();
 		s.unregisterCommandListener(this);
 		s.popCommandContext();
 	}

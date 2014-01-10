@@ -12,7 +12,7 @@ import java.util.List;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Queueable;
 import net.wombatrpgs.saga.core.Turnable;
 import net.wombatrpgs.saga.rpg.ai.Allegiance;
@@ -60,7 +60,7 @@ public class GameUnit implements Turnable, Queueable {
 		allegiance = new Allegiance(this, mdo.faction);
 		turnChildren.add(allegiance);
 		
-		if (out == null) out = MGlobal.ui.getNarrator();
+		if (out == null) out = SGlobal.ui.getNarrator();
 	}
 	
 	/** @return Laziness personified */
@@ -115,7 +115,7 @@ public class GameUnit implements Turnable, Queueable {
 	 * @return					This unit's player-facing name
 	 */
 	public String getName() {
-		return MGlobal.hero.inLoS(parent) ? name : "something";
+		return SGlobal.hero.inLoS(parent) ? name : "something";
 	}
 
 	/**
@@ -156,7 +156,7 @@ public class GameUnit implements Turnable, Queueable {
 	public void attack(GameUnit other) {
 		String us = getName();
 		String them = other.getName();
-		if (other.getStats().getDodgeChance() < MGlobal.rand.nextFloat()) {
+		if (other.getStats().getDodgeChance() < SGlobal.rand.nextFloat()) {
 			int dealt = other.takePhysicalDamage(getStats().getDamage());
 			if (visible(this, other)) {
 				if (dealt > 0) {
@@ -198,9 +198,9 @@ public class GameUnit implements Turnable, Queueable {
 	public void takeRawDamage(int damage) {
 		currentStats.takeRawDamage(damage);
 		if (damage > 0) {
-			parent.flash(Color.RED, MGlobal.constants.getDelay()*1.6f);
+			parent.flash(Color.RED, SGlobal.constants.getDelay()*1.6f);
 		} else if (damage < 0) {
-			parent.flash(Color.BLUE, MGlobal.constants.getDelay()*1.6f);
+			parent.flash(Color.BLUE, SGlobal.constants.getDelay()*1.6f);
 		}
 	}
 	
@@ -214,7 +214,7 @@ public class GameUnit implements Turnable, Queueable {
 	public int takePhysicalDamage(int damage) {
 		int dealt = currentStats.takePhysicalDamage(damage);
 		if (dealt > 0) {
-			parent.flash(Color.RED, MGlobal.constants.getDelay()*1.6f);
+			parent.flash(Color.RED, SGlobal.constants.getDelay()*1.6f);
 		}
 		return dealt;
 	}
@@ -229,7 +229,7 @@ public class GameUnit implements Turnable, Queueable {
 	public int takeMagicDamage(int damage) {
 		int dealt = currentStats.takeMagicDamage(damage);
 		if (dealt > 0) {
-			parent.flash(Color.RED, MGlobal.constants.getDelay()*1.6f);
+			parent.flash(Color.RED, SGlobal.constants.getDelay()*1.6f);
 		}
 		return dealt;
 	}
@@ -333,7 +333,7 @@ public class GameUnit implements Turnable, Queueable {
 	 */
 	public boolean visible(GameUnit... units) {
 		for (GameUnit unit : units) {
-			if (MGlobal.hero.inLoS(unit.getParent())) {
+			if (SGlobal.hero.inLoS(unit.getParent())) {
 				return true;
 			}
 		}

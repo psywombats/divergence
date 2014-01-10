@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.graphics.AnimationStrip;
 import net.wombatrpgs.saga.graphics.ShaderFromData;
 import net.wombatrpgs.saga.maps.Level;
@@ -48,15 +48,15 @@ public class EffectLoS extends Effect {
 		super(parent, mdo);
 		this.mdo = mdo;
 		firstDone = false;
-		invisibleAnim = new AnimationStrip(MGlobal.data.getEntryFor(mdo.invisibleTex, AnimationMDO.class));
-		unseenAnim = new AnimationStrip(MGlobal.data.getEntryFor(mdo.unseenTex, AnimationMDO.class));
-		if (MGlobal.graphics.isShaderEnabled()) {
-			if (MGlobal.graphics.isShaderDebugEnabled()) {
-				MGlobal.reporter.inform("Attempting to create LoS shader...");
+		invisibleAnim = new AnimationStrip(SGlobal.data.getEntryFor(mdo.invisibleTex, AnimationMDO.class));
+		unseenAnim = new AnimationStrip(SGlobal.data.getEntryFor(mdo.unseenTex, AnimationMDO.class));
+		if (SGlobal.graphics.isShaderEnabled()) {
+			if (SGlobal.graphics.isShaderDebugEnabled()) {
+				SGlobal.reporter.inform("Attempting to create LoS shader...");
 			}
-			shader = new ShaderFromData(MGlobal.data.getEntryFor(mdo.shader, ShaderMDO.class));
-			if (MGlobal.graphics.isShaderDebugEnabled()) {
-				MGlobal.reporter.inform("LoS shader successfully init'd");
+			shader = new ShaderFromData(SGlobal.data.getEntryFor(mdo.shader, ShaderMDO.class));
+			if (SGlobal.graphics.isShaderDebugEnabled()) {
+				SGlobal.reporter.inform("LoS shader successfully init'd");
 			}
 			batch.setShader(shader);
 		}
@@ -71,11 +71,11 @@ public class EffectLoS extends Effect {
 	@Override
 	public void render(OrthographicCamera camera) {
 		if (!updated) return;
-		if (!MGlobal.graphics.isShaderEnabled()) return;
-		if (MGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
-			MGlobal.reporter.inform("LoS shader draw start");
+		if (!SGlobal.graphics.isShaderEnabled()) return;
+		if (SGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
+			SGlobal.reporter.inform("LoS shader draw start");
 		}
-		WindowSettings win = MGlobal.window;
+		WindowSettings win = SGlobal.window;
 		TextureRegion tex = invisibleAnim.getRegion();
 		TextureRegion tex2 = unseenAnim.getRegion();
 		
@@ -83,7 +83,7 @@ public class EffectLoS extends Effect {
 		shader.setUniformi("u_colorcomp", 0);
 		shader.end();
 		batch.begin();
-		MGlobal.hero.getVisibleData().bind(1);
+		SGlobal.hero.getVisibleData().bind(1);
 		Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
 
 		// forward +wrap
@@ -140,7 +140,7 @@ public class EffectLoS extends Effect {
 		shader.setUniformi("u_colorcomp", 1);
 		shader.end();
 		batch.begin();
-		MGlobal.hero.getVisibleData().bind(1);
+		SGlobal.hero.getVisibleData().bind(1);
 		Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
 		batch.draw(
 				tex2,
@@ -155,8 +155,8 @@ public class EffectLoS extends Effect {
 				0);
 		batch.end();
 		
-		if (MGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
-			MGlobal.reporter.inform("LoS shader draw end");
+		if (SGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
+			SGlobal.reporter.inform("LoS shader draw end");
 		}
 		firstDone = true;
 		
@@ -181,9 +181,9 @@ public class EffectLoS extends Effect {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		if (!MGlobal.graphics.isShaderEnabled()) return;
-		if (MGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
-			MGlobal.reporter.inform("LoS post-processing start");
+		if (!SGlobal.graphics.isShaderEnabled()) return;
+		if (SGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
+			SGlobal.reporter.inform("LoS post-processing start");
 		}
 		invisibleAnim.postProcessing(manager, pass);
 		unseenAnim.postProcessing(manager, pass);
@@ -191,8 +191,8 @@ public class EffectLoS extends Effect {
 		shader.setUniformi("u_tilesize", parent.getTileWidth(), parent.getTileHeight());
 		shader.setUniformi("u_mapsize", parent.getWidth(), parent.getHeight());
 		shader.end();
-		if (MGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
-			MGlobal.reporter.inform("LoS post-processing end");
+		if (SGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
+			SGlobal.reporter.inform("LoS post-processing end");
 		}
 	}
 
@@ -201,26 +201,26 @@ public class EffectLoS extends Effect {
 	 */
 	@Override
 	public void update(float elapsed) {
-		if (!MGlobal.graphics.isShaderEnabled()) return;
-		if (MGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
-			MGlobal.reporter.inform("LoS shader update start");
+		if (!SGlobal.graphics.isShaderEnabled()) return;
+		if (SGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
+			SGlobal.reporter.inform("LoS shader update start");
 		}
 		offset += mdo.velocity * elapsed;
-		if (offset > MGlobal.window.getWidth()) {
-			offset -= MGlobal.window.getWidth();
+		if (offset > SGlobal.window.getWidth()) {
+			offset -= SGlobal.window.getWidth();
 		}
 		
-		TrackerCam cam  = MGlobal.screens.peek().getCamera();
+		TrackerCam cam  = SGlobal.screens.peek().getCamera();
 		super.update(elapsed);
 		shader.begin();
 		shader.setUniformi("u_visibility", 1);
 		shader.setUniformf("u_offset",
-				cam.position.x - MGlobal.window.getWidth()/2.f,
-				cam.position.y - MGlobal.window.getHeight()/2.f);
+				cam.position.x - SGlobal.window.getWidth()/2.f,
+				cam.position.y - SGlobal.window.getHeight()/2.f);
 		shader.end();
 		updated = true;
-		if (MGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
-			MGlobal.reporter.inform("LoS shader update end");
+		if (SGlobal.graphics.isShaderDebugEnabled() && !firstDone) {
+			SGlobal.reporter.inform("LoS shader update end");
 		}
 	}
 

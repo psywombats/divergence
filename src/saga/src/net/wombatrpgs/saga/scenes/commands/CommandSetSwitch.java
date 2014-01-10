@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.saga.scenes.commands;
 
-import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.scenes.SceneCommand;
 import net.wombatrpgs.saga.scenes.SceneParser;
 
@@ -38,7 +38,7 @@ public class CommandSetSwitch extends SceneCommand {
 			} else if (arg.equals(ARG_OFF)) {
 				value = false;
 			} else {
-				MGlobal.reporter.warn("Unknown switch arg value: " + arg);
+				SGlobal.reporter.warn("Unknown switch arg value: " + arg);
 			}
 		} else {
 			switchName = line.substring(0, line.indexOf(']'));
