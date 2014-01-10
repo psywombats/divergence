@@ -36,8 +36,6 @@ import net.wombatrpgs.sagaschema.maps.data.OrthoDir;
  */
 public class CharacterEvent extends MapEvent implements Turnable {
 	
-	protected static RayCheck rayLoS;
-	
 	protected CharacterMDO mdo;
 	
 	protected FacesAnimation appearance;
@@ -46,8 +44,6 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	protected List<Step> travelPlan;
 	protected Step lastStep;
 	protected int ticksRemaining;
-	
-	protected GameUnit unit;
 
 	/**
 	 * Creates a new char event with the specified data.
@@ -121,12 +117,6 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	 * @return The current appearance of this character */
 	public FacesAnimation getAppearance() { return appearance; }
 	
-	/** @return The RPG-like stats of this character */
-	public Stats getStats() { return unit.getStats(); }
-	
-	/** @return The RPG representation of this character */
-	public GameUnit getUnit() { return unit; }
-	
 	/** @param s Another step on the ol' block */
 	public void addStep(Step s) { travelPlan.add(s); }
 	
@@ -163,9 +153,7 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	public void render(OrthographicCamera camera) {
 		if (hidden()) return;
 		super.render(camera);
-		if (appearance != null && SGlobal.getHero().inLoS(this)) {
-			appearance.render(camera);
-		}
+		appearance.render(camera);
 	}
 
 	/**
@@ -195,14 +183,6 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	public void onRemove(EventLayer layer) {
 		super.onRemove(layer);
 		layer.removeCharacter(this);
-	}
-
-	/**
-	 * @see net.wombatrpgs.saga.maps.events.MapEvent#mouseoverMessage()
-	 */
-	@Override
-	public String mouseoverMessage() {
-		return unit.getName() + " is standing here.";
 	}
 
 	/**
@@ -368,9 +348,7 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	 */
 	@Override
 	public void collideWith(CharacterEvent character) {
-		if (getUnit().getRelationTo(character).attackIfBored) {
-			character.getUnit().attack(getUnit());
-		}
+		// usually nothing
 	}
 
 	/**
@@ -396,17 +374,6 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	 */
 	public void flash(Color c, float duration) {
 		appearance.flash(c, duration);
-	}
-	
-	/**
-	 * Checks to see if a given location is in the hero's line of sight.
-	 * @param	tileX			The x-coord of the tile to check, in tiles
-	 * @param	tileY			The y-coord of the tile to check, in tiles
-	 * @return					True if that tile is visible, false otherwise
-	 */
-	public boolean inLoS(int targetX, int targetY) {
-		if (euclideanTileDistanceTo(targetX, targetY) > getStats().vision) return false;
-		return rayExistsTo(targetX, targetY, rayLoS);
 	}
 	
 	/**
@@ -484,15 +451,6 @@ public class CharacterEvent extends MapEvent implements Turnable {
 		}
 		return true;
 	}
-	
-	/**
-	 * Checks if a given event is visible by this character.
-	 * @param	event			The event to check if visible
-	 * @return					True if event is visible, false otherwise
-	 */
-	public boolean inLoS(MapEvent event) {
-		return inLoS(event.getTileX(), event.getTileY());
-	}
 
 	/**
 	 * Creates this event from an MDO.
@@ -510,17 +468,7 @@ public class CharacterEvent extends MapEvent implements Turnable {
 		
 		travelPlan = new ArrayList<Step>();
 		
-		initUnit();
-		assets.add(unit);
-		turnChildren.add(unit);
 		ticksRemaining = 0;
-	}
-	
-	/**
-	 * Creates the game unit. Separate for overriding purposes.
-	 */
-	protected void initUnit() {
-		unit = new GameUnit(mdo, this);
 	}
 	
 	public abstract class RayCheck {

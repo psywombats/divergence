@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Color;
 
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Queueable;
@@ -35,7 +34,6 @@ public class GameUnit implements Turnable, Queueable {
 	protected static Narrator out;
 	
 	protected CharacterMDO mdo;
-	protected CharacterEvent parent;
 	protected List<Turnable> turnChildren, toRemove;
 	protected List<Queueable> assets;
 	
@@ -47,11 +45,9 @@ public class GameUnit implements Turnable, Queueable {
 	/**
 	 * Creates a new character from data.
 	 * @param	mdo				The data to create the character from
-	 * @param	parent			The owner of this character, ie, its body
 	 */
-	public GameUnit(CharacterMDO mdo, CharacterEvent parent) {
+	public GameUnit(CharacterMDO mdo) {
 		this.mdo = mdo;
-		this.parent = parent;
 		this.turnChildren = new ArrayList<Turnable>();
 		this.toRemove = new ArrayList<Turnable>();
 		this.assets = new ArrayList<Queueable>();
@@ -68,9 +64,6 @@ public class GameUnit implements Turnable, Queueable {
 	
 	/** @return The current stats of this unit */
 	public Stats getStats() { return currentStats; }
-	
-	/** @return The physical manifestation of this game unit */
-	public CharacterEvent getParent() { return parent; }
 	
 	/** @param name This unit's new player-facing name */
 	public void setName(String name) { this.name = name; }
@@ -128,15 +121,6 @@ public class GameUnit implements Turnable, Queueable {
 	}
 	
 	/**
-	 * Determines how we respond to another character.
-	 * @param	other			The chara we respond to
-	 * @return					How we respond to them
-	 */
-	public Relation getRelationTo(CharacterEvent other) {
-		return getRelationTo(other.getUnit());
-	}
-	
-	/**
 	 * @see net.wombatrpgs.saga.core.Turnable#onTurn()
 	 */
 	@Override
@@ -146,61 +130,6 @@ public class GameUnit implements Turnable, Queueable {
 		}
 		for (Turnable t : toRemove) {
 			turnChildren.remove(t);
-		}
-	}
-
-	/**
-	 * Launches a basic melee attack against the other unit.
-	 * @param other
-	 */
-	public void attack(GameUnit other) {
-		String us = getName();
-		String them = other.getName();
-		if (other.getStats().getDodgeChance() < SGlobal.rand.nextFloat()) {
-			int dealt = other.takePhysicalDamage(getStats().getDamage());
-			if (visible(this, other)) {
-				if (dealt > 0) {
-					out.msg(us + " attacked " + them + " for " + dealt + " damages.");
-				} else {
-					out.msg(us + " failed to harm " + them + ".");
-				}
-			}
-			other.ensureAlive();
-		} else {
-			if (visible(this, other)) {
-				out.msg(us + " missed " + them + ".");
-			}
-		}
-		other.onAttackBy(this);
-	}
-	
-	/**
-	 * Called whenever a hit launches an attack against us, successful or not.
-	 * The outcome of the attack itself is handled elsewhere.
-	 * @param	other			The unit that launched the attack
-	 */
-	public void onAttackBy(GameUnit other) {
-		allegiance.addToHitlist(other);
-		for (CharacterEvent chara : parent.getParent().getCharacters()) {
-			if (chara!= parent && chara.inLoS(parent) && chara.inLoS(other.parent)) {
-				if (chara.getUnit().getRelationTo(this).avenge) {
-					chara.getUnit().getAllegiance().addToHitlist(other);
-				}
-			}
-		}
-	}
-	
-	/**
-	 * Inflicts a set amount of damage. Does not handle death or any other
-	 * stats like attack or defense.
-	 * @param	damage			The amount of damage to take, in hp
-	 */
-	public void takeRawDamage(int damage) {
-		currentStats.takeRawDamage(damage);
-		if (damage > 0) {
-			parent.flash(Color.RED, SGlobal.constants.getDelay()*1.6f);
-		} else if (damage < 0) {
-			parent.flash(Color.BLUE, SGlobal.constants.getDelay()*1.6f);
 		}
 	}
 	
@@ -213,9 +142,6 @@ public class GameUnit implements Turnable, Queueable {
 	 */
 	public int takePhysicalDamage(int damage) {
 		int dealt = currentStats.takePhysicalDamage(damage);
-		if (dealt > 0) {
-			parent.flash(Color.RED, SGlobal.constants.getDelay()*1.6f);
-		}
 		return dealt;
 	}
 	
@@ -228,9 +154,6 @@ public class GameUnit implements Turnable, Queueable {
 	 */
 	public int takeMagicDamage(int damage) {
 		int dealt = currentStats.takeMagicDamage(damage);
-		if (dealt > 0) {
-			parent.flash(Color.RED, SGlobal.constants.getDelay()*1.6f);
-		}
 		return dealt;
 	}
 	
@@ -246,98 +169,12 @@ public class GameUnit implements Turnable, Queueable {
 	}
 	
 	/**
-	 * Makes sure our health is above 0. If it isn't, kill self.
-	 */
-	public void ensureAlive() {
-		if (currentStats.hp <= 0) {
-			die();
-		}
-	}
-	
-	/**
-	 * Called when this unit dies of unnatural causes, such as being slaughtered
-	 * by an enemy. Not meant for things like screen removal. Everything about
-	 * kill credits and whatever should go here.
-	 */
-	public void die() {
-		parent.getParent().removeEvent(parent);
-		if (visible(this)) {
-			out.msg(getName() + " was killed.");
-		}
-	}
-	
-	/**
 	 * Allies ourselves with a particular other unit.
 	 * @param	other			The unit to ally with
 	 */
 	public void ally(GameUnit other) {
 		allegiance.addToFriendlist(other);
 		other.allegiance.addToFriendlist(this);
-	}
-	
-	/**
-	 * Gets what we're supposed to be killing at the moment, or null if no
-	 * target. This scans visible enemies and identifies the nearest enemy.
-	 * @return
-	 */
-	public GameUnit getTarget() {
-		float minDist = Float.MAX_VALUE;
-		GameUnit best = null;
-		for (GameUnit enemy : getVisibleEnemies()) {
-			float dist = enemy.getParent().distanceTo(getParent());
-			if (dist < minDist) {
-				minDist = dist;
-				best = enemy;
-			}
-		}
-		return best;
-	}
-	
-	/**
-	 * Gathers a list of all enemy units in sight. Relies on other LoS methods.
-	 * @return					A list of all hostiles in the area
-	 */
-	public List<GameUnit> getVisibleEnemies() {
-		List<GameUnit> units = getVisibleUnits();
-		List<GameUnit> enemies = new ArrayList<GameUnit>();
-		for (GameUnit unit : units) {
-			if (getRelationTo(unit).attackOnSight && !(unit == this)) {
-				enemies.add(unit);
-			}
-		}
-		return enemies;
-	}
-	
-	/**
-	 * Gathers a list of all units in our line of sight. In practice this is
-	 * achieved by querying everyone on the map for their position information,
-	 * checking if they're in LoS. It's probably kind of cumbersome, and it may
-	 * be worth handling this differently in the future.
-	 * @return					A list of all units in the area
-	 */	
-	public List<GameUnit> getVisibleUnits() {
-		List<GameUnit> units = new ArrayList<GameUnit>();
-		for (CharacterEvent chara : parent.getParent().getCharacters()) {
-			if (parent.inLoS(chara)) {
-				units.add(chara.getUnit());
-			}
-		}
-		return units;
-	}
-	
-	/**
-	 * A shortcut for an ugly if statement. Checks if the hero can see any of
-	 * the units provided.
-	 * @param	units			The list of units to check
-	 * @return					True if any of the units are visible
-	 */
-	public boolean visible(GameUnit... units) {
-		for (GameUnit unit : units) {
-			if (SGlobal.getHero().inLoS(unit.getParent())) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 }

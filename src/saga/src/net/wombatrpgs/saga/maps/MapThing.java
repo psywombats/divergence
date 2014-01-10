@@ -35,20 +35,20 @@ public abstract class MapThing implements	Renderable,
 	protected List<Queueable> assets;
 	
 	/**
+	 * Creates a new map object floating in limbo land.
+	 */
+	public MapThing() {
+		pauseLevel = PauseLevel.SURRENDERS_EASILY;
+		assets = new ArrayList<Queueable>();
+	}
+	
+	/**
 	 * Creates a new map object for a given level.
 	 * @param 	parent		The level this map object is on
 	 */
 	public MapThing(Level parent) {
 		this();
 		this.parent = parent;
-	}
-	
-	/**
-	 * Creates a new map object floating in limbo land.
-	 */
-	public MapThing() {
-		pauseLevel = PauseLevel.SURRENDERS_EASILY;
-		assets = new ArrayList<Queueable>();
 	}
 
 	/**

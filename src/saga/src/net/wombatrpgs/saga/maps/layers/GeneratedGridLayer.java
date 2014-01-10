@@ -88,7 +88,6 @@ public class GeneratedGridLayer extends GridLayer {
 		if (startY < 0) startY = 0;
 		if (endX > parent.getWidth()) endX = parent.getWidth();
 		if (endY > parent.getHeight()) endY = parent.getHeight();
-		boolean shaders = SGlobal.graphics.isShaderEnabled();
 		Color old = parent.getBatch().getColor().cpy();
 		Color trans = parent.getBatch().getColor().cpy();
 		trans.a = .5f;
@@ -98,17 +97,7 @@ public class GeneratedGridLayer extends GridLayer {
 				float atX = parent.getTileWidth() * x;
 				float atY = parent.getTileHeight() * y;
 				if (tileData[y][x] != null) {
-					if (shaders) {
-						tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
-					} else {
-						if (SGlobal.getHero().inLoS(x, y)) {
-							tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
-						} else if (SGlobal.getHero().seen(x, y)) {
-							parent.getBatch().setColor(trans);
-							tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
-							parent.getBatch().setColor(old);
-						}
-					}
+					tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
 				}
 			}
 		}

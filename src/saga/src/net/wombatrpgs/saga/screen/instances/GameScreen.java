@@ -113,7 +113,6 @@ public class GameScreen extends Screen {
 			hero.setY(hero.getTileY()*map.getTileHeight());
 			getCamera().track(hero);
 			getCamera().update(0);
-			hero.refreshVisibilityMap();
 		}
 	}
 	
