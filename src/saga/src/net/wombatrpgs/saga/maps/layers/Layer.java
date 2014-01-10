@@ -6,9 +6,14 @@
  */
 package net.wombatrpgs.saga.maps.layers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.saga.core.Queueable;
+import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.maps.events.MapEvent;
 
 /**
@@ -16,6 +21,18 @@ import net.wombatrpgs.saga.maps.events.MapEvent;
  * handles it.
  */
 public abstract class Layer implements Queueable {
+	
+	protected Level parent;
+	protected List<Queueable> assets;
+	
+	/**
+	 * Creates a layer with a given parent map.
+	 * @param	parent			The parent map of this layer
+	 */
+	public Layer(Level parent) {
+		this.parent = parent;
+		assets = new ArrayList<Queueable>();
+	}
 
 	/**
 	 * Determines whether this layer is the floor, a so-called lower chip layer.
@@ -52,6 +69,28 @@ public abstract class Layer implements Queueable {
 	 */
 	public boolean isUpperChip() {
 		return !isLowerChip();
+	}
+	
+	/**
+	 * @see net.wombatrpgs.saga.graphics.Renderable#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		for (Queueable asset : assets) {
+			asset.queueRequiredAssets(manager);
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.saga.graphics.Renderable#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager, int pass) {
+		for (Queueable asset : assets) {
+			asset.postProcessing(manager, pass);
+		}
 	}
 
 }

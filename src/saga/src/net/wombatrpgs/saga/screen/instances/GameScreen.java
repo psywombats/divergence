@@ -15,9 +15,7 @@ import net.wombatrpgs.saga.core.MGlobal;
 import net.wombatrpgs.saga.io.command.CMapGame;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.maps.Loc;
-import net.wombatrpgs.saga.maps.events.Cursor;
 import net.wombatrpgs.saga.rpg.Hero;
-import net.wombatrpgs.saga.scenes.SceneParser;
 import net.wombatrpgs.saga.screen.Screen;
 import net.wombatrpgs.sagaschema.io.data.InputCommand;
 import net.wombatrpgs.sagaschema.settings.IntroSettingsMDO;
@@ -32,8 +30,6 @@ import net.wombatrpgs.sagaschema.test.data.TestState;
 public class GameScreen extends Screen {
 	
 	protected Level map;
-	protected SceneParser introParser, tutorialParser;
-	protected Cursor cursor;
 	
 	protected boolean stasisMode;
 	
@@ -56,10 +52,6 @@ public class GameScreen extends Screen {
 		if (map.getBGM() != null) {
 			MGlobal.screens.playMusic(map.getBGM(), false);
 		}
-		introParser = MGlobal.levelManager.getCutscene(introMDO.scene);
-		assets.add(introParser);
-		tutorialParser = MGlobal.levelManager.getCutscene(introMDO.tutorialScene);
-		assets.add(tutorialParser);
 		
 		addObject(map);
 		pushCommandContext(new CMapGame());
@@ -74,9 +66,6 @@ public class GameScreen extends Screen {
 			batch.setShader(testShader);
 			mapShader = (testShader);
 		}
-		
-		cursor = new Cursor();
-		assets.add(cursor);
 		
 		addObject(MGlobal.ui.getNarrator());
 		
@@ -97,9 +86,7 @@ public class GameScreen extends Screen {
 	public boolean onCommand(InputCommand command) {
 		if (super.onCommand(command)) return true;
 		switch (command) {
-		case INTENT_LOOK:
-			cursor.activate(false);
-			return true;
+			// TODO: screen-based commands
 		default:
 			return MGlobal.hero.onCommand(command);
 		}
@@ -144,20 +131,6 @@ public class GameScreen extends Screen {
 					cam.position.y + MGlobal.window.getHeight()/2*wr - 8);
 		}
 		batch.end();
-	}
-
-	/**
-	 * @see net.wombatrpgs.saga.screen.Screen#update(float)
-	 */
-	@Override
-	public void update(float elapsed) {
-		super.update(elapsed);
-		if (!introParser.isRunning() && !introParser.hasExecuted()) {
-			introParser.run();
-		}
-		if (introParser.hasExecuted() && !tutorialParser.isRunning() && !tutorialParser.hasExecuted()) {
-			tutorialParser.run();
-		}
 	}
 
 }

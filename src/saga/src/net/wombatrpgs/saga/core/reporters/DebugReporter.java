@@ -41,8 +41,8 @@ public class DebugReporter implements Reporter {
 	 */
 	@Override
 	public void err(String error) {
-		System.err.println("ERROR: " + error);
-		System.err.flush();
+		Exception e = new Exception(error);
+		e.printStackTrace();
 	}
 
 	/**
@@ -50,8 +50,9 @@ public class DebugReporter implements Reporter {
 	 */
 	@Override
 	public void err(String error, Exception e) {
-		err(error);
-		err(e);
+		System.err.println("ERROR: " + error);
+		System.err.flush();
+		e.printStackTrace();
 	}
 
 	/**

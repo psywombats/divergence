@@ -13,10 +13,8 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.saga.core.MGlobal;
 import net.wombatrpgs.saga.core.Queueable;
-import net.wombatrpgs.saga.graphics.AnimationStrip;
 import net.wombatrpgs.saga.ui.text.FontHolder;
 import net.wombatrpgs.saga.ui.text.TextBox;
-import net.wombatrpgs.sagaschema.graphics.AnimationMDO;
 import net.wombatrpgs.sagaschema.graphics.IconSetMDO;
 import net.wombatrpgs.sagaschema.settings.UISettingsMDO;
 import net.wombatrpgs.sagaschema.ui.FontMDO;
@@ -39,7 +37,6 @@ public class UISettings implements Queueable {
 	protected TextBox box;
 	protected IconSet icons;
 	protected Narrator narrator;
-	protected AnimationStrip cursor;
 	
 	protected List<Queueable> assets;
 	
@@ -58,8 +55,6 @@ public class UISettings implements Queueable {
 		assets.add(icons);
 		narrator = new Narrator(MGlobal.data.getEntryFor(mdo.narrator, NarratorMDO.class), font);
 		assets.add(narrator);
-		cursor = new AnimationStrip(MGlobal.data.getEntryFor(mdo.cursor, AnimationMDO.class));
-		assets.add(cursor);
 	}
 
 	/**
@@ -92,8 +87,5 @@ public class UISettings implements Queueable {
 	
 	/** return The narrator associated with these settings */
 	public Narrator getNarrator() { return this.narrator; }
-	
-	/** @return The animation to use for the map cursor */
-	public AnimationStrip getCursor() { return this.cursor; }
 
 }

@@ -99,7 +99,7 @@ public abstract class Screen implements CommandListener,
 				MGlobal.window.getWidth(),
 				MGlobal.window.getHeight(),
 				false);
-		tint = new Color(0, 0, 0, 1);
+		tint = new Color(1, 1, 1, 1);
 		shapes = new ShapeRenderer();
 		defaultFont = new BitmapFont();
 		cam = new TrackerCam(MGlobal.window.getWidth(), MGlobal.window.getHeight());

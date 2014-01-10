@@ -41,11 +41,28 @@ public class Constants {
 	public static final String TEXTURES_DIR = RESOURCE_DIR + "textures/";
 	public static final String ITEMS_DIR = RESOURCE_DIR + "items/";
 	
+	/** Keys for the unique MDOs in the database */
 	public static final String KEY_WINDOW = "window_data";
 	public static final String KEY_GRAPHICS = "graphics_default";
 	public static final String KEY_TITLE = "default_title";
 	public static final String KEY_INTRO = "default_intro";
 	public static final String KEY_DEATH = "default_death";
+	
+	/** Properties in Tiled maps */
+	public static final String PROPERTY_Z = "z";
+	public static final String PROPERTY_PASSABLE = "o";
+	public static final String PROPERTY_IMPASSABLE = "x";
+	public static final String PROPERTY_ID = "id";
+	public static final String PROPERTY_TYPE = "type";
+	public static final String PROPERTY_KEY = "key";
+	
+	/** Types of events in a Tiled map, defined in objecttypes.xml */
+	protected final static String TYPE_CHARACTER = "event";
+	protected final static String TYPE_TELEPORT = "teleport";
+	protected final static String TYPE_TELEPORT_Z = "z-teleport";
+	protected final static String TYPE_TRIGGER = "trigger";
+	protected final static String TYPE_CUSTOM = "object";
+	protected final static String TYPE_TARGET = "point";
 	
 	/** Strings could be null or else this */
 	public static final String NULL_MDO = "None";

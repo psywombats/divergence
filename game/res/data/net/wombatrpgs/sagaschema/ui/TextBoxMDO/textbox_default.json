@@ -2,7 +2,7 @@
 	"key" : "textbox_default",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "",
+	"description" : " ",
 	"anchor" : "OFFSET",
 	"image" : "blockbound_icy_chatbox.png",
 	"image2" : "blockbound_icy_chatbox_noname.png",
@@ -15,5 +15,5 @@
 	"nameX" : 10,
 	"nameY" : 20,
 	"typeSpeed" : 32,
-	"typeSfx" : "sound_click"
+	"typeSfx" : "None"
 }

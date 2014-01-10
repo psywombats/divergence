@@ -6,8 +6,14 @@
  */
 package net.wombatrpgs.saga.maps;
 
+import com.badlogic.gdx.assets.AssetManager;
+
+import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.maps.gen.MapGeneratorFactory;
+import net.wombatrpgs.saga.maps.layers.EventLayer;
 import net.wombatrpgs.saga.screen.Screen;
 import net.wombatrpgs.sagaschema.maps.GeneratedMapMDO;
+import net.wombatrpgs.sagaschema.maps.MapGeneratorMDO;
 
 /**
  * 
@@ -21,6 +27,8 @@ import net.wombatrpgs.sagaschema.maps.GeneratedMapMDO;
  */
 public class GeneratedLevel extends Level {
 	
+	protected GeneratedMapMDO mdo;
+	
 	/**
 	 * Generates a level from the supplied level data.
 	 * @param 	mdo				The data to make level from
@@ -28,8 +36,29 @@ public class GeneratedLevel extends Level {
 	 */
 	public GeneratedLevel(GeneratedMapMDO mdo, Screen screen) {
 		super(mdo, screen);
-		this.screen = screen;
 		this.mdo = mdo;
+		
+		// map gen!
+		eventLayer = new EventLayer(this);
+		assets.add(eventLayer);
+		this.mapGen = MapGeneratorFactory.createGenerator(
+				MGlobal.data.getEntryFor(mdo.generator, MapGeneratorMDO.class),
+				this);
+		assets.add(mapGen);
+		this.mapWidth = mdo.mapWidth;
+		this.mapHeight = mdo.mapHeight;
+	}
+
+	/**
+	 * @see net.wombatrpgs.saga.screen.ScreenObject#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager, int pass) {
+		super.postProcessing(manager, pass);
+		if (pass == 0) {
+			mapGen.generateMe();
+		}
 	}
 
 }

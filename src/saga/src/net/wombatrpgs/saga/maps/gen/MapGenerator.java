@@ -25,7 +25,7 @@ import net.wombatrpgs.saga.maps.Tile;
 import net.wombatrpgs.saga.maps.events.TeleportEvent;
 import net.wombatrpgs.saga.maps.gen.dec.Decorator;
 import net.wombatrpgs.saga.maps.gen.dec.DecoratorFactory;
-import net.wombatrpgs.saga.maps.layers.GridLayer;
+import net.wombatrpgs.saga.maps.layers.GeneratedGridLayer;
 import net.wombatrpgs.sagaschema.maps.CeilTilesMDO;
 import net.wombatrpgs.sagaschema.maps.MapGeneratorMDO;
 import net.wombatrpgs.sagaschema.maps.StairTilesMDO;
@@ -513,20 +513,21 @@ public abstract class MapGenerator implements Queueable {
 		if (state == ConversionState.GENERATING) {
 			MGlobal.reporter.warn("Bad conversion state stair for " + parent);
 		}
-		for (String upKey : parent.getUpKeys()) {
-			Loc loc = addUpstairs(types);
-			TeleportEvent tele = new TeleportEvent(parent, upKey);
-			parent.addEvent(tele, loc.x, loc.y);
-			parent.setTeleInLoc(upKey, loc);
-			stairTeles.put(upKey, tele);
-		}
-		for (String downKey : parent.getDownKeys()) {
-			Loc loc = addDownstairs(types);
-			TeleportEvent tele = new TeleportEvent(parent, downKey);
-			parent.addEvent(tele, loc.x, loc.y);
-			parent.setTeleInLoc(downKey, loc);
-			stairTeles.put(downKey, tele);
-		}
+		// TODO: generating stairwells
+//		for (String upKey : parent.getUpKeys()) {
+//			Loc loc = addUpstairs(types);
+//			TeleportEvent tele = new TeleportEvent(parent, upKey);
+//			parent.addEvent(tele, loc.x, loc.y);
+//			parent.setTeleInLoc(upKey, loc);
+//			stairTeles.put(upKey, tele);
+//		}
+//		for (String downKey : parent.getDownKeys()) {
+//			Loc loc = addDownstairs(types);
+//			TeleportEvent tele = new TeleportEvent(parent, downKey);
+//			parent.addEvent(tele, loc.x, loc.y);
+//			parent.setTeleInLoc(downKey, loc);
+//			stairTeles.put(downKey, tele);
+//		}
 	}
 	
 	/**
@@ -578,7 +579,7 @@ public abstract class MapGenerator implements Queueable {
 	 * @param	z				The z-depth of the layer
 	 */
 	protected void addLayer(Tile[][] tiles, float z) {
-		GridLayer layer = new GridLayer(parent, tiles, z);
+		GeneratedGridLayer layer = new GeneratedGridLayer(parent, tiles, z);
 		parent.addGridLayer(layer);
 	}
 	

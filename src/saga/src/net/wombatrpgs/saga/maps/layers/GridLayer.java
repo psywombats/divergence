@@ -1,45 +1,43 @@
 /**
- *  TileLayer.java
- *  Created on Nov 29, 2012 3:51:55 PM for project rainfall-libgdx
+ *  GridLayer.java
+ *  Created on Jan 8, 2014 4:06:26 PM for project saga
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
 package net.wombatrpgs.saga.maps.layers;
 
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-
-import net.wombatrpgs.saga.core.MGlobal;
 import net.wombatrpgs.saga.maps.Level;
-import net.wombatrpgs.saga.maps.Tile;
-import net.wombatrpgs.saga.maps.events.MapEvent;
-import net.wombatrpgs.saga.screen.TrackerCam;
 
 /**
  * A layer of tiles that is part of a level. It's named "grid" so as to not
  * conflict with the stubby libgdx idea of a TiledLayer which isn't a layer at
- * all, really.
+ * all, really. This is split into two halves, a generated grid layer and a
+ * loaded grid layer. Generated grid layers run off a tile grid, and the loaded
+ * ones just make reference to the tiled layer that spawned them. This class
+ * holds their common functionality.
  */
-public class GridLayer extends Layer {
+public abstract class GridLayer extends Layer {
 	
-	protected Level parent;
-	protected boolean isLower;
-	protected Tile[][] tileData;
 	protected float z;
 	
 	/**
-	 * Creates a new object layer with a parent level and group of objects.
-	 * Expects to be mutilated and pretty much bossed around by a map generator.
-	 * @param 	parent			The parent level of the layer
-	 * @param	tileData		The actual info about tiles on this layer
-	 * @param	z				The z-depth of this layer
+	 * Creates a new grid layer of any type.
+	 * @param	parent			The parent level of the layer
+	 * @param	z				The z-float of this layer, follows some weird
+	 * 							fractional for upper chip, whole for lower chip
+	 * 							rules that should really be explained somewhere	
 	 */
-	public GridLayer(Level parent, Tile[][] tileData, float z) {
+	public GridLayer(Level parent, float z) {
+		super(parent);
 		this.z = z;
-		this.parent = parent;
-		this.tileData = tileData;
-		this.isLower = Math.floor(z) == z;
+	}
+	
+	/**
+	 * @see net.wombatrpgs.saga.maps.layers.Layer#isLowerChip()
+	 */
+	@Override
+	public boolean isLowerChip() {
+		return Math.floor(z) == z;
 	}
 	
 	/**
@@ -52,102 +50,4 @@ public class GridLayer extends Layer {
 		return z;
 	}
 
-	/**
-	 * @see net.wombatrpgs.saga.maps.layers.Layer#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
-	 */
-	@Override
-	public void render(OrthographicCamera camera) {
-		dumbRender(camera);
-	}
-
-	/**
-	 * @see net.wombatrpgs.saga.graphics.Renderable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		// TODO: queueRequiredAssets
-	}
-
-	/**
-	 * @see net.wombatrpgs.saga.graphics.Renderable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		// TODO: postProcessing
-	}
-	
-	/**
-	 * @see net.wombatrpgs.saga.maps.layers.Layer#isLowerChip()
-	 */
-	@Override
-	public boolean isLowerChip() {
-		return isLower;
-	}
-
-	/**
-	 * @see net.wombatrpgs.saga.maps.layers.Layer#isPassable(MapEvent, int, int)
-	 */
-	@Override
-	public boolean isPassable(MapEvent actor, final int x, final int y) {
-		return	(x >= 0 && x < parent.getWidth()) &&
-				(y >= 0 && y < parent.getHeight()) &&
-				(tileData[y][x] == null || tileData[y][x].isPassable());
-	}
-	
-	/**
-	 * Checks if a tile at the given location is see-through. Does not check
-	 * for out of bounds.
-	 * @param	tileX			The x-coord of the tile to check (in tiles)
-	 * @param	tileY			The y-coord of the tile to check (in tiles)
-	 * @return					True if tile is transparent, false otherwise
-	 */
-	public boolean isTransparentAt(int tileX, int tileY) {
-		return tileData[tileY][tileX] == null ||
-				tileData[tileY][tileX].isTransparent();
-	}
-	
-	/**
-	 * Does an extremely inefficient rendering pass.
-	 * @param	cam				The camera to render with
-	 */
-	protected void dumbRender(OrthographicCamera camera) {
-		TrackerCam cam  = MGlobal.screens.peek().getCamera();
-		int startX = (int) Math.floor((cam.position.x - MGlobal.window.getWidth()/2.f) / parent.getTileWidth());
-		int startY = (int) Math.floor((cam.position.y - MGlobal.window.getHeight()/2.f) / parent.getTileHeight());
-		int endX = (int) Math.ceil((cam.position.x + MGlobal.window.getWidth()/2.f) / parent.getTileWidth());
-		int endY = (int) Math.ceil((cam.position.y + MGlobal.window.getHeight()/2.f) / parent.getTileHeight());
-		if (startX < 0) startX = 0;
-		if (startY < 0) startY = 0;
-		if (endX > parent.getWidth()) endX = parent.getWidth();
-		if (endY > parent.getHeight()) endY = parent.getHeight();
-		boolean shaders = MGlobal.graphics.isShaderEnabled();
-		Color old = parent.getBatch().getColor().cpy();
-		Color trans = parent.getBatch().getColor().cpy();
-		trans.a = .5f;
-		parent.getBatch().begin();
-		for (int x = startX; x < endX; x += 1) {
-			for (int y = startY; y < endY; y += 1) {
-				float atX = parent.getTileWidth() * x;
-				float atY = parent.getTileHeight() * y;
-				if (tileData[y][x] != null) {
-					if (shaders) {
-						tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
-					} else {
-						if (MGlobal.hero.inLoS(x, y)) {
-							tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
-						} else if (MGlobal.hero.seen(x, y)) {
-							parent.getBatch().setColor(trans);
-							tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
-							parent.getBatch().setColor(old);
-						}
-					}
-				}
-			}
-		}
-		parent.getBatch().end();
-		parent.getBatch().setColor(old);
-	}
 }

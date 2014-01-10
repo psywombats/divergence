@@ -6,8 +6,20 @@
  */
 package net.wombatrpgs.saga.maps;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+
+import net.wombatrpgs.saga.core.Constants;
+import net.wombatrpgs.saga.core.MGlobal;
+import net.wombatrpgs.saga.maps.events.EventFactory;
+import net.wombatrpgs.saga.maps.layers.EventLayer;
+import net.wombatrpgs.saga.maps.layers.LoadedGridLayer;
 import net.wombatrpgs.saga.screen.Screen;
-import net.wombatrpgs.sagaschema.maps.data.MapMDO;
+import net.wombatrpgs.sagaschema.maps.LoadedMapMDO;
 
 /**
  * A level that's loaded in from a Tiled map. Here's some older stuff.
@@ -19,10 +31,83 @@ import net.wombatrpgs.sagaschema.maps.data.MapMDO;
  * upper chip object.
  */
 public class LoadedLevel extends Level {
+	
+	protected TiledMap map;
+	protected OrthogonalTiledMapRenderer renderer;
+	protected String mapPath;
 
-	public LoadedLevel(MapMDO mdo, Screen screen) {
+	/**
+	 * Creates a loaded level for a given data for level and screen. This sets
+	 * up a level for loading but still requires something else to load up
+	 * assets.
+	 * @param	mdo				The data to set up loading for
+	 * @param	screen			The screen to make a level for
+	 */
+	public LoadedLevel(LoadedMapMDO mdo, Screen screen) {
 		super(mdo, screen);
-		// TODO Auto-generated constructor stub
+		eventLayer = new EventLayer(this);
+		mapPath = Constants.MAPS_DIR + mdo.file;
+	}
+	
+	/** @return The class used to render this level */
+	public OrthogonalTiledMapRenderer getRenderer() { return renderer; }
+	
+	/**
+	 * @see net.wombatrpgs.saga.screen.ScreenObject#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		super.queueRequiredAssets(manager);
+		manager.load(mapPath, TiledMap.class);
 	}
 
+	/**
+	 * @see net.wombatrpgs.saga.maps.Level#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager, int pass) {
+		super.postProcessing(manager, pass);
+		
+		if (pass == 0) {
+			processMap(manager);
+		} else if (pass == 1) {
+			eventLayer.postProcessing(manager, pass-1);
+		}
+	}
+	
+	/**
+	 * Does the post processing for the map. This should involve processing the
+	 * map itself, and then setting up all the assets the map requires for
+	 * processing.
+	 * @param	manager			The asset manager to load from
+	 */
+	private void processMap(AssetManager manager) {
+		
+		// get the map
+		map = MGlobal.assetManager.get(mapPath, TiledMap.class);
+		renderer = new OrthogonalTiledMapRenderer(map, 1f);
+		renderer.getSpriteBatch().setShader(screen.getMapShader());
+		mapWidth = map.getProperties().get("width", Integer.class);
+		mapHeight = map.getProperties().get("height", Integer.class);
+	
+		// get the layers
+		boolean generatedEventLayer = false;
+		for (MapLayer layer : map.getLayers()) {
+			// screw you libgdx this casting should /not/ be standard
+			if (TiledMapTileLayer.class.isAssignableFrom(layer.getClass())) {
+				gridLayers.add(new LoadedGridLayer(this, (TiledMapTileLayer) layer));
+			} else {
+				if (generatedEventLayer) {
+					MGlobal.reporter.warn("Multiple event layers on map: " + this);
+				} else {
+					for (MapObject object : layer.getObjects()) {
+						EventFactory.handleData(this, object);
+					}
+				}
+			}
+		}
+		eventLayer.queueRequiredAssets(manager);
+	}
 }

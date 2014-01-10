@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.sagaschema.maps;
 
+import net.wombatrpgs.mgns.core.Annotations.Desc;
+import net.wombatrpgs.mgns.core.Annotations.FileLink;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.sagaschema.maps.data.MapMDO;
 
@@ -15,5 +17,9 @@ import net.wombatrpgs.sagaschema.maps.data.MapMDO;
  */
 @Path("maps/")
 public class LoadedMapMDO extends MapMDO {
+	
+	@Desc(".tmx file to load from")
+	@FileLink("maps")
+	public String file;
 
 }

@@ -13,15 +13,11 @@ import com.badlogic.gdx.graphics.Pixmap.Blending;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
 
-import net.wombatrpgs.saga.core.Constants;
 import net.wombatrpgs.saga.core.MGlobal;
 import net.wombatrpgs.saga.io.CommandListener;
 import net.wombatrpgs.saga.maps.Level;
-import net.wombatrpgs.saga.scenes.SceneParser;
-import net.wombatrpgs.saga.screen.instances.GameOverScreen;
 import net.wombatrpgs.sagaschema.characters.HeroMDO;
 import net.wombatrpgs.sagaschema.io.data.InputCommand;
-import net.wombatrpgs.sagaschema.settings.DeathSettingsMDO;
 
 /**
  * Placeholder class for the protagonist player.
@@ -31,8 +27,6 @@ public class Hero extends CharacterEvent implements CommandListener {
 	public static final int ABILITIES_MAX = 6;
 	
 	protected static final String HERO_DEFAULT = "hero_default";
-	
-	protected SceneParser deathScene;
 	
 	// to facilitate shader calls, viewtex is like a b/w image version of cache
 	protected boolean[][] viewCache;
@@ -52,10 +46,6 @@ public class Hero extends CharacterEvent implements CommandListener {
 		super(MGlobal.data.getEntryFor(HERO_DEFAULT, HeroMDO.class));
 		this.parent = parent;
 		MGlobal.hero = this;
-		DeathSettingsMDO deathMDO = MGlobal.data.getEntryFor(
-				Constants.KEY_DEATH, DeathSettingsMDO.class);
-		deathScene = MGlobal.levelManager.getCutscene(deathMDO.scene);
-		assets.add(deathScene);
 	}
 	
 	/**
@@ -100,27 +90,6 @@ public class Hero extends CharacterEvent implements CommandListener {
 	public boolean inLoS(int targetX, int targetY) {
 		if (viewCache == null) return false;
 		return viewCache[targetY][targetX];
-	}
-	
-	/**
-	 * @see net.wombatrpgs.saga.rpg.CharacterEvent#update(float)
-	 */
-	@Override
-	public void update(float elapsed) {
-		super.update(elapsed);
-		if (unit.isDead() && !MGlobal.raveMode) {
-			if (!deathScene.hasExecuted()) {
-				if (!deathScene.isRunning()) {
-					MGlobal.deathCount += 1;
-					deathScene.run();
-					MGlobal.screens.playMusic(null, false);
-				}
-			} else {
-				MGlobal.screens.pop();
-				MGlobal.screens.push(new GameOverScreen());
-				MGlobal.screens.playMusic(null, false);
-			}
-		}
 	}
 
 	/**

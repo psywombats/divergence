@@ -16,6 +16,8 @@ import net.wombatrpgs.saga.scenes.TeleportManager;
 import net.wombatrpgs.saga.screen.Screen;
 import net.wombatrpgs.sagaschema.cutscene.data.SceneParentMDO;
 import net.wombatrpgs.sagaschema.maps.GeneratedMapMDO;
+import net.wombatrpgs.sagaschema.maps.LoadedMapMDO;
+import net.wombatrpgs.sagaschema.maps.data.MapMDO;
 import net.wombatrpgs.sagaschema.settings.TeleportSettingsMDO;
 
 /**
@@ -92,8 +94,8 @@ public class LevelManager {
 				MGlobal.screens.peek().getTint().g = 1;
 				MGlobal.screens.peek().getTint().b = 1;
 			}
-			GeneratedMapMDO mapMDO = MGlobal.data.getEntryFor(mapID, GeneratedMapMDO.class);
-			Level map = new GeneratedLevel(mapMDO, screen);
+			MapMDO mapMDO = MGlobal.data.getEntryFor(mapID, MapMDO.class);
+			Level map = createMap(mapMDO, screen);
 			long startTime = System.currentTimeMillis();
 			map.queueRequiredAssets(MGlobal.assetManager);
 			for (int pass = 0; MGlobal.assetManager.getProgress() < 1; pass++) {
@@ -133,6 +135,23 @@ public class LevelManager {
 	public SceneParser getCutscene(String mdoKey, Screen other) {
 		SceneParentMDO mdo = MGlobal.data.getEntryFor(mdoKey, SceneParentMDO.class);
 		return cutsceneGen.createScene(mdo, other);
+	}
+	
+	/**
+	 * Our own internal level factory, now that there are two kinds of levels.
+	 * @param	mdo				The map mdo, either generated or loaded
+	 * @param	screen			The game screen to generate for, I think
+	 * @return					The created map, without assets loaded
+	 */
+	private static Level createMap(MapMDO mdo, Screen screen) {
+		if (GeneratedMapMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new GeneratedLevel((GeneratedMapMDO) mdo, screen);
+		} else if (LoadedMapMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new LoadedLevel((LoadedMapMDO) mdo, screen);
+		} else {
+			MGlobal.reporter.err("Unknown subtype of mapmdo :" + mdo.getClass());
+			return null;
+		}
 	}
 	
 }

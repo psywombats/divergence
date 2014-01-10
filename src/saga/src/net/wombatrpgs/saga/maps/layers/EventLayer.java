@@ -25,7 +25,6 @@ import net.wombatrpgs.saga.rpg.CharacterEvent;
  */
 public class EventLayer extends Layer {
 	
-	protected Level parent;
 	protected List<MapEvent> events;
 	protected List<CharacterEvent> charas;
 	
@@ -36,7 +35,7 @@ public class EventLayer extends Layer {
 	 * @param	index			The ordinal of this event layer (of event layer)
 	 */
 	public EventLayer(Level parent) {
-		this.parent = parent;
+		super(parent);
 		events = new ArrayList<MapEvent>();
 		charas = new ArrayList<CharacterEvent>();
 	}
@@ -96,7 +95,7 @@ public class EventLayer extends Layer {
 		return true;
 	}
 	
-//	/** @return All events contained on this layer */
+	/** @return All events contained on this layer */
 	public List<MapEvent> getEvents() { return events; }
 
 	/**

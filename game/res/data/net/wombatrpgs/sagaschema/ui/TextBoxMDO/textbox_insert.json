@@ -2,7 +2,7 @@
 	"key" : "textbox_insert",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "",
+	"description" : " ",
 	"anchor" : "ANCHOR",
 	"image" : "textbox_bg2.png",
 	"image2" : "textbox_bg2.png",
@@ -15,5 +15,5 @@
 	"nameX" : 0,
 	"nameY" : 0,
 	"typeSpeed" : 32,
-	"typeSfx" : "sound_click"
+	"typeSfx" : "None"
 }

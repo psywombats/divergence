@@ -195,7 +195,7 @@ public class TextBox extends Picture {
 							}
 						} else if (Character.isLetter(lastChar) || Character.isDigit(lastChar)) {
 							if (!playedType) {
-								typeSfx.play();
+								if (typeSfx != null) typeSfx.play();
 								playedType = true;
 							}
 						}

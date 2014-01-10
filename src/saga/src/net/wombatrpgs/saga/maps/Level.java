@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -22,17 +21,13 @@ import net.wombatrpgs.saga.graphics.effects.EffectFactory;
 import net.wombatrpgs.saga.io.audio.MusicObject;
 import net.wombatrpgs.saga.maps.events.MapEvent;
 import net.wombatrpgs.saga.maps.gen.MapGenerator;
-import net.wombatrpgs.saga.maps.gen.MapGeneratorFactory;
 import net.wombatrpgs.saga.maps.layers.EventLayer;
+import net.wombatrpgs.saga.maps.layers.GeneratedGridLayer;
 import net.wombatrpgs.saga.maps.layers.GridLayer;
 import net.wombatrpgs.saga.rpg.CharacterEvent;
-import net.wombatrpgs.saga.rpg.CharacterFactory;
-import net.wombatrpgs.saga.scenes.SceneParser;
 import net.wombatrpgs.saga.screen.Screen;
 import net.wombatrpgs.saga.screen.ScreenObject;
 import net.wombatrpgs.sagaschema.audio.MusicMDO;
-import net.wombatrpgs.sagaschema.characters.data.CharacterMDO;
-import net.wombatrpgs.sagaschema.maps.MapGeneratorMDO;
 import net.wombatrpgs.sagaschema.maps.data.MapMDO;
 
 /**
@@ -48,8 +43,8 @@ import net.wombatrpgs.sagaschema.maps.data.MapMDO;
  */
 public abstract class Level extends ScreenObject implements Turnable {
 	
-	public static final int TILE_WIDTH = 32;
-	public static final int TILE_HEIGHT = 32;
+	public static final int TILE_WIDTH = 16;
+	public static final int TILE_HEIGHT = 16;
 	
 	protected MapMDO mdo;
 	protected Screen screen;
@@ -69,7 +64,6 @@ public abstract class Level extends ScreenObject implements Turnable {
 	protected float moveTime;
 	
 	protected Map<String, Loc> teleLocations; // string ID to incoming location
-	protected SceneParser scene;
 	
 	protected MapGenerator mapGen;
 	protected int mapWidth, mapHeight;
@@ -96,26 +90,12 @@ public abstract class Level extends ScreenObject implements Turnable {
 			effect = EffectFactory.create(this, mdo.effect);
 			assets.add(effect);
 		}
-		if (MapThing.mdoHasProperty(mdo.scene)) {
-			scene = MGlobal.levelManager.getCutscene(mdo.scene);
-			assets.add(scene);
-		}
 		if (MapThing.mdoHasProperty(mdo.bgm)) {
 			bgm = new MusicObject(MGlobal.data.getEntryFor(mdo.bgm, MusicMDO.class));
 			assets.add(bgm);
 		}
 		reseting = false;
 		moving = false;
-		
-		// map gen!
-		eventLayer = new EventLayer(this);
-		assets.add(eventLayer);
-		this.mapGen = MapGeneratorFactory.createGenerator(
-				MGlobal.data.getEntryFor(mdo.generator, MapGeneratorMDO.class),
-				this);
-		assets.add(mapGen);
-		this.mapWidth = mdo.mapWidth;
-		this.mapHeight = mdo.mapHeight;
 	}
 	
 	/** @return The batch used to render sprites on this map */
@@ -163,17 +143,8 @@ public abstract class Level extends ScreenObject implements Turnable {
 	/** @return The key to this map's mdo */
 	public String getKey() { return mdo.key; }
 	
-	/** @return The map keys of all neighbors that are reached by ascending */
-	public String[] getUpKeys() { return mdo.pathsUp; }
-	
-	/** @return The map keys of all neighbors that are reached by descending */
-	public String[] getDownKeys() { return mdo.pathsDown; }
-	
 	/** @return The screen this map is placed on */
 	public Screen getScreen() { return MGlobal.levelManager.getScreen(); }
-	
-	/** @return The danger level of this map */
-	public int getDanger() { return mdo.danger; }
 	
 	/** @see net.wombatrpgs.saga.screen.ScreenObject#ignoresTint() */
 	@Override public boolean ignoresTint() { return false; }
@@ -181,15 +152,13 @@ public abstract class Level extends ScreenObject implements Turnable {
 	/** @see java.lang.Object#toString() */
 	@Override public String toString() { return mdo.key; }
 	
-	/** @return The UI floor of this level */
-	public String getFloor() { return mdo.floor; }
-	
 	/**
 	 * @see net.wombatrpgs.saga.graphics.Renderable#render(
 	 * com.badlogic.gdx.graphics.OrthographicCamera)
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
+		super.render(camera);
 		camera.update();
 		for (GridLayer layer : gridLayers) {
 			if (layer.getZ() < 1.f) {
@@ -208,36 +177,12 @@ public abstract class Level extends ScreenObject implements Turnable {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.saga.graphics.Renderable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		super.postProcessing(manager, 0);
-		if (pass == 0) {
-			mapGen.generateMe();
-			if (mdo.characters != null) {
-				for (String key : mdo.characters) {
-					CharacterMDO charaMDO = MGlobal.data.getEntryFor(key, CharacterMDO.class);
-					CharacterEvent chara = CharacterFactory.create(charaMDO, this);
-					chara.spawnUnseen();
-					assets.add(chara);
-					chara.queueRequiredAssets(manager);
-				}
-			}
-		}
-	}
-	
-	/**
 	 * @see net.wombatrpgs.saga.core.Updateable#update(float)
 	 */
 	@Override
 	public void update(float elapsed) {
 		updating = true;
 		if (MGlobal.stasis) return;
-		if (scene != null && !scene.hasExecuted()) {
-			scene.run();
-		}
 		for (MapThing toRemove : removalObjects) {
 			toRemove.onRemovedFromMap(this);
 			internalRemoveObject(toRemove);
@@ -284,7 +229,7 @@ public abstract class Level extends ScreenObject implements Turnable {
 	 * anyone but the map generator.
 	 * @param	layer			The layer to add
 	 */
-	public void addGridLayer(GridLayer layer) {
+	public void addGridLayer(GeneratedGridLayer layer) {
 		gridLayers.add(layer);
 	}
 	
@@ -351,9 +296,6 @@ public abstract class Level extends ScreenObject implements Turnable {
 		addEventAbsolute(newEvent, tileX * getTileWidth(), tileY * getTileHeight());
 		newEvent.setTileX(tileX);
 		newEvent.setTileY(tileY);
-		if (newEvent == MGlobal.hero && scene != null) {
-			scene.run();
-		}
 	}
 	
 	/**
@@ -444,18 +386,7 @@ public abstract class Level extends ScreenObject implements Turnable {
 	 * @return					True if tile is transparent, false otherwise
 	 */
 	public boolean isTransparentAt(int tileX, int tileY) {
-		// TODO: precompute this
-		if (tileX < 0 || tileY < 0 || tileX >= mapWidth || tileY >= mapHeight) {
-			return false;
-		}
-		for (GridLayer layer : gridLayers) {
-			if (!layer.isTransparentAt(tileX, tileY)) {
-				return false;
-			}
-		}
-		for (MapEvent event : eventLayer.getEventsAt(tileX, tileY)) {
-			if (!event.isTransparent()) return false;
-		}
+		// TODO: delete this
 		return true;
 	}
 	

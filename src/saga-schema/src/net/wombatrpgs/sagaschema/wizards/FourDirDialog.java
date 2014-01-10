@@ -62,7 +62,12 @@ public class FourDirDialog extends JDialog implements	ActionListener,
 	private static final long serialVersionUID = 148284705740583304L;
 	private static final int WINDOW_WIDTH = 900;
 	private static final int WINDOW_HEIGHT = 600;
+	
 	private static final String DEFAULT_ITEM = "Select a sprite";
+	private static final int DEFAULT_WIDTH = 16;
+	private static final int DEFAULT_HEIGHT = 16;
+	private static final int DEFAULT_FPS = 2;
+	private static final int DEFAULT_FRAMECOUNT = 2;
 	
 	private static final int LEFT_DIR = 2;
 	private static final int RIGHT_DIR = 0;
@@ -289,28 +294,28 @@ public class FourDirDialog extends JDialog implements	ActionListener,
 		
 		addLabel(optionsPane, "Frame count");
 		frameCountField = new JFormattedTextField(NumberFormat.getIntegerInstance());
-		frameCountField.setValue(4);
+		frameCountField.setValue(DEFAULT_FRAMECOUNT);
 		frameCountField.setColumns(8);
 		frameCountField.getDocument().addDocumentListener(this);
 		optionsPane.add(frameCountField, generateConstraints());
 		
 		addLabel(optionsPane, "Frame width");
 		frameWidthField = new JFormattedTextField(NumberFormat.getIntegerInstance());
-		frameWidthField.setValue(32);
+		frameWidthField.setValue(DEFAULT_WIDTH);
 		frameWidthField.setColumns(12);
 		frameWidthField.getDocument().addDocumentListener(this);
 		optionsPane.add(frameWidthField, generateConstraints());
 		
 		addLabel(optionsPane, "Frame height");
 		frameHeightField = new JFormattedTextField(NumberFormat.getIntegerInstance());
-		frameHeightField.setValue(32);
+		frameHeightField.setValue(DEFAULT_HEIGHT);
 		frameHeightField.setColumns(12);
 		frameHeightField.getDocument().addDocumentListener(this);
 		optionsPane.add(frameHeightField, generateConstraints());
 		
 		addLabel(optionsPane, "Animation speed (fps)");
 		fpsField = new JFormattedTextField(NumberFormat.getIntegerInstance());
-		fpsField.setValue(4);
+		fpsField.setValue(DEFAULT_FPS);
 		fpsField.setColumns(8);
 		fpsField.getDocument().addDocumentListener(this);
 		optionsPane.add(fpsField, generateConstraints());
