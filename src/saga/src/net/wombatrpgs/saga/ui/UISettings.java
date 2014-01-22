@@ -18,7 +18,6 @@ import net.wombatrpgs.saga.ui.text.TextBox;
 import net.wombatrpgs.sagaschema.graphics.IconSetMDO;
 import net.wombatrpgs.sagaschema.settings.UISettingsMDO;
 import net.wombatrpgs.sagaschema.ui.FontMDO;
-import net.wombatrpgs.sagaschema.ui.NarratorMDO;
 import net.wombatrpgs.sagaschema.ui.TextBoxMDO;
 
 /**
@@ -36,7 +35,6 @@ public class UISettings implements Queueable {
 	protected FontHolder font;
 	protected TextBox box;
 	protected IconSet icons;
-	protected Narrator narrator;
 	
 	protected List<Queueable> assets;
 	
@@ -53,8 +51,6 @@ public class UISettings implements Queueable {
 		assets.add(box);
 		icons = new IconSet(SGlobal.data.getEntryFor(mdo.icons, IconSetMDO.class));
 		assets.add(icons);
-		narrator = new Narrator(SGlobal.data.getEntryFor(mdo.narrator, NarratorMDO.class), font);
-		assets.add(narrator);
 	}
 
 	/**
@@ -84,8 +80,5 @@ public class UISettings implements Queueable {
 	
 	/** @return The font associated with these settings */
 	public FontHolder getFont() { return this.font; }
-	
-	/** return The narrator associated with these settings */
-	public Narrator getNarrator() { return this.narrator; }
 
 }

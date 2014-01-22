@@ -235,10 +235,10 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.saga.maps.events.MapEvent#onMoveStart()
+	 * @see net.wombatrpgs.saga.maps.events.MapEvent#startMoving()
 	 */
 	@Override
-	public void onMoveStart() {
+	public void startMoving() {
 		for (Step step : travelPlan) {
 			step.setTime(SGlobal.constants.getDelay() / travelPlan.size());
 		}

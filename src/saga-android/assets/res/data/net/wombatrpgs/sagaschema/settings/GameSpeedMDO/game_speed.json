@@ -2,7 +2,7 @@
 	"key" : "game_speed",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "",
+	"description" : " ",
 	"framerate" : 60,
-	"delay" : 0.1
+	"delay" : 0.3
 }

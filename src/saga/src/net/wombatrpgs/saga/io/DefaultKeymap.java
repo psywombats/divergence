@@ -22,6 +22,8 @@ import com.badlogic.gdx.Input.Keys;
  */
 public class DefaultKeymap extends Keymap {
 	
+	private static final float KEY_DELAY = 0f;
+	
 	private Map<Integer, InputButton> map;
 	private Map<InputButton, Integer> backmap;
 	private Map<InputButton, PressState> state;
@@ -149,7 +151,7 @@ public class DefaultKeymap extends Keymap {
 		// awful keyrepeat
 		for (InputButton button : constantButtons) {
 			state.get(button).lastPushed += elapsed;
-			if (state.get(button).down && state.get(button).lastPushed > .3f) {
+			if (state.get(button).down && state.get(button).lastPushed > KEY_DELAY) {
 				signal(button, true);
 			}
 		}

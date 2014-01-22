@@ -11,7 +11,7 @@ package net.wombatrpgs.sagaschema.ui.data;
  */
 public enum AnchorType {
 	
-	ANCHOR,
-	OFFSET,
+	TOP,
+	BOTTOM,
 
 }

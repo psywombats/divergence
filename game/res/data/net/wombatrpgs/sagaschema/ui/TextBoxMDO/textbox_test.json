@@ -1,0 +1,13 @@
+{
+	"key" : "textbox_test",
+	"subfolder" : "",
+	"name" : "  ",
+	"description" : "     ",
+	"anchor" : "TOP",
+	"nineslice" : "nineslice_ffl",
+	"typeSpeed" : 10,
+	"typeSfx" : "None",
+	"lines" : 3,
+	"marginWidth" : 8,
+	"marginHeight" : 6
+}

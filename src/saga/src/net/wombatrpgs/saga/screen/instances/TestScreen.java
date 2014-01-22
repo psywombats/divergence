@@ -46,7 +46,7 @@ public class TestScreen extends Screen {
 			font = new FontHolder(fontMDO);
 			TextBoxMDO textMDO = SGlobal.data.getEntryFor(testMDO.box, TextBoxMDO.class);
 			box = new TextBox(textMDO, font);
-			box.setText(testMDO.text);
+			box.show(testMDO.text);
 		}
 		
 		pushCommandContext(new CMapGame());

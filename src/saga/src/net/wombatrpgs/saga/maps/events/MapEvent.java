@@ -150,6 +150,21 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	}
 	
 	/**
+	 * Called when this object begins updating its position in the move phase.
+	 */
+	public void startMoving() {
+		int tWidth = parent.getTileWidth();
+		int tHeight = parent.getTileHeight();
+		targetLocation(tileX * tWidth, tileY * tHeight);
+		float vx = (tileX*tWidth - x) / parent.getMoveTimeLeft();
+		float vy = (tileY*tHeight - y) / parent.getMoveTimeLeft();
+		setVelocity(vx, vy);
+		
+		System.out.println("moving for " + (tileX * tWidth) + " , " + (tileY * tHeight) +
+				" with velocity " + vx + " , " + vy);
+	}
+	
+	/**
 	 * Stops this event from a period of pathing towards its logical next
 	 * turn position by permanently setting it to is next turn positon.
 	 */
@@ -378,18 +393,6 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	 */
 	public void onRemove(EventLayer layer) {
 		// noop
-	}
-	
-	/**
-	 * Called when this object begins updating its position in the move phase.
-	 */
-	public void onMoveStart() {
-		int tWidth = parent.getTileWidth();
-		int tHeight = parent.getTileHeight();
-		targetLocation(tileX * tWidth, tileY * tHeight);
-		float vx = (tileX*tWidth - x) / parent.getMoveTimeLeft();
-		float vy = (tileY*tHeight - y) / parent.getMoveTimeLeft();
-		setVelocity(vx, vy);
 	}
 	
 	/**

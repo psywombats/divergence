@@ -66,9 +66,9 @@ public class LoadedGridLayer extends GridLayer {
 			return !isLowerChip();
 		} else {
 			if (isLowerChip()) {
-				return (getTileProperty(x, y, Constants.PROPERTY_IMPASSABLE) != null);
+				return (getTileProperty(x, y, Constants.PROPERTY_IMPASSABLE) == null);
 			} else {
-				return (getTileProperty(x, y, Constants.PROPERTY_PASSABLE) != null);
+				return (getTileProperty(x, y, Constants.PROPERTY_PASSABLE) == null);
 			}
 			
 		}

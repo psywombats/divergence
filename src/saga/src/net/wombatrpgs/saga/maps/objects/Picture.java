@@ -6,31 +6,19 @@
  */
 package net.wombatrpgs.saga.maps.objects;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.saga.graphics.Graphic;
-import net.wombatrpgs.saga.maps.PositionSetable;
-import net.wombatrpgs.saga.screen.ScreenObject;
+import net.wombatrpgs.saga.graphics.ScreenDrawable;
 
 /**
  * Replaces the old picture layer that the map had. This is exactly the RM
  * equivalent. The only difference it has with the map object is that it
  * can be compared against other pictures to sort by z-depth.
  */
-public class Picture extends ScreenObject implements PositionSetable {
+public class Picture extends ScreenDrawable {
 	
-	public SpriteBatch batch;
 	protected Graphic appearance;
-	protected Color currentColor;
-	protected float x, y;
-	
-	protected boolean tweening;
-	protected Color tweenTargetColor;
-	protected Color tweenBaseColor;
-	protected float tweenTime;
-	protected float tweenEnd;
 	
 	/**
 	 * Create a picture at an explicit location
@@ -65,13 +53,8 @@ public class Picture extends ScreenObject implements PositionSetable {
 	 * @param 	z				The z-depth (number in RM terms) of the picture
 	 */
 	public Picture(Graphic appearance, int z) {
-		this.z = z;
+		super(z);
 		this.appearance = appearance;
-		this.tweening = false;
-		this.batch = new SpriteBatch();
-		this.currentColor = new Color(1, 1, 1, 1);
-		this.tweenBaseColor = new Color(1, 1, 1, 1);
-		this.tweenTargetColor = new Color(1, 1, 1, 1);
 	}
 	
 	/**
@@ -88,27 +71,6 @@ public class Picture extends ScreenObject implements PositionSetable {
 	
 	/** @return The height of the underlying graphic, in px */
 	public int getHeight() { return appearance.getHeight(); }
-	
-	/**
-	 * @see net.wombatrpgs.saga.core.Updateable#update(float)
-	 */
-	@Override
-	public void update(float elapsed) {
-		if (tweening) {
-			tweenTime += elapsed;
-			float r;
-			if (tweenTime > tweenEnd) {
-				r = 1;
-				tweening = false;
-			} else {
-				r = tweenTime / tweenEnd;
-			}
-			currentColor.a = tweenBaseColor.a * (1.f-r) + r * tweenTargetColor.a;
-			currentColor.r = tweenBaseColor.r * (1.f-r) + r * tweenTargetColor.r;
-			currentColor.g = tweenBaseColor.g * (1.f-r) + r * tweenTargetColor.g;
-			currentColor.b = tweenBaseColor.b * (1.f-r) + r * tweenTargetColor.b;
-		}
-	}
 
 	/**
 	 * @see net.wombatrpgs.saga.maps.events.MapEvent#render
@@ -118,78 +80,6 @@ public class Picture extends ScreenObject implements PositionSetable {
 	public void render(OrthographicCamera camera) {
 		batch.setColor(currentColor);
 		appearance.renderAt(batch, x, y);
-	}
-
-	/**
-	 * @see net.wombatrpgs.saga.maps.Positionable#getX()
-	 */
-	@Override
-	public float getX() {
-		return this.x;
-	}
-	/**
-	 * @see net.wombatrpgs.saga.maps.Positionable#getY()
-	 */
-	@Override
-	public float getY() {
-		return this.y;
-	}
-	
-	/**
-	 * @see net.wombatrpgs.saga.maps.PositionSetable#setX(int)
-	 */
-	@Override
-	public void setX(float x) {
-		this.x = x;
-	}
-	/**
-	 * @see net.wombatrpgs.saga.maps.PositionSetable#setY(int)
-	 */
-	@Override
-	public void setY(float y) {
-		this.y = y;
-	}
-	
-	/**
-	 * Gets the default screen batch. This is usually what's used to render,
-	 * although if some special thing is going on, it'd be best to use a
-	 * different batch.
-	 * @return					The current screen's sprite batch
-	 */
-	public SpriteBatch getBatch() {
-		return batch;
-	}
-	
-	/**
-	 * Sets the batch we use to render. This is kind of hacky and shouldn't be
-	 * used.
-	 * @param 	batch			The batch to set to
-	 */
-	public void setBatch(SpriteBatch batch) {
-		this.batch = batch;
-	}
-	
-	/**
-	 * Tweens to a new color. Undefined behavior if already tweening. This is a
-	 * smooth transition from one color to another.
-	 * @param 	target			The color to end up as
-	 * @param 	time			How long to take
-	 */
-	public void tweenTo(Color target, float time) {
-		tweenTargetColor.set(target);
-		tweenBaseColor.set(currentColor);
-		this.tweenEnd = time;
-		this.tweenTime = 0;
-		this.tweening = true;
-	}
-	
-	/**
-	 * Sets the picture's rendering color.
-	 * @param 	newColor
-	 */
-	public void setColor(Color newColor) {
-		tweening = false;
-		currentColor.set(newColor);
 	}
 
 }

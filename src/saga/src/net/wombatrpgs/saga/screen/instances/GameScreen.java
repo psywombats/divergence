@@ -17,11 +17,16 @@ import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.maps.Loc;
 import net.wombatrpgs.saga.rpg.Avatar;
 import net.wombatrpgs.saga.screen.Screen;
+import net.wombatrpgs.saga.ui.text.FontHolder;
+import net.wombatrpgs.saga.ui.text.TextBox;
 import net.wombatrpgs.sagaschema.io.data.InputCommand;
 import net.wombatrpgs.sagaschema.settings.IntroSettingsMDO;
 import net.wombatrpgs.sagaschema.test.FramerateTestMDO;
 import net.wombatrpgs.sagaschema.test.ShaderTestMDO;
+import net.wombatrpgs.sagaschema.test.TextBoxTestMDO;
 import net.wombatrpgs.sagaschema.test.data.TestState;
+import net.wombatrpgs.sagaschema.ui.FontMDO;
+import net.wombatrpgs.sagaschema.ui.TextBoxMDO;
 
 /**
  * This is the default screen that appears when the game is first loaded. Once
@@ -68,11 +73,20 @@ public class GameScreen extends Screen {
 			mapShader = (testShader);
 		}
 		
-		addObject(SGlobal.ui.getNarrator());
-		
 		// all this stuff is crap
 		hero = new Avatar(SGlobal.levelManager.getActive());
 		assets.add(hero);
+		
+		TextBoxTestMDO testMDO = SGlobal.data.getEntryFor("test_textbox", TextBoxTestMDO.class);
+		if (testMDO != null && testMDO.enabled == TestState.ENABLED) {
+			FontMDO fontMDO = SGlobal.data.getEntryFor(testMDO.font, FontMDO.class);
+			FontHolder font = new FontHolder(fontMDO);
+			TextBoxMDO textMDO = SGlobal.data.getEntryFor(testMDO.box, TextBoxMDO.class);
+			TextBox box = new TextBox(textMDO, font);
+			box.show(testMDO.text);
+			assets.add(box);
+			addObject(box);
+		}
 		
 		// will be called later
 		// normally
@@ -131,6 +145,8 @@ public class GameScreen extends Screen {
 					cam.position.y + SGlobal.window.getHeight()/2*wr - 8);
 		}
 		batch.end();
+		
+		
 	}
 	
 	/**

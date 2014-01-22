@@ -62,11 +62,7 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 			running = true;
 			SGlobal.ui.getBox().setLines(lines);
 			SGlobal.ui.getBox().reset();
-			if (system) {
-				SGlobal.ui.getBox().setName("");
-			} else {
-				//MGlobal.ui.getBox().setName(mdo.name);
-			}
+
 			// TODO: figure out why the text box default batch is broken
 			if (faceGraphic != null) {
 				facePic = new Picture(faceGraphic,

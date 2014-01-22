@@ -11,11 +11,9 @@ import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Queueable;
 import net.wombatrpgs.saga.core.Turnable;
 import net.wombatrpgs.saga.rpg.ai.Allegiance;
-import net.wombatrpgs.saga.ui.Narrator;
 import net.wombatrpgs.sagaschema.characters.data.CharacterMDO;
 import net.wombatrpgs.sagaschema.characters.data.Relation;
 
@@ -29,9 +27,6 @@ import net.wombatrpgs.sagaschema.characters.data.Relation;
  * the two manifestation classes.
  */
 public class GameUnit implements Turnable, Queueable {
-	
-	/** lol this thing is because I'm too lazy to type MGlobal.ughhhh.nar ugh */
-	protected static Narrator out;
 	
 	protected CharacterMDO mdo;
 	protected List<Turnable> turnChildren, toRemove;
@@ -55,12 +50,7 @@ public class GameUnit implements Turnable, Queueable {
 		currentStats = new Stats(mdo.stats);
 		allegiance = new Allegiance(this, mdo.faction);
 		turnChildren.add(allegiance);
-		
-		if (out == null) out = SGlobal.ui.getNarrator();
 	}
-	
-	/** @return Laziness personified */
-	public static Narrator out() { return out; }
 	
 	/** @return The current stats of this unit */
 	public Stats getStats() { return currentStats; }

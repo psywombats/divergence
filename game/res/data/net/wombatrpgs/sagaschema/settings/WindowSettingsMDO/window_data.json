@@ -4,8 +4,8 @@
 	"name" : "",
 	"description" : " ",
 	"windowName" : "Zephyr Skies: The Fall of the Necromancer",
-	"width" : 800,
-	"height" : 600,
-	"resWidth" : 800,
-	"resHeight" : 600
+	"width" : 320,
+	"height" : 240,
+	"resWidth" : 320,
+	"resHeight" : 240
 }

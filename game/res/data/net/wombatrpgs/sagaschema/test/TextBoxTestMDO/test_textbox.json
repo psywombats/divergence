@@ -2,9 +2,9 @@
 	"key" : "test_textbox",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "",
-	"enabled" : "DISABLED",
-	"box" : "textbox_default",
-	"font" : "font_c64block",
-	"text" : "one day I will find the person that made hiero and murder them because hiero is buggy as fuck"
+	"description" : " ",
+	"enabled" : "ENABLED",
+	"box" : "textbox_test",
+	"font" : "font_sagaf",
+	"text" : "It has been said that the tower in the center of the world is connected to paradise."
 }

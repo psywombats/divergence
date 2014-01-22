@@ -69,9 +69,6 @@ public class SGlobal {
 	public static TileManager tiles;
 	/** Desktop mode */
 	public static Platform platform;
-	/** ZS2 weird shit */
-	public static boolean raveMode, stasis, won, won2;
-	public static int deathCount;
 	
 	private static List<Queueable> toLoad;
 	

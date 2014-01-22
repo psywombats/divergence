@@ -14,12 +14,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 
 import net.wombatrpgs.saga.core.SGlobal;
-import net.wombatrpgs.saga.graphics.Graphic;
+import net.wombatrpgs.saga.graphics.ScreenDrawable;
 import net.wombatrpgs.saga.io.audio.SoundObject;
 import net.wombatrpgs.saga.maps.MapThing;
-import net.wombatrpgs.saga.maps.objects.Picture;
 import net.wombatrpgs.saga.screen.WindowSettings;
+import net.wombatrpgs.saga.ui.Nineslice;
 import net.wombatrpgs.sagaschema.audio.SoundMDO;
+import net.wombatrpgs.sagaschema.ui.NinesliceMDO;
 import net.wombatrpgs.sagaschema.ui.TextBoxMDO;
 import net.wombatrpgs.sagaschema.ui.data.AnchorType;
 
@@ -28,22 +29,29 @@ import net.wombatrpgs.sagaschema.ui.data.AnchorType;
  * stores some data from its MDO, but dynamically updates its strings. In the
  * future it will do some other cool stuff. These things only display on the
  * map the hero is on. Otherwise it really wouldn't make sense, would it?
+ * 
+ * Now that this thing's in the Saga project, it's nineslice-generated. At some
+ * pointi it'd probably be a good idea to get in a MDO-inheritance deal where
+ * picture-backed text boxes are also supported. It also seems to handle font
+ * loading?
  */
-public class TextBox extends Picture {
+public class TextBox extends ScreenDrawable {
 	
 	protected static final float FADE_IN_TIME = .5f;
 	
-	protected List<String> lines;
-	protected List<String> visibleLines, mutatedLines;
 	protected TextBoxMDO mdo;
 	protected FontHolder font;
+	
+	protected List<String> lines;
+	protected List<String> visibleLines;
+	
+	protected Nineslice backer;
 	protected TextBoxFormat bodyFormat, nameFormat;
-	protected Graphic backer, backer2;
 	protected SoundObject typeSfx;
-	protected String name;
 	protected float sinceChar;
 	protected int visibleChars;
 	protected int totalLength;
+	protected int boxHeight;
 	protected boolean waiting;
 	
 	/**
@@ -53,27 +61,25 @@ public class TextBox extends Picture {
 	 * @param 	font			The font to use in rendering, can change
 	 */
 	public TextBox(TextBoxMDO mdo, FontHolder font) {
-		super(mdo.image, 1);
+		super(1);
 		this.mdo = mdo;
 		this.font = font;
-		this.name = "";
 		this.visibleChars = 0;
 		this.sinceChar = 0;
 		this.bodyFormat = new TextBoxFormat();
 		this.nameFormat = new TextBoxFormat();
 		this.visibleLines = new ArrayList<String>();
-		this.mutatedLines = new ArrayList<String>();
-		this.backer = appearance;
 		this.waiting = false;
 		
-		if (MapThing.mdoHasProperty(mdo.image2)) {
-			this.backer2 = new Graphic(mdo.image2);
-			assets.add(backer2);
-		}
 		if (MapThing.mdoHasProperty(mdo.typeSfx)) {
 			typeSfx = new SoundObject(SGlobal.data.getEntryFor(mdo.typeSfx, SoundMDO.class));
 			assets.add(typeSfx);
 		}
+		if (MapThing.mdoHasProperty(mdo.nineslice)) {
+			backer = new Nineslice(SGlobal.data.getEntryFor(mdo.nineslice, NinesliceMDO.class));
+			assets.add(backer);
+		}
+		assets.add(font);
 	}
 	
 	/**
@@ -82,28 +88,23 @@ public class TextBox extends Picture {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		if (!SGlobal.won2) {
-			super.render(camera);
+		super.render(camera);
+		
+		// backer first
+		if (backer != null) {
+			int atY = 0;
+			if (mdo.anchor == AnchorType.BOTTOM) {
+				atY = SGlobal.window.getHeight() - boxHeight;
+			}
+			backer.renderAt(getBatch(), 0, atY);
 		}
-		font.setAlpha(currentColor.a);
-		for (int i = 0; i < mutatedLines.size(); i++) {
+		
+		// now for the font
+		for (int i = 0; i < visibleLines.size(); i++) {
 			font.draw(getBatch(), bodyFormat,
-					mutatedLines.get(i), (int) (font.getLineHeight() * -i));
+					visibleLines.get(i), (int) (font.getLineHeight() * -i));
 		}
-		font.draw(getBatch(), nameFormat, name, 0);
 		font.setAlpha(1);
-	}
-
-	/**
-	 * @see net.wombatrpgs.saga.maps.MapThing#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		super.queueRequiredAssets(manager);
-		if (backer2 != null) {
-			backer2.queueRequiredAssets(manager);
-		}
 	}
 
 	/**
@@ -113,28 +114,21 @@ public class TextBox extends Picture {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
-		if (backer2 != null) {
-			backer2.postProcessing(manager, pass);
-		}
 		WindowSettings win = SGlobal.window;
-		if (mdo.anchor == AnchorType.ANCHOR) {
-			bodyFormat.x = win.getWidth()/2 - backer.getWidth()/2 + mdo.x1;
-			bodyFormat.y = win.getHeight()/2 + backer.getHeight()/2 - mdo.y1;
-			bodyFormat.align = HAlignment.LEFT;
-			bodyFormat.width = backer.getWidth() - mdo.x1 - mdo.x2;
-			bodyFormat.height = backer.getHeight() - mdo.y1 - mdo.y2;
+		
+		boxHeight = (int) (font.getLineHeight() * mdo.lines);
+		boxHeight += mdo.marginHeight * 2;
+		backer.resizeTo(win.getWidth(), boxHeight);
+		
+		bodyFormat.x = mdo.marginWidth;
+		if (mdo.anchor != AnchorType.BOTTOM) {
+			bodyFormat.y = boxHeight - mdo.marginHeight;
 		} else {
-			bodyFormat.x = mdo.x1;
-			bodyFormat.y = backer.getHeight() - mdo.y1;
-			bodyFormat.align = HAlignment.LEFT;
-			bodyFormat.height = mdo.y2 - mdo.y1;
-			bodyFormat.width = mdo.x2 - mdo.x1;
+			bodyFormat.y = win.getHeight() - mdo.marginHeight;
 		}
-		nameFormat.x = mdo.nameX;
-		nameFormat.y = backer.getHeight() - mdo.nameY;
-		nameFormat.align = HAlignment.LEFT;
-		nameFormat.height = mdo.y2 - mdo.y1;
-		nameFormat.width = mdo.x2 - mdo.x1;
+		bodyFormat.align = HAlignment.LEFT;
+		bodyFormat.width = win.getWidth() - mdo.marginWidth * 2;
+		bodyFormat.height = win.getHeight() - mdo.marginHeight * 2;
 	}
 
 	/**
@@ -143,24 +137,6 @@ public class TextBox extends Picture {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
-		
-		if (mdo.anchor == AnchorType.ANCHOR) {
-			setX(SGlobal.window.getWidth()/2 - backer.getWidth()/2);
-			setY(SGlobal.window.getHeight()/2 - backer.getHeight()/2);
-		}
-		
-		boolean mutate = false;
-		for (String line : visibleLines) {
-			if (line.contains("*") || line.contains("$")) {
-				mutate = true;
-				break;
-			}
-		}
-		if (mutate) {
-			mutatedLines = mutate(visibleLines);
-		} else {
-			mutatedLines = visibleLines;
-		}
 		
 		if (waiting) return;
 		
@@ -209,51 +185,6 @@ public class TextBox extends Picture {
 			}
 		}
 	}
-
-	/**
-	 * Sets the internal text to be displayed at this textbox. Nothing fancy.
-	 * This only displays one line so you probably don't want to use this.
-	 * @param 	text			The text to be displayed
-	 */
-	public void setText(String text) {
-		this.lines = new ArrayList<String>();
-		lines.add(text);
-	}
-	
-	/**
-	 * Sets the lines that are displayed by the text box. These should be
-	 * pre-formatted. One string is displayed per line.
-	 * @param 	lines			The lines to be displayed in the box.
-	 */
-	public void setLines(List<String> lines) {
-		this.lines = lines;
-		this.visibleLines = new ArrayList<String>();
-		for (int i = 0; i < lines.size(); i++) {
-			visibleLines.add("");
-		}
-		this.sinceChar = 0;
-		for (String line : lines) {
-			totalLength += line.length();
-		}
-		sinceChar = 0;
-	}
-	
-	/**
-	 * Sets the name tag for the text box, if the text box supports a name tag.
-	 * @param 	name			The name of the character speaking
-	 */
-	public void setName(String name) {
-		this.name = name;
-		if (name.length() > 0) {
-			this.appearance = (backer);
-		} else {
-			this.appearance = (backer2);
-		}
-		if (mdo.anchor == AnchorType.OFFSET) {
-			setX(mdo.graphicX);
-			setY(SGlobal.window.getHeight() - mdo.graphicY - appearance.getHeight());
-		}
-	}
 	
 	/**
 	 * Speeds up this box's movement, either by tnstantly displaying all
@@ -285,37 +216,47 @@ public class TextBox extends Picture {
 	}
 	
 	/**
-	 * Given a bunch of strings, runs a randomizing algorithm over them.
-	 * @param	input			The strings to mutate
-	 * @return					The result of the mutation
+	 * Pretty text display. This is the primary input to the textbox. It will
+	 * take a string, break it at the nearest word, and display it on the page.
+	 * Note that this does not cover cases where the text is longer than the
+	 * box can hold; that should be handled in CommandSpeakAll, because the only
+	 * time multiple text boxes should be used to display one string is in
+	 * cutscenes.
+	 * @param	text			The hunk of text to display	
 	 */
-	protected List<String> mutate(List<String> input) {
-		List<String> output = new ArrayList<String>();
-		for (String in : input) {
-			char out[] = new char[in.length()];
-			int fillAt = 0;
-			for (int i = 0; i < in.length(); i += 1) {
-				out[fillAt] = in.charAt(i);
-				if (out[fillAt] == '*') {
-					out[fillAt] = (char)(SGlobal.rand.nextInt(26) + 'a');
-				}
-				if (out[fillAt] == '$') {
-					if (i < in.length()-1) {
-						i += 1;
-						if (SGlobal.rand.nextFloat() < .01) {
-							out[fillAt] = (char)(SGlobal.rand.nextInt(26) + 'a');
-						} else {
-							out[fillAt] = in.charAt(i); 
-						}
-					} else {
-						out[fillAt] = ' ';
-					}
-				}
-				fillAt += 1;
-			}
-			output.add(new String(out, 0, fillAt));
+	public void show(String text) {
+		// it turns out that using the built-in libgdx text display is the
+		// easiest way to do this, just have to make sure the bounds of the
+		// text box are set properly
+		setText(text);
+	}
+	
+	/**
+	 * Sets the lines that are displayed by the text box. These should be
+	 * pre-formatted. One string is displayed per line.
+	 * @param 	lines			The lines to be displayed in the box.
+	 */
+	public void setLines(List<String> lines) {
+		this.lines = lines;
+		this.visibleLines = new ArrayList<String>();
+		for (int i = 0; i < lines.size(); i++) {
+			visibleLines.add("");
 		}
-		return output;
+		this.sinceChar = 0;
+		for (String line : lines) {
+			totalLength += line.length();
+		}
+		sinceChar = 0;
+	}
+	
+	/**
+	 * Sets the internal text to be displayed at this textbox. Nothing fancy.
+	 * This only displays one line so you probably don't want to use this.
+	 * @param 	text			The text to be displayed
+	 */
+	protected void setText(String text) {
+		this.lines = new ArrayList<String>();
+		lines.add(text);
 	}
 
 }

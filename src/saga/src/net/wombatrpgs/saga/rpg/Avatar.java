@@ -11,6 +11,7 @@ import net.wombatrpgs.saga.io.CommandListener;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.sagaschema.characters.HeroMDO;
 import net.wombatrpgs.sagaschema.io.data.InputCommand;
+import net.wombatrpgs.sagaschema.maps.data.OrthoDir;
 
 /**
  * The physical representation of the player on the world map.
@@ -65,7 +66,30 @@ public class Avatar extends CharacterEvent implements CommandListener {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-		// TODO: onCommand
+		
+		if (SGlobal.levelManager.getActive().isMoving()) {
+			return true;
+		}
+		
+		switch (command) {
+		case MOVE_EAST:		move(OrthoDir.EAST);	break;
+		case MOVE_NORTH:	move(OrthoDir.NORTH);	break;
+		case MOVE_WEST:		move(OrthoDir.WEST);	break;
+		case MOVE_SOUTH:	move(OrthoDir.SOUTH);	break;
+		default:			return false;
+		}
+		
+		if (!parent.isMoving()) {
+			parent.onTurn();
+		}
 		return true;
+	}
+	
+	/**
+	 * Moves in a certain dir on the map?
+	 * @param	dir				The direction to move
+	 */
+	public void move(OrthoDir dir) {
+		attemptStep(dir);
 	}
 }

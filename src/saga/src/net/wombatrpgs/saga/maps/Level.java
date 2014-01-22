@@ -182,7 +182,6 @@ public abstract class Level extends ScreenObject implements Turnable {
 	@Override
 	public void update(float elapsed) {
 		updating = true;
-		if (SGlobal.stasis) return;
 		for (MapThing toRemove : removalObjects) {
 			toRemove.onRemovedFromMap(this);
 			internalRemoveObject(toRemove);
@@ -205,12 +204,7 @@ public abstract class Level extends ScreenObject implements Turnable {
 		if (moving) {
 			moveTime -= elapsed;
 			if (moveTime <= 0) {
-				moving = false;
-				for (MapEvent event : eventLayer.getEvents()) {
-					if (event.getParent() == this) {
-						event.stopMoving();
-					}
-				}
+				stopMoving();
 			}
 		}
 		
@@ -246,7 +240,21 @@ public abstract class Level extends ScreenObject implements Turnable {
 		moving = true;
 		moveTime = SGlobal.constants.getDelay();
 		for (MapEvent event : eventLayer.getEvents()) {
-			event.onMoveStart();
+			event.startMoving();
+		}
+	}
+	
+	/**
+	 * Stops all events from moving. This should probably be private but
+	 * basically all it does is tell the event layer to stop. Gets called from
+	 * update on timeout.
+	 */
+	public void stopMoving() {
+		moving = false;
+		for (MapEvent event : eventLayer.getEvents()) {
+			if (event.getParent() == this) {
+				event.stopMoving();
+			}
 		}
 	}
 	
