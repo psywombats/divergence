@@ -11,33 +11,95 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.wombatrpgs.saga.core.Constants;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Updateable;
+import net.wombatrpgs.saga.io.InputEvent.EventType;
 import net.wombatrpgs.saga.screen.ScreenStack;
+import net.wombatrpgs.sagaschema.io.KeymapMDO;
 import net.wombatrpgs.sagaschema.io.data.InputButton;
+import net.wombatrpgs.sagaschema.io.data.KeyButtonPairMDO;
+import net.wombatrpgs.sagaschema.ui.InputSettingsMDO;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 
 /**
  * A map from physical keyboard keys to the meta-buttons that the game runs on.
+ * 
  * As of 2013-01-31, constantly sends the down event as long as the key is
  * held down. This may lead to some weird issues, but it's much better than the
  * mandatory 1:1 mapping alternative.
+ * 
+ * Changed on 2014-01-21, contains a lot more functionality for key repeat.
  */
-public abstract class Keymap implements InputProcessor,
-										Updateable {
+public class Keymap implements	InputProcessor,
+								Updateable {
 	
-	private List<ButtonListener> listeners;
-	@SuppressWarnings("unused")
-	private Map<InputButton, Boolean> snapshot;
+	protected KeymapMDO mdo;
+	
+	protected List<ButtonListener> listeners;
+	protected List<InputEvent> queue;
+	protected Map<InputButton, KeyState> states;
+	protected Map<Integer, InputButton> keyToButton;
+	protected Map<InputButton, Integer> buttonToKey;
 	
 	/**
 	 * Creates and intializes a new keymap.
 	 */
-	public Keymap() {
+	public Keymap(KeymapMDO mdo) {
+		this.mdo = mdo;
+		queue = new ArrayList<InputEvent>();
 		listeners = new ArrayList<ButtonListener>();
+		states = new HashMap<InputButton, KeyState>();
+		keyToButton = new HashMap<Integer, InputButton>();
+		buttonToKey = new HashMap<InputButton, Integer>();
+		
+		for (KeyButtonPairMDO pairMDO : mdo.bindings) {
+			keyToButton.put(pairMDO.keyCode.keycode, pairMDO.button);
+			buttonToKey.put(pairMDO.button, pairMDO.keyCode.keycode);
+		}
+		for (InputButton button : InputButton.values()) {
+			states.put(button, KeyState.UP);
+		}
 	}
 	
+	/**
+	 * Creates the default keymap by checking the database for the MDO as
+	 * defined in Constants. Should be called from SGlobal.
+	 * @return					The created keymap
+	 */
+	public static Keymap initDefaultKeymap() {
+		InputSettingsMDO inputMDO = SGlobal.data.getEntryFor(Constants.KEY_INPUT, InputSettingsMDO.class);
+		KeymapMDO keyMDO = SGlobal.data.getEntryFor(inputMDO.keymap, KeymapMDO.class);
+		Keymap map = new Keymap(keyMDO);
+		map.registerListener(SGlobal.screens);
+		Gdx.input.setInputProcessor(map);
+		return map;
+	}
+	
+	/**
+	 * @see net.wombatrpgs.saga.core.Updateable#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		for (InputButton button : InputButton.values()) {
+			if (states.get(button) == KeyState.DOWN) {
+				if (!Gdx.input.isKeyPressed(buttonToKey.get(button))) {
+					// this is to prevent loss-of-focus getting state unsync'd
+					states.put(button, KeyState.UP);
+					queue.add(new InputEvent(button, EventType.RELEASE));
+				} else {
+					queue.add(new InputEvent(button, EventType.HOLD));
+				}
+			}
+		}
+		for (InputEvent event : queue) {
+			signal(event);
+		}
+		queue.clear();
+	}
+
 	/**
 	 * Registers a new object to listen for meta-button presses.
 	 * @param 	listener		The listener to register
@@ -58,105 +120,30 @@ public abstract class Keymap implements InputProcessor,
 					"actually listening to " + this);
 		}
 	}
-	
-	/**
-	 * Called by the game when focus is lost. Fires events that should've
-	 * happened in the meantime.
-	 */
-	public final void onPause() {
-		snapshot = takeSnapshot();
-	}
-	
-	/**
-	 * Called by the game when focus is regained. Fires events that should've
-	 * happened in the meantime.
-	 */
-	public final void onResume() {
-//		Map<InputButton, Boolean> newState = takeSnapshot();
-//		for (InputButton button : InputButton.values()) {
-//			if (newState.get(button) && !snapshot.get(button)) {
-//				replicateButtonDown(button);
-//			}
-//			if (!newState.get(button) && snapshot.get(button)) {
-//				replicateButtonUp(button);
-//			}
-//		}
-	}
-	
-	/**
-	 * Signal that a meta-button was pressed to whatever's listening for it.
-	 * @param 	button		The meta-button that was pushed
-	 * @param	down		True if button was pressed down, false if released
-	 */
-	protected final void signal(InputButton button, boolean down) {
-		for (ButtonListener listener : listeners) {
-			if (down) {
-				listener.onButtonPressed(button);
-			} else {
-				listener.onButtonReleased(button);
-			}
-		}
-	}
-	
-	/**
-	 * Signal that a meta-button was pulsed.
-	 * @param 	button		The meta-button that pulsed
-	 */
-	protected final void signal(InputButton button) {
-		signal(button, true);
-		signal(button, false);
-	}
-	
-	/**
-	 * Takes a snapshot of the current button state. Button's state is on or
-	 * off. This is useful when focus is lost.
-	 * @return					A mapping from buttons to true if pressed
-	 */
-	protected final Map<InputButton, Boolean> takeSnapshot() {
-		Map<InputButton, Boolean> snapshot = new HashMap<InputButton, Boolean>();
-//		for (InputButton button : InputButton.values()) {
-//			snapshot.put(button, isButtonDown(button));
-//		}
-		return snapshot;
-	}
-	
-	/**
-	 * Polling input method. Returns true if the input is currently down. In the
-	 * case of buttons that fire in pulses, it's safe to always return false.
-	 * @param 	button			The button to check if down
-	 * @return					True if that button is down, false otherwise
-	 */
-	public abstract boolean isButtonDown(InputButton button);
-	
-	/**
-	 * Fire whatever would've happened to cause this button to come up. It
-	 * probably happened while focus was lost.
-	 * @param 	button			The button whose state changed while paused
-	 */
-	protected abstract void replicateButtonUp(InputButton button);
-	
-	/**
-	 * Fire whatever would've happened to cause this button to come down. It
-	 * probably happened while focus was lost.
-	 * @param 	button			The button whose state changed while paused
-	 */
-	protected abstract void replicateButtonDown(InputButton button);
 
 	/**
-	 * Override if needed by the specific keymapping.
+	 * We'll handle the keybindings here.
 	 * @see com.badlogic.gdx.InputProcessor#keyDown(int)
 	 */
 	@Override
 	public boolean keyDown(int keycode) {
-		return false;
+		InputButton button = keyToButton.get(keycode);
+		if (button == null) return false;
+		if (states.get(button) == KeyState.UP) {
+			queue.add(new InputEvent(button, EventType.PRESS));
+			queue.add(new InputEvent(button, EventType.HOLD));
+		}
+		states.put(button, KeyState.DOWN);
+		return true;
 	}
 
 	/**
-	 * Override if needed by the specific keymapping.
+	 * We'll handle the keybindings here.
 	 * @see com.badlogic.gdx.InputProcessor#keyUp(int)
 	 */
 	@Override
 	public boolean keyUp(int keycode) {
+		// this will be handled in the update
 		return false;
 	}
 
@@ -205,5 +192,32 @@ public abstract class Keymap implements InputProcessor,
 		return false;
 	}
 	
+	/**
+	 * Override if needed etc etc
+	 * @see com.badlogic.gdx.InputProcessor#mouseMoved(int, int)
+	 */
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		return false;
+	}
+	
+	/**
+	 * Signal that a meta-button event (press etc) occurred. Construct the event
+	 * yourself in the raw input handling.
+	 * @param 	event			The event that occurred
+	 */
+	protected final void signal(InputEvent event) {
+		for (ButtonListener listener : listeners) {
+			listener.onEvent(event);
+		}
+	}
+	
+	/**
+	 * Short thing to keep track of buttons.
+	 */
+	public enum KeyState {
+		DOWN,
+		UP,
+	}
 	
 }

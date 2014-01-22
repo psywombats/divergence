@@ -2,10 +2,10 @@
 	"key" : "window_data",
 	"subfolder" : "",
 	"name" : "",
-	"description" : " ",
-	"windowName" : "Zephyr Skies: The Fall of the Necromancer",
+	"description" : "   ",
+	"windowName" : "Dumb SaGa Clone",
 	"width" : 320,
 	"height" : 240,
-	"resWidth" : 320,
-	"resHeight" : 240
+	"resWidth" : 640,
+	"resHeight" : 480
 }

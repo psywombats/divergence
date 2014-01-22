@@ -72,10 +72,10 @@ public class Avatar extends CharacterEvent implements CommandListener {
 		}
 		
 		switch (command) {
-		case MOVE_EAST:		move(OrthoDir.EAST);	break;
-		case MOVE_NORTH:	move(OrthoDir.NORTH);	break;
-		case MOVE_WEST:		move(OrthoDir.WEST);	break;
-		case MOVE_SOUTH:	move(OrthoDir.SOUTH);	break;
+		case MOVE_LEFT:		move(OrthoDir.WEST);	break;
+		case MOVE_UP:		move(OrthoDir.NORTH);	break;
+		case MOVE_RIGHT:	move(OrthoDir.EAST);	break;
+		case MOVE_DOWN:		move(OrthoDir.SOUTH);	break;
 		default:			return false;
 		}
 		

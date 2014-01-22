@@ -13,8 +13,8 @@ import com.badlogic.gdx.Gdx;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.graphics.Disposable;
 import net.wombatrpgs.saga.io.ButtonListener;
+import net.wombatrpgs.saga.io.InputEvent;
 import net.wombatrpgs.saga.io.audio.MusicObject;
-import net.wombatrpgs.sagaschema.io.data.InputButton;
 
 /**
  * A bunch of screens stacked on top of each other that make up the game
@@ -33,7 +33,6 @@ public class ScreenStack implements	Disposable,
 	 */
 	public ScreenStack() {
 		screens = new Stack<Screen>();
-		SGlobal.keymap.registerListener(this);
 	}
 	
 	/**
@@ -91,46 +90,14 @@ public class ScreenStack implements	Disposable,
 	public TrackerCam getCamera() {
 		return screens.get(0).getCamera();
 	}
-	
-//	/**
-//	 * Inserts a screen before another on the stack. Adjusts the z-values
-//	 * accordingly.
-//	 * @param 	toInsert	The screen to insert
-//	 * @param 	reference	The screen to insert before
-//	 */
-//	public void insertBefore(GameScreen toInsert, GameScreen reference) {
-//		if (!screens.contains(reference)) {
-//			Global.reporter.warn("Stack did not contain " + reference);
-//		} else {
-//			float beforeZ = reference.getZ();
-//			int beforeIndex = screens.indexOf(reference);
-//			if (beforeIndex == screens.size() - 1) {
-//				// this item is the last on the stack
-//			} else {
-//				float afterZ = screens.get(beforeIndex + 1).getZ();
-//				toInsert.setZ((afterZ+beforeZ) / 2);
-//				screens.add(beforeIndex, toInsert);
-//				sortStack();
-//			}
-//		}
-//	}
-	
-	/**
-	 * @see net.wombatrpgs.saga.io.ButtonListener#onButtonPressed
-	 * (net.wombatrpgs.sagaschema.io.data.InputButton)
-	 */
-	@Override
-	public void onButtonPressed(InputButton button) {
-		peek().onButtonPressed(button);
-	}
 
 	/**
-	 * @see net.wombatrpgs.saga.io.ButtonListener#onButtonReleased
-	 * (net.wombatrpgs.sagaschema.io.data.InputButton)
+	 * @see net.wombatrpgs.saga.io.ButtonListener#onEvent
+	 * (net.wombatrpgs.saga.io.InputEvent)
 	 */
 	@Override
-	public void onButtonReleased(InputButton button) {
-		peek().onButtonReleased(button);
+	public void onEvent(InputEvent event) {
+		peek().onEvent(event);
 	}
 
 	/**
@@ -151,7 +118,7 @@ public class ScreenStack implements	Disposable,
 		try {
 			update();
 		} catch (Exception e) {
-			SGlobal.reporter.err("Exception during render: ", e);
+			SGlobal.reporter.err("Exception during update: ", e);
 			Gdx.app.exit();
 		}
 	}

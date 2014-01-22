@@ -6,10 +6,8 @@
  */
 package net.wombatrpgs.saga.io.command;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import net.wombatrpgs.saga.io.CommandMap;
+import net.wombatrpgs.saga.io.InputEvent;
+import net.wombatrpgs.saga.io.InputEvent.EventType;
 import net.wombatrpgs.sagaschema.io.data.InputButton;
 import net.wombatrpgs.sagaschema.io.data.InputCommand;
 
@@ -18,68 +16,26 @@ import net.wombatrpgs.sagaschema.io.data.InputCommand;
  * basically, and command maps probably need to be swapped in and out depending
  * on context.
  */
-public class CMapGame extends CommandMap {
-	
-	// stopgap solution - every key is mapped to one command
-	private Map<InputButton, InputCommand> downMap;
-	private Map<InputButton, InputCommand> upMap;
-	
+public class CMapGame extends EasyCommandMap {
+
 	/**
-	 * Creates and initializes the default command map. Should probably only
-	 * need to be created once but w/e.
+	 * Constructs a new command map that includes global bindings.
 	 */
 	public CMapGame() {
-		downMap = new HashMap<InputButton, InputCommand>();
-		upMap = new HashMap<InputButton, InputCommand>();
-		
-		downMap.put(InputButton.UP, 		InputCommand.MOVE_NORTH);
-		downMap.put(InputButton.RIGHT, 		InputCommand.MOVE_EAST);
-		downMap.put(InputButton.DOWN, 		InputCommand.MOVE_SOUTH);
-		downMap.put(InputButton.LEFT, 		InputCommand.MOVE_WEST);
-		
-		downMap.put(InputButton.DIR_N, 		InputCommand.MOVE_NORTH);
-		downMap.put(InputButton.DIR_NE, 	InputCommand.MOVE_NORTHEAST);
-		downMap.put(InputButton.DIR_E, 		InputCommand.MOVE_EAST);
-		downMap.put(InputButton.DIR_SE, 	InputCommand.MOVE_SOUTHEAST);
-		downMap.put(InputButton.DIR_S, 		InputCommand.MOVE_SOUTH);
-		downMap.put(InputButton.DIR_SW, 	InputCommand.MOVE_SOUTHWEST);
-		downMap.put(InputButton.DIR_W, 		InputCommand.MOVE_WEST);
-		downMap.put(InputButton.DIR_NW, 	InputCommand.MOVE_NORTHWEST);
-		downMap.put(InputButton.WAIT,		InputCommand.MOVE_WAIT);
-		
-		downMap.put(InputButton.ABIL_1,		InputCommand.ABIL_1);
-		downMap.put(InputButton.ABIL_2,		InputCommand.ABIL_2);
-		downMap.put(InputButton.ABIL_3,		InputCommand.ABIL_3);
-		downMap.put(InputButton.ABIL_4,		InputCommand.ABIL_4);
-		downMap.put(InputButton.ABIL_5,		InputCommand.ABIL_5);
-		downMap.put(InputButton.ABIL_6,		InputCommand.ABIL_6);
-		
-		downMap.put(InputButton.MENU,		InputCommand.INTENT_QUIT);
-		downMap.put(InputButton.FULLSCREEN,	InputCommand.INTENT_FULLSCREEN);
-		downMap.put(InputButton.TAB,		InputCommand.INTENT_INVENTORY);
-		downMap.put(InputButton.LOOK,		InputCommand.INTENT_LOOK);
-		
+		super(true);
 	}
 
 	/**
-	 * @see net.wombatrpgs.saga.io.CommandMap#get
-	 * (net.wombatrpgs.sagaschema.io.data.InputButton, boolean)
+	 * @see net.wombatrpgs.saga.io.command.EasyCommandMap#initBindings()
 	 */
 	@Override
-	public InputCommand get(InputButton button, boolean wasRelease) {
-		if (wasRelease) {
-			if (upMap.containsKey(button)) {
-				return upMap.get(button);
-			} else {
-				return null;
-			}
-		} else {
-			if (downMap.containsKey(button)) {
-				return downMap.get(button);
-			} else {
-				return null;
-			}
-		}
+	protected void initBindings() {
+		bindings.put(new InputEvent(InputButton.BUTTON_A,	EventType.PRESS),	InputCommand.WORLD_INTERACT);
+		
+		bindings.put(new InputEvent(InputButton.UP,			EventType.HOLD),	InputCommand.MOVE_UP);
+		bindings.put(new InputEvent(InputButton.DOWN,		EventType.HOLD),	InputCommand.MOVE_DOWN);
+		bindings.put(new InputEvent(InputButton.LEFT,		EventType.HOLD),	InputCommand.MOVE_LEFT);
+		bindings.put(new InputEvent(InputButton.RIGHT,		EventType.HOLD),	InputCommand.MOVE_RIGHT);
 	}
 	
 }

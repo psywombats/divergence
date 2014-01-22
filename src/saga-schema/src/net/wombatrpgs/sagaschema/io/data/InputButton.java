@@ -17,35 +17,12 @@ public enum InputButton {
 	DOWN,
 	LEFT,
 	RIGHT,
+
+	BUTTON_A,			// aka "confirm"
+	BUTTON_B,			// aka "cancel"
+	BUTTON_START,		// aka "menu"
+	BUTTON_SELECT,		// aka who the hell uses this
 	
-	DIR_N,
-	DIR_NE,
-	DIR_E,
-	DIR_SE,
-	DIR_S,
-	DIR_SW,
-	DIR_W,
-	DIR_NW,
-	WAIT,
-	
-	BUTTON_1,			// aka "confirm"
-	BUTTON_2,			// aka "cancel"
-	BUTTON_3,
-	BUTTON_4,
-	BUTTON_5,
-	BUTTON_6,
-	
-	ABIL_1,
-	ABIL_2,
-	ABIL_3,
-	ABIL_4,
-	ABIL_5,
-	ABIL_6,
-	
-	
-	MENU,
 	FULLSCREEN,
-	TAB,
-	LOOK,
 
 }

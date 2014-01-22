@@ -9,7 +9,7 @@ package net.wombatrpgs.sagaschema.ui.data;
 /**
  * Anchor for the text box.
  */
-public enum AnchorType {
+public enum BoxAnchorType {
 	
 	TOP,
 	BOTTOM,

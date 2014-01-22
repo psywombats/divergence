@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.saga.io;
 
-import net.wombatrpgs.sagaschema.io.data.InputButton;
 import net.wombatrpgs.sagaschema.io.data.InputCommand;
 
 /**
@@ -26,18 +25,11 @@ import net.wombatrpgs.sagaschema.io.data.InputCommand;
 public abstract class CommandMap {
 	
 	/**
-	 * Creates and initializes a new command map.
-	 */
-	public CommandMap() {
-		
-	}
-	
-	/**
 	 * Translates from input button to input command.
-	 * @param	button			The virtual button that was pressed
-	 * @param	wasRelease		True if this was a release of a button
-	 * @return					The command that button indicates
+	 * @param	event			The virtual button event that triggered
+	 * @return					The command that the event indicates if the
+	 * 							event is meaningful, null otherwise
 	 */
-	public abstract InputCommand get(InputButton button, boolean wasRelease);
+	public abstract InputCommand parse(InputEvent event);
 	
 }

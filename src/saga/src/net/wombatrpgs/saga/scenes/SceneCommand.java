@@ -74,16 +74,17 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-		if (blocking && command == InputCommand.INTENT_CONFIRM) {
-			blocking = false;
-			SGlobal.screens.peek().unregisterCommandListener(this);
-			UnblockedListener oldListener = listener;
-			listener = null;
-			oldListener.onUnblock();
-			return true;
-		} else {
+		// TODO: write a scene command map
+//		if (blocking && command == InputCommand.INTENT_CONFIRM) {
+//			blocking = false;
+//			SGlobal.screens.peek().unregisterCommandListener(this);
+//			UnblockedListener oldListener = listener;
+//			listener = null;
+//			oldListener.onUnblock();
+//			return true;
+//		} else {
 			return false;
-		}
+//		}
 	}
 	
 	/** @return The parent parser that will execute this command */

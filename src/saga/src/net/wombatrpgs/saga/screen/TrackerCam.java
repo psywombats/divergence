@@ -49,8 +49,8 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 			position.x = Math.round(target.getX()/zoom)*zoom;// * ratioX;
 			position.y = Math.round(target.getY()/zoom)*zoom;// * ratioY;
 			if (constrainedMap != null) {
-				int halfWidth = SGlobal.window.getViewportWidth() / 2;
-				int halfHeight = SGlobal.window.getViewportHeight() / 2;
+				int halfWidth = SGlobal.window.getWidth() / 2;
+				int halfHeight = SGlobal.window.getHeight() / 2;
 				boolean tooLeft = position.x < halfWidth;
 				boolean tooRight = position.x > constrainedMap.getWidthPixels() - halfWidth;
 				boolean tooUp = position.y < halfHeight;

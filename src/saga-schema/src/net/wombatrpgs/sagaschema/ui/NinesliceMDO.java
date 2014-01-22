@@ -10,7 +10,7 @@ import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.FileLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.Path;
-import net.wombatrpgs.sagaschema.ui.data.NinesliceType;
+import net.wombatrpgs.sagaschema.ui.data.NinesliceScaleType;
 
 /**
  * Thing for UI: corners and edges.
@@ -23,7 +23,7 @@ public class NinesliceMDO extends MainSchema {
 	public String file;
 	
 	@Desc("How to resize the slice")
-	public NinesliceType type;
+	public NinesliceScaleType type;
 	
 	@Desc("Width of one of the slices")
 	public Integer sliceWidth;

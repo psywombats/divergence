@@ -6,8 +6,6 @@
  */
 package net.wombatrpgs.saga.io;
 
-import net.wombatrpgs.sagaschema.io.data.InputButton;
-
 /**
  * Listens to meta-buttons. Simple use of observer pattern. Listeners can expect
  * that meta-buttons that may be analog or discrete (as opposed to up-down
@@ -17,15 +15,9 @@ import net.wombatrpgs.sagaschema.io.data.InputButton;
 public interface ButtonListener {
 	
 	/**
-	 * Called whenever the specified meta-button is pressed down.
-	 * @param 	button		The meta-button that was pressed
+	 * Called whenever the a meta-button event (press, release, hold) occurs.
+	 * @param 	event			The input event that occurred
 	 */
-	public void onButtonPressed(InputButton button);
-	
-	/**
-	 * Called whenever the specified meta-button is released after being down
-	 * @param 	button		The meta-button that was released
-	 */
-	public void onButtonReleased(InputButton button);
+	public void onEvent(InputEvent event);
 
 }

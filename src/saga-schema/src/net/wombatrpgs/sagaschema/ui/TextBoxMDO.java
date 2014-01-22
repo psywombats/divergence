@@ -12,7 +12,8 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.sagaschema.audio.SoundMDO;
-import net.wombatrpgs.sagaschema.ui.data.AnchorType;
+import net.wombatrpgs.sagaschema.ui.data.BoxAnchorType;
+import net.wombatrpgs.sagaschema.ui.data.TextScaleType;
 
 /**
  * Defines a textbox.
@@ -20,8 +21,11 @@ import net.wombatrpgs.sagaschema.ui.data.AnchorType;
 @Path("ui/")
 public class TextBoxMDO extends MainSchema {
 	
-	@Desc("Anchor type, like where this displays on page")
-	public AnchorType anchor;
+	@Desc("Anchor type - where this displays on page")
+	public BoxAnchorType anchor;
+	
+	@Desc("Scale type - whether box should scale with viewport")
+	public TextScaleType scaling;
 	
 	@Desc("Nineslice - will be stretched to form backer for box")
 	@SchemaLink(NinesliceMDO.class)
@@ -39,10 +43,10 @@ public class TextBoxMDO extends MainSchema {
 	@Desc("Line count")
 	public Integer lines;
 	
-	@Desc("Pixel amount on each side from edge of the screen")
+	@Desc("Margin width - Pixel amount on each side from edge of the screen")
 	public Integer marginWidth;
 	
-	@Desc("Pixel amount on top and bottom from edge of the screen")
+	@Desc("Margin height - Pixel amount on top and bottom from edge of the screen")
 	public Integer marginHeight;
 
 }

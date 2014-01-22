@@ -47,6 +47,7 @@ public class Constants {
 	public static final String KEY_TITLE = "default_title";
 	public static final String KEY_INTRO = "default_intro";
 	public static final String KEY_DEATH = "default_death";
+	public static final String KEY_INPUT = "default_input";
 	
 	/** Properties in Tiled maps */
 	public static final String PROPERTY_Z = "z";

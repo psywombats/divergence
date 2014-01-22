@@ -9,7 +9,7 @@ package net.wombatrpgs.sagaschema.ui.data;
 /**
  * Tiled or stretched.
  */
-public enum NinesliceType {
+public enum NinesliceScaleType {
 	
 	TILE, STRETCH
 

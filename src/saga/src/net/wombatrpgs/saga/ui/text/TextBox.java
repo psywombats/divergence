@@ -22,7 +22,7 @@ import net.wombatrpgs.saga.ui.Nineslice;
 import net.wombatrpgs.sagaschema.audio.SoundMDO;
 import net.wombatrpgs.sagaschema.ui.NinesliceMDO;
 import net.wombatrpgs.sagaschema.ui.TextBoxMDO;
-import net.wombatrpgs.sagaschema.ui.data.AnchorType;
+import net.wombatrpgs.sagaschema.ui.data.BoxAnchorType;
 
 /**
  * A box that appears on-screen and does its dirty business. Hmph. Actually it
@@ -93,7 +93,7 @@ public class TextBox extends ScreenDrawable {
 		// backer first
 		if (backer != null) {
 			int atY = 0;
-			if (mdo.anchor == AnchorType.BOTTOM) {
+			if (mdo.anchor == BoxAnchorType.BOTTOM) {
 				atY = SGlobal.window.getHeight() - boxHeight;
 			}
 			backer.renderAt(getBatch(), 0, atY);
@@ -121,7 +121,7 @@ public class TextBox extends ScreenDrawable {
 		backer.resizeTo(win.getWidth(), boxHeight);
 		
 		bodyFormat.x = mdo.marginWidth;
-		if (mdo.anchor != AnchorType.BOTTOM) {
+		if (mdo.anchor != BoxAnchorType.BOTTOM) {
 			bodyFormat.y = boxHeight - mdo.marginHeight;
 		} else {
 			bodyFormat.y = win.getHeight() - mdo.marginHeight;

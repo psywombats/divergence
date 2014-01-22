@@ -32,7 +32,7 @@ import net.wombatrpgs.saga.graphics.PostRenderable;
 import net.wombatrpgs.saga.io.ButtonListener;
 import net.wombatrpgs.saga.io.CommandListener;
 import net.wombatrpgs.saga.io.CommandMap;
-import net.wombatrpgs.sagaschema.io.data.InputButton;
+import net.wombatrpgs.saga.io.InputEvent;
 import net.wombatrpgs.sagaschema.io.data.InputCommand;
 
 /**
@@ -107,8 +107,8 @@ public abstract class Screen implements CommandListener,
 		uiCam = new OrthographicCamera();
 		uiCam.setToOrtho(false, SGlobal.window.getWidth(), SGlobal.window.getHeight());
 		uiCam.zoom = SGlobal.window.getZoom();
-		uiCam.position.x = SGlobal.window.getViewportWidth() / 2;
-		uiCam.position.y = SGlobal.window.getViewportHeight() / 2;
+		uiCam.position.x = SGlobal.window.getWidth() / 2;
+		uiCam.position.y = SGlobal.window.getHeight() / 2;
 		uiCam.update();
 		uiBatch.setProjectionMatrix(uiCam.combined);
 		
@@ -199,31 +199,17 @@ public abstract class Screen implements CommandListener,
 	}
 
 	/**
-	 * @see net.wombatrpgs.saga.io.ButtonListener#onButtonPressed
-	 * (net.wombatrpgs.sagaschema.io.data.InputButton)
+	 * @see net.wombatrpgs.saga.io.ButtonListener#onEvent
+	 * (net.wombatrpgs.saga.io.InputEvent)
 	 */
 	@Override
-	public void onButtonPressed(InputButton button) {
-		InputCommand cmd = getTopCommandContext().get(button, false);
+	public void onEvent(InputEvent event) {
+		InputCommand cmd = getTopCommandContext().parse(event);
 		if (cmd == null) {
-			// we have no use for this key
-		} else {
-			onCommand(cmd);
+			// we have no use for this command
+			return;
 		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.saga.io.ButtonListener#onButtonReleased
-	 * (net.wombatrpgs.sagaschema.io.data.InputButton)
-	 */
-	@Override
-	public void onButtonReleased(InputButton button) {
-		InputCommand cmd = getTopCommandContext().get(button, true);
-		if (cmd == null) {
-			// we have no use for this key
-		} else {
-			onCommand(cmd);
-		}
+		onCommand(cmd);
 	}
 
 	/**
@@ -347,10 +333,7 @@ public abstract class Screen implements CommandListener,
 			if (listener.onCommand(command)) return true;
 		}
 		switch (command) {
-		case INTENT_QUIT:
-			// TODO: quit
-			return true;
-		case INTENT_FULLSCREEN:
+		case GLOBAL_FULLSCREEN:
 			Gdx.graphics.setDisplayMode(
 					SGlobal.window.getResolutionWidth(), 
 					SGlobal.window.getResolutionHeight(), 

@@ -17,7 +17,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 import net.wombatrpgs.saga.graphics.GraphicsSettings;
-import net.wombatrpgs.saga.io.DefaultKeymap;
 import net.wombatrpgs.saga.io.FileLoader;
 import net.wombatrpgs.saga.io.Keymap;
 import net.wombatrpgs.saga.io.loaders.DataLoader;
@@ -73,18 +72,6 @@ public class SGlobal {
 	private static List<Queueable> toLoad;
 	
 	/**
-	 * Can't override static methods, so this thing will have to do.
-	 */
-	@Deprecated
-	public static void setupRGlobalForTesting() {
-		SGlobal.assetManager = new AssetManager();
-		SGlobal.screens = new ScreenStack();
-		SGlobal.keymap = new DefaultKeymap();
-		SGlobal.rand = new Random(System.currentTimeMillis());
-		//Global.setupGlobalForTesting();
-	}
-	
-	/**
 	 * Called as part of the map game.
 	 */
 	public static void globalInit() {
@@ -100,7 +87,6 @@ public class SGlobal {
 			SGlobal.rand = new Random(seed);
 			SGlobal.reporter.inform("Using global seed " + seed);
 			SGlobal.data = new Database();
-			SGlobal.keymap = new DefaultKeymap();
 			
 			// load up data marked essential, this will always be ugly
 			SGlobal.reporter.inform("Loading essential data");
@@ -140,6 +126,7 @@ public class SGlobal {
 					SGlobal.data.getEntryFor(Constants.KEY_GRAPHICS, GraphicsSettingsMDO.class));
 			SGlobal.ui = new UISettings(SGlobal.data.getEntryFor(
 					UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
+			SGlobal.keymap = Keymap.initDefaultKeymap();
 			toLoad.add(ui);
 			toLoad.add(graphics);
 			for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
@@ -164,7 +151,6 @@ public class SGlobal {
 			SGlobal.screens.push(new GameScreen());
 			Gdx.graphics.setTitle(SGlobal.window.getTitle());
 			//Gdx.graphics.setVSync(true);
-			Gdx.input.setInputProcessor(SGlobal.keymap);
 			
 			SGlobal.reporter.inform("Loading level assets");
 			for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);

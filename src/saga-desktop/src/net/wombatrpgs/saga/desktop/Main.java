@@ -1,6 +1,6 @@
 package net.wombatrpgs.saga.desktop;
 
-import net.wombatrpgs.saga.core.MRogueGame;
+import net.wombatrpgs.saga.core.SagaGame;
 import net.wombatrpgs.saga.core.Platform;
 import net.wombatrpgs.saga.core.Reporter;
 
@@ -36,7 +36,7 @@ public class Main {
 		cfg.addIcon("res/ui/icon_32.png", FileType.Internal);
 		cfg.addIcon("res/ui/icon_16.png", FileType.Internal);
 		
-		new LwjglApplication(new MRogueGame(new Platform() {
+		new LwjglApplication(new SagaGame(new Platform() {
 			@Override public Reporter getReporter() {
 				return new PrintReporter();
 			}
