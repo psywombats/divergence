@@ -52,7 +52,7 @@ public class CommandSetSwitch extends SceneCommand {
 	@Override
 	public boolean run() {
 		if (finished) return true;
-		// TODO: switch logic
+		// TODO: scenes: switch logic
 		//MGlobal.hero.setSwitch(switchName, value);
 		return true;
 	}

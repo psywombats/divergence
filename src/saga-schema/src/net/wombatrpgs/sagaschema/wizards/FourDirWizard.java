@@ -11,7 +11,6 @@ import net.wombatrpgs.mgnse.wizard.Wizard;
 /**
  * Constructs a four-dir sprite and associated MDOs.
  */
-// TODO: extend this to two-dir and one-dir animations
 public class FourDirWizard extends Wizard {
 	
 	protected FourDirDialog dialog;

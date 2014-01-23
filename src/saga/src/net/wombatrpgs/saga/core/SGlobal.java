@@ -109,7 +109,7 @@ public class SGlobal {
 			SGlobal.levelManager = new LevelManager();
 			
 			// load secondary data
-			// TODO: load with a loading bar
+			// TODO: polish: load with a loading bar
 			SGlobal.reporter.inform("Loading secondary data");
 			SGlobal.data.queueFilesInDir(assetManager, Gdx.files.internal(Constants.DATA_DIR));
 			assetEnd = System.currentTimeMillis();
@@ -169,7 +169,7 @@ public class SGlobal {
 					" seconds");
 			
 		} catch (Exception e) {
-			// TODO: proper init error handling
+			// TODO: polish: proper init error handling
 			SGlobal.reporter.err("Exception during initialization: ", e);
 			Gdx.app.exit();
 		}

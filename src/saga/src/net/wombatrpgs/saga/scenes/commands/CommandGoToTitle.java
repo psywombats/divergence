@@ -30,7 +30,7 @@ public class CommandGoToTitle extends SceneCommand {
 	 */
 	@Override
 	public boolean run() {
-		// TODO: go to title screen, not quit
+		// TODO: scenes: go to title screen, not quit
 		Gdx.app.exit();
 		// unreachable code
 		return false;

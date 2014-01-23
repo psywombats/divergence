@@ -46,7 +46,7 @@ public class SagaGame implements ApplicationListener, FocusListener {
 	 */
 	@Override
 	public void resize(int width, int height) {
-		// TODO: handle game resizing
+		// I am like 100% sure this never happens
 		
 	}
 

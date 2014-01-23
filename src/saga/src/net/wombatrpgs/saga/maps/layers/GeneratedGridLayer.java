@@ -79,7 +79,7 @@ public class GeneratedGridLayer extends GridLayer {
 	 * @param	cam				The camera to render with
 	 */
 	protected void dumbRender(OrthographicCamera camera) {
-		TrackerCam cam  = SGlobal.screens.peek().getCamera();
+		TrackerCam cam  = SGlobal.levelManager.getScreen().getCamera();
 		int startX = (int) Math.floor((cam.position.x - SGlobal.window.getWidth()/2.f) / parent.getTileWidth());
 		int startY = (int) Math.floor((cam.position.y - SGlobal.window.getHeight()/2.f) / parent.getTileHeight());
 		int endX = (int) Math.ceil((cam.position.x + SGlobal.window.getWidth()/2.f) / parent.getTileWidth());

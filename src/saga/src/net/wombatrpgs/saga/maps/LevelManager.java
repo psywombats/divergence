@@ -84,17 +84,16 @@ public class LevelManager {
 			teleport.queueRequiredAssets(SGlobal.assetManager);
 		}
 		if (!levels.containsKey(mapID)) {
-			// TODO: figure out this tint bullshit and why it's needed
 			// it's buggy, this shouldn't be necessary
-			float oldR = 0, oldG = 0, oldB = 0;
-			if (SGlobal.screens.size() > 0) {
-				oldR = SGlobal.screens.peek().getTint().r;
-				oldG = SGlobal.screens.peek().getTint().g;
-				oldB = SGlobal.screens.peek().getTint().b;
-				SGlobal.screens.peek().getTint().r = 1;
-				SGlobal.screens.peek().getTint().g = 1;
-				SGlobal.screens.peek().getTint().b = 1;
-			}
+//			float oldR = 0, oldG = 0, oldB = 0;
+//			if (SGlobal.screens.size() > 0) {
+//				oldR = SGlobal.screens.peek().getTint().r;
+//				oldG = SGlobal.screens.peek().getTint().g;
+//				oldB = SGlobal.screens.peek().getTint().b;
+//				SGlobal.screens.peek().getTint().r = 1;
+//				SGlobal.screens.peek().getTint().g = 1;
+//				SGlobal.screens.peek().getTint().b = 1;
+//			}
 			MapMDO mapMDO = SGlobal.data.getEntryFor(mapID, MapMDO.class);
 			Level map = createMap(mapMDO, screen);
 			long startTime = System.currentTimeMillis();
@@ -109,11 +108,11 @@ public class LevelManager {
 			SGlobal.reporter.inform("Loaded level " + mapID + ", elapsed " +
 						"time: " + elapsed + " seconds");
 			levels.put(mapID, map);
-			if (SGlobal.screens.size() > 0) {
-				SGlobal.screens.peek().getTint().r = oldR;
-				SGlobal.screens.peek().getTint().g = oldG;
-				SGlobal.screens.peek().getTint().b = oldB;
-			}
+//			if (SGlobal.screens.size() > 0) {
+//				SGlobal.screens.peek().getTint().r = oldR;
+//				SGlobal.screens.peek().getTint().g = oldG;
+//				SGlobal.screens.peek().getTint().b = oldB;
+//			}
 		}
 		return levels.get(mapID);
 	}

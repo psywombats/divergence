@@ -26,7 +26,6 @@ public class FacesAnimationFactory {
 	 * @return
 	 */
 	public static FacesAnimation create(DirMDO mdo, MapEvent parent) {
-		// TODO: it may be possible to generalize this
 		if (FourDirMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new FourDir((FourDirMDO) mdo, parent);
 		} else if (TwoDirMDO.class.isAssignableFrom(mdo.getClass())) {

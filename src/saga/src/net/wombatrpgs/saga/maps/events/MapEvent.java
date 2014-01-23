@@ -60,7 +60,7 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	protected MapEvent(Level parent) {
 		super(parent);
 		zeroCoords();
-		// TODO: MapEvent
+		// TODO: maps: MapEvent
 	}
 	
 	/**
@@ -237,7 +237,7 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	 * @return
 	 */
 	public String getName() {
-		// TODO: getName
+		// TODO: maps: getName
 		return "TODO: getName";
 	}
 	
@@ -248,7 +248,7 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	 * @return					True if in that group, false if not
 	 */
 	public boolean inGroup(String groupName) {
-		// TODO: inGroup
+		// TODO: maps: inGroup
 		return false;
 	}
 

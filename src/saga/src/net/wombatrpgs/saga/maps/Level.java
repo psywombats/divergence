@@ -388,17 +388,6 @@ public abstract class Level extends ScreenObject implements Turnable {
 	}
 	
 	/**
-	 * Determines whether a certain location is see-through.
-	 * @param	tileX			The x-coord of the tile to check, in tiles
-	 * @param	tileY			The y-coord of the tile to check, in tiles
-	 * @return					True if tile is transparent, false otherwise
-	 */
-	public boolean isTransparentAt(int tileX, int tileY) {
-		// TODO: delete this
-		return true;
-	}
-	
-	/**
 	 * Adds a new object to this map. Called externally for anything wanting to
 	 * add non-events to this map.
 	 * @param 	object			The new object to add

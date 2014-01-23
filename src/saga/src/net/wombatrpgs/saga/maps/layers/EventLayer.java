@@ -91,7 +91,7 @@ public class EventLayer extends Layer {
 	 */
 	@Override
 	public boolean isPassable(MapEvent actor, final int x, final int y) {
-		// TODO: isPassable
+		// TODO: maps: isPassable
 		return true;
 	}
 	
@@ -169,7 +169,7 @@ public class EventLayer extends Layer {
 				break;
 			} else {
 				next.onTurn();
-				// TODO: action system
+				// TODO: saga: get the action system up and running
 			}
 		}
 	}

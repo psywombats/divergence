@@ -28,7 +28,7 @@ public class Trigger extends MapEvent {
 	 */
 	protected Trigger(Level parent) {
 		super(parent);
-//		// TODO: Trigger
+//		// TODO: maps: Trigger
 //		this.box = new RectHitbox(this, 
 //				0,
 //				0,

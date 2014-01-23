@@ -69,7 +69,8 @@ public class NumberSet implements Queueable {
 		if (digit < 0 || digit > 9) {
 			SGlobal.reporter.warn("Rendering negative digit! " + digit);
 		}
-		SpriteBatch batch = SGlobal.screens.peek().getUIBatch();
+		// TODo: ui: does every screen really need a UI batch?
+		SpriteBatch batch = SGlobal.levelManager.getScreen().getUIBatch();
 		batch.begin();
 		batch.draw(numberTextures[digit], x, y);
 		batch.end();
@@ -92,7 +93,7 @@ public class NumberSet implements Queueable {
 		}
 		int atX = x;
 		String numStr = String.valueOf(num);
-		SpriteBatch batch = SGlobal.screens.peek().getUIBatch();
+		SpriteBatch batch = SGlobal.levelManager.getScreen().getUIBatch();
 		Color oldColor = batch.getColor();
 		batch.setColor(r, g, b, 1);
 		batch.begin();

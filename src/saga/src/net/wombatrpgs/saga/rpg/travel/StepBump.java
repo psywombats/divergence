@@ -42,7 +42,7 @@ public class StepBump extends Step {
 		super.update(elapsed);
 		if (!started) {
 			if (actor == SGlobal.getHero()) {
-				SGlobal.screens.peek().getCamera().track(null);
+				SGlobal.levelManager.getScreen().getCamera().track(null);
 			}
 			started = true;
 			startX = actor.getX();
@@ -73,7 +73,7 @@ public class StepBump extends Step {
 		actor.setX(startX);
 		actor.setY(startY);
 		if (actor == SGlobal.getHero()) {
-			SGlobal.screens.peek().getCamera().track(SGlobal.getHero());
+			SGlobal.levelManager.getScreen().getCamera().track(SGlobal.getHero());
 		}
 	}
 

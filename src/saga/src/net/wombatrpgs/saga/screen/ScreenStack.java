@@ -123,7 +123,6 @@ public class ScreenStack implements	Disposable,
 		}
 	}
 	
-	// TODO: might want to make this affect /all/ the screens
 	/**
 	 * Updates all objects in the screen.
 	 */
@@ -136,15 +135,6 @@ public class ScreenStack implements	Disposable,
 		screens.get(0).update(elapsed);
 		if (current != null) current.update(elapsed);
 		if (fadeOut != null) fadeOut.update(elapsed);
-	}
-	
-	// TODO: delete this, it's allowing for ugly shit that'll suck w/ 2+ screens
-	/**
-	 * Gets the first screen on the stack without popping it.
-	 * @return					The topmost screen
-	 */
-	public Screen peek() {
-		return screens.peek();
 	}
 	
 	/**
@@ -174,6 +164,16 @@ public class ScreenStack implements	Disposable,
 			if (immediate) music.play();
 			else music.fadeIn(.5f);
 		}
+	}
+	
+	/**
+	 * Gets the first screen on the stack without popping it. This should be
+	 * used /very/ sparingly, don't assume the screen you want is the screen
+	 * you're getting.
+	 * @return					The topmost screen
+	 */
+	public Screen peek() {
+		return screens.peek();
 	}
 
 }

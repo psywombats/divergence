@@ -27,7 +27,6 @@ import net.wombatrpgs.sagaschema.ui.TextBoxMDO;
 /**
  * TESTING 1 2 3 TESTING DO YOU HEAR ME TESTINGGGGGGGG
  */
-// TODO: screens should probably appear as a database entry
 public class TestScreen extends Screen {
 
 	protected BitmapFont defaultFont;

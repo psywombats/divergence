@@ -63,20 +63,19 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 			SGlobal.ui.getBox().setLines(lines);
 			SGlobal.ui.getBox().reset();
 
-			// TODO: figure out why the text box default batch is broken
 			if (faceGraphic != null) {
 				facePic = new Picture(faceGraphic,
 						(SGlobal.window.getWidth() - faceGraphic.getWidth()) / 2 - FACE_OFFSET,
 						(SGlobal.window.getHeight() - faceGraphic.getHeight()) / 2, 0);
 				facePic.setColor(new Color(1, 1, 1, 0));
-				SGlobal.screens.peek().addObject(facePic);
+				SGlobal.levelManager.getScreen().addObject(facePic);
 				facePic.tweenTo(new Color(1, 1, 1, 1), FADE_TIME);
 				SGlobal.ui.getBox().setBatch(facePic.batch);
 			} else {
 				SGlobal.ui.getBox().setBatch(new SpriteBatch());
 			}
 			SGlobal.ui.getBox().setColor(new Color(1, 1, 1, 0));
-			SGlobal.screens.peek().addObject(SGlobal.ui.getBox());
+			SGlobal.levelManager.getScreen().addObject(SGlobal.ui.getBox());
 			SGlobal.ui.getBox().tweenTo(new Color(1, 1, 1, 1), FADE_TIME);
 			block(this);
 			return false;
@@ -142,9 +141,10 @@ public class CommandSpeak extends SceneCommand implements UnblockedListener {
 	 * Called when timer reaches zero-ish. For pic fadeout.
 	 */
 	protected void zero() {
-		SGlobal.screens.peek().removeObject(SGlobal.ui.getBox());
+		// TODO: ui: change this call to ui screen
+		SGlobal.levelManager.getScreen().removeObject(SGlobal.ui.getBox());
 		if (facePic != null) {
-			SGlobal.screens.peek().removeObject(facePic);
+			SGlobal.levelManager.getScreen().removeObject(facePic);
 		}
 	}
 

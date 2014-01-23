@@ -188,7 +188,7 @@ public class SceneParser implements	Updateable,
 		SGlobal.reporter.inform("Now running a scene: " + this);
 		running = true;
 		timeSinceStart = 0;
-		// TODO: make a new scene command map
+		// TODO: scenes: make a new scene command map
 //		ourMap = new CMapScene();
 //		parent.pushCommandContext(ourMap);
 	}

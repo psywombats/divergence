@@ -183,19 +183,21 @@ public class AnimationStrip implements 	Renderable,
 						mdo.frameWidth,
 						mdo.frameHeight);
 			}
-			anim = new Animation(1.0f/mdo.animSpeed, frames);
 			switch(mdo.mode) {
 			case REPEAT:
 				looping = true;
+				anim = new Animation(1.0f/mdo.animSpeed, frames);
 				anim.setPlayMode(Animation.LOOP);
 				break;
 			case DO_NOTHING:
-				// TODO: that's not right! Do nothing. Make it do nothing.
+				// big number = infinity
 				looping = false;
+				anim = new Animation(1000000f, frames);
 				anim.setPlayMode(Animation.LOOP);
 				break;
 			case PLAY_ONCE:
 				looping = false;
+				anim = new Animation(1.0f/mdo.animSpeed, frames);
 				anim.setPlayMode(Animation.NORMAL);
 				break;
 			}

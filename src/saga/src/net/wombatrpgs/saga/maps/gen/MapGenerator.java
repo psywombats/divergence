@@ -513,7 +513,6 @@ public abstract class MapGenerator implements Queueable {
 		if (state == ConversionState.GENERATING) {
 			SGlobal.reporter.warn("Bad conversion state stair for " + parent);
 		}
-		// TODO: generating stairwells
 //		for (String upKey : parent.getUpKeys()) {
 //			Loc loc = addUpstairs(types);
 //			TeleportEvent tele = new TeleportEvent(parent, upKey);

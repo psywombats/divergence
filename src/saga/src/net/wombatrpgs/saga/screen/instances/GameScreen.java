@@ -101,7 +101,7 @@ public class GameScreen extends Screen {
 	public boolean onCommand(InputCommand command) {
 		if (super.onCommand(command)) return true;
 		switch (command) {
-			// TODO: screen-based commands
+			// TODO: saga: screen-based commands
 		default:
 			return hero.onCommand(command);
 		}

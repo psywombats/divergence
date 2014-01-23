@@ -462,7 +462,7 @@ public class FourDirDialog extends JDialog implements	ActionListener,
 				"Export sprite...",
 				JOptionPane.PLAIN_MESSAGE,
 				null, null, null);
-		// TODO: check for conflicts in naming ?
+		// TODO: dbe: check for conflicts in naming ?
 		
 		// check for cancel
 		if (name == "" || name == null || subfolder == null) {

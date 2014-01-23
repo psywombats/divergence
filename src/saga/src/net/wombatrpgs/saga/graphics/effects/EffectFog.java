@@ -58,7 +58,7 @@ public class EffectFog extends Effect {
 	@Override
 	public void render(OrthographicCamera camera) {
 		WindowSettings win = SGlobal.window;
-		TrackerCam cam = SGlobal.screens.peek().getCamera();
+		TrackerCam cam = SGlobal.levelManager.getScreen().getCamera();
 		TextureRegion tex = anim.getRegion();
 		
 		batch.begin();

@@ -24,7 +24,7 @@ public class EventFactory {
 	public static void handleData(LoadedLevel parent, MapObject object) {
 //		MapEvent newEvent = null;
 //		String type = extractType(object);
-		// TODO: handle event data in factory
+		// TODO: maps: handle event data in factory
 	}
 	
 	/**

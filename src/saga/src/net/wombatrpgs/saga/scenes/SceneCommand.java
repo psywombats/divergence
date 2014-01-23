@@ -74,7 +74,7 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-		// TODO: write a scene command map
+		// TODO: scenes: write a scene command map
 //		if (blocking && command == InputCommand.INTENT_CONFIRM) {
 //			blocking = false;
 //			SGlobal.screens.peek().unregisterCommandListener(this);
@@ -118,7 +118,7 @@ public abstract class SceneCommand implements Queueable, CommandListener {
 	 */
 	public void block(UnblockedListener listener) {
 		this.listener = listener;
-		SGlobal.screens.peek().registerCommandListener(this);
+		SGlobal.levelManager.getScreen().registerCommandListener(this);
 		blocking = true;
 	}
 

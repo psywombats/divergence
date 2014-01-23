@@ -46,7 +46,6 @@ public class Emitter extends MapEvent {
 	 * @param 	yComp			The normalized y-dir to fire in (-1 to 1)
 	 */
 	public void fire(float xComp, float yComp) {
-		// TODO: support sustained fire mode
 		for (int i = 0; i < mdo.count; i++) {
 			fireSingle(xComp, yComp);
 		}
