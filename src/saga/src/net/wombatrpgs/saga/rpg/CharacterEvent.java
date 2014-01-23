@@ -273,6 +273,7 @@ public class CharacterEvent extends MapEvent implements Turnable {
 		for (Turnable t : turnChildren) {
 			t.onTurn();
 		}
+		ticksRemaining += 1000;
 	}
 
 	/**

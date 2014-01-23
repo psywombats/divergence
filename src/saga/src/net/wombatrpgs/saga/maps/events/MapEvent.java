@@ -60,7 +60,6 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	protected MapEvent(Level parent) {
 		super(parent);
 		zeroCoords();
-		// TODO: maps: MapEvent
 	}
 	
 	/**

@@ -32,6 +32,8 @@ import net.wombatrpgs.sagaschema.maps.LoadedMapMDO;
  */
 public class LoadedLevel extends Level {
 	
+	protected static final String KEY_NAME = "name";
+	
 	protected TiledMap map;
 	protected OrthogonalTiledMapRenderer renderer;
 	protected String mapPath;
@@ -78,6 +80,25 @@ public class LoadedLevel extends Level {
 	}
 	
 	/**
+	 * @see net.wombatrpgs.saga.maps.Level#toString()
+	 */
+	@Override
+	public String toString() {
+		String name = extractProperty(KEY_NAME);
+		return (name == null) ? super.toString() : name;
+	}
+	
+	/**
+	 * Reads a property from the map data. This property was defined by the map
+	 * designer in the Tiled map properties.
+	 * @param	key				The key of the value to retrieve
+	 * @return					The value corresponding to that key
+	 */
+	public String extractProperty(String key) {
+		return map.getProperties().get(key, String.class);
+	}
+
+	/**
 	 * Does the post processing for the map. This should involve processing the
 	 * map itself, and then setting up all the assets the map requires for
 	 * processing.
@@ -103,7 +124,7 @@ public class LoadedLevel extends Level {
 					SGlobal.reporter.warn("Multiple event layers on map: " + this);
 				} else {
 					for (MapObject object : layer.getObjects()) {
-						EventFactory.handleData(this, object);
+						EventFactory.createAndPlace(new TiledMapObject(this, object));
 					}
 				}
 			}

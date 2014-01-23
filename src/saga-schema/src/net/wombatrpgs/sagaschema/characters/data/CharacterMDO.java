@@ -8,7 +8,6 @@ package net.wombatrpgs.sagaschema.characters.data;
 
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
-import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
@@ -25,17 +24,5 @@ public class CharacterMDO extends MainSchema {
 	@SchemaLink(DirMDO.class)
 	@Nullable
 	public String appearance;
-	
-	@Desc("Allegiance - what faction does this character belong to?")
-	public Faction faction;
-	
-//	@Desc("Hurt sound - plays when this character is damaged")
-//	@SchemaLink(SoundMDO.class)
-//	@Nullable
-//	public String soundHurt;
-	
-	@Desc("Stats - RPG-like character base stats")
-	@InlineSchema(StatsMDO.class)
-	public StatsMDO stats;
 
 }

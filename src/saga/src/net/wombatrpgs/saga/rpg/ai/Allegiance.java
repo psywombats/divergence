@@ -49,15 +49,15 @@ public class Allegiance implements Turnable {
 	 */
 	@Override
 	public void onTurn() {
-		List<GameUnit> deads = new ArrayList<GameUnit>();
-		for (GameUnit unit : hitlist) {
-			if (unit.isDead()) {
-				deads.add(unit);
-			}
-		}
-		for (GameUnit dead : deads) {
-			hitlist.remove(dead);
-		}
+//		List<GameUnit> deads = new ArrayList<GameUnit>();
+//		for (GameUnit unit : hitlist) {
+//			if (unit.isDead()) {
+//				deads.add(unit);
+//			}
+//		}
+//		for (GameUnit dead : deads) {
+//			hitlist.remove(dead);
+//		}
 	}
 
 	/**
@@ -73,14 +73,14 @@ public class Allegiance implements Turnable {
 			return Relation.ALLIED;
 		} else {
 			Relation result = Relation.ALLIED;		// highest friendliness
-			for (Faction f1 : this.factions) {
-				for (Faction f2 : other.getAllegiance().factions) {
-					Relation newRelation = f1.getRelation(f2);
-					if (newRelation.getHostility() < result.getHostility()) {
-						result = newRelation;
-					}
-				}
-			}
+//			for (Faction f1 : this.factions) {
+//				for (Faction f2 : other.getAllegiance().factions) {
+//					Relation newRelation = f1.getRelation(f2);
+//					if (newRelation.getHostility() < result.getHostility()) {
+//						result = newRelation;
+//					}
+//				}
+//			}
 			return result;
 		}
 	}
