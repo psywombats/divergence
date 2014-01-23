@@ -68,6 +68,8 @@ public class SGlobal {
 	public static TileManager tiles;
 	/** Desktop mode */
 	public static Platform platform;
+	/** Switches and variables */
+	public static Memory memory;
 	
 	private static List<Queueable> toLoad;
 	
@@ -127,6 +129,8 @@ public class SGlobal {
 			SGlobal.ui = new UISettings(SGlobal.data.getEntryFor(
 					UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
 			SGlobal.keymap = Keymap.initDefaultKeymap();
+			// TODO: persistence: memory should persist
+			SGlobal.memory = new Memory();
 			toLoad.add(ui);
 			toLoad.add(graphics);
 			for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);

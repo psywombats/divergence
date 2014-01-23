@@ -21,6 +21,9 @@ public enum InputCommand {
 	WORLD_INTERACT,
 	WORLD_PAUSE,
 	
+	UI_CONFIRM,
+	UI_CANCEL,
+	
 	GLOBAL_FULLSCREEN,
 	
 }

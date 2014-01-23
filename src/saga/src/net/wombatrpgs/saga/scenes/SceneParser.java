@@ -17,6 +17,7 @@ import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Queueable;
 import net.wombatrpgs.saga.core.Updateable;
 import net.wombatrpgs.saga.io.CommandMap;
+import net.wombatrpgs.saga.io.command.CMapScene;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.maps.events.MapEvent;
 import net.wombatrpgs.saga.screen.Screen;
@@ -188,9 +189,8 @@ public class SceneParser implements	Updateable,
 		SGlobal.reporter.inform("Now running a scene: " + this);
 		running = true;
 		timeSinceStart = 0;
-		// TODO: scenes: make a new scene command map
-//		ourMap = new CMapScene();
-//		parent.pushCommandContext(ourMap);
+		ourMap = new CMapScene();
+		parent.pushCommandContext(ourMap);
 	}
 	
 	/**
