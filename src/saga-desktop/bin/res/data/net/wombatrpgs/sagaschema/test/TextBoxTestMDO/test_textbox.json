@@ -2,9 +2,9 @@
 	"key" : "test_textbox",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "",
+	"description" : " ",
 	"enabled" : "ENABLED",
-	"box" : "textbox_default",
+	"box" : "textbox_test",
 	"font" : "font_sagaf",
 	"text" : "It has been said that the tower in the center of the world is connected to paradise."
 }

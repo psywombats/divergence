@@ -1,9 +1,0 @@
-[wait 2]
-SYSTEM: NATHANIEL: I'm still alive?\nVIOLET: And it looks like Aven over there is dead.\nKOLSTYA: Good riddance.\nVIOLET: Wait... who are all these other people?\nOSWIN: Nathaniel? Is that you? I've heard so much about you!\nNATHANIEL: Hold! Stay back! Who are you and how did you get here?\nOSWIN: I came to the Ruins of Elis with Kyrsta to banish the Regicide, and...\nNATHANIEL: Elis? We're in the basement of the Escharlott crypts.\nRACHELE: Nathaniel... this is Gaius. The Wastes of Gaius.\nNATHANIEL: What?\nKYRSTA: Kolstya? Is that really you, Kolstya?\nNATHNIEL: More strange people from nowhere!\nKOLSTYA: Nathaniel, it's Kyrsta, my sister! I thought you were dead! Kyrsta!\nKYRSTA: And you are dead! I lit your funeral pyre myself after you were killed by the dark king!\nKOLSTYA: Dark king? We just killed the dark king!\nJACK: No, we killed the ghost of the great sage!\nQETZ: The great sage? I took him single-handed! It was the necromancer Abel that was the problem here!\nACE: The Necromancer's out pillaging the Tektuk Forest, not here at the bottom of Vanstrom Castle!
-SYSTEM: NATHANIEL: Shut up, all of you! All of you strange people, state your name and what you're doing here.\nBORG: Borg Mk7, I came to Mahrjestrom to find Borgs 1 through 6.\nELANNA: Elanna White, I came with Jack and Ace.\nACE: We were investigating Tektuk Forest Temple and then found the necromancer here...\nOSWIN: I traveled back in time to save you, Nathaniel! You're my grandfather or something!\nNATHANIEL: Okay, this is pointless, we're getting nowhere. Kolstya and Violet and I are leaving. The rest of you randoms are welcome to come along back to the surface. Any objections?
-SYSTEM: RACHELE: Right behind you.
-SYSTEM: VIOLET: I'm coming.
-SYSTEM: QETZ: Wait up!
-SYSTEM: $A$V$E$N: $A$f$t$e$r $y$o$u...
-[tint 0 0 0 5]
-[wait 5]

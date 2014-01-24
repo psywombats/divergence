@@ -7,7 +7,10 @@
 package net.wombatrpgs.saga.scenes;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import org.luaj.vm2.LuaValue;
 
 import com.badlogic.gdx.assets.AssetManager;
 
@@ -19,25 +22,26 @@ import net.wombatrpgs.saga.core.Updateable;
 import net.wombatrpgs.saga.io.CommandMap;
 import net.wombatrpgs.saga.io.command.CMapScene;
 import net.wombatrpgs.saga.maps.Level;
-import net.wombatrpgs.saga.maps.events.MapEvent;
 import net.wombatrpgs.saga.screen.Screen;
 
 /**
  * This thing takes a scene and then hijacks its parent level into doing its
  * bidding.
+ * As of 2014-01-24, it plays back a series of Lua commands.
  */
 public class SceneParser implements	Updateable,
 									Queueable {
 	
 	protected Screen parent;
-	protected SceneParser childParser;
-	protected List<SceneCommand> commands;
-	protected List<MapEvent> controlledEvents;
 	protected List<FinishListener> listeners;
-	protected CommandMap ourMap;
+	protected CommandMap commandMap;
 	protected String filename;
-	protected boolean executed, running;
-	protected float timeSinceStart;
+	
+	protected List<SceneCommandLua> commands;
+	protected Iterator<SceneCommandLua> runningCommands;
+	protected SceneCommandLua currentCommand;
+	
+	protected boolean running;
 	
 	/**
 	 * Creates a scene parser with no commands. It's expected that somewhere
@@ -45,11 +49,8 @@ public class SceneParser implements	Updateable,
 	 * generating dialog on the fly.
 	 */
 	public SceneParser() {
-		this.executed = false;
 		this.running = false;
-		this.controlledEvents = new ArrayList<MapEvent>();
 		this.listeners = new ArrayList<FinishListener>();
-		this.timeSinceStart = 0;
 	}
 	
 	/**
@@ -74,7 +75,7 @@ public class SceneParser implements	Updateable,
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
 		if (filename != null) {
-			manager.load(filename, SceneData.class);
+			manager.load(filename, LuaValue.class);
 		}
 	}
 
@@ -84,21 +85,15 @@ public class SceneParser implements	Updateable,
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		if (pass > 1) {
-			return;
-		} else if (pass == 1) {
-			for (SceneCommand command : commands) {
-				command.postProcessing(manager, pass-1);
+		if (pass == 0) {
+			LuaValue script = manager.get(filename, LuaValue.class);
+			commands = SceneLib.parseScene(script);
+			for (SceneCommandLua command : commands) {
+				command.queueRequiredAssets(manager);
 			}
-		} else if (pass == 0) {
-			commands = new ArrayList<SceneCommand>();
-			List<String> lines = manager.get(filename, SceneData.class).getLines();
-			for (String line : lines) {
-				SceneCommand command = CommandFactory.make(this, line);
-				if (command != null) {
-					command.queueRequiredAssets(manager);
-					commands.add(command);
-				}
+		} else {
+			for (SceneCommandLua command : commands) {
+				command.postProcessing(manager, pass - 1);
 			}
 		}
 	}
@@ -108,13 +103,11 @@ public class SceneParser implements	Updateable,
 	 */
 	@Override
 	public void update(float elapsed) {
-		timeSinceStart += elapsed;
 		if (running) {
-			for (SceneCommand command : commands) {
-				if (!command.run()) return;
-			}
-			if (childParser == null || childParser.hasExecuted()) {
-				terminate();
+			if (currentCommand.isFinished()) {
+				nextCommand();
+			} else {
+				currentCommand.update(elapsed);
 			}
 		}
 	}
@@ -130,43 +123,12 @@ public class SceneParser implements	Updateable,
 			return "anon scene";
 		}
 	}
-
-	/**
-	 * Resets the scene?
-	 */
-	public void reset() {
-		this.executed = false;
-		this.childParser = null;
-		for (SceneCommand command : commands) {
-			command.reset();
-		}
-	}
-
-	/** @return True if this parser has been run */
-	public boolean hasExecuted() { return this.executed; }
 	
 	/** @return Trus if this parser is in the process of running */
 	public boolean isRunning() { return this.running; }
 	
-	/** @param parser The thing to wait until done */
-	public void setChild(SceneParser parser) { this.childParser = parser; }
-	
 	/** @return The level currently active. Same as the static call */
 	public Level getLevel() { return SGlobal.levelManager.getActive(); }
-	
-	/**
-	 * Gets all map events that have been touched by movements by this parser.
-	 * @return					The events controlled by the parser
-	 */
-	public List<MapEvent> getControlledEvents() {
-		return controlledEvents;
-	}
-	
-	/**
-	 * Gets the time since this scene was last started.
-	 * @return					Time since last restart
-	 */
-	public float getTimeSinceStart() { return this.timeSinceStart; }
 
 	/**
 	 * Runs the scene assuming it should be run in the current context. The only
@@ -178,14 +140,19 @@ public class SceneParser implements	Updateable,
 			SGlobal.reporter.warn("Trying to run a running scene: " + this);
 			return;
 		}
+		if (commands.size() == 0) {
+			SGlobal.reporter.warn("Tried to run an empty scene: " + this);
+		}
 		
 		SGlobal.reporter.inform("Now running a scene: " + this);
-		ourMap = new CMapScene();
+		reset();
+		commandMap = new CMapScene();
 		parent = SGlobal.screens.peek();
 		parent.addUChild(this);
-		parent.pushCommandContext(ourMap);
+		parent.pushCommandContext(commandMap);
+		runningCommands = commands.iterator();
+		nextCommand();
 		running = true;
-		timeSinceStart = 0;
 	}
 	
 	/**
@@ -209,22 +176,39 @@ public class SceneParser implements	Updateable,
 			SGlobal.reporter.warn("Tried to remove a non-listener: " + listener);
 		}
 	}
-	
+
+	/**
+	 * Resets the scene? This is internal and called for you when you try to
+	 * run a scene when it's already been run. Reset is called at least once.
+	 */
+	protected void reset() {
+		for (SceneCommandLua command : commands) {
+			command.reset();
+		}
+	}
 	/**
 	 * Called when this parser finishes execution.
 	 */
 	protected void terminate() {
 		SGlobal.reporter.inform("Terminated a scene: " + this);
-		parent.removeCommandContext(ourMap);
+		parent.removeCommandContext(commandMap);
 		running = false;
-		executed = true;
-		if (SGlobal.getHero() != null) {
-			SGlobal.getHero().halt();
-		}
 		for (FinishListener listener : listeners) {
 			listener.onFinish();
 		}
 		listeners.clear();
+	}
+	
+	/**
+	 * Moves on to start processing the next command.
+	 */
+	protected void nextCommand() {
+		if (runningCommands.hasNext()) {
+			currentCommand = runningCommands.next();
+			currentCommand.run(this);
+		} else {
+			terminate();
+		}
 	}
 
 }

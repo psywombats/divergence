@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.saga.maps.events;
 
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.rpg.CharacterEvent;
 import net.wombatrpgs.saga.scenes.SceneParser;
@@ -37,6 +38,7 @@ public class NpcEvent extends CharacterEvent {
 	@Override
 	public boolean onInteract() {
 		System.out.println("boy okey hurr");
+		SGlobal.levelManager.getTele().getPre().run();
 		return true;
 	}
 

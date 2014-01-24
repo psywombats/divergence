@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.luaj.vm2.LuaValue;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
@@ -20,6 +22,7 @@ import net.wombatrpgs.saga.graphics.GraphicsSettings;
 import net.wombatrpgs.saga.io.FileLoader;
 import net.wombatrpgs.saga.io.Keymap;
 import net.wombatrpgs.saga.io.loaders.DataLoader;
+import net.wombatrpgs.saga.io.loaders.LuaLoader;
 import net.wombatrpgs.saga.io.loaders.SceneLoader;
 import net.wombatrpgs.saga.maps.LevelManager;
 import net.wombatrpgs.saga.maps.gen.TileManager;
@@ -70,6 +73,8 @@ public class SGlobal {
 	public static Platform platform;
 	/** Switches and variables */
 	public static Memory memory;
+	/** L-l-l-lua?? */
+	public static Lua lua;
 	
 	private static List<Queueable> toLoad;
 	
@@ -131,6 +136,7 @@ public class SGlobal {
 			SGlobal.keymap = Keymap.initDefaultKeymap();
 			// TODO: persistence: memory should persist
 			SGlobal.memory = new Memory();
+			SGlobal.lua = new Lua();
 			toLoad.add(ui);
 			toLoad.add(graphics);
 			for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
@@ -195,6 +201,7 @@ public class SGlobal {
 		assetManager.setLoader(SceneData.class, new SceneLoader(new InternalFileHandleResolver()));
 		assetManager.setLoader(DataEntry.class, new DataLoader(new InternalFileHandleResolver()));
 		assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+		assetManager.setLoader(LuaValue.class, new LuaLoader(new InternalFileHandleResolver()));
 	}
 
 }
