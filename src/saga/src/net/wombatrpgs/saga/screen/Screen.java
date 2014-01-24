@@ -172,6 +172,16 @@ public abstract class Screen implements CommandListener,
 	public void removeUChild(Updateable u) { removeChildren.add(u); }
 	
 	/**
+	 * Checks to see if a screen object exists on the screen. Also checks if the
+	 * object is queued to be added next update step.
+	 * @param	object			The object to check if exists
+	 * @return					True if that object is here, false otherwise
+	 */
+	public boolean containsChild(ScreenObject object) {
+		return screenObjects.contains(object) || addChildren.contains(object);
+	}
+	
+	/**
 	 * Removes an explicit command map from the stack.
 	 * @param	map				The map to remove
 	 */

@@ -54,6 +54,9 @@ public abstract class ScreenDrawable extends ScreenObject implements PositionSet
 	/** @see net.wombatrpgs.saga.maps.PositionSetable#setY(int) */
 	@Override public void setY(float y) { this.y = y; }
 	
+	/** @return True if we're currently moving to another place/color */
+	public boolean isTweening() { return tweening; }
+	
 	/**
 	 * @see net.wombatrpgs.saga.core.Updateable#update(float)
 	 */
@@ -72,6 +75,7 @@ public abstract class ScreenDrawable extends ScreenObject implements PositionSet
 			currentColor.r = tweenBaseColor.r * (1.f-r) + r * tweenTargetColor.r;
 			currentColor.g = tweenBaseColor.g * (1.f-r) + r * tweenTargetColor.g;
 			currentColor.b = tweenBaseColor.b * (1.f-r) + r * tweenTargetColor.b;
+			batch.setColor(currentColor);
 		}
 	}
 	
@@ -115,6 +119,7 @@ public abstract class ScreenDrawable extends ScreenObject implements PositionSet
 	public void setColor(Color newColor) {
 		tweening = false;
 		currentColor.set(newColor);
+		batch.setColor(newColor);
 	}
 
 }

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 
@@ -17,6 +18,7 @@ import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.graphics.ScreenDrawable;
 import net.wombatrpgs.saga.io.audio.SoundObject;
 import net.wombatrpgs.saga.maps.MapThing;
+import net.wombatrpgs.saga.screen.Screen;
 import net.wombatrpgs.saga.screen.WindowSettings;
 import net.wombatrpgs.saga.ui.Nineslice;
 import net.wombatrpgs.sagaschema.audio.SoundMDO;
@@ -37,7 +39,7 @@ import net.wombatrpgs.sagaschema.ui.data.BoxAnchorType;
  */
 public class TextBox extends ScreenDrawable {
 	
-	protected static final float FADE_IN_TIME = .5f;
+	protected static final float FADE_TIME = .3f;
 	
 	protected TextBoxMDO mdo;
 	protected FontHolder font;
@@ -45,6 +47,7 @@ public class TextBox extends ScreenDrawable {
 	protected List<String> lines;
 	protected List<String> visibleLines;
 	
+	protected Screen parent;
 	protected Nineslice backer;
 	protected TextBoxFormat bodyFormat, nameFormat;
 	protected SoundObject typeSfx;
@@ -53,6 +56,7 @@ public class TextBox extends ScreenDrawable {
 	protected int totalLength;
 	protected int boxHeight;
 	protected boolean waiting;
+	protected boolean fadingOut;
 	
 	/**
 	 * Creates a new text box from data. Does not deal with the loading of its
@@ -68,8 +72,10 @@ public class TextBox extends ScreenDrawable {
 		this.sinceChar = 0;
 		this.bodyFormat = new TextBoxFormat();
 		this.nameFormat = new TextBoxFormat();
+		this.lines = new ArrayList<String>();
 		this.visibleLines = new ArrayList<String>();
 		this.waiting = false;
+		this.fadingOut = false;
 		
 		if (MapThing.mdoHasProperty(mdo.typeSfx)) {
 			typeSfx = new SoundObject(SGlobal.data.getEntryFor(mdo.typeSfx, SoundMDO.class));
@@ -100,6 +106,7 @@ public class TextBox extends ScreenDrawable {
 		}
 		
 		// now for the font
+		font.setAlpha(currentColor.a);
 		for (int i = 0; i < visibleLines.size(); i++) {
 			font.draw(getBatch(), bodyFormat,
 					visibleLines.get(i), (int) (font.getLineHeight() * -i));
@@ -138,6 +145,11 @@ public class TextBox extends ScreenDrawable {
 	public void update(float elapsed) {
 		super.update(elapsed);
 		
+		if (fadingOut && !isTweening()) {
+			parent.removeObject(this);
+		}
+		
+		if (lines.size() == 0) return;
 		if (waiting) return;
 		
 		sinceChar += elapsed;
@@ -187,6 +199,29 @@ public class TextBox extends ScreenDrawable {
 	}
 	
 	/**
+	 * Causes the text box to fade in to the current screen. Clears any text on
+	 * the box.
+	 * @param	screen			The screen to fade in on
+	 */
+	public void fadeIn(Screen screen) {
+		this.parent = screen;
+		reset();
+		setColor(new Color(1, 1, 1, 0));
+		if (!screen.containsChild(this)) {
+			screen.addObject(this);
+		}
+		tweenTo(new Color(1, 1, 1, 1), FADE_TIME);
+	}
+	
+	/**
+	 * Gracefully exits from the screen.
+	 */
+	public void fadeOut() {
+		tweenTo(new Color(1, 1, 1, 0), FADE_TIME);
+		fadingOut = true;
+	}
+	
+	/**
 	 * Speeds up this box's movement, either by tnstantly displaying all
 	 * characters in the box or by unsetting its most recent wait.
 	 */
@@ -213,6 +248,9 @@ public class TextBox extends ScreenDrawable {
 	public void reset() {
 		sinceChar = 0;
 		visibleChars = 0;
+		lines.clear();
+		visibleLines.clear();
+		fadingOut = false;
 	}
 	
 	/**
@@ -221,10 +259,10 @@ public class TextBox extends ScreenDrawable {
 	 * Note that this does not cover cases where the text is longer than the
 	 * box can hold; that should be handled in CommandSpeakAll, because the only
 	 * time multiple text boxes should be used to display one string is in
-	 * cutscenes.
+	 * cutscenes. This does not add the textbox to the current screen.
 	 * @param	text			The hunk of text to display	
 	 */
-	public void show(String text) {
+	public void setLine(String text) {
 		// it turns out that using the built-in libgdx text display is the
 		// easiest way to do this, just have to make sure the bounds of the
 		// text box are set properly
@@ -255,8 +293,9 @@ public class TextBox extends ScreenDrawable {
 	 * @param 	text			The text to be displayed
 	 */
 	protected void setText(String text) {
-		this.lines = new ArrayList<String>();
+		List<String> lines = new ArrayList<String>();
 		lines.add(text);
+		setLines(lines);
 	}
 
 }

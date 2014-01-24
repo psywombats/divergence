@@ -4,9 +4,9 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.saga.scenes.commandslua;
+package net.wombatrpgs.saga.scenes.commands;
 
-import net.wombatrpgs.saga.scenes.SceneCommandLua;
+import net.wombatrpgs.saga.scenes.SceneCommand;
 import net.wombatrpgs.saga.scenes.SceneLib;
 
 import org.luaj.vm2.LuaValue;
@@ -27,24 +27,13 @@ public class SceneTint extends VarArgFunction {
 	 */
 	@Override
 	public Varargs invoke(final Varargs args) {
-		SceneLib.addFunction(new SceneCommandLua() {
+		SceneLib.addFunction(new SceneCommand() {
 			
 			Color tint;
 			float r1, g1, b1;
 			float r2, g2, b2;
 			float time;
-			
-			{
-				r2 = args.tofloat(1);
-				g2 = args.tofloat(2);
-				b2 = args.tofloat(3);
-				if (args.narg() < 4) {
-					time = 0;
-				} else {
-					time = args.tofloat(4);
-				}
-			}
-			
+
 			@Override public void update(float elapsed) {
 				super.update(elapsed);
 				tint(timeSinceStart / timeToWait);
@@ -60,6 +49,14 @@ public class SceneTint extends VarArgFunction {
 				r1 = tint.r;
 				g1 = tint.g;
 				b1 = tint.b;
+				r2 = args.tofloat(1);
+				g2 = args.tofloat(2);
+				b2 = args.tofloat(3);
+				if (args.narg() < 4) {
+					time = 0;
+				} else {
+					time = args.tofloat(4);
+				}
 				waitFor(time);
 			}
 			

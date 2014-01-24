@@ -37,7 +37,6 @@ public class NpcEvent extends CharacterEvent {
 	 */
 	@Override
 	public boolean onInteract() {
-		System.out.println("boy okey hurr");
 		SGlobal.levelManager.getTele().getPre().run();
 		return true;
 	}

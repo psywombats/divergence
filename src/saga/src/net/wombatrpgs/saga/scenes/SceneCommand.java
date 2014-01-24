@@ -13,7 +13,9 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.saga.core.Queueable;
 import net.wombatrpgs.saga.core.Updateable;
+import net.wombatrpgs.saga.io.CommandListener;
 import net.wombatrpgs.saga.screen.Screen;
+import net.wombatrpgs.sagaschema.io.data.InputCommand;
 
 /**
  * A chunk of code to execute later, returned from a lua function. The idea is
@@ -26,7 +28,9 @@ import net.wombatrpgs.saga.screen.Screen;
  * really only the speak command needed that thing in the first place and it can
  * block itself. However, a collection of timing methods have been added.
  */
-public abstract class SceneCommandLua implements Queueable, Updateable {
+public abstract class SceneCommand implements	Queueable,
+												Updateable,
+												CommandListener {
 	
 	protected SceneParser parent;
 	
@@ -40,7 +44,7 @@ public abstract class SceneCommandLua implements Queueable, Updateable {
 	 * Creates a new command. Before being run it must be possessed by a parent
 	 * and have its assets queued.
 	 */
-	public SceneCommandLua() {
+	public SceneCommand() {
 		finished = false;
 		assets = new ArrayList<Queueable>();
 		timeToWait = 0;
@@ -91,25 +95,30 @@ public abstract class SceneCommandLua implements Queueable, Updateable {
 	}
 	
 	/**
+	 * Scene commands are equipped to handle user input. Most of the time it's
+	 * just ignored, but for text boxes, it could advance the text.
+	 * @see net.wombatrpgs.saga.io.CommandListener#onCommand
+	 * (net.wombatrpgs.sagaschema.io.data.InputCommand)
+	 */
+	@Override
+	public boolean onCommand(InputCommand command) {
+		return false;
+	}
+
+	/**
 	 * Call this when it's this scene's turn to run.
 	 */
 	public final void run(SceneParser parent) {
 		this.parent = parent;
 		running = true;
+		timeSinceStart = 0;
 		internalRun();
 	}
 	
 	/**
-	 * Called when this scene resets. Set all needed values back to whatever.
-	 * This should roughly mirror the constructor.
-	 */
-	public void reset() {
-		timeSinceStart = 0;
-	}
-	
-	/**
 	 * What happens when this command has its turn in the scene and runs. All
-	 * the running and finished flags are handled elsewhere.
+	 * the running and finished flags are handled elsewhere. This is a good
+	 * place to initialize fields.
 	 */
 	protected abstract void internalRun();
 	

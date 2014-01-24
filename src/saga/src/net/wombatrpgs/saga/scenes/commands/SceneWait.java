@@ -4,12 +4,12 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.saga.scenes.commandslua;
+package net.wombatrpgs.saga.scenes.commands;
 
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 
-import net.wombatrpgs.saga.scenes.SceneCommandLua;
+import net.wombatrpgs.saga.scenes.SceneCommand;
 import net.wombatrpgs.saga.scenes.SceneLib;
 
 /**
@@ -23,7 +23,7 @@ public class SceneWait extends OneArgFunction {
 	 */
 	@Override
 	public LuaValue call(final LuaValue arg) {
-		SceneLib.addFunction(new SceneCommandLua() {
+		SceneLib.addFunction(new SceneCommand() {
 			@Override protected void internalRun() {
 				waitFor(arg.tofloat());
 			}

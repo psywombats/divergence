@@ -19,10 +19,12 @@ import net.wombatrpgs.saga.core.FinishListener;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Queueable;
 import net.wombatrpgs.saga.core.Updateable;
+import net.wombatrpgs.saga.io.CommandListener;
 import net.wombatrpgs.saga.io.CommandMap;
 import net.wombatrpgs.saga.io.command.CMapScene;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.screen.Screen;
+import net.wombatrpgs.sagaschema.io.data.InputCommand;
 
 /**
  * This thing takes a scene and then hijacks its parent level into doing its
@@ -30,16 +32,17 @@ import net.wombatrpgs.saga.screen.Screen;
  * As of 2014-01-24, it plays back a series of Lua commands.
  */
 public class SceneParser implements	Updateable,
-									Queueable {
+									Queueable,
+									CommandListener {
 	
 	protected Screen parent;
 	protected List<FinishListener> listeners;
 	protected CommandMap commandMap;
 	protected String filename;
 	
-	protected List<SceneCommandLua> commands;
-	protected Iterator<SceneCommandLua> runningCommands;
-	protected SceneCommandLua currentCommand;
+	protected List<SceneCommand> commands;
+	protected Iterator<SceneCommand> runningCommands;
+	protected SceneCommand currentCommand;
 	
 	protected boolean running;
 	
@@ -88,11 +91,11 @@ public class SceneParser implements	Updateable,
 		if (pass == 0) {
 			LuaValue script = manager.get(filename, LuaValue.class);
 			commands = SceneLib.parseScene(script);
-			for (SceneCommandLua command : commands) {
+			for (SceneCommand command : commands) {
 				command.queueRequiredAssets(manager);
 			}
 		} else {
-			for (SceneCommandLua command : commands) {
+			for (SceneCommand command : commands) {
 				command.postProcessing(manager, pass - 1);
 			}
 		}
@@ -110,6 +113,19 @@ public class SceneParser implements	Updateable,
 				currentCommand.update(elapsed);
 			}
 		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.saga.io.CommandListener#onCommand
+	 * (net.wombatrpgs.sagaschema.io.data.InputCommand)
+	 */
+	@Override
+	public boolean onCommand(InputCommand command) {
+		if (!running || currentCommand == null) {
+			SGlobal.reporter.warn("Received a command to invalid parser " + this);
+			return false;
+		}
+		return currentCommand.onCommand(command);
 	}
 
 	/**
@@ -145,11 +161,11 @@ public class SceneParser implements	Updateable,
 		}
 		
 		SGlobal.reporter.inform("Now running a scene: " + this);
-		reset();
 		commandMap = new CMapScene();
 		parent = SGlobal.screens.peek();
 		parent.addUChild(this);
 		parent.pushCommandContext(commandMap);
+		parent.registerCommandListener(this);
 		runningCommands = commands.iterator();
 		nextCommand();
 		running = true;
@@ -176,22 +192,14 @@ public class SceneParser implements	Updateable,
 			SGlobal.reporter.warn("Tried to remove a non-listener: " + listener);
 		}
 	}
-
-	/**
-	 * Resets the scene? This is internal and called for you when you try to
-	 * run a scene when it's already been run. Reset is called at least once.
-	 */
-	protected void reset() {
-		for (SceneCommandLua command : commands) {
-			command.reset();
-		}
-	}
+	
 	/**
 	 * Called when this parser finishes execution.
 	 */
 	protected void terminate() {
 		SGlobal.reporter.inform("Terminated a scene: " + this);
 		parent.removeCommandContext(commandMap);
+		parent.unregisterCommandListener(this);
 		running = false;
 		for (FinishListener listener : listeners) {
 			listener.onFinish();
