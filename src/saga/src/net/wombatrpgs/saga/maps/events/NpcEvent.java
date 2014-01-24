@@ -4,9 +4,11 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.saga.maps;
+package net.wombatrpgs.saga.maps.events;
 
+import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.rpg.CharacterEvent;
+import net.wombatrpgs.saga.scenes.SceneParser;
 import net.wombatrpgs.sagaschema.characters.NpcMDO;
 
 /**
@@ -16,6 +18,7 @@ import net.wombatrpgs.sagaschema.characters.NpcMDO;
 public class NpcEvent extends CharacterEvent {
 	
 	protected NpcMDO mdo;
+	protected SceneParser parser;
 
 	/**
 	 * Creates a new NPC from mdo. If you want to make one from a map object,
@@ -26,6 +29,15 @@ public class NpcEvent extends CharacterEvent {
 	public NpcEvent(NpcMDO mdo, Level parent) {
 		super(mdo, parent);
 		this.mdo = mdo;
+	}
+
+	/**
+	 * @see net.wombatrpgs.saga.maps.events.MapEvent#onInteract()
+	 */
+	@Override
+	public boolean onInteract() {
+		System.out.println("boy okey hurr");
+		return true;
 	}
 
 }

@@ -24,7 +24,7 @@ import net.wombatrpgs.sagaschema.maps.data.EightDir;
  * exists on a Tiled layer, even if it wasn't created in Tiled itself.
  * 
  * MR: MapEvent is anything that exists in the world of tiles, as opposed to a
- * thing that just lives on a map. It isn't necessarily a character
+ * thing that just lives on a map. It isn't necessarily a character.
  */
 public abstract class MapEvent extends MapThing implements	PositionSetable,
 															Comparable<MapEvent>,
@@ -231,23 +231,23 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	}
 	
 	/**
-	 * Gets the name of this event as specified in Tiled. Null if the event is
-	 * unnamed in tiled or was not created from tiled.
-	 * @return
+	 * Gets the ID name of this event. If specified in Tiled, it should return
+	 * that. If specified in database, it should return that. Basically,
+	 * override this, otherwise it returns something really unhelpful.
+	 * @return					The non-unique identifying name of this object
 	 */
 	public String getName() {
-		// TODO: maps: getName
-		return "TODO: getName";
+		return "(anon event)";
 	}
 	
 	/**
 	 * Checks if this event's in a specific group. Events can belong to multiple
-	 * groups if their group name contains the separator character.
+	 * groups if their group name contains the separator character. Events that
+	 * are spawned from Tiled should probably override this.
 	 * @param 	groupName		The name of the group we may be in
 	 * @return					True if in that group, false if not
 	 */
 	public boolean inGroup(String groupName) {
-		// TODO: maps: inGroup
 		return false;
 	}
 
@@ -402,6 +402,17 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	 */
 	public void collideWith(CharacterEvent character) {
 		// default is nothing
+	}
+	
+	/**
+	 * The hero pressed A on you, now do something! For passable events, this
+	 * happens when the hero is standing on the event, and for impassable ones,
+	 * when the hero is facing it. Events that are non-interactive should return
+	 * false.
+	 * @return					True if an interaction happened, false if none
+	 */
+	public boolean onInteract() {
+		return false;
 	}
 	
 	/**

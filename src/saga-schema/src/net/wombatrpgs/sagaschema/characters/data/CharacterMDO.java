@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.sagaschema.characters.data;
 
+import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
@@ -24,5 +25,12 @@ public class CharacterMDO extends MainSchema {
 	@SchemaLink(DirMDO.class)
 	@Nullable
 	public String appearance;
+	
+	@Desc("Name - identifier for the NPC, it's fine to be blank")
+	public String name;
+	
+	@Desc("Group - any groups this NPC is in, when in doubt just leave blank, space seperated")
+	@DefaultValue("")
+	public String groups;
 
 }

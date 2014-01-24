@@ -9,6 +9,7 @@ package net.wombatrpgs.saga.rpg;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.io.CommandListener;
 import net.wombatrpgs.saga.maps.Level;
+import net.wombatrpgs.saga.maps.events.MapEvent;
 import net.wombatrpgs.sagaschema.characters.HeroMDO;
 import net.wombatrpgs.sagaschema.io.data.InputCommand;
 import net.wombatrpgs.sagaschema.maps.data.OrthoDir;
@@ -72,16 +73,14 @@ public class Avatar extends CharacterEvent implements CommandListener {
 		}
 		
 		switch (command) {
-		case MOVE_LEFT:		move(OrthoDir.WEST);	break;
-		case MOVE_UP:		move(OrthoDir.NORTH);	break;
-		case MOVE_RIGHT:	move(OrthoDir.EAST);	break;
-		case MOVE_DOWN:		move(OrthoDir.SOUTH);	break;
-		default:			return false;
+		case MOVE_LEFT:			move(OrthoDir.WEST);	break;
+		case MOVE_UP:			move(OrthoDir.NORTH);	break;
+		case MOVE_RIGHT:		move(OrthoDir.EAST);	break;
+		case MOVE_DOWN:			move(OrthoDir.SOUTH);	break;
+		case WORLD_INTERACT:	interact();				break;
+		default:				return false;
 		}
 		
-		if (!parent.isMoving()) {
-			parent.onTurn();
-		}
 		return true;
 	}
 	
@@ -89,7 +88,29 @@ public class Avatar extends CharacterEvent implements CommandListener {
 	 * Moves in a certain dir on the map?
 	 * @param	dir				The direction to move
 	 */
-	public void move(OrthoDir dir) {
+	protected void move(OrthoDir dir) {
 		attemptStep(dir);
+		if (!parent.isMoving()) {
+			parent.onTurn();
+		}
+	}
+	
+	/**
+	 * Interact with whatever we're standing on or facing.
+	 * @see net.wombatrpgs.saga.maps.events.MapEvent#onInteract()
+	 */
+	protected void interact() {
+		for (MapEvent event : parent.getEventsAt(getTileX(), getTileY())) {
+			if (event == this) continue;
+			if (!event.isPassable()) continue;
+			if (event.onInteract()) return;
+		}
+		OrthoDir facing = getFacing();
+		int tileX = (int) (getTileX() + facing.getVector().x);
+		int tileY = (int) (getTileY() + facing.getVector().y);
+		for (MapEvent event : parent.getEventsAt(tileX, tileY)) {
+			if (event.isPassable()) continue;
+			if (event.onInteract()) return;
+		}
 	}
 }

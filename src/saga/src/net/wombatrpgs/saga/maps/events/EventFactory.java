@@ -8,7 +8,6 @@ package net.wombatrpgs.saga.maps.events;
 
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.LoadedLevel;
-import net.wombatrpgs.saga.maps.NpcEvent;
 import net.wombatrpgs.saga.maps.TiledMapObject;
 import net.wombatrpgs.sagaschema.characters.NpcMDO;
 

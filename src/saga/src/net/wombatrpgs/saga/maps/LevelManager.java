@@ -10,12 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.wombatrpgs.saga.core.SGlobal;
-import net.wombatrpgs.saga.scenes.SceneFactory;
-import net.wombatrpgs.saga.scenes.SceneParser;
 import net.wombatrpgs.saga.scenes.TeleportManager;
 import net.wombatrpgs.saga.screen.Screen;
 import net.wombatrpgs.saga.screen.instances.GameScreen;
-import net.wombatrpgs.sagaschema.cutscene.data.SceneParentMDO;
 import net.wombatrpgs.sagaschema.maps.GeneratedMapMDO;
 import net.wombatrpgs.sagaschema.maps.LoadedMapMDO;
 import net.wombatrpgs.sagaschema.maps.data.MapMDO;
@@ -31,7 +28,6 @@ public class LevelManager {
 	/** Goes from map IDs to their level manifestation */
 	protected Map<String, Level> levels;
 	protected GameScreen screen;
-	protected SceneFactory cutsceneGen;
 	protected Level active;
 	protected TeleportManager teleport;
 	
@@ -40,7 +36,6 @@ public class LevelManager {
 	 */
 	public LevelManager() {
 		levels = new HashMap<String, Level>();
-		cutsceneGen = new SceneFactory();
 	}
 	
 	/** @param screen The screen that will be showing levels */
@@ -67,7 +62,6 @@ public class LevelManager {
 		teleport = null;
 		levels.clear();
 		levels = new HashMap<String, Level>();
-		cutsceneGen = new SceneFactory();
 	}
 	
 	/**
@@ -115,26 +109,6 @@ public class LevelManager {
 //			}
 		}
 		return levels.get(mapID);
-	}
-	
-	/**
-	 * Children should call this to create their cutscenes.
-	 * @param	mdoKey			The key of the mdo of the scen to generate
-	 * @return					A scene from that mdo
-	 */
-	public SceneParser getCutscene(String mdoKey) {
-		return getCutscene(mdoKey, getScreen());
-	}
-	
-	/**
-	 * Children should call this to create their cutscenes.
-	 * @param	mdoKey			The key of the mdo of the scen to generate
-	 * @param	other			The screen to generate for
-	 * @return					A scene from that mdo
-	 */
-	public SceneParser getCutscene(String mdoKey, Screen other) {
-		SceneParentMDO mdo = SGlobal.data.getEntryFor(mdoKey, SceneParentMDO.class);
-		return cutsceneGen.createScene(mdo, other);
 	}
 	
 	/**

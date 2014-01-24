@@ -1,8 +1,0 @@
-{
-	"key" : "scene_tutorial",
-	"subfolder" : "intro",
-	"name" : "",
-	"description" : " ",
-	"file" : "instructions.scene",
-	"repeat" : "RUN_ONLY_ONCE"
-}

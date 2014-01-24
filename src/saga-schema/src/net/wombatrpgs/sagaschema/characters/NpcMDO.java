@@ -16,7 +16,7 @@ import net.wombatrpgs.sagaschema.characters.data.CharacterMDO;
 @Path("charas/")
 public class NpcMDO extends CharacterMDO {
 	
-	@Desc("The dialog this NPC will chirp out, or empty for nothing")
+	@Desc("Dialog - the dialog this NPC will chirp out, or empty for nothing")
 	public String dialog;
 
 }

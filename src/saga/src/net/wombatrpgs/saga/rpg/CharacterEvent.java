@@ -452,6 +452,25 @@ public class CharacterEvent extends MapEvent implements Turnable {
 		}
 		return true;
 	}
+	
+	/**
+	 * @see net.wombatrpgs.saga.maps.events.MapEvent#getName()
+	 */
+	@Override
+	public String getName() {
+		return mdo.name;
+	}
+
+	/**
+	 * @see net.wombatrpgs.saga.maps.events.MapEvent#inGroup(java.lang.String)
+	 */
+	@Override
+	public boolean inGroup(String groupName) {
+		for (String group : groupName.split(" ")) {
+			if (groupName.equals(group)) return true;
+		}
+		return false;
+	}
 
 	/**
 	 * Creates this event from an MDO.

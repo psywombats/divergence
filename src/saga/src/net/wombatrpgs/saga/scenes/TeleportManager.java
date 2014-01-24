@@ -12,7 +12,6 @@ import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Queueable;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.maps.events.MapEvent;
-import net.wombatrpgs.sagaschema.cutscene.SceneMDO;
 import net.wombatrpgs.sagaschema.settings.TeleportSettingsMDO;
 
 /**
@@ -31,12 +30,8 @@ public class TeleportManager implements Queueable {
 	 */
 	public TeleportManager(TeleportSettingsMDO mdo) {
 		this.mdo = mdo;
-		preParser = new SceneParser(
-				SGlobal.data.getEntryFor(mdo.pre, SceneMDO.class),
-				SGlobal.levelManager.getScreen());
-		postParser = new SceneParser(
-				SGlobal.data.getEntryFor(mdo.post, SceneMDO.class),
-				SGlobal.levelManager.getScreen());
+		preParser = new SceneParser(mdo.pre);
+		postParser = new SceneParser(mdo.post);
 	}
 	
 	/** @return The parser to play before a teleport */

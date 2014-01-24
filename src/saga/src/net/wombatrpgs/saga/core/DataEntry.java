@@ -58,6 +58,9 @@ public class DataEntry {
 		} catch (ClassNotFoundException e) {
 			SGlobal.reporter.err("Couldn't find a class " + className, e);
 			return null;
+		} catch (Exception e) {
+			SGlobal.reporter.err("Something went wrong while parsing type " + className, e);
+			return null;
 		}
 	}
 

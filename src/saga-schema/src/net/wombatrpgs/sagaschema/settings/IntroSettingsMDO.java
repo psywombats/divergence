@@ -10,9 +10,7 @@ import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
-import net.wombatrpgs.sagaschema.audio.MusicMDO;
-import net.wombatrpgs.sagaschema.cutscene.data.SceneParentMDO;
-import net.wombatrpgs.sagaschema.maps.GeneratedMapMDO;
+import net.wombatrpgs.sagaschema.maps.data.MapMDO;
 
 /**
  * What happens when the game starts.
@@ -20,32 +18,8 @@ import net.wombatrpgs.sagaschema.maps.GeneratedMapMDO;
 @Path("settings/")
 public class IntroSettingsMDO extends MainSchema {
 	
-	@Desc("Tile screen music")
-	@SchemaLink(MusicMDO.class)
-	public String music;
-	
-	@Desc("Immediate scene - the scene to play on arrival to title, fade in")
-	@SchemaLink(SceneParentMDO.class)
-	public String immScene;
-	
-	@Desc("Ending scene - the scene to play on leave from title, fade out")
-	@SchemaLink(SceneParentMDO.class)
-	public String outScene;
-	
-	@Desc("Title start scene - the scene script to play on the title screen")
-	@SchemaLink(SceneParentMDO.class)
-	public String titleScene;
-	
-	@Desc("Game enter scene - the scene script to play on entering game scene")
-	@SchemaLink(SceneParentMDO.class)
-	public String scene;
-	
-	@Desc("Tutorial scene - plays after the opening cutscene")
-	@SchemaLink(SceneParentMDO.class)
-	public String tutorialScene;
-	
 	@Desc("Map - the map that things open on, usually a blank screen with the hero on it")
-	@SchemaLink(GeneratedMapMDO.class)
+	@SchemaLink(MapMDO.class)
 	public String map;
 
 }

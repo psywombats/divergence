@@ -21,8 +21,6 @@ import net.wombatrpgs.saga.io.command.CMapScene;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.maps.events.MapEvent;
 import net.wombatrpgs.saga.screen.Screen;
-import net.wombatrpgs.sagaschema.cutscene.SceneMDO;
-import net.wombatrpgs.sagaschema.cutscene.data.TriggerRepeatType;
 
 /**
  * This thing takes a scene and then hijacks its parent level into doing its
@@ -31,9 +29,7 @@ import net.wombatrpgs.sagaschema.cutscene.data.TriggerRepeatType;
 public class SceneParser implements	Updateable,
 									Queueable {
 	
-	protected SceneMDO mdo;
 	protected Screen parent;
-	
 	protected SceneParser childParser;
 	protected List<SceneCommand> commands;
 	protected List<MapEvent> controlledEvents;
@@ -44,40 +40,42 @@ public class SceneParser implements	Updateable,
 	protected float timeSinceStart;
 	
 	/**
-	 * Creates a new scene parser from data. Does not autoplay.
-	 * @param 	mdo				The data to create from
-	 * @param	parent			The screen we'll be parsing on
+	 * Creates a scene parser with no commands. It's expected that somewhere
+	 * along the way it will be filled in with some commands. This is useful for
+	 * generating dialog on the fly.
 	 */
-	public SceneParser(SceneMDO mdo, Screen parent) {
-		this.mdo = mdo;
-		this.parent = parent;
-		init();
+	public SceneParser() {
+		this.executed = false;
+		this.running = false;
+		this.controlledEvents = new ArrayList<MapEvent>();
+		this.listeners = new ArrayList<FinishListener>();
+		this.timeSinceStart = 0;
 	}
 	
 	/**
 	 * Creates a new scene parser for a given file. No autoplay. Assumes no
 	 * repeat.
 	 * @param	fileName		The filename to load, relative to scenes dir
-	 * @param	parent			The screen to make for
 	 */
-	public SceneParser(String filename, Screen parent) {
-		this.mdo = new SceneMDO();
-		this.parent = parent;
-		mdo.file = filename;
-		mdo.repeat = TriggerRepeatType.RUN_ONLY_ONCE;
-		init();
+	public SceneParser(String filename) {
+		this();
+		this.filename = Constants.SCENES_DIR + filename;
 	}
 	
 	/** @return The screen we're running on */
 	public Screen getScreen() { return parent; }
 	
 	/**
+	 * Load the file if we're using one, otherwise we're anonymous and assume
+	 * all the commands have been manually added.
 	 * @see net.wombatrpgs.saga.maps.MapThing#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		manager.load(Constants.SCENES_DIR + mdo.file, SceneData.class);
+		if (filename != null) {
+			manager.load(filename, SceneData.class);
+		}
 	}
 
 	/**
@@ -126,7 +124,11 @@ public class SceneParser implements	Updateable,
 	 */
 	@Override
 	public String toString() {
-		return filename;
+		if (filename != null) {
+			return filename;
+		} else {
+			return "anon scene";
+		}
 	}
 
 	/**
@@ -167,30 +169,23 @@ public class SceneParser implements	Updateable,
 	public float getTimeSinceStart() { return this.timeSinceStart; }
 
 	/**
-	 * Runs the scene assuming it should be run in the current context. Right
-	 * now the only context is if a scene has been played before.
-	 * @param	level			The level this command was executed on
+	 * Runs the scene assuming it should be run in the current context. The only
+	 * check is to make sure it isn't already running. This always runs on the
+	 * current screen.
 	 */
 	public void run() {
-		if (!running && (!executed || mdo.repeat == TriggerRepeatType.RUN_EVERY_TIME)) {
-			if (executed) reset();
-			forceRun();
-		}
-	}
-	
-	/**
-	 * Just run the scene, regardless of context.
-	 */
-	public void forceRun() {
 		if (running) {
-			SGlobal.reporter.inform("Aborted a parser on " + parent + ": " + this);
-			terminate();
+			SGlobal.reporter.warn("Trying to run a running scene: " + this);
+			return;
 		}
+		
 		SGlobal.reporter.inform("Now running a scene: " + this);
+		ourMap = new CMapScene();
+		parent = SGlobal.screens.peek();
+		parent.addUChild(this);
+		parent.pushCommandContext(ourMap);
 		running = true;
 		timeSinceStart = 0;
-		ourMap = new CMapScene();
-		parent.pushCommandContext(ourMap);
 	}
 	
 	/**
@@ -230,20 +225,6 @@ public class SceneParser implements	Updateable,
 			listener.onFinish();
 		}
 		listeners.clear();
-	}
-	
-	/**
-	 * Common post-constructor.
-	 */
-	protected void init() {
-		this.executed = false;
-		this.running = false;
-		this.filename = Constants.SCENES_DIR + mdo.file;
-		this.controlledEvents = new ArrayList<MapEvent>();
-		this.listeners = new ArrayList<FinishListener>();
-		this.timeSinceStart = 0;
-		
-		parent.addUChild(this);
 	}
 
 }

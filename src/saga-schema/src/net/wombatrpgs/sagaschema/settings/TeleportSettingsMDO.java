@@ -7,10 +7,9 @@
 package net.wombatrpgs.sagaschema.settings;
 
 import net.wombatrpgs.mgns.core.Annotations.Desc;
+import net.wombatrpgs.mgns.core.Annotations.FileLink;
 import net.wombatrpgs.mgns.core.Annotations.Path;
-import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
-import net.wombatrpgs.sagaschema.cutscene.SceneMDO;
 
 /**
  * Teleport pre/post scripts
@@ -19,11 +18,11 @@ import net.wombatrpgs.sagaschema.cutscene.SceneMDO;
 public class TeleportSettingsMDO extends MainSchema {
 	
 	@Desc("Pre-scene - will play before all teleports, shouldn't contain event references")
-	@SchemaLink(SceneMDO.class)
+	@FileLink("scenes")
 	public String pre;
 	
 	@Desc("Post-scene - will play after all teleports, shouldn't contain event references")
-	@SchemaLink(SceneMDO.class)
+	@FileLink("scenes")
 	public String post;
 
 }
