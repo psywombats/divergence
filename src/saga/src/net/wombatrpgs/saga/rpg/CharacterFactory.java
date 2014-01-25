@@ -28,7 +28,8 @@ public class CharacterFactory {
 	 */
 	public static CharacterEvent create(CharacterMDO mdo, Level parent) {
 		if (HeroMDO.class.isAssignableFrom(mdo.getClass())) {
-			return new Avatar((HeroMDO) mdo, parent);
+			// return new Avatar((HeroMDO) mdo, parent);
+			return null;
 		} else {
 			SGlobal.reporter.warn("Generic character spawned: " + mdo.key);
 			return new CharacterEvent(mdo, parent);

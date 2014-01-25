@@ -133,11 +133,11 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	
 	/** @see net.wombatrpgs.saga.graphics.PreRenderable#getRenderX() */
 	@Override
-	public int getRenderX() { return (int) getX(); }
+	public int getRenderX() { return Math.round(getX()); }
 
 	/** @see net.wombatrpgs.saga.graphics.PreRenderable#getRenderY() */
 	@Override
-	public int getRenderY() { return (int) getY(); }
+	public int getRenderY() { return Math.round(getY()); }
 
 	/**
 	 * Default is inivisible.
@@ -158,9 +158,6 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 		float vx = (tileX*tWidth - x) / parent.getMoveTimeLeft();
 		float vy = (tileY*tHeight - y) / parent.getMoveTimeLeft();
 		setVelocity(vx, vy);
-		
-		System.out.println("moving for " + (tileX * tWidth) + " , " + (tileY * tHeight) +
-				" with velocity " + vx + " , " + vy);
 	}
 	
 	/**

@@ -18,6 +18,7 @@ public abstract class Step {
 	protected CharacterEvent actor;
 	protected float allotted;
 	protected float totalElapsed;
+	protected boolean started;
 	
 	/**
 	 * Creates a blank travel step.
@@ -33,6 +34,10 @@ public abstract class Step {
 	 * @param	elapsed			The time since last update
 	 */
 	public void update(float elapsed) {
+		if (!started) {
+			started = true;
+			onStart();
+		}
 		this.totalElapsed += elapsed;
 	}
 	
@@ -43,6 +48,13 @@ public abstract class Step {
 	 */
 	public void setTime(float allottedTime) {
 		this.allotted = allottedTime;
+	}
+	
+	/**
+	 * Called when the event starts executing this step.
+	 */
+	public void onStart() {
+		// default is nothing
 	}
 	
 	/**

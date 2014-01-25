@@ -14,6 +14,8 @@ import net.wombatrpgs.saga.rpg.CharacterEvent;
 public class StepMove extends Step {
 	
 	protected int tileX, tileY;
+	protected float dirX, dirY;
+	protected float targetX, targetY;
 
 	/**
 	 * Creates a new move step for the specified actor to a specified location.
@@ -25,24 +27,26 @@ public class StepMove extends Step {
 		super(actor);
 		this.tileX = tileX;
 		this.tileY = tileY;
+		
+		targetX = tileX * actor.getParent().getTileWidth();
+		targetY = tileY * actor.getParent().getTileHeight();
+		dirX = targetX - actor.getX();
+		dirY = targetY - actor.getY();
 	}
 
 	/**
-	 * @see net.wombatrpgs.saga.rpg.travel.Step#update(float)
+	 * @see net.wombatrpgs.saga.rpg.travel.Step#onStart()
 	 */
 	@Override
-	public void update(float elapsed) {
-		super.update(elapsed);
-		if (!actor.isMoving()) {
-			float targetX = tileX * actor.getParent().getTileWidth();
-			float targetY = tileY * actor.getParent().getTileHeight();
-			if (actor.getX() != targetX || actor.getY() != targetY) {
-				float dx = targetX - actor.getX();
-				float dy = targetY - actor.getY();
-				float t = allotted - totalElapsed;
-				actor.setVelocity(dx / t, dy / t);
-				actor.targetLocation(targetX, targetY);
-			}
+	public void onStart() {
+		super.onStart();
+		float dx = targetX - actor.getX();
+		float dy = targetY - actor.getY();
+		float t = allotted;
+		float vx = dx / t;
+		float vy = dy / t;
+		if (Math.abs(vx-actor.getVX()) > 1 || Math.abs(vy-actor.getVY()) > 1) {
+			actor.setVelocity(vx, vy);
 		}
 	}
 
@@ -52,8 +56,6 @@ public class StepMove extends Step {
 	@Override
 	public void onEnd() {
 		super.onEnd();
-		float targetX = tileX * actor.getParent().getTileWidth();
-		float targetY = tileY * actor.getParent().getTileHeight();
 		actor.setX(targetX);
 		actor.setY(targetY);
 		actor.halt();

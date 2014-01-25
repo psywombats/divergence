@@ -36,6 +36,11 @@ public class CMapGame extends EasyCommandMap {
 		bindings.put(new InputEvent(InputButton.DOWN,		EventType.HOLD),	InputCommand.MOVE_DOWN);
 		bindings.put(new InputEvent(InputButton.LEFT,		EventType.HOLD),	InputCommand.MOVE_LEFT);
 		bindings.put(new InputEvent(InputButton.RIGHT,		EventType.HOLD),	InputCommand.MOVE_RIGHT);
+		
+		bindings.put(new InputEvent(InputButton.UP,			EventType.RELEASE),	InputCommand.MOVE_STOP);
+		bindings.put(new InputEvent(InputButton.DOWN,		EventType.RELEASE),	InputCommand.MOVE_STOP);
+		bindings.put(new InputEvent(InputButton.LEFT,		EventType.RELEASE),	InputCommand.MOVE_STOP);
+		bindings.put(new InputEvent(InputButton.RIGHT,		EventType.RELEASE),	InputCommand.MOVE_STOP);
 	}
 	
 }

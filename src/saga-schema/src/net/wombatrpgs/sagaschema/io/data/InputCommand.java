@@ -17,6 +17,7 @@ public enum InputCommand {
 	MOVE_LEFT,
 	MOVE_DOWN,
 	MOVE_RIGHT,
+	MOVE_STOP,
 	
 	WORLD_INTERACT,
 	WORLD_PAUSE,

@@ -104,7 +104,7 @@ public class Keymap implements	InputProcessor,
 	 * Registers a new object to listen for meta-button presses.
 	 * @param 	listener		The listener to register
 	 */
-	public final void registerListener(ScreenStack listener) {
+	public  void registerListener(ScreenStack listener) {
 		listeners.add(listener);
 	}
 	
@@ -112,13 +112,24 @@ public class Keymap implements	InputProcessor,
 	 * Unregisters an existing listener from meta-button presses.
 	 * @param 	listener		The listener to unregister
 	 */
-	public final void unregisterListener(ScreenStack listener) {
+	public void unregisterListener(ScreenStack listener) {
 		if (listeners.contains(listener)) {
 			listeners.remove(listener);
 		} else {
 			SGlobal.reporter.warn("The listener " + listener + " is not " +
 					"actually listening to " + this);
 		}
+	}
+	
+	/**
+	 * Gets the state of a specific input button. This should really only be
+	 * called by the command map as part of a reverse-mapping for very specific
+	 * polling situations.
+	 * @param	button			The button to fetch state
+	 * @return					The current state of that button's key
+	 */
+	public KeyState getButtonState(InputButton button) {
+		return states.get(button);
 	}
 
 	/**

@@ -19,9 +19,9 @@ import net.wombatrpgs.sagaschema.maps.data.OrthoDir;
  */
 public class Avatar extends CharacterEvent implements CommandListener {
 	
-	public static final int ABILITIES_MAX = 6;
-	
 	protected static final String HERO_DEFAULT = "hero_default";
+	
+	protected OrthoDir dirToMove, lastMove;
 
 	/**
 	 * Placeholder constructor. When the hero is finally initialized properly
@@ -34,15 +34,7 @@ public class Avatar extends CharacterEvent implements CommandListener {
 	public Avatar(Level parent) {
 		super(SGlobal.data.getEntryFor(HERO_DEFAULT, HeroMDO.class));
 		this.parent = parent;
-	}
-	
-	/**
-	 * See above. Deprecated.
-	 * @param mdo
-	 * @param parent
-	 */
-	public Avatar(HeroMDO mdo, Level parent) {
-		super(mdo, parent);
+		dirToMove = null;
 	}
 
 	/**
@@ -62,26 +54,51 @@ public class Avatar extends CharacterEvent implements CommandListener {
 	}
 
 	/**
+	 * @see net.wombatrpgs.saga.rpg.CharacterEvent#stopMoving()
+	 */
+	@Override
+	public void stopMoving() {
+		if (dirToMove == null) {
+			super.stopMoving();
+		} else {
+			if (lastMove != dirToMove) {
+				super.stopMoving();
+			}
+			lastStep = null;
+			travelPlan.clear();
+			move(dirToMove);
+		}
+	}
+
+	/**
 	 * @see net.wombatrpgs.saga.io.CommandListener#onCommand
 	 * (net.wombatrpgs.sagaschema.io.data.InputCommand)
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-		
+		if (command == InputCommand.MOVE_STOP) {
+			dirToMove = null;
+		}
 		if (SGlobal.levelManager.getActive().isMoving()) {
+			switch (command) {
+			case MOVE_LEFT:			dirToMove = OrthoDir.WEST;		break;
+			case MOVE_UP:			dirToMove = OrthoDir.NORTH;		break;
+			case MOVE_RIGHT:		dirToMove = OrthoDir.EAST;		break;
+			case MOVE_DOWN:			dirToMove = OrthoDir.SOUTH;		break;
+			default:												break;
+			}
+			return true;
+		} else {
+			switch (command) {
+			case MOVE_LEFT:			move(OrthoDir.WEST);	break;
+			case MOVE_UP:			move(OrthoDir.NORTH);	break;
+			case MOVE_RIGHT:		move(OrthoDir.EAST);	break;
+			case MOVE_DOWN:			move(OrthoDir.SOUTH);	break;
+			case WORLD_INTERACT:	interact();				break;
+			default:				return false;
+			}
 			return true;
 		}
-		
-		switch (command) {
-		case MOVE_LEFT:			move(OrthoDir.WEST);	break;
-		case MOVE_UP:			move(OrthoDir.NORTH);	break;
-		case MOVE_RIGHT:		move(OrthoDir.EAST);	break;
-		case MOVE_DOWN:			move(OrthoDir.SOUTH);	break;
-		case WORLD_INTERACT:	interact();				break;
-		default:				return false;
-		}
-		
-		return true;
 	}
 	
 	/**
@@ -90,6 +107,7 @@ public class Avatar extends CharacterEvent implements CommandListener {
 	 */
 	protected void move(OrthoDir dir) {
 		attemptStep(dir);
+		lastMove = dir;
 		if (!parent.isMoving()) {
 			parent.onTurn();
 		}
