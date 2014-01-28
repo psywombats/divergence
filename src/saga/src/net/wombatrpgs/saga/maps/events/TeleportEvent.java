@@ -55,11 +55,11 @@ public class TeleportEvent extends MapEvent {
 	}
 
 	/**
-	 * @see net.wombatrpgs.saga.maps.events.MapEvent#collideWith
+	 * @see net.wombatrpgs.saga.maps.events.MapEvent#onCollide
 	 * (net.wombatrpgs.saga.rpg.CharacterEvent)
 	 */
 	@Override
-	public void collideWith(CharacterEvent character) {
+	public void onCollide(CharacterEvent character) {
 		if (!triggered && character == SGlobal.getHero()) {
 			triggered = true;
 			victim = character;

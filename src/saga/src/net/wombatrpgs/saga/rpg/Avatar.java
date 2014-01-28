@@ -106,10 +106,11 @@ public class Avatar extends CharacterEvent implements CommandListener {
 	 * @param	dir				The direction to move
 	 */
 	protected void move(OrthoDir dir) {
-		attemptStep(dir);
-		lastMove = dir;
-		if (!parent.isMoving()) {
-			parent.onTurn();
+		if (attemptStep(dir)) {
+			lastMove = dir;
+			if (!parent.isMoving()) {
+				parent.onTurn();
+			}
 		}
 	}
 	

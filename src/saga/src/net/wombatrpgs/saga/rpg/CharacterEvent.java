@@ -304,14 +304,15 @@ public class CharacterEvent extends MapEvent implements Turnable {
 	 * travel step.
 	 * @param	targetX			The target location x-coord, in pixels
 	 * @param	targetY			The target location y-coord, in pixels
+	 * @return					True if the move succeeded, false if we hit
 	 */
-	public void attemptStep(int targetX, int targetY) {
+	public boolean attemptStep(int targetX, int targetY) {
 		faceToward(targetX, targetY);
 		if (parent.isTilePassable(this, targetX, targetY)) {
 			List<MapEvent> events = parent.getEventsAt(targetX, targetY);
 			boolean colliding = false;
 			for (MapEvent event : events) {
-				event.collideWith(this);
+				event.onCollide(this);
 				if (!event.isPassable()) {
 					travelPlan.add(new StepBump(this, directionTo(targetX, targetY)));
 					colliding = true;
@@ -321,34 +322,37 @@ public class CharacterEvent extends MapEvent implements Turnable {
 				travelPlan.add(new StepMove(this, targetX, targetY));
 				tileX = targetX;
 				tileY = targetY;
+				return true;
 			}
 		} else {
-			travelPlan.add(new StepBump(this, directionTo(targetX, targetY)));
+			// travelPlan.add(new StepBump(this, directionTo(targetX, targetY)));
 			List<MapEvent> events = parent.getEventsAt(getTileX(), getTileY());
 			for (MapEvent event : events) {
 				if (event != this) {
-					event.collideWith(this);
+					event.onCollide(this);
 				}
 			}
 		}
+		return false;
 	}
 	
 	/**
-	 * Attempts to step in a particular direction
-	 * @param	dir				The direction to step.
+	 * Attempts to step in a particular direction.
+	 * @param	dir				The direction to step
+	 * @return					True if the move succeeded, false if we hit
 	 */
-	public void attemptStep(OrthoDir dir) {
+	public boolean attemptStep(OrthoDir dir) {
 		int targetX = (int) (tileX + dir.getVector().x);
 		int targetY = (int) (tileY + dir.getVector().y);
-		attemptStep(targetX, targetY);
+		return attemptStep(targetX, targetY);
 	}
 
 	/**
-	 * @see net.wombatrpgs.saga.maps.events.MapEvent#collideWith
+	 * @see net.wombatrpgs.saga.maps.events.MapEvent#onCollide
 	 * (net.wombatrpgs.saga.rpg.CharacterEvent)
 	 */
 	@Override
-	public void collideWith(CharacterEvent character) {
+	public void onCollide(CharacterEvent character) {
 		// usually nothing
 	}
 

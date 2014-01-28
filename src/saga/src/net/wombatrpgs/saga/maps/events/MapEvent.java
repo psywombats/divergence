@@ -397,7 +397,7 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	 * and so on.
 	 * @param	character		The jerk that ran into us
 	 */
-	public void collideWith(CharacterEvent character) {
+	public void onCollide(CharacterEvent character) {
 		// default is nothing
 	}
 	
