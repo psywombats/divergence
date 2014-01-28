@@ -83,7 +83,7 @@ public class GameScreen extends Screen {
 			FontHolder font = new FontHolder(fontMDO);
 			TextBoxMDO textMDO = SGlobal.data.getEntryFor(testMDO.box, TextBoxMDO.class);
 			TextBox box = new TextBox(textMDO, font);
-			box.setLine(testMDO.text);
+			box.setText(testMDO.text);
 			assets.add(box);
 			addObject(box);
 		}

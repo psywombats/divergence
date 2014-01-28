@@ -20,6 +20,8 @@ import net.wombatrpgs.sagaschema.io.data.InputCommand;
  * Usage: {@code wait(<time>)}
  */
 public class SceneSpeak extends OneArgFunction {
+	
+	protected static final float FADE_TIME = .1f;
 
 	/**
 	 * @see org.luaj.vm2.lib.OneArgFunction#call(org.luaj.vm2.LuaValue)
@@ -33,9 +35,8 @@ public class SceneSpeak extends OneArgFunction {
 			boolean setText;
 			
 			@Override protected void internalRun() {
-				blocking = false;
 				box = SGlobal.ui.getBox();
-				box.fadeIn(parent.getScreen());
+				box.fadeIn(parent.getScreen(), FADE_TIME);
 				blocking = true;
 				setText = false;
 			}
@@ -44,7 +45,7 @@ public class SceneSpeak extends OneArgFunction {
 				super.update(elapsed);
 				if (box.isTweening()) return;
 				if (!setText) {
-					box.setLine(arg.toString());
+					box.setText(arg.toString());
 					setText = true;
 				}
 			}
@@ -52,7 +53,7 @@ public class SceneSpeak extends OneArgFunction {
 			@Override public boolean onCommand(InputCommand command) {
 				if (blocking && command == InputCommand.UI_CONFIRM) {
 					if (box.isFinished()) {
-						box.fadeOut();
+						box.fadeOut(FADE_TIME);
 						blocking = false;
 					} else {
 						box.hurryUp();

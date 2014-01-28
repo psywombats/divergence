@@ -1,3 +1,4 @@
 require('net.wombatrpgs.saga.scenes.SceneLib')
 
-tint(0, 0, 0, .5)
+--tint(0, 0, 0, .5)
+speak('in the new age of madness, no one is safe from the perils of pirates and pirates are great miscellaneous terrible things that must be avoided for extra length')

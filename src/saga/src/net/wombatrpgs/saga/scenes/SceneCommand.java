@@ -110,6 +110,7 @@ public abstract class SceneCommand implements	Queueable,
 	 */
 	public final void run(SceneParser parent) {
 		this.parent = parent;
+		finished = false;
 		running = true;
 		timeSinceStart = 0;
 		internalRun();

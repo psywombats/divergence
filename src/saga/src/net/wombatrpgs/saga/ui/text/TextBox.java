@@ -7,10 +7,10 @@
 package net.wombatrpgs.saga.ui.text;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 
@@ -39,12 +39,11 @@ import net.wombatrpgs.sagaschema.ui.data.BoxAnchorType;
  */
 public class TextBox extends ScreenDrawable {
 	
-	protected static final float FADE_TIME = .3f;
-	
 	protected TextBoxMDO mdo;
 	protected FontHolder font;
 	
-	protected List<String> lines;
+	protected List<String> words;
+	protected List<String> currentLines;
 	protected List<String> visibleLines;
 	
 	protected Screen parent;
@@ -52,11 +51,11 @@ public class TextBox extends ScreenDrawable {
 	protected TextBoxFormat bodyFormat, nameFormat;
 	protected SoundObject typeSfx;
 	protected float sinceChar;
-	protected int visibleChars;
 	protected int totalLength;
+	protected int visibleChars;
 	protected int boxHeight;
 	protected boolean waiting;
-	protected boolean fadingOut;
+	protected boolean allVisible;
 	
 	/**
 	 * Creates a new text box from data. Does not deal with the loading of its
@@ -72,8 +71,9 @@ public class TextBox extends ScreenDrawable {
 		this.sinceChar = 0;
 		this.bodyFormat = new TextBoxFormat();
 		this.nameFormat = new TextBoxFormat();
-		this.lines = new ArrayList<String>();
+		this.currentLines = new ArrayList<String>();
 		this.visibleLines = new ArrayList<String>();
+		this.words = new ArrayList<String>();
 		this.waiting = false;
 		this.fadingOut = false;
 		
@@ -139,31 +139,41 @@ public class TextBox extends ScreenDrawable {
 	}
 
 	/**
+	 * @see net.wombatrpgs.saga.graphics.ScreenDrawable#fadeIn
+	 * (net.wombatrpgs.saga.screen.Screen, float)
+	 */
+	@Override
+	public void fadeIn(Screen screen, float fadeTime) {
+		reset();
+		super.fadeIn(screen, fadeTime);
+	}
+
+	/**
 	 * @see net.wombatrpgs.saga.maps.objects.Picture#update(float)
 	 */
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
 		
-		if (fadingOut && !isTweening()) {
-			parent.removeObject(this);
-		}
-		
-		if (lines.size() == 0) return;
+		if (currentLines.size() == 0) return;
 		if (waiting) return;
+		if (allVisible) return;
 		
 		sinceChar += elapsed;
 		boolean playedType = false;
 		for (; sinceChar > 1f/mdo.typeSpeed; sinceChar -= 1f/mdo.typeSpeed) {
 			visibleChars += 1;
 			if (visibleChars > totalLength) {
-				visibleLines = lines;
+				for (int i = 0; i < mdo.lines; i += 1) {
+					Collections.copy(visibleLines, currentLines);
+				}
+				allVisible = true;
 				return;
 			}
 			int at = visibleChars;
 			int atLine = 0;
-			for (atLine = 0; atLine < lines.size(); atLine++) {
-				String line = lines.get(atLine);
+			for (atLine = 0; atLine < currentLines.size(); atLine++) {
+				String line = currentLines.get(atLine);
 				if (line.length() < at) {
 					visibleLines.set(atLine, line);
 					at -= line.length();
@@ -177,7 +187,7 @@ public class TextBox extends ScreenDrawable {
 								typeSfx.play();
 							} else if (special == 'n') {
 								waiting = true;
-								lines.set(atLine, line.substring(0, line.indexOf("\\n")));
+								currentLines.set(atLine, line.substring(0, line.indexOf("\\n")));
 								sinceChar = 0;
 								break;
 							}
@@ -192,65 +202,10 @@ public class TextBox extends ScreenDrawable {
 					break;
 				}
 			}
-			if (atLine == lines.size()) {
+			if (atLine == currentLines.size()) {
 				visibleChars = totalLength;
 			}
 		}
-	}
-	
-	/**
-	 * Causes the text box to fade in to the current screen. Clears any text on
-	 * the box.
-	 * @param	screen			The screen to fade in on
-	 */
-	public void fadeIn(Screen screen) {
-		this.parent = screen;
-		reset();
-		setColor(new Color(1, 1, 1, 0));
-		if (!screen.containsChild(this)) {
-			screen.addObject(this);
-		}
-		tweenTo(new Color(1, 1, 1, 1), FADE_TIME);
-	}
-	
-	/**
-	 * Gracefully exits from the screen.
-	 */
-	public void fadeOut() {
-		tweenTo(new Color(1, 1, 1, 0), FADE_TIME);
-		fadingOut = true;
-	}
-	
-	/**
-	 * Speeds up this box's movement, either by tnstantly displaying all
-	 * characters in the box or by unsetting its most recent wait.
-	 */
-	public void hurryUp() {
-		if (waiting) {
-			waiting = false;
-			sinceChar = 0;
-		} else {
-			sinceChar = Float.MAX_VALUE;
-		}
-	}
-	
-	/**
-	 * Checks if this text box has finished autotyping chars.
-	 * @return				True if this text box is done, false otherwise
-	 */
-	public boolean isFinished() {
-		return visibleChars >= totalLength;
-	}
-	
-	/**
-	 * Resets this text box.
-	 */
-	public void reset() {
-		sinceChar = 0;
-		visibleChars = 0;
-		lines.clear();
-		visibleLines.clear();
-		fadingOut = false;
 	}
 	
 	/**
@@ -262,40 +217,99 @@ public class TextBox extends ScreenDrawable {
 	 * cutscenes. This does not add the textbox to the current screen.
 	 * @param	text			The hunk of text to display	
 	 */
-	public void setLine(String text) {
-		// it turns out that using the built-in libgdx text display is the
-		// easiest way to do this, just have to make sure the bounds of the
-		// text box are set properly
-		setText(text);
+	public void setText(String text) {
+		reset();
+		Collections.addAll(words, text.split("\\s+"));
+		advanceLines(mdo.lines);
 	}
 	
 	/**
-	 * Sets the lines that are displayed by the text box. These should be
-	 * pre-formatted. One string is displayed per line.
-	 * @param 	lines			The lines to be displayed in the box.
+	 * Speeds up this box's movement, either by instantly displaying all
+	 * characters in the box or by unsetting its most recent wait.
 	 */
-	public void setLines(List<String> lines) {
-		this.lines = lines;
-		this.visibleLines = new ArrayList<String>();
-		for (int i = 0; i < lines.size(); i++) {
+	public void hurryUp() {
+		if (waiting) {
+			waiting = false;
+			sinceChar = 0;
+		} else if (visibleChars < totalLength) {
+			sinceChar = Float.MAX_VALUE;
+		} else {
+			advanceLines(1);
+		}
+	}
+	
+	/**
+	 * Checks if this text box has finished autotyping chars.
+	 * @return				True if this text box is done, false otherwise
+	 */
+	public boolean isFinished() {
+		return allVisible && words.size() == 0;
+	}
+	
+	/**
+	 * Resets this text box. Called internally when new text is set.
+	 */
+	protected void reset() {
+		sinceChar = 0;
+		visibleChars = 0;
+		fadingOut = false;
+		allVisible = false;
+		waiting = false;
+		
+		words.clear();
+		currentLines.clear();
+		visibleLines.clear();
+		for (int i = 0; i < mdo.lines; i += 1) {
+			currentLines.add("");
 			visibleLines.add("");
 		}
-		this.sinceChar = 0;
-		for (String line : lines) {
-			totalLength += line.length();
-		}
-		sinceChar = 0;
 	}
 	
 	/**
-	 * Sets the internal text to be displayed at this textbox. Nothing fancy.
-	 * This only displays one line so you probably don't want to use this.
-	 * @param 	text			The text to be displayed
+	 * Moves the line display forward by moving text from remaining to the
+	 * current lines category.
+	 * @param	toAdvance			How many lines to move (usually 1)
 	 */
-	protected void setText(String text) {
-		List<String> lines = new ArrayList<String>();
-		lines.add(text);
-		setLines(lines);
+	protected void advanceLines(int toAdvance) {
+		
+		// split the words into lines that fit the box
+		int lineNo = 0;
+		for (; lineNo < toAdvance && words.size() > 0; lineNo += 1) {
+			String lastGood = "";
+			String test = words.get(0);
+			while (!font.isTooLong(bodyFormat, test)) {
+				lastGood = test;
+				words.remove(0);
+				if (words.size() == 0) {
+					break;
+				}
+				test = test + " " + words.get(0);
+			}
+			currentLines.add(lastGood);
+			visibleLines.add("");
+			totalLength -= currentLines.get(0).length();
+			currentLines.remove(0);
+			visibleLines.remove(0);
+		}
+		
+		// fill in empty space if we're advancing past what we have
+		for (; lineNo < toAdvance; lineNo += 1) {
+			currentLines.add("");
+			currentLines.remove(0);
+		}
+		
+		// recalculate total chars to go
+		for (String line : currentLines) {
+			totalLength += line.length();
+		}
+		
+		// recalculate visible characters
+		visibleChars = 0;
+		allVisible = false;
+		sinceChar = 0;
+		for (String line : visibleLines) {
+			visibleChars += line.length();
+		}
 	}
 
 }

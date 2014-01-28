@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.saga.maps.PositionSetable;
+import net.wombatrpgs.saga.screen.Screen;
 import net.wombatrpgs.saga.screen.ScreenObject;
 
 /**
@@ -19,9 +20,11 @@ import net.wombatrpgs.saga.screen.ScreenObject;
  */
 public abstract class ScreenDrawable extends ScreenObject implements PositionSetable {
 	
-	public SpriteBatch batch;
+	protected SpriteBatch batch;
+	protected Screen parent;
 	protected Color currentColor;
 	protected float x, y;
+	protected boolean fadingOut;
 	
 	protected boolean tweening;
 	protected Color tweenTargetColor;
@@ -62,6 +65,9 @@ public abstract class ScreenDrawable extends ScreenObject implements PositionSet
 	 */
 	@Override
 	public void update(float elapsed) {
+		if (fadingOut && !isTweening()) {
+			parent.removeObject(this);
+		}
 		if (tweening) {
 			tweenTime += elapsed;
 			float r;
@@ -110,6 +116,30 @@ public abstract class ScreenDrawable extends ScreenObject implements PositionSet
 		this.tweenEnd = time;
 		this.tweenTime = 0;
 		this.tweening = true;
+	}
+	
+	/**
+	 * Causes the text box to fade in to the current screen. Clears any text on
+	 * the box.
+	 * @param	screen			The screen to fade in on
+	 * @param	fadeTime		How long the transition should take
+	 */
+	public void fadeIn(Screen screen, float fadeTime) {
+		this.parent = screen;
+		setColor(new Color(1, 1, 1, 0));
+		if (!screen.containsChild(this)) {
+			screen.addObject(this);
+		}
+		tweenTo(new Color(1, 1, 1, 1), fadeTime);
+	}
+	
+	/**
+	 * Gracefully exits from the screen.
+	 * @param	fadeTime		How long the transition should take
+	 */
+	public void fadeOut(float fadeTime) {
+		tweenTo(new Color(1, 1, 1, 0), fadeTime);
+		fadingOut = true;
 	}
 	
 	/**
