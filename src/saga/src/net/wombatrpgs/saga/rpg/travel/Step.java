@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.saga.rpg.travel;
 
-import net.wombatrpgs.saga.rpg.CharacterEvent;
+import net.wombatrpgs.saga.maps.events.MapEvent;
 
 /**
  * A travel is a discrete move in a series that represents where a character
@@ -15,7 +15,7 @@ import net.wombatrpgs.saga.rpg.CharacterEvent;
  */
 public abstract class Step {
 	
-	protected CharacterEvent actor;
+	protected MapEvent actor;
 	protected float allotted;
 	protected float totalElapsed;
 	protected boolean started;
@@ -24,7 +24,7 @@ public abstract class Step {
 	 * Creates a blank travel step.
 	 * @param	actor			The character moving
 	 */
-	public Step(CharacterEvent actor) {
+	public Step(MapEvent actor) {
 		this.totalElapsed = 0;
 		this.actor = actor;
 	}

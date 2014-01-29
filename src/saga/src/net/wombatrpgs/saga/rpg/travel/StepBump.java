@@ -7,7 +7,7 @@
 package net.wombatrpgs.saga.rpg.travel;
 
 import net.wombatrpgs.saga.core.SGlobal;
-import net.wombatrpgs.saga.rpg.CharacterEvent;
+import net.wombatrpgs.saga.maps.events.MapEvent;
 import net.wombatrpgs.sagaschema.maps.data.EightDir;
 
 /**
@@ -27,7 +27,7 @@ public class StepBump extends Step {
 	 * @param	actor			The dude doing the bumping
 	 * @param	dir				The direction of the bump
 	 */
-	public StepBump(CharacterEvent actor, EightDir dir) {
+	public StepBump(MapEvent actor, EightDir dir) {
 		super(actor);
 		this.dir = dir;
 		started = false;

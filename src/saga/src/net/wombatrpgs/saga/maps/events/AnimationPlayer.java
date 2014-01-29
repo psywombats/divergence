@@ -10,17 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.graphics.AnimationStrip;
+import net.wombatrpgs.saga.maps.MapThing;
 import net.wombatrpgs.sagaschema.graphics.AnimationMDO;
 
 /**
  * Plays an animation at a spot on the map. Does not do collisions, but can be
  * ordered to queue its resources.
  */
-public class AnimationPlayer extends MapEvent {
+public class AnimationPlayer extends MapThing {
 	
 	protected List<AnimationListener> listeners;
 	protected AnimationStrip animation;
@@ -32,7 +32,7 @@ public class AnimationPlayer extends MapEvent {
 	 */
 	public AnimationPlayer(AnimationMDO mdo) {
 		super();
-		this.animation = new AnimationStrip(mdo, this);
+		this.animation = new AnimationStrip(mdo);
 		this.listeners = new ArrayList<AnimationListener>();
 		assets.add(animation);
 	}
@@ -58,17 +58,9 @@ public class AnimationPlayer extends MapEvent {
 			for (AnimationListener listener : listeners) {
 				listener.onAnimationFinish(this);
 			}
-			parent.removeEvent(this);
+			parent.removeObject(this);
 			animation.stopMoving();
 		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.saga.graphics.PreRenderable#getRegion()
-	 */
-	@Override
-	public TextureRegion getRegion() {
-		return animation.getRegion();
 	}
 
 	/**

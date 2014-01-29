@@ -7,9 +7,7 @@
 package net.wombatrpgs.saga.maps;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,11 +18,9 @@ import net.wombatrpgs.saga.graphics.effects.Effect;
 import net.wombatrpgs.saga.graphics.effects.EffectFactory;
 import net.wombatrpgs.saga.io.audio.MusicObject;
 import net.wombatrpgs.saga.maps.events.MapEvent;
-import net.wombatrpgs.saga.maps.gen.MapGenerator;
 import net.wombatrpgs.saga.maps.layers.EventLayer;
 import net.wombatrpgs.saga.maps.layers.GeneratedGridLayer;
 import net.wombatrpgs.saga.maps.layers.GridLayer;
-import net.wombatrpgs.saga.rpg.CharacterEvent;
 import net.wombatrpgs.saga.screen.Screen;
 import net.wombatrpgs.saga.screen.ScreenObject;
 import net.wombatrpgs.sagaschema.audio.MusicMDO;
@@ -63,9 +59,6 @@ public abstract class Level extends ScreenObject implements Turnable {
 	protected boolean moving;
 	protected float moveTime;
 	
-	protected Map<String, Loc> teleLocations; // string ID to incoming location
-	
-	protected MapGenerator mapGen;
 	protected int mapWidth, mapHeight;
 	
 	/**
@@ -83,7 +76,6 @@ public abstract class Level extends ScreenObject implements Turnable {
 		objects = new ArrayList<MapThing>();
 		removalObjects = new ArrayList<MapThing>();
 		removalEvents = new ArrayList<MapEvent>();
-		teleLocations = new HashMap<String, Loc>();
 		
 		// etc
 		if (MapThing.mdoHasProperty(mdo.effect)) {
@@ -133,12 +125,6 @@ public abstract class Level extends ScreenObject implements Turnable {
 	
 	/** @return The time since the move started, in s */
 	public float getMoveTimeElapsed() { return SGlobal.constants.getDelay() - moveTime; }
-	
-	/** @return The number of characters on the map */
-	public int getPopulation() { return eventLayer.getCharacters().size(); }
-	
-	/** @return All the characters currently on this map */
-	public List<CharacterEvent> getCharacters() { return eventLayer.getCharacters(); }
 	
 	/** @return The key to this map's mdo */
 	public String getKey() { return mdo.key; }
@@ -359,32 +345,6 @@ public abstract class Level extends ScreenObject implements Turnable {
 	 */
 	public List<MapEvent> getEventsAt(int tileX, int tileY) {
 		return eventLayer.getEventsAt(tileX, tileY);
-	}
-	
-	/**
-	 * Looks up where to teleport in were a hero to try and warp from the
-	 * designated map.
-	 * @param	mapID			The MDO key of the map to look up
-	 * @return					The location of incoming characters from there
-	 */
-	public Loc getTeleInLoc(String mapID) {
-		Loc loc = teleLocations.get(mapID);
-		if (loc == null) {
-			SGlobal.reporter.err("No map found from " + this + " to " + mapID);
-		}
-		return loc;
-	}
-	
-	/**
-	 * Designates a teleport location for a specific map. Complains if we
-	 * already have a path to that map. Note that this prevents a map from
-	 * having multiple connections to the same map, but not >2 connections in
-	 * general.
-	 * @param	mapID			The ID of the map teleporting from
-	 * @param	teleLoc			The location on this map where we arrive
-	 */
-	public void setTeleInLoc(String mapID, Loc arriveLoc) {
-		teleLocations.put(mapID, arriveLoc);
 	}
 	
 	/**

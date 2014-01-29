@@ -14,7 +14,6 @@ import net.wombatrpgs.saga.core.Constants;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.io.command.CMapGame;
 import net.wombatrpgs.saga.maps.Level;
-import net.wombatrpgs.saga.maps.Loc;
 import net.wombatrpgs.saga.rpg.Avatar;
 import net.wombatrpgs.saga.screen.Screen;
 import net.wombatrpgs.saga.ui.text.FontHolder;
@@ -73,8 +72,8 @@ public class GameScreen extends Screen {
 			mapShader = (testShader);
 		}
 		
-		// all this stuff is crap
-		hero = new Avatar(SGlobal.levelManager.getActive());
+		// all this stuff is crap, not so much any more
+		hero = new Avatar();
 		assets.add(hero);
 		
 		TextBoxTestMDO testMDO = SGlobal.data.getEntryFor("test_textbox", TextBoxTestMDO.class);
@@ -122,7 +121,6 @@ public class GameScreen extends Screen {
 				hero.setTileY(SGlobal.rand.nextInt(map.getHeight()));
 			}
 			map.addEvent(hero);
-			map.setTeleInLoc("hero", new Loc(hero.getTileX(), hero.getTileY()));
 			hero.setX(hero.getTileX()*map.getTileWidth());
 			hero.setY(hero.getTileY()*map.getTileHeight());
 			getCamera().track(hero);

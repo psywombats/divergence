@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.saga.core.SGlobal;
-import net.wombatrpgs.saga.maps.events.MapEvent;
+import net.wombatrpgs.saga.maps.MapMovable;
 import net.wombatrpgs.sagaschema.graphics.EmitterMDO;
 import net.wombatrpgs.sagaschema.graphics.data.BounceType;
 import net.wombatrpgs.sagaschema.graphics.data.ReflectionType;
@@ -19,7 +19,7 @@ import net.wombatrpgs.sagaschema.graphics.data.ReflectionType;
  * A particle of something or other that's going to be spat across the scene.
  * These are usually generate automatically by particle sets.
  */
-public class Particle extends MapEvent {
+public class Particle extends MapMovable {
 	
 	protected static final float BOUNCE_SPEED = 192; // in px/s
 	protected static final float BOUNCE_DECAY = 768; // in px/s/s

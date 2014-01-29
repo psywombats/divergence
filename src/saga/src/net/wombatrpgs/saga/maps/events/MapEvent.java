@@ -6,17 +6,25 @@
  */
 package net.wombatrpgs.saga.maps.events;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.saga.core.SGlobal;
+import net.wombatrpgs.saga.core.Turnable;
+import net.wombatrpgs.saga.graphics.FacesAnimation;
+import net.wombatrpgs.saga.graphics.FacesAnimationFactory;
 import net.wombatrpgs.saga.graphics.PreRenderable;
-import net.wombatrpgs.saga.maps.Level;
-import net.wombatrpgs.saga.maps.MapThing;
-import net.wombatrpgs.saga.maps.PositionSetable;
-import net.wombatrpgs.saga.maps.layers.EventLayer;
-import net.wombatrpgs.saga.rpg.CharacterEvent;
+import net.wombatrpgs.saga.maps.MapMovable;
+import net.wombatrpgs.saga.rpg.travel.Step;
+import net.wombatrpgs.saga.rpg.travel.StepMove;
+import net.wombatrpgs.sagaschema.graphics.DirMDO;
+import net.wombatrpgs.sagaschema.maps.EventMDO;
 import net.wombatrpgs.sagaschema.maps.data.EightDir;
+import net.wombatrpgs.sagaschema.maps.data.OrthoDir;
 
 /**
  * A map event is any map object defined in Tiled, including characters and
@@ -25,66 +33,50 @@ import net.wombatrpgs.sagaschema.maps.data.EightDir;
  * 
  * MR: MapEvent is anything that exists in the world of tiles, as opposed to a
  * thing that just lives on a map. It isn't necessarily a character.
+ * 
+ * As of 2014-01-28, it's getting combined with character events to represent
+ * any object on the map, whether it moves or not.
  */
-public abstract class MapEvent extends MapThing implements	PositionSetable,
-															Comparable<MapEvent>,
-															PreRenderable {
+public class MapEvent extends MapMovable implements	PreRenderable,
+													Turnable {
 	
-	/** A thingy to fool the prerenderable, a sort of no-appear flag */
-	protected static final TextureRegion NO_APPEARANCE = null;
+	/** General children and info */
+	protected EventMDO mdo;
+	protected FacesAnimation appearance;
 	
-	/** Is this object hidden from view/interaction due to cutscene? */
-	protected boolean commandHidden;
-	protected boolean switchHidden;
-	/** Another toggle on our visibility - if it exists, link it to hidden */
-	protected String showSwitch;
-	protected String hideSwitch;
-	
-	/** Coords in pixels relative to map origin */
-	protected float x, y;
-	/** Coords in tiles, (0,0) is upper left */
+	/** Tile-based positioning */
 	protected int tileX, tileY;
-	/** Velocity the object is currently moving at in pixels/second */
-	protected float vx, vy;
-	/** Are we currently moving towards some preset destination? */
-	protected boolean tracking;
-	/** The place we're possibly moving for */
-	protected float targetX, targetY;
-	/** Gotta keep track of these for some reason (tracking reasons!) */
-	protected float lastX, lastY;
+	
+	/** Turns and turn-based data */
+	protected List<Turnable> turnChildren;
+	protected List<Step> travelPlan;
+	protected Step lastStep;
+	protected int ticksRemaining;
 
 	/**
-	 * Creates a new map event for the level at the origin.
-	 * @param 	parent		The parent level of the event
+	 * Creates a new map event for the level at the origin. It will need its
+	 * location set. This is private so use one of the public constructors that
+	 * takes location info instead.
+	 * @param	mdo				The data to construct from
 	 */
-	protected MapEvent(Level parent) {
-		super(parent);
+	protected MapEvent(EventMDO mdo) {
+		super();
+		this.mdo = mdo;
+		
+		this.turnChildren = new ArrayList<Turnable>();
+		if (mdoHasProperty(mdo.appearance)) {
+			DirMDO dirMDO = SGlobal.data.getEntryFor(mdo.appearance, DirMDO.class);
+			appearance = FacesAnimationFactory.create(dirMDO, this);
+			appearance.startMoving();
+			assets.add(appearance);
+		}
+		
+		travelPlan = new ArrayList<Step>();
+		
+		ticksRemaining = 0;
+		
 		zeroCoords();
 	}
-	
-	/**
-	 * Creates a blank map event associated with no map. Assumes the subclass
-	 * will do something interesting in its constructor.
-	 */
-	protected MapEvent() {
-		zeroCoords();
-	}
-	
-	/** @see net.wombatrpgs.saga.maps.Positionable#getX() */
-	@Override
-	public float getX() { return x; }
-
-	/** @see net.wombatrpgs.saga.maps.Positionable#getY() */
-	@Override
-	public float getY() { return y; }
-
-	/** @see net.wombatrpgs.saga.maps.PositionSetable#setX(int) */
-	@Override
-	public void setX(float x) { this.x = x; }
-
-	/** @see net.wombatrpgs.saga.maps.PositionSetable#setY(int) */
-	@Override
-	public void setY(float y) { this.y = y; }
 	
 	/** @param tileX The new x-coord of this event (in tiles) */
 	public void setTileX(int tileX) { this.tileX = tileX; }
@@ -92,82 +84,85 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	/** @param tileY The new y-coord of this event (in tiles) */
 	public void setTileY(int tileY) { this.tileY = tileY; }
 	
-	/** @return x-coord of the center of this object, in px */
-	public float getCenterX() { return x; }
-	
-	/** @return y-coord of the center of this object, in px */
-	public float getCenterY() { return y; }
-	
 	/** @return x-coord of this object, in tiles */
 	public int getTileX() { return tileX; }
 	
 	/** @return y-coord of this object, in tiles */
 	public int getTileY() { return tileY; }
 	
-	/** @return The x-velocity of this object, in px/s */
-	public float getVX() { return this.vx; }
+	/** @return The current appearance of this character */
+	public FacesAnimation getAppearance() { return appearance; }
 	
-	/** @return The y-velocity of this object, in px/s */
-	public float getVY() { return this.vy; }
+	/** @param s Another step on the ol' block */
+	public void addStep(Step s) { travelPlan.add(s); }
 	
-	/** @param f The offset to add to x */
-	public void moveX(float f) { this.x += f; }
-	
-	/** @param y The offset to add to x */
-	public void moveY(float g) { this.y += g; }
-	
-	/** @return True if this object is moving towards a location */
-	public boolean isTracking() { return tracking; }
-
-	
-	/**
-	 * Determines if this object is "stuck" or not. This means it's tracking
-	 * but hasn't moved much at all.
-	 * @return					True if the event is stuck, false otherwise
-	 */
-	public boolean isStuck() {
-		return 	isTracking() &&
-				Math.abs(lastX - x) < Math.abs(vx) / 2.f &&
-				Math.abs(lastY - y) < Math.abs(vy) / 2.f;
-	}
+	/** @param appearance The new anim for this event */
+	public void setAppearance(FacesAnimation appearance) { this.appearance = appearance; }
 	
 	/** @see net.wombatrpgs.saga.graphics.PreRenderable#getRenderX() */
-	@Override
-	public int getRenderX() { return Math.round(getX()); }
+	@Override public int getRenderX() { return Math.round(getX()); }
 
 	/** @see net.wombatrpgs.saga.graphics.PreRenderable#getRenderY() */
-	@Override
-	public int getRenderY() { return Math.round(getY()); }
+	@Override public int getRenderY() { return Math.round(getY()); }
 
+	/** @see net.wombatrpgs.saga.graphics.PreRenderable#getRegion() */
+	@Override public TextureRegion getRegion() { return appearance.getRegion(); }
+	
+	/** @return True if the object is passable, false otherwise */
+	public boolean isPassable() { return appearance == null; }
+	
 	/**
-	 * Default is inivisible.
-	 * @see net.wombatrpgs.saga.graphics.PreRenderable#getRegion()
+	 * Calculates the ticks until we next move.
+	 * @return					The remaining ticks, in game ticks
 	 */
-	@Override
-	public TextureRegion getRegion() {
-		return NO_APPEARANCE;
+	public int ticksToAct() {
+		return ticksRemaining;
 	}
 	
 	/**
-	 * Called when this object begins updating its position in the move phase.
+	 * Gets the facing for the character. Returns null if no appearance.
+	 * @return					The direction currently facing or null
 	 */
-	public void startMoving() {
-		int tWidth = parent.getTileWidth();
-		int tHeight = parent.getTileHeight();
-		targetLocation(tileX * tWidth, tileY * tHeight);
-		float vx = (tileX*tWidth - x) / parent.getMoveTimeLeft();
-		float vy = (tileY*tHeight - y) / parent.getMoveTimeLeft();
-		setVelocity(vx, vy);
+	public OrthoDir getFacing() {
+		if (appearance != null) {
+			return appearance.getFacing();
+		} else {
+			return null;
+		}
 	}
 	
 	/**
-	 * Stops this event from a period of pathing towards its logical next
-	 * turn position by permanently setting it to is next turn positon.
+	 * Tells the animation to face a specific direction if it exists.
+	 * @param 	dir				The direction to face
 	 */
-	public void stopMoving() {
-		x = tileX * parent.getTileWidth();
-		y = tileY * parent.getTileHeight();
-		halt();
+	public void setFacing(OrthoDir dir) {
+		if (appearance != null) {
+			appearance.setFacing(dir);
+		}
+	}
+	
+	/**
+	 * Gets the ID name of this event. If specified in Tiled, it should return
+	 * that. If specified in database, it should return that. Basically,
+	 * override this, otherwise it returns something really unhelpful.
+	 * @return					The non-unique identifying name of this object
+	 */
+	public String getName() {
+		return mdo.name;
+	}
+	
+	/**
+	 * Checks if this event's in a specific group. Events can belong to multiple
+	 * groups if their group name contains the separator character. Events that
+	 * are spawned from Tiled should probably override this.
+	 * @param 	groupName		The name of the group we may be in
+	 * @return					True if in that group, false if not
+	 */
+	public boolean inGroup(String groupName) {
+		for (String group : mdo.groups.split(" ")) {
+			if (groupName.equals(group)) return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -179,24 +174,23 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	public void update(float elapsed) {
 		super.update(elapsed);
 		
-		if (Float.isNaN(vx) || Float.isNaN(vy)) {
-			SGlobal.reporter.warn("NaN values in physics!! " + this);
+		// travel planning and animation (from chara)
+		if (appearance != null) {
+			appearance.update(elapsed);
 		}
-		integrate(elapsed);
-		if (tracking) {
-			if ((x < targetX && lastX > targetX) || (x > targetX && lastX < targetX)) {
-				x = targetX;
-				vx = 0;
-			}
-			if ((y < targetY && lastY > targetY) || (y > targetY && lastY < targetY)) {
-				y = targetY;
-				vy = 0;
-			}
-			if (x == targetX && y == targetY) {
-				tracking = false;
+		if (parent.isMoving()) {
+			if (travelPlan.size() > 0 ) {
+				int step = (int) Math.floor((float) travelPlan.size() *
+						(parent.getMoveTimeElapsed() / SGlobal.constants.getDelay()));
+				if (step > travelPlan.size()-1) step = travelPlan.size()-1;
+				Step toStep = travelPlan.get(step);
+				if (lastStep != toStep && lastStep != null) {
+					lastStep.onEnd();
+				}
+				toStep.update(elapsed);
+				lastStep = toStep;
 			}
 		}
-		storeXY();
 	}
 	
 	/**
@@ -205,47 +199,39 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		if (hidden()) return;
 		super.render(camera);
+		appearance.render(camera);
 	}
 
 	/**
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 * Called when this object begins updating its position in the move phase.
 	 */
-	@Override
-	public int compareTo(MapEvent other) {
-		return -Math.round(10f * (getZ() - other.getZ()));
-	}
-
-	/**
-	 * Sets the hide status of this map event via event command. Hidden events
-	 * do not update or interact with other events. It's a way of having objects
-	 * on the map but not using them until they're needed.
-	 * @param 	hidden			True to hide the event, false to reveal it
-	 */
-	public void setCommandHidden(boolean hidden) {
-		this.commandHidden = hidden;
+	public void startMoving() {
+		int tWidth = parent.getTileWidth();
+		int tHeight = parent.getTileHeight();
+		targetLocation(tileX * tWidth, tileY * tHeight);
+		float vx = (tileX*tWidth - x) / parent.getMoveTimeLeft();
+		float vy = (tileY*tHeight - y) / parent.getMoveTimeLeft();
+		setVelocity(vx, vy);
+		
+		for (Step step : travelPlan) {
+			step.setTime(SGlobal.constants.getDelay() / travelPlan.size());
+		}
 	}
 	
 	/**
-	 * Gets the ID name of this event. If specified in Tiled, it should return
-	 * that. If specified in database, it should return that. Basically,
-	 * override this, otherwise it returns something really unhelpful.
-	 * @return					The non-unique identifying name of this object
+	 * Stops this event from a period of pathing towards its logical next
+	 * turn position by permanently setting it to is next turn positon.
 	 */
-	public String getName() {
-		return "(anon event)";
-	}
-	
-	/**
-	 * Checks if this event's in a specific group. Events can belong to multiple
-	 * groups if their group name contains the separator character. Events that
-	 * are spawned from Tiled should probably override this.
-	 * @param 	groupName		The name of the group we may be in
-	 * @return					True if in that group, false if not
-	 */
-	public boolean inGroup(String groupName) {
-		return false;
+	public void stopMoving() {
+		x = tileX * parent.getTileWidth();
+		y = tileY * parent.getTileHeight();
+		halt();
+		if (lastStep != null) {
+			lastStep.onEnd();
+			lastStep = null;
+			travelPlan.clear();
+		}
 	}
 
 	/**
@@ -268,148 +254,15 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	public void renderLocal(OrthographicCamera camera, TextureRegion sprite) {
 		super.renderLocal(camera, sprite, (int) getX(), (int) getY(), 0);
 	}
-
-	/**
-	 * Determines if this object is currently in motion.
-	 * @return					True if the object is moving, false otherwise
-	 */
-	public boolean isMoving() {
-		return vx != 0 || vy != 0;
-	}
 	
 	/**
-	 * Determines if this object is passable by characters or not.
-	 * @return					True if the object is passable, false otherwise
+	 * Determines the orthographic direction to some tile location.
+	 * @param	tileX			The x-loc to get direction towards (in tiles)
+	 * @param	tileY			The y-loc to get direction towards (in tiles)
+	 * @return					
 	 */
-	public boolean isPassable() {
-		return true;
-	}
-	
-	/**
-	 * Determines if this object blocks vision or not. Most don't.
-	 * @return					True if the object is transparent, else false
-	 */
-	public boolean isTransparent() {
-		return true;
-	}
-	
-	/**
-	 * Stops all movement in a key-friendly way.
-	 */
-	public void halt() {
-		vx = 0;
-		vy = 0;
-	}
-	
-	/**
-	 * Gets the y were we sort at. This is for relative positioning with the z-
-	 * layer. Used for above/below hero in subclasses. By default is y-coord.
-	 * @return
-	 */
-	public float getSortY() {
-		return getY();
-	}
-	
-	/**
-	 * Gives this map object a new target to track towards.
-	 * @param 	targetX		The target location x-coord (in px)
-	 * @param 	targetY		The target location y-coord (in px)
-	 */
-	public void targetLocation(float targetX, float targetY) {
-		this.targetX = targetX;
-		this.targetY = targetY;
-		this.tracking = true;
-	}
-	
-	/**
-	 * Updates the effective velocity of this map object.
-	 * @param 	vx			The new x-velocity of the object, in px/s
-	 * @param 	vy			The new y-velocity of the object, in px/s
-	 */
-	public void setVelocity(float vx, float vy) {
-		this.vx = vx;
-		this.vy = vy;
-	}
-	
-	/**
-	 * Calculates distance. This is like 7th grade math class here.
-	 * @param 	other			The other object in the calculation
-	 * @return					The distance between this and other, in pixels
-	 */
-	public float distanceTo(MapEvent other) {
-		float dx = other.x - x;
-		float dy = other.y - y;
-		return (float) Math.sqrt(dx*dx + dy*dy);
-	}
-	
-	/**
-	 * Calculates the direction towards some other map event.
-	 * @param 	event			The event to get direction towards
-	 * @return					The direction towards that event
-	 */
-	public EightDir directionTo(MapEvent event) {
-		return directionTo(event.getTileX(), event.getTileY());
-	}
-	
-	/**
-	 * Calculates the direction towards some point on the map.
-	 * @param	tileX			The x-coord to face towards (in tiles)
-	 * @param	tileY			The y-coord to face towards (in tiles)
-	 * @return
-	 */
-	public EightDir directionTo(int tileX, int tileY) {
-		float dx = this.getTileX() - tileX;
-		float dy = this.getTileY() - tileY;
-		float a = (float) Math.atan2(dx, dy);
-		if (a <=  1f*Math.PI/8f && a >= -1f*Math.PI/8f) return EightDir.SOUTH;
-		if (a <= -1f*Math.PI/8f && a >= -3f*Math.PI/8f) return EightDir.SOUTHEAST;
-		if (a <= -3f*Math.PI/8f && a >= -5f*Math.PI/8f) return EightDir.EAST;
-		if (a <= -5f*Math.PI/8f && a >= -7f*Math.PI/8f) return EightDir.NORTHEAST;
-		if (a <= -7f*Math.PI/8f || a >=  7f*Math.PI/8f) return EightDir.NORTH;
-		if (a <=  7f*Math.PI/8f && a >=  5f*Math.PI/8f) return EightDir.NORTHWEST;
-		if (a <=  5f*Math.PI/8f && a >=  3f*Math.PI/8f) return EightDir.WEST;
-		if (a <=  3f*Math.PI/8f && a >=  1f*Math.PI/8f) return EightDir.SOUTHWEST;
-		SGlobal.reporter.warn("NaN or something in direction: " + a + " , " + dx + " , " + dy);
-		return EightDir.NORTH;
-	}
-	
-	/**
-	 * Called when this object is added to an object layer.
-	 * @param 	layer			The layer this object is being added to
-	 */
-	public void onAdd(EventLayer layer) {
-		this.lastX = getX();
-		this.lastY = getY();
-	}
-	
-	/**
-	 * Called when this event is removed from an event layer. Nothing by
-	 * default.
-	 * @param	layer			The layer that kicked us out
-	 */
-	public void onRemove(EventLayer layer) {
-		// noop
-	}
-	
-	/**
-	 * What happens when a character moves into this event? By default, nothing
-	 * happens, but characters should be attacked, items should be auto-grabbed,
-	 * and so on.
-	 * @param	character		The jerk that ran into us
-	 */
-	public void onCollide(CharacterEvent character) {
-		// default is nothing
-	}
-	
-	/**
-	 * The hero pressed A on you, now do something! For passable events, this
-	 * happens when the hero is standing on the event, and for impassable ones,
-	 * when the hero is facing it. Events that are non-interactive should return
-	 * false.
-	 * @return					True if an interaction happened, false if none
-	 */
-	public boolean onInteract() {
-		return false;
+	public OrthoDir directionToTile(int tileX, int tileY) {
+		return directionTo(tileX * parent.getTileWidth(), tileY * parent.getTileHeight()).toOrtho();
 	}
 	
 	/**
@@ -426,7 +279,7 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	 * Calculates the euclidean distance between this and some other tile loc.
 	 * @param	tileX			The other's tile x-coord
 	 * @param	tileY			The other's tile y-coord
-	 * @return
+	 * @return					The distance to that event in tiles
 	 */
 	public float euclideanTileDistanceTo(int tileX, int tileY) {
 		float dx = this.tileX - tileX;
@@ -437,62 +290,155 @@ public abstract class MapEvent extends MapThing implements	PositionSetable,
 	/**
 	 * Calculates the euclidean distance between this and some other event.
 	 * @param	event			The event to get dist to
-	 * @return					The distance to that event
+	 * @return					The distance to that event in tiles
 	 */
 	public float euclideanTileDistanceTo(MapEvent event) {
 		return euclideanTileDistanceTo(event.getTileX(), event.getTileY());
 	}
 	
 	/**
-	 * Called when the cursor hovers over this mouse event. Should return
-	 * something that will be fed to the player. Default returns "".
-	 * @return					The player-facing description of this event
+	 * @see net.wombatrpgs.saga.core.Turnable#onTurn()
 	 */
-	public String mouseoverMessage() {
-		return "";
+	@Override
+	public void onTurn() {
+		for (Turnable t : turnChildren) {
+			t.onTurn();
+		}
+		ticksRemaining += 1000;
 	}
 	
 	/**
-	 * Calculates the z-sort for this event.
-	 * @return					The z-layer of this event
+	 * What happens when a character moves into this event? By default, nothing
+	 * happens, but characters should be attacked, items should be auto-grabbed,
+	 * and so on.
+	 * @param	event			The jerk that ran into us
 	 */
-	protected float getZ() {
-		return y;
+	public void onCollide(MapEvent event) {
+		// default is nothing
 	}
 	
 	/**
-	 * Determines if an event is "hidden" either by switch or command.
-	 * @return					True if the event is hidden, false otherwise
+	 * The hero pressed A on you, now do something! For passable events, this
+	 * happens when the hero is standing on the event, and for impassable ones,
+	 * when the hero is facing it. Events that are non-interactive should return
+	 * false.
+	 * @return					True if an interaction happened, false if none
 	 */
-	protected boolean hidden() {
-		return commandHidden || switchHidden;
+	public boolean onInteract() {
+		return false;
 	}
 	
 	/**
-	 * Does some constructor-like stuff to reset physical variables.
+	 * Makes this event face towards an object on the map.
+	 * @param 	event			The object to face
 	 */
-	protected void zeroCoords() {
-		x = 0;
-		y = 0;
-		vx = 0;
-		vy = 0;
+	public void faceToward(MapEvent event) {
+		faceToward(event.getTileX(), event.getTileY());
 	}
 	
 	/**
-	 * Applies the physics integration for a timestep.
-	 * @param 	elapsed			The time elapsed in that timestep
+	 * Makes this event face towards a tile location on the map.
+	 * @param	tileX			The x-coord of the tile to face (in tiles)
+	 * @param	tileY			The y-coord of the tile to face (in tiles)
 	 */
-	protected void integrate(float elapsed) {
-		x += vx * elapsed;
-		y += vy * elapsed;
+	public void faceToward(int tileX, int tileY) {
+		setFacing(directionToTile(tileX, tileY));
 	}
 	
 	/**
-	 * Updates last x/y.
+	 * Face away from a particular map event.
+	 * @param	event			The object to face away from
 	 */
-	protected void storeXY() {
-		lastX = x;
-		lastY = y;
+	public void faceAway(MapEvent event) {
+		setFacing(EightDir.getOpposite(directionTo(event)).toOrtho(getFacing()));
+	}
+	
+	/**
+	 * Flashes our appearance a certain color for a certain time.
+	 * @param	c				The color to flash
+	 * @param	duration		How long the flash should take in total
+	 */
+	public void flash(Color c, float duration) {
+		appearance.flash(c, duration);
+	}
+	
+	/**
+	 * Faces this event towards its current tile target.
+	 */
+	public void faceTarget() {
+		float dx = tileX*parent.getTileWidth() - x;
+		float dy = tileY*parent.getTileHeight() - y;
+		if (Math.abs(dx) > Math.abs(dy)) {
+			if (dx > 0) {
+				setFacing(OrthoDir.EAST);
+			} else if (dx < 0) {
+				setFacing(OrthoDir.WEST);
+			}
+		} else {
+			if (dy < 0) {
+				setFacing(OrthoDir.SOUTH);
+			} else if (dy > 0) {
+				setFacing(OrthoDir.NORTH);
+			}
+		}
+	}
+	
+	/**
+	 * Attempts to move to a specified tile location next to this character. If
+	 * there's nothing there, the character will step to that location. If
+	 * there his something there, this will hit it. Also adds an appropriate
+	 * travel step.
+	 * @param	targetX			The target location x-coord, in pixels
+	 * @param	targetY			The target location y-coord, in pixels
+	 * @return					True if the move succeeded, false if we hit
+	 */
+	public boolean attemptStep(int targetX, int targetY) {
+		faceToward(targetX, targetY);
+		if (parent.isTilePassable(this, targetX, targetY)) {
+			List<MapEvent> events = parent.getEventsAt(targetX, targetY);
+			boolean colliding = false;
+			for (MapEvent event : events) {
+				event.onCollide(this);
+				if (!event.isPassable()) {
+					// travelPlan.add(new StepBump(this, directionTo(targetX, targetY)));
+					colliding = true;
+				}
+			}
+			if (!colliding) {
+				travelPlan.add(new StepMove(this, targetX, targetY));
+				tileX = targetX;
+				tileY = targetY;
+				return true;
+			}
+		} else {
+			// travelPlan.add(new StepBump(this, directionTo(targetX, targetY)));
+			List<MapEvent> events = parent.getEventsAt(getTileX(), getTileY());
+			for (MapEvent event : events) {
+				if (event != this) {
+					event.onCollide(this);
+				}
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Attempts to step in a particular direction.
+	 * @param	dir				The direction to step
+	 * @return					True if the move succeeded, false if we hit
+	 */
+	public boolean attemptStep(OrthoDir dir) {
+		int targetX = (int) (tileX + dir.getVector().x);
+		int targetY = (int) (tileY + dir.getVector().y);
+		return attemptStep(targetX, targetY);
+	}
+	
+	/**
+	 * Simulates the passage of time in the game world.
+	 * @param	ticks			The number of ticks elapsed, in game ticks
+	 */
+	public void simulateTime(int ticks) {
+		ticksRemaining -= ticks;
 	}
 
 }

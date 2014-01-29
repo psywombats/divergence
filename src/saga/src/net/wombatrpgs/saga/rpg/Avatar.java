@@ -8,32 +8,26 @@ package net.wombatrpgs.saga.rpg;
 
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.io.CommandListener;
-import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.maps.events.MapEvent;
-import net.wombatrpgs.sagaschema.characters.HeroMDO;
 import net.wombatrpgs.sagaschema.io.data.InputCommand;
 import net.wombatrpgs.sagaschema.maps.data.OrthoDir;
+import net.wombatrpgs.sagaschema.settings.AvatarMDO;
 
 /**
  * The physical representation of the player on the world map.
  */
-public class Avatar extends CharacterEvent implements CommandListener {
+public class Avatar extends MapEvent implements CommandListener {
 	
 	protected static final String HERO_DEFAULT = "hero_default";
 	
 	protected OrthoDir dirToMove, lastMove;
 
 	/**
-	 * Placeholder constructor. When the hero is finally initialized properly
-	 * this will change. Right now it sets up the hero on the map like any other
-	 * event. Also sets up the moveset called "default_moveset" though that
-	 * should be put in the hero MDO when it gets created.
-	 * MR: Creates the hero
-	 * @param	parent			The level to make the hero on
+	 * For real hero constructor. Looks up the avatar in the database and
+	 * uses it to set up a map event.
 	 */
-	public Avatar(Level parent) {
-		super(SGlobal.data.getEntryFor(HERO_DEFAULT, HeroMDO.class));
-		this.parent = parent;
+	public Avatar() {
+		super(SGlobal.data.getEntryFor(HERO_DEFAULT, AvatarMDO.class));
 		dirToMove = null;
 	}
 

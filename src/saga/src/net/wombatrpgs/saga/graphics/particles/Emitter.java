@@ -9,17 +9,15 @@ package net.wombatrpgs.saga.graphics.particles;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
-
 import net.wombatrpgs.saga.core.SGlobal;
-import net.wombatrpgs.saga.maps.events.MapEvent;
+import net.wombatrpgs.saga.maps.MapMovable;
 import net.wombatrpgs.sagaschema.graphics.EmitterMDO;
 
 /**
  * A simple particle emitter. Generate one from MDO, then fill it with something
  * that meets the definition of a particle set.
  */
-public class Emitter extends MapEvent {
+public class Emitter extends MapMovable  {
 	
 	protected EmitterMDO mdo;
 	protected ParticleSet set;
@@ -69,21 +67,10 @@ public class Emitter extends MapEvent {
 		part.setAngularVelocity(mdo.rotationalVelocity * SGlobal.rand.nextFloat()*2-1);
 		part.setLife(SGlobal.rand.nextFloat() * (mdo.maxLife - mdo.minLife) + mdo.minLife);
 		particles.add(part);
-		parent.addEventAbsolute(part, 
-				getX() + SGlobal.rand.nextInt(32), 
-				getY() + SGlobal.rand.nextInt(32));
-	}
-
-	/**
-	 * @see net.wombatrpgs.saga.maps.events.MapEvent#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
-	 */
-	@Override
-	public void render(OrthographicCamera camera) {
-		super.render(camera);
-//		for (Particle part : particles) {
-//			part.render(camera);
-//		}
+		// TODO: particles: add to map
+//		parent.addEventAbsolute(part, 
+//				getX() + SGlobal.rand.nextInt(32), 
+//				getY() + SGlobal.rand.nextInt(32));
 	}
 
 	/**
@@ -101,7 +88,7 @@ public class Emitter extends MapEvent {
 		}
 		for (Particle part : deadParts) {
 			particles.remove(part);
-			parent.removeEvent(part);
+			parent.removeObject(part);
 		}
 	}
 

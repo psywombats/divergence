@@ -9,6 +9,7 @@ package net.wombatrpgs.saga.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.wombatrpgs.saga.maps.events.EventLib;
 import net.wombatrpgs.saga.scenes.SceneLib;
 
 import org.luaj.vm2.Globals;
@@ -34,7 +35,10 @@ public class Lua {
 	public Lua() {
 		globals = JsePlatform.standardGlobals();
 		libClasses = new ArrayList<Class<? extends TwoArgFunction>>();
+		
+		// ADD ALL LIBRARIES HERE
 		libClasses.add(SceneLib.class);
+		libClasses.add(EventLib.class);
 	}
 	
 	/**

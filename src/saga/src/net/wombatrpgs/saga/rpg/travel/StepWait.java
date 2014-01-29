@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.saga.rpg.travel;
 
-import net.wombatrpgs.saga.rpg.CharacterEvent;
+import net.wombatrpgs.saga.maps.events.MapEvent;
 
 /**
  * Doesn't move. Ahahahaha.
@@ -17,7 +17,7 @@ public class StepWait extends Step {
 	 * Constructs a new wait (??) for a given character.
 	 * @param	actor			The actor that will be performing this wait
 	 */
-	public StepWait(CharacterEvent actor) {
+	public StepWait(MapEvent actor) {
 		super(actor);
 	}
 

@@ -13,9 +13,9 @@ import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.scenes.TeleportManager;
 import net.wombatrpgs.saga.screen.Screen;
 import net.wombatrpgs.saga.screen.instances.GameScreen;
-import net.wombatrpgs.sagaschema.maps.GeneratedMapMDO;
 import net.wombatrpgs.sagaschema.maps.LoadedMapMDO;
 import net.wombatrpgs.sagaschema.maps.data.MapMDO;
+import net.wombatrpgs.sagaschema.maps.gen.GeneratedMapMDO;
 import net.wombatrpgs.sagaschema.settings.TeleportSettingsMDO;
 
 /**
@@ -119,7 +119,9 @@ public class LevelManager {
 	 */
 	private static Level createMap(MapMDO mdo, Screen screen) {
 		if (GeneratedMapMDO.class.isAssignableFrom(mdo.getClass())) {
-			return new GeneratedLevel((GeneratedMapMDO) mdo, screen);
+//			return new GeneratedLevel((GeneratedMapMDO) mdo, screen);
+			SGlobal.reporter.err("Generated maps not yet supported");
+			return null;
 		} else if (LoadedMapMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new LoadedLevel((LoadedMapMDO) mdo, screen);
 		} else {

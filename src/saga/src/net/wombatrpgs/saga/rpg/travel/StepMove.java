@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.saga.rpg.travel;
 
-import net.wombatrpgs.saga.rpg.CharacterEvent;
+import net.wombatrpgs.saga.maps.events.MapEvent;
 
 /**
  * The step for travel.
@@ -23,7 +23,7 @@ public class StepMove extends Step {
 	 * @param	tileX			The x-coord of the tile to move to (in tiles)
 	 * @param	tileY			The y-coord of the tile to move to (in tiles)
 	 */
-	public StepMove(CharacterEvent actor, int tileX, int tileY) {
+	public StepMove(MapEvent actor, int tileX, int tileY) {
 		super(actor);
 		this.tileX = tileX;
 		this.tileY = tileY;

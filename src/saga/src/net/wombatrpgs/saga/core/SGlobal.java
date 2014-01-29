@@ -25,7 +25,6 @@ import net.wombatrpgs.saga.io.loaders.DataLoader;
 import net.wombatrpgs.saga.io.loaders.LuaLoader;
 import net.wombatrpgs.saga.io.loaders.SceneLoader;
 import net.wombatrpgs.saga.maps.LevelManager;
-import net.wombatrpgs.saga.maps.gen.TileManager;
 import net.wombatrpgs.saga.rpg.Avatar;
 import net.wombatrpgs.saga.scenes.SceneData;
 import net.wombatrpgs.saga.screen.ScreenStack;
@@ -68,7 +67,7 @@ public class SGlobal {
 	/** Loader for simple text files */
 	public static FileLoader loader;
 	/** Manages all tile types and graphics etc */
-	public static TileManager tiles;
+//	public static TileManager tiles;
 	/** Desktop mode */
 	public static Platform platform;
 	/** Switches and variables */
@@ -112,7 +111,7 @@ public class SGlobal {
 			SGlobal.constants = new Constants();
 			SGlobal.screens = new ScreenStack();
 			SGlobal.loader = new FileLoader();
-			SGlobal.tiles = new TileManager();
+//			SGlobal.tiles = new TileManager();
 			SGlobal.levelManager = new LevelManager();
 			
 			// load secondary data

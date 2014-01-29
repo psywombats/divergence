@@ -36,10 +36,10 @@
   </data>
  </layer>
  <objectgroup name="Object Layer 1" width="20" height="15">
-  <object name="bob the bozo" type="NPC" x="48" y="160" width="16" height="16">
+  <object name="bob the bozo" type="Character" x="48" y="160" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
-    <property name="dialog" value="hurf durf"/>
+    <property name="move" value="STAY_STILL"/>
    </properties>
   </object>
  </objectgroup>

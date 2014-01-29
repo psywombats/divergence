@@ -12,6 +12,7 @@ package net.wombatrpgs.saga.maps.events;
  */
 public enum EventType {
 	
-	NPC,
+	EVENT,
+	CHARACTER,
 
 }

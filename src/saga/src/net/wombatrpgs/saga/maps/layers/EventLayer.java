@@ -18,7 +18,6 @@ import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.maps.MapThing;
 import net.wombatrpgs.saga.maps.events.MapEvent;
-import net.wombatrpgs.saga.rpg.CharacterEvent;
 
 /**
  * A renderable collection of map events, grouped into a layer in a level.
@@ -26,7 +25,6 @@ import net.wombatrpgs.saga.rpg.CharacterEvent;
 public class EventLayer extends Layer {
 	
 	protected List<MapEvent> events;
-	protected List<CharacterEvent> charas;
 	
 	/**
 	 * Creates a new object layer with a parent level and no objects.
@@ -37,7 +35,6 @@ public class EventLayer extends Layer {
 	public EventLayer(Level parent) {
 		super(parent);
 		events = new ArrayList<MapEvent>();
-		charas = new ArrayList<CharacterEvent>();
 	}
 
 	/**
@@ -47,7 +44,6 @@ public class EventLayer extends Layer {
 	@Override
 	public void render(OrthographicCamera camera) {
 		parent.getBatch().begin();
-		Collections.sort(events);
 		for (MapEvent event : events) {
 			event.render(camera);
 		}
@@ -108,17 +104,7 @@ public class EventLayer extends Layer {
 			SGlobal.reporter.warn("Added a null object to the map?");
 		} else {
 			events.add(event);
-			event.onAdd(this);
 		}
-	}
-	
-	/**
-	 * Adds a character to this layer. This only adds it to the list of
-	 * characters, so really only characters should call it.
-	 * @param	chara			The character to add
-	 */
-	public void addChara(CharacterEvent chara) {
-		charas.add(chara);
 	}
 	
 	/**
@@ -127,16 +113,6 @@ public class EventLayer extends Layer {
 	 */
 	public void remove(MapEvent event) {
 		events.remove(event);
-		event.onRemove(this);
-	}
-	
-	/**
-	 * Removes a character from the layer. This only removes from the charas
-	 * list, not the global list, so only the character itself should call this.
-	 * @param	chara			The chara that left us
-	 */
-	public void removeCharacter(CharacterEvent chara) {
-		charas.remove(chara);
 	}
 	
 	/**
@@ -153,23 +129,22 @@ public class EventLayer extends Layer {
 	 */
 	public void integrate() {
 		while (true) {
-			Collections.sort(charas, new Comparator<CharacterEvent>() {
+			Collections.sort(events, new Comparator<MapEvent>() {
 				@Override
-				public int compare(CharacterEvent a, CharacterEvent b) {
+				public int compare(MapEvent a, MapEvent b) {
 					return a.ticksToAct() - b.ticksToAct();
 				}
 			});
-			CharacterEvent next = charas.get(0);
+			MapEvent next = events.get(0);
 			int ticks = next.ticksToAct();
-			for (CharacterEvent chara : charas) {
-				chara.simulateTime(ticks);
+			for (MapEvent event : events) {
+				event.simulateTime(ticks);
 			}
 			next.simulateTime(1);
 			if (next == SGlobal.getHero()) {
 				break;
 			} else {
 				next.onTurn();
-				// TODO: saga: get the action system up and running
 			}
 		}
 	}
@@ -215,14 +190,6 @@ public class EventLayer extends Layer {
 			}
 		}
 		return results;
-	}
-	
-	/**
-	 * Gets all the characters on this map.
-	 * @return					The list containing all of our characters
-	 */
-	public List<CharacterEvent> getCharacters() {
-		return charas;
 	}
 
 }

@@ -6,18 +6,14 @@
  */
 package net.wombatrpgs.saga.maps.events;
 
-import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.maps.LoadedLevel;
 import net.wombatrpgs.saga.maps.TiledMapObject;
-import net.wombatrpgs.sagaschema.characters.NpcMDO;
+import net.wombatrpgs.sagaschema.maps.EventMDO;
 
 /**
  * Creates and handles events from MDOs.
  */
 public class EventFactory {
-	
-	/** Types of events in a Tiled map, defined in objecttypes.xml */
-	protected final static String TYPE_NPC = "npc";
 	
 	/**
 	 * Handles an entry from the map and turns it into the relevant event(s).
@@ -26,16 +22,7 @@ public class EventFactory {
 	 */
 	public static void createAndPlace(TiledMapObject object) {
 		LoadedLevel parent = object.getLevel();
-		MapEvent event;
-		switch (object.getType()) {
-		case NPC:
-			event = new NpcEvent(object.generateMDO(NpcMDO.class), parent);
-			break;
-		default:
-			SGlobal.reporter.err("Unsupported event type " + object.getType() +
-					" on map " + parent);
-			return;
-		}
+		MapEvent event = new MapEvent(object.generateMDO(EventMDO.class));
 		parent.addEvent(event, object.getTileX(), object.getTileY());
 	}
 	
