@@ -12,7 +12,6 @@ import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.sagaschema.graphics.DirMDO;
-import net.wombatrpgs.sagaschema.maps.data.MoveType;
 
 /**
  * MDO for everything constructed from a Tiled map, or just everything in a map
@@ -34,8 +33,24 @@ public class EventMDO extends MainSchema {
 	@DefaultValue("")
 	public String groups;
 	
-	@Desc("Move type - should this event wander around?")
-	@DefaultValue("STAY_STILL")
-	public MoveType move;
+	@Desc("onAdd - lua value, script is called when event is added to map")
+	@DefaultValue("")
+	public String onAdd;
+	
+	@Desc("onRemove - lua value, script is called when event is removed from map")
+	@DefaultValue("")
+	public String onRemove;
+	
+	@Desc("onTurn - lua value, script is called every time it's this event's turn")
+	@DefaultValue("")
+	public String onTurn;
+	
+	@Desc("onCollide - lua value, script is called when player walks into this event")
+	@DefaultValue("")
+	public String onCollide;
+	
+	@Desc("onInteract - lua value, script is called when player talks to this event")
+	@DefaultValue("")
+	public String onInteract;
 
 }

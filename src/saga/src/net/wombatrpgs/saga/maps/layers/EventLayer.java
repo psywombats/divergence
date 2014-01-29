@@ -132,7 +132,18 @@ public class EventLayer extends Layer {
 			Collections.sort(events, new Comparator<MapEvent>() {
 				@Override
 				public int compare(MapEvent a, MapEvent b) {
-					return a.ticksToAct() - b.ticksToAct();
+					int val = (a.ticksToAct() - b.ticksToAct());
+					if (val == 0) {
+						if (a == SGlobal.getHero()) {
+							return 1;
+						} else if (b == SGlobal.getHero()) {
+							return -1;
+						} else {
+							return b.hashCode() - a.hashCode();
+						}
+					} else {
+						return val;
+					}
 				}
 			});
 			MapEvent next = events.get(0);
@@ -140,11 +151,10 @@ public class EventLayer extends Layer {
 			for (MapEvent event : events) {
 				event.simulateTime(ticks);
 			}
-			next.simulateTime(1);
+			//next.simulateTime(1);
+			next.onTurn();
 			if (next == SGlobal.getHero()) {
 				break;
-			} else {
-				next.onTurn();
 			}
 		}
 	}

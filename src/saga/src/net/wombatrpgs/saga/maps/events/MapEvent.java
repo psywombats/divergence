@@ -9,15 +9,23 @@ package net.wombatrpgs.saga.maps.events;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.lib.OneArgFunction;
+import org.luaj.vm2.lib.jse.CoerceJavaToLua;
+import org.luaj.vm2.lib.jse.CoerceLuaToJava;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import net.wombatrpgs.saga.core.Lua;
+import net.wombatrpgs.saga.core.LuaConvertable;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.Turnable;
 import net.wombatrpgs.saga.graphics.FacesAnimation;
 import net.wombatrpgs.saga.graphics.FacesAnimationFactory;
 import net.wombatrpgs.saga.graphics.PreRenderable;
+import net.wombatrpgs.saga.maps.Level;
 import net.wombatrpgs.saga.maps.MapMovable;
 import net.wombatrpgs.saga.rpg.travel.Step;
 import net.wombatrpgs.saga.rpg.travel.StepMove;
@@ -38,10 +46,12 @@ import net.wombatrpgs.sagaschema.maps.data.OrthoDir;
  * any object on the map, whether it moves or not.
  */
 public class MapEvent extends MapMovable implements	PreRenderable,
-													Turnable {
+													Turnable,
+													LuaConvertable {
 	
 	/** General children and info */
 	protected EventMDO mdo;
+	protected LuaValue lua;
 	protected FacesAnimation appearance;
 	
 	/** Tile-based positioning */
@@ -72,10 +82,22 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 		}
 		
 		travelPlan = new ArrayList<Step>();
-		
 		ticksRemaining = 0;
 		
 		zeroCoords();
+		
+		lua = LuaValue.tableOf();
+		Lua.generateFunction(this, lua, "getX");
+		Lua.generateFunction(this, lua, "getY");
+		Lua.generateFunction(this, lua, "getTileX");
+		Lua.generateFunction(this, lua, "getTileY");
+		lua.set("attemptStep", new OneArgFunction() {
+			@Override public LuaValue call(LuaValue arg) {
+				String argString = (String) CoerceLuaToJava.coerce(arg, String.class);
+				boolean result = attemptStep(OrthoDir.valueOf(argString));
+				return CoerceJavaToLua.coerce(result);
+			}
+		});
 	}
 	
 	/** @param tileX The new x-coord of this event (in tiles) */
@@ -111,6 +133,9 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	/** @return True if the object is passable, false otherwise */
 	public boolean isPassable() { return appearance == null; }
 	
+	/** @see net.wombatrpgs.saga.core.LuaConvertable#toLua() */
+	@Override public LuaValue toLua() { return lua; }
+
 	/**
 	 * Calculates the ticks until we next move.
 	 * @return					The remaining ticks, in game ticks
@@ -297,6 +322,26 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	}
 	
 	/**
+	 * @see net.wombatrpgs.saga.maps.MapMovable#onAddedToMap
+	 * (net.wombatrpgs.saga.maps.Level)
+	 */
+	@Override
+	public void onAddedToMap(Level map) {
+		super.onAddedToMap(map);
+		runScript(mdo.onAdd);
+	}
+
+	/**
+	 * @see net.wombatrpgs.saga.maps.MapThing#onRemovedFromMap
+	 * (net.wombatrpgs.saga.maps.Level)
+	 */
+	@Override
+	public void onRemovedFromMap(Level map) {
+		super.onRemovedFromMap(map);
+		runScript(mdo.onRemove);
+	}
+
+	/**
 	 * @see net.wombatrpgs.saga.core.Turnable#onTurn()
 	 */
 	@Override
@@ -304,6 +349,7 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 		for (Turnable t : turnChildren) {
 			t.onTurn();
 		}
+		runScript(mdo.onTurn);
 		ticksRemaining += 1000;
 	}
 	
@@ -314,7 +360,7 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	 * @param	event			The jerk that ran into us
 	 */
 	public void onCollide(MapEvent event) {
-		// default is nothing
+		runScript(mdo.onCollide);
 	}
 	
 	/**
@@ -325,7 +371,7 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	 * @return					True if an interaction happened, false if none
 	 */
 	public boolean onInteract() {
-		return false;
+		return (runScript(mdo.onInteract) != null);
 	}
 	
 	/**
@@ -439,6 +485,15 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	 */
 	public void simulateTime(int ticks) {
 		ticksRemaining -= ticks;
+	}
+	
+	/**
+	 * Runs a chunk of MDO text as a script if it exists.
+	 * @param	chunk			The chunk of text to run
+	 * @return					The result of the script evaluation
+	 */
+	protected LuaValue runScript(String chunk) {
+		return SGlobal.lua.run(chunk, this);
 	}
 
 }

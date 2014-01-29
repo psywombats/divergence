@@ -92,6 +92,7 @@ public class TiledMapObject {
 	 * @param	clazz			The class of MDO to generate
 	 * @return					An instance of that MDO, with fields filled in
 	 */
+	@SuppressWarnings("unchecked")
 	public <T extends MainSchema> T generateMDO(Class<T> clazz) {
 		
 		T mdo;
@@ -115,7 +116,13 @@ public class TiledMapObject {
 				Field field = clazz.getField(key);
 				try {
 					Object value = object.getProperties().get(key, field.getType());
-					field.set(mdo, value);
+					if (Enum.class.isAssignableFrom(field.getType())) {
+						@SuppressWarnings("rawtypes")
+						Class<? extends Enum> enumClass = (Class<? extends Enum>) field.getType();
+						field.set(mdo, Enum.valueOf(enumClass, value.toString()));
+					} else {
+						field.set(mdo, value);
+					}
 				} catch (Exception e) {
 					SGlobal.reporter.warn("Bad field value " +
 							object.getProperties().get(key) +
