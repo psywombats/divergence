@@ -51,7 +51,7 @@ public class SchemaTree extends JTree {
 	private static final long serialVersionUID = -7357798094174051382L;
 	
 	/** The .jar containing the schema */
-	private File schemaJar;
+	private List<File> schemaJars;
 	/** The directory containing the database entries */
 	private File dataDir;
 	/** All the schema class files */
@@ -68,7 +68,7 @@ public class SchemaTree extends JTree {
 	/** @param dataDir The new location of the database entries */
 	public void setDataDir(File dataDir) { this.dataDir = dataDir; }
 	/** @param schemaFile The new (jar) schema file */
-	public void setSchemaJar(File schemaFile) { this.schemaJar = schemaFile; }
+	public void addSchemaJar(File schemaJar) { schemaJars.add(schemaJar); }
 	/** @return All known schema types */
 	public ArrayList<Class<? extends MainSchema>> getSchema() { return schema; }
 	
@@ -77,6 +77,7 @@ public class SchemaTree extends JTree {
 	 */
 	public SchemaTree() {
 		super();
+		schemaJars = new ArrayList<File>();
 		getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		this.setCellRenderer(new DefaultTreeCellRenderer() {
 			private static final long serialVersionUID = 6136933935626442828L;
@@ -106,10 +107,20 @@ public class SchemaTree extends JTree {
 	}
 	
 	/**
+	 * Refreshes all schema for the tree, from all jars.
+	 */
+	public void refreshSchema() {
+		for (File schemaJar : schemaJars) {
+			refreshSchema(schemaJar);
+		}
+	}
+	
+	/**
 	 * Updates the contents of the tree to reflect the file system.
+	 * @param schemaJar The jar to use to check for files.
 	 */
 	@SuppressWarnings("unchecked")
-	public void refreshSchema() {
+	public void refreshSchema(File schemaJar) {
 		
 		// get the jar
 		JarInputStream stream = null;

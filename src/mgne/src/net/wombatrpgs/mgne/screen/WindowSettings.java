@@ -1,0 +1,55 @@
+/**
+ *  Window.java
+ *  Created on Apr 16, 2013 10:16:11 PM for project rainfall-libgdx
+ *  Author: psy_wombats
+ *  Contact: psy_wombats@wombatrpgs.net
+ */
+package net.wombatrpgs.mgne.screen;
+
+import net.wombatrpgs.mgneschema.settings.WindowSettingsMDO;
+
+/**
+ * Thing that holds and calculates window values.
+ */
+public class WindowSettings {
+	
+	WindowSettingsMDO mdo;
+	
+	/**
+	 * Constructs a new window settings from data.
+	 * @param mdo
+	 */
+	public WindowSettings(WindowSettingsMDO mdo) {
+		this.mdo = mdo;
+	}
+	
+	/** @return The width of the in-game viewport, in virtual px */
+	public int getWidth() {
+		return mdo.resWidth;
+	}
+
+	/** @return The height of the in-game viewport, in virtual px */
+	public int getHeight() {
+		return mdo.resHeight;
+	}
+	
+	/** @return The width of the window, in real px */
+	public int getResolutionWidth() {
+		return mdo.resWidth;
+	}
+	
+	/** @return The height of the window, in real px */
+	public int getResolutionHeight() {
+		return mdo.resHeight;
+	}
+	
+	/** @return The zoom factor appropriate for a camera */
+	public float getZoom() {
+		return (float) mdo.width / (float) mdo.resWidth;
+	}
+	
+	/** @return The name of the game window */
+	public String getTitle() {
+		return mdo.windowName;
+	}
+}

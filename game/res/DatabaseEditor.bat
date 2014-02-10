@@ -8,4 +8,3 @@ IF EXIST "C:\Program Files\Java\jre6\bin\java.exe" (
 echo You don't appear to have Java installed, do that first!
 )
 @echo on
-PAUSE

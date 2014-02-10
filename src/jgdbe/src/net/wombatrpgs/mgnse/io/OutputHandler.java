@@ -23,7 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
  */
 public class OutputHandler {
 	
-	private static final String APP_CONFIG_FILE_NAME = "mgnse.cfg";
+	private static final String APP_CONFIG_FILE_NAME = "jgdbe.cfg";
 	
 	protected MainFrame parent;
 	protected File appConfigFile, projectConfigFile;

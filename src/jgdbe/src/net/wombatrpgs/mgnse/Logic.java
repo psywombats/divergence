@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import javax.swing.JPanel;
 
 import net.wombatrpgs.mgns.core.Annotations;
@@ -354,7 +355,9 @@ public class Logic {
 			tree.clear();
 		} else {
 			tree.setDataDir(cfl.getFile(projectConfig.data));
-			tree.setSchemaJar(cfl.getFile(projectConfig.schema));
+			for (String filename : projectConfig.schema) {
+				tree.addSchemaJar(cfl.getFile(filename));
+			}
 			tree.refreshSchema();
 		}
 	}

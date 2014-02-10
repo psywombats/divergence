@@ -1,0 +1,206 @@
+/**
+ *  RGlobal.java
+ *  Created on Nov 11, 2012 3:08:03 AM for project rainfall-libgdx-desktop
+ *  Author: psy_wombats
+ *  Contact: psy_wombats@wombatrpgs.net
+ */
+package net.wombatrpgs.mgne.core;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import org.luaj.vm2.LuaValue;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+
+import net.wombatrpgs.mgne.graphics.GraphicsSettings;
+import net.wombatrpgs.mgne.io.FileLoader;
+import net.wombatrpgs.mgne.io.Keymap;
+import net.wombatrpgs.mgne.io.loaders.DataLoader;
+import net.wombatrpgs.mgne.io.loaders.LuaLoader;
+import net.wombatrpgs.mgne.io.loaders.SceneLoader;
+import net.wombatrpgs.mgne.maps.LevelManager;
+import net.wombatrpgs.mgne.rpg.Avatar;
+import net.wombatrpgs.mgne.scenes.SceneData;
+import net.wombatrpgs.mgne.screen.ScreenStack;
+import net.wombatrpgs.mgne.screen.WindowSettings;
+import net.wombatrpgs.mgne.screen.instances.GameScreen;
+import net.wombatrpgs.mgne.ui.UISettings;
+import net.wombatrpgs.mgneschema.settings.GraphicsSettingsMDO;
+import net.wombatrpgs.mgneschema.settings.UISettingsMDO;
+import net.wombatrpgs.mgneschema.settings.WindowSettingsMDO;
+
+/**
+ * Rainfall's version of the MGNDB global.
+ */
+public class SGlobal {
+	
+	/** Error-reporting dispatcher */
+	public static Reporter reporter;
+	/** Storage container for data entries */
+	public static Database data;
+	/** Manages all in-game assets */
+	public static AssetManager assetManager;
+	/** The stack of screeeeeeens */
+	public static ScreenStack screens;
+	/** Current mapper of the keyys */
+	public static Keymap keymap;
+	/** All magic numbers and stuff */
+	public static Constants constants;
+	/** Stores all of our levels */
+	public static LevelManager levelManager;
+	/** A single-source RNG */
+	public static Random rand;
+	/** The UI settings currently in use by the game */
+	public static UISettings ui;
+	/** Are we done loading yet? */
+	public static boolean initialized = false;
+	/** Our current window settings */
+	public static WindowSettings window;
+	/** Our current graphics settings */
+	public static GraphicsSettings graphics;
+	/** Loader for simple text files */
+	public static FileLoader loader;
+	/** Manages all tile types and graphics etc */
+//	public static TileManager tiles;
+	/** Desktop mode */
+	public static Platform platform;
+	/** Switches and variables */
+	public static Memory memory;
+	/** L-l-l-lua?? */
+	public static Lua lua;
+	
+	private static List<Queueable> toLoad;
+	
+	/**
+	 * Called as part of the map game.
+	 */
+	public static void globalInit() {
+		
+		// debugging is needed first
+		SGlobal.reporter = platform.getReporter();
+		try {
+			long startTime = System.currentTimeMillis();
+			SGlobal.reporter.inform("Initialized error reporting");
+			SGlobal.assetManager = new AssetManager();
+			SGlobal.reporter.inform("Initializing primary globals");
+			long seed = System.currentTimeMillis();
+			SGlobal.rand = new Random(seed);
+			SGlobal.reporter.inform("Using global seed " + seed);
+			SGlobal.data = new Database();
+			
+			// load up data marked essential, this will always be ugly
+			SGlobal.reporter.inform("Loading essential data");
+			setHandlers();
+			SGlobal.data.queueData(assetManager, Constants.PRELOAD_SCHEMA);
+			long assetStart = System.currentTimeMillis();
+			assetManager.finishLoading();
+			long assetEnd = System.currentTimeMillis();
+			float assetElapsed = (assetEnd - assetStart) / 1000f;
+			SGlobal.reporter.inform("Finished loading essential data, " +
+					"elapsed time: " + assetElapsed + "seconds");
+			
+			// here on out, these may require essential data
+			toLoad = new ArrayList<Queueable>();
+			SGlobal.reporter.inform("Intializing secondary globals");
+			SGlobal.constants = new Constants();
+			SGlobal.screens = new ScreenStack();
+			SGlobal.loader = new FileLoader();
+//			SGlobal.tiles = new TileManager();
+			SGlobal.levelManager = new LevelManager();
+			
+			// load secondary data
+			// TODO: polish: load with a loading bar
+			SGlobal.reporter.inform("Loading secondary data");
+			SGlobal.data.queueFilesInDir(assetManager, Gdx.files.internal(Constants.DATA_DIR));
+			assetEnd = System.currentTimeMillis();
+			assetManager.finishLoading();
+			assetEnd = System.currentTimeMillis();
+			SGlobal.reporter.inform("Finished loading secondary data, " +
+					"elapsed time: " + assetElapsed + "seconds");
+	
+			// initialize everything that needed data
+			SGlobal.reporter.inform("Initializing data-dependant resources");
+			SGlobal.window = new WindowSettings(
+					SGlobal.data.getEntryFor(Constants.KEY_WINDOW, WindowSettingsMDO.class));
+			SGlobal.graphics = new GraphicsSettings(
+					SGlobal.data.getEntryFor(Constants.KEY_GRAPHICS, GraphicsSettingsMDO.class));
+			SGlobal.ui = new UISettings(SGlobal.data.getEntryFor(
+					UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
+			SGlobal.keymap = Keymap.initDefaultKeymap();
+			// TODO: persistence: memory should persist
+			SGlobal.memory = new Memory();
+			SGlobal.lua = new Lua();
+			toLoad.add(ui);
+			toLoad.add(graphics);
+			for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
+			for (int pass = 0; SGlobal.assetManager.getProgress() < 1; pass++) {
+				assetStart = System.currentTimeMillis();
+				SGlobal.assetManager.finishLoading();
+				assetEnd = System.currentTimeMillis();
+				assetElapsed = (assetEnd - assetStart) / 1000f;
+				SGlobal.reporter.inform("Loading pass " + pass + ", took " + assetElapsed);
+				for (Queueable q : toLoad) q.postProcessing(SGlobal.assetManager, pass);
+			}
+			
+			// initializing graphics
+			SGlobal.reporter.inform("Creating level-dependant data");
+			toLoad.clear();
+			String result = loader.getText(Constants.CONFIG_FILE);
+			boolean fullscreen = result.indexOf("true") != -1;
+			Gdx.graphics.setDisplayMode(
+					SGlobal.window.getResolutionWidth(),
+					SGlobal.window.getResolutionHeight(), 
+					fullscreen);
+			SGlobal.screens.push(new GameScreen());
+			Gdx.graphics.setTitle(SGlobal.window.getTitle());
+			//Gdx.graphics.setVSync(true);
+			
+			SGlobal.reporter.inform("Loading level assets");
+			for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
+			for (int pass = 0; SGlobal.assetManager.getProgress() < 1; pass++) {
+				SGlobal.reporter.inform("Loading pass " + pass + ", took " + assetElapsed);
+				SGlobal.assetManager.finishLoading();
+				for (Queueable q : toLoad) q.postProcessing(SGlobal.assetManager, pass);
+				assetEnd = System.currentTimeMillis();
+				assetElapsed = (assetEnd - assetStart) / 1000f;
+			}
+			
+			initialized = true;
+			long endTime = System.currentTimeMillis();
+			float elapsed = (endTime - startTime) / 1000f;
+			SGlobal.reporter.inform("Done loading, elasped time: " + elapsed + 
+					" seconds");
+			
+		} catch (Exception e) {
+			// TODO: polish: proper init error handling
+			SGlobal.reporter.err("Exception during initialization: ", e);
+			Gdx.app.exit();
+		}
+	}
+	
+	/**
+	 * Replacement for the public static field. This gets the hero from the
+	 * game screen, which is owned by the level manager.
+	 * @return					The player avatar on the world map
+	 */
+	public static Avatar getHero() {
+		return levelManager.getScreen().getHero();
+	}
+	
+	/**
+	 * Sets all the file handlers used by the asset manager.
+	 */
+	public static void setHandlers() {
+		assetManager.setLoader(SceneData.class, new SceneLoader(new InternalFileHandleResolver()));
+		assetManager.setLoader(DataEntry.class, new DataLoader(new InternalFileHandleResolver()));
+		assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+		assetManager.setLoader(LuaValue.class, new LuaLoader(new InternalFileHandleResolver()));
+	}
+
+}

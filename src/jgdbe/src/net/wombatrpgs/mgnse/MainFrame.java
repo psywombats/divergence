@@ -53,7 +53,7 @@ public class MainFrame extends JFrame {
 	 * Set up the application... in practice all this does is set window title.
 	 */
 	public MainFrame() {
-		super("MGN Database Editor");
+		super("JG Database Editor");
 	}
 	
 	/**
@@ -164,8 +164,8 @@ public class MainFrame extends JFrame {
 		edit.add(cloneItem);
 		bar.add(edit);
 		
-		// TODO: do this each time a project is loaded
-		loadWizards();
+		// TODO: dbe: do this each time a project is loaded
+		loadAllWizards();
 		
 		setSaveAllEnable(false);
 		setSaveEnable(false);
@@ -330,12 +330,19 @@ public class MainFrame extends JFrame {
 		this.logic = logic;
 	}
 	
-	public void loadWizards() {
+	public void loadAllWizards() {
 		allWizards = new ArrayList<Wizard>();
+		
+		for (String filename : getLogic().getConfig().schema) {
+			loadWizards(filename);
+		}
+	}
+	
+	public void loadWizards(String filename) {
 		
 		// get the jar
 		JarInputStream stream = null;
-		File f = getLogic().loadFile(getLogic().getConfig().schema);
+		File f = getLogic().loadFile(filename);
 		try {
 			stream = new JarInputStream(new FileInputStream(f));
 		} catch (Exception e) {

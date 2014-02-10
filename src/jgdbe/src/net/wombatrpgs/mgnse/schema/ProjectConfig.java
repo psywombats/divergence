@@ -15,7 +15,7 @@ public class ProjectConfig {
 	public String name;
 	/** Data directory for the database */
 	public String data;
-	/** Schema directory */
-	public String schema;
+	/** Schema jar list */
+	public String[] schema;
 	
 }
