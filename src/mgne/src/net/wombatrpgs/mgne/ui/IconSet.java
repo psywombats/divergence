@@ -10,7 +10,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Pixmap;
 
 import net.wombatrpgs.mgne.core.Constants;
-import net.wombatrpgs.mgne.core.Queueable;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgneschema.graphics.IconSetMDO;
 
 /**
@@ -31,7 +31,7 @@ public class IconSet implements Queueable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Queueable#queueRequiredAssets
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -42,7 +42,7 @@ public class IconSet implements Queueable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Queueable#postProcessing
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override

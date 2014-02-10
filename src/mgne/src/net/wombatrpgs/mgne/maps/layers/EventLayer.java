@@ -14,7 +14,7 @@ import java.util.List;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.MapThing;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
@@ -101,7 +101,7 @@ public class EventLayer extends Layer {
 	 */
 	public void add(MapEvent event) {
 		if (event == null) {
-			SGlobal.reporter.warn("Added a null object to the map?");
+			MGlobal.reporter.warn("Added a null object to the map?");
 		} else {
 			events.add(event);
 		}
@@ -134,9 +134,9 @@ public class EventLayer extends Layer {
 				public int compare(MapEvent a, MapEvent b) {
 					int val = (a.ticksToAct() - b.ticksToAct());
 					if (val == 0) {
-						if (a == SGlobal.getHero()) {
+						if (a == MGlobal.getHero()) {
 							return 1;
-						} else if (b == SGlobal.getHero()) {
+						} else if (b == MGlobal.getHero()) {
 							return -1;
 						} else {
 							return b.hashCode() - a.hashCode();
@@ -153,7 +153,7 @@ public class EventLayer extends Layer {
 			}
 			//next.simulateTime(1);
 			next.onTurn();
-			if (next == SGlobal.getHero()) {
+			if (next == MGlobal.getHero()) {
 				break;
 			}
 		}

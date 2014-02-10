@@ -14,8 +14,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
 import net.wombatrpgs.mgne.core.Constants;
-import net.wombatrpgs.mgne.core.Queueable;
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgneschema.ui.NinesliceMDO;
 
 /**
@@ -63,7 +63,7 @@ public class Nineslice implements Queueable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Queueable#queueRequiredAssets
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -72,7 +72,7 @@ public class Nineslice implements Queueable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Queueable#postProcessing
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
@@ -122,8 +122,8 @@ public class Nineslice implements Queueable {
 		this.height = height;
 		
 		buffer = new FrameBuffer(Format.RGB565,
-				SGlobal.window.getWidth(),
-				SGlobal.window.getHeight(),
+				MGlobal.window.getWidth(),
+				MGlobal.window.getHeight(),
 				false);
 		if (appearance != null) {
 			appearance.dispose();

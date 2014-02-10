@@ -9,7 +9,7 @@ package net.wombatrpgs.mgne.scenes.commands;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.scenes.SceneCommand;
 import net.wombatrpgs.mgne.scenes.SceneLib;
 import net.wombatrpgs.mgne.ui.text.TextBox;
@@ -35,7 +35,7 @@ public class SceneSpeak extends OneArgFunction {
 			boolean setText;
 			
 			@Override protected void internalRun() {
-				box = SGlobal.ui.getBox();
+				box = MGlobal.ui.getBox();
 				box.fadeIn(parent.getScreen(), FADE_TIME);
 				blocking = true;
 				setText = false;

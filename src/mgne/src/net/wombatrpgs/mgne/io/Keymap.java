@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 import net.wombatrpgs.mgne.core.Constants;
-import net.wombatrpgs.mgne.core.SGlobal;
-import net.wombatrpgs.mgne.core.Updateable;
+import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.io.InputEvent.EventType;
 import net.wombatrpgs.mgne.screen.ScreenStack;
 import net.wombatrpgs.mgneschema.io.KeymapMDO;
@@ -70,16 +70,16 @@ public class Keymap implements	InputProcessor,
 	 * @return					The created keymap
 	 */
 	public static Keymap initDefaultKeymap() {
-		InputSettingsMDO inputMDO = SGlobal.data.getEntryFor(Constants.KEY_INPUT, InputSettingsMDO.class);
-		KeymapMDO keyMDO = SGlobal.data.getEntryFor(inputMDO.keymap, KeymapMDO.class);
+		InputSettingsMDO inputMDO = MGlobal.data.getEntryFor(Constants.KEY_INPUT, InputSettingsMDO.class);
+		KeymapMDO keyMDO = MGlobal.data.getEntryFor(inputMDO.keymap, KeymapMDO.class);
 		Keymap map = new Keymap(keyMDO);
-		map.registerListener(SGlobal.screens);
+		map.registerListener(MGlobal.screens);
 		Gdx.input.setInputProcessor(map);
 		return map;
 	}
 	
 	/**
-	 * @see net.wombatrpgs.mgne.core.Updateable#update(float)
+	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
 	 */
 	@Override
 	public void update(float elapsed) {
@@ -116,7 +116,7 @@ public class Keymap implements	InputProcessor,
 		if (listeners.contains(listener)) {
 			listeners.remove(listener);
 		} else {
-			SGlobal.reporter.warn("The listener " + listener + " is not " +
+			MGlobal.reporter.warn("The listener " + listener + " is not " +
 					"actually listening to " + this);
 		}
 	}

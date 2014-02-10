@@ -10,8 +10,8 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.wombatrpgs.mgne.core.Queueable;
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
 
 /**
  * Something that provides particles for an emitter. Must be subclassed. Right
@@ -47,22 +47,22 @@ public abstract class ParticleSet implements Queueable {
 	public abstract Particle generateParticle(Emitter source);
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Queueable#queueRequiredAssets
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		SGlobal.assetManager.load(fileName, Texture.class);
+		MGlobal.assetManager.load(fileName, Texture.class);
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Queueable#postProcessing
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		if (SGlobal.assetManager.isLoaded(fileName)) {
-			Texture spritesheet = SGlobal.assetManager.get(fileName, Texture.class);
+		if (MGlobal.assetManager.isLoaded(fileName)) {
+			Texture spritesheet = MGlobal.assetManager.get(fileName, Texture.class);
 			particleSources = new TextureRegion[frameCount];
 			for (int i = 0; i < frameCount; i++) {
 				particleSources[i] = new TextureRegion(spritesheet,
@@ -70,7 +70,7 @@ public abstract class ParticleSet implements Queueable {
 						frameWidth, frameHeight);
 			}
 		} else {
-			SGlobal.reporter.warn("Particlesheet not loaded: " + fileName);
+			MGlobal.reporter.warn("Particlesheet not loaded: " + fileName);
 		}
 	}
 

@@ -15,10 +15,10 @@ import org.luaj.vm2.LuaValue;
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mgne.core.Constants;
-import net.wombatrpgs.mgne.core.FinishListener;
-import net.wombatrpgs.mgne.core.Queueable;
-import net.wombatrpgs.mgne.core.SGlobal;
-import net.wombatrpgs.mgne.core.Updateable;
+import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
+import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.io.CommandMap;
 import net.wombatrpgs.mgne.io.command.CMapScene;
@@ -122,7 +122,7 @@ public class SceneParser implements	Updateable,
 	@Override
 	public boolean onCommand(InputCommand command) {
 		if (!running || currentCommand == null) {
-			SGlobal.reporter.warn("Received a command to invalid parser " + this);
+			MGlobal.reporter.warn("Received a command to invalid parser " + this);
 			return false;
 		}
 		return currentCommand.onCommand(command);
@@ -144,7 +144,7 @@ public class SceneParser implements	Updateable,
 	public boolean isRunning() { return this.running; }
 	
 	/** @return The level currently active. Same as the static call */
-	public Level getLevel() { return SGlobal.levelManager.getActive(); }
+	public Level getLevel() { return MGlobal.levelManager.getActive(); }
 
 	/**
 	 * Runs the scene assuming it should be run in the current context. The only
@@ -153,16 +153,16 @@ public class SceneParser implements	Updateable,
 	 */
 	public void run() {
 		if (running) {
-			SGlobal.reporter.warn("Trying to run a running scene: " + this);
+			MGlobal.reporter.warn("Trying to run a running scene: " + this);
 			return;
 		}
 		if (commands.size() == 0) {
-			SGlobal.reporter.warn("Tried to run an empty scene: " + this);
+			MGlobal.reporter.warn("Tried to run an empty scene: " + this);
 		}
 		
-		SGlobal.reporter.inform("Now running a scene: " + this);
+		MGlobal.reporter.inform("Now running a scene: " + this);
 		commandMap = new CMapScene();
-		parent = SGlobal.screens.peek();
+		parent = MGlobal.screens.peek();
 		parent.addUChild(this);
 		parent.pushCommandContext(commandMap);
 		parent.registerCommandListener(this);
@@ -189,7 +189,7 @@ public class SceneParser implements	Updateable,
 		if (listeners.contains(listener)) {
 			listeners.remove(listener);
 		} else {
-			SGlobal.reporter.warn("Tried to remove a non-listener: " + listener);
+			MGlobal.reporter.warn("Tried to remove a non-listener: " + listener);
 		}
 	}
 	
@@ -197,7 +197,7 @@ public class SceneParser implements	Updateable,
 	 * Called when this parser finishes execution.
 	 */
 	protected void terminate() {
-		SGlobal.reporter.inform("Terminated a scene: " + this);
+		MGlobal.reporter.inform("Terminated a scene: " + this);
 		parent.removeCommandContext(commandMap);
 		parent.unregisterCommandListener(this);
 		running = false;

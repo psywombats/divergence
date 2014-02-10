@@ -9,7 +9,7 @@ package net.wombatrpgs.mgne.io;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 
 /**
  * Reports to listeners if focus is gained or lost. Must be implemented in a
@@ -42,7 +42,7 @@ public abstract class FocusReporter {
 		if (listeners.contains(listener)) {
 			listeners.remove(listener);
 		} else {
-			SGlobal.reporter.warn("No listener found in list: " + listener);
+			MGlobal.reporter.warn("No listener found in list: " + listener);
 		}
 	}
 	

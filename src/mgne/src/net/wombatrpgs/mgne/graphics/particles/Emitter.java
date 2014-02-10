@@ -9,7 +9,7 @@ package net.wombatrpgs.mgne.graphics.particles;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.MapMovable;
 import net.wombatrpgs.mgneschema.graphics.EmitterMDO;
 
@@ -56,16 +56,16 @@ public class Emitter extends MapMovable  {
 	 */
 	protected void fireSingle(float xComp, float yComp) {
 		Particle part = set.generateParticle(this);
-		int angle = SGlobal.rand.nextInt(360);
+		int angle = MGlobal.rand.nextInt(360);
 		float vx = (float) (mdo.velocity * Math.cos(angle));
 		float vy = (float) (mdo.velocity * Math.sin(angle));
 		vx += xComp * mdo.velocity;
 		vy += yComp * mdo.velocity;
-		vx *= (SGlobal.rand.nextFloat()/2 + .5f);
-		vy *= (SGlobal.rand.nextFloat()/2 + .5f);
+		vx *= (MGlobal.rand.nextFloat()/2 + .5f);
+		vy *= (MGlobal.rand.nextFloat()/2 + .5f);
 		part.setVelocity(vx, vy);
-		part.setAngularVelocity(mdo.rotationalVelocity * SGlobal.rand.nextFloat()*2-1);
-		part.setLife(SGlobal.rand.nextFloat() * (mdo.maxLife - mdo.minLife) + mdo.minLife);
+		part.setAngularVelocity(mdo.rotationalVelocity * MGlobal.rand.nextFloat()*2-1);
+		part.setLife(MGlobal.rand.nextFloat() * (mdo.maxLife - mdo.minLife) + mdo.minLife);
 		particles.add(part);
 		// TODO: particles: add to map
 //		parent.addEventAbsolute(part, 

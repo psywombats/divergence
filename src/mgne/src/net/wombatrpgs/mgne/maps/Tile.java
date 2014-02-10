@@ -13,8 +13,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.mgne.core.Constants;
-import net.wombatrpgs.mgne.core.Queueable;
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgneschema.maps.data.TileMDO;
 import net.wombatrpgs.mgneschema.maps.data.TileType;
 
@@ -65,7 +65,7 @@ public class Tile implements Queueable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Queueable#queueRequiredAssets
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -75,13 +75,13 @@ public class Tile implements Queueable {
 		}
 	}
 
-	/** @see net.wombatrpgs.mgne.core.Queueable#postProcessing
+	/** @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int) */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		if (!MapThing.mdoHasProperty(mdo.appearance)) return;
-		if (!SGlobal.assetManager.isLoaded(filename)) {
-			SGlobal.reporter.err("No tile loaded for file:" + mdo);
+		if (!MGlobal.assetManager.isLoaded(filename)) {
+			MGlobal.reporter.err("No tile loaded for file:" + mdo);
 			return;
 		}
 		Texture sheet = manager.get(filename, Texture.class);

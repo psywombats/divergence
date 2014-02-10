@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.mgne.core;
 
+import net.wombatrpgs.mgne.core.interfaces.Reporter;
+
 /**
  * All the platform-specific things the engine needs. Once again, all the
  * functionality of this thing got screwed up.

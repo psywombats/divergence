@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.mgne.core.reporters;
 
-import net.wombatrpgs.mgne.core.Reporter;
+import net.wombatrpgs.mgne.core.interfaces.Reporter;
 
 
 /**
@@ -17,7 +17,7 @@ public class DebugReporter implements Reporter {
 	public static boolean VERBOSE = true;
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Reporter#inform(java.lang.String)
+	 * @see net.wombatrpgs.mgne.core.interfaces.Reporter#inform(java.lang.String)
 	 */
 	@Override
 	public void inform(String info) {
@@ -28,7 +28,7 @@ public class DebugReporter implements Reporter {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Reporter#warn(java.lang.String)
+	 * @see net.wombatrpgs.mgne.core.interfaces.Reporter#warn(java.lang.String)
 	 */
 	@Override
 	public void warn(String warning) {
@@ -37,7 +37,7 @@ public class DebugReporter implements Reporter {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Reporter#err(java.lang.String)
+	 * @see net.wombatrpgs.mgne.core.interfaces.Reporter#err(java.lang.String)
 	 */
 	@Override
 	public void err(String error) {
@@ -46,7 +46,7 @@ public class DebugReporter implements Reporter {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Reporter#err(java.lang.String, java.lang.Exception)
+	 * @see net.wombatrpgs.mgne.core.interfaces.Reporter#err(java.lang.String, java.lang.Exception)
 	 */
 	@Override
 	public void err(String error, Exception e) {
@@ -56,7 +56,7 @@ public class DebugReporter implements Reporter {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Reporter#err(java.lang.Exception)
+	 * @see net.wombatrpgs.mgne.core.interfaces.Reporter#err(java.lang.Exception)
 	 */
 	@Override
 	public void err(Exception e) {
@@ -64,7 +64,7 @@ public class DebugReporter implements Reporter {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Reporter#warn(java.lang.String, java.lang.Exception)
+	 * @see net.wombatrpgs.mgne.core.interfaces.Reporter#warn(java.lang.String, java.lang.Exception)
 	 */
 	@Override
 	public void warn(String error, Exception e) {

@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.mgne.graphics;
 
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
 import net.wombatrpgs.mgneschema.graphics.TwoDirMDO;
@@ -62,9 +62,9 @@ public class TwoDir extends FacesAnimation {
 	@Override
 	protected void sliceAnimations() {
 		animations[LEFT_INDEX] = new AnimationStrip(
-				SGlobal.data.getEntryFor(mdo.leftAnim, AnimationMDO.class), parent);
+				MGlobal.data.getEntryFor(mdo.leftAnim, AnimationMDO.class), parent);
 		animations[RIGHT_INDEX] = new AnimationStrip(
-				SGlobal.data.getEntryFor(mdo.rightAnim, AnimationMDO.class), parent);
+				MGlobal.data.getEntryFor(mdo.rightAnim, AnimationMDO.class), parent);
 	}
 
 }

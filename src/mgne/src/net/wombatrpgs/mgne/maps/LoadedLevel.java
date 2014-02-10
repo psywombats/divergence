@@ -14,7 +14,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import net.wombatrpgs.mgne.core.Constants;
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.maps.layers.EventLayer;
 import net.wombatrpgs.mgne.maps.layers.LoadedGridLayer;
@@ -107,7 +107,7 @@ public class LoadedLevel extends Level {
 	private void processMap(AssetManager manager) {
 		
 		// get the map
-		map = SGlobal.assetManager.get(mapPath, TiledMap.class);
+		map = MGlobal.assetManager.get(mapPath, TiledMap.class);
 		renderer = new OrthogonalTiledMapRenderer(map, 1f);
 		renderer.getSpriteBatch().setShader(screen.getMapShader());
 		mapWidth = map.getProperties().get("width", Integer.class);
@@ -121,7 +121,7 @@ public class LoadedLevel extends Level {
 				gridLayers.add(new LoadedGridLayer(this, (TiledMapTileLayer) layer));
 			} else {
 				if (generatedEventLayer) {
-					SGlobal.reporter.warn("Multiple event layers on map: " + this);
+					MGlobal.reporter.warn("Multiple event layers on map: " + this);
 				} else {
 					for (MapObject object : layer.getObjects()) {
 						EventFactory.createAndPlace(new TiledMapObject(this, object));

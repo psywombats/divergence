@@ -61,7 +61,7 @@ public class SchemaTree extends JTree {
 	/** The providing data structure */
 	private SchemaNode tree;
 	/** load dem classes */
-	private URLClassLoader cl;
+	private List<URLClassLoader> loaders;
 	/** Model setup for the tree */
 	private DefaultTreeModel model;
 	
@@ -110,9 +110,35 @@ public class SchemaTree extends JTree {
 	 * Refreshes all schema for the tree, from all jars.
 	 */
 	public void refreshSchema() {
+		
+		// class loading
+		loaders = new ArrayList<URLClassLoader>();
+		
+		// load from all files
+		schema = new ArrayList<Class<? extends MainSchema>>();
 		for (File schemaJar : schemaJars) {
 			refreshSchema(schemaJar);
 		}
+		
+		Global.instance().setSchema(schema);
+		
+		// set up the tree
+		tree = new SchemaNode("Schema");
+		this.setModel(new DefaultTreeModel(tree));
+		map = new HashMap<Class<? extends MainSchema>, SchemaNode>();
+		for (Class<? extends MainSchema> schemaClass : schema) {
+			if (schemaClass.isAnnotationPresent(ExcludeFromTree.class)){
+				Global.instance().debug("Ignored schema file due to exclude " + schemaClass);
+			} else {
+				map.put(schemaClass, getNodeByPath(tree,
+						getSchemaDisplayPath(schemaClass), schemaClass));
+			}
+		}
+		this.expandPath(new TreePath(tree.getPath()));
+		Global.instance().setSchemaMap(map);
+		
+		// populate
+		refreshData();
 	}
 	
 	/**
@@ -134,15 +160,16 @@ public class SchemaTree extends JTree {
 		
 		// init the classloader
 		URL schemaURL = null;
+		URLClassLoader cl = null;
 		try {
 			schemaURL = schemaJar.toURI().toURL();
 			cl = new URLClassLoader(new URL[] { schemaURL }, MainSchema.class.getClassLoader());
+			loaders.add(cl);
 		} catch (MalformedURLException e1) {
 			Global.instance().err("Malformed url " + schemaURL, e1);
 		}
 		
 		// get all the classes
-		schema = new ArrayList<Class<? extends MainSchema>>();
 		while (true) {
 			JarEntry entry = null;
 			try {
@@ -168,25 +195,6 @@ public class SchemaTree extends JTree {
 				Global.instance().debug("Found a non-schema file: " + entry.getName());
 			}
 		}
-		Global.instance().setSchema(schema);
-		
-		// set up the tree
-		tree = new SchemaNode("Schema");
-		this.setModel(new DefaultTreeModel(tree));
-		map = new HashMap<Class<? extends MainSchema>, SchemaNode>();
-		for (Class<? extends MainSchema> schemaClass : schema) {
-			if (schemaClass.isAnnotationPresent(ExcludeFromTree.class)){
-				Global.instance().debug("Ignored schema file due to exclude " + schemaClass);
-			} else {
-				map.put(schemaClass, getNodeByPath(tree,
-						getSchemaDisplayPath(schemaClass), schemaClass));
-			}
-		}
-		this.expandPath(new TreePath(tree.getPath()));
-		Global.instance().setSchemaMap(map);
-		
-		// populate
-		refreshData();
 	}
 	
 	/**
@@ -345,16 +353,19 @@ public class SchemaTree extends JTree {
 		String className = relativePath.replace('\\', '.');
 		className = className.replace('/', '.');
 		if (className.startsWith(".")) className = className.substring(1);
-		try {
-			Class<?> rawClass = cl.loadClass(className);
-			if (!MainSchema.class.isAssignableFrom(rawClass)) {
-				Global.instance().warn("Loaded class " + rawClass + " didn't extend base schema");
+		for (URLClassLoader cl : loaders) {
+			try {
+				Class<?> rawClass = cl.loadClass(className);
+				if (!MainSchema.class.isAssignableFrom(rawClass)) {
+					Global.instance().warn("Loaded class " + rawClass + " didn't extend base schema");
+				}
+				return (Class<? extends MainSchema>) rawClass;
+			} catch (ClassNotFoundException e) {
+				continue;
 			}
-			return (Class<? extends MainSchema>) rawClass;
-		} catch (ClassNotFoundException e) {
-			Global.instance().err("Couldn't find a class " + className, e);
-			return null;
 		}
+		Global.instance().err("Couldn't find a class " + className, new Exception());
+		return null;
 	}
 	
 	/**

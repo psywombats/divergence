@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.mgne.graphics;
 
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
 import net.wombatrpgs.mgneschema.graphics.DirMDO;
@@ -33,7 +33,7 @@ public class FacesAnimationFactory {
 		} else if (AnimationMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new OneDir((AnimationMDO) mdo, parent);
 		} else {
-			SGlobal.reporter.warn("Unknown subclass of DirMDO: " + mdo);
+			MGlobal.reporter.warn("Unknown subclass of DirMDO: " + mdo);
 			return null;
 		}
 	}
@@ -47,7 +47,7 @@ public class FacesAnimationFactory {
 	 * @return					That object, formatted and shit
 	 */
 	public static FacesAnimation create(String mdoKey, MapEvent parent) {
-		DirMDO mdo = SGlobal.data.getEntryFor(mdoKey, DirMDO.class);
+		DirMDO mdo = MGlobal.data.getEntryFor(mdoKey, DirMDO.class);
 		return create(mdo, parent);
 	}
 

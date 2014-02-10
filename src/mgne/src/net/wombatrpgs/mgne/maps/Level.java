@@ -12,8 +12,8 @@ import java.util.List;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import net.wombatrpgs.mgne.core.SGlobal;
-import net.wombatrpgs.mgne.core.Turnable;
+import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.Turnable;
 import net.wombatrpgs.mgne.graphics.effects.Effect;
 import net.wombatrpgs.mgne.graphics.effects.EffectFactory;
 import net.wombatrpgs.mgne.io.audio.MusicObject;
@@ -83,7 +83,7 @@ public abstract class Level extends ScreenObject implements Turnable {
 			assets.add(effect);
 		}
 		if (MapThing.mdoHasProperty(mdo.bgm)) {
-			bgm = new MusicObject(SGlobal.data.getEntryFor(mdo.bgm, MusicMDO.class));
+			bgm = new MusicObject(MGlobal.data.getEntryFor(mdo.bgm, MusicMDO.class));
 			assets.add(bgm);
 		}
 		reseting = false;
@@ -91,7 +91,7 @@ public abstract class Level extends ScreenObject implements Turnable {
 	}
 	
 	/** @return The batch used to render sprites on this map */
-	public SpriteBatch getBatch() { return SGlobal.levelManager.getScreen().getViewBatch(); }
+	public SpriteBatch getBatch() { return MGlobal.levelManager.getScreen().getViewBatch(); }
 	
 	/** @return The width of this map, in pixels */
 	public int getWidthPixels() { return getWidth() * getTileWidth(); }
@@ -124,13 +124,13 @@ public abstract class Level extends ScreenObject implements Turnable {
 	public float getMoveTimeLeft() { return moveTime; }
 	
 	/** @return The time since the move started, in s */
-	public float getMoveTimeElapsed() { return SGlobal.constants.getDelay() - moveTime; }
+	public float getMoveTimeElapsed() { return MGlobal.constants.getDelay() - moveTime; }
 	
 	/** @return The key to this map's mdo */
 	public String getKey() { return mdo.key; }
 	
 	/** @return The screen this map is placed on */
-	public Screen getScreen() { return SGlobal.levelManager.getScreen(); }
+	public Screen getScreen() { return MGlobal.levelManager.getScreen(); }
 	
 	/** @see net.wombatrpgs.mgne.screen.ScreenObject#ignoresTint() */
 	@Override public boolean ignoresTint() { return false; }
@@ -163,7 +163,7 @@ public abstract class Level extends ScreenObject implements Turnable {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.mgne.core.Updateable#update(float)
+	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
 	 */
 	@Override
 	public void update(float elapsed) {
@@ -197,7 +197,7 @@ public abstract class Level extends ScreenObject implements Turnable {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.mgne.core.Turnable#onTurn()
+	 * @see net.wombatrpgs.mgne.core.interfaces.Turnable#onTurn()
 	 */
 	@Override
 	public void onTurn() {
@@ -224,7 +224,7 @@ public abstract class Level extends ScreenObject implements Turnable {
 		
 		// move step
 		moving = true;
-		moveTime = SGlobal.constants.getDelay();
+		moveTime = MGlobal.constants.getDelay();
 		for (MapEvent event : eventLayer.getEvents()) {
 			event.startMoving();
 		}
@@ -356,12 +356,12 @@ public abstract class Level extends ScreenObject implements Turnable {
 		if (objects.contains(object)) {
 			if (removalEvents.contains(object)) {
 				internalRemoveEvent((MapEvent) object);
-				SGlobal.reporter.inform("Overlapped remove/add event: " + object);
+				MGlobal.reporter.inform("Overlapped remove/add event: " + object);
 			} else if (removalObjects.contains(object)) {
 				internalRemoveObject(object);
-				SGlobal.reporter.inform("Overlapped remove/add object: " + object);
+				MGlobal.reporter.inform("Overlapped remove/add object: " + object);
 			} else {
-				SGlobal.reporter.warn("Added the same object twice: " + object);
+				MGlobal.reporter.warn("Added the same object twice: " + object);
 				return;
 			}
 		}

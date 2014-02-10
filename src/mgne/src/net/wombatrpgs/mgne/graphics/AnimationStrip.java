@@ -7,8 +7,8 @@
 package net.wombatrpgs.mgne.graphics;
 
 import net.wombatrpgs.mgne.core.Constants;
-import net.wombatrpgs.mgne.core.SGlobal;
-import net.wombatrpgs.mgne.core.Updateable;
+import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
 import net.wombatrpgs.mgneschema.graphics.data.AnimationType;
@@ -104,12 +104,12 @@ public class AnimationStrip implements 	Renderable,
 	public boolean isMoving() { return moving; }
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Updateable#update(float)
+	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
 	 */
 	@Override
 	public void update(float elapsed) {
 		if (!processed) {
-			SGlobal.reporter.err("Unprocessed strip: " + this + ", key: " + mdo.key);
+			MGlobal.reporter.err("Unprocessed strip: " + this + ", key: " + mdo.key);
 		}
 		if (moving) {
 			time += elapsed;
@@ -162,7 +162,7 @@ public class AnimationStrip implements 	Renderable,
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		SGlobal.assetManager.load(Constants.SPRITES_DIR + mdo.file, Texture.class);
+		MGlobal.assetManager.load(Constants.SPRITES_DIR + mdo.file, Texture.class);
 		queued = true;
 	}
 
@@ -173,8 +173,8 @@ public class AnimationStrip implements 	Renderable,
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		String filename = Constants.SPRITES_DIR+mdo.file;
-		if (SGlobal.assetManager.isLoaded(filename)) {
-			spritesheet = SGlobal.assetManager.get(filename, Texture.class);
+		if (MGlobal.assetManager.isLoaded(filename)) {
+			spritesheet = MGlobal.assetManager.get(filename, Texture.class);
 			frames = new TextureRegion[mdo.frameCount];
 			for (int i = 0; i < mdo.frameCount; i++) {
 				frames[i] = new TextureRegion(spritesheet,
@@ -202,7 +202,7 @@ public class AnimationStrip implements 	Renderable,
 				break;
 			}
 		} else {
-			SGlobal.reporter.err("Spritesheet not loaded: " + filename + " from " + this);
+			MGlobal.reporter.err("Spritesheet not loaded: " + filename + " from " + this);
 		}
 		processed = true;
 		update(0);

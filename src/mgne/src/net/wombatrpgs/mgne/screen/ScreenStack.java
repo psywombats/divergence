@@ -10,7 +10,7 @@ import java.util.Stack;
 
 import com.badlogic.gdx.Gdx;
 
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.Disposable;
 import net.wombatrpgs.mgne.io.ButtonListener;
 import net.wombatrpgs.mgne.io.InputEvent;
@@ -65,7 +65,7 @@ public class ScreenStack implements	Disposable,
 	 */
 	public Screen pop() {
 		if (screens.size() == 0) {
-			SGlobal.reporter.warn("No screens left in the stack, but popping.");
+			MGlobal.reporter.warn("No screens left in the stack, but popping.");
 			return null;
 		}
 		Screen oldTop = screens.pop();
@@ -106,19 +106,19 @@ public class ScreenStack implements	Disposable,
 	 */
 	public void render() {
 		if (screens.size() == 0) {
-			SGlobal.reporter.warn("No screens in stack, but told to render");
+			MGlobal.reporter.warn("No screens in stack, but told to render");
 		} else {
 			try {
 				screens.get(0).render();
 			} catch (Exception e) {
-				SGlobal.reporter.err("Exception during render: ", e);
+				MGlobal.reporter.err("Exception during render: ", e);
 				Gdx.app.exit();
 			}
 		}
 		try {
 			update();
 		} catch (Exception e) {
-			SGlobal.reporter.err("Exception during update: ", e);
+			MGlobal.reporter.err("Exception during update: ", e);
 			Gdx.app.exit();
 		}
 	}

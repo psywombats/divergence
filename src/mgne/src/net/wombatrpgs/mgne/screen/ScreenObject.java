@@ -12,8 +12,8 @@ import java.util.List;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import net.wombatrpgs.mgne.core.Queueable;
-import net.wombatrpgs.mgne.core.Updateable;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
+import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.Renderable;
 
 /**
@@ -47,7 +47,7 @@ public abstract class ScreenObject implements	Renderable,
 	public int getZ() { return z; }
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Queueable#queueRequiredAssets
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -58,7 +58,7 @@ public abstract class ScreenObject implements	Renderable,
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Queueable#postProcessing
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
 	 * 		for (Queueable asset : assets) {
 			asset.queueRequiredAssets(manager);
 		}(com.badlogic.gdx.assets.AssetManager, int)
@@ -80,7 +80,7 @@ public abstract class ScreenObject implements	Renderable,
 
 	/**
 	 * Default is nothing.
-	 * @see net.wombatrpgs.mgne.core.Updateable#update(float)
+	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
 	 */
 	@Override
 	public void update(float elapsed) {

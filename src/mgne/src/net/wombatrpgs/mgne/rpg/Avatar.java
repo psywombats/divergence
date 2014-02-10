@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.mgne.rpg;
 
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
@@ -27,7 +27,7 @@ public class Avatar extends MapEvent implements CommandListener {
 	 * uses it to set up a map event.
 	 */
 	public Avatar() {
-		super(SGlobal.data.getEntryFor(HERO_DEFAULT, AvatarMDO.class));
+		super(MGlobal.data.getEntryFor(HERO_DEFAULT, AvatarMDO.class));
 		dirToMove = null;
 	}
 
@@ -73,7 +73,7 @@ public class Avatar extends MapEvent implements CommandListener {
 		if (command == InputCommand.MOVE_STOP) {
 			dirToMove = null;
 		}
-		if (SGlobal.levelManager.getActive().isMoving()) {
+		if (MGlobal.levelManager.getActive().isMoving()) {
 			switch (command) {
 			case MOVE_LEFT:			dirToMove = OrthoDir.WEST;		break;
 			case MOVE_UP:			dirToMove = OrthoDir.NORTH;		break;

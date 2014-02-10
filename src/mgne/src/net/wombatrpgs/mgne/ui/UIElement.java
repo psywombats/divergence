@@ -8,7 +8,7 @@ package net.wombatrpgs.mgne.ui;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.Graphic;
 import net.wombatrpgs.mgne.screen.ScreenObject;
 
@@ -42,7 +42,7 @@ public abstract class UIElement extends ScreenObject {
 	 */
 	protected SpriteBatch getBatch() {
 		// TODO: ui: this should probably use the screen it's on right now
-		return SGlobal.levelManager.getScreen().getUIBatch();
+		return MGlobal.levelManager.getScreen().getUIBatch();
 	}
 
 }

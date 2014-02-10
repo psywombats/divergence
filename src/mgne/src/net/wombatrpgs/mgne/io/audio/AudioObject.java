@@ -9,8 +9,8 @@ package net.wombatrpgs.mgne.io.audio;
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mgne.core.Constants;
-import net.wombatrpgs.mgne.core.Queueable;
-import net.wombatrpgs.mgne.core.Updateable;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
+import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.Disposable;
 import net.wombatrpgs.mgneschema.audio.data.AudioMDO;
 

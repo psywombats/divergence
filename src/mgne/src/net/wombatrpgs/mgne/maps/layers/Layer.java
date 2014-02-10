@@ -12,7 +12,7 @@ import java.util.List;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import net.wombatrpgs.mgne.core.Queueable;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 

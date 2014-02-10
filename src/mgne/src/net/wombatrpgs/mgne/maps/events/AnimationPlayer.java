@@ -11,7 +11,7 @@ import java.util.List;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.AnimationStrip;
 import net.wombatrpgs.mgne.maps.MapThing;
 import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
@@ -89,7 +89,7 @@ public class AnimationPlayer extends MapThing {
 		if (listeners.contains(listener)) {
 			listeners.remove(listener);
 		} else {
-			SGlobal.reporter.warn("Unregistered a non-listener: " + listener);
+			MGlobal.reporter.warn("Unregistered a non-listener: " + listener);
 		}
 	}
 

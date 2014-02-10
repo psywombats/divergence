@@ -1,0 +1,8 @@
+{
+	"key" : "shader_standard",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"vertexFile" : "standard.vert",
+	"fragmentFile" : "standard.frag"
+}

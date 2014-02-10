@@ -9,7 +9,7 @@ package net.wombatrpgs.mgne.graphics.particles;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.MapMovable;
 import net.wombatrpgs.mgneschema.graphics.EmitterMDO;
 import net.wombatrpgs.mgneschema.graphics.data.BounceType;
@@ -46,7 +46,7 @@ public class Particle extends MapMovable {
 		this.source = source;
 		this.appearance = appearance;
 		this.parent = source.getParent();
-		this.angle = SGlobal.rand.nextInt(360);
+		this.angle = MGlobal.rand.nextInt(360);
 		this.bounce = mdo.bounce;
 		this.reflect = mdo.reflect;
 		this.bounceY = 0;

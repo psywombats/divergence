@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.mgne.graphics.effects;
 
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgneschema.graphics.effects.EffectFogMDO;
 import net.wombatrpgs.mgneschema.graphics.effects.data.EffectMDO;
@@ -26,7 +26,7 @@ public class EffectFactory {
 		if (EffectFogMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new EffectFog(creator, (EffectFogMDO) mdo);
 		} else {
-			SGlobal.reporter.warn("Unkown EffectMDO subclass: " + mdo.getClass());
+			MGlobal.reporter.warn("Unkown EffectMDO subclass: " + mdo.getClass());
 			return null;
 		}
 	}
@@ -38,7 +38,7 @@ public class EffectFactory {
 	 * @return					The MDO itself
 	 */
 	public static Effect create(Level creator, String mdoName) {
-		return create(creator, SGlobal.data.getEntryFor(mdoName, EffectMDO.class));
+		return create(creator, MGlobal.data.getEntryFor(mdoName, EffectMDO.class));
 	}
 
 }

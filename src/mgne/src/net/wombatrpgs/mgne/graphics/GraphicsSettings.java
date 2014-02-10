@@ -8,7 +8,7 @@ package net.wombatrpgs.mgne.graphics;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.mgne.core.Queueable;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgneschema.settings.GraphicsSettingsMDO;
 import net.wombatrpgs.mgneschema.settings.data.ShaderEnabledState;
 import net.wombatrpgs.mgneschema.test.data.TestState;
@@ -36,7 +36,7 @@ public class GraphicsSettings implements Queueable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Queueable#queueRequiredAssets
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -45,7 +45,7 @@ public class GraphicsSettings implements Queueable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Queueable#postProcessing
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override

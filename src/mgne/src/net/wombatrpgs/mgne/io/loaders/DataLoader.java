@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.mgne.io.loaders;
 
-import net.wombatrpgs.mgne.core.DataEntry;
+import net.wombatrpgs.mgne.core.data.DataEntry;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;

@@ -15,8 +15,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.mgne.core.Constants;
-import net.wombatrpgs.mgne.core.Queueable;
-import net.wombatrpgs.mgne.core.Updateable;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
+import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.Renderable;
 
 /**
@@ -65,7 +65,7 @@ public abstract class MapThing implements	Renderable,
 	
 	/**
 	 * Default queues up everything in the assets list.
-	 * @see net.wombatrpgs.mgne.core.Queueable#queueRequiredAssets
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -77,7 +77,7 @@ public abstract class MapThing implements	Renderable,
 
 	/**
 	 * Default processes everything in the assets list.
-	 * @see net.wombatrpgs.mgne.core.Queueable#postProcessing
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
@@ -88,7 +88,7 @@ public abstract class MapThing implements	Renderable,
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Updateable#update(float)
+	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
 	 */
 	@Override
 	public void update(float elapsed) {

@@ -11,8 +11,8 @@ import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.mgne.core.Queueable;
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBox;
 import net.wombatrpgs.mgneschema.graphics.IconSetMDO;
@@ -45,16 +45,16 @@ public class UISettings implements Queueable {
 	public UISettings(UISettingsMDO mdo) {
 		this.mdo = mdo;
 		this.assets = new ArrayList<Queueable>();
-		font = new FontHolder(SGlobal.data.getEntryFor(mdo.font, FontMDO.class));
+		font = new FontHolder(MGlobal.data.getEntryFor(mdo.font, FontMDO.class));
 		assets.add(font);
-		box = new TextBox(SGlobal.data.getEntryFor(mdo.box, TextBoxMDO.class), font);
+		box = new TextBox(MGlobal.data.getEntryFor(mdo.box, TextBoxMDO.class), font);
 		assets.add(box);
-		icons = new IconSet(SGlobal.data.getEntryFor(mdo.icons, IconSetMDO.class));
+		icons = new IconSet(MGlobal.data.getEntryFor(mdo.icons, IconSetMDO.class));
 		assets.add(icons);
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Queueable#queueRequiredAssets
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -65,7 +65,7 @@ public class UISettings implements Queueable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Queueable#postProcessing
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override

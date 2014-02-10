@@ -13,8 +13,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.mgne.core.Constants;
-import net.wombatrpgs.mgne.core.Queueable;
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgneschema.ui.NumberSetMDO;
 
 /**
@@ -40,7 +40,7 @@ public class NumberSet implements Queueable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Queueable#queueRequiredAssets
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -49,7 +49,7 @@ public class NumberSet implements Queueable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Queueable#postProcessing
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
@@ -67,10 +67,10 @@ public class NumberSet implements Queueable {
 	 */
 	public void renderDigitAt(int digit, int x, int y) {
 		if (digit < 0 || digit > 9) {
-			SGlobal.reporter.warn("Rendering negative digit! " + digit);
+			MGlobal.reporter.warn("Rendering negative digit! " + digit);
 		}
 		// TODo: ui: does every screen really need a UI batch?
-		SpriteBatch batch = SGlobal.levelManager.getScreen().getUIBatch();
+		SpriteBatch batch = MGlobal.levelManager.getScreen().getUIBatch();
 		batch.begin();
 		batch.draw(numberTextures[digit], x, y);
 		batch.end();
@@ -88,12 +88,12 @@ public class NumberSet implements Queueable {
 	 */
 	public void renderNumberAt(int num, int x, int y, float r, float g, float b) {
 		if (num < 0) {
-			SGlobal.reporter.warn("Negative number rendered!"  + num);
+			MGlobal.reporter.warn("Negative number rendered!"  + num);
 			return;
 		}
 		int atX = x;
 		String numStr = String.valueOf(num);
-		SpriteBatch batch = SGlobal.levelManager.getScreen().getUIBatch();
+		SpriteBatch batch = MGlobal.levelManager.getScreen().getUIBatch();
 		Color oldColor = batch.getColor();
 		batch.setColor(r, g, b, 1);
 		batch.begin();

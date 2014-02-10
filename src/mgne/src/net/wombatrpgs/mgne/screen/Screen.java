@@ -24,9 +24,9 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
-import net.wombatrpgs.mgne.core.Queueable;
-import net.wombatrpgs.mgne.core.SGlobal;
-import net.wombatrpgs.mgne.core.Updateable;
+import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
+import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.Disposable;
 import net.wombatrpgs.mgne.graphics.PostRenderable;
 import net.wombatrpgs.mgne.io.ButtonListener;
@@ -92,28 +92,28 @@ public abstract class Screen implements CommandListener,
 		privateBatch = new SpriteBatch();
 		uiBatch = new SpriteBatch();
 		buffer = new FrameBuffer(Format.RGB565, 
-				SGlobal.window.getWidth(),
-				SGlobal.window.getHeight(),
+				MGlobal.window.getWidth(),
+				MGlobal.window.getHeight(),
 				false);
 		lastBuffer = new FrameBuffer(Format.RGB565, 
-				SGlobal.window.getWidth(),
-				SGlobal.window.getHeight(),
+				MGlobal.window.getWidth(),
+				MGlobal.window.getHeight(),
 				false);
 		tint = new Color(1, 1, 1, 1);
 		shapes = new ShapeRenderer();
 		defaultFont = new BitmapFont();
-		cam = new TrackerCam(SGlobal.window.getWidth(), SGlobal.window.getHeight());
+		cam = new TrackerCam(MGlobal.window.getWidth(), MGlobal.window.getHeight());
 		
 		uiCam = new OrthographicCamera();
-		uiCam.setToOrtho(false, SGlobal.window.getWidth(), SGlobal.window.getHeight());
-		uiCam.zoom = SGlobal.window.getZoom();
-		uiCam.position.x = SGlobal.window.getWidth() / 2;
-		uiCam.position.y = SGlobal.window.getHeight() / 2;
+		uiCam.setToOrtho(false, MGlobal.window.getWidth(), MGlobal.window.getHeight());
+		uiCam.zoom = MGlobal.window.getZoom();
+		uiCam.position.x = MGlobal.window.getWidth() / 2;
+		uiCam.position.y = MGlobal.window.getHeight() / 2;
 		uiCam.update();
 		uiBatch.setProjectionMatrix(uiCam.combined);
 		
 		updateChildren.add(cam);
-		updateChildren.add(SGlobal.keymap);
+		updateChildren.add(MGlobal.keymap);
 	}
 	
 	/**
@@ -227,11 +227,11 @@ public abstract class Screen implements CommandListener,
 	 */
 	public void render() {
 		if (!initialized) {
-			SGlobal.reporter.warn("Forgot to intialize screen " + this);
+			MGlobal.reporter.warn("Forgot to intialize screen " + this);
 		}
 		cam.update(0);
 		batch.setProjectionMatrix(cam.combined);
-		WindowSettings window = SGlobal.window;
+		WindowSettings window = MGlobal.window;
 		buffer.begin();
 		Gdx.gl.glClearColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -315,7 +315,7 @@ public abstract class Screen implements CommandListener,
 	}
 	
 	/**
-	 * @see net.wombatrpgs.mgne.core.Updateable#update(float)
+	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
 	 */
 	@Override
 	public void update(float elapsed) {
@@ -345,8 +345,8 @@ public abstract class Screen implements CommandListener,
 		switch (command) {
 		case GLOBAL_FULLSCREEN:
 			Gdx.graphics.setDisplayMode(
-					SGlobal.window.getResolutionWidth(), 
-					SGlobal.window.getResolutionHeight(), 
+					MGlobal.window.getResolutionWidth(), 
+					MGlobal.window.getResolutionHeight(), 
 					!Gdx.graphics.isFullscreen());
 			return true;
 		default:
@@ -386,7 +386,7 @@ public abstract class Screen implements CommandListener,
 			removeUChild(screenObject);
 			screenObject.onRemovedFromScreen();
 		} else {
-			SGlobal.reporter.warn("Tried to remove non-existant picture from screen: " + screenObject);
+			MGlobal.reporter.warn("Tried to remove non-existant picture from screen: " + screenObject);
 		}
 	}
 
@@ -395,9 +395,9 @@ public abstract class Screen implements CommandListener,
 	 * the constructor.
 	 */
 	public final void init() {
-		this.queueRequiredAssets(SGlobal.assetManager);
-		SGlobal.assetManager.finishLoading();
-		this.postProcessing(SGlobal.assetManager, 0);
+		this.queueRequiredAssets(MGlobal.assetManager);
+		MGlobal.assetManager.finishLoading();
+		this.postProcessing(MGlobal.assetManager, 0);
 		initialized = true;
 	}
 	

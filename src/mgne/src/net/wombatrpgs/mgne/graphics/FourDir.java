@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.mgne.graphics;
 
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
 import net.wombatrpgs.mgneschema.graphics.FourDirMDO;
@@ -50,13 +50,13 @@ public class FourDir extends FacesAnimation {
 	@Override
 	protected void sliceAnimations() {
 		animations[OrthoDir.SOUTH.ordinal()] = new AnimationStrip(
-				SGlobal.data.getEntryFor(mdo.downAnim, AnimationMDO.class), parent);
+				MGlobal.data.getEntryFor(mdo.downAnim, AnimationMDO.class), parent);
 		animations[OrthoDir.NORTH.ordinal()] = new AnimationStrip(
-				SGlobal.data.getEntryFor(mdo.upAnim, AnimationMDO.class), parent);
+				MGlobal.data.getEntryFor(mdo.upAnim, AnimationMDO.class), parent);
 		animations[OrthoDir.WEST.ordinal()] = new AnimationStrip(
-				SGlobal.data.getEntryFor(mdo.leftAnim, AnimationMDO.class), parent);
+				MGlobal.data.getEntryFor(mdo.leftAnim, AnimationMDO.class), parent);
 		animations[OrthoDir.EAST.ordinal()] = new AnimationStrip(
-				SGlobal.data.getEntryFor(mdo.rightAnim, AnimationMDO.class), parent);
+				MGlobal.data.getEntryFor(mdo.rightAnim, AnimationMDO.class), parent);
 	}
 	
 }

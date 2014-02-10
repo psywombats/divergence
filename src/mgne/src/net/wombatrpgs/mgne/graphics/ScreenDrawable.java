@@ -61,7 +61,7 @@ public abstract class ScreenDrawable extends ScreenObject implements PositionSet
 	public boolean isTweening() { return tweening; }
 	
 	/**
-	 * @see net.wombatrpgs.mgne.core.Updateable#update(float)
+	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
 	 */
 	@Override
 	public void update(float elapsed) {

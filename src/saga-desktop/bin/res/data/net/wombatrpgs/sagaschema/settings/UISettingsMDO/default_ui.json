@@ -1,0 +1,9 @@
+{
+	"key" : "default_ui",
+	"subfolder" : "",
+	"name" : "   ",
+	"description" : " MGNE looks for this MDO by key ",
+	"font" : "font_sagaf",
+	"box" : "textbox_test",
+	"icons" : "iconset_default"
+}

@@ -11,8 +11,8 @@ import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.mgne.core.Queueable;
-import net.wombatrpgs.mgne.core.Updateable;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
+import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
@@ -61,7 +61,7 @@ public abstract class SceneCommand implements	Queueable,
 	public boolean isFinished() { return this.finished; }
 	
 	/**
-	 * @see net.wombatrpgs.mgne.core.Queueable#queueRequiredAssets
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -72,7 +72,7 @@ public abstract class SceneCommand implements	Queueable,
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Queueable#postProcessing
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
@@ -84,7 +84,7 @@ public abstract class SceneCommand implements	Queueable,
 	
 	/**
 	 * This will only be called if this command is actually running.
-	 * @see net.wombatrpgs.mgne.core.Updateable#update(float)
+	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
 	 */
 	@Override
 	public void update(float elapsed) {

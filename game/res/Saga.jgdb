@@ -2,6 +2,7 @@
 	"name" : "Saga database",
 	"data" : "data",
 	"schema" : [
+		"jar/MgnSchema.jar",
 		"jar/SagaSchema.jar"
 	]
 }

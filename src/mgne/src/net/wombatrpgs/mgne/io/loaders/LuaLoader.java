@@ -8,7 +8,7 @@ package net.wombatrpgs.mgne.io.loaders;
 
 import org.luaj.vm2.LuaValue;
 
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;
@@ -34,7 +34,7 @@ public class LuaLoader extends SynchronousAssetLoader<LuaValue, LuaLoader.LuaPar
 	 */
 	@Override
 	public LuaValue load(AssetManager assetManager, String fileName, FileHandle file, LuaParameter parameter) {
-		return SGlobal.lua.load(resolve(fileName));
+		return MGlobal.lua.load(resolve(fileName));
 	}
 
 	/**

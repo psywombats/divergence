@@ -7,7 +7,7 @@
 package net.wombatrpgs.mgne.graphics;
 
 import net.wombatrpgs.mgne.core.Constants;
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgneschema.graphics.ShaderMDO;
 
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
@@ -23,10 +23,10 @@ public class ShaderFromData extends ShaderProgram {
 	 * @param 	mdo				The data to construct from
 	 */
 	public ShaderFromData(ShaderMDO mdo) {
-		super(	SGlobal.loader.getText(Constants.SHADERS_DIR + mdo.vertexFile),
-				SGlobal.loader.getText(Constants.SHADERS_DIR + mdo.fragmentFile));
+		super(	MGlobal.loader.getText(Constants.SHADERS_DIR + mdo.vertexFile),
+				MGlobal.loader.getText(Constants.SHADERS_DIR + mdo.fragmentFile));
 		if (!isCompiled()) {
-			SGlobal.reporter.warn("Bad shader:\n" + getLog());
+			MGlobal.reporter.warn("Bad shader:\n" + getLog());
 		}
 	}
 

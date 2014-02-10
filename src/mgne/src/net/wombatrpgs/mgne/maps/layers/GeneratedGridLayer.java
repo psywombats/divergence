@@ -9,7 +9,7 @@ package net.wombatrpgs.mgne.maps.layers;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.Tile;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
@@ -79,11 +79,11 @@ public class GeneratedGridLayer extends GridLayer {
 	 * @param	cam				The camera to render with
 	 */
 	protected void dumbRender(OrthographicCamera camera) {
-		TrackerCam cam  = SGlobal.levelManager.getScreen().getCamera();
-		int startX = (int) Math.floor((cam.position.x - SGlobal.window.getWidth()/2.f) / parent.getTileWidth());
-		int startY = (int) Math.floor((cam.position.y - SGlobal.window.getHeight()/2.f) / parent.getTileHeight());
-		int endX = (int) Math.ceil((cam.position.x + SGlobal.window.getWidth()/2.f) / parent.getTileWidth());
-		int endY = (int) Math.ceil((cam.position.y + SGlobal.window.getHeight()/2.f) / parent.getTileHeight());
+		TrackerCam cam  = MGlobal.levelManager.getScreen().getCamera();
+		int startX = (int) Math.floor((cam.position.x - MGlobal.window.getWidth()/2.f) / parent.getTileWidth());
+		int startY = (int) Math.floor((cam.position.y - MGlobal.window.getHeight()/2.f) / parent.getTileHeight());
+		int endX = (int) Math.ceil((cam.position.x + MGlobal.window.getWidth()/2.f) / parent.getTileWidth());
+		int endY = (int) Math.ceil((cam.position.y + MGlobal.window.getHeight()/2.f) / parent.getTileHeight());
 		if (startX < 0) startX = 0;
 		if (startY < 0) startY = 0;
 		if (endX > parent.getWidth()) endX = parent.getWidth();

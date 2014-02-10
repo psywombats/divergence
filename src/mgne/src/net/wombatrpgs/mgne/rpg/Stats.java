@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.mgne.rpg;
 
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgneschema.characters.data.StatsMDO;
 
 /**
@@ -63,7 +63,7 @@ public class Stats {
 	 * @return					The damage to be dealt.
 	 */
 	public int getDamage() {
-		return dmgBase + SGlobal.rand.nextInt(dmgRange+1);
+		return dmgBase + MGlobal.rand.nextInt(dmgRange+1);
 	}
 	
 	/** 
@@ -71,7 +71,7 @@ public class Stats {
 	 * @return					The damage to be dealt.
 	 */
 	public int getMagDamage() {
-		return magBase + SGlobal.rand.nextInt(magRange+1);
+		return magBase + MGlobal.rand.nextInt(magRange+1);
 	}
 	
 	/**

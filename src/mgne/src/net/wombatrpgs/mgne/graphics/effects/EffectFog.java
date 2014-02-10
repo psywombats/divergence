@@ -8,7 +8,7 @@ package net.wombatrpgs.mgne.graphics.effects;
 
 import java.util.List;
 
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.AnimationStrip;
 import net.wombatrpgs.mgne.graphics.ShaderFromData;
 import net.wombatrpgs.mgne.maps.Level;
@@ -44,10 +44,10 @@ public class EffectFog extends Effect {
 	public EffectFog(Level parent, EffectFogMDO mdo) {
 		super(parent, mdo);
 		this.mdo = mdo;
-		anim = new AnimationStrip(SGlobal.data.getEntryFor(mdo.tex, AnimationMDO.class));
+		anim = new AnimationStrip(MGlobal.data.getEntryFor(mdo.tex, AnimationMDO.class));
 		offset = 0;
 		batch.setColor(1, 1, 1, mdo.density);
-		shader = new ShaderFromData(SGlobal.data.getEntryFor(mdo.shader, ShaderMDO.class));
+		shader = new ShaderFromData(MGlobal.data.getEntryFor(mdo.shader, ShaderMDO.class));
 		batch.setShader(shader);
 	}
 
@@ -57,8 +57,8 @@ public class EffectFog extends Effect {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		WindowSettings win = SGlobal.window;
-		TrackerCam cam = SGlobal.levelManager.getScreen().getCamera();
+		WindowSettings win = MGlobal.window;
+		TrackerCam cam = MGlobal.levelManager.getScreen().getCamera();
 		TextureRegion tex = anim.getRegion();
 		
 		batch.begin();
@@ -119,7 +119,7 @@ public class EffectFog extends Effect {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Queueable#queueRequiredAssets
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -128,7 +128,7 @@ public class EffectFog extends Effect {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Queueable#postProcessing
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
@@ -159,8 +159,8 @@ public class EffectFog extends Effect {
 		super.update(elapsed);
 		anim.update(elapsed);
 		offset += mdo.velocity * elapsed;
-		if (offset > SGlobal.window.getWidth()) {
-			offset -= SGlobal.window.getWidth();
+		if (offset > MGlobal.window.getWidth()) {
+			offset -= MGlobal.window.getWidth();
 		}
 	}
 

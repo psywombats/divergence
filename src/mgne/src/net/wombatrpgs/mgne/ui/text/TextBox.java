@@ -14,7 +14,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.ScreenDrawable;
 import net.wombatrpgs.mgne.io.audio.SoundObject;
 import net.wombatrpgs.mgne.maps.MapThing;
@@ -78,11 +78,11 @@ public class TextBox extends ScreenDrawable {
 		this.fadingOut = false;
 		
 		if (MapThing.mdoHasProperty(mdo.typeSfx)) {
-			typeSfx = new SoundObject(SGlobal.data.getEntryFor(mdo.typeSfx, SoundMDO.class));
+			typeSfx = new SoundObject(MGlobal.data.getEntryFor(mdo.typeSfx, SoundMDO.class));
 			assets.add(typeSfx);
 		}
 		if (MapThing.mdoHasProperty(mdo.nineslice)) {
-			backer = new Nineslice(SGlobal.data.getEntryFor(mdo.nineslice, NinesliceMDO.class));
+			backer = new Nineslice(MGlobal.data.getEntryFor(mdo.nineslice, NinesliceMDO.class));
 			assets.add(backer);
 		}
 		assets.add(font);
@@ -100,7 +100,7 @@ public class TextBox extends ScreenDrawable {
 		if (backer != null) {
 			int atY = 0;
 			if (mdo.anchor == BoxAnchorType.BOTTOM) {
-				atY = SGlobal.window.getHeight() - boxHeight;
+				atY = MGlobal.window.getHeight() - boxHeight;
 			}
 			backer.renderAt(getBatch(), 0, atY);
 		}
@@ -121,7 +121,7 @@ public class TextBox extends ScreenDrawable {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
-		WindowSettings win = SGlobal.window;
+		WindowSettings win = MGlobal.window;
 		
 		boxHeight = (int) (font.getLineHeight() * mdo.lines);
 		boxHeight += mdo.marginHeight * 2;

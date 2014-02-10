@@ -6,8 +6,8 @@
  */
 package net.wombatrpgs.mgne.screen;
 
-import net.wombatrpgs.mgne.core.SGlobal;
-import net.wombatrpgs.mgne.core.Updateable;
+import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.Positionable;
 
@@ -37,11 +37,11 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 		setToOrtho(false, 
 				viewportWidth,
 				viewportHeight);
-		zoom = SGlobal.window.getZoom();
+		zoom = MGlobal.window.getZoom();
 	}
 	
 	/**
-	 * @see net.wombatrpgs.mgne.core.Updateable#update(float)
+	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
 	 */
 	@Override
 	public void update(float elapsed) {
@@ -49,8 +49,8 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 			position.x = Math.round(target.getX()/zoom)*zoom;// * ratioX;
 			position.y = Math.round(target.getY()/zoom)*zoom;// * ratioY;
 			if (constrainedMap != null) {
-				int halfWidth = SGlobal.window.getWidth() / 2;
-				int halfHeight = SGlobal.window.getHeight() / 2;
+				int halfWidth = MGlobal.window.getWidth() / 2;
+				int halfHeight = MGlobal.window.getHeight() / 2;
 				boolean tooLeft = position.x < halfWidth;
 				boolean tooRight = position.x > constrainedMap.getWidthPixels() - halfWidth;
 				boolean tooUp = position.y < halfHeight;

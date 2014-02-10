@@ -9,7 +9,7 @@ package net.wombatrpgs.mgne.maps;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.scenes.TeleportManager;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.instances.GameScreen;
@@ -73,9 +73,9 @@ public class LevelManager {
 	 */
 	public Level getLevel(String mapID) {
 		if (teleport == null) {
-			teleport = new TeleportManager(SGlobal.data.getEntryFor(
+			teleport = new TeleportManager(MGlobal.data.getEntryFor(
 					TeleportManager.MD0_KEY, TeleportSettingsMDO.class));
-			teleport.queueRequiredAssets(SGlobal.assetManager);
+			teleport.queueRequiredAssets(MGlobal.assetManager);
 		}
 		if (!levels.containsKey(mapID)) {
 			// it's buggy, this shouldn't be necessary
@@ -88,18 +88,18 @@ public class LevelManager {
 //				SGlobal.screens.peek().getTint().g = 1;
 //				SGlobal.screens.peek().getTint().b = 1;
 //			}
-			MapMDO mapMDO = SGlobal.data.getEntryFor(mapID, MapMDO.class);
+			MapMDO mapMDO = MGlobal.data.getEntryFor(mapID, MapMDO.class);
 			Level map = createMap(mapMDO, screen);
 			long startTime = System.currentTimeMillis();
-			map.queueRequiredAssets(SGlobal.assetManager);
-			for (int pass = 0; SGlobal.assetManager.getProgress() < 1; pass++) {
-				SGlobal.assetManager.finishLoading();
-				map.postProcessing(SGlobal.assetManager, pass);
-				teleport.postProcessing(SGlobal.assetManager, pass);
+			map.queueRequiredAssets(MGlobal.assetManager);
+			for (int pass = 0; MGlobal.assetManager.getProgress() < 1; pass++) {
+				MGlobal.assetManager.finishLoading();
+				map.postProcessing(MGlobal.assetManager, pass);
+				teleport.postProcessing(MGlobal.assetManager, pass);
 			}
 			long endTime = System.currentTimeMillis();
 			float elapsed  = (endTime - startTime) / 1000f;
-			SGlobal.reporter.inform("Loaded level " + mapID + ", elapsed " +
+			MGlobal.reporter.inform("Loaded level " + mapID + ", elapsed " +
 						"time: " + elapsed + " seconds");
 			levels.put(mapID, map);
 //			if (SGlobal.screens.size() > 0) {
@@ -120,12 +120,12 @@ public class LevelManager {
 	private static Level createMap(MapMDO mdo, Screen screen) {
 		if (GeneratedMapMDO.class.isAssignableFrom(mdo.getClass())) {
 //			return new GeneratedLevel((GeneratedMapMDO) mdo, screen);
-			SGlobal.reporter.err("Generated maps not yet supported");
+			MGlobal.reporter.err("Generated maps not yet supported");
 			return null;
 		} else if (LoadedMapMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new LoadedLevel((LoadedMapMDO) mdo, screen);
 		} else {
-			SGlobal.reporter.err("Unknown subtype of mapmdo :" + mdo.getClass());
+			MGlobal.reporter.err("Unknown subtype of mapmdo :" + mdo.getClass());
 			return null;
 		}
 	}

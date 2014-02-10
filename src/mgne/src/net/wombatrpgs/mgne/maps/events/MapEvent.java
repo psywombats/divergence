@@ -18,10 +18,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.wombatrpgs.mgne.core.Lua;
-import net.wombatrpgs.mgne.core.LuaConvertable;
-import net.wombatrpgs.mgne.core.SGlobal;
-import net.wombatrpgs.mgne.core.Turnable;
+import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.Turnable;
+import net.wombatrpgs.mgne.core.lua.Lua;
+import net.wombatrpgs.mgne.core.lua.LuaConvertable;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mgne.graphics.PreRenderable;
@@ -75,7 +75,7 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 		
 		this.turnChildren = new ArrayList<Turnable>();
 		if (mdoHasProperty(mdo.appearance)) {
-			DirMDO dirMDO = SGlobal.data.getEntryFor(mdo.appearance, DirMDO.class);
+			DirMDO dirMDO = MGlobal.data.getEntryFor(mdo.appearance, DirMDO.class);
 			appearance = FacesAnimationFactory.create(dirMDO, this);
 			appearance.startMoving();
 			assets.add(appearance);
@@ -133,7 +133,7 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	/** @return True if the object is passable, false otherwise */
 	public boolean isPassable() { return appearance == null; }
 	
-	/** @see net.wombatrpgs.mgne.core.LuaConvertable#toLua() */
+	/** @see net.wombatrpgs.mgne.core.lua.LuaConvertable#toLua() */
 	@Override public LuaValue toLua() { return lua; }
 
 	/**
@@ -206,7 +206,7 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 		if (parent.isMoving()) {
 			if (travelPlan.size() > 0 ) {
 				int step = (int) Math.floor((float) travelPlan.size() *
-						(parent.getMoveTimeElapsed() / SGlobal.constants.getDelay()));
+						(parent.getMoveTimeElapsed() / MGlobal.constants.getDelay()));
 				if (step > travelPlan.size()-1) step = travelPlan.size()-1;
 				Step toStep = travelPlan.get(step);
 				if (lastStep != toStep && lastStep != null) {
@@ -240,7 +240,7 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 		setVelocity(vx, vy);
 		
 		for (Step step : travelPlan) {
-			step.setTime(SGlobal.constants.getDelay() / travelPlan.size());
+			step.setTime(MGlobal.constants.getDelay() / travelPlan.size());
 		}
 	}
 	
@@ -342,7 +342,7 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.Turnable#onTurn()
+	 * @see net.wombatrpgs.mgne.core.interfaces.Turnable#onTurn()
 	 */
 	@Override
 	public void onTurn() {
@@ -493,7 +493,7 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	 * @return					The result of the script evaluation
 	 */
 	protected LuaValue runScript(String chunk) {
-		return SGlobal.lua.run(chunk, this);
+		return MGlobal.lua.run(chunk, this);
 	}
 
 }

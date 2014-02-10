@@ -1,0 +1,16 @@
+{
+	"key" : "abilfx_darkness",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "  ",
+	"duration" : 1.2,
+	"tracking" : "STATIONARY",
+	"z" : "ABOVE",
+	"shader" : "shader_flames",
+	"mask" : "blob.png",
+	"flames" : "skulls.png",
+	"noise1" : "noise1.png",
+	"noise2" : "noise2.png",
+	"noise3" : "noise3.png",
+	"fadein" : 0.2
+}

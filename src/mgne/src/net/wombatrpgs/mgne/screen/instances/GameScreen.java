@@ -11,7 +11,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import net.wombatrpgs.mgne.core.Constants;
-import net.wombatrpgs.mgne.core.SGlobal;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.command.CMapGame;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.rpg.Avatar;
@@ -49,25 +49,25 @@ public class GameScreen extends Screen {
 	 */
 	public GameScreen() {
 		super();
-		SGlobal.levelManager.setScreen(this);
+		MGlobal.levelManager.setScreen(this);
 		
-		IntroSettingsMDO introMDO=SGlobal.data.getEntryFor("default_intro", IntroSettingsMDO.class);
-		map = SGlobal.levelManager.getLevel(introMDO.map);
-		SGlobal.levelManager.setActive(map);
+		IntroSettingsMDO introMDO=MGlobal.data.getEntryFor("default_intro", IntroSettingsMDO.class);
+		map = MGlobal.levelManager.getLevel(introMDO.map);
+		MGlobal.levelManager.setActive(map);
 		if (map.getBGM() != null) {
-			SGlobal.screens.playMusic(map.getBGM(), false);
+			MGlobal.screens.playMusic(map.getBGM(), false);
 		}
 		
 		addObject(map);
 		pushCommandContext(new CMapGame());
 		
-		fpsMDO = SGlobal.data.getEntryFor("test_fps", FramerateTestMDO.class);
+		fpsMDO = MGlobal.data.getEntryFor("test_fps", FramerateTestMDO.class);
 		
-		shaderMDO = SGlobal.data.getEntryFor("test_shader", ShaderTestMDO.class);
+		shaderMDO = MGlobal.data.getEntryFor("test_shader", ShaderTestMDO.class);
 		if (shaderMDO.enabled == TestState.ENABLED) {
 			testShader = new ShaderProgram(
-					SGlobal.loader.getText(Constants.SHADERS_DIR + shaderMDO.vertexFile),
-					SGlobal.loader.getText(Constants.SHADERS_DIR + shaderMDO.fragmentFile));
+					MGlobal.loader.getText(Constants.SHADERS_DIR + shaderMDO.vertexFile),
+					MGlobal.loader.getText(Constants.SHADERS_DIR + shaderMDO.fragmentFile));
 			batch.setShader(testShader);
 			mapShader = (testShader);
 		}
@@ -76,11 +76,11 @@ public class GameScreen extends Screen {
 		hero = new Avatar();
 		assets.add(hero);
 		
-		TextBoxTestMDO testMDO = SGlobal.data.getEntryFor("test_textbox", TextBoxTestMDO.class);
+		TextBoxTestMDO testMDO = MGlobal.data.getEntryFor("test_textbox", TextBoxTestMDO.class);
 		if (testMDO != null && testMDO.enabled == TestState.ENABLED) {
-			FontMDO fontMDO = SGlobal.data.getEntryFor(testMDO.font, FontMDO.class);
+			FontMDO fontMDO = MGlobal.data.getEntryFor(testMDO.font, FontMDO.class);
 			FontHolder font = new FontHolder(fontMDO);
-			TextBoxMDO textMDO = SGlobal.data.getEntryFor(testMDO.box, TextBoxMDO.class);
+			TextBoxMDO textMDO = MGlobal.data.getEntryFor(testMDO.box, TextBoxMDO.class);
 			TextBox box = new TextBox(textMDO, font);
 			box.setText(testMDO.text);
 			assets.add(box);
@@ -119,8 +119,8 @@ public class GameScreen extends Screen {
 			hero.setTileX(2);
 			hero.setTileY(2);
 			while (!map.isTilePassable(hero, hero.getTileX(), hero.getTileY())) {
-				hero.setTileX(SGlobal.rand.nextInt(map.getWidth()));
-				hero.setTileY(SGlobal.rand.nextInt(map.getHeight()));
+				hero.setTileX(MGlobal.rand.nextInt(map.getWidth()));
+				hero.setTileY(MGlobal.rand.nextInt(map.getHeight()));
 			}
 			map.addEvent(hero);
 			hero.setX(hero.getTileX()*map.getTileWidth());
@@ -138,11 +138,11 @@ public class GameScreen extends Screen {
 		super.render();
 		batch.begin();
 		if (fpsMDO.enabled == TestState.ENABLED) {
-			float wr = SGlobal.window.getZoom();
-			float wh = SGlobal.window.getZoom();
+			float wr = MGlobal.window.getZoom();
+			float wh = MGlobal.window.getZoom();
 			defaultFont.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(),
-					cam.position.x - SGlobal.window.getWidth()/2*wh + 8,
-					cam.position.y + SGlobal.window.getHeight()/2*wr - 8);
+					cam.position.x - MGlobal.window.getWidth()/2*wh + 8,
+					cam.position.y + MGlobal.window.getHeight()/2*wr - 8);
 		}
 		batch.end();
 		

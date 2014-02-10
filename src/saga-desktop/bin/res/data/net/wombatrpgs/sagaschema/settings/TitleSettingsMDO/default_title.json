@@ -1,0 +1,11 @@
+{
+	"key" : "default_title",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "Looked up by key",
+	"bg" : "titlescreen.png",
+	"prompt" : "prompt.png",
+	"promptX" : 668,
+	"promptY" : 8,
+	"cycle" : 0.8
+}

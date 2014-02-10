@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.mgne.graphics;
 
-import net.wombatrpgs.mgne.core.Queueable;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
