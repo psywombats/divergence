@@ -48,7 +48,6 @@ public class IntegerField extends FieldPanel {
 	@Override
 	protected void copyTo(Schema s) {
 		if (input.getText() == null || input.getText().equals("")) {
-			// TODO: if we're doing validation on this field, do it here.
 			input.setText("0");
 		}
 		try {

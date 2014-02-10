@@ -164,7 +164,7 @@ public class MainFrame extends JFrame {
 		edit.add(cloneItem);
 		bar.add(edit);
 		
-		// TODO: do this each time a project is loaded
+		// TODO: dbe: minor, but do this each time a project is loaded
 		loadWizards();
 		
 		setSaveAllEnable(false);
