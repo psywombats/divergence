@@ -1,8 +1,0 @@
-{
-	"key" : "shader_los",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "",
-	"vertexFile" : "los.vert",
-	"fragmentFile" : "los.frag"
-}
