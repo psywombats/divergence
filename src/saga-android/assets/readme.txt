@@ -1,20 +1,19 @@
 ================================================================================
-= ZSII v. 20131030  -public release candidate 1.0-                             =
-= running on MGNENGINE v. 20131013                                             =
+= SAGA v. 20140207  -not intended for public release-                          =
+= running on MGNENGINE v. 20140207                                             =
 = contact: aking (psy_wombats@wombatrpgs.net)                                  =
 ================================================================================
 
 TO RUN:
-Double-click ZephyrSkies2.bat. If you're not running windows, feel free to run
-the executable jar also provided.
+Double-click game.bat. If you're not running windows, feel free to run the
+executable jar also provided.
 
 REPORTING PROBLEMS:
 The game produces an info.log and error.log. Send these to our bug collector,
 psy_wombats@wombatrpgs.net.
 
+INFO:
+There isn't anything in-game right now. Just a snapshot of what I've got so far.
+
 CONTROLS:
-...are explain in-game. Noted here:
-0123456789 (numpad) to move, 5 is wait
-Move into a monster to attack it
-TAB opens menu L looks at monsters F1-F6 trigger abilities
-Try to make it to floor 13...
+Arrow keys.
