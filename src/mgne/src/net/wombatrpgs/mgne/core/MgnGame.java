@@ -6,6 +6,9 @@
  */
 package net.wombatrpgs.mgne.core;
 
+import net.wombatrpgs.mgne.screen.Screen;
+import net.wombatrpgs.mgne.screen.instances.GameScreen;
+
 /**
  * The MgnGame corresponds to all the game-specific stuff a game might want to
  * define. Create a subclass called SagaGame or something, I don't care. This
@@ -22,5 +25,17 @@ package net.wombatrpgs.mgne.core;
  * database entries!
  */
 public abstract class MgnGame {
+	
+	/**
+	 * Create and then return the first scene of the game. This defaults to the
+	 * engine-provided GameScreen class if left alone. Whatever it returns is
+	 * probably responsible for stuff like creating the hero, so it might as
+	 * well just extend GameScreen anyway. Actually, it's probably the title
+	 * screen... which is then responsible for all that, etc.
+	 * @return					The first screen the engine will display
+	 */
+	public Screen makeStarterScreen() {
+		return new GameScreen();
+	}
 
 }

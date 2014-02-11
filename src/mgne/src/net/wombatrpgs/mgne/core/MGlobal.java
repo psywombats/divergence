@@ -34,7 +34,6 @@ import net.wombatrpgs.mgne.rpg.Avatar;
 import net.wombatrpgs.mgne.scenes.SceneData;
 import net.wombatrpgs.mgne.screen.ScreenStack;
 import net.wombatrpgs.mgne.screen.WindowSettings;
-import net.wombatrpgs.mgne.screen.instances.GameScreen;
 import net.wombatrpgs.mgne.ui.UISettings;
 import net.wombatrpgs.mgneschema.settings.GraphicsSettingsMDO;
 import net.wombatrpgs.mgneschema.settings.UISettingsMDO;
@@ -162,7 +161,7 @@ public class MGlobal {
 					MGlobal.window.getResolutionWidth(),
 					MGlobal.window.getResolutionHeight(), 
 					fullscreen);
-			MGlobal.screens.push(new GameScreen());
+			MGlobal.screens.push(game.makeStarterScreen());
 			Gdx.graphics.setTitle(MGlobal.window.getTitle());
 			//Gdx.graphics.setVSync(true);
 			
