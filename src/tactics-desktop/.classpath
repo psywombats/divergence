@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="assets"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/mgne"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/gdx-backend-lwjgl-natives.jar"/>
+	<classpathentry kind="lib" path="lib/gdx-backend-lwjgl.jar" sourcepath="lib/gdx-backend-lwjgl-sources.jar"/>
+	<classpathentry kind="lib" path="lib/gdx-natives.jar"/>
+	<classpathentry kind="lib" path="/mgne/lib/gdx.jar" sourcepath="/mgne/lib/gdx-sources.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
