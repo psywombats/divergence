@@ -23,6 +23,7 @@ public class Battle implements CommandListener {
 	protected TacticsMap map;
 	
 	protected List<GameUnit> allCombatants;
+	protected GameUnit actor;
 	
 	/**
 	 * Creates a new battle on a certain map. Creates the tactics map to go with
@@ -41,6 +42,21 @@ public class Battle implements CommandListener {
 	@Override
 	public boolean onCommand(InputCommand command) {
 		return false;
+	}
+	
+	/**
+	 * Finds the actor who should move next (usually the guy with the
+	 * highest energy in the bunch)
+	 * @return					The next unit to move
+	 */
+	protected GameUnit nextActor() {
+		GameUnit best = allCombatants.get(0);
+		for (GameUnit unit : allCombatants) {
+			if (unit.getEnergy() > best.getEnergy()) {
+				best = unit;
+			}
+		}
+		return best;
 	}
 
 }
