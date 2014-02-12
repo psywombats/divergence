@@ -13,4 +13,13 @@ import net.wombatrpgs.mgne.core.MgnGame;
  */
 public class SagaGame extends MgnGame {
 
+	/**
+	 * @see net.wombatrpgs.mgne.core.MgnGame#onCreate()
+	 */
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		TGlobal.globalInit();
+	}
+
 }

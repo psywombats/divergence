@@ -39,7 +39,6 @@
   <object name="bob the bozo" type="Character" x="48" y="160" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
-    <property name="onTurn" value="this.attemptStep('NORTH')"/>
    </properties>
   </object>
  </objectgroup>

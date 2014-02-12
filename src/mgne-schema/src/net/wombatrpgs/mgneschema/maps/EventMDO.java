@@ -7,6 +7,7 @@
 package net.wombatrpgs.mgneschema.maps;
 
 import net.wombatrpgs.mgneschema.graphics.DirMDO;
+import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
@@ -17,6 +18,7 @@ import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
  * MDO for everything constructed from a Tiled map, or just everything in a map
  * grid in general.
  */
+@Path("events/")
 public class EventMDO extends MainSchema {
 	
 	@Desc("Animation - what this event looks like, or null for invisible")

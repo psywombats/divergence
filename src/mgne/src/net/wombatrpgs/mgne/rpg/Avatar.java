@@ -10,15 +10,15 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
+import net.wombatrpgs.mgneschema.maps.EventMDO;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
-import net.wombatrpgs.mgneschema.settings.AvatarMDO;
 
 /**
  * The physical representation of the player on the world map.
  */
 public class Avatar extends MapEvent implements CommandListener {
 	
-	protected static final String HERO_DEFAULT = "hero_default";
+	protected static final String HERO_DEFAULT = "event_hero";
 	
 	protected OrthoDir dirToMove, lastMove;
 
@@ -27,7 +27,7 @@ public class Avatar extends MapEvent implements CommandListener {
 	 * uses it to set up a map event.
 	 */
 	public Avatar() {
-		super(MGlobal.data.getEntryFor(HERO_DEFAULT, AvatarMDO.class));
+		super(MGlobal.data.getEntryFor(HERO_DEFAULT, EventMDO.class));
 		dirToMove = null;
 	}
 

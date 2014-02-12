@@ -37,5 +37,12 @@ public abstract class MgnGame {
 	public Screen makeStarterScreen() {
 		return new GameScreen();
 	}
+	
+	/**
+	 * Called when the game is created. Globals etc should get initialized here.
+	 */
+	public void onCreate() {
+		// noop
+	}
 
 }

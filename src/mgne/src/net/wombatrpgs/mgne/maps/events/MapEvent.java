@@ -98,6 +98,13 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 				return CoerceJavaToLua.coerce(result);
 			}
 		});
+		lua.set("face", new OneArgFunction() {
+			@Override public LuaValue call(LuaValue arg) {
+				String argString = (String) CoerceLuaToJava.coerce(arg, String.class);
+				setFacing(OrthoDir.valueOf(argString));
+				return LuaValue.NIL;
+			}
+		});
 	}
 	
 	/** @param tileX The new x-coord of this event (in tiles) */
@@ -477,6 +484,19 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 		int targetX = (int) (tileX + dir.getVector().x);
 		int targetY = (int) (tileY + dir.getVector().y);
 		return attemptStep(targetX, targetY);
+	}
+	
+	/**
+	 * Sets this event's location both in tile and pixels. This results in the
+	 * event having a correct tile position and also rendering at that location.
+	 * @param	tileX			The location to set at (in tiles)
+	 * @param	tileY			The location to set at (in tiles)
+	 */
+	public void setTileLocation(int tileX, int tileY) {
+		setTileX(tileX);
+		setTileY(tileY);
+		setX(tileX * parent.getTileWidth());
+		setY(tileY * parent.getTileHeight());
 	}
 	
 	/**

@@ -1,8 +1,8 @@
 {
-	"name" : "Saga database",
+	"name" : "Tactics database",
 	"data" : "data",
 	"schema" : [
 		"jar/MgnSchema.jar",
-		"jar/SagaSchema.jar"
+		"jar/TacticsSchema.jar"
 	]
 }

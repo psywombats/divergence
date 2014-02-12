@@ -27,6 +27,7 @@ public class SuperGame implements ApplicationListener, FocusListener {
 	@Override
 	public void create() {
 		MGlobal.globalInit();
+		MGlobal.game.onCreate();
 	}
 
 	@Override
