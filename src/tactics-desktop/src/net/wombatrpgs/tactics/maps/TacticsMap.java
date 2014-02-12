@@ -17,7 +17,7 @@ public class TacticsMap {
 	
 	/**
 	 * Creates a new tactics map based on an existing map. Does not populate it
-	 * with units or anything like that. Presumably the hero is currentl on the
+	 * with units or anything like that. Presumably the hero is currently on the
 	 * level.
 	 * @param	map				The map the battle will take place on
 	 */

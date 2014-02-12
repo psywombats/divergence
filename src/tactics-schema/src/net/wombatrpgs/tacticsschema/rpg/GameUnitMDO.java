@@ -10,6 +10,7 @@ import net.wombatrpgs.mgneschema.graphics.FourDirMDO;
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
+import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.tacticsschema.rpg.data.StatsMDO;
@@ -17,6 +18,7 @@ import net.wombatrpgs.tacticsschema.rpg.data.StatsMDO;
 /**
  * A unit in the RPG has one of these.
  */
+@Path("rpg/")
 public class GameUnitMDO extends MainSchema {
 	
 	@Desc("Name - in-game name displayed to player")

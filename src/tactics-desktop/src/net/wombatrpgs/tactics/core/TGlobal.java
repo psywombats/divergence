@@ -6,10 +6,15 @@
  */
 package net.wombatrpgs.tactics.core;
 
+import net.wombatrpgs.tactics.screen.TacticsScreen;
+
 /**
  * Another big-ass global thing, but this one for Tactics!
  */
 public class TGlobal {
+	
+	/** Screen used for all tactics battles etc */
+	public static TacticsScreen screen;
 	
 	/**
 	 * Called from a hook in the game.

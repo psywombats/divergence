@@ -37,7 +37,7 @@ public class Main {
 		cfg.addIcon("res/ui/icon_16.png", FileType.Internal);
 		
 		new LwjglApplication(new SuperGame(
-				new SagaGame(),
+				new TacticsGame(),
 				new Platform() {
 					@Override public Reporter getReporter() {
 						return new PrintReporter();
