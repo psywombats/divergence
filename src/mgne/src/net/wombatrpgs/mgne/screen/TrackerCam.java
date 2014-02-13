@@ -7,6 +7,7 @@
 package net.wombatrpgs.mgne.screen;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.Positionable;
@@ -23,7 +24,8 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 	protected static final int DEFAULT_PAN_SPEED = 48; // px/s, should be somewhere else
 	
 	protected Rectangle glViewport;
-	protected Positionable target;
+	protected Positionable target, panTarget;
+	protected FinishListener onPanFinish;
 	protected Level constrainedMap;
 	protected float speed; // in px/s
 
@@ -38,6 +40,7 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 				viewportWidth,
 				viewportHeight);
 		zoom = MGlobal.window.getZoom();
+		speed = 1200;
 	}
 	
 	/**
@@ -75,6 +78,24 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 					position.y = constrainedMap.getHeightPixels() / 2;
 				}
 			}
+		} else if (panTarget != null) {
+			float dx = panTarget.getX() - position.x;
+			float dy = panTarget.getY() - position.y;
+			float a = (float) Math.atan2(dy, dx);
+			float d = speed * elapsed;
+			if (Math.sqrt(dx*dx + dy*dy) < d) {
+				// we're there, or close enough
+				position.x = panTarget.getX();
+				position.y = panTarget.getY();
+				target = panTarget;
+				panTarget = null;
+				if (onPanFinish != null) {
+					onPanFinish.onFinish();
+				}
+			} else {
+				position.x += d * Math.cos(a);
+				position.y += d * Math.sin(a);
+			}
 		}
 		super.update();
 	}
@@ -90,10 +111,26 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 
 	/**
 	 * Sets the camera to follow positionable object. Setting to null locks.
+	 * This does not pan or anything like that.
 	 * @param 	target			The location to follow, or null for lock
 	 */
 	public void track(Positionable target) {
 		this.target = target;
+	}
+	
+	/**
+	 * Pans to some target and then when it gets there, locks on it. Pass in a
+	 * listener if you want.
+	 * @param	target			What we should pan to
+	 * @param	onFinish		A function to call when we get there, or null
+	 */
+	public void panTo(Positionable target, FinishListener onFinish) {
+		if (panTarget != null) {
+			MGlobal.reporter.warn("Tried to pan to " + target + " but already "
+					+ "panning to " + panTarget);
+		}
+		this.panTarget = target;
+		this.onPanFinish = onFinish;
 	}
 	
 	/**

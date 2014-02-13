@@ -6,7 +6,12 @@
  */
 package net.wombatrpgs.tactics.rpg;
 
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
+import net.wombatrpgs.mgne.io.CommandListener;
+import net.wombatrpgs.mgne.screen.TrackerCam;
+import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.maps.EventMDO;
+import net.wombatrpgs.tactics.core.TGlobal;
 import net.wombatrpgs.tactics.maps.TacticsEvent;
 import net.wombatrpgs.tactics.maps.TacticsMap;
 import net.wombatrpgs.tacticsschema.rpg.GameUnitMDO;
@@ -16,13 +21,15 @@ import net.wombatrpgs.tacticsschema.rpg.GameUnitMDO;
  * unit's physical incarnation, but does not encapsulate it. Extended by player
  * and AI versions.
  */
-public abstract class GameUnit {
+public abstract class GameUnit implements CommandListener {
 	
 	protected GameUnitMDO mdo;
 	
 	protected TacticsEvent event;
 	protected TacticsMap map;
+	protected Stats stats;
 	
+	protected boolean active;	// are we moving right now?
 	protected int energy;		// highest energy moves first
 	
 	/**
@@ -32,6 +39,7 @@ public abstract class GameUnit {
 	 */
 	protected GameUnit(GameUnitMDO mdo) {
 		this.mdo = mdo;
+		this.stats = new Stats(mdo.stats);
 	}
 	
 	/**
@@ -55,13 +63,39 @@ public abstract class GameUnit {
 	/** @param The energy this unit should gain based on some other spending */
 	public void grantEnergy(int energy) { this.energy += energy; }
 	
+	/** @return The current stats of this unit */
+	public Stats stats() { return stats; }
+	
 	/**
-	 * Called when it's this unit's turn. Should take whatever action is needed,
-	 * for AI units this is moving on its own and for players should probably
-	 * just wait. This unit will already be hooked up and ready to receive
-	 * commands from the player.
+	 * @see net.wombatrpgs.mgne.io.CommandListener#onCommand
+	 * (net.wombatrpgs.mgneschema.io.data.InputCommand)
 	 */
-	public abstract void takeTurn();
+	@Override
+	public boolean onCommand(InputCommand command) {
+		// most likely, we're an enemy who doesn't care
+		return false;
+	}
+
+	/**
+	 * Called by the battle when it's this unit's turn. Automatically calls
+	 * the appropriate internal methods.
+	 */
+	public final void onTurnStart() {
+		active = true;
+		TrackerCam cam = TGlobal.screen.getCamera();
+		cam.panTo(event, new FinishListener() {
+			@Override public void onFinish() {
+				internalStartTurn();
+			}
+		});
+	}
+	
+	/**
+	 * Called by the battle when this unit's turn is 100% over.
+	 */
+	public final void onTurnEnd() {
+		active = false;
+	}
 	
 	/**
 	 * Called by the battle to query if this unit is done taking its turn yet.
@@ -71,6 +105,14 @@ public abstract class GameUnit {
 	 * 							if the turn isn't over yet.
 	 */
 	public abstract int doneWithTurn();
+	
+	/**
+	 * Called when it's this unit's turn. Should take whatever action is needed,
+	 * for AI units this is moving on its own and for players should probably
+	 * just wait. This unit will already be hooked up and ready to receive
+	 * commands from the player.
+	 */
+	protected abstract void internalStartTurn();
 
 	/**
 	 * Returns an eventMDO containing information about constructing a doll for
@@ -82,6 +124,14 @@ public abstract class GameUnit {
 		dollMDO.appearance = mdo.appearance;
 		dollMDO.name = mdo.name;
 		return dollMDO;
+	}
+	
+	/**
+	 * Called when this unit needs to be set back to defaults... Kind of weird
+	 * use, usually only for players before they begin a new fight?
+	 */
+	public void reset() {
+		energy = 0;
 	}
 
 }

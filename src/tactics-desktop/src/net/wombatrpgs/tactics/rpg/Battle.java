@@ -13,6 +13,7 @@ import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
+import net.wombatrpgs.tactics.core.TGlobal;
 import net.wombatrpgs.tactics.maps.TacticsMap;
 
 /**
@@ -35,6 +36,7 @@ public class Battle implements	CommandListener,
 	public Battle(Level level) {
 		map = new TacticsMap(level);
 		allCombatants = new ArrayList<GameUnit>();
+		TGlobal.screen.addObject(map);
 	}
 
 	/**
@@ -50,6 +52,7 @@ public class Battle implements	CommandListener,
 		int energySpent = actor.doneWithTurn();
 		if (energySpent >= 0) {
 			// the actor actually did something and is done
+			actor.onTurnEnd();
 			// grant everyone else energy equal to energy expended
 			for (GameUnit unit : allCombatants) {
 				if (unit != actor) {
@@ -61,6 +64,9 @@ public class Battle implements	CommandListener,
 			for (GameUnit unit : allCombatants) {
 				unit.grantEnergy(-energyCorrection);
 			}
+			// next!!
+			actor = nextActor();
+			actor.onTurnStart();
 		}
 	}
 
@@ -70,7 +76,7 @@ public class Battle implements	CommandListener,
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-		return false;
+		return actor.onCommand(command);
 	}
 	
 	/**

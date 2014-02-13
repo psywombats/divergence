@@ -122,9 +122,10 @@ public class MGlobal {
 			// TODO: polish: load with a loading bar
 			MGlobal.reporter.inform("Loading secondary data");
 			MGlobal.data.queueFilesInDir(assetManager, Gdx.files.internal(Constants.DATA_DIR));
-			assetEnd = System.currentTimeMillis();
+			assetStart = System.currentTimeMillis();
 			assetManager.finishLoading();
 			assetEnd = System.currentTimeMillis();
+			assetElapsed = (assetEnd - assetStart) / 1000f;
 			MGlobal.reporter.inform("Finished loading secondary data, " +
 					"elapsed time: " + assetElapsed + "seconds");
 	

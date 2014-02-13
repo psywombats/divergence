@@ -6,7 +6,13 @@
  */
 package net.wombatrpgs.tactics.maps;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.wombatrpgs.mgne.ai.AStarPathfinder;
+import net.wombatrpgs.mgne.maps.Loc;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
+import net.wombatrpgs.mgneschema.maps.data.EightDir;
 import net.wombatrpgs.tactics.rpg.GameUnit;
 
 /**
@@ -33,5 +39,29 @@ public class TacticsEvent extends MapEvent {
 	
 	/** @return The game unit this event represents */
 	public GameUnit getUnit() { return unit; }
+
+	/**
+	 * Calculates everywhere this unit could step next turn.
+	 * @return					A list of viable step locations
+	 */
+	public List<Loc> getMoveRange() {
+		List<Loc> availableSquares = new ArrayList<Loc>();
+		AStarPathfinder pather = new AStarPathfinder();
+		pather.setMap(parent);
+		pather.setStart(tileX, tileY);
+		for (int x = 0; x < parent.getWidth(); x += 1) {
+			for (int y = 0; y < parent.getHeight(); y += 1) {
+				if (this.tileDistanceTo(x, y) > unit.stats().getMove()) {
+					continue;
+				}
+				pather.setTarget(x, y);
+				List<EightDir> path = pather.getPath(this);
+				if (path != null && path.size() <= unit.stats().getMove()) {
+					availableSquares.add(new Loc(x, y));
+				}
+			}
+		}
+		return availableSquares;
+	}
 
 }

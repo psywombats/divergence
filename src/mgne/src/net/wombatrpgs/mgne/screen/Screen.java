@@ -373,7 +373,7 @@ public abstract class Screen implements CommandListener,
 	public void addObject(ScreenObject screenObject) {
 		screenObjects.add(screenObject);
 		addChildren.add(screenObject);
-		screenObject.onAddedToScreen();
+		screenObject.onAddedToScreen(this);
 	}
 	
 	/**
@@ -384,7 +384,7 @@ public abstract class Screen implements CommandListener,
 		if (screenObjects.contains(screenObject)) {
 			screenObjects.remove(screenObject);
 			removeUChild(screenObject);
-			screenObject.onRemovedFromScreen();
+			screenObject.onRemovedFromScreen(this);
 		} else {
 			MGlobal.reporter.warn("Tried to remove non-existant picture from screen: " + screenObject);
 		}

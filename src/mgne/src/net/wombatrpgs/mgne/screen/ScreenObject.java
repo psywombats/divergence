@@ -108,15 +108,17 @@ public abstract class ScreenObject implements	Renderable,
 	
 	/**
 	 * Called when this object is added to the screen. Default is nothing.
+	 * @param	screen			The screen we just got added to
 	 */
-	public void onAddedToScreen() {
+	public void onAddedToScreen(Screen screen) {
 		// noop
 	}
 	
 	/**
 	 * Called when this object is removed from the screen. Default is nothing.
+	 * @param	screen			The screen we just got stolen from
 	 */
-	public void onRemovedFromScreen() {
+	public void onRemovedFromScreen(Screen screen) {
 		// noop
 	}
 

@@ -31,6 +31,6 @@ public class GameUnitMDO extends MainSchema {
 	
 	@Desc("Stats - default")
 	@InlineSchema(StatsMDO.class)
-	StatsMDO stats;
+	public StatsMDO stats;
 
 }

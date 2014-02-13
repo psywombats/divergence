@@ -9,7 +9,8 @@
 	<classpathentry kind="lib" path="lib/gdx-natives.jar"/>
 	<classpathentry kind="lib" path="/mgne/lib/gdx.jar" sourcepath="/mgne/lib/gdx-sources.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/tactics-schema"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/mgne-schema"/>
 	<classpathentry kind="lib" path="/mgne/lib/luaj-jse-3.0-beta2.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jgdb-schema"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/mgne-schema"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

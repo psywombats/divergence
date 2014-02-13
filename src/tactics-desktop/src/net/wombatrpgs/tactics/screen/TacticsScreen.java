@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.tactics.screen;
 
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.screen.instances.GameScreen;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.tactics.core.TGlobal;
@@ -44,6 +45,10 @@ public class TacticsScreen extends GameScreen {
 			return battle.onCommand(command);
 		} else {
 			// let's let the game default take care of it
+			if (command == InputCommand.WORLD_PAUSE) {
+				// TODO: tactics: hack to switch to tactics
+				battle = new Battle(MGlobal.levelManager.getActive());
+			}
 			return super.onCommand(command);		
 		}
 	}

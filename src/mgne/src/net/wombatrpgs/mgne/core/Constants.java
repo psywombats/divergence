@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.wombatrpgs.mgneschema.settings.GameSpeedMDO;
-import net.wombatrpgs.mgneschema.settings.TitleSettingsMDO;
 import net.wombatrpgs.mgneschema.settings.UISettingsMDO;
 import net.wombatrpgs.mgneschema.settings.WindowSettingsMDO;
 import net.wombatrpgs.mgns.core.MainSchema;
@@ -65,7 +64,6 @@ public class Constants {
 		PRELOAD_SCHEMA.add(WindowSettingsMDO.class);
 		PRELOAD_SCHEMA.add(GameSpeedMDO.class);
 		PRELOAD_SCHEMA.add(UISettingsMDO.class);
-		PRELOAD_SCHEMA.add(TitleSettingsMDO.class);
 	}
 	
 	private int rate;
