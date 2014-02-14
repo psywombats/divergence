@@ -36,6 +36,7 @@ import net.wombatrpgs.mgns.core.Annotations;
 import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgnse.Global;
+import net.wombatrpgs.mgnse.editor.FieldPanel;
 import net.wombatrpgs.mgnse.exception.DatabaseEntrySchemaException;
 import net.wombatrpgs.mgnse.exception.MisplacedDatabaseEntryException;
 
@@ -163,7 +164,7 @@ public class SchemaTree extends JTree {
 		URLClassLoader cl = null;
 		try {
 			schemaURL = schemaJar.toURI().toURL();
-			cl = new URLClassLoader(new URL[] { schemaURL }, MainSchema.class.getClassLoader());
+			cl = new URLClassLoader(new URL[] { schemaURL }, FieldPanel.class.getClassLoader());
 			loaders.add(cl);
 		} catch (MalformedURLException e1) {
 			Global.instance().err("Malformed url " + schemaURL, e1);

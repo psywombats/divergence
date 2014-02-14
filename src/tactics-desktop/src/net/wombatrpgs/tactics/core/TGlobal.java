@@ -11,6 +11,7 @@ import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
+import net.wombatrpgs.tactics.rpg.Party;
 import net.wombatrpgs.tactics.screen.TacticsScreen;
 import net.wombatrpgs.tactics.ui.TacticsUI;
 
@@ -52,6 +53,14 @@ public class TGlobal {
 			for (Queueable q : toLoad) q.postProcessing(MGlobal.assetManager, pass);
 		}
 		
+	}
+	
+	/**
+	 * Creates a new party. Not sure how it should be init'd, actually.
+	 */
+	private static void initParty() {
+		party = new Party();
+		party.addDefault();
 	}
 
 }

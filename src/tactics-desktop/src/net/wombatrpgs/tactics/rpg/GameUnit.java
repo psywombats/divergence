@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.tactics.rpg;
 
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.screen.TrackerCam;
@@ -15,6 +16,7 @@ import net.wombatrpgs.tactics.core.TGlobal;
 import net.wombatrpgs.tactics.maps.TacticsEvent;
 import net.wombatrpgs.tactics.maps.TacticsMap;
 import net.wombatrpgs.tacticsschema.rpg.GameUnitMDO;
+import net.wombatrpgs.tacticsschema.rpg.PlayerUnitMDO;
 
 /**
  * A unit in the tactics RPG part of the game. This includes a link to the
@@ -33,6 +35,19 @@ public abstract class GameUnit implements CommandListener {
 	protected int energy;		// highest energy moves first
 	
 	/**
+	 * Factory method. Returns subclass based on MDO class.
+	 * @return					A game unit of appropriate subtype
+	 */
+	public static GameUnit createGameUnit(GameUnitMDO mdo) {
+		if (PlayerUnitMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new PlayerUnit((PlayerUnitMDO) mdo);
+		} else {
+			MGlobal.reporter.err("Bad gameunitmdo subtype: " + mdo.getClass());
+			return null;
+		}
+	}
+	
+	/**
 	 * Creates a game unit from data. Does nothing about placing it on the map
 	 * or creating its physical version. Probably shouldn't be called.
 	 * @param	mdo				The data to create unit from
@@ -40,21 +55,6 @@ public abstract class GameUnit implements CommandListener {
 	protected GameUnit(GameUnitMDO mdo) {
 		this.mdo = mdo;
 		this.stats = new Stats(mdo.stats);
-	}
-	
-	/**
-	 * Creates a game unit and spawns it on the map at the given location. This
-	 * will create a new doll for the unit.
-	 * @param	mdo				The data to create the unit from
-	 * @param	map				The map to place unit on
-	 * @param	tileX			The location to place unit at (in tiles)
-	 * @param	tileY			The location to place unit at (in tiles)
-	 */
-	public GameUnit(GameUnitMDO mdo, TacticsMap map, int tileX, int tileY) {
-		this(mdo);
-		this.map = map;
-		this.event = new TacticsEvent(this);
-		this.event.setTileLocation(tileX, tileY);
 	}
 	
 	/** @return This unit's stored energy, in ticks, higher is sooner */
@@ -107,12 +107,21 @@ public abstract class GameUnit implements CommandListener {
 	public abstract int doneWithTurn();
 	
 	/**
-	 * Called when it's this unit's turn. Should take whatever action is needed,
-	 * for AI units this is moving on its own and for players should probably
-	 * just wait. This unit will already be hooked up and ready to receive
-	 * commands from the player.
+	 * Adds this unit to a battle. Does this by creating a doll and setting its
+	 * location appropriately. Does not deal with animation; the unit will just
+	 * pop up at wherever.
+	 * @param	battle			The battle to add us to
+	 * @param	tileX			The x-coord of where to add doll (in tiles)
+	 * @param	tileY			The y-coord of where to add doll (in tiles)
 	 */
-	protected abstract void internalStartTurn();
+	public void addToBattle(Battle battle, int tileX, int tileY) {
+		battle.addCombatant(this);
+		if (event != null) {
+			MGlobal.reporter.warn(this + " already had a doll");
+		}
+		event = new TacticsEvent(this);
+		event.setTileLocation(tileX, tileY);
+	}
 
 	/**
 	 * Returns an eventMDO containing information about constructing a doll for
@@ -133,5 +142,13 @@ public abstract class GameUnit implements CommandListener {
 	public void reset() {
 		energy = 0;
 	}
+	
+	/**
+	 * Called when it's this unit's turn. Should take whatever action is needed,
+	 * for AI units this is moving on its own and for players should probably
+	 * just wait. This unit will already be hooked up and ready to receive
+	 * commands from the player.
+	 */
+	protected abstract void internalStartTurn();
 
 }

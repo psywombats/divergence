@@ -36,7 +36,6 @@ public class Battle implements	CommandListener,
 	public Battle(Level level) {
 		map = new TacticsMap(level);
 		allCombatants = new ArrayList<GameUnit>();
-		TGlobal.screen.addObject(map);
 	}
 
 	/**
@@ -77,6 +76,35 @@ public class Battle implements	CommandListener,
 	@Override
 	public boolean onCommand(InputCommand command) {
 		return actor.onCommand(command);
+	}
+	
+	/**
+	 * Let the battle commence! This will cause the battle to take over and
+	 * switch to tactics mode.
+	 */
+	public void startBattle() {
+		TGlobal.screen.addObject(map);
+		TGlobal.screen.setTacticsMode(true);
+		addParty();
+	}
+	
+	/**
+	 * Pushes the entire hero party into this battle. Does not deal with
+	 * placement, recruitment, etc, just gets them in the general actor
+	 * runaroundt thing. Their event will also need to be placed.
+	 */
+	public void addParty() {
+		TGlobal.party.addToBattle(this);
+	}
+	
+	/**
+	 * Adds some rando unit to the battle. As before, does not deal with events
+	 * and just sets things up internally. This method should probably be called
+	 * only from GameUnit, because it knows how to add itself.
+	 * @param	unit			The unit to add
+	 */
+	public void addCombatant(GameUnit unit) {
+		allCombatants.add(unit);
 	}
 	
 	/**
