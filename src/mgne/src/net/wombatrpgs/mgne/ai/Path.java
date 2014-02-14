@@ -9,16 +9,16 @@ package net.wombatrpgs.mgne.ai;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.wombatrpgs.mgneschema.maps.data.EightDir;
+import net.wombatrpgs.mgneschema.maps.data.DirEnum;
 
 /**
  * A partial path to a destination on a map. Only stores destination, not
  * obstacle data. Sorts itself by a birds-eye heuristic.
  */
-public class Path implements Comparable<Path> {
+public class Path<T extends DirEnum> implements Comparable<Path<T>> {
 	
 	/** How to get from the starting point to where we are now */
-	protected List<EightDir> steps;
+	protected List<T> steps;
 	
 	/** Where we're aiming for, in tiles */
 	protected int destX, destY;
@@ -35,7 +35,7 @@ public class Path implements Comparable<Path> {
 	 * @param 	atY			Where the search originates y in tiles
 	 */
 	public Path(int destX, int destY, int atX, int atY) {
-		this.steps = new ArrayList<EightDir>();
+		this.steps = new ArrayList<T>();
 		this.destX = destX;
 		this.destY = destY;
 		this.atX = atX;
@@ -51,7 +51,7 @@ public class Path implements Comparable<Path> {
 	 * @param 	fromX			Parent's current location x in tiles
 	 * @param 	fromY			Parent's current location y in tiles
 	 */
-	public Path(List<EightDir> parent, EightDir step, 
+	public Path(List<T> parent, T step, 
 			int destX, int destY, int fromX, int fromY) {
 		this(destX, destY, (int) (fromX + step.getVector().x),  (int) (fromY + step.getVector().y));
 		this.steps.addAll(parent);
@@ -63,7 +63,7 @@ public class Path implements Comparable<Path> {
 	 * @param 	parent			The path that spawned this one
 	 * @param 	step			The direction that this path forks
 	 */
-	public Path(Path parent, EightDir step) {
+	public Path(Path<T> parent, T step) {
 		this(parent.steps, step, parent.destX, parent.destY, parent.atX, parent.atY);
 	}
 
@@ -71,7 +71,7 @@ public class Path implements Comparable<Path> {
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override
-	public int compareTo(Path other) {
+	public int compareTo(Path<T> other) {
 		float val = this.heuristic() - other.heuristic();
 		if (val > 0) return (int) Math.ceil(val);
 		if (val < 0) return (int) Math.floor(val);
@@ -79,7 +79,7 @@ public class Path implements Comparable<Path> {
 	}
 	
 	/** @return The steps to take to follow the path */
-	public List<EightDir> getSteps() {
+	public List<T> getSteps() {
 		return steps;
 	}
 	

@@ -118,7 +118,7 @@ public class GameScreen extends Screen {
 		if (pass == 0) {
 			hero.setTileX(2);
 			hero.setTileY(2);
-			while (!map.isTilePassable(hero, hero.getTileX(), hero.getTileY())) {
+			while (!map.isTilePassable(hero.getTileX(), hero.getTileY())) {
 				hero.setTileX(MGlobal.rand.nextInt(map.getWidth()));
 				hero.setTileY(MGlobal.rand.nextInt(map.getHeight()));
 			}

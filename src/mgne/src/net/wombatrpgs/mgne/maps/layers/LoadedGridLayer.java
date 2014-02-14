@@ -15,7 +15,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.LoadedLevel;
-import net.wombatrpgs.mgne.maps.events.MapEvent;
 
 /**
  * A grid layer that was loaded from a Tiled map. Has a couple internal methods
@@ -56,19 +55,18 @@ public class LoadedGridLayer extends GridLayer {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.maps.layers.Layer#isPassable
-	 * (net.wombatrpgs.mgne.maps.events.MapEvent, int, int)
+	 * @see net.wombatrpgs.mgne.maps.layers.Layer#isTilePassable(int, int)
 	 */
 	@Override
-	public boolean isPassable(MapEvent actor, int x, int y) {
-		if (getTileID(x, y) == 0) {
+	public boolean isTilePassable(int tileX, int tileY) {
+		if (getTileID(tileX, tileY) == 0) {
 			// there is no tile at this location
 			return !isLowerChip();
 		} else {
 			if (isLowerChip()) {
-				return (getTileProperty(x, y, Constants.PROPERTY_IMPASSABLE) == null);
+				return (getTileProperty(tileX, tileY, Constants.PROPERTY_IMPASSABLE) == null);
 			} else {
-				return (getTileProperty(x, y, Constants.PROPERTY_PASSABLE) == null);
+				return (getTileProperty(tileX, tileY, Constants.PROPERTY_PASSABLE) == null);
 			}
 			
 		}

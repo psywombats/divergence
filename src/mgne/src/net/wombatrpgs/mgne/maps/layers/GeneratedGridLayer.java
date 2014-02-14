@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.Tile;
-import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.screen.TrackerCam;
 
 /**
@@ -53,13 +52,13 @@ public class GeneratedGridLayer extends GridLayer {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.maps.layers.Layer#isPassable(MapEvent, int, int)
+	 * @see net.wombatrpgs.mgne.maps.layers.Layer#isTilePassable(int, int)
 	 */
 	@Override
-	public boolean isPassable(MapEvent actor, final int x, final int y) {
-		return	(x >= 0 && x < parent.getWidth()) &&
-				(y >= 0 && y < parent.getHeight()) &&
-				(tileData[y][x] == null || tileData[y][x].isPassable());
+	public boolean isTilePassable(int tileX, int tileY) {
+		return	(tileX >= 0 && tileX < parent.getWidth()) &&
+				(tileY >= 0 && tileY < parent.getHeight()) &&
+				(tileData[tileY][tileX] == null || tileData[tileY][tileX].isPassable());
 	}
 	
 	/**

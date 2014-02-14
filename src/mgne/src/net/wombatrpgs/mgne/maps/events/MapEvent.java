@@ -447,7 +447,7 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	 */
 	public boolean attemptStep(int targetX, int targetY) {
 		faceToward(targetX, targetY);
-		if (parent.isTilePassable(this, targetX, targetY)) {
+		if (parent.isTilePassable(targetX, targetY)) {
 			List<MapEvent> events = parent.getEventsAt(targetX, targetY);
 			boolean colliding = false;
 			for (MapEvent event : events) {

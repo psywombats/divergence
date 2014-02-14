@@ -13,8 +13,10 @@ import java.util.Queue;
 
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
+import net.wombatrpgs.mgneschema.maps.data.DirEnum;
 import net.wombatrpgs.mgneschema.maps.data.DirVector;
 import net.wombatrpgs.mgneschema.maps.data.EightDir;
+import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 
 /**
  * Pathfinds towards a destination. Ooooh, spooky! It uses black magic to work
@@ -103,13 +105,33 @@ public class AStarPathfinder {
 	}
 	
 	/**
+	 * Finds the path for an actor using all 8 directions.
+	 * @param	actor			The actor to get the path for
+	 * @return					The resulting path, or null if none
+	 */
+	public List<EightDir> getEightPath(MapEvent actor) {
+		return getPath(actor, EightDir.values());
+	}
+	
+	/**
+	 * Finds the path for an actor using cardinal directions.
+	 * @param	actor			The actor to get the path for
+	 * @return					The resulting path, or null if none
+	 */
+	public List<OrthoDir> getOrthoPath(MapEvent actor) {
+		return getPath(actor, OrthoDir.values());
+	}
+	
+	/**
 	 * Calculates the path to the location. Woo hoo!
+	 * @param	<T>				The type of direction enum to use
+	 * @param	directions		The set of all allowable directions to step
 	 * @param	actor			The event that will be pathing
 	 * @return					The steps to get to destination, or null if none
 	 */
-	public List<EightDir> getPath(MapEvent actor) {
-		Queue<Path> queue = new PriorityQueue<Path>();
-		queue.add(new Path(toX, toY, fromX, fromY));
+	public <T extends DirEnum> List<T> getPath(MapEvent actor, T[] directions) {
+		Queue<Path<T>> queue = new PriorityQueue<Path<T>>();
+		queue.add(new Path<T>(toX, toY, fromX, fromY));
 		// I can't believe I'm making a 2D array like this
 		List<List<Boolean>> visited = new ArrayList<List<Boolean>>();
 		for (int y = 0; y < map.getHeight(); y++) {
@@ -121,7 +143,7 @@ public class AStarPathfinder {
 		@SuppressWarnings("unused")
 		int nodes = 0;
 		while (queue.size() > 0) {
-			Path node = queue.poll();
+			Path<T> node = queue.poll();
 			nodes++;
 			if (visited.get(node.getAtY()).get(node.getAtX())) {
 				// we've already been here
@@ -132,16 +154,16 @@ public class AStarPathfinder {
 					//MGlobal.reporter.inform("Path found, expanded " + nodes);
 					return node.getSteps();
 				}
-				for (EightDir dir : EightDir.values()) {
+				for (T dir : directions) {
 					DirVector vec = dir.getVector();
 					int nextX = (int) (vec.x + node.getAtX());
 					int nextY = (int) (vec.y + node.getAtY());
 					if (nextX >= 0 && nextX < map.getWidth() &&
 						nextY >= 0 && nextY < map.getHeight() &&
 						!visited.get(nextY).get(nextX) &&
-						(map.isTilePassable(actor, nextX, nextY) || 
-								(nextX==toX && nextY==toY))) {
-						queue.add(new Path(node, dir));
+						map.isTilePassable(nextX, nextY)) {
+						
+						queue.add(new Path<T>(node, dir));
 					}
 				}
 			}

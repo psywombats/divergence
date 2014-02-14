@@ -146,17 +146,9 @@ public abstract class Level extends ScreenObject implements Turnable {
 	public void render(OrthographicCamera camera) {
 		super.render(camera);
 		camera.update();
-		for (GridLayer layer : gridLayers) {
-			if (layer.getZ() < 1.f) {
-				layer.render(camera);
-			}
-		}
-		eventLayer.render(camera);
-		for (GridLayer layer : gridLayers) {
-			if (layer.getZ() >= 1.f) {
-				layer.render(camera);
-			}
-		}
+		renderGrid(false);
+		renderEvents();
+		renderGrid(true);
 		if (effect != null) {
 			effect.render(camera);
 		}
@@ -245,20 +237,49 @@ public abstract class Level extends ScreenObject implements Turnable {
 	}
 	
 	/**
+	 * Determines if the specified location is passable. Takes into account
+	 * both grid and events.
+	 * @param	tileX			The location to check (in tiles)
+	 * @param	tileY			The location to check (in tiles)
+	 * @return					True if that location is passable
+	 */
+	public boolean isTilePassable(int tileX, int tileY) {
+		return (isChipPassable(tileX, tileY) && eventLayer.isTilePassable(tileX, tileY));
+	}
+	
+	/**
 	 * Checks if a certain tile is passable by chip. This does not take into
 	 * account event passability.
-	 * @param	actor			The character that will be trying to pass
 	 * @param 	tileX			The checked x-coord (in tiles)
 	 * @param 	tileY			The checked y-coord (in tiles)
 	 * @return 					True if layer is passable, false otherwise
 	 */
-	public boolean isTilePassable(MapEvent actor, int tileX, int tileY) {
+	public boolean isChipPassable(int tileX, int tileY) {
 		for (GridLayer layer : gridLayers) {
-			if (!layer.isPassable(actor, tileX, tileY)) {
+			if (!layer.isTilePassable(tileX, tileY)) {
 				return false;
 			}
 		}
 		return true;
+	}
+	
+	/**
+	 * Renders the grid layers on the map using default camera.
+	 * @param	upper			True to do upper chip, false to do lower
+	 */
+	public void renderGrid(boolean upper) {
+		for (GridLayer layer : gridLayers) {
+			if (layer.getZ() < 1.f ^ upper) {
+				layer.render(MGlobal.screens.getCamera());
+			}
+		}
+	}
+	
+	/**
+	 * Renders the event layer using default camera.
+	 */
+	public void renderEvents() {
+		eventLayer.render(MGlobal.screens.getCamera());
 	}
 	
 	/**

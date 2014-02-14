@@ -129,8 +129,13 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 			MGlobal.reporter.warn("Tried to pan to " + target + " but already "
 					+ "panning to " + panTarget);
 		}
-		this.panTarget = target;
-		this.onPanFinish = onFinish;
+		if (target == panTarget) {
+			onFinish.onFinish();
+		} else {
+			this.target = null;
+			this.panTarget = target;
+			this.onPanFinish = onFinish;
+		}
 	}
 	
 	/**

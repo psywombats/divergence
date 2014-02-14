@@ -181,7 +181,7 @@ public abstract class GameUnit implements	CommandListener,
 	 * @param	tileY			The location to add at (in tiles)
 	 */
 	public void spawnAt(int tileX, int tileY) {
-		battle.addDoll(event);
+		battle.getMap().addDoll(event);
 		event.setTileLocation(tileX, tileY);
 	}
 	

@@ -9,7 +9,7 @@ package net.wombatrpgs.mgneschema.maps.data;
 /**
  * Basic orthographic directions.
  */
-public enum OrthoDir {
+public enum OrthoDir implements DirEnum {
 	NORTH			(0, 1),
 	EAST			(1, 0),
 	SOUTH			(0, -1),
@@ -28,13 +28,13 @@ public enum OrthoDir {
 	}
 	
 	/**
-	 * Returns the unit vector associated with this direction
-	 * @return				The unit vector, in arbitrary units (duh)
+	 * @see net.wombatrpgs.mgneschema.maps.data.DirEnum#getVector()
 	 */
+	@Override
 	public DirVector getVector() {
 		return new DirVector(x, y);
 	}
-	
+
 	public static OrthoDir getOpposite(OrthoDir opposite) {
 		switch (opposite) {
 		case NORTH: return SOUTH;

@@ -79,18 +79,22 @@ public class EventLayer extends Layer {
 	public boolean isLowerChip() {
 		return false;
 	}
-
+	
 	/**
-	 * Just check if any no-overlap events are in the area.
-	 * @see net.wombatrpgs.mgne.maps.layers.Layer#isPassable
-	 * (MapEvent, int, int)
+	 * @see net.wombatrpgs.mgne.maps.layers.Layer#isTilePassable(int, int)
 	 */
 	@Override
-	public boolean isPassable(MapEvent actor, final int x, final int y) {
-		// TODO: maps: isPassable
+	public boolean isTilePassable(int tileX, int tileY) {
+		for (MapEvent event : events) {
+			if (!event.isPassable() &&
+					event.getTileX() == tileX &&
+					event.getTileY() == tileY) {
+				return false;
+			}
+		}
 		return true;
 	}
-	
+
 	/** @return All events contained on this layer */
 	public List<MapEvent> getEvents() { return events; }
 

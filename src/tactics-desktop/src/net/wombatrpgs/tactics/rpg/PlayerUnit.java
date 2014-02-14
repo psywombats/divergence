@@ -37,6 +37,8 @@ public class PlayerUnit extends GameUnit {
 		// we should be receiving commands about now
 		energySpentThisTurn = 0;
 		endedAnimating = false;
+		
+		battle.getMap().highlightMovement(this);
 	}
 
 	/**

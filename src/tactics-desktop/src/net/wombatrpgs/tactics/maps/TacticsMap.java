@@ -10,11 +10,13 @@ import java.util.List;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.Loc;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.ScreenObject;
 import net.wombatrpgs.tactics.core.TGlobal;
+import net.wombatrpgs.tactics.rpg.GameUnit;
 
 /**
  * A map that gets created from a normal map for a tactics battle.
@@ -22,6 +24,9 @@ import net.wombatrpgs.tactics.core.TGlobal;
 public class TacticsMap extends ScreenObject {
 	
 	protected Level map;
+	
+	protected GameUnit highlightedUnit;
+	protected List<Loc> highlightedSquares;
 	
 	/**
 	 * Creates a new tactics map based on an existing map. Does not populate it
@@ -69,7 +74,12 @@ public class TacticsMap extends ScreenObject {
 	@Override
 	public void render(OrthographicCamera camera) {
 		super.render(camera);
-		map.render(camera);
+		map.renderGrid(false);
+		if (highlightedSquares != null) {
+			renderSquares(highlightedSquares);
+		}
+		map.renderEvents();
+		map.renderGrid(true);
 	}
 	
 	/**
@@ -86,6 +96,27 @@ public class TacticsMap extends ScreenObject {
 	 */
 	public void removeDoll(TacticsEvent doll) {
 		map.removeEvent(doll);
+	}
+	
+	/**
+	 * Kicks the non-tactics version of the hero off the map and replaces it
+	 * with the tactics version.
+	 */
+	public void swapHeroes() {
+		TGlobal.party.getHero().spawnAt(
+				MGlobal.getHero().getTileX(),
+				MGlobal.getHero().getTileY());
+		TGlobal.party.getHero().getEvent().setFacing(MGlobal.getHero().getFacing());
+		map.removeEvent(MGlobal.getHero());
+	}
+	
+	/**
+	 * Shows that little blue highlight for where a unit can move.
+	 * @param	unit			The unit to highlight
+	 */
+	public void highlightMovement(GameUnit unit) {
+		highlightedUnit = unit;
+		highlightedSquares = unit.getEvent().getMoveRange();
 	}
 
 	/**

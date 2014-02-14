@@ -11,14 +11,12 @@ import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.tactics.core.TGlobal;
-import net.wombatrpgs.tactics.maps.TacticsEvent;
 import net.wombatrpgs.tactics.maps.TacticsMap;
 
 /**
@@ -46,6 +44,9 @@ public class Battle implements	CommandListener,
 		units = new ArrayList<GameUnit>();
 		assets = new ArrayList<Queueable>();
 	}
+	
+	/** @return The tactics map on which battle takes place */
+	public TacticsMap getMap() { return map; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
@@ -54,28 +55,7 @@ public class Battle implements	CommandListener,
 	 */
 	@Override
 	public void update(float elapsed) {
-		if (actor == null) {
-			actor = nextActor();
-		}
-		int energySpent = actor.doneWithTurn();
-		if (energySpent >= 0) {
-			// the actor actually did something and is done
-			actor.onTurnEnd();
-			// grant everyone else energy equal to energy expended
-			for (GameUnit unit : units) {
-				if (unit != actor) {
-					unit.grantEnergy(energySpent);
-				}
-			}
-			// keep a 0-centered energy standard (ie, last mover is at 0)
-			int energyCorrection = actor.getEnergy();
-			for (GameUnit unit : units) {
-				unit.grantEnergy(-energyCorrection);
-			}
-			// next!!
-			actor = nextActor();
-			actor.onTurnStart();
-		}
+		handleActor();
 	}
 
 	/**
@@ -118,12 +98,10 @@ public class Battle implements	CommandListener,
 		// Get our objects onto the screen
 		TGlobal.screen.addObject(map);
 		TGlobal.screen.setTacticsMode(true);
-		TGlobal.party.getHero().spawnAt(
-				MGlobal.getHero().getTileX(),
-				MGlobal.getHero().getTileY());
+		map.swapHeroes();
 		
 		// start!
-		actor = nextActor();
+		handleActor();
 	}
 	
 	/**
@@ -149,11 +127,32 @@ public class Battle implements	CommandListener,
 	}
 	
 	/**
-	 * Adds a doll to the encapsulated map.
-	 * @param	event			The doll to add
+	 * Takes care of turn order and the currently acting actor.
 	 */
-	public void addDoll(TacticsEvent event) {
-		map.addDoll(event);
+	protected void handleActor() {
+		if (actor == null) {
+			actor = nextActor();
+			actor.onTurnStart();
+		}
+		int energySpent = actor.doneWithTurn();
+		if (energySpent >= 0) {
+			// the actor actually did something and is done
+			actor.onTurnEnd();
+			// grant everyone else energy equal to energy expended
+			for (GameUnit unit : units) {
+				if (unit != actor) {
+					unit.grantEnergy(energySpent);
+				}
+			}
+			// keep a 0-centered energy standard (ie, last mover is at 0)
+			int energyCorrection = actor.getEnergy();
+			for (GameUnit unit : units) {
+				unit.grantEnergy(-energyCorrection);
+			}
+			// next!!
+			actor = nextActor();
+			actor.onTurnStart();
+		}
 	}
 	
 	/**

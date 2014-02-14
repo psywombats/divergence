@@ -12,7 +12,7 @@ import java.util.List;
 import net.wombatrpgs.mgne.ai.AStarPathfinder;
 import net.wombatrpgs.mgne.maps.Loc;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
-import net.wombatrpgs.mgneschema.maps.data.EightDir;
+import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.tactics.rpg.GameUnit;
 
 /**
@@ -45,18 +45,21 @@ public class TacticsEvent extends MapEvent {
 	 * @return					A list of viable step locations
 	 */
 	public List<Loc> getMoveRange() {
+		int move = unit.stats().getMove();
 		List<Loc> availableSquares = new ArrayList<Loc>();
 		AStarPathfinder pather = new AStarPathfinder();
 		pather.setMap(parent);
 		pather.setStart(tileX, tileY);
-		for (int x = 0; x < parent.getWidth(); x += 1) {
-			for (int y = 0; y < parent.getHeight(); y += 1) {
-				if (this.tileDistanceTo(x, y) > unit.stats().getMove()) {
+		for (int x = tileX - move; x <= tileX + move; x += 1) {
+			for (int y = tileY - move; y <= tileY + move; y += 1) {
+				if (x < 0 || x >= parent.getWidth()) continue;
+				if (y < 0 || y >= parent.getHeight()) continue;
+				if (this.tileDistanceTo(x, y) > move) {
 					continue;
 				}
 				pather.setTarget(x, y);
-				List<EightDir> path = pather.getPath(this);
-				if (path != null && path.size() <= unit.stats().getMove()) {
+				List<OrthoDir> path = pather.getOrthoPath(this);
+				if (path != null && path.size() <= move) {
 					availableSquares.add(new Loc(x, y));
 				}
 			}
