@@ -143,15 +143,7 @@ public class MGlobal {
 			MGlobal.lua = new Lua();
 			toLoad.add(ui);
 			toLoad.add(graphics);
-			for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
-			for (int pass = 0; MGlobal.assetManager.getProgress() < 1; pass++) {
-				assetStart = System.currentTimeMillis();
-				MGlobal.assetManager.finishLoading();
-				assetEnd = System.currentTimeMillis();
-				assetElapsed = (assetEnd - assetStart) / 1000f;
-				MGlobal.reporter.inform("Loading pass " + pass + ", took " + assetElapsed);
-				for (Queueable q : toLoad) q.postProcessing(MGlobal.assetManager, pass);
-			}
+			loadAssets(toLoad, "primary global assets");
 			
 			// initializing graphics
 			MGlobal.reporter.inform("Creating level-dependant data");
@@ -166,15 +158,7 @@ public class MGlobal {
 			Gdx.graphics.setTitle(MGlobal.window.getTitle());
 			//Gdx.graphics.setVSync(true);
 			
-			MGlobal.reporter.inform("Loading level assets");
-			for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
-			for (int pass = 0; MGlobal.assetManager.getProgress() < 1; pass++) {
-				MGlobal.reporter.inform("Loading pass " + pass + ", took " + assetElapsed);
-				MGlobal.assetManager.finishLoading();
-				for (Queueable q : toLoad) q.postProcessing(MGlobal.assetManager, pass);
-				assetEnd = System.currentTimeMillis();
-				assetElapsed = (assetEnd - assetStart) / 1000f;
-			}
+			loadAssets(toLoad, "level assets");
 			
 			initialized = true;
 			long endTime = System.currentTimeMillis();
@@ -206,6 +190,34 @@ public class MGlobal {
 		assetManager.setLoader(DataEntry.class, new DataLoader(new InternalFileHandleResolver()));
 		assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
 		assetManager.setLoader(LuaValue.class, new LuaLoader(new InternalFileHandleResolver()));
+	}
+	
+	/**
+	 * Queues, loads queued assets. Blocks.
+	 * @param	toLoad			All assets to load
+	 * @param	name			The name of what is being loadded
+	 */
+	public static void loadAssets(List<Queueable> toLoad, String name) {
+		for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
+		for (int pass = 0; assetManager.getProgress() < 1; pass++) {
+			float assetStart = System.currentTimeMillis();
+			MGlobal.assetManager.finishLoading();
+			float assetEnd = System.currentTimeMillis();
+			float assetElapsed = (assetEnd - assetStart) / 1000f;
+			MGlobal.reporter.inform("Loading " + name + " pass " + pass + ", took " + assetElapsed);
+			for (Queueable q : toLoad) q.postProcessing(MGlobal.assetManager, pass);
+		}
+	}
+	
+	/**
+	 * Loads a single asset. Blocks.
+	 * @param	toLoad			The thing to load
+	 * @param	name			The name of the thing
+	 */
+	public static void loadAsset(Queueable toLoad, String name) {
+		List<Queueable> dummy = new ArrayList<Queueable>();
+		dummy.add(toLoad);
+		loadAssets(dummy, name);
 	}
 
 }

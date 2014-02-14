@@ -71,7 +71,7 @@ public class SchemaNode extends DefaultMutableTreeNode {
 	
 	/** @return The human-name of the represented object */
 	public String getObjectName() {
-		// TODO: get this working correctly for fuck's sake
+		// TODO: dbe: get this working correctly for fuck's sake
 		// right now it just returns the filename minus the .json
 		if (getName().contains(".")) {
 			return getName().substring(0, getName().indexOf('.'));

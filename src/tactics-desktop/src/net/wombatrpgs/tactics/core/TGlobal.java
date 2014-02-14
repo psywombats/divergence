@@ -11,7 +11,7 @@ import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
-import net.wombatrpgs.tactics.rpg.Party;
+import net.wombatrpgs.tactics.rpg.PlayerParty;
 import net.wombatrpgs.tactics.screen.TacticsScreen;
 import net.wombatrpgs.tactics.ui.TacticsUI;
 
@@ -25,7 +25,7 @@ public class TGlobal {
 	/** UI singleton */
 	public static TacticsUI ui;
 	/** Every player-controlled tactics unit, I guess? */
-	public static Party party;
+	public static PlayerParty party;
 	
 	private static List<Queueable> toLoad;
 	
@@ -59,8 +59,7 @@ public class TGlobal {
 	 * Creates a new party. Not sure how it should be init'd, actually.
 	 */
 	private static void initParty() {
-		party = new Party();
-		party.addDefault();
+		party = new PlayerParty();
 	}
 
 }

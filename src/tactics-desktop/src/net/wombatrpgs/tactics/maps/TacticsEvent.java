@@ -22,9 +22,6 @@ import net.wombatrpgs.tactics.rpg.GameUnit;
  * RPG. This thing is created anew every time a new battle starts by passing
  * it a game unit to take. If there's a unit on the map that's supposed to be
  * the "hero" or whatever, it should get taken out before battle.
- * 
- * These are dolls for GameUnits, and should be created before each battle and
- * destroyed immediately following.
  */
 public class TacticsEvent extends MapEvent {
 	

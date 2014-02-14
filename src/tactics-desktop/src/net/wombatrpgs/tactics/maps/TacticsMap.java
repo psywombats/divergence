@@ -71,12 +71,28 @@ public class TacticsMap extends ScreenObject {
 		super.render(camera);
 		map.render(camera);
 	}
+	
+	/**
+	 * Adds a doll to this map and the enclosing level.
+	 * @param	doll			The tactics event to add
+	 */
+	public void addDoll(TacticsEvent doll) {
+		map.addEvent(doll);
+	}
+	
+	/**
+	 * Removes a doll from this map and the enclosing level.
+	 * @param	doll			The tactics event to remove
+	 */
+	public void removeDoll(TacticsEvent doll) {
+		map.removeEvent(doll);
+	}
 
 	/**
 	 * Renders any number of square overlays. Has any number of uses.
 	 * @param	squares			The locs to display squares over
 	 */
-	public void renderSquares(List<Loc> squares) {
+	protected void renderSquares(List<Loc> squares) {
 		for (Loc loc : squares) {
 			TGlobal.ui.getHighlight().renderAt(
 					map.getBatch(),

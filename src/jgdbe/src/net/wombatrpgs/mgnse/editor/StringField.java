@@ -30,7 +30,7 @@ public class StringField extends FieldPanel {
 	 */
 	public StringField(EditorPanel parent, String defaultData, Field field, Schema schema) {
 		super(parent, field);
-		//TODO: alter this so that the editor correctly consumes screen space
+		//TODO: dbe: alter this so that the editor correctly consumes screen space
 		input = new JTextField(75);
 		if (defaultData == null && source.isAnnotationPresent(DefaultValue.class)) {
 			defaultData = source.getAnnotation(DefaultValue.class).value();
