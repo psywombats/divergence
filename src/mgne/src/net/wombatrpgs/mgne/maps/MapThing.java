@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -147,11 +146,10 @@ public abstract class MapThing implements	Renderable,
 	 * @param	camera			The current camera
 	 * @param	x				The x-coord for rendering (in pixels)
 	 * @param	y				The y-coord for rendering (in pixels)
-	 * @param	fallTime		How far fallen we are (0-1)
 	 */
 	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, 
-			int x, int y, float fallTime) {
-		renderLocal(camera, sprite, x, y, 0, fallTime);
+			int x, int y) {
+		renderLocal(camera, sprite, x, y, 0);
 	}
 	
 	/**
@@ -162,16 +160,12 @@ public abstract class MapThing implements	Renderable,
 	 * @param	x				The x-coord for rendering (in pixels)
 	 * @param	y				The y-coord for rendering (in pixels)
 	 * @param	angle			The angle to render at
-	 * @param	fallTime		How far fallen we are (0-1)
 	 */
 	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, 
-			int x, int y, int angle, float fallTime) {
+			int x, int y, int angle) {
 		if (parent == null) return;
 		float atX = x;
 		float atY = y;
-		Color c = parent.getBatch().getColor().cpy();
-		float tint = (fallTime < .5f) ? 1-fallTime*2 : 0;
-		parent.getBatch().setColor(tint*c.r, tint*c.b, tint*c.g, tint*c.a);
 		parent.getBatch().draw(
 				sprite,
 				atX, 
@@ -180,10 +174,9 @@ public abstract class MapThing implements	Renderable,
 				sprite.getRegionHeight() / 2, 
 				sprite.getRegionWidth(),
 				sprite.getRegionHeight(), 
-				1f-fallTime,
-				1f-fallTime, 
+				1f,
+				1f, 
 				angle);
-		parent.getBatch().setColor(c);
 	}
 	
 	/**

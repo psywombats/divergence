@@ -17,6 +17,7 @@ import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.ScreenObject;
 import net.wombatrpgs.tactics.core.TGlobal;
 import net.wombatrpgs.tactics.rpg.GameUnit;
+import net.wombatrpgs.tactics.ui.Cursor;
 
 /**
  * A map that gets created from a normal map for a tactics battle.
@@ -27,6 +28,7 @@ public class TacticsMap extends ScreenObject {
 	
 	protected GameUnit highlightedUnit;
 	protected List<Loc> highlightedSquares;
+	protected Cursor cursor;
 	
 	/**
 	 * Creates a new tactics map based on an existing map. Does not populate it
@@ -36,6 +38,7 @@ public class TacticsMap extends ScreenObject {
 	 */
 	public TacticsMap(Level map) {
 		this.map = map;
+		cursor = TGlobal.ui.getCursor();
 	}
 
 	/**
@@ -96,6 +99,19 @@ public class TacticsMap extends ScreenObject {
 	 */
 	public void removeDoll(TacticsEvent doll) {
 		map.removeEvent(doll);
+	}
+	
+	/**
+	 * Spawns the cursor at a given location. Should be called by player units
+	 * on the beginning of their turn.
+	 * @param	tileX			The location to start cursor at (in tiles)
+	 * @param	tileY			The location to start cursor at (in tiles)
+	 */
+	public void showCursor(int tileX, int tileY) {
+		if (!map.contains(cursor)) {
+			map.addEvent(cursor);
+		}
+		cursor.setTileLocation(tileX, tileY);
 	}
 	
 	/**

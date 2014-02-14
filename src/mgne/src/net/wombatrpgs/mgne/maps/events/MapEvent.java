@@ -274,7 +274,7 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, 
 			int offX, int offY, int angle) {
 		super.renderLocal(camera, sprite, getRenderX() + offX, getRenderY() + offY, 
-				angle, 0);
+				angle);
 	}
 	
 	/**

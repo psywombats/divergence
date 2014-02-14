@@ -7,6 +7,8 @@
 package net.wombatrpgs.tactics.rpg;
 
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
+import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
+import net.wombatrpgs.tactics.core.TGlobal;
 import net.wombatrpgs.tacticsschema.rpg.PlayerUnitMDO;
 
 /**
@@ -39,6 +41,7 @@ public class PlayerUnit extends GameUnit {
 		endedAnimating = false;
 		
 		battle.getMap().highlightMovement(this);
+		battle.getMap().showCursor(event.getTileX(), event.getTileY());
 	}
 
 	/**
@@ -59,8 +62,23 @@ public class PlayerUnit extends GameUnit {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-		// TODO Auto-generated method stub
-		return super.onCommand(command);
+		switch(command) {
+		case MOVE_DOWN:		return moveCursor(OrthoDir.SOUTH);
+		case MOVE_LEFT:		return moveCursor(OrthoDir.WEST);
+		case MOVE_RIGHT:	return moveCursor(OrthoDir.EAST);
+		case MOVE_UP:		return moveCursor(OrthoDir.NORTH);
+		default:			return false;
+		}
+	}
+	
+	/**
+	 * Moves the cursor in some direction.
+	 * @param	dir				The direction to move the cursor in
+	 * @return					True...
+	 */
+	protected boolean moveCursor(OrthoDir dir) {
+		TGlobal.ui.getCursor().move(dir);
+		return true;
 	}
 
 }

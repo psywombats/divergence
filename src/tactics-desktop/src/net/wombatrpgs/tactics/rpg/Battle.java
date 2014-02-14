@@ -17,6 +17,7 @@ import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.tactics.core.TGlobal;
+import net.wombatrpgs.tactics.io.CMapTactics;
 import net.wombatrpgs.tactics.maps.TacticsMap;
 
 /**
@@ -99,6 +100,9 @@ public class Battle implements	CommandListener,
 		TGlobal.screen.addObject(map);
 		TGlobal.screen.setTacticsMode(true);
 		map.swapHeroes();
+		
+		// command map
+		TGlobal.screen.pushCommandContext(new CMapTactics());
 		
 		// start!
 		handleActor();
