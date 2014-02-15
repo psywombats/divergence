@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.tactics.rpg;
 
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.tactics.core.TGlobal;
@@ -62,12 +63,19 @@ public class PlayerUnit extends GameUnit {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-		switch(command) {
-		case MOVE_DOWN:		return moveCursor(OrthoDir.SOUTH);
-		case MOVE_LEFT:		return moveCursor(OrthoDir.WEST);
-		case MOVE_RIGHT:	return moveCursor(OrthoDir.EAST);
-		case MOVE_UP:		return moveCursor(OrthoDir.NORTH);
-		default:			return false;
+		switch (state) {
+		case AWAIT_MOVEMENT:
+			switch(command) {
+			case MOVE_DOWN:		return moveCursor(OrthoDir.SOUTH);
+			case MOVE_LEFT:		return moveCursor(OrthoDir.WEST);
+			case MOVE_RIGHT:	return moveCursor(OrthoDir.EAST);
+			case MOVE_UP:		return moveCursor(OrthoDir.NORTH);
+			case UI_CONFIRM:	return attemptFollowCursor();
+			default:			return false;
+			}
+		default:
+			MGlobal.reporter.warn("Unknown turn state: " + state);
+			return false;
 		}
 	}
 	
@@ -79,6 +87,19 @@ public class PlayerUnit extends GameUnit {
 	protected boolean moveCursor(OrthoDir dir) {
 		TGlobal.ui.getCursor().move(dir);
 		return true;
+	}
+	
+	/**
+	 * Attempts to move to where the cursor is as part of our turn. Fails if
+	 * there is no path to the cursor.
+	 * @return					True if there was a path, false otherwise
+	 */
+	protected boolean attemptFollowCursor() {
+		boolean moved = event.attemptFollowCursor();
+		if (moved) {
+			state = TurnState.ANIMATE_MOVEMENT;
+		}
+		return moved;
 	}
 
 }

@@ -39,7 +39,7 @@ public abstract class GameUnit implements	CommandListener,
 	protected TacticsMap map;
 	protected Stats stats;
 	
-	protected boolean active;	// are we moving right now?
+	protected TurnState state;
 	protected int energy;		// highest energy moves first
 	
 	protected List<Queueable> assets;
@@ -120,7 +120,7 @@ public abstract class GameUnit implements	CommandListener,
 	 * the appropriate internal methods.
 	 */
 	public final void onTurnStart() {
-		active = true;
+		state = TurnState.AWAIT_MOVEMENT;
 		TrackerCam cam = TGlobal.screen.getCamera();
 		cam.panTo(event, new FinishListener() {
 			@Override public void onFinish() {
@@ -133,7 +133,7 @@ public abstract class GameUnit implements	CommandListener,
 	 * Called by the battle when this unit's turn is 100% over.
 	 */
 	public final void onTurnEnd() {
-		active = false;
+		state = TurnState.AWAIT_MOVEMENT;
 	}
 	
 	/**
@@ -192,5 +192,16 @@ public abstract class GameUnit implements	CommandListener,
 	 * commands from the player.
 	 */
 	protected abstract void internalStartTurn();
+	
+	/**
+	 * Where we are in our turn. Enemies will use AI for their await phases.
+	 */
+	protected enum TurnState {
+		AWAIT_TURN,
+		AWAIT_MOVEMENT,
+		ANIMATE_MOVEMENT,
+		AWAIT_ACTION,
+		ANIMATE_ACTION,
+	}
 
 }

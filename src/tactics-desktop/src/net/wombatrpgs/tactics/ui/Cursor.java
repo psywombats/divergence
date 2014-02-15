@@ -71,6 +71,14 @@ public class Cursor extends MapEvent {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.maps.events.MapEvent#isPassable()
+	 */
+	@Override
+	public boolean isPassable() {
+		return true;
+	}
+
+	/**
 	 * Converts a cursor MDO into something that can be used to create an
 	 * event.
 	 * @param	mdo				The data to convert from

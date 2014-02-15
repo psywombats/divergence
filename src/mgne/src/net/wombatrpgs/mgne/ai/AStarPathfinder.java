@@ -31,7 +31,6 @@ public class AStarPathfinder {
 	protected Level map;
 	protected int fromX, fromY;
 	protected int toX, toY;
-	protected int z;
 	
 	/**
 	 * Creates a new shell of a pathfinder. This can be used for a reusable
@@ -51,11 +50,10 @@ public class AStarPathfinder {
 	 * @param 	fromY			Where search starts from y (in tiles)
 	 * @param 	toX				Where search starts from x (in tiles)
 	 * @param 	toY				Where search starts from y (in tiles)
-	 * @param	z				The z-depth where everything takes place
 	 */
-	public AStarPathfinder(Level map, int fromX, int fromY, int toX, int toY, int z) {
+	public AStarPathfinder(Level map, int fromX, int fromY, int toX, int toY) {
 		this();
-		setInfo(map, fromX, fromY, toX, toY, z);
+		setInfo(map, fromX, fromY, toX, toY);
 	}
 	
 	/**
@@ -65,15 +63,13 @@ public class AStarPathfinder {
 	 * @param 	fromY			Where search starts from y (in tiles)
 	 * @param 	toX				Where search starts from x (in tiles)
 	 * @param 	toY				Where search starts from y (in tiles)
-	 * @param	z				The z-depth where everything takes place
 	 */
-	public void setInfo(Level map, int fromX, int fromY, int toX, int toY, int z) {
+	public void setInfo(Level map, int fromX, int fromY, int toX, int toY) {
 		this.map = map;
 		this.fromX = fromX;
 		this.fromY = fromY;
 		this.toX = toX;
 		this.toY = toY;
-		this.z = z;
 	}
 	
 	/**
