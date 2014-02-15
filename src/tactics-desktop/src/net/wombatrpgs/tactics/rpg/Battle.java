@@ -97,15 +97,28 @@ public class Battle implements	CommandListener,
 	public void startBattle() {
 		
 		// Get our objects onto the screen
-		TGlobal.screen.addObject(map);
 		TGlobal.screen.setTacticsMode(true);
-		map.swapHeroes();
+		map.onBattleStart();
 		
 		// command map
 		TGlobal.screen.pushCommandContext(new CMapTactics());
 		
 		// start!
 		handleActor();
+	}
+	
+	/**
+	 * When the fighting's said and done, this gets called. It's public mostly
+	 * for testing purposes.
+	 */
+	public void stopBattle() {
+		
+		// Get our objects off the screen
+		TGlobal.screen.setTacticsMode(false);
+		map.onBattleStop();
+		
+		// command map
+		TGlobal.screen.popCommandContext();
 	}
 	
 	/**

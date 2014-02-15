@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.Loc;
+import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.ScreenObject;
 import net.wombatrpgs.tactics.core.TGlobal;
@@ -86,6 +87,24 @@ public class TacticsMap extends ScreenObject {
 	}
 	
 	/**
+	 * Called by the parent battle when it begins.
+	 */
+	public void onBattleStart() {
+		TGlobal.screen.addObject(this);
+		addTacticsHero();
+	}
+	
+	/**
+	 * Called by the parent battle when it ends. Should handle all cleanup.
+	 */
+	public void onBattleStop() {
+		TGlobal.screen.removeObject(this);
+		removeTacticsHero();
+		hideCursor();
+		clearHighlight();
+	}
+	
+	/**
 	 * Adds a doll to this map and the enclosing level.
 	 * @param	doll			The tactics event to add
 	 */
@@ -125,12 +144,25 @@ public class TacticsMap extends ScreenObject {
 	 * Kicks the non-tactics version of the hero off the map and replaces it
 	 * with the tactics version.
 	 */
-	public void swapHeroes() {
+	public void addTacticsHero() {
 		TGlobal.party.getHero().spawnAt(
 				MGlobal.getHero().getTileX(),
 				MGlobal.getHero().getTileY());
 		TGlobal.party.getHero().getEvent().setFacing(MGlobal.getHero().getFacing());
 		map.removeEvent(MGlobal.getHero());
+	}
+	
+	/**
+	 * Kicks the tactics version of the hero off the map and replaces it with
+	 * the non-tactics version.
+	 */
+	public void removeTacticsHero() {
+		MapEvent tacticsHero = TGlobal.party.getHero().getEvent();
+		MapEvent hero = MGlobal.getHero();
+		map.addEvent(hero, tacticsHero.getTileX(), tacticsHero.getTileY());
+		MGlobal.getHero().setFacing(tacticsHero.getFacing());
+		map.removeEvent(tacticsHero);
+		MGlobal.screens.getCamera().panTo(hero, null);
 	}
 	
 	/**
