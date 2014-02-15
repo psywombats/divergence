@@ -7,6 +7,7 @@
 package net.wombatrpgs.tactics.rpg;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.tactics.core.TGlobal;
@@ -19,7 +20,6 @@ public class PlayerUnit extends GameUnit {
 	
 	protected PlayerUnitMDO mdo;
 	protected int energySpentThisTurn;
-	protected boolean endedAnimating;
 
 	/**
 	 * Constructs a player unit for a player. This should be only constructed
@@ -39,7 +39,6 @@ public class PlayerUnit extends GameUnit {
 	public void internalStartTurn() {
 		// we should be receiving commands about now
 		energySpentThisTurn = 0;
-		endedAnimating = false;
 		
 		battle.getMap().highlightMovement(this);
 		battle.getMap().showCursor(event.getTileX(), event.getTileY());
@@ -50,7 +49,8 @@ public class PlayerUnit extends GameUnit {
 	 */
 	@Override
 	public int doneWithTurn() {
-		if (endedAnimating) {
+		if (state == TurnState.TERMINATE) {
+			state = TurnState.AWAIT_TURN;
 			return energySpentThisTurn;
 		} else {
 			return -1;
@@ -95,9 +95,17 @@ public class PlayerUnit extends GameUnit {
 	 * @return					True if there was a path, false otherwise
 	 */
 	protected boolean attemptFollowCursor() {
-		boolean moved = event.attemptFollowCursor();
+		boolean moved = event.attemptFollowCursor(new FinishListener() {
+			@Override public void onFinish() {
+				// TODO: tactics: perform actions
+				state = TurnState.TERMINATE;
+				energySpentThisTurn = 1000;
+			}	
+		});
 		if (moved) {
 			state = TurnState.ANIMATE_MOVEMENT;
+			battle.getMap().clearHighlight();
+			battle.getMap().hideCursor();
 		}
 		return moved;
 	}

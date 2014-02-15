@@ -133,7 +133,7 @@ public abstract class GameUnit implements	CommandListener,
 	 * Called by the battle when this unit's turn is 100% over.
 	 */
 	public final void onTurnEnd() {
-		state = TurnState.AWAIT_MOVEMENT;
+		state = TurnState.AWAIT_TURN;
 	}
 	
 	/**
@@ -202,6 +202,7 @@ public abstract class GameUnit implements	CommandListener,
 		ANIMATE_MOVEMENT,
 		AWAIT_ACTION,
 		ANIMATE_ACTION,
+		TERMINATE,
 	}
 
 }

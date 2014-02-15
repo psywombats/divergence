@@ -11,6 +11,7 @@ import java.util.List;
 
 import net.wombatrpgs.mgne.ai.AStarPathfinder;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.maps.Loc;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
@@ -29,6 +30,7 @@ public class TacticsEvent extends MapEvent {
 	
 	protected GameUnit unit;
 	protected List<OrthoDir> path;
+	protected FinishListener movementFinishListener;
 
 	/**
 	 * Constructs a new TacticsEvent given a GameUnit. Really shouldn't be
@@ -49,15 +51,25 @@ public class TacticsEvent extends MapEvent {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
-		if (path != null && path.size() > 0 && !isTracking()) {
-			OrthoDir step = path.get(0);
-			setFacing(step);
-			path.remove(0);
-			targetLocation(
-					x + step.getVector().x * parent.getTileWidth(),
-					y + step.getVector().y * parent.getTileHeight());
-			vx = step.getVector().x * (parent.getTileWidth() / MGlobal.constants.getDelay());
-			vy = step.getVector().y * (parent.getTileHeight() / MGlobal.constants.getDelay());
+		if (path != null && !isTracking()) {
+			if (path.size() > 0) {
+				OrthoDir step = path.get(0);
+				setFacing(step);
+				path.remove(0);
+				targetLocation(
+						x + step.getVector().x * parent.getTileWidth(),
+						y + step.getVector().y * parent.getTileHeight());
+				vx = step.getVector().x * (parent.getTileWidth() / MGlobal.constants.getDelay());
+				vy = step.getVector().y * (parent.getTileHeight() / MGlobal.constants.getDelay());
+				tileX += step.getVector().x;
+				tileY += step.getVector().y;
+			} else {
+				path = null;
+				if (movementFinishListener != null) {
+					movementFinishListener.onFinish();
+					movementFinishListener = null;
+				}
+			}
 		}
 	}
 
@@ -91,9 +103,11 @@ public class TacticsEvent extends MapEvent {
 	/**
 	 * Attempts to move to where the cursor is as part of our turn. Fails if
 	 * there is no path to the cursor.
+	 * @param	listener		The method to call when movement completes
 	 * @return					True if there was a path, false otherwise
 	 */
-	public boolean attemptFollowCursor() {
+	public boolean attemptFollowCursor(FinishListener listener) {
+		this.movementFinishListener = listener;
 		int targetX = TGlobal.ui.getCursor().getTileX();
 		int targetY = TGlobal.ui.getCursor().getTileY();
 		AStarPathfinder pather = new AStarPathfinder(parent,

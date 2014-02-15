@@ -51,6 +51,7 @@ public class TacticsScreen extends GameScreen {
 			if (command == InputCommand.WORLD_PAUSE) {
 				// TODO: tactics: hack to switch to tactics
 				battle = new Battle(MGlobal.levelManager.getActive());
+				addUChild(battle);
 				battle.addParty();
 				MGlobal.loadAsset(battle, "battle");
 				battle.startBattle();

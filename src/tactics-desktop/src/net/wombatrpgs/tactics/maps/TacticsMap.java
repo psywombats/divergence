@@ -115,6 +115,13 @@ public class TacticsMap extends ScreenObject {
 	}
 	
 	/**
+	 * Purges the cursor from the map.
+	 */
+	public void hideCursor() {
+		map.removeEvent(cursor);
+	}
+	
+	/**
 	 * Kicks the non-tactics version of the hero off the map and replaces it
 	 * with the tactics version.
 	 */
@@ -128,11 +135,22 @@ public class TacticsMap extends ScreenObject {
 	
 	/**
 	 * Shows that little blue highlight for where a unit can move.
-	 * @param	unit			The unit to highlight
+	 * @param	unit			The unit to highlight, or null for clear
 	 */
 	public void highlightMovement(GameUnit unit) {
 		highlightedUnit = unit;
-		highlightedSquares = unit.getEvent().getMoveRange();
+		if (unit == null) {
+			clearHighlight();
+		} else {
+			highlightedSquares = unit.getEvent().getMoveRange();
+		}
+	}
+	
+	/**
+	 * Clears the movement highlights from the map.
+	 */
+	public void clearHighlight() {
+		highlightedSquares = null;
 	}
 
 	/**
