@@ -9,6 +9,7 @@ package net.wombatrpgs.mgne.scenes;
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
@@ -68,9 +69,15 @@ public class TeleportManager implements Queueable {
 	 * @param 	tileX			The x-coord to teleport to (in tiles)
 	 * @param 	tileY			The y-coord to teleport to (in tiles)
 	 */
-	public void teleport(String mapName, int tileX, int tileY) {
-		Level map = MGlobal.levelManager.getLevel(mapName);
-		teleport(map, tileX, tileY);
+	public void teleport(String mapName, final int tileX, final int tileY) {
+		final Level map = MGlobal.levelManager.getLevel(mapName);
+		preParser.run();
+		preParser.addListener(new FinishListener() {
+			@Override public void onFinish() {
+				teleportRaw(map, tileX, tileY);
+				postParser.run();
+			};
+		});
 	}
 	
 	/**
@@ -81,7 +88,7 @@ public class TeleportManager implements Queueable {
 	 * @param 	tileX			The x-coord to teleport to (in tiles)
 	 * @param 	tileY			The y-coord to teleport to (in tiles)
 	 */
-	public void teleport(Level map, int tileX, int tileY) {
+	public void teleportRaw(Level map, int tileX, int tileY) {
 		
 		MapEvent victim = MGlobal.getHero();
 		Level old = victim.getParent();

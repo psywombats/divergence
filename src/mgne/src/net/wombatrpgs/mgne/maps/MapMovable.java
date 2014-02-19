@@ -7,6 +7,7 @@
 package net.wombatrpgs.mgne.maps;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgneschema.maps.data.EightDir;
 
 /**
@@ -22,6 +23,9 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	protected boolean tracking;
 	protected float targetX, targetY;
 	protected float lastX, lastY;
+	
+	/** Misc */
+	protected FinishListener trackingListener;
 	
 	/**
 	 * Creates a new movable map thing. No data required.
@@ -59,6 +63,9 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	
 	/** @return True if the object is moving, false otherwise */
 	public boolean isMoving() { return vx != 0 || vy != 0; }
+	
+	/** @param Listener to call when tracking is finished */
+	public void addTrackingListener(FinishListener listener) { this.trackingListener = listener; }
 	
 	/**
 	 * Updates the effective velocity of this map object.
@@ -148,6 +155,10 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 			}
 			if (x == targetX && y == targetY) {
 				tracking = false;
+				if (trackingListener != null) {
+					trackingListener.onFinish();
+					trackingListener = null;
+				}
 			}
 		}
 		storeXY();

@@ -33,6 +33,17 @@ public class SceneTint extends VarArgFunction {
 			float r1, g1, b1;
 			float r2, g2, b2;
 			float time;
+			
+			/* Initializer */ {
+				r2 = args.tofloat(1);
+				g2 = args.tofloat(2);
+				b2 = args.tofloat(3);
+				if (args.narg() < 4) {
+					time = 0;
+				} else {
+					time = args.tofloat(4);
+				}
+			}
 
 			@Override public void update(float elapsed) {
 				super.update(elapsed);
@@ -49,14 +60,6 @@ public class SceneTint extends VarArgFunction {
 				r1 = tint.r;
 				g1 = tint.g;
 				b1 = tint.b;
-				r2 = args.tofloat(1);
-				g2 = args.tofloat(2);
-				b2 = args.tofloat(3);
-				if (args.narg() < 4) {
-					time = 0;
-				} else {
-					time = args.tofloat(4);
-				}
 				waitFor(time);
 			}
 			

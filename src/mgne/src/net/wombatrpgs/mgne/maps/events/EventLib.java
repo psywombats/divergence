@@ -7,6 +7,8 @@
 package net.wombatrpgs.mgne.maps.events;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
+import net.wombatrpgs.mgne.maps.Level;
 
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.ThreeArgFunction;
@@ -44,10 +46,17 @@ public class EventLib extends TwoArgFunction {
 	 */
 	private class EventTeleport extends ThreeArgFunction {
 		@Override public LuaValue call(LuaValue map, LuaValue x, LuaValue y) {
-			int tileX = x.checkint();
-			int tileY = y.checkint();
-			String mapName = map.checkjstring();
-			MGlobal.levelManager.getTele().teleport(mapName, tileX, tileY);
+			final String mapName = map.checkjstring();
+			final int tileX = x.checkint();
+			final int tileY = y.checkint();
+			MGlobal.getHero().addTrackingListener(new FinishListener() {
+				@Override public void onFinish() {
+					Level map = MGlobal.levelManager.getLevel(mapName);
+					MGlobal.levelManager.getTele().teleport(mapName,
+							tileX,
+							map.getHeight() - (tileY+1));
+				}
+			});
 			return LuaValue.NIL;
 		}
 	}

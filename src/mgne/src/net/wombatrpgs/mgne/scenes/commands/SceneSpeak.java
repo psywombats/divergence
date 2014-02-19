@@ -31,8 +31,13 @@ public class SceneSpeak extends OneArgFunction {
 		SceneLib.addFunction(new SceneCommand() {
 			
 			TextBox box;
+			String text;
 			boolean blocking;
 			boolean setText;
+			
+			/* Initializer */ {
+				text = arg.toString();
+			}
 			
 			@Override protected void internalRun() {
 				box = MGlobal.ui.getBox();
@@ -45,7 +50,7 @@ public class SceneSpeak extends OneArgFunction {
 				super.update(elapsed);
 				if (box.isTweening()) return;
 				if (!setText) {
-					box.setText(arg.toString());
+					box.setText(text);
 					setText = true;
 				}
 			}
