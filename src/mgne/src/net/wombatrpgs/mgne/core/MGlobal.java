@@ -30,7 +30,6 @@ import net.wombatrpgs.mgne.io.loaders.DataLoader;
 import net.wombatrpgs.mgne.io.loaders.LuaLoader;
 import net.wombatrpgs.mgne.io.loaders.SceneLoader;
 import net.wombatrpgs.mgne.maps.LevelManager;
-import net.wombatrpgs.mgne.rpg.Avatar;
 import net.wombatrpgs.mgne.scenes.SceneData;
 import net.wombatrpgs.mgne.screen.ScreenStack;
 import net.wombatrpgs.mgne.screen.WindowSettings;

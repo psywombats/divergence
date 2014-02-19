@@ -4,9 +4,8 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mgne.rpg;
+package net.wombatrpgs.mgne.core;
 
-import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
