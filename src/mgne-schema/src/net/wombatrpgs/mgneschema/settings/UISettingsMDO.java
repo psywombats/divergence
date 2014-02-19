@@ -8,6 +8,7 @@ package net.wombatrpgs.mgneschema.settings;
 
 import net.wombatrpgs.mgneschema.graphics.IconSetMDO;
 import net.wombatrpgs.mgneschema.ui.FontMDO;
+import net.wombatrpgs.mgneschema.ui.NinesliceMDO;
 import net.wombatrpgs.mgneschema.ui.TextBoxMDO;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
@@ -31,5 +32,9 @@ public class UISettingsMDO extends MainSchema {
 	@Desc("Default icon set")
 	@SchemaLink(IconSetMDO.class)
 	public String icons;
+	
+	@Desc("Default nineslice - used as the default for various minimenus")
+	@SchemaLink(NinesliceMDO.class)
+	public String nineslice;
 
 }
