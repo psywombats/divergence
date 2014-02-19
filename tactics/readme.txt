@@ -1,6 +1,6 @@
 ================================================================================
-= TACTICS v. 20140207  -not intended for public release-                       =
-= running on MGNENGINE v. 20140207                                             =
+= TACTICS v. 20140217  -not intended for public release-                       =
+= running on MGNENGINE v. 20140218                                             =
 = contact: aking (psy_wombats@wombatrpgs.net)                                  =
 ================================================================================
 
@@ -16,4 +16,4 @@ INFO:
 There isn't anything in-game right now. Just a snapshot of what I've got so far.
 
 CONTROLS:
-Arrow keys.
+Arrow keys. Escape to toggle tactics mdoe.
