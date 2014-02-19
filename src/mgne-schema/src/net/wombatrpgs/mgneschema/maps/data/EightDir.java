@@ -11,7 +11,7 @@ import java.util.Random;
 /**
  * Basic diagonal ortho directions.
  */
-public enum EightDir {
+public enum EightDir implements DirEnum {
 	NORTH			(0, 1),
 	NORTHEAST		(1, 1),
 	EAST			(1, 0),
@@ -34,13 +34,13 @@ public enum EightDir {
 	}
 	
 	/**
-	 * Returns the unit vector associated with this direction
-	 * @return				The unit vector, in arbitrary units (duh)
+	 * @see net.wombatrpgs.mgneschema.maps.data.DirEnum#getVector()
 	 */
+	@Override
 	public DirVector getVector() {
 		return new DirVector(x, y);
 	}
-	
+
 	/**
 	 * Returns the orthographic equivalent of this direction. In case of a
 	 * specific compass direction, decides randomly.

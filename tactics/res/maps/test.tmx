@@ -41,5 +41,10 @@
     <property name="appearance" value="4dir_ffl2_human"/>
    </properties>
   </object>
+  <object type="Event" x="304" y="112" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('test2.tmx', 1, 8)"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

@@ -6,8 +6,14 @@
  */
 package net.wombatrpgs.tactics.rpg;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.badlogic.gdx.assets.AssetManager;
+
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.screen.TrackerCam;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
@@ -23,16 +29,20 @@ import net.wombatrpgs.tacticsschema.rpg.PlayerUnitMDO;
  * unit's physical incarnation, but does not encapsulate it. Extended by player
  * and AI versions.
  */
-public abstract class GameUnit implements CommandListener {
+public abstract class GameUnit implements	CommandListener,
+											Queueable {
 	
 	protected GameUnitMDO mdo;
 	
+	protected Battle battle;
 	protected TacticsEvent event;
 	protected TacticsMap map;
 	protected Stats stats;
 	
-	protected boolean active;	// are we moving right now?
+	protected TurnState state;
 	protected int energy;		// highest energy moves first
+	
+	protected List<Queueable> assets;
 	
 	/**
 	 * Factory method. Returns subclass based on MDO class.
@@ -54,7 +64,11 @@ public abstract class GameUnit implements CommandListener {
 	 */
 	protected GameUnit(GameUnitMDO mdo) {
 		this.mdo = mdo;
-		this.stats = new Stats(mdo.stats);
+		assets = new ArrayList<Queueable>();
+		
+		stats = new Stats(mdo.stats);
+		event = new TacticsEvent(this);
+		assets.add(event);
 	}
 	
 	/** @return This unit's stored energy, in ticks, higher is sooner */
@@ -63,9 +77,34 @@ public abstract class GameUnit implements CommandListener {
 	/** @param The energy this unit should gain based on some other spending */
 	public void grantEnergy(int energy) { this.energy += energy; }
 	
+	/** @return The doll used by this unit on the level */
+	public TacticsEvent getEvent() { return event; }
+	
 	/** @return The current stats of this unit */
 	public Stats stats() { return stats; }
 	
+	/**
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		for (Queueable asset : assets) {
+			asset.queueRequiredAssets(manager);
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager, int pass) {
+		for (Queueable asset : assets) {
+			asset.postProcessing(manager, pass);
+		}
+	}
+
 	/**
 	 * @see net.wombatrpgs.mgne.io.CommandListener#onCommand
 	 * (net.wombatrpgs.mgneschema.io.data.InputCommand)
@@ -81,7 +120,7 @@ public abstract class GameUnit implements CommandListener {
 	 * the appropriate internal methods.
 	 */
 	public final void onTurnStart() {
-		active = true;
+		state = TurnState.AWAIT_MOVEMENT;
 		TrackerCam cam = TGlobal.screen.getCamera();
 		cam.panTo(event, new FinishListener() {
 			@Override public void onFinish() {
@@ -94,7 +133,7 @@ public abstract class GameUnit implements CommandListener {
 	 * Called by the battle when this unit's turn is 100% over.
 	 */
 	public final void onTurnEnd() {
-		active = false;
+		state = TurnState.AWAIT_TURN;
 	}
 	
 	/**
@@ -107,20 +146,12 @@ public abstract class GameUnit implements CommandListener {
 	public abstract int doneWithTurn();
 	
 	/**
-	 * Adds this unit to a battle. Does this by creating a doll and setting its
-	 * location appropriately. Does not deal with animation; the unit will just
-	 * pop up at wherever.
-	 * @param	battle			The battle to add us to
-	 * @param	tileX			The x-coord of where to add doll (in tiles)
-	 * @param	tileY			The y-coord of where to add doll (in tiles)
+	 * Called when this unit is queued for battle. This doesn't meant the unit
+	 * is on the field, just they /could/ be used here.
+	 * @param	battle			The battle we joined
 	 */
-	public void addToBattle(Battle battle, int tileX, int tileY) {
-		battle.addCombatant(this);
-		if (event != null) {
-			MGlobal.reporter.warn(this + " already had a doll");
-		}
-		event = new TacticsEvent(this);
-		event.setTileLocation(tileX, tileY);
+	public void onAddedToBattle(Battle battle) {
+		this.battle = battle;
 	}
 
 	/**
@@ -144,11 +175,34 @@ public abstract class GameUnit implements CommandListener {
 	}
 	
 	/**
+	 * Adds this unit to the battle map at whatever location. This unit should
+	 * have already been added to the battle.
+	 * @param	tileX			The location to add at (in tiles)
+	 * @param	tileY			The location to add at (in tiles)
+	 */
+	public void spawnAt(int tileX, int tileY) {
+		battle.getMap().addDoll(event);
+		event.setTileLocation(tileX, tileY);
+	}
+	
+	/**
 	 * Called when it's this unit's turn. Should take whatever action is needed,
 	 * for AI units this is moving on its own and for players should probably
 	 * just wait. This unit will already be hooked up and ready to receive
 	 * commands from the player.
 	 */
 	protected abstract void internalStartTurn();
+	
+	/**
+	 * Where we are in our turn. Enemies will use AI for their await phases.
+	 */
+	protected enum TurnState {
+		AWAIT_TURN,
+		AWAIT_MOVEMENT,
+		ANIMATE_MOVEMENT,
+		AWAIT_ACTION,
+		ANIMATE_ACTION,
+		TERMINATE,
+	}
 
 }

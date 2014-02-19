@@ -46,7 +46,6 @@ public class ReferenceField extends FieldPanel {
 			}
 		}
 		if (defaultData != null && !defaultData.equals("")) {
-			// TODO: verify it exists
 			selectString(input, defaultData);
 		} else {
 			selectString(input, "None");

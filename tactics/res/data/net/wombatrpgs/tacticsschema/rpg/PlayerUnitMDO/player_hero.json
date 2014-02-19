@@ -1,0 +1,10 @@
+{
+	"key" : "player_hero",
+	"subfolder" : "",
+	"name" : "Hero",
+	"description" : " ",
+	"appearance" : "4dir_ffl2_human",
+	"stats" : {
+		"move" : 5
+	}
+}

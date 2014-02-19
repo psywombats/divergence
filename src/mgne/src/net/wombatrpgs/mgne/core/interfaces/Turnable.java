@@ -1,20 +1,23 @@
 /**
  *  Turnable.java
- *  Created on Oct 12, 2013 4:55:24 AM for project mrogue-libgdx
+ *  Created on Feb 18, 2014 6:39:06 PM for project mgne
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
 package net.wombatrpgs.mgne.core.interfaces;
 
 /**
- * Something that can update based on a passed turn. Turns are counted in
- * actions the hero takes.
+ * Something that happens every time the hero takes a "turn." What this is
+ * kind of depends on the game, but it's just something that happens
+ * periodically. Maybe for Rainfall-esque games it just happens every second
+ * or w/e. For now it's called whenever the hero walks, and the implementers are
+ * mostly NPCs taking steps.
  */
 public interface Turnable {
-	
-	/** 
-	 * Called every time the hero takes a turn on a map shared by this thing.
+
+	/**
+	 * Called whenever the hero takes a turn.
 	 */
 	public void onTurn();
-
+	
 }

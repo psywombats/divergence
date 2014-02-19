@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.core.interfaces.Turnable;
 import net.wombatrpgs.mgne.graphics.effects.Effect;
 import net.wombatrpgs.mgne.graphics.effects.EffectFactory;
 import net.wombatrpgs.mgne.io.audio.MusicObject;
@@ -37,7 +36,7 @@ import net.wombatrpgs.mgneschema.maps.data.MapMDO;
  * variable number of steps per turn, even if that's always 1 in an RPG, or
  * an infinitesmal amount in a rainfall-like ARPG.
  */
-public abstract class Level extends ScreenObject implements Turnable {
+public abstract class Level extends ScreenObject {
 	
 	public static final int TILE_WIDTH = 16;
 	public static final int TILE_HEIGHT = 16;
@@ -56,8 +55,6 @@ public abstract class Level extends ScreenObject implements Turnable {
 	protected Effect effect;
 	protected boolean reseting;
 	protected boolean updating;
-	protected boolean moving;
-	protected float moveTime;
 	
 	protected int mapWidth, mapHeight;
 	
@@ -87,7 +84,6 @@ public abstract class Level extends ScreenObject implements Turnable {
 			assets.add(bgm);
 		}
 		reseting = false;
-		moving = false;
 	}
 	
 	/** @return The batch used to render sprites on this map */
@@ -117,15 +113,6 @@ public abstract class Level extends ScreenObject implements Turnable {
 	/** @param The new BGM object on this level */
 	public void setBGM(MusicObject bgm) { this.bgm = bgm; }
 	
-	/** @return True if the map is between visible states, false otherwise */
-	public boolean isMoving() { return this.moving; }
-	
-	/** @return The time remaining in the current move update, in s */
-	public float getMoveTimeLeft() { return moveTime; }
-	
-	/** @return The time since the move started, in s */
-	public float getMoveTimeElapsed() { return MGlobal.constants.getDelay() - moveTime; }
-	
 	/** @return The key to this map's mdo */
 	public String getKey() { return mdo.key; }
 	
@@ -146,17 +133,9 @@ public abstract class Level extends ScreenObject implements Turnable {
 	public void render(OrthographicCamera camera) {
 		super.render(camera);
 		camera.update();
-		for (GridLayer layer : gridLayers) {
-			if (layer.getZ() < 1.f) {
-				layer.render(camera);
-			}
-		}
-		eventLayer.render(camera);
-		for (GridLayer layer : gridLayers) {
-			if (layer.getZ() >= 1.f) {
-				layer.render(camera);
-			}
-		}
+		renderGrid(false);
+		renderEvents();
+		renderGrid(true);
 		if (effect != null) {
 			effect.render(camera);
 		}
@@ -187,21 +166,7 @@ public abstract class Level extends ScreenObject implements Turnable {
 		}
 		reseting = false;
 		updating = false;
-		if (moving) {
-			moveTime -= elapsed;
-			if (moveTime <= 0) {
-				stopMoving();
-			}
-		}
 		
-	}
-	
-	/**
-	 * @see net.wombatrpgs.mgne.core.interfaces.Turnable#onTurn()
-	 */
-	@Override
-	public void onTurn() {
-		startMoving();
 	}
 
 	/**
@@ -214,51 +179,49 @@ public abstract class Level extends ScreenObject implements Turnable {
 	}
 	
 	/**
-	 * Sets all events moving on their merry way towards their destinations!
-	 * Meant to be called by the hero when they make a move. This integrates
-	 * all other events and then starts them all moving.
+	 * Determines if the specified location is passable. Takes into account
+	 * both grid and events.
+	 * @param	tileX			The location to check (in tiles)
+	 * @param	tileY			The location to check (in tiles)
+	 * @return					True if that location is passable
 	 */
-	public void startMoving() {
-		// integration step
-		eventLayer.integrate();
-		
-		// move step
-		moving = true;
-		moveTime = MGlobal.constants.getDelay();
-		for (MapEvent event : eventLayer.getEvents()) {
-			event.startMoving();
-		}
-	}
-	
-	/**
-	 * Stops all events from moving. This should probably be private but
-	 * basically all it does is tell the event layer to stop. Gets called from
-	 * update on timeout.
-	 */
-	public void stopMoving() {
-		moving = false;
-		for (MapEvent event : eventLayer.getEvents()) {
-			if (event.getParent() == this) {
-				event.stopMoving();
-			}
-		}
+	public boolean isTilePassable(int tileX, int tileY) {
+		return (isChipPassable(tileX, tileY) && eventLayer.isTilePassable(tileX, tileY));
 	}
 	
 	/**
 	 * Checks if a certain tile is passable by chip. This does not take into
 	 * account event passability.
-	 * @param	actor			The character that will be trying to pass
 	 * @param 	tileX			The checked x-coord (in tiles)
 	 * @param 	tileY			The checked y-coord (in tiles)
 	 * @return 					True if layer is passable, false otherwise
 	 */
-	public boolean isTilePassable(MapEvent actor, int tileX, int tileY) {
+	public boolean isChipPassable(int tileX, int tileY) {
 		for (GridLayer layer : gridLayers) {
-			if (!layer.isPassable(actor, tileX, tileY)) {
+			if (!layer.isTilePassable(tileX, tileY)) {
 				return false;
 			}
 		}
 		return true;
+	}
+	
+	/**
+	 * Renders the grid layers on the map using default camera.
+	 * @param	upper			True to do upper chip, false to do lower
+	 */
+	public void renderGrid(boolean upper) {
+		for (GridLayer layer : gridLayers) {
+			if (layer.getZ() < 1.f ^ upper) {
+				layer.render(MGlobal.screens.getCamera());
+			}
+		}
+	}
+	
+	/**
+	 * Renders the event layer using default camera.
+	 */
+	public void renderEvents() {
+		eventLayer.render(MGlobal.screens.getCamera());
 	}
 	
 	/**

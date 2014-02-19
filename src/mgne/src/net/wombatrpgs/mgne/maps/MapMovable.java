@@ -7,6 +7,7 @@
 package net.wombatrpgs.mgne.maps;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgneschema.maps.data.EightDir;
 
 /**
@@ -22,6 +23,9 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	protected boolean tracking;
 	protected float targetX, targetY;
 	protected float lastX, lastY;
+	
+	/** Misc */
+	protected FinishListener trackingListener;
 	
 	/**
 	 * Creates a new movable map thing. No data required.
@@ -59,6 +63,9 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	
 	/** @return True if the object is moving, false otherwise */
 	public boolean isMoving() { return vx != 0 || vy != 0; }
+	
+	/** @param Listener to call when tracking is finished */
+	public void addTrackingListener(FinishListener listener) { this.trackingListener = listener; }
 	
 	/**
 	 * Updates the effective velocity of this map object.
@@ -148,6 +155,10 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 			}
 			if (x == targetX && y == targetY) {
 				tracking = false;
+				if (trackingListener != null) {
+					trackingListener.onFinish();
+					trackingListener = null;
+				}
 			}
 		}
 		storeXY();
@@ -166,13 +177,24 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 
 	/**
 	 * Gives this map object a new target to track towards.
-	 * @param 	targetX		The target location x-coord (in px)
-	 * @param 	targetY		The target location y-coord (in px)
+	 * @param 	targetX			The target location x-coord (in px)
+	 * @param 	targetY			The target location y-coord (in px)
 	 */
 	public void targetLocation(float targetX, float targetY) {
 		this.targetX = targetX;
 		this.targetY = targetY;
 		this.tracking = true;
+	}
+	
+	/**
+	 * Gives this map object a new tile target to track towards.
+	 * @param	tileX			The target location x-coord (in tiles)
+	 * @param	tileY			The target location y-coord (in tiles)
+	 */
+	public void targetTile(int tileX, int tileY) {
+		targetLocation(
+				tileX * parent.getTileWidth(),
+				tileY * parent.getTileHeight());
 	}
 	
 	/**

@@ -6,7 +6,12 @@
  */
 package net.wombatrpgs.mgne.maps.events;
 
+import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
+import net.wombatrpgs.mgne.maps.Level;
+
 import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.lib.ThreeArgFunction;
 import org.luaj.vm2.lib.TwoArgFunction;
 
 /**
@@ -30,10 +35,30 @@ public class EventLib extends TwoArgFunction {
 		LuaValue library = tableOf();
 		
 		// all event lib calls should be placed here
-		// env.set("tint", new SceneTint());
+		env.set("teleport", new EventTeleport());
 		
 		env.set("eventlib", library);
 		return library;
+	}
+	
+	/**
+	 * Teleport hero to a different map.
+	 */
+	private class EventTeleport extends ThreeArgFunction {
+		@Override public LuaValue call(LuaValue map, LuaValue x, LuaValue y) {
+			final String mapName = map.checkjstring();
+			final int tileX = x.checkint();
+			final int tileY = y.checkint();
+			MGlobal.getHero().addTrackingListener(new FinishListener() {
+				@Override public void onFinish() {
+					Level map = MGlobal.levelManager.getLevel(mapName);
+					MGlobal.levelManager.getTele().teleport(mapName,
+							tileX,
+							map.getHeight() - (tileY+1));
+				}
+			});
+			return LuaValue.NIL;
+		}
 	}
 
 }

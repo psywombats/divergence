@@ -13,8 +13,10 @@ import java.util.Queue;
 
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
+import net.wombatrpgs.mgneschema.maps.data.DirEnum;
 import net.wombatrpgs.mgneschema.maps.data.DirVector;
 import net.wombatrpgs.mgneschema.maps.data.EightDir;
+import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 
 /**
  * Pathfinds towards a destination. Ooooh, spooky! It uses black magic to work
@@ -29,7 +31,6 @@ public class AStarPathfinder {
 	protected Level map;
 	protected int fromX, fromY;
 	protected int toX, toY;
-	protected int z;
 	
 	/**
 	 * Creates a new shell of a pathfinder. This can be used for a reusable
@@ -49,11 +50,10 @@ public class AStarPathfinder {
 	 * @param 	fromY			Where search starts from y (in tiles)
 	 * @param 	toX				Where search starts from x (in tiles)
 	 * @param 	toY				Where search starts from y (in tiles)
-	 * @param	z				The z-depth where everything takes place
 	 */
-	public AStarPathfinder(Level map, int fromX, int fromY, int toX, int toY, int z) {
+	public AStarPathfinder(Level map, int fromX, int fromY, int toX, int toY) {
 		this();
-		setInfo(map, fromX, fromY, toX, toY, z);
+		setInfo(map, fromX, fromY, toX, toY);
 	}
 	
 	/**
@@ -63,15 +63,13 @@ public class AStarPathfinder {
 	 * @param 	fromY			Where search starts from y (in tiles)
 	 * @param 	toX				Where search starts from x (in tiles)
 	 * @param 	toY				Where search starts from y (in tiles)
-	 * @param	z				The z-depth where everything takes place
 	 */
-	public void setInfo(Level map, int fromX, int fromY, int toX, int toY, int z) {
+	public void setInfo(Level map, int fromX, int fromY, int toX, int toY) {
 		this.map = map;
 		this.fromX = fromX;
 		this.fromY = fromY;
 		this.toX = toX;
 		this.toY = toY;
-		this.z = z;
 	}
 	
 	/**
@@ -103,13 +101,33 @@ public class AStarPathfinder {
 	}
 	
 	/**
+	 * Finds the path for an actor using all 8 directions.
+	 * @param	actor			The actor to get the path for
+	 * @return					The resulting path, or null if none
+	 */
+	public List<EightDir> getEightPath(MapEvent actor) {
+		return getPath(actor, EightDir.values());
+	}
+	
+	/**
+	 * Finds the path for an actor using cardinal directions.
+	 * @param	actor			The actor to get the path for
+	 * @return					The resulting path, or null if none
+	 */
+	public List<OrthoDir> getOrthoPath(MapEvent actor) {
+		return getPath(actor, OrthoDir.values());
+	}
+	
+	/**
 	 * Calculates the path to the location. Woo hoo!
+	 * @param	<T>				The type of direction enum to use
+	 * @param	directions		The set of all allowable directions to step
 	 * @param	actor			The event that will be pathing
 	 * @return					The steps to get to destination, or null if none
 	 */
-	public List<EightDir> getPath(MapEvent actor) {
-		Queue<Path> queue = new PriorityQueue<Path>();
-		queue.add(new Path(toX, toY, fromX, fromY));
+	public <T extends DirEnum> List<T> getPath(MapEvent actor, T[] directions) {
+		Queue<Path<T>> queue = new PriorityQueue<Path<T>>();
+		queue.add(new Path<T>(toX, toY, fromX, fromY));
 		// I can't believe I'm making a 2D array like this
 		List<List<Boolean>> visited = new ArrayList<List<Boolean>>();
 		for (int y = 0; y < map.getHeight(); y++) {
@@ -121,7 +139,7 @@ public class AStarPathfinder {
 		@SuppressWarnings("unused")
 		int nodes = 0;
 		while (queue.size() > 0) {
-			Path node = queue.poll();
+			Path<T> node = queue.poll();
 			nodes++;
 			if (visited.get(node.getAtY()).get(node.getAtX())) {
 				// we've already been here
@@ -132,16 +150,16 @@ public class AStarPathfinder {
 					//MGlobal.reporter.inform("Path found, expanded " + nodes);
 					return node.getSteps();
 				}
-				for (EightDir dir : EightDir.values()) {
+				for (T dir : directions) {
 					DirVector vec = dir.getVector();
 					int nextX = (int) (vec.x + node.getAtX());
 					int nextY = (int) (vec.y + node.getAtY());
 					if (nextX >= 0 && nextX < map.getWidth() &&
 						nextY >= 0 && nextY < map.getHeight() &&
 						!visited.get(nextY).get(nextX) &&
-						(map.isTilePassable(actor, nextX, nextY) || 
-								(nextX==toX && nextY==toY))) {
-						queue.add(new Path(node, dir));
+						map.isTilePassable(nextX, nextY)) {
+						
+						queue.add(new Path<T>(node, dir));
 					}
 				}
 			}

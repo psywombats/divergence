@@ -20,8 +20,6 @@ import net.wombatrpgs.tacticsschema.rpg.PartyMDO;
  */
 public class Party {
 	
-	protected static final String KEY_DEFAULT_PARTY = "party_default";
-	
 	protected List<GameUnit> units;
 	
 	/**
@@ -51,20 +49,12 @@ public class Party {
 	}
 	
 	/**
-	 * Adds heroes from the default party to this party. Used for init.
-	 */
-	public void addDefault() {
-		mergeParty(MGlobal.data.getEntryFor(KEY_DEFAULT_PARTY, PartyMDO.class));
-	}
-	
-	/**
 	 * Recruits every dude here into a battle?
 	 * @param	battle			The battle to add to
 	 */
 	public void addToBattle(Battle battle) {
 		for (GameUnit unit : units) {
-			// TODO: tactics: deploy in formation
-			unit.addToBattle(battle, MGlobal.getHero().getTileX(), MGlobal.getHero().getTileY());
+			battle.addUnit(unit);
 		}
 	}
 

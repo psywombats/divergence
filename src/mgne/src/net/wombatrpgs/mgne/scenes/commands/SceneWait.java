@@ -24,8 +24,15 @@ public class SceneWait extends OneArgFunction {
 	@Override
 	public LuaValue call(final LuaValue arg) {
 		SceneLib.addFunction(new SceneCommand() {
+			
+			float time;
+			
+			/* Initializer */ {
+				this.time = arg.tofloat();
+			}
+			
 			@Override protected void internalRun() {
-				waitFor(arg.tofloat());
+				waitFor(time);
 			}
 		});
 		return LuaValue.NIL;

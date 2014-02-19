@@ -9,6 +9,7 @@ package net.wombatrpgs.mgne.scenes;
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
@@ -61,14 +62,33 @@ public class TeleportManager implements Queueable {
 	}
 	
 	/**
+	 * Teleports the hero to the map, but has to interpret the map. This could
+	 * be an actual name of a .tmx file or a database key. This will look to
+	 * resolve to a .tmx if it ends with tmx, else resolve to database key.
+	 * @param	mapName			The name of the level to teleport to
+	 * @param 	tileX			The x-coord to teleport to (in tiles)
+	 * @param 	tileY			The y-coord to teleport to (in tiles)
+	 */
+	public void teleport(String mapName, final int tileX, final int tileY) {
+		final Level map = MGlobal.levelManager.getLevel(mapName);
+		preParser.run();
+		preParser.addListener(new FinishListener() {
+			@Override public void onFinish() {
+				teleportRaw(map, tileX, tileY);
+				postParser.run();
+			};
+		});
+	}
+	
+	/**
 	 * Teleports the hero to the map. This is a core teleport event and doesn't
 	 * actually deal with the pre/post stuff... Assumes the teleport affects the
 	 * hero and not some other goober.
 	 * @param 	map				The level to teleport to
-	 * @param 	tileX			The x-coord to teleport to (in tiles);
+	 * @param 	tileX			The x-coord to teleport to (in tiles)
 	 * @param 	tileY			The y-coord to teleport to (in tiles)
 	 */
-	public void teleport(Level map, int tileX, int tileY) {
+	public void teleportRaw(Level map, int tileX, int tileY) {
 		
 		MapEvent victim = MGlobal.getHero();
 		Level old = victim.getParent();

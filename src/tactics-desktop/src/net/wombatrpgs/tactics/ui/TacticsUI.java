@@ -15,6 +15,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.graphics.Graphic;
 import net.wombatrpgs.tacticsschema.settings.TacticsUISettingsMDO;
+import net.wombatrpgs.tacticsschema.ui.CursorMDO;
 
 /**
  * Singleton to hold a bunch of tactics ui objects.
@@ -27,6 +28,7 @@ public class TacticsUI implements Queueable {
 	protected List<Queueable> assets;
 	
 	protected Graphic highlight;
+	protected Cursor cursor;
 	
 	/**
 	 * Creates a new tactics ui. I can't imagine what would call this besides
@@ -38,7 +40,9 @@ public class TacticsUI implements Queueable {
 		assets = new ArrayList<Queueable>();
 		
 		highlight = new Graphic(mdo.mapHighlight);
+		cursor = new Cursor(MGlobal.data.getEntryFor(mdo.cursor, CursorMDO.class));
 		assets.add(highlight);
+		assets.add(cursor);
 	}
 	
 	/**
@@ -51,6 +55,9 @@ public class TacticsUI implements Queueable {
 	
 	/** @return The highlight for walkable map squares */
 	public Graphic getHighlight()  { return highlight; }
+	
+	/** @return The cursor for map selection */
+	public Cursor getCursor() { return cursor; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets

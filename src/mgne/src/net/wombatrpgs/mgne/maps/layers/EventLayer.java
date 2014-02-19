@@ -7,8 +7,6 @@
 package net.wombatrpgs.mgne.maps.layers;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -79,18 +77,22 @@ public class EventLayer extends Layer {
 	public boolean isLowerChip() {
 		return false;
 	}
-
+	
 	/**
-	 * Just check if any no-overlap events are in the area.
-	 * @see net.wombatrpgs.mgne.maps.layers.Layer#isPassable
-	 * (MapEvent, int, int)
+	 * @see net.wombatrpgs.mgne.maps.layers.Layer#isTilePassable(int, int)
 	 */
 	@Override
-	public boolean isPassable(MapEvent actor, final int x, final int y) {
-		// TODO: maps: isPassable
+	public boolean isTilePassable(int tileX, int tileY) {
+		for (MapEvent event : events) {
+			if (!event.isPassable() &&
+					event.getTileX() == tileX &&
+					event.getTileY() == tileY) {
+				return false;
+			}
+		}
 		return true;
 	}
-	
+
 	/** @return All events contained on this layer */
 	public List<MapEvent> getEvents() { return events; }
 
@@ -122,41 +124,6 @@ public class EventLayer extends Layer {
 	 */
 	public boolean contains(MapThing mapObject) {
 		return events.contains(mapObject);
-	}
-	
-	/**
-	 * Runs timestep integration until the hero moves again.
-	 */
-	public void integrate() {
-		while (true) {
-			Collections.sort(events, new Comparator<MapEvent>() {
-				@Override
-				public int compare(MapEvent a, MapEvent b) {
-					int val = (a.ticksToAct() - b.ticksToAct());
-					if (val == 0) {
-						if (a == MGlobal.getHero()) {
-							return 1;
-						} else if (b == MGlobal.getHero()) {
-							return -1;
-						} else {
-							return b.hashCode() - a.hashCode();
-						}
-					} else {
-						return val;
-					}
-				}
-			});
-			MapEvent next = events.get(0);
-			int ticks = next.ticksToAct();
-			for (MapEvent event : events) {
-				event.simulateTime(ticks);
-			}
-			//next.simulateTime(1);
-			next.onTurn();
-			if (next == MGlobal.getHero()) {
-				break;
-			}
-		}
 	}
 	
 	/**

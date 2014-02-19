@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.maps.Level;
-import net.wombatrpgs.mgne.maps.events.MapEvent;
 
 /**
  * A layer in a map, either a grid layer or an object layer. It's how Tiled
@@ -52,14 +51,13 @@ public abstract class Layer implements Queueable {
 	public abstract void render(OrthographicCamera camera);
 	
 	/**
-	 * Checking to see if a position in the grid is passable. This is a little
-	 * wonky for event layers...
-	 * @param	actor			The event checking for collisions
+	 * Checking to see if a position in the grid is passable. I have no idea
+	 * why this used to require an event.
 	 * @param 	x				The x-coord of the tile to check (in tiles)
 	 * @param 	y				The y-coord of the tile to check (in tiles)
 	 * @return					True if that tile is passable, false otherwise
 	 */
-	public abstract boolean isPassable(MapEvent actor, final int x, final int y);
+	public abstract boolean isTilePassable(int tileX, int tileY);
 	
 	/**
 	 * Determines whether this layer is an object layer, a so-called upper

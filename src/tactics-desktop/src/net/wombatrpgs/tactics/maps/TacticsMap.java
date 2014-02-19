@@ -10,11 +10,15 @@ import java.util.List;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.Loc;
+import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.ScreenObject;
 import net.wombatrpgs.tactics.core.TGlobal;
+import net.wombatrpgs.tactics.rpg.GameUnit;
+import net.wombatrpgs.tactics.ui.Cursor;
 
 /**
  * A map that gets created from a normal map for a tactics battle.
@@ -22,6 +26,10 @@ import net.wombatrpgs.tactics.core.TGlobal;
 public class TacticsMap extends ScreenObject {
 	
 	protected Level map;
+	
+	protected GameUnit highlightedUnit;
+	protected List<Loc> highlightedSquares;
+	protected Cursor cursor;
 	
 	/**
 	 * Creates a new tactics map based on an existing map. Does not populate it
@@ -31,6 +39,7 @@ public class TacticsMap extends ScreenObject {
 	 */
 	public TacticsMap(Level map) {
 		this.map = map;
+		cursor = TGlobal.ui.getCursor();
 	}
 
 	/**
@@ -69,14 +78,118 @@ public class TacticsMap extends ScreenObject {
 	@Override
 	public void render(OrthographicCamera camera) {
 		super.render(camera);
-		map.render(camera);
+		map.renderGrid(false);
+		if (highlightedSquares != null) {
+			renderSquares(highlightedSquares);
+		}
+		map.renderEvents();
+		map.renderGrid(true);
+	}
+	
+	/**
+	 * Called by the parent battle when it begins.
+	 */
+	public void onBattleStart() {
+		TGlobal.screen.addObject(this);
+		addTacticsHero();
+	}
+	
+	/**
+	 * Called by the parent battle when it ends. Should handle all cleanup.
+	 */
+	public void onBattleStop() {
+		TGlobal.screen.removeObject(this);
+		removeTacticsHero();
+		hideCursor();
+		clearHighlight();
+	}
+	
+	/**
+	 * Adds a doll to this map and the enclosing level.
+	 * @param	doll			The tactics event to add
+	 */
+	public void addDoll(TacticsEvent doll) {
+		map.addEvent(doll);
+	}
+	
+	/**
+	 * Removes a doll from this map and the enclosing level.
+	 * @param	doll			The tactics event to remove
+	 */
+	public void removeDoll(TacticsEvent doll) {
+		map.removeEvent(doll);
+	}
+	
+	/**
+	 * Spawns the cursor at a given location. Should be called by player units
+	 * on the beginning of their turn.
+	 * @param	tileX			The location to start cursor at (in tiles)
+	 * @param	tileY			The location to start cursor at (in tiles)
+	 */
+	public void showCursor(int tileX, int tileY) {
+		if (!map.contains(cursor)) {
+			map.addEvent(cursor);
+		}
+		cursor.setTileLocation(tileX, tileY);
+	}
+	
+	/**
+	 * Purges the cursor from the map.
+	 */
+	public void hideCursor() {
+		map.removeEvent(cursor);
+	}
+	
+	/**
+	 * Kicks the non-tactics version of the hero off the map and replaces it
+	 * with the tactics version.
+	 */
+	public void addTacticsHero() {
+		TGlobal.party.getHero().spawnAt(
+				MGlobal.getHero().getTileX(),
+				MGlobal.getHero().getTileY());
+		TGlobal.party.getHero().getEvent().setFacing(MGlobal.getHero().getFacing());
+		map.removeEvent(MGlobal.getHero());
+	}
+	
+	/**
+	 * Kicks the tactics version of the hero off the map and replaces it with
+	 * the non-tactics version.
+	 */
+	public void removeTacticsHero() {
+		MapEvent tacticsHero = TGlobal.party.getHero().getEvent();
+		MapEvent hero = MGlobal.getHero();
+		map.addEvent(hero, tacticsHero.getTileX(), tacticsHero.getTileY());
+		MGlobal.getHero().setFacing(tacticsHero.getFacing());
+		map.removeEvent(tacticsHero);
+		MGlobal.screens.getCamera().panTo(hero, null);
+	}
+	
+	/**
+	 * Shows that little blue highlight for where a unit can move.
+	 * @param	unit			The unit to highlight, or null for clear
+	 */
+	public void highlightMovement(GameUnit unit) {
+		highlightedUnit = unit;
+		if (unit == null) {
+			clearHighlight();
+		} else {
+			highlightedSquares = unit.getEvent().getMoveRange();
+		}
+	}
+	
+	/**
+	 * Clears the movement highlights from the map.
+	 */
+	public void clearHighlight() {
+		highlightedSquares = null;
 	}
 
 	/**
 	 * Renders any number of square overlays. Has any number of uses.
 	 * @param	squares			The locs to display squares over
 	 */
-	public void renderSquares(List<Loc> squares) {
+	protected void renderSquares(List<Loc> squares) {
 		for (Loc loc : squares) {
 			TGlobal.ui.getHighlight().renderAt(
 					map.getBatch(),

@@ -1,0 +1,9 @@
+{
+	"key" : "party_default",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"units" : [
+		"player_hero"
+	]
+}

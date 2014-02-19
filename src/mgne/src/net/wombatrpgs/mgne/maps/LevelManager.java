@@ -78,17 +78,7 @@ public class LevelManager {
 			teleport.queueRequiredAssets(MGlobal.assetManager);
 		}
 		if (!levels.containsKey(mapID)) {
-			// it's buggy, this shouldn't be necessary
-//			float oldR = 0, oldG = 0, oldB = 0;
-//			if (SGlobal.screens.size() > 0) {
-//				oldR = SGlobal.screens.peek().getTint().r;
-//				oldG = SGlobal.screens.peek().getTint().g;
-//				oldB = SGlobal.screens.peek().getTint().b;
-//				SGlobal.screens.peek().getTint().r = 1;
-//				SGlobal.screens.peek().getTint().g = 1;
-//				SGlobal.screens.peek().getTint().b = 1;
-//			}
-			MapMDO mapMDO = MGlobal.data.getEntryFor(mapID, MapMDO.class);
+			MapMDO mapMDO = getLevelMDO(mapID);
 			Level map = createMap(mapMDO, screen);
 			long startTime = System.currentTimeMillis();
 			map.queueRequiredAssets(MGlobal.assetManager);
@@ -102,11 +92,6 @@ public class LevelManager {
 			MGlobal.reporter.inform("Loaded level " + mapID + ", elapsed " +
 						"time: " + elapsed + " seconds");
 			levels.put(mapID, map);
-//			if (SGlobal.screens.size() > 0) {
-//				SGlobal.screens.peek().getTint().r = oldR;
-//				SGlobal.screens.peek().getTint().g = oldG;
-//				SGlobal.screens.peek().getTint().b = oldB;
-//			}
 		}
 		return levels.get(mapID);
 	}
@@ -128,6 +113,24 @@ public class LevelManager {
 			MGlobal.reporter.err("Unknown subtype of mapmdo :" + mdo.getClass());
 			return null;
 		}
+	}
+	
+	/**
+	 * Converts a string into an mdo, either by constructing a level for the
+	 * named map or by retrieving from the database.
+	 * @param	name			The name of the MDO or .tmx map
+	 * @return					An MDO suitable for that name
+	 */
+	private static MapMDO getLevelMDO(String name) {
+		MapMDO mdo = MGlobal.data.getIfExists(name, MapMDO.class);
+		if (mdo == null) {
+			LoadedMapMDO loadedMDO = new LoadedMapMDO();
+			loadedMDO.bgm = null;
+			loadedMDO.effect = null;
+			loadedMDO.file = name;
+			mdo = loadedMDO;
+		}
+		return mdo;
 	}
 	
 }
