@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.mgne.maps.events;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.luaj.vm2.LuaValue;
@@ -19,7 +18,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.core.interfaces.Turnable;
 import net.wombatrpgs.mgne.core.lua.Lua;
 import net.wombatrpgs.mgne.core.lua.LuaConvertable;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
@@ -27,10 +25,9 @@ import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mgne.graphics.PreRenderable;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.MapMovable;
-import net.wombatrpgs.mgne.rpg.travel.Step;
-import net.wombatrpgs.mgne.rpg.travel.StepMove;
 import net.wombatrpgs.mgneschema.graphics.DirMDO;
 import net.wombatrpgs.mgneschema.maps.EventMDO;
+import net.wombatrpgs.mgneschema.maps.data.DirVector;
 import net.wombatrpgs.mgneschema.maps.data.EightDir;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 
@@ -46,7 +43,6 @@ import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
  * any object on the map, whether it moves or not.
  */
 public class MapEvent extends MapMovable implements	PreRenderable,
-													Turnable,
 													LuaConvertable {
 	
 	/** General children and info */
@@ -56,12 +52,6 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	
 	/** Tile-based positioning */
 	protected int tileX, tileY;
-	
-	/** Turns and turn-based data */
-	protected List<Turnable> turnChildren;
-	protected List<Step> travelPlan;
-	protected Step lastStep;
-	protected int ticksRemaining;
 
 	/**
 	 * Creates a new map event for the level at the origin. It will need its
@@ -73,16 +63,12 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 		super();
 		this.mdo = mdo;
 		
-		this.turnChildren = new ArrayList<Turnable>();
 		if (mdoHasProperty(mdo.appearance)) {
 			DirMDO dirMDO = MGlobal.data.getEntryFor(mdo.appearance, DirMDO.class);
 			appearance = FacesAnimationFactory.create(dirMDO, this);
 			appearance.startMoving();
 			assets.add(appearance);
 		}
-		
-		travelPlan = new ArrayList<Step>();
-		ticksRemaining = 0;
 		
 		zeroCoords();
 		
@@ -122,9 +108,6 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	/** @return The current appearance of this character */
 	public FacesAnimation getAppearance() { return appearance; }
 	
-	/** @param s Another step on the ol' block */
-	public void addStep(Step s) { travelPlan.add(s); }
-	
 	/** @param appearance The new anim for this event */
 	public void setAppearance(FacesAnimation appearance) { this.appearance = appearance; }
 	
@@ -135,21 +118,13 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	@Override public int getRenderY() { return Math.round(getY()); }
 
 	/** @see net.wombatrpgs.mgne.graphics.PreRenderable#getRegion() */
-	@Override public TextureRegion getRegion() { return appearance.getRegion(); }
+	@Override public TextureRegion getRegion() { return (appearance==null) ? null : appearance.getRegion(); }
 	
 	/** @return True if the object is passable, false otherwise */
 	public boolean isPassable() { return appearance == null; }
 	
 	/** @see net.wombatrpgs.mgne.core.lua.LuaConvertable#toLua() */
 	@Override public LuaValue toLua() { return lua; }
-
-	/**
-	 * Calculates the ticks until we next move.
-	 * @return					The remaining ticks, in game ticks
-	 */
-	public int ticksToAct() {
-		return ticksRemaining;
-	}
 	
 	/**
 	 * Gets the facing for the character. Returns null if no appearance.
@@ -206,22 +181,8 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	public void update(float elapsed) {
 		super.update(elapsed);
 		
-		// travel planning and animation (from chara)
 		if (appearance != null) {
 			appearance.update(elapsed);
-		}
-		if (parent.isMoving()) {
-			if (travelPlan.size() > 0 ) {
-				int step = (int) Math.floor((float) travelPlan.size() *
-						(parent.getMoveTimeElapsed() / MGlobal.constants.getDelay()));
-				if (step > travelPlan.size()-1) step = travelPlan.size()-1;
-				Step toStep = travelPlan.get(step);
-				if (lastStep != toStep && lastStep != null) {
-					lastStep.onEnd();
-				}
-				toStep.update(elapsed);
-				lastStep = toStep;
-			}
 		}
 	}
 	
@@ -232,37 +193,8 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	@Override
 	public void render(OrthographicCamera camera) {
 		super.render(camera);
-		appearance.render(camera);
-	}
-
-	/**
-	 * Called when this object begins updating its position in the move phase.
-	 */
-	public void startMoving() {
-		int tWidth = parent.getTileWidth();
-		int tHeight = parent.getTileHeight();
-		targetLocation(tileX * tWidth, tileY * tHeight);
-		float vx = (tileX*tWidth - x) / parent.getMoveTimeLeft();
-		float vy = (tileY*tHeight - y) / parent.getMoveTimeLeft();
-		setVelocity(vx, vy);
-		
-		for (Step step : travelPlan) {
-			step.setTime(MGlobal.constants.getDelay() / travelPlan.size());
-		}
-	}
-	
-	/**
-	 * Stops this event from a period of pathing towards its logical next
-	 * turn position by permanently setting it to is next turn positon.
-	 */
-	public void stopMoving() {
-		x = tileX * parent.getTileWidth();
-		y = tileY * parent.getTileHeight();
-		halt();
-		if (lastStep != null) {
-			lastStep.onEnd();
-			lastStep = null;
-			travelPlan.clear();
+		if (appearance != null) {
+			appearance.render(camera);
 		}
 	}
 
@@ -347,18 +279,6 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 		super.onRemovedFromMap(map);
 		runScript(mdo.onRemove);
 	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.core.interfaces.Turnable#onTurn()
-	 */
-	@Override
-	public void onTurn() {
-		for (Turnable t : turnChildren) {
-			t.onTurn();
-		}
-		runScript(mdo.onTurn);
-		ticksRemaining += 1000;
-	}
 	
 	/**
 	 * What happens when a character moves into this event? By default, nothing
@@ -367,7 +287,9 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	 * @param	event			The jerk that ran into us
 	 */
 	public void onCollide(MapEvent event) {
-		runScript(mdo.onCollide);
+		if (event == MGlobal.getHero()) {
+			runScript(mdo.onCollide);
+		}
 	}
 	
 	/**
@@ -441,8 +363,8 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	 * there's nothing there, the character will step to that location. If
 	 * there his something there, this will hit it. Also adds an appropriate
 	 * travel step.
-	 * @param	targetX			The target location x-coord, in pixels
-	 * @param	targetY			The target location y-coord, in pixels
+	 * @param	targetX			The target location x-coord, in tiles
+	 * @param	targetY			The target location y-coord, in tiles
 	 * @return					True if the move succeeded, false if we hit
 	 */
 	public boolean attemptStep(int targetX, int targetY) {
@@ -458,7 +380,7 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 				}
 			}
 			if (!colliding) {
-				travelPlan.add(new StepMove(this, targetX, targetY));
+				step(directionToTile(targetX, targetY));
 				tileX = targetX;
 				tileY = targetY;
 				return true;
@@ -500,20 +422,27 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	}
 	
 	/**
-	 * Simulates the passage of time in the game world.
-	 * @param	ticks			The number of ticks elapsed, in game ticks
-	 */
-	public void simulateTime(int ticks) {
-		ticksRemaining -= ticks;
-	}
-	
-	/**
 	 * Runs a chunk of MDO text as a script if it exists.
 	 * @param	chunk			The chunk of text to run
 	 * @return					The result of the script evaluation
 	 */
 	protected LuaValue runScript(String chunk) {
 		return MGlobal.lua.run(chunk, this);
+	}
+	
+	/**
+	 * Moves a certain direction, regardless of passability, events, etc. That's
+	 * why it's protected, don't use it directly.
+	 * @param	dir				The direction to move
+	 */
+	protected void step(OrthoDir dir) {
+		DirVector vec = dir.getVector();
+		targetTile(
+				(int) (tileX + vec.x),
+				(int) (tileY + vec.y));
+		setVelocity(
+				vec.x * (parent.getTileWidth() / MGlobal.constants.getDelay()),
+				vec.y * (parent.getTileHeight() / MGlobal.constants.getDelay()));
 	}
 
 }

@@ -61,11 +61,24 @@ public class TeleportManager implements Queueable {
 	}
 	
 	/**
+	 * Teleports the hero to the map, but has to interpret the map. This could
+	 * be an actual name of a .tmx file or a database key. This will look to
+	 * resolve to a .tmx if it ends with tmx, else resolve to database key.
+	 * @param	mapName			The name of the level to teleport to
+	 * @param 	tileX			The x-coord to teleport to (in tiles)
+	 * @param 	tileY			The y-coord to teleport to (in tiles)
+	 */
+	public void teleport(String mapName, int tileX, int tileY) {
+		Level map = MGlobal.levelManager.getLevel(mapName);
+		teleport(map, tileX, tileY);
+	}
+	
+	/**
 	 * Teleports the hero to the map. This is a core teleport event and doesn't
 	 * actually deal with the pre/post stuff... Assumes the teleport affects the
 	 * hero and not some other goober.
 	 * @param 	map				The level to teleport to
-	 * @param 	tileX			The x-coord to teleport to (in tiles);
+	 * @param 	tileX			The x-coord to teleport to (in tiles)
 	 * @param 	tileY			The y-coord to teleport to (in tiles)
 	 */
 	public void teleport(Level map, int tileX, int tileY) {

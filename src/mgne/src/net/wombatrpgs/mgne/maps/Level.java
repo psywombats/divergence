@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.core.interfaces.Turnable;
 import net.wombatrpgs.mgne.graphics.effects.Effect;
 import net.wombatrpgs.mgne.graphics.effects.EffectFactory;
 import net.wombatrpgs.mgne.io.audio.MusicObject;
@@ -37,7 +36,7 @@ import net.wombatrpgs.mgneschema.maps.data.MapMDO;
  * variable number of steps per turn, even if that's always 1 in an RPG, or
  * an infinitesmal amount in a rainfall-like ARPG.
  */
-public abstract class Level extends ScreenObject implements Turnable {
+public abstract class Level extends ScreenObject {
 	
 	public static final int TILE_WIDTH = 16;
 	public static final int TILE_HEIGHT = 16;
@@ -56,8 +55,6 @@ public abstract class Level extends ScreenObject implements Turnable {
 	protected Effect effect;
 	protected boolean reseting;
 	protected boolean updating;
-	protected boolean moving;
-	protected float moveTime;
 	
 	protected int mapWidth, mapHeight;
 	
@@ -87,7 +84,6 @@ public abstract class Level extends ScreenObject implements Turnable {
 			assets.add(bgm);
 		}
 		reseting = false;
-		moving = false;
 	}
 	
 	/** @return The batch used to render sprites on this map */
@@ -116,15 +112,6 @@ public abstract class Level extends ScreenObject implements Turnable {
 	
 	/** @param The new BGM object on this level */
 	public void setBGM(MusicObject bgm) { this.bgm = bgm; }
-	
-	/** @return True if the map is between visible states, false otherwise */
-	public boolean isMoving() { return this.moving; }
-	
-	/** @return The time remaining in the current move update, in s */
-	public float getMoveTimeLeft() { return moveTime; }
-	
-	/** @return The time since the move started, in s */
-	public float getMoveTimeElapsed() { return MGlobal.constants.getDelay() - moveTime; }
 	
 	/** @return The key to this map's mdo */
 	public String getKey() { return mdo.key; }
@@ -179,21 +166,7 @@ public abstract class Level extends ScreenObject implements Turnable {
 		}
 		reseting = false;
 		updating = false;
-		if (moving) {
-			moveTime -= elapsed;
-			if (moveTime <= 0) {
-				stopMoving();
-			}
-		}
 		
-	}
-	
-	/**
-	 * @see net.wombatrpgs.mgne.core.interfaces.Turnable#onTurn()
-	 */
-	@Override
-	public void onTurn() {
-		startMoving();
 	}
 
 	/**
@@ -203,37 +176,6 @@ public abstract class Level extends ScreenObject implements Turnable {
 	 */
 	public void addGridLayer(GeneratedGridLayer layer) {
 		gridLayers.add(layer);
-	}
-	
-	/**
-	 * Sets all events moving on their merry way towards their destinations!
-	 * Meant to be called by the hero when they make a move. This integrates
-	 * all other events and then starts them all moving.
-	 */
-	public void startMoving() {
-		// integration step
-		eventLayer.integrate();
-		
-		// move step
-		moving = true;
-		moveTime = MGlobal.constants.getDelay();
-		for (MapEvent event : eventLayer.getEvents()) {
-			event.startMoving();
-		}
-	}
-	
-	/**
-	 * Stops all events from moving. This should probably be private but
-	 * basically all it does is tell the event layer to stop. Gets called from
-	 * update on timeout.
-	 */
-	public void stopMoving() {
-		moving = false;
-		for (MapEvent event : eventLayer.getEvents()) {
-			if (event.getParent() == this) {
-				event.stopMoving();
-			}
-		}
 	}
 	
 	/**

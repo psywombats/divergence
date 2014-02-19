@@ -166,13 +166,24 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 
 	/**
 	 * Gives this map object a new target to track towards.
-	 * @param 	targetX		The target location x-coord (in px)
-	 * @param 	targetY		The target location y-coord (in px)
+	 * @param 	targetX			The target location x-coord (in px)
+	 * @param 	targetY			The target location y-coord (in px)
 	 */
 	public void targetLocation(float targetX, float targetY) {
 		this.targetX = targetX;
 		this.targetY = targetY;
 		this.tracking = true;
+	}
+	
+	/**
+	 * Gives this map object a new tile target to track towards.
+	 * @param	tileX			The target location x-coord (in tiles)
+	 * @param	tileY			The target location y-coord (in tiles)
+	 */
+	public void targetTile(int tileX, int tileY) {
+		targetLocation(
+				tileX * parent.getTileWidth(),
+				tileY * parent.getTileHeight());
 	}
 	
 	/**

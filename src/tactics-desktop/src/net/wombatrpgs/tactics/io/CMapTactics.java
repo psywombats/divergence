@@ -31,16 +31,12 @@ public class CMapTactics extends EasyCommandMap {
 	protected void initBindings() {
 		
 		bindings.put(new InputEvent(InputButton.BUTTON_A,		EventType.PRESS),	InputCommand.UI_CONFIRM);
+		bindings.put(new InputEvent(InputButton.BUTTON_B,		EventType.PRESS),	InputCommand.UI_CANCEL);
 		
 		bindings.put(new InputEvent(InputButton.UP,				EventType.PRESS),	InputCommand.MOVE_UP);
 		bindings.put(new InputEvent(InputButton.DOWN,			EventType.PRESS),	InputCommand.MOVE_DOWN);
 		bindings.put(new InputEvent(InputButton.LEFT,			EventType.PRESS),	InputCommand.MOVE_LEFT);
 		bindings.put(new InputEvent(InputButton.RIGHT,			EventType.PRESS),	InputCommand.MOVE_RIGHT);
-		
-		bindings.put(new InputEvent(InputButton.UP,				EventType.RELEASE),	InputCommand.MOVE_STOP);
-		bindings.put(new InputEvent(InputButton.DOWN,			EventType.RELEASE),	InputCommand.MOVE_STOP);
-		bindings.put(new InputEvent(InputButton.LEFT,			EventType.RELEASE),	InputCommand.MOVE_STOP);
-		bindings.put(new InputEvent(InputButton.RIGHT,			EventType.RELEASE),	InputCommand.MOVE_STOP);
 		
 		bindings.put(new InputEvent(InputButton.BUTTON_START,	EventType.PRESS),	InputCommand.WORLD_PAUSE);
 		

@@ -48,23 +48,6 @@ public class Avatar extends MapEvent implements CommandListener {
 	}
 
 	/**
-	 * @see net.wombatrpgs.saga.rpg.CharacterEvent#stopMoving()
-	 */
-	@Override
-	public void stopMoving() {
-		if (dirToMove == null) {
-			super.stopMoving();
-		} else {
-			if (lastMove != dirToMove) {
-				super.stopMoving();
-			}
-			lastStep = null;
-			travelPlan.clear();
-			move(dirToMove);
-		}
-	}
-
-	/**
 	 * @see net.wombatrpgs.mgne.io.CommandListener#onCommand
 	 * (net.wombatrpgs.mgneschema.io.data.InputCommand)
 	 */
@@ -73,7 +56,7 @@ public class Avatar extends MapEvent implements CommandListener {
 		if (command == InputCommand.MOVE_STOP) {
 			dirToMove = null;
 		}
-		if (MGlobal.levelManager.getActive().isMoving()) {
+		if (tracking) {
 			switch (command) {
 			case MOVE_LEFT:			dirToMove = OrthoDir.WEST;		break;
 			case MOVE_UP:			dirToMove = OrthoDir.NORTH;		break;
@@ -102,9 +85,6 @@ public class Avatar extends MapEvent implements CommandListener {
 	protected void move(OrthoDir dir) {
 		if (attemptStep(dir)) {
 			lastMove = dir;
-			if (!parent.isMoving()) {
-				parent.onTurn();
-			}
 		}
 	}
 	
