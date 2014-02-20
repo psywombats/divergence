@@ -4,8 +4,8 @@
 	"name" : "",
 	"description" : "   ",
 	"windowName" : "Tactics RPG?",
-	"width" : 800,
-	"height" : 600,
-	"resWidth" : 800,
-	"resHeight" : 600
+	"width" : 640,
+	"height" : 480,
+	"resWidth" : 640,
+	"resHeight" : 480
 }

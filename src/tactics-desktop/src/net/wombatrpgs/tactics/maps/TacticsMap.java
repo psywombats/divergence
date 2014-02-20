@@ -18,7 +18,7 @@ import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.ScreenObject;
 import net.wombatrpgs.tactics.core.TGlobal;
 import net.wombatrpgs.tactics.rpg.GameUnit;
-import net.wombatrpgs.tactics.ui.Cursor;
+import net.wombatrpgs.tactics.ui.MapCursor;
 
 /**
  * A map that gets created from a normal map for a tactics battle.
@@ -29,7 +29,7 @@ public class TacticsMap extends ScreenObject {
 	
 	protected GameUnit highlightedUnit;
 	protected List<Loc> highlightedSquares;
-	protected Cursor cursor;
+	protected MapCursor cursor;
 	
 	/**
 	 * Creates a new tactics map based on an existing map. Does not populate it

@@ -28,7 +28,7 @@ public class TacticsUI implements Queueable {
 	protected List<Queueable> assets;
 	
 	protected Graphic highlight;
-	protected Cursor cursor;
+	protected MapCursor cursor;
 	
 	/**
 	 * Creates a new tactics ui. I can't imagine what would call this besides
@@ -40,7 +40,7 @@ public class TacticsUI implements Queueable {
 		assets = new ArrayList<Queueable>();
 		
 		highlight = new Graphic(mdo.mapHighlight);
-		cursor = new Cursor(MGlobal.data.getEntryFor(mdo.cursor, CursorMDO.class));
+		cursor = new MapCursor(MGlobal.data.getEntryFor(mdo.cursor, CursorMDO.class));
 		assets.add(highlight);
 		assets.add(cursor);
 	}
@@ -57,7 +57,7 @@ public class TacticsUI implements Queueable {
 	public Graphic getHighlight()  { return highlight; }
 	
 	/** @return The cursor for map selection */
-	public Cursor getCursor() { return cursor; }
+	public MapCursor getCursor() { return cursor; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets

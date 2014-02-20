@@ -98,13 +98,14 @@ public class GameScreen extends Screen {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-		if (super.onCommand(command)) return true;
-		switch (command) {
-			// any engine-wide game commands go here... there aren't any, haha
-		default:
-			return hero.onCommand(command);
-		}
-		
+//		if (super.onCommand(command)) return true;
+//		switch (command) {
+//			// any engine-wide game commands go here... there aren't any, haha
+//		default:
+//			return hero.onCommand(command);
+//		}
+		// changed otherwise subclasses would have no control, only hero
+		return super.onCommand(command);
 	}
 
 	/**

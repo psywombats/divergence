@@ -13,6 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
+import net.wombatrpgs.mgne.graphics.Graphic;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBox;
 import net.wombatrpgs.mgneschema.graphics.IconSetMDO;
@@ -37,6 +38,7 @@ public class UISettings implements Queueable {
 	protected TextBox box;
 	protected IconSet icons;
 	protected NinesliceMDO ninesliceMDO;
+	protected Graphic cursor;
 	
 	protected List<Queueable> assets;
 	
@@ -53,6 +55,8 @@ public class UISettings implements Queueable {
 		assets.add(box);
 		icons = new IconSet(MGlobal.data.getEntryFor(mdo.icons, IconSetMDO.class));
 		assets.add(icons);
+		cursor = new Graphic(mdo.cursor);
+		assets.add(cursor);
 		
 		ninesliceMDO = MGlobal.data.getEntryFor(mdo.nineslice, NinesliceMDO.class);
 	}
@@ -87,5 +91,8 @@ public class UISettings implements Queueable {
 	
 	/** @return The nineslice data, instance and queue yourself */
 	public NinesliceMDO getNinesliceMDO() { return this.ninesliceMDO; }
+	
+	/** @return The default cursor graphic */
+	public Graphic getCursor() { return this.cursor; }
 
 }

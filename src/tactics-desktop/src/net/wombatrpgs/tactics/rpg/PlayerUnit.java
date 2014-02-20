@@ -28,6 +28,8 @@ public class PlayerUnit extends GameUnit {
 	
 	protected PlayerUnitMDO mdo;
 	protected int energySpentThisTurn;
+	
+	protected OptionSelector mainTurnMenu;
 
 	/**
 	 * Constructs a player unit for a player. This should be only constructed
@@ -61,9 +63,9 @@ public class PlayerUnit extends GameUnit {
 				return true;
 			}
 		});
-		OptionSelector selector = new OptionSelector(options);
-		selector.loadAssets();
-		selector.showAt(200, 100);
+		mainTurnMenu = new OptionSelector(options);
+		mainTurnMenu.loadAssets();
+		mainTurnMenu.showAt(0, 0);
 	}
 
 	/**
@@ -120,6 +122,7 @@ public class PlayerUnit extends GameUnit {
 		boolean moved = event.attemptFollowCursor(new FinishListener() {
 			@Override public void onFinish() {
 				// TODO: tactics: perform actions
+				mainTurnMenu.close();
 				state = TurnState.TERMINATE;
 				energySpentThisTurn = 1000;
 			}	
@@ -138,6 +141,7 @@ public class PlayerUnit extends GameUnit {
 	protected void onMoveSelected() {
 		battle.getMap().highlightMovement(this);
 		battle.getMap().showCursor(event.getTileX(), event.getTileY());
+		mainTurnMenu.unhandControl();
 	}
 	
 	/**
@@ -147,6 +151,7 @@ public class PlayerUnit extends GameUnit {
 		state = TurnState.TERMINATE;
 		// TODO: tactics: wait
 		energySpentThisTurn = 500;
+		mainTurnMenu.close();
 	}
 
 }

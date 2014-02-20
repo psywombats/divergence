@@ -63,9 +63,9 @@ public abstract class Screen implements CommandListener,
 	
 	protected List<Queueable> assets;
 	protected List<PostRenderable> postRenders;
-	protected List<CommandListener> commandListeners;
 	protected List<Updateable> updateChildren, removeChildren, addChildren;
 	protected List<ScreenObject> screenObjects;
+	protected Stack<CommandListener> commandListeners;
 	protected Stack<CommandMap> commandContext;
 	
 	protected boolean initialized;
@@ -79,8 +79,8 @@ public abstract class Screen implements CommandListener,
 	public Screen() {
 		assets = new ArrayList<Queueable>();
 		commandContext = new Stack<CommandMap>();
+		commandListeners = new Stack<CommandListener>();
 		postRenders = new ArrayList<PostRenderable>();
-		commandListeners = new ArrayList<CommandListener>();
 		updateChildren = new ArrayList<Updateable>();
 		removeChildren = new ArrayList<Updateable>();
 		addChildren = new ArrayList<Updateable>();
@@ -160,10 +160,10 @@ public abstract class Screen implements CommandListener,
 	public void removePostRender(PostRenderable pr) { postRenders.remove(pr); }
 	
 	/** @param listener The listener to receive command updates */
-	public void registerCommandListener(CommandListener listener) { commandListeners.add(listener); }
+	public void pushCommandListener(CommandListener listener) { commandListeners.push(listener); }
 	
 	/** @param listener The listener to stop receiving command updates */
-	public void unregisterCommandListener(CommandListener listener) { commandListeners.remove(listener); }
+	public void removeCommandListener(CommandListener listener) { commandListeners.remove(listener); }
 	
 	/** @param u The updateable child to add */
 	public void addUChild(Updateable u) { addChildren.add(u); }
@@ -339,7 +339,9 @@ public abstract class Screen implements CommandListener,
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-		for (CommandListener listener : commandListeners) {
+		int listeners = commandListeners.size();
+		for (int i = 0; i < listeners; i += 1) {
+			CommandListener listener = commandListeners.get(listeners - i - 1);
 			if (listener.onCommand(command)) return true;
 		}
 		switch (command) {

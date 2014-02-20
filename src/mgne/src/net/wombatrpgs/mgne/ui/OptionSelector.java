@@ -25,9 +25,9 @@ import net.wombatrpgs.mgneschema.ui.NinesliceMDO;
  */
 public class OptionSelector extends UIElement implements CommandListener {
 	
-	protected static float DEFAULT_PADDING_HORIZ = 8;
-	protected static float DEFAULT_PADDING_VERT = 8;
-	protected static float DEFAULT_SPACING = 4;
+	protected static float DEFAULT_PADDING_HORIZ = 24;
+	protected static float DEFAULT_PADDING_VERT = 10;
+	protected static float DEFAULT_SPACING = 5;
 	
 	// from constructor
 	protected List<Option> options;
@@ -41,6 +41,14 @@ public class OptionSelector extends UIElement implements CommandListener {
 	protected TextBoxFormat format;
 	protected int screenX, screenY;
 	protected float width, height;
+	
+	// cursor
+	protected boolean cursorOn;
+	protected int selected;
+	protected float cursorX, cursorY;
+	
+	// etc state
+	protected boolean controlling;
 	
 	/**
 	 * Creates a fully custom options selector!
@@ -65,7 +73,8 @@ public class OptionSelector extends UIElement implements CommandListener {
 			float width = font.getWidth(o.getText());
 			maxTextWidth = Math.max(maxTextWidth, width);
 		}
-		width = maxTextWidth + padHoriz * 2;
+		width = maxTextWidth + 
+				padHoriz * 2;
 		height = options.size() * font.getLineHeight() +
 				(options.size()-1) * spacingVert +
 				padVert * 2;
@@ -103,7 +112,12 @@ public class OptionSelector extends UIElement implements CommandListener {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-		return false;
+		switch (command) {
+		case MOVE_UP:		moveCursor(-1);		return true;
+		case MOVE_DOWN:		moveCursor(1);		return true;
+		case UI_CONFIRM:	confirm();			return true;
+		default:								return true;
+		}
 	}
 
 	/**
@@ -119,6 +133,7 @@ public class OptionSelector extends UIElement implements CommandListener {
 			font.draw(getBatch(), format, o.getText(), off);
 			off -= (spacingVert + font.getLineHeight());
 		}
+		MGlobal.ui.getCursor().renderAt(getBatch(), cursorX, cursorY);
 	}
 	
 	/**
@@ -133,7 +148,8 @@ public class OptionSelector extends UIElement implements CommandListener {
 		
 		MGlobal.screens.peek().addObject(this);
 		MGlobal.screens.peek().pushCommandContext(new CMapMenu());
-		MGlobal.screens.peek().registerCommandListener(this);
+		MGlobal.screens.peek().pushCommandListener(this);
+		controlling = true;
 		
 		format = new TextBoxFormat();
 		format.align = HAlignment.LEFT;
@@ -141,6 +157,57 @@ public class OptionSelector extends UIElement implements CommandListener {
 		format.height = 100;
 		format.x = screenX + (int) padHoriz;
 		format.y = screenY + (int) (height - padVert);
+		
+		selected = 0;
+		cursorOn = true;
+		setCursorLoc();
+	}
+	
+	/**
+	 * Stops this menu from receiving input. It still displays on the screen.
+	 */
+	public void unhandControl() {
+		if (controlling) {
+			MGlobal.screens.peek().removeCommandListener(this);
+			MGlobal.screens.peek().popCommandContext();
+		}
+		controlling = false;
+	}
+	
+	/**
+	 * Removes the menu from the screen and unhands control.
+	 */
+	public void close() {
+		unhandControl();
+		MGlobal.screens.peek().removeObject(this);
 	}
 
+	/**
+	 * Snaps the cursor to the correct location. No tweening.
+	 */
+	protected void setCursorLoc() {
+		cursorX = screenX + padHoriz - MGlobal.ui.getCursor().getWidth() - 4;
+		cursorY = screenY + padVert + MGlobal.ui.getCursor().getHeight()/2 - 5 -
+				selected * (font.getLineHeight() + spacingVert);
+	}
+	
+	/**
+	 * Moves the cursor in one direction or the other. Applies bounds. Negative
+	 * to move upwards, positive is downwards.
+	 * @param	delta			How far to move the cursor
+	 */
+	protected void moveCursor(int delta) {
+		selected += delta;
+		while (selected < 0) selected += options.size();
+		selected = selected % options.size();
+		setCursorLoc();
+	}
+	
+	/**
+	 * Called when the user confirms. Should run the appropriate command.
+	 */
+	protected void confirm() {
+		options.get(selected).onSelect();
+	}
+	
 }

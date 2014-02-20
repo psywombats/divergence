@@ -11,6 +11,7 @@ import net.wombatrpgs.mgneschema.ui.FontMDO;
 import net.wombatrpgs.mgneschema.ui.NinesliceMDO;
 import net.wombatrpgs.mgneschema.ui.TextBoxMDO;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
+import net.wombatrpgs.mgns.core.Annotations.FileLink;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
@@ -36,5 +37,9 @@ public class UISettingsMDO extends MainSchema {
 	@Desc("Default nineslice - used as the default for various minimenus")
 	@SchemaLink(NinesliceMDO.class)
 	public String nineslice;
+	
+	@Desc("Default menu cursor - just need a graphic")
+	@FileLink("ui")
+	public String cursor;
 
 }

@@ -15,6 +15,8 @@ import net.wombatrpgs.mgne.graphics.ScreenDrawable;
  * Replaces the old picture layer that the map had. This is exactly the RM
  * equivalent. The only difference it has with the map object is that it
  * can be compared against other pictures to sort by z-depth.
+ * 
+ * Don't use it to display subcomponents!
  */
 public class Picture extends ScreenDrawable {
 	
@@ -78,7 +80,6 @@ public class Picture extends ScreenDrawable {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		batch.setColor(currentColor);
 		appearance.renderAt(batch, x, y);
 	}
 

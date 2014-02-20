@@ -165,7 +165,7 @@ public class SceneParser implements	Updateable,
 		parent = MGlobal.screens.peek();
 		parent.addUChild(this);
 		parent.pushCommandContext(commandMap);
-		parent.registerCommandListener(this);
+		parent.pushCommandListener(this);
 		runningCommands = commands.iterator();
 		nextCommand();
 		running = true;
@@ -199,7 +199,7 @@ public class SceneParser implements	Updateable,
 	protected void terminate() {
 		MGlobal.reporter.inform("Terminated a scene: " + this);
 		parent.removeCommandContext(commandMap);
-		parent.unregisterCommandListener(this);
+		parent.removeCommandListener(this);
 		running = false;
 		for (FinishListener listener : listeners) {
 			listener.onFinish();

@@ -43,6 +43,7 @@ public class TacticsScreen extends GameScreen {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
+		if (super.onCommand(command)) return true;
 		if (command == InputCommand.WORLD_PAUSE) {
 			// TODO: tactics: hack to switch to tactics
 			if (inTacticsMode) {

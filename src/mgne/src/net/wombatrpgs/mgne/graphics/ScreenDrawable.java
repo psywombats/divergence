@@ -27,10 +27,12 @@ public abstract class ScreenDrawable extends ScreenObject implements PositionSet
 	protected boolean fadingOut;
 	
 	protected boolean tweening;
-	protected Color tweenTargetColor;
-	protected Color tweenBaseColor;
 	protected float tweenTime;
 	protected float tweenEnd;
+	protected Color tweenTargetColor;
+	protected Color tweenBaseColor;
+	protected float tweenTargetX, tweenTargetY;
+	protected float tweenBaseX, tweenBaseY;
 
 	/**
 	 * Creates a new screen object with z blah blah superconstructor.
@@ -77,11 +79,17 @@ public abstract class ScreenDrawable extends ScreenObject implements PositionSet
 			} else {
 				r = tweenTime / tweenEnd;
 			}
+			
+			// color
 			currentColor.a = tweenBaseColor.a * (1.f-r) + r * tweenTargetColor.a;
 			currentColor.r = tweenBaseColor.r * (1.f-r) + r * tweenTargetColor.r;
 			currentColor.g = tweenBaseColor.g * (1.f-r) + r * tweenTargetColor.g;
 			currentColor.b = tweenBaseColor.b * (1.f-r) + r * tweenTargetColor.b;
 			batch.setColor(currentColor);
+			
+			// location
+			x = tweenBaseX * (1.f-r) + r * tweenTargetX;
+			y = tweenBaseX * (1.f-r) + r * tweenTargetX;
 		}
 	}
 	
@@ -116,6 +124,22 @@ public abstract class ScreenDrawable extends ScreenObject implements PositionSet
 		this.tweenEnd = time;
 		this.tweenTime = 0;
 		this.tweening = true;
+	}
+	
+	/**
+	 * Tweens to a new location. Undefined behavior if already tweening.
+	 * @param	targetX			The location to move to (in screen px)
+	 * @param	targetY			The location to move to (in screen px)
+	 * @param	time			How long to take (in s)
+	 */
+	public void tweenTo(float targetX, float targetY, float time) {
+		tweenTargetX = targetX;
+		tweenTargetY = targetY;
+		tweenEnd = time;
+		tweenBaseX = x;
+		tweenBaseY = y;
+		tweening = true;
+		tweenTime = 0;
 	}
 	
 	/**
