@@ -6,8 +6,13 @@
  */
 package net.wombatrpgs.tactics.rpg;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
+import net.wombatrpgs.mgne.ui.Option;
+import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.tactics.core.TGlobal;
@@ -17,6 +22,9 @@ import net.wombatrpgs.tacticsschema.rpg.PlayerUnitMDO;
  * Any unit controlled by the player.
  */
 public class PlayerUnit extends GameUnit {
+	
+	protected static final String VOCAB_MOVE = "Move";
+	protected static final String VOCAB_WAIT = "Wait";
 	
 	protected PlayerUnitMDO mdo;
 	protected int energySpentThisTurn;
@@ -40,8 +48,22 @@ public class PlayerUnit extends GameUnit {
 		// we should be receiving commands about now
 		energySpentThisTurn = 0;
 		
-		battle.getMap().highlightMovement(this);
-		battle.getMap().showCursor(event.getTileX(), event.getTileY());
+		List<Option> options = new ArrayList<Option>();
+		options.add(new Option(VOCAB_MOVE) {
+			@Override public boolean onSelect() {
+				onMoveSelected();
+				return true;
+			}
+		});
+		options.add(new Option(VOCAB_WAIT) {
+			@Override public boolean onSelect() {
+				onWaitSelected();
+				return true;
+			}
+		});
+		OptionSelector selector = new OptionSelector(options);
+		selector.loadAssets();
+		selector.showAt(200, 100);
 	}
 
 	/**
@@ -108,6 +130,23 @@ public class PlayerUnit extends GameUnit {
 			battle.getMap().hideCursor();
 		}
 		return moved;
+	}
+	
+	/**
+	 * Called when Move is selected from the initial menu selector.
+	 */
+	protected void onMoveSelected() {
+		battle.getMap().highlightMovement(this);
+		battle.getMap().showCursor(event.getTileX(), event.getTileY());
+	}
+	
+	/**
+	 * Called when Wait is selected from the initial menu selector.
+	 */
+	protected void onWaitSelected() {
+		state = TurnState.TERMINATE;
+		// TODO: tactics: wait
+		energySpentThisTurn = 500;
 	}
 
 }

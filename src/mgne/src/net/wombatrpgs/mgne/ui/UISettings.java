@@ -18,6 +18,7 @@ import net.wombatrpgs.mgne.ui.text.TextBox;
 import net.wombatrpgs.mgneschema.graphics.IconSetMDO;
 import net.wombatrpgs.mgneschema.settings.UISettingsMDO;
 import net.wombatrpgs.mgneschema.ui.FontMDO;
+import net.wombatrpgs.mgneschema.ui.NinesliceMDO;
 import net.wombatrpgs.mgneschema.ui.TextBoxMDO;
 
 /**
@@ -35,6 +36,7 @@ public class UISettings implements Queueable {
 	protected FontHolder font;
 	protected TextBox box;
 	protected IconSet icons;
+	protected NinesliceMDO ninesliceMDO;
 	
 	protected List<Queueable> assets;
 	
@@ -51,6 +53,8 @@ public class UISettings implements Queueable {
 		assets.add(box);
 		icons = new IconSet(MGlobal.data.getEntryFor(mdo.icons, IconSetMDO.class));
 		assets.add(icons);
+		
+		ninesliceMDO = MGlobal.data.getEntryFor(mdo.nineslice, NinesliceMDO.class);
 	}
 
 	/**
@@ -80,5 +84,8 @@ public class UISettings implements Queueable {
 	
 	/** @return The font associated with these settings */
 	public FontHolder getFont() { return this.font; }
+	
+	/** @return The nineslice data, instance and queue yourself */
+	public NinesliceMDO getNinesliceMDO() { return this.ninesliceMDO; }
 
 }

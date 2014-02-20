@@ -96,12 +96,22 @@ public class FontHolder implements Queueable {
 	}
 	
 	/**
+	 * Gets the length of a chunk of text if that text were to be rendered with
+	 * this font.
+	 * @param	text			The text to check
+	 * @return					How long that text would be, in px
+	 */
+	public float getWidth(String text) {
+		return font.getBounds(text).width;
+	}
+	
+	/**
 	 * Determines if a given string is too long to fit in this text box.
 	 * @param	format			The text box format we are using
 	 * @param	text			The text to check
 	 * @return					True if this text would wrap, false otherwise
 	 */
 	public boolean isTooLong(TextBoxFormat format, String text) {
-		return font.getBounds(text).width > format.width;
+		return getWidth(text) > format.width;
 	}
 }

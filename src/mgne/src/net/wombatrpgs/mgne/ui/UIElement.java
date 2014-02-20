@@ -24,6 +24,15 @@ public abstract class UIElement extends ScreenObject {
 	public UIElement() {
 		super(1);
 	}
+	
+	/**
+	 * Prepares this element for viewing in realtime. It's not that uncommon for
+	 * UI elements so why not save some space? Although it's probably best to
+	 * not use this for huge things.
+	 */
+	public void loadAssets() {
+		MGlobal.loadAssets(assets, "assets ("+this+")");
+	}
 
 	/**
 	 * Initializes a graphic from file name and then adds it to assets.
