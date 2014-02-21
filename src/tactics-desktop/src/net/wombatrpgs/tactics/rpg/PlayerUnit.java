@@ -24,12 +24,14 @@ import net.wombatrpgs.tacticsschema.rpg.PlayerUnitMDO;
 public class PlayerUnit extends GameUnit {
 	
 	protected static final String VOCAB_MOVE = "Move";
+	protected static final String VOCAB_STAY = "Stay";
+	protected static final String VOCAB_ATTACK = "Attack";
 	protected static final String VOCAB_WAIT = "Wait";
 	
 	protected PlayerUnitMDO mdo;
 	protected int energySpentThisTurn;
 	
-	protected OptionSelector mainTurnMenu;
+	protected OptionSelector currentMenu;
 
 	/**
 	 * Constructs a player unit for a player. This should be only constructed
@@ -49,23 +51,7 @@ public class PlayerUnit extends GameUnit {
 	public void internalStartTurn() {
 		// we should be receiving commands about now
 		energySpentThisTurn = 0;
-		
-		List<Option> options = new ArrayList<Option>();
-		options.add(new Option(VOCAB_MOVE) {
-			@Override public boolean onSelect() {
-				onMoveSelected();
-				return true;
-			}
-		});
-		options.add(new Option(VOCAB_WAIT) {
-			@Override public boolean onSelect() {
-				onWaitSelected();
-				return true;
-			}
-		});
-		mainTurnMenu = new OptionSelector(options);
-		mainTurnMenu.loadAssets();
-		mainTurnMenu.showAt(0, 0);
+		showMoveMenu();
 	}
 
 	/**
@@ -121,18 +107,39 @@ public class PlayerUnit extends GameUnit {
 	protected boolean attemptFollowCursor() {
 		boolean moved = event.attemptFollowCursor(new FinishListener() {
 			@Override public void onFinish() {
-				// TODO: tactics: perform actions
-				mainTurnMenu.close();
-				state = TurnState.TERMINATE;
-				energySpentThisTurn = 1000;
+				currentMenu.close();
+				showActionMenu();
 			}	
 		});
 		if (moved) {
 			state = TurnState.ANIMATE_MOVEMENT;
+			energySpentThisTurn += 500;
 			battle.getMap().clearHighlight();
 			battle.getMap().hideCursor();
 		}
 		return moved;
+	}
+	
+	/**
+	 * Displays the move/stay options menu.
+	 */
+	protected void showMoveMenu() {
+		List<Option> options = new ArrayList<Option>();
+		options.add(new Option(VOCAB_MOVE) {
+			@Override public boolean onSelect() {
+				onMoveSelected();
+				return true;
+			}
+		});
+		options.add(new Option(VOCAB_STAY) {
+			@Override public boolean onSelect() {
+				onStaySelected();
+				return true;
+			}
+		});
+		currentMenu = new OptionSelector(options);
+		currentMenu.loadAssets();
+		currentMenu.showAt(0, 0);
 	}
 	
 	/**
@@ -141,17 +148,57 @@ public class PlayerUnit extends GameUnit {
 	protected void onMoveSelected() {
 		battle.getMap().highlightMovement(this);
 		battle.getMap().showCursor(event.getTileX(), event.getTileY());
-		mainTurnMenu.unhandControl();
+		currentMenu.unhandControl();
 	}
 	
 	/**
 	 * Called when Wait is selected from the initial menu selector.
 	 */
-	protected void onWaitSelected() {
+	protected void onStaySelected() {
+		energySpentThisTurn += 250;
+		currentMenu.close();
+		showActionMenu();
+	}
+	
+	/**
+	 * Displays the attack/wait options menu.
+	 */
+	protected void showActionMenu() {
+		state = TurnState.AWAIT_ACTION;
+		List<Option> options = new ArrayList<Option>();
+		options.add(new Option(VOCAB_ATTACK) {
+			@Override public boolean onSelect() {
+				onAttackSelected();
+				return true;
+			}
+		});
+		options.add(new Option(VOCAB_WAIT) {
+			@Override public boolean onSelect() {
+				onWaitSelected();
+				return true;
+			}
+		});
+		currentMenu = new OptionSelector(options);
+		currentMenu.loadAssets();
+		currentMenu.showAt(0, 0);
+	}
+	
+	/**
+	 * Called when attack is selected from attack/wait.
+	 */
+	protected void onAttackSelected() {
+		energySpentThisTurn += 500;
+		currentMenu.close();
 		state = TurnState.TERMINATE;
-		// TODO: tactics: wait
-		energySpentThisTurn = 500;
-		mainTurnMenu.close();
+	}
+	
+	/**
+	 * Called when wait is selected from the attack/wait.
+	 */
+	protected void onWaitSelected() {
+		energySpentThisTurn += 250;
+		currentMenu.close();
+		state = TurnState.TERMINATE;
 	}
 
 }
