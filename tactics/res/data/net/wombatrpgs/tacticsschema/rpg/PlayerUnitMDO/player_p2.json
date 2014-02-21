@@ -1,0 +1,10 @@
+{
+	"key" : "player_p2",
+	"subfolder" : "",
+	"name" : "Player2",
+	"description" : "",
+	"appearance" : "4dir_ffl2_human",
+	"stats" : {
+		"move" : 5
+	}
+}

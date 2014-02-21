@@ -21,7 +21,7 @@ import com.badlogic.gdx.math.Rectangle;
  */
 public class TrackerCam extends OrthographicCamera implements Updateable {
 	
-	protected static final int DEFAULT_PAN_SPEED = 48; // px/s, should be somewhere else
+	protected static final int DEFAULT_PAN_SPEED = 32; // px/s, should be somewhere else
 	
 	protected Rectangle glViewport;
 	protected Positionable target, panTarget;

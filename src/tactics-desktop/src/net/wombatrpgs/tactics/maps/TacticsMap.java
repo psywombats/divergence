@@ -184,6 +184,18 @@ public class TacticsMap extends ScreenObject {
 	public void clearHighlight() {
 		highlightedSquares = null;
 	}
+	
+	/**
+	 * Determines if the indicated tile is passable. This right now just takes
+	 * the base map passability and event passability into effect, but it could
+	 * also include tactics-specific conditions in the future.
+	 * @param	tileX			The x-coord to check (in tiles)
+	 * @param	tileY			The y-coord to check (in tiles)
+	 * @return					True if the given tile is passable
+	 */
+	public boolean isPassable(int tileX, int tileY) {
+		return map.isTilePassable(tileX, tileY);
+	}
 
 	/**
 	 * Renders any number of square overlays. Has any number of uses.

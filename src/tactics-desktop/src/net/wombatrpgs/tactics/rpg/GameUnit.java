@@ -20,7 +20,6 @@ import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.maps.EventMDO;
 import net.wombatrpgs.tactics.core.TGlobal;
 import net.wombatrpgs.tactics.maps.TacticsEvent;
-import net.wombatrpgs.tactics.maps.TacticsMap;
 import net.wombatrpgs.tacticsschema.rpg.GameUnitMDO;
 import net.wombatrpgs.tacticsschema.rpg.PlayerUnitMDO;
 
@@ -36,7 +35,6 @@ public abstract class GameUnit implements	CommandListener,
 	
 	protected Battle battle;
 	protected TacticsEvent event;
-	protected TacticsMap map;
 	protected Stats stats;
 	
 	protected TurnState state;
@@ -183,6 +181,27 @@ public abstract class GameUnit implements	CommandListener,
 	public void spawnAt(int tileX, int tileY) {
 		battle.getMap().addDoll(event);
 		event.setTileLocation(tileX, tileY);
+	}
+	
+	/**
+	 * Adds this unit to the map as close as possible to the other unit.
+	 * @param	other			The unit to spawn close to
+	 * @return					True if we spawned in a timely manner
+	 */
+	public boolean spawnNear(GameUnit other) {
+		int targetX = other.getEvent().getTileX();
+		int targetY = other.getEvent().getTileY();
+		for (int r = 0; r < 5; r += 1) {
+			for (int testX = targetX - r; testX <= targetX + r; testX += 1) {
+				for (int testY = targetY - r; testY <= targetY + r; testY += 1) {
+					if (battle.getMap().isPassable(testX, testY)) {
+						spawnAt(testX, testY);
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 	
 	/**

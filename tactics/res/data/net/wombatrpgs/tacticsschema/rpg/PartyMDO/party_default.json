@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"units" : [
-		"player_hero"
+		"player_hero",
+		"player_p2"
 	]
 }

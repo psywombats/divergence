@@ -104,6 +104,7 @@ public class Battle implements	CommandListener,
 		TGlobal.screen.pushCommandContext(new CMapTactics());
 		
 		// start!
+		deploy();
 		handleActor();
 	}
 	
@@ -185,6 +186,18 @@ public class Battle implements	CommandListener,
 			}
 		}
 		return best;
+	}
+	
+	/**
+	 * Deployment phase - player places their characters.
+	 */
+	protected void deploy() {
+		GameUnit hero = TGlobal.party.getHero();
+		for (GameUnit unit : TGlobal.party.getUnits()) {
+			if (unit != hero) {
+				unit.spawnNear(hero);
+			}
+		}
 	}
 
 }

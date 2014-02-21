@@ -29,6 +29,9 @@ public class Party {
 		units = new ArrayList<GameUnit>();
 	}
 	
+	/** @return All units in this party */
+	public List<GameUnit> getUnits() { return units; }
+	
 	/**
 	 * Recruits some chump to the party!
 	 * @param	unit			The chump in question
