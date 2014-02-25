@@ -16,7 +16,7 @@ import net.wombatrpgs.mgne.maps.Loc;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.tactics.core.TGlobal;
-import net.wombatrpgs.tactics.rpg.GameUnit;
+import net.wombatrpgs.tactics.rpg.TacticsController;
 
 /**
  * A TacticsEvent is an event on the map that has a link to a relevant unit in
@@ -28,7 +28,7 @@ import net.wombatrpgs.tactics.rpg.GameUnit;
  */
 public class TacticsEvent extends MapEvent {
 	
-	protected GameUnit unit;
+	protected TacticsController oarent;
 	protected List<OrthoDir> path;
 	protected FinishListener movementFinishListener;
 
@@ -37,13 +37,13 @@ public class TacticsEvent extends MapEvent {
 	 * called by anything but a GameUnit when it gets created.
 	 * @param	unit			The unit this event is for
 	 */
-	public TacticsEvent(GameUnit unit) {
+	public TacticsEvent(TacticsController unit) {
 		super(unit.extractEventMDO());
-		this.unit = unit;
+		this.oarent = unit;
 	}
 	
 	/** @return The game unit this event represents */
-	public GameUnit getUnit() { return unit; }
+	public TacticsController getUnit() { return oarent; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.maps.events.MapEvent#update(float)
@@ -78,7 +78,7 @@ public class TacticsEvent extends MapEvent {
 	 * @return					A list of viable step locations
 	 */
 	public List<Loc> getMoveRange() {
-		int move = unit.stats().getMove();
+		int move = oarent.stats().getMove();
 		List<Loc> availableSquares = new ArrayList<Loc>();
 		AStarPathfinder pather = new AStarPathfinder();
 		pather.setMap(parent);

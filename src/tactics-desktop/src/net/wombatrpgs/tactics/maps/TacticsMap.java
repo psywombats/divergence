@@ -17,7 +17,7 @@ import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.ScreenObject;
 import net.wombatrpgs.tactics.core.TGlobal;
-import net.wombatrpgs.tactics.rpg.GameUnit;
+import net.wombatrpgs.tactics.rpg.TacticsController;
 import net.wombatrpgs.tactics.ui.MapCursor;
 
 /**
@@ -27,7 +27,7 @@ public class TacticsMap extends ScreenObject {
 	
 	protected Level map;
 	
-	protected GameUnit highlightedUnit;
+	protected TacticsController highlightedUnit;
 	protected List<Loc> highlightedSquares;
 	protected MapCursor cursor;
 	
@@ -169,7 +169,7 @@ public class TacticsMap extends ScreenObject {
 	 * Shows that little blue highlight for where a unit can move.
 	 * @param	unit			The unit to highlight, or null for clear
 	 */
-	public void highlightMovement(GameUnit unit) {
+	public void highlightMovement(TacticsController unit) {
 		highlightedUnit = unit;
 		if (unit == null) {
 			clearHighlight();

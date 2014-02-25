@@ -30,8 +30,8 @@ public class Battle implements	CommandListener,
 								Queueable {
 	
 	protected TacticsMap map;
-	protected List<GameUnit> units;
-	protected GameUnit actor;
+	protected List<TacticsController> units;
+	protected TacticsController actor;
 	
 	protected List<Queueable> assets;
 	
@@ -42,7 +42,7 @@ public class Battle implements	CommandListener,
 	 */
 	public Battle(Level level) {
 		map = new TacticsMap(level);
-		units = new ArrayList<GameUnit>();
+		units = new ArrayList<TacticsController>();
 		assets = new ArrayList<Queueable>();
 	}
 	
@@ -137,7 +137,7 @@ public class Battle implements	CommandListener,
 	 * only from GameUnit, because it knows how to add itself.
 	 * @param	unit			The unit to add
 	 */
-	public void addUnit(GameUnit unit) {
+	public void addUnit(TacticsController unit) {
 		units.add(unit);
 		assets.add(unit);
 		
@@ -157,14 +157,14 @@ public class Battle implements	CommandListener,
 			// the actor actually did something and is done
 			actor.onTurnEnd();
 			// grant everyone else energy equal to energy expended
-			for (GameUnit unit : units) {
+			for (TacticsController unit : units) {
 				if (unit != actor) {
 					unit.grantEnergy(energySpent);
 				}
 			}
 			// keep a 0-centered energy standard (ie, last mover is at 0)
 			int energyCorrection = actor.getEnergy();
-			for (GameUnit unit : units) {
+			for (TacticsController unit : units) {
 				unit.grantEnergy(-energyCorrection);
 			}
 			// next!!
@@ -178,9 +178,9 @@ public class Battle implements	CommandListener,
 	 * highest energy in the bunch)
 	 * @return					The next unit to move
 	 */
-	protected GameUnit nextActor() {
-		GameUnit best = units.get(0);
-		for (GameUnit unit : units) {
+	protected TacticsController nextActor() {
+		TacticsController best = units.get(0);
+		for (TacticsController unit : units) {
 			if (unit.getEnergy() > best.getEnergy()) {
 				best = unit;
 			}
@@ -192,8 +192,8 @@ public class Battle implements	CommandListener,
 	 * Deployment phase - player places their characters.
 	 */
 	protected void deploy() {
-		GameUnit hero = TGlobal.party.getHero();
-		for (GameUnit unit : TGlobal.party.getUnits()) {
+		TacticsController hero = TGlobal.party.getHero();
+		for (TacticsController unit : TGlobal.party.getUnits()) {
 			if (unit != hero) {
 				unit.spawnNear(hero);
 			}

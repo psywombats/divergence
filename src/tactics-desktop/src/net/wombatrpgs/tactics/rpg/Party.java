@@ -20,17 +20,17 @@ import net.wombatrpgs.tacticsschema.rpg.PartyMDO;
  */
 public class Party {
 	
-	protected List<GameUnit> units;
+	protected List<TacticsController> units;
 	
 	/**
 	 * Creates a new party with nobody in it. Boo hoo.
 	 */
 	public Party() {
-		units = new ArrayList<GameUnit>();
+		units = new ArrayList<TacticsController>();
 	}
 	
 	/** @return All units in this party */
-	public List<GameUnit> getUnits() { return units; }
+	public List<TacticsController> getUnits() { return units; }
 	
 	/**
 	 * Recruits some chump to the party!
@@ -47,7 +47,7 @@ public class Party {
 	public void mergeParty(PartyMDO mdo) {
 		for (String key : mdo.units) {
 			GameUnitMDO unitMDO = MGlobal.data.getEntryFor(key, GameUnitMDO.class);
-			units.add(GameUnit.createGameUnit(unitMDO));
+			units.add(TacticsController.createGameUnit(unitMDO));
 		}
 	}
 	
@@ -56,7 +56,7 @@ public class Party {
 	 * @param	battle			The battle to add to
 	 */
 	public void addToBattle(Battle battle) {
-		for (GameUnit unit : units) {
+		for (TacticsController unit : units) {
 			battle.addUnit(unit);
 		}
 	}

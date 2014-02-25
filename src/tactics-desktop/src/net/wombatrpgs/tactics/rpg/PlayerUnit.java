@@ -21,7 +21,7 @@ import net.wombatrpgs.tacticsschema.rpg.PlayerUnitMDO;
 /**
  * Any unit controlled by the player.
  */
-public class PlayerUnit extends GameUnit {
+public class PlayerUnit extends TacticsController {
 	
 	protected static final String VOCAB_MOVE = "Move";
 	protected static final String VOCAB_STAY = "Stay";
@@ -45,7 +45,7 @@ public class PlayerUnit extends GameUnit {
 	}
 
 	/**
-	 * @see net.wombatrpgs.tactics.rpg.GameUnit#internalStartTurn()
+	 * @see net.wombatrpgs.tactics.rpg.TacticsController#internalStartTurn()
 	 */
 	@Override
 	public void internalStartTurn() {
@@ -55,7 +55,7 @@ public class PlayerUnit extends GameUnit {
 	}
 
 	/**
-	 * @see net.wombatrpgs.tactics.rpg.GameUnit#doneWithTurn()
+	 * @see net.wombatrpgs.tactics.rpg.TacticsController#doneWithTurn()
 	 */
 	@Override
 	public int doneWithTurn() {
@@ -68,7 +68,7 @@ public class PlayerUnit extends GameUnit {
 	}
 
 	/**
-	 * @see net.wombatrpgs.tactics.rpg.GameUnit#onCommand
+	 * @see net.wombatrpgs.tactics.rpg.TacticsController#onCommand
 	 * (net.wombatrpgs.mgneschema.io.data.InputCommand)
 	 */
 	@Override
