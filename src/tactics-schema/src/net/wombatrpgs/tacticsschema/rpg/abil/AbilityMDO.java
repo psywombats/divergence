@@ -16,10 +16,13 @@ import net.wombatrpgs.tacticsschema.rpg.abil.data.WarheadMDO;
 /**
  * MDO for actions.
  */
-@Path("rpg/ability")
+@Path("rpg/")
 public class AbilityMDO extends MainSchema {
 	
-	@Desc("Range")
+	@Desc("Ability name - displayed in-game")
+	public String abilityName;
+	
+	@Desc("Targeting type")
 	public RangeType range;
 	
 	@Desc("Warhead - corresponds to an in-code definition for an effect")

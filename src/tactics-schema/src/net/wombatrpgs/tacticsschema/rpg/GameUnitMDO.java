@@ -13,6 +13,7 @@ import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
+import net.wombatrpgs.tacticsschema.rpg.abil.AbilityMDO;
 import net.wombatrpgs.tacticsschema.rpg.data.StatsMDO;
 
 /**
@@ -32,5 +33,9 @@ public class GameUnitMDO extends MainSchema {
 	@Desc("Stats - default")
 	@InlineSchema(StatsMDO.class)
 	public StatsMDO stats;
+	
+	@Desc("Abilities - default")
+	@SchemaLink(AbilityMDO.class)
+	public String[] abilities;
 
 }

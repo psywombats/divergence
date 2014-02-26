@@ -16,7 +16,7 @@ public class PlayerParty extends Party {
 	
 	protected static final String KEY_DEFAULT_PARTY = "party_default";
 
-	protected PlayerUnit hero;
+	protected PlayerController hero;
 	
 	/**
 	 * Creates a player party from default data. Assumes the first guy in the
@@ -25,9 +25,9 @@ public class PlayerParty extends Party {
 	public PlayerParty() {
 		super();
 		mergeParty(MGlobal.data.getEntryFor(KEY_DEFAULT_PARTY, PartyMDO.class));
-		hero = (PlayerUnit) units.get(0);	// casting aughhhh w/e
+		hero = (PlayerController) units.get(0);	// casting aughhhh w/e
 	}
 	
 	/** @return The protagonist's game unit */
-	public PlayerUnit getHero() { return hero; }
+	public PlayerController getHero() { return hero; }
 }

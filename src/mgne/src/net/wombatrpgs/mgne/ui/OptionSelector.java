@@ -147,9 +147,7 @@ public class OptionSelector extends UIElement implements CommandListener {
 		this.screenY = screenY;
 		
 		MGlobal.screens.peek().addObject(this);
-		MGlobal.screens.peek().pushCommandContext(new CMapMenu());
-		MGlobal.screens.peek().pushCommandListener(this);
-		controlling = true;
+		focus();
 		
 		format = new TextBoxFormat();
 		format.align = HAlignment.LEFT;
@@ -166,7 +164,7 @@ public class OptionSelector extends UIElement implements CommandListener {
 	/**
 	 * Stops this menu from receiving input. It still displays on the screen.
 	 */
-	public void unhandControl() {
+	public void unfocus() {
 		if (controlling) {
 			MGlobal.screens.peek().removeCommandListener(this);
 			MGlobal.screens.peek().popCommandContext();
@@ -175,10 +173,19 @@ public class OptionSelector extends UIElement implements CommandListener {
 	}
 	
 	/**
+	 * Resumes the menu for input reception. Should already be on screen.
+	 */
+	public void focus() {
+		MGlobal.screens.peek().pushCommandContext(new CMapMenu());
+		MGlobal.screens.peek().pushCommandListener(this);
+		controlling = true;
+	}
+	
+	/**
 	 * Removes the menu from the screen and unhands control.
 	 */
 	public void close() {
-		unhandControl();
+		unfocus();
 		MGlobal.screens.peek().removeObject(this);
 	}
 
@@ -187,8 +194,9 @@ public class OptionSelector extends UIElement implements CommandListener {
 	 */
 	protected void setCursorLoc() {
 		cursorX = screenX + padHoriz - MGlobal.ui.getCursor().getWidth() - 4;
-		cursorY = screenY + padVert + MGlobal.ui.getCursor().getHeight()/2 - 5 -
-				selected * (font.getLineHeight() + spacingVert);
+//		cursorY = screenY + padVert + MGlobal.ui.getCursor().getHeight()/2 - 5 -
+//				selected * (font.getLineHeight() + spacingVert);
+		cursorY = screenY + (options.size() - selected - 1) * (font.getLineHeight() + spacingVert);
 	}
 	
 	/**

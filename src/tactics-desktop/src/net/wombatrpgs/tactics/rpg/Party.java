@@ -36,7 +36,7 @@ public class Party {
 	 * Recruits some chump to the party!
 	 * @param	unit			The chump in question
 	 */
-	public void addUnit(PlayerUnit unit) {
+	public void addUnit(PlayerController unit) {
 		units.add(unit);
 	}
 	

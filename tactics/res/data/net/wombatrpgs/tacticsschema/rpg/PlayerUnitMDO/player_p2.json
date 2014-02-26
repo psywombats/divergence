@@ -6,5 +6,8 @@
 	"appearance" : "4dir_ffl2_human",
 	"stats" : {
 		"move" : 5
-	}
+	},
+	"abilities" : [
+		"abil_dummy"
+	]
 }

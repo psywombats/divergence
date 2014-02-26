@@ -1,0 +1,9 @@
+{
+	"key" : "abil_dummy",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : " ",
+	"abilityName" : "Dummy Ability",
+	"range" : "MELEE",
+	"warhead" : "war_dummy"
+}

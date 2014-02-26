@@ -13,7 +13,7 @@ import net.wombatrpgs.tacticsschema.rpg.abil.data.WarheadMDO;
 /**
  * Punch a chump.
  */
-@Path("rpg/ability")
+@Path("rpg/ability/")
 public class WarMeleeMDO extends WarheadMDO {
 	
 	@Desc("Power - base damage of this attack")

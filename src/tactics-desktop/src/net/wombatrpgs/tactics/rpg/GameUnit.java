@@ -6,6 +6,9 @@
  */
 package net.wombatrpgs.tactics.rpg;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.wombatrpgs.tacticsschema.rpg.GameUnitMDO;
 
 /**
@@ -20,6 +23,7 @@ public class GameUnit {
 	protected TacticsController controller;
 	
 	protected Stats stats;
+	protected List<Ability> abilities;
 	
 	/**
 	 * Creates a new game unit from parent data. This class shares an MDO with
@@ -30,6 +34,12 @@ public class GameUnit {
 	public GameUnit(GameUnitMDO mdo, TacticsController parent) {
 		this.mdo = mdo;
 		this.controller = parent;
+		
+		stats = new Stats(mdo.stats);
+		abilities = new ArrayList<Ability>();
+		for (String key : mdo.abilities) {
+			abilities.add(new Ability(key, controller));
+		}
 	}
 	
 	/** @return The controlling logic for this game character */
@@ -37,5 +47,8 @@ public class GameUnit {
 	
 	/** @return The current stats of this unit */
 	public Stats getStats() { return stats; }
+	
+	/** @return All the stuff this guy can currently do (calculated?) */
+	public List<Ability> getAbilities() { return abilities; }
 
 }

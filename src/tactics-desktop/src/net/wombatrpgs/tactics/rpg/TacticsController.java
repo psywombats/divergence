@@ -20,6 +20,7 @@ import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.maps.EventMDO;
 import net.wombatrpgs.tactics.core.TGlobal;
 import net.wombatrpgs.tactics.maps.TacticsEvent;
+import net.wombatrpgs.tactics.rpg.Ability.AbilityFinishListener;
 import net.wombatrpgs.tacticsschema.rpg.GameUnitMDO;
 import net.wombatrpgs.tacticsschema.rpg.PlayerUnitMDO;
 
@@ -30,7 +31,8 @@ import net.wombatrpgs.tacticsschema.rpg.PlayerUnitMDO;
  * map event things.
  */
 public abstract class TacticsController implements	CommandListener,
-													Queueable {
+													Queueable,
+													AbilityFinishListener {
 	
 	protected GameUnitMDO mdo;
 	
@@ -49,7 +51,7 @@ public abstract class TacticsController implements	CommandListener,
 	 */
 	public static TacticsController createGameUnit(GameUnitMDO mdo) {
 		if (PlayerUnitMDO.class.isAssignableFrom(mdo.getClass())) {
-			return new PlayerUnit((PlayerUnitMDO) mdo);
+			return new PlayerController((PlayerUnitMDO) mdo);
 		} else {
 			MGlobal.reporter.err("Bad gameunitmdo subtype: " + mdo.getClass());
 			return null;

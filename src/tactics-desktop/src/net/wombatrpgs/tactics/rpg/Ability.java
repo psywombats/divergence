@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.tactics.rpg;
 
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.tacticsschema.rpg.abil.AbilityMDO;
 
 /**
@@ -20,13 +21,52 @@ import net.wombatrpgs.tacticsschema.rpg.abil.AbilityMDO;
 public class Ability {
 	
 	protected AbilityMDO mdo;
+	protected TacticsController parent;
+	
+	protected AbilityFinishListener onFinish;
 	
 	/**
 	 * Creates an ability from MDO.
 	 * @param	mdo				The data to create ability from
+	 * @param	parent			The parent owner of this ability instance
 	 */
-	public Ability(AbilityMDO mdo) {
+	public Ability(AbilityMDO mdo, TacticsController parent) {
 		this.mdo = mdo;
+	}
+	
+	/**
+	 * Creates an ability from MDO key.
+	 * @param	key				The key to the data to create from
+	 * @param	parent			The owner to create for
+	 */
+	public Ability(String key, TacticsController parent) {
+		this(MGlobal.data.getEntryFor(key, AbilityMDO.class), parent);
+	}
+	
+	/** @return Short-form non-descriptive ability name */
+	public String getName() { return mdo.abilityName; }
+	
+	/**
+	 * Called when this ability is selected for use. No target designated yet.
+	 * @param	listener		The listener to notify when ability is done
+	 */
+	public void onUse(AbilityFinishListener listener) {
+		this.onFinish = listener;
+		onFinish.onAbilityEnd(500);
+	}
+	
+	
+	/**
+	 * Called when user is done interacting with an ability.
+	 */
+	public interface AbilityFinishListener {
+		
+		/**
+		 * Called when user is done interacting with an ability.
+		 * @param	energy		Energy spent using this ability, 0 means it was
+		 * 						free but -1 means cancelled
+		 */
+		public void onAbilityEnd(int energy);
 	}
 
 }
