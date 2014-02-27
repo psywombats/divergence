@@ -17,6 +17,7 @@ import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.ScreenObject;
 import net.wombatrpgs.tactics.core.TGlobal;
+import net.wombatrpgs.tactics.rpg.Battle;
 import net.wombatrpgs.tactics.rpg.TacticsController;
 import net.wombatrpgs.tactics.ui.MapCursor;
 
@@ -26,6 +27,7 @@ import net.wombatrpgs.tactics.ui.MapCursor;
 public class TacticsMap extends ScreenObject {
 	
 	protected Level map;
+	protected Battle battle;
 	
 	protected TacticsController highlightedUnit;
 	protected List<Loc> highlightedSquares;
@@ -36,9 +38,11 @@ public class TacticsMap extends ScreenObject {
 	 * with units or anything like that. Presumably the hero is currently on the
 	 * level.
 	 * @param	map				The map the battle will take place on
+	 * @param	battle			The battle that will take place here
 	 */
-	public TacticsMap(Level map) {
+	public TacticsMap(Level map, Battle battle) {
 		this.map = map;
+		this.battle = battle;
 		cursor = TGlobal.ui.getCursor();
 	}
 
@@ -195,6 +199,23 @@ public class TacticsMap extends ScreenObject {
 	 */
 	public boolean isPassable(int tileX, int tileY) {
 		return map.isTilePassable(tileX, tileY);
+	}
+	
+	/**
+	 * Finds and returns the unit at the designated position. Does this by
+	 * iterating over all known units in battle.
+	 * @param	tileX			The x-coord of search loc (in tiles)
+	 * @param	tileY			The y-coord of search loc (in tiles)
+	 * @return					The controller of unit there, or null if none
+	 */
+	public TacticsController getUnitAt(int tileX, int tileY) {
+		for (TacticsController unit : battle.getUnits()) {
+			if (unit.getEvent().getTileX() == tileX &&
+					unit.getEvent().getTileY() == tileY) {
+				return unit;
+			}
+		}
+		return null;
 	}
 
 	/**

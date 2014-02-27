@@ -41,13 +41,16 @@ public class Battle implements	CommandListener,
 	 * @param	level			The map to battle on
 	 */
 	public Battle(Level level) {
-		map = new TacticsMap(level);
+		map = new TacticsMap(level, this);
 		units = new ArrayList<TacticsController>();
 		assets = new ArrayList<Queueable>();
 	}
 	
 	/** @return The tactics map on which battle takes place */
 	public TacticsMap getMap() { return map; }
+	
+	/** @return All units presently in this battle */
+	public List<TacticsController> getUnits() { return units; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)

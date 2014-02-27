@@ -16,6 +16,7 @@ import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.graphics.Graphic;
 import net.wombatrpgs.tacticsschema.settings.TacticsUISettingsMDO;
 import net.wombatrpgs.tacticsschema.ui.CursorMDO;
+import net.wombatrpgs.tacticsschema.ui.DirectionSelectorMDO;
 
 /**
  * Singleton to hold a bunch of tactics ui objects.
@@ -28,6 +29,7 @@ public class TacticsUI implements Queueable {
 	protected List<Queueable> assets;
 	
 	protected Graphic highlight;
+	protected DirectionSelector target;
 	protected MapCursor cursor;
 	
 	/**
@@ -40,9 +42,11 @@ public class TacticsUI implements Queueable {
 		assets = new ArrayList<Queueable>();
 		
 		highlight = new Graphic(mdo.mapHighlight);
+		target = new DirectionSelector(MGlobal.data.getEntryFor(mdo.target, DirectionSelectorMDO.class));
 		cursor = new MapCursor(MGlobal.data.getEntryFor(mdo.cursor, CursorMDO.class));
 		assets.add(highlight);
 		assets.add(cursor);
+		assets.add(target);
 	}
 	
 	/**
@@ -58,6 +62,9 @@ public class TacticsUI implements Queueable {
 	
 	/** @return The cursor for map selection */
 	public MapCursor getCursor() { return cursor; }
+	
+	/** @return The target for direction input (default) */
+	public DirectionSelector getDirectionSelector() { return target; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets

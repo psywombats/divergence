@@ -12,6 +12,7 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.tacticsschema.ui.CursorMDO;
+import net.wombatrpgs.tacticsschema.ui.DirectionSelectorMDO;
 
 /**
  * UI settings specific to Tactics.
@@ -23,8 +24,12 @@ public class TacticsUISettingsMDO extends MainSchema {
 	@FileLink("ui")
 	public String mapHighlight;
 	
-	@Desc("Cursor")
+	@Desc("Cursor - displays on the map so it can animate")
 	@SchemaLink(CursorMDO.class)
 	public String cursor;
+	
+	@Desc("Direction targeter - overlays for selecting 1-9 direction")
+	@SchemaLink(DirectionSelectorMDO.class)
+	public String target;
 
 }

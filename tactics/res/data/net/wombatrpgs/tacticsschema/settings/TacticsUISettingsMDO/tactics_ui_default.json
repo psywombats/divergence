@@ -2,7 +2,8 @@
 	"key" : "tactics_ui_default",
 	"subfolder" : "",
 	"name" : "",
-	"description" : " ",
+	"description" : "  ",
 	"mapHighlight" : "highlight.png",
-	"cursor" : "cursor_dumb"
+	"cursor" : "cursor_dumb",
+	"target" : "dirselect_default"
 }

@@ -6,7 +6,10 @@
  */
 package net.wombatrpgs.tactics.rpg;
 
+import java.util.List;
+
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.tactics.rpg.TacticsController.AcquiredListener;
 import net.wombatrpgs.tacticsschema.rpg.abil.AbilityMDO;
 
 /**
@@ -23,6 +26,7 @@ public class Ability {
 	protected AbilityMDO mdo;
 	protected TacticsController parent;
 	
+	protected Warhead warhead;
 	protected AbilityFinishListener onFinish;
 	
 	/**
@@ -32,6 +36,8 @@ public class Ability {
 	 */
 	public Ability(AbilityMDO mdo, TacticsController parent) {
 		this.mdo = mdo;
+		this.parent = parent;
+		warhead = Warhead.create(mdo.warhead, this);
 	}
 	
 	/**
@@ -50,11 +56,15 @@ public class Ability {
 	 * Called when this ability is selected for use. No target designated yet.
 	 * @param	listener		The listener to notify when ability is done
 	 */
-	public void onUse(AbilityFinishListener listener) {
+	public void onUse(final AbilityFinishListener listener) {
 		this.onFinish = listener;
-		onFinish.onAbilityEnd(500);
+		parent.acquireTargets(new AcquiredListener() {
+			@Override public void onAcquired(List<TacticsController> targets) {
+				warhead.invoke(targets);
+				listener.onAbilityEnd(500);
+			}
+		}, mdo.range, mdo.projector);
 	}
-	
 	
 	/**
 	 * Called when user is done interacting with an ability.

@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : " ",
 	"abilityName" : "Dummy Ability",
-	"range" : "MELEE",
+	"projector" : "MELEE",
+	"range" : 1,
 	"warhead" : "war_dummy"
 }

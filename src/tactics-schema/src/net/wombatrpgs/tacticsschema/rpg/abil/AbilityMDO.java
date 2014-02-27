@@ -6,11 +6,12 @@
  */
 package net.wombatrpgs.tacticsschema.rpg.abil;
 
+import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
-import net.wombatrpgs.tacticsschema.rpg.abil.data.RangeType;
+import net.wombatrpgs.tacticsschema.rpg.abil.data.ProjectorType;
 import net.wombatrpgs.tacticsschema.rpg.abil.data.WarheadMDO;
 
 /**
@@ -23,7 +24,12 @@ public class AbilityMDO extends MainSchema {
 	public String abilityName;
 	
 	@Desc("Targeting type")
-	public RangeType range;
+	@DefaultValue("MELEE")
+	public ProjectorType projector;
+	
+	@Desc("Range - in tiles, 0 for self, 1 for melee")
+	@DefaultValue("1")
+	public Integer range;
 	
 	@Desc("Warhead - corresponds to an in-code definition for an effect")
 	@SchemaLink(WarheadMDO.class)

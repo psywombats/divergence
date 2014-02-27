@@ -23,6 +23,7 @@ import net.wombatrpgs.tactics.maps.TacticsEvent;
 import net.wombatrpgs.tactics.rpg.Ability.AbilityFinishListener;
 import net.wombatrpgs.tacticsschema.rpg.GameUnitMDO;
 import net.wombatrpgs.tacticsschema.rpg.PlayerUnitMDO;
+import net.wombatrpgs.tacticsschema.rpg.abil.data.ProjectorType;
 
 /**
  * A unit in the tactics RPG part of the game. This includes a link to the
@@ -127,6 +128,20 @@ public abstract class TacticsController implements	CommandListener,
 	 * 							if the turn isn't over yet.
 	 */
 	public abstract int doneWithTurn();
+	
+	/**
+	 * Acquires targets appropriate for this unit. Acts according to a projector
+	 * type (like melee, ball, etc), a range (how far to go), and preferred
+	 * alliance info (should this target alllies or enemies?) Some of these are
+	 * used for the AI in two parts: first, here, to select which dudes, and
+	 * second in a BST somewhere to select the ability. The return targets are
+	 * passed as an argument to the callback rather than returned.
+	 * @param	listener		The function to call when selection is done
+	 * @param	range			How far to allow selection (in tiles)
+	 * @param	project			The projector to select with
+	 */
+	public abstract void acquireTargets(AcquiredListener listener, int range,
+			ProjectorType projector);
 
 	/**
 	 * Called by the battle when it's this unit's turn. Automatically calls
@@ -208,6 +223,19 @@ public abstract class TacticsController implements	CommandListener,
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Callback for when targets have been acquired.
+	 */
+	public interface AcquiredListener {
+		
+		/**
+		 * Called when player or AI is done selecting targets.
+		 * @param	targets			The targets selected
+		 */
+		public void onAcquired(List<TacticsController> targets);
+		
 	}
 	
 	/**

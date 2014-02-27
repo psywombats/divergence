@@ -25,7 +25,7 @@ public class AbilMelee extends Warhead {
 	 * @param	mdo				The data to create from
 	 * @param	ability			The ability to create for
 	 */
-	protected AbilMelee(WarMeleeMDO mdo, Ability ability) {
+	public AbilMelee(WarMeleeMDO mdo, Ability ability) {
 		super(mdo, ability);
 		this.mdo = mdo;
 	}

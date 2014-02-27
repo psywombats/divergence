@@ -16,7 +16,9 @@ import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.tactics.core.TGlobal;
+import net.wombatrpgs.tactics.ui.DirectionSelector.DirListener;
 import net.wombatrpgs.tacticsschema.rpg.PlayerUnitMDO;
+import net.wombatrpgs.tacticsschema.rpg.abil.data.ProjectorType;
 
 /**
  * Any unit controlled by the player.
@@ -80,6 +82,27 @@ public class PlayerController extends TacticsController {
 			state = TurnState.AWAIT_ACTION;
 			currentMenu.focus();
 		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.tactics.rpg.TacticsController#acquireTargets
+	 * (net.wombatrpgs.tactics.rpg.TacticsController.AcquiredListener, int,
+	 * net.wombatrpgs.tacticsschema.rpg.abil.data.ProjectorType)
+	 */
+	@Override
+	public void acquireTargets(final AcquiredListener listener, int range, ProjectorType projector) {
+		TGlobal.ui.getDirectionSelector().requestOrthoDir(new DirListener<OrthoDir>() {
+			@Override public void onSelect(OrthoDir dir) {
+				List<TacticsController> victims = new ArrayList<TacticsController>();
+				int tileX = (int) (event.getTileX() + dir.getVector().x);
+				int tileY = (int) (event.getTileY() + dir.getVector().y);
+				TacticsController victim = battle.getMap().getUnitAt(tileX, tileY);
+				if (victim != null) {
+					victims.add(victim);
+				}
+				listener.onAcquired(victims);
+			}
+		});
 	}
 
 	/**
