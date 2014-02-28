@@ -86,7 +86,7 @@ public abstract class TacticsController implements	CommandListener,
 	public GameUnit getUnit() { return unit; }
 	
 	/** @return The current stats of this unit */
-	public Stats stats() { return unit.getStats(); }
+	public TacticsStats stats() { return unit.getStats(); }
 	
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets

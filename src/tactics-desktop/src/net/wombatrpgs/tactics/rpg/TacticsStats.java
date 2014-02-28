@@ -13,7 +13,7 @@ import net.wombatrpgs.tacticsschema.rpg.data.StatsMDO;
  * immutable. This is just a wrapper for a MDO really... because fuck it, data
  * is data.
  */
-public class Stats {
+public class TacticsStats {
 	
 	protected StatsMDO mdo;
 	
@@ -21,7 +21,7 @@ public class Stats {
 	 * Creates a new stats object from a bit of data.
 	 * @param	mdo				The data to create from
 	 */
-	public Stats(StatsMDO mdo) {
+	public TacticsStats(StatsMDO mdo) {
 		this.mdo = mdo;
 	}
 	

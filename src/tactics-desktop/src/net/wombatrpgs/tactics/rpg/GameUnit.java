@@ -22,7 +22,7 @@ public class GameUnit {
 	protected GameUnitMDO mdo;
 	protected TacticsController controller;
 	
-	protected Stats stats;
+	protected TacticsStats stats;
 	protected List<Ability> abilities;
 	
 	/**
@@ -35,7 +35,7 @@ public class GameUnit {
 		this.mdo = mdo;
 		this.controller = parent;
 		
-		stats = new Stats(mdo.stats);
+		stats = new TacticsStats(mdo.stats);
 		abilities = new ArrayList<Ability>();
 		for (String key : mdo.abilities) {
 			abilities.add(new Ability(key, controller));
@@ -46,7 +46,7 @@ public class GameUnit {
 	public TacticsController getController() { return controller; }
 	
 	/** @return The current stats of this unit */
-	public Stats getStats() { return stats; }
+	public TacticsStats getStats() { return stats; }
 	
 	/** @return All the stuff this guy can currently do (calculated?) */
 	public List<Ability> getAbilities() { return abilities; }
