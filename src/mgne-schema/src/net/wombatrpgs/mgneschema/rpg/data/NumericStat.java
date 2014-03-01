@@ -4,12 +4,12 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mgne.rpg;
+package net.wombatrpgs.mgneschema.rpg.data;
 
 /**
  * Any stat, additive or multiplicative, with a float value.
  */
-public abstract class NumericStat extends Stat<Float> {
+public abstract class NumericStat extends StatType<Float> {
 	
 	/**
 	 * Inherited constructor.

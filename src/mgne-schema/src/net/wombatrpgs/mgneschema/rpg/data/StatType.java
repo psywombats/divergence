@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mgne.rpg;
+package net.wombatrpgs.mgneschema.rpg.data;
 
 /**
  * A global holder for both numeric and flag stats. They both support being
@@ -15,7 +15,7 @@ package net.wombatrpgs.mgne.rpg;
  * Parameterized over stat value. This means things like str and agi are over
  * Integer and flags CANNOT_DRAIN are over bool. Probably subclassed.
  */
-public abstract class Stat<T> {
+public abstract class StatType<T> {
 	
 	protected String id;
 	protected T zero;
@@ -27,7 +27,7 @@ public abstract class Stat<T> {
 	 * 							applied, not a "default value" but say the
 	 * 							identity value (0 for add, 1 for mult)
 	 */
-	public Stat(String id, T zero) {
+	public StatType(String id, T zero) {
 		this.id = id;
 		this.zero = zero;
 	}

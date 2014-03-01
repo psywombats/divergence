@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mgne.rpg;
+package net.wombatrpgs.mgneschema.rpg.data;
 
 /**
  * A stat that multiplies! Like ADOM walking speed, so two 50% reductions don't
@@ -21,7 +21,7 @@ public class MultiplicativeStat extends NumericStat {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.rpg.Stat#combine(java.lang.Object, java.lang.Object)
+	 * @see net.wombatrpgs.mgneschema.rpg.data.StatType#combine(java.lang.Object, java.lang.Object)
 	 */
 	@Override
 	public Float combine(Float s1, Float s2) {
@@ -29,7 +29,7 @@ public class MultiplicativeStat extends NumericStat {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.rpg.Stat#decombine(java.lang.Object, java.lang.Object)
+	 * @see net.wombatrpgs.mgneschema.rpg.data.StatType#decombine(java.lang.Object, java.lang.Object)
 	 */
 	@Override
 	public Float decombine(Float s1, Float s2) {

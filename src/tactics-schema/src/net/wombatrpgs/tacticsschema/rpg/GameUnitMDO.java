@@ -14,7 +14,7 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.tacticsschema.rpg.abil.AbilityMDO;
-import net.wombatrpgs.tacticsschema.rpg.data.StatsMDO;
+import net.wombatrpgs.tacticsschema.rpg.data.StatSetMDO;
 
 /**
  * A unit in the RPG has one of these.
@@ -31,8 +31,8 @@ public class GameUnitMDO extends MainSchema {
 	public String appearance;
 	
 	@Desc("Stats - default")
-	@InlineSchema(StatsMDO.class)
-	public StatsMDO stats;
+	@InlineSchema(StatSetMDO.class)
+	public StatSetMDO stats;
 	
 	@Desc("Abilities - default")
 	@SchemaLink(AbilityMDO.class)

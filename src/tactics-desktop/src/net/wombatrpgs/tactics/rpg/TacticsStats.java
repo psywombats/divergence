@@ -6,26 +6,44 @@
  */
 package net.wombatrpgs.tactics.rpg;
 
-import net.wombatrpgs.tacticsschema.rpg.data.StatsMDO;
+import java.util.Arrays;
+
+import net.wombatrpgs.mgne.rpg.Statset;
+import net.wombatrpgs.tacticsschema.rpg.data.Flag;
+import net.wombatrpgs.tacticsschema.rpg.data.FlagEntryMDO;
+import net.wombatrpgs.tacticsschema.rpg.data.Stat;
+import net.wombatrpgs.tacticsschema.rpg.data.StatEntryMDO;
+import net.wombatrpgs.tacticsschema.rpg.data.StatSetMDO;
 
 /**
  * A bunch of RPG statistics mashed together and addable etc. Definitely not
  * immutable. This is just a wrapper for a MDO really... because fuck it, data
  * is data.
+ * 
+ * Significantly revised on 2014-02-28 to make use of MGN stats.
  */
-public class TacticsStats {
-	
-	protected StatsMDO mdo;
+public class TacticsStats extends Statset {
 	
 	/**
-	 * Creates a new stats object from a bit of data.
-	 * @param	mdo				The data to create from
+	 * Creates a new set of tactics with all identity values.
 	 */
-	public TacticsStats(StatsMDO mdo) {
-		this.mdo = mdo;
+	public TacticsStats() {
+		super(Arrays.asList(Stat.values()), Arrays.asList(Flag.values()));
 	}
 	
-	/** @return The move range of the unit, in tiles */
-	public int getMove() { return mdo.move; }
+	/**
+	 * Creates a new set of tactics with the values specified in the set, and
+	 * identity values for everything else.
+	 * @param	mdo				The data with stat values
+	 */
+	public TacticsStats(StatSetMDO mdo) {
+		this();
+		for (StatEntryMDO statMDO : mdo.stats) {
+			setStat(statMDO.stat, statMDO.value);
+		}
+		for (FlagEntryMDO flagMDO : mdo.flags) {
+			updateFlag(flagMDO.flag, true);
+		}
+	}
 
 }

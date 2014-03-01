@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mgne.rpg;
+package net.wombatrpgs.mgneschema.rpg.data;
 
 /**
  * Represents an enum that can be associated with a flag.

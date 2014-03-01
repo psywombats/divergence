@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mgne.rpg;
+package net.wombatrpgs.mgneschema.rpg.data;
 
 /**
  * Any stat that combines by addition and therefore has a zero value of zero.
@@ -20,7 +20,7 @@ public class AdditiveStat extends NumericStat {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.rpg.Stat#combine(java.lang.Object, java.lang.Object)
+	 * @see net.wombatrpgs.mgneschema.rpg.data.StatType#combine(java.lang.Object, java.lang.Object)
 	 */
 	@Override
 	public Float combine(Float s1, Float s2) {
@@ -28,7 +28,7 @@ public class AdditiveStat extends NumericStat {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.rpg.Stat#decombine(java.lang.Object, java.lang.Object)
+	 * @see net.wombatrpgs.mgneschema.rpg.data.StatType#decombine(java.lang.Object, java.lang.Object)
 	 */
 	@Override
 	public Float decombine(Float s1, Float s2) {

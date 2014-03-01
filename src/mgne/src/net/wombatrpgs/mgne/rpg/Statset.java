@@ -10,6 +10,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import net.wombatrpgs.mgneschema.rpg.data.FlagStat;
+import net.wombatrpgs.mgneschema.rpg.data.FlagStatLinkable;
+import net.wombatrpgs.mgneschema.rpg.data.NumericStat;
+import net.wombatrpgs.mgneschema.rpg.data.NumericStatLinkable;
+
 /**
  * A simple extension to Stats that works with an enum set.
  */
@@ -20,7 +25,7 @@ public class Statset extends Stats {
 	 * @param	numerics		The collection of all numeric linkables
 	 * @param	flags			The collection of all flag linkables
 	 */
-	public Statset(Collection<NumericStatLinkable> numerics, Collection<FlagStatLinkable> flags) {
+	public Statset(List<? extends NumericStatLinkable> numerics, Collection<? extends FlagStatLinkable> flags) {
 		super(convertNumeric(numerics), convertFlag(flags));
 	}
 	
@@ -43,12 +48,30 @@ public class Statset extends Stats {
 	}
 	
 	/**
+	 * Sets the numeric value associated with a stat link to some new value.
+	 * @param	link			The link to the stat to update
+	 * @param	value			The new value for that stat
+	 */
+	public void setStat(NumericStatLinkable link, float value) {
+		super.setStat(link.getStat().getID(), value);
+	}
+	
+	/**
+	 * Updates the flag count of a stat associated with a link.
+	 * @param	flag			The link to the flag to update
+	 * @param	value			True to set that flag, false to unset it
+	 */
+	public void updateFlag(FlagStatLinkable flag, boolean value) {
+		super.updateFlag(flag.getFlag().getID(), value);
+	}
+	
+	/**
 	 * Iterates through a collection of linkables and extracts their associated
 	 * numeric stats.
 	 * @param	linkables		The collection to iterate through
 	 * @return					The collection of linked stats
 	 */
-	protected static Collection<NumericStat> convertNumeric(Collection<NumericStatLinkable> linkables) {
+	protected static Collection<NumericStat> convertNumeric(Collection<? extends NumericStatLinkable> linkables) {
 		List<NumericStat> stats = new ArrayList<NumericStat>();
 		for (NumericStatLinkable link : linkables) {
 			stats.add(link.getStat());
@@ -62,7 +85,7 @@ public class Statset extends Stats {
 	 * @param	linkables		The collection to iterate through
 	 * @return					The collection of linked flags
 	 */
-	protected static Collection<FlagStat> convertFlag(Collection<FlagStatLinkable> linkables) {
+	protected static Collection<FlagStat> convertFlag(Collection<? extends FlagStatLinkable> linkables) {
 		List<FlagStat> stats = new ArrayList<FlagStat>();
 		for (FlagStatLinkable link : linkables) {
 			stats.add(link.getFlag());
