@@ -6,8 +6,6 @@
  */
 package net.wombatrpgs.tactics.rpg;
 
-import java.util.List;
-
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.tactics.rpg.warhead.AbilMelee;
 import net.wombatrpgs.tacticsschema.rpg.abil.WarMeleeMDO;
@@ -38,9 +36,9 @@ public abstract class Warhead {
 	/**
 	 * Called by the ability when punch people. This is in charge of the
 	 * scheduled punching.
-	 * @param	targets			The jerks to affect
+	 * @param	target			The jerk to affect
 	 */
-	public abstract void invoke(List<TacticsController> targets);
+	public abstract void invoke(TacticsController target);
 	
 	/**
 	 * Creates a new warhead through one of those gawky factory methods that

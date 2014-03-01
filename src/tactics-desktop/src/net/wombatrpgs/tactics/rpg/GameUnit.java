@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.wombatrpgs.tacticsschema.rpg.GameUnitMDO;
+import net.wombatrpgs.tacticsschema.rpg.data.Flag;
+import net.wombatrpgs.tacticsschema.rpg.data.Stat;
 
 /**
  * A participant in the RPG. This class exists so TacticsUnit can handle the
@@ -45,10 +47,35 @@ public class GameUnit {
 	/** @return The controlling logic for this game character */
 	public TacticsController getController() { return controller; }
 	
-	/** @return The current stats of this unit */
-	public TacticsStats getStats() { return stats; }
+	/** @return The value of the stat with the provided key */
+	public float stat(Stat key) { return stats.getStat(key); }
+	
+	/** @return True if this unit has the given flag set */
+	public boolean flag(Flag key) { return stats.getFlag(key); }
 	
 	/** @return All the stuff this guy can currently do (calculated?) */
 	public List<Ability> getAbilities() { return abilities; }
+	
+	/**
+	 * Called when this unit is killed. Called by the controller, so don't do
+	 * any ugly stuff in here or call it from GameUnit itself. In roguelikes,
+	 * this is where "me is defeated" would go.
+	 */
+	public void onDeath() {
+		
+	}
+	
+	/**
+	 * Called after damage calculations are said and done and this unit is in
+	 * for some damage. 
+	 * @param	damage			The damage to be dealt (in hp)
+	 * @param	source			The unit that damage us, or null if a trap etc
+	 */
+	public void takeDamage(int damage, GameUnit source) {
+		stats.setStat(Stat.HP, stat(Stat.HP) - damage);
+		if (stat(Stat.HP) <= 0) {
+			controller.onDeath();
+		}
+	}
 
 }

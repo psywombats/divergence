@@ -6,8 +6,6 @@
  */
 package net.wombatrpgs.tactics.rpg.warhead;
 
-import java.util.List;
-
 import net.wombatrpgs.tactics.rpg.Ability;
 import net.wombatrpgs.tactics.rpg.TacticsController;
 import net.wombatrpgs.tactics.rpg.Warhead;
@@ -31,11 +29,12 @@ public class AbilMelee extends Warhead {
 	}
 
 	/**
-	 * @see net.wombatrpgs.tactics.rpg.Warhead#invoke(java.util.List)
+	 * @see net.wombatrpgs.tactics.rpg.Warhead#invoke
+	 * (net.wombatrpgs.tactics.rpg.TacticsController)
 	 */
 	@Override
-	public void invoke(List<TacticsController> targets) {
-		System.out.println("PUANCH");
+	public void invoke(TacticsController target) {
+		target.getUnit().takeDamage(mdo.power, parent.getOwner());
 	}
 
 }

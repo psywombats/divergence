@@ -36,6 +36,9 @@ public class TacticsScreen extends GameScreen {
 	
 	/** @param True if we should be tactics mode, false for roaming */
 	public void setTacticsMode(boolean tacticsOn) { inTacticsMode = tacticsOn; }
+	
+	/** @return The current battle, if there is one */
+	public Battle getBattle() { return battle; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.screen.instances.GameScreen#onCommand

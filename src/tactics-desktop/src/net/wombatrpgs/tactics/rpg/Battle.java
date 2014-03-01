@@ -51,6 +51,9 @@ public class Battle implements	CommandListener,
 	
 	/** @return All units presently in this battle */
 	public List<TacticsController> getUnits() { return units; }
+	
+	/** @return The guy currently moving */
+	public TacticsController getActor() { return actor; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
@@ -137,7 +140,7 @@ public class Battle implements	CommandListener,
 	/**
 	 * Adds some rando unit to the battle. As before, does not deal with events
 	 * and just sets things up internally. This method should probably be called
-	 * only from GameUnit, because it knows how to add itself.
+	 * only from the controller, because it knows how to add itself.
 	 * @param	unit			The unit to add
 	 */
 	public void addUnit(TacticsController unit) {
@@ -145,6 +148,18 @@ public class Battle implements	CommandListener,
 		assets.add(unit);
 		
 		unit.onAddedToBattle(this);
+	}
+	
+	/**
+	 * Removes a unit from the battle. Does not handle animation etc. Should be
+	 * called by controller.
+	 * @param	unit			The unit to remove
+	 */
+	public void removeUnit(TacticsController unit) {
+		units.remove(unit);
+		if (assets.contains(unit)) {
+			assets.remove(unit);
+		}
 	}
 	
 	/**

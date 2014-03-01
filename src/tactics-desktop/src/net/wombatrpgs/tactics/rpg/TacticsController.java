@@ -20,6 +20,7 @@ import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.maps.EventMDO;
 import net.wombatrpgs.tactics.core.TGlobal;
 import net.wombatrpgs.tactics.maps.TacticsEvent;
+import net.wombatrpgs.tactics.maps.TacticsMap;
 import net.wombatrpgs.tactics.rpg.Ability.AbilityFinishListener;
 import net.wombatrpgs.tacticsschema.rpg.GameUnitMDO;
 import net.wombatrpgs.tacticsschema.rpg.PlayerUnitMDO;
@@ -85,8 +86,8 @@ public abstract class TacticsController implements	CommandListener,
 	/** @return The RPG unit represented by this controller */
 	public GameUnit getUnit() { return unit; }
 	
-	/** @return The current stats of this unit */
-	public TacticsStats stats() { return unit.getStats(); }
+	/** @return The map this unit is on */
+	public TacticsMap getMap() { return battle.getMap(); }
 	
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
@@ -171,6 +172,15 @@ public abstract class TacticsController implements	CommandListener,
 	 */
 	public void onAddedToBattle(Battle battle) {
 		this.battle = battle;
+	}
+	
+	/**
+	 * Called when this unit blow ups. Usually invoked by the game unit.
+	 */
+	public void onDeath() {
+		event.onDeath();
+		unit.onDeath();
+		battle.removeUnit(this);
 	}
 
 	/**

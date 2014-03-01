@@ -52,6 +52,9 @@ public class Ability {
 	/** @return Short-form non-descriptive ability name */
 	public String getName() { return mdo.abilityName; }
 	
+	/** @return The game unit that owns this ability */
+	public GameUnit getOwner() { return parent.getUnit(); }
+	
 	/**
 	 * Called when this ability is selected for use. No target designated yet.
 	 * @param	listener		The listener to notify when ability is done
@@ -60,7 +63,9 @@ public class Ability {
 		this.onFinish = listener;
 		parent.acquireTargets(new AcquiredListener() {
 			@Override public void onAcquired(List<TacticsController> targets) {
-				warhead.invoke(targets);
+				for (TacticsController target : targets) {
+					warhead.invoke(target);
+				}
 				listener.onAbilityEnd(500);
 			}
 		}, mdo.range, mdo.projector);

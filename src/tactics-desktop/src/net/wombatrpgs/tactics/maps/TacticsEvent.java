@@ -79,7 +79,7 @@ public class TacticsEvent extends MapEvent {
 	 * @return					A list of viable step locations
 	 */
 	public List<Loc> getMoveRange() {
-		int move = Math.round(controller.stats().getStat(Stat.MOVE_RANGE));
+		int move = Math.round(controller.getUnit().stat(Stat.MOVE_RANGE));
 		List<Loc> availableSquares = new ArrayList<Loc>();
 		AStarPathfinder pather = new AStarPathfinder();
 		pather.setMap(parent);
@@ -99,6 +99,20 @@ public class TacticsEvent extends MapEvent {
 			}
 		}
 		return availableSquares;
+	}
+	
+	/**
+	 * Called when this unit is killed.
+	 */
+	public void onDeath() {
+		remove();
+	}
+	
+	/**
+	 * Removes this unit from the map it's currently on.
+	 */
+	public void remove() {
+		controller.getMap().removeDoll(this);
 	}
 	
 	/**

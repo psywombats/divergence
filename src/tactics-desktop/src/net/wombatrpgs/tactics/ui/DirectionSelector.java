@@ -78,7 +78,7 @@ public class DirectionSelector extends UIElement implements CommandListener {
 	@Override
 	public void render(OrthographicCamera camera) {
 		super.render(camera);
-		MapEvent target = TGlobal.party.getHero().getEvent();
+		MapEvent target = TGlobal.screen.getBattle().getActor().getEvent();
 		int renderOffX = target.getAppearance().getWidth() / 2;
 		int renderOffY = target.getAppearance().getHeight() / 2;
 		renderOffX -= orthoTarget.getWidth() / 2;
