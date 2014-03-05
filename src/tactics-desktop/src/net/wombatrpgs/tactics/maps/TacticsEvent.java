@@ -9,11 +9,11 @@ package net.wombatrpgs.tactics.maps;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.wombatrpgs.mgne.ai.AStarPathfinder;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.maps.Loc;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
+import net.wombatrpgs.mgne.util.AStarPathfinder;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.tactics.core.TGlobal;
 import net.wombatrpgs.tactics.rpg.TacticsController;

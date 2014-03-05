@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mgne.ai;
+package net.wombatrpgs.mgne.util;
 
 import java.util.ArrayList;
 import java.util.List;
