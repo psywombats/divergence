@@ -8,9 +8,9 @@ package net.wombatrpgs.tactics.ui;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import net.wombatrpgs.mgne.graphics.Graphic;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
+import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgne.ui.UIElement;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.maps.data.DirEnum;

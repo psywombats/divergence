@@ -9,7 +9,6 @@ package net.wombatrpgs.mgne.ui;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.graphics.Graphic;
 import net.wombatrpgs.mgne.screen.ScreenObject;
 
 /**

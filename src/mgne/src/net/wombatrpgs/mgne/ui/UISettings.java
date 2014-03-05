@@ -13,7 +13,6 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
-import net.wombatrpgs.mgne.graphics.Graphic;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBox;
 import net.wombatrpgs.mgneschema.graphics.IconSetMDO;

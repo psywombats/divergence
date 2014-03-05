@@ -8,8 +8,8 @@ package net.wombatrpgs.mgne.maps.objects;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import net.wombatrpgs.mgne.graphics.Graphic;
 import net.wombatrpgs.mgne.graphics.ScreenDrawable;
+import net.wombatrpgs.mgne.ui.Graphic;
 
 /**
  * Replaces the old picture layer that the map had. This is exactly the RM

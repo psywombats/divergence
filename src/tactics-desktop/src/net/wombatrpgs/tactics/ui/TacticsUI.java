@@ -13,7 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
-import net.wombatrpgs.mgne.graphics.Graphic;
+import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.tacticsschema.settings.TacticsUISettingsMDO;
 import net.wombatrpgs.tacticsschema.ui.CursorMDO;
 import net.wombatrpgs.tacticsschema.ui.DirectionSelectorMDO;
