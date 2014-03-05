@@ -198,12 +198,16 @@ public class MGlobal {
 	 */
 	public static void loadAssets(List<Queueable> toLoad, String name) {
 		for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
-		for (int pass = 0; assetManager.getProgress() < 1; pass++) {
+		int pass;
+		for (pass = 0; assetManager.getProgress() < 1; pass++) {
 			float assetStart = System.currentTimeMillis();
 			MGlobal.assetManager.finishLoading();
 			float assetEnd = System.currentTimeMillis();
 			float assetElapsed = (assetEnd - assetStart) / 1000f;
+			for (Queueable q : toLoad) q.postProcessing(MGlobal.assetManager, pass);
 			MGlobal.reporter.inform("Loading " + name + " pass " + pass + ", took " + assetElapsed);
+		}
+		if (pass == 0) {
 			for (Queueable q : toLoad) q.postProcessing(MGlobal.assetManager, pass);
 		}
 	}

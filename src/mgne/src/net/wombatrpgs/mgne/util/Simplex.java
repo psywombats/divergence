@@ -17,7 +17,7 @@ package net.wombatrpgs.mgne.util;
  *
  */
 
-public class SimplexNoise { // Simplex noise in 2D, 3D and 4D
+public class Simplex { // Simplex noise in 2D, 3D and 4D
 	private static Grad grad3[] = { new Grad(1, 1, 0), new Grad(-1, 1, 0), new Grad(1, -1, 0), new Grad(-1, -1, 0),
 			new Grad(1, 0, 1), new Grad(-1, 0, 1), new Grad(1, 0, -1), new Grad(-1, 0, -1), new Grad(0, 1, 1),
 			new Grad(0, -1, 1), new Grad(0, 1, -1), new Grad(0, -1, -1) };
@@ -411,7 +411,7 @@ public class SimplexNoise { // Simplex noise in 2D, 3D and 4D
 	
 	// from here on out it's psystuff
 
-	float octaveNoise2D(float octaves, float persistence, float scale, float x, float y) {
+	public static float octaveNoise2D(float octaves, float persistence, float scale, float x, float y) {
 		float total = 0;
 		float frequency = scale;
 		float amplitude = 1;
@@ -428,7 +428,7 @@ public class SimplexNoise { // Simplex noise in 2D, 3D and 4D
 		return total / maxAmplitude;
 	}
 
-	float octaveNoise3D(float octaves, float persistence, float scale, float x, float y, float z) {
+	public static float octaveNoise3D(float octaves, float persistence, float scale, float x, float y, float z) {
 		float total = 0;
 		float frequency = scale;
 	    float amplitude = 1;
@@ -447,13 +447,13 @@ public class SimplexNoise { // Simplex noise in 2D, 3D and 4D
 	}
 
 
-	float scaledOctaveNoise2D(float octaves, float persistence, float scale,
+	public static float scaledOctaveNoise2D(float octaves, float persistence, float scale,
 			float loBound, float hiBound, float x, float y) {
 	    return octaveNoise2D(octaves, persistence, scale, x, y) * 
 	    		(hiBound - loBound) / 2 + (hiBound + loBound) / 2;
 	}
 	
-	float scaledOctaveNoise3D(float octaves, float persistence, float scale,
+	public static float scaledOctaveNoise3D(float octaves, float persistence, float scale,
 			float loBound, float hiBound, float x, float y, float z ) {
 		return octaveNoise3D(octaves, persistence, scale, x, y, z) * 
 				(hiBound - loBound) / 2 + (hiBound + loBound) / 2;

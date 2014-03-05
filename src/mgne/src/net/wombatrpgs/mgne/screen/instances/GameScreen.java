@@ -146,8 +146,6 @@ public class GameScreen extends Screen {
 					cam.position.y + MGlobal.window.getHeight()/2*wr - 8);
 		}
 		batch.end();
-		
-		
 	}
 	
 	/**

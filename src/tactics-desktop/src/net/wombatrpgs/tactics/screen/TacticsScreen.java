@@ -64,8 +64,7 @@ public class TacticsScreen extends GameScreen {
 			// I hope the battle knows what to do!
 			return battle.onCommand(command);
 		} else {
-			// let's let the game default take care of it
-			return super.onCommand(command);		
+			return MGlobal.getHero().onCommand(command);	
 		}
 	}
 
