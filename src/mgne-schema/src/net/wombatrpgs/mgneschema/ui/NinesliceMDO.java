@@ -9,6 +9,8 @@ package net.wombatrpgs.mgneschema.ui;
 import net.wombatrpgs.mgneschema.ui.data.NinesliceScaleType;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.FileLink;
+import net.wombatrpgs.mgns.core.Annotations.Nullable;
+import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 
@@ -24,6 +26,11 @@ public class NinesliceMDO extends MainSchema {
 	
 	@Desc("How to resize the slice")
 	public NinesliceScaleType type;
+	
+	@Desc("Gradient box - will replace interior slice if exists")
+	@SchemaLink(GradientBoxMDO.class)
+	@Nullable
+	public String gradient;
 	
 	@Desc("Width of one of the slices")
 	public Integer sliceWidth;

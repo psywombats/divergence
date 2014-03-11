@@ -13,16 +13,19 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
 
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.graphics.Disposable;
+import net.wombatrpgs.mgne.graphics.PosRenderable;
 import net.wombatrpgs.mgne.util.Simplex;
+import net.wombatrpgs.mgneschema.ui.GradientBoxMDO;
 
 /**
  * A box that displays with a nice texture and other stuff. Performs the semi-
  * expensive Perlin computations as part of the queueing process so if needed
  * it can happen in a loading bar.
  */
-public class GradientBox implements Queueable, Disposable {
+public class GradientBox implements Queueable, Disposable, PosRenderable {
 	
 	protected int width, height;
 	protected Color c1, c2;
@@ -43,6 +46,64 @@ public class GradientBox implements Queueable, Disposable {
 		this.c1 = c1;
 		this.c2 = c2;
 	}
+	
+	/**
+	 * Creates a new gradient box based on data. The box will use default Perlin
+	 * settings to create the texture. No initial size is given, so make sure to
+	 * resizeTo before displaying.
+	 * @param	mdo				The data to generate from
+	 */
+	public GradientBox(GradientBoxMDO mdo) {
+		c1 = new Color(mdo.r1, mdo.g1, mdo.b1, 1f);
+		c2 = new Color(mdo.r2, mdo.g2, mdo.b2, 1f);
+	}
+	
+	/**
+	 * Creates a new gradient box based on data from a database key.
+	 * @param	mdoKey			The key of the mdo to use
+	 */
+	public GradientBox(String mdoKey) {
+		this(MGlobal.data.getEntryFor(mdoKey, GradientBoxMDO.class));
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#getWidth()
+	 */
+	@Override
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#getHeight()
+	 */
+	@Override
+	public int getHeight() {
+		return height;
+	}
+	
+	/** @return The gradient texture if you really want to display yourself */
+	public Texture getTex() { return tex; }
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#renderAt
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch, float, float, float, float)
+	 */
+	@Override
+	public void renderAt(SpriteBatch batch, float x, float y, float scaleX, float scaleY) {
+		batch.begin();
+		batch.draw(tex, x, y, scaleX * width, scaleY * height);
+		batch.end();
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#renderAt
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch, float, float)
+	 */
+	@Override
+	public void renderAt(SpriteBatch batch, float x, float y) {
+		renderAt(batch, x, y, 1, 1);
+	}
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
@@ -59,17 +120,36 @@ public class GradientBox implements Queueable, Disposable {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		float denom = (float) Math.sqrt(width*width + height*height);
+		if (width > 0 && height > 0) {
+			resizeTo(width, height);
+		}
+	}
+	
+	/**
+	 * Resizes the gradient to a new size. This will discard the existing
+	 * underlying textures. Semi-expensive.
+	 * @param	width			The new width to size to (in px)
+	 * @param	height			The new height to size to (in px)
+	 */
+	public void resizeTo(int width, int height) {
+		this.width = width;
+		this.height = height;
+		
+		if (tex != null) {
+			dispose();
+		}
+		
+		float denom = (float) Math.sqrt(width/2*width/2 + height/2*height/2)/2f;
 		map = new Pixmap(width, height, Format.RGBA8888);
 		for (int x = 0; x < width; x += 1) {
 			for (int y = 0; y < height; y += 1) {
 				float r = (float) (Math.sqrt(distToMidline(x, y)) / denom);
-				float off = Simplex.scaledOctaveNoise2D(2, .5f, .05f, -.02f, 0, x, y);
+				float off = Simplex.scaledOctaveNoise2D(2, .7f, .02f, -.1f, .1f, x, y);
 				map.drawPixel(x, y, Color.rgba8888(
-						lerp(c1.r, c2.r, r) - off,
-						lerp(c1.g, c2.g, r) - off,
-						lerp(c1.b, c2.b, r) - off,
-						lerp(c1.a, c2.a, r)));
+						lerp(c1.r, c2.r, r+off),
+						lerp(c1.g, c2.g, r+off),
+						lerp(c1.b, c2.b, r+off),
+						lerp(c1.a, c2.a, r+off)));
 			}
 		}
 		tex = new Texture(map);
@@ -82,18 +162,6 @@ public class GradientBox implements Queueable, Disposable {
 	public void dispose() {
 		tex.dispose();
 		map.dispose();
-	}
-	
-	/**
-	 * Renders itself at a specific location.
-	 * @param 	batch			The batch to render the graphic as part of
-	 * @param 	x				The x-coord to render at (in px)
-	 * @param 	y				The y-coord to render at (in px)
-	 */
-	public void renderAt(SpriteBatch batch, float x, float y) {
-		batch.begin();
-		batch.draw(tex, x, y);
-		batch.end();
 	}
 
 	protected static float lerp(float a, float b, float r) {

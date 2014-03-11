@@ -16,6 +16,9 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
+import net.wombatrpgs.mgne.graphics.Disposable;
+import net.wombatrpgs.mgne.graphics.PosRenderable;
+import net.wombatrpgs.mgne.maps.MapThing;
 import net.wombatrpgs.mgneschema.ui.NinesliceMDO;
 
 /**
@@ -23,7 +26,7 @@ import net.wombatrpgs.mgneschema.ui.NinesliceMDO;
  * raw. Therefore it doesn't have any positioning code and is meant to be
  * rendered at an offset from a parent, like a textbox.
  */
-public class Nineslice implements Queueable {
+public class Nineslice implements Queueable, PosRenderable, Disposable {
 	
 	protected NinesliceMDO mdo;
 	protected int width, height;
@@ -34,6 +37,7 @@ public class Nineslice implements Queueable {
 	protected SpriteBatch batch;
 	protected FrameBuffer buffer;
 	protected Texture appearance;
+	protected GradientBox gradient;
 	
 	/**
 	 * Creates an unsized, initialized nineslice. The idea is that the resize
@@ -45,6 +49,10 @@ public class Nineslice implements Queueable {
 		
 		filename = Constants.UI_DIR + mdo.file;
 		batch = new SpriteBatch();
+		
+		if (MapThing.mdoHasProperty(mdo.gradient)) {
+			gradient = new GradientBox(mdo.gradient);
+		}
 	}
 	
 	/**
@@ -63,6 +71,45 @@ public class Nineslice implements Queueable {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#getWidth()
+	 */
+	@Override
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#getHeight()
+	 */
+	@Override
+	public int getHeight() {
+		return height;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#renderAt
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch, float, float)
+	 */
+	@Override
+	public void renderAt(SpriteBatch batch, float x, float y) {
+		renderAt(batch, x, y, 1, 1);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#renderAt
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch, float, float, float, float)
+	 */
+	@Override
+	public void renderAt(SpriteBatch batch, float x, float y, float scaleX, float scaleY) {
+		batch.begin();
+		batch.draw(appearance,
+				x, y,
+				0, 0,
+				(int) (width * scaleX), (int) (height * scaleY));
+		batch.end();
+	}
+
+	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
@@ -77,6 +124,9 @@ public class Nineslice implements Queueable {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
+		if (gradient != null) {
+			gradient.postProcessing(manager, pass);
+		}
 		tex = manager.get(filename, Texture.class);
 		slices = new TextureRegion[3][3];		// indexed y, x
 		for (int x = 0; x < 3; x += 1) {
@@ -96,21 +146,13 @@ public class Nineslice implements Queueable {
 	}
 	
 	/**
-	 * Renders the nineslice at a particular location. Should be called by the
-	 * owner in their own render call.
-	 * @param	batch			The batch to render with (UI batch)
-	 * @param	x				The x-coord to render at (in window coords)
-	 * @param	y				The y-coord to render at (in window coords)
+	 * @see net.wombatrpgs.mgne.graphics.Disposable#dispose()
 	 */
-	public void renderAt(SpriteBatch batch, float x, float y) {
-		batch.begin();
-		batch.draw(appearance,
-				x, y,
-				0, 0,
-				width, height);
-		batch.end();
+	@Override
+	public void dispose() {
+		appearance.dispose();
 	}
-	
+
 	/**
 	 * Changes the size of the nineslice. This dumps the old texture region
 	 * and creates a new one by stitching the others together.
@@ -178,6 +220,13 @@ public class Nineslice implements Queueable {
 		batch.draw(slices[0][2], width - sw, 0);
 		batch.draw(slices[2][2], width - sw, height - sh);
 		batch.draw(slices[2][0], 0, height - sh);
+		
+		if (gradient != null) {
+			gradient.resizeTo(
+					width - 2 * sw,
+					height - 2 * sh);
+			batch.draw(gradient.getTex(), sw, sh);
+		}
 		
 		batch.end();
 		buffer.end();

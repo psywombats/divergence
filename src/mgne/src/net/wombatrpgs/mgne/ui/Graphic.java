@@ -13,12 +13,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
+import net.wombatrpgs.mgne.graphics.PosRenderable;
 
 /**
  * Single-frame graphics instance. Not meant to appear on its own, really.
  * Animations have their own version of this. This class is dumb.
  */
-public class Graphic implements Queueable {
+public class Graphic implements Queueable, PosRenderable {
 	
 	protected Texture texture;
 	protected TextureRegion appearance;
@@ -68,12 +69,22 @@ public class Graphic implements Queueable {
 		appearance = new TextureRegion(texture, 0, 0, width, height);
 	}
 	
-	/** @return The basic width of this graphic (in px) */
-	public int getWidth() { return this.width; }
-	
-	/** @return The basic height of this graphic (in px) */
-	public int getHeight() { return this.height; }
-	
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#getWidth()
+	 */
+	@Override
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#getHeight()
+	 */
+	@Override
+	public int getHeight() {
+		return height;
+	}
+
 	/** @param width The width to set as the base texture width, in px */
 	public void setTextureWidth(int width) { this.width = width; }
 	
@@ -100,23 +111,19 @@ public class Graphic implements Queueable {
 	}
 
 	/**
-	 * Renders itself at a specific location.
-	 * @param 	batch			The batch to render the graphic as part of
-	 * @param 	x				The x-coord to render at (in px)
-	 * @param 	y				The y-coord to render at (in px)
+	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#renderAt
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch, float, float)
 	 */
+	@Override
 	public void renderAt(SpriteBatch batch, float x, float y) {
 		renderAt(batch, x, y, 1, 1);
 	}
-	
+
 	/**
-	 * Renders itself at a specific location.
-	 * @param 	batch			The batch to render the graphic as part of
-	 * @param 	x				The x-coord to render at (in px)
-	 * @param 	y				The y-coord to render at (in px)
-	 * @param	scaleX			The scale for width, 1 is standard
-	 * @param	scaleY			The scale for height, 1 is standard
+	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#renderAt
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch, float, float, float, float)
 	 */
+	@Override
 	public void renderAt(SpriteBatch batch, float x, float y, float scaleX, float scaleY) {
 		batch.begin();
 		batch.draw(appearance, x, y, getWidth() * scaleX, getHeight() * scaleY);
