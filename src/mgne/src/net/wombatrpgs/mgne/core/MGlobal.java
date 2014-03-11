@@ -43,42 +43,37 @@ import net.wombatrpgs.mgneschema.settings.WindowSettingsMDO;
  */
 public class MGlobal {
 	
-	/** Error-reporting dispatcher */
+	/** Core functionality */
 	public static Reporter reporter;
-	/** Storage container for data entries */
 	public static Database data;
-	/** Manages all in-game assets */
-	public static AssetManager assetManager;
-	/** The stack of screeeeeeens */
-	public static ScreenStack screens;
-	/** Current mapper of the keyys */
-	public static Keymap keymap;
-	/** All magic numbers and stuff */
-	public static Constants constants;
-	/** Stores all of our levels */
-	public static LevelManager levelManager;
-	/** A single-source RNG */
-	public static Random rand;
-	/** The UI settings currently in use by the game */
-	public static UISettings ui;
-	/** Are we done loading yet? */
+	public static Memory memory;
+	public static Lua lua;
 	public static boolean initialized = false;
-	/** Our current window settings */
-	public static WindowSettings window;
-	/** Our current graphics settings */
-	public static GraphicsSettings graphics;
-	/** Loader for simple text files */
+	
+	/** Assorted managers */
+	public static AssetManager assetManager;
+	public static LevelManager levelManager;
+	
+	/** Screens */
+	public static ScreenStack screens;
+	public static Keymap keymap;
+	
+	/** Util */
+	public static Random rand;
+	public static Constants constants;
+	
+	/** Loaders */
 	public static FileLoader loader;
+	private static List<Queueable> toLoad;
+	
+	/** Settings from the user */
+	public static UISettings ui;
+	public static WindowSettings window;
+	public static GraphicsSettings graphics;
+	
 	/** Desktop mode */
 	public static Platform platform;
-	/** Switches and variables */
-	public static Memory memory;
-	/** L-l-l-lua?? */
-	public static Lua lua;
-	/** Game-specific information and hooks */
 	public static MgnGame game;
-	
-	private static List<Queueable> toLoad;
 	
 	/**
 	 * Called as part of the map game.
