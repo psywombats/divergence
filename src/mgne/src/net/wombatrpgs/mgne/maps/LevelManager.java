@@ -9,6 +9,7 @@ package net.wombatrpgs.mgne.maps;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.scenes.TeleportManager;
 import net.wombatrpgs.mgne.screen.Screen;
@@ -72,25 +73,27 @@ public class LevelManager {
 	 * @return				The map, either gen'd or stored
 	 */
 	public Level getLevel(String mapID) {
+		return getLevel(mapID, MGlobal.assetLoader);
+	}
+	
+
+	/**
+	 * The old getLevel code, but can load with any loader. Use the default
+	 * overloaded one to load from global default.
+	 * @param	mapID			The map id to load up
+	 * @param	loader			The loader to use assets from
+	 * @return					The map, either gen'd or stored
+	 */
+	protected Level getLevel(String mapID, MAssets loader) {
 		if (teleport == null) {
 			teleport = new TeleportManager(MGlobal.data.getEntryFor(
 					TeleportManager.MD0_KEY, TeleportSettingsMDO.class));
-			teleport.queueRequiredAssets(MGlobal.assetManager);
+			loader.loadAsset(teleport, "teleport global");
 		}
 		if (!levels.containsKey(mapID)) {
 			MapMDO mapMDO = getLevelMDO(mapID);
 			Level map = createMap(mapMDO, screen);
-			long startTime = System.currentTimeMillis();
-			map.queueRequiredAssets(MGlobal.assetManager);
-			for (int pass = 0; MGlobal.assetManager.getProgress() < 1; pass++) {
-				MGlobal.assetManager.finishLoading();
-				map.postProcessing(MGlobal.assetManager, pass);
-				teleport.postProcessing(MGlobal.assetManager, pass);
-			}
-			long endTime = System.currentTimeMillis();
-			float elapsed  = (endTime - startTime) / 1000f;
-			MGlobal.reporter.inform("Loaded level " + mapID + ", elapsed " +
-						"time: " + elapsed + " seconds");
+			loader.loadAsset(map, "Map assets, id: " + mapID);
 			levels.put(mapID, map);
 		}
 		return levels.get(mapID);
@@ -102,7 +105,7 @@ public class LevelManager {
 	 * @param	screen			The game screen to generate for, I think
 	 * @return					The created map, without assets loaded
 	 */
-	private static Level createMap(MapMDO mdo, Screen screen) {
+	protected static Level createMap(MapMDO mdo, Screen screen) {
 		if (GeneratedMapMDO.class.isAssignableFrom(mdo.getClass())) {
 //			return new GeneratedLevel((GeneratedMapMDO) mdo, screen);
 			MGlobal.reporter.err("Generated maps not yet supported");
@@ -121,7 +124,7 @@ public class LevelManager {
 	 * @param	name			The name of the MDO or .tmx map
 	 * @return					An MDO suitable for that name
 	 */
-	private static MapMDO getLevelMDO(String name) {
+	protected static MapMDO getLevelMDO(String name) {
 		MapMDO mdo = MGlobal.data.getIfExists(name, MapMDO.class);
 		if (mdo == null) {
 			LoadedMapMDO loadedMDO = new LoadedMapMDO();

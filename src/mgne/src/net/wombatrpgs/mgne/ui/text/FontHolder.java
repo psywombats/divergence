@@ -39,7 +39,7 @@ public class FontHolder implements Queueable {
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		MGlobal.assetManager.load(Constants.FONTS_DIR + mdo.file, BitmapFont.class);
+		manager.load(Constants.FONTS_DIR + mdo.file, BitmapFont.class);
 	}
 
 	/**
@@ -49,8 +49,8 @@ public class FontHolder implements Queueable {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		String filename = Constants.FONTS_DIR+mdo.file;
-		if (MGlobal.assetManager.isLoaded(filename)) {
-			font = MGlobal.assetManager.get(filename, BitmapFont.class);
+		if (manager.isLoaded(filename)) {
+			font = manager.get(filename, BitmapFont.class);
 		} else {
 			MGlobal.reporter.warn("Did not load font: " + filename);
 		}

@@ -107,7 +107,7 @@ public class LoadedLevel extends Level {
 	private void processMap(AssetManager manager) {
 		
 		// get the map
-		map = MGlobal.assetManager.get(mapPath, TiledMap.class);
+		map = manager.get(mapPath, TiledMap.class);
 		renderer = new OrthogonalTiledMapRenderer(map, 1f);
 		renderer.getSpriteBatch().setShader(screen.getMapShader());
 		mapWidth = map.getProperties().get("width", Integer.class);

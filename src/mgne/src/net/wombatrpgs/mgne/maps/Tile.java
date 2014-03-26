@@ -80,7 +80,7 @@ public class Tile implements Queueable {
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		if (!MapThing.mdoHasProperty(mdo.appearance)) return;
-		if (!MGlobal.assetManager.isLoaded(filename)) {
+		if (!manager.isLoaded(filename)) {
 			MGlobal.reporter.err("No tile loaded for file:" + mdo);
 			return;
 		}

@@ -66,8 +66,8 @@ public class GameScreen extends Screen {
 		shaderMDO = MGlobal.data.getEntryFor("test_shader", ShaderTestMDO.class);
 		if (shaderMDO.enabled == TestState.ENABLED) {
 			testShader = new ShaderProgram(
-					MGlobal.loader.getText(Constants.SHADERS_DIR + shaderMDO.vertexFile),
-					MGlobal.loader.getText(Constants.SHADERS_DIR + shaderMDO.fragmentFile));
+					MGlobal.fileLoader.getText(Constants.SHADERS_DIR + shaderMDO.vertexFile),
+					MGlobal.fileLoader.getText(Constants.SHADERS_DIR + shaderMDO.fragmentFile));
 			batch.setShader(testShader);
 			mapShader = (testShader);
 		}

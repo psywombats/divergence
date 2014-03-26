@@ -162,7 +162,7 @@ public class AnimationStrip implements 	Renderable,
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		MGlobal.assetManager.load(Constants.SPRITES_DIR + mdo.file, Texture.class);
+		manager.load(Constants.SPRITES_DIR + mdo.file, Texture.class);
 		queued = true;
 	}
 
@@ -173,8 +173,8 @@ public class AnimationStrip implements 	Renderable,
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
 		String filename = Constants.SPRITES_DIR+mdo.file;
-		if (MGlobal.assetManager.isLoaded(filename)) {
-			spritesheet = MGlobal.assetManager.get(filename, Texture.class);
+		if (manager.isLoaded(filename)) {
+			spritesheet = manager.get(filename, Texture.class);
 			frames = new TextureRegion[mdo.frameCount];
 			for (int i = 0; i < mdo.frameCount; i++) {
 				frames[i] = new TextureRegion(spritesheet,

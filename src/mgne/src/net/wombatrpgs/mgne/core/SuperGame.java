@@ -32,7 +32,7 @@ public class SuperGame implements ApplicationListener, FocusListener {
 
 	@Override
 	public void dispose() {
-		MGlobal.assetManager.dispose();
+		MGlobal.assetLoader.dispose();
 		MGlobal.screens.dispose();
 	}
 

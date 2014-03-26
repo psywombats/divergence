@@ -52,7 +52,7 @@ public abstract class ParticleSet implements Queueable {
 	 */
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
-		MGlobal.assetManager.load(fileName, Texture.class);
+		manager.load(fileName, Texture.class);
 	}
 
 	/**
@@ -61,8 +61,8 @@ public abstract class ParticleSet implements Queueable {
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		if (MGlobal.assetManager.isLoaded(fileName)) {
-			Texture spritesheet = MGlobal.assetManager.get(fileName, Texture.class);
+		if (manager.isLoaded(fileName)) {
+			Texture spritesheet = manager.get(fileName, Texture.class);
 			particleSources = new TextureRegion[frameCount];
 			for (int i = 0; i < frameCount; i++) {
 				particleSources[i] = new TextureRegion(spritesheet,

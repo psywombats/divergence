@@ -10,15 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.luaj.vm2.LuaValue;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
-import net.wombatrpgs.mgne.core.data.DataEntry;
 import net.wombatrpgs.mgne.core.data.Database;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.core.interfaces.Reporter;
@@ -26,11 +19,7 @@ import net.wombatrpgs.mgne.core.lua.Lua;
 import net.wombatrpgs.mgne.graphics.GraphicsSettings;
 import net.wombatrpgs.mgne.io.FileLoader;
 import net.wombatrpgs.mgne.io.Keymap;
-import net.wombatrpgs.mgne.io.loaders.DataLoader;
-import net.wombatrpgs.mgne.io.loaders.LuaLoader;
-import net.wombatrpgs.mgne.io.loaders.SceneLoader;
 import net.wombatrpgs.mgne.maps.LevelManager;
-import net.wombatrpgs.mgne.scenes.SceneData;
 import net.wombatrpgs.mgne.screen.ScreenStack;
 import net.wombatrpgs.mgne.screen.WindowSettings;
 import net.wombatrpgs.mgne.ui.UISettings;
@@ -51,7 +40,6 @@ public class MGlobal {
 	public static boolean initialized = false;
 	
 	/** Assorted managers */
-	public static AssetManager assetManager;
 	public static LevelManager levelManager;
 	
 	/** Screens */
@@ -63,7 +51,8 @@ public class MGlobal {
 	public static Constants constants;
 	
 	/** Loaders */
-	public static FileLoader loader;
+	public static MAssets assetLoader;
+	public static FileLoader fileLoader;
 	private static List<Queueable> toLoad;
 	
 	/** Settings from the user */
@@ -85,7 +74,7 @@ public class MGlobal {
 		try {
 			long startTime = System.currentTimeMillis();
 			MGlobal.reporter.inform("Initialized error reporting");
-			MGlobal.assetManager = new AssetManager();
+			MGlobal.assetLoader = new MAssets();
 			MGlobal.reporter.inform("Initializing primary globals");
 			long seed = System.currentTimeMillis();
 			MGlobal.rand = new Random(seed);
@@ -94,10 +83,9 @@ public class MGlobal {
 			
 			// load up data marked essential, this will always be ugly
 			MGlobal.reporter.inform("Loading essential data");
-			setHandlers();
-			MGlobal.data.queueData(assetManager, Constants.PRELOAD_SCHEMA);
+			MGlobal.data.queueData(assetLoader, Constants.PRELOAD_SCHEMA);
 			long assetStart = System.currentTimeMillis();
-			assetManager.finishLoading();
+			assetLoader.finishLoading();
 			long assetEnd = System.currentTimeMillis();
 			float assetElapsed = (assetEnd - assetStart) / 1000f;
 			MGlobal.reporter.inform("Finished loading essential data, " +
@@ -108,16 +96,16 @@ public class MGlobal {
 			MGlobal.reporter.inform("Intializing secondary globals");
 			MGlobal.constants = new Constants();
 			MGlobal.screens = new ScreenStack();
-			MGlobal.loader = new FileLoader();
+			MGlobal.fileLoader = new FileLoader();
 //			SGlobal.tiles = new TileManager();
 			MGlobal.levelManager = new LevelManager();
 			
 			// load secondary data
 			// TODO: polish: load with a loading bar
 			MGlobal.reporter.inform("Loading secondary data");
-			MGlobal.data.queueFilesInDir(assetManager, Gdx.files.internal(Constants.DATA_DIR));
+			MGlobal.data.queueFilesInDir(assetLoader, Gdx.files.internal(Constants.DATA_DIR));
 			assetStart = System.currentTimeMillis();
-			assetManager.finishLoading();
+			assetLoader.finishLoading();
 			assetEnd = System.currentTimeMillis();
 			assetElapsed = (assetEnd - assetStart) / 1000f;
 			MGlobal.reporter.inform("Finished loading secondary data, " +
@@ -137,12 +125,12 @@ public class MGlobal {
 			MGlobal.lua = new Lua();
 			toLoad.add(ui);
 			toLoad.add(graphics);
-			loadAssets(toLoad, "primary global assets");
+			assetLoader.loadAssets(toLoad, "primary global assets");
 			
 			// initializing graphics
 			MGlobal.reporter.inform("Creating level-dependant data");
 			toLoad.clear();
-			String result = loader.getText(Constants.CONFIG_FILE);
+			String result = fileLoader.getText(Constants.CONFIG_FILE);
 			boolean fullscreen = result.indexOf("true") != -1;
 			Gdx.graphics.setDisplayMode(
 					MGlobal.window.getResolutionWidth(),
@@ -152,7 +140,7 @@ public class MGlobal {
 			Gdx.graphics.setTitle(MGlobal.window.getTitle());
 			//Gdx.graphics.setVSync(true);
 			
-			loadAssets(toLoad, "level assets");
+			assetLoader.loadAssets(toLoad, "level assets");
 			
 			initialized = true;
 			long endTime = System.currentTimeMillis();
@@ -174,48 +162,6 @@ public class MGlobal {
 	 */
 	public static Avatar getHero() {
 		return levelManager.getScreen().getHero();
-	}
-	
-	/**
-	 * Sets all the file handlers used by the asset manager.
-	 */
-	public static void setHandlers() {
-		assetManager.setLoader(SceneData.class, new SceneLoader(new InternalFileHandleResolver()));
-		assetManager.setLoader(DataEntry.class, new DataLoader(new InternalFileHandleResolver()));
-		assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
-		assetManager.setLoader(LuaValue.class, new LuaLoader(new InternalFileHandleResolver()));
-	}
-	
-	/**
-	 * Queues, loads queued assets. Blocks.
-	 * @param	toLoad			All assets to load
-	 * @param	name			The name of what is being loadded
-	 */
-	public static void loadAssets(List<Queueable> toLoad, String name) {
-		for (Queueable q : toLoad) q.queueRequiredAssets(assetManager);
-		int pass;
-		for (pass = 0; assetManager.getProgress() < 1; pass++) {
-			float assetStart = System.currentTimeMillis();
-			MGlobal.assetManager.finishLoading();
-			float assetEnd = System.currentTimeMillis();
-			float assetElapsed = (assetEnd - assetStart) / 1000f;
-			for (Queueable q : toLoad) q.postProcessing(MGlobal.assetManager, pass);
-			MGlobal.reporter.inform("Loading " + name + " pass " + pass + ", took " + assetElapsed);
-		}
-		if (pass == 0) {
-			for (Queueable q : toLoad) q.postProcessing(MGlobal.assetManager, pass);
-		}
-	}
-	
-	/**
-	 * Loads a single asset. Blocks.
-	 * @param	toLoad			The thing to load
-	 * @param	name			The name of the thing
-	 */
-	public static void loadAsset(Queueable toLoad, String name) {
-		List<Queueable> dummy = new ArrayList<Queueable>();
-		dummy.add(toLoad);
-		loadAssets(dummy, name);
 	}
 
 }

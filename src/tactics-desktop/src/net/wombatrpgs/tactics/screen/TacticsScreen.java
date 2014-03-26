@@ -56,7 +56,7 @@ public class TacticsScreen extends GameScreen {
 				battle = new Battle(MGlobal.levelManager.getActive());
 				addUChild(battle);
 				battle.addParty();
-				MGlobal.loadAsset(battle, "battle");
+				MGlobal.assetLoader.loadAsset(battle, "battle");
 				battle.startBattle();
 			}
 		}

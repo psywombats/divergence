@@ -388,7 +388,8 @@ public abstract class Screen implements CommandListener,
 			removeUChild(screenObject);
 			screenObject.onRemovedFromScreen(this);
 		} else {
-			MGlobal.reporter.warn("Tried to remove non-existant picture from screen: " + screenObject);
+			MGlobal.reporter.warn("Tried to remove non-existant picture from "
+					+ "screen: " + screenObject);
 		}
 	}
 
@@ -397,9 +398,7 @@ public abstract class Screen implements CommandListener,
 	 * the constructor.
 	 */
 	public final void init() {
-		this.queueRequiredAssets(MGlobal.assetManager);
-		MGlobal.assetManager.finishLoading();
-		this.postProcessing(MGlobal.assetManager, 0);
+		MGlobal.assetLoader.loadAsset(this, "screen " + this);
 		initialized = true;
 	}
 	

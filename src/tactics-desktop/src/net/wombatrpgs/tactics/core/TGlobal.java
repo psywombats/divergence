@@ -43,15 +43,7 @@ public class TGlobal {
 		initParty();
 		
 		// load all this crap
-		for (Queueable q : toLoad) q.queueRequiredAssets(MGlobal.assetManager);
-		for (int pass = 0; MGlobal.assetManager.getProgress() < 1; pass++) {
-			float assetStart = System.currentTimeMillis();
-			MGlobal.assetManager.finishLoading();
-			float assetEnd = System.currentTimeMillis();
-			float assetElapsed = (assetEnd - assetStart) / 1000f;
-			MGlobal.reporter.inform("Loading tactics pass " + pass + ", took " + assetElapsed);
-			for (Queueable q : toLoad) q.postProcessing(MGlobal.assetManager, pass);
-		}
+		MGlobal.assetLoader.loadAssets(toLoad, "tactics global");
 		
 	}
 	
