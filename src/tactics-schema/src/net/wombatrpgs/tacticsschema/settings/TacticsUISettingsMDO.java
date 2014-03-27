@@ -20,6 +20,8 @@ import net.wombatrpgs.tacticsschema.ui.DirectionSelectorMDO;
 @Path("settings/")
 public class TacticsUISettingsMDO extends MainSchema {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Desc("Map highlight - semi-transparent thing showed on walkable squares")
 	@FileLink("ui")
 	public String mapHighlight;

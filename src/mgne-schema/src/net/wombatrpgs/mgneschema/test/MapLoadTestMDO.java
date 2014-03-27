@@ -18,6 +18,7 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("test/")
 public class MapLoadTestMDO extends MainSchema {
 	
+	private static final long serialVersionUID = 1L;
 	@Desc("The test map to load")
 	@SchemaLink(GeneratedMapMDO.class)
 	public String map;

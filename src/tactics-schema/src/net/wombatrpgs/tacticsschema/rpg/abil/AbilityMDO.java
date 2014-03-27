@@ -20,6 +20,8 @@ import net.wombatrpgs.tacticsschema.rpg.abil.data.WarheadMDO;
 @Path("rpg/")
 public class AbilityMDO extends MainSchema {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Desc("Ability name - displayed in-game")
 	public String abilityName;
 	

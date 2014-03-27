@@ -17,6 +17,8 @@ import net.wombatrpgs.mgns.core.Annotations.FileLink;
 @Path("ui/")
 public class IconSetMDO extends MainSchema {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Desc("16 * 16 icon")
 	@FileLink("ui")
 	public String icon16;

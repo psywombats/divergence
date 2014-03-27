@@ -15,6 +15,8 @@ import net.wombatrpgs.mgns.core.HeadlessSchema;
  */
 public class StatSetMDO extends HeadlessSchema {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Desc("Stat modifiers")
 	@InlineSchema(StatEntryMDO.class)
 	public StatEntryMDO stats[];

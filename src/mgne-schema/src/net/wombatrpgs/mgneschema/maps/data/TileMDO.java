@@ -18,6 +18,7 @@ import net.wombatrpgs.mgns.core.HeadlessSchema;
 @Path("maps/")
 public class TileMDO extends HeadlessSchema {
 	
+	private static final long serialVersionUID = 1L;
 	@Desc("Appearance - image that this tile looks like, a square PNG")
 	@FileLink("tiles")
 	@Nullable

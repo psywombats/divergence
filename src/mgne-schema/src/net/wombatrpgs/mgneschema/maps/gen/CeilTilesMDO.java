@@ -18,6 +18,8 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("maps/")
 public class CeilTilesMDO extends MainSchema {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Desc("Top tile - displays everywhere but north of a wall")
 	@InlineSchema(TileMDO.class)
 	public TileMDO t;

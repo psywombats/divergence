@@ -17,6 +17,7 @@ import net.wombatrpgs.mgns.core.Annotations.FileLink;
 @Path("ui/")
 public class FontMDO extends MainSchema {
 	
+	private static final long serialVersionUID = 1L;
 	@Desc("File - the .fnt file used by this font")
 	@FileLink("fonts")
 	public String file;

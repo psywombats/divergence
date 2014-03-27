@@ -18,6 +18,7 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 @Path("audio/")
 public class SoundMDO extends AudioMDO {
 	
+	private static final long serialVersionUID = 1L;
 	@Desc("Repeats - usually false for SFX")
 	@DefaultValue("PLAY_ONCE")
 	public RepeatType repeats;

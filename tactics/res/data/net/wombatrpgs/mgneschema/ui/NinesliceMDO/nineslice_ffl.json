@@ -5,7 +5,7 @@
 	"description" : " ",
 	"file" : "ffl_nineslice.png",
 	"type" : "STRETCH",
-	"gradient" : "gradient_purple",
+	"gradient" : "None",
 	"sliceWidth" : 8,
 	"sliceHeight" : 8
 }

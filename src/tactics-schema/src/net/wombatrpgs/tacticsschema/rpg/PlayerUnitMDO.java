@@ -14,4 +14,6 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 @Path("rpg/")
 public class PlayerUnitMDO extends GameUnitMDO {
 
+	private static final long serialVersionUID = 1L;
+
 }

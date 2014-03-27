@@ -17,6 +17,8 @@ import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
 @ExcludeFromTree
 public class AbilFxMDO extends MainSchema {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Desc("Duration - how long this effect lasts for, in s")
 	public Float duration;
 	

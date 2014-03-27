@@ -15,6 +15,8 @@ import net.wombatrpgs.mgns.core.HeadlessSchema;
  */ 
 public class ColorMDO extends HeadlessSchema {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Desc("Red - 0-1")
 	@DefaultValue("1")
 	public Float r;

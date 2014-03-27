@@ -17,6 +17,7 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("rpg/")
 public class PartyMDO extends MainSchema {
 	
+	private static final long serialVersionUID = 1L;
 	@Desc("All units in the party")
 	@SchemaLink(PlayerUnitMDO.class)
 	public String[] units;

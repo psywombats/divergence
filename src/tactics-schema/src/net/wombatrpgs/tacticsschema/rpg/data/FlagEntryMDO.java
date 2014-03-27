@@ -13,6 +13,7 @@ import net.wombatrpgs.mgns.core.HeadlessSchema;
  */
 public class FlagEntryMDO extends HeadlessSchema {
 	
+	private static final long serialVersionUID = 1L;
 	public Flag flag;
 
 }

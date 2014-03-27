@@ -17,6 +17,8 @@ import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 @Path("graphics/")
 public class FourDirMDO extends DirMDO {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Desc("Upwards-facing animation")
 	@SchemaLink(AnimationMDO.class)
 	public String upAnim;

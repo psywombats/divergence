@@ -17,6 +17,8 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("ui/")
 public class NumberSetMDO extends MainSchema {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Desc("Graphics file")
 	@FileLink("ui")
 	public String file;

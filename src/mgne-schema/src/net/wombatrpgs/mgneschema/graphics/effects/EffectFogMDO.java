@@ -19,6 +19,8 @@ import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 @Path("graphics/effects/")
 public class EffectFogMDO extends EffectMDO {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Desc("Fog shader")
 	@SchemaLink(ShaderMDO.class)
 	public String shader;

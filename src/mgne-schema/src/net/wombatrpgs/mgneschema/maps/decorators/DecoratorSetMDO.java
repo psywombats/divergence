@@ -18,6 +18,7 @@ import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 @Path("maps/decorators/")
 public class DecoratorSetMDO extends DecoratorMDO {
 	
+	private static final long serialVersionUID = 1L;
 	@Desc("Decorators - all children that should be considered for decoration")
 	@SchemaLink(DecoratorMDO.class)
 	public String[] decorators;

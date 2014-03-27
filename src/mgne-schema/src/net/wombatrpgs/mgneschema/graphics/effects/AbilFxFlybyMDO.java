@@ -17,6 +17,8 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 @Path("graphics/effects/")
 public class AbilFxFlybyMDO extends AbilFxMDO {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Desc("Graphic to use for the flyby")
 	@FileLink("sprites")
 	public String graphic;

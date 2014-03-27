@@ -20,6 +20,8 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 @Path("ui/")
 public class NinesliceMDO extends MainSchema {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Desc("File with the nineslice")
 	@FileLink("ui")
 	public String file;

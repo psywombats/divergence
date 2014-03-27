@@ -18,6 +18,7 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 @Path("maps/decorators/")
 public class Decorator1x1MDO extends SingleDecoratorMDO {
 	
+	private static final long serialVersionUID = 1L;
 	@Desc("The tile to replace with")
 	@InlineSchema(TileMDO.class)
 	public TileMDO tile;

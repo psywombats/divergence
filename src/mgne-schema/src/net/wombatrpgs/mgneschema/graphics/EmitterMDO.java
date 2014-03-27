@@ -19,6 +19,8 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("graphics/")
 public class EmitterMDO extends MainSchema {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Desc("Mode - will this emitter fire once or keep firing?")
 	public EmitterType mode;
 	

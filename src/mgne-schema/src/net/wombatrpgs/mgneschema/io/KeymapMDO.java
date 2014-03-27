@@ -20,6 +20,7 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("io/")
 public class KeymapMDO extends MainSchema {
 	
+	private static final long serialVersionUID = 1L;
 	@Desc("Keybindings")
 	@InlineSchema(KeyButtonPairMDO.class)
 	public KeyButtonPairMDO[] bindings;

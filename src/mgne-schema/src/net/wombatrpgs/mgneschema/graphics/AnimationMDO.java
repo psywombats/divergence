@@ -21,6 +21,8 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 @Path("graphics/")
 public class AnimationMDO extends DirMDO {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Desc("Image file - actual spritesheet, should be png")
 	@FileLink("sprites")
 	public String file;

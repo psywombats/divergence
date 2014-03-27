@@ -16,6 +16,7 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("ui/")
 public class GradientBoxMDO extends MainSchema {
 	
+	private static final long serialVersionUID = 1L;
 	@Desc("Corner color: red component (0-1)")
 	public Float r1;
 	@Desc("Corner color: green component (0-1)")

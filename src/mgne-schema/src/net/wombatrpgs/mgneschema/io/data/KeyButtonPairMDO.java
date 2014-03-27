@@ -16,6 +16,8 @@ import net.wombatrpgs.mgns.core.HeadlessSchema;
 @ExcludeFromTree
 public class KeyButtonPairMDO extends HeadlessSchema {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Desc("Keycode - from libgdx's input.keys static stuff, use a wizard for this")
 	public GdxKey keyCode;
 	

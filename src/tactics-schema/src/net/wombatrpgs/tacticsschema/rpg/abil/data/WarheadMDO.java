@@ -15,4 +15,6 @@ import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
 @ExcludeFromTree
 public class WarheadMDO extends MainSchema {
 
+	private static final long serialVersionUID = 1L;
+
 }

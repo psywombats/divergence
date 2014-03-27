@@ -20,6 +20,8 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("test/")
 public class TextBoxTestMDO extends MainSchema {
 	
+	private static final long serialVersionUID = 1L;
+
 	public TestState enabled;
 	
 	@Desc("Text box to display")

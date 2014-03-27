@@ -22,6 +22,8 @@ import net.wombatrpgs.tacticsschema.rpg.data.StatSetMDO;
 @Path("rpg/")
 public class GameUnitMDO extends MainSchema {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Desc("Name - in-game name displayed to player")
 	@DefaultValue("")
 	public String name;

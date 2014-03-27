@@ -17,6 +17,7 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 @Path("graphics/effects/")
 public class AbilFxTestMDO extends AbilFxMDO {
 	
+	private static final long serialVersionUID = 1L;
 	@Desc("Graphic to display on top of actor")
 	@FileLink("textures")
 	public String graphic;

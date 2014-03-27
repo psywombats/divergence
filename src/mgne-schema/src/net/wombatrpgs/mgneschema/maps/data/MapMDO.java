@@ -20,6 +20,8 @@ import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 @ExcludeFromTree
 public class MapMDO extends MainSchema {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Desc("Effect - graphical effect that plays on map, or none")
 	@SchemaLink(EffectMDO.class)
 	@Nullable

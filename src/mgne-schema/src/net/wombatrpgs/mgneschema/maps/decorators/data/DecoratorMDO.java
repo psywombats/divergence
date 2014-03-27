@@ -16,4 +16,6 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @ExcludeFromTree
 public class DecoratorMDO extends MainSchema {
 
+	private static final long serialVersionUID = 1L;
+
 }

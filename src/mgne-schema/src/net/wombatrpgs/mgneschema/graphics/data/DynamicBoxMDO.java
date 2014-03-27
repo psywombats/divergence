@@ -17,6 +17,8 @@ import net.wombatrpgs.mgns.core.HeadlessSchema;
  */
 public class DynamicBoxMDO extends HeadlessSchema {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Desc("X-coord of upper left corner of hitbox")
 	public Integer x1;
 	

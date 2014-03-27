@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.mgne.io;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,8 +35,11 @@ import com.badlogic.gdx.InputProcessor;
  * Changed on 2014-01-21, contains a lot more functionality for key repeat.
  */
 public class Keymap implements	InputProcessor,
-								Updateable {
+								Updateable,
+								Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	protected KeymapMDO mdo;
 	
 	protected List<ButtonListener> listeners;

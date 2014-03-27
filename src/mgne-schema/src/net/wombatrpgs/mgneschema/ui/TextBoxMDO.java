@@ -21,6 +21,8 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("ui/")
 public class TextBoxMDO extends MainSchema {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Desc("Anchor type - where this displays on page")
 	public BoxAnchorType anchor;
 	
