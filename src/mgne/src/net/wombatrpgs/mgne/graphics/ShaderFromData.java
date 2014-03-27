@@ -23,8 +23,8 @@ public class ShaderFromData extends ShaderProgram {
 	 * @param 	mdo				The data to construct from
 	 */
 	public ShaderFromData(ShaderMDO mdo) {
-		super(	MGlobal.fileLoader.getText(Constants.SHADERS_DIR + mdo.vertexFile),
-				MGlobal.fileLoader.getText(Constants.SHADERS_DIR + mdo.fragmentFile));
+		super(	MGlobal.files.getText(Constants.SHADERS_DIR + mdo.vertexFile),
+				MGlobal.files.getText(Constants.SHADERS_DIR + mdo.fragmentFile));
 		if (!isCompiled()) {
 			MGlobal.reporter.warn("Bad shader:\n" + getLog());
 		}

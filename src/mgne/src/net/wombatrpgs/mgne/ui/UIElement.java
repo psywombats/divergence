@@ -30,7 +30,7 @@ public abstract class UIElement extends ScreenObject {
 	 * not use this for huge things.
 	 */
 	public void loadAssets() {
-		MGlobal.assetLoader.loadAssets(assets, "assets ("+this+")");
+		MGlobal.assets.loadAssets(assets, "assets ("+this+")");
 	}
 
 	/**

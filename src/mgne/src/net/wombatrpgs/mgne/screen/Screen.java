@@ -345,12 +345,21 @@ public abstract class Screen implements CommandListener,
 			if (listener.onCommand(command)) return true;
 		}
 		switch (command) {
+		
 		case GLOBAL_FULLSCREEN:
 			Gdx.graphics.setDisplayMode(
 					MGlobal.window.getResolutionWidth(), 
 					MGlobal.window.getResolutionHeight(), 
 					!Gdx.graphics.isFullscreen());
 			return true;
+//		case WORLD_PAUSE:
+//			MGlobal.memory.save(Memory.saveToPath("debug"));
+//			MGlobal.reporter.inform("Next integer is " + MGlobal.rand.nextInt());
+//			return true;
+//		case WORLD_PAUSE:
+//			Memory.load(Memory.saveToPath("debug"));
+//			MGlobal.reporter.inform("Next integer is " + MGlobal.rand.nextInt());
+//			return true;
 		default:
 			return false;
 		}
@@ -398,7 +407,7 @@ public abstract class Screen implements CommandListener,
 	 * the constructor.
 	 */
 	public final void init() {
-		MGlobal.assetLoader.loadAsset(this, "screen " + this);
+		MGlobal.assets.loadAsset(this, "screen " + this);
 		initialized = true;
 	}
 	

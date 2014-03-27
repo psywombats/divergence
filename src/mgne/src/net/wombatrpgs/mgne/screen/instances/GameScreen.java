@@ -66,8 +66,8 @@ public class GameScreen extends Screen {
 		shaderMDO = MGlobal.data.getEntryFor("test_shader", ShaderTestMDO.class);
 		if (shaderMDO.enabled == TestState.ENABLED) {
 			testShader = new ShaderProgram(
-					MGlobal.fileLoader.getText(Constants.SHADERS_DIR + shaderMDO.vertexFile),
-					MGlobal.fileLoader.getText(Constants.SHADERS_DIR + shaderMDO.fragmentFile));
+					MGlobal.files.getText(Constants.SHADERS_DIR + shaderMDO.vertexFile),
+					MGlobal.files.getText(Constants.SHADERS_DIR + shaderMDO.fragmentFile));
 			batch.setShader(testShader);
 			mapShader = (testShader);
 		}
@@ -98,14 +98,12 @@ public class GameScreen extends Screen {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-//		if (super.onCommand(command)) return true;
-//		switch (command) {
-//			// any engine-wide game commands go here... there aren't any, haha
-//		default:
-//			return hero.onCommand(command);
-//		}
-		// changed otherwise subclasses would have no control, only hero
-		return super.onCommand(command);
+		if (super.onCommand(command)) return true;
+		switch (command) {
+			// engine-wide commands go here
+		default:
+			return false;
+		}
 	}
 
 	/**

@@ -43,7 +43,7 @@ public class TGlobal {
 		initParty();
 		
 		// load all this crap
-		MGlobal.assetLoader.loadAssets(toLoad, "tactics global");
+		MGlobal.assets.loadAssets(toLoad, "tactics global");
 		
 	}
 	

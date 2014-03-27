@@ -47,8 +47,8 @@ public class TacticsScreen extends GameScreen {
 	@Override
 	public boolean onCommand(InputCommand command) {
 		if (super.onCommand(command)) return true;
-		if (command == InputCommand.WORLD_PAUSE) {
-			// TODO: tactics: hack to switch to tactics
+		switch (command) {
+		case WORLD_INTERACT:
 			if (inTacticsMode) {
 				removeUChild(battle);
 				battle.stopBattle();
@@ -56,15 +56,17 @@ public class TacticsScreen extends GameScreen {
 				battle = new Battle(MGlobal.levelManager.getActive());
 				addUChild(battle);
 				battle.addParty();
-				MGlobal.assetLoader.loadAsset(battle, "battle");
+				MGlobal.assets.loadAsset(battle, "battle");
 				battle.startBattle();
 			}
-		}
-		if (inTacticsMode) {
-			// I hope the battle knows what to do!
-			return battle.onCommand(command);
-		} else {
-			return MGlobal.getHero().onCommand(command);	
+			return true;
+		default:
+			if (inTacticsMode) {
+				// I hope the battle knows what to do!
+				return battle.onCommand(command);
+			} else {
+				return MGlobal.getHero().onCommand(command);	
+			}
 		}
 	}
 

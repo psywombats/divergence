@@ -17,7 +17,7 @@ import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.core.interfaces.Reporter;
 import net.wombatrpgs.mgne.core.lua.Lua;
 import net.wombatrpgs.mgne.graphics.GraphicsSettings;
-import net.wombatrpgs.mgne.io.FileLoader;
+import net.wombatrpgs.mgne.io.MFiles;
 import net.wombatrpgs.mgne.io.Keymap;
 import net.wombatrpgs.mgne.maps.LevelManager;
 import net.wombatrpgs.mgne.screen.ScreenStack;
@@ -51,8 +51,8 @@ public class MGlobal {
 	public static Constants constants;
 	
 	/** Loaders */
-	public static MAssets assetLoader;
-	public static FileLoader fileLoader;
+	public static MAssets assets;
+	public static MFiles files;
 	private static List<Queueable> toLoad;
 	
 	/** Settings from the user */
@@ -74,7 +74,7 @@ public class MGlobal {
 		try {
 			long startTime = System.currentTimeMillis();
 			MGlobal.reporter.inform("Initialized error reporting");
-			MGlobal.assetLoader = new MAssets();
+			MGlobal.assets = new MAssets();
 			MGlobal.reporter.inform("Initializing primary globals");
 			long seed = System.currentTimeMillis();
 			MGlobal.rand = new Random(seed);
@@ -83,9 +83,9 @@ public class MGlobal {
 			
 			// load up data marked essential, this will always be ugly
 			MGlobal.reporter.inform("Loading essential data");
-			MGlobal.data.queueData(assetLoader, Constants.PRELOAD_SCHEMA);
+			MGlobal.data.queueData(assets, Constants.PRELOAD_SCHEMA);
 			long assetStart = System.currentTimeMillis();
-			assetLoader.finishLoading();
+			assets.finishLoading();
 			long assetEnd = System.currentTimeMillis();
 			float assetElapsed = (assetEnd - assetStart) / 1000f;
 			MGlobal.reporter.inform("Finished loading essential data, " +
@@ -96,16 +96,16 @@ public class MGlobal {
 			MGlobal.reporter.inform("Intializing secondary globals");
 			MGlobal.constants = new Constants();
 			MGlobal.screens = new ScreenStack();
-			MGlobal.fileLoader = new FileLoader();
+			MGlobal.files = new MFiles();
 //			SGlobal.tiles = new TileManager();
 			MGlobal.levelManager = new LevelManager();
 			
 			// load secondary data
 			// TODO: polish: load with a loading bar
 			MGlobal.reporter.inform("Loading secondary data");
-			MGlobal.data.queueFilesInDir(assetLoader, Gdx.files.internal(Constants.DATA_DIR));
+			MGlobal.data.queueFilesInDir(assets, Gdx.files.internal(Constants.DATA_DIR));
 			assetStart = System.currentTimeMillis();
-			assetLoader.finishLoading();
+			assets.finishLoading();
 			assetEnd = System.currentTimeMillis();
 			assetElapsed = (assetEnd - assetStart) / 1000f;
 			MGlobal.reporter.inform("Finished loading secondary data, " +
@@ -125,12 +125,12 @@ public class MGlobal {
 			MGlobal.lua = new Lua();
 			toLoad.add(ui);
 			toLoad.add(graphics);
-			assetLoader.loadAssets(toLoad, "primary global assets");
+			assets.loadAssets(toLoad, "primary global assets");
 			
 			// initializing graphics
 			MGlobal.reporter.inform("Creating level-dependant data");
 			toLoad.clear();
-			String result = fileLoader.getText(Constants.CONFIG_FILE);
+			String result = files.getText(Constants.CONFIG_FILE);
 			boolean fullscreen = result.indexOf("true") != -1;
 			Gdx.graphics.setDisplayMode(
 					MGlobal.window.getResolutionWidth(),
@@ -140,7 +140,7 @@ public class MGlobal {
 			Gdx.graphics.setTitle(MGlobal.window.getTitle());
 			//Gdx.graphics.setVSync(true);
 			
-			assetLoader.loadAssets(toLoad, "level assets");
+			assets.loadAssets(toLoad, "level assets");
 			
 			initialized = true;
 			long endTime = System.currentTimeMillis();

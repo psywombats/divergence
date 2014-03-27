@@ -52,6 +52,7 @@ public class Keymap implements	InputProcessor,
 	 * Creates and intializes a new keymap.
 	 */
 	public Keymap(KeymapMDO mdo) {
+		this();
 		this.mdo = mdo;
 		queue = new ArrayList<InputEvent>();
 		listeners = new ArrayList<ButtonListener>();
@@ -67,6 +68,9 @@ public class Keymap implements	InputProcessor,
 			states.put(button, KeyState.UP);
 		}
 	}
+	
+	/** Constructor for Kryo */
+	private Keymap() { }
 	
 	/**
 	 * Creates the default keymap by checking the database for the MDO as

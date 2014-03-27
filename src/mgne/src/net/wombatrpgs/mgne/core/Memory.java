@@ -6,18 +6,15 @@
  */
 package net.wombatrpgs.mgne.core;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import net.wombatrpgs.mgne.io.Keymap;
+import com.badlogic.gdx.graphics.Color;
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.Serializer;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
 
 /**
  * I don't know, all of the switches and variables for the game? It's meant to
@@ -27,15 +24,14 @@ import net.wombatrpgs.mgne.io.Keymap;
  * 
  * This kind of neeeds to be fleshed out and made to persist.
  */
-public class Memory implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Memory {
 	
-	/** Actual game-global memory */
+	protected static Kryo kryo;
+	
+	/** Live memory */
 	protected Map<String, Boolean> switches;
 	
-	/** Stuff that only gets set during a write */
-	protected Keymap keymap;
+	/** Stuff to be serialized */
 	protected Random rand;
 	
 	
@@ -45,6 +41,21 @@ public class Memory implements Serializable {
 	 */
 	public Memory() {
 		switches = new HashMap<String, Boolean>();
+		
+		kryo = new Kryo();
+		// registration copied from libgdx wiki
+
+		kryo.register(Color.class, new Serializer<Color>() {
+			public Color read(Kryo kryo, Input input, Class<Color> type) {
+				Color color = new Color();
+				Color.rgba8888ToColor(color, input.readInt());
+				return color;
+			}
+
+			public void write(Kryo kryo, Output output, Color color) {
+				output.writeInt(Color.rgba8888(color));
+			}
+		});
 	}
 	
 	/**
@@ -68,53 +79,51 @@ public class Memory implements Serializable {
 	}
 	
 	/**
-	 * Writes this save data to a file.
-	 * @param	out				The save file (assumed to exist)
+	 * Formats the save file name for a given save name.
+	 * @param	saveName		The human name of the save file
+	 * @return					The appropriate file path to that save file
 	 */
-	public void save(File savefile) {
-		try {
-			FileOutputStream stream = new FileOutputStream(savefile);
-			ObjectOutputStream writer = new ObjectOutputStream(stream);
-			
-			// store all objects in memory in this object
-			storeFields();
-			
-			writer.writeObject(this);
-			writer.close();
-			stream.close();
-		} catch (IOException e) {
-			MGlobal.reporter.err(e);
-		}
+	public static String saveToPath(String saveName) {
+		return Constants.SAVES_DIR + saveName + Constants.SAVES_SUFFIX;
+	}
+	
+	/**
+	 * Writes this save data to a file.
+	 * @param	fileName		The name of the file to write to
+	 */
+	public void save(String fileName) {
+		MGlobal.reporter.inform("Saving to " + fileName);
+		Output output = new Output(MGlobal.files.getOuputStream(fileName));
+		
+		// store all objects in memory in this object
+		storeFields();
+		
+		kryo.writeObject(output, this);
+		output.close();
+		MGlobal.reporter.inform("Save complete.");
 	}
 	
 	/**
 	 * Loads memory from a file. Has a bunch of side effects on the global
 	 * object as it overwrites saved global values.
-	 * @param	savefile		The save file (assumed to exist)
+	 * @param	savefile		The name of the file to read from
 	 */
-	public static void load(File savefile) {
-		try {
-			FileInputStream stream = new FileInputStream(savefile);
-			ObjectInputStream reader = new ObjectInputStream(stream);
-			MGlobal.memory = (Memory) reader.readObject();
-			
-			// write all stored objects to global etc
-			MGlobal.memory.unloadFields();
-			
-			reader.close();
-			stream.close();
-		} catch (IOException e) {
-			MGlobal.reporter.err(e);
-		} catch (ClassNotFoundException e) {
-			MGlobal.reporter.err(e);
-		}
+	public static void load(String fileName) {
+		MGlobal.reporter.inform("Loading from " + fileName);
+		Input input = new Input(MGlobal.files.getInputStream(fileName));
+		MGlobal.memory = kryo.readObject(input, Memory.class);
+		
+		// write all stored objects to global etc
+		MGlobal.memory.unloadFields();
+		
+		input.close();
+		MGlobal.reporter.inform("Load complete.");
 	}
 	
 	/**
 	 * Performs the messy part of copying stuff from global into the save.
 	 */
 	protected void storeFields() {
-		keymap = MGlobal.keymap;
 		rand = MGlobal.rand;
 	}
 
@@ -122,7 +131,6 @@ public class Memory implements Serializable {
 	 * The other messy method, copies from this save into global.
 	 */
 	protected void unloadFields() {
-		MGlobal.keymap = keymap;
 		MGlobal.rand = rand;
 	}
 }

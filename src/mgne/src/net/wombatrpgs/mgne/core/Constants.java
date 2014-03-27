@@ -40,6 +40,11 @@ public class Constants {
 	public static final String TEXTURES_DIR = RESOURCE_DIR + "textures/";
 	public static final String ITEMS_DIR = RESOURCE_DIR + "items/";
 	
+	/** Save file information */
+	public static final String SAVES_DIR = "saves/";
+	public static final String SAVES_PREFIX = "save";
+	public static final String SAVES_SUFFIX = ".sav";
+	
 	/** Keys for the unique MDOs in the database */
 	public static final String KEY_WINDOW = "window_data";
 	public static final String KEY_GRAPHICS = "graphics_default";
@@ -55,6 +60,7 @@ public class Constants {
 	
 	/** Strings could be null or else this */
 	public static final String NULL_MDO = "None";
+	
 	/** I honestly forget but this seems like a no-brainer */
 	protected static final char SEPERATOR_CHAR = ';';
 	

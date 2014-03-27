@@ -73,7 +73,7 @@ public class LevelManager {
 	 * @return				The map, either gen'd or stored
 	 */
 	public Level getLevel(String mapID) {
-		return getLevel(mapID, MGlobal.assetLoader);
+		return getLevel(mapID, MGlobal.assets);
 	}
 	
 

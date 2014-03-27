@@ -12,5 +12,10 @@
 			<attribute name="javadoc_location" value="file:/C:/Users/aking_2/Desktop/portable_executables/luaj-3.0-beta2/docs/api/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/kryo-2.23.0.jar" sourcepath="C:/Users/aking_2/Desktop/portable_executables/kryo-2.23.0/src.zip"/>
+	<classpathentry kind="lib" path="lib/asm-4.0.jar"/>
+	<classpathentry kind="lib" path="lib/minlog-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/objenesis-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/reflectasm-1.07.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
