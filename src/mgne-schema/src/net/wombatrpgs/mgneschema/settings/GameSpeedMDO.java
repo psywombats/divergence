@@ -16,8 +16,6 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("settings/")
 public class GameSpeedMDO extends MainSchema {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Desc("Target render rate, in frames per second. At rates lower than " +
 			"this, the game will slow down.")
 	public Integer framerate;

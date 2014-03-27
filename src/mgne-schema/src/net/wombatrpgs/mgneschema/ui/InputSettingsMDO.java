@@ -18,7 +18,6 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("settings/")
 public class InputSettingsMDO extends MainSchema {
 	
-	private static final long serialVersionUID = 1L;
 	@Desc("Default keymap")
 	@SchemaLink(KeymapMDO.class)
 	public String keymap;

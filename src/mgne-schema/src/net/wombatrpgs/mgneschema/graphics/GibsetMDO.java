@@ -17,8 +17,6 @@ import net.wombatrpgs.mgns.core.Annotations.FileLink;
 @Path("graphics/")
 public class GibsetMDO extends MainSchema {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Desc("Image file - gibset, should be png")
 	@FileLink("sprites")
 	public String file;

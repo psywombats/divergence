@@ -14,8 +14,6 @@ import net.wombatrpgs.mgns.core.MainSchema;
  */
 @ExcludeFromTree
 public class EffectMDO extends MainSchema {
-
-	private static final long serialVersionUID = 1L;
 	
 	// uhhhhhhh effects don't have a whole lot in common so yeah what
 

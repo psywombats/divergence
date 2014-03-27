@@ -16,6 +16,4 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @ExcludeFromTree
 public class DirMDO extends MainSchema {
 
-	private static final long serialVersionUID = 1L;
-
 }

@@ -22,8 +22,6 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("settings/")
 public class UISettingsMDO extends MainSchema {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Desc("Default font")
 	@SchemaLink(FontMDO.class)
 	public String font;

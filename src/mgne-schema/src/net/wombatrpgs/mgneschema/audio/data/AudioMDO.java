@@ -19,8 +19,6 @@ import net.wombatrpgs.mgns.core.Annotations.FileLink;
 @ExcludeFromTree
 public class AudioMDO extends MainSchema {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Desc("File - actual data file, mp3, ogg, wav all supported")
 	@FileLink("audio")
 	public String file;

@@ -18,8 +18,6 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("test/")
 public class ShaderTestMDO extends MainSchema {
 	
-	private static final long serialVersionUID = 1L;
-
 	public TestState enabled;
 	
 	@Desc("Vertex shader")

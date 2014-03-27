@@ -18,8 +18,6 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("maps/")
 public class WallTilesMDO extends MainSchema {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Desc("Bottom tile")
 	@InlineSchema(TileMDO.class)
 	public TileMDO b;

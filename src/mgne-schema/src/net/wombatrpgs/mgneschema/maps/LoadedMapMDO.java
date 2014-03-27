@@ -18,7 +18,6 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 @Path("maps/")
 public class LoadedMapMDO extends MapMDO {
 	
-	private static final long serialVersionUID = 1L;
 	@Desc(".tmx file to load from")
 	@FileLink("maps")
 	public String file;

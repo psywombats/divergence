@@ -16,7 +16,6 @@ import net.wombatrpgs.tacticsschema.rpg.abil.data.WarheadMDO;
 @Path("rpg/ability/")
 public class WarMeleeMDO extends WarheadMDO {
 	
-	private static final long serialVersionUID = 1L;
 	@Desc("Power - base damage of this attack")
 	public Integer power;
 

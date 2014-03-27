@@ -17,8 +17,6 @@ import net.wombatrpgs.mgns.core.Annotations.FileLink;
 @Path("graphics/")
 public class ShaderMDO extends MainSchema {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Desc("Vertex shader")
 	@FileLink("shaders")
 	public String vertexFile;

@@ -18,7 +18,6 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("test/")
 public class SpriteRenderTestMDO extends MainSchema {
 	
-	private static final long serialVersionUID = 1L;
 	@Desc("The animation to play on the test map")
 	@SchemaLink(AnimationMDO.class)
 	public String anim;

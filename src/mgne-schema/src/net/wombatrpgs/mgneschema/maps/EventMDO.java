@@ -21,8 +21,6 @@ import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 @Path("events/")
 public class EventMDO extends MainSchema {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Desc("Animation - what this event looks like, or null for invisible")
 	@SchemaLink(DirMDO.class)
 	@DefaultValue("")

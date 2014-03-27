@@ -18,8 +18,6 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("ui/")
 public class CursorMDO extends MainSchema {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Desc("Appearance")
 	@SchemaLink(DirMDO.class)
 	public String appearance;

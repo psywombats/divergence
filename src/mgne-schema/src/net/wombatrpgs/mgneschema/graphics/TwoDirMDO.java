@@ -16,8 +16,6 @@ import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 @Path("graphics/")
 public class TwoDirMDO extends DirMDO {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Desc("Right-facing animation")
 	@SchemaLink(AnimationMDO.class)
 	public String rightAnim;

@@ -16,8 +16,6 @@ import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
 @ExcludeFromTree
 public class SingleDecoratorMDO extends DecoratorMDO {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Desc("Probabililty this decoration will trigger, 0 is never 1 is always")
 	public Float chance;
 	

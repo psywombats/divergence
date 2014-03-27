@@ -18,8 +18,6 @@ import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 @Path("maps/")
 public class GeneratedMapMDO extends MapMDO {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Desc("Generator - The algorithm that will be used to generate this map")
 	@SchemaLink(MapGeneratorMDO.class)
 	public String generator;

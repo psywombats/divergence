@@ -15,8 +15,6 @@ import net.wombatrpgs.mgns.core.Annotations.*;
 @Path("settings/")
 public class WindowSettingsMDO extends MainSchema {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Desc("Window title")
 	public String windowName;
 	

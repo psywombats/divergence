@@ -19,8 +19,6 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("graphics/")
 public class GraphicsSettingsMDO extends MainSchema {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Desc("Chunking - (advanced) enables/disables the character order rendering algorithm")
 	public EffectEnabledType chunkingEnabled;
 	

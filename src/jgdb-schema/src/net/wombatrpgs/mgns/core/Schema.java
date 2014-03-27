@@ -6,8 +6,6 @@
  */
 package net.wombatrpgs.mgns.core;
 
-import java.io.Serializable;
-
 import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
 
 /**
@@ -16,8 +14,6 @@ import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
  * that get packed into savefiles.
  */
 @ExcludeFromTree
-public class Schema implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Schema {
 
 }

@@ -17,8 +17,6 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("settings/")
 public class TeleportSettingsMDO extends MainSchema {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Desc("Pre-scene - will play before all teleports, shouldn't contain event references")
 	@FileLink("scenes")
 	public String pre;

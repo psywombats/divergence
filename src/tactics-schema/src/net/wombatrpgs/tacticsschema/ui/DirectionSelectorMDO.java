@@ -17,8 +17,6 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("ui/")
 public class DirectionSelectorMDO extends MainSchema {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Desc("Four dir selector - overlay displays when requesting 4dir")
 	@FileLink("ui")
 	public String orthoDir;

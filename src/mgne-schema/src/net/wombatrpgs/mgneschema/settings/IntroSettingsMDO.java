@@ -18,7 +18,6 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("settings/")
 public class IntroSettingsMDO extends MainSchema {
 	
-	private static final long serialVersionUID = 1L;
 	@Desc("Map - the map that things open on, usually a blank screen with the hero on it")
 	@SchemaLink(MapMDO.class)
 	public String map;

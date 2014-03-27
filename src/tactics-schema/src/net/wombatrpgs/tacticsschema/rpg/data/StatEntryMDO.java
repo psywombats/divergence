@@ -13,8 +13,6 @@ import net.wombatrpgs.mgns.core.HeadlessSchema;
  */
 public class StatEntryMDO extends HeadlessSchema {
 	
-	private static final long serialVersionUID = 1L;
-
 	public Stat stat;
 	
 	public Float value;

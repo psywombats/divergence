@@ -22,8 +22,6 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 @Path("maps/")
 public class MapGeneratorMDO extends MainSchema {
 	
-	private static final long serialVersionUID = 1L;
-
 	@Desc("Floor tile(s)")
 	@InlineSchema(TileMDO.class)
 	public TileMDO floorTiles;

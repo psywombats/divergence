@@ -15,8 +15,6 @@ import net.wombatrpgs.mgns.core.Annotations.*;
 @ExcludeFromTree
 public class MainSchema extends Schema {
 	
-	private static final long serialVersionUID = 1L;
-
 	@DisplayName("Key")
 	@Desc("The key of this object used in code -- don't change these!")
 	@Header
