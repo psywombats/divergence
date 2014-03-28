@@ -1,9 +1,11 @@
 {
 	"key" : "default_ui",
 	"subfolder" : "",
-	"name" : "   ",
+	"name" : "",
 	"description" : " MGNE looks for this MDO by key ",
 	"font" : "font_sagaf",
 	"box" : "textbox_test",
-	"icons" : "iconset_default"
+	"icons" : "iconset_default",
+	"nineslice" : "nineslice_ffl",
+	"cursor" : "ffl_nineslice.png"
 }

@@ -6,11 +6,24 @@
  */
 package net.wombatrpgs.saga.core;
 
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.MgnGame;
+import net.wombatrpgs.mgne.screen.Screen;
+import net.wombatrpgs.saga.screen.WorldScreen;
 
 /**
  * One day, this class will tell MGNE how to run Saga.
  */
 public class SagaGame extends MgnGame {
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.MgnGame#makeStarterScreen()
+	 */
+	@Override
+	public Screen makeStarterScreen() {
+		WorldScreen screen = new WorldScreen();
+		MGlobal.assets.loadAsset(screen, "world screen");
+		return screen;
+	}
 
 }

@@ -4,7 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jgdb-schema"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/mgne-schema"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/saga-desktop"/>
 	<classpathentry kind="src" path="/jgdbe"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

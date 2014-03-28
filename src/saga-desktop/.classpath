@@ -8,5 +8,7 @@
 	<classpathentry kind="lib" path="lib/gdx-backend-lwjgl.jar" sourcepath="lib/gdx-backend-lwjgl-sources.jar"/>
 	<classpathentry kind="lib" path="lib/gdx-natives.jar"/>
 	<classpathentry kind="lib" path="/mgne/lib/gdx.jar" sourcepath="/mgne/lib/gdx-sources.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/mgne-schema"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/saga-schema"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
