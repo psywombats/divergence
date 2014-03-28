@@ -87,10 +87,6 @@ public class GameScreen extends Screen {
 			assets.add(box);
 			addObject(box);
 		}
-		
-		// will be called later
-		// normally
-		init();
 	}
 	
 	/**

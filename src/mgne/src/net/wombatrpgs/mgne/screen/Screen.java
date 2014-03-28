@@ -69,8 +69,6 @@ public abstract class Screen implements CommandListener,
 	protected List<ScreenObject> screenObjects;
 	protected Stack<CommandListener> commandListeners;
 	protected Stack<CommandMap> commandContext;
-	
-	protected boolean initialized;
 
 	
 	/**
@@ -88,7 +86,6 @@ public abstract class Screen implements CommandListener,
 		addChildren = new ArrayList<Updateable>();
 		screenObjects = new ArrayList<ScreenObject>();
 		
-		initialized = false;
 		mapShader = null;
 		tint = new Color(1, 1, 1, 1);
 		cam = new TrackerCam(MGlobal.window.getWidth(), MGlobal.window.getHeight());
@@ -207,9 +204,6 @@ public abstract class Screen implements CommandListener,
 	 * The root of all evil. We supply the camera.
 	 */
 	public void render() {
-		if (!initialized) {
-			MGlobal.reporter.warn("Forgot to intialize screen " + this);
-		}
 		cam.update(0);
 		batch.setProjectionMatrix(cam.combined);
 		WindowSettings window = MGlobal.window;
@@ -398,15 +392,6 @@ public abstract class Screen implements CommandListener,
 			MGlobal.reporter.warn("Tried to remove non-existant picture from "
 					+ "screen: " + screenObject);
 		}
-	}
-
-	/**
-	 * Run some final safety checks and finish initialization. Call once during
-	 * the constructor.
-	 */
-	public final void init() {
-		MGlobal.assets.loadAsset(this, "screen " + this);
-		initialized = true;
 	}
 	
 	/**

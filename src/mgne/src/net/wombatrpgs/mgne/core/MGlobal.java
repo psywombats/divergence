@@ -136,6 +136,7 @@ public class MGlobal {
 					MGlobal.window.getResolutionHeight(), 
 					fullscreen);
 			MGlobal.screens.push(game.makeStarterScreen());
+			toLoad.add(MGlobal.screens.peek());
 			Gdx.graphics.setTitle(MGlobal.window.getTitle());
 			//Gdx.graphics.setVSync(true);
 			

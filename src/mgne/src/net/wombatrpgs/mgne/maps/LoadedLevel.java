@@ -39,9 +39,6 @@ public class LoadedLevel extends Level {
 	protected transient TiledMap map;
 	protected transient OrthogonalTiledMapRenderer renderer;
 	protected String mapPath;
-	
-	protected List<MapThing> loadedObjects;
-	protected EventLayer loadedEvents;
 
 	/**
 	 * Creates a loaded level for a given data for level and screen. This sets
@@ -52,22 +49,11 @@ public class LoadedLevel extends Level {
 	 */
 	public LoadedLevel(LoadedMapMDO mdo, Screen screen) {
 		super(mdo, screen);
-		eventLayer = new EventLayer(this);
 		mapPath = Constants.MAPS_DIR + mdo.file;
 	}
 	
-	/**
-	 * Kryo constructor. Replaces contents with what was stored in memory.
-	 * @param	mdo				The data to set up loading for
-	 * @param	screen			The screen to make a level for
-	 * @param	contents		The objects to replace with
-	 * @param	events			The event layer to replace with
-	 */
-	public LoadedLevel(LoadedMapMDO mdo, Screen screen, 
-			List<MapThing> contents, EventLayer events) {
-		this(mdo, screen);
-		this.loadedObjects = contents;
-	}
+	/** Kryo constructor */
+	protected LoadedLevel() { }
 	
 	/** @return The class used to render this level */
 	public OrthogonalTiledMapRenderer getRenderer() { return renderer; }
@@ -138,6 +124,7 @@ public class LoadedLevel extends Level {
 		mapHeight = map.getProperties().get("height", Integer.class);
 	
 		// get the layers
+		gridLayers.clear();
 		boolean generatedEventLayer = false;
 		for (MapLayer layer : map.getLayers()) {
 			// screw you libgdx this casting should /not/ be standard
@@ -146,16 +133,14 @@ public class LoadedLevel extends Level {
 			} else {
 				if (generatedEventLayer) {
 					MGlobal.reporter.warn("Multiple event layers on map: " + this);
-				} else if (loadedObjects == null) {
+				} else if (eventLayer == null) {
 					generatedEventLayer = true;
+					eventLayer = new EventLayer(this);
 					for (MapObject object : layer.getObjects()) {
 						EventFactory.createAndPlace(new TiledMapObject(this, object));
 					}
 				}
 			}
-		}
-		if (loadedEvents != null) {
-			eventLayer = loadedEvents;
 		}
 		eventLayer.queueRequiredAssets(manager);
 	}

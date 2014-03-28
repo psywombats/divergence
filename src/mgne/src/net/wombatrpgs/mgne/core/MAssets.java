@@ -56,8 +56,8 @@ public class MAssets extends AssetManager {
 			float assetStart = System.currentTimeMillis();
 			finishLoading();
 			float assetEnd = System.currentTimeMillis();
-			float assetElapsed = (assetEnd - assetStart) / 1000f;
 			for (Queueable q : toLoad) q.postProcessing(this, pass);
+			float assetElapsed = (assetEnd - assetStart) / 1000f;
 			MGlobal.reporter.inform("Loading " + name + " p " + pass + ", " + assetElapsed + "s");
 		}
 		if (pass == 0) {

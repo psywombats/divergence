@@ -52,8 +52,6 @@ public class TestScreen extends Screen {
 		defaultFont = new BitmapFont();
 		batch = new SpriteBatch();
 		cam.track(MGlobal.getHero());
-		
-		init();
 	}
 
 	/**

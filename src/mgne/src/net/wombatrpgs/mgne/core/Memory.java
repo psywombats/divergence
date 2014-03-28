@@ -7,19 +7,13 @@
 package net.wombatrpgs.mgne.core;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import net.wombatrpgs.mgne.io.Keymap;
-import net.wombatrpgs.mgne.maps.LoadedLevel;
-import net.wombatrpgs.mgne.maps.MapThing;
 import net.wombatrpgs.mgne.maps.Positionable;
-import net.wombatrpgs.mgne.maps.layers.EventLayer;
-import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.ScreenStack;
 import net.wombatrpgs.mgne.screen.TrackerCam;
-import net.wombatrpgs.mgneschema.maps.LoadedMapMDO;
 
 import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
@@ -87,27 +81,6 @@ public class Memory {
 				float s = input.readFloat();
 				Positionable target = (Positionable) kryo.readClassAndObject(input);
 				return new TrackerCam(w, h, target, s);
-			}
-		});
-		kryo.register(LoadedLevel.class, new Serializer<LoadedLevel>() {
-			@Override
-			public void write(Kryo kryo, Output output, LoadedLevel object) {
-				output.writeString(object.getKey());
-				kryo.writeClassAndObject(output, object.getScreen());
-				kryo.writeClassAndObject(output, object.getContents());
-				kryo.writeClassAndObject(output, object.getEventLayer());
-			}
-			@Override
-			public LoadedLevel read(Kryo kryo, Input input, Class<LoadedLevel> type) {
-				String key = input.readString();
-				Screen scr = (Screen) kryo.readClassAndObject(input);
-				@SuppressWarnings("unchecked") // guaranteed by protocol
-				List<MapThing> contents = (List<MapThing>) kryo.readClassAndObject(input);
-				EventLayer events = (EventLayer) kryo.readClassAndObject(input);
-				LoadedLevel level = new LoadedLevel(
-						MGlobal.data.getEntryFor(key, LoadedMapMDO.class),
-						scr, contents, events);
-				return level;
 			}
 		});
 	}
