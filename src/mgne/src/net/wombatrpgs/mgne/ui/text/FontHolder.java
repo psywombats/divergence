@@ -77,6 +77,17 @@ public class FontHolder implements Queueable {
 	}
 	
 	/**
+	 * Ugly drawing method. Really only used for debug purposes.
+	 * @param	batch			The batch to draw in context of
+	 * @param	text			The text to draw
+	 * @param	x				The x to draw at (in px)
+	 * @param	y				The y to draw at (in px)
+	 */
+	public void draw(SpriteBatch batch, String text, int x, int y) {
+		
+	}
+	
+	/**
 	 * Sets this font's alpha. 1 is full, 0 is transparent. Make sure to set
 	 * this to something reasonable when you're done.
 	 * @param	a				The new alpha value

@@ -53,7 +53,6 @@ public class MGlobal {
 	/** Loaders */
 	public static MAssets assets;
 	public static MFiles files;
-	private static List<Queueable> toLoad;
 	
 	/** Settings from the user */
 	public static UISettings ui;
@@ -92,7 +91,7 @@ public class MGlobal {
 					"elapsed time: " + assetElapsed + "seconds");
 			
 			// here on out, these may require essential data
-			toLoad = new ArrayList<Queueable>();
+			List<Queueable> toLoad = new ArrayList<Queueable>();
 			MGlobal.reporter.inform("Intializing secondary globals");
 			MGlobal.constants = new Constants();
 			MGlobal.screens = new ScreenStack();

@@ -53,6 +53,7 @@ public class GameScreen extends Screen {
 		
 		IntroSettingsMDO introMDO=MGlobal.data.getEntryFor("default_intro", IntroSettingsMDO.class);
 		map = MGlobal.levelManager.getLevel(introMDO.map);
+		assets.add(map);
 		MGlobal.levelManager.setActive(map);
 		if (map.getBGM() != null) {
 			MGlobal.screens.playMusic(map.getBGM(), false);
@@ -114,7 +115,7 @@ public class GameScreen extends Screen {
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
 		
-		if (pass == 0) {
+		if (pass == 0 && hero.getParent() == null) {
 			hero.setTileX(2);
 			hero.setTileY(2);
 			while (!map.isTilePassable(hero.getTileX(), hero.getTileY())) {
@@ -125,8 +126,8 @@ public class GameScreen extends Screen {
 			hero.setX(hero.getTileX()*map.getTileWidth());
 			hero.setY(hero.getTileY()*map.getTileHeight());
 			getCamera().track(hero);
-			getCamera().update(0);
 		}
+		getCamera().update(0);
 	}
 	
 	/**
@@ -137,11 +138,9 @@ public class GameScreen extends Screen {
 		super.render();
 		batch.begin();
 		if (fpsMDO.enabled == TestState.ENABLED) {
-			float wr = MGlobal.window.getZoom();
-			float wh = MGlobal.window.getZoom();
-			defaultFont.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(),
-					cam.position.x - MGlobal.window.getWidth()/2*wh + 8,
-					cam.position.y + MGlobal.window.getHeight()/2*wr - 8);
+			MGlobal.ui.getFont().draw(batch,
+					"FPS: " + Gdx.graphics.getFramesPerSecond(),
+					8, 8);
 		}
 		batch.end();
 	}

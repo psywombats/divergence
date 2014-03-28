@@ -17,7 +17,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap.Format;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
@@ -25,6 +24,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.Memory;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.Disposable;
@@ -51,15 +51,17 @@ public abstract class Screen implements CommandListener,
 										ButtonListener {
 	
 	protected TrackerCam cam;
-	protected OrthographicCamera uiCam;
-	protected SpriteBatch batch;
-	protected SpriteBatch privateBatch;
-	protected SpriteBatch uiBatch;
+	protected transient OrthographicCamera uiCam;
+	
+	/** Graphics shit, reloaded new each time */
+	protected transient SpriteBatch batch;
+	protected transient SpriteBatch privateBatch;
+	protected transient SpriteBatch uiBatch;
+	protected transient FrameBuffer buffer, lastBuffer;
+	protected transient ShapeRenderer shapes;
+	
 	protected ShaderProgram mapShader;
-	protected FrameBuffer buffer, lastBuffer;
 	protected Color tint;
-	protected ShapeRenderer shapes;
-	protected BitmapFont defaultFont;
 	
 	protected List<Queueable> assets;
 	protected List<PostRenderable> postRenders;
@@ -88,29 +90,8 @@ public abstract class Screen implements CommandListener,
 		
 		initialized = false;
 		mapShader = null;
-		batch = new SpriteBatch();
-		privateBatch = new SpriteBatch();
-		uiBatch = new SpriteBatch();
-		buffer = new FrameBuffer(Format.RGB565, 
-				MGlobal.window.getWidth(),
-				MGlobal.window.getHeight(),
-				false);
-		lastBuffer = new FrameBuffer(Format.RGB565, 
-				MGlobal.window.getWidth(),
-				MGlobal.window.getHeight(),
-				false);
 		tint = new Color(1, 1, 1, 1);
-		shapes = new ShapeRenderer();
-		defaultFont = new BitmapFont();
 		cam = new TrackerCam(MGlobal.window.getWidth(), MGlobal.window.getHeight());
-		
-		uiCam = new OrthographicCamera();
-		uiCam.setToOrtho(false, MGlobal.window.getWidth(), MGlobal.window.getHeight());
-		uiCam.zoom = MGlobal.window.getZoom();
-		uiCam.position.x = MGlobal.window.getWidth() / 2;
-		uiCam.position.y = MGlobal.window.getHeight() / 2;
-		uiCam.update();
-		uiBatch.setProjectionMatrix(uiCam.combined);
 		
 		updateChildren.add(cam);
 		updateChildren.add(MGlobal.keymap);
@@ -312,6 +293,27 @@ public abstract class Screen implements CommandListener,
 		for (Queueable asset : assets) {
 			asset.postProcessing(manager, pass);
 		}
+		if (pass == 0) {
+			batch = new SpriteBatch();
+			privateBatch = new SpriteBatch();
+			uiBatch = new SpriteBatch();
+			buffer = new FrameBuffer(Format.RGB565, 
+					MGlobal.window.getWidth(),
+					MGlobal.window.getHeight(),
+					false);
+			lastBuffer = new FrameBuffer(Format.RGB565, 
+					MGlobal.window.getWidth(),
+					MGlobal.window.getHeight(),
+					false);
+			uiCam = new OrthographicCamera();
+			uiCam.setToOrtho(false, MGlobal.window.getWidth(), MGlobal.window.getHeight());
+			uiCam.zoom = MGlobal.window.getZoom();
+			uiCam.position.x = MGlobal.window.getWidth() / 2;
+			uiCam.position.y = MGlobal.window.getHeight() / 2;
+			uiCam.update();
+			uiBatch.setProjectionMatrix(uiCam.combined);
+			shapes = new ShapeRenderer();
+		}
 	}
 	
 	/**
@@ -352,14 +354,10 @@ public abstract class Screen implements CommandListener,
 					MGlobal.window.getResolutionHeight(), 
 					!Gdx.graphics.isFullscreen());
 			return true;
-//		case WORLD_PAUSE:
-//			MGlobal.memory.save(Memory.saveToPath("debug"));
-//			MGlobal.reporter.inform("Next integer is " + MGlobal.rand.nextInt());
-//			return true;
-//		case WORLD_PAUSE:
-//			Memory.load(Memory.saveToPath("debug"));
-//			MGlobal.reporter.inform("Next integer is " + MGlobal.rand.nextInt());
-//			return true;
+		case WORLD_PAUSE:
+			//MGlobal.memory.save(Memory.saveToPath("debug"));
+			MGlobal.memory.load(Memory.saveToPath("debug"));
+			return true;
 		default:
 			return false;
 		}

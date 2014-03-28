@@ -30,14 +30,12 @@ public class AnimationStrip implements 	Renderable,
 										PreRenderable {
 	
 	protected AnimationMDO mdo;
-	protected Animation anim;
 	protected MapEvent parent;
 	
-	protected Texture spritesheet;
-	protected TextureRegion[] frames;
-	protected TextureRegion currentFrame;
-	protected boolean queued;
-	protected boolean processed;
+	protected transient Animation anim;
+	protected transient Texture spritesheet;
+	protected transient TextureRegion[] frames;
+	protected transient TextureRegion currentFrame;
 	
 	protected float time;
 	protected float maxTime;
@@ -66,8 +64,6 @@ public class AnimationStrip implements 	Renderable,
 		if (mdo.hit1y == null) mdo.hit1y = 0;
 		if (mdo.hit2x == null) mdo.hit2x = mdo.frameWidth;
 		if (mdo.hit2y == null) mdo.hit2y = mdo.frameHeight;
-		queued = false;
-		processed = false;
 	}
 	
 	/**
@@ -78,6 +74,9 @@ public class AnimationStrip implements 	Renderable,
 	public AnimationStrip(AnimationMDO mdo) {
 		this(mdo, null);
 	}
+	
+	/** Kryo constructor */
+	protected AnimationStrip() { }
 	
 	/** @param bump Bump up animation time by some amount */
 	public void setBump(float bump) { this.bump = bump; }
@@ -108,9 +107,6 @@ public class AnimationStrip implements 	Renderable,
 	 */
 	@Override
 	public void update(float elapsed) {
-		if (!processed) {
-			MGlobal.reporter.err("Unprocessed strip: " + this + ", key: " + mdo.key);
-		}
 		if (moving) {
 			time += elapsed;
 		}
@@ -163,7 +159,6 @@ public class AnimationStrip implements 	Renderable,
 	@Override
 	public void queueRequiredAssets(AssetManager manager) {
 		manager.load(Constants.SPRITES_DIR + mdo.file, Texture.class);
-		queued = true;
 	}
 
 	/**
@@ -204,7 +199,6 @@ public class AnimationStrip implements 	Renderable,
 		} else {
 			MGlobal.reporter.err("Spritesheet not loaded: " + filename + " from " + this);
 		}
-		processed = true;
 		update(0);
 	}
 	

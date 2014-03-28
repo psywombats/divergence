@@ -86,6 +86,9 @@ public abstract class Level extends ScreenObject {
 		reseting = false;
 	}
 	
+	/** Kryo constructor */
+	protected Level() { }
+	
 	/** @return The batch used to render sprites on this map */
 	public SpriteBatch getBatch() { return MGlobal.levelManager.getScreen().getViewBatch(); }
 	

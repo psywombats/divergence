@@ -9,8 +9,10 @@ package net.wombatrpgs.mgne.screen;
 import java.util.Stack;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.graphics.Disposable;
 import net.wombatrpgs.mgne.io.ButtonListener;
 import net.wombatrpgs.mgne.io.InputEvent;
@@ -23,7 +25,8 @@ import net.wombatrpgs.mgne.io.audio.MusicObject;
  * of whatever the hell else is going on.
  */
 public class ScreenStack implements	Disposable,
-									ButtonListener {
+									ButtonListener,
+									Queueable {
 	
 	private Stack<Screen> screens;
 	protected MusicObject current, fadeOut;
@@ -44,6 +47,7 @@ public class ScreenStack implements	Disposable,
 			screen.dispose();
 		}
 		screens.clear();
+		MGlobal.keymap.unregisterListener(this);
 	}
 
 	/**
@@ -98,6 +102,28 @@ public class ScreenStack implements	Disposable,
 	@Override
 	public void onEvent(InputEvent event) {
 		peek().onEvent(event);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		for (Screen screen : screens) {
+			screen.queueRequiredAssets(manager);
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager, int pass) {
+		for (Screen screen : screens) {
+			screen.postProcessing(manager, pass);
+		}
 	}
 
 	/**

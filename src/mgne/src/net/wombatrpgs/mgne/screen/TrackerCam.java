@@ -28,6 +28,23 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 	protected FinishListener onPanFinish;
 	protected Level constrainedMap;
 	protected float speed; // in px/s
+	
+	/**
+	 * Creates a tracker cam with a given target and speed.
+	 * @param	viewportWidth	The width of the viewport for this cam
+	 * @param	viewportHeight	The height of the viewport for this cam
+	 * @param
+	 */
+	public TrackerCam(float viewportWidth, float viewportHeight,
+			Positionable target, float panSpeed) {
+		super(viewportWidth, viewportHeight);
+		this.speed = panSpeed;
+		this.target = target;
+		zoom = MGlobal.window.getZoom();
+		setToOrtho(false, 
+				viewportWidth,
+				viewportHeight);
+	}
 
 	/**
 	 * Same as the superclass constructor.
@@ -35,12 +52,7 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 	 * @param 	viewportHeight	The height of the viewport for this cam
 	 */
 	public TrackerCam(float viewportWidth, float viewportHeight) {
-		super(viewportWidth, viewportHeight);
-		setToOrtho(false, 
-				viewportWidth,
-				viewportHeight);
-		zoom = MGlobal.window.getZoom();
-		speed = DEFAULT_PAN_SPEED;
+		this(viewportWidth, viewportHeight, null, DEFAULT_PAN_SPEED);
 	}
 	
 	/**

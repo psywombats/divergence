@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.mgne.maps;
 
+import java.util.List;
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -34,9 +36,12 @@ public class LoadedLevel extends Level {
 	
 	protected static final String KEY_NAME = "name";
 	
-	protected TiledMap map;
-	protected OrthogonalTiledMapRenderer renderer;
+	protected transient TiledMap map;
+	protected transient OrthogonalTiledMapRenderer renderer;
 	protected String mapPath;
+	
+	protected List<MapThing> loadedObjects;
+	protected EventLayer loadedEvents;
 
 	/**
 	 * Creates a loaded level for a given data for level and screen. This sets
@@ -51,8 +56,27 @@ public class LoadedLevel extends Level {
 		mapPath = Constants.MAPS_DIR + mdo.file;
 	}
 	
+	/**
+	 * Kryo constructor. Replaces contents with what was stored in memory.
+	 * @param	mdo				The data to set up loading for
+	 * @param	screen			The screen to make a level for
+	 * @param	contents		The objects to replace with
+	 * @param	events			The event layer to replace with
+	 */
+	public LoadedLevel(LoadedMapMDO mdo, Screen screen, 
+			List<MapThing> contents, EventLayer events) {
+		this(mdo, screen);
+		this.loadedObjects = contents;
+	}
+	
 	/** @return The class used to render this level */
 	public OrthogonalTiledMapRenderer getRenderer() { return renderer; }
+	
+	/** @return All objects on this map, discouraged */
+	public List<MapThing> getContents() { return objects; }
+	
+	/** @return The event layer with all events on this map */
+	public EventLayer getEventLayer() { return eventLayer; }
 	
 	/**
 	 * @see net.wombatrpgs.mgne.screen.ScreenObject#queueRequiredAssets
@@ -122,12 +146,16 @@ public class LoadedLevel extends Level {
 			} else {
 				if (generatedEventLayer) {
 					MGlobal.reporter.warn("Multiple event layers on map: " + this);
-				} else {
+				} else if (loadedObjects == null) {
+					generatedEventLayer = true;
 					for (MapObject object : layer.getObjects()) {
 						EventFactory.createAndPlace(new TiledMapObject(this, object));
 					}
 				}
 			}
+		}
+		if (loadedEvents != null) {
+			eventLayer = loadedEvents;
 		}
 		eventLayer.queueRequiredAssets(manager);
 	}

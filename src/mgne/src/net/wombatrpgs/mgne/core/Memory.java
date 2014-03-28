@@ -7,8 +7,19 @@
 package net.wombatrpgs.mgne.core;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+import net.wombatrpgs.mgne.io.Keymap;
+import net.wombatrpgs.mgne.maps.LoadedLevel;
+import net.wombatrpgs.mgne.maps.MapThing;
+import net.wombatrpgs.mgne.maps.Positionable;
+import net.wombatrpgs.mgne.maps.layers.EventLayer;
+import net.wombatrpgs.mgne.screen.Screen;
+import net.wombatrpgs.mgne.screen.ScreenStack;
+import net.wombatrpgs.mgne.screen.TrackerCam;
+import net.wombatrpgs.mgneschema.maps.LoadedMapMDO;
 
 import com.badlogic.gdx.graphics.Color;
 import com.esotericsoftware.kryo.Kryo;
@@ -26,34 +37,77 @@ import com.esotericsoftware.kryo.io.Output;
  */
 public class Memory {
 	
-	protected static Kryo kryo;
+	/** Fields for the saving process */
+	protected transient Kryo kryo;
 	
 	/** Live memory */
 	protected Map<String, Boolean> switches;
 	
 	/** Stuff to be serialized */
 	protected Random rand;
+	protected ScreenStack screens;
+	protected Keymap keymap;
 	
 	
 	/**
 	 * Creates a new memory holder! This is great! It should also probably only
-	 * be called from SGlobal.
+	 * be called from MGlobal.
 	 */
 	public Memory() {
 		switches = new HashMap<String, Boolean>();
 		
 		kryo = new Kryo();
-		// registration copied from libgdx wiki
+		
+		// Now we need to register the custom serializers. This is mostly for
+		// data classes (texture, sound, etc) and immutables
 
+		// this one from libgdx wiki
 		kryo.register(Color.class, new Serializer<Color>() {
-			public Color read(Kryo kryo, Input input, Class<Color> type) {
+			@Override public Color read(Kryo kryo, Input input, Class<Color> type) {
 				Color color = new Color();
 				Color.rgba8888ToColor(color, input.readInt());
 				return color;
 			}
-
-			public void write(Kryo kryo, Output output, Color color) {
+			@Override public void write(Kryo kryo, Output output, Color color) {
 				output.writeInt(Color.rgba8888(color));
+			}
+		});
+		
+		// but these are mine
+		kryo.register(TrackerCam.class, new Serializer<TrackerCam>() {
+			@Override public void write(Kryo kryo, Output output, TrackerCam object) {
+				output.writeFloat(object.viewportWidth);
+				output.writeFloat(object.viewportHeight);
+				output.writeFloat(object.getPanSpeed());
+				kryo.writeClassAndObject(output, object.getTarget());
+			}
+			@Override public TrackerCam read(Kryo kryo, Input input, Class<TrackerCam> type) {
+				float w = input.readFloat();
+				float h = input.readFloat();
+				float s = input.readFloat();
+				Positionable target = (Positionable) kryo.readClassAndObject(input);
+				return new TrackerCam(w, h, target, s);
+			}
+		});
+		kryo.register(LoadedLevel.class, new Serializer<LoadedLevel>() {
+			@Override
+			public void write(Kryo kryo, Output output, LoadedLevel object) {
+				output.writeString(object.getKey());
+				kryo.writeClassAndObject(output, object.getScreen());
+				kryo.writeClassAndObject(output, object.getContents());
+				kryo.writeClassAndObject(output, object.getEventLayer());
+			}
+			@Override
+			public LoadedLevel read(Kryo kryo, Input input, Class<LoadedLevel> type) {
+				String key = input.readString();
+				Screen scr = (Screen) kryo.readClassAndObject(input);
+				@SuppressWarnings("unchecked") // guaranteed by protocol
+				List<MapThing> contents = (List<MapThing>) kryo.readClassAndObject(input);
+				EventLayer events = (EventLayer) kryo.readClassAndObject(input);
+				LoadedLevel level = new LoadedLevel(
+						MGlobal.data.getEntryFor(key, LoadedMapMDO.class),
+						scr, contents, events);
+				return level;
 			}
 		});
 	}
@@ -108,7 +162,7 @@ public class Memory {
 	 * object as it overwrites saved global values.
 	 * @param	savefile		The name of the file to read from
 	 */
-	public static void load(String fileName) {
+	public void load(String fileName) {
 		MGlobal.reporter.inform("Loading from " + fileName);
 		Input input = new Input(MGlobal.files.getInputStream(fileName));
 		MGlobal.memory = kryo.readObject(input, Memory.class);
@@ -116,7 +170,11 @@ public class Memory {
 		// write all stored objects to global etc
 		MGlobal.memory.unloadFields();
 		
+		// load required assets
+		MGlobal.assets.loadAsset(MGlobal.screens, "loaded screens");
+		
 		input.close();
+		MGlobal.memory.kryo = kryo;
 		MGlobal.reporter.inform("Load complete.");
 	}
 	
@@ -125,12 +183,24 @@ public class Memory {
 	 */
 	protected void storeFields() {
 		rand = MGlobal.rand;
+		screens = MGlobal.screens;
+		keymap = MGlobal.keymap;
 	}
 
 	/**
 	 * The other messy method, copies from this save into global.
 	 */
 	protected void unloadFields() {
+		
+		// rand is copied directly
 		MGlobal.rand = rand;
+		
+		// the old screen stack is disposed and we copy the new one over
+		MGlobal.screens.dispose();
+		MGlobal.screens = screens;
+		
+		// everything listening to the current keymap will listen to the stored
+		keymap.absorbListeners(MGlobal.keymap);
+		MGlobal.keymap = keymap;
 	}
 }

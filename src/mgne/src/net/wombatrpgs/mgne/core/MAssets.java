@@ -7,6 +7,7 @@
 package net.wombatrpgs.mgne.core;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import net.wombatrpgs.mgne.core.data.DataEntry;
@@ -48,7 +49,7 @@ public class MAssets extends AssetManager {
 	 * @param	toLoad			All assets to load
 	 * @param	name			The name of what is being loadded
 	 */
-	public void loadAssets(List<Queueable> toLoad, String name) {
+	public void loadAssets(Collection<Queueable> toLoad, String name) {
 		for (Queueable q : toLoad) q.queueRequiredAssets(this);
 		int pass;
 		for (pass = 0; getProgress() < 1; pass++) {
@@ -57,7 +58,7 @@ public class MAssets extends AssetManager {
 			float assetEnd = System.currentTimeMillis();
 			float assetElapsed = (assetEnd - assetStart) / 1000f;
 			for (Queueable q : toLoad) q.postProcessing(this, pass);
-			MGlobal.reporter.inform("Loading " + name + " pass " + pass + ", took " + assetElapsed);
+			MGlobal.reporter.inform("Loading " + name + " p " + pass + ", " + assetElapsed + "s");
 		}
 		if (pass == 0) {
 			for (Queueable q : toLoad) q.postProcessing(this, pass);

@@ -34,6 +34,9 @@ public class EventLayer extends Layer {
 		super(parent);
 		events = new ArrayList<MapEvent>();
 	}
+	
+	/** Kryo constructor */
+	protected EventLayer() { }
 
 	/**
 	 * @see net.wombatrpgs.mgne.maps.layers.Layer#render

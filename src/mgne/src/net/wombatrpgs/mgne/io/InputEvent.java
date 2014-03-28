@@ -23,6 +23,9 @@ public class InputEvent {
 		this.type = type;
 	}
 	
+	/** Kryo constructor */
+	protected InputEvent() { }
+	
 	public enum EventType {
 		PRESS,
 		RELEASE,
@@ -53,6 +56,14 @@ public class InputEvent {
 		if (this.button != other.button) return false;
 		if (this.type != other.type) return false;
 		return true;
+	}
+
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return button + " " + type;
 	}
 
 }

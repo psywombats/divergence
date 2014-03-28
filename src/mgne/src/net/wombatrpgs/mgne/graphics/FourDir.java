@@ -35,6 +35,9 @@ public class FourDir extends FacesAnimation {
 			animations[i].setBump(Math.max(0, (1.f / (float) animations[i].getFPS())) - .05f);
 		}
 	}
+	
+	/** Kryo constructor */
+	protected FourDir() { }
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.FacesAnimation#currentDirOrdinal()

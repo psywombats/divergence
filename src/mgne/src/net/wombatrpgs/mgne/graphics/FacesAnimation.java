@@ -50,6 +50,9 @@ public abstract class FacesAnimation implements Renderable,
 		rangeY = 0;
 	}
 	
+	/** Kryo constructor */
+	protected FacesAnimation() { }
+	
 	/** @return The direction currently facing */
 	public OrthoDir getFacing() { return currentDir; }
 	

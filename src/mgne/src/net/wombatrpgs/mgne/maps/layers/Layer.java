@@ -32,6 +32,9 @@ public abstract class Layer implements Queueable {
 		this.parent = parent;
 		assets = new ArrayList<Queueable>();
 	}
+	
+	/** Kryo constructor */
+	protected Layer() { }
 
 	/**
 	 * Determines whether this layer is the floor, a so-called lower chip layer.

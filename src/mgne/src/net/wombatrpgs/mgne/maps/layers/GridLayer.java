@@ -32,6 +32,9 @@ public abstract class GridLayer extends Layer {
 		this.z = z;
 	}
 	
+	/** Kryo constructor */
+	protected GridLayer() { }
+	
 	/**
 	 * @see net.wombatrpgs.mgne.maps.layers.Layer#isLowerChip()
 	 */

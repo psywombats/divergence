@@ -13,6 +13,7 @@ import org.luaj.vm2.lib.OneArgFunction;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 import org.luaj.vm2.lib.jse.CoerceLuaToJava;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -47,7 +48,7 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	
 	/** General children and info */
 	protected EventMDO mdo;
-	protected LuaValue lua;
+	protected transient LuaValue lua;
 	protected FacesAnimation appearance;
 	
 	/** Tile-based positioning */
@@ -71,27 +72,11 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 		}
 		
 		zeroCoords();
-		
-		lua = LuaValue.tableOf();
-		Lua.generateFunction(this, lua, "getX");
-		Lua.generateFunction(this, lua, "getY");
-		Lua.generateFunction(this, lua, "getTileX");
-		Lua.generateFunction(this, lua, "getTileY");
-		lua.set("attemptStep", new OneArgFunction() {
-			@Override public LuaValue call(LuaValue arg) {
-				String argString = (String) CoerceLuaToJava.coerce(arg, String.class);
-				boolean result = attemptStep(OrthoDir.valueOf(argString));
-				return CoerceJavaToLua.coerce(result);
-			}
-		});
-		lua.set("face", new OneArgFunction() {
-			@Override public LuaValue call(LuaValue arg) {
-				String argString = (String) CoerceLuaToJava.coerce(arg, String.class);
-				setFacing(OrthoDir.valueOf(argString));
-				return LuaValue.NIL;
-			}
-		});
+		regenerateLua();
 	}
+	
+	/** Kryo constructor */
+	protected MapEvent() { }
 	
 	/** @param tileX The new x-coord of this event (in tiles) */
 	public void setTileX(int tileX) { this.tileX = tileX; }
@@ -186,6 +171,16 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 		}
 	}
 	
+	/**
+	 * @see net.wombatrpgs.mgne.maps.MapThing#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager, int pass) {
+		super.postProcessing(manager, pass);
+		regenerateLua();
+	}
+
 	/**
 	 * @see net.wombatrpgs.mgne.maps.MapThing#render
 	 * (com.badlogic.gdx.graphics.OrthographicCamera)
@@ -428,6 +423,35 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	 */
 	protected LuaValue runScript(String chunk) {
 		return MGlobal.lua.run(chunk, this);
+	}
+	
+	/**
+	 * Reconstructs the lua value if none is currently available. This is called
+	 * in the constructor and also post processing because the lua will be lost
+	 * when this object is serialized.
+	 */
+	protected void regenerateLua() {
+		if (lua == null) {
+			lua = LuaValue.tableOf();
+			Lua.generateFunction(this, lua, "getX");
+			Lua.generateFunction(this, lua, "getY");
+			Lua.generateFunction(this, lua, "getTileX");
+			Lua.generateFunction(this, lua, "getTileY");
+			lua.set("attemptStep", new OneArgFunction() {
+				@Override public LuaValue call(LuaValue arg) {
+					String argString = (String) CoerceLuaToJava.coerce(arg, String.class);
+					boolean result = attemptStep(OrthoDir.valueOf(argString));
+					return CoerceJavaToLua.coerce(result);
+				}
+			});
+			lua.set("face", new OneArgFunction() {
+				@Override public LuaValue call(LuaValue arg) {
+					String argString = (String) CoerceLuaToJava.coerce(arg, String.class);
+					setFacing(OrthoDir.valueOf(argString));
+					return LuaValue.NIL;
+				}
+			});
+		}
 	}
 	
 	/**

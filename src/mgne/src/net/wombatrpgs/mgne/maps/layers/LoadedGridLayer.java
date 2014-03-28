@@ -24,7 +24,7 @@ import net.wombatrpgs.mgne.maps.LoadedLevel;
 public class LoadedGridLayer extends GridLayer {
 	
 	protected LoadedLevel parent;
-	protected TiledMapTileLayer layer;
+	protected transient TiledMapTileLayer layer;
 
 	/**
 	 * Creates a new object layer with a parent level and group of objects.
@@ -39,6 +39,9 @@ public class LoadedGridLayer extends GridLayer {
 			MGlobal.reporter.warn("Layer with no Z exists on map " + parent);
 		}
 	}
+	
+	/** Kryo constructor */
+	protected LoadedGridLayer() { }
 	
 	/**
 	 * @see net.wombatrpgs.mgne.maps.layers.Layer#render

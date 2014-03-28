@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.mgne.io;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +14,7 @@ import java.util.Map;
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
+import net.wombatrpgs.mgne.graphics.Disposable;
 import net.wombatrpgs.mgne.io.InputEvent.EventType;
 import net.wombatrpgs.mgne.screen.ScreenStack;
 import net.wombatrpgs.mgneschema.io.KeymapMDO;
@@ -36,9 +36,7 @@ import com.badlogic.gdx.InputProcessor;
  */
 public class Keymap implements	InputProcessor,
 								Updateable,
-								Serializable {
-	
-	private static final long serialVersionUID = 1L;
+								Disposable {
 
 	protected KeymapMDO mdo;
 	
@@ -78,7 +76,8 @@ public class Keymap implements	InputProcessor,
 	 * @return					The created keymap
 	 */
 	public static Keymap initDefaultKeymap() {
-		InputSettingsMDO inputMDO = MGlobal.data.getEntryFor(Constants.KEY_INPUT, InputSettingsMDO.class);
+		InputSettingsMDO inputMDO = MGlobal.data.getEntryFor(
+				Constants.KEY_INPUT, InputSettingsMDO.class);
 		KeymapMDO keyMDO = MGlobal.data.getEntryFor(inputMDO.keymap, KeymapMDO.class);
 		Keymap map = new Keymap(keyMDO);
 		map.registerListener(MGlobal.screens);
@@ -102,9 +101,26 @@ public class Keymap implements	InputProcessor,
 				}
 			}
 		}
-		for (InputEvent event : queue) {
-			signal(event);
+		while (queue.size() > 0) {
+			InputEvent next = queue.get(0);
+			queue.remove(0);
+			signal(next);
 		}
+		queue.clear();
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.Disposable#dispose()
+	 */
+	@Override
+	public void dispose() {
+		if (Gdx.input.getInputProcessor() == this) {
+			Gdx.input.setInputProcessor(null);
+		}
+		if (MGlobal.keymap == this) {
+			MGlobal.keymap = null;
+		}
+		listeners.clear();
 		queue.clear();
 	}
 
@@ -138,6 +154,25 @@ public class Keymap implements	InputProcessor,
 	 */
 	public KeyState getButtonState(InputButton button) {
 		return states.get(button);
+	}
+	
+	/**
+	 * Removes all listeners from a stale keymap and copies them to this one.
+	 * Helpful for loading. Takes care of disposing the old keymap.
+	 * @param	stale			The keymap that is to die
+	 */
+	public void absorbListeners(Keymap stale) {
+		if (stale != this) {
+			for (ButtonListener listener : stale.listeners) {
+				listeners.add(listener);
+			}
+			if (Gdx.input.getInputProcessor() == stale) {
+				Gdx.input.setInputProcessor(this);
+			}
+			stale.dispose();
+		} else {
+			MGlobal.reporter.warn("Trying to self-absorb keymap " + this);
+		}
 	}
 
 	/**
@@ -226,7 +261,11 @@ public class Keymap implements	InputProcessor,
 	 * @param 	event			The event that occurred
 	 */
 	protected final void signal(InputEvent event) {
+		List<ButtonListener> toTrigger = new ArrayList<ButtonListener>();
 		for (ButtonListener listener : listeners) {
+			toTrigger.add(listener);
+		}
+		for (ButtonListener listener : toTrigger) {
 			listener.onEvent(event);
 		}
 	}
