@@ -8,13 +8,14 @@ package net.wombatrpgs.mgne.ui;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.math.Matrix4;
 
 import net.wombatrpgs.mgne.core.Constants;
-import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.graphics.Disposable;
 import net.wombatrpgs.mgne.graphics.PosRenderable;
@@ -34,7 +35,6 @@ public class Nineslice implements Queueable, PosRenderable, Disposable {
 	
 	protected Texture tex;
 	protected TextureRegion[][] slices;
-	protected SpriteBatch batch;
 	protected FrameBuffer buffer;
 	protected Texture appearance;
 	protected GradientBox gradient;
@@ -48,7 +48,6 @@ public class Nineslice implements Queueable, PosRenderable, Disposable {
 		this.mdo = mdo;
 		
 		filename = Constants.UI_DIR + mdo.file;
-		batch = new SpriteBatch();
 		
 		if (MapThing.mdoHasProperty(mdo.gradient)) {
 			gradient = new GradientBox(mdo.gradient);
@@ -164,12 +163,18 @@ public class Nineslice implements Queueable, PosRenderable, Disposable {
 		this.height = height;
 		
 		buffer = new FrameBuffer(Format.RGB565,
-				MGlobal.window.getWidth(),
-				MGlobal.window.getHeight(),
+				width,
+				height,
 				false);
 		if (appearance != null) {
 			appearance.dispose();
+			buffer.dispose();
 		}
+		
+		SpriteBatch batch = new SpriteBatch();
+		Matrix4 matrix = new Matrix4();
+		matrix.setToOrtho2D(0, 0, width, height);
+		batch.setProjectionMatrix(matrix);
 		
 		buffer.begin();
 		batch.begin();
@@ -231,6 +236,8 @@ public class Nineslice implements Queueable, PosRenderable, Disposable {
 		batch.end();
 		buffer.end();
 		appearance = buffer.getColorBufferTexture();
+		appearance.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		batch.dispose();
 	}
 
 }

@@ -2,10 +2,10 @@
 	"key" : "window_data",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "   ",
+	"description" : "    ",
 	"windowName" : "Dumb SaGa Clone",
-	"width" : 320,
-	"height" : 240,
-	"resWidth" : 320,
-	"resHeight" : 240
+	"width" : 400,
+	"height" : 300,
+	"resWidth" : 800,
+	"resHeight" : 600
 }

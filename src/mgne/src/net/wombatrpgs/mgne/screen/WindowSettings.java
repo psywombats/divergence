@@ -23,25 +23,17 @@ public class WindowSettings {
 		this.mdo = mdo;
 	}
 	
-	/** @return The width of the in-game viewport, in virtual px */
-	public int getWidth() {
-		return mdo.resWidth;
-	}
+	/** @return The width of the window housing the game, in real px */
+	public int getWidth() { return mdo.resWidth; }
 
+	/** @return The height of the window housing the game, in real px */
+	public int getHeight() { return mdo.resHeight;}
+	
+	/** @return The width of the in-game viewport, in virtual px */
+	public int getViewportWidth() { return mdo.width; }
+	
 	/** @return The height of the in-game viewport, in virtual px */
-	public int getHeight() {
-		return mdo.resHeight;
-	}
-	
-	/** @return The width of the window, in real px */
-	public int getResolutionWidth() {
-		return mdo.resWidth;
-	}
-	
-	/** @return The height of the window, in real px */
-	public int getResolutionHeight() {
-		return mdo.resHeight;
-	}
+	public int getViewportHeight() { return mdo.height; }
 	
 	/** @return The zoom factor appropriate for a camera */
 	public float getZoom() {

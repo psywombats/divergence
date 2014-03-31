@@ -84,7 +84,7 @@ public class FontHolder implements Queueable {
 	 * @param	y				The y to draw at (in px)
 	 */
 	public void draw(SpriteBatch batch, String text, int x, int y) {
-		
+		font.draw(batch, text, x, y);
 	}
 	
 	/**

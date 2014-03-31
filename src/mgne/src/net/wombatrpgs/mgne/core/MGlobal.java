@@ -132,8 +132,8 @@ public class MGlobal {
 			String result = files.getText(Constants.CONFIG_FILE);
 			boolean fullscreen = result.indexOf("true") != -1;
 			Gdx.graphics.setDisplayMode(
-					MGlobal.window.getResolutionWidth(),
-					MGlobal.window.getResolutionHeight(), 
+					MGlobal.window.getWidth(),
+					MGlobal.window.getHeight(), 
 					fullscreen);
 			MGlobal.screens.push(game.makeStarterScreen());
 			toLoad.add(MGlobal.screens.peek());

@@ -257,7 +257,7 @@ public abstract class Screen implements CommandListener,
 				buffer.getColorBufferTexture(),			// texture
 				0, 0,									// x/y in screen space
 				0, 0,									// origin x/y screen
-				window.getResolutionWidth(), window.getResolutionHeight(),	// width/height screen
+				window.getWidth(), window.getHeight(),	// width/height screen
 				1, 1,									// scale x/y
 				0,										// rotation in degrees
 				0, 0,									// x/y in texel space
@@ -300,10 +300,10 @@ public abstract class Screen implements CommandListener,
 					MGlobal.window.getHeight(),
 					false);
 			uiCam = new OrthographicCamera();
-			uiCam.setToOrtho(false, MGlobal.window.getWidth(), MGlobal.window.getHeight());
 			uiCam.zoom = MGlobal.window.getZoom();
 			uiCam.position.x = MGlobal.window.getWidth() / 2;
 			uiCam.position.y = MGlobal.window.getHeight() / 2;
+			uiCam.setToOrtho(false, MGlobal.window.getWidth(), MGlobal.window.getHeight());
 			uiCam.update();
 			uiBatch.setProjectionMatrix(uiCam.combined);
 			shapes = new ShapeRenderer();
@@ -344,8 +344,8 @@ public abstract class Screen implements CommandListener,
 		
 		case GLOBAL_FULLSCREEN:
 			Gdx.graphics.setDisplayMode(
-					MGlobal.window.getResolutionWidth(), 
-					MGlobal.window.getResolutionHeight(), 
+					MGlobal.window.getWidth(), 
+					MGlobal.window.getHeight(), 
 					!Gdx.graphics.isFullscreen());
 			return true;
 		case WORLD_PAUSE:

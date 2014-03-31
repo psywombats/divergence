@@ -9,6 +9,7 @@ package net.wombatrpgs.mgne.graphics;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.PositionSetable;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.ScreenObject;
@@ -100,16 +101,7 @@ public abstract class ScreenDrawable extends ScreenObject implements PositionSet
 	 * @return					The current screen's sprite batch
 	 */
 	public SpriteBatch getBatch() {
-		return batch;
-	}
-	
-	/**
-	 * Sets the batch we use to render. This is kind of hacky and shouldn't be
-	 * used.
-	 * @param 	batch			The batch to set to
-	 */
-	public void setBatch(SpriteBatch batch) {
-		this.batch = batch;
+		return MGlobal.screens.peek().getUIBatch();
 	}
 	
 	/**

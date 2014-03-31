@@ -53,7 +53,7 @@ public class TextBox extends ScreenDrawable {
 	protected float sinceChar;
 	protected int totalLength;
 	protected int visibleChars;
-	protected int boxHeight;
+	protected int boxWidth, boxHeight;
 	protected boolean waiting;
 	protected boolean allVisible;
 	
@@ -100,7 +100,7 @@ public class TextBox extends ScreenDrawable {
 		if (backer != null) {
 			int atY = 0;
 			if (mdo.anchor == BoxAnchorType.BOTTOM) {
-				atY = MGlobal.window.getHeight() - boxHeight;
+				atY = MGlobal.window.getViewportHeight() - boxHeight;
 			}
 			backer.renderAt(getBatch(), 0, atY);
 		}
@@ -123,19 +123,20 @@ public class TextBox extends ScreenDrawable {
 		super.postProcessing(manager, pass);
 		WindowSettings win = MGlobal.window;
 		
+		boxWidth = win.getViewportWidth();
 		boxHeight = (int) (font.getLineHeight() * mdo.lines);
 		boxHeight += mdo.marginHeight * 2;
-		backer.resizeTo(win.getWidth(), boxHeight);
+		backer.resizeTo(boxWidth, boxHeight);
 		
 		bodyFormat.x = mdo.marginWidth;
 		if (mdo.anchor != BoxAnchorType.BOTTOM) {
 			bodyFormat.y = boxHeight - mdo.marginHeight;
 		} else {
-			bodyFormat.y = win.getHeight() - mdo.marginHeight;
+			bodyFormat.y = win.getViewportHeight() - mdo.marginHeight;
 		}
 		bodyFormat.align = HAlignment.LEFT;
-		bodyFormat.width = win.getWidth() - mdo.marginWidth * 2;
-		bodyFormat.height = win.getHeight() - mdo.marginHeight * 2;
+		bodyFormat.width = win.getViewportWidth() - mdo.marginWidth * 2;
+		bodyFormat.height = boxHeight - mdo.marginHeight * 2;
 	}
 
 	/**
