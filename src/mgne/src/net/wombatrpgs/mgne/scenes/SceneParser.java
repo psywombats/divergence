@@ -168,6 +168,7 @@ public abstract class SceneParser implements 	Updateable,
 		MGlobal.reporter.inform("Terminated a scene: " + this);
 		parent.removeCommandContext(commandMap);
 		parent.removeCommandListener(this);
+		parent.removeUChild(this);
 		running = false;
 		for (FinishListener listener : listeners) {
 			listener.onFinish();
