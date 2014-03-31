@@ -24,7 +24,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.core.Memory;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.Disposable;
@@ -91,7 +90,6 @@ public abstract class Screen implements CommandListener,
 		cam = new TrackerCam(MGlobal.window.getWidth(), MGlobal.window.getHeight());
 		
 		updateChildren.add(cam);
-		updateChildren.add(MGlobal.keymap);
 	}
 	
 	/**
@@ -348,10 +346,6 @@ public abstract class Screen implements CommandListener,
 					MGlobal.window.getHeight(), 
 					!Gdx.graphics.isFullscreen());
 			return true;
-		case WORLD_PAUSE:
-			//MGlobal.memory.save(Memory.saveToPath("debug"));
-			MGlobal.memory.load(Memory.saveToPath("debug"));
-			return true;
 		default:
 			return false;
 		}
@@ -362,11 +356,11 @@ public abstract class Screen implements CommandListener,
 	 */
 	@Override
 	public void dispose() {
-		batch.dispose();
-		privateBatch.dispose();
-		buffer.dispose();
-		lastBuffer.dispose();
-		uiBatch.dispose();
+		if (batch != null) batch.dispose();
+		if (privateBatch != null) privateBatch.dispose();
+		if (buffer != null) buffer.dispose();
+		if (lastBuffer != null) lastBuffer.dispose();
+		if (uiBatch != null) uiBatch.dispose();
 	}
 
 	/**

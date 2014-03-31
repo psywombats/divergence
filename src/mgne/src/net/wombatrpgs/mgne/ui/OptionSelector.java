@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.mgne.ui;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -78,7 +79,7 @@ public class OptionSelector extends UIElement implements CommandListener {
 		height = options.size() * font.getLineHeight() +
 				(options.size()-1) * spacingVert +
 				padVert * 2;
-		bg = new Nineslice(bgMDO, (int) width, (int) height);
+		bg = new Nineslice(bgMDO);
 		assets.add(bg);
 	}
 	
@@ -104,6 +105,14 @@ public class OptionSelector extends UIElement implements CommandListener {
 		this(options,
 				MGlobal.ui.getNinesliceMDO(),
 				MGlobal.ui.getFont());
+	}
+	
+	/**
+	 * Creates a new options selector with some default settings for a set.
+	 * @param	options				The options the player can select from
+	 */
+	public OptionSelector(Option... options) {
+		this(Arrays.asList(options));
 	}
 
 	/**
@@ -139,8 +148,8 @@ public class OptionSelector extends UIElement implements CommandListener {
 	/**
 	 * Shows this UI element on the screen. No smooth fading just yet. This will
 	 * add the selector to the current screen and start intercepting commands.
-	 * @param	screenX			The x-coord to show at (in screen px)
-	 * @param	screenY			The y-coord to show at (in screen px)
+	 * @param	screenX			The x-coord to show at (in game px)
+	 * @param	screenY			The y-coord to show at (in game px)
 	 */
 	public void showAt(int screenX, int screenY) {
 		this.screenX = screenX;
@@ -155,6 +164,8 @@ public class OptionSelector extends UIElement implements CommandListener {
 		format.height = 100;
 		format.x = screenX + (int) padHoriz;
 		format.y = screenY + (int) (height - padVert);
+		
+		bg.resizeTo((int) width, (int) height);
 		
 		selected = 0;
 		cursorOn = true;

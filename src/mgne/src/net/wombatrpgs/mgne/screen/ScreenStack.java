@@ -56,10 +56,10 @@ public class ScreenStack implements	Disposable,
 	 * @param	screen		The screen to put on top
 	 */
 	public void push(Screen screen) {
-		screens.push(screen);
 		if (screens.size() > 0) {
 			screens.peek().onFocusLost();
 		}
+		screens.push(screen);
 		screen.onFocusGained();
 	}
 	
@@ -135,7 +135,7 @@ public class ScreenStack implements	Disposable,
 			MGlobal.reporter.warn("No screens in stack, but told to render");
 		} else {
 			try {
-				screens.get(0).render();
+				screens.peek().render();
 			} catch (Exception e) {
 				MGlobal.reporter.err("Exception during render: ", e);
 				Gdx.app.exit();
@@ -154,11 +154,8 @@ public class ScreenStack implements	Disposable,
 	 */
 	public void update() {
 		float elapsed = Gdx.graphics.getDeltaTime();
-//		float real = 1.0f / elapsed;
-//		if (real < RGlobal.constants.rate()) {
-//			elapsed = (1.0f / RGlobal.constants.rate());
-//		}
-		screens.get(0).update(elapsed);
+		MGlobal.keymap.update(elapsed);
+		screens.peek().update(elapsed);
 		if (current != null) current.update(elapsed);
 		if (fadeOut != null) fadeOut.update(elapsed);
 	}

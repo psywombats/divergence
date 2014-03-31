@@ -4,8 +4,8 @@
 	"name" : "",
 	"description" : "    ",
 	"windowName" : "Dumb SaGa Clone",
-	"width" : 400,
-	"height" : 300,
-	"resWidth" : 800,
-	"resHeight" : 600
+	"width" : 320,
+	"height" : 240,
+	"resWidth" : 640,
+	"resHeight" : 480
 }

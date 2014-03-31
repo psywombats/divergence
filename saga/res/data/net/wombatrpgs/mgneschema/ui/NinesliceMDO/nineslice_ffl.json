@@ -2,9 +2,10 @@
 	"key" : "nineslice_ffl",
 	"subfolder" : "",
 	"name" : "",
-	"description" : " ",
+	"description" : "  ",
 	"file" : "ffl_nineslice.png",
 	"type" : "STRETCH",
+	"gradient" : "None",
 	"sliceWidth" : 8,
 	"sliceHeight" : 8
 }

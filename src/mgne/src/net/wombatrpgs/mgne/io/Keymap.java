@@ -16,7 +16,6 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.Disposable;
 import net.wombatrpgs.mgne.io.InputEvent.EventType;
-import net.wombatrpgs.mgne.screen.ScreenStack;
 import net.wombatrpgs.mgneschema.io.KeymapMDO;
 import net.wombatrpgs.mgneschema.io.data.InputButton;
 import net.wombatrpgs.mgneschema.io.data.KeyButtonPairMDO;
@@ -128,7 +127,7 @@ public class Keymap implements	InputProcessor,
 	 * Registers a new object to listen for meta-button presses.
 	 * @param 	listener		The listener to register
 	 */
-	public  void registerListener(ScreenStack listener) {
+	public  void registerListener(ButtonListener listener) {
 		listeners.add(listener);
 	}
 	
@@ -136,7 +135,7 @@ public class Keymap implements	InputProcessor,
 	 * Unregisters an existing listener from meta-button presses.
 	 * @param 	listener		The listener to unregister
 	 */
-	public void unregisterListener(ScreenStack listener) {
+	public void unregisterListener(ButtonListener listener) {
 		if (listeners.contains(listener)) {
 			listeners.remove(listener);
 		} else {

@@ -49,8 +49,7 @@ public abstract class UIElement extends ScreenObject {
 	 * @return					The UI batch to render with
 	 */
 	protected SpriteBatch getBatch() {
-		// TODO: ui: this should probably use the screen it's on right now
-		return MGlobal.levelManager.getScreen().getUIBatch();
+		return MGlobal.screens.peek().getUIBatch();
 	}
 
 }
