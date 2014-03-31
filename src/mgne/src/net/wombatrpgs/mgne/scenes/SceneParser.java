@@ -1,6 +1,6 @@
 /**
  *  SceneParser.java
- *  Created on Feb 3, 2013 8:43:01 PM for project rainfall-libgdx
+ *  Created on Mar 31, 2014 12:49:26 PM for project mgne
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
@@ -10,11 +10,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.luaj.vm2.LuaValue;
-
 import com.badlogic.gdx.assets.AssetManager;
 
-import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
@@ -27,18 +24,17 @@ import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 
 /**
- * This thing takes a scene and then hijacks its parent level into doing its
- * bidding.
- * As of 2014-01-24, it plays back a series of Lua commands.
+ * Represents all classes that parse scenes. This is common between file-loaded
+ * scenes and those interpreted from strings or whatever on maps. The only thing
+ * it's missing is how the commandMap gets populated.
  */
-public class SceneParser implements	Updateable,
-									Queueable,
-									CommandListener {
+public abstract class SceneParser implements 	Updateable,
+												CommandListener,
+												Queueable {
 	
 	protected Screen parent;
 	protected List<FinishListener> listeners;
 	protected CommandMap commandMap;
-	protected String filename;
 	
 	protected List<SceneCommand> commands;
 	protected Iterator<SceneCommand> runningCommands;
@@ -56,50 +52,8 @@ public class SceneParser implements	Updateable,
 		this.listeners = new ArrayList<FinishListener>();
 	}
 	
-	/**
-	 * Creates a new scene parser for a given file. No autoplay. Assumes no
-	 * repeat.
-	 * @param	fileName		The filename to load, relative to scenes dir
-	 */
-	public SceneParser(String filename) {
-		this();
-		this.filename = Constants.SCENES_DIR + filename;
-	}
-	
 	/** @return The screen we're running on */
 	public Screen getScreen() { return parent; }
-	
-	/**
-	 * Load the file if we're using one, otherwise we're anonymous and assume
-	 * all the commands have been manually added.
-	 * @see net.wombatrpgs.mgne.maps.MapThing#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		if (filename != null) {
-			manager.load(filename, LuaValue.class);
-		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.maps.MapThing#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		if (pass == 0) {
-			LuaValue script = manager.get(filename, LuaValue.class);
-			commands = SceneLib.parseScene(script);
-			for (SceneCommand command : commands) {
-				command.queueRequiredAssets(manager);
-			}
-		} else {
-			for (SceneCommand command : commands) {
-				command.postProcessing(manager, pass - 1);
-			}
-		}
-	}
 
 	/**
 	 * @see net.wombatrpgs.mgne.maps.MapThing#update(float)
@@ -127,19 +81,33 @@ public class SceneParser implements	Updateable,
 		}
 		return currentCommand.onCommand(command);
 	}
-
+	
 	/**
-	 * @see java.lang.Object#toString()
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
-	public String toString() {
-		if (filename != null) {
-			return filename;
+	public void queueRequiredAssets(AssetManager manager) {
+		// subclasses might want to do something here
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager, int pass) {
+		if (pass == 0) {
+			for (SceneCommand command : commands) {
+				command.queueRequiredAssets(manager);
+			}
 		} else {
-			return "anon scene";
+			for (SceneCommand command : commands) {
+				command.postProcessing(manager, pass - 1);
+			}
 		}
 	}
-	
+
 	/** @return Trus if this parser is in the process of running */
 	public boolean isRunning() { return this.running; }
 	
@@ -218,5 +186,4 @@ public class SceneParser implements	Updateable,
 			terminate();
 		}
 	}
-
 }

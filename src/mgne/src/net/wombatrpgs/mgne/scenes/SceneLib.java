@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.wombatrpgs.mgne.scenes.commands.SceneSpeak;
+import net.wombatrpgs.mgne.scenes.commands.SceneTeleport;
 import net.wombatrpgs.mgne.scenes.commands.SceneTint;
 import net.wombatrpgs.mgne.scenes.commands.SceneWait;
 
@@ -38,6 +39,7 @@ public class SceneLib extends TwoArgFunction {
 	public LuaValue call(LuaValue modname, LuaValue env) {
 		LuaValue library = tableOf();
 		
+		env.set("teleport", new SceneTeleport());
 		env.set("tint", new SceneTint());
 		env.set("wait", new SceneWait());
 		env.set("speak", new SceneSpeak());

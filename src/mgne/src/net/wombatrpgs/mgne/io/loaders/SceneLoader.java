@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.mgne.io.loaders;
 
-import net.wombatrpgs.mgne.scenes.SceneData;
+import net.wombatrpgs.mgne.scenes.LineData;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;
@@ -21,7 +21,7 @@ import com.badlogic.gdx.utils.Array;
  * text file and drops it into a container. Not well-commented because honestly
  * I don't know what's going on in here half the time.
  */
-public class SceneLoader extends SynchronousAssetLoader<SceneData, SceneLoader.SceneParameter> {
+public class SceneLoader extends SynchronousAssetLoader<LineData, SceneLoader.SceneParameter> {
 	
 	/**
 	 * @see com.badlogic.gdx.assets.loaders.SynchronousAssetLoader#load
@@ -29,9 +29,9 @@ public class SceneLoader extends SynchronousAssetLoader<SceneData, SceneLoader.S
 	 * com.badlogic.gdx.files.FileHandle, com.badlogic.gdx.assets.AssetLoaderParameters)
 	 */
 	@Override
-	public SceneData load(AssetManager assetManager, String fileName,
+	public LineData load(AssetManager assetManager, String fileName,
 			FileHandle file, SceneParameter parameter) {
-		return new SceneData(resolve(fileName));
+		return new LineData(resolve(fileName));
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class SceneLoader extends SynchronousAssetLoader<SceneData, SceneLoader.S
 		super(resolver);
 	}
 	
-	static public class SceneParameter extends AssetLoaderParameters<SceneData> {
+	static public class SceneParameter extends AssetLoaderParameters<LineData> {
 		
 	}
 

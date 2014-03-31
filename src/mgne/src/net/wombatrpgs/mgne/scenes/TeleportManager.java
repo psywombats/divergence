@@ -23,7 +23,7 @@ public class TeleportManager implements Queueable {
 	public static final String MD0_KEY = "default_teleport";
 	
 	protected TeleportSettingsMDO mdo;
-	protected SceneParser preParser, postParser;
+	protected StoredSceneParser preParser, postParser;
 	
 	/**
 	 * Constructs teleport settings from data.
@@ -31,15 +31,15 @@ public class TeleportManager implements Queueable {
 	 */
 	public TeleportManager(TeleportSettingsMDO mdo) {
 		this.mdo = mdo;
-		preParser = new SceneParser(mdo.pre);
-		postParser = new SceneParser(mdo.post);
+		preParser = new StoredSceneParser(mdo.pre);
+		postParser = new StoredSceneParser(mdo.post);
 	}
 	
 	/** @return The parser to play before a teleport */
-	public SceneParser getPre() { return preParser; }
+	public StoredSceneParser getPre() { return preParser; }
 	
 	/** @return The parser to play after a teleport */
-	public SceneParser getPost() { return postParser; }
+	public StoredSceneParser getPost() { return postParser; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
@@ -65,19 +65,35 @@ public class TeleportManager implements Queueable {
 	 * Teleports the hero to the map, but has to interpret the map. This could
 	 * be an actual name of a .tmx file or a database key. This will look to
 	 * resolve to a .tmx if it ends with tmx, else resolve to database key.
+	 * Calls some listener when the whole teleport is done.
 	 * @param	mapName			The name of the level to teleport to
 	 * @param 	tileX			The x-coord to teleport to (in tiles)
 	 * @param 	tileY			The y-coord to teleport to (in tiles)
+	 * @param	listener		The listener to call when teleport is done
 	 */
-	public void teleport(String mapName, final int tileX, final int tileY) {
+	public void teleport(String mapName, final int tileX, final int tileY,
+			final FinishListener listener) {
 		final Level map = MGlobal.levelManager.getLevel(mapName);
 		preParser.run();
 		preParser.addListener(new FinishListener() {
 			@Override public void onFinish() {
 				teleportRaw(map, tileX, tileY);
+				if (listener != null) {
+					postParser.addListener(listener);
+				}
 				postParser.run();
 			};
 		});
+	}
+	
+	/**
+	 * Same teleport, calls no listener.
+	 * @param	mapName			The name of the level to teleport to
+	 * @param 	tileX			The x-coord to teleport to (in tiles)
+	 * @param 	tileY			The y-coord to teleport to (in tiles)
+	 */
+	public void teleport(String mapName, int tileX, int tileY) {
+		teleport(mapName, tileX, tileY, null);
 	}
 	
 	/**

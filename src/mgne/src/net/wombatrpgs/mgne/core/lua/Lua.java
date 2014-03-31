@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.maps.events.EventLib;
 import net.wombatrpgs.mgne.scenes.SceneLib;
 
 import org.luaj.vm2.Globals;
@@ -43,7 +42,6 @@ public class Lua {
 		
 		// ADD ALL LIBRARIES HERE
 		libClasses.add(SceneLib.class);
-		libClasses.add(EventLib.class);
 	}
 	
 	/**

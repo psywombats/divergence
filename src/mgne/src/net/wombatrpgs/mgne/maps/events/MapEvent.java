@@ -19,6 +19,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.core.lua.Lua;
 import net.wombatrpgs.mgne.core.lua.LuaConvertable;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
@@ -26,6 +27,8 @@ import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mgne.graphics.PreRenderable;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.MapMovable;
+import net.wombatrpgs.mgne.scenes.SceneParser;
+import net.wombatrpgs.mgne.scenes.StringSceneParser;
 import net.wombatrpgs.mgneschema.graphics.DirMDO;
 import net.wombatrpgs.mgneschema.maps.EventMDO;
 import net.wombatrpgs.mgneschema.maps.data.DirVector;
@@ -48,8 +51,11 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	
 	/** General children and info */
 	protected EventMDO mdo;
-	protected transient LuaValue lua;
 	protected FacesAnimation appearance;
+	
+	/** Lua */
+	protected SceneParser onAdd, onRemove, onInteract, onCollide;
+	protected LuaValue lua;
 	
 	/** Tile-based positioning */
 	protected int tileX, tileY;
@@ -70,6 +76,11 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 			appearance.startMoving();
 			assets.add(appearance);
 		}
+		
+		onAdd = mdoToScene(mdo.onAdd);
+		onRemove = mdoToScene(mdo.onRemove);
+		onInteract = mdoToScene(mdo.onInteract);
+		onCollide = mdoToScene(mdo.onCollide);
 		
 		zeroCoords();
 		regenerateLua();
@@ -262,7 +273,7 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	@Override
 	public void onAddedToMap(Level map) {
 		super.onAddedToMap(map);
-		runScript(mdo.onAdd);
+		runScene(onAdd);
 	}
 
 	/**
@@ -272,18 +283,22 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	@Override
 	public void onRemovedFromMap(Level map) {
 		super.onRemovedFromMap(map);
-		runScript(mdo.onRemove);
+		runScene(onRemove);
 	}
 	
 	/**
 	 * What happens when a character moves into this event? By default, nothing
 	 * happens, but characters should be attacked, items should be auto-grabbed,
-	 * and so on.
+	 * and so on. This will start evaluation when the hero stops moving.
 	 * @param	event			The jerk that ran into us
 	 */
 	public void onCollide(MapEvent event) {
 		if (event == MGlobal.getHero()) {
-			runScript(mdo.onCollide);
+			event.addTrackingListener(new FinishListener() {
+				@Override public void onFinish() {
+					runScene(onCollide);
+				}
+			});
 		}
 	}
 	
@@ -295,7 +310,12 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	 * @return					True if an interaction happened, false if none
 	 */
 	public boolean onInteract() {
-		return (runScript(mdo.onInteract) != null);
+		if (mdoHasProperty(mdo.onInteract)) {
+			runScene(onInteract);
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/**
@@ -417,12 +437,14 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	}
 	
 	/**
-	 * Runs a chunk of MDO text as a script if it exists.
-	 * @param	chunk			The chunk of text to run
-	 * @return					The result of the script evaluation
+	 * Runs a scene, probably one we generated from MDO.
+	 * @param	chunk			The chunk of text to run, possibly null
 	 */
-	protected LuaValue runScript(String chunk) {
-		return MGlobal.lua.run(chunk, this);
+	protected void runScene(SceneParser scene) {
+		// maybe some safety checks should go here?
+		if (scene != null) {
+			scene.run();
+		}
 	}
 	
 	/**
@@ -467,6 +489,21 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 		setVelocity(
 				vec.x * (parent.getTileWidth() / MGlobal.constants.getDelay()),
 				vec.y * (parent.getTileHeight() / MGlobal.constants.getDelay()));
+	}
+	
+	/**
+	 * Converts and stores some Lua value. Constructor helper function.
+	 * @param	lua				The lua to convert, could be null or empty
+	 * @return					The scene parser from the script, or null
+	 */
+	protected SceneParser mdoToScene(String lua) {
+		if (mdoHasProperty(lua) && lua.length() > 0) {
+			SceneParser scene = new StringSceneParser(lua);
+			assets.add(scene);
+			return scene;
+		} else {
+			return null;
+		}
 	}
 
 }

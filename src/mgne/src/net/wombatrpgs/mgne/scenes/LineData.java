@@ -15,7 +15,7 @@ import com.badlogic.gdx.files.FileHandle;
  * Object thing that stores scene data. It's essentially a container for an
  * array of strings that are loaded from disc.
  */
-public class SceneData {
+public class LineData {
 	
 	protected static final String SPLITTER = "\n";
 	
@@ -25,7 +25,7 @@ public class SceneData {
 	 * Creates a new scene from a file handle.
 	 * @param 	file			The file handle to load from
 	 */
-	public SceneData(FileHandle file) {
+	public LineData(FileHandle file) {
 		String full = file.readString();
 		full = full.replaceAll("\\r\\n", "\n");
 		full = full.replaceAll("\\r", "\n");

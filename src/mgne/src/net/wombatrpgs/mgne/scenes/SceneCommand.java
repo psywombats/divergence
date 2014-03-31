@@ -113,6 +113,7 @@ public abstract class SceneCommand implements	Queueable,
 		finished = false;
 		running = true;
 		timeSinceStart = 0;
+		timeToWait = 0;
 		internalRun();
 	}
 	

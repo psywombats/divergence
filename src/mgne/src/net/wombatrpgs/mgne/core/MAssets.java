@@ -15,7 +15,7 @@ import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.io.loaders.DataLoader;
 import net.wombatrpgs.mgne.io.loaders.LuaLoader;
 import net.wombatrpgs.mgne.io.loaders.SceneLoader;
-import net.wombatrpgs.mgne.scenes.SceneData;
+import net.wombatrpgs.mgne.scenes.LineData;
 
 import org.luaj.vm2.LuaValue;
 
@@ -38,7 +38,7 @@ public class MAssets extends AssetManager {
 	 */
 	public MAssets() {
 		super();
-		setLoader(SceneData.class, new SceneLoader(new InternalFileHandleResolver()));
+		setLoader(LineData.class, new SceneLoader(new InternalFileHandleResolver()));
 		setLoader(DataEntry.class, new DataLoader(new InternalFileHandleResolver()));
 		setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
 		setLoader(LuaValue.class, new LuaLoader(new InternalFileHandleResolver()));
