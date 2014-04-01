@@ -33,7 +33,6 @@ import net.wombatrpgs.mgnse.tree.SchemaTree;
  */
 public class EditorPanel extends JPanel {
 
-	/** one day I will look up whatever the fuck this is */
 	private static final long serialVersionUID = 6210685766673563887L;
 	
 	private static final Insets HEADER_INSETS = new Insets(2, 10, 2, 10);
@@ -185,6 +184,9 @@ public class EditorPanel extends JPanel {
 			} else if (field.isAnnotationPresent(InlineSchema.class)) {
 				// this is a list of uh... other stuff
 				panel = new InlineSchemaArrayField(this, (Schema[]) data, field);
+			} else if (Enum.class.isAssignableFrom(field.getType().getComponentType())) {
+				// array of enums means a set
+				panel = new EnumSetField(this, data, field);
 			}
 		} else if (field.isAnnotationPresent(InlineSchema.class)) {
 			panel = new InlineSchemaField(this, (Schema) data, field);
