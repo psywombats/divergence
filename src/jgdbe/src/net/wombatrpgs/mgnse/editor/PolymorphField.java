@@ -27,8 +27,10 @@ public class PolymorphField extends FieldPanel {
 	
 	protected JComboBox<String> selector;
 	protected RemovablePanel subpanel;
+	protected EditorPanel contents;
 	
 	protected Class<? extends PolymorphicSchema> superC;
+	protected Class<? extends PolymorphicSchema> selected;
 	protected List<Class<? extends PolymorphicSchema>> subs;
 
 	/**
@@ -66,8 +68,19 @@ public class PolymorphField extends FieldPanel {
 	 */
 	@Override
 	protected void copyTo(Schema s) {
-		// TODO Auto-generated method stub
-
+		try {
+			if (selected != null) {
+				Schema result = selected.newInstance();
+				contents.copyTo(result);
+				source.set(s, result);
+			} else {
+				source.set(s, null);
+			}
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -83,7 +96,7 @@ public class PolymorphField extends FieldPanel {
 		if (subpanel != null) {
 			remove(subpanel);
 		}
-		Class<? extends PolymorphicSchema> selected = null;
+		selected = null;
 		for (Class<? extends PolymorphicSchema> subC : subs) {
 			if (subC.getSimpleName().equals(selector.getSelectedItem())) {
 				selected = subC;
@@ -91,6 +104,7 @@ public class PolymorphField extends FieldPanel {
 		}
 		if (selected != null) {
 			try {
+				contents = new EditorPanel(selected.newInstance(), null, parent.getLogic());
 				subpanel = new RemovablePanel(
 						this,
 						new RemovalListener() {
@@ -99,7 +113,7 @@ public class PolymorphField extends FieldPanel {
 								updateSubpanel();
 							}
 						},
-						new EditorPanel(selected.newInstance(), null, parent.getLogic()),
+						contents,
 						false);
 				addConstrained(subpanel);
 			} catch (InstantiationException e) {
