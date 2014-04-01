@@ -52,6 +52,12 @@ public class Annotations {
 	
 	@Target(ElementType.FIELD)
 	@Retention(RetentionPolicy.RUNTIME)
+	public @interface InlinePolymorphic {
+		Class<? extends PolymorphicSchema> value();
+	}
+	
+	@Target(ElementType.FIELD)
+	@Retention(RetentionPolicy.RUNTIME)
 	public @interface EnumValue {
 		String[] value();
 	}

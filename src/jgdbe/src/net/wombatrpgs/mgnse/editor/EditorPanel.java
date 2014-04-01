@@ -18,12 +18,15 @@ import javax.swing.JPanel;
 
 import net.wombatrpgs.mgns.core.Annotations;
 import net.wombatrpgs.mgns.core.Annotations.FileLink;
+import net.wombatrpgs.mgns.core.Annotations.InlinePolymorphic;
 import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
+import net.wombatrpgs.mgns.core.PolymorphicSchema;
 import net.wombatrpgs.mgns.core.Schema;
 import net.wombatrpgs.mgnse.Global;
 import net.wombatrpgs.mgnse.Logic;
 import net.wombatrpgs.mgnse.io.OutputHandler;
+import net.wombatrpgs.mgnse.tree.SchemaTree;
 
 /**
  * This panel has a bunch of widgets and gadgets for editing database entries.
@@ -66,6 +69,8 @@ public class EditorPanel extends JPanel {
 	public Logic getLogic() { return this.logic; }
 	/** @return The underlying schema for this panel */
 	public Schema getSchema() { return this.source; }
+	/** @return The tree of all schemers */
+	public SchemaTree getTree() { return this.logic.getSchemaTree(); }
 
 	/**
 	 * The contextual way to load a local file.
@@ -189,6 +194,9 @@ public class EditorPanel extends JPanel {
 			panel = new FileField(this, (String) data, field);
 		} else if (field.isAnnotationPresent(SchemaLink.class)) {
 			panel = new ReferenceField(this, (String) data, field);
+		} else if (field.isAnnotationPresent(InlinePolymorphic.class)) {
+			panel = new PolymorphField(this, (PolymorphicSchema) data,
+					field.getAnnotation(InlinePolymorphic.class), field);
 		} else if (String.class.isAssignableFrom(field.getType())) {
 			panel = new StringField(this, (String) data, field, schema);
 		} else if (Integer.class.isAssignableFrom(field.getType())) {

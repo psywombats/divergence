@@ -72,6 +72,10 @@ public class Logic {
 		return cfl.getFile(fileName);
 	}
 	
+	public SchemaTree getSchemaTree() { 
+		return tree;
+	}
+	
 	/**
 	 * Called whenever the user indicates they want to quit or the close button
 	 * is hit.

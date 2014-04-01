@@ -35,6 +35,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import net.wombatrpgs.mgns.core.Annotations;
 import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
 import net.wombatrpgs.mgns.core.MainSchema;
+import net.wombatrpgs.mgns.core.PolymorphicSchema;
 import net.wombatrpgs.mgnse.Global;
 import net.wombatrpgs.mgnse.editor.FieldPanel;
 import net.wombatrpgs.mgnse.exception.DatabaseEntrySchemaException;
@@ -65,13 +66,19 @@ public class SchemaTree extends JTree {
 	private List<URLClassLoader> loaders;
 	/** Model setup for the tree */
 	private DefaultTreeModel model;
+	/** Maps polymorphic schema to their subclasses */
+	private HashMap<Class<?>, List<Class<? extends PolymorphicSchema>>> polyMap;
 	
 	/** @param dataDir The new location of the database entries */
 	public void setDataDir(File dataDir) { this.dataDir = dataDir; }
 	/** @param schemaFile The new (jar) schema file */
 	public void addSchemaJar(File schemaJar) { schemaJars.add(schemaJar); }
 	/** @return All known schema types */
-	public ArrayList<Class<? extends MainSchema>> getSchema() { return schema; }
+	public List<Class<? extends MainSchema>> getSchema() { return schema; }
+	/** @return All subclasses of a polymorphic schema */
+	public List<Class<? extends PolymorphicSchema>> getSubclasses(Class<?> schemaClass) {
+		return polyMap.get(schemaClass);
+	}
 	
 	/**
 	 * Creates a new empty tree.
@@ -114,6 +121,7 @@ public class SchemaTree extends JTree {
 		
 		// class loading
 		loaders = new ArrayList<URLClassLoader>();
+		polyMap = new HashMap<Class<?>, List<Class<? extends PolymorphicSchema>>>();
 		
 		// load from all files
 		schema = new ArrayList<Class<? extends MainSchema>>();
@@ -184,10 +192,22 @@ public class SchemaTree extends JTree {
 				Global.instance().debug("Loading a " + className);
 				try {
 					Class<?> rawClass = cl.loadClass(className);
+					// if it's schema, add it
 					if (!MainSchema.class.isAssignableFrom(rawClass)) {
 						Global.instance().debug("Class doesn't extend main schema: " + rawClass);
 					} else {
 						schema.add((Class<? extends MainSchema>) rawClass);
+					}
+					// if it's polymorphic, keep track of it
+					if (PolymorphicSchema.class.isAssignableFrom(rawClass) &&
+							PolymorphicSchema.class != rawClass) {
+						Class<?> superC = rawClass.getSuperclass();
+						List<Class<? extends PolymorphicSchema>> subC = polyMap.get(superC);
+						if (subC == null) {
+							subC = new ArrayList<Class<? extends PolymorphicSchema>>();
+							polyMap.put(superC, subC);
+						}
+						subC.add((Class<? extends PolymorphicSchema>) rawClass);
 					}
 				} catch (ClassNotFoundException e) {
 					Global.instance().err("Couldn't find a class?" + className, e);

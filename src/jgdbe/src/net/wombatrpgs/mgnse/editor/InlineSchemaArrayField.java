@@ -40,7 +40,7 @@ public class InlineSchemaArrayField extends ArrayField<EditorPanel> {
 			HeadlessSchema s = source.getAnnotation(InlineSchema.class).value().newInstance();
 			return genInput(s);
 		} catch (InstantiationException e) {
-			Global.instance().err("Coulnd't make a new schema for field " + source, e);
+			Global.instance().err("Couldn't make a new schema for field " + source, e);
 		} catch (IllegalAccessException e) {
 			Global.instance().err("Bad access for new schema for field " + source, e);
 		}
