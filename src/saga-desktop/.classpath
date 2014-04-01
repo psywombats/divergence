@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="/mgne/lib/gdx.jar" sourcepath="/mgne/lib/gdx-sources.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/mgne-schema"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/saga-schema"/>
+	<classpathentry kind="src" path="/jgdb-schema"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
