@@ -18,10 +18,10 @@ import javax.swing.JPanel;
 
 import net.wombatrpgs.mgns.core.Annotations;
 import net.wombatrpgs.mgns.core.Annotations.FileLink;
-import net.wombatrpgs.mgns.core.Annotations.InlinePolymorphic;
 import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
+import net.wombatrpgs.mgns.core.Annotations.InlinePolymorphic;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
-import net.wombatrpgs.mgns.core.PolymorphicSchema;
+import net.wombatrpgs.mgns.core.PolymorphicLink;
 import net.wombatrpgs.mgns.core.Schema;
 import net.wombatrpgs.mgnse.Global;
 import net.wombatrpgs.mgnse.Logic;
@@ -44,24 +44,25 @@ public class EditorPanel extends JPanel {
 	private Logic logic;
 	private int gridYIndex;
 	private boolean dirty;
+	private boolean showHeader;
 	
 	/**
 	 * Creates a new editor panel. Data is loaded from the provided schema.
-	 * @param schema 	The schema this pane will edit
-	 * @param file 		The file that this schema should (eventually) be written
-	 * @param logic 	The controlling logic for the editor
+	 * @param schema 		The schema this pane will edit
+	 * @param file 			The file that this schema should (eventually) be written
+	 * @param logic 		The controlling logic for the editor
+	 * @param showHeader	True to show header items (ie, not inline editor)
 	 */
-	public EditorPanel(Schema schema, File file, Logic logic) {
+	public EditorPanel(Schema schema, File file, Logic logic, boolean showHeader) {
 		this.source = schema;
 		this.file = file;
 		this.logic = logic;
+		this.showHeader = showHeader;
 		loadData();
 	}
 	
 	/** @return True if this panel has unsaved changes */
 	public boolean isDirty() { return this.dirty; }
-	/** @param dirty True if this panel has unsaved changes */
-	public void setDirty(boolean dirty) { this.dirty = dirty; logic.notifyDirty(this); }
 	/** @return The file this schema writes to */
 	public File getFile() { return this.file; }
 	/** @return The controlling logic for this panel */
@@ -70,6 +71,12 @@ public class EditorPanel extends JPanel {
 	public Schema getSchema() { return this.source; }
 	/** @return The tree of all schemers */
 	public SchemaTree getTree() { return this.logic.getSchemaTree(); }
+	
+	/** @param dirty True if this panel has unsaved changes */
+	public void setDirty(boolean dirty) {
+		this.dirty = dirty;
+		logic.notifyDirty(this);
+	}
 
 	/**
 	 * The contextual way to load a local file.
@@ -129,11 +136,11 @@ public class EditorPanel extends JPanel {
 		}
 		Field f = null;
 		try {
-			for (int i =0; i < source.getClass().getFields().length; i++) {
+			for (int i = 0; i < source.getClass().getFields().length; i++) {
 				f = source.getClass().getFields()[i];
 				if (f.isAnnotationPresent(Annotations.Header.class) &&
 						f.getAnnotation(Annotations.Header.class).value()) {
-					generateEditorFieldFromData(f, f.get(source), source);
+					generateEditorFieldFromData(f, f.get(source), source, showHeader);
 					added[i] = true;
 				}
 			}
@@ -141,7 +148,7 @@ public class EditorPanel extends JPanel {
 			for (int i =0; i < source.getClass().getFields().length; i++) {
 				f = source.getClass().getFields()[i];
 				if (!added[i]) {
-					generateEditorFieldFromData(f, f.get(source), source);
+					generateEditorFieldFromData(f, f.get(source), source, true);
 				}
 			}
 		} catch (Exception e) {
@@ -173,8 +180,9 @@ public class EditorPanel extends JPanel {
 	 * @param field 	The field that this segment will edit
 	 * @param data 		The default value that this field will have
 	 * @param schema 	The schema to map to
+	 * @param display	True to actually display this field
 	 */
-	private void generateEditorFieldFromData(Field field, Object data, Schema schema) {
+	private void generateEditorFieldFromData(Field field, Object data, Schema schema, boolean display) {
 		
 		FieldPanel panel = null;
 		if (field.getType().isArray()) {
@@ -197,8 +205,7 @@ public class EditorPanel extends JPanel {
 		} else if (field.isAnnotationPresent(SchemaLink.class)) {
 			panel = new ReferenceField(this, (String) data, field);
 		} else if (field.isAnnotationPresent(InlinePolymorphic.class)) {
-			panel = new PolymorphField(this, (PolymorphicSchema) data,
-					field.getAnnotation(InlinePolymorphic.class), field);
+			panel = new PolymorphField(this, (PolymorphicLink) data, field);
 		} else if (String.class.isAssignableFrom(field.getType())) {
 			panel = new StringField(this, (String) data, field, schema);
 		} else if (Integer.class.isAssignableFrom(field.getType())) {
@@ -209,24 +216,27 @@ public class EditorPanel extends JPanel {
 			Global.instance().warn("Couldn't find a valid panel for: " + field.getType());
 			return;
 		}
-		Global.instance().debug("Generated a panel " + panel.getClass().getCanonicalName());
 		
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = 0;
-		c.gridy = gridYIndex;
-		//c.insets = new Insets(10, 20, 20, 10);
-		c.anchor = GridBagConstraints.FIRST_LINE_START;
-		c.weightx = 1;
-		c.weighty = 0;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		if (panel.isHeader()) {
-			c.insets = HEADER_INSETS;
-		} else {
-			c.insets = STANDARD_INSETS;
-		}
-		add(panel, c);
 		boundPanels.add(panel);
-		gridYIndex++;
+		if (display) {
+			Global.instance().debug("Generated a panel " + panel.getClass().getCanonicalName());
+			
+			GridBagConstraints c = new GridBagConstraints();
+			c.gridx = 0;
+			c.gridy = gridYIndex;
+			//c.insets = new Insets(10, 20, 20, 10);
+			c.anchor = GridBagConstraints.FIRST_LINE_START;
+			c.weightx = 1;
+			c.weighty = 0;
+			c.fill = GridBagConstraints.HORIZONTAL;
+			if (panel.isHeader()) {
+				c.insets = HEADER_INSETS;
+			} else {
+				c.insets = STANDARD_INSETS;
+			}
+			add(panel, c);
+			gridYIndex++;
+		}
 	}
 	
 	/**

@@ -7,6 +7,7 @@
 package net.wombatrpgs.mgnse.editor;
 
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -15,8 +16,11 @@ import javax.swing.JComponent;
 
 import net.wombatrpgs.mgns.core.Annotations.InlinePolymorphic;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
+import net.wombatrpgs.mgns.core.MainSchema;
+import net.wombatrpgs.mgns.core.PolymorphicLink;
 import net.wombatrpgs.mgns.core.PolymorphicSchema;
 import net.wombatrpgs.mgns.core.Schema;
+import net.wombatrpgs.mgnse.Global;
 
 /**
  * Panel for selecting one of many subclasses.
@@ -30,8 +34,10 @@ public class PolymorphField extends FieldPanel {
 	protected EditorPanel contents;
 	
 	protected Class<? extends PolymorphicSchema> superC;
-	protected Class<? extends PolymorphicSchema> selected;
+	protected PolymorphicLink link;
 	protected List<Class<? extends PolymorphicSchema>> subs;
+	
+	protected boolean initializing;
 
 	/**
 	 * Creates a new subpanel for selecting a subclass.
@@ -40,10 +46,10 @@ public class PolymorphField extends FieldPanel {
 	 * @param	annotation		The annotation containing the poly class
 	 * @param	field			The field to wrap around
 	 */
-	public PolymorphField(EditorPanel parent, PolymorphicSchema defaultData,
-			InlinePolymorphic annotation, Field field) {
+	public PolymorphField(EditorPanel parent, PolymorphicLink data, Field field) {
 		super(parent, field);
 		
+		initializing = true;
 		selector = new JComboBox<String>();
 		if (field.isAnnotationPresent(Nullable.class)) {
 			selector.addItem("None");
@@ -56,10 +62,11 @@ public class PolymorphField extends FieldPanel {
 		addConstrained(selector);
 		selector.addActionListener(this);
 		
-		if (defaultData != null) {
-			selector.setSelectedItem(defaultData.getClass());
+		if (data != null) {
+			link = data;
 			updateSubpanel();
 		}
+		initializing = false;
 	}
 
 	/**
@@ -69,17 +76,14 @@ public class PolymorphField extends FieldPanel {
 	@Override
 	protected void copyTo(Schema s) {
 		try {
-			if (selected != null) {
-				Schema result = selected.newInstance();
-				contents.copyTo(result);
-				source.set(s, result);
-			} else {
-				source.set(s, null);
+			source.set(s, link);
+			if (!contents.getFile().exists()) {
+				contents.getFile().getParentFile().mkdirs();
+				contents.getFile().createNewFile();
 			}
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			e.printStackTrace();
+			contents.saveData(parent.getLogic().getOut());
+		} catch (Exception e) {
+			Global.instance().err("Reflection fail", e);
 		}
 	}
 
@@ -88,23 +92,52 @@ public class PolymorphField extends FieldPanel {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		super.actionPerformed(e);
-		updateSubpanel();
+		if (!initializing) {
+			super.actionPerformed(e);
+			updateSubpanel();
+		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	protected void updateSubpanel() {
 		if (subpanel != null) {
 			remove(subpanel);
+			if (contents.getFile().exists()) {
+				contents.getFile().delete();
+			}
+			link = null;
 		}
-		selected = null;
+		Class<? extends PolymorphicSchema> selected = null;
 		for (Class<? extends PolymorphicSchema> subC : subs) {
 			if (subC.getSimpleName().equals(selector.getSelectedItem())) {
 				selected = subC;
 			}
 		}
+		if (link != null) {
+			selected = (Class<? extends PolymorphicSchema>) parent.getTree().getSchemaByName(link.clazz);
+			selector.setSelectedItem(selected.getSimpleName());
+		}
 		if (selected != null) {
 			try {
-				contents = new EditorPanel(selected.newInstance(), null, parent.getLogic());
+				MainSchema schema;
+				File f;
+				if (link == null) {
+					link = new PolymorphicLink();
+					link.key = "anon_" + parent.getSchema().getClass().getSimpleName() + "_" + hashCode();
+					link.clazz = selected.getCanonicalName();
+					f = new File(parent.getLogic().pathForSchema(selected, link.key));
+					schema = selected.newInstance();
+					schema.key = link.key;
+					schema.subfolder = "";
+					schema.description = "auto-generated anonymous polymorph";
+					schema.name = schema.key;
+				} else {
+					f = new File(parent.getLogic().pathForSchema(selected, link.key));
+					schema = parent.getLogic().getIn().instantiateData(
+							parent.getTree().getSchemaByFile(f),
+							f);
+				}
+				contents = new EditorPanel(schema, f, parent.getLogic(), false);
 				subpanel = new RemovablePanel(
 						this,
 						new RemovalListener() {

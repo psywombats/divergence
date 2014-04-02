@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 
 import net.wombatrpgs.mgns.core.Annotations;
 import net.wombatrpgs.mgns.core.MainSchema;
+import net.wombatrpgs.mgns.core.Schema;
 import net.wombatrpgs.mgnse.editor.EditorPanel;
 import net.wombatrpgs.mgnse.io.ContextualFileLoader;
 import net.wombatrpgs.mgnse.io.InputHandler;
@@ -132,7 +133,7 @@ public class Logic {
 			newEditor = dirtyEditors.get(node.getFile());
 		} else {
 			MainSchema schema = in.instantiateData(node.getSchema(), node.getFile());
-			newEditor = new EditorPanel(schema, node.getFile(), this);
+			newEditor = new EditorPanel(schema, node.getFile(), this, true);
 			editorPane.add(newEditor, newEditor.genConstraints());
 			dirtyEditors.put(node.getFile(), newEditor);
 		}
@@ -253,10 +254,7 @@ public class Logic {
 		} else {
 			instance = source;
 		}
-		String path = in.getFile(out.getProjectConfigFile().getParentFile(), 
-				projectConfig.data).getAbsolutePath() + "\\";
-		path += schema.getName().replace('.', '\\') + "\\";
-		path += key+".json";
+		String path = pathForSchema(schema, key);
 		instance.key = key;
 		instance.subfolder = subdir;
 		File file = new File(path);
@@ -336,6 +334,14 @@ public class Logic {
 	
 	public InputHandler getIn() {
 		return in;
+	}
+	
+	public String pathForSchema(Class<? extends Schema> schema, String key) {
+		String path = in.getFile(out.getProjectConfigFile().getParentFile(), 
+				projectConfig.data).getAbsolutePath() + "\\";
+		path += schema.getName().replace('.', '\\') + "\\";
+		path += key+".json";
+		return path;
 	}
 	
 	/**

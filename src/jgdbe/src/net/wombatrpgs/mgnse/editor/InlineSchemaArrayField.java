@@ -53,7 +53,7 @@ public class InlineSchemaArrayField extends ArrayField<EditorPanel> {
 	 * @return		A new editor panel to work with it
 	 */
 	protected EditorPanel genInput(Schema s) {
-		EditorPanel subpanel = new EditorPanel(s, null, parent.getLogic());
+		EditorPanel subpanel = new EditorPanel(s, null, parent.getLogic(), false);
 		return subpanel;
 	}
 

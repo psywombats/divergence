@@ -26,11 +26,11 @@ public class InlineSchemaField extends FieldPanel {
 	public InlineSchemaField(EditorPanel parent, Schema defaultData, Field field) {
 		super(parent, field);
 		if (defaultData != null) {
-			input = new EditorPanel(defaultData, null, parent.getLogic());
+			input = new EditorPanel(defaultData, null, parent.getLogic(), false);
 		} else {
 			try {
 				Schema newSchema = (Schema) field.getType().newInstance();
-				input = new EditorPanel(newSchema, null, parent.getLogic());
+				input = new EditorPanel(newSchema, null, parent.getLogic(), false);
 			} catch (Exception e) {
 				Global.instance().err("Bad field", e);
 			}

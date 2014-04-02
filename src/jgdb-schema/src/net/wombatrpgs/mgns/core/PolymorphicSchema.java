@@ -12,6 +12,6 @@ import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
  * Schema that can be headless with multiple subclasses.
  */
 @ExcludeFromTree
-public class PolymorphicSchema extends HeadlessSchema {
+public class PolymorphicSchema extends MainSchema {
 
 }

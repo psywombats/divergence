@@ -7,10 +7,11 @@
 package net.wombatrpgs.sagaschema.rpg.abil;
 
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
-import net.wombatrpgs.mgns.core.Annotations.InlinePolymorphic;
 import net.wombatrpgs.mgns.core.Annotations.Path;
+import net.wombatrpgs.mgns.core.Annotations.InlinePolymorphic;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
+import net.wombatrpgs.mgns.core.PolymorphicLink;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseProjector;
 
@@ -31,8 +32,8 @@ public class CombatItem extends MainSchema {
 	@DefaultValue("SINGLE_ENEMY")
 	public OffenseProjector projector;
 	
-	@Desc("Warhead - what happens when this applies")
+	@Desc("Effect - what happens when this applies")
 	@InlinePolymorphic(AbilEffectMDO.class)
-	public AbilEffectMDO warhead;
+	public PolymorphicLink warhead;
 
 }

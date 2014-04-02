@@ -40,7 +40,7 @@ public class IntegerField extends FieldPanel {
 			}
 		}
 		input.setColumns(10);
-		input.addPropertyChangeListener("value", this);
+		input.getDocument().addDocumentListener(this);
 		checkMute(input);
 		addConstrained(input);
 	}

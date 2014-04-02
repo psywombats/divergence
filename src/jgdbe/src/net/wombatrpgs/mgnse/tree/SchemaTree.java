@@ -38,7 +38,6 @@ import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.PolymorphicSchema;
 import net.wombatrpgs.mgnse.Global;
 import net.wombatrpgs.mgnse.editor.FieldPanel;
-import net.wombatrpgs.mgnse.exception.DatabaseEntrySchemaException;
 import net.wombatrpgs.mgnse.exception.MisplacedDatabaseEntryException;
 
 /**
@@ -138,6 +137,8 @@ public class SchemaTree extends JTree {
 		for (Class<? extends MainSchema> schemaClass : schema) {
 			if (schemaClass.isAnnotationPresent(ExcludeFromTree.class)){
 				Global.instance().debug("Ignored schema file due to exclude " + schemaClass);
+			} else if (PolymorphicSchema.class.isAssignableFrom(schemaClass)) {
+				Global.instance().debug("Ignored schema file due to polymorphic " + schemaClass);
 			} else {
 				map.put(schemaClass, getNodeByPath(tree,
 						getSchemaDisplayPath(schemaClass), schemaClass));
@@ -265,18 +266,19 @@ public class SchemaTree extends JTree {
 		Class<? extends MainSchema> schema = getSchemaByFile(data);
 		SchemaNode parent = getNodeByPath(tree, getSchemaDisplayPath(schema), null);
 		if (parent == null) {
-			Global.instance().err("Couldn't find schema for " + data.getName(),
-					new DatabaseEntrySchemaException(data.getName()));
-		}
-		parent = getNodeByPath(parent, getDataSubdir(data), schema);
-		SchemaNode node = new SchemaNode(data, schema);
-		if (!schema.isAnnotationPresent(ExcludeFromTree.class)) {
-			parent.add(node);
+			Global.instance().debug("No node schema for " + data.getName());
+			return null;
 		} else {
-			Global.instance().debug("Ignored due to annotation: " + schema);
+			parent = getNodeByPath(parent, getDataSubdir(data), schema);
+			SchemaNode node = new SchemaNode(data, schema);
+			if (!schema.isAnnotationPresent(ExcludeFromTree.class)) {
+				parent.add(node);
+			} else {
+				Global.instance().debug("Ignored due to annotation: " + schema);
+			}
+			Global.instance().debug("Loaded object " + data.getName() + " as a " + schema.getName());
+			return node;
 		}
-		Global.instance().debug("Loaded object " + data.getName() + " as a " + schema.getName());
-		return node;
 	}
 	
 	/**
@@ -366,26 +368,42 @@ public class SchemaTree extends JTree {
 	 * @param dataFile The data file to get the schema for
 	 * @return The class of schema of the data
 	 */
-	@SuppressWarnings("unchecked")
-	private Class<? extends MainSchema> getSchemaByFile(File dataFile) {
+	public Class<? extends MainSchema> getSchemaByFile(File dataFile) {
 		String rootPath = dataDir.getAbsolutePath();
-		String ourPath = getMainSchemaDirectory(dataFile).getAbsolutePath();
+		File mainDir = getMainSchemaDirectory(dataFile);
+		String ourPath = mainDir.getAbsolutePath();
 		String relativePath = ourPath.substring(rootPath.length(), ourPath.length());
 		String className = relativePath.replace('\\', '.');
 		className = className.replace('/', '.');
 		if (className.startsWith(".")) className = className.substring(1);
+		Class<? extends MainSchema> result = getSchemaByName(className);
+		if (result == null) {
+			Global.instance().err("Couldn't find a class " + className, new Exception());
+			return null;
+		} else {
+			return result;
+		}
+	}
+	
+	/**
+	 * Gets the actual schema for a data object based on its name.
+	 * @param dataFile The data file to get the schema for
+	 * @return The class of schema of the data
+	 */
+	@SuppressWarnings("unchecked")
+	public Class<? extends MainSchema> getSchemaByName(String className) {
 		for (URLClassLoader cl : loaders) {
 			try {
 				Class<?> rawClass = cl.loadClass(className);
-				if (!MainSchema.class.isAssignableFrom(rawClass)) {
-					Global.instance().warn("Loaded class " + rawClass + " didn't extend base schema");
+				if (rawClass == null || !MainSchema.class.isAssignableFrom(rawClass)) {
+					Global.instance().debug("Loaded class " + rawClass + " didn't extend base schema");
+					return null;
 				}
 				return (Class<? extends MainSchema>) rawClass;
 			} catch (ClassNotFoundException e) {
 				continue;
 			}
 		}
-		Global.instance().err("Couldn't find a class " + className, new Exception());
 		return null;
 	}
 	
@@ -397,26 +415,28 @@ public class SchemaTree extends JTree {
 	 * @return The root schema directory for the data file
 	 */
 	private File getMainSchemaDirectory(File dataFile) {
+		if (dataFile.getName().contains("anon")) {
+			System.out.println("");
+		}
 		String subdir = getDataSubdir(dataFile);
 		if (subdir.equals("")) {
 			return dataFile.getParentFile();
-		} else {
-			String path = dataFile.getParentFile().getAbsolutePath();
-			if (filesystemReflectsSubdirs) {
-				String[] subdirParts = subdir.split("/");
-				for (int i = 0; i < subdirParts.length; i++) {
-					String part = subdirParts[subdirParts.length - i - 1];
-					int index = path.indexOf(part);
-					if (index == -1) {
-						String msg = "Bad subdir " + subdir;
-						Global.instance().err(subdir, new MisplacedDatabaseEntryException(msg));
-					} else {
-						path = path.substring(0, index);
-					}
+		}
+		String path = dataFile.getParentFile().getAbsolutePath();
+		if (filesystemReflectsSubdirs) {
+			String[] subdirParts = subdir.split("/");
+			for (int i = 0; i < subdirParts.length; i++) {
+				String part = subdirParts[subdirParts.length - i - 1];
+				int index = path.indexOf(part);
+				if (index == -1) {
+					String msg = "Bad subdir " + subdir;
+					Global.instance().err(subdir, new MisplacedDatabaseEntryException(msg));
+				} else {
+					path = path.substring(0, index);
 				}
 			}
-			return new File(path);
 		}
+		return new File(path);
 	}
 	
 	/**

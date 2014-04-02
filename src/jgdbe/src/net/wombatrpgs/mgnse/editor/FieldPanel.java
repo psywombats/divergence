@@ -163,7 +163,6 @@ public abstract class FieldPanel extends JPanel implements 	DocumentListener,
 	private void checkHeader() {
 		if (isHeader()) {
 			//setBackground(Color.CYAN);
-			//HERPHERPHREPHREPEHRP
 		}
 	}
 
