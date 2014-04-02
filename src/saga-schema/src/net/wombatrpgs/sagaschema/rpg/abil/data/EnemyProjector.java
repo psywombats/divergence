@@ -9,7 +9,7 @@ package net.wombatrpgs.sagaschema.rpg.abil.data;
 /**
  * Types of things that can be healed.
  */
-public enum HealType {
+public enum EnemyProjector {
 	
 	HEALTH,
 	

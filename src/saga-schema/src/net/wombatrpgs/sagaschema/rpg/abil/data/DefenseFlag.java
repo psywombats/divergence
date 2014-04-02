@@ -9,11 +9,9 @@ package net.wombatrpgs.sagaschema.rpg.abil.data;
 /**
  * Misc effects for defense and counters.
  */
-public enum DefenseSideEffect {
+public enum DefenseFlag {
 	
 	BLOCKS_TRIGGERING_DAMAGE,
-	EVADES_TRIGGERING_DAMAGE,
 	REFLECTS_TRIGGERING_ATTACK,
-	NEGATES_TRIGGERING_STATUS,
 
 }

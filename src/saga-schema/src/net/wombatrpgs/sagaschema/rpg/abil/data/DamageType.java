@@ -18,13 +18,5 @@ public enum DamageType {
 	ICE,
 	EARTH,
 	THUNDER,
-	MAGIC,
-	
-	PARALYZE,
-	BLIND,
-	CONFUSE,
-	SLEEP,
-	STONE,
-	DEATH,
 	
 }

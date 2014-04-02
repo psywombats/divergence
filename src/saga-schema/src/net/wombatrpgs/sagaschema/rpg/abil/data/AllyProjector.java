@@ -9,7 +9,7 @@ package net.wombatrpgs.sagaschema.rpg.abil.data;
 /**
  * What does this healing affect?
  */
-public enum HealProjector {
+public enum AllyProjector {
 	
 	USER,
 	SINGLE_ALLY,

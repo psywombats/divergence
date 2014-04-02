@@ -14,19 +14,8 @@ import net.wombatrpgs.mgneschema.rpg.data.FlagStat;
  */
 public enum Flag implements FlagStatLinkable {
 	
-	RESIST_WEAPON,
-	RESIST_DAMAGE,
-	RESIST_CONFUSE,
-	RESIST_STATUS,
-	RESIST_FIRE,
-	RESIST_COLD,
-	RESIST_EARTH,
-	RESIST_THUNDER,
-	RESIST_ELEMENTAL,
-	WEAK_FIRE,
-	WEAK_COLD,
-	WEAK_EARTH,
-	WEAK_THUNDER,
+	HUMAN,
+	AQUATIC,
 	UNDEAD;
 
 	private FlagStat flag;

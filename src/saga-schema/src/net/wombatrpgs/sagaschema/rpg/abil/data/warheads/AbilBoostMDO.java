@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.sagaschema.rpg.abil.data.warheads;
 
+import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
@@ -16,13 +17,16 @@ import net.wombatrpgs.sagaschema.rpg.data.Stat;
  */
 public class AbilBoostMDO extends AbilEffectMDO {
 	
-	@Desc("Stats to boost - all will be affected equally")
-	public Stat[] stat;
+	@Desc("Stat to boost")
+	@DefaultValue("STR")
+	public Stat stat;
 	
 	@Desc("Base power - power of the boost before modifiers")
+	@DefaultValue("0")
 	public Integer power;
 	
-	@Desc("Power stat - this stat is doubled and added to base power")
+	@Desc("Power stat - this stat is quartered and added to base power")
+	@DefaultValue("None")
 	@Nullable
 	public Stat powerStat;
 	

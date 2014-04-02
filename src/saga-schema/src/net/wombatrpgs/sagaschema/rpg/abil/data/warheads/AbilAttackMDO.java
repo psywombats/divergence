@@ -6,39 +6,43 @@
  */
 package net.wombatrpgs.sagaschema.rpg.abil.data.warheads;
 
+import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.DamageType;
 import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseProjector;
-import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseSideEffect;
+import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseFlag;
 import net.wombatrpgs.sagaschema.rpg.data.Stat;
 
 /**
  * Inflicts something on whoever, both damage and status.
  */
-public class AbilBasicMDO extends AbilEffectMDO {
+public class AbilAttackMDO extends AbilEffectMDO {
 	
-	@Desc("Projector - what does this attack hit?")
+	@Desc("Projector")
+	@DefaultValue("SINGLE_ENEMY")
 	public OffenseProjector projector;
 	
-	@Desc("Damage types - all of these will be inflicted")
-	public DamageType[] damType;
+	@Desc("Damage type")
+	@DefaultValue("PHYSICAL")
+	public DamageType damType;
 	
-	@Desc("Base power - power of the attack before modifiers, for status this "
-			+ "power goes towards overcoming status block")
+	@Desc("Base power - power of the attack before multipliers")
+	@DefaultValue("0")
 	public Integer power;
 	
-	@Desc("Attack stat - this stat is doubled and added to base power")
+	@Desc("Attack stat - this stat is quartered and then multiplied by power")
+	@DefaultValue("STR")
 	@Nullable
 	public Stat attackStat;
 	
-	@Desc("Defend stat - this stat is subtracted from incoming damage, for "
-			+ "status this stat becomes % to block")
+	@Desc("Defend stat - this stat is subtracted from incoming damage")
+	@DefaultValue("DEF")
 	@Nullable
 	public Stat defendStat;
 	
-	@Desc("Other flags - varying modifiers on this attack")
-	public OffenseSideEffect[] sideEffects;
+	@Desc("Other flags")
+	public OffenseFlag[] sideEffects;
 
 }

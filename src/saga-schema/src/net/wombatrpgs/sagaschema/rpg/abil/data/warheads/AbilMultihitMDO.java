@@ -6,10 +6,10 @@
  */
 package net.wombatrpgs.sagaschema.rpg.abil.data.warheads;
 
+import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
-import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseProjector;
 import net.wombatrpgs.sagaschema.rpg.data.Stat;
 
 /**
@@ -17,10 +17,7 @@ import net.wombatrpgs.sagaschema.rpg.data.Stat;
  */
 public class AbilMultihitMDO extends AbilEffectMDO {
 	
-	@Desc("Projector - what does this attack hit?")
-	public OffenseProjector projector;
-	
-	@Desc("Base power - power of each attack, before modifiers")
+	@Desc("Base power - base multiplier of each hit")
 	public Integer power;
 	
 	@Desc("First hits - how many times this attack hits on first use")
@@ -29,12 +26,13 @@ public class AbilMultihitMDO extends AbilEffectMDO {
 	@Desc("Successive hits - how many times this attack hits on other use")
 	public Integer hitsLast;
 	
-	@Desc("Attack stat - this stat is doubled and added to base power")
+	@Desc("Attack stat - this stat is quartered and then multiplied by power")
+	@DefaultValue("STR")
 	@Nullable
 	public Stat attackStat;
 	
-	@Desc("Defend stat - this stat is subtracted from incoming damage, for "
-			+ "status this stat becomes % to block")
+	@Desc("Defend stat - this stat is subtracted from incoming damage")
+	@DefaultValue("DEF")
 	@Nullable
 	public Stat defendStat;
 

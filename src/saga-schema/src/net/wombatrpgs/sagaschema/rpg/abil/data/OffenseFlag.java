@@ -9,10 +9,14 @@ package net.wombatrpgs.sagaschema.rpg.abil.data;
 /**
  * Set of weird side effects an attack can have.
  */
-public enum OffenseSideEffect {
+public enum OffenseFlag {
 	
 	KILLS_USER,
 	ONLY_AFFECT_UNDEAD,
-	DRAIN,
+	ONLY_AFFECT_HUMANS,
+	DRAIN_LIFE,
+	CRITICAL_ON_WEAKNESS,
+	IGNORE_RESISTANCES,
+	STUNS_ON_HIT,
 
 }
