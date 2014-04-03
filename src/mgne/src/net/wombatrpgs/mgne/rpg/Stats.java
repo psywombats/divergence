@@ -60,7 +60,7 @@ public class Stats {
 	 * @param	id				The unique identifier of the stat to look up
 	 * @return					The value of that stat
 	 */
-	public Float getStat(String id) {
+	public Float stat(String id) {
 		Float value = stats.get(id);
 		if (value != null) {
 			return value;
@@ -82,7 +82,7 @@ public class Stats {
 	 * @param	id				The unique identifier of the flag to look up
 	 * @return					True if that flag is set, false otherwise
 	 */
-	public Boolean getFlag(String id) {
+	public Boolean flag(String id) {
 		FlagStatValue value = flags.get(id);
 		if (value != null) {
 			return value.on();
@@ -112,10 +112,62 @@ public class Stats {
 		if (flag == null) {
 			flag = new FlagStatValue(value ? 1 : 0);
 		} else {
-			int count = flag.count;
-			flag = new FlagStatValue(count + (value ? 1 :-1));
+			flag.modify(value);
 		}
 		flags.put(id, flag);
+	}
+	
+	/**
+	 * Combines this set of stats with some other stats, like when a player
+	 * equips an item with the other stats.
+	 * @param	other			The other stats to merge in
+	 */
+	public void combine(Stats other) {
+		for (NumericStat type : other.statTypes) {
+			Float value = stats.get(type);
+			String id = type.getID();
+			if (value == null) {
+				statTypes.add(type);
+				stats.put(id, other.stat(id));
+			} else {
+				stats.put(id, type.combine(value, other.stat(id)));
+			}
+		}
+		for (FlagStat type : other.flagTypes) {
+			FlagStatValue value = flags.get(type);
+			String id = type.getID();
+			if (value == null) {
+				flagTypes.add(type);
+				flags.put(id,  new FlagStatValue(1));
+			} else {
+				value.modify(value.on());
+			}
+		}
+	}
+	
+	/**
+	 * Decombines this set of stats with some other stats, like when a player
+	 * unequips an item with the other stats.
+	 * @param	other			The other stats to merge in
+	 */
+	public void decombine(Stats other) {
+		for (NumericStat type : other.statTypes) {
+			Float value = stats.get(type);
+			String id = type.getID();
+			if (value == null) {
+				MGlobal.reporter.err("Decombined a non-combined stat set");
+			} else {
+				stats.put(id, type.decombine(value, other.stat(id)));
+			}
+		}
+		for (FlagStat type : other.flagTypes) {
+			FlagStatValue value = flags.get(type);
+			if (value == null) {
+				MGlobal.reporter.err("Decombined a non-combined stat set");
+			} else {
+				value.modify(!value.on());
+			}
+		}
 	}
 
 }

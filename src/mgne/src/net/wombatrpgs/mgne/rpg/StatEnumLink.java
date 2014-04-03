@@ -18,15 +18,16 @@ import net.wombatrpgs.mgneschema.rpg.data.NumericStatLinkable;
 /**
  * A simple extension to Stats that works with an enum set.
  */
-public class Statset extends Stats {
+public class StatEnumLink extends Stats {
 
 	/**
 	 * Creates a new statset from a collection of linkables.
-	 * @param	numerics		The collection of all numeric linkables
-	 * @param	flags			The collection of all flag linkables
+	 * @param	allNumerics		The collection of all numeric linkables
+	 * @param	allFlags			The collection of all flag linkables
 	 */
-	public Statset(List<? extends NumericStatLinkable> numerics, Collection<? extends FlagStatLinkable> flags) {
-		super(convertNumeric(numerics), convertFlag(flags));
+	public StatEnumLink(Collection<? extends NumericStatLinkable> allNumerics,
+			Collection<? extends FlagStatLinkable> allFlags) {
+		super(convertNumeric(allNumerics), convertFlag(allFlags));
 	}
 	
 	/**
@@ -34,8 +35,8 @@ public class Statset extends Stats {
 	 * @param	link			The link to use for retrieving stat data
 	 * @return					The value of that stat
 	 */
-	public Float getStat(NumericStatLinkable link) {
-		return super.getStat(link.getStat().getID());
+	public Float stat(NumericStatLinkable link) {
+		return super.stat(link.getStat().getID());
 	}
 	
 	/**
@@ -43,8 +44,8 @@ public class Statset extends Stats {
 	 * @param	link			The link to use for retrieving stat data
 	 * @return					True if that flag is set
 	 */
-	public Boolean getFlag(FlagStatLinkable link) {
-		return super.getFlag(link.getFlag().getID());
+	public Boolean flag(FlagStatLinkable link) {
+		return super.flag(link.getFlag().getID());
 	}
 	
 	/**
@@ -63,6 +64,17 @@ public class Statset extends Stats {
 	 */
 	public void updateFlag(FlagStatLinkable flag, boolean value) {
 		super.updateFlag(flag.getFlag().getID(), value);
+	}
+	
+	/**
+	 * Sets all the flags in the collection.
+	 * @param	links			All the links to set
+	 * @param	value			True to set the flags, false to unset them
+	 */
+	public void updateFlags(Collection<? extends FlagStatLinkable> links, boolean value) {
+		for (FlagStatLinkable link : links) {
+			updateFlag(link, value);
+		}
 	}
 	
 	/**
