@@ -4,12 +4,12 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.sagaschema.rpg.abil.data;
+package net.wombatrpgs.sagaschema.rpg.chara.data;
 
 /**
  * Abnormal status conditions.
  */
-public enum StatusType {
+public enum Status {
 	
 	BLIND,
 	CURSE,

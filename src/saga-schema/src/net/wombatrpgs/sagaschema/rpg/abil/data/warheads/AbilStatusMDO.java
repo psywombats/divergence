@@ -10,8 +10,8 @@ import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseProjector;
-import net.wombatrpgs.sagaschema.rpg.abil.data.StatusType;
-import net.wombatrpgs.sagaschema.rpg.data.Stat;
+import net.wombatrpgs.sagaschema.rpg.chara.data.Status;
+import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**
  * Inflicts status conditions.
@@ -23,7 +23,7 @@ public class AbilStatusMDO extends AbilEffectMDO {
 	public OffenseProjector projector;
 	
 	@Desc("Status to inflict")
-	public StatusType status;
+	public Status status;
 	
 	@Desc("Accuracy - base chance to hit, from 0 to 100 usually")
 	@DefaultValue("80")

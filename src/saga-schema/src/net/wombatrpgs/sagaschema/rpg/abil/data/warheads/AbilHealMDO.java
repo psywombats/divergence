@@ -11,8 +11,8 @@ import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AllyProjector;
-import net.wombatrpgs.sagaschema.rpg.abil.data.StatusType;
-import net.wombatrpgs.sagaschema.rpg.data.Stat;
+import net.wombatrpgs.sagaschema.rpg.chara.data.Status;
+import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**
  * Heals party.
@@ -32,7 +32,7 @@ public class AbilHealMDO extends AbilEffectMDO {
 	public Integer power;
 
 	@Desc("Heal status - cures these ailments")
-	public StatusType[] status;
+	public Status[] status;
 	
 	@Desc("Power stat - this stat is doubled and added to base power")
 	@DefaultValue("None")

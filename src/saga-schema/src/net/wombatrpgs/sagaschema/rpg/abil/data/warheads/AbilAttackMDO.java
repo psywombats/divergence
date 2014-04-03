@@ -13,7 +13,7 @@ import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.DamageType;
 import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseProjector;
 import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseFlag;
-import net.wombatrpgs.sagaschema.rpg.data.Stat;
+import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**
  * Inflicts something on whoever, both damage and status.

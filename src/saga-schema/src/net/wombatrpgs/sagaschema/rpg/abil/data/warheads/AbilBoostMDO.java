@@ -10,7 +10,7 @@ import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
-import net.wombatrpgs.sagaschema.rpg.data.Stat;
+import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**
  * Boosts a stat for the battle.

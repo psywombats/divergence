@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.sagaschema.rpg.data;
+package net.wombatrpgs.sagaschema.rpg.stats;
 
 import net.wombatrpgs.mgns.core.HeadlessSchema;
 

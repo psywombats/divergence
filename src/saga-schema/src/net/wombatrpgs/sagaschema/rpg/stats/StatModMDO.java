@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.sagaschema.rpg.data;
+package net.wombatrpgs.sagaschema.rpg.stats;
 
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
@@ -13,14 +13,13 @@ import net.wombatrpgs.mgns.core.HeadlessSchema;
 /**
  * A set of changes to be made to a set of stats.
  */
-public class StatSetMDO extends HeadlessSchema {
+public class StatModMDO extends HeadlessSchema {
 	
 	@Desc("Stat modifiers")
 	@InlineSchema(StatEntryMDO.class)
 	public StatEntryMDO stats[];
 	
 	@Desc("Flags")
-	@InlineSchema(FlagEntryMDO.class)
-	public FlagEntryMDO flags[];
+	public Flag[] flags;
 
 }

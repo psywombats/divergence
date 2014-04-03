@@ -13,19 +13,27 @@ import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.PolymorphicLink;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
+import net.wombatrpgs.sagaschema.rpg.abil.data.AbilityType;
 
 /**
  * MDO for actions.
  */
 @Path("rpg/")
-public class CombatItem extends MainSchema {
+public class CombatItemMDO extends MainSchema {
 	
 	@Desc("Ability name - displayed in-game")
 	public String abilityName;
 	
+	@Desc("Type")
+	public AbilityType type;
+	
 	@Desc("Uses - or zero for infinite uses")
 	@DefaultValue("0")
 	public Integer uses;
+	
+	@Desc("Cost - or zero for unsellable, halved for resale rate")
+	@DefaultValue("0")
+	public Integer cost;
 	
 	@Desc("Effect - what happens when this applies")
 	@InlinePolymorphic(AbilEffectMDO.class)

@@ -10,8 +10,8 @@ import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.DamageType;
-import net.wombatrpgs.sagaschema.rpg.abil.data.StatusType;
-import net.wombatrpgs.sagaschema.rpg.data.StatSetMDO;
+import net.wombatrpgs.sagaschema.rpg.chara.data.Status;
+import net.wombatrpgs.sagaschema.rpg.stats.StatModMDO;
 
 /**
  * Passive resistance or stat abilities.
@@ -22,16 +22,16 @@ public class AbilPassiveMDO extends AbilEffectMDO {
 	public DamageType[] damResist;
 	
 	@Desc("Status effect resistances")
-	public StatusType[] statusResist;
+	public Status[] statusResist;
 	
 	@Desc("Damage type weaknesses")
 	public DamageType[] damWeak;
 	
 	@Desc("Status effect weaknesses")
-	public StatusType[] statusWeak;
+	public Status[] statusWeak;
 	
 	@Desc("Stat boosts")
-	@InlineSchema(StatSetMDO.class)
-	public StatSetMDO stats;
+	@InlineSchema(StatModMDO.class)
+	public StatModMDO stats;
 
 }

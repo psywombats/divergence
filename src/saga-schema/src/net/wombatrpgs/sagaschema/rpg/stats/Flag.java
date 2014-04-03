@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.sagaschema.rpg.data;
+package net.wombatrpgs.sagaschema.rpg.stats;
 
 import net.wombatrpgs.mgneschema.rpg.data.FlagStatLinkable;
 import net.wombatrpgs.mgneschema.rpg.data.FlagStat;
@@ -16,6 +16,7 @@ public enum Flag implements FlagStatLinkable {
 	
 	HUMAN,
 	AQUATIC,
+	DRACONIC,
 	UNDEAD;
 
 	private FlagStat flag;

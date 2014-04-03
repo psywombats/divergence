@@ -13,8 +13,8 @@ import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AllyProjector;
 import net.wombatrpgs.sagaschema.rpg.abil.data.DamageType;
 import net.wombatrpgs.sagaschema.rpg.abil.data.DefenseFlag;
-import net.wombatrpgs.sagaschema.rpg.abil.data.StatusType;
-import net.wombatrpgs.sagaschema.rpg.data.Stat;
+import net.wombatrpgs.sagaschema.rpg.chara.data.Status;
+import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**
  * Counterattacks.
@@ -35,7 +35,7 @@ public class AbilDefendMDO extends AbilEffectMDO {
 	@Desc("Status - inflicted on trigger to the attacker")
 	@DefaultValue("None")
 	@Nullable
-	public StatusType status;
+	public Status status;
 
 	@Desc("Counter type - damage inflicted when triggered")
 	@DefaultValue("None")

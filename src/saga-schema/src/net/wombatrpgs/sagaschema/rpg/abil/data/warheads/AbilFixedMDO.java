@@ -12,7 +12,7 @@ import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseFlag;
 import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseProjector;
-import net.wombatrpgs.sagaschema.rpg.data.Stat;
+import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**
  * Deals fixed damage.
