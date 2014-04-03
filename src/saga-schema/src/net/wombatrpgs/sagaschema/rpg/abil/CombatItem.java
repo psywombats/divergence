@@ -13,7 +13,6 @@ import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.PolymorphicLink;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
-import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseProjector;
 
 /**
  * MDO for actions.
@@ -27,10 +26,6 @@ public class CombatItem extends MainSchema {
 	@Desc("Uses - or zero for infinite uses")
 	@DefaultValue("0")
 	public Integer uses;
-	
-	@Desc("Targeting type")
-	@DefaultValue("SINGLE_ENEMY")
-	public OffenseProjector projector;
 	
 	@Desc("Effect - what happens when this applies")
 	@InlinePolymorphic(AbilEffectMDO.class)

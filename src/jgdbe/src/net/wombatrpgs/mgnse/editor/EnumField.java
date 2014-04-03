@@ -10,6 +10,7 @@ import java.lang.reflect.Field;
 
 import javax.swing.JComboBox;
 
+import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Schema;
 import net.wombatrpgs.mgnse.Global;
 
@@ -32,6 +33,9 @@ public class EnumField extends FieldPanel {
 	public EnumField(EditorPanel parent, Object defaultData, Field field) {
 		super(parent, field);
 		input = new JComboBox<String>();
+		if (field.isAnnotationPresent(Nullable.class)) {
+			input.addItem("None");
+		}
 		for (Object value : field.getType().getEnumConstants()) {
 			input.addItem(value.toString());
 		}
@@ -50,6 +54,7 @@ public class EnumField extends FieldPanel {
 	@Override
 	protected void copyTo(Schema s) {
 		try {
+			source.set(s, null);
 			for (Object value : source.getType().getEnumConstants()) {
 				if (value.toString().equals(input.getSelectedItem().toString())) {
 					source.set(s, value);

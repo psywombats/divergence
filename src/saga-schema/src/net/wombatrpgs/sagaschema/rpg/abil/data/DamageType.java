@@ -19,4 +19,6 @@ public enum DamageType {
 	EARTH,
 	THUNDER,
 	
+	NONELEMENTAL,
+	
 }

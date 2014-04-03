@@ -30,6 +30,7 @@ public class AbilPassiveMDO extends AbilEffectMDO {
 	@Desc("Status effect weaknesses")
 	public StatusType[] statusWeak;
 	
+	@Desc("Stat boosts")
 	@InlineSchema(StatSetMDO.class)
 	public StatSetMDO stats;
 
