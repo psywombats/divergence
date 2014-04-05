@@ -7,6 +7,7 @@
 package net.wombatrpgs.saga.core;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.Memory;
 import net.wombatrpgs.mgne.core.MgnGame;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.saga.screen.WorldScreen;
@@ -24,6 +25,23 @@ public class SagaGame extends MgnGame {
 		WorldScreen screen = new WorldScreen();
 		MGlobal.assets.loadAsset(screen, "world screen");
 		return screen;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.MgnGame#makeMemory()
+	 */
+	@Override
+	public Memory makeMemory() {
+		return new SMemory();
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.MgnGame#onCreate()
+	 */
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		SGlobal.globalInit();
 	}
 
 }

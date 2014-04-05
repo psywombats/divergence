@@ -96,7 +96,6 @@ public class MGlobal {
 			MGlobal.constants = new Constants();
 			MGlobal.screens = new ScreenStack();
 			MGlobal.files = new MFiles();
-//			SGlobal.tiles = new TileManager();
 			MGlobal.levelManager = new LevelManager();
 			
 			// load secondary data
@@ -119,8 +118,7 @@ public class MGlobal {
 			MGlobal.ui = new UISettings(MGlobal.data.getEntryFor(
 					UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
 			MGlobal.keymap = Keymap.initDefaultKeymap();
-			// TODO: persistence: memory should persist
-			MGlobal.memory = new Memory();
+			MGlobal.memory = game.makeMemory();
 			MGlobal.lua = new Lua();
 			toLoad.add(ui);
 			toLoad.add(graphics);
@@ -138,7 +136,6 @@ public class MGlobal {
 			MGlobal.screens.push(game.makeStarterScreen());
 			toLoad.add(MGlobal.screens.peek());
 			Gdx.graphics.setTitle(MGlobal.window.getTitle());
-			//Gdx.graphics.setVSync(true);
 			
 			assets.loadAssets(toLoad, "level assets");
 			

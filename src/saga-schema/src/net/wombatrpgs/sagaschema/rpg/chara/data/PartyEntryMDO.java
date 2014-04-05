@@ -8,6 +8,7 @@ package net.wombatrpgs.sagaschema.rpg.chara.data;
 
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
+import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.HeadlessSchema;
 import net.wombatrpgs.sagaschema.rpg.chara.CharacterMDO;
 
@@ -17,7 +18,8 @@ import net.wombatrpgs.sagaschema.rpg.chara.CharacterMDO;
 public class PartyEntryMDO extends HeadlessSchema {
 	
 	@Desc("Monster")
-	public CharacterMDO monster;
+	@SchemaLink(CharacterMDO.class)
+	public String monster;
 	
 	@Desc("Count")
 	@DefaultValue("1")

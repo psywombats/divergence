@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.sagaschema.rpg.chara;
 
+import net.wombatrpgs.mgneschema.graphics.FourDirMDO;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.Annotations.Path;
@@ -26,6 +27,10 @@ public class CharacterMDO extends MainSchema {
 	
 	@Desc("Race")
 	public Race race;
+	
+	@Desc("Appearance")
+	@SchemaLink(FourDirMDO.class)
+	public String appearance;
 	
 	@Desc("Equipped items/abilities")
 	@SchemaLink(CombatItemMDO.class)

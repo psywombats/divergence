@@ -39,6 +39,27 @@ public abstract class MgnGame {
 	}
 	
 	/**
+	 * Create and then return the memory object used to manage game saves. This
+	 * defaults to the engine-provided Memory that stores everything in MGlobal,
+	 * but games will most likely need to store some additional game-specific
+	 * info from their own globals.
+	 * @return					The game memory manager object
+	 */
+	public Memory makeMemory() {
+		return new Memory();
+	}
+	
+	/**
+	 * Create and then return the constants object for stored constant lookup.
+	 * This defaults to engine constants, but overriding Constants can be used
+	 * to add more values.
+	 * @return					The constants object for this game
+	 */
+	public Constants makeConstants() {
+		return new Constants();
+	}
+	
+	/**
 	 * Called when the game is created. Globals etc should get initialized here.
 	 */
 	public void onCreate() {

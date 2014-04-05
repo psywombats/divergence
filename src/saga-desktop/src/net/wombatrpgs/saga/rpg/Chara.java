@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.saga.rpg;
 
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.sagaschema.rpg.chara.CharacterMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Race;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Resistable;
@@ -29,6 +30,14 @@ public class Chara {
 	public Chara(CharacterMDO mdo) {
 		this.mdo = mdo;
 		this.stats = new SagaStats(mdo.stats);
+	}
+	
+	/**
+	 * Creates a new character from a database entry.
+	 * @param	key				The key of the data to create from
+	 */
+	public Chara(String key) {
+		this(MGlobal.data.getEntryFor(key, CharacterMDO.class));
 	}
 	
 	/** @return The current value of the requested stat */
