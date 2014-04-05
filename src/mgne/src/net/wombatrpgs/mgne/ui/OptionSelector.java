@@ -9,8 +9,8 @@ package net.wombatrpgs.mgne.ui;
 import java.util.Arrays;
 import java.util.List;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
@@ -137,13 +137,14 @@ public class OptionSelector extends ScreenGraphic implements CommandListener {
 		}
 	}
 
+	
 	/**
 	 * @see net.wombatrpgs.mgne.screen.ScreenObject#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
 	 */
 	@Override
-	public void render(OrthographicCamera camera) {
-		super.render(camera);
+	public void render(SpriteBatch batch) {
+		super.render(batch);
 		bg.renderAt(getBatch(), screenX, screenY);
 		int off = 0;
 		for (Option o : options) {
@@ -152,7 +153,7 @@ public class OptionSelector extends ScreenGraphic implements CommandListener {
 		}
 		MGlobal.ui.getCursor().renderAt(getBatch(), cursorX, cursorY);
 	}
-	
+
 	/**
 	 * Shows this UI element on the screen. No smooth fading just yet. This will
 	 * add the selector to the current screen and start intercepting commands.

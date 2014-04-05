@@ -10,16 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
+import net.wombatrpgs.mgne.graphics.interfaces.Renderable;
 import net.wombatrpgs.mgne.maps.Level;
 
 /**
  * A layer in a map, either a grid layer or an object layer. It's how Tiled
  * handles it.
  */
-public abstract class Layer implements Queueable {
+public abstract class Layer implements Renderable {
 	
 	protected Level parent;
 	protected List<Queueable> assets;
@@ -44,14 +44,11 @@ public abstract class Layer implements Queueable {
 	 */
 	public abstract boolean isLowerChip();
 	
-	/**
-	 * Render yourself to the screen using OpenGL. This is different from the
-	 * normal renderable method because it takes a z-parameter. Layers should
-	 * only draw components of themselves that are on that specific z layer.
-	 * MR: Just render, we'll call in right order
-	 * @param	camera			The camera to render with
-	 */
-	public abstract void render(OrthographicCamera camera);
+	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getWidth() */
+	@Override public int getWidth() { return parent.getWidth(); }
+
+	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getHeight() */
+	@Override public int getHeight() { return parent.getHeight(); }
 	
 	/**
 	 * Checking to see if a position in the grid is passable. I have no idea
@@ -73,7 +70,7 @@ public abstract class Layer implements Queueable {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.Renderable#queueRequiredAssets
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -84,7 +81,7 @@ public abstract class Layer implements Queueable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.Renderable#postProcessing
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override

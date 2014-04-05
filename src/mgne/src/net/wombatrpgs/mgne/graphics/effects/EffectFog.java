@@ -20,7 +20,7 @@ import net.wombatrpgs.mgneschema.graphics.ShaderMDO;
 import net.wombatrpgs.mgneschema.graphics.effects.EffectFogMDO;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
@@ -52,15 +52,16 @@ public class EffectFog extends Effect {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.Renderable#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#render
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
 	 */
 	@Override
-	public void render(OrthographicCamera camera) {
+	public void render(SpriteBatch argBatch) {
 		WindowSettings win = MGlobal.window;
 		TrackerCam cam = MGlobal.levelManager.getScreen().getCamera();
 		TextureRegion tex = anim.getCurrentFrame();
 		
+		batch.setProjectionMatrix(argBatch.getProjectionMatrix());
 		batch.begin();
 		float atX = cam.position.x - win.getWidth()/2;
 		float atY = cam.position.y - win.getHeight()/2;
@@ -162,6 +163,15 @@ public class EffectFog extends Effect {
 		if (offset > MGlobal.window.getWidth()) {
 			offset -= MGlobal.window.getWidth();
 		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.effects.Effect#dispose()
+	 */
+	@Override
+	public void dispose() {
+		super.dispose();
+		shader.dispose();
 	}
 
 }

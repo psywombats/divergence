@@ -14,7 +14,7 @@ import java.util.Map;
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
-import net.wombatrpgs.mgne.graphics.Disposable;
+import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.io.InputEvent.EventType;
 import net.wombatrpgs.mgneschema.io.KeymapMDO;
 import net.wombatrpgs.mgneschema.io.data.InputButton;
@@ -109,7 +109,7 @@ public class Keymap implements	InputProcessor,
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.Disposable#dispose()
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
 	 */
 	@Override
 	public void dispose() {

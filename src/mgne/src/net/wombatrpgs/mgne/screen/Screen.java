@@ -25,8 +25,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
-import net.wombatrpgs.mgne.graphics.Disposable;
-import net.wombatrpgs.mgne.graphics.PostRenderable;
+import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.io.ButtonListener;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.io.CommandMap;
@@ -62,7 +61,6 @@ public abstract class Screen implements CommandListener,
 	protected Color tint;
 	
 	protected List<Queueable> assets;
-	protected List<PostRenderable> postRenders;
 	protected List<Updateable> updateChildren, removeChildren, addChildren;
 	protected List<ScreenObject> screenObjects;
 	protected Stack<CommandListener> commandListeners;
@@ -78,7 +76,6 @@ public abstract class Screen implements CommandListener,
 		assets = new ArrayList<Queueable>();
 		commandContext = new Stack<CommandMap>();
 		commandListeners = new Stack<CommandListener>();
-		postRenders = new ArrayList<PostRenderable>();
 		updateChildren = new ArrayList<Updateable>();
 		removeChildren = new ArrayList<Updateable>();
 		addChildren = new ArrayList<Updateable>();
@@ -127,12 +124,6 @@ public abstract class Screen implements CommandListener,
 	
 	/** @return The shader used to render maps */
 	public ShaderProgram getMapShader() { return mapShader; }
-	
-	/** @param pr The new post renderable to render */
-	public void registerPostRender(PostRenderable pr) { postRenders.add(pr); }
-	
-	/** @param pr The post render to no longer render */
-	public void removePostRender(PostRenderable pr) { postRenders.remove(pr); }
 	
 	/** @param listener The listener to receive command updates */
 	public void pushCommandListener(CommandListener listener) { commandListeners.push(listener); }
@@ -231,11 +222,8 @@ public abstract class Screen implements CommandListener,
 		lastBuffer.end();
 		
 		buffer.begin();
-		for (PostRenderable pr : postRenders) {
-			pr.renderPost();
-		}
 		for (ScreenObject object : screenObjects) {
-			object.render(cam);
+			object.render(getUIBatch());
 		}
 		buffer.end();
 		
@@ -258,7 +246,7 @@ public abstract class Screen implements CommandListener,
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.Renderable#queueRequiredAssets
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -269,7 +257,7 @@ public abstract class Screen implements CommandListener,
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.Renderable#postProcessing
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
@@ -343,7 +331,7 @@ public abstract class Screen implements CommandListener,
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.Disposable#dispose()
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
 	 */
 	@Override
 	public void dispose() {

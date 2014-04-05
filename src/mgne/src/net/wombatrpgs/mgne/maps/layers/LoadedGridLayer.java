@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.mgne.maps.layers;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
@@ -42,19 +42,21 @@ public class LoadedGridLayer extends GridLayer {
 	
 	/** Kryo constructor */
 	protected LoadedGridLayer() { }
+
 	
+
 	/**
-	 * @see net.wombatrpgs.mgne.maps.layers.Layer#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 * Ignores the batch for the most part. Sorry.
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#render
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
 	 */
 	@Override
-	public void render(OrthographicCamera camera) {
+	public void render(SpriteBatch batch) {
 		OrthogonalTiledMapRenderer renderer = parent.getRenderer();
-		renderer.setView(camera);
+		renderer.setView(parent.getScreen().getCamera());
 		renderer.getSpriteBatch().begin();
 		renderer.renderTileLayer(layer);
 		renderer.getSpriteBatch().end();
-		
 	}
 
 	/**

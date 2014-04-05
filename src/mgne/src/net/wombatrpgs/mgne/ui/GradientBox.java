@@ -15,8 +15,8 @@ import com.badlogic.gdx.graphics.Texture;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
-import net.wombatrpgs.mgne.graphics.Disposable;
-import net.wombatrpgs.mgne.graphics.PosRenderable;
+import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
+import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
 import net.wombatrpgs.mgne.util.Simplex;
 import net.wombatrpgs.mgneschema.ui.GradientBoxMDO;
 
@@ -65,44 +65,25 @@ public class GradientBox implements Queueable, Disposable, PosRenderable {
 	public GradientBox(String mdoKey) {
 		this(MGlobal.data.getEntryFor(mdoKey, GradientBoxMDO.class));
 	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#getWidth()
-	 */
-	@Override
-	public int getWidth() {
-		return width;
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#getHeight()
-	 */
-	@Override
-	public int getHeight() {
-		return height;
-	}
 	
+	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getWidth() */
+	@Override public int getWidth() { return width; }
+
+	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getHeight() */
+	@Override public int getHeight() { return height; }
+
 	/** @return The gradient texture if you really want to display yourself */
 	public Texture getTex() { return tex; }
 
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#renderAt
-	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch, float, float, float, float)
-	 */
-	@Override
-	public void renderAt(SpriteBatch batch, float x, float y, float scaleX, float scaleY) {
-		batch.begin();
-		batch.draw(tex, x, y, scaleX * width, scaleY * height);
-		batch.end();
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#renderAt
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.PosRenderable#renderAt
 	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch, float, float)
 	 */
 	@Override
 	public void renderAt(SpriteBatch batch, float x, float y) {
-		renderAt(batch, x, y, 1, 1);
+		batch.begin();
+		batch.draw(tex, x, y, width, height);
+		batch.end();
 	}
 
 	/**
@@ -123,6 +104,15 @@ public class GradientBox implements Queueable, Disposable, PosRenderable {
 		if (width > 0 && height > 0) {
 			resizeTo(width, height);
 		}
+	}
+	
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
+	 */
+	@Override
+	public void dispose() {
+		tex.dispose();
+		map.dispose();
 	}
 	
 	/**
@@ -153,15 +143,6 @@ public class GradientBox implements Queueable, Disposable, PosRenderable {
 			}
 		}
 		tex = new Texture(map);
-	}
-	
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.Disposable#dispose()
-	 */
-	@Override
-	public void dispose() {
-		tex.dispose();
-		map.dispose();
 	}
 
 	protected static float lerp(float a, float b, float r) {

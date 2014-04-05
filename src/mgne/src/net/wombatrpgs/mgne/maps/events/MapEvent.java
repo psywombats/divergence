@@ -15,8 +15,7 @@ import org.luaj.vm2.lib.jse.CoerceLuaToJava;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
@@ -167,8 +166,6 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 		super.update(elapsed);
 		if (appearance != null) {
 			appearance.update(elapsed);
-			appearance.setX(x);
-			appearance.setY(y);
 		}
 	}
 	
@@ -183,39 +180,15 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.maps.MapThing#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#render
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
 	 */
 	@Override
-	public void render(OrthographicCamera camera) {
-		super.render(camera);
+	public void render(SpriteBatch batch) {
+		super.render(batch);
 		if (appearance != null) {
-			appearance.render(camera);
+			renderLocal(batch, appearance, 0, 0);
 		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.maps.MapThing#renderLocal
-	 * (com.badlogic.gdx.graphics.OrthographicCamera,
-	 * com.badlogic.gdx.graphics.g2d.TextureRegion, int, int, int)
-	 */
-	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, 
-			int offX, int offY, int angle) {
-		super.renderLocal(camera,
-				sprite,
-				(int) (getX() + offX),
-				(int) (getY() + offY), 
-				angle);
-	}
-	
-	/**
-	 * Uses this event's x/y to render locally.
-	 * @see net.wombatrpgs.mgne.maps.MapThing#renderLocal
-	 * (com.badlogic.gdx.graphics.OrthographicCamera, 
-	 * com.badlogic.gdx.graphics.g2d.TextureRegion, int, int)
-	 */
-	public void renderLocal(OrthographicCamera camera, TextureRegion sprite) {
-		super.renderLocal(camera, sprite, (int) getX(), (int) getY(), 0);
 	}
 	
 	/**

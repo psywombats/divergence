@@ -8,9 +8,11 @@ package net.wombatrpgs.mgne.graphics;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import net.wombatrpgs.mgne.core.interfaces.Updateable;
+import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 
 /**
@@ -18,7 +20,8 @@ import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
  * a congolomeration of faces that switch out depending on how the entity's
  * moving.
  */
-public abstract class FacesAnimation extends ScreenGraphic {
+public abstract class FacesAnimation implements	PosRenderable,
+												Updateable {
 	
 	protected static final float FLICKER_DURATION = .3f; // in s
 	
@@ -51,61 +54,30 @@ public abstract class FacesAnimation extends ScreenGraphic {
 	
 	/** @param dir The new current direction */
 	public void setFacing(OrthoDir dir) { this.currentDir = dir; }
-	
-	/**
-	 * The /real/ rendering method.
-	 * @see net.wombatrpgs.mgne.graphics.Renderable#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
-	 * @param 	camera			The camera used to render
-	 */
-	public void coreRender(OrthographicCamera camera) {
-		animations[currentDirOrdinal()].render(camera);
-	}
 
 	/** @see net.wombatrpgs.mgne.graphics.ScreenGraphic#getWidth() */
-	@Override public int getWidth() { return animations[currentDirOrdinal()].getWidth(); }
+	@Override public int getWidth() { return getStrip().getWidth(); }
 
 	/** @see net.wombatrpgs.mgne.graphics.ScreenGraphic#getHeight() */
-	@Override public int getHeight() { return animations[currentDirOrdinal()].getHeight(); }
-
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#setX(float)
-	 */
-	@Override
-	public void setX(float x) {
-		super.setX(x);
-		for (int i = 0; i < facings; i++) {
-			animations[i].setX(x);
-		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#setY(float)
-	 */
-	@Override
-	public void setY(float y) {
-		super.setY(y);
-		for (int i = 0; i < facings; i++) {
-			animations[i].setY(y);
-		}
-	}
-
-	/**
-	 * Gets the duration to play the whole animation.
-	 * @return					The time it takes to play this, in s
-	 */
-	public float getDuration() {
-		return animations[currentDirOrdinal()].getMaxTime();
-	}
+	@Override public int getHeight() { return getStrip().getHeight(); }
 	
 	/** @return The currently playing animation strip */
 	public AnimationStrip getStrip() { return animations[currentDirOrdinal()]; }
 	
 	/** @return True if the anim is playing, false otherwise */
-	public boolean isMoving() { return animations[currentDirOrdinal()].isMoving(); }
+	public boolean isMoving() { return getStrip().isMoving(); }
 
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.Renderable#queueRequiredAssets
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.PosRenderable#renderAt
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch, float, float)
+	 */
+	@Override
+	public void renderAt(SpriteBatch batch, float x, float y) {
+		getStrip().renderAt(batch, x, y);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -116,26 +88,14 @@ public abstract class FacesAnimation extends ScreenGraphic {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.Renderable#postProcessing
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager , int)
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		for (int i = 0; i < facings; i++) {
-			animations[i].postProcessing(manager, pass);
-			animations[i].update(0);
-		}
-	}
-	
-	/**
-	 * There's a coreRender method to override instead
-	 * @see net.wombatrpgs.mgne.graphics.Renderable#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
-	 */
-	@Override
-	public final void render(OrthographicCamera camera) {
-		if (shouldAppear()) {
-			coreRender(camera);
+		for (AnimationStrip strip : animations) {
+			strip.postProcessing(manager, pass);
+			strip.update(0);
 		}
 	}
 
@@ -150,6 +110,14 @@ public abstract class FacesAnimation extends ScreenGraphic {
 			animations[i].update(elapsed);
 		}
 	}
+
+	/**
+	 * Gets the duration to play the whole animation.
+	 * @return					The time it takes to play this, in s
+	 */
+	public float getDuration() {
+		return getStrip().getMaxTime();
+	}
 	
 	/**
 	 * Fetches a specific frame of the animation. Wonky because it takes an
@@ -159,15 +127,15 @@ public abstract class FacesAnimation extends ScreenGraphic {
 	 * @return					The texture region for that frame
 	 */
 	public TextureRegion getFrame(int dirOrdinal, int frame) {
-		return animations[currentDirOrdinal()].getFrame(frame);
+		return getStrip().getFrame(frame);
 	}
 	
 	/**
 	 * Just starts moving.
 	 */
 	public void startMoving() {
-		for (int i = 0; i < facings; i++) {
-			animations[i].startMoving();
+		for (AnimationStrip strip : animations) {
+			strip.startMoving();
 		}
 	}
 
@@ -175,8 +143,8 @@ public abstract class FacesAnimation extends ScreenGraphic {
 	 * Halts all animation movement.
 	 */
 	public void stopMoving() {
-		for (int i = 0; i < facings; i++) {
-			animations[i].stopMoving();
+		for (AnimationStrip strip : animations) {
+			strip.stopMoving();
 		}
 	}
 	
@@ -184,8 +152,8 @@ public abstract class FacesAnimation extends ScreenGraphic {
 	 * Resets all the timings on this animation.
 	 */
 	public void reset() {
-		for (int i = 0; i < facings; i++) {
-			animations[i].reset();
+		for (AnimationStrip strip : animations) {
+			strip.reset();
 		}
 		time = 0;
 	}

@@ -6,8 +6,12 @@
  */
 package net.wombatrpgs.mgne.maps;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
+import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
 import net.wombatrpgs.mgneschema.maps.data.EightDir;
 
 /**
@@ -173,6 +177,30 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 		super.onAddedToMap(map);
 		this.lastX = getX();
 		this.lastY = getY();
+	}
+	
+	/**
+	 * Renders some texture relative to this event. All pixels are virtual.
+	 * @param	batch			The batch to render with
+	 * @param	tex				The texture to render
+	 * @param	offX			The offset to this location to render at (in px)
+	 * @param	offY			The offset to this location to render at (in px)
+	 */
+	public void renderLocal(SpriteBatch batch, TextureRegion tex, float offX, float offY) {
+		batch.begin();
+		batch.draw(tex, getX() + offX, getY() + offY);
+		batch.end();
+	}
+	
+	/**
+	 * Renders some object relative to this event. All pixels are virtual.
+	 * @param	batch			The batch to render with
+	 * @param	obj				The object to render
+	 * @param	offX			The offset to this location to render at (in px)
+	 * @param	offY			The offset to this location to render at (in px)
+	 */
+	public void renderLocal(SpriteBatch batch, PosRenderable obj, float offX, float offY) {
+		obj.renderAt(batch, getX() + offX, getY() + offY);
 	}
 
 	/**

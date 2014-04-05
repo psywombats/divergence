@@ -11,7 +11,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
-import net.wombatrpgs.mgne.graphics.Disposable;
+import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgneschema.audio.data.AudioMDO;
 
 /**
@@ -58,7 +58,7 @@ public abstract class AudioObject implements	Disposable,
 	
 	/**
 	 * Default does nothing
-	 * @see net.wombatrpgs.mgne.graphics.Disposable#dispose()
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
 	 */
 	@Override
 	public void dispose() {

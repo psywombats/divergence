@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
-import net.wombatrpgs.mgne.graphics.Renderable;
+import net.wombatrpgs.mgne.graphics.interfaces.Renderable;
 
 /**
  * Something that's both renderable and updateable. Can also be sorted.
@@ -65,15 +65,15 @@ public abstract class ScreenObject implements	Renderable,
 	}
 
 	/**
-	 * Default is nothing.
-	 * @see net.wombatrpgs.mgne.graphics.Renderable#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 * Default does nothing.
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#render
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
 	 */
 	@Override
-	public void render(OrthographicCamera camera) {
+	public void render(SpriteBatch batch) {
 		// noop
 	}
-	
+
 	/**
 	 * If this is true, ignores the screen's transition tint. This means that
 	 * it will have to be rendered in a separate phase.

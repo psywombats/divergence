@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.mgne.maps.objects;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.ui.Graphic;
@@ -72,12 +72,12 @@ public class Picture extends ScreenGraphic implements Comparable<Picture> {
 	@Override public int getHeight() { return appearance.getHeight(); }
 
 	/**
-	 * @see net.wombatrpgs.mgne.maps.events.MapEvent#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 * @see net.wombatrpgs.mgne.screen.ScreenObject#render
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
 	 */
 	@Override
-	public void render(OrthographicCamera camera) {
-		appearance.renderAt(getBatch(), x, y);
+	public void render(SpriteBatch batch) {
+		appearance.renderAt(batch, x, y);
 	}
 
 	/**

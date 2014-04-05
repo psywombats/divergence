@@ -13,7 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
-import net.wombatrpgs.mgne.graphics.Disposable;
+import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.io.ButtonListener;
 import net.wombatrpgs.mgne.io.InputEvent;
 import net.wombatrpgs.mgne.io.audio.MusicObject;
@@ -39,7 +39,7 @@ public class ScreenStack implements	Disposable,
 	}
 	
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.Disposable#dispose()
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
 	 */
 	@Override
 	public void dispose() {

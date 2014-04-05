@@ -11,8 +11,8 @@ import java.util.Collections;
 import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
@@ -94,13 +94,15 @@ public class TextBox extends ScreenGraphic {
 	/** @see net.wombatrpgs.mgne.graphics.ScreenGraphic#getHeight() */
 	@Override public int getHeight() { return boxHeight; }
 	
+
+
 	/**
-	 * @see net.wombatrpgs.mgne.maps.MapThing#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 * @see net.wombatrpgs.mgne.screen.ScreenObject#render
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
 	 */
 	@Override
-	public void render(OrthographicCamera camera) {
-		super.render(camera);
+	public void render(SpriteBatch batch) {
+		super.render(batch);
 		
 		// backer first
 		if (backer != null) {

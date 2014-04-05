@@ -30,7 +30,7 @@ public class SoundObject extends AudioObject {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.Disposable#dispose()
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
 	 */
 	@Override
 	public void dispose() {

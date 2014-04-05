@@ -10,13 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
-import net.wombatrpgs.mgne.graphics.Renderable;
+import net.wombatrpgs.mgne.graphics.interfaces.Renderable;
 
 /**
  * All objects that appear in Tiled maps that are not tiles extend this class.
@@ -49,18 +48,15 @@ public abstract class MapThing implements	Renderable,
 		this();
 		this.parent = parent;
 	}
-
-	/**
-	 * This is actually the update part of the render loop. CHANGED on
-	 * 2013-01-30 so that the level actually calls update separately. So don't
-	 * worry about that.
-	 * @see net.wombatrpgs.mgne.graphics.Renderable#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
-	 */
-	@Override
-	public void render(OrthographicCamera camera) {
-		// default is invisible
-	}
+	
+	/** @return The map we are currently on */
+	public Level getParent() { return parent; }
+	
+	/** @return How this object responds to pausing */
+	public PauseLevel getPauseLevel() { return this.pauseLevel; }
+	
+	/** @param How this object will respond to pausing */
+	public void setPauseLevel(PauseLevel level) { this.pauseLevel = level; }
 	
 	/**
 	 * Default queues up everything in the assets list.
@@ -94,15 +90,34 @@ public abstract class MapThing implements	Renderable,
 		// default does nothing
 	}
 	
-	/** @return The map we are currently on */
-	public Level getParent() { return parent; }
-	
-	/** @return How this object responds to pausing */
-	public PauseLevel getPauseLevel() { return this.pauseLevel; }
-	
-	/** @param How this object will respond to pausing */
-	public void setPauseLevel(PauseLevel level) { this.pauseLevel = level; }
-	
+	/**
+	 * Defaults to the width of one tile.
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getWidth()
+	 */
+	@Override
+	public int getWidth() {
+		return parent.getTileWidth();
+	}
+
+	/**
+	 * Defaults to the height of one tile.
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getHeight()
+	 */
+	@Override
+	public int getHeight() {
+		return parent.getTileHeight();
+	}
+
+	/**
+	 * Default does nothing.
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#render
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
+	 */
+	@Override
+	public void render(SpriteBatch batch) {
+		// noop
+	}
+
 	/**
 	 * Called when the level resets. Return to the default position. This should
 	 * involve either reseting coords to where they were when the level was
@@ -136,47 +151,6 @@ public abstract class MapThing implements	Renderable,
 	 */
 	public void onRemovedFromMap(Level map) {
 		this.parent = null;
-	}
-	
-	/**
-	 * Renders a texture at this object's location using its own batch and
-	 * coords appropriate to the drawing. This is bascally a static method that
-	 * could go in any Positionable but oh well.
-	 * @param 	sprite			The region to render
-	 * @param	camera			The current camera
-	 * @param	x				The x-coord for rendering (in pixels)
-	 * @param	y				The y-coord for rendering (in pixels)
-	 */
-	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, 
-			int x, int y) {
-		renderLocal(camera, sprite, x, y, 0);
-	}
-	
-	/**
-	 * Renders a texture at this object's location using its own batch and
-	 * coords appropriate to the drawing. This one takes rotation into account.
-	 * @param 	sprite			The region to render
-	 * @param	camera			The current camera
-	 * @param	x				The x-coord for rendering (in pixels)
-	 * @param	y				The y-coord for rendering (in pixels)
-	 * @param	angle			The angle to render at
-	 */
-	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, 
-			int x, int y, int angle) {
-		if (parent == null) return;
-		float atX = x;
-		float atY = y;
-		parent.getBatch().draw(
-				sprite,
-				atX, 
-				atY,
-				sprite.getRegionWidth() / 2,
-				sprite.getRegionHeight() / 2, 
-				sprite.getRegionWidth(),
-				sprite.getRegionHeight(), 
-				1f,
-				1f, 
-				angle);
 	}
 	
 	/**

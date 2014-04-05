@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
-import net.wombatrpgs.mgne.graphics.PosRenderable;
+import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
 
 /**
  * Single-frame graphics instance. Not meant to appear on its own, really.
@@ -68,22 +68,12 @@ public class Graphic implements Queueable, PosRenderable {
 		if (height <= 0) height = texture.getHeight();
 		appearance = new TextureRegion(texture, 0, 0, width, height);
 	}
-	
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#getWidth()
-	 */
-	@Override
-	public int getWidth() {
-		return width;
-	}
 
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#getHeight()
-	 */
-	@Override
-	public int getHeight() {
-		return height;
-	}
+	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getWidth() */
+	@Override public int getWidth() { return width; }
+
+	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getHeight() */
+	@Override public int getHeight() { return height; }
 
 	/** @param width The width to set as the base texture width, in px */
 	public void setTextureWidth(int width) { this.width = width; }
@@ -111,22 +101,13 @@ public class Graphic implements Queueable, PosRenderable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#renderAt
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.PosRenderable#renderAt
 	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch, float, float)
 	 */
 	@Override
 	public void renderAt(SpriteBatch batch, float x, float y) {
-		renderAt(batch, x, y, 1, 1);
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#renderAt
-	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch, float, float, float, float)
-	 */
-	@Override
-	public void renderAt(SpriteBatch batch, float x, float y, float scaleX, float scaleY) {
 		batch.begin();
-		batch.draw(appearance, x, y, getWidth() * scaleX, getHeight() * scaleY);
+		batch.draw(appearance, x, y, getWidth(), getHeight());
 		batch.end();
 	}
 

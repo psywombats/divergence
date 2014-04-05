@@ -17,8 +17,8 @@ import com.badlogic.gdx.math.Matrix4;
 
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
-import net.wombatrpgs.mgne.graphics.Disposable;
-import net.wombatrpgs.mgne.graphics.PosRenderable;
+import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
+import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
 import net.wombatrpgs.mgne.maps.MapThing;
 import net.wombatrpgs.mgneschema.ui.NinesliceMDO;
 
@@ -69,42 +69,23 @@ public class Nineslice implements Queueable, PosRenderable, Disposable {
 		this.height = height;
 	}
 
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#getWidth()
-	 */
-	@Override
-	public int getWidth() {
-		return width;
-	}
+	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getWidth() */
+	@Override public int getWidth() { return width; }
+
+	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getHeight() */
+	@Override public int getHeight() { return height; }
 
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#getHeight()
-	 */
-	@Override
-	public int getHeight() {
-		return height;
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#renderAt
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.PosRenderable#renderAt
 	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch, float, float)
 	 */
 	@Override
 	public void renderAt(SpriteBatch batch, float x, float y) {
-		renderAt(batch, x, y, 1, 1);
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.PosRenderable#renderAt
-	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch, float, float, float, float)
-	 */
-	@Override
-	public void renderAt(SpriteBatch batch, float x, float y, float scaleX, float scaleY) {
 		batch.begin();
 		batch.draw(appearance,
 				x, y,
 				0, 0,
-				(int) (width * scaleX), (int) (height * scaleY));
+				(int) (width), (int) (height));
 		batch.end();
 	}
 
@@ -145,7 +126,7 @@ public class Nineslice implements Queueable, PosRenderable, Disposable {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.Disposable#dispose()
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
 	 */
 	@Override
 	public void dispose() {

@@ -102,10 +102,7 @@ public class TestScreen extends Screen {
 		defaultFont.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 8, 16);
 		batch.end();
 		
-		// this is actually legal wtf, used to be to-do here
-		getViewBatch().begin();
-		if (box != null) box.render(cam);
-		getViewBatch().end();
+		if (box != null) box.render(getViewBatch());
 	}
 
 	/**

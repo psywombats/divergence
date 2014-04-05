@@ -8,12 +8,13 @@ package net.wombatrpgs.mgne.graphics;
 
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.Updateable;
+import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
 import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
 import net.wombatrpgs.mgneschema.graphics.data.AnimationType;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,7 +25,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * general reminder that the images handled by this class need to be flipped
  * vertically in terms of markup.
  */
-public class AnimationStrip extends ScreenGraphic {
+public class AnimationStrip implements	PosRenderable,
+										Updateable {
 	
 	protected AnimationMDO mdo;
 	
@@ -48,7 +50,6 @@ public class AnimationStrip extends ScreenGraphic {
 	 * @param 	mdo				The animation data
 	 */
 	public AnimationStrip(AnimationMDO mdo) {
-		super(0, 0);
 		this.mdo = mdo;
 		this.time = 0;
 		this.bump = 0;
@@ -61,7 +62,7 @@ public class AnimationStrip extends ScreenGraphic {
 	}
 	
 	/** Kryo constructor */
-	protected AnimationStrip() { super(0, 0); }
+	protected AnimationStrip() { }
 	
 	/** @param bump Bump up animation time by some amount */
 	public void setBump(float bump) { this.bump = bump; }
@@ -105,13 +106,12 @@ public class AnimationStrip extends ScreenGraphic {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.Renderable#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.PosRenderable#renderAt
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch, float, float)
 	 */
 	@Override
-	public void render(OrthographicCamera camera) {
+	public void renderAt(SpriteBatch batch, float x, float y) {
 		if (currentFrame != null) {
-			SpriteBatch batch = getBatch();
 			Color old = null;
 			if (flashColor != null) {
 				old = batch.getColor().cpy();
@@ -137,7 +137,7 @@ public class AnimationStrip extends ScreenGraphic {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.Renderable#queueRequiredAssets
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override

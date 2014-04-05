@@ -8,6 +8,7 @@ package net.wombatrpgs.mgne.graphics.effects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.screen.ScreenObject;
 import net.wombatrpgs.mgneschema.graphics.effects.data.EffectMDO;
@@ -16,7 +17,7 @@ import net.wombatrpgs.mgneschema.graphics.effects.data.EffectMDO;
  * A thing that represents a graphical effect on a map such as weather, fog,
  * etc.
  */
-public abstract class Effect extends ScreenObject {
+public abstract class Effect extends ScreenObject implements Disposable {
 	
 	protected EffectMDO mdo;
 	protected Level parent;
@@ -30,7 +31,21 @@ public abstract class Effect extends ScreenObject {
 	public Effect(Level parent, EffectMDO mdo) {
 		this.mdo = mdo;
 		this.parent = parent;
-		batch = new SpriteBatch();
+		this.batch = new SpriteBatch();
+	}
+
+	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getWidth() */
+	@Override public int getWidth() { return parent.getWidth(); }
+
+	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getHeight() */
+	@Override public int getHeight() { return parent.getHeight(); }
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
+	 */
+	@Override
+	public void dispose() {
+		batch.dispose();
 	}
 
 }

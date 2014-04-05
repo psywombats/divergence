@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mgne.graphics;
+package net.wombatrpgs.mgne.graphics.interfaces;
 
 /**
  * Represents an asset that must be disposed.

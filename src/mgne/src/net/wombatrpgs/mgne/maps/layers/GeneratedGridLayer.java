@@ -7,7 +7,7 @@
 package net.wombatrpgs.mgne.maps.layers;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.Level;
@@ -42,13 +42,15 @@ public class GeneratedGridLayer extends GridLayer {
 		this.tileData = tileData;
 	}
 
+	
+	
 	/**
-	 * @see net.wombatrpgs.mgne.maps.layers.Layer#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#render
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
 	 */
 	@Override
-	public void render(OrthographicCamera camera) {
-		dumbRender(camera);
+	public void render(SpriteBatch batch) {
+		dumbRender(batch);
 	}
 
 	/**
@@ -75,9 +77,8 @@ public class GeneratedGridLayer extends GridLayer {
 	
 	/**
 	 * Does an extremely inefficient rendering pass.
-	 * @param	cam				The camera to render with
 	 */
-	protected void dumbRender(OrthographicCamera camera) {
+	protected void dumbRender(SpriteBatch batch) {
 		TrackerCam cam  = MGlobal.levelManager.getScreen().getCamera();
 		int startX = (int) Math.floor((cam.position.x - MGlobal.window.getWidth()/2.f) / parent.getTileWidth());
 		int startY = (int) Math.floor((cam.position.y - MGlobal.window.getHeight()/2.f) / parent.getTileHeight());
@@ -87,8 +88,8 @@ public class GeneratedGridLayer extends GridLayer {
 		if (startY < 0) startY = 0;
 		if (endX > parent.getWidth()) endX = parent.getWidth();
 		if (endY > parent.getHeight()) endY = parent.getHeight();
-		Color old = parent.getBatch().getColor().cpy();
-		Color trans = parent.getBatch().getColor().cpy();
+		Color old = batch.getColor().cpy();
+		Color trans = batch.getColor().cpy();
 		trans.a = .5f;
 		parent.getBatch().begin();
 		for (int x = startX; x < endX; x += 1) {
@@ -96,7 +97,7 @@ public class GeneratedGridLayer extends GridLayer {
 				float atX = parent.getTileWidth() * x;
 				float atY = parent.getTileHeight() * y;
 				if (tileData[y][x] != null) {
-					tileData[y][x].renderLocal(camera, parent.getBatch(), atX, atY);
+					tileData[y][x].renderLocal(cam, batch, atX, atY);
 				}
 			}
 		}

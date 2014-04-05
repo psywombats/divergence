@@ -9,7 +9,6 @@ package net.wombatrpgs.mgne.maps;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
@@ -127,22 +126,24 @@ public abstract class Level extends ScreenObject {
 	/** @see java.lang.Object#toString() */
 	@Override public String toString() { return mdo.key; }
 	
+
+	
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.Renderable#render(
-	 * com.badlogic.gdx.graphics.OrthographicCamera)
+	 * @see net.wombatrpgs.mgne.screen.ScreenObject#render
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
 	 */
 	@Override
-	public void render(OrthographicCamera camera) {
-		super.render(camera);
-		camera.update();
-		renderGrid(false);
-		renderEvents();
-		renderGrid(true);
+	public void render(SpriteBatch batch) {
+		super.render(batch);
+		
+		renderGrid(batch, false);
+		renderEvents(getScreen().getViewBatch());
+		renderGrid(batch, true);
 		if (effect != null) {
-			effect.render(camera);
+			effect.render(batch);
 		}
 	}
-	
+
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
 	 */
@@ -205,25 +206,6 @@ public abstract class Level extends ScreenObject {
 			}
 		}
 		return true;
-	}
-	
-	/**
-	 * Renders the grid layers on the map using default camera.
-	 * @param	upper			True to do upper chip, false to do lower
-	 */
-	public void renderGrid(boolean upper) {
-		for (GridLayer layer : gridLayers) {
-			if (layer.getZ() < 1.f ^ upper) {
-				layer.render(MGlobal.screens.getCamera());
-			}
-		}
-	}
-	
-	/**
-	 * Renders the event layer using default camera.
-	 */
-	public void renderEvents() {
-		eventLayer.render(MGlobal.screens.getCamera());
 	}
 	
 	/**
@@ -392,6 +374,27 @@ public abstract class Level extends ScreenObject {
 	protected void internalRemoveObject(MapThing toRemove) {
 		toRemove.onRemovedFromMap(this);
 		objects.remove(toRemove);
+	}
+	
+	/**
+	 * Renders the grid layers on the map using default camera.
+	 * @param	batch			The batch to render with
+	 * @param	upper			True to do upper chip, false to do lower
+	 */
+	protected void renderGrid(SpriteBatch batch, boolean upper) {
+		for (GridLayer layer : gridLayers) {
+			if (layer.getZ() < 1.f ^ upper) {
+				layer.render(batch);
+			}
+		}
+	}
+	
+	/**
+	 * Renders the event layer using default camera.
+	 * @param	batch			The batch to render with
+	 */
+	protected void renderEvents(SpriteBatch batch) {
+		eventLayer.render(batch);
 	}
 
 }

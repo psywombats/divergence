@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.mgne.graphics.particles;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.mgne.core.MGlobal;
@@ -63,15 +63,13 @@ public class Particle extends MapMovable {
 	public float getLife() { return this.life; }
 
 	/**
-	 * We don't need to queue our assets because the emitter should be loading
-	 * up our spritesheet for all particles.
-	 * @see net.wombatrpgs.mgne.maps.events.MapEvent#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 * @see net.wombatrpgs.mgne.maps.MapThing#render
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
 	 */
 	@Override
-	public void render(OrthographicCamera camera) {
-		super.render(camera);
-		renderLocal(camera, appearance, 0, (int) bounceY, (int) angle);
+	public void render(SpriteBatch batch) {
+		super.render(batch);
+		renderLocal(batch, appearance, 0, (int) bounceY);//, (int) angle);
 	}
 
 	/**

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.Level;
@@ -39,20 +39,18 @@ public class EventLayer extends Layer {
 	protected EventLayer() { }
 
 	/**
-	 * @see net.wombatrpgs.mgne.maps.layers.Layer#render
-	 * (com.badlogic.gdx.graphics.OrthographicCamera)
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#render
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
 	 */
 	@Override
-	public void render(OrthographicCamera camera) {
-		parent.getBatch().begin();
+	public void render(SpriteBatch batch) {
 		for (MapEvent event : events) {
-			event.render(camera);
+			event.render(batch);
 		}
-		parent.getBatch().end();
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.Renderable#queueRequiredAssets
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#queueRequiredAssets
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
@@ -63,7 +61,7 @@ public class EventLayer extends Layer {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.Renderable#postProcessing
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
