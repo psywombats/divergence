@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
-import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 
 /**
@@ -21,13 +20,11 @@ import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
  * moving.
  */
 public abstract class FacesAnimation implements Renderable,
-												PreRenderable,
 												Updateable {
 	
 	protected static final float FLICKER_DURATION = .3f; // in s
 	
 	protected OrthoDir currentDir;
-	protected MapEvent parent;
 	protected AnimationStrip[] animations;
 	protected int rangeX, rangeY;
 	protected int facings;
@@ -36,11 +33,9 @@ public abstract class FacesAnimation implements Renderable,
 	
 	/**
 	 * Sets up an animation from data for a specific map.
-	 * @param 	parent			The parent map to spawn on
 	 * @param	facings			How many facings make up this animation
 	 */
-	public FacesAnimation(MapEvent parent, int facings) {
-		this.parent = parent;
+	public FacesAnimation(int facings) {
 		this.facings = facings;
 		setFacing(OrthoDir.SOUTH);
 		animations = new AnimationStrip[facings];
@@ -112,17 +107,6 @@ public abstract class FacesAnimation implements Renderable,
 	public boolean isMoving() {
 		return animations[currentDirOrdinal()].isMoving();
 	}
-	
-	/**
-	 * Reassigns the parent, in case the creator wants to disown us :(
-	 * @param 	parent			The new parent :)
-	 */
-	public void setParent(MapEvent parent) {
-		this.parent = parent;
-		for (int i = 0; i < facings; i++) {
-			animations[i].setParent(parent);
-		}
-	}
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.Renderable#queueRequiredAssets
@@ -170,18 +154,6 @@ public abstract class FacesAnimation implements Renderable,
 			animations[i].update(elapsed);
 		}
 	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.PreRenderable#getRegion()
-	 */
-	@Override
-	public TextureRegion getRegion() {
-		if (shouldAppear()) {
-			return animations[currentDirOrdinal()].getRegion();
-		} else {
-			return null;
-		}
-	}
 	
 	/**
 	 * Fetches a specific frame of the animation. Wonky because it takes an
@@ -192,22 +164,6 @@ public abstract class FacesAnimation implements Renderable,
 	 */
 	public TextureRegion getFrame(int dirOrdinal, int frame) {
 		return animations[currentDirOrdinal()].getFrame(frame);
-	}
-	
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.PreRenderable#getRenderX()
-	 */
-	@Override
-	public int getRenderX() {
-		return parent.getRenderX();
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.PreRenderable#getRenderY()
-	 */
-	@Override
-	public int getRenderY() {
-		return parent.getRenderY();
 	}
 	
 	/**

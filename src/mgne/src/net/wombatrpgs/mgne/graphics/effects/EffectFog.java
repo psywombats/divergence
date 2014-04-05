@@ -59,7 +59,7 @@ public class EffectFog extends Effect {
 	public void render(OrthographicCamera camera) {
 		WindowSettings win = MGlobal.window;
 		TrackerCam cam = MGlobal.levelManager.getScreen().getCamera();
-		TextureRegion tex = anim.getRegion();
+		TextureRegion tex = anim.getCurrentFrame();
 		
 		batch.begin();
 		float atX = cam.position.x - win.getWidth()/2;

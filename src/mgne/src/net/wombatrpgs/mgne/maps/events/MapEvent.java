@@ -24,7 +24,6 @@ import net.wombatrpgs.mgne.core.lua.Lua;
 import net.wombatrpgs.mgne.core.lua.LuaConvertable;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
-import net.wombatrpgs.mgne.graphics.PreRenderable;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.MapMovable;
 import net.wombatrpgs.mgne.scenes.SceneParser;
@@ -46,8 +45,7 @@ import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
  * As of 2014-01-28, it's getting combined with character events to represent
  * any object on the map, whether it moves or not.
  */
-public class MapEvent extends MapMovable implements	PreRenderable,
-													LuaConvertable {
+public class MapEvent extends MapMovable implements	LuaConvertable {
 	
 	/** General children and info */
 	protected EventMDO mdo;
@@ -72,7 +70,7 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 		
 		if (mdoHasProperty(mdo.appearance)) {
 			DirMDO dirMDO = MGlobal.data.getEntryFor(mdo.appearance, DirMDO.class);
-			appearance = FacesAnimationFactory.create(dirMDO, this);
+			appearance = FacesAnimationFactory.create(dirMDO);
 			appearance.startMoving();
 			assets.add(appearance);
 		}
@@ -106,15 +104,6 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	
 	/** @param appearance The new anim for this event */
 	public void setAppearance(FacesAnimation appearance) { this.appearance = appearance; }
-	
-	/** @see net.wombatrpgs.mgne.graphics.PreRenderable#getRenderX() */
-	@Override public int getRenderX() { return Math.round(getX()); }
-
-	/** @see net.wombatrpgs.mgne.graphics.PreRenderable#getRenderY() */
-	@Override public int getRenderY() { return Math.round(getY()); }
-
-	/** @see net.wombatrpgs.mgne.graphics.PreRenderable#getRegion() */
-	@Override public TextureRegion getRegion() { return (appearance==null) ? null : appearance.getRegion(); }
 	
 	/** @return True if the object is passable, false otherwise */
 	public boolean isPassable() { return appearance == null; }
@@ -211,7 +200,10 @@ public class MapEvent extends MapMovable implements	PreRenderable,
 	 */
 	public void renderLocal(OrthographicCamera camera, TextureRegion sprite, 
 			int offX, int offY, int angle) {
-		super.renderLocal(camera, sprite, getRenderX() + offX, getRenderY() + offY, 
+		super.renderLocal(camera,
+				sprite,
+				(int) (getX() + offX),
+				(int) (getY() + offY), 
 				angle);
 	}
 	

@@ -7,7 +7,6 @@
 package net.wombatrpgs.mgne.graphics;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
 import net.wombatrpgs.mgneschema.graphics.TwoDirMDO;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
@@ -26,10 +25,9 @@ public class TwoDir extends FacesAnimation {
 	/**
 	 * Constructs and splices a 2dir
 	 * @param 	mdo				The MDO with relevant data
-	 * @param 	parent			The parent this 4dir is tied to
 	 */
-	public TwoDir(TwoDirMDO mdo, MapEvent parent) {
-		super(parent, 2);
+	public TwoDir(TwoDirMDO mdo) {
+		super(2);
 		this.mdo = mdo;
 		sliceAnimations();
 	}
@@ -62,9 +60,9 @@ public class TwoDir extends FacesAnimation {
 	@Override
 	protected void sliceAnimations() {
 		animations[LEFT_INDEX] = new AnimationStrip(
-				MGlobal.data.getEntryFor(mdo.leftAnim, AnimationMDO.class), parent);
+				MGlobal.data.getEntryFor(mdo.leftAnim, AnimationMDO.class));
 		animations[RIGHT_INDEX] = new AnimationStrip(
-				MGlobal.data.getEntryFor(mdo.rightAnim, AnimationMDO.class), parent);
+				MGlobal.data.getEntryFor(mdo.rightAnim, AnimationMDO.class));
 	}
 
 }

@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.mgne.graphics;
 
-import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
 
 /**
@@ -23,8 +22,8 @@ public class OneDir extends FacesAnimation {
 	 * @param 	mdo				The animation strip this thing's holding
 	 * @param 	parent			The parent map
 	 */
-	public OneDir(AnimationMDO mdo, MapEvent parent) {
-		super(parent, 1);
+	public OneDir(AnimationMDO mdo) {
+		super(1);
 		this.mdo = mdo;
 		sliceAnimations();
 	}
@@ -44,7 +43,7 @@ public class OneDir extends FacesAnimation {
 	 */
 	@Override
 	protected void sliceAnimations() {
-		animations[0] = new AnimationStrip(mdo, parent);
+		animations[0] = new AnimationStrip(mdo);
 	}
 
 }

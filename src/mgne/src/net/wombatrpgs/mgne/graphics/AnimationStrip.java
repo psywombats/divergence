@@ -26,8 +26,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * vertically in terms of markup.
  */
 public class AnimationStrip implements 	Renderable,
-										Updateable,
-										PreRenderable {
+										Updateable {
 	
 	protected AnimationMDO mdo;
 	protected MapEvent parent;
@@ -203,30 +202,6 @@ public class AnimationStrip implements 	Renderable,
 	}
 	
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.PreRenderable#getRenderX()
-	 */
-	@Override
-	public int getRenderX() {
-		return (int) parent.getX();
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.PreRenderable#getRenderY()
-	 */
-	@Override
-	public int getRenderY() {
-		return (int) parent.getY();
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.PreRenderable#getRegions()
-	 */
-	@Override
-	public TextureRegion getRegion() {
-		return currentFrame;
-	}
-	
-	/**
 	 * Determines if this thing should play multiple times. Actually just
 	 * consults the MDO.
 	 * @return					True if should only play once
@@ -234,12 +209,20 @@ public class AnimationStrip implements 	Renderable,
 	public boolean runsOnlyOnce() {
 		return mdo.mode == AnimationType.PLAY_ONCE;
 	}
+	
+	/**
+	 * Fetches the currently playing frame.
+	 * @return					The currently displaying frame, if any
+	 */
+	public TextureRegion getCurrentFrame() {
+		return currentFrame;
+	}
 
 	/**
 	 * Call this when this direction becomes active.
 	 */
 	public void switchTo() {
-		time = 0;
+		reset();
 		moving = false;
 	}
 	

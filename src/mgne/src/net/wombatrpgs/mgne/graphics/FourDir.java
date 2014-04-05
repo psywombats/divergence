@@ -7,7 +7,6 @@
 package net.wombatrpgs.mgne.graphics;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
 import net.wombatrpgs.mgneschema.graphics.FourDirMDO;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
@@ -23,10 +22,9 @@ public class FourDir extends FacesAnimation {
 	/**
 	 * Constructs and splices a 4dir
 	 * @param 	mdo				The MDO with relevant data
-	 * @param 	parent			The parent this 4dir is tied to
 	 */
-	public FourDir(FourDirMDO mdo, MapEvent parent) {
-		super(parent, OrthoDir.values().length);
+	public FourDir(FourDirMDO mdo) {
+		super(OrthoDir.values().length);
 		this.mdo = mdo;
 		sliceAnimations();
 		
@@ -53,13 +51,13 @@ public class FourDir extends FacesAnimation {
 	@Override
 	protected void sliceAnimations() {
 		animations[OrthoDir.SOUTH.ordinal()] = new AnimationStrip(
-				MGlobal.data.getEntryFor(mdo.downAnim, AnimationMDO.class), parent);
+				MGlobal.data.getEntryFor(mdo.downAnim, AnimationMDO.class));
 		animations[OrthoDir.NORTH.ordinal()] = new AnimationStrip(
-				MGlobal.data.getEntryFor(mdo.upAnim, AnimationMDO.class), parent);
+				MGlobal.data.getEntryFor(mdo.upAnim, AnimationMDO.class));
 		animations[OrthoDir.WEST.ordinal()] = new AnimationStrip(
-				MGlobal.data.getEntryFor(mdo.leftAnim, AnimationMDO.class), parent);
+				MGlobal.data.getEntryFor(mdo.leftAnim, AnimationMDO.class));
 		animations[OrthoDir.EAST.ordinal()] = new AnimationStrip(
-				MGlobal.data.getEntryFor(mdo.rightAnim, AnimationMDO.class), parent);
+				MGlobal.data.getEntryFor(mdo.rightAnim, AnimationMDO.class));
 	}
 	
 }

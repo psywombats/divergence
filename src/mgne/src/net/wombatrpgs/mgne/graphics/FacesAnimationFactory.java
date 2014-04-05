@@ -7,7 +7,6 @@
 package net.wombatrpgs.mgne.graphics;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
 import net.wombatrpgs.mgneschema.graphics.DirMDO;
 import net.wombatrpgs.mgneschema.graphics.FourDirMDO;
@@ -22,16 +21,15 @@ public class FacesAnimationFactory {
 	 * Creates the right subclass of the mdo based on its type. The other
 	 * parameters are passed straight on to the constructor.
 	 * @param 	mdo				The MDO to make the object for
-	 * @param	parent			The map event to make the object for
 	 * @return
 	 */
-	public static FacesAnimation create(DirMDO mdo, MapEvent parent) {
+	public static FacesAnimation create(DirMDO mdo) {
 		if (FourDirMDO.class.isAssignableFrom(mdo.getClass())) {
-			return new FourDir((FourDirMDO) mdo, parent);
+			return new FourDir((FourDirMDO) mdo);
 		} else if (TwoDirMDO.class.isAssignableFrom(mdo.getClass())) {
-			return new TwoDir((TwoDirMDO) mdo, parent);
+			return new TwoDir((TwoDirMDO) mdo);
 		} else if (AnimationMDO.class.isAssignableFrom(mdo.getClass())) {
-			return new OneDir((AnimationMDO) mdo, parent);
+			return new OneDir((AnimationMDO) mdo);
 		} else {
 			MGlobal.reporter.warn("Unknown subclass of DirMDO: " + mdo);
 			return null;
@@ -46,9 +44,9 @@ public class FacesAnimationFactory {
 	 * @param 	parent			The parent map event
 	 * @return					That object, formatted and shit
 	 */
-	public static FacesAnimation create(String mdoKey, MapEvent parent) {
+	public static FacesAnimation create(String mdoKey) {
 		DirMDO mdo = MGlobal.data.getEntryFor(mdoKey, DirMDO.class);
-		return create(mdo, parent);
+		return create(mdo);
 	}
 
 }
