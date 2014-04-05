@@ -23,6 +23,7 @@ import net.wombatrpgs.mgnse.io.InputHandler;
 import net.wombatrpgs.mgnse.io.OutputHandler;
 import net.wombatrpgs.mgnse.schema.AppConfig;
 import net.wombatrpgs.mgnse.schema.ProjectConfig;
+import net.wombatrpgs.mgnse.tree.ClassWrapper;
 import net.wombatrpgs.mgnse.tree.SchemaNode;
 import net.wombatrpgs.mgnse.tree.SchemaTree;
 
@@ -198,9 +199,8 @@ public class Logic {
 	 * @param notifier The panel that triggered the update
 	 */
 	public void notifyDirty(EditorPanel notifier) {
-		if (currentEditor != notifier) return;
-		parent.setSaveAllEnable(hasUnsavedChanges());
-		parent.setSaveEnable(currentEditor.isDirty());
+		parent.setSaveAllEnable(true);
+		parent.setSaveEnable(true);
 	}
 	
 	/**
@@ -210,7 +210,8 @@ public class Logic {
 	public void newEntry() {
 		ArrayList<SchemaChoice> itemList = new ArrayList<SchemaChoice>();
 		SchemaChoice defaultChoice = null;
-		for (Class<? extends MainSchema> schemaClass : tree.getSchema()) {
+		for (ClassWrapper wrapper : tree.getSchema()) {
+			Class<? extends MainSchema> schemaClass = wrapper.clazz;
 			String name = schemaClass.getSimpleName();
 			if (schemaClass.isAnnotationPresent(Annotations.Path.class)) {
 				name = schemaClass.getAnnotation(Annotations.Path.class).value() + name;

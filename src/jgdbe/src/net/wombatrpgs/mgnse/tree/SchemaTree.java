@@ -56,9 +56,7 @@ public class SchemaTree extends JTree {
 	/** The directory containing the database entries */
 	private File dataDir;
 	/** All the schema class files */
-	private ArrayList<Class<? extends MainSchema>> schema;
-	/** Maps schema to their respective nodes */
-	private HashMap<Class<? extends MainSchema>, SchemaNode> map;
+	private ArrayList<ClassWrapper> schema;
 	/** The providing data structure */
 	private SchemaNode tree;
 	/** load dem classes */
@@ -73,7 +71,7 @@ public class SchemaTree extends JTree {
 	/** @param schemaFile The new (jar) schema file */
 	public void addSchemaJar(File schemaJar) { schemaJars.add(schemaJar); }
 	/** @return All known schema types */
-	public List<Class<? extends MainSchema>> getSchema() { return schema; }
+	public List<ClassWrapper> getSchema() { return schema; }
 	/** @return All subclasses of a polymorphic schema */
 	public List<Class<? extends PolymorphicSchema>> getSubclasses(Class<?> schemaClass) {
 		return polyMap.get(schemaClass);
@@ -123,18 +121,19 @@ public class SchemaTree extends JTree {
 		polyMap = new HashMap<Class<?>, List<Class<? extends PolymorphicSchema>>>();
 		
 		// load from all files
-		schema = new ArrayList<Class<? extends MainSchema>>();
+		schema = new ArrayList<ClassWrapper>();
 		for (File schemaJar : schemaJars) {
 			refreshSchema(schemaJar);
 		}
 		
-		Global.instance().setSchema(schema);
-		
 		// set up the tree
 		tree = new SchemaNode("Schema");
 		this.setModel(new DefaultTreeModel(tree));
+		HashMap<Class<? extends MainSchema>, SchemaNode> map;
 		map = new HashMap<Class<? extends MainSchema>, SchemaNode>();
-		for (Class<? extends MainSchema> schemaClass : schema) {
+		Collections.sort(schema);
+		for (ClassWrapper wrapper : schema) {
+			Class<? extends MainSchema> schemaClass = wrapper.clazz;
 			if (schemaClass.isAnnotationPresent(ExcludeFromTree.class)){
 				Global.instance().debug("Ignored schema file due to exclude " + schemaClass);
 			} else if (PolymorphicSchema.class.isAssignableFrom(schemaClass)) {
@@ -197,7 +196,7 @@ public class SchemaTree extends JTree {
 					if (!MainSchema.class.isAssignableFrom(rawClass)) {
 						Global.instance().debug("Class doesn't extend main schema: " + rawClass);
 					} else {
-						schema.add((Class<? extends MainSchema>) rawClass);
+						schema.add(new ClassWrapper((Class<? extends MainSchema>) rawClass));
 					}
 					// if it's polymorphic, keep track of it
 					if (PolymorphicSchema.class.isAssignableFrom(rawClass) &&

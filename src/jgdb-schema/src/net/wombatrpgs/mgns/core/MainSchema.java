@@ -13,7 +13,7 @@ import net.wombatrpgs.mgns.core.Annotations.*;
  * elements that all schema should have.
  */
 @ExcludeFromTree
-public class MainSchema extends Schema {
+public class MainSchema extends Schema implements Comparable<MainSchema> {
 	
 	@DisplayName("Key")
 	@Desc("The key of this object used in code -- don't change these!")
@@ -36,6 +36,14 @@ public class MainSchema extends Schema {
 	@Desc("Notes and whatnot on this object")
 	@Header
 	public String description;
+
+	/**
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(MainSchema other) {
+		return key.compareTo(other.key);
+	}
 
 	/**
 	 * @see java.lang.Object#toString()

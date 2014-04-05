@@ -30,7 +30,6 @@ public class Global {
 	private static Global instance;
 	
 	private HashMap<Class<? extends MainSchema>, SchemaNode> map;
-	private ArrayList<Class<? extends MainSchema>> schema;
 	private ObjectMapper mapper;
 	private PrettyPrinter printer;
 	
@@ -57,14 +56,8 @@ public class Global {
 		return instance;
 	}
 	
-	/** @param schema The new schema to be used by the application */
-	public void setSchema(ArrayList<Class<? extends MainSchema>> schema) { this.schema = schema; }
-	/** @return The schema in use by the application */
-	public ArrayList<Class<? extends MainSchema>> getSchema() { return this.schema; }
 	/** @param map The new map to set */
 	public void setSchemaMap(HashMap<Class<? extends MainSchema>, SchemaNode> map) { this.map = map; }
-	/** @return A map from schema to their nodes */
-	public HashMap<Class<? extends MainSchema>, SchemaNode> getSchemaMap() { return this.map; }
 	
 	/**
 	 * Returns all nodes that correspond to schema that subclass the supplied
