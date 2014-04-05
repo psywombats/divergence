@@ -7,24 +7,30 @@
 package net.wombatrpgs.saga;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
+import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
 import net.wombatrpgs.saga.rpg.Chara;
+import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**
  * Thing with walking character sprite and their HP.
  */
 public class CharacterInsert extends ScreenGraphic {
 	
-	protected static int WIDTH = 40;
-	protected static int HEIGHT = 24;
+	protected static int WIDTH = 58;
+	protected static int HEIGHT = 18;
 	protected static int PADDING = 2;
 	
 	protected FontHolder font;
+	protected TextBoxFormat format;
 	protected Chara chara;
+	protected String hpText1, hpText2;
+	protected int lastHP, lastMHP;
 
 	/**
 	 * Creates a new insert for a character at 0, 0. Dynamically links to the
@@ -33,7 +39,11 @@ public class CharacterInsert extends ScreenGraphic {
 	 */
 	public CharacterInsert(Chara chara) {
 		this.chara = chara;
-		this.font = MGlobal.ui.getFont();
+		font = MGlobal.ui.getFont();
+		format = new TextBoxFormat();
+		format.align = HAlignment.LEFT;
+		format.height = 80;
+		format.width = 160;
 	}
 	
 	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getWidth() */
@@ -53,6 +63,8 @@ public class CharacterInsert extends ScreenGraphic {
 		float renderX = x + PADDING;
 		float renderY = y + HEIGHT/2 - sprite.getHeight()/2;
 		sprite.renderAt(batch, renderX, renderY);
+		font.draw(batch, format, hpText1, 0);
+		font.draw(batch, format, hpText2, -(int) font.getLineHeight());
 	}
 
 	/**
@@ -65,6 +77,13 @@ public class CharacterInsert extends ScreenGraphic {
 			chara.getAppearance().startMoving();
 		}
 		chara.getAppearance().update(elapsed);
+		
+		if (chara.get(Stat.HP) != lastHP || chara.get(Stat.MHP) != lastMHP) {
+			hpText1 = new Integer((int) chara.get(Stat.HP)).toString();
+			hpText2 = "/ " + (int) chara.get(Stat.MHP);
+		}
+		format.x = (int) (x + PADDING*2 + chara.getAppearance().getWidth());
+		format.y = (int) (y + font.getLineHeight()*2);
 	}
 
 }

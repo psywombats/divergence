@@ -1,0 +1,28 @@
+{
+	"key" : "party_full",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"members" : [
+		{
+			"monster" : "chara_dummy",
+			"count" : 1
+		},
+		{
+			"monster" : "chara_dummy",
+			"count" : 1
+		},
+		{
+			"monster" : "chara_dummy",
+			"count" : 1
+		},
+		{
+			"monster" : "chara_dummy",
+			"count" : 1
+		},
+		{
+			"monster" : "chara_dummy",
+			"count" : 1
+		}
+	]
+}

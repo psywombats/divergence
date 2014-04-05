@@ -22,7 +22,6 @@ public class WorldScreen extends GameScreen {
 	 */
 	public WorldScreen() {
 		menu = new MenuScreen();
-		assets.add(menu);
 	}
 
 	/**
@@ -34,6 +33,7 @@ public class WorldScreen extends GameScreen {
 		if (super.onCommand(command)) return true;
 		switch (command) {
 		case WORLD_PAUSE:
+			MGlobal.assets.loadAsset(menu, "main menu");
 			MGlobal.screens.push(menu);
 		default:
 			return hero.onCommand(command);

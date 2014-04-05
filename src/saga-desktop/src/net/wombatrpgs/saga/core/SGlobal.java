@@ -6,7 +6,11 @@
  */
 package net.wombatrpgs.saga.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.saga.rpg.HeroParty;
 import net.wombatrpgs.sagaschema.settings.SagaSettings;
 
@@ -26,11 +30,16 @@ public class SGlobal {
 	 */
 	public static void globalInit() {
 		
+		List<Queueable> toLoad;
+		
 		// settings first
 		settings = MGlobal.data.getEntryFor(SConstants.KEY_SAGASETTINGS, SagaSettings.class);
+		toLoad = new ArrayList<Queueable>();
 		
 		// then everything else
 		heroes = new HeroParty();
+		toLoad.add(heroes);
+		MGlobal.assets.loadAssets(toLoad, "SGlobal");
 	}
 
 }
