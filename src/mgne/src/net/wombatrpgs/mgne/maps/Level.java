@@ -64,7 +64,6 @@ public abstract class Level extends ScreenObject {
 	 * @param	screen			The screen to associate with
 	 */
 	public Level(MapMDO mdo, Screen screen) {
-		super(0);
 		this.mdo = mdo;
 		this.screen = screen;
 		

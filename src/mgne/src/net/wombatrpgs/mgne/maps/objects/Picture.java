@@ -8,7 +8,7 @@ package net.wombatrpgs.mgne.maps.objects;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-import net.wombatrpgs.mgne.graphics.ScreenDrawable;
+import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.ui.Graphic;
 
 /**
@@ -18,9 +18,10 @@ import net.wombatrpgs.mgne.ui.Graphic;
  * 
  * Don't use it to display subcomponents!
  */
-public class Picture extends ScreenDrawable {
+public class Picture extends ScreenGraphic implements Comparable<Picture> {
 	
 	protected Graphic appearance;
+	protected int z;
 	
 	/**
 	 * Create a picture at an explicit location
@@ -29,10 +30,18 @@ public class Picture extends ScreenDrawable {
 	 * @param 	y				The y-coord (in pixels) to render at	
 	 * @param 	z				The z-depth (number in RM terms) of the picture
 	 */
-	public Picture(Graphic appearance, int x, int y, int z) {
-		this(appearance, z);
-		setX(x);
-		setY(y);
+	public Picture(Graphic appearance, float x, float y, int z) {
+		super(x, y);
+		this.z = z;
+	}
+	
+	/**
+	 * Creates a picture with a certain appearance and depth at 0, 0.
+	 * @param 	appearance		The graphic the picture will render
+	 * @param 	z				The z-depth (number in RM terms) of the picture
+	 */
+	public Picture(Graphic appearance, int z) {
+		this(appearance, 0, 0, z);
 	}
 	
 	/**
@@ -42,21 +51,9 @@ public class Picture extends ScreenDrawable {
 	 * @param 	y				The y-coord (in pixels) to render at
 	 * @param 	z				The z-depth (number in RM terms) of the picture
 	 */
-	public Picture(String fileName, int x, int y, int z) {
-		this(new Graphic(fileName), z);
-		this.assets.add(appearance);
-		setX(x);
-		setY(y);
-	}
-	
-	/**
-	 * Creates a picture with a certain appearance and depth.
-	 * @param 	appearance		The graphic the picture will render
-	 * @param 	z				The z-depth (number in RM terms) of the picture
-	 */
-	public Picture(Graphic appearance, int z) {
-		super(z);
-		this.appearance = appearance;
+	public Picture(String fileName, float x, float y, int z) {
+		this(new Graphic(fileName), x, y, z);
+		assets.add(appearance);
 	}
 	
 	/**
@@ -68,11 +65,11 @@ public class Picture extends ScreenDrawable {
 		this(fileName, 0, 0, z);
 	}
 	
-	/** @return The width of the underlying graphic, in px */
-	public int getWidth() { return appearance.getWidth(); }
-	
-	/** @return The height of the underlying graphic, in px */
-	public int getHeight() { return appearance.getHeight(); }
+	/** @see net.wombatrpgs.mgne.graphics.ScreenGraphic#getWidth() */
+	@Override public int getWidth() { return appearance.getWidth(); }
+
+	/** @see net.wombatrpgs.mgne.graphics.ScreenGraphic#getHeight() */
+	@Override public int getHeight() { return appearance.getHeight(); }
 
 	/**
 	 * @see net.wombatrpgs.mgne.maps.events.MapEvent#render
@@ -80,7 +77,15 @@ public class Picture extends ScreenDrawable {
 	 */
 	@Override
 	public void render(OrthographicCamera camera) {
-		appearance.renderAt(batch, x, y);
+		appearance.renderAt(getBatch(), x, y);
+	}
+
+	/**
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(Picture o) {
+		return z - o.z;
 	}
 
 }

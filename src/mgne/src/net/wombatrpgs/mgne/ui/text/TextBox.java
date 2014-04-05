@@ -15,7 +15,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.graphics.ScreenDrawable;
+import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.io.audio.SoundObject;
 import net.wombatrpgs.mgne.maps.MapThing;
 import net.wombatrpgs.mgne.screen.Screen;
@@ -37,7 +37,7 @@ import net.wombatrpgs.mgneschema.ui.data.BoxAnchorType;
  * picture-backed text boxes are also supported. It also seems to handle font
  * loading?
  */
-public class TextBox extends ScreenDrawable {
+public class TextBox extends ScreenGraphic {
 	
 	protected TextBoxMDO mdo;
 	protected FontHolder font;
@@ -64,7 +64,7 @@ public class TextBox extends ScreenDrawable {
 	 * @param 	font			The font to use in rendering, can change
 	 */
 	public TextBox(TextBoxMDO mdo, FontHolder font) {
-		super(1);
+		super(0, 0);
 		this.mdo = mdo;
 		this.font = font;
 		this.visibleChars = 0;
@@ -87,6 +87,12 @@ public class TextBox extends ScreenDrawable {
 		}
 		assets.add(font);
 	}
+	
+	/** @see net.wombatrpgs.mgne.graphics.ScreenGraphic#getWidth() */
+	@Override public int getWidth() { return boxWidth; }
+
+	/** @see net.wombatrpgs.mgne.graphics.ScreenGraphic#getHeight() */
+	@Override public int getHeight() { return boxHeight; }
 	
 	/**
 	 * @see net.wombatrpgs.mgne.maps.MapThing#render
@@ -140,7 +146,7 @@ public class TextBox extends ScreenDrawable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.ScreenDrawable#fadeIn
+	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#fadeIn
 	 * (net.wombatrpgs.mgne.screen.Screen, float)
 	 */
 	@Override
@@ -150,7 +156,7 @@ public class TextBox extends ScreenDrawable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.maps.objects.Picture#update(float)
+	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
 	 */
 	@Override
 	public void update(float elapsed) {

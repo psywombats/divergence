@@ -165,9 +165,10 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 	 */
 	public void update(float elapsed) {
 		super.update(elapsed);
-		
 		if (appearance != null) {
 			appearance.update(elapsed);
+			appearance.setX(x);
+			appearance.setY(y);
 		}
 	}
 	

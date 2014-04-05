@@ -20,12 +20,9 @@ import net.wombatrpgs.mgne.graphics.Renderable;
  * Something that's both renderable and updateable. Can also be sorted.
  */
 public abstract class ScreenObject implements	Renderable, 
-												Updateable,
-												Comparable<ScreenObject> {
+												Updateable  {
 	
 	protected List<Queueable> assets;
-	
-	protected int z;
 	
 	/**
 	 * Creates a blank screen object.
@@ -33,18 +30,6 @@ public abstract class ScreenObject implements	Renderable,
 	public ScreenObject() {
 		this.assets = new ArrayList<Queueable>();
 	}
-	
-	/**
-	 * Creates a blank screen object.
-	 * @param	z				The z-layer of this object
-	 */
-	public ScreenObject(int z) {
-		this();
-		this.z = z;
-	}
-	
-	/** @return The z-layer of this object */
-	public int getZ() { return z; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
@@ -68,14 +53,6 @@ public abstract class ScreenObject implements	Renderable,
 		for (Queueable asset : assets) {
 			asset.postProcessing(manager, pass);
 		}
-	}
-
-	/**
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
-	@Override
-	public int compareTo(ScreenObject o) {
-		return z - o.z;
 	}
 
 	/**

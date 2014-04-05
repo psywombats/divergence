@@ -8,8 +8,6 @@ package net.wombatrpgs.mgne.graphics;
 
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.core.interfaces.Updateable;
-import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
 import net.wombatrpgs.mgneschema.graphics.data.AnimationType;
 
@@ -18,6 +16,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
@@ -25,11 +24,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * general reminder that the images handled by this class need to be flipped
  * vertically in terms of markup.
  */
-public class AnimationStrip implements 	Renderable,
-										Updateable {
+public class AnimationStrip extends ScreenGraphic {
 	
 	protected AnimationMDO mdo;
-	protected MapEvent parent;
 	
 	protected transient Animation anim;
 	protected transient Texture spritesheet;
@@ -47,14 +44,12 @@ public class AnimationStrip implements 	Renderable,
 	protected float flashDuration;
 	
 	/**
-	 * Creates a new animation from the relevant information and with the
-	 * map object as its positioning parent for rendering.
-	 * @param 	mdo			The animation data
-	 * @param 	parent		The parent map event
+	 * Creates a new animation from the relevant information.
+	 * @param 	mdo				The animation data
 	 */
-	public AnimationStrip(AnimationMDO mdo, MapEvent parent) {
+	public AnimationStrip(AnimationMDO mdo) {
+		super(0, 0);
 		this.mdo = mdo;
-		this.parent = parent;
 		this.time = 0;
 		this.bump = 0;
 		this.maxTime = ((float) mdo.frameCount) / ((float) mdo.animSpeed);
@@ -65,17 +60,8 @@ public class AnimationStrip implements 	Renderable,
 		if (mdo.hit2y == null) mdo.hit2y = mdo.frameHeight;
 	}
 	
-	/**
-	 * Creates a new animation from the relevant MDO information. Does not
-	 * associate a map event for positioning, so that should be supplied later.
-	 * @param 	mdo				The data for object creation
-	 */
-	public AnimationStrip(AnimationMDO mdo) {
-		this(mdo, null);
-	}
-	
 	/** Kryo constructor */
-	protected AnimationStrip() { }
+	protected AnimationStrip() { super(0, 0); }
 	
 	/** @param bump Bump up animation time by some amount */
 	public void setBump(float bump) { this.bump = bump; }
@@ -125,10 +111,10 @@ public class AnimationStrip implements 	Renderable,
 	@Override
 	public void render(OrthographicCamera camera) {
 		if (currentFrame != null) {
+			SpriteBatch batch = getBatch();
 			Color old = null;
 			if (flashColor != null) {
-				parent.getParent().getBatch().end();
-				old = parent.getParent().getBatch().getColor().cpy();
+				old = batch.getColor().cpy();
 				float r;
 				r = 2f * flashElapsed / (flashDuration);
 				if (flashElapsed > flashDuration / 2f) {
@@ -139,14 +125,13 @@ public class AnimationStrip implements 	Renderable,
 						old.g * (1f-r) + flashColor.g * r,
 						old.b * (1f-r) + flashColor.b * r,
 						old.a * (1f-r) + flashColor.a * r);
-				parent.getParent().getBatch().setColor(cur);
-				parent.getParent().getBatch().begin();
+				batch.setColor(cur);
 			}
-			parent.renderLocal(camera, currentFrame, 0, 0, 0);
+			batch.begin();
+			batch.draw(currentFrame, x, y);
+			batch.end();
 			if (flashColor != null) {
-				parent.getParent().getBatch().end();
-				parent.getParent().getBatch().setColor(old);
-				parent.getParent().getBatch().begin();
+				batch.setColor(old);
 			}
 		}
 	}
@@ -266,14 +251,6 @@ public class AnimationStrip implements 	Renderable,
 	 */
 	public boolean isFinished() {
 		return time > maxTime;
-	}
-	
-	/**
-	 * Gives this strip a new position parent.
-	 * @param 	parent			The new position parent map event
-	 */
-	public void setParent(MapEvent parent) {
-		this.parent = parent;
 	}
 	
 	/**

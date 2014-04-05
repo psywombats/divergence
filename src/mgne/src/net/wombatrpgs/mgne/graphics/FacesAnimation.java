@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 
 /**
@@ -19,8 +18,7 @@ import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
  * a congolomeration of faces that switch out depending on how the entity's
  * moving.
  */
-public abstract class FacesAnimation implements Renderable,
-												Updateable {
+public abstract class FacesAnimation extends ScreenGraphic {
 	
 	protected static final float FLICKER_DURATION = .3f; // in s
 	
@@ -63,23 +61,35 @@ public abstract class FacesAnimation implements Renderable,
 	public void coreRender(OrthographicCamera camera) {
 		animations[currentDirOrdinal()].render(camera);
 	}
-	
+
+	/** @see net.wombatrpgs.mgne.graphics.ScreenGraphic#getWidth() */
+	@Override public int getWidth() { return animations[currentDirOrdinal()].getWidth(); }
+
+	/** @see net.wombatrpgs.mgne.graphics.ScreenGraphic#getHeight() */
+	@Override public int getHeight() { return animations[currentDirOrdinal()].getHeight(); }
+
 	/**
-	 * Gets the width of the current frame. Current frame is selected by child.
-	 * @return					The width of current frame in px
+	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#setX(float)
 	 */
-	public int getWidth() {
-		return animations[currentDirOrdinal()].getWidth();
+	@Override
+	public void setX(float x) {
+		super.setX(x);
+		for (int i = 0; i < facings; i++) {
+			animations[i].setX(x);
+		}
 	}
-	
+
 	/**
-	 * Gets the height of the current frame. Current frame is selected by child.
-	 * @return					The height of current frame in px
+	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#setY(float)
 	 */
-	public int getHeight() {
-		return animations[currentDirOrdinal()].getHeight();
+	@Override
+	public void setY(float y) {
+		super.setY(y);
+		for (int i = 0; i < facings; i++) {
+			animations[i].setY(y);
+		}
 	}
-	
+
 	/**
 	 * Gets the duration to play the whole animation.
 	 * @return					The time it takes to play this, in s
@@ -88,25 +98,11 @@ public abstract class FacesAnimation implements Renderable,
 		return animations[currentDirOrdinal()].getMaxTime();
 	}
 	
-	/** @return The maximum range of any horizontal attack in this animation */
-	public int getRangeX() {
-		return rangeX;
-	}
-	
-	/** @return The maximum range of any horizontal attack in this animation */
-	public int getRangeY() {
-		return rangeY;
-	}
-	
 	/** @return The currently playing animation strip */
-	public AnimationStrip getStrip() {
-		return animations[currentDirOrdinal()];
-	}
+	public AnimationStrip getStrip() { return animations[currentDirOrdinal()]; }
 	
 	/** @return True if the anim is playing, false otherwise */
-	public boolean isMoving() {
-		return animations[currentDirOrdinal()].isMoving();
-	}
+	public boolean isMoving() { return animations[currentDirOrdinal()].isMoving(); }
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.Renderable#queueRequiredAssets

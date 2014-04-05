@@ -7,7 +7,6 @@
 package net.wombatrpgs.mgne.screen;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
@@ -212,11 +211,6 @@ public abstract class Screen implements CommandListener,
 		shapes.begin(ShapeType.Filled);
 		shapes.rect(0, 0, window.getWidth(), window.getHeight());
 		shapes.end();
-		for (ScreenObject pic : screenObjects) {
-			if (pic.getZ() == 0) {
-				pic.render(cam);
-			}
-		}
 		buffer.end();
 		
 		// Draw the normal screen buffer into the last-buffer
@@ -240,10 +234,8 @@ public abstract class Screen implements CommandListener,
 		for (PostRenderable pr : postRenders) {
 			pr.renderPost();
 		}
-		for (ScreenObject pic : screenObjects) {
-			if (pic.getZ() > 0) {
-				pic.render(cam);
-			}
+		for (ScreenObject object : screenObjects) {
+			object.render(cam);
 		}
 		buffer.end();
 		
@@ -313,7 +305,6 @@ public abstract class Screen implements CommandListener,
 	 */
 	@Override
 	public void update(float elapsed) {
-		Collections.sort(screenObjects);
 		for (Updateable up : updateChildren) {
 			up.update(elapsed);
 		}

@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
@@ -24,24 +25,24 @@ import net.wombatrpgs.mgneschema.ui.NinesliceMDO;
  * The spiritual successor to the old menu from 7DRL. This thing displays a list
  * of options and a cursor, and the player selects one of the options.
  */
-public class OptionSelector extends UIElement implements CommandListener {
+public class OptionSelector extends ScreenGraphic implements CommandListener {
 	
-	protected static float DEFAULT_PADDING_HORIZ = 24;
-	protected static float DEFAULT_PADDING_VERT = 10;
-	protected static float DEFAULT_SPACING = 5;
+	protected static int DEFAULT_PADDING_HORIZ = 24;
+	protected static int DEFAULT_PADDING_VERT = 10;
+	protected static int DEFAULT_SPACING = 5;
 	
 	// from constructor
 	protected List<Option> options;
 	protected NinesliceMDO bgMDO;
 	protected FontHolder font;
-	protected float padHoriz, padVert;
-	protected float spacingVert;
+	protected int padHoriz, padVert;
+	protected int spacingVert;
 	
 	// calculated
 	protected Nineslice bg;
 	protected TextBoxFormat format;
 	protected int screenX, screenY;
-	protected float width, height;
+	protected int width, height;
 	
 	// cursor
 	protected boolean cursorOn;
@@ -61,7 +62,8 @@ public class OptionSelector extends UIElement implements CommandListener {
 	 * @param	spacing			The space (in pixels) between two options
 	 */
 	public OptionSelector(List<Option> options, NinesliceMDO bgMDO,
-			FontHolder font, float padHoriz, float padVert, float spacing) {
+			FontHolder font, int padHoriz, int padVert, int spacing) {
+		super(0, 0);
 		this.options = options;
 		this.bgMDO = bgMDO;
 		this.font = font;
@@ -69,19 +71,25 @@ public class OptionSelector extends UIElement implements CommandListener {
 		this.padVert = padVert;
 		this.spacingVert = spacing;
 		
-		float maxTextWidth = 0;
+		int maxTextWidth = 0;
 		for (Option o : options) {
 			float width = font.getWidth(o.getText());
-			maxTextWidth = Math.max(maxTextWidth, width);
+			maxTextWidth = (int) Math.max(maxTextWidth, width);
 		}
 		width = maxTextWidth + 
 				padHoriz * 2;
-		height = options.size() * font.getLineHeight() +
+		height = (int) (options.size() * font.getLineHeight() +
 				(options.size()-1) * spacingVert +
-				padVert * 2;
+				padVert * 2);
 		bg = new Nineslice(bgMDO);
 		assets.add(bg);
 	}
+	
+	/** @see net.wombatrpgs.mgne.graphics.ScreenGraphic#getWidth() */
+	@Override public int getWidth() { return width; }
+
+	/** @see net.wombatrpgs.mgne.graphics.ScreenGraphic#getHeight() */
+	@Override public int getHeight() { return height; }
 	
 	/**
 	 * Creates a new options selector with default padding.

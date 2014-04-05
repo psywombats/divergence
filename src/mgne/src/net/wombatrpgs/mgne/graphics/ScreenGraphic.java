@@ -19,7 +19,7 @@ import net.wombatrpgs.mgne.screen.ScreenObject;
  * the picture positioning stuff. Also has a batch because uh yeah you're going
  * to be rendering things.
  */
-public abstract class ScreenDrawable extends ScreenObject implements PositionSetable {
+public abstract class ScreenGraphic extends ScreenObject implements PositionSetable {
 	
 	protected SpriteBatch batch;
 	protected Screen parent;
@@ -36,16 +36,25 @@ public abstract class ScreenDrawable extends ScreenObject implements PositionSet
 	protected float tweenBaseX, tweenBaseY;
 
 	/**
-	 * Creates a new screen object with z blah blah superconstructor.
-	 * @param	z				The z-coord of the picture, greater is higher
+	 * Creates a new screen object at x, y.
+	 * @param	x				The x-coord to start at (in virtual px)
+	 * @param	y				The y-coord to start at (in virtual px)
 	 */
-	public ScreenDrawable(int z) {
-		super(z);
+	public ScreenGraphic(float x, float y) {
+		this.x = x;
+		this.y = y;
 		this.tweening = false;
 		this.batch = new SpriteBatch();
 		this.currentColor = new Color(1, 1, 1, 1);
 		this.tweenBaseColor = new Color(1, 1, 1, 1);
 		this.tweenTargetColor = new Color(1, 1, 1, 1);
+	}
+	
+	/**
+	 * Creates a new screen object at 0, 0.
+	 */
+	public ScreenGraphic() {
+		this(0, 0);
 	}
 
 	/** @see net.wombatrpgs.mgne.maps.Positionable#getX() */
@@ -62,6 +71,12 @@ public abstract class ScreenDrawable extends ScreenObject implements PositionSet
 	
 	/** @return True if we're currently moving to another place/color */
 	public boolean isTweening() { return tweening; }
+	
+	/** @return The width of this object, in virtual px */
+	public abstract int getWidth();
+	
+	/** @return The height of this object, in virtual px */
+	public abstract int getHeight();
 	
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
