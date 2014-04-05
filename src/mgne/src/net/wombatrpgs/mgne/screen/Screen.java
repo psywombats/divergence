@@ -26,6 +26,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
+import net.wombatrpgs.mgne.graphics.interfaces.Renderable;
 import net.wombatrpgs.mgne.io.ButtonListener;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.io.CommandMap;
@@ -43,6 +44,7 @@ import net.wombatrpgs.mgneschema.io.data.InputCommand;
  */
 public abstract class Screen implements CommandListener,
 										Updateable,
+										Renderable,
 										Queueable,
 										Disposable,
 										ButtonListener {
@@ -137,6 +139,12 @@ public abstract class Screen implements CommandListener,
 	/** @param u The updateable child to (eventually) remove */
 	public void removeUChild(Updateable u) { removeChildren.add(u); }
 	
+	/** @return The width (in px) of current frames */
+	public int getWidth() { return MGlobal.window.getViewportWidth(); }
+	
+	/** @return The height (in px) of current frames */
+	public int getHeight() { return MGlobal.window.getViewportHeight(); }
+	
 	/**
 	 * Checks to see if a screen object exists on the screen. Also checks if the
 	 * object is queued to be added next update step.
@@ -189,9 +197,18 @@ public abstract class Screen implements CommandListener,
 	}
 
 	/**
-	 * The root of all evil. We supply the camera.
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#render
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
 	 */
-	public void render() {
+	@Override
+	public void render(SpriteBatch batch) {
+		// subclasses can feel free to do things here
+	}
+
+	/**
+	 * The root of all evil. We supply the batch.
+	 */
+	public final void render() {
 		cam.update(0);
 		batch.setProjectionMatrix(cam.combined);
 		WindowSettings window = MGlobal.window;
@@ -225,6 +242,7 @@ public abstract class Screen implements CommandListener,
 		for (ScreenObject object : screenObjects) {
 			object.render(getUIBatch());
 		}
+		render(getUIBatch());
 		buffer.end();
 		
 		// now draw the results to the screen

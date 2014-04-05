@@ -73,7 +73,9 @@ public abstract class FacesAnimation implements	PosRenderable,
 	 */
 	@Override
 	public void renderAt(SpriteBatch batch, float x, float y) {
-		getStrip().renderAt(batch, x, y);
+		if (shouldAppear()) {
+			getStrip().renderAt(batch, x, y);
+		}
 	}
 
 	/**

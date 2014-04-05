@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.mgne.ui;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,7 +42,6 @@ public class OptionSelector extends ScreenGraphic implements CommandListener {
 	// calculated
 	protected Nineslice bg;
 	protected TextBoxFormat format;
-	protected int screenX, screenY;
 	protected int width, height;
 	
 	// cursor
@@ -64,7 +64,8 @@ public class OptionSelector extends ScreenGraphic implements CommandListener {
 	public OptionSelector(List<Option> options, NinesliceMDO bgMDO,
 			FontHolder font, int padHoriz, int padVert, int spacing) {
 		super(0, 0);
-		this.options = options;
+		this.options = new ArrayList<Option>();
+		this.options.addAll(options);
 		this.bgMDO = bgMDO;
 		this.font = font;
 		this.padHoriz = padHoriz;
@@ -122,7 +123,7 @@ public class OptionSelector extends ScreenGraphic implements CommandListener {
 	public OptionSelector(Option... options) {
 		this(Arrays.asList(options));
 	}
-
+	
 	/**
 	 * @see net.wombatrpgs.mgne.io.CommandListener#onCommand
 	 * (net.wombatrpgs.mgneschema.io.data.InputCommand)
@@ -136,7 +137,6 @@ public class OptionSelector extends ScreenGraphic implements CommandListener {
 		default:								return true;
 		}
 	}
-
 	
 	/**
 	 * @see net.wombatrpgs.mgne.screen.ScreenObject#render
@@ -145,7 +145,7 @@ public class OptionSelector extends ScreenGraphic implements CommandListener {
 	@Override
 	public void render(SpriteBatch batch) {
 		super.render(batch);
-		bg.renderAt(getBatch(), screenX, screenY);
+		bg.renderAt(getBatch(), x, y);
 		int off = 0;
 		for (Option o : options) {
 			font.draw(getBatch(), format, o.getText(), off);
@@ -161,8 +161,8 @@ public class OptionSelector extends ScreenGraphic implements CommandListener {
 	 * @param	screenY			The y-coord to show at (in game px)
 	 */
 	public void showAt(int screenX, int screenY) {
-		this.screenX = screenX;
-		this.screenY = screenY;
+		this.x = screenX;
+		this.y = screenY;
 		
 		MGlobal.screens.peek().addObject(this);
 		focus();
@@ -213,10 +213,8 @@ public class OptionSelector extends ScreenGraphic implements CommandListener {
 	 * Snaps the cursor to the correct location. No tweening.
 	 */
 	protected void setCursorLoc() {
-		cursorX = screenX + padHoriz - MGlobal.ui.getCursor().getWidth() - 4;
-//		cursorY = screenY + padVert + MGlobal.ui.getCursor().getHeight()/2 - 5 -
-//				selected * (font.getLineHeight() + spacingVert);
-		cursorY = screenY + (options.size() - selected - 1) * (font.getLineHeight() + spacingVert);
+		cursorX = x + padHoriz - MGlobal.ui.getCursor().getWidth() - 4;
+		cursorY = y + (options.size() - selected - 1) * (font.getLineHeight() + spacingVert);
 	}
 	
 	/**

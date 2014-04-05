@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.mgne.screen.instances;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
@@ -124,21 +123,6 @@ public class GameScreen extends Screen {
 			getCamera().track(hero);
 		}
 		getCamera().update(0);
-	}
-	
-	/**
-	 * @see net.wombatrpgs.mgne.screen.Screen#render()
-	 */
-	@Override
-	public void render() {
-		super.render();
-		batch.begin();
-		if (fpsMDO.enabled == TestState.ENABLED) {
-			MGlobal.ui.getFont().draw(batch,
-					"FPS: " + Gdx.graphics.getFramesPerSecond(),
-					8, 8);
-		}
-		batch.end();
 	}
 	
 	/**

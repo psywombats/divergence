@@ -6,7 +6,15 @@
  */
 package net.wombatrpgs.saga.rpg;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.badlogic.gdx.assets.AssetManager;
+
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
+import net.wombatrpgs.mgne.graphics.FacesAnimation;
+import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.sagaschema.rpg.chara.CharacterMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Race;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Resistable;
@@ -17,11 +25,13 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
  * An in-game character. Not called Character so as not to conflict with the one
  * in java.lang.
  */
-public class Chara {
+public class Chara implements Queueable {
 	
 	protected CharacterMDO mdo;
+	protected List<Queueable> assets;
 	
 	protected SagaStats stats;
+	protected FacesAnimation appearance;
 	
 	/**
 	 * Creates a new character from data template.
@@ -29,7 +39,11 @@ public class Chara {
 	 */
 	public Chara(CharacterMDO mdo) {
 		this.mdo = mdo;
-		this.stats = new SagaStats(mdo.stats);
+		assets = new ArrayList<Queueable>();
+		
+		stats = new SagaStats(mdo.stats);
+		appearance = FacesAnimationFactory.create(mdo.appearance);
+		assets.add(appearance);
 	}
 	
 	/**
@@ -46,6 +60,31 @@ public class Chara {
 	/** @return The current value of the request flag */
 	public boolean is(Flag flag) { return stats.flag(flag); }
 	
+	/** @return The appearance of this character */
+	public FacesAnimation getAppearance() { return appearance; }
+	
+	/**
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
+	 * (com.badlogic.gdx.assets.AssetManager)
+	 */
+	@Override
+	public void queueRequiredAssets(AssetManager manager) {
+		for (Queueable asset : assets) {
+			asset.queueRequiredAssets(manager);
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager, int pass) {
+		for (Queueable asset : assets) {
+			asset.postProcessing(manager, pass);
+		}
+	}
+
 	/**
 	 * Checks if this character resists a certain damage or status type.
 	 * @param	type			The damage or status to check

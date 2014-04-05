@@ -93,8 +93,6 @@ public class TextBox extends ScreenGraphic {
 
 	/** @see net.wombatrpgs.mgne.graphics.ScreenGraphic#getHeight() */
 	@Override public int getHeight() { return boxHeight; }
-	
-
 
 	/**
 	 * @see net.wombatrpgs.mgne.screen.ScreenObject#render

@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.mgne.screen.instances;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -90,19 +89,6 @@ public class TestScreen extends Screen {
 //		}
 		
 		return false;
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.screen.Screen#render()
-	 */
-	@Override
-	public void render() {
-		super.render();
-		batch.begin();
-		defaultFont.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 8, 16);
-		batch.end();
-		
-		if (box != null) box.render(getViewBatch());
 	}
 
 	/**

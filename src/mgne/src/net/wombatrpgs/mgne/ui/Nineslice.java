@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Matrix4;
 
 import net.wombatrpgs.mgne.core.Constants;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
@@ -67,6 +68,13 @@ public class Nineslice implements Queueable, PosRenderable, Disposable {
 		this(mdo);
 		this.width = width;
 		this.height = height;
+	}
+	
+	/**
+	 * Creates an uninitialized nineslice from default data.
+	 */
+	public Nineslice() {
+		this(MGlobal.ui.getNinesliceMDO());
 	}
 
 	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getWidth() */
