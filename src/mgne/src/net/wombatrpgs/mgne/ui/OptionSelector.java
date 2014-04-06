@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
@@ -50,6 +51,7 @@ public class OptionSelector extends ScreenGraphic implements CommandListener {
 	protected float cursorX, cursorY;
 	
 	// etc state
+	protected FinishListener cancel;
 	protected boolean controlling;
 	
 	/**
@@ -134,6 +136,7 @@ public class OptionSelector extends ScreenGraphic implements CommandListener {
 		case MOVE_UP:		moveCursor(-1);		return true;
 		case MOVE_DOWN:		moveCursor(1);		return true;
 		case UI_CONFIRM:	confirm();			return true;
+		case UI_CANCEL:		cancel();			return true;
 		default:								return true;
 		}
 	}
@@ -152,6 +155,15 @@ public class OptionSelector extends ScreenGraphic implements CommandListener {
 			off -= (spacingVert + font.getLineHeight());
 		}
 		MGlobal.ui.getCursor().renderAt(getBatch(), cursorX, cursorY);
+	}
+	
+	/**
+	 * Sets the function to be called when the user cancels out of this
+	 * selector. Really shouldn't be called a finish listener.
+	 * @param	listener		The code to execute on cancel
+	 */
+	public void setCancel(FinishListener listener) {
+		this.cancel = listener;
 	}
 
 	/**
@@ -174,7 +186,9 @@ public class OptionSelector extends ScreenGraphic implements CommandListener {
 		format.x = screenX + (int) padHoriz;
 		format.y = screenY + (int) (height - padVert);
 		
-		bg.resizeTo((int) width, (int) height);
+		if (bg.getWidth() == 0 || bg.getHeight() == 0) {
+			bg.resizeTo((int) width, (int) height);
+		}
 		
 		selected = 0;
 		cursorOn = true;
@@ -233,7 +247,19 @@ public class OptionSelector extends ScreenGraphic implements CommandListener {
 	 * Called when the user confirms. Should run the appropriate command.
 	 */
 	protected void confirm() {
-		options.get(selected).onSelect();
+		if (options.get(selected).onSelect()) {
+			close();
+		}
+	}
+	
+	/**
+	 * Called when the user hits the cancel button. If no listener is
+	 * associated, does nothing.
+	 */
+	protected void cancel() {
+		if (cancel != null) {
+			cancel.onFinish();
+		}
 	}
 	
 }

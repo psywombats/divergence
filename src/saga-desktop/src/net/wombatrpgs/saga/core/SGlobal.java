@@ -40,6 +40,11 @@ public class SGlobal {
 		heroes = new HeroParty();
 		toLoad.add(heroes);
 		MGlobal.assets.loadAssets(toLoad, "SGlobal");
+		
+		// debug save-y stuff
+		if (MGlobal.args.length >= 1) {
+			MGlobal.memory.load(MGlobal.args[0]);
+		}
 	}
 
 }

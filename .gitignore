@@ -13,6 +13,7 @@ Icon?
 ehthumbs.db
 Thumbs.db
 
-# Rainfall logs #
+# MGNE logs etc #
 #################
 *.log
+*.sav

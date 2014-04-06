@@ -42,6 +42,6 @@ public class Main {
 					@Override public Reporter getReporter() {
 						return new PrintReporter();
 					}
-		}), cfg);
+		}, args), cfg);
 	}
 }

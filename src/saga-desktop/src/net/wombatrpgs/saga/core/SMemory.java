@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.saga.core;
 
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.Memory;
 import net.wombatrpgs.saga.rpg.HeroParty;
 
@@ -32,6 +33,15 @@ public class SMemory extends Memory {
 	protected void unloadFields() {
 		super.unloadFields();
 		SGlobal.heroes = this.party;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.Memory#loadAssets()
+	 */
+	@Override
+	protected void loadAssets() {
+		super.loadAssets();
+		MGlobal.assets.loadAsset(SGlobal.heroes, "loaded heroes");
 	}
 
 }

@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.screen.Screen;
@@ -36,7 +37,7 @@ public class MenuScreen extends Screen implements Disposable {
 	protected static final int INSERTS_COUNT_VERT = 3;
 	protected static final int INFO_HEIGHT = 28;
 	
-	protected OptionSelector menu;
+	protected OptionSelector menu, saveSelector;
 	protected List<CharacterInsert> inserts;
 	protected Nineslice insertsBG;
 	protected int insertsX, insertsY;
@@ -46,6 +47,8 @@ public class MenuScreen extends Screen implements Disposable {
 	protected Nineslice infoBG;
 	protected String info1, info2;
 	protected int insertsWidth, insertsHeight;
+	
+	protected boolean silentAdd;
 
 	/**
 	 * Creates a new menu screen with the main menu in it.
@@ -65,7 +68,38 @@ public class MenuScreen extends Screen implements Disposable {
 			new Option("Items") {
 				@Override public boolean onSelect() { return onItems(); }
 			});
+		menu.setCancel(new FinishListener() {
+			@Override public void onFinish() {
+				menu.close();
+				MGlobal.screens.pop();
+			}
+		});
 		assets.add(menu);
+		saveSelector = new OptionSelector(
+				new Option("Really save") {
+					@Override public boolean onSelect() {
+						Screen menuScreen = MGlobal.screens.pop();
+						MGlobal.memory.save("alpha_save.sav");
+						silentAdd = true;
+						MGlobal.screens.push(menuScreen);
+						silentAdd = false;
+						refocusMain();
+						return true;
+					}
+				},
+				new Option("Cancel") {
+					@Override public boolean onSelect() {
+						refocusMain();
+						return true;
+					}
+				});
+		saveSelector.setCancel(new FinishListener() {
+			@Override public void onFinish() {
+				saveSelector.close();
+				refocusMain();
+			}
+		});
+		assets.add(saveSelector);
 		
 		insertsBG = new Nineslice();
 		assets.add(insertsBG);
@@ -74,6 +108,8 @@ public class MenuScreen extends Screen implements Disposable {
 		
 		font = MGlobal.ui.getFont();
 		format = new TextBoxFormat();
+		
+		silentAdd = false;
 	}
 
 	/**
@@ -82,8 +118,10 @@ public class MenuScreen extends Screen implements Disposable {
 	@Override
 	public void onFocusGained() {
 		super.onFocusGained();
-		menu.showAt(0, 0);
-		createDisplay();
+		if (!silentAdd) {
+			refocusMain();
+			createDisplay();
+		}
 	}
 	
 	/**
@@ -165,7 +203,23 @@ public class MenuScreen extends Screen implements Disposable {
 	 * @return					False to keep menu open
 	 */
 	protected boolean onSave() {
+		menu.unfocus();
+		saveSelector.showAt(0, 0);
 		return false;
+	}
+	
+	/**
+	 * Puts the main menu back in focus.
+	 */
+	protected void refocusMain() {
+		if (containsChild(menu)) {
+			menu.focus();
+		} else {
+			menu.showAt(0, 0);
+		}
+		if (containsChild(saveSelector)) {
+			saveSelector.close();
+		}
 	}
 	
 	/**

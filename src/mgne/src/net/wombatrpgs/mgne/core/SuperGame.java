@@ -16,11 +16,13 @@ public class SuperGame implements ApplicationListener, FocusListener {
 	 * go.
 	 * @param	game			Uh, the game we're gonna play?
 	 * @param	platform		The platform we're running on (eg, Desktop)
+	 * @param	args			The arguments passed from command line
 	 */
-	public SuperGame(MgnGame game, Platform platform) {
+	public SuperGame(MgnGame game, Platform platform, String[] args) {
 		super();
 		MGlobal.platform = platform;
 		MGlobal.game = game;
+		MGlobal.args = args;
 		// Don't you dare do anything fancy in here
 	}
 	

@@ -34,8 +34,8 @@ public class Nineslice implements Queueable, PosRenderable, Disposable {
 	protected int width, height;
 	protected String filename;
 	
-	protected Texture tex;
-	protected TextureRegion[][] slices;
+	protected transient Texture tex;
+	protected transient TextureRegion[][] slices;
 	protected FrameBuffer buffer;
 	protected Texture appearance;
 	protected GradientBox gradient;
@@ -115,21 +115,22 @@ public class Nineslice implements Queueable, PosRenderable, Disposable {
 		if (gradient != null) {
 			gradient.postProcessing(manager, pass);
 		}
-		tex = manager.get(filename, Texture.class);
-		slices = new TextureRegion[3][3];		// indexed y, x
-		for (int x = 0; x < 3; x += 1) {
-			for (int y = 0; y < 3; y += 1) {
-				slices[y][x] = new TextureRegion(
-						tex,
-						x * mdo.sliceWidth,
-						(2-y) * mdo.sliceHeight,
-						mdo.sliceWidth,
-						mdo.sliceHeight);
+		if (pass == 0) {
+			tex = manager.get(filename, Texture.class);
+			slices = new TextureRegion[3][3];		// indexed y, x
+			for (int x = 0; x < 3; x += 1) {
+				for (int y = 0; y < 3; y += 1) {
+					slices[y][x] = new TextureRegion(
+							tex,
+							x * mdo.sliceWidth,
+							(2-y) * mdo.sliceHeight,
+							mdo.sliceWidth,
+							mdo.sliceHeight);
+				}
 			}
-		}
-		
-		if (width > 0 && height > 0) {
-			resizeTo(width, height);
+			if (width > 0 && height > 0) {
+				resizeTo(width, height);
+			}
 		}
 	}
 	
@@ -151,14 +152,14 @@ public class Nineslice implements Queueable, PosRenderable, Disposable {
 		this.width = width;
 		this.height = height;
 		
-		buffer = new FrameBuffer(Format.RGB565,
-				width,
-				height,
-				false);
 		if (appearance != null) {
 			appearance.dispose();
 			buffer.dispose();
 		}
+		buffer = new FrameBuffer(Format.RGB565,
+				width,
+				height,
+				false);
 		
 		SpriteBatch batch = new SpriteBatch();
 		Matrix4 matrix = new Matrix4();

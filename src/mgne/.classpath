@@ -17,5 +17,10 @@
 	<classpathentry kind="lib" path="lib/minlog-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/objenesis-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/reflectasm-1.07.jar"/>
+	<classpathentry kind="lib" path="lib/kryo-serializers-0.26.jar" sourcepath="C:/Users/aking_2/Desktop/portable_executables/kryo-2.23.0/serializers/kryo-serializers-0.26-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/aking_2/Desktop/portable_executables/kryo-2.23.0/serializers/kryo-serializers-0.26-sources.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

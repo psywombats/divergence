@@ -27,6 +27,9 @@ public class StringSceneParser extends SceneParser {
 		LuaValue script = MGlobal.lua.interpret(lua);
 		commands = SceneLib.parseScene(script);
 	}
+	
+	/** Kryo constructor */
+	protected StringSceneParser() { }
 
 	/**
 	 * @see java.lang.Object#toString()

@@ -21,6 +21,8 @@ import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 
+import de.javakaffee.kryoserializers.KryoReflectionFactorySupport;
+
 /**
  * I don't know, all of the switches and variables for the game? It's meant to
  * be saved along with the hero and level to keep track of things. Like how RM
@@ -32,7 +34,7 @@ import com.esotericsoftware.kryo.io.Output;
 public class Memory {
 	
 	/** Fields for the saving process */
-	protected transient Kryo kryo;
+	protected transient KryoReflectionFactorySupport kryo;
 	
 	/** Live memory */
 	protected Map<String, Boolean> switches;
@@ -42,7 +44,6 @@ public class Memory {
 	protected ScreenStack screens;
 	protected Keymap keymap;
 	
-	
 	/**
 	 * Creates a new memory holder! This is great! It should also probably only
 	 * be called from MGlobal.
@@ -50,7 +51,7 @@ public class Memory {
 	public Memory() {
 		switches = new HashMap<String, Boolean>();
 		
-		kryo = new Kryo();
+		kryo = new KryoReflectionFactorySupport();
 		
 		// Now we need to register the custom serializers. This is mostly for
 		// data classes (texture, sound, etc) and immutables
@@ -138,16 +139,15 @@ public class Memory {
 	public void load(String fileName) {
 		MGlobal.reporter.inform("Loading from " + fileName);
 		Input input = new Input(MGlobal.files.getInputStream(fileName));
-		MGlobal.memory = kryo.readObject(input, Memory.class);
+		Memory saved = kryo.readObject(input, this.getClass());
 		
 		// write all stored objects to global etc
-		MGlobal.memory.unloadFields();
+		saved.unloadFields();
 		
 		// load required assets
-		MGlobal.assets.loadAsset(MGlobal.screens, "loaded screens");
+		loadAssets();
 		
 		input.close();
-		MGlobal.memory.kryo = kryo;
 		MGlobal.reporter.inform("Load complete.");
 	}
 	
@@ -175,5 +175,12 @@ public class Memory {
 		// everything listening to the current keymap will listen to the stored
 		keymap.absorbListeners(MGlobal.keymap);
 		MGlobal.keymap = keymap;
+	}
+	
+	/**
+	 * Loads all the assets for stuff that got serialized.
+	 */
+	protected void loadAssets() {
+		MGlobal.assets.loadAsset(MGlobal.screens, "loaded screens");
 	}
 }

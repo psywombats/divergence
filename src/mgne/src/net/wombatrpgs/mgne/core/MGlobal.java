@@ -60,6 +60,7 @@ public class MGlobal {
 	public static GraphicsSettings graphics;
 	
 	/** Desktop mode */
+	public static String[] args;
 	public static Platform platform;
 	public static MgnGame game;
 	
