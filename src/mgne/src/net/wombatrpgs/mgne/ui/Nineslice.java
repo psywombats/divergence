@@ -36,8 +36,8 @@ public class Nineslice implements Queueable, PosRenderable, Disposable {
 	
 	protected transient Texture tex;
 	protected transient TextureRegion[][] slices;
-	protected FrameBuffer buffer;
-	protected Texture appearance;
+	protected transient FrameBuffer buffer;
+	protected transient Texture appearance;
 	protected GradientBox gradient;
 	
 	/**

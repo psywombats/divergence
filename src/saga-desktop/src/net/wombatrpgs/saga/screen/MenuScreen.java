@@ -42,7 +42,6 @@ public class MenuScreen extends Screen implements Disposable {
 	protected Nineslice insertsBG;
 	protected int insertsX, insertsY;
 	
-	protected FontHolder font;
 	protected TextBoxFormat format;
 	protected Nineslice infoBG;
 	protected String info1, info2;
@@ -106,7 +105,6 @@ public class MenuScreen extends Screen implements Disposable {
 		infoBG = new Nineslice();
 		assets.add(infoBG);
 		
-		font = MGlobal.ui.getFont();
 		format = new TextBoxFormat();
 		
 		silentAdd = false;
@@ -136,6 +134,7 @@ public class MenuScreen extends Screen implements Disposable {
 		for (CharacterInsert insert : inserts) {
 			insert.render(batch);
 		}
+		FontHolder font = MGlobal.ui.getFont();
 		font.draw(batch, format, info1, 0);
 		font.draw(batch, format, info2, -(int) font.getLineHeight());
 	}
@@ -226,6 +225,7 @@ public class MenuScreen extends Screen implements Disposable {
 	 * Creates the character inserts and other assorted items
 	 */
 	protected void createDisplay() {
+		FontHolder font = MGlobal.ui.getFont();
 		if (inserts == null) {
 			inserts = new ArrayList<CharacterInsert>();
 		} else {

@@ -59,7 +59,7 @@ public abstract class Screen implements CommandListener,
 	protected transient FrameBuffer buffer, lastBuffer;
 	protected transient ShapeRenderer shapes;
 	
-	protected ShaderProgram mapShader;
+	protected transient ShaderProgram mapShader;
 	protected Color tint;
 	
 	protected List<Queueable> assets;
@@ -83,7 +83,6 @@ public abstract class Screen implements CommandListener,
 		addChildren = new ArrayList<Updateable>();
 		screenObjects = new ArrayList<ScreenObject>();
 		
-		mapShader = null;
 		tint = new Color(1, 1, 1, 1);
 		cam = new TrackerCam(MGlobal.window.getWidth(), MGlobal.window.getHeight());
 		
@@ -303,6 +302,7 @@ public abstract class Screen implements CommandListener,
 			uiCam.update();
 			uiBatch.setProjectionMatrix(uiCam.combined);
 			shapes = new ShapeRenderer();
+			mapShader = null;
 		}
 	}
 	

@@ -21,8 +21,8 @@ import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
  */
 public class Graphic implements Queueable, PosRenderable {
 	
-	protected Texture texture;
-	protected TextureRegion appearance;
+	protected transient Texture texture;
+	protected transient TextureRegion appearance;
 	protected String filename;
 	protected int width, height;
 	

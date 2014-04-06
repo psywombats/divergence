@@ -26,8 +26,8 @@ import net.wombatrpgs.mgneschema.ui.NumberSetMDO;
 public class NumberSet implements Queueable {
 	
 	protected NumberSetMDO mdo;
-	protected Texture tex;
-	protected TextureRegion[] numberTextures;
+	protected transient Texture tex;
+	protected transient TextureRegion[] numberTextures;
 	protected String filename;
 	
 	/**

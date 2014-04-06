@@ -7,24 +7,14 @@
 package net.wombatrpgs.mgne.screen.instances;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import net.wombatrpgs.mgne.core.Avatar;
-import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.command.CMapGame;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.screen.Screen;
-import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.mgne.ui.text.TextBox;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.settings.IntroSettingsMDO;
-import net.wombatrpgs.mgneschema.test.FramerateTestMDO;
-import net.wombatrpgs.mgneschema.test.ShaderTestMDO;
-import net.wombatrpgs.mgneschema.test.TextBoxTestMDO;
-import net.wombatrpgs.mgneschema.test.data.TestState;
-import net.wombatrpgs.mgneschema.ui.FontMDO;
-import net.wombatrpgs.mgneschema.ui.TextBoxMDO;
 
 /**
  * This is the default screen that appears when the game is first loaded. Once
@@ -36,11 +26,6 @@ public class GameScreen extends Screen {
 	protected Avatar hero;
 	
 	protected boolean stasisMode;
-	
-	// tests
-	protected FramerateTestMDO fpsMDO;
-	protected ShaderTestMDO shaderMDO;
-	protected ShaderProgram testShader;
 	
 	/**
 	 * Constructs the introduction scene. This consists of simply setting up the
@@ -61,31 +46,8 @@ public class GameScreen extends Screen {
 		addObject(map);
 		pushCommandContext(new CMapGame());
 		
-		fpsMDO = MGlobal.data.getEntryFor("test_fps", FramerateTestMDO.class);
-		
-		shaderMDO = MGlobal.data.getEntryFor("test_shader", ShaderTestMDO.class);
-		if (shaderMDO.enabled == TestState.ENABLED) {
-			testShader = new ShaderProgram(
-					MGlobal.files.getText(Constants.SHADERS_DIR + shaderMDO.vertexFile),
-					MGlobal.files.getText(Constants.SHADERS_DIR + shaderMDO.fragmentFile));
-			batch.setShader(testShader);
-			mapShader = (testShader);
-		}
-		
-		// all this stuff is crap, not so much any more
 		hero = new Avatar();
 		assets.add(hero);
-		
-		TextBoxTestMDO testMDO = MGlobal.data.getEntryFor("test_textbox", TextBoxTestMDO.class);
-		if (testMDO != null && testMDO.enabled == TestState.ENABLED) {
-			FontMDO fontMDO = MGlobal.data.getEntryFor(testMDO.font, FontMDO.class);
-			FontHolder font = new FontHolder(fontMDO);
-			TextBoxMDO textMDO = MGlobal.data.getEntryFor(testMDO.box, TextBoxMDO.class);
-			TextBox box = new TextBox(textMDO, font);
-			box.setText(testMDO.text);
-			assets.add(box);
-			addObject(box);
-		}
 	}
 	
 	/**

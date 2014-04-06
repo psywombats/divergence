@@ -36,7 +36,6 @@ public class OptionSelector extends ScreenGraphic implements CommandListener {
 	// from constructor
 	protected List<Option> options;
 	protected NinesliceMDO bgMDO;
-	protected FontHolder font;
 	protected int padHoriz, padVert;
 	protected int spacingVert;
 	
@@ -69,7 +68,6 @@ public class OptionSelector extends ScreenGraphic implements CommandListener {
 		this.options = new ArrayList<Option>();
 		this.options.addAll(options);
 		this.bgMDO = bgMDO;
-		this.font = font;
 		this.padHoriz = padHoriz;
 		this.padVert = padVert;
 		this.spacingVert = spacing;
@@ -142,21 +140,21 @@ public class OptionSelector extends ScreenGraphic implements CommandListener {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.mgne.screen.ScreenObject#render
+	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#coreRender
 	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
 	 */
 	@Override
-	public void render(SpriteBatch batch) {
-		super.render(batch);
+	public void coreRender(SpriteBatch batch) {
 		bg.renderAt(getBatch(), x, y);
 		int off = 0;
+		FontHolder font = MGlobal.ui.getFont();
 		for (Option o : options) {
 			font.draw(getBatch(), format, o.getText(), off);
 			off -= (spacingVert + font.getLineHeight());
 		}
 		MGlobal.ui.getCursor().renderAt(getBatch(), cursorX, cursorY);
 	}
-	
+
 	/**
 	 * Sets the function to be called when the user cancels out of this
 	 * selector. Really shouldn't be called a finish listener.
@@ -227,6 +225,7 @@ public class OptionSelector extends ScreenGraphic implements CommandListener {
 	 * Snaps the cursor to the correct location. No tweening.
 	 */
 	protected void setCursorLoc() {
+		FontHolder font = MGlobal.ui.getFont();
 		cursorX = x + padHoriz - MGlobal.ui.getCursor().getWidth() - 4;
 		cursorY = y + (options.size() - selected - 1) * (font.getLineHeight() + spacingVert);
 	}

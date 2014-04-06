@@ -21,7 +21,6 @@ import net.wombatrpgs.mgne.screen.ScreenObject;
  */
 public abstract class ScreenGraphic extends ScreenObject implements PositionSetable {
 	
-	protected SpriteBatch batch;
 	protected Screen parent;
 	protected Color currentColor;
 	protected float x, y;
@@ -44,7 +43,6 @@ public abstract class ScreenGraphic extends ScreenObject implements PositionSeta
 		this.x = x;
 		this.y = y;
 		this.tweening = false;
-		this.batch = new SpriteBatch();
 		this.currentColor = new Color(1, 1, 1, 1);
 		this.tweenBaseColor = new Color(1, 1, 1, 1);
 		this.tweenTargetColor = new Color(1, 1, 1, 1);
@@ -79,6 +77,20 @@ public abstract class ScreenGraphic extends ScreenObject implements PositionSeta
 	public abstract int getHeight();
 	
 	/**
+	 * We do this final so that subclasses don't override the color code.
+	 * @see net.wombatrpgs.mgne.screen.ScreenObject#render
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
+	 */
+	@Override
+	public final void render(SpriteBatch batch) {
+		Color old = batch.getColor();
+		batch.setColor(currentColor);
+		super.render(batch);
+		coreRender(batch);
+		batch.setColor(old);
+	}
+
+	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
 	 */
 	@Override
@@ -101,13 +113,18 @@ public abstract class ScreenGraphic extends ScreenObject implements PositionSeta
 			currentColor.r = tweenBaseColor.r * (1.f-r) + r * tweenTargetColor.r;
 			currentColor.g = tweenBaseColor.g * (1.f-r) + r * tweenTargetColor.g;
 			currentColor.b = tweenBaseColor.b * (1.f-r) + r * tweenTargetColor.b;
-			batch.setColor(currentColor);
 			
 			// location
 			x = tweenBaseX * (1.f-r) + r * tweenTargetX;
 			y = tweenBaseX * (1.f-r) + r * tweenTargetX;
 		}
 	}
+	
+	/**
+	 * The equivalent to the graphics interface renderable.
+	 * @param	batch			The batch to render with
+	 */
+	public abstract void coreRender(SpriteBatch batch);
 	
 	/**
 	 * Gets the default screen batch. This is usually what's used to render,
@@ -180,7 +197,6 @@ public abstract class ScreenGraphic extends ScreenObject implements PositionSeta
 	public void setColor(Color newColor) {
 		tweening = false;
 		currentColor.set(newColor);
-		batch.setColor(newColor);
 	}
 
 }

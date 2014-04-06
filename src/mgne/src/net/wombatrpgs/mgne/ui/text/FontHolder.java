@@ -23,7 +23,7 @@ import net.wombatrpgs.mgneschema.ui.FontMDO;
 public class FontHolder implements Queueable {
 	
 	protected FontMDO mdo;
-	protected BitmapFont font;
+	protected transient BitmapFont font;
 	
 	/**
 	 * Creates a new font holder from data.

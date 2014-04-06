@@ -29,8 +29,8 @@ public class GradientBox implements Queueable, Disposable, PosRenderable {
 	
 	protected int width, height;
 	protected Color c1, c2;
-	protected Pixmap map;
-	protected Texture tex;
+	protected transient Pixmap map;
+	protected transient Texture tex;
 	
 	/**
 	 * Creates a new gradient box with no border. The box will use default

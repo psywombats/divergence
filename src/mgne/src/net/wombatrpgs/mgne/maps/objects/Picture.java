@@ -72,11 +72,11 @@ public class Picture extends ScreenGraphic implements Comparable<Picture> {
 	@Override public int getHeight() { return appearance.getHeight(); }
 
 	/**
-	 * @see net.wombatrpgs.mgne.screen.ScreenObject#render
+	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#coreRender
 	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
 	 */
 	@Override
-	public void render(SpriteBatch batch) {
+	public void coreRender(SpriteBatch batch) {
 		appearance.renderAt(batch, x, y);
 	}
 

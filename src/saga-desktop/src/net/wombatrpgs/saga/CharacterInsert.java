@@ -26,7 +26,6 @@ public class CharacterInsert extends ScreenGraphic {
 	protected static int HEIGHT = 18;
 	protected static int PADDING = 2;
 	
-	protected FontHolder font;
 	protected TextBoxFormat format;
 	protected Chara chara;
 	protected String hpText1, hpText2;
@@ -39,7 +38,6 @@ public class CharacterInsert extends ScreenGraphic {
 	 */
 	public CharacterInsert(Chara chara) {
 		this.chara = chara;
-		font = MGlobal.ui.getFont();
 		format = new TextBoxFormat();
 		format.align = HAlignment.LEFT;
 		format.height = 80;
@@ -53,13 +51,13 @@ public class CharacterInsert extends ScreenGraphic {
 	@Override public int getHeight() { return HEIGHT; }
 
 	/**
-	 * @see net.wombatrpgs.mgne.screen.ScreenObject#render
+	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#coreRender
 	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
 	 */
 	@Override
-	public void render(SpriteBatch batch) {
-		super.render(batch);
+	public void coreRender(SpriteBatch batch) {
 		FacesAnimation sprite = chara.getAppearance();
+		FontHolder font = MGlobal.ui.getFont();
 		float renderX = x + PADDING;
 		float renderY = y + HEIGHT/2 - sprite.getHeight()/2;
 		sprite.renderAt(batch, renderX, renderY);
@@ -73,6 +71,7 @@ public class CharacterInsert extends ScreenGraphic {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
+		FontHolder font = MGlobal.ui.getFont();
 		if (!chara.getAppearance().isMoving()) {
 			chara.getAppearance().startMoving();
 		}
