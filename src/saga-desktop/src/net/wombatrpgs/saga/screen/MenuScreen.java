@@ -10,14 +10,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.Option;
 import net.wombatrpgs.mgne.ui.OptionSelector;
+import net.wombatrpgs.mgne.ui.text.FontHolder;
+import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
 import net.wombatrpgs.saga.CharacterInsert;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.Chara;
@@ -27,15 +31,20 @@ import net.wombatrpgs.saga.rpg.Chara;
  */
 public class MenuScreen extends Screen implements Disposable {
 	
-	protected static final int INSERTS_START_X = 120;
-	protected static final int INSERTS_START_Y = 120;
 	protected static final int INSERTS_MARGIN = 4;
 	protected static final int INSERTS_COUNT_HORIZ = 2;
 	protected static final int INSERTS_COUNT_VERT = 3;
+	protected static final int INFO_HEIGHT = 28;
 	
 	protected OptionSelector menu;
 	protected List<CharacterInsert> inserts;
 	protected Nineslice insertsBG;
+	protected int insertsX, insertsY;
+	
+	protected FontHolder font;
+	protected TextBoxFormat format;
+	protected Nineslice infoBG;
+	protected String info1, info2;
 	protected int insertsWidth, insertsHeight;
 
 	/**
@@ -60,6 +69,11 @@ public class MenuScreen extends Screen implements Disposable {
 		
 		insertsBG = new Nineslice();
 		assets.add(insertsBG);
+		infoBG = new Nineslice();
+		assets.add(infoBG);
+		
+		font = MGlobal.ui.getFont();
+		format = new TextBoxFormat();
 	}
 
 	/**
@@ -69,7 +83,7 @@ public class MenuScreen extends Screen implements Disposable {
 	public void onFocusGained() {
 		super.onFocusGained();
 		menu.showAt(0, 0);
-		createInserts();
+		createDisplay();
 	}
 	
 	/**
@@ -79,10 +93,13 @@ public class MenuScreen extends Screen implements Disposable {
 	@Override
 	public void render(SpriteBatch batch) {
 		super.render(batch);
-		insertsBG.renderAt(batch, INSERTS_START_X, INSERTS_START_Y);
+		insertsBG.renderAt(batch, insertsX, insertsY);
+		infoBG.renderAt(batch, insertsX, insertsY + insertsBG.getHeight());
 		for (CharacterInsert insert : inserts) {
 			insert.render(batch);
 		}
+		font.draw(batch, format, info1, 0);
+		font.draw(batch, format, info2, -(int) font.getLineHeight());
 	}
 
 	/**
@@ -104,10 +121,9 @@ public class MenuScreen extends Screen implements Disposable {
 	public void postProcessing(AssetManager manager, int pass) {
 		super.postProcessing(manager, pass);
 		if (pass == 0) {
-			createInserts();
-			if (inserts.size() > 0) {
-				insertsBG.resizeTo(insertsWidth, insertsHeight);
-			}
+			createDisplay();
+			insertsBG.resizeTo(insertsWidth, insertsHeight);
+			infoBG.resizeTo(insertsWidth, INFO_HEIGHT);
 		}
 	}
 
@@ -153,9 +169,9 @@ public class MenuScreen extends Screen implements Disposable {
 	}
 	
 	/**
-	 * Creates the character inserts.
+	 * Creates the character inserts and other assorted items
 	 */
-	protected void createInserts() {
+	protected void createDisplay() {
 		if (inserts == null) {
 			inserts = new ArrayList<CharacterInsert>();
 		} else {
@@ -171,8 +187,10 @@ public class MenuScreen extends Screen implements Disposable {
 		insertsHeight *= INSERTS_COUNT_VERT;
 		insertsWidth += 2 * INSERTS_MARGIN;
 		insertsHeight += 2 * (INSERTS_MARGIN+1);
-		int insertX = INSERTS_START_X + INSERTS_MARGIN;
-		int insertY = INSERTS_START_Y + insertsHeight - INSERTS_MARGIN - dummy.getHeight();
+		insertsX = MGlobal.window.getViewportWidth()/2 - insertsWidth/2;
+		insertsY = MGlobal.window.getViewportHeight()/2 - insertsHeight/2;
+		int insertX = insertsX + INSERTS_MARGIN;
+		int insertY = insertsY + insertsHeight - INSERTS_MARGIN - dummy.getHeight();
 		boolean left = true;
 		for (Chara hero : SGlobal.heroes.getAll()) {
 			CharacterInsert insert = new CharacterInsert(hero);
@@ -188,6 +206,14 @@ public class MenuScreen extends Screen implements Disposable {
 			inserts.add(insert);
 			assets.add(insert);
 		}
+		
+		info1 = "Floor: " + SGlobal.heroes.getLocation();
+		info2 = "GP: " + SGlobal.heroes.getGP();
+		format.align = HAlignment.LEFT;
+		format.width = insertsWidth;
+		format.height = INFO_HEIGHT;
+		format.x = insertsX + INSERTS_MARGIN+2;
+		format.y = (int) (insertsY + insertsHeight + INSERTS_MARGIN+2 + font.getLineHeight()*2);
 	}
 	
 }
