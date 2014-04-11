@@ -21,7 +21,9 @@ import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
 import net.wombatrpgs.saga.core.SGlobal;
+import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.ui.CharaSelector;
+import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
 
 /**
  * Any menu that takes up an entire scren.
@@ -156,6 +158,12 @@ public class MenuScreen extends Screen implements Disposable {
 	 * @return					False to keep menu open
 	 */
 	protected boolean onAbil() {
+		inserts.awaitSelection(new SelectionListener() {
+			@Override public boolean onSelection(Chara selected) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+		}, true);
 		return false;
 	}
 	

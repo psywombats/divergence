@@ -50,6 +50,9 @@ public class CharacterInsert extends ScreenGraphic {
 	
 	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getHeight() */
 	@Override public int getHeight() { return HEIGHT; }
+	
+	/** @return The character associated with this insert */
+	public Chara getChara() { return chara; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#coreRender
