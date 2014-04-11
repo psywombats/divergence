@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.saga;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 
@@ -22,8 +23,8 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
  */
 public class CharacterInsert extends ScreenGraphic {
 	
-	protected static int WIDTH = 58;
-	protected static int HEIGHT = 18;
+	public static int WIDTH = 58;
+	public static int HEIGHT = 18;
 	protected static int PADDING = 2;
 	
 	protected TextBoxFormat format;
@@ -66,6 +67,18 @@ public class CharacterInsert extends ScreenGraphic {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.screen.ScreenObject#postProcessing
+	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 */
+	@Override
+	public void postProcessing(AssetManager manager, int pass) {
+		super.postProcessing(manager, pass);
+		if (pass == 0) {
+			update(0);
+		}
+	}
+
+	/**
 	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#update(float)
 	 */
 	@Override
@@ -77,7 +90,7 @@ public class CharacterInsert extends ScreenGraphic {
 		}
 		chara.getAppearance().update(elapsed);
 		
-		if (chara.get(Stat.HP) != lastHP || chara.get(Stat.MHP) != lastMHP) {
+		if (hpText1 == null || chara.get(Stat.HP) != lastHP || chara.get(Stat.MHP) != lastMHP) {
 			hpText1 = new Integer((int) chara.get(Stat.HP)).toString();
 			hpText2 = "/ " + (int) chara.get(Stat.MHP);
 		}

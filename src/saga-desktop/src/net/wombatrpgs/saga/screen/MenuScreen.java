@@ -6,9 +6,6 @@
  */
 package net.wombatrpgs.saga.screen;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -23,29 +20,24 @@ import net.wombatrpgs.mgne.ui.Option;
 import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
-import net.wombatrpgs.saga.CharacterInsert;
 import net.wombatrpgs.saga.core.SGlobal;
-import net.wombatrpgs.saga.rpg.Chara;
+import net.wombatrpgs.saga.ui.CharaSelector;
 
 /**
  * Any menu that takes up an entire scren.
  */
 public class MenuScreen extends Screen implements Disposable {
 	
-	protected static final int INSERTS_MARGIN = 4;
-	protected static final int INSERTS_COUNT_HORIZ = 2;
-	protected static final int INSERTS_COUNT_VERT = 3;
 	protected static final int INFO_HEIGHT = 28;
+	protected static final int INFO_MARGINS = 6;
 	
 	protected OptionSelector menu, saveSelector;
-	protected List<CharacterInsert> inserts;
-	protected Nineslice insertsBG;
-	protected int insertsX, insertsY;
 	
+	protected CharaSelector inserts;
 	protected TextBoxFormat format;
 	protected Nineslice infoBG;
 	protected String info1, info2;
-	protected int insertsWidth, insertsHeight;
+	protected int insertsX, insertsY;
 	
 	protected boolean silentAdd;
 
@@ -100,10 +92,11 @@ public class MenuScreen extends Screen implements Disposable {
 		});
 		assets.add(saveSelector);
 		
-		insertsBG = new Nineslice();
-		assets.add(insertsBG);
 		infoBG = new Nineslice();
 		assets.add(infoBG);
+		inserts = new CharaSelector();
+		assets.add(inserts);
+		addUChild(inserts);
 		
 		format = new TextBoxFormat();
 		
@@ -129,25 +122,11 @@ public class MenuScreen extends Screen implements Disposable {
 	@Override
 	public void render(SpriteBatch batch) {
 		super.render(batch);
-		insertsBG.renderAt(batch, insertsX, insertsY);
-		infoBG.renderAt(batch, insertsX, insertsY + insertsBG.getHeight());
-		for (CharacterInsert insert : inserts) {
-			insert.render(batch);
-		}
+		infoBG.renderAt(batch, insertsX, insertsY + inserts.getHeight());
+		inserts.render(batch);
 		FontHolder font = MGlobal.ui.getFont();
 		font.draw(batch, format, info1, 0);
 		font.draw(batch, format, info2, -(int) font.getLineHeight());
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.screen.Screen#update(float)
-	 */
-	@Override
-	public void update(float elapsed) {
-		super.update(elapsed);
-		for (CharacterInsert insert : inserts) {
-			insert.update(elapsed);
-		}
 	}
 
 	/**
@@ -159,8 +138,7 @@ public class MenuScreen extends Screen implements Disposable {
 		super.postProcessing(manager, pass);
 		if (pass == 0) {
 			createDisplay();
-			insertsBG.resizeTo(insertsWidth, insertsHeight);
-			infoBG.resizeTo(insertsWidth, INFO_HEIGHT);
+			infoBG.resizeTo(inserts.getWidth(), INFO_HEIGHT);
 		}
 	}
 
@@ -170,7 +148,7 @@ public class MenuScreen extends Screen implements Disposable {
 	@Override
 	public void dispose() {
 		super.dispose();
-		insertsBG.dispose();
+		infoBG.dispose();
 	}
 
 	/**
@@ -226,48 +204,18 @@ public class MenuScreen extends Screen implements Disposable {
 	 */
 	protected void createDisplay() {
 		FontHolder font = MGlobal.ui.getFont();
-		if (inserts == null) {
-			inserts = new ArrayList<CharacterInsert>();
-		} else {
-			for (CharacterInsert insert : inserts) {
-				assets.remove(insert);
-			}
-			inserts.clear();
-		}
-		CharacterInsert dummy = new CharacterInsert(SGlobal.heroes.getFrontMember(0));
-		insertsWidth = dummy.getWidth();
-		insertsHeight = dummy.getHeight();
-		insertsWidth *= INSERTS_COUNT_HORIZ;
-		insertsHeight *= INSERTS_COUNT_VERT;
-		insertsWidth += 2 * INSERTS_MARGIN;
-		insertsHeight += 2 * (INSERTS_MARGIN+1);
-		insertsX = MGlobal.window.getViewportWidth()/2 - insertsWidth/2;
-		insertsY = MGlobal.window.getViewportHeight()/2 - insertsHeight/2;
-		int insertX = insertsX + INSERTS_MARGIN;
-		int insertY = insertsY + insertsHeight - INSERTS_MARGIN - dummy.getHeight();
-		boolean left = true;
-		for (Chara hero : SGlobal.heroes.getAll()) {
-			CharacterInsert insert = new CharacterInsert(hero);
-			insert.setX(insertX);
-			insert.setY(insertY);
-			if (left) {
-				insertX += insert.getWidth();
-			} else {
-				insertX -= insert.getWidth();
-				insertY -= insert.getHeight();
-			}
-			left = !left;
-			inserts.add(insert);
-			assets.add(insert);
-		}
-		
+		insertsX = MGlobal.window.getViewportWidth()/2 - inserts.getWidth()/2;
+		insertsY = MGlobal.window.getViewportHeight()/2 - inserts.getHeight()/2;
+		inserts.setX(insertsX);
+		inserts.setY(insertsY);
+
 		info1 = "Floor: " + SGlobal.heroes.getLocation();
 		info2 = "GP: " + SGlobal.heroes.getGP();
 		format.align = HAlignment.LEFT;
-		format.width = insertsWidth;
+		format.width = inserts.getWidth();
 		format.height = INFO_HEIGHT;
-		format.x = insertsX + INSERTS_MARGIN+2;
-		format.y = (int) (insertsY + insertsHeight + INSERTS_MARGIN+2 + font.getLineHeight()*2);
+		format.x = insertsX + INFO_MARGINS;
+		format.y = (int) (insertsY + inserts.getHeight() + INFO_MARGINS + font.getLineHeight()*2);
 	}
 	
 }

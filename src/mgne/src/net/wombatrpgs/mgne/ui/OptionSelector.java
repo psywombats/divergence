@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
+import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
@@ -27,7 +28,8 @@ import net.wombatrpgs.mgneschema.ui.NinesliceMDO;
  * The spiritual successor to the old menu from 7DRL. This thing displays a list
  * of options and a cursor, and the player selects one of the options.
  */
-public class OptionSelector extends ScreenGraphic implements CommandListener {
+public class OptionSelector extends ScreenGraphic implements	CommandListener,
+																Disposable{
 	
 	protected static int DEFAULT_PADDING_HORIZ = 24;
 	protected static int DEFAULT_PADDING_VERT = 10;
@@ -139,6 +141,14 @@ public class OptionSelector extends ScreenGraphic implements CommandListener {
 		}
 	}
 	
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
+	 */
+	@Override
+	public void dispose() {
+		bg.dispose();
+	}
+
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#coreRender
 	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
