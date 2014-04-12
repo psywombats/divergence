@@ -1,0 +1,14 @@
+{
+	"key" : "item_testsword",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$EDUMMY",
+	"type" : "ITEM",
+	"uses" : 50,
+	"cost" : 1000,
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.AbilNothingMDO",
+		"key" : "anon_CombatItemMDO_481383334"
+	}
+}

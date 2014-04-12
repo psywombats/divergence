@@ -22,7 +22,7 @@ import net.wombatrpgs.saga.rpg.Chara;
  */
 public abstract class CharaInsert extends ScreenGraphic {
 	
-	protected static int PADDING = 2;
+	protected final static int PADDING = 2;
 	
 	protected TextBoxFormat format;
 	protected Chara chara;

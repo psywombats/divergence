@@ -17,22 +17,25 @@ import net.wombatrpgs.mgneschema.rpg.data.NumericStatLinkable;
  */
 public enum Stat implements NumericStatLinkable {
 	
-	MHP					(false),
-	HP					(false),
-	STR					(false),
-	DEF					(false),
-	AGI					(false),
-	MANA				(false);
+	MHP					(false, "MHP:"),
+	HP					(false, "HP :"),
+	STR					(false, "STR:"),
+	DEF					(false, "DEF:"),
+	AGI					(false, "AGI:"),
+	MANA				(false, "MANA");
 	
 	private boolean multiMode;
 	private NumericStat stat;
+	private String label;
 	
 	/**
 	 * Internal enum constructor.
 	 * @param	multiMode		True if stat is multiplicative, false additive
+	 * @param	label			The display tag for this stat
 	 */
-	Stat(boolean multiMode) {
+	Stat(boolean multiMode, String label) {
 		this.multiMode = multiMode;
+		this.label = label;
 	}
 
 	/**
@@ -48,6 +51,14 @@ public enum Stat implements NumericStatLinkable {
 			}
 		}
 		return stat;
+	}
+	
+	/**
+	 * Returns the label for this stat (usually all caps).
+	 * @return					The label for this stat
+	 */
+	public String getLabel() {
+		return label;
 	}
 
 }

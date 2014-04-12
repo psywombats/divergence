@@ -33,6 +33,7 @@ public class Chara implements Queueable {
 	
 	protected SagaStats stats;
 	protected FacesAnimation appearance;
+	protected CharaInventory inventory;
 	
 	/**
 	 * Creates a new character from data template.
@@ -45,6 +46,7 @@ public class Chara implements Queueable {
 		stats = new SagaStats(mdo.stats);
 		appearance = FacesAnimationFactory.create(mdo.appearance);
 		assets.add(appearance);
+		inventory = new CharaInventory(mdo);
 	}
 	
 	/**
@@ -72,6 +74,9 @@ public class Chara implements Queueable {
 	
 	/** @return The gender of the character, never null */
 	public Gender getGender() { return mdo.gender; }
+	
+	/** @return The object of equipped items for this character */
+	public CharaInventory getInventory() { return inventory; }
 	
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets

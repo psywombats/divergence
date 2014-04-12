@@ -380,7 +380,7 @@ public abstract class Screen implements CommandListener,
 			removeUChild(screenObject);
 			screenObject.onRemovedFromScreen(this);
 		} else {
-			MGlobal.reporter.warn("Tried to remove non-existant picture from "
+			MGlobal.reporter.warn("Tried to remove non-existant object from "
 					+ "screen: " + screenObject);
 		}
 	}

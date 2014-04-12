@@ -160,7 +160,12 @@ public class MenuScreen extends Screen implements Disposable {
 	protected boolean onAbil() {
 		inserts.awaitSelection(new SelectionListener() {
 			@Override public boolean onSelection(Chara selected) {
-				// TODO Auto-generated method stub
+				inserts.unfocus();
+				if (selected != null) {
+					Screen nextMenu = new CharaInfoScreen(selected);
+					MGlobal.assets.loadAsset(nextMenu, "abil menu");
+					MGlobal.screens.push(nextMenu);
+				}
 				return false;
 			}
 		}, true);

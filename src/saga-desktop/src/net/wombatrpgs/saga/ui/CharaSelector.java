@@ -16,6 +16,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
+import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
@@ -27,6 +28,8 @@ import net.wombatrpgs.saga.rpg.Chara;
  * work on the hero party, so it takes it by default.
  */
 public class CharaSelector extends ScreenGraphic implements CommandListener {
+	
+	protected Screen parent;
 	
 	// layout
 	protected static final int INSERTS_MARGIN = 5;
@@ -171,17 +174,19 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	/**
 	 * Stops this menu from receiving input. It still displays on the screen.
 	 */
-	protected void unfocus() {
-		MGlobal.screens.peek().removeCommandListener(this);
-		MGlobal.screens.peek().popCommandContext();
+	public void unfocus() {
+		cursorOn = false;
+		parent.removeCommandListener(this);
+		parent.popCommandContext();
 	}
 	
 	/**
 	 * Resumes the menu for input reception. Should already be on screen.
 	 */
-	protected void focus() {
-		MGlobal.screens.peek().pushCommandContext(new CMapMenu());
-		MGlobal.screens.peek().pushCommandListener(this);
+	public void focus() {
+		parent = MGlobal.screens.peek();
+		parent.pushCommandContext(new CMapMenu());
+		parent.pushCommandListener(this);
 	}
 	
 	/**

@@ -18,8 +18,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class CharaInsertFull extends CharaInsert {
 	
-	public static int WIDTH = 86;
-	public static int HEIGHT = 28;
+	public static final int WIDTH = 86;
+	public static final int HEIGHT = 28;
 	
 	protected String line1, line2, line3;
 

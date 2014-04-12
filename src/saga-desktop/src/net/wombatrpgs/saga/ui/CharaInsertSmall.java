@@ -18,8 +18,8 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
  */
 public class CharaInsertSmall extends CharaInsert {
 	
-	public static int WIDTH = 58;
-	public static int HEIGHT = 18;
+	public static final int WIDTH = 58;
+	public static final int HEIGHT = 18;
 
 	protected String hpText1, hpText2;
 

@@ -21,7 +21,7 @@ import net.wombatrpgs.sagaschema.rpg.abil.data.AbilityType;
 @Path("rpg/")
 public class CombatItemMDO extends MainSchema {
 	
-	@Desc("Ability name - displayed in-game")
+	@Desc("Ability name - displayed in-game, potentially with $A special char codes")
 	public String abilityName;
 	
 	@Desc("Type")
