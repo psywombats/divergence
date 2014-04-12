@@ -23,6 +23,7 @@ import net.wombatrpgs.mgne.maps.LevelManager;
 import net.wombatrpgs.mgne.screen.ScreenStack;
 import net.wombatrpgs.mgne.screen.WindowSettings;
 import net.wombatrpgs.mgne.ui.UISettings;
+import net.wombatrpgs.mgne.util.CharConverter;
 import net.wombatrpgs.mgneschema.settings.GraphicsSettingsMDO;
 import net.wombatrpgs.mgneschema.settings.UISettingsMDO;
 import net.wombatrpgs.mgneschema.settings.WindowSettingsMDO;
@@ -49,6 +50,7 @@ public class MGlobal {
 	/** Util */
 	public static Random rand;
 	public static Constants constants;
+	public static CharConverter charConverter;
 	
 	/** Loaders */
 	public static MAssets assets;
@@ -120,6 +122,7 @@ public class MGlobal {
 					UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
 			MGlobal.keymap = Keymap.initDefaultKeymap();
 			MGlobal.memory = game.makeMemory();
+			MGlobal.charConverter = new CharConverter();
 			MGlobal.lua = new Lua();
 			toLoad.add(ui);
 			toLoad.add(graphics);
