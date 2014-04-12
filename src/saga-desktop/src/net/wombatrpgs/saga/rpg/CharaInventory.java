@@ -16,7 +16,7 @@ public class CharaInventory {
 	
 	public static final int SLOT_COUNT = 8;
 	
-	protected CharacterMDO mdo;
+	protected Chara chara;
 	protected CombatItem[] items;
 	protected int equipCount;
 	protected int abilCount;
@@ -25,12 +25,13 @@ public class CharaInventory {
 	 * Creates a new starter inventory suitable for the given character data.
 	 * @param	mdo				The data to create from
 	 */
-	public CharaInventory(CharacterMDO mdo) {
-		this.mdo = mdo;
+	public CharaInventory(CharacterMDO mdo, Chara chara) {
+		this.chara = chara;
 		items = new CombatItem[SLOT_COUNT];
 		for (int i = 0; i < mdo.equipped.length; i += 1) {
 			String key = mdo.equipped[i];
 			CombatItem item = new CombatItem(key);
+			item.setOwner(chara);
 			items[i] = item;
 		}
 	}
@@ -52,7 +53,7 @@ public class CharaInventory {
 	 * @return					True if an item could be put there
 	 */
 	public boolean equippableAt(int slot) {
-		switch (mdo.race) {
+		switch (chara.getRace()) {
 		case HUMAN: case ROBOT:
 			return true;
 		case MUTANT:
@@ -60,7 +61,7 @@ public class CharaInventory {
 		case MONSTER:
 			return false;
 		default:
-			MGlobal.reporter.warn("Unknown race " + mdo.race);
+			MGlobal.reporter.warn("Unknown race " + chara.getRace());
 			return false;
 		}
 	}

@@ -12,9 +12,14 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
+import net.wombatrpgs.mgne.io.CommandListener;
+import net.wombatrpgs.mgne.io.command.CMapMenu;
+import net.wombatrpgs.mgne.screen.Screen;
+import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
+import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.CharaInventory;
 import net.wombatrpgs.saga.rpg.CombatItem;
@@ -23,14 +28,23 @@ import net.wombatrpgs.saga.rpg.CombatItem;
  * Allows the user to select an ability from a list.
  */
 //TODO: ui: scrolling capabilities of abilselector
-public class AbilSelector extends ScreenGraphic {
+public class AbilSelector extends ScreenGraphic implements CommandListener {
 	
 	protected CharaInventory inventory;
 	
+	// layout
+	protected Screen parent;
 	protected TextBoxFormat format, usesFormat;
 	protected Nineslice bg;
-	protected int width, height;
-	protected int padding;
+	protected int width, height, padding;
+	protected int count;
+	
+	// cursor
+	protected boolean cursorOn;
+	protected boolean cancellable;
+	protected float cursorX, cursorY;
+	protected int selected;
+	protected SelectionListener listener;
 	
 	/**
 	 * Creates a new selector for a given character.
@@ -44,6 +58,7 @@ public class AbilSelector extends ScreenGraphic {
 		this.inventory = chara.getInventory();
 		this.width = width;
 		this.padding = padding;
+		this.count = count;
 		
 		FontHolder font = MGlobal.ui.getFont();
 		height = (int) (count * font.getLineHeight());
@@ -95,6 +110,24 @@ public class AbilSelector extends ScreenGraphic {
 				font.draw(batch, format, "-", offY);
 			}
 		}
+		
+		Graphic cursor = MGlobal.ui.getCursor();
+		cursor.renderAt(batch, cursorX, cursorY);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.io.CommandListener#onCommand
+	 * (net.wombatrpgs.mgneschema.io.data.InputCommand)
+	 */
+	@Override
+	public boolean onCommand(InputCommand command) {
+		switch (command) {
+		case MOVE_UP:		moveCursor(-1);		return true;
+		case MOVE_DOWN:		moveCursor(1);		return true;
+		case UI_CANCEL:		cancel();			return true;
+		case UI_CONFIRM:	confirm();			return true;
+		default:								return true;
+		}
 	}
 
 	/**
@@ -118,6 +151,99 @@ public class AbilSelector extends ScreenGraphic {
 			usesFormat.y -= bg.getBorderHeight();
 			usesFormat.x -= bg.getBorderWidth();
 		}
+	}
+	
+	/**
+	 * Waits for the user to select a slot then returns to the listener.
+	 * @param	listener		The callback for selection
+	 * @param	canCancel		True if the user can cancel to select nobody
+	 */
+	public void awaitSelection(SelectionListener listener, boolean canCancel) {
+		this.listener = listener;
+		this.cancellable = canCancel;
+		focus();
+		cursorOn = true;
+		selected = 0;
+		updateCursor();
+	}
+	
+	/**
+	 * Stops this menu from receiving input. It still displays on the screen.
+	 */
+	public void unfocus() {
+		cursorOn = false;
+		parent.removeCommandListener(this);
+		parent.popCommandContext();
+	}
+	
+	/**
+	 * Resumes the menu for input reception. Should already be on screen.
+	 */
+	protected void focus() {
+		parent = MGlobal.screens.peek();
+		parent.pushCommandContext(new CMapMenu());
+		parent.pushCommandListener(this);
+	}
+	
+	/**
+	 * Called when user cancels the selection process.
+	 */
+	protected void cancel() {
+		if (cancellable) {
+			listener.onSelection(-1);
+			unfocus();
+		}
+	}
+	
+	/**
+	 * Called when the user confirms a character selection.
+	 */
+	protected void confirm() {
+		listener.onSelection(selected);
+	}
+	
+	/**
+	 * Moves the cursor by the delta.
+	 * @param	delta			The delta to move the cursor by
+	 */
+	protected void moveCursor(int delta) {
+		selected += delta;
+		if (selected < 0) selected = count - 1;
+		if (selected >= count) selected = 0;
+		updateCursor();
+	}
+	
+	/**
+	 * Updates the cursor's position.
+	 */
+	protected void updateCursor() {
+		Graphic cursor = MGlobal.ui.getCursor();
+		FontHolder font = MGlobal.ui.getFont();
+		cursorX = x - cursor.getWidth() - 3;
+		cursorY = y + height - (selected * (font.getLineHeight() + padding) + 3);
+	}
+	
+	/**
+	 * Handles the result from the callback function.
+	 * @param	result			True to unfocus the listener
+	 */
+	protected void handleListener(boolean result) {
+		if (result) {
+			unfocus();
+		}
+	}
+	
+	/**
+	 * Listener for selecting an ability.
+	 */
+	public static abstract class SelectionListener {
+		
+		/**
+		 * Called when the user selects a slot. Returns negative if cancelled.
+		 * @param	selected		The slot that was selected, -1 for cancel
+		 * @return					True to unfocus the selector
+		 */
+		public abstract boolean onSelection(int selected);
 	}
 
 }

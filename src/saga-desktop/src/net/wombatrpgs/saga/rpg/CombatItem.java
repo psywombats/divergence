@@ -7,17 +7,19 @@
 package net.wombatrpgs.saga.rpg;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.saga.screen.CharaInfoScreen;
 import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
 
 /**
  * Represents the combat item MDO. This could be an item or ability, but either
  * way, it can be equipped to a character and potentially have a use in combat.
  */
-// TODO: combat: add the combat aspects of this class
+// TODO: saga: add the combat aspects of this class
 public class CombatItem {
 	
 	protected CombatItemMDO mdo;
 	
+	protected Chara owner;	// null for party
 	protected String name;
 	protected int uses;
 	
@@ -47,5 +49,16 @@ public class CombatItem {
 	
 	/** @return The number of uses remaining on this item */
 	public int getUses() { return uses; }
+	
+	/** @param owner The new owner of this item, or null for party */
+	public void setOwner(Chara owner) { this.owner = owner; }
+	
+	/**
+	 * Called when this item is used from the map menu.
+	 * @param	screen			The map menu that invoked this item
+	 */
+	public void onMapUse(CharaInfoScreen screen) {
+		// TODO: saga: onmapuse
+	}
 
 }

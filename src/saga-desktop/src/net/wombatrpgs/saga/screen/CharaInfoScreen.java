@@ -20,7 +20,9 @@ import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
 import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.CharaInventory;
+import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.ui.AbilSelector;
+import net.wombatrpgs.saga.ui.AbilSelector.SelectionListener;
 import net.wombatrpgs.saga.ui.CharaInsert;
 import net.wombatrpgs.saga.ui.CharaInsertFull;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
@@ -110,6 +112,31 @@ public class CharaInfoScreen extends Screen {
 		}
 		
 		abils.render(batch);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.screen.Screen#onFocusGained()
+	 */
+	@Override
+	public void onFocusGained() {
+		super.onFocusGained();
+		final CharaInfoScreen parent = this;
+		abils.awaitSelection(new SelectionListener() {
+			@Override public boolean onSelection(int selected) {
+				if (selected == -1) {
+					MGlobal.screens.pop();
+					return true;
+				} else {
+					CombatItem item = chara.getInventory().at(selected);
+					if (item == null) {
+						// TODO: sfx: failure sound
+						return false;
+					}
+					item.onMapUse(parent);
+				}
+				return false;
+			}
+		}, true);
 	}
 
 	/**

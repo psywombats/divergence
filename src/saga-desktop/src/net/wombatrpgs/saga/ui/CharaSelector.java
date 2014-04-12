@@ -183,7 +183,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	/**
 	 * Resumes the menu for input reception. Should already be on screen.
 	 */
-	public void focus() {
+	protected void focus() {
 		parent = MGlobal.screens.peek();
 		parent.pushCommandContext(new CMapMenu());
 		parent.pushCommandListener(this);
@@ -296,13 +296,11 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	
 	/**
 	 * Handles the response of the listener callback.
-	 * @param	close			True to close the selector
+	 * @param	unfocus			True to unfocus the selector
 	 */
-	protected void handleSelectResponse(boolean close) {
-		unfocus();
-		cursorOn = false;
-		if (close) {
-			// TODO: ui: handleSelectResponse close?
+	protected void handleSelectResponse(boolean unfocus) {
+		if (unfocus) {
+			unfocus();
 		}
 	}
 	
@@ -330,7 +328,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 		/**
 		 * Called when the user selects a character.
 		 * @param	selected		The character selected, or null for cancel
-		 * @return					True if the selector should be closed
+		 * @return					True if the selector should be unfocused
 		 */
 		public abstract boolean onSelection(Chara selected);
 		

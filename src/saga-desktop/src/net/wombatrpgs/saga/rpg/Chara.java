@@ -46,7 +46,7 @@ public class Chara implements Queueable {
 		stats = new SagaStats(mdo.stats);
 		appearance = FacesAnimationFactory.create(mdo.appearance);
 		assets.add(appearance);
-		inventory = new CharaInventory(mdo);
+		inventory = new CharaInventory(mdo, this);
 	}
 	
 	/**
