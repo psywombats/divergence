@@ -16,6 +16,7 @@ import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.sagaschema.rpg.chara.CharacterMDO;
+import net.wombatrpgs.sagaschema.rpg.chara.data.Gender;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Race;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Resistable;
 import net.wombatrpgs.sagaschema.rpg.stats.Flag;
@@ -62,6 +63,15 @@ public class Chara implements Queueable {
 	
 	/** @return The appearance of this character */
 	public FacesAnimation getAppearance() { return appearance; }
+	
+	/** @return The human name of the character */
+	public String getName() { return mdo.name; }
+	
+	/** @return The race of the character, never null */
+	public Race getRace() { return mdo.race; }
+	
+	/** @return The gender of the character, never null */
+	public Gender getGender() { return mdo.gender; }
 	
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets

@@ -1,9 +1,10 @@
 {
 	"key" : "chara_dummy",
 	"subfolder" : "test",
-	"name" : "",
-	"description" : "",
+	"name" : "BobHuman",
+	"description" : " ",
 	"race" : "HUMAN",
+	"gender" : "MALE",
 	"appearance" : "4dir_ffl2_human",
 	"equipped" : [ ],
 	"stats" : {

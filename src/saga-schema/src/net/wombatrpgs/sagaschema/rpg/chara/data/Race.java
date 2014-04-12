@@ -11,9 +11,22 @@ package net.wombatrpgs.sagaschema.rpg.chara.data;
  */
 public enum Race {
 	
-	HUMAN,
-	MUTANT,
-	MONSTER,
-	ROBOT,
+	HUMAN		("Human"),
+	MUTANT		("Mutant"),
+	MONSTER		("Monster"),
+	ROBOT		("Robot");
+	
+	private String name;
+	
+	/**
+	 * Enum constructor.
+	 * @param	name			The name of the race to display in-game
+	 */
+	Race(String name) {
+		this.name = name;
+	}
+	
+	/** @return The human-readable name of the race */
+	public String getName() { return name; }
 
 }

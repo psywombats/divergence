@@ -19,7 +19,6 @@ import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
-import net.wombatrpgs.saga.CharacterInsert;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.Chara;
 
@@ -30,13 +29,14 @@ import net.wombatrpgs.saga.rpg.Chara;
 public class CharaSelector extends ScreenGraphic implements CommandListener {
 	
 	// layout
-	protected static final int INSERTS_MARGIN = 4;
+	protected static final int INSERTS_MARGIN = 5;
 	protected static final int INSERTS_COUNT_HORIZ = 2;
 	protected static final int INSERTS_COUNT_VERT = 3;
 	
-	// calculated
+	// inserts
+	protected boolean fullMode;
 	protected int insertsWidth, insertsHeight;
-	protected List<CharacterInsert> inserts;
+	protected List<CharaInsert> inserts;
 	protected Nineslice bg;
 	
 	// cursor
@@ -48,41 +48,36 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	
 	/**
 	 * Creates a new character selector using the party for options.
+	 * @param	fullMode		True to use large se
 	 */
-	public CharaSelector() {
-		insertsWidth = CharacterInsert.WIDTH;
-		insertsHeight = CharacterInsert.HEIGHT;
+	public CharaSelector(boolean fullMode) {
+		this.fullMode = fullMode;
+		insertsWidth = getInsertWidth();
+		insertsHeight = getInsertHeight();
 		insertsWidth *= INSERTS_COUNT_HORIZ;
 		insertsHeight *= INSERTS_COUNT_VERT;
 		insertsWidth += 2 * INSERTS_MARGIN;
-		insertsHeight += 2 * (INSERTS_MARGIN+1);
+		insertsHeight += 2 * (INSERTS_MARGIN+2);
 		
 		bg = new Nineslice();
 		assets.add(bg);
 	}
 
-	/**
-	 * @see net.wombatrpgs.mgne.ui.OptionSelector#getWidth()
-	 */
-	@Override
-	public int getWidth() {
-		return insertsWidth;
-	}
+	/** @see net.wombatrpgs.mgne.ui.OptionSelector#getWidth() */
+	@Override public int getWidth() { return insertsWidth; }
 
-	/**
-	 * @see net.wombatrpgs.mgne.ui.OptionSelector#getHeight()
-	 */
-	@Override
-	public int getHeight() {
-		return insertsHeight;
-	}
+	/** @see net.wombatrpgs.mgne.ui.OptionSelector#getHeight() */
+	@Override public int getHeight() { return insertsHeight; }
+	
+	/** @return The height of the border of the background slice, in px */
+	public int getBorderHeight() { return bg.getBorderHeight(); }
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#setX(float)
 	 */
 	@Override
 	public void setX(float x) {
-		for (CharacterInsert insert : inserts) {
+		for (CharaInsert insert : inserts) {
 			insert.setX(insert.getX() + x - this.x);
 		}
 		super.setX(x);
@@ -93,7 +88,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	 */
 	@Override
 	public void setY(float y) {
-		for (CharacterInsert insert : inserts) {
+		for (CharaInsert insert : inserts) {
 			insert.setY(insert.getY() + y - this.y);
 		}
 		super.setY(y);
@@ -105,7 +100,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
-		for (CharacterInsert insert : inserts) {
+		for (CharaInsert insert : inserts) {
 			insert.update(elapsed);
 		}
 	}
@@ -121,7 +116,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 			createDisplay();
 			bg.resizeTo(insertsWidth, insertsHeight);
 		}
-		for (CharacterInsert insert : inserts) {
+		for (CharaInsert insert : inserts) {
 			insert.postProcessing(manager, pass);
 		}
 	}
@@ -150,7 +145,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	@Override
 	public void coreRender(SpriteBatch batch) {
 		bg.renderAt(batch, x, y);
-		for (CharacterInsert insert : inserts) {
+		for (CharaInsert insert : inserts) {
 			insert.render(batch);
 		}
 		if (cursorOn) {
@@ -194,19 +189,24 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	 */
 	protected void createDisplay() {
 		if (inserts == null) {
-			inserts = new ArrayList<CharacterInsert>();
+			inserts = new ArrayList<CharaInsert>();
 		} else {
-			for (CharacterInsert insert : inserts) {
+			for (CharaInsert insert : inserts) {
 				assets.remove(insert);
 			}
 			inserts.clear();
 		}
 		
 		float insertX = x + INSERTS_MARGIN;
-		float insertY = y + insertsHeight - INSERTS_MARGIN - CharacterInsert.HEIGHT;
+		float insertY = y + insertsHeight - INSERTS_MARGIN*3/2 - getInsertHeight();
 		boolean left = true;
 		for (Chara hero : SGlobal.heroes.getAll()) {
-			CharacterInsert insert = new CharacterInsert(hero);
+			CharaInsert insert;
+			if (fullMode) {
+				insert = new CharaInsertFull(hero);
+			} else {
+				insert = new CharaInsertSmall(hero);
+			}
 			insert.setX(insertX);
 			insert.setY(insertY);
 			if (left) {
@@ -228,10 +228,10 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 		Graphic cursor = MGlobal.ui.getCursor();
 		cursorX = x;
 		cursorY = y + insertsHeight;
-		cursorX += CharacterInsert.WIDTH * selectedX;
-		cursorY -= CharacterInsert.HEIGHT * selectedY;
-		cursorY -= cursor.getHeight() * 3 / 2;
-		cursorY += (CharacterInsert.HEIGHT - cursor.getHeight()) / 2;
+		cursorX += getInsertWidth() * selectedX;
+		cursorY -= getInsertHeight() * selectedY;
+		cursorY -= inserts.get(0).getHeight() * 3 / 2;
+		cursorY += (getInsertHeight() - cursor.getHeight()) / 2;
 		cursorX -= (cursor.getWidth() / 2 - 3);
 	}
 	
@@ -299,6 +299,22 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 		if (close) {
 			// TODO: ui: handleSelectResponse close?
 		}
+	}
+	
+	/**
+	 * Returns the width of one insert based on full mode.
+	 * @return					The width of an insert (in virtual px)
+	 */
+	protected int getInsertWidth() {
+		return fullMode ? CharaInsertFull.WIDTH : CharaInsertSmall.WIDTH;
+	}
+	
+	/**
+	 * Returns the height of one insert based on full mode.
+	 * @return					The height of an insert (in virtual px)
+	 */
+	protected int getInsertHeight() {
+		return fullMode ? CharaInsertFull.HEIGHT : CharaInsertSmall.HEIGHT;
 	}
 	
 	/**

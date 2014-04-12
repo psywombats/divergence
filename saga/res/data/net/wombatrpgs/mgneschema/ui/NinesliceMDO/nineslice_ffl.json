@@ -6,6 +6,6 @@
 	"file" : "ffl_nineslice.png",
 	"type" : "STRETCH",
 	"gradient" : "None",
-	"sliceWidth" : 8,
-	"sliceHeight" : 8
+	"sliceWidth" : 6,
+	"sliceHeight" : 6
 }

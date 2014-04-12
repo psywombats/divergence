@@ -41,21 +41,6 @@ public class Nineslice implements Queueable, PosRenderable, Disposable {
 	protected GradientBox gradient;
 	
 	/**
-	 * Creates an unsized, initialized nineslice. The idea is that the resize
-	 * function will be called later, but the assets are set up for loading.
-	 * @param	mdo				The data to make the nineslice from
-	 */
-	public Nineslice(NinesliceMDO mdo) {
-		this.mdo = mdo;
-		
-		filename = Constants.UI_DIR + mdo.file;
-		
-		if (MapThing.mdoHasProperty(mdo.gradient)) {
-			gradient = new GradientBox(mdo.gradient);
-		}
-	}
-	
-	/**
 	 * Creates a nineslice from data, stretched to a certain width/height. The
 	 * slicing occurs in the postprocess and the sizing and putting together
 	 * happens in an internal call that happens after. This way the actual
@@ -65,16 +50,39 @@ public class Nineslice implements Queueable, PosRenderable, Disposable {
 	 * @param	height			The initial height of the backer (in window px)
 	 */
 	public Nineslice(NinesliceMDO mdo, int width, int height) {
-		this(mdo);
+		this.mdo = mdo;
 		this.width = width;
 		this.height = height;
+		filename = Constants.UI_DIR + mdo.file;
+		
+		if (MapThing.mdoHasProperty(mdo.gradient)) {
+			gradient = new GradientBox(mdo.gradient);
+		}
+	}
+	
+	/**
+	 * Creates an unsized, initialized nineslice. The idea is that the resize
+	 * function will be called later, but the assets are set up for loading.
+	 * @param	mdo				The data to make the nineslice from
+	 */
+	public Nineslice(NinesliceMDO mdo) {
+		this(mdo, 0, 0);
+	}
+	
+	/**
+	 * Creates a nineslice with the default MDO, stretched to the given size.
+	 * @param	width			The initial width of the backer (in window px)
+	 * @param	height			The initial height of the backer (in window px)
+	 */
+	public Nineslice(int width, int height) {
+		this(MGlobal.ui.getNinesliceMDO(), width, height);
 	}
 	
 	/**
 	 * Creates an uninitialized nineslice from default data.
 	 */
 	public Nineslice() {
-		this(MGlobal.ui.getNinesliceMDO());
+		this(0, 0);
 	}
 
 	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getWidth() */
@@ -82,6 +90,12 @@ public class Nineslice implements Queueable, PosRenderable, Disposable {
 
 	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getHeight() */
 	@Override public int getHeight() { return height; }
+	
+	/** @return The width of the border section of this slice, in px */
+	public int getBorderWidth() { return mdo.sliceWidth; }
+	
+	/** @return The width of the border section of this slice, in px */
+	public int getBorderHeight() { return mdo.sliceWidth; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.PosRenderable#renderAt

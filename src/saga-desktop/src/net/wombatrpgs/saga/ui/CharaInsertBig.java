@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.saga;
+package net.wombatrpgs.saga.ui;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,7 +21,7 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 /**
  * Thing with walking character sprite and their HP.
  */
-public class CharacterInsert extends ScreenGraphic {
+public class CharaInsertBig extends ScreenGraphic {
 	
 	public static int WIDTH = 58;
 	public static int HEIGHT = 18;
@@ -30,19 +30,20 @@ public class CharacterInsert extends ScreenGraphic {
 	protected TextBoxFormat format;
 	protected Chara chara;
 	protected String hpText1, hpText2;
-	protected int lastHP, lastMHP;
+	protected boolean updateNeeded;
 
 	/**
 	 * Creates a new insert for a character at 0, 0. Dynamically links to the
 	 * character and will update.
 	 * @param	chara			The character to create for
 	 */
-	public CharacterInsert(Chara chara) {
+	public CharaInsertBig(Chara chara) {
 		this.chara = chara;
 		format = new TextBoxFormat();
 		format.align = HAlignment.LEFT;
 		format.height = 80;
 		format.width = 160;
+		refresh();
 	}
 	
 	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getWidth() */
@@ -55,6 +56,24 @@ public class CharacterInsert extends ScreenGraphic {
 	public Chara getChara() { return chara; }
 
 	/**
+	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#setX(float)
+	 */
+	@Override
+	public void setX(float x) {
+		super.setX(x);
+		refresh();
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#setY(float)
+	 */
+	@Override
+	public void setY(float y) {
+		super.setY(y);
+		refresh();
+	}
+
+	/**
 	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#coreRender
 	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
 	 */
@@ -65,8 +84,8 @@ public class CharacterInsert extends ScreenGraphic {
 		float renderX = x + PADDING;
 		float renderY = y + HEIGHT/2 - sprite.getHeight()/2;
 		sprite.renderAt(batch, renderX, renderY);
-		font.draw(batch, format, hpText1, 0);
-		font.draw(batch, format, hpText2, -(int) font.getLineHeight());
+		font.draw(batch, format, hpText1, -(int) font.getLineHeight() * 0);
+		font.draw(batch, format, hpText2, -(int) font.getLineHeight() * 1);
 	}
 
 	/**
@@ -87,16 +106,19 @@ public class CharacterInsert extends ScreenGraphic {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
-		FontHolder font = MGlobal.ui.getFont();
 		if (!chara.getAppearance().isMoving()) {
 			chara.getAppearance().startMoving();
 		}
 		chara.getAppearance().update(elapsed);
-		
-		if (hpText1 == null || chara.get(Stat.HP) != lastHP || chara.get(Stat.MHP) != lastMHP) {
-			hpText1 = new Integer((int) chara.get(Stat.HP)).toString();
-			hpText2 = "/ " + (int) chara.get(Stat.MHP);
-		}
+	}
+	
+	/**
+	 * Updates the display strings.
+	 */
+	public void refresh() {
+		FontHolder font = MGlobal.ui.getFont();
+		hpText1 = new Integer((int) chara.get(Stat.HP)).toString();
+		hpText2 = "/ " + (int) chara.get(Stat.MHP);
 		format.x = (int) (x + PADDING*2 + chara.getAppearance().getWidth());
 		format.y = (int) (y + font.getLineHeight()*2);
 	}

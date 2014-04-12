@@ -96,7 +96,7 @@ public class MenuScreen extends Screen implements Disposable {
 		
 		infoBG = new Nineslice();
 		assets.add(infoBG);
-		inserts = new CharaSelector();
+		inserts = new CharaSelector(true);
 		assets.add(inserts);
 		addUChild(inserts);
 		
@@ -124,8 +124,8 @@ public class MenuScreen extends Screen implements Disposable {
 	@Override
 	public void render(SpriteBatch batch) {
 		super.render(batch);
-		infoBG.renderAt(batch, insertsX, insertsY + inserts.getHeight());
 		inserts.render(batch);
+		infoBG.renderAt(batch, insertsX, insertsY + inserts.getHeight() - inserts.getBorderHeight());
 		FontHolder font = MGlobal.ui.getFont();
 		font.draw(batch, format, info1, 0);
 		font.draw(batch, format, info2, -(int) font.getLineHeight());
@@ -223,7 +223,8 @@ public class MenuScreen extends Screen implements Disposable {
 		format.width = inserts.getWidth();
 		format.height = INFO_HEIGHT;
 		format.x = insertsX + INFO_MARGINS;
-		format.y = (int) (insertsY + inserts.getHeight() + INFO_MARGINS + font.getLineHeight()*2);
+		format.y = (int) (insertsY + inserts.getHeight() + INFO_MARGINS +
+				font.getLineHeight()*2  - inserts.getBorderHeight());
 	}
 	
 }
