@@ -8,6 +8,7 @@ package net.wombatrpgs.saga.rpg;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.sagaschema.rpg.chara.CharacterMDO;
+import net.wombatrpgs.sagaschema.rpg.chara.data.Race;
 
 /**
  * A collection of combat items worn by a character.
@@ -46,6 +47,19 @@ public class CharaInventory extends Inventory {
 		default:
 			MGlobal.reporter.warn("Unknown race " + chara.getRace());
 			return false;
+		}
+	}
+	
+	/**
+	 * Checks if the given slot can have an item stored in it.
+	 * @param	slot			The slot to check
+	 * @return					True if that slot can have an item, else false
+	 */
+	public boolean equippableAt(int slot) {
+		if (reservedAt(slot)) {
+			return false;
+		} else {
+			return chara.getRace() != Race.MONSTER;
 		}
 	}
 

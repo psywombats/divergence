@@ -176,6 +176,16 @@ public class MenuScreen extends Screen implements Disposable {
 	 * @return					False to keep menu open
 	 */
 	protected boolean onEquip() {
+		inserts.awaitSelection(new SelectionListener() {
+			@Override public boolean onSelection(Chara selected) {
+				if (selected != null) {
+					Screen nextMenu = new EquipScreen(selected);
+					MGlobal.assets.loadAsset(nextMenu, "equip menu");
+					MGlobal.screens.push(nextMenu);
+				}
+				return true;
+			}
+		}, true);
 		return false;
 	}
 	
