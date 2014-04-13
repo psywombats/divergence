@@ -118,7 +118,6 @@ public class EquipScreen extends Screen {
 	protected void onEquipSlotSelect(int selected) {
 		if (equipped.equippableAt(selected)) {
 			abils.setIndent();
-			items.setSelected(lastRight);
 			marked = selected;
 			items.awaitSelection(new SelectionListener() {
 				@Override public boolean onSelection(int selected) {
@@ -134,6 +133,7 @@ public class EquipScreen extends Screen {
 					return true;
 				}
 			}, true);
+			items.setSelected(lastRight);
 		} else {
 			// TODO: sfx: failure sound
 		}
