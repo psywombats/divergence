@@ -14,12 +14,13 @@ import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
 
 /**
- * The hero party. Contains four or five dauntless heroes.
+ * The player party. Contains four or five dauntless heroes.
  */
 public class HeroParty extends Party {
 	
 	protected int gp;
 	protected String location;
+	protected PartyInventory inventory;
 	
 	/**
 	 * Creates the hero party by looking the default up in the database.
@@ -36,6 +37,7 @@ public class HeroParty extends Party {
 	 */
 	protected HeroParty(PartyMDO mdo) {
 		super(mdo);
+		inventory = new PartyInventory();
 	}
 	
 	/** @return The name of the location of the party in the world */
@@ -52,6 +54,9 @@ public class HeroParty extends Party {
 	
 	/** @param gp The amount of gold to take from the party, assumes enough */
 	public void removeGP(int gp) { this.gp -= gp; }
+	
+	/** @return The inventory of the party */
+	public PartyInventory getInventory() { return inventory; }
 	
 	/**
 	 * Adds a character to the party.

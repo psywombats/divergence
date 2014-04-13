@@ -19,10 +19,9 @@ import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
 import net.wombatrpgs.saga.rpg.Chara;
-import net.wombatrpgs.saga.rpg.CharaInventory;
 import net.wombatrpgs.saga.rpg.CombatItem;
-import net.wombatrpgs.saga.ui.AbilSelector;
-import net.wombatrpgs.saga.ui.AbilSelector.SelectionListener;
+import net.wombatrpgs.saga.ui.ItemSelector;
+import net.wombatrpgs.saga.ui.ItemSelector.SelectionListener;
 import net.wombatrpgs.saga.ui.CharaInsert;
 import net.wombatrpgs.saga.ui.CharaInsertFull;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
@@ -48,7 +47,7 @@ public class CharaInfoScreen extends Screen {
 	protected CharaInsert header;
 	protected TextBoxFormat labelFormat, statFormat;
 	protected List<Stat> statDisplay;
-	protected AbilSelector abils;
+	protected ItemSelector abils;
 	protected int headerX, headerY;
 	protected int globalX, globalY;
 	
@@ -71,7 +70,7 @@ public class CharaInfoScreen extends Screen {
 		header = new CharaInsertFull(chara);
 		assets.add(header);
 		addUChild(header);
-		abils = new AbilSelector(chara, CharaInventory.SLOT_COUNT,
+		abils = new ItemSelector(chara.getInventory(), chara.getInventory().slotCount(),
 				ABILS_WIDTH - ABILS_EDGE_PADDING * 2, ABILS_LIST_PADDING, false);
 		assets.add(abils);
 		
@@ -94,8 +93,6 @@ public class CharaInfoScreen extends Screen {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
-		super.render(batch);
-		
 		abilsBG.renderAt(batch, globalX + STATS_WIDTH - statsBG.getBorderWidth(),
 				globalY + getHeight() - HEADER_HEIGHT - STATS_HEIGHT);
 		statsBG.renderAt(batch, globalX, globalY + getHeight() - HEADER_HEIGHT -
@@ -112,6 +109,8 @@ public class CharaInfoScreen extends Screen {
 		}
 		
 		abils.render(batch);
+		
+		super.render(batch);
 	}
 
 	/**
@@ -120,19 +119,18 @@ public class CharaInfoScreen extends Screen {
 	@Override
 	public void onFocusGained() {
 		super.onFocusGained();
-		final CharaInfoScreen parent = this;
 		abils.awaitSelection(new SelectionListener() {
 			@Override public boolean onSelection(int selected) {
 				if (selected == -1) {
 					MGlobal.screens.pop();
 					return true;
 				} else {
-					CombatItem item = chara.getInventory().at(selected);
+					CombatItem item = chara.getInventory().get(selected);
 					if (item == null) {
 						// TODO: sfx: failure sound
 						return false;
 					}
-					item.onMapUse(parent);
+					item.onMapUse(abils);
 				}
 				return false;
 			}

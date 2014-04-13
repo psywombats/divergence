@@ -38,6 +38,7 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	// from constructor
 	protected List<Option> options;
 	protected NinesliceMDO bgMDO;
+	protected boolean autoload;
 	protected int padHoriz, padVert;
 	protected int spacingVert;
 	
@@ -53,6 +54,7 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	
 	// etc state
 	protected FinishListener cancel;
+	protected boolean cancellable;
 	protected boolean controlling;
 	
 	/**
@@ -127,6 +129,17 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	}
 	
 	/**
+	 * Creates a new options selector for easy use. If autoload is enabled, will
+	 * load itself when displayed and unload itself when undisplayed.
+	 * @param	autoload			True to enable autoload
+	 * @param	options				The options the player can select from
+	 */
+	public OptionSelector(boolean autoload, Option... options) {
+		this(Arrays.asList(options));
+		this.autoload = autoload;
+	}
+	
+	/**
 	 * @see net.wombatrpgs.mgne.io.CommandListener#onCommand
 	 * (net.wombatrpgs.mgneschema.io.data.InputCommand)
 	 */
@@ -172,6 +185,15 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	 */
 	public void setCancel(FinishListener listener) {
 		this.cancel = listener;
+		setCancellable(true);
+	}
+	
+	/**
+	 * Enables or disables cancellation.
+	 * @param	cancellable		True to enable cancel, false to disable
+	 */
+	public void setCancellable(boolean cancellable) {
+		this.cancellable = cancellable;
 	}
 
 	/**
@@ -183,6 +205,10 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	public void showAt(int screenX, int screenY) {
 		this.x = screenX;
 		this.y = screenY;
+		
+		if (autoload) {
+			MGlobal.assets.loadAsset(this, "autoloading options menu");
+		}
 		
 		MGlobal.screens.peek().addObject(this);
 		focus();
@@ -229,6 +255,9 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	public void close() {
 		unfocus();
 		MGlobal.screens.peek().removeObject(this);
+		if (autoload) {
+			dispose();
+		}
 	}
 
 	/**
@@ -266,8 +295,12 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	 * associated, does nothing.
 	 */
 	protected void cancel() {
-		if (cancel != null) {
-			cancel.onFinish();
+		if (cancellable) {
+			if (cancel != null) {
+				cancel.onFinish();
+			} else {
+				close();
+			}
 		}
 	}
 	

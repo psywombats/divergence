@@ -17,20 +17,23 @@ import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgne.ui.Nineslice;
+import net.wombatrpgs.mgne.ui.Option;
+import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
-import net.wombatrpgs.saga.rpg.Chara;
-import net.wombatrpgs.saga.rpg.CharaInventory;
 import net.wombatrpgs.saga.rpg.CombatItem;
+import net.wombatrpgs.saga.rpg.Inventory;
 
 /**
  * Allows the user to select an ability from a list.
  */
-//TODO: ui: scrolling capabilities of abilselector
-public class AbilSelector extends ScreenGraphic implements CommandListener {
+// TODO: ui: scrolling capabilities of abilselector
+public class ItemSelector extends ScreenGraphic implements CommandListener {
 	
-	protected CharaInventory inventory;
+	protected static final int INDENT_SIZE = 4;
+	
+	protected Inventory inventory;
 	
 	// layout
 	protected Screen parent;
@@ -46,16 +49,21 @@ public class AbilSelector extends ScreenGraphic implements CommandListener {
 	protected int selected;
 	protected SelectionListener listener;
 	
+	// cursor indent
+	protected boolean indentOn;
+	protected float indentX, indentY;
+	
 	/**
-	 * Creates a new selector for a given character.
-	 * @param	chara			The character to create for
+	 * Creates a new selector for a given inventory.
+	 * @param	inventory		The set of items to create for
 	 * @param	count			The number of items to display at once
 	 * @param	width			The width of the selector (in virt px)
 	 * @param	padding			The vertical padding between items (in virt px)
 	 * @param	useBG			True to use a nineslice bg, false for none
 	 */
-	public AbilSelector(Chara chara, int count, int width, int padding, boolean useBG) {
-		this.inventory = chara.getInventory();
+	public ItemSelector(Inventory inventory, int count, int width,
+			int padding, boolean useBG) {
+		this.inventory = inventory;
 		this.width = width;
 		this.padding = padding;
 		this.count = count;
@@ -67,12 +75,12 @@ public class AbilSelector extends ScreenGraphic implements CommandListener {
 		format = new TextBoxFormat();
 		format.align = HAlignment.LEFT;
 		format.width = width;
-		format.height = 16;
+		format.height = 240;
 		
 		usesFormat = new TextBoxFormat();
 		usesFormat.align = HAlignment.RIGHT;
 		usesFormat.width = 16;
-		usesFormat.height = 16;
+		usesFormat.height = 240;
 		
 		if (useBG) {
 			bg = new Nineslice();
@@ -99,20 +107,25 @@ public class AbilSelector extends ScreenGraphic implements CommandListener {
 		}
 		
 		FontHolder font = MGlobal.ui.getFont();
-		for (int i = 0; i < CharaInventory.SLOT_COUNT; i += 1) {
-			CombatItem item = inventory.at(i);
-			int offY = (int) (i * (font.getLineHeight() + padding));
+		for (int i = 0; i < inventory.slotCount(); i += 1) {
+			CombatItem item = inventory.get(i);
+			int offY = (int) (-i * (font.getLineHeight() + padding));
 			if (item != null) {
 				font.draw(batch, format, item.getName(), offY);
 				String uses = item.isUnlimited() ? "--" : String.valueOf(item.getUses());
 				font.draw(batch, usesFormat, uses, offY);
-			} else if (!inventory.equippableAt(i)) {
+			} else if (inventory.reservedAt(i)) {
 				font.draw(batch, format, "-", offY);
 			}
 		}
 		
 		Graphic cursor = MGlobal.ui.getCursor();
-		cursor.renderAt(batch, cursorX, cursorY);
+		if (indentOn) {
+			cursor.renderAt(batch, indentX, indentY);
+		}
+		if (cursorOn) {
+			cursor.renderAt(batch, cursorX, cursorY);
+		}
 	}
 
 	/**
@@ -143,14 +156,42 @@ public class AbilSelector extends ScreenGraphic implements CommandListener {
 		
 		FontHolder font = MGlobal.ui.getFont();
 		format.x = (int) x;
-		format.y = (int) (y + height - font.getLineHeight());
+		format.y = (int) (y + height + font.getLineHeight());
 		usesFormat.x = (int) (x + width - usesFormat.width );
-		usesFormat.y = (int) (y + height - font.getLineHeight());
+		usesFormat.y = (int) (y + height + font.getLineHeight());
 		if (bg != null) {
 			format.y -= bg.getBorderHeight();
 			usesFormat.y -= bg.getBorderHeight();
 			usesFormat.x -= bg.getBorderWidth();
 		}
+	}
+	
+	/**
+	 * Sets the selected slot to be whatever and updates cursor position.
+	 * @param	slot			The new slot to select
+	 * @return					The old selected slot
+	 */
+	public int setSelected(int slot) {
+		int old = selected;
+		selected = slot;
+		updateCursor();
+		return old;
+	}
+	
+	/**
+	 * Marks the selected cursor position by indenting a copy of the cursor.
+	 */
+	public void setIndent() {
+		indentOn = true;
+		indentX = cursorX + INDENT_SIZE;
+		indentY = cursorY;
+	}
+	
+	/**
+	 * Removes the indented cursor copy.
+	 */
+	public void clearIndent() {
+		indentOn = false;
 	}
 	
 	/**
@@ -168,6 +209,34 @@ public class AbilSelector extends ScreenGraphic implements CommandListener {
 	}
 	
 	/**
+	 * Prompts the user to use or discard the selected item.
+	 */
+	public void useOrDiscard() {
+		final ItemSelector parent = this;
+		final CombatItem item = inventory.get(selected);
+		OptionSelector selector = new OptionSelector(true,
+				new Option("Use") {
+					@Override public boolean onSelect() {
+						if (item.isMapUsable()) {
+							item.onMapUse(parent);
+							return true;
+						} else {
+							// TODO: sfx: failure sound
+							return false;
+						}
+					}
+				},
+				new Option("Drop") {
+					@Override public boolean onSelect() {
+						inventory.drop(selected);
+						return true;
+					}
+				});
+		selector.setCancellable(true);
+		selector.showAt((int) cursorX, (int) cursorY); 
+	}
+	
+	/**
 	 * Stops this menu from receiving input. It still displays on the screen.
 	 */
 	public void unfocus() {
@@ -180,6 +249,7 @@ public class AbilSelector extends ScreenGraphic implements CommandListener {
 	 * Resumes the menu for input reception. Should already be on screen.
 	 */
 	protected void focus() {
+		clearIndent();
 		parent = MGlobal.screens.peek();
 		parent.pushCommandContext(new CMapMenu());
 		parent.pushCommandListener(this);
@@ -190,8 +260,7 @@ public class AbilSelector extends ScreenGraphic implements CommandListener {
 	 */
 	protected void cancel() {
 		if (cancellable) {
-			listener.onSelection(-1);
-			unfocus();
+			handleListener(listener.onSelection(-1));
 		}
 	}
 	
@@ -199,7 +268,7 @@ public class AbilSelector extends ScreenGraphic implements CommandListener {
 	 * Called when the user confirms a character selection.
 	 */
 	protected void confirm() {
-		listener.onSelection(selected);
+		handleListener(listener.onSelection(selected));
 	}
 	
 	/**
@@ -220,7 +289,7 @@ public class AbilSelector extends ScreenGraphic implements CommandListener {
 		Graphic cursor = MGlobal.ui.getCursor();
 		FontHolder font = MGlobal.ui.getFont();
 		cursorX = x - cursor.getWidth() - 3;
-		cursorY = y + height - (selected * (font.getLineHeight() + padding) + 3);
+		cursorY = y + height - (selected * (font.getLineHeight() + padding) + cursor.getHeight()/2);
 	}
 	
 	/**

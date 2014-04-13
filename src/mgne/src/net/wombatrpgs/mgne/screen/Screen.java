@@ -201,7 +201,9 @@ public abstract class Screen implements CommandListener,
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
-		// subclasses can feel free to do things here
+		for (ScreenObject object : screenObjects) {
+			object.render(batch);
+		}
 	}
 
 	/**
@@ -238,9 +240,6 @@ public abstract class Screen implements CommandListener,
 		lastBuffer.end();
 		
 		buffer.begin();
-		for (ScreenObject object : screenObjects) {
-			object.render(getUIBatch());
-		}
 		render(getUIBatch());
 		buffer.end();
 		

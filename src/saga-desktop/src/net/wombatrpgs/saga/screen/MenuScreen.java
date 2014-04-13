@@ -184,6 +184,9 @@ public class MenuScreen extends Screen implements Disposable {
 	 * @return					False to keep menu open
 	 */
 	protected boolean onItems() {
+		Screen nextMenu = new InventoryScreen();
+		MGlobal.assets.loadAsset(nextMenu, "items menu");
+		MGlobal.screens.push(nextMenu);
 		return false;
 	}
 	

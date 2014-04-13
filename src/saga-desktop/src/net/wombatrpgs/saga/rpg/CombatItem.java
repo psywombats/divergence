@@ -7,7 +7,7 @@
 package net.wombatrpgs.saga.rpg;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.saga.screen.CharaInfoScreen;
+import net.wombatrpgs.saga.ui.ItemSelector;
 import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
 
 /**
@@ -55,10 +55,19 @@ public class CombatItem {
 	
 	/**
 	 * Called when this item is used from the map menu.
-	 * @param	screen			The map menu that invoked this item
+	 * @param	selector		The menu that invoked this item
 	 */
-	public void onMapUse(CharaInfoScreen screen) {
+	public void onMapUse(ItemSelector selector) {
 		// TODO: saga: onmapuse
+	}
+	
+	/**
+	 * Check if this item can be used on the world map.
+	 * @return					True if this item can be used on the map
+	 */
+	public boolean isMapUsable() {
+		// TODO: saga: onmapuse
+		return false;
 	}
 
 }
