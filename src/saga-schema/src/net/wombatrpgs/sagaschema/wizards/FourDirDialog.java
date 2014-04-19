@@ -284,7 +284,7 @@ public class FourDirDialog extends JDialog implements	ActionListener,
 		fileSelect = new JComboBox<String>();
 		File dir = frame.getLogic().loadFile("sprites");
 		for (File f : dir.listFiles()) {
-			if (f.isFile()) fileSelect.addItem(f.getName());
+			recursiveAdd("", f);
 		}
 		fileSelect.setEditable(true);
 		fileSelect.setSelectedItem(DEFAULT_ITEM);
@@ -590,6 +590,17 @@ public class FourDirDialog extends JDialog implements	ActionListener,
 				}
 			}
 			hitboxCoords.add(temp);
+		}
+	}
+	
+	protected void recursiveAdd(String pre, File base) {
+		if (base.isDirectory()) {
+			String nextPre = pre + base.getName() + "/";
+			for (File f : base.listFiles()) {
+				recursiveAdd(nextPre, f);
+			}
+		} else {
+			fileSelect.addItem(pre + base.getName());
 		}
 	}
 

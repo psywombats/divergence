@@ -44,9 +44,7 @@ public class FileField extends FieldPanel {
 			input.addItem("None");
 		}
 		for (File f : dir.listFiles()) {
-			if (f.isFile()) {
-				input.addItem(f.getName());
-			}
+			recursiveAdd("", f);
 		}
 		if (defaultData != null && !defaultData.equals("")) {
 			if (!selectString(defaultData)) {
@@ -84,6 +82,22 @@ public class FileField extends FieldPanel {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Recursively adds the subitems of a file to the input selector.
+	 * @param pre The prefix to prepend name to
+	 * @param base The file to add
+	 */
+	protected void recursiveAdd(String pre, File base) {
+		if (base.isDirectory()) {
+			String nextPre = pre + base.getName() + "/";
+			for (File f : base.listFiles()) {
+				recursiveAdd(nextPre, f);
+			}
+		} else {
+			input.addItem(pre + base.getName());
+		}
 	}
 
 }

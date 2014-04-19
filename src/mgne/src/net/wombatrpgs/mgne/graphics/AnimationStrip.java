@@ -106,7 +106,17 @@ public class AnimationStrip implements	PosRenderable,
 		if (moving) {
 			time += elapsed;
 		}
-		currentFrame = anim.getKeyFrame(time + bump, looping);
+		if (MGlobal.game.synchronizeSprites()) {
+			if (!moving) {
+				currentFrame = anim.getKeyFrame(0, looping);
+			} else {
+				// we're calculating seconds elapsed since the game started
+				float s = (System.nanoTime()) / 1000000000f;
+				currentFrame = anim.getKeyFrame(s, looping);
+			}
+		} else {
+			currentFrame = anim.getKeyFrame(time + bump, looping);
+		}
 		if (flashColor != null) {
 			flashElapsed += elapsed;
 			if (flashElapsed > flashDuration) {

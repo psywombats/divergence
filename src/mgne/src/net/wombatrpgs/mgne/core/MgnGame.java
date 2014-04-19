@@ -80,5 +80,15 @@ public abstract class MgnGame {
 	public List<Class<? extends TwoArgFunction>> getLuaLibs() {
 		return new ArrayList<Class<? extends TwoArgFunction>>();
 	}
+	
+	/**
+	 * Sprite synch toggle. This will cause face animations to synch together
+	 * when called, which is usually a good thing for RPGs but bad for more 
+	 * actiony games where animations have more frames.
+	 * @return					True to synchronize face animation anims
+	 */
+	public boolean synchronizeSprites() {
+		return true;
+	}
 
 }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.mgne.core.MAssets;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
@@ -99,6 +100,18 @@ public abstract class FacesAnimation implements	PosRenderable,
 	public void postProcessing(MAssets manager, int pass) {
 		for (AnimationStrip strip : animations) {
 			strip.postProcessing(manager, pass);
+		}
+		float bump;
+		float frameLength = (1.f / (float) animations[0].getFPS());
+		if (!MGlobal.game.synchronizeSprites()) {
+			// this is so that the character starts moving right away
+			bump = Math.max(0, frameLength - .05f);
+			for (AnimationStrip strip : animations) {
+				strip.setBump(bump);
+				strip.update(0);
+			}
+		}
+		for (AnimationStrip strip : animations) {
 			strip.update(0);
 		}
 	}

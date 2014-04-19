@@ -27,11 +27,6 @@ public class FourDir extends FacesAnimation {
 		super(OrthoDir.values().length);
 		this.mdo = mdo;
 		sliceAnimations();
-		
-		// this is so that the character starts moving right away
-		for (int i = 0; i < 4; i++) {
-			animations[i].setBump(Math.max(0, (1.f / (float) animations[i].getFPS())) - .05f);
-		}
 	}
 	
 	/** Kryo constructor */
