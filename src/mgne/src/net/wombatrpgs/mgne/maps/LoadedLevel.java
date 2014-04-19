@@ -8,7 +8,6 @@ package net.wombatrpgs.mgne.maps;
 
 import java.util.List;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -16,6 +15,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 import net.wombatrpgs.mgne.core.Constants;
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.maps.layers.EventLayer;
@@ -66,25 +66,25 @@ public class LoadedLevel extends Level {
 	
 	/**
 	 * @see net.wombatrpgs.mgne.screen.ScreenObject#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (MAssets)
 	 */
 	@Override
-	public void queueRequiredAssets(AssetManager manager) {
+	public void queueRequiredAssets(MAssets manager) {
 		super.queueRequiredAssets(manager);
 		manager.load(mapPath, TiledMap.class);
 	}
 
 	/**
 	 * @see net.wombatrpgs.mgne.maps.Level#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 * (MAssets, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager, int pass) {
+	public void postProcessing(MAssets manager, int pass) {
 		super.postProcessing(manager, pass);
 		
 		if (pass == 0) {
 			processMap(manager);
-		} else if (pass == 1) {
+		} else {
 			eventLayer.postProcessing(manager, pass-1);
 		}
 	}
@@ -114,7 +114,7 @@ public class LoadedLevel extends Level {
 	 * processing.
 	 * @param	manager			The asset manager to load from
 	 */
-	private void processMap(AssetManager manager) {
+	private void processMap(MAssets manager) {
 		
 		// get the map
 		map = manager.get(mapPath, TiledMap.class);

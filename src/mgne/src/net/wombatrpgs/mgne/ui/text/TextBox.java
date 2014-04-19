@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.io.audio.SoundObject;
@@ -119,10 +119,10 @@ public class TextBox extends ScreenGraphic {
 
 	/**
 	 * @see net.wombatrpgs.mgne.maps.MapThing#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 * (MAssets, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager, int pass) {
+	public void postProcessing(MAssets manager, int pass) {
 		super.postProcessing(manager, pass);
 		WindowSettings win = MGlobal.window;
 		

@@ -9,9 +9,9 @@ package net.wombatrpgs.mgne.maps.layers;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.MapThing;
@@ -48,10 +48,10 @@ public class EventLayer extends Layer {
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (MAssets)
 	 */
 	@Override
-	public void queueRequiredAssets(AssetManager manager) {
+	public void queueRequiredAssets(MAssets manager) {
 		for (MapEvent event : events) {
 			event.queueRequiredAssets(manager);
 		}
@@ -59,10 +59,10 @@ public class EventLayer extends Layer {
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 * (MAssets, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager, int pass) {
+	public void postProcessing(MAssets manager, int pass) {
 		for (MapEvent event : events) {
 			event.postProcessing(manager, pass);
 		}

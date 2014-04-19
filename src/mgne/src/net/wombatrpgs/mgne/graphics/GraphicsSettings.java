@@ -6,8 +6,7 @@
  */
 package net.wombatrpgs.mgne.graphics;
 
-import com.badlogic.gdx.assets.AssetManager;
-
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgneschema.settings.GraphicsSettingsMDO;
 import net.wombatrpgs.mgneschema.settings.data.ShaderEnabledState;
@@ -37,19 +36,19 @@ public class GraphicsSettings implements Queueable {
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (MAssets)
 	 */
 	@Override
-	public void queueRequiredAssets(AssetManager manager) {
+	public void queueRequiredAssets(MAssets manager) {
 
 	}
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 * (MAssets, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager, int pass) {
+	public void postProcessing(MAssets manager, int pass) {
 
 	}
 	

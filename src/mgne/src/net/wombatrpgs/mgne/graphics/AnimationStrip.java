@@ -7,6 +7,7 @@
 package net.wombatrpgs.mgne.graphics;
 
 import net.wombatrpgs.mgne.core.Constants;
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
@@ -14,7 +15,6 @@ import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
 import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
 import net.wombatrpgs.mgneschema.graphics.data.AnimationType;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -148,10 +148,10 @@ public class AnimationStrip implements	PosRenderable,
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (MAssets)
 	 */
 	@Override
-	public void queueRequiredAssets(AssetManager manager) {
+	public void queueRequiredAssets(MAssets manager) {
 		manager.load(Constants.SPRITES_DIR + mdo.file, Texture.class);
 	}
 
@@ -160,7 +160,7 @@ public class AnimationStrip implements	PosRenderable,
 	 * (com.badlogic.gdx.assets.AssetManager, int pass)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager, int pass) {
+	public void postProcessing(MAssets manager, int pass) {
 		String filename = Constants.SPRITES_DIR+mdo.file;
 		if (manager.isLoaded(filename)) {
 			spritesheet = manager.get(filename, Texture.class);

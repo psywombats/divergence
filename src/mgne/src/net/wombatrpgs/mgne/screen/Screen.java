@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Stack;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -23,6 +22,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import net.wombatrpgs.mgne.core.AssetQueuer;
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
@@ -260,10 +260,10 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 * (MAssets, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager, int pass) {
+	public void postProcessing(MAssets manager, int pass) {
 		super.postProcessing(manager, pass);
 		if (pass == 0) {
 			batch = new SpriteBatch();

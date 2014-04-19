@@ -6,11 +6,11 @@
  */
 package net.wombatrpgs.mgne.graphics;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
@@ -82,10 +82,10 @@ public abstract class FacesAnimation implements	PosRenderable,
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (MAssets)
 	 */
 	@Override
-	public void queueRequiredAssets(AssetManager manager) {
+	public void queueRequiredAssets(MAssets manager) {
 		for (int i = 0; i < facings; i++) {
 			animations[i].queueRequiredAssets(manager);
 		}
@@ -93,10 +93,10 @@ public abstract class FacesAnimation implements	PosRenderable,
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager , int)
+	 * (MAssets , int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager, int pass) {
+	public void postProcessing(MAssets manager, int pass) {
 		for (AnimationStrip strip : animations) {
 			strip.postProcessing(manager, pass);
 			strip.update(0);

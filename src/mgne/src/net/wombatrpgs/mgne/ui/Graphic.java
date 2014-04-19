@@ -6,12 +6,12 @@
  */
 package net.wombatrpgs.mgne.ui;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.mgne.core.Constants;
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
 
 /**
@@ -49,19 +49,19 @@ public class Graphic implements PosRenderable {
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (MAssets)
 	 */
 	@Override
-	public void queueRequiredAssets(AssetManager manager) {
+	public void queueRequiredAssets(MAssets manager) {
 		manager.load(filename, Texture.class);
 	}
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 * (MAssets, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager, int pass) {
+	public void postProcessing(MAssets manager, int pass) {
 		texture = manager.get(filename, Texture.class);
 		if (width <= 0) width = texture.getWidth();
 		if (height <= 0) height = texture.getHeight();

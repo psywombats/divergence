@@ -6,13 +6,13 @@
  */
 package net.wombatrpgs.mgne.maps;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.mgne.core.Constants;
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgneschema.maps.data.TileMDO;
@@ -66,19 +66,19 @@ public class Tile implements Queueable {
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (MAssets)
 	 */
 	@Override
-	public void queueRequiredAssets(AssetManager manager) {
+	public void queueRequiredAssets(MAssets manager) {
 		if (MapThing.mdoHasProperty(mdo.appearance)) {
 			manager.load(filename, Texture.class);
 		}
 	}
 
 	/** @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int) */
+	 * (MAssets, int) */
 	@Override
-	public void postProcessing(AssetManager manager, int pass) {
+	public void postProcessing(MAssets manager, int pass) {
 		if (!MapThing.mdoHasProperty(mdo.appearance)) return;
 		if (!manager.isLoaded(filename)) {
 			MGlobal.reporter.err("No tile loaded for file:" + mdo);

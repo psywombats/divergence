@@ -23,9 +23,9 @@ import net.wombatrpgs.saga.rpg.Battle;
 public class CombatScreen extends Screen {
 	
 	protected static int OPTIONS_WIDTH = 96;
-	protected static int OPTIONS_HEIGHT = 120;
+	protected static int OPTIONS_HEIGHT = 96;
 	protected static int INSERTS_WIDTH = 224;
-	protected static int INSERTS_HEIGHT = 120;
+	protected static int INSERTS_HEIGHT = 96;
 	
 	protected Battle battle;
 	
@@ -59,7 +59,7 @@ public class CombatScreen extends Screen {
 		assets.add(insertsBG);
 		
 		globalX = (getWidth() - (INSERTS_WIDTH + OPTIONS_WIDTH)) / 2;
-		globalY = (getHeight() - (INSERTS_HEIGHT + OPTIONS_HEIGHT)) / 2;
+		globalY = 0;
 	}
 
 	/**
@@ -68,8 +68,8 @@ public class CombatScreen extends Screen {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
+		insertsBG.renderAt(batch, globalX + OPTIONS_WIDTH - optionsBG.getBorderWidth(), globalY);
 		optionsBG.renderAt(batch, globalX, globalY);
-		insertsBG.renderAt(batch, globalX + INSERTS_WIDTH - optionsBG.getBorderWidth(), globalY);
 		super.render(batch);
 	}
 

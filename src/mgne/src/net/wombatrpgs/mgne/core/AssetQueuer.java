@@ -9,8 +9,6 @@ package net.wombatrpgs.mgne.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.assets.AssetManager;
-
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 
 /**
@@ -29,10 +27,10 @@ public abstract class AssetQueuer implements Queueable {
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (MAssets)
 	 */
 	@Override
-	public void queueRequiredAssets(AssetManager manager) {
+	public void queueRequiredAssets(MAssets manager) {
 		for (Queueable asset : assets) {
 			asset.queueRequiredAssets(manager);
 		}
@@ -40,10 +38,10 @@ public abstract class AssetQueuer implements Queueable {
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 * (MAssets, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager, int pass) {
+	public void postProcessing(MAssets manager, int pass) {
 		for (Queueable asset : assets) {
 			asset.postProcessing(manager, pass);
 		}

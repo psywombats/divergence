@@ -6,10 +6,10 @@
  */
 package net.wombatrpgs.saga.screen;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
@@ -133,10 +133,10 @@ public class MenuScreen extends Screen implements Disposable {
 
 	/**
 	 * @see net.wombatrpgs.mgne.screen.Screen#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 * (MAssets, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager, int pass) {
+	public void postProcessing(MAssets manager, int pass) {
 		super.postProcessing(manager, pass);
 		if (pass == 0) {
 			createDisplay();

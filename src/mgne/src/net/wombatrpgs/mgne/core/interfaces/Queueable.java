@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.mgne.core.interfaces;
 
-import com.badlogic.gdx.assets.AssetManager;
+import net.wombatrpgs.mgne.core.MAssets;
 
 /**
  * Any item that needs queuing to load its assets, and maybe some processing
@@ -22,7 +22,7 @@ public interface Queueable {
 	 * main loading process or someone else's post process differes.
 	 * @param	manager			The manager that will actually do the loading
 	 */
-	public void queueRequiredAssets(AssetManager manager);
+	public void queueRequiredAssets(MAssets manager);
 	
 	/**
 	 * Perform all other necessary post-processing when the renderable assets
@@ -35,6 +35,6 @@ public interface Queueable {
 	 * @param	pass			The number of times the post processing has been
 	 * 							called in this loading period
 	 */
-	public void postProcessing(AssetManager manager, int pass);
+	public void postProcessing(MAssets manager, int pass);
 
 }

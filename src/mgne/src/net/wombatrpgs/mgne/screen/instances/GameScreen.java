@@ -6,9 +6,8 @@
  */
 package net.wombatrpgs.mgne.screen.instances;
 
-import com.badlogic.gdx.assets.AssetManager;
-
 import net.wombatrpgs.mgne.core.Avatar;
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.command.CMapGame;
 import net.wombatrpgs.mgne.maps.Level;
@@ -66,10 +65,10 @@ public class GameScreen extends Screen {
 
 	/**
 	 * @see net.wombatrpgs.mgne.screen.Screen#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 * (MAssets, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager, int pass) {
+	public void postProcessing(MAssets manager, int pass) {
 		super.postProcessing(manager, pass);
 		
 		if (pass == 0 && hero.getParent() == null) {

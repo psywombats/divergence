@@ -8,9 +8,8 @@ package net.wombatrpgs.mgne.scenes;
 
 import org.luaj.vm2.LuaValue;
 
-import com.badlogic.gdx.assets.AssetManager;
-
 import net.wombatrpgs.mgne.core.Constants;
+import net.wombatrpgs.mgne.core.MAssets;
 
 /**
  * This thing takes a scene and then hijacks its parent level into doing its
@@ -35,10 +34,10 @@ public class StoredSceneParser extends SceneParser {
 	 * Load the file if we're using one, otherwise we're anonymous and assume
 	 * all the commands have been manually added.
 	 * @see net.wombatrpgs.mgne.maps.MapThing#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (MAssets)
 	 */
 	@Override
-	public void queueRequiredAssets(AssetManager manager) {
+	public void queueRequiredAssets(MAssets manager) {
 		if (filename != null) {
 			manager.load(filename, LuaValue.class);
 		}
@@ -46,10 +45,10 @@ public class StoredSceneParser extends SceneParser {
 
 	/**
 	 * @see net.wombatrpgs.mgne.maps.MapThing#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 * (MAssets, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager, int pass) {
+	public void postProcessing(MAssets manager, int pass) {
 		if (pass == 0) {
 			LuaValue script = manager.get(filename, LuaValue.class);
 			commands = SceneLib.parseScene(script);

@@ -8,6 +8,7 @@ package net.wombatrpgs.mgne.graphics.effects;
 
 import java.util.List;
 
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.AnimationStrip;
 import net.wombatrpgs.mgne.graphics.ShaderFromData;
@@ -19,7 +20,6 @@ import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
 import net.wombatrpgs.mgneschema.graphics.ShaderMDO;
 import net.wombatrpgs.mgneschema.graphics.effects.EffectFogMDO;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
@@ -121,19 +121,19 @@ public class EffectFog extends Effect {
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (MAssets)
 	 */
 	@Override
-	public void queueRequiredAssets(AssetManager manager) {
+	public void queueRequiredAssets(MAssets manager) {
 		anim.queueRequiredAssets(manager);
 	}
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 * (MAssets, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager, int pass) {
+	public void postProcessing(MAssets manager, int pass) {
 		anim.postProcessing(manager, pass);
 		
 		List<MapEvent> beacons = parent.getEventsByGroup("antifog_beacon");

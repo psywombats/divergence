@@ -6,10 +6,10 @@
  */
 package net.wombatrpgs.mgne.screen.instances;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.command.CMapGame;
 import net.wombatrpgs.mgne.maps.Level;
@@ -93,10 +93,10 @@ public class TestScreen extends Screen {
 
 	/**
 	 * @see net.wombatrpgs.mgne.screen.Screen#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (MAssets)
 	 */
 	@Override
-	public void queueRequiredAssets(AssetManager manager) {
+	public void queueRequiredAssets(MAssets manager) {
 		if (font != null) {
 			font.queueRequiredAssets(manager);
 		}
@@ -110,7 +110,7 @@ public class TestScreen extends Screen {
 	 * (com.badlogic.gdx.assets.AssetManager, int pass)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager, int pass) {
+	public void postProcessing(MAssets manager, int pass) {
 		if (pass > 0) return;
 		if (font != null) {
 			font.postProcessing(manager, pass);

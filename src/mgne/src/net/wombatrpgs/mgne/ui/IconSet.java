@@ -6,10 +6,10 @@
  */
 package net.wombatrpgs.mgne.ui;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Pixmap;
 
 import net.wombatrpgs.mgne.core.Constants;
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgneschema.graphics.IconSetMDO;
 
@@ -32,10 +32,10 @@ public class IconSet implements Queueable {
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (MAssets)
 	 */
 	@Override
-	public void queueRequiredAssets(AssetManager manager) {
+	public void queueRequiredAssets(MAssets manager) {
 		manager.load(Constants.UI_DIR + mdo.icon16, Pixmap.class);
 		manager.load(Constants.UI_DIR + mdo.icon32, Pixmap.class);
 		manager.load(Constants.UI_DIR + mdo.icon128, Pixmap.class);
@@ -43,10 +43,10 @@ public class IconSet implements Queueable {
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 * (MAssets, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager, int pass) {
+	public void postProcessing(MAssets manager, int pass) {
 		Pixmap[] maps = new Pixmap[3];
 		maps[0] = manager.get(Constants.UI_DIR + mdo.icon16, Pixmap.class);
 		maps[1] = manager.get(Constants.UI_DIR + mdo.icon32, Pixmap.class);

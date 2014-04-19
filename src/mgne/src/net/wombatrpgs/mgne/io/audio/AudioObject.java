@@ -9,6 +9,7 @@ package net.wombatrpgs.mgne.io.audio;
 import com.badlogic.gdx.assets.AssetManager;
 
 import net.wombatrpgs.mgne.core.Constants;
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
@@ -40,19 +41,19 @@ public abstract class AudioObject implements	Disposable,
 
 	/**
 	 * @see net.wombatrpgs.mgne.maps.MapThing#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * (MAssets)
 	 */
 	@Override
-	public void queueRequiredAssets(AssetManager manager) {
+	public void queueRequiredAssets(MAssets manager) {
 		manager.load(filename, getLoaderClass());
 	}
 
 	/**
 	 * @see net.wombatrpgs.mgne.maps.MapThing#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 * (MAssets, int)
 	 */
 	@Override
-	public void postProcessing(AssetManager manager, int pass) {
+	public void postProcessing(MAssets manager, int pass) {
 		postAudioProcessing(manager);
 	}
 	
