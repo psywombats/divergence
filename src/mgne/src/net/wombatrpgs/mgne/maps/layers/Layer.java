@@ -6,12 +6,7 @@
  */
 package net.wombatrpgs.mgne.maps.layers;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.badlogic.gdx.assets.AssetManager;
-
-import net.wombatrpgs.mgne.core.interfaces.Queueable;
+import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.graphics.interfaces.Renderable;
 import net.wombatrpgs.mgne.maps.Level;
 
@@ -19,22 +14,18 @@ import net.wombatrpgs.mgne.maps.Level;
  * A layer in a map, either a grid layer or an object layer. It's how Tiled
  * handles it.
  */
-public abstract class Layer implements Renderable {
+public abstract class Layer extends AssetQueuer implements Renderable {
 	
 	protected Level parent;
-	protected List<Queueable> assets;
 	
 	/**
 	 * Creates a layer with a given parent map.
 	 * @param	parent			The parent map of this layer
 	 */
 	public Layer(Level parent) {
+		super();
 		this.parent = parent;
-		assets = new ArrayList<Queueable>();
 	}
-	
-	/** Kryo constructor */
-	protected Layer() { }
 
 	/**
 	 * Determines whether this layer is the floor, a so-called lower chip layer.
@@ -67,28 +58,6 @@ public abstract class Layer implements Renderable {
 	 */
 	public boolean isUpperChip() {
 		return !isLowerChip();
-	}
-	
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		for (Queueable asset : assets) {
-			asset.queueRequiredAssets(manager);
-		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		for (Queueable asset : assets) {
-			asset.postProcessing(manager, pass);
-		}
 	}
 
 }

@@ -12,14 +12,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.mgne.core.Constants;
-import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
 
 /**
  * Single-frame graphics instance. Not meant to appear on its own, really.
  * Animations have their own version of this. This class is dumb.
  */
-public class Graphic implements Queueable, PosRenderable {
+public class Graphic implements PosRenderable {
 	
 	protected transient Texture texture;
 	protected transient TextureRegion appearance;

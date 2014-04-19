@@ -22,8 +22,8 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
+import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.graphics.interfaces.Renderable;
@@ -42,12 +42,11 @@ import net.wombatrpgs.mgneschema.io.data.InputCommand;
  * are only rendered if the screen on top of them is counted as transparent.
  * More info in the ScreenStack class.
  */
-public abstract class Screen implements CommandListener,
-										Updateable,
-										Renderable,
-										Queueable,
-										Disposable,
-										ButtonListener {
+public abstract class Screen extends AssetQueuer implements CommandListener,
+															Updateable,
+															Renderable,
+															Disposable,
+															ButtonListener {
 	
 	protected TrackerCam cam;
 	protected transient OrthographicCamera uiCam;
@@ -62,7 +61,6 @@ public abstract class Screen implements CommandListener,
 	protected transient ShaderProgram mapShader;
 	protected Color tint;
 	
-	protected List<Queueable> assets;
 	protected List<Updateable> updateChildren, removeChildren, addChildren;
 	protected List<ScreenObject> screenObjects;
 	protected Stack<CommandListener> commandListeners;
@@ -75,7 +73,6 @@ public abstract class Screen implements CommandListener,
 	 * create one for ourselves, potentially reformatting the game window.
 	 */
 	public Screen() {
-		assets = new ArrayList<Queueable>();
 		commandContext = new Stack<CommandMap>();
 		commandListeners = new Stack<CommandListener>();
 		updateChildren = new ArrayList<Updateable>();
@@ -262,25 +259,12 @@ public abstract class Screen implements CommandListener,
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		for (Queueable asset : assets) {
-			asset.queueRequiredAssets(manager);
-		}
-	}
-
-	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Renderable#postProcessing
 	 * (com.badlogic.gdx.assets.AssetManager, int)
 	 */
 	@Override
 	public void postProcessing(AssetManager manager, int pass) {
-		for (Queueable asset : assets) {
-			asset.postProcessing(manager, pass);
-		}
+		super.postProcessing(manager, pass);
 		if (pass == 0) {
 			batch = new SpriteBatch();
 			privateBatch = new SpriteBatch();

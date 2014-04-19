@@ -39,6 +39,7 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	protected List<Option> options;
 	protected NinesliceMDO bgMDO;
 	protected boolean autoload;
+	protected boolean disableBG;
 	protected int padHoriz, padVert;
 	protected int spacingVert;
 	
@@ -90,12 +91,6 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 		assets.add(bg);
 	}
 	
-	/** @see net.wombatrpgs.mgne.graphics.ScreenGraphic#getWidth() */
-	@Override public int getWidth() { return width; }
-
-	/** @see net.wombatrpgs.mgne.graphics.ScreenGraphic#getHeight() */
-	@Override public int getHeight() { return height; }
-	
 	/**
 	 * Creates a new options selector with default padding.
 	 * @param	options			The options the player can select from
@@ -112,7 +107,7 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	/**
 	 * Creates a new options selector with some default settings (like padding,
 	 * appearance, cursor, etc) for a list of options.
-	 * @param	options				The options the player can select from
+	 * @param	options			The options the player can select from
 	 */
 	public OptionSelector(List<Option> options) {
 		this(options,
@@ -122,7 +117,7 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	
 	/**
 	 * Creates a new options selector with some default settings for a set.
-	 * @param	options				The options the player can select from
+	 * @param	options			The options the player can select from
 	 */
 	public OptionSelector(Option... options) {
 		this(Arrays.asList(options));
@@ -131,13 +126,30 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	/**
 	 * Creates a new options selector for easy use. If autoload is enabled, will
 	 * load itself when displayed and unload itself when undisplayed.
-	 * @param	autoload			True to enable autoload
-	 * @param	options				The options the player can select from
+	 * @param	autoload		True to enable autoload
+	 * @param	options			The options the player can select from
 	 */
 	public OptionSelector(boolean autoload, Option... options) {
 		this(Arrays.asList(options));
 		this.autoload = autoload;
 	}
+	
+	/**
+	 * Creates a new options selector for inline UI use.
+	 * @param	autoload		True to enable autoload
+	 * @param	disableBG		True to not render the nineslice
+	 * @param	options			The options the player can select from
+	 */
+	public OptionSelector(boolean autoload, boolean disableBG, Option... options) {
+		this(autoload, options);
+		this.disableBG = disableBG;
+	}
+	
+	/** @see net.wombatrpgs.mgne.graphics.ScreenGraphic#getWidth() */
+	@Override public int getWidth() { return width; }
+
+	/** @see net.wombatrpgs.mgne.graphics.ScreenGraphic#getHeight() */
+	@Override public int getHeight() { return height; }
 	
 	/**
 	 * @see net.wombatrpgs.mgne.io.CommandListener#onCommand
@@ -168,7 +180,9 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	 */
 	@Override
 	public void coreRender(SpriteBatch batch) {
-		bg.renderAt(getBatch(), x, y);
+		if (!disableBG) {
+			bg.renderAt(getBatch(), x, y);
+		}
 		int off = 0;
 		FontHolder font = MGlobal.ui.getFont();
 		for (Option o : options) {

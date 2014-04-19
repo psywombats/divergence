@@ -6,53 +6,23 @@
  */
 package net.wombatrpgs.mgne.screen;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import net.wombatrpgs.mgne.core.interfaces.Queueable;
+import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.interfaces.Renderable;
 
 /**
  * Something that's both renderable and updateable. Can also be sorted.
  */
-public abstract class ScreenObject implements	Renderable, 
-												Updateable  {
-	
-	protected List<Queueable> assets;
+public abstract class ScreenObject extends AssetQueuer implements	Renderable, 
+																	Updateable  {
 	
 	/**
 	 * Creates a blank screen object.
 	 */
 	public ScreenObject() {
-		this.assets = new ArrayList<Queueable>();
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		for (Queueable asset : assets) {
-			asset.queueRequiredAssets(manager);
-		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
-	 * 		for (Queueable asset : assets) {
-			asset.queueRequiredAssets(manager);
-		}(com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		for (Queueable asset : assets) {
-			asset.postProcessing(manager, pass);
-		}
+		super();
 	}
 
 	/**

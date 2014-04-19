@@ -39,11 +39,6 @@ public class LoadedGridLayer extends GridLayer {
 			MGlobal.reporter.warn("Layer with no Z exists on map " + parent);
 		}
 	}
-	
-	/** Kryo constructor */
-	protected LoadedGridLayer() { }
-
-	
 
 	/**
 	 * Ignores the batch for the most part. Sorry.

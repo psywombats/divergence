@@ -6,14 +6,10 @@
  */
 package net.wombatrpgs.mgne.maps;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.Constants;
-import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.interfaces.Renderable;
 
@@ -22,22 +18,20 @@ import net.wombatrpgs.mgne.graphics.interfaces.Renderable;
  * This includes both characters and events. As of 2012-01-23 it's called Thing
  * and not Object to prevent a name collision with some LibGDX class.
  */
-public abstract class MapThing implements	Renderable,
-											Updateable {
+public abstract class MapThing extends AssetQueuer implements	Renderable,
+																Updateable {
 	
 	/** Level this object exists on */
 	protected Level parent;
 	/** How we respond to pausing */
 	protected PauseLevel pauseLevel;
-	/** Things that need to be loaded in the queue/post phases */
-	protected List<Queueable> assets;
 	
 	/**
 	 * Creates a new map object floating in limbo land.
 	 */
 	public MapThing() {
+		super();
 		pauseLevel = PauseLevel.SURRENDERS_EASILY;
-		assets = new ArrayList<Queueable>();
 	}
 	
 	/**
@@ -57,30 +51,6 @@ public abstract class MapThing implements	Renderable,
 	
 	/** @param How this object will respond to pausing */
 	public void setPauseLevel(PauseLevel level) { this.pauseLevel = level; }
-	
-	/**
-	 * Default queues up everything in the assets list.
-	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		for (Queueable asset : assets) {
-			asset.queueRequiredAssets(manager);
-		}
-	}
-
-	/**
-	 * Default processes everything in the assets list.
-	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		for (Queueable asset : assets) {
-			asset.postProcessing(manager, pass);
-		}
-	}
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)

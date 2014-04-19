@@ -6,11 +6,7 @@
  */
 package net.wombatrpgs.mgne.scenes;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.badlogic.gdx.assets.AssetManager;
-
+import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.io.CommandListener;
@@ -28,9 +24,9 @@ import net.wombatrpgs.mgneschema.io.data.InputCommand;
  * really only the speak command needed that thing in the first place and it can
  * block itself. However, a collection of timing methods have been added.
  */
-public abstract class SceneCommand implements	Queueable,
-												Updateable,
-												CommandListener {
+public abstract class SceneCommand extends AssetQueuer implements	Queueable,
+																	Updateable,
+																	CommandListener {
 	
 	protected SceneParser parent;
 	
@@ -38,15 +34,13 @@ public abstract class SceneCommand implements	Queueable,
 	protected boolean finished;
 	protected boolean running;
 	
-	protected List<Queueable> assets;
-	
 	/**
 	 * Creates a new command. Before being run it must be possessed by a parent
 	 * and have its assets queued.
 	 */
 	public SceneCommand() {
+		super();
 		finished = false;
-		assets = new ArrayList<Queueable>();
 		timeToWait = 0;
 		timeSinceStart = 0;
 	}
@@ -59,28 +53,6 @@ public abstract class SceneCommand implements	Queueable,
 	
 	/** @return True if this command is done running */
 	public boolean isFinished() { return this.finished; }
-	
-	/**
-	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		for (Queueable asset : assets) {
-			asset.queueRequiredAssets(manager);
-		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		for (Queueable asset : assets) {
-			asset.postProcessing(manager, pass);
-		}
-	}
 	
 	/**
 	 * This will only be called if this command is actually running.

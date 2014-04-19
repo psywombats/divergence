@@ -6,13 +6,8 @@
  */
 package net.wombatrpgs.mgne.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.badlogic.gdx.assets.AssetManager;
-
+import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBox;
 import net.wombatrpgs.mgneschema.graphics.IconSetMDO;
@@ -28,7 +23,7 @@ import net.wombatrpgs.mgneschema.ui.TextBoxMDO;
  * things are final because changing them would involve re-calling the asset
  * queue on this object.
  */
-public class UISettings implements Queueable {
+public class UISettings extends AssetQueuer {
 	
 	public static String DEFAULT_MDO_KEY = "default_ui";
 	
@@ -39,15 +34,13 @@ public class UISettings implements Queueable {
 	protected NinesliceMDO ninesliceMDO;
 	protected Graphic cursor;
 	
-	protected List<Queueable> assets;
-	
 	/**
 	 * Creates a new UI settings using MDO data for defaults.
 	 * @param 	mdo				The data to make object from
 	 */
 	public UISettings(UISettingsMDO mdo) {
+		super();
 		this.mdo = mdo;
-		this.assets = new ArrayList<Queueable>();
 		font = new FontHolder(MGlobal.data.getEntryFor(mdo.font, FontMDO.class));
 		assets.add(font);
 		box = new TextBox(MGlobal.data.getEntryFor(mdo.box, TextBoxMDO.class), font);
@@ -58,28 +51,6 @@ public class UISettings implements Queueable {
 		assets.add(cursor);
 		
 		ninesliceMDO = MGlobal.data.getEntryFor(mdo.nineslice, NinesliceMDO.class);
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		for (Queueable asset : assets) {
-			asset.queueRequiredAssets(manager);
-		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		for (Queueable asset : assets) {
-			asset.postProcessing(manager, pass);
-		}
 	}
 	
 	/** @return The text box associated with these settings */
