@@ -54,7 +54,7 @@ public class Party extends AssetQueuer implements Disposable {
 	public List<Chara> getAll() { return members; }
 	
 	/** @return A representative of the nth group */
-	public Chara getFrontMember(int n) { return getGroup(n).get(0); }
+	public Chara getFront(int n) { return getGroup(n).get(0); }
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()

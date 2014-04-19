@@ -31,9 +31,9 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * @param	enemy			The enemy they're fighting
 	 */
 	public Battle(HeroParty player, Party enemy) {
-		this.screen = new CombatScreen(this);
 		this.player = player;
 		this.enemy = enemy;
+		this.screen = new CombatScreen(this);
 		assets.add(enemy);
 		assets.add(screen);
 		anonymous = false;
@@ -63,6 +63,12 @@ public class Battle extends AssetQueuer implements Disposable {
 	
 	/** @return True if the battle is all over, including screen off */
 	public boolean isDone() { return false; }
+	
+	/** @return The party representing the player */
+	public Party getPlayer() { return player; }
+	
+	/** @return The party the player is against */
+	public Party getEnemy() { return enemy; }
 
 	/**
 	 * Only call once the screen is removed, please.

@@ -7,14 +7,18 @@
 package net.wombatrpgs.saga.rpg;
 
 import net.wombatrpgs.mgne.core.AssetQueuer;
+import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
+import net.wombatrpgs.mgne.maps.MapThing;
+import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.sagaschema.rpg.chara.CharacterMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Gender;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Race;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Resistable;
+import net.wombatrpgs.sagaschema.rpg.chara.data.Status;
 import net.wombatrpgs.sagaschema.rpg.stats.Flag;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
@@ -28,7 +32,9 @@ public class Chara extends AssetQueuer implements Disposable {
 	
 	protected SagaStats stats;
 	protected FacesAnimation appearance;
+	protected Graphic portrait;
 	protected CharaInventory inventory;
+	protected Status status;
 	
 	/**
 	 * Creates a new character from data template.
@@ -39,9 +45,15 @@ public class Chara extends AssetQueuer implements Disposable {
 		this.mdo = mdo;
 		
 		stats = new SagaStats(mdo.stats);
+		inventory = new CharaInventory(mdo, this);
+		status = null;
+		
 		appearance = FacesAnimationFactory.create(mdo.appearance);
 		assets.add(appearance);
-		inventory = new CharaInventory(mdo, this);
+		if (MapThing.mdoHasProperty(mdo.portrait)) {
+			portrait = new Graphic(Constants.SPRITES_DIR, mdo.portrait);
+			assets.add(portrait);
+		}
 	}
 	
 	/**
@@ -61,6 +73,9 @@ public class Chara extends AssetQueuer implements Disposable {
 	/** @return The appearance of this character */
 	public FacesAnimation getAppearance() { return appearance; }
 	
+	/** @return The in-battle portrait, or null if none */
+	public Graphic getPortrait() { return portrait; }
+	
 	/** @return The human name of the character */
 	public String getName() { return mdo.name; }
 	
@@ -69,6 +84,9 @@ public class Chara extends AssetQueuer implements Disposable {
 	
 	/** @return The gender of the character, never null */
 	public Gender getGender() { return mdo.gender; }
+	
+	/** @return The status condition of the character, or null for normal */
+	public Status getStatus() { return status; }
 	
 	/** @return The object of equipped items for this character */
 	public CharaInventory getInventory() { return inventory; }

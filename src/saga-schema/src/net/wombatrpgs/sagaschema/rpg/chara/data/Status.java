@@ -15,36 +15,24 @@ import net.wombatrpgs.sagaschema.rpg.stats.Flag;
  */
 public enum Status implements Resistable {
 	
-	BLIND		(Flag.RESIST_BLIND),
-	CURSE		(Flag.RESIST_CURSE),
-	SLEEP		(Flag.RESIST_SLEEP),
-	PARALYZE	(Flag.RESIST_PARALYZE),
-	CONFUSE		(Flag.RESIST_CONFUSE),
-	STONE		(Flag.RESIST_STONE);
+	BLIND		(Flag.RESIST_BLIND,		"BLIND"),
+	CURSE		(Flag.RESIST_CURSE,		"CURSED"),
+	SLEEP		(Flag.RESIST_SLEEP,		"ASLEEP"),
+	PARALYZE	(Flag.RESIST_PARALYZE,	"PARALYZED"),
+	CONFUSE		(Flag.RESIST_CONFUSE,	"CONFUSED"),
+	STONE		(Flag.RESIST_STONE,		"STONE");
 	
 	private EnumSet<Flag> resistFlags;
+	private String tag;
 	
 	/**
 	 * Internal enum constructor.
 	 * @param	resistFlags		All flags that could be used to resist damage
+	 * @param	tag				The string associated with afflicted charas
 	 */
-	Status(EnumSet<Flag> resistFlags) {
-		this.resistFlags = resistFlags;
-	}
-	
-	/**
-	 * Internal enum constructor. Assumes single flag resistance.
-	 * @param	resistFlag		The flag that can be used to resist damage
-	 */
-	Status(Flag resistFlag) {
-		this(EnumSet.of(resistFlag));
-	}
-	
-	/**
-	 * Internal enum constructor. Assumes no flags used to resist.
-	 */
-	Status() {
-		this(EnumSet.noneOf(Flag.class));
+	Status(Flag resistFlags, String tag) {
+		this.resistFlags = EnumSet.of(resistFlags);
+		this.tag = tag;
 	}
 
 	/**
@@ -61,6 +49,15 @@ public enum Status implements Resistable {
 	@Override
 	public EnumSet<Flag> getWeakFlag() {
 		return EnumSet.noneOf(Flag.class);
+	}
+	
+	/**
+	 * Returns the string associated with afflicted charas. This is what BLND or
+	 * STON would be in FFL, but a little... longer.
+	 * @return					The tag for afflicted charas
+	 */
+	public String getTag() {
+		return tag;
 	}
 
 }

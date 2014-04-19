@@ -96,7 +96,7 @@ public class MenuScreen extends Screen implements Disposable {
 		
 		infoBG = new Nineslice();
 		assets.add(infoBG);
-		inserts = new CharaSelector(true);
+		inserts = new CharaSelector(true, false);
 		assets.add(inserts);
 		addUChild(inserts);
 		

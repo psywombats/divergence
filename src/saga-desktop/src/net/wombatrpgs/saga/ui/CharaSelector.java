@@ -22,6 +22,7 @@ import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.Chara;
+import net.wombatrpgs.saga.rpg.Party;
 
 /**
  * Instead of selecting options, it selects characters. This should only really
@@ -30,6 +31,7 @@ import net.wombatrpgs.saga.rpg.Chara;
 public class CharaSelector extends ScreenGraphic implements CommandListener {
 	
 	protected Screen parent;
+	protected Party party;
 	
 	// layout
 	protected static final int INSERTS_MARGIN = 5;
@@ -37,7 +39,8 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	protected static final int INSERTS_COUNT_VERT = 3;
 	
 	// inserts
-	protected boolean fullMode;
+	protected float paddingFudge;
+	protected boolean fullMode, combatMode, showBG;
 	protected int insertsWidth, insertsHeight;
 	protected List<CharaInsert> inserts;
 	protected Nineslice bg;
@@ -50,20 +53,39 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	protected SelectionListener listener;
 	
 	/**
-	 * Creates a new character selector using the party for options.
-	 * @param	fullMode		True to use large se
+	 * Creates a new character selector with a custom party.
+	 * @param	fullMode		True to use large version
+	 * @param	combatMode		True to use combat status and not race etc
+	 * @param	showBG			True to use the automatic nineslice bg
+	 * @param	padding			The horizontal floating fudge... ugly
 	 */
-	public CharaSelector(boolean fullMode) {
+	public CharaSelector(Party party, boolean fullMode, boolean combatMode,
+			boolean showBG, float padding) {
+		this.party = party;
 		this.fullMode = fullMode;
+		this.combatMode = combatMode;
+		this.showBG = showBG;
+		this.paddingFudge += padding;
 		insertsWidth = getInsertWidth();
 		insertsHeight = getInsertHeight();
 		insertsWidth *= INSERTS_COUNT_HORIZ;
 		insertsHeight *= INSERTS_COUNT_VERT;
 		insertsWidth += 2 * INSERTS_MARGIN;
 		insertsHeight += 2 * (INSERTS_MARGIN+2);
+		insertsWidth += padding * (INSERTS_COUNT_HORIZ-1);
 		
 		bg = new Nineslice();
 		assets.add(bg);
+	}
+	
+	/**
+	 * Creates a new character selector for the hero party, showing bg, no pad.
+	 * @param	fullMode		True to use large version
+	 * @param	combatMode		True to use combat status and not race etc
+	 * @param	showBG			True to show the nineslice bg default
+	 */
+	public CharaSelector(boolean fullMode, boolean combatMode) {
+		this(SGlobal.heroes, fullMode, combatMode, true, 0);
 	}
 
 	/** @see net.wombatrpgs.mgne.ui.OptionSelector#getWidth() */
@@ -147,7 +169,9 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	 */
 	@Override
 	public void coreRender(SpriteBatch batch) {
-		bg.renderAt(batch, x, y);
+		if (showBG) {
+			bg.renderAt(batch, x, y);
+		}
 		for (CharaInsert insert : inserts) {
 			insert.render(batch);
 		}
@@ -205,19 +229,19 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 		float insertX = x + INSERTS_MARGIN;
 		float insertY = y + insertsHeight - INSERTS_MARGIN*3/2 - getInsertHeight();
 		boolean left = true;
-		for (Chara hero : SGlobal.heroes.getAll()) {
+		for (Chara hero : party.getAll()) {
 			CharaInsert insert;
 			if (fullMode) {
-				insert = new CharaInsertFull(hero);
+				insert = new CharaInsertFull(hero, combatMode);
 			} else {
 				insert = new CharaInsertSmall(hero);
 			}
 			insert.setX(insertX);
 			insert.setY(insertY);
 			if (left) {
-				insertX += insert.getWidth();
+				insertX += (insert.getWidth() + paddingFudge);
 			} else {
-				insertX -= insert.getWidth();
+				insertX -= (insert.getWidth() + paddingFudge);
 				insertY -= insert.getHeight();
 			}
 			left = !left;

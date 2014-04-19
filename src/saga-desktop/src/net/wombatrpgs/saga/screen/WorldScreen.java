@@ -15,13 +15,11 @@ import net.wombatrpgs.mgneschema.io.data.InputCommand;
  */
 public class WorldScreen extends GameScreen {
 	
-	protected MenuScreen menu;
-	
 	/**
 	 * Creates a new world map screen.
 	 */
 	public WorldScreen() {
-		menu = new MenuScreen();
+		
 	}
 
 	/**
@@ -33,6 +31,7 @@ public class WorldScreen extends GameScreen {
 		if (super.onCommand(command)) return true;
 		switch (command) {
 		case WORLD_PAUSE:
+			MenuScreen menu = new MenuScreen();
 			MGlobal.assets.loadAsset(menu, "main menu");
 			MGlobal.screens.push(menu);
 		default:

@@ -9,7 +9,9 @@ package net.wombatrpgs.sagaschema.rpg.chara;
 import net.wombatrpgs.mgneschema.graphics.FourDirMDO;
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
+import net.wombatrpgs.mgns.core.Annotations.FileLink;
 import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
+import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
@@ -37,6 +39,12 @@ public class CharacterMDO extends MainSchema {
 	@Desc("Appearance")
 	@SchemaLink(FourDirMDO.class)
 	public String appearance;
+	
+	@Desc("In-battle Portrait")
+	@DefaultValue("None")
+	@FileLink("sprites")
+	@Nullable
+	public String portrait;
 	
 	@Desc("Equipped items/abilities")
 	@SchemaLink(CombatItemMDO.class)

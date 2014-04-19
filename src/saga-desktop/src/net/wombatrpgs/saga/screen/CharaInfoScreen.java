@@ -67,7 +67,7 @@ public class CharaInfoScreen extends Screen {
 		abilsBG = new Nineslice(ABILS_WIDTH + statsBG.getBorderWidth(),
 				ABILS_HEIGHT + headerBG.getBorderHeight());
 		assets.add(abilsBG);
-		header = new CharaInsertFull(chara);
+		header = new CharaInsertFull(chara, false);
 		assets.add(header);
 		addUChild(header);
 		abils = new ItemSelector(chara.getInventory(), chara.getInventory().slotCount(),

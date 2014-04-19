@@ -2,10 +2,11 @@
 	"key" : "chara_dummy",
 	"subfolder" : "test",
 	"name" : "BobHuman",
-	"description" : " ",
+	"description" : "",
 	"race" : "HUMAN",
 	"gender" : "MALE",
 	"appearance" : "4dir_ffl2_human",
+	"portrait" : "None",
 	"equipped" : [
 		"item_testsword",
 		"item_testsword",

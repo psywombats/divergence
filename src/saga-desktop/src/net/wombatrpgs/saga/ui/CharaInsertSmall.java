@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.saga.rpg.Chara;
+import net.wombatrpgs.sagaschema.rpg.chara.data.Status;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**
@@ -56,7 +57,12 @@ public class CharaInsertSmall extends CharaInsert {
 	 */
 	@Override
 	protected void coreRefresh() {
-		hpText1 = new Integer((int) chara.get(Stat.HP)).toString();
+		Status status = chara.getStatus();
+		if (status == null) {
+			hpText1 = new Integer((int) chara.get(Stat.HP)).toString();
+		} else {
+			hpText1 = status.getTag();
+		}
 		hpText2 = "/ " + (int) chara.get(Stat.MHP);
 	}
 

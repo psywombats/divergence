@@ -1,0 +1,23 @@
+{
+	"key" : "chara_enemyTest3",
+	"subfolder" : "test",
+	"name" : "TOPIARY",
+	"description" : "",
+	"race" : "MONSTER",
+	"gender" : "NONE",
+	"appearance" : "4dir_ffl2_human",
+	"portrait" : "battle_portraits/cactus.png",
+	"equipped" : [ ],
+	"stats" : {
+		"hp" : 20,
+		"mhp" : 20,
+		"str" : 2,
+		"def" : 1,
+		"agi" : 0,
+		"mana" : 3,
+		"flags" : [
+			"WEAK_FIRE",
+			"WEAK_ICE"
+		]
+	}
+}

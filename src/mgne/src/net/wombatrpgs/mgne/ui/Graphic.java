@@ -110,4 +110,12 @@ public class Graphic implements PosRenderable {
 		batch.end();
 	}
 
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "<Graphic " + filename + ">";
+	}
+
 }

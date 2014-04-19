@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.saga.lua;
 
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.scenes.SceneCommand;
 import net.wombatrpgs.mgne.scenes.SceneLib;
 import net.wombatrpgs.saga.rpg.Battle;
@@ -30,15 +31,18 @@ public class SceneBattle extends OneArgFunction {
 			
 			/* Initializer */ {
 				mdoKey = arg.toString();
-				battle = new Battle(mdoKey);
+				// battle = new Battle(mdoKey);
 			}
 
 			@Override protected void addToQueue() {
 				super.addToQueue();
-				assets.add(battle);
+				// assets.add(battle);
 			}
 
 			@Override protected void internalRun() {
+				// battle stuff moved here, problems before with null heroes
+				battle = new Battle(mdoKey);
+				MGlobal.assets.loadAsset(battle, "scene battle " + mdoKey);
 				battle.start();
 			}
 

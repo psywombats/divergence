@@ -67,7 +67,7 @@ public class EquipScreen extends Screen {
 		globalX = (getWidth() - (ITEMS_WIDTH + ABILS_WIDTH - abilsBG.getBorderWidth())) / 2;
 		globalY = (getHeight() - (ABILS_HEIGHT + HEADER_HEIGHT)) / 2;
 		
-		header = new CharaInsertFull(chara);
+		header = new CharaInsertFull(chara, false);
 		header.setX(globalX + (HEADER_WIDTH - header.getWidth()) / 2);
 		header.setY(globalY + ABILS_HEIGHT + (HEADER_HEIGHT - header.getHeight()) / 2);
 		assets.add(header);

@@ -9,6 +9,7 @@ package net.wombatrpgs.saga.ui;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.saga.rpg.Chara;
+import net.wombatrpgs.sagaschema.rpg.chara.data.Status;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -22,13 +23,18 @@ public class CharaInsertFull extends CharaInsert {
 	public static final int HEIGHT = 28;
 	
 	protected String line1, line2, line3;
+	protected boolean combatMode;
+	protected boolean skipStatus;
 
 	/**
 	 * Creates a full chara insert for the given chara.
 	 * @param	chara			The character to generate for
+	 * @param	combatMode		True to show status condition instead of race
 	 */
-	public CharaInsertFull(Chara chara) {
+	public CharaInsertFull(Chara chara, boolean combatMode) {
 		super(chara);
+		this.combatMode = combatMode;
+		skipStatus = false;
 		format.width = 104;
 		format.height = 80;
 	}
@@ -46,9 +52,14 @@ public class CharaInsertFull extends CharaInsert {
 	@Override
 	protected void renderInserts(SpriteBatch batch) {
 		FontHolder font = MGlobal.ui.getFont();
-		font.draw(batch, format, line3, (int) font.getLineHeight() * 0);
-		font.draw(batch, format, line2, (int) font.getLineHeight() * 1);
-		font.draw(batch, format, line1, (int) font.getLineHeight() * 2);
+		if (skipStatus) {
+			font.draw(batch, format, line3, (int) font.getLineHeight() * 1/2);
+			font.draw(batch, format, line1, (int) font.getLineHeight() * 3/2);			
+		} else {
+			font.draw(batch, format, line3, (int) font.getLineHeight() * 0);
+			font.draw(batch, format, line2, (int) font.getLineHeight() * 1);
+			font.draw(batch, format, line1, (int) font.getLineHeight() * 2);
+		}
 	}
 
 	/**
@@ -57,8 +68,19 @@ public class CharaInsertFull extends CharaInsert {
 	@Override
 	public void coreRefresh() {
 		format.y -= 4;
+		skipStatus = false;
 		line1 = chara.getName();
-		line2 = chara.getRace().getName() + " " + chara.getGender().getLabel();
+		Status status = chara.getStatus();
+		if (!combatMode && status == null) {
+			line2 = chara.getRace().getName() + " " + chara.getGender().getLabel();
+		} else {
+			if (status == null) {
+				skipStatus = true;
+				line2 = " - ";
+			} else {
+				line2 = status.getTag();
+			}
+		}
 		String mid = chara.get(Stat.MHP) > 100 ? "/" : " / ";
 		line3 = (int) chara.get(Stat.HP) + mid + (int) chara.get(Stat.MHP);
 	}

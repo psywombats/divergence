@@ -211,11 +211,7 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 		batch.setProjectionMatrix(cam.combined);
 		WindowSettings window = MGlobal.window;
 		buffer.begin();
-		Gdx.gl.glClearColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		shapes.setColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
-		shapes.begin(ShapeType.Filled);
-		shapes.rect(0, 0, window.getWidth(), window.getHeight());
+		wipe();
 		shapes.end();
 		buffer.end();
 		
@@ -374,6 +370,18 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	 */
 	protected CommandMap getTopCommandContext() {
 		return commandContext.peek();
+	}
+	
+	/**
+	 * Screen-wiping procedure.
+	 */
+	protected void wipe() {
+		WindowSettings window = MGlobal.window;
+		Gdx.gl.glClearColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		shapes.setColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
+		shapes.begin(ShapeType.Filled);
+		shapes.rect(0, 0, window.getWidth(), window.getHeight());
 	}
 
 }
