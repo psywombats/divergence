@@ -6,10 +6,15 @@
  */
 package net.wombatrpgs.saga.core;
 
+import java.util.List;
+
+import org.luaj.vm2.lib.TwoArgFunction;
+
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.Memory;
 import net.wombatrpgs.mgne.core.MgnGame;
 import net.wombatrpgs.mgne.screen.Screen;
+import net.wombatrpgs.saga.lua.SagaSceneLib;
 import net.wombatrpgs.saga.screen.WorldScreen;
 
 /**
@@ -44,4 +49,13 @@ public class SagaGame extends MgnGame {
 		SGlobal.globalInit();
 	}
 
+	/**
+	 * @see net.wombatrpgs.mgne.core.MgnGame#getLuaLibs()
+	 */
+	@Override
+	public List<Class<? extends TwoArgFunction>> getLuaLibs() {
+		List<Class<? extends TwoArgFunction>> libs = super.getLuaLibs();
+		libs.add(SagaSceneLib.class);
+		return libs;
+	}
 }

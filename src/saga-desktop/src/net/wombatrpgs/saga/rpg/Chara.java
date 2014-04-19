@@ -6,15 +6,11 @@
  */
 package net.wombatrpgs.saga.rpg;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.badlogic.gdx.assets.AssetManager;
-
+import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
+import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.sagaschema.rpg.chara.CharacterMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Gender;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Race;
@@ -26,10 +22,9 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
  * An in-game character. Not called Character so as not to conflict with the one
  * in java.lang.
  */
-public class Chara implements Queueable {
+public class Chara extends AssetQueuer implements Disposable {
 	
 	protected CharacterMDO mdo;
-	protected List<Queueable> assets;
 	
 	protected SagaStats stats;
 	protected FacesAnimation appearance;
@@ -40,8 +35,8 @@ public class Chara implements Queueable {
 	 * @param	mdo				The data to create from
 	 */
 	public Chara(CharacterMDO mdo) {
+		super();
 		this.mdo = mdo;
-		assets = new ArrayList<Queueable>();
 		
 		stats = new SagaStats(mdo.stats);
 		appearance = FacesAnimationFactory.create(mdo.appearance);
@@ -77,27 +72,13 @@ public class Chara implements Queueable {
 	
 	/** @return The object of equipped items for this character */
 	public CharaInventory getInventory() { return inventory; }
-	
-	/**
-	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
-	 */
-	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		for (Queueable asset : assets) {
-			asset.queueRequiredAssets(manager);
-		}
-	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
 	 */
 	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		for (Queueable asset : assets) {
-			asset.postProcessing(manager, pass);
-		}
+	public void dispose() {
+		appearance.dispose();
 	}
 
 	/**

@@ -42,6 +42,7 @@ public class Lua {
 		
 		// ADD ALL LIBRARIES HERE
 		libClasses.add(SceneLib.class);
+		libClasses.addAll(MGlobal.game.getLuaLibs());
 	}
 	
 	/**

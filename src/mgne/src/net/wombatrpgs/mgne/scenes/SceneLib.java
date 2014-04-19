@@ -23,13 +23,6 @@ import org.luaj.vm2.lib.TwoArgFunction;
 public class SceneLib extends TwoArgFunction {
 	
 	protected static List<SceneCommand> commands;
-	
-	/**
-	 * Everybody needs a public constructor. Sorry, it's the rule!
-	 */
-	public SceneLib() {
-		
-	}
 
 	/**
 	 * @see org.luaj.vm2.lib.TwoArgFunction#call
@@ -66,6 +59,8 @@ public class SceneLib extends TwoArgFunction {
 	 * function.
 	 * @param	command			The command to be run later
 	 */
-	public static void addFunction(SceneCommand command) { commands.add(command); }
+	public static void addFunction(SceneCommand command) {
+		commands.add(command);
+	}
 
 }

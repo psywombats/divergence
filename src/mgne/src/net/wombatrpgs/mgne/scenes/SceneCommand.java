@@ -7,7 +7,6 @@
 package net.wombatrpgs.mgne.scenes;
 
 import net.wombatrpgs.mgne.core.AssetQueuer;
-import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.screen.Screen;
@@ -24,8 +23,7 @@ import net.wombatrpgs.mgneschema.io.data.InputCommand;
  * really only the speak command needed that thing in the first place and it can
  * block itself. However, a collection of timing methods have been added.
  */
-public abstract class SceneCommand extends AssetQueuer implements	Queueable,
-																	Updateable,
+public abstract class SceneCommand extends AssetQueuer implements	Updateable,
 																	CommandListener {
 	
 	protected SceneParser parent;
@@ -46,13 +44,13 @@ public abstract class SceneCommand extends AssetQueuer implements	Queueable,
 	}
 	
 	/** @return The parent parser that will execute this command */
-	public SceneParser getParent() { return this.parent; }
+	public final SceneParser getParent() { return this.parent; }
 	
 	/** @return The screen this command is running on */
-	public Screen getScreen() { return parent.getScreen(); }
+	public final Screen getScreen() { return parent.getScreen(); }
 	
 	/** @return True if this command is done running */
-	public boolean isFinished() { return this.finished; }
+	public final boolean isFinished() { return this.finished; }
 	
 	/**
 	 * This will only be called if this command is actually running.

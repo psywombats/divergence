@@ -6,6 +6,11 @@
  */
 package net.wombatrpgs.mgne.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.luaj.vm2.lib.TwoArgFunction;
+
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.instances.GameScreen;
 
@@ -64,6 +69,16 @@ public abstract class MgnGame {
 	 */
 	public void onCreate() {
 		// noop
+	}
+	
+	/**
+	 * Returns the list of the classes of lua lib that the game requires. These
+	 * should be the ones defined by the game; mgn defaults are already
+	 * included. By default, returns an empty list.
+	 * @return					A list of all lua libs required by the game
+	 */
+	public List<Class<? extends TwoArgFunction>> getLuaLibs() {
+		return new ArrayList<Class<? extends TwoArgFunction>>();
 	}
 
 }

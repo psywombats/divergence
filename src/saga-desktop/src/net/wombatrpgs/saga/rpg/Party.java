@@ -9,16 +9,15 @@ package net.wombatrpgs.saga.rpg;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.assets.AssetManager;
-
-import net.wombatrpgs.mgne.core.interfaces.Queueable;
+import net.wombatrpgs.mgne.core.AssetQueuer;
+import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.PartyEntryMDO;
 
 /**
  * Just a collection of characters. The player party is in a different subclass.
  */
-public class Party implements Queueable {
+public class Party extends AssetQueuer implements Disposable {
 	
 	protected List<List<Chara>> groups;
 	protected List<Chara> members;
@@ -36,6 +35,7 @@ public class Party implements Queueable {
 				Chara chara = new Chara(entryMDO.monster);
 				group.add(chara);
 				members.add(chara);
+				assets.add(chara);
 			}
 			groups.add(group);
 		}
@@ -57,24 +57,12 @@ public class Party implements Queueable {
 	public Chara getFrontMember(int n) { return getGroup(n).get(0); }
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
-	 * (com.badlogic.gdx.assets.AssetManager)
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
 	 */
 	@Override
-	public void queueRequiredAssets(AssetManager manager) {
-		for (Chara member : members) {
-			member.queueRequiredAssets(manager);
-		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int)
-	 */
-	@Override
-	public void postProcessing(AssetManager manager, int pass) {
-		for (Chara member : members) {
-			member.postProcessing(manager, pass);
+	public void dispose() {
+		for (Chara chara : getAll()) {
+			chara.dispose();
 		}
 	}
 

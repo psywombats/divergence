@@ -47,5 +47,11 @@
     <property name="onCollide" value="teleport('test2.tmx', 1, 8)"/>
    </properties>
   </object>
+  <object name="bort the bozo" type="Character" x="96" y="208" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="onInteract" value="battle('party_enemyTest')"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

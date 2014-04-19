@@ -425,6 +425,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 			Lua.generateFunction(this, lua, "getY");
 			Lua.generateFunction(this, lua, "getTileX");
 			Lua.generateFunction(this, lua, "getTileY");
+			// TODO: lua: these will execute immediately
 			lua.set("attemptStep", new OneArgFunction() {
 				@Override public LuaValue call(LuaValue arg) {
 					String argString = (String) CoerceLuaToJava.coerce(arg, String.class);

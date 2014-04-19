@@ -71,10 +71,6 @@ public class SceneSpeak extends OneArgFunction {
 			@Override protected boolean shouldFinish() {
 				return !blocking && super.shouldFinish();
 			}
-
-			@Override protected void finish() {
-				super.finish();
-			}
 			
 		});
 		return LuaValue.NIL;

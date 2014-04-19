@@ -9,6 +9,7 @@ package net.wombatrpgs.mgne.graphics;
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
+import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
 import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
 import net.wombatrpgs.mgneschema.graphics.data.AnimationType;
@@ -26,7 +27,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * vertically in terms of markup.
  */
 public class AnimationStrip implements	PosRenderable,
-										Updateable {
+										Updateable,
+										Disposable {
 	
 	protected AnimationMDO mdo;
 	
@@ -87,6 +89,14 @@ public class AnimationStrip implements	PosRenderable,
 	
 	/** @return True if this animation is currently playing */
 	public boolean isMoving() { return moving; }
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
+	 */
+	@Override
+	public void dispose() {
+		spritesheet.dispose();
+	}
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)

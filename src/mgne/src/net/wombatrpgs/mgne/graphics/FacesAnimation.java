@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
+import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 
@@ -21,7 +22,8 @@ import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
  * moving.
  */
 public abstract class FacesAnimation implements	PosRenderable,
-												Updateable {
+												Updateable,
+												Disposable {
 	
 	protected static final float FLICKER_DURATION = .3f; // in s
 	
@@ -110,6 +112,16 @@ public abstract class FacesAnimation implements	PosRenderable,
 		for (int i = 0; i < facings; i++) {
 			// we could just update the only one being displayed...
 			animations[i].update(elapsed);
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
+	 */
+	@Override
+	public void dispose() {
+		for (AnimationStrip strip : animations) { 
+			strip.dispose();
 		}
 	}
 

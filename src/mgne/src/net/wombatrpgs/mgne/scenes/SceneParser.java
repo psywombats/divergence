@@ -99,6 +99,7 @@ public abstract class SceneParser implements 	Updateable,
 	public void postProcessing(AssetManager manager, int pass) {
 		if (pass == 0) {
 			for (SceneCommand command : commands) {
+				command.addToQueue();
 				command.queueRequiredAssets(manager);
 			}
 		} else {
