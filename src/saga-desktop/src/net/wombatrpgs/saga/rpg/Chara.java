@@ -48,7 +48,7 @@ public class Chara extends AssetQueuer implements Disposable {
 		inventory = new CharaInventory(mdo, this);
 		status = null;
 		
-		appearance = FacesAnimationFactory.create(mdo.appearance);
+		appearance = createSprite();
 		assets.add(appearance);
 		if (MapThing.mdoHasProperty(mdo.portrait)) {
 			portrait = new Graphic(Constants.SPRITES_DIR, mdo.portrait);
@@ -97,6 +97,16 @@ public class Chara extends AssetQueuer implements Disposable {
 	@Override
 	public void dispose() {
 		appearance.dispose();
+	}
+	
+	/**
+	 * Creates an animation for use wherever. Use this if you need to have
+	 * animations in multiple places rather than just the standard anim of this
+	 * character. Make sure to queue and dispose it.
+	 * @return					A new sprite for this character
+	 */
+	public FacesAnimation createSprite() {
+		return FacesAnimationFactory.create(mdo.appearance);
 	}
 
 	/**

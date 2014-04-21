@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.saga.screen;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -16,6 +17,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.WindowSettings;
@@ -25,6 +27,7 @@ import net.wombatrpgs.mgne.ui.Option;
 import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
+import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.saga.rpg.Battle;
 import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.Party;
@@ -45,6 +48,7 @@ public class CombatScreen extends Screen {
 	protected static final int MONSTERLIST_WIDTH = 124;
 	protected static final int MONSTERLIST_HEIGHT = 48;
 	protected static final int MONSTERLIST_MARGIN = 10;
+	protected static final int SPRITES_HEIGHT = 24;
 	
 	protected Battle battle;
 	
@@ -53,6 +57,7 @@ public class CombatScreen extends Screen {
 	protected TextBoxFormat monsterlistFormat;
 	protected String[] monsterlist;
 	protected OptionSelector options;
+	protected List<FacesAnimation> sprites;
 	protected float globalX, globalY;
 	
 	protected boolean showEnemyInserts;
@@ -103,6 +108,16 @@ public class CombatScreen extends Screen {
 		options.setX(globalX + OPTIONS_MARGIN);
 		options.setY(globalY - OPTIONS_MARGIN + OPTIONS_HEIGHT - options.getHeight());
 		
+		sprites = new ArrayList<FacesAnimation>();
+		for (Chara chara : battle.getPlayer().getAll()) {
+			FacesAnimation anim = chara.createSprite();
+			anim.startMoving();
+			anim.setFacing(OrthoDir.NORTH);
+			addUChild(anim);
+			sprites.add(anim);
+			assets.add(anim);
+		}
+		
 		FontHolder font = MGlobal.ui.getFont();
 		monsterlistFormat = new TextBoxFormat();
 		monsterlistFormat.align = HAlignment.LEFT;
@@ -147,16 +162,24 @@ public class CombatScreen extends Screen {
 			}
 		}
 		WindowSettings win = MGlobal.window;
-		for (int i = 0 ; i < enemy.groupCount(); i += 1) { 
+		for (int i = 0 ; i < groups; i += 1) { 
 			List<Chara> group = enemy.getGroup(i);
 			if (group.size() == 0) continue;
 			Graphic portrait = enemy.getFront(i).getPortrait();
 			if (portrait == null) continue;
 			float renderX = globalX + (win.getViewportWidth() - portrait.getWidth()*groups) * (i+1)/(groups+1) +
 					(portrait.getWidth()) * i;
-			float renderY = globalY + OPTIONS_HEIGHT +
-					((win.getViewportHeight() - OPTIONS_HEIGHT) - portrait.getHeight()) / 2;
+			float renderY = globalY + OPTIONS_HEIGHT + SPRITES_HEIGHT +
+					((win.getViewportHeight() - OPTIONS_HEIGHT - SPRITES_HEIGHT) - portrait.getHeight()) / 2;
 			portrait.renderAt(batch, renderX, renderY);
+		}
+		int players = sprites.size();
+		for (int i = 0; i < players; i += 1) {
+			FacesAnimation anim = sprites.get(i);
+			float renderX = globalX + (win.getViewportWidth() - anim.getWidth()*players) * (i+1)/(players+1) +
+					(anim.getWidth()) * i;
+			float renderY = globalY + OPTIONS_HEIGHT + (SPRITES_HEIGHT - anim.getHeight()) / 2;
+			anim.renderAt(batch, renderX, renderY);
 		}
 		super.render(batch);
 	}
@@ -194,6 +217,17 @@ public class CombatScreen extends Screen {
 		shapes.setColor(248.f/255.f, 248.f/255.f, 248.f/255.f, 1);
 		shapes.begin(ShapeType.Filled);
 		shapes.rect(0, 0, window.getWidth(), window.getHeight());
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.screen.Screen#dispose()
+	 */
+	@Override
+	public void dispose() {
+		super.dispose();
+		for (FacesAnimation sprite : sprites) {
+			sprite.dispose();
+		}
 	}
 
 	/**
