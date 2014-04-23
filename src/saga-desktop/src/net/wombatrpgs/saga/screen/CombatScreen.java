@@ -31,6 +31,7 @@ import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.saga.rpg.Battle;
 import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.Party;
+import net.wombatrpgs.saga.ui.BattleBox;
 import net.wombatrpgs.saga.ui.CharaSelector;
 
 /**
@@ -50,6 +51,9 @@ public class CombatScreen extends Screen {
 	protected static final int MONSTERLIST_MARGIN = 10;
 	protected static final int SPRITES_HEIGHT = 24;
 	
+	protected static final int TEXT_LINES = 6;
+	protected static final float TEXT_FADE_TIME = .1f;
+	
 	protected Battle battle;
 	
 	protected Nineslice optionsBG, insertsBG, monsterlistBG;
@@ -58,6 +62,7 @@ public class CombatScreen extends Screen {
 	protected String[] monsterlist;
 	protected OptionSelector options;
 	protected List<FacesAnimation> sprites;
+	protected BattleBox text;
 	protected float globalX, globalY;
 	
 	protected boolean showEnemyInserts;
@@ -101,6 +106,9 @@ public class CombatScreen extends Screen {
 		assets.add(enemyInserts);
 		addUChild(partyInserts);
 		addUChild(enemyInserts);
+		
+		text = new BattleBox(this, TEXT_LINES);
+		assets.add(text);
 		
 		globalX = (getWidth() - (INSERTS_WIDTH + OPTIONS_WIDTH)) / 2;
 		globalY = 0;
@@ -207,6 +215,38 @@ public class CombatScreen extends Screen {
 	}
 	
 	/**
+	 * @see net.wombatrpgs.mgne.screen.Screen#dispose()
+	 */
+	@Override
+	public void dispose() {
+		super.dispose();
+		for (FacesAnimation sprite : sprites) {
+			sprite.dispose();
+		}
+	}
+	
+	/**
+	 * Prints some text to the battle textbox. This will cause the battlebox to
+	 * fade in on the screen if it isn't already. The child battle will receive
+	 * a call when the line finishes displaying.
+	 * @param	line			The text to print
+	 */
+	public void println(String line) {
+		if (!containsChild(text)) {
+			text.fadeIn(this, TEXT_FADE_TIME);
+		}
+		text.println(line);
+	}
+	
+	/**
+	 * Called by the battle textbox when its text has been consumed.
+	 */
+	public void onTextFinished() {
+		// TODO: battle: only advance if the animation is done too
+		battle.onPlaybackFinished();
+	}
+	
+	/**
 	 * @see net.wombatrpgs.mgne.screen.Screen#wipe()
 	 */
 	@Override
@@ -217,17 +257,6 @@ public class CombatScreen extends Screen {
 		shapes.setColor(248.f/255.f, 248.f/255.f, 248.f/255.f, 1);
 		shapes.begin(ShapeType.Filled);
 		shapes.rect(0, 0, window.getWidth(), window.getHeight());
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.screen.Screen#dispose()
-	 */
-	@Override
-	public void dispose() {
-		super.dispose();
-		for (FacesAnimation sprite : sprites) {
-			sprite.dispose();
-		}
 	}
 
 	/**

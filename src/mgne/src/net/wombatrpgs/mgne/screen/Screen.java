@@ -141,6 +141,9 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	/** @return The height (in px) of current frames */
 	public int getHeight() { return MGlobal.window.getViewportHeight(); }
 	
+	/** @return The command listener currently receiving first commands */
+	public CommandListener getTopCommandListener() { return commandListeners.peek(); }
+	
 	/**
 	 * Checks to see if a screen object exists on the screen. Also checks if the
 	 * object is queued to be added next update step.

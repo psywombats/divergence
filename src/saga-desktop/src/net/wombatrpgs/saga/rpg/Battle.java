@@ -88,6 +88,23 @@ public class Battle extends AssetQueuer implements Disposable {
 	public void start() {
 		MGlobal.screens.push(screen);
 	}
+	
+	/**
+	 * Called by the combat screen when playback for an attack, text output, etc
+	 * has finished animating and it's time to move on to the next one.
+	 */
+	public void onPlaybackFinished() {
+		
+	}
+	
+	/**
+	 * Writes some text to the screen using the battle text output box. Will
+	 * draw focus to the text box if it isn't selected.
+	 * @param	text			The text to write
+	 */
+	public void write(String text) {
+		
+	}
 
 	/**
 	 * Called when the user says that they want to fight.
@@ -100,7 +117,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * Called when the user says that they want to run.
 	 */
 	public void onRun() {
-		
+		screen.println("Ran away safely.");
 	}
 
 }

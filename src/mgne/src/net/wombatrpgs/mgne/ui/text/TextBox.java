@@ -215,10 +215,8 @@ public class TextBox extends ScreenGraphic {
 	/**
 	 * Pretty text display. This is the primary input to the textbox. It will
 	 * take a string, break it at the nearest word, and display it on the page.
-	 * Note that this does not cover cases where the text is longer than the
-	 * box can hold; that should be handled in CommandSpeakAll, because the only
-	 * time multiple text boxes should be used to display one string is in
-	 * cutscenes. This does not add the textbox to the current screen.
+	 * This will scroll the textbox rather than creating multiple boxes like a
+	 * cutscene. This does not add the textbox to the current screen.
 	 * @param	text			The hunk of text to display	
 	 */
 	public void setText(String text) {

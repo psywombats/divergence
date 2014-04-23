@@ -29,6 +29,7 @@ public class UISettings extends AssetQueuer {
 	
 	protected UISettingsMDO mdo; // this is only the original default settings
 	protected FontHolder font;
+	protected TextBoxMDO boxMDO;
 	protected TextBox box;
 	protected IconSet icons;
 	protected NinesliceMDO ninesliceMDO;
@@ -43,7 +44,8 @@ public class UISettings extends AssetQueuer {
 		this.mdo = mdo;
 		font = new FontHolder(MGlobal.data.getEntryFor(mdo.font, FontMDO.class));
 		assets.add(font);
-		box = new TextBox(MGlobal.data.getEntryFor(mdo.box, TextBoxMDO.class), font);
+		boxMDO = MGlobal.data.getEntryFor(mdo.box, TextBoxMDO.class);
+		box = new TextBox(boxMDO, font);
 		assets.add(box);
 		icons = new IconSet(MGlobal.data.getEntryFor(mdo.icons, IconSetMDO.class));
 		assets.add(icons);
@@ -55,6 +57,9 @@ public class UISettings extends AssetQueuer {
 	
 	/** @return The text box associated with these settings */
 	public TextBox getBox() { return this.box; }
+	
+	/** @return The text box data associated with these settings */
+	public TextBoxMDO getBoxMDO() { return this.boxMDO; }
 	
 	/** @return The font associated with these settings */
 	public FontHolder getFont() { return this.font; }
