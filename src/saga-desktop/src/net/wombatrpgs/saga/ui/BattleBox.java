@@ -62,13 +62,28 @@ public class BattleBox extends TextBox implements CommandListener {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-		if (isFinished()) {
-			parent.removeCommandListener(this);
-			parent.onTextFinished();
+		if (command == InputCommand.UI_CONFIRM) {
+			if (isFinished()) {
+				parent.removeCommandListener(this);
+				parent.onTextFinished();
+			} else {
+				hurryUp();
+			}
+			return true;
 		} else {
-			hurryUp();
+			return false;
 		}
-		return true;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#fadeOut(float)
+	 */
+	@Override
+	public void fadeOut(float fadeTime) {
+		super.fadeOut(fadeTime);
+		if (parent.getTopCommandListener() == this) {
+			parent.removeCommandListener(this);
+		}
 	}
 
 	/**
@@ -77,7 +92,7 @@ public class BattleBox extends TextBox implements CommandListener {
 	 * @param	text			The text to write to the screen
 	 */
 	public void println(String text) {
-		print(text + "\n");
+		print(text + "\n\n");
 	}
 	
 	/**

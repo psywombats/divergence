@@ -31,6 +31,7 @@ public class AnimationStrip implements	PosRenderable,
 										Disposable {
 	
 	protected AnimationMDO mdo;
+	protected String fileName;
 	
 	protected transient Animation anim;
 	protected transient Texture spritesheet;
@@ -61,6 +62,8 @@ public class AnimationStrip implements	PosRenderable,
 		if (mdo.hit1y == null) mdo.hit1y = 0;
 		if (mdo.hit2x == null) mdo.hit2x = mdo.frameWidth;
 		if (mdo.hit2y == null) mdo.hit2y = mdo.frameHeight;
+		
+		fileName = Constants.SPRITES_DIR + mdo.file;
 	}
 	
 	/** Kryo constructor */
@@ -95,7 +98,7 @@ public class AnimationStrip implements	PosRenderable,
 	 */
 	@Override
 	public void dispose() {
-		spritesheet.dispose();
+		MGlobal.assets.unload(fileName);
 	}
 
 	/**
@@ -162,7 +165,7 @@ public class AnimationStrip implements	PosRenderable,
 	 */
 	@Override
 	public void queueRequiredAssets(MAssets manager) {
-		manager.load(Constants.SPRITES_DIR + mdo.file, Texture.class);
+		manager.load(fileName, Texture.class);
 	}
 
 	/**

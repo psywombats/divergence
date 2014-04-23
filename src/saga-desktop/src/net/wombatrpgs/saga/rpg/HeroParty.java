@@ -58,6 +58,9 @@ public class HeroParty extends Party {
 	/** @return The inventory of the party */
 	public PartyInventory getInventory() { return inventory; }
 	
+	/** @retrun The front member of the party */
+	public Chara getFront() { return getFront(0); }
+	
 	/**
 	 * Adds a character to the party.
 	 * @param	hero			The character to add

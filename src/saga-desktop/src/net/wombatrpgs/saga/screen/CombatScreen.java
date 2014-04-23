@@ -193,15 +193,6 @@ public class CombatScreen extends Screen {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.screen.Screen#onFocusGained()
-	 */
-	@Override
-	public void onFocusGained() {
-		super.onFocusGained();
-		options.showAt((int) options.getX(), (int) options.getY()); 
-	}
-
-	/**
 	 * @see net.wombatrpgs.mgne.screen.Screen#postProcessing
 	 * (net.wombatrpgs.mgne.core.MAssets, int)
 	 */
@@ -224,7 +215,7 @@ public class CombatScreen extends Screen {
 			sprite.dispose();
 		}
 	}
-	
+
 	/**
 	 * Prints some text to the battle textbox. This will cause the battlebox to
 	 * fade in on the screen if it isn't already. The child battle will receive
@@ -244,6 +235,20 @@ public class CombatScreen extends Screen {
 	public void onTextFinished() {
 		// TODO: battle: only advance if the animation is done too
 		battle.onPlaybackFinished();
+	}
+	
+	/**
+	 * Called by the battle when a new run/fight round is beginning.
+	 */
+	public void onNewRound() {
+		if (containsChild(text)) {
+			text.fadeOut(TEXT_FADE_TIME);
+		}
+		if (containsChild(options)) {
+			options.focus();
+		} else {
+			options.showAt((int) options.getX(), (int) options.getY());
+		}
 	}
 	
 	/**

@@ -8,6 +8,7 @@ package net.wombatrpgs.saga.rpg;
 
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.screen.CombatScreen;
@@ -19,10 +20,15 @@ import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
  */
 public class Battle extends AssetQueuer implements Disposable {
 	
+	// battle attributes
 	protected CombatScreen screen;
 	protected HeroParty player;
 	protected Party enemy;
 	protected boolean anonymous;
+	
+	// internal constructs
+	protected FinishListener playbackListener;
+	protected boolean finished;
 	
 	/**
 	 * Creates a new encounter between the player and some enemy party. The
@@ -37,6 +43,7 @@ public class Battle extends AssetQueuer implements Disposable {
 		assets.add(enemy);
 		assets.add(screen);
 		anonymous = false;
+		finished = false;
 	}
 	
 	/**
@@ -62,7 +69,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	}
 	
 	/** @return True if the battle is all over, including screen off */
-	public boolean isDone() { return false; }
+	public boolean isDone() { return finished; }
 	
 	/** @return The party representing the player */
 	public Party getPlayer() { return player; }
@@ -83,10 +90,23 @@ public class Battle extends AssetQueuer implements Disposable {
 	}
 	
 	/**
-	 * Call this to begin the battle. Will bring the screen to the front.
+	 * Call this to begin the battle. Will bring the screen to the front. Should
+	 * smoothly transition etc.
 	 */
 	public void start() {
+		// TODO: battle: start transitions
 		MGlobal.screens.push(screen);
+		screen.onNewRound();
+	}
+	
+	/**
+	 * Ends the battle without worrying about things gold or meat or xp. Should
+	 * play transitions etc.
+	 */
+	public void finish() {
+		// TODO: battle: finish transitions
+		MGlobal.screens.pop();
+		finished = true;
 	}
 	
 	/**
@@ -94,7 +114,10 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * has finished animating and it's time to move on to the next one.
 	 */
 	public void onPlaybackFinished() {
-		
+		if (playbackListener != null) {
+			playbackListener.onFinish();
+			playbackListener = null;
+		}
 	}
 	
 	/**
@@ -117,7 +140,50 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * Called when the user says that they want to run.
 	 */
 	public void onRun() {
-		screen.println("Ran away safely.");
+		if (calcRunChance() >= MGlobal.rand.nextFloat()) {
+			playback(player.getFront().getName() + " runs.", new FinishListener() {
+				@Override public void onFinish() {
+					finish();
+				}
+			});
+		} else {
+			playback("Can't escape.", new FinishListener() {
+				@Override public void onFinish() {
+					// TODO: battle: on run failure
+					newRound();
+				}
+			});
+		}
+	}
+	
+	/**
+	 * Plays back a line of text on the battle screen, waits for it to finish,
+	 * then calls the listener.
+	 * @param	line				The text to display on the screen
+	 * @param	listener			What to do when the text display is done
+	 */
+	protected void playback(String line, FinishListener listener) {
+		if (playbackListener != null) {
+			MGlobal.reporter.warn("Multiple playback finish listeners.");
+		}
+		playbackListener = listener;
+		screen.println(line);
+	}
+	
+	/**
+	 * Calculates the chance of fleeing successfully, from 0 to 1.
+	 * @return					The chance of escape, 0=never 1=always
+	 */
+	protected float calcRunChance() {
+		return .5f;
+	}
+	
+	/**
+	 * Called between turns of the turn-based battle. This calls the run/fight
+	 * prompt pop-up and removes the ugly textbox.
+	 */
+	protected void newRound() {
+		screen.onNewRound();
 	}
 
 }
