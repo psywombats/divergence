@@ -1,0 +1,14 @@
+{
+	"key" : "whatevenisthis",
+	"subfolder" : "",
+	"name" : "Hammer",
+	"description" : "derp derp its a hammer",
+	"abilityName" : "Hammer",
+	"type" : "ITEM",
+	"uses" : 50,
+	"cost" : 40,
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.AbilAttackMDO",
+		"key" : "anon_CombatItemMDO_15324060"
+	}
+}
