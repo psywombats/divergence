@@ -6,7 +6,11 @@
  */
 package net.wombatrpgs.saga.rpg;
 
+import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.saga.rpg.Intent.IntentListener;
+import net.wombatrpgs.saga.rpg.warheads.AbilEffect;
+import net.wombatrpgs.saga.rpg.warheads.AbilEffectFactory;
 import net.wombatrpgs.saga.ui.ItemSelector;
 import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
 
@@ -15,11 +19,12 @@ import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
  * way, it can be equipped to a character and potentially have a use in combat.
  */
 // TODO: saga: add the combat aspects of this class
-public class CombatItem {
+public class CombatItem extends AssetQueuer {
 	
 	protected CombatItemMDO mdo;
 	
 	protected Chara owner;	// null for party
+	protected AbilEffect effect;
 	protected String name;
 	protected int uses;
 	
@@ -31,6 +36,8 @@ public class CombatItem {
 		this.mdo = mdo;
 		uses = mdo.uses;
 		name = MGlobal.charConverter.convert(mdo.abilityName);
+		effect = AbilEffectFactory.create(mdo.warhead.key, this);
+		assets.add(effect);
 	}
 	
 	/**
@@ -68,6 +75,18 @@ public class CombatItem {
 	public boolean isMapUsable() {
 		// TODO: saga: onmapuse
 		return false;
+	}
+	
+	/**
+	 * Construct an intent from player input and warhead. This is called by the
+	 * battle when this item is selected for use, and later passed back when
+	 * the item is used in battle playback. The intent might already have some
+	 * preselected options and the player is editing it, or it might be raw.
+	 * @param	intent			The currently recorded intent state, never null
+	 * @param	listener		The listener to give intent to when finished
+	 */
+	public void modifyIntent(Intent intent, IntentListener listener) {
+		effect.modifyIntent(intent, listener);
 	}
 
 }

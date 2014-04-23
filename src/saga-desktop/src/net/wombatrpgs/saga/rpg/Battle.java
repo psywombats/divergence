@@ -11,7 +11,10 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.saga.core.SGlobal;
+import net.wombatrpgs.saga.rpg.Intent.IntentListener;
+import net.wombatrpgs.saga.rpg.Intent.TargetListener;
 import net.wombatrpgs.saga.screen.CombatScreen;
+import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
 import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
 
 /**
@@ -40,10 +43,18 @@ public class Battle extends AssetQueuer implements Disposable {
 		this.player = player;
 		this.enemy = enemy;
 		this.screen = new CombatScreen(this);
-		assets.add(enemy);
-		assets.add(screen);
 		anonymous = false;
 		finished = false;
+		
+		assets.add(enemy);
+		assets.add(screen);
+		queueInventory(player.getInventory());
+		for (Chara chara : player.getAll()) {
+			queueInventory(chara.getInventory());
+		}
+		for (Chara chara : enemy.getAll()) {
+			queueInventory(chara.getInventory());
+		}
 	}
 	
 	/**
@@ -133,7 +144,27 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * Called when the user says that they want to fight.
 	 */
 	public void onFight() {
-		
+		final Chara chara = player.getFront();
+		final Battle battle = this;
+		screen.selectItem(chara, new SlotListener() {
+			@Override public boolean onSelection(int selected) {
+				if (selected == -1) {
+					
+				} else {
+					CombatItem item = chara.getInventory().get(selected);
+					if (item != null) {
+						Intent intent = new Intent(chara, battle, item);
+						item.modifyIntent(intent, new IntentListener() {
+							@Override public void onIntent(Intent intent) {
+								// TODO Auto-generated method stub
+								
+							}
+						});
+					}
+				}
+				return true;
+			}
+		});
 	}
 	
 	/**
@@ -157,10 +188,65 @@ public class Battle extends AssetQueuer implements Disposable {
 	}
 	
 	/**
+	 * Prompts the user to select an enemy, then calls the listener. Internally
+	 * selects the first enemy if null is passed as the current selection.
+	 * @param	selected		The currently selected enemy, or null if none
+	 * @param	listener		The callback once target is selected
+	 */
+	public void selectSingleEnemy(Chara selected, TargetListener listener) {
+		int index = index(selected);
+		if (index == -1) index = 0;
+		while (enemy.getGroup(index).size() == 0) {
+			index += 1;
+		}
+		screen.selectEnemyIndex(index, listener, false);
+	}
+	
+	/**
+	 * Prompts the user to select an enemy group, then calls the listener.
+	 * Internally moves up the cursor if an empty group is selected.
+	 * @param	index			The index of the currently selected group
+	 * @param	listener		The callback once targets are selected
+	 */
+	public void selectEnemyGroup(int index, TargetListener listener) {
+		if (index < 0) index = 0;
+		while (enemy.getGroup(index).size() == 0) {
+			index += 1;
+		}
+		screen.selectEnemyIndex(index, listener, true);
+	}
+	
+	/**
+	 * Gets the index of the group the enemy is in. Returns -1 if no group.
+	 * @param	target			The enemy to to check
+	 * @return					The index of that enemy's group
+	 */
+	public int index(Chara target) {
+		for (int i = 0; i < enemy.groupCount(); i += 1) {
+			if (enemy.getGroup(i).contains(target)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	/**
+	 * Adds all items in a chara's inventory to the asset list.
+	 * @param	inventory			The inventory to queue from
+	 */
+	protected void queueInventory(Inventory inventory) {
+		for (CombatItem item : inventory.getItems()) {
+			if (item != null) {
+				assets.add(item);
+			}
+		}
+	}
+	
+	/**
 	 * Plays back a line of text on the battle screen, waits for it to finish,
 	 * then calls the listener.
-	 * @param	line				The text to display on the screen
-	 * @param	listener			What to do when the text display is done
+	 * @param	line			The text to display on the screen
+	 * @param	listener		What to do when the text display is done
 	 */
 	protected void playback(String line, FinishListener listener) {
 		if (playbackListener != null) {

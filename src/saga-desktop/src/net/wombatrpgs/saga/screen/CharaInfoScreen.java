@@ -21,7 +21,7 @@ import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
 import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.ui.ItemSelector;
-import net.wombatrpgs.saga.ui.ItemSelector.SelectionListener;
+import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
 import net.wombatrpgs.saga.ui.CharaInsert;
 import net.wombatrpgs.saga.ui.CharaInsertFull;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
@@ -119,7 +119,7 @@ public class CharaInfoScreen extends Screen {
 	@Override
 	public void onFocusGained() {
 		super.onFocusGained();
-		abils.awaitSelection(new SelectionListener() {
+		abils.awaitSelection(new SlotListener() {
 			@Override public boolean onSelection(int selected) {
 				if (selected == -1) {
 					MGlobal.screens.pop();

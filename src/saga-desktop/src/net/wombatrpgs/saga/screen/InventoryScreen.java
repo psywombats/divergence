@@ -16,7 +16,7 @@ import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.Inventory;
 import net.wombatrpgs.saga.ui.ItemSelector;
-import net.wombatrpgs.saga.ui.ItemSelector.SelectionListener;
+import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
 
 /**
  * Items display!
@@ -72,7 +72,7 @@ public class InventoryScreen extends Screen {
 	public void onFocusGained() {
 		super.onFocusGained();
 		marked = -1;
-		items.awaitSelection(new SelectionListener() {
+		items.awaitSelection(new SlotListener() {
 			@Override public boolean onSelection(int selected) {
 				if (marked == -1) {
 					if (selected == -1) {

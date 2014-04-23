@@ -42,7 +42,7 @@ public class GameScreen extends Screen {
 			MGlobal.screens.playMusic(map.getBGM(), false);
 		}
 		
-		addObject(map);
+		addChild(map);
 		pushCommandContext(new CMapGame());
 		
 		hero = new Avatar();

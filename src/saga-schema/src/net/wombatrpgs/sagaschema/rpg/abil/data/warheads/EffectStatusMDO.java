@@ -16,7 +16,7 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 /**
  * Inflicts status conditions.
  */
-public class AbilStatusMDO extends AbilEffectMDO {
+public class EffectStatusMDO extends AbilEffectMDO {
 	
 	@Desc("Projector")
 	@DefaultValue("SINGLE_ENEMY")

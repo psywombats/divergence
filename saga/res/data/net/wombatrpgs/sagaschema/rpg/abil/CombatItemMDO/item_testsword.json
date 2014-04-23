@@ -6,9 +6,9 @@
 	"abilityName" : "$EDUMMY",
 	"type" : "ITEM",
 	"uses" : 50,
-	"cost" : 1000,
+	"cost" : 40,
 	"warhead" : {
-		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.AbilNothingMDO",
-		"key" : "anon_CombatItemMDO_481383334"
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_1710453324"
 	}
 }

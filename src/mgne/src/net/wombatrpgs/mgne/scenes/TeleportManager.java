@@ -121,8 +121,8 @@ public class TeleportManager implements Queueable {
 
 		//MGlobal.screens.getCamera().constrainMaps(map);
 		
-		MGlobal.levelManager.getScreen().addObject(map);
-		MGlobal.levelManager.getScreen().removeObject(old);
+		MGlobal.levelManager.getScreen().addChild(map);
+		MGlobal.levelManager.getScreen().removeChild(old);
 		
 	}
 

@@ -16,7 +16,7 @@ import net.wombatrpgs.sagaschema.rpg.stats.StatModMDO;
 /**
  * Passive resistance or stat abilities.
  */
-public class AbilPassiveMDO extends AbilEffectMDO {
+public class EffectPassiveMDO extends AbilEffectMDO {
 	
 	@Desc("Damage type resistances")
 	public DamageType[] damResist;

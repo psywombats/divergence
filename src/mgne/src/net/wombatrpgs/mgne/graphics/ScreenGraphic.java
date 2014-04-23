@@ -96,7 +96,7 @@ public abstract class ScreenGraphic extends ScreenObject implements PositionSeta
 	@Override
 	public void update(float elapsed) {
 		if (fadingOut && !isTweening()) {
-			parent.removeObject(this);
+			parent.removeChild(this);
 		}
 		if (tweening) {
 			tweenTime += elapsed;
@@ -176,7 +176,7 @@ public abstract class ScreenGraphic extends ScreenObject implements PositionSeta
 		this.parent = screen;
 		setColor(new Color(1, 1, 1, 0));
 		if (!screen.containsChild(this)) {
-			screen.addObject(this);
+			screen.addChild(this);
 		}
 		tweenTo(new Color(1, 1, 1, 1), fadeTime);
 	}

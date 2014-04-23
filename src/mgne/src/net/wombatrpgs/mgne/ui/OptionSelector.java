@@ -224,7 +224,7 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 			MGlobal.assets.loadAsset(this, "autoloading options menu");
 		}
 		
-		MGlobal.screens.peek().addObject(this);
+		MGlobal.screens.peek().addChild(this);
 		focus();
 		
 		format = new TextBoxFormat();
@@ -268,7 +268,7 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	 */
 	public void close() {
 		unfocus();
-		MGlobal.screens.peek().removeObject(this);
+		MGlobal.screens.peek().removeChild(this);
 		if (autoload) {
 			dispose();
 		}

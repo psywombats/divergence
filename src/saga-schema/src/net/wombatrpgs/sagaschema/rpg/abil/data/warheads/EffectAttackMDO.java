@@ -18,7 +18,7 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 /**
  * Inflicts something on whoever, both damage and status.
  */
-public class AbilAttackMDO extends AbilEffectMDO {
+public class EffectAttackMDO extends AbilEffectMDO {
 	
 	@Desc("Projector")
 	@DefaultValue("SINGLE_ENEMY")

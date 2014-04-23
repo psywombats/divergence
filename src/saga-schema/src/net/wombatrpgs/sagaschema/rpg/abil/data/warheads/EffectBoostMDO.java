@@ -15,7 +15,7 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 /**
  * Boosts a stat for the battle.
  */
-public class AbilBoostMDO extends AbilEffectMDO {
+public class EffectBoostMDO extends AbilEffectMDO {
 	
 	@Desc("Stat to boost")
 	@DefaultValue("STR")

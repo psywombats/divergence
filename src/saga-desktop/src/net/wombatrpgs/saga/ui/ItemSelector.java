@@ -47,7 +47,7 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	protected boolean cancellable;
 	protected float cursorX, cursorY;
 	protected int selected;
-	protected SelectionListener listener;
+	protected SlotListener listener;
 	
 	// cursor indent
 	protected boolean indentOn;
@@ -199,7 +199,7 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	 * @param	listener		The callback for selection
 	 * @param	canCancel		True if the user can cancel to select nobody
 	 */
-	public void awaitSelection(SelectionListener listener, boolean canCancel) {
+	public void awaitSelection(SlotListener listener, boolean canCancel) {
 		this.listener = listener;
 		this.cancellable = canCancel;
 		focus();
@@ -305,7 +305,7 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	/**
 	 * Listener for selecting an ability.
 	 */
-	public static abstract class SelectionListener {
+	public static abstract class SlotListener {
 		
 		/**
 		 * Called when the user selects a slot. Returns negative if cancelled.

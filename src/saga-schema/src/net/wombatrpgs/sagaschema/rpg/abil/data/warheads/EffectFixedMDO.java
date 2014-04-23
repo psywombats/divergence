@@ -17,7 +17,7 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 /**
  * Deals fixed damage.
  */
-public class AbilFixedMDO extends AbilEffectMDO {
+public class EffectFixedMDO extends AbilEffectMDO {
 	
 	@Desc("Projector - what does this attack hit?")
 	public OffenseProjector projector;

@@ -17,7 +17,7 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 /**
  * Heals party.
  */
-public class AbilHealMDO extends AbilEffectMDO {
+public class EffectHealMDO extends AbilEffectMDO {
 	
 	@Desc("Projector - who this ability heals")
 	@DefaultValue("SINGLE_ALLY")

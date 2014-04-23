@@ -346,7 +346,7 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	 * Adds a screen-showable picture to the screen.
 	 * @param 	screenObject	The object to add
 	 */
-	public void addObject(ScreenObject screenObject) {
+	public void addChild(ScreenObject screenObject) {
 		screenObjects.add(screenObject);
 		addChildren.add(screenObject);
 		screenObject.onAddedToScreen(this);
@@ -356,7 +356,7 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	 * Removes a screen-showable picture from the screen.
 	 * @param	screenObject	The object to add
 	 */
-	public void removeObject(ScreenObject screenObject) {
+	public void removeChild(ScreenObject screenObject) {
 		if (screenObjects.contains(screenObject)) {
 			screenObjects.remove(screenObject);
 			removeUChild(screenObject);

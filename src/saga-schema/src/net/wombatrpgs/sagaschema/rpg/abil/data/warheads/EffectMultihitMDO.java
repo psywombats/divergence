@@ -15,7 +15,7 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 /**
  * Multi-hit attack (2pincer, 3head, etc)
  */
-public class AbilMultihitMDO extends AbilEffectMDO {
+public class EffectMultihitMDO extends AbilEffectMDO {
 	
 	@Desc("Base power - base multiplier of each hit")
 	public Integer power;

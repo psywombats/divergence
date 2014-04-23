@@ -6,6 +6,9 @@
  */
 package net.wombatrpgs.saga.rpg;
 
+import java.util.Arrays;
+import java.util.List;
+
 import net.wombatrpgs.mgne.core.MGlobal;
 
 
@@ -25,6 +28,9 @@ public abstract class Inventory {
 		this.capacity = capacity;
 		items = new CombatItem[capacity];
 	}
+	
+	/** @return A list of all held items, but it does include null! */
+	public List<CombatItem> getItems() { return Arrays.asList(items); }
 	
 	/**
 	 * Tests for reserved at a slot location. A slot is reserved if nothing is

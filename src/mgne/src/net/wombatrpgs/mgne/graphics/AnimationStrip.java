@@ -98,7 +98,9 @@ public class AnimationStrip implements	PosRenderable,
 	 */
 	@Override
 	public void dispose() {
-		MGlobal.assets.unload(fileName);
+		if (MGlobal.assets.isLoaded(fileName)) {
+			MGlobal.assets.unload(fileName);
+		}
 	}
 
 	/**

@@ -11,6 +11,6 @@ import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 /**
  * Does nothing?
  */
-public class AbilNothingMDO extends AbilEffectMDO {
+public class EffectNothingMDO extends AbilEffectMDO {
 
 }

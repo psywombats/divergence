@@ -19,7 +19,7 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 /**
  * Counterattacks.
  */
-public class AbilDefendMDO extends AbilEffectMDO {
+public class EffectDefendMDO extends AbilEffectMDO {
 	
 	@Desc("Projector - what this ability covers")
 	@DefaultValue("USER")

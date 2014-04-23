@@ -20,7 +20,7 @@ import net.wombatrpgs.saga.rpg.PartyInventory;
 import net.wombatrpgs.saga.ui.CharaInsert;
 import net.wombatrpgs.saga.ui.CharaInsertFull;
 import net.wombatrpgs.saga.ui.ItemSelector;
-import net.wombatrpgs.saga.ui.ItemSelector.SelectionListener;
+import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
 
 /**
  * Equip items to heroes and strip them of their weapons to sell for ill-gotten
@@ -119,7 +119,7 @@ public class EquipScreen extends Screen {
 		if (equipped.equippableAt(selected)) {
 			abils.setIndent();
 			marked = selected;
-			items.awaitSelection(new SelectionListener() {
+			items.awaitSelection(new SlotListener() {
 				@Override public boolean onSelection(int selected) {
 					if (selected != -1) {
 						CombatItem left = equipped.get(marked);
@@ -144,7 +144,7 @@ public class EquipScreen extends Screen {
 	 */
 	protected void focusAbils() {
 		abils.clearIndent();
-		abils.awaitSelection(new SelectionListener() {
+		abils.awaitSelection(new SlotListener() {
 			@Override public boolean onSelection(int selected) {
 				if (selected == -1) {
 					MGlobal.screens.pop();

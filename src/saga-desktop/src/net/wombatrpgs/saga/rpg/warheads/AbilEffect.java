@@ -1,0 +1,44 @@
+/**
+ *  ItemEffect.java
+ *  Created on Apr 23, 2014 3:04:20 AM for project saga-desktop
+ *  Author: psy_wombats
+ *  Contact: psy_wombats@wombatrpgs.net
+ */
+package net.wombatrpgs.saga.rpg.warheads;
+
+import net.wombatrpgs.mgne.core.AssetQueuer;
+import net.wombatrpgs.saga.rpg.CombatItem;
+import net.wombatrpgs.saga.rpg.Intent;
+import net.wombatrpgs.saga.rpg.Intent.IntentListener;
+import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
+
+/**
+ * An effect brought about by a combat item. Superclass for a variety of
+ * different warheads. Successor to the MRogue AbilEffect.
+ */
+public abstract class AbilEffect extends AssetQueuer {
+	
+	protected CombatItem item;
+	protected AbilEffectMDO mdo;
+	
+	/**
+	 * Constructs a combat effect for a combat item. This should be called by
+	 * subclass constructors that are called from the factory.
+	 * @param	mdo				The MDO this was create from, probably empty
+	 * @param	item			The item to construct for
+	 */
+	public AbilEffect(AbilEffectMDO mdo, CombatItem item) {
+		this.mdo = mdo;
+		this.item = item;
+	}
+	
+	/**
+	 * Construct an intent from the player's input. This should use the battle
+	 * to request user input, set the fields of a new input, then pass it to
+	 * the listener. Could be a new intent or an edit.
+	 * @param	intent			The current intent state, never null
+	 * @param	listener		The listener to call when done
+	 */
+	public abstract void modifyIntent(final Intent intent, final IntentListener listener);
+
+}

@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.screen.Screen;
@@ -30,9 +31,14 @@ import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.saga.rpg.Battle;
 import net.wombatrpgs.saga.rpg.Chara;
+import net.wombatrpgs.saga.rpg.Intent.TargetListener;
 import net.wombatrpgs.saga.rpg.Party;
 import net.wombatrpgs.saga.ui.BattleBox;
+import net.wombatrpgs.saga.ui.CharaInsert;
+import net.wombatrpgs.saga.ui.CharaInsertFull;
 import net.wombatrpgs.saga.ui.CharaSelector;
+import net.wombatrpgs.saga.ui.ItemSelector;
+import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
 
 /**
  * Screen for killing shit. This also encompasses a battle. Like Tactics, the
@@ -41,6 +47,7 @@ import net.wombatrpgs.saga.ui.CharaSelector;
  */
 public class CombatScreen extends Screen {
 	
+	// positional constants
 	protected static final int OPTIONS_WIDTH = 108;
 	protected static final int OPTIONS_HEIGHT = 96;
 	protected static final int OPTIONS_MARGIN = 2;
@@ -50,12 +57,20 @@ public class CombatScreen extends Screen {
 	protected static final int MONSTERLIST_HEIGHT = 48;
 	protected static final int MONSTERLIST_MARGIN = 10;
 	protected static final int SPRITES_HEIGHT = 24;
+	protected static final int ACTOR_PADDING = 10;
+	protected static final int ABILS_WIDTH = 112;
+	protected static final int ABILS_HEIGHT = 96;
+	protected static final int ABILS_EDGE_PADDING = 12;
+	protected static final int ABILS_LIST_PADDING = 2;
+	protected static final int ABILS_VERT_FUDGE = -16;
 	
+	// battle box constants
 	protected static final int TEXT_LINES = 6;
 	protected static final float TEXT_FADE_TIME = .1f;
 	
 	protected Battle battle;
 	
+	// display
 	protected Nineslice optionsBG, insertsBG, monsterlistBG;
 	protected CharaSelector partyInserts, enemyInserts;
 	protected TextBoxFormat monsterlistFormat;
@@ -63,10 +78,20 @@ public class CombatScreen extends Screen {
 	protected OptionSelector options;
 	protected List<FacesAnimation> sprites;
 	protected BattleBox text;
+	protected CharaInsert actor;
+	protected ItemSelector abils;
 	protected float globalX, globalY;
 	
-	protected boolean showEnemyInserts;
+	// display toggles
+	protected boolean showPlayerInserts, showEnemyInserts;
 	protected boolean showMonsterList;
+	protected boolean showActor;
+	
+	// selection mode
+	protected boolean selectionMode;
+	protected TargetListener targetListener;
+	protected int selectedIndex;
+	protected boolean multiMode;
 	
 	/**
 	 * Creates a new combat setup. This initializes the screen and passes the
@@ -76,9 +101,6 @@ public class CombatScreen extends Screen {
 	public CombatScreen(final Battle battle) {
 		this.battle = battle;
 		pushCommandContext(new CMapMenu());
-		
-		showEnemyInserts = false;
-		showMonsterList = true;
 		
 		options = new OptionSelector(false, true, new Option("FIGHT") {
 			@Override public boolean onSelect() {
@@ -142,12 +164,18 @@ public class CombatScreen extends Screen {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
-		insertsBG.renderAt(batch, globalX + OPTIONS_WIDTH - optionsBG.getBorderWidth(), globalY);
 		optionsBG.renderAt(batch, globalX, globalY);
+		insertsBG.renderAt(batch, globalX + OPTIONS_WIDTH - optionsBG.getBorderWidth(), globalY);
 		if (showEnemyInserts) {
 			enemyInserts.render(batch);
-		} else {
+		} else if (showPlayerInserts) {
 			partyInserts.render(batch);
+		}
+		if (showActor) {
+			actor.render(batch);
+		}
+		if (containsChild(abils)) {
+			abils.render(batch);
 		}
 		Party enemy = battle.getEnemy();
 		int groups = enemy.groupCount();
@@ -180,6 +208,12 @@ public class CombatScreen extends Screen {
 			float renderY = globalY + OPTIONS_HEIGHT + SPRITES_HEIGHT +
 					((win.getViewportHeight() - OPTIONS_HEIGHT - SPRITES_HEIGHT) - portrait.getHeight()) / 2;
 			portrait.renderAt(batch, renderX, renderY);
+			if (selectionMode && i == selectedIndex) {
+				Graphic cursor = MGlobal.ui.getCursor();
+				cursor.renderAt(batch,
+						renderX - cursor.getWidth() / 2,
+						renderY + (portrait.getHeight() - cursor.getHeight()) / 2);
+			}
 		}
 		int players = sprites.size();
 		for (int i = 0; i < players; i += 1) {
@@ -241,6 +275,9 @@ public class CombatScreen extends Screen {
 	 * Called by the battle when a new run/fight round is beginning.
 	 */
 	public void onNewRound() {
+		showEnemyInserts = false;
+		showPlayerInserts = true;
+		showMonsterList = true;
 		if (containsChild(text)) {
 			text.fadeOut(TEXT_FADE_TIME);
 		}
@@ -249,6 +286,51 @@ public class CombatScreen extends Screen {
 		} else {
 			options.showAt((int) options.getX(), (int) options.getY());
 		}
+	}
+	
+	/**
+	 * Prompts the player to choose an ability/item from the selected chara.
+	 * @param	chara			The character to be the actor
+	 * @param	listener		The callback for when a slot is selected
+	 */
+	public void selectItem(Chara chara, SlotListener listener) {
+		List<Queueable> assets = new ArrayList<Queueable>();
+		actor = new CharaInsertFull(chara, true);
+		abils = new ItemSelector(chara.getInventory(),chara.getInventory().slotCount(),
+				ABILS_WIDTH, ABILS_LIST_PADDING, false);
+		assets.add(actor);
+		assets.add(abils);
+		
+		actor.setX(globalX + (OPTIONS_WIDTH - actor.getWidth()) / 2);
+		actor.setY(globalY + OPTIONS_HEIGHT - actor.getHeight() - ACTOR_PADDING);
+		abils.setX(globalX + OPTIONS_WIDTH + ABILS_EDGE_PADDING);
+		abils.setY(globalY + OPTIONS_HEIGHT - abils.getHeight() + ABILS_VERT_FUDGE);
+		
+		showActor = true;
+		showPlayerInserts = false;
+		showEnemyInserts = false;
+		showMonsterList = false;
+		removeChild(options);
+		addChild(abils);
+		
+		MGlobal.assets.loadAssets(assets, "battle abil selector assets");
+		abils.awaitSelection(listener, true);
+	}
+	
+	/**
+	 * Prompts the user to select an enemy group. This can be used for targeting
+	 * single enemies as well by targeting the first person in that group.
+	 * @param	selected		The currently selected enemy group index
+	 * @param	listener		The listener to call when done
+	 * @param	multiMode		True to show enemy inserts as if selecting group
+	 */
+	public void selectEnemyIndex(int selected, TargetListener listener, boolean multiMode) {
+		this.targetListener = listener;
+		this.selectedIndex = selected;
+		this.multiMode = multiMode;
+		
+		selectionMode = true;
+		// TODO: battle: use multimode to render enemy inserts
 	}
 	
 	/**
