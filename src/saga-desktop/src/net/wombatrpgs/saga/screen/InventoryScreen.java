@@ -44,7 +44,7 @@ public class InventoryScreen extends Screen {
 		bg = new Nineslice(ITEMS_WIDTH, ITEMS_HEIGHT);
 		assets.add(bg);
 		items = new ItemSelector(inventory, inventory.slotCount(),
-				ITEMS_WIDTH - ITEMS_EDGE_PADDING * 2, ITEMS_LIST_PADDING, false);
+				ITEMS_WIDTH - ITEMS_EDGE_PADDING * 2, ITEMS_LIST_PADDING, false, false);
 		assets.add(items);
 		
 		globalX = (getWidth() - ITEMS_WIDTH) / 2;

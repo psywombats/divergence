@@ -71,7 +71,7 @@ public class CharaInfoScreen extends Screen {
 		assets.add(header);
 		addUChild(header);
 		abils = new ItemSelector(chara.getInventory(), chara.getInventory().slotCount(),
-				ABILS_WIDTH - ABILS_EDGE_PADDING * 2, ABILS_LIST_PADDING, false);
+				ABILS_WIDTH - ABILS_EDGE_PADDING * 2, ABILS_LIST_PADDING, false, false);
 		assets.add(abils);
 		
 		globalX = (getWidth() - HEADER_WIDTH) / 2;

@@ -33,9 +33,22 @@ public abstract class AbilEffect extends AssetQueuer {
 	}
 	
 	/**
+	 * Check if this effect is applicable on the world map.
+	 * @return					True if  can be used on the map
+	 */
+	public abstract boolean isMapUsable();
+	
+	/**
+	 * Check if can be used in battle.
+	 * @return					True if this item can be used in battle
+	 */
+	public abstract boolean isBattleUsable();
+	
+	/**
 	 * Construct an intent from the player's input. This should use the battle
 	 * to request user input, set the fields of a new input, then pass it to
-	 * the listener. Could be a new intent or an edit.
+	 * the listener. Could be a new intent or an edit. If the item isn't
+	 * actually battle-usable, MGlobal an error or something.
 	 * @param	intent			The current intent state, never null
 	 * @param	listener		The listener to call when done
 	 */

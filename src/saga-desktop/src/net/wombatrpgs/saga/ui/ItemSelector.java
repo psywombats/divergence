@@ -53,6 +53,8 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	protected boolean indentOn;
 	protected float indentX, indentY;
 	
+	protected boolean battleOnly;
+	
 	/**
 	 * Creates a new selector for a given inventory.
 	 * @param	inventory		The set of items to create for
@@ -60,13 +62,15 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	 * @param	width			The width of the selector (in virt px)
 	 * @param	padding			The vertical padding between items (in virt px)
 	 * @param	useBG			True to use a nineslice bg, false for none
+	 * @para	battleOnly		True if only battle-useable items shown
 	 */
 	public ItemSelector(Inventory inventory, int count, int width,
-			int padding, boolean useBG) {
+			int padding, boolean useBG, boolean battleOnly) {
 		this.inventory = inventory;
 		this.width = width;
 		this.padding = padding;
 		this.count = count;
+		this.battleOnly = battleOnly;
 		
 		FontHolder font = MGlobal.ui.getFont();
 		height = (int) (count * font.getLineHeight());
@@ -110,7 +114,7 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 		for (int i = 0; i < inventory.slotCount(); i += 1) {
 			CombatItem item = inventory.get(i);
 			int offY = (int) (-i * (font.getLineHeight() + padding));
-			if (item != null) {
+			if (item != null && (!battleOnly || item.isBattleUsable())) {
 				font.draw(batch, format, item.getName(), offY);
 				String uses = item.isUnlimited() ? "--" : String.valueOf(item.getUses());
 				font.draw(batch, usesFormat, uses, offY);

@@ -74,9 +74,9 @@ public class EquipScreen extends Screen {
 		addUChild(header);
 		
 		abils = new ItemSelector(equipped, equipped.slotCount(),
-				ABILS_WIDTH - ITEMS_EDGE_PADDING * 2, ITEMS_LIST_PADDING, false);
+				ABILS_WIDTH - ITEMS_EDGE_PADDING * 2, ITEMS_LIST_PADDING, false, false);
 		items = new ItemSelector(inventory, inventory.slotCount(),
-				ITEMS_WIDTH - ITEMS_EDGE_PADDING * 2, ITEMS_LIST_PADDING, false);
+				ITEMS_WIDTH - ITEMS_EDGE_PADDING * 2, ITEMS_LIST_PADDING, false, false);
 		abils.setX(globalX + (ABILS_WIDTH - abils.getWidth()) / 2);
 		abils.setY(globalY + (ABILS_HEIGHT - abils.getHeight()) / 2 - 5);
 		items.setX(globalX + ABILS_WIDTH - abilsBG.getBorderWidth() + (ITEMS_WIDTH - items.getWidth()) / 2);

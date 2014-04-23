@@ -73,8 +73,15 @@ public class CombatItem extends AssetQueuer {
 	 * @return					True if this item can be used on the map
 	 */
 	public boolean isMapUsable() {
-		// TODO: saga: onmapuse
-		return false;
+		return effect.isMapUsable();
+	}
+	
+	/**
+	 * Check if this item can be used in battle (a true combat item!)
+	 * @return					True if this item can be used in battle
+	 */
+	public boolean isBattleUsable() {
+		return effect.isBattleUsable();
 	}
 	
 	/**

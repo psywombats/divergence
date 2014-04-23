@@ -29,6 +29,12 @@ public class EffectAttack extends AbilEffect {
 		this.mdo = mdo;
 	}
 
+	/** @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#isMapUsable() */
+	@Override public boolean isMapUsable() { return false; }
+
+	/** @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#isBattleUsable() */
+	@Override public boolean isBattleUsable() { return true; }
+
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#modifyIntent
 	 * (net.wombatrpgs.saga.rpg.Intent, net.wombatrpgs.saga.rpg.Intent.IntentListener)

@@ -19,6 +19,7 @@ import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
+import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.WindowSettings;
@@ -28,6 +29,7 @@ import net.wombatrpgs.mgne.ui.Option;
 import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
+import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.saga.rpg.Battle;
 import net.wombatrpgs.saga.rpg.Chara;
@@ -278,8 +280,12 @@ public class CombatScreen extends Screen {
 		showEnemyInserts = false;
 		showPlayerInserts = true;
 		showMonsterList = true;
+		showActor = false;
 		if (containsChild(text)) {
 			text.fadeOut(TEXT_FADE_TIME);
+		}
+		if (containsChild(abils)) {
+			removeChild(abils);
 		}
 		if (containsChild(options)) {
 			options.focus();
@@ -291,13 +297,19 @@ public class CombatScreen extends Screen {
 	/**
 	 * Prompts the player to choose an ability/item from the selected chara.
 	 * @param	chara			The character to be the actor
+	 * @param	selected		The index of the item previously selected, or -1
 	 * @param	listener		The callback for when a slot is selected
 	 */
-	public void selectItem(Chara chara, SlotListener listener) {
+	public void selectItem(Chara chara, int selected, final SlotListener listener) {
+		
+		if (abils != null) {
+			removeChild(abils);
+		}
+		
 		List<Queueable> assets = new ArrayList<Queueable>();
 		actor = new CharaInsertFull(chara, true);
 		abils = new ItemSelector(chara.getInventory(),chara.getInventory().slotCount(),
-				ABILS_WIDTH, ABILS_LIST_PADDING, false);
+				ABILS_WIDTH, ABILS_LIST_PADDING, false, true);
 		assets.add(actor);
 		assets.add(abils);
 		
@@ -310,11 +322,24 @@ public class CombatScreen extends Screen {
 		showPlayerInserts = false;
 		showEnemyInserts = false;
 		showMonsterList = false;
-		removeChild(options);
+		if (containsChild(options)) {
+			removeChild(options);
+		}
 		addChild(abils);
 		
 		MGlobal.assets.loadAssets(assets, "battle abil selector assets");
-		abils.awaitSelection(listener, true);
+		abils.awaitSelection(new SlotListener() {
+			@Override public boolean onSelection(int selected) {
+				boolean willUnfocus = listener.onSelection(selected);
+				if (willUnfocus && selected != -1) {
+					abils.setIndent();
+				}
+				return willUnfocus;
+			} 
+		}, true);
+		if (selected != -1) {
+			abils.setSelected(selected);
+		}
 	}
 	
 	/**
@@ -330,6 +355,19 @@ public class CombatScreen extends Screen {
 		this.multiMode = multiMode;
 		
 		selectionMode = true;
+		moveCursor(0);
+		pushCommandListener(new CommandListener() {
+			@Override public boolean onCommand(InputCommand command) {
+				switch (command) {
+				case MOVE_LEFT:		moveCursor(-1);		break;
+				case MOVE_RIGHT:	moveCursor(1);		break;
+				case UI_CONFIRM:	selectConfirm();	break;
+				case UI_CANCEL:		selectCancel();		break;
+				default:								break;
+				}
+				return true;
+			}
+		});
 		// TODO: battle: use multimode to render enemy inserts
 	}
 	
@@ -370,6 +408,60 @@ public class CombatScreen extends Screen {
 			}
 			monsterlist[i] = monsterlist[i] + " x" + group.size();
 		}
+	}
+	
+	/**
+	 * Moves the cursor in selection mode.
+	 * @param	delta			Amount to move, negative to go left
+	 */
+	protected void moveCursor(int delta) {
+		selectedIndex += delta;
+		selectedBounds();
+		selectedCheck();
+		selectedBounds();
+		selectedCheck();
+	}
+	
+	/**
+	 * Cancels the user selection in selection mode.
+	 */
+	protected void selectCancel() {
+		targetListener.onTargetSelection(null);
+		cancelSelectionMode();
+	}
+	
+	/**
+	 * Confirms the user selection in selection mode.
+	 */
+	protected void selectConfirm() {
+		targetListener.onTargetSelection(battle.getEnemy().getGroup(selectedIndex));
+		cancelSelectionMode();
+	}
+	
+	/**
+	 * Applies edges to the selection mode cursor.
+	 */
+	protected void selectedBounds() {
+		int count = battle.getEnemy().groupCount();
+		if (selectedIndex < 0) selectedIndex += count;
+		if (selectedIndex >= count) selectedIndex %= count;
+	}
+	
+	/**
+	 * Moves the selection cursor past dead enemy groups.
+	 */
+	protected void selectedCheck() {
+		while (battle.getEnemy().getGroup(selectedIndex).size() == 0) {
+			selectedIndex += 1;
+		}
+	}
+	
+	/**
+	 * Moves the screen out of selection mode.
+	 */
+	protected void cancelSelectionMode() {
+		selectionMode = false;
+		targetListener = null;
 	}
 
 }

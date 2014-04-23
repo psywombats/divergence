@@ -96,5 +96,21 @@ public abstract class Inventory {
 	public void drop(int slot) {
 		items[slot] = null;
 	}
+	
+	/**
+	 * Returns the index of the slot that the item occupies, or -1 if the item
+	 * is not in this inventory. Null items are never present.
+	 * @param	item			The item to check
+	 * @return					The slot of that item, or -1 if not present
+	 */
+	public int slotFor(CombatItem item) {
+		if (item == null) return -1;
+		for (int i = 0; i < capacity; i += 1) {
+			if (items[i] == item) {
+				return i;
+			}
+		}
+		return -1;
+	}
 
 }

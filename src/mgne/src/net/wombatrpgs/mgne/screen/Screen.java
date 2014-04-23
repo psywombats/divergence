@@ -126,8 +126,14 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	/** @param listener The listener to receive command updates */
 	public void pushCommandListener(CommandListener listener) { commandListeners.push(listener); }
 	
+	/** Pops the latest listener from the command listener stack */
+	public void popCommandListener() { commandListeners.pop(); }
+	
 	/** @param listener The listener to stop receiving command updates */
 	public void removeCommandListener(CommandListener listener) { commandListeners.remove(listener); }
+	
+	/** @return The command listener currently receiving first commands */
+	public CommandListener getTopCommandListener() { return commandListeners.peek(); }
 	
 	/** @param u The updateable child to add */
 	public void addUChild(Updateable u) { addChildren.add(u); }
@@ -140,9 +146,6 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	
 	/** @return The height (in px) of current frames */
 	public int getHeight() { return MGlobal.window.getViewportHeight(); }
-	
-	/** @return The command listener currently receiving first commands */
-	public CommandListener getTopCommandListener() { return commandListeners.peek(); }
 	
 	/**
 	 * Checks to see if a screen object exists on the screen. Also checks if the

@@ -6,6 +6,9 @@
  */
 package net.wombatrpgs.saga.rpg;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
@@ -31,6 +34,8 @@ public class Battle extends AssetQueuer implements Disposable {
 	
 	// internal constructs
 	protected FinishListener playbackListener;
+	protected List<Intent> playerTurn;
+	protected int actorIndex;
 	protected boolean finished;
 	
 	/**
@@ -55,6 +60,8 @@ public class Battle extends AssetQueuer implements Disposable {
 		for (Chara chara : enemy.getAll()) {
 			queueInventory(chara.getInventory());
 		}
+		
+		playerTurn = new ArrayList<Intent>();
 	}
 	
 	/**
@@ -144,27 +151,9 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * Called when the user says that they want to fight.
 	 */
 	public void onFight() {
-		final Chara chara = player.getFront();
-		final Battle battle = this;
-		screen.selectItem(chara, new SlotListener() {
-			@Override public boolean onSelection(int selected) {
-				if (selected == -1) {
-					
-				} else {
-					CombatItem item = chara.getInventory().get(selected);
-					if (item != null) {
-						Intent intent = new Intent(chara, battle, item);
-						item.modifyIntent(intent, new IntentListener() {
-							@Override public void onIntent(Intent intent) {
-								// TODO Auto-generated method stub
-								
-							}
-						});
-					}
-				}
-				return true;
-			}
-		});
+		playerTurn.clear();
+		actorIndex = 0;
+		nextIntent();
 	}
 	
 	/**
@@ -270,6 +259,74 @@ public class Battle extends AssetQueuer implements Disposable {
 	 */
 	protected void newRound() {
 		screen.onNewRound();
+	}
+	
+	/**
+	 * Plays out a round once the player turn is constructed.
+	 */
+	protected void playRound() {
+		System.out.println("Play round!");
+	}
+	
+	/**
+	 * Modifies an intent in this battle. Intent could be an edit or a brand new
+	 * one, but it's always a player intent.
+	 * @param	intent			The intent to modify.
+	 * @param	listener		The final listener to call when intent done
+	 */
+	protected void modifyIntent(final Intent intent, final IntentListener listener) {
+		final Chara chara = intent.getActor();
+		SlotListener slotListener = new SlotListener() {
+			@Override public boolean onSelection(int selected) {
+				if (selected == -1) {
+					listener.onIntent(null);
+					return true;
+				}
+				CombatItem item = chara.getInventory().get(selected);
+				if (item == null || !item.isBattleUsable()) {
+					return false;
+				}
+				intent.setItem(item);
+				item.modifyIntent(intent, listener);
+				return true;
+			}
+		};
+		int slot = chara.getInventory().slotFor(intent.getItem());
+		screen.selectItem(chara, slot, slotListener);
+	}
+	
+	/**
+	 * Prompts the player to create an intent for the current actor.
+	 */
+	protected void nextIntent() {
+		Chara chara = player.getFront(actorIndex);
+		final Intent intent;
+		if (actorIndex < playerTurn.size()) {
+			intent = playerTurn.get(actorIndex);
+		} else {
+			intent = new Intent(chara, this);
+		}
+		playerTurn.add(intent);
+		modifyIntent(intent, new IntentListener() {
+			@Override public void onIntent(Intent newIntent) {
+				if (newIntent == null) {
+					if (actorIndex > 0) {
+						actorIndex -= 1;
+						playerTurn.remove(intent);
+						nextIntent();
+					} else {
+						newRound();
+					}
+				} else {
+					actorIndex += 1;
+					if (actorIndex == player.size()) {
+						playRound();
+					} else {
+						nextIntent();
+					}
+				}
+			}
+		});
 	}
 
 }

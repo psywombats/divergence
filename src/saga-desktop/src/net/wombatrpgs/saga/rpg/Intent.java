@@ -29,11 +29,9 @@ public class Intent {
 	 * Creates a new intent for the designated actor.
 	 * @param	actor			The chara that will be acting
 	 * @param	battle			The battle this intent is a part of
-	 * @param	item			The combat item producing/parsing this intent
 	 */
-	public Intent(Chara actor, Battle battle, CombatItem item) {
+	public Intent(Chara actor, Battle battle) {
 		this.actor = actor;
-		this.item = item;
 		this.battle = battle;
 		targets = new ArrayList<Chara>();
 	}
@@ -49,6 +47,15 @@ public class Intent {
 	
 	/** @return The battle this intent is a part of */
 	public Battle getBattle() { return battle; }
+	
+	/** @return The chara this intent is for */
+	public Chara getActor() { return actor; }
+	
+	/** @return The item this chara is using */
+	public CombatItem getItem() { return item; }
+	
+	/** @param The combat item the player selected for this intent */
+	public void setItem(CombatItem item) { this.item = item; }
 	
 	/** Clears the targets list */
 	public void clearTargets() { targets.clear(); }
