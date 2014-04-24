@@ -6,10 +6,12 @@
  */
 package net.wombatrpgs.saga.rpg.warheads;
 
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.Intent;
 import net.wombatrpgs.saga.rpg.Intent.IntentListener;
+import net.wombatrpgs.saga.rpg.Party;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAttackMDO;
 
 /**
@@ -56,6 +58,24 @@ public class EffectAttack extends AbilEffect {
 		case ALL_ENEMY:
 			intent.clearTargets();
 			intent.addTargets(intent.getBattle().getEnemy().getAll());
+			break;
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#modifyEnemyIntent
+	 * (net.wombatrpgs.saga.rpg.Intent)
+	 */
+	@Override
+	public void modifyEnemyIntent(Intent intent) {
+		Party player = intent.getBattle().getPlayer();
+		switch (mdo.projector) {
+		case SINGLE_ENEMY: case GROUP_ENEMY:
+			Chara target = player.getFront(MGlobal.rand.nextInt(player.size()));
+			intent.addTargets(target);
+			break;
+		case ALL_ENEMY:
+			intent.addTargets(player.getAll());
 			break;
 		}
 	}

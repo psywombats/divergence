@@ -95,5 +95,16 @@ public class CombatItem extends AssetQueuer {
 	public void modifyIntent(Intent intent, IntentListener listener) {
 		effect.modifyIntent(intent, listener);
 	}
+	
+	/**
+	 * Construct an intent for an enemy. This is the AI method, anything that
+	 * affects how the AI uses this specific item should be changed here. This
+	 * differs from the player method because no callback is needed, AI decides
+	 * immediately. Just the target needs to be selected usually.
+	 * @param	intent			The intent to modify
+	 */
+	public void modifyEnemyIntent(Intent intent) {
+		effect.modifyEnemyIntent(intent);
+	}
 
 }

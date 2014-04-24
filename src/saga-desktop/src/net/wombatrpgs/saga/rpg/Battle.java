@@ -29,7 +29,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	// battle attributes
 	protected CombatScreen screen;
 	protected HeroParty player;
-	protected Party enemy;
+	protected EnemyParty enemy;
 	protected boolean anonymous;
 	
 	// internal constructs
@@ -44,7 +44,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * @param	player			The player controlling this battle
 	 * @param	enemy			The enemy they're fighting
 	 */
-	public Battle(HeroParty player, Party enemy) {
+	public Battle(HeroParty player, EnemyParty enemy) {
 		this.player = player;
 		this.enemy = enemy;
 		this.screen = new CombatScreen(this);
@@ -71,7 +71,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * @param	mdo				The MDO of the enemy party in the battle
 	 */
 	public Battle(PartyMDO mdo) {
-		this(SGlobal.heroes, new Party(mdo));
+		this(SGlobal.heroes, new EnemyParty(mdo));
 		anonymous = true;
 	}
 	

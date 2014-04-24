@@ -52,6 +52,13 @@ public abstract class AbilEffect extends AssetQueuer {
 	 * @param	intent			The current intent state, never null
 	 * @param	listener		The listener to call when done
 	 */
-	public abstract void modifyIntent(final Intent intent, final IntentListener listener);
+	public abstract void modifyIntent(Intent intent, IntentListener listener);
+	
+	/**
+	 * Construct an intent for an enemy action. Just the target is needed,
+	 * usually. MGlobal an error if not battle useable.
+	 * @param	intent			The intent to select target for
+	 */
+	public abstract void modifyEnemyIntent(Intent intent);
 
 }

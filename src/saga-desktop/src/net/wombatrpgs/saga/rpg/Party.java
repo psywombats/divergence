@@ -32,7 +32,7 @@ public class Party extends AssetQueuer implements Disposable {
 		for (PartyEntryMDO entryMDO : mdo.members) {
 			List<Chara> group = new ArrayList<Chara>();
 			for (int i = 0; i < entryMDO.count; i += 1) {
-				Chara chara = new Chara(entryMDO.monster);
+				Chara chara = instantiateChara(entryMDO.monster);
 				group.add(chara);
 				members.add(chara);
 				assets.add(chara);
@@ -64,6 +64,16 @@ public class Party extends AssetQueuer implements Disposable {
 		for (Chara chara : getAll()) {
 			chara.dispose();
 		}
+	}
+	
+	/**
+	 * Create the appropriate subclass of chara for this party. Override if the
+	 * party is made of players or enemies or something that requires subclass.
+	 * @param	mdoKey			The key of the mdo being instantiated
+	 * @return					The instantiated chara
+	 */
+	protected Chara instantiateChara(String mdoKey) {
+		return new Chara(mdoKey);
 	}
 
 }
