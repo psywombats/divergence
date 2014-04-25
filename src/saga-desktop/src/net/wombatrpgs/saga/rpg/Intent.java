@@ -105,6 +105,7 @@ public class Intent implements Comparable<Intent> {
 	 * @return					The index of the selected group, or 0 if none
 	 */
 	public int inferSelectedGroup() {
+		if (targets.size() == 0) return 0;
 		return battle.getEnemy().index(targets.get(0));
 	}
 	

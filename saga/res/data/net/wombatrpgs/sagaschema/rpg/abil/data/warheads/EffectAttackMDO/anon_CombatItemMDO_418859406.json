@@ -3,7 +3,7 @@
 	"subfolder" : "",
 	"name" : "anon_CombatItemMDO_418859406",
 	"description" : "auto-generated anonymous polymorph",
-	"projector" : "ALL_ENEMY",
+	"projector" : "GROUP_ENEMY",
 	"damType" : "NONELEMENTAL",
 	"power" : 5,
 	"attackStat" : "MANA",

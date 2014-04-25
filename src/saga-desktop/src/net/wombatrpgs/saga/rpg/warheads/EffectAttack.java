@@ -67,6 +67,7 @@ public class EffectAttack extends AbilEffect {
 		case ALL_ENEMY:
 			intent.clearTargets();
 			intent.addTargets(intent.getBattle().getEnemy().getAll());
+			listener.onIntent(intent);
 			break;
 		}
 	}
@@ -141,26 +142,35 @@ public class EffectAttack extends AbilEffect {
 				}
 			}
 			if (hits(intent.getActor(), victim, roll)) {
-				int damage = calcDamage(power, victim);
-				if (target.resists(mdo.damType) && !hasFlag(mdo.sideEffects, OffenseFlag.IGNORE_RESISTANCES)) {
-					if (mdo.damType.isNegateable()) {
-						battle.println(targetname + " is resistant to " + itemname + ".");
-						damage = 0;
-					} else {
-						damage /= 2;
-					}
-				}
-				if (damage > 0) {
-					battle.println(tab + victimname + " takes " + damage + " damage.");
-					victim.damage(damage);
-					battle.checkDeath(victim);
-					if (hasFlag(mdo.sideEffects, OffenseFlag.DRAIN_LIFE) &&
-							!victim.is(Flag.UNDEAD)) {
-						user.heal(damage);
-						battle.println(tab + username + " recovers " + damage + " HP.");
-					}
+				if (target.isWeakTo(mdo.damType) && hasFlag(mdo.sideEffects, OffenseFlag.CRITICAL_ON_WEAKNESS)) {
+					battle.println("");
+					battle.println("");
+					battle.println(tab + tab + "CRITICAL HIT!");
+					battle.println("");
+					battle.println(targetname + " is dead.");
+					battle.checkDeath(victim, true);
 				} else {
-					battle.println(tab + victimname + " takes no damage.");
+					int damage = calcDamage(power, victim);
+					if (target.resists(mdo.damType) && !hasFlag(mdo.sideEffects, OffenseFlag.IGNORE_RESISTANCES)) {
+						if (mdo.damType.isNegateable()) {
+							battle.println(targetname + " is resistant to " + itemname + ".");
+							damage = 0;
+						} else {
+							damage /= 2;
+						}
+					}
+					if (damage > 0) {
+						battle.println(tab + victimname + " takes " + damage + " damage.");
+						victim.damage(damage);
+						battle.checkDeath(victim, false);
+						if (hasFlag(mdo.sideEffects, OffenseFlag.DRAIN_LIFE) &&
+								!victim.is(Flag.UNDEAD)) {
+							user.heal(damage);
+							battle.println(tab + username + " recovers " + damage + " HP.");
+						}
+					} else {
+						battle.println(tab + victimname + " takes no damage.");
+					}
 				}
 			} else {
 				CombatItem shield = victim.getShield();
@@ -174,7 +184,7 @@ public class EffectAttack extends AbilEffect {
 		}
 		if (hasFlag(mdo.sideEffects, OffenseFlag.KILLS_USER)) {
 			user.damage(user.get(Stat.HP));
-			battle.checkDeath(user);
+			battle.checkDeath(user, false);
 		}
 	}
 	

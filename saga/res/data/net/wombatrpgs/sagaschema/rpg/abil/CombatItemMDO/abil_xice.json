@@ -9,7 +9,7 @@
 	"cost" : 0,
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectPassiveMDO",
-		"key" : "anon_CombatItemMDO_2065945550"
+		"key" : "anon_CombatItemMDO_2065945551"
 	},
 	"robostats" : {
 		"stats" : [ ]

@@ -8,8 +8,8 @@
 	"appearance" : "4dir_ffl2_human",
 	"portrait" : "None",
 	"equipped" : [
-		"abil_mutantBlank",
-		"abil_mutantBlank",
+		"abil_testFire",
+		"abil_ofire",
 		"abil_mutantBlank",
 		"abil_mutantBlank",
 		"item_testVampic",

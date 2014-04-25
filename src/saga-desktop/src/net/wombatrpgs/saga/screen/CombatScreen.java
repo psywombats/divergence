@@ -357,9 +357,12 @@ public class CombatScreen extends Screen {
 		MGlobal.assets.loadAssets(assets, "battle abil selector assets");
 		abils.awaitSelection(new SlotListener() {
 			@Override public boolean onSelection(int selected) {
+				ItemSelector oldAbils = abils;
 				boolean willUnfocus = listener.onSelection(selected);
 				if (willUnfocus && selected != -1) {
-					abils.setIndent();
+					if (oldAbils == abils) {
+						abils.setIndent();
+					}
 				}
 				return willUnfocus;
 			} 

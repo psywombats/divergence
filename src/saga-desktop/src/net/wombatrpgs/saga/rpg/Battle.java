@@ -242,10 +242,11 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * out an appropriate message, updates the displays, and checks the win
 	 * conditions.
 	 * @param	victim			The dolt who may have died
+	 * @param	silent			True to not print out the message, else prints
 	 */
-	public void checkDeath(Chara victim) {
+	public void checkDeath(Chara victim, boolean silent) {
 		if (!victim.isDead()) return;
-		println(SConstants.TAB + victim.getName() + " is defeated.");
+		if (!silent) println(SConstants.TAB + victim.getName() + " is defeated.");
 	}
 	
 	/**

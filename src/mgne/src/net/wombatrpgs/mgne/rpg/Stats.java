@@ -157,12 +157,15 @@ public class Stats {
 		}
 		for (FlagStat type : other.flagTypes.values()) {
 			FlagStatValue value = flags.get(type.getID());
+			FlagStatValue otherValue = other.flags.get(type.getID());
 			String id = type.getID();
-			if (value == null) {
-				flagTypes.put(type.getID(), type);
-				flags.put(id,  new FlagStatValue(1));
-			} else {
-				value.modify(value.on());
+			if (otherValue != null && otherValue.on()) {
+				if (value == null) {
+					flagTypes.put(type.getID(), type);
+					flags.put(id, new FlagStatValue(1));
+				} else if (otherValue.on()) {
+					value.increment();
+				}
 			}
 		}
 	}
@@ -184,10 +187,11 @@ public class Stats {
 		}
 		for (FlagStat type : other.flagTypes.values()) {
 			FlagStatValue value = flags.get(type.getID());
+			FlagStatValue otherValue = other.flags.get(type.getID());
 			if (value == null) {
 				MGlobal.reporter.err("Decombined a non-combined stat set");
-			} else {
-				value.modify(!value.on());
+			} else if (otherValue.on()) {
+				value.decrement();
 			}
 		}
 	}

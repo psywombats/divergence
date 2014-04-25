@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -119,11 +120,12 @@ public class PolymorphField extends FieldPanel {
 		}
 		if (selected != null) {
 			try {
+				Random r = new Random();
 				MainSchema schema;
 				File f;
 				if (link == null) {
 					link = new PolymorphicLink();
-					link.key = "anon_" + parent.getSchema().getClass().getSimpleName() + "_" + hashCode();
+					link.key = "anon_" + parent.getSchema().getClass().getSimpleName() + "_" + r.nextInt();
 					link.clazz = selected.getCanonicalName();
 					f = new File(parent.getLogic().pathForSchema(selected, link.key));
 					schema = selected.newInstance();

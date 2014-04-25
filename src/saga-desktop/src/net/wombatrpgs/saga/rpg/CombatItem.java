@@ -71,6 +71,14 @@ public class CombatItem extends AssetQueuer {
 	public SagaStats getRobostats() { return robostats; }
 	
 	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getName();
+	}
+
+	/**
 	 * Called when this item is used from the map menu.
 	 * @param	selector		The menu that invoked this item
 	 */
