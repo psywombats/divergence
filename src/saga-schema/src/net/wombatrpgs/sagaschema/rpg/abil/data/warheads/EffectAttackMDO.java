@@ -16,7 +16,7 @@ import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseFlag;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**
- * Inflicts something on whoever, both damage and status.
+ * Inflicts something on whoever, just damage and no status.
  */
 public class EffectAttackMDO extends AbilEffectMDO {
 	

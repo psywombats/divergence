@@ -373,17 +373,22 @@ public class Battle extends AssetQueuer implements Disposable {
 			intent = playerTurn.get(actorIndex);
 		} else {
 			intent = new Intent(chara, this);
+			playerTurn.add(intent);
 		}
-		playerTurn.add(intent);
 		modifyIntent(intent, new IntentListener() {
 			@Override public void onIntent(Intent newIntent) {
 				if (newIntent == null) {
-					if (actorIndex > 0) {
-						actorIndex -= 1;
-						playerTurn.remove(intent);
-						buildNextIntent();
+					if (intent.getItem() == null) {
+						if (actorIndex > 0) {
+							actorIndex -= 1;
+							playerTurn.remove(intent);
+							buildNextIntent();
+						} else {
+							newRound();
+						}
 					} else {
-						newRound();
+						intent.setItem(null);
+						buildNextIntent();
 					}
 				} else {
 					do {

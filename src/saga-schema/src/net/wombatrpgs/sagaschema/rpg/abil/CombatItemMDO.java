@@ -7,6 +7,7 @@
 package net.wombatrpgs.sagaschema.rpg.abil;
 
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
+import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.InlinePolymorphic;
 import net.wombatrpgs.mgns.core.MainSchema;
@@ -37,6 +38,7 @@ public class CombatItemMDO extends MainSchema {
 	
 	@Desc("Effect - what happens when this applies")
 	@InlinePolymorphic(AbilEffectMDO.class)
+	@Nullable
 	public PolymorphicLink warhead;
 
 }

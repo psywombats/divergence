@@ -1,0 +1,23 @@
+{
+	"key" : "chara_testMonster",
+	"subfolder" : "test",
+	"name" : "Tororo",
+	"description" : "",
+	"race" : "MONSTER",
+	"gender" : "NONE",
+	"appearance" : "4dir_ffl2_human",
+	"portrait" : "None",
+	"equipped" : [
+		"item_testabil",
+		"abil_testExplode"
+	],
+	"stats" : {
+		"hp" : 60,
+		"mhp" : 60,
+		"str" : 3,
+		"def" : 2,
+		"agi" : 4,
+		"mana" : 5,
+		"flags" : [ ]
+	}
+}

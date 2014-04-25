@@ -1,0 +1,22 @@
+{
+	"key" : "chara_testEnemyStrong",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"race" : "MONSTER",
+	"gender" : "NONE",
+	"appearance" : "4dir_ffl2_human",
+	"portrait" : "battle_portraits/sandbag.png",
+	"equipped" : [
+		"item_testabil"
+	],
+	"stats" : {
+		"hp" : 1000,
+		"mhp" : 1000,
+		"str" : 80,
+		"def" : 10,
+		"agi" : 30,
+		"mana" : 10,
+		"flags" : [ ]
+	}
+}

@@ -118,8 +118,6 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 				font.draw(batch, format, item.getName(), offY);
 				String uses = item.isUnlimited() ? "--" : String.valueOf(item.getUses());
 				font.draw(batch, usesFormat, uses, offY);
-			} else if (inventory.reservedAt(i)) {
-				font.draw(batch, format, "-", offY);
 			}
 		}
 		
@@ -208,7 +206,14 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 		this.cancellable = canCancel;
 		focus();
 		cursorOn = true;
+		
 		selected = 0;
+		if (battleOnly) {
+			while (!inventory.get(selected).isBattleUsable() &&
+					selected < inventory.slotCount()) {
+				selected += 1;
+			}
+		}
 		updateCursor();
 	}
 	

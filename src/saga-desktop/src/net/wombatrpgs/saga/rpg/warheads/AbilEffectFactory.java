@@ -10,6 +10,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAttackMDO;
+import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectNothingMDO;
 
 /**
  * Constructs the item effect for combat items based on their MDO.
@@ -25,6 +26,8 @@ public class AbilEffectFactory {
 	public static AbilEffect create(AbilEffectMDO mdo, CombatItem item) {
 		if (EffectAttackMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new EffectAttack((EffectAttackMDO) mdo, item);
+		} else if (EffectNothingMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new EffectNothing((EffectNothingMDO) mdo, item);
 		} else {
 			MGlobal.reporter.err("Unimplemented abil effect type: " +
 					mdo.getClass());

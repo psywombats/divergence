@@ -1,0 +1,14 @@
+{
+	"key" : "item_testFireSword",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$EFIRE",
+	"type" : "ITEM",
+	"uses" : 50,
+	"cost" : 122000,
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_1554382710"
+	}
+}

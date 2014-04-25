@@ -395,7 +395,7 @@ public class CombatScreen extends Screen {
 				return true;
 			}
 		});
-		// TODO: battle: use multimode to render enemy inserts
+		// TODO: battle: use multimode to render enemy inserts maybe?
 	}
 	
 	/**
@@ -484,7 +484,7 @@ public class CombatScreen extends Screen {
 	 * Moves the selection cursor past dead enemy groups.
 	 */
 	protected void selectedCheck() {
-		while (battle.getEnemy().getGroup(selectedIndex).size() == 0) {
+		while (!battle.isEnemyAlive(selectedIndex)) {
 			selectedIndex += 1;
 		}
 	}
@@ -495,7 +495,6 @@ public class CombatScreen extends Screen {
 	protected void cancelSelectionMode() {
 		selectionMode = false;
 		popCommandListener();
-		// targetListener = null;
 	}
 
 }

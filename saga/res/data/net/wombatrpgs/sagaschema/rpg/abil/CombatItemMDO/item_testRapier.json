@@ -1,0 +1,14 @@
+{
+	"key" : "item_testRapier",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "RAPIER",
+	"type" : "ITEM",
+	"uses" : 50,
+	"cost" : 24,
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_860670158"
+	}
+}

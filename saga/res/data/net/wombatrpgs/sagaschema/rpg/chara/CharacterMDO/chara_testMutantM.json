@@ -1,0 +1,27 @@
+{
+	"key" : "chara_testMutantM",
+	"subfolder" : "test",
+	"name" : "Neo-Alan",
+	"description" : "",
+	"race" : "MUTANT",
+	"gender" : "MALE",
+	"appearance" : "4dir_ffl2_human",
+	"portrait" : "None",
+	"equipped" : [
+		"abil_mutantBlank",
+		"abil_mutantBlank",
+		"abil_mutantBlank",
+		"abil_mutantBlank",
+		"item_testVampic",
+		"item_testPrayer"
+	],
+	"stats" : {
+		"hp" : 40,
+		"mhp" : 40,
+		"str" : 4,
+		"def" : 1,
+		"agi" : 4,
+		"mana" : 6,
+		"flags" : [ ]
+	}
+}

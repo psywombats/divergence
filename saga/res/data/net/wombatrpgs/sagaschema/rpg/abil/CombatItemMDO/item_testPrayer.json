@@ -1,0 +1,14 @@
+{
+	"key" : "item_testPrayer",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$HPRAYER",
+	"type" : "ITEM",
+	"uses" : 30,
+	"cost" : 50,
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_418859406"
+	}
+}

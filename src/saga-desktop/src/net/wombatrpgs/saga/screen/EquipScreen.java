@@ -114,8 +114,9 @@ public class EquipScreen extends Screen {
 	/**
 	 * Called when the player selects an equipment slot to equip to/from.
 	 * @param	selected		The slot the played selected
+	 * @return					True to unfocus the abils screen, else false
 	 */
-	protected void onEquipSlotSelect(int selected) {
+	protected boolean onEquipSlotSelect(int selected) {
 		if (equipped.equippableAt(selected)) {
 			abils.setIndent();
 			marked = selected;
@@ -134,8 +135,10 @@ public class EquipScreen extends Screen {
 				}
 			}, true);
 			items.setSelected(lastRight);
+			return true;
 		} else {
 			// TODO: sfx: failure sound
+			return false;
 		}
 	}
 	
@@ -148,10 +151,10 @@ public class EquipScreen extends Screen {
 			@Override public boolean onSelection(int selected) {
 				if (selected == -1) {
 					MGlobal.screens.pop();
+					return true;
 				} else {
-					onEquipSlotSelect(selected);
+					return onEquipSlotSelect(selected);
 				}
-				return true;
 			}
 		}, true);
 	}

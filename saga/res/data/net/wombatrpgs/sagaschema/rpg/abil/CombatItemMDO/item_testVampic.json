@@ -1,0 +1,14 @@
+{
+	"key" : "item_testVampic",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$EVAMPIC",
+	"type" : "ITEM",
+	"uses" : 50,
+	"cost" : 8000,
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_1032408180"
+	}
+}

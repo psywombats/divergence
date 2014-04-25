@@ -1,0 +1,24 @@
+{
+	"key" : "chara_testRobot",
+	"subfolder" : "test",
+	"name" : "BORG MK7",
+	"description" : "",
+	"race" : "ROBOT",
+	"gender" : "NONE",
+	"appearance" : "4dir_ffl2_human",
+	"portrait" : "None",
+	"equipped" : [
+		"item_testsword"
+	],
+	"stats" : {
+		"hp" : 60,
+		"mhp" : 60,
+		"str" : 3,
+		"def" : 3,
+		"agi" : 3,
+		"mana" : 0,
+		"flags" : [
+			"RESIST_DEATH"
+		]
+	}
+}

@@ -67,7 +67,9 @@ public abstract class Inventory {
 		} else {
 			CombatItem old = get(slot);
 			items[slot] = item;
-			item.setContainer(this);
+			if (item != null) {
+				item.setContainer(this);
+			}
 			if (old != null) {
 				old.setContainer(null);
 			}

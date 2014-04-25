@@ -1,0 +1,14 @@
+{
+	"key" : "anon_CombatItemMDO_418859406",
+	"subfolder" : "",
+	"name" : "anon_CombatItemMDO_418859406",
+	"description" : "auto-generated anonymous polymorph",
+	"projector" : "ALL_ENEMY",
+	"damType" : "NONELEMENTAL",
+	"power" : 5,
+	"attackStat" : "MANA",
+	"defendStat" : "MANA",
+	"sideEffects" : [
+		"ONLY_AFFECT_UNDEAD"
+	]
+}

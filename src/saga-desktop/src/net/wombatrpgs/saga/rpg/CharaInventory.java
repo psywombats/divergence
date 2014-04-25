@@ -43,7 +43,7 @@ public class CharaInventory extends Inventory {
 		case HUMAN: case ROBOT: case MONSTER:
 			return false;
 		case MUTANT:
-			return slot <= 4;
+			return slot < 4;
 		default:
 			MGlobal.reporter.warn("Unknown race " + chara.getRace());
 			return false;
