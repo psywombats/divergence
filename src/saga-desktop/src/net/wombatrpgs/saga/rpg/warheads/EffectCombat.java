@@ -54,6 +54,7 @@ public abstract class EffectCombat extends AbilEffect {
 	public void modifyIntent(final Intent intent, final IntentListener listener) {
 		switch (mdo.projector) {
 		case SINGLE_ENEMY:
+			intent.clearTargets();
 			Chara selected = null;
 			if (intent.getTargets().size() > 0) {
 				selected = intent.getTargets().get(0);
@@ -61,7 +62,8 @@ public abstract class EffectCombat extends AbilEffect {
 			intent.getBattle().selectSingleEnemy(selected, intent.genDefaultListener(listener));
 			break;
 		case GROUP_ENEMY:
-			int group = intent.inferSelectedGroup();
+			int group = intent.inferEnemy();
+			intent.clearTargets();
 			intent.getBattle().selectEnemyGroup(group, intent.genDefaultListener(listener));
 			break;
 		case ALL_ENEMY:
@@ -154,7 +156,7 @@ public abstract class EffectCombat extends AbilEffect {
 					int damage = calcDamage(power, victim);
 					if (target.resists(mdo.damType) && !effect(OffenseFlag.IGNORE_RESISTANCES)) {
 						if (mdo.damType.isNegateable()) {
-							battle.println(targetname + " is resistant to " + itemname + ".");
+							battle.println(tab + targetname + " is resistant to " + itemname + ".");
 							damage = 0;
 						} else {
 							damage /= 2;

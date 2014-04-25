@@ -7,7 +7,6 @@
 package net.wombatrpgs.sagaschema.rpg.stats;
 
 import net.wombatrpgs.mgneschema.rpg.data.AdditiveStat;
-import net.wombatrpgs.mgneschema.rpg.data.MultiplicativeStat;
 import net.wombatrpgs.mgneschema.rpg.data.NumericStat;
 import net.wombatrpgs.mgneschema.rpg.data.NumericStatLinkable;
 
@@ -17,24 +16,23 @@ import net.wombatrpgs.mgneschema.rpg.data.NumericStatLinkable;
  */
 public enum Stat implements NumericStatLinkable {
 	
-	MHP					(false, "MHP:"),
-	HP					(false, "HP :"),
-	STR					(false, "STR:"),
-	DEF					(false, "DEF:"),
-	AGI					(false, "AGI:"),
-	MANA				(false, "MANA");
+	MHP					("max health",	"MHP:"),
+	HP					("health",		"HP :"),
+	STR					("strength",	"STR:"),
+	DEF					("defense",		"DEF:"),
+	AGI					("agility",		"AGI:"),
+	MANA				("mana",		"MANA");
 	
-	private boolean multiMode;
 	private NumericStat stat;
-	private String label;
+	private String label, name;
 	
 	/**
 	 * Internal enum constructor.
-	 * @param	multiMode		True if stat is multiplicative, false additive
+	 * @param	name			The full name for this stat
 	 * @param	label			The display tag for this stat
 	 */
-	Stat(boolean multiMode, String label) {
-		this.multiMode = multiMode;
+	Stat(String name, String label) {
+		this.name = name;
 		this.label = label;
 	}
 
@@ -44,11 +42,7 @@ public enum Stat implements NumericStatLinkable {
 	@Override
 	public NumericStat getStat() {
 		if (stat == null) {
-			if (multiMode) {
-				stat = new MultiplicativeStat(this.name());
-			} else {
-				stat = new AdditiveStat(this.name());
-			}
+			stat = new AdditiveStat(this.name());
 		}
 		return stat;
 	}
@@ -59,6 +53,14 @@ public enum Stat implements NumericStatLinkable {
 	 */
 	public String getLabel() {
 		return label;
+	}
+	
+	/**
+	 * Returns the official manual-level quality name of this stat.
+	 * @return					The name for this stat
+	 */
+	public String getFullName() {
+		return name;
 	}
 
 }

@@ -205,6 +205,16 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	}
 	
 	/**
+	 * Manually moves the cursor.
+	 * @param	selected		The index of the character to move to
+	 */
+	public void setSelected(int selected) {
+		selectedX = selected % INSERTS_COUNT_HORIZ;
+		selectedY = (int) Math.floor((float) selected / (float) INSERTS_COUNT_HORIZ);
+		updateCursor();
+	}
+	
+	/**
 	 * Stops this menu from receiving input. It still displays on the screen.
 	 */
 	public void unfocus() {
@@ -266,7 +276,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 		Graphic cursor = MGlobal.ui.getCursor();
 		cursorX = x;
 		cursorY = y + insertsHeight;
-		cursorX += getInsertWidth() * selectedX;
+		cursorX += (getInsertWidth() + paddingFudge) * selectedX;
 		cursorY -= getInsertHeight() * selectedY;
 		cursorY -= inserts.get(0).getHeight() * 3 / 2;
 		cursorY += (getInsertHeight() - cursor.getHeight()) / 2;

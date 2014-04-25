@@ -1,0 +1,17 @@
+{
+	"key" : "abil_testPower",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "POWER",
+	"type" : "ABILITY",
+	"uses" : 3,
+	"cost" : 0,
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectBoostMDO",
+		"key" : "anon_CombatItemMDO_973132779"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

@@ -19,7 +19,7 @@
 		"mana" : 0,
 		"flags" : [
 			"AQUATIC",
-			"RESIST_ICE"
+			"RESIST_FIRE"
 		]
 	}
 }

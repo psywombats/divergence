@@ -22,6 +22,13 @@ import net.wombatrpgs.sagaschema.rpg.stats.StatSetMDO;
 public class SagaStats extends StatEnumLink {
 	
 	/**
+	 * Creates a new set of stats with all default values.
+	 */
+	public SagaStats() {
+		super(Arrays.asList(Stat.values()), Arrays.asList(Flag.values()));
+	}
+	
+	/**
 	 * Creates a new set of stats from an existing stat set.
 	 * @param	mdo				The data to read from
 	 */
@@ -61,13 +68,6 @@ public class SagaStats extends StatEnumLink {
 			}
 			updateFlags(Arrays.asList(mdo.flags), true);
 		}
-	}
-	
-	/**
-	 * Internal constructor.
-	 */
-	protected SagaStats() {
-		super(Arrays.asList(Stat.values()), Arrays.asList(Flag.values()));
 	}
 
 }

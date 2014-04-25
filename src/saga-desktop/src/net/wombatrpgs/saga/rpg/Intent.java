@@ -104,9 +104,19 @@ public class Intent implements Comparable<Intent> {
 	 * Returns 0 if no group selected, or -1 if the game is broken.
 	 * @return					The index of the selected group, or 0 if none
 	 */
-	public int inferSelectedGroup() {
+	public int inferEnemy() {
 		if (targets.size() == 0) return 0;
 		return battle.getEnemy().index(targets.get(0));
+	}
+	
+	/**
+	 * Works out which allied group the user probably selected based on the
+	 * targets. Returns 0 if no group selected, or -1 if the game is broken.
+	 * @return					The index of the selected ally, or 0 if none
+	 */
+	public int inferAlly() {
+		if (targets.size() == 0) return 0;
+		return battle.getPlayer().index(targets.get(0));
 	}
 	
 	/**

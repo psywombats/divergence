@@ -7,6 +7,7 @@
 package net.wombatrpgs.saga.screen;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -39,6 +40,7 @@ import net.wombatrpgs.saga.ui.BattleBox;
 import net.wombatrpgs.saga.ui.CharaInsert;
 import net.wombatrpgs.saga.ui.CharaInsertFull;
 import net.wombatrpgs.saga.ui.CharaSelector;
+import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
 import net.wombatrpgs.saga.ui.ItemSelector;
 import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
 
@@ -76,7 +78,7 @@ public class CombatScreen extends Screen {
 	
 	// display
 	protected Nineslice optionsBG, insertsBG, monsterlistBG, abilsBG, actorBG;
-	protected CharaSelector partyInserts, enemyInserts;
+	protected CharaSelector partyInserts, enemyInserts, miniInserts;
 	protected TextBoxFormat monsterlistFormat;
 	protected String[] monsterlist;
 	protected OptionSelector options;
@@ -132,10 +134,13 @@ public class CombatScreen extends Screen {
 		
 		partyInserts = new CharaSelector(battle.getPlayer(), true, true, false, 5);
 		enemyInserts = new CharaSelector(battle.getEnemy(), true, true, false, 5);
+		miniInserts = new CharaSelector(battle.getPlayer(), false, true, false, -3);
 		assets.add(partyInserts);
 		assets.add(enemyInserts);
+		assets.add(miniInserts);
 		addUChild(partyInserts);
 		addUChild(enemyInserts);
+		addUChild(miniInserts);
 		
 		text = new BattleBox(this, TEXT_LINES);
 		assets.add(text);
@@ -185,8 +190,9 @@ public class CombatScreen extends Screen {
 			enemyInserts.render(batch);
 		} else if (showPlayerInserts) {
 			partyInserts.render(batch);
-		}
-		if (showActor) {
+		} else if (containsChild(miniInserts)) {
+			miniInserts.render(batch);
+		} else if (showActor) {
 			actor.render(batch);
 		}
 		Party enemy = battle.getEnemy();
@@ -256,6 +262,8 @@ public class CombatScreen extends Screen {
 		partyInserts.setY(globalY + (INSERTS_HEIGHT - partyInserts.getHeight()) / 2);
 		enemyInserts.setX(globalX + OPTIONS_WIDTH + (INSERTS_WIDTH - enemyInserts.getWidth()) / 2);
 		enemyInserts.setY(globalY + (INSERTS_HEIGHT - enemyInserts.getHeight()) / 2);
+		miniInserts.setX(globalX + (ACTOR_BG_WIDTH - miniInserts.getWidth()) / 2 + 5);
+		miniInserts.setY(globalY + (INSERTS_HEIGHT - miniInserts.getHeight()) / 2);
 	}
 	
 	/**
@@ -313,6 +321,7 @@ public class CombatScreen extends Screen {
 		setAuto(false);
 		updateMList();
 		partyInserts.refresh();
+		miniInserts.refresh();
 		if (containsChild(text)) {
 			text.fadeOut(TEXT_FADE_TIME);
 		}
@@ -388,7 +397,7 @@ public class CombatScreen extends Screen {
 	/**
 	 * Prompts the user to select an enemy group. This can be used for targeting
 	 * single enemies as well by targeting the first person in that group.
-	 * @param	selected		The currently selected enemy group index
+	 * @param	selected		The currently selected enemy group index, or 0
 	 * @param	listener		The listener to call when done
 	 * @param	multiMode		True to show enemy inserts as if selecting group
 	 */
@@ -413,6 +422,33 @@ public class CombatScreen extends Screen {
 			}
 		});
 		// TODO: battle: use multimode to render enemy inserts maybe?
+	}
+	
+	/**
+	 * Prompts the user to select a single ally.
+	 * @param	selected		The index of the currently selected ally, or 0
+	 * @param	listener		The listener to call when done
+	 */
+	public void selectAlly(int selected, final TargetListener listener) {
+		this.targetListener = listener;
+		showMonsterList = false;
+		showActor = true;
+		miniInserts.awaitSelection(new SelectionListener() {
+			@Override public boolean onSelection(Chara selected) {
+				if (selected == null) {
+					listener.onTargetSelection(null);
+				} else {
+					listener.onTargetSelection(Arrays.asList(selected));
+				}
+				removeChild(miniInserts);
+				showMonsterList = true;
+				return true;
+			}
+		}, true);
+		if (selected > 0) {
+			miniInserts.setSelected(selected);
+		}
+		addChild(miniInserts);
 	}
 	
 	/**

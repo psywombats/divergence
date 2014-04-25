@@ -9,7 +9,8 @@
 	"portrait" : "None",
 	"equipped" : [
 		"item_testabil",
-		"abil_testExplode"
+		"abil_testExplode",
+		"abil_testPower"
 	],
 	"stats" : {
 		"hp" : 60,

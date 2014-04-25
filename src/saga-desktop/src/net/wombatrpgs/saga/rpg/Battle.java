@@ -38,6 +38,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	protected FinishListener playbackListener;
 	protected List<Intent> playerTurn, globalTurn;
 	protected List<Boolean> enemyAlive, playerAlive;
+	protected List<TempStats> boosts;
 	protected int actorIndex;
 	protected boolean finished;
 	protected boolean targetingMode;
@@ -67,6 +68,7 @@ public class Battle extends AssetQueuer implements Disposable {
 		
 		playerTurn = new ArrayList<Intent>();
 		globalTurn = new ArrayList<Intent>();
+		boosts = new ArrayList<TempStats>();
 		
 		updateLivenessLists();
 	}
@@ -131,6 +133,9 @@ public class Battle extends AssetQueuer implements Disposable {
 	public void finish() {
 		// TODO: battle: finish transitions
 		MGlobal.screens.pop();
+		for (TempStats temp : boosts) {
+			temp.decombine();
+		}
 		finished = true;
 	}
 	
@@ -223,6 +228,17 @@ public class Battle extends AssetQueuer implements Disposable {
 	}
 	
 	/**
+	 * Prompts the user to select an ally, then calls the listener.
+	 * @param	index			The index of the currently selected ally, or 0
+	 * @param	listener		The callback once target is selected
+	 */
+	// TODO: come up with some way of targeting dead people
+	public void selectAlly(int index, TargetListener listener) {
+		targetingMode = true;
+		screen.selectAlly(index, listener);
+	}
+	
+	/**
 	 * Checks if any members of the nth enemy group are still alive.
 	 * @param	n				The index of the group to check
 	 * @return					True if any of that group remain
@@ -265,6 +281,16 @@ public class Battle extends AssetQueuer implements Disposable {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Registers a change in stats to the designated character that will last
+	 * the duration of this battle
+	 * @param	chara			The character to affect
+	 * @param	stats			The stats to boost by
+	 */
+	public void applyBoost(Chara chara, SagaStats stats) {
+		boosts.add(new TempStats(chara, stats));
 	}
 	
 	/**

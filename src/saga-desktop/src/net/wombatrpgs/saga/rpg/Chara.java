@@ -115,6 +115,14 @@ public class Chara extends AssetQueuer implements Disposable {
 	}
 	
 	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getName() + "(" + super.toString() + ")";
+	}
+
+	/**
 	 * Creates an animation for use wherever. Use this if you need to have
 	 * animations in multiple places rather than just the standard anim of this
 	 * character. Make sure to queue and dispose it.
@@ -217,7 +225,7 @@ public class Chara extends AssetQueuer implements Disposable {
 	 * @param	mod				The values to modify by
 	 * @param	decombine		True to decombine rather than apply stats
 	 */
-	protected void applyStatset(SagaStats mod, boolean decombine) {
+	public void applyStatset(SagaStats mod, boolean decombine) {
 		if (decombine) {
 			stats.decombine(mod);
 		} else {
