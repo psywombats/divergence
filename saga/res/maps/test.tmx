@@ -65,5 +65,11 @@
     <property name="onInteract" value="battle('party_3group')"/>
    </properties>
   </object>
+  <object name="bort the bozo" type="Character" x="16" y="80" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="onInteract" value="battle('party_testStrong')"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

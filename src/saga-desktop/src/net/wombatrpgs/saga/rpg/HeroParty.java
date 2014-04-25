@@ -70,5 +70,19 @@ public class HeroParty extends Party {
 		group.add(hero);
 		groups.add(group);
 	}
+	
+	/**
+	 * Finds the first non-dead party member. He's the leader. Don't call this
+	 * when the party is all dead, please.
+	 * @return					The first non-dead member, or null if all dead
+	 */
+	public Chara findLeader() {
+		for (int i = 0; i < groupCount(); i += 1) {
+			if (getFront(i).isAlive()) {
+				return getFront(i);
+			}
+		}
+		return null;
+	}
 
 }

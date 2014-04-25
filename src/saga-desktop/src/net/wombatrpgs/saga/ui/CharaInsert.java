@@ -14,6 +14,7 @@ import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
+import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.saga.rpg.Chara;
 
 /**
@@ -65,7 +66,7 @@ public abstract class CharaInsert extends ScreenGraphic {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
-		if (!chara.getAppearance().isMoving()) {
+		if (!chara.getAppearance().isMoving() && chara.isAlive()) {
 			chara.getAppearance().startMoving();
 		}
 		chara.getAppearance().update(elapsed);
@@ -91,6 +92,10 @@ public abstract class CharaInsert extends ScreenGraphic {
 		FontHolder font = MGlobal.ui.getFont();
 		format.x = (int) (x + PADDING*2 + chara.getAppearance().getWidth());
 		format.y = (int) (y + font.getLineHeight()*2);
+		if (chara.isDead()) {
+			chara.getAppearance().setFacing(OrthoDir.NORTH);
+			chara.getAppearance().stopMoving();
+		}
 		coreRefresh();
 	}
 	

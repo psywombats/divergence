@@ -128,20 +128,20 @@ public class TextBox extends ScreenGraphic {
 		
 		boxWidth = win.getViewportWidth();
 		boxHeight = (int) (font.getLineHeight() * mdo.lines);
-		boxHeight += mdo.marginHeight * 2;
+		boxHeight += mdo.marginTop + mdo.marginBottom;
 		if (backer != null) {
 			backer.resizeTo(boxWidth, boxHeight);
 		}
 		
 		bodyFormat.x = mdo.marginWidth;
 		if (mdo.anchor != BoxAnchorType.BOTTOM) {
-			bodyFormat.y = boxHeight - mdo.marginHeight;
+			bodyFormat.y = boxHeight - mdo.marginTop;
 		} else {
-			bodyFormat.y = win.getViewportHeight() - mdo.marginHeight;
+			bodyFormat.y = win.getViewportHeight() - mdo.marginTop;
 		}
 		bodyFormat.align = HAlignment.LEFT;
 		bodyFormat.width = win.getViewportWidth() - mdo.marginWidth * 2;
-		bodyFormat.height = boxHeight - mdo.marginHeight * 2;
+		bodyFormat.height = boxHeight - mdo.marginTop - mdo.marginBottom;
 	}
 
 	/**

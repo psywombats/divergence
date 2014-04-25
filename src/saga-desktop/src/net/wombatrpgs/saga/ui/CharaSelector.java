@@ -196,6 +196,15 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	}
 	
 	/**
+	 * Updates the inserts to reflect health, status, etc.
+	 */
+	public void refresh() {
+		for (CharaInsert insert : inserts) {
+			insert.refresh();
+		}
+	}
+	
+	/**
 	 * Stops this menu from receiving input. It still displays on the screen.
 	 */
 	public void unfocus() {

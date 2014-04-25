@@ -10,5 +10,6 @@
 	"typeSfx" : "None",
 	"lines" : 3,
 	"marginWidth" : 8,
-	"marginHeight" : 6
+	"marginTop" : 6,
+  "marginBottom" : 6
 }

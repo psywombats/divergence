@@ -10,6 +10,7 @@ import java.util.Collections;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.CommandListener;
+import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBox;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.ui.TextBoxMDO;
@@ -115,9 +116,11 @@ public class BattleBox extends TextBox implements CommandListener {
 	protected static TextBoxMDO generateMDO(int lines) {
 		TextBoxMDO orig = MGlobal.ui.getBoxMDO();
 		TextBoxMDO mdo = new TextBoxMDO();
+		FontHolder font = MGlobal.ui.getFont();
 		mdo.anchor = orig.anchor;
 		mdo.lines = lines;
-		mdo.marginHeight = orig.marginHeight + 2;
+		mdo.marginTop = orig.marginTop + 2;
+		mdo.marginBottom = (int) (orig.marginBottom + 2 + font.getLineHeight() * 2);
 		mdo.marginWidth = orig.marginWidth + 2;
 		mdo.nineslice = orig.nineslice;
 		mdo.scaling = orig.scaling;

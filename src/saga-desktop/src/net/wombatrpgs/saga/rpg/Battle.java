@@ -14,6 +14,7 @@ import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
+import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.Intent.IntentListener;
 import net.wombatrpgs.saga.rpg.Intent.TargetListener;
@@ -36,6 +37,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	// internal constructs
 	protected FinishListener playbackListener;
 	protected List<Intent> playerTurn, globalTurn;
+	protected List<Boolean> enemyAlive, playerAlive;
 	protected int actorIndex;
 	protected boolean finished;
 	
@@ -64,6 +66,8 @@ public class Battle extends AssetQueuer implements Disposable {
 		
 		playerTurn = new ArrayList<Intent>();
 		globalTurn = new ArrayList<Intent>();
+		
+		updateLivenessLists();
 	}
 	
 	/**
@@ -146,7 +150,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	 */
 	public void onFight() {
 		actorIndex = 0;
-		nextIntent();
+		buildNextIntent();
 	}
 	
 	/**
@@ -193,7 +197,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * @param	listener		The callback once target is selected
 	 */
 	public void selectSingleEnemy(Chara selected, TargetListener listener) {
-		int index = index(selected);
+		int index = enemy.index(selected);
 		if (index == -1) index = 0;
 		while (enemy.getGroup(index).size() == 0) {
 			index += 1;
@@ -216,17 +220,32 @@ public class Battle extends AssetQueuer implements Disposable {
 	}
 	
 	/**
-	 * Gets the index of the group the enemy is in. Returns -1 if no group.
-	 * @param	target			The enemy to to check
-	 * @return					The index of that enemy's group
+	 * Checks if any members of the nth enemy group are still alive.
+	 * @param	n				The index of the group to check
+	 * @return					True if any of that group remain
 	 */
-	public int index(Chara target) {
-		for (int i = 0; i < enemy.groupCount(); i += 1) {
-			if (enemy.getGroup(i).contains(target)) {
-				return i;
-			}
-		}
-		return -1;
+	public boolean isEnemyAlive(int n) {
+		return enemyAlive.get(n);
+	}
+	
+	/**
+	 * Checks if the nth play is alive. This is a render caching method.
+	 * @param	n				The index of the player to check
+	 * @return					True if that player fights on
+	 */
+	public boolean isPlayerAlive(int n) {
+		return playerAlive.get(n);
+	}
+	
+	/**
+	 * Call this to check if the victim is dead. If the victim is dead, prints
+	 * out an appropriate message, updates the displays, and checks the win
+	 * conditions.
+	 * @param	victim			The dolt who may have died
+	 */
+	public void checkDeath(Chara victim) {
+		if (!victim.isDead()) return;
+		println(SConstants.TAB + victim.getName() + " is defeated.");
 	}
 	
 	/**
@@ -293,7 +312,14 @@ public class Battle extends AssetQueuer implements Disposable {
 		intent.resolve();
 		playbackListener = new FinishListener() {
 			@Override public void onFinish() {
-				playbackListener = null;
+				updateLivenessLists();
+				if (enemyWon()) {
+					onDefeat();
+					return;
+				} else if (playerWon()) {
+					onVictory();
+					return;
+				}
 				if (globalTurn.size() > 0) {
 					println("");
 					playNextIntent();
@@ -340,7 +366,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	/**
 	 * Prompts the player to create an intent for the current actor.
 	 */
-	protected void nextIntent() {
+	protected void buildNextIntent() {
 		Chara chara = player.getFront(actorIndex);
 		final Intent intent;
 		if (actorIndex < playerTurn.size()) {
@@ -355,17 +381,20 @@ public class Battle extends AssetQueuer implements Disposable {
 					if (actorIndex > 0) {
 						actorIndex -= 1;
 						playerTurn.remove(intent);
-						nextIntent();
+						buildNextIntent();
 					} else {
 						newRound();
 					}
 				} else {
-					actorIndex += 1;
+					do {
+						actorIndex += 1;
+					} while (actorIndex < player.size() && player.getFront(actorIndex).isDead());
+					
 					if (actorIndex == player.size()) {
 						queueEnemyIntents();
 						playRound();
 					} else {
-						nextIntent();
+						buildNextIntent();
 					}
 				}
 			}
@@ -378,8 +407,102 @@ public class Battle extends AssetQueuer implements Disposable {
 	 */
 	protected void queueEnemyIntents() {
 		for (Enemy chara : enemy.getEnemies()) {
-			globalTurn.add(chara.act(this));
+			if (chara.isAlive()) {
+				globalTurn.add(chara.act(this));
+			}
 		}
+	}
+	
+	/**
+	 * Make sure all the enemy portraits are still rendering correctly.
+	 */
+	protected void updateLivenessLists() {
+		enemyAlive = new ArrayList<Boolean>();
+		for (int i = 0; i < enemy.groupCount(); i += 1) {
+			boolean alive = false;
+			for (Chara chara : enemy.getGroup(i)) {
+				if (chara.isAlive()) {
+					alive = true;
+					break;
+				}
+			}
+			enemyAlive.add(alive);
+		}
+		if (playerAlive == null) {
+			playerAlive = new ArrayList<Boolean>();
+			for (int i = 0; i < player.groupCount(); i += 1) {
+				playerAlive.add(player.getFront(i).isAlive());
+			}
+		}
+		for (int i = 0; i < player.groupCount(); i += 1) {
+			// TODO: battle: status effect display
+			// TODO: battle: chara revive display
+			boolean dead = player.getFront(i).isDead();
+			if (dead && isPlayerAlive(i)) {
+				screen.onPlayerDeath(i);
+				playerAlive.set(i, false);
+			}
+		}
+	}
+	
+	/**
+	 * Checks if either side has won the battle and the battle should abort.
+	 * @return					True if either side won
+	 */
+	protected boolean checkWinConditions() {
+		return playerWon() || enemyWon();
+	}
+	
+	/**
+	 * Checks if the player has won this battle and all enemies are dead.
+	 * @return					True if the player won
+	 */
+	protected boolean playerWon() {
+		for (Boolean alive : enemyAlive) {
+			if (alive) return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Checks if the enemy has won this battle and all players are dead.
+	 * @return					True if the player won
+	 */
+	protected boolean enemyWon() {
+		for (Boolean alive : playerAlive) {
+			if (alive) return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Called internally when the player wins the battle.
+	 */
+	protected void onVictory() {
+		// TODO: battle: spoils of war
+		println("");
+		println("");
+		screen.setAuto(false);
+		String leadername = player.findLeader().getName();
+		playback(leadername + " is victorious.", new FinishListener() {
+			@Override public void onFinish() {
+				finish();
+			}
+		});
+	}
+	
+	/**
+	 * Called internall when the enemy wins the battle.
+	 */
+	protected void onDefeat() {
+		// TODO: battle: game over, player!
+		println("");
+		screen.setAuto(false);
+		playback("The party is lost...", new FinishListener() {
+			@Override public void onFinish() {
+				finish();
+			}
+		});
 	}
 
 }

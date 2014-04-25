@@ -66,7 +66,7 @@ public class CharaInsertFull extends CharaInsert {
 	 * @see net.wombatrpgs.saga.ui.CharaInsert#coreRefresh()
 	 */
 	@Override
-	public void coreRefresh() {
+	protected void coreRefresh() {
 		format.y -= 4;
 		skipStatus = false;
 		line1 = chara.getName();

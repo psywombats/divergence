@@ -67,7 +67,7 @@ public class CombatScreen extends Screen {
 	protected static final int ABILS_VERT_FUDGE = -16;
 	
 	// battle box constants
-	protected static final int TEXT_LINES = 10;
+	protected static final int TEXT_LINES = 8;
 	protected static final float TEXT_FADE_TIME = .1f;
 	
 	protected Battle battle;
@@ -206,6 +206,7 @@ public class CombatScreen extends Screen {
 		for (int i = 0 ; i < groups; i += 1) { 
 			List<Chara> group = enemy.getGroup(i);
 			if (group.size() == 0) continue;
+			if (!battle.isEnemyAlive(i)) continue;
 			Graphic portrait = enemy.getFront(i).getPortrait();
 			if (portrait == null) continue;
 			float renderX = globalX + (win.getViewportWidth() - portrait.getWidth()*groups) * (i+1)/(groups+1) +
@@ -297,6 +298,8 @@ public class CombatScreen extends Screen {
 		showMonsterList = true;
 		showActor = false;
 		setAuto(false);
+		updateMList();
+		partyInserts.refresh();
 		if (containsChild(text)) {
 			text.fadeOut(TEXT_FADE_TIME);
 		}
@@ -308,6 +311,14 @@ public class CombatScreen extends Screen {
 		} else {
 			options.showAt((int) options.getX(), (int) options.getY());
 		}
+	}
+	
+	/**
+	 * Called by the battle when the character with the given index is killed.
+	 * @param	index			The party slot of the dead character
+	 */
+	public void onPlayerDeath(int index) {
+		sprites.get(index).stopMoving();
 	}
 	
 	/**
@@ -422,7 +433,13 @@ public class CombatScreen extends Screen {
 			while (monsterlist[i].length() < 10) {
 				monsterlist[i] += " ";
 			}
-			monsterlist[i] = monsterlist[i] + " x" + group.size();
+			int count = 0;
+			for (Chara chara : group) {
+				if (chara.isAlive()) {
+					count += 1;
+				}
+			}
+			monsterlist[i] = monsterlist[i] + " x" + count;
 		}
 	}
 	

@@ -67,6 +67,29 @@ public class Party extends AssetQueuer implements Disposable {
 	}
 	
 	/**
+	 * Checks if a character is in this party.
+	 * @param	chara			The character to check
+	 * @return					True if that character is in this party
+	 */
+	public boolean contains(Chara chara) {
+		return members.contains(chara);
+	}
+	
+	/**
+	 * Gets the index of the group the chara is in. Returns -1 if no group.
+	 * @param	chara			The chara to to check
+	 * @return					The index of that enemy's group
+	 */
+	public int index(Chara chara) {
+		for (int i = 0; i < groupCount(); i += 1) {
+			if (getGroup(i).contains(chara)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	/**
 	 * Create the appropriate subclass of chara for this party. Override if the
 	 * party is made of players or enemies or something that requires subclass.
 	 * @param	mdoKey			The key of the mdo being instantiated

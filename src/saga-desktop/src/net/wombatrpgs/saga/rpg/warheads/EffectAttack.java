@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.rpg.Battle;
 import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.CombatItem;
@@ -76,8 +77,14 @@ public class EffectAttack extends AbilEffect {
 		Party player = intent.getBattle().getPlayer();
 		switch (mdo.projector) {
 		case SINGLE_ENEMY: case GROUP_ENEMY:
-			Chara target = player.getFront(MGlobal.rand.nextInt(player.size()));
-			intent.addTargets(target);
+			List<Integer> candidates = new ArrayList<Integer>();
+			for (int i = 0; i < player.groupCount(); i += 1) {
+				if (player.getFront(i).isAlive()) {
+					candidates.add(i);
+				}
+			}
+			int index = candidates.get(MGlobal.rand.nextInt(candidates.size()));
+			intent.addTargets(player.getFront(index));
 			break;
 		case ALL_ENEMY:
 			intent.addTargets(player.getAll());
@@ -98,6 +105,7 @@ public class EffectAttack extends AbilEffect {
 		Chara target = intent.getTargets().get(0);
 		String targetname = target.getName();
 		String itemname = intent.getItem().getName();
+		String tab = SConstants.TAB;
 		switch (mdo.projector) {
 		case SINGLE_ENEMY:
 			battle.print(username + " attacks " + targetname + " by " + itemname + ".");
@@ -120,21 +128,19 @@ public class EffectAttack extends AbilEffect {
 			if (hits(intent.getActor(), victim, roll)) {
 				int damage = calcDamage(power, victim);
 				if (damage > 0) {
-					battle.println(TAB + victimname + " takes " + damage + " damage.");
-					boolean dead = victim.takeDamage(damage);
-					if (dead) {
-						battle.println(TAB + victimname + " is defeated.");
-					}
+					battle.println(tab + victimname + " takes " + damage + " damage.");
+					victim.takeDamage(damage);
+					battle.checkDeath(victim);
 				} else {
-					battle.println(TAB + victimname + " takes no damage.");
+					battle.println(tab + victimname + " takes no damage.");
 				}
 			} else {
 				CombatItem shield = victim.getShield();
 				if (shield == null) {
-					battle.println(TAB + username + " misses " + victimname + ".");
+					battle.println(tab + username + " misses " + victimname + ".");
 				} else {
 					String shieldname = shield.getName();
-					battle.println(TAB + victimname + " deflects with " + shieldname + ".");
+					battle.println(tab + victimname + " deflects with " + shieldname + ".");
 				}
 			}
 		}
@@ -182,9 +188,9 @@ public class EffectAttack extends AbilEffect {
 	 */
 	protected boolean hits(Chara user, Chara target, float roll) {
 		Stat agi = Stat.AGI;
-		int temp = user.get(agi) - target.get(agi) - user.getShielding();
+		int temp = 100 - (target.get(agi) + user.getShielding() - user.get(agi));
 		float chance = (float) temp / 100f;
-		return roll > chance;
+		return roll < chance;
 	}
 
 }

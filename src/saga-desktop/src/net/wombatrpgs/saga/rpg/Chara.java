@@ -94,6 +94,9 @@ public class Chara extends AssetQueuer implements Disposable {
 	/** @return True if this character has moved on to the next life */
 	public boolean isDead() { return get(Stat.HP) <= 0 || status == Status.STONE; }
 	
+	/** @return True if this character isn't dead yet */
+	public boolean isAlive() { return !isDead(); }
+	
 	// TODO: battle: shielding
 	/** @return The shield value of the user for this turn */
 	public int getShielding() { return 0; }

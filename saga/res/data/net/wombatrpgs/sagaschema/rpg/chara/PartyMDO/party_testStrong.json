@@ -1,0 +1,12 @@
+{
+	"key" : "party_testStrong",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"members" : [
+		{
+			"monster" : "chara_enemyTestStrong",
+			"count" : 1
+		}
+	]
+}

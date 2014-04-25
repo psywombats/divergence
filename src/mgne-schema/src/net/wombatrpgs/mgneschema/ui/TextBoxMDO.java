@@ -46,7 +46,10 @@ public class TextBoxMDO extends MainSchema {
 	@Desc("Margin width - Pixel amount on each side from edge of the screen")
 	public Integer marginWidth;
 	
-	@Desc("Margin height - Pixel amount on top and bottom from edge of the screen")
-	public Integer marginHeight;
+	@Desc("Margin top - Pixel amount on top from edge of the screen")
+	public Integer marginTop;
+	
+	@Desc("Margin bottom - Pixel amount on bottom from edge of the screen")
+	public Integer marginBottom;
 
 }
