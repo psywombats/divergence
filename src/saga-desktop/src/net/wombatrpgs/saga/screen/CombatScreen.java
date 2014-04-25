@@ -65,6 +65,8 @@ public class CombatScreen extends Screen {
 	protected static final int ABILS_EDGE_PADDING = 12;
 	protected static final int ABILS_LIST_PADDING = 2;
 	protected static final int ABILS_VERT_FUDGE = -16;
+	protected static final int ABILS_BG_WIDTH = 196;
+	protected static final int ACTOR_BG_WIDTH = 124;
 	
 	// battle box constants
 	protected static final int TEXT_LINES = 8;
@@ -73,7 +75,7 @@ public class CombatScreen extends Screen {
 	protected Battle battle;
 	
 	// display
-	protected Nineslice optionsBG, insertsBG, monsterlistBG;
+	protected Nineslice optionsBG, insertsBG, monsterlistBG, abilsBG, actorBG;
 	protected CharaSelector partyInserts, enemyInserts;
 	protected TextBoxFormat monsterlistFormat;
 	protected String[] monsterlist;
@@ -119,10 +121,14 @@ public class CombatScreen extends Screen {
 		
 		optionsBG = new Nineslice(OPTIONS_WIDTH, OPTIONS_HEIGHT);
 		insertsBG = new Nineslice(INSERTS_WIDTH + optionsBG.getBorderWidth(), INSERTS_HEIGHT);
+		abilsBG = new Nineslice(ABILS_BG_WIDTH + optionsBG.getBorderWidth(), INSERTS_HEIGHT);
 		monsterlistBG = new Nineslice(MONSTERLIST_WIDTH, MONSTERLIST_HEIGHT);
+		actorBG = new Nineslice(ACTOR_BG_WIDTH, INSERTS_HEIGHT);
 		assets.add(optionsBG);
 		assets.add(insertsBG);
 		assets.add(monsterlistBG);
+		assets.add(abilsBG);
+		assets.add(actorBG);
 		
 		partyInserts = new CharaSelector(battle.getPlayer(), true, true, false, 5);
 		enemyInserts = new CharaSelector(battle.getEnemy(), true, true, false, 5);
@@ -169,8 +175,12 @@ public class CombatScreen extends Screen {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
-		optionsBG.renderAt(batch, globalX, globalY);
-		insertsBG.renderAt(batch, globalX + OPTIONS_WIDTH - optionsBG.getBorderWidth(), globalY);
+		if (showActor) {
+			actorBG.renderAt(batch, globalX, globalY);
+		} else {
+			optionsBG.renderAt(batch, globalX, globalY);
+			insertsBG.renderAt(batch, globalX + OPTIONS_WIDTH - optionsBG.getBorderWidth(), globalY);
+		}
 		if (showEnemyInserts) {
 			enemyInserts.render(batch);
 		} else if (showPlayerInserts) {
@@ -178,9 +188,6 @@ public class CombatScreen extends Screen {
 		}
 		if (showActor) {
 			actor.render(batch);
-		}
-		if (containsChild(abils)) {
-			abils.render(batch);
 		}
 		Party enemy = battle.getEnemy();
 		int groups = enemy.groupCount();
@@ -201,6 +208,12 @@ public class CombatScreen extends Screen {
 				renderMList(batch, 2, font.getLineHeight() * -1);
 				break;
 			}
+		}
+		if (showActor) {
+			abilsBG.renderAt(batch, MONSTERLIST_WIDTH - monsterlistBG.getBorderWidth(), globalY);
+		}
+		if (containsChild(abils)) {
+			abils.render(batch);
 		}
 		WindowSettings win = MGlobal.window;
 		for (int i = 0 ; i < groups; i += 1) { 
@@ -340,15 +353,15 @@ public class CombatScreen extends Screen {
 		assets.add(actor);
 		assets.add(abils);
 		
-		actor.setX(globalX + (OPTIONS_WIDTH - actor.getWidth()) / 2);
+		actor.setX(globalX + (MONSTERLIST_WIDTH - actor.getWidth()) / 2);
 		actor.setY(globalY + OPTIONS_HEIGHT - actor.getHeight() - ACTOR_PADDING);
-		abils.setX(globalX + OPTIONS_WIDTH + ABILS_EDGE_PADDING);
+		abils.setX(globalX + MONSTERLIST_WIDTH + ABILS_EDGE_PADDING);
 		abils.setY(globalY + OPTIONS_HEIGHT - abils.getHeight() + ABILS_VERT_FUDGE);
 		
 		showActor = true;
 		showPlayerInserts = false;
 		showEnemyInserts = false;
-		showMonsterList = false;
+		// showMonsterList = false;
 		if (containsChild(options)) {
 			removeChild(options);
 		}
@@ -384,6 +397,7 @@ public class CombatScreen extends Screen {
 		this.selectedIndex = selected;
 		this.multiMode = multiMode;
 		
+		showMonsterList = true;
 		selectionMode = true;
 		moveCursor(0);
 		pushCommandListener(new CommandListener() {
