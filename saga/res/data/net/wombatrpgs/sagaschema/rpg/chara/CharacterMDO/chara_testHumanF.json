@@ -8,7 +8,8 @@
 	"appearance" : "4dir_ffl2_human",
 	"portrait" : "None",
 	"equipped" : [
-		"item_testRapier"
+		"item_testRapier",
+		"item_testWhip"
 	],
 	"stats" : {
 		"hp" : 60,

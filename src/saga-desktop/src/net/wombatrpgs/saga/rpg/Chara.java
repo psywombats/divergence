@@ -199,14 +199,17 @@ public class Chara extends AssetQueuer implements Disposable {
 	}
 	
 	/**
-	 * Causes this character to regain HP.
+	 * Causes this character to regain HP. Caps at the chara's max HP.
 	 * @param	heal			The damage amount to heal, in HP
+	 * @return					The damage actually healed
 	 */
-	public void heal(int heal) {
+	public int heal(int heal) {
+		int old = get(Stat.HP);
 		stats.add(Stat.HP, heal);
 		if (get(Stat.HP) > get(Stat.MHP)) {
 			stats.setStat(Stat.HP, get(Stat.MHP));
 		}
+		return get(Stat.HP) - old; 
 	}
 	
 	/**

@@ -40,6 +40,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	protected List<Boolean> enemyAlive, playerAlive;
 	protected int actorIndex;
 	protected boolean finished;
+	protected boolean targetingMode;
 	
 	/**
 	 * Creates a new encounter between the player and some enemy party. The
@@ -202,6 +203,7 @@ public class Battle extends AssetQueuer implements Disposable {
 		while (enemy.getGroup(index).size() == 0) {
 			index += 1;
 		}
+		targetingMode = true;
 		screen.selectEnemyIndex(index, listener, false);
 	}
 	
@@ -216,6 +218,7 @@ public class Battle extends AssetQueuer implements Disposable {
 		while (enemy.getGroup(index).size() == 0) {
 			index += 1;
 		}
+		targetingMode = true;
 		screen.selectEnemyIndex(index, listener, true);
 	}
 	
@@ -247,6 +250,21 @@ public class Battle extends AssetQueuer implements Disposable {
 	public void checkDeath(Chara victim, boolean silent) {
 		if (!victim.isDead()) return;
 		if (!silent) println(SConstants.TAB + victim.getName() + " is defeated.");
+	}
+	
+	/**
+	 * Neuters a character's action in the global cue. This is sort a stun.
+	 * @param	chara			The character whose action to negate
+	 * @return					True if cancelled, false if already acted
+	 */
+	public boolean cancelAction(Chara chara) {
+		for (Intent intent : globalTurn) {
+			if (intent.getActor() == chara) {
+				intent.setItem(null);
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -376,10 +394,11 @@ public class Battle extends AssetQueuer implements Disposable {
 			intent = new Intent(chara, this);
 			playerTurn.add(intent);
 		}
+		targetingMode = false;
 		modifyIntent(intent, new IntentListener() {
 			@Override public void onIntent(Intent newIntent) {
 				if (newIntent == null) {
-					if (intent.getItem() == null) {
+					if (!targetingMode) {
 						if (actorIndex > 0) {
 							actorIndex -= 1;
 							playerTurn.remove(intent);
@@ -388,7 +407,6 @@ public class Battle extends AssetQueuer implements Disposable {
 							newRound();
 						}
 					} else {
-						intent.setItem(null);
 						buildNextIntent();
 					}
 				} else {

@@ -1,0 +1,17 @@
+{
+	"key" : "abil_oweapon",
+	"subfolder" : "resistances",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$LWEAPON",
+	"type" : "ABILITY",
+	"uses" : 0,
+	"cost" : 0,
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectPassiveMDO",
+		"key" : "anon_CombatItemMDO_-1734124967"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

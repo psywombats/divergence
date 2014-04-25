@@ -9,13 +9,12 @@ package net.wombatrpgs.sagaschema.rpg.abil.data.warheads;
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
-import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**
  * Multi-hit attack (2pincer, 3head, etc)
  */
-public class EffectMultihitMDO extends AbilEffectMDO {
+public class EffectMultihitMDO extends EffectCombatMDO {
 	
 	@Desc("Base power - base multiplier of each hit")
 	public Integer power;

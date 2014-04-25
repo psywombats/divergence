@@ -169,7 +169,7 @@ public class Intent implements Comparable<Intent> {
 		for (Chara dead : deads) {
 			targets.remove(dead);
 		}
-		if (targets.isEmpty()) {
+		if (item == null || targets.isEmpty()) {
 			battle.println(actor.getName() + " does nothing.");
 			return;
 		}

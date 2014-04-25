@@ -9,18 +9,12 @@ package net.wombatrpgs.sagaschema.rpg.abil.data.warheads;
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
-import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
-import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseFlag;
-import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseProjector;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**
  * Deals fixed damage.
  */
-public class EffectFixedMDO extends AbilEffectMDO {
-	
-	@Desc("Projector - what does this attack hit?")
-	public OffenseProjector projector;
+public class EffectFixedMDO extends EffectCombatMDO {
 	
 	@Desc("Base damage")
 	@DefaultValue("0")
@@ -44,7 +38,9 @@ public class EffectFixedMDO extends AbilEffectMDO {
 	@Nullable
 	public Stat accStat;
 	
-	@Desc("Other flags")
-	public OffenseFlag[] sideEffects;
+	@Desc("Dodge stat - chance to hit reduced by this")
+	@DefaultValue("AGI")
+	@Nullable
+	public Stat dodgeStat;
 
 }
