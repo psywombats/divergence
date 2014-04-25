@@ -1,0 +1,24 @@
+{
+	"key" : "chara_enemyTest4",
+	"subfolder" : "test",
+	"name" : "BURUBURU",
+	"description" : "",
+	"race" : "MONSTER",
+	"gender" : "NONE",
+	"appearance" : "4dir_ffl2_human",
+	"portrait" : "battle_portraits/ghost.png",
+	"equipped" : [
+		"item_testabil"
+	],
+	"stats" : {
+		"hp" : 20,
+		"mhp" : 20,
+		"str" : 3,
+		"def" : 0,
+		"agi" : 5,
+		"mana" : 5,
+		"flags" : [
+			"UNDEAD"
+		]
+	}
+}

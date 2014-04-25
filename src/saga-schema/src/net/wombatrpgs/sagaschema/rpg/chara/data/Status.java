@@ -39,18 +39,18 @@ public enum Status implements Resistable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.sagaschema.rpg.chara.data.Resistable#getResistFlag()
+	 * @see net.wombatrpgs.sagaschema.rpg.chara.data.Resistable#getResistFlags()
 	 */
 	@Override
-	public EnumSet<Flag> getResistFlag() {
+	public EnumSet<Flag> getResistFlags() {
 		return resistFlags;
 	}
 
 	/**
-	 * @see net.wombatrpgs.sagaschema.rpg.chara.data.Resistable#getWeakFlag()
+	 * @see net.wombatrpgs.sagaschema.rpg.chara.data.Resistable#getWeakFlags()
 	 */
 	@Override
-	public EnumSet<Flag> getWeakFlag() {
+	public EnumSet<Flag> getWeakFlags() {
 		return EnumSet.noneOf(Flag.class);
 	}
 	
@@ -69,6 +69,14 @@ public enum Status implements Resistable {
 	 */
 	public boolean preventsAction() {
 		return preventsAction;
+	}
+
+	/**
+	 * @see net.wombatrpgs.sagaschema.rpg.chara.data.Resistable#isNegateable()
+	 */
+	@Override
+	public boolean isNegateable() {
+		return true;
 	}
 
 }

@@ -1,0 +1,16 @@
+{
+	"key" : "party_testGroups",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"members" : [
+		{
+			"monster" : "chara_enemyTest1",
+			"count" : 2
+		},
+		{
+			"monster" : "chara_enemyTest3",
+			"count" : 3
+		}
+	]
+}

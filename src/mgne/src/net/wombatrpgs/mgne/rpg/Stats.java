@@ -146,7 +146,7 @@ public class Stats {
 	 */
 	public void combine(Stats other) {
 		for (NumericStat type : other.statTypes.values()) {
-			Float value = stats.get(type);
+			Float value = stats.get(type.getID());
 			String id = type.getID();
 			if (value == null) {
 				statTypes.put(type.getID(), type);
@@ -156,7 +156,7 @@ public class Stats {
 			}
 		}
 		for (FlagStat type : other.flagTypes.values()) {
-			FlagStatValue value = flags.get(type);
+			FlagStatValue value = flags.get(type.getID());
 			String id = type.getID();
 			if (value == null) {
 				flagTypes.put(type.getID(), type);
@@ -174,7 +174,7 @@ public class Stats {
 	 */
 	public void decombine(Stats other) {
 		for (NumericStat type : other.statTypes.values()) {
-			Float value = stats.get(type);
+			Float value = stats.get(type.getID());
 			String id = type.getID();
 			if (value == null) {
 				MGlobal.reporter.err("Decombined a non-combined stat set");
@@ -183,7 +183,7 @@ public class Stats {
 			}
 		}
 		for (FlagStat type : other.flagTypes.values()) {
-			FlagStatValue value = flags.get(type);
+			FlagStatValue value = flags.get(type.getID());
 			if (value == null) {
 				MGlobal.reporter.err("Decombined a non-combined stat set");
 			} else {

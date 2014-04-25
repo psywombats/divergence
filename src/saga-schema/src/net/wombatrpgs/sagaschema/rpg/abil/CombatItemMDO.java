@@ -7,6 +7,7 @@
 package net.wombatrpgs.sagaschema.rpg.abil;
 
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
+import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.InlinePolymorphic;
@@ -15,6 +16,7 @@ import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.PolymorphicLink;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilityType;
+import net.wombatrpgs.sagaschema.rpg.stats.NumericStatModMDO;
 
 /**
  * MDO for actions.
@@ -40,5 +42,9 @@ public class CombatItemMDO extends MainSchema {
 	@InlinePolymorphic(AbilEffectMDO.class)
 	@Nullable
 	public PolymorphicLink warhead;
+	
+	@Desc("Robo stats - these boosts are granted to robots that equip this")
+	@InlineSchema(NumericStatModMDO.class)
+	public NumericStatModMDO robostats;
 
 }

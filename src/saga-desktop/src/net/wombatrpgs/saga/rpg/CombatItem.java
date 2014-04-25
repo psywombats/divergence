@@ -25,6 +25,7 @@ public class CombatItem extends AssetQueuer {
 	protected Inventory container;
 	protected AbilEffect effect;
 	protected String name;
+	protected SagaStats stats, robostats;
 	protected int uses;
 	
 	/**
@@ -35,6 +36,10 @@ public class CombatItem extends AssetQueuer {
 		this.mdo = mdo;
 		uses = mdo.uses;
 		name = MGlobal.charConverter.convert(mdo.abilityName);
+		
+		stats = new SagaStats();
+		robostats = new SagaStats(mdo.robostats);
+		
 		effect = AbilEffectFactory.create(mdo.warhead.key, this);
 		assets.add(effect);
 	}
@@ -58,6 +63,12 @@ public class CombatItem extends AssetQueuer {
 	
 	/** @param container The new holder of this item */
 	public void setContainer(Inventory container) { this.container = container; }
+	
+	/** @return The global stats this item imbues when equipped */
+	public SagaStats getStatset() { return stats; }
+	
+	/** @return The robot-specific stat boosts this item imbues when equipped */
+	public SagaStats getRobostats() { return robostats; }
 	
 	/**
 	 * Called when this item is used from the map menu.
@@ -118,12 +129,27 @@ public class CombatItem extends AssetQueuer {
 	}
 	
 	/**
+	 * Halves the uses on this item, like if a robot equipped it.
+	 */
+	public void halveUses() {
+		uses = Math.round((float) uses / 2f);
+		checkDiscard();
+	}
+	
+	/**
 	 * Called internally when the item is used. Simulates wear on the item and
 	 * removes it if it breaks.
 	 */
 	protected void deductUse() {
 		uses -= 1;
-		if (uses <= 0) {
+		checkDiscard();
+	}
+	
+	/**
+	 * Checks if this item should be discarded, and if so, discards it.
+	 */
+	protected void checkDiscard() {
+		if (uses <= 0 && mdo.uses > 0) {
 			container.drop(this);
 		}
 	}

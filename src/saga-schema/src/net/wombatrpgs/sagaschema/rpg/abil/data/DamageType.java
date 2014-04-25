@@ -16,43 +16,54 @@ import net.wombatrpgs.sagaschema.rpg.stats.Flag;
  */
 public enum DamageType implements Resistable {
 	
-	PHYSICAL		(EnumSet.of(Flag.RESIST_DAMAGE),						EnumSet.noneOf(Flag.class)),
-	WEAPON			(EnumSet.of(Flag.RESIST_DAMAGE, Flag.RESIST_WEAPON),	EnumSet.noneOf(Flag.class)),
+	PHYSICAL		(false,	EnumSet.of(Flag.RESIST_DAMAGE),							EnumSet.noneOf(Flag.class)),
+	WEAPON			(false,	EnumSet.of(Flag.RESIST_WEAPON, Flag.RESIST_DAMAGE),		EnumSet.noneOf(Flag.class)),
 	
-	FIRE			(EnumSet.of(Flag.RESIST_DAMAGE, Flag.RESIST_FIRE),		EnumSet.of(Flag.WEAK_FIRE)),
-	ICE				(EnumSet.of(Flag.RESIST_DAMAGE, Flag.RESIST_ICE),		EnumSet.of(Flag.WEAK_ICE)),
-	EARTH			(EnumSet.of(Flag.RESIST_DAMAGE, Flag.RESIST_EARTH),		EnumSet.of(Flag.WEAK_EARTH)),
-	THUNDER			(EnumSet.of(Flag.RESIST_DAMAGE, Flag.RESIST_THUNDER),	EnumSet.of(Flag.WEAK_THUNDER)),
+	FIRE			(true,	EnumSet.of(Flag.RESIST_FIRE, Flag.RESIST_DAMAGE),		EnumSet.of(Flag.WEAK_FIRE)),
+	ICE				(true,	EnumSet.of(Flag.RESIST_ICE, Flag.RESIST_DAMAGE),		EnumSet.of(Flag.WEAK_ICE)),
+	EARTH			(true,	EnumSet.of(Flag.RESIST_EARTH, Flag.RESIST_DAMAGE),		EnumSet.of(Flag.WEAK_EARTH)),
+	THUNDER			(true,	EnumSet.of(Flag.RESIST_THUNDER, Flag.RESIST_DAMAGE),	EnumSet.of(Flag.WEAK_THUNDER)),
 	
-	NONELEMENTAL	(EnumSet.noneOf(Flag.class),							EnumSet.noneOf(Flag.class));
+	NONELEMENTAL	(false,	EnumSet.noneOf(Flag.class),								EnumSet.noneOf(Flag.class));
 	
+	private boolean fullResist;
 	private EnumSet<Flag> resistFlags;
 	private EnumSet<Flag> weakFlags;
 	
 	/**
 	 * Internal enum constructor.
+	 * @param	fullResist		True if the damage can be fully negated
 	 * @param	resistFlags		All flags that could be used to resist damage
 	 * @param	weakFlags		All flags that indicate weakness
 	 */
-	DamageType(EnumSet<Flag> resistFlags, EnumSet<Flag> weakFlags) {
+	DamageType(boolean fullResist, EnumSet<Flag> resistFlags, EnumSet<Flag> weakFlags) {
 		this.resistFlags = resistFlags;
 		this.weakFlags = weakFlags;
+		this.fullResist = fullResist;
 	}
 
 	/**
-	 * @see net.wombatrpgs.sagaschema.rpg.chara.data.Resistable#getResistFlag()
+	 * @see net.wombatrpgs.sagaschema.rpg.chara.data.Resistable#getResistFlags()
 	 */
 	@Override
-	public EnumSet<Flag> getResistFlag() {
+	public EnumSet<Flag> getResistFlags() {
 		return resistFlags;
 	}
 
 	/**
-	 * @see net.wombatrpgs.sagaschema.rpg.chara.data.Resistable#getWeakFlag()
+	 * @see net.wombatrpgs.sagaschema.rpg.chara.data.Resistable#getWeakFlags()
 	 */
 	@Override
-	public EnumSet<Flag> getWeakFlag() {
+	public EnumSet<Flag> getWeakFlags() {
 		return weakFlags;
+	}
+
+	/**
+	 * @see net.wombatrpgs.sagaschema.rpg.chara.data.Resistable#isNegateable()
+	 */
+	@Override
+	public boolean isNegateable() {
+		return fullResist;
 	}
 	
 }

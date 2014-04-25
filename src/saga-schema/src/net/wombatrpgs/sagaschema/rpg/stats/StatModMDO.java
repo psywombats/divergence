@@ -15,11 +15,10 @@ import net.wombatrpgs.mgns.core.HeadlessSchema;
  */
 public class StatModMDO extends HeadlessSchema {
 	
-	@Desc("Stat modifiers")
+	@Desc("Numeric stat modifiers")
 	@InlineSchema(StatEntryMDO.class)
 	public StatEntryMDO stats[];
 	
-	@Desc("Flags")
 	public Flag[] flags;
 
 }

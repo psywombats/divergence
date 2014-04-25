@@ -100,7 +100,7 @@ public abstract class Inventory {
 	 * @param	slot			The slot with the item to drop
 	 */
 	public void drop(int slot) {
-		items[slot] = null;
+		set(slot, null);
 	}
 	
 	/**

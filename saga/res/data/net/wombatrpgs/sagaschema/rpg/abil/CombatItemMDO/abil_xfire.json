@@ -1,0 +1,17 @@
+{
+	"key" : "abil_xfire",
+	"subfolder" : "weaknesses",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$MFIRE",
+	"type" : "ABILITY",
+	"uses" : 0,
+	"cost" : 0,
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectPassiveMDO",
+		"key" : "anon_CombatItemMDO_732967488"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

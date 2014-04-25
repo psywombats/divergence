@@ -17,7 +17,10 @@ import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.Intent;
 import net.wombatrpgs.saga.rpg.Intent.IntentListener;
 import net.wombatrpgs.saga.rpg.Party;
+import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseFlag;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAttackMDO;
+import net.wombatrpgs.sagaschema.rpg.chara.data.Race;
+import net.wombatrpgs.sagaschema.rpg.stats.Flag;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**
@@ -125,12 +128,37 @@ public class EffectAttack extends AbilEffect {
 		for (Chara victim : targets) {
 			// TODO: battle: animations in here somewhere
 			String victimname = victim.getName();
+			if (hasFlag(mdo.sideEffects, OffenseFlag.ONLY_AFFECT_UNDEAD)) {
+				if (!user.is(Flag.UNDEAD)) {
+					battle.println(tab + "Nothing happens.");
+					continue;
+				}
+			}
+			if (hasFlag(mdo.sideEffects, OffenseFlag.ONLY_AFFECT_HUMANS)) {
+				if (user.getRace() != Race.HUMAN) {
+					battle.println(tab + "Nothing happens.");
+					continue;
+				}
+			}
 			if (hits(intent.getActor(), victim, roll)) {
 				int damage = calcDamage(power, victim);
+				if (target.resists(mdo.damType) && !hasFlag(mdo.sideEffects, OffenseFlag.IGNORE_RESISTANCES)) {
+					if (mdo.damType.isNegateable()) {
+						battle.println(targetname + " is resistant to " + itemname + ".");
+						damage = 0;
+					} else {
+						damage /= 2;
+					}
+				}
 				if (damage > 0) {
 					battle.println(tab + victimname + " takes " + damage + " damage.");
-					victim.takeDamage(damage);
+					victim.damage(damage);
 					battle.checkDeath(victim);
+					if (hasFlag(mdo.sideEffects, OffenseFlag.DRAIN_LIFE) &&
+							!victim.is(Flag.UNDEAD)) {
+						user.heal(damage);
+						battle.println(tab + username + " recovers " + damage + " HP.");
+					}
 				} else {
 					battle.println(tab + victimname + " takes no damage.");
 				}
@@ -143,6 +171,10 @@ public class EffectAttack extends AbilEffect {
 					battle.println(tab + victimname + " deflects with " + shieldname + ".");
 				}
 			}
+		}
+		if (hasFlag(mdo.sideEffects, OffenseFlag.KILLS_USER)) {
+			user.damage(user.get(Stat.HP));
+			battle.checkDeath(user);
 		}
 	}
 	
@@ -172,7 +204,7 @@ public class EffectAttack extends AbilEffect {
 	 * @return					An appropriate amount of damage to deal, in HP
 	 */
 	protected int calcDamage(int power, Chara target) {
-		if (mdo.defendStat != null) {
+		if (mdo.defendStat != null && !target.isWeakTo(mdo.damType)) {
 			power -= target.get(mdo.defendStat);
 		}
 		return power;

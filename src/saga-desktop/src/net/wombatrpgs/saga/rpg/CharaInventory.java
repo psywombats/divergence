@@ -35,6 +35,22 @@ public class CharaInventory extends Inventory {
 	}
 
 	/**
+	 * @see net.wombatrpgs.saga.rpg.Inventory#set
+	 * (int, net.wombatrpgs.saga.rpg.CombatItem)
+	 */
+	@Override
+	public CombatItem set(int slot, CombatItem item) {
+		if (item != null) {
+			chara.onEquip(item);
+		}
+		CombatItem old = super.set(slot, item);
+		if (old != null) {
+			chara.onUnequip(old);
+		}
+		return old;
+	}
+
+	/**
 	 * @see net.wombatrpgs.saga.rpg.Inventory#reservedAt(int)
 	 */
 	@Override

@@ -26,6 +26,7 @@ import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
  * Equip items to heroes and strip them of their weapons to sell for ill-gotten
  * shopkeeper gold. Or something like that.
  */
+// TODO: ui: display abilities
 public class EquipScreen extends Screen {
 	
 	protected static final int HEADER_WIDTH = 112;

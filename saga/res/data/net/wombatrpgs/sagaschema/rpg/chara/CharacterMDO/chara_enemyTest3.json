@@ -8,7 +8,8 @@
 	"appearance" : "4dir_ffl2_human",
 	"portrait" : "battle_portraits/cactus.png",
 	"equipped" : [
-		"item_testabil"
+		"item_testabil",
+		"abil_xfire"
 	],
 	"stats" : {
 		"hp" : 20,

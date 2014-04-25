@@ -9,6 +9,7 @@ package net.wombatrpgs.saga.rpg;
 import java.util.Arrays;
 
 import net.wombatrpgs.mgne.rpg.StatEnumLink;
+import net.wombatrpgs.sagaschema.rpg.stats.NumericStatModMDO;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 import net.wombatrpgs.sagaschema.rpg.stats.Flag;
 import net.wombatrpgs.sagaschema.rpg.stats.StatEntryMDO;
@@ -36,15 +37,30 @@ public class SagaStats extends StatEnumLink {
 	}
 	
 	/**
-	 * Creates a new set of stats from an existing stat list.
-	 * @param	mdo				The data to read from
+	 * Creates a new set of stats from existing numeric-only list. Null works.
+	 * @param	mdo					The data to read from, or null
+	 */
+	public SagaStats(NumericStatModMDO mdo) {
+		this();
+		if (mdo != null) {
+			for (StatEntryMDO entryMDO : mdo.stats) {
+				setStat(entryMDO.stat, entryMDO.value);
+			}
+		}
+	}
+	
+	/**
+	 * Creates a new set of stats from an existing stat list. Null is fine too.
+	 * @param	mdo				The data to read from, or null
 	 */
 	public SagaStats(StatModMDO mdo) {
 		this();
-		for (StatEntryMDO entryMDO : mdo.stats) {
-			setStat(entryMDO.stat, entryMDO.value);
+		if (mdo != null) {
+			for (StatEntryMDO entryMDO : mdo.stats) {
+				setStat(entryMDO.stat, entryMDO.value);
+			}
+			updateFlags(Arrays.asList(mdo.flags), true);
 		}
-		updateFlags(Arrays.asList(mdo.flags), true);
 	}
 	
 	/**

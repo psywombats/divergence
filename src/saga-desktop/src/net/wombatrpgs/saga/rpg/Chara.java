@@ -46,6 +46,7 @@ public class Chara extends AssetQueuer implements Disposable {
 		
 		stats = new SagaStats(mdo.stats);
 		inventory = new CharaInventory(mdo, this);
+		heal(get(Stat.MHP));
 		status = null;
 		
 		appearance = createSprite();
@@ -129,7 +130,7 @@ public class Chara extends AssetQueuer implements Disposable {
 	 * @return					True if this character resists that type
 	 */
 	public boolean resists(Resistable type) {
-		for (Flag flag : type.getResistFlag()) {
+		for (Flag flag : type.getResistFlags()) {
 			if (is(flag)) return true;
 		}
 		return false;
@@ -140,11 +141,35 @@ public class Chara extends AssetQueuer implements Disposable {
 	 * @param	type			The damage or status to check
 	 * @return					True if this character resists that type
 	 */
-	public boolean isVulnerableTo(Resistable type) {
-		for (Flag flag : type.getWeakFlag()) {
+	public boolean isWeakTo(Resistable type) {
+		for (Flag flag : type.getWeakFlags()) {
 			if (is(flag)) return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Called when this character adds the listed item to their inventory.
+	 * @param	item			The item being equipped
+	 */
+	public void onEquip(CombatItem item) {
+		applyStatset(item.getStatset(), false);
+		if (getRace() == Race.ROBOT) {
+			item.halveUses();
+			applyStatset(item.getRobostats(), false);
+		}
+	}
+	
+	/**
+	 * Called when this character removes the listed item from their inventory.
+	 * @param	item			The item being unequipped
+	 */
+	public void onUnequip(CombatItem item) {
+		applyStatset(item.getStatset(), true);
+		if (getRace() == Race.ROBOT) {
+			item.halveUses();
+			applyStatset(item.getRobostats(), true);
+		}
 	}
 	
 	/**
@@ -164,7 +189,7 @@ public class Chara extends AssetQueuer implements Disposable {
 	 * @param	damage			The damage to deal, in HP
 	 * @return					True if this character died from the damage
 	 */
-	public boolean takeDamage(int damage) {
+	public boolean damage(int damage) {
 		stats.subtract(Stat.HP, damage);
 		if (get(Stat.HP) <= 0) {
 			stats.setStat(Stat.HP, 0);
@@ -174,21 +199,27 @@ public class Chara extends AssetQueuer implements Disposable {
 	}
 	
 	/**
+	 * Causes this character to regain HP.
+	 * @param	heal			The damage amount to heal, in HP
+	 */
+	public void heal(int heal) {
+		stats.add(Stat.HP, heal);
+		if (get(Stat.HP) > get(Stat.MHP)) {
+			stats.setStat(Stat.HP, get(Stat.MHP));
+		}
+	}
+	
+	/**
 	 * Modifies this character's stats in accordance with the given set.
 	 * @param	mod				The values to modify by
 	 * @param	decombine		True to decombine rather than apply stats
 	 */
 	protected void applyStatset(SagaStats mod, boolean decombine) {
-		float oldMHP = mod.stat(Stat.MHP);
-		if (mdo.race != Race.ROBOT) {
-			mod.setStat(Stat.MHP,  0);
-		}
 		if (decombine) {
 			stats.decombine(mod);
 		} else {
 			stats.combine(mod);
 		}
-		mod.setStat(Stat.MHP, oldMHP);
 	}
 
 }

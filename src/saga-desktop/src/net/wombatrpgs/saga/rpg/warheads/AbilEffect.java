@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.saga.rpg.warheads;
 
+import java.util.Arrays;
+
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.Intent;
@@ -66,5 +68,15 @@ public abstract class AbilEffect extends AssetQueuer {
 	 * @param	intent			The intent to resolve
 	 */
 	public abstract void resolve(Intent intent);
+	
+	/**
+	 * Array containment test.
+	 * @param	flags			The set of flags to check
+	 * @param	flag			The flag to check among them
+	 * @return					True if the flag is present, false otherwise
+	 */
+	protected static boolean hasFlag(Object[] flags, Object flag) {
+		return Arrays.asList(flags).contains(flag);
+	}
 
 }

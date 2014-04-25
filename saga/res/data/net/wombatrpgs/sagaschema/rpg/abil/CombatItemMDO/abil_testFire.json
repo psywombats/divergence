@@ -1,0 +1,14 @@
+{
+	"key" : "abil_testFire",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "FIRE",
+	"type" : "ABILITY",
+	"uses" : 20,
+	"cost" : 0,
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_995646712"
+	}
+}
