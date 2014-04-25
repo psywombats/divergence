@@ -5,7 +5,7 @@
 	"description" : "",
 	"members" : [
 		{
-			"monster" : "chara_enemyTestStrong",
+			"monster" : "chara_testEnemyStrong",
 			"count" : 1
 		}
 	]
