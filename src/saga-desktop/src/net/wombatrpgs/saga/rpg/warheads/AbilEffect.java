@@ -7,6 +7,7 @@
 package net.wombatrpgs.saga.rpg.warheads;
 
 import net.wombatrpgs.mgne.core.AssetQueuer;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.Intent;
 import net.wombatrpgs.saga.rpg.Intent.IntentListener;
@@ -17,6 +18,8 @@ import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
  * different warheads. Successor to the MRogue AbilEffect.
  */
 public abstract class AbilEffect extends AssetQueuer {
+	
+	protected static final String TAB = MGlobal.charConverter.convert("$N$N");
 	
 	protected CombatItem item;
 	protected AbilEffectMDO mdo;
@@ -60,5 +63,11 @@ public abstract class AbilEffect extends AssetQueuer {
 	 * @param	intent			The intent to select target for
 	 */
 	public abstract void modifyEnemyIntent(Intent intent);
+	
+	/**
+	 * Carry out an intent in battle. Preconditions handled elsewhere.
+	 * @param	intent			The intent to resolve
+	 */
+	public abstract void resolve(Intent intent);
 
 }

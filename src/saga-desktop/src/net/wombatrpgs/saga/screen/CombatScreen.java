@@ -67,7 +67,7 @@ public class CombatScreen extends Screen {
 	protected static final int ABILS_VERT_FUDGE = -16;
 	
 	// battle box constants
-	protected static final int TEXT_LINES = 6;
+	protected static final int TEXT_LINES = 10;
 	protected static final float TEXT_FADE_TIME = .1f;
 	
 	protected Battle battle;
@@ -159,6 +159,9 @@ public class CombatScreen extends Screen {
 		monsterlistFormat.y = (int) (globalY + (MONSTERLIST_HEIGHT / 2) + font.getLineHeight()/2);
 		updateMList();
 	}
+	
+	/** @param auto True to ignore human prompts for newline */
+	public void setAuto(boolean auto) { text.setAutoMode(auto); }
 
 	/**
 	 * @see net.wombatrpgs.mgne.screen.Screen#render
@@ -266,6 +269,18 @@ public class CombatScreen extends Screen {
 	}
 	
 	/**
+	 * Prints some text to the battle textbox. Causes focus etc. Appends a
+	 * space. Make sure to call println to flush.
+	 * @param	line			The text to print
+	 */
+	public void print(String line) {
+		if (!containsChild(text)) {
+			text.fadeIn(this, TEXT_FADE_TIME);
+		}
+		text.print(line + " ");
+	}
+	
+	/**
 	 * Called by the battle textbox when its text has been consumed.
 	 */
 	public void onTextFinished() {
@@ -281,6 +296,7 @@ public class CombatScreen extends Screen {
 		showPlayerInserts = true;
 		showMonsterList = true;
 		showActor = false;
+		setAuto(false);
 		if (containsChild(text)) {
 			text.fadeOut(TEXT_FADE_TIME);
 		}
@@ -302,7 +318,7 @@ public class CombatScreen extends Screen {
 	 */
 	public void selectItem(Chara chara, int selected, final SlotListener listener) {
 		
-		if (abils != null) {
+		if (abils != null && containsChild(abils)) {
 			removeChild(abils);
 		}
 		
@@ -426,16 +442,16 @@ public class CombatScreen extends Screen {
 	 * Cancels the user selection in selection mode.
 	 */
 	protected void selectCancel() {
-		targetListener.onTargetSelection(null);
 		cancelSelectionMode();
+		targetListener.onTargetSelection(null);
 	}
 	
 	/**
 	 * Confirms the user selection in selection mode.
 	 */
 	protected void selectConfirm() {
-		targetListener.onTargetSelection(battle.getEnemy().getGroup(selectedIndex));
 		cancelSelectionMode();
+		targetListener.onTargetSelection(battle.getEnemy().getGroup(selectedIndex));
 	}
 	
 	/**
@@ -461,7 +477,8 @@ public class CombatScreen extends Screen {
 	 */
 	protected void cancelSelectionMode() {
 		selectionMode = false;
-		targetListener = null;
+		popCommandListener();
+		// targetListener = null;
 	}
 
 }

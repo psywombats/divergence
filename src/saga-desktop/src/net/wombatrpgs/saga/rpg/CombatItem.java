@@ -18,12 +18,11 @@ import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
  * Represents the combat item MDO. This could be an item or ability, but either
  * way, it can be equipped to a character and potentially have a use in combat.
  */
-// TODO: saga: add the combat aspects of this class
 public class CombatItem extends AssetQueuer {
 	
 	protected CombatItemMDO mdo;
 	
-	protected Chara owner;	// null for party
+	protected Inventory container;
 	protected AbilEffect effect;
 	protected String name;
 	protected int uses;
@@ -57,8 +56,8 @@ public class CombatItem extends AssetQueuer {
 	/** @return The number of uses remaining on this item */
 	public int getUses() { return uses; }
 	
-	/** @param owner The new owner of this item, or null for party */
-	public void setOwner(Chara owner) { this.owner = owner; }
+	/** @param container The new holder of this item */
+	public void setContainer(Inventory container) { this.container = container; }
 	
 	/**
 	 * Called when this item is used from the map menu.
@@ -104,7 +103,29 @@ public class CombatItem extends AssetQueuer {
 	 * @param	intent			The intent to modify
 	 */
 	public void modifyEnemyIntent(Intent intent) {
+		intent.setItem(this);
 		effect.modifyEnemyIntent(intent);
+	}
+	
+	/**
+	 * Resolves a previous intent given in battle. Preconditions such as status
+	 * of user are handled elsewhere. Just do what this item does.
+	 * @param	intent			The intent to resolve
+	 */
+	public void resolve(Intent intent) {
+		effect.resolve(intent);
+		deductUse();
+	}
+	
+	/**
+	 * Called internally when the item is used. Simulates wear on the item and
+	 * removes it if it breaks.
+	 */
+	protected void deductUse() {
+		uses -= 1;
+		if (uses <= 0) {
+			container.drop(this);
+		}
 	}
 
 }

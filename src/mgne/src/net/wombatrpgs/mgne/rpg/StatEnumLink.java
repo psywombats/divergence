@@ -58,6 +58,24 @@ public class StatEnumLink extends Stats {
 	}
 	
 	/**
+	 * Adds some value to the stat, usually addition but actually combines.
+	 * @param	link			The link to the stat to update
+	 * @param	value			The value to add to that stat
+	 */
+	public void add(NumericStatLinkable link, float value) {
+		super.addStat(link.getStat().getID(), value);
+	}
+	
+	/**
+	 * Adds some value to the stat, usually addition but actually combines.
+	 * @param	link			The link to the stat to update
+	 * @param	value			The value to add to that stat
+	 */
+	public void subtract(NumericStatLinkable link, float value) {
+		super.subtractStat(link.getStat().getID(), value);
+	}
+	
+	/**
 	 * Updates the flag count of a stat associated with a link.
 	 * @param	flag			The link to the flag to update
 	 * @param	value			True to set that flag, false to unset it

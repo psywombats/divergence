@@ -174,6 +174,7 @@ public abstract class ScreenGraphic extends ScreenObject implements PositionSeta
 	 */
 	public void fadeIn(Screen screen, float fadeTime) {
 		this.parent = screen;
+		fadingOut = false;
 		setColor(new Color(1, 1, 1, 0));
 		if (!screen.containsChild(this)) {
 			screen.addChild(this);

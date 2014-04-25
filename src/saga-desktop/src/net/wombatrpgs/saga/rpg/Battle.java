@@ -7,6 +7,7 @@
 package net.wombatrpgs.saga.rpg;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import net.wombatrpgs.mgne.core.AssetQueuer;
@@ -34,7 +35,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	
 	// internal constructs
 	protected FinishListener playbackListener;
-	protected List<Intent> playerTurn;
+	protected List<Intent> playerTurn, globalTurn;
 	protected int actorIndex;
 	protected boolean finished;
 	
@@ -62,6 +63,7 @@ public class Battle extends AssetQueuer implements Disposable {
 		}
 		
 		playerTurn = new ArrayList<Intent>();
+		globalTurn = new ArrayList<Intent>();
 	}
 	
 	/**
@@ -133,25 +135,16 @@ public class Battle extends AssetQueuer implements Disposable {
 	 */
 	public void onPlaybackFinished() {
 		if (playbackListener != null) {
-			playbackListener.onFinish();
+			FinishListener old = playbackListener;
 			playbackListener = null;
+			old.onFinish();
 		}
-	}
-	
-	/**
-	 * Writes some text to the screen using the battle text output box. Will
-	 * draw focus to the text box if it isn't selected.
-	 * @param	text			The text to write
-	 */
-	public void write(String text) {
-		
 	}
 
 	/**
 	 * Called when the user says that they want to fight.
 	 */
 	public void onFight() {
-		playerTurn.clear();
 		actorIndex = 0;
 		nextIntent();
 	}
@@ -167,13 +160,30 @@ public class Battle extends AssetQueuer implements Disposable {
 				}
 			});
 		} else {
-			playback("Can't escape.", new FinishListener() {
+			playback("Can't escape. \n", new FinishListener() {
 				@Override public void onFinish() {
-					// TODO: battle: on run failure
-					newRound();
+					queueEnemyIntents();
+					playRound();
 				}
 			});
 		}
+	}
+	
+	/**
+	 * Writes some text to the screen using the battle text output box. Will
+	 * draw focus to the text box if it isn't selected.
+	 * @param	text			The text to write
+	 */
+	public void print(String text) {
+		screen.print(text);
+	}
+	
+	/**
+	 * Writes some text to the screen using battle box with newline. Gets focus.
+	 * @param	line			The line to write
+	 */
+	public void println(String line) {
+		screen.println(line);
 	}
 	
 	/**
@@ -258,6 +268,8 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * prompt pop-up and removes the ugly textbox.
 	 */
 	protected void newRound() {
+		playerTurn.clear();
+		globalTurn.clear();
 		screen.onNewRound();
 	}
 	
@@ -265,7 +277,37 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * Plays out a round once the player turn is constructed.
 	 */
 	protected void playRound() {
-		System.out.println("Play round!");
+		globalTurn.addAll(playerTurn);
+		Collections.sort(globalTurn);
+		screen.setAuto(true);
+		playNextIntent();
+	}
+	
+	/**
+	 * Plays the next intent in the global intent stack, recursively. Do not
+	 * call if no intents are left.
+	 */
+	protected void playNextIntent() {
+		Intent intent = globalTurn.get(0);
+		globalTurn.remove(0);
+		intent.resolve();
+		playbackListener = new FinishListener() {
+			@Override public void onFinish() {
+				playbackListener = null;
+				if (globalTurn.size() > 0) {
+					println("");
+					playNextIntent();
+				} else {
+					screen.setAuto(false);
+					println("");
+					playbackListener = new FinishListener() {
+						@Override public void onFinish() {
+							newRound();
+						}
+					};
+				}
+			}
+		};
 	}
 	
 	/**
@@ -320,6 +362,7 @@ public class Battle extends AssetQueuer implements Disposable {
 				} else {
 					actorIndex += 1;
 					if (actorIndex == player.size()) {
+						queueEnemyIntents();
 						playRound();
 					} else {
 						nextIntent();
@@ -327,6 +370,16 @@ public class Battle extends AssetQueuer implements Disposable {
 				}
 			}
 		});
+	}
+	
+	/**
+	 * Asks all the living AIs for their intents and then piles them into the
+	 * queue.
+	 */
+	protected void queueEnemyIntents() {
+		for (Enemy chara : enemy.getEnemies()) {
+			globalTurn.add(chara.act(this));
+		}
 	}
 
 }

@@ -67,6 +67,10 @@ public abstract class Inventory {
 		} else {
 			CombatItem old = get(slot);
 			items[slot] = item;
+			item.setContainer(this);
+			if (old != null) {
+				old.setContainer(null);
+			}
 			return old;
 		}
 	}
@@ -95,6 +99,14 @@ public abstract class Inventory {
 	 */
 	public void drop(int slot) {
 		items[slot] = null;
+	}
+	
+	/**
+	 * Destroys the item in this inventory.
+	 * @param	item			The item held by this inventory to destroy
+	 */
+	public void drop(CombatItem item) {
+		drop(slotFor(item));
 	}
 	
 	/**

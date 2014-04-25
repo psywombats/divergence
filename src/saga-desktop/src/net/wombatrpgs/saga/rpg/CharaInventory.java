@@ -29,7 +29,7 @@ public class CharaInventory extends Inventory {
 		for (int i = 0; i < mdo.equipped.length; i += 1) {
 			String key = mdo.equipped[i];
 			CombatItem item = new CombatItem(key);
-			item.setOwner(chara);
+			item.setContainer(this);
 			set(i, item);
 		}
 	}

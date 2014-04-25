@@ -12,49 +12,53 @@
 			"code" : "$B",
 			"ascii" : 233
 		},
-    {
+		{
 			"code" : "$C",
 			"ascii" : 234
 		},
-    {
+		{
 			"code" : "$D",
 			"ascii" : 235
 		},
-    {
+		{
 			"code" : "$E",
 			"ascii" : 236
 		},
-    {
+		{
 			"code" : "$F",
 			"ascii" : 237
 		},
-    {
+		{
 			"code" : "$G",
 			"ascii" : 238
 		},
-    {
+		{
 			"code" : "$H",
 			"ascii" : 239
 		},
-    {
+		{
 			"code" : "$I",
 			"ascii" : 208
 		},
-    {
+		{
 			"code" : "$J",
 			"ascii" : 209
 		},
-    {
+		{
 			"code" : "$K",
 			"ascii" : 210
 		},
-    {
+		{
 			"code" : "$L",
 			"ascii" : 211
 		},
-    {
+		{
 			"code" : "$M",
 			"ascii" : 212
+		},
+		{
+			"code" : "$N",
+			"ascii" : 206
 		}
 	]
 }

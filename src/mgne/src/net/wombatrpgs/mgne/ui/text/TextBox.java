@@ -129,7 +129,9 @@ public class TextBox extends ScreenGraphic {
 		boxWidth = win.getViewportWidth();
 		boxHeight = (int) (font.getLineHeight() * mdo.lines);
 		boxHeight += mdo.marginHeight * 2;
-		backer.resizeTo(boxWidth, boxHeight);
+		if (backer != null) {
+			backer.resizeTo(boxWidth, boxHeight);
+		}
 		
 		bodyFormat.x = mdo.marginWidth;
 		if (mdo.anchor != BoxAnchorType.BOTTOM) {
@@ -161,7 +163,13 @@ public class TextBox extends ScreenGraphic {
 		
 		if (currentLines.size() == 0) return;
 		if (waiting) return;
-		if (allVisible) return;
+		if (allVisible) {
+			if (waitOnNewline()) {
+				return;
+			} else if (words.size() > 0) {
+				advanceLines(1);
+			}
+		}
 		
 		sinceChar += elapsed;
 		boolean playedType = false;
@@ -190,10 +198,17 @@ public class TextBox extends ScreenGraphic {
 							if (special == '\\') {
 								typeSfx.play();
 							} else if (special == 'n') {
-								waiting = true;
-								currentLines.set(atLine, line.substring(0, line.indexOf("\\n")));
-								sinceChar = 0;
-								break;
+								newLine = line.substring(0, line.indexOf("\\n"));
+								currentLines.set(atLine, newLine);
+								visibleLines.set(atLine, newLine);
+								totalLength -= 2;
+								if (waitOnNewline()) {
+									waiting = true;
+									sinceChar = 0;
+									break;
+								} else {
+									// advanceLines(1);
+								}
 							}
 						} else if (Character.isLetter(lastChar) || Character.isDigit(lastChar)) {
 							if (!playedType) {
@@ -254,7 +269,6 @@ public class TextBox extends ScreenGraphic {
 	protected void reset() {
 		sinceChar = 0;
 		visibleChars = 0;
-		fadingOut = false;
 		allVisible = false;
 		waiting = false;
 		
@@ -280,12 +294,21 @@ public class TextBox extends ScreenGraphic {
 			String lastGood = "";
 			String test = words.get(0);
 			while (!font.isTooLong(bodyFormat, test)) {
+				if (test.equals("\n")) {
+					words.remove(0);
+					break;
+				}
 				lastGood = test;
 				words.remove(0);
 				if (words.size() == 0) {
 					break;
 				}
 				test = test + " " + words.get(0);
+				if (words.get(0).equals("\n") && !waitOnNewline()) {
+					lastGood = test.substring(0, test.indexOf("\n"));
+					words.remove(0);
+					break;
+				}
 			}
 			currentLines.add(lastGood);
 			visibleLines.add("");
@@ -312,6 +335,14 @@ public class TextBox extends ScreenGraphic {
 		for (String line : visibleLines) {
 			visibleChars += line.length();
 		}
+	}
+	
+	/**
+	 * Does this text box pause when it encounters a new line? Defaults to yes.
+	 * @return					True if should pause on newline, false otherwise
+	 */
+	protected boolean waitOnNewline() {
+		return true;
 	}
 
 }

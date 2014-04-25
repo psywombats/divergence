@@ -65,7 +65,7 @@ public class Chara extends AssetQueuer implements Disposable {
 	}
 	
 	/** @return The current value of the requested stat */
-	public float get(Stat stat) { return stats.stat(stat); }
+	public int get(Stat stat) { return Math.round(stats.stat(stat)); }
 	
 	/** @return The current value of the request flag */
 	public boolean is(Flag flag) { return stats.flag(flag); }
@@ -90,6 +90,17 @@ public class Chara extends AssetQueuer implements Disposable {
 	
 	/** @return The object of equipped items for this character */
 	public CharaInventory getInventory() { return inventory; }
+	
+	/** @return True if this character has moved on to the next life */
+	public boolean isDead() { return get(Stat.HP) <= 0 || status == Status.STONE; }
+	
+	// TODO: battle: shielding
+	/** @return The shield value of the user for this turn */
+	public int getShielding() { return 0; }
+	
+	// TODO: battle: shielding
+	/** @return The item this chara is using the block this turn, or null */
+	public CombatItem getShield() { return null; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
@@ -129,6 +140,32 @@ public class Chara extends AssetQueuer implements Disposable {
 	public boolean isVulnerableTo(Resistable type) {
 		for (Flag flag : type.getWeakFlag()) {
 			if (is(flag)) return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Checks if this character can act and does not suffer from any status
+	 * conditions (such as death) that would prevent action.
+	 * @return					True if chara can act, false if not
+	 */
+	public boolean canAct() {
+		if (isDead()) return false;
+		if (status != null && status.preventsAction()) return false;
+		return true;
+	}
+	
+	/**
+	 * Causes this character to lose some HP. Defense etc is not checked. Death
+	 * can be inflicted, but it will be silent.
+	 * @param	damage			The damage to deal, in HP
+	 * @return					True if this character died from the damage
+	 */
+	public boolean takeDamage(int damage) {
+		stats.subtract(Stat.HP, damage);
+		if (get(Stat.HP) <= 0) {
+			stats.setStat(Stat.HP, 0);
+			return true;
 		}
 		return false;
 	}

@@ -36,9 +36,13 @@ public class Enemy extends Chara {
 		Intent intent = new Intent(this, battle);
 		List<CombatItem> usable = new ArrayList<CombatItem>();
 		for (CombatItem item : getInventory().getItems()) {
-			if (item.isBattleUsable()) {
+			if (item != null && item.isBattleUsable()) {
 				usable.add(item);
 			}
+		}
+		if (usable.size() == 0) {
+			MGlobal.reporter.err("Monster has no useable abils: " + this);
+			return null;
 		}
 		CombatItem item = usable.get(MGlobal.rand.nextInt(usable.size()));
 		item.modifyEnemyIntent(intent);

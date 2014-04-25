@@ -24,7 +24,6 @@ public class EnemyParty extends Party {
 	 */
 	public EnemyParty(PartyMDO mdo) {
 		super(mdo);
-		allEnemies = new ArrayList<Enemy>();
 	}
 	
 	/** @return All enemies in this party */
@@ -36,6 +35,9 @@ public class EnemyParty extends Party {
 	@Override
 	protected Chara instantiateChara(String mdoKey) {
 		Enemy enemy = new Enemy(mdoKey);
+		if (allEnemies == null) {
+			allEnemies = new ArrayList<Enemy>();
+		}
 		allEnemies.add(enemy);
 		return enemy;
 	}

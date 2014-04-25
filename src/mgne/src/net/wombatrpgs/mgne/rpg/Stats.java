@@ -6,10 +6,8 @@
  */
 package net.wombatrpgs.mgne.rpg;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import net.wombatrpgs.mgne.core.MGlobal;
@@ -24,8 +22,8 @@ import net.wombatrpgs.mgneschema.rpg.data.NumericStat;
  */
 public class Stats {
 	
-	protected List<NumericStat> statTypes;
-	protected List<FlagStat> flagTypes;
+	protected Map<String, NumericStat> statTypes;
+	protected Map<String, FlagStat> flagTypes;
 	
 	protected Map<String, Float> stats;
 	protected Map<String, FlagStatValue> flags;
@@ -38,16 +36,16 @@ public class Stats {
 	 * @param	flagTypes		All flag types this stats object contains
 	 */
 	public Stats(Collection<NumericStat> allStats, Collection<FlagStat> allFlags) {
-		statTypes = new ArrayList<NumericStat>();
-		flagTypes = new ArrayList<FlagStat>();
+		statTypes = new HashMap<String, NumericStat>();
+		flagTypes = new HashMap<String, FlagStat>();
 		stats = new HashMap<String, Float>();
 		flags = new HashMap<String, FlagStatValue>();
-		for (NumericStat stat : statTypes) {
-			statTypes.add(stat);
+		for (NumericStat stat : allStats) {
+			statTypes.put(stat.getID(), stat);
 			stats.put(stat.getID(), stat.getZero());
 		}
 		for (FlagStat flag : allFlags) {
-			flagTypes.add(flag);
+			flagTypes.put(flag.getID(), flag);
 			flags.put(flag.getID(), flag.getZero());
 		}
 	}
@@ -65,13 +63,13 @@ public class Stats {
 		if (value != null) {
 			return value;
 		} else {
-			for (NumericStat stat : statTypes) {
-				if (stat.getID().equals(id)) {
-					return stat.getZero();
-				}
+			NumericStat stat = statTypes.get(id);
+			if (stat == null) {
+				MGlobal.reporter.warn("No stat for id: " + id + " on " + this);
+				return null;
+			} else {
+				return stat.getZero();
 			}
-			MGlobal.reporter.warn("No stat found with id: " + id + " on " + this);
-			return null;
 		}
 	}
 	
@@ -101,6 +99,30 @@ public class Stats {
 	}
 	
 	/**
+	 * Combines some value to this set's stat value by ID. Does nothing if stat
+	 * does not exist. This is usually addition.
+	 * @param	id				The ID of the stat to update
+	 * @param	value			The value to add to the stat
+	 */
+	public void addStat(String id, float value) {
+		NumericStat stat = statTypes.get(id);
+		float current = stats.get(id);
+		setStat(id, stat.combine(current, value));
+	}
+	
+	/**
+	 * Decombines some value to this set's stat value by ID. Does nothing if
+	 * stat does not exist. This is usually subtraction.
+	 * @param	id				The ID of the stat to update
+	 * @param	value			The value to add to the stat
+	 */
+	public void subtractStat(String id, float value) {
+		NumericStat stat = statTypes.get(id);
+		float current = stats.get(id);
+		setStat(id, stat.decombine(current, value));
+	}
+	
+	/**
 	 * Updates a flag count in this stat set. This is the safe and correct way
 	 * to set things like flag for equipment. Not useful for completely removing
 	 * a flag etc.
@@ -123,21 +145,21 @@ public class Stats {
 	 * @param	other			The other stats to merge in
 	 */
 	public void combine(Stats other) {
-		for (NumericStat type : other.statTypes) {
+		for (NumericStat type : other.statTypes.values()) {
 			Float value = stats.get(type);
 			String id = type.getID();
 			if (value == null) {
-				statTypes.add(type);
+				statTypes.put(type.getID(), type);
 				stats.put(id, other.stat(id));
 			} else {
 				stats.put(id, type.combine(value, other.stat(id)));
 			}
 		}
-		for (FlagStat type : other.flagTypes) {
+		for (FlagStat type : other.flagTypes.values()) {
 			FlagStatValue value = flags.get(type);
 			String id = type.getID();
 			if (value == null) {
-				flagTypes.add(type);
+				flagTypes.put(type.getID(), type);
 				flags.put(id,  new FlagStatValue(1));
 			} else {
 				value.modify(value.on());
@@ -151,7 +173,7 @@ public class Stats {
 	 * @param	other			The other stats to merge in
 	 */
 	public void decombine(Stats other) {
-		for (NumericStat type : other.statTypes) {
+		for (NumericStat type : other.statTypes.values()) {
 			Float value = stats.get(type);
 			String id = type.getID();
 			if (value == null) {
@@ -160,7 +182,7 @@ public class Stats {
 				stats.put(id, type.decombine(value, other.stat(id)));
 			}
 		}
-		for (FlagStat type : other.flagTypes) {
+		for (FlagStat type : other.flagTypes.values()) {
 			FlagStatValue value = flags.get(type);
 			if (value == null) {
 				MGlobal.reporter.err("Decombined a non-combined stat set");

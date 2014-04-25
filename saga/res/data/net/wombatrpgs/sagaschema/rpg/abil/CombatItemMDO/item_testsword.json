@@ -1,14 +1,14 @@
 {
 	"key" : "item_testsword",
-	"subfolder" : "",
+	"subfolder" : "test",
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$EDUMMY",
 	"type" : "ITEM",
 	"uses" : 50,
-	"cost" : 40,
+	"cost" : 120,
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAttackMDO",
-		"key" : "anon_CombatItemMDO_1710453324"
+		"key" : "anon_CombatItemMDO_2065945550"
 	}
 }

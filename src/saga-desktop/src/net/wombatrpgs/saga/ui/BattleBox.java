@@ -24,6 +24,8 @@ import net.wombatrpgs.saga.screen.CombatScreen;
 public class BattleBox extends TextBox implements CommandListener {
 	
 	protected CombatScreen parent;
+	
+	protected boolean auto;
 
 	/**
 	 * Creates a new box with default font from supplied dimensions. Creates an
@@ -35,26 +37,11 @@ public class BattleBox extends TextBox implements CommandListener {
 	public BattleBox(CombatScreen parent, int lines) {
 		super(generateMDO(lines), MGlobal.ui.getFont());
 		this.parent = parent;
+		auto = false;
 	}
 	
-	/**
-	 * Copies and reformats the text box format data.
-	 * @param	lines			The new amount of lines in the battlebox
-	 * @return					The modified MDO
-	 */
-	protected static TextBoxMDO generateMDO(int lines) {
-		TextBoxMDO orig = MGlobal.ui.getBoxMDO();
-		TextBoxMDO mdo = new TextBoxMDO();
-		mdo.anchor = orig.anchor;
-		mdo.lines = lines;
-		mdo.marginHeight = orig.marginHeight + 2;
-		mdo.marginWidth = orig.marginWidth + 2;
-		mdo.nineslice = orig.nineslice;
-		mdo.scaling = orig.scaling;
-		mdo.typeSfx = orig.typeSfx;
-		mdo.typeSpeed = orig.typeSpeed;
-		return mdo;
-	}
+	/** @param auto True to not wait for human input */
+	public void setAutoMode(boolean auto) { this.auto = auto; }
 	
 	/**
 	 * @see net.wombatrpgs.mgne.io.CommandListener#onCommand
@@ -62,6 +49,7 @@ public class BattleBox extends TextBox implements CommandListener {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
+		// TODO: polish: you should be able to hold 'a' to scroll the battle
 		if (command == InputCommand.UI_CONFIRM) {
 			if (isFinished()) {
 				parent.removeCommandListener(this);
@@ -72,6 +60,18 @@ public class BattleBox extends TextBox implements CommandListener {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.ui.text.TextBox#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		super.update(elapsed);
+		if (isFinished() && auto) {
+			parent.removeCommandListener(this);
+			parent.onTextFinished();
 		}
 	}
 
@@ -92,7 +92,7 @@ public class BattleBox extends TextBox implements CommandListener {
 	 * @param	text			The text to write to the screen
 	 */
 	public void println(String text) {
-		print(text + "\n\n");
+		print(text + " \n");
 	}
 	
 	/**
@@ -104,8 +104,43 @@ public class BattleBox extends TextBox implements CommandListener {
 		if (parent.getTopCommandListener() != this) {
 			parent.pushCommandListener(this);
 		}
-		Collections.addAll(words, text.split("\\s+"));
+		Collections.addAll(words, text.split(" "));
+	}
+	
+	/**
+	 * Copies and reformats the text box format data.
+	 * @param	lines			The new amount of lines in the battlebox
+	 * @return					The modified MDO
+	 */
+	protected static TextBoxMDO generateMDO(int lines) {
+		TextBoxMDO orig = MGlobal.ui.getBoxMDO();
+		TextBoxMDO mdo = new TextBoxMDO();
+		mdo.anchor = orig.anchor;
+		mdo.lines = lines;
+		mdo.marginHeight = orig.marginHeight + 2;
+		mdo.marginWidth = orig.marginWidth + 2;
+		mdo.nineslice = orig.nineslice;
+		mdo.scaling = orig.scaling;
+		mdo.typeSfx = orig.typeSfx;
+		mdo.typeSpeed = orig.typeSpeed;
+		return mdo;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.ui.text.TextBox#reset()
+	 */
+	@Override
+	protected void reset() {
+		super.reset();
 		advanceLines(mdo.lines);
 	}
 
+	/**
+	 * @see net.wombatrpgs.mgne.ui.text.TextBox#waitOnNewline()
+	 */
+	@Override
+	protected boolean waitOnNewline() {
+		return false;
+	}
+	
 }

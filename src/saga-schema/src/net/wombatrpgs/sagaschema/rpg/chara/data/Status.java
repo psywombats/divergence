@@ -15,24 +15,27 @@ import net.wombatrpgs.sagaschema.rpg.stats.Flag;
  */
 public enum Status implements Resistable {
 	
-	BLIND		(Flag.RESIST_BLIND,		"BLIND"),
-	CURSE		(Flag.RESIST_CURSE,		"CURSED"),
-	SLEEP		(Flag.RESIST_SLEEP,		"ASLEEP"),
-	PARALYZE	(Flag.RESIST_PARALYZE,	"PARALYZED"),
-	CONFUSE		(Flag.RESIST_CONFUSE,	"CONFUSED"),
-	STONE		(Flag.RESIST_STONE,		"STONE");
+	BLIND		(Flag.RESIST_BLIND,		"BLIND",		false),
+	CURSE		(Flag.RESIST_CURSE,		"CURSED",		false),
+	SLEEP		(Flag.RESIST_SLEEP,		"ASLEEP",		true),
+	PARALYZE	(Flag.RESIST_PARALYZE,	"PARALYZED",	true),
+	CONFUSE		(Flag.RESIST_CONFUSE,	"CONFUSED",		false),
+	STONE		(Flag.RESIST_STONE,		"STONE",		true);
 	
 	private EnumSet<Flag> resistFlags;
 	private String tag;
+	private boolean preventsAction;
 	
 	/**
 	 * Internal enum constructor.
 	 * @param	resistFlags		All flags that could be used to resist damage
 	 * @param	tag				The string associated with afflicted charas
+	 * @param	preventsAction	True if this status prevents monster from attack
 	 */
-	Status(Flag resistFlags, String tag) {
+	Status(Flag resistFlags, String tag, boolean preventsAction) {
 		this.resistFlags = EnumSet.of(resistFlags);
 		this.tag = tag;
+		this.preventsAction = preventsAction;
 	}
 
 	/**
@@ -58,6 +61,14 @@ public enum Status implements Resistable {
 	 */
 	public String getTag() {
 		return tag;
+	}
+	
+	/**
+	 * Returns whether this status prevents afflicted from acting in battle.
+	 * @return					True if prevents action, false otherwise
+	 */
+	public boolean preventsAction() {
+		return preventsAction;
 	}
 
 }
