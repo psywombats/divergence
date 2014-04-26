@@ -89,6 +89,9 @@ public class Chara extends AssetQueuer implements Disposable {
 	/** @return The status condition of the character, or null for normal */
 	public Status getStatus() { return status; }
 	
+	/** @param status The new condition of this character, or null for normal */
+	public void setStatus(Status status) { this.status = status; }
+	
 	/** @return The object of equipped items for this character */
 	public CharaInventory getInventory() { return inventory; }
 	

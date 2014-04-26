@@ -118,15 +118,15 @@ public abstract class EffectCombat extends AbilEffect {
 		if (!intent.isRecursive()) {
 			switch (mdo.projector) {
 			case SINGLE_ENEMY:
-				battle.println(username + " attacks " + frontname + " by " + itemname);
+				battle.println(username + " attacks " + frontname + " by " + itemname + ".");
 				targets.add(front);
 				break;
 			case GROUP_ENEMY:
-				battle.println(username + " attacks " + frontname + " by " + itemname);
+				battle.println(username + " attacks " + frontname + " by " + itemname + ".");
 				targets.addAll(intent.getTargets());
 				break;
 			case ALL_ENEMY:
-				battle.println(username + " attacks by " + itemname);
+				battle.println(username + " attacks by " + itemname + ".");
 				targets.addAll(intent.getTargets());
 				break;
 			}
@@ -215,6 +215,7 @@ public abstract class EffectCombat extends AbilEffect {
 			} else {
 				
 				// We missed... why?
+				// TODO: battle: something is buggy with shield+counter?
 				List<EffectDefend> defenses = battle.getDefenses(victim);
 				if (defenses.size() == 0) {
 					battle.println(tab + username + " misses " + victimname + ".");

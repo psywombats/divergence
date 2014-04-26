@@ -10,7 +10,8 @@
 	"equipped" : [
 		"item_testabil",
 		"abil_testExplode",
-		"abil_testPower"
+		"abil_testPower",
+		"abil_testCare"
 	],
 	"stats" : {
 		"hp" : 60,

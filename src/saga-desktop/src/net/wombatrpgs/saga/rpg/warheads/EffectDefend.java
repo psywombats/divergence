@@ -119,6 +119,7 @@ public class EffectDefend extends EffectAllyTarget implements Comparable<EffectD
 			final boolean blocked = hasFlag(mdo.effects, DefenseFlag.BLOCKS_TRIGGERING_DAMAGE);
 			final Intent counterIntent = new Intent(victim, battle);
 			counterIntent.addTargets(attackIntent.getActor());
+			counterIntent.setRecursive(true);
 			if (hasFlag(mdo.effects, DefenseFlag.REFLECTS_TRIGGERING_ATTACK)) {
 				CombatItem reflectAbil = attackIntent.getItem();
 				counterIntent.setItem(reflectAbil);

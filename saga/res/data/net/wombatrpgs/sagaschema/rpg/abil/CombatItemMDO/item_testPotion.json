@@ -1,0 +1,17 @@
+{
+	"key" : "item_testPotion",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "POTION",
+	"type" : "ITEM",
+	"uses" : 3,
+	"cost" : 24,
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectHealMDO",
+		"key" : "anon_CombatItemMDO_740384866"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"key" : "item_testCure",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$HCURE",
+	"type" : "ITEM",
+	"uses" : 30,
+	"cost" : 1000,
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectHealMDO",
+		"key" : "anon_CombatItemMDO_-423261270"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

@@ -10,7 +10,8 @@
 	"equipped" : [
 		"item_testRapier",
 		"item_testWhip",
-		"item_testDragonShield"
+		"item_testDragonShield",
+		"item_testPotion"
 	],
 	"stats" : {
 		"hp" : 60,
