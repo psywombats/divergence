@@ -9,6 +9,7 @@ package net.wombatrpgs.sagaschema.rpg.abil.data.warheads;
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
+import net.wombatrpgs.sagaschema.rpg.abil.data.MissType;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**
@@ -29,5 +30,9 @@ public class EffectAttackMDO extends EffectCombatMDO {
 	@DefaultValue("DEF")
 	@Nullable
 	public Stat defendStat;
+	
+	@Desc("Miss type - generally only melee attacks should miss")
+	@DefaultValue("CAN_MISS")
+	public MissType miss;
 
 }

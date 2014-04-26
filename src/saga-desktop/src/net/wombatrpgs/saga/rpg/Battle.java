@@ -8,7 +8,9 @@ package net.wombatrpgs.saga.rpg;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
@@ -18,6 +20,7 @@ import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.Intent.IntentListener;
 import net.wombatrpgs.saga.rpg.Intent.TargetListener;
+import net.wombatrpgs.saga.rpg.warheads.EffectDefend;
 import net.wombatrpgs.saga.screen.CombatScreen;
 import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
 import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
@@ -38,7 +41,8 @@ public class Battle extends AssetQueuer implements Disposable {
 	protected FinishListener playbackListener;
 	protected List<Intent> playerTurn, globalTurn;
 	protected List<Boolean> enemyAlive, playerAlive;
-	protected List<TempStats> boosts;
+	protected List<TempStats> boosts, defendBoosts;
+	protected Map<Chara, List<EffectDefend>> defendEffects;
 	protected int actorIndex;
 	protected boolean finished;
 	protected boolean targetingMode;
@@ -69,6 +73,8 @@ public class Battle extends AssetQueuer implements Disposable {
 		playerTurn = new ArrayList<Intent>();
 		globalTurn = new ArrayList<Intent>();
 		boosts = new ArrayList<TempStats>();
+		defendBoosts = new ArrayList<TempStats>();
+		defendEffects = new HashMap<Chara, List<EffectDefend>>();
 		
 		updateLivenessLists();
 	}
@@ -134,6 +140,9 @@ public class Battle extends AssetQueuer implements Disposable {
 		// TODO: battle: finish transitions
 		MGlobal.screens.pop();
 		for (TempStats temp : boosts) {
+			temp.decombine();
+		}
+		for (TempStats temp : defendBoosts) {
 			temp.decombine();
 		}
 		finished = true;
@@ -285,12 +294,51 @@ public class Battle extends AssetQueuer implements Disposable {
 	
 	/**
 	 * Registers a change in stats to the designated character that will last
-	 * the duration of this battle
+	 * the duration of this battle.
 	 * @param	chara			The character to affect
 	 * @param	stats			The stats to boost by
 	 */
 	public void applyBoost(Chara chara, SagaStats stats) {
 		boosts.add(new TempStats(chara, stats));
+	}
+	
+	/**
+	 * Registers a turn-only change in stats to the designed character that will
+	 * last until the end of this round.
+	 * @param 	chara			The character to affect
+	 * @param	stats			The stats to boost by
+	 */
+	public void applyDefendBoost(Chara chara, SagaStats stats) {
+		defendBoosts.add(new TempStats(chara, stats));
+	}
+	
+	/**
+	 * Registers a defend effect as affecting a character. This will last until
+	 * the end of the round. The defend effects can be called by other effects
+	 * when relevant.
+	 * @param	chara			The character to defend
+	 * @param	defense			The effect to defend them with
+	 */
+	public void applyDefense(Chara chara, EffectDefend defense) {
+		List<EffectDefend> defenses = defendEffects.get(chara);
+		if (defenses == null) {
+			defenses = new ArrayList<EffectDefend>();
+			defendEffects.put(chara, defenses);
+		}
+		defenses.add(defense);
+	}
+	
+	/**
+	 * Returns the list of all effects being used to defend the chara this turn.
+	 * @param	chara			The character to check
+	 * @return					A non-null list of all defenses for that chara
+	 */
+	public List<EffectDefend> getDefenses(Chara chara) {
+		List<EffectDefend> defenses = defendEffects.get(chara);
+		if (defenses == null) {
+			defenses = new ArrayList<EffectDefend>();
+		}
+		return defenses;
 	}
 	
 	/**
@@ -334,6 +382,11 @@ public class Battle extends AssetQueuer implements Disposable {
 	protected void newRound() {
 		playerTurn.clear();
 		globalTurn.clear();
+		for (TempStats temp : defendBoosts) {
+			temp.decombine();
+		}
+		defendEffects.clear();
+		defendBoosts.clear();
 		screen.onNewRound();
 	}
 	
@@ -344,6 +397,9 @@ public class Battle extends AssetQueuer implements Disposable {
 		globalTurn.addAll(playerTurn);
 		Collections.sort(globalTurn);
 		screen.setAuto(true);
+		for (Intent intent : globalTurn) {
+			intent.onRoundStart();
+		}
 		playNextIntent();
 	}
 	

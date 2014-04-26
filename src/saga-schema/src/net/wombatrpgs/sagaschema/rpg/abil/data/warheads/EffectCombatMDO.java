@@ -16,7 +16,7 @@ import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseProjector;
 /**
  * Superclass for some common combat data.
  */
-public class EffectCombatMDO extends AbilEffectMDO {
+public abstract class EffectCombatMDO extends AbilEffectMDO {
 	
 	@Desc("Projector")
 	@DefaultValue("SINGLE_ENEMY")

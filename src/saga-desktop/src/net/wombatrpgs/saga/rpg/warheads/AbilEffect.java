@@ -34,6 +34,9 @@ public abstract class AbilEffect extends AssetQueuer {
 		this.item = item;
 	}
 	
+	/** @return item The owning item of this effect */
+	public CombatItem getItem() { return item; }
+	
 	/**
 	 * Check if this effect is applicable on the world map.
 	 * @return					True if  can be used on the map
@@ -62,6 +65,15 @@ public abstract class AbilEffect extends AssetQueuer {
 	 * @param	intent			The intent to select target for
 	 */
 	public abstract void modifyEnemyIntent(Intent intent);
+	
+	/**
+	 * Called when a round involving this ability begins. Usually does nothing,
+	 * but can sometimes apply pre-round effects like shielding.
+	 * @param	intent			The intent that will be resolved later this turn
+	 */
+	public void onRoundStart(Intent intent) {
+		// default is nothing
+	}
 	
 	/**
 	 * Carry out an intent in battle. Preconditions handled elsewhere.

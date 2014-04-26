@@ -1,0 +1,17 @@
+{
+	"key" : "item_testDefend",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$EDEFEND",
+	"type" : "ITEM",
+	"uses" : 50,
+	"cost" : 12000,
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectDefendMDO",
+		"key" : "anon_CombatItemMDO_-157393347"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

@@ -9,7 +9,7 @@
 	"portrait" : "None",
 	"equipped" : [
 		"item_testsword",
-		"abil_oice"
+		"item_testDefend"
 	],
 	"stats" : {
 		"hp" : 40,

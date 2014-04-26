@@ -10,5 +10,8 @@
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAttackMDO",
 		"key" : "anon_CombatItemMDO_1032408180"
+	},
+	"robostats" : {
+		"stats" : [ ]
 	}
 }

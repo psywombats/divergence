@@ -9,14 +9,11 @@ package net.wombatrpgs.saga.rpg.warheads;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.rpg.Battle;
 import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.Intent;
-import net.wombatrpgs.saga.rpg.Party;
-import net.wombatrpgs.saga.rpg.Intent.IntentListener;
 import net.wombatrpgs.saga.rpg.SagaStats;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectBoostMDO;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
@@ -24,7 +21,7 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 /**
  * Boost your stat for the duration of the battle.
  */
-public class EffectBoost extends AbilEffect {
+public class EffectBoost extends EffectAllyTarget {
 	
 	protected EffectBoostMDO mdo;
 
@@ -43,58 +40,6 @@ public class EffectBoost extends AbilEffect {
 
 	/** @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#isBattleUsable() */
 	@Override public boolean isBattleUsable() { return true; }
-
-	/**
-	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#modifyIntent
-	 * (net.wombatrpgs.saga.rpg.Intent, net.wombatrpgs.saga.rpg.Intent.IntentListener)
-	 */
-	@Override
-	public void modifyIntent(Intent intent, IntentListener listener) {
-		switch (mdo.projector) {
-		case ALLY_PARTY: case PLAYER_PARTY_ENEMY_GROUP:
-			intent.clearTargets();
-			intent.addTargets(intent.getBattle().getPlayer().getAll());
-			listener.onIntent(intent);
-			break;
-		case SINGLE_ALLY:
-			int index = intent.inferAlly();
-			intent.clearTargets();
-			intent.getBattle().selectAlly(index, intent.genDefaultListener(listener));
-			break;
-		case USER:
-			intent.clearTargets();
-			intent.addTargets(intent.getActor());
-			listener.onIntent(intent);
-			break;
-		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#modifyEnemyIntent
-	 * (net.wombatrpgs.saga.rpg.Intent)
-	 */
-	@Override
-	public void modifyEnemyIntent(Intent intent) {
-		Party enemy = intent.getBattle().getEnemy();
-		switch (mdo.projector) {
-		case ALLY_PARTY:
-			intent.addTargets(enemy.getAll());
-			break;
-		case PLAYER_PARTY_ENEMY_GROUP: case SINGLE_ALLY:
-			List<Integer> indexes = new ArrayList<Integer>();
-			for (int i = 0; i < enemy.groupCount(); i += 1) {
-				if (intent.getBattle().isEnemyAlive(i)) {
-					indexes.add(i);
-				}
-			}
-			int index = indexes.get(MGlobal.rand.nextInt(indexes.size()));
-			intent.addTargets(enemy.getGroup(index));
-			break;
-		case USER:
-			intent.addTargets(intent.getActor());
-			break;
-		}
-	}
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#resolve

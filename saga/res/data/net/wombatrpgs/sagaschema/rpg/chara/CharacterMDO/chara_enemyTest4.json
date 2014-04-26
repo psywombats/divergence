@@ -8,7 +8,7 @@
 	"appearance" : "4dir_ffl2_human",
 	"portrait" : "battle_portraits/ghost.png",
 	"equipped" : [
-		"item_testabil",
+		"abil_testIce",
 		"abil_oweapon"
 	],
 	"stats" : {

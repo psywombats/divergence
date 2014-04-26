@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Modifier;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -200,8 +201,12 @@ public class SchemaTree extends JTree {
 					}
 					// if it's polymorphic, keep track of it
 					if (PolymorphicSchema.class.isAssignableFrom(rawClass) &&
-							PolymorphicSchema.class != rawClass) {
-						Class<?> superC = rawClass.getSuperclass();
+							PolymorphicSchema.class != rawClass &&
+							!Modifier.isAbstract(rawClass.getModifiers())) {
+						Class<?> superC = rawClass;
+						do {
+							superC = superC.getSuperclass();
+						} while (Modifier.isAbstract(superC.getModifiers()));
 						List<Class<? extends PolymorphicSchema>> subC = polyMap.get(superC);
 						if (subC == null) {
 							subC = new ArrayList<Class<? extends PolymorphicSchema>>();

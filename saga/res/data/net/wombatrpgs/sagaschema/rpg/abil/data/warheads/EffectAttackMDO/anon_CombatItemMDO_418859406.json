@@ -5,10 +5,11 @@
 	"description" : "auto-generated anonymous polymorph",
 	"projector" : "GROUP_ENEMY",
 	"damType" : "NONELEMENTAL",
+	"sideEffects" : [
+		"ONLY_AFFECT_UNDEAD"
+	],
 	"power" : 5,
 	"attackStat" : "MANA",
 	"defendStat" : "MANA",
-	"sideEffects" : [
-		"ONLY_AFFECT_UNDEAD"
-	]
+	"miss" : "ALWAYS_HITS"
 }

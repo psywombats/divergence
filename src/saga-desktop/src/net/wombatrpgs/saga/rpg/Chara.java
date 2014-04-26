@@ -97,14 +97,6 @@ public class Chara extends AssetQueuer implements Disposable {
 	
 	/** @return True if this character isn't dead yet */
 	public boolean isAlive() { return !isDead(); }
-	
-	// TODO: battle: shielding
-	/** @return The shield value of the user for this turn */
-	public int getShielding() { return 0; }
-	
-	// TODO: battle: shielding
-	/** @return The item this chara is using the block this turn, or null */
-	public CombatItem getShield() { return null; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()

@@ -40,8 +40,20 @@ public class CombatItem extends AssetQueuer {
 		stats = new SagaStats();
 		robostats = new SagaStats(mdo.robostats);
 		
-		effect = AbilEffectFactory.create(mdo.warhead.key, this);
-		assets.add(effect);
+		if (mdo.warhead != null) {
+			effect = AbilEffectFactory.create(mdo.warhead.key, this);
+			assets.add(effect);
+		}
+	}
+	
+	/**
+	 * Creates a combat item with a fixed effect. Does not queue the effect.
+	 * @param	mdo				The data to create from
+	 * @param	effect			The effect to create with
+	 */
+	public CombatItem(CombatItemMDO mdo, AbilEffect effect) {
+		this(mdo);
+		this.effect = effect;
 	}
 	
 	/**
@@ -127,6 +139,16 @@ public class CombatItem extends AssetQueuer {
 	}
 	
 	/**
+	 * Called when a round begins in which this item is involved. This is used
+	 * to do things that should occur at the round start, before the item is
+	 * actually resolved. Most of the times it can do nothing.
+	 * @param	intent			The intent that will be resolved later this turn
+	 */
+	public void onRoundStart(Intent intent) {
+		effect.onRoundStart(intent);
+	}
+	
+	/**
 	 * Resolves a previous intent given in battle. Preconditions such as status
 	 * of user are handled elsewhere. Just do what this item does.
 	 * @param	intent			The intent to resolve
@@ -142,6 +164,13 @@ public class CombatItem extends AssetQueuer {
 	public void halveUses() {
 		uses = Math.round((float) uses / 2f);
 		checkDiscard();
+	}
+	
+	/**
+	 * Gives the item an extra use... like if someone reflected the attack.
+	 */
+	public void incrementUses() {
+		uses += 1;
 	}
 	
 	/**

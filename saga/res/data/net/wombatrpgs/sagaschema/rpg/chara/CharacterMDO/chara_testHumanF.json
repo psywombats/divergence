@@ -9,7 +9,8 @@
 	"portrait" : "None",
 	"equipped" : [
 		"item_testRapier",
-		"item_testWhip"
+		"item_testWhip",
+		"item_testDragonShield"
 	],
 	"stats" : {
 		"hp" : 60,

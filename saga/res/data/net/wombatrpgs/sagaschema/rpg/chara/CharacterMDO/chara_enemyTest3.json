@@ -18,9 +18,6 @@
 		"def" : 1,
 		"agi" : 1,
 		"mana" : 3,
-		"flags" : [
-			"WEAK_FIRE",
-			"WEAK_ICE"
-		]
+		"flags" : [ ]
 	}
 }

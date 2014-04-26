@@ -10,7 +10,8 @@
 	"equipped" : [
 		"item_testsword",
 		"item_testFireSword",
-		"item_testLegendSword"
+		"item_testLegendSword",
+		"item_testShield"
 	],
 	"stats" : {
 		"hp" : 60,

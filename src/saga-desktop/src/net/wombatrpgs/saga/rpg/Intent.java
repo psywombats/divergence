@@ -33,6 +33,7 @@ public class Intent implements Comparable<Intent> {
 	protected List<Chara> targets;
 	protected Battle battle;
 	protected int priority;
+	protected boolean recursive;
 	
 	/**
 	 * Creates a new intent for the designated actor.
@@ -70,6 +71,12 @@ public class Intent implements Comparable<Intent> {
 	
 	/** Clears the targets list */
 	public void clearTargets() { targets.clear(); }
+	
+	/** @return True if recrusive print mode is enabled */
+	public boolean isRecursive() { return recursive; }
+	
+	/** @param recursive True to set recursive print mode for the intent */
+	public void setRecursive(boolean recursive) { this.recursive = recursive; }
 	
 	/**
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
@@ -137,6 +144,14 @@ public class Intent implements Comparable<Intent> {
 				}
 			}
 		};
+	}
+	
+	/**
+	 * Called when the round of which this intent is a process is begun. This
+	 * hands off to the effect.
+	 */
+	public void onRoundStart() {
+		item.onRoundStart(this);
 	}
 	
 	/**

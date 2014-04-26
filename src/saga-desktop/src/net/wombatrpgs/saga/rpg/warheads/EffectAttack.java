@@ -7,8 +7,10 @@
 package net.wombatrpgs.saga.rpg.warheads;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.saga.rpg.Battle;
 import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.CombatItem;
+import net.wombatrpgs.sagaschema.rpg.abil.data.MissType;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAttackMDO;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
@@ -59,12 +61,13 @@ public class EffectAttack extends EffectCombat {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.EffectCombat#hits
-	 * (net.wombatrpgs.saga.rpg.Chara, net.wombatrpgs.saga.rpg.Chara, float)
+	 * (Battle, net.wombatrpgs.saga.rpg.Chara, net.wombatrpgs.saga.rpg.Chara, float)
 	 */
 	@Override
-	protected boolean hits(Chara user, Chara target, float roll) {
+	protected boolean hits(Battle battle, Chara user, Chara target, float roll) {
+		if (mdo.miss == MissType.ALWAYS_HITS) return true;
 		Stat agi = Stat.AGI;
-		int temp = 100 - (target.get(agi) + user.getShielding() - user.get(agi));
+		int temp = 100 - (target.get(agi) + shielding(battle, target) - user.get(agi));
 		float chance = (float) temp / 100f;
 		return roll < chance;
 	}

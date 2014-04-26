@@ -7,6 +7,7 @@
 package net.wombatrpgs.saga.rpg.warheads;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
@@ -17,6 +18,8 @@ import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.Intent;
 import net.wombatrpgs.saga.rpg.Party;
 import net.wombatrpgs.saga.rpg.Intent.IntentListener;
+import net.wombatrpgs.saga.rpg.warheads.EffectDefend.DefendResult;
+import net.wombatrpgs.saga.rpg.warheads.EffectDefend.PostDefend;
 import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseFlag;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectCombatMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Race;
@@ -108,23 +111,25 @@ public abstract class EffectCombat extends AbilEffect {
 		Battle battle = intent.getBattle();
 		Chara user = intent.getActor();
 		String username = user.getName();
-		Chara target = intent.getTargets().get(0);
-		String targetname = target.getName();
+		Chara front = intent.getTargets().get(0);
+		String frontname = front.getName();
 		String itemname = intent.getItem().getName();
 		String tab = SConstants.TAB;
-		switch (mdo.projector) {
-		case SINGLE_ENEMY:
-			battle.print(username + " attacks " + targetname + " by " + itemname + ".");
-			targets.add(target);
-			break;
-		case GROUP_ENEMY:
-			battle.print(username + " attacks " + targetname + " by " + itemname + ".");
-			targets.addAll(intent.getTargets());
-			break;
-		case ALL_ENEMY:
-			battle.println(username + " attacks by " + itemname + ".");
-			targets.addAll(intent.getTargets());
-			break;
+		if (!intent.isRecursive()) {
+			switch (mdo.projector) {
+			case SINGLE_ENEMY:
+				battle.println(username + " attacks " + frontname + " by " + itemname);
+				targets.add(front);
+				break;
+			case GROUP_ENEMY:
+				battle.println(username + " attacks " + frontname + " by " + itemname);
+				targets.addAll(intent.getTargets());
+				break;
+			case ALL_ENEMY:
+				battle.println(username + " attacks by " + itemname);
+				targets.addAll(intent.getTargets());
+				break;
+			}
 		}
 		int power = calcPower(intent.getActor());
 		float roll = MGlobal.rand.nextFloat();
@@ -143,20 +148,40 @@ public abstract class EffectCombat extends AbilEffect {
 					continue;
 				}
 			}
-			if (hits(intent.getActor(), victim, roll)) {
-				if (weak(target) && effect(OffenseFlag.CRITICAL_ON_WEAKNESS)) {
+			if (hits(battle, intent.getActor(), victim, roll)) {
+				
+				// Collect list of all effects triggered by this attack
+				List<PostDefend> callbacks = new ArrayList<PostDefend>();
+				boolean countered = false;
+				for (EffectDefend defense : battle.getDefenses(victim)) {
+					DefendResult result = defense.onAttack(victim, intent, mdo.damType);
+					if (result.callback != null) {
+						callbacks.add(result.callback);
+					}
+					if (result.countered) {
+						countered = true;
+						break;
+					}
+				}
+				
+				if (countered) {
+					// This attack has been blocked
+					// nothing?
+				} else if (weak(victim) && effect(OffenseFlag.CRITICAL_ON_WEAKNESS)) {
+					// This attack insta-killed the victim
 					victim.damage(victim.get(Stat.MHP));
 					battle.println("");
 					battle.println("");
 					battle.println(tab + tab + "CRITICAL HIT!");
 					battle.println("");
-					battle.println(targetname + " is dead.");
+					battle.println(frontname + " is dead.");
 					battle.checkDeath(victim, true);
 				} else {
+					// This attack may have damaged the victim
 					int damage = calcDamage(power, victim);
-					if (target.resists(mdo.damType) && !effect(OffenseFlag.IGNORE_RESISTANCES)) {
+					if (resists(victim) && !effect(OffenseFlag.IGNORE_RESISTANCES)) {
 						if (mdo.damType.isNegateable()) {
-							battle.println(tab + targetname + " is resistant to " + itemname + ".");
+							battle.println(tab + frontname + " is resistant to " + itemname + ".");
 							damage = 0;
 						} else {
 							damage /= 2;
@@ -175,19 +200,30 @@ public abstract class EffectCombat extends AbilEffect {
 					} else {
 						battle.println(tab + victimname + " takes no damage.");
 					}
-					if (effect(OffenseFlag.STUNS_ON_HIT) && target.isAlive()) {
-						if (battle.cancelAction(target)) {
+					if (effect(OffenseFlag.STUNS_ON_HIT) && victim.isAlive()) {
+						if (battle.cancelAction(victim)) {
 							battle.println(tab + "A stunning hit!");
 						}
 					}
 				}
+				
+				// Battle damage calculations have been resolved, now callbacks
+				for (PostDefend callback : callbacks) {
+					callback.onTriggerResolve(victim, intent);
+				}
+				
 			} else {
-				CombatItem shield = victim.getShield();
-				if (shield == null) {
+				
+				// We missed... why?
+				List<EffectDefend> defenses = battle.getDefenses(victim);
+				if (defenses.size() == 0) {
 					battle.println(tab + username + " misses " + victimname + ".");
 				} else {
+					Collections.sort(defenses);
+					EffectDefend blocker = defenses.get(0);
+					CombatItem shield = blocker.getItem();
 					String shieldname = shield.getName();
-					battle.println(tab + victimname + " deflects with " + shieldname + ".");
+					battle.println(tab + victimname + " deflects by " + shieldname + ".");
 				}
 			}
 		}
@@ -217,12 +253,13 @@ public abstract class EffectCombat extends AbilEffect {
 	/**
 	 * Determines if this attack should hit a hypothetical target. Does not
 	 * actually deal damage. Is not affected by RNG.
+	 * @param	battle			The battle context of this check
 	 * @param	user			The character using the ability
 	 * @param	target			The target to check against
 	 * @param	roll			The "chance to miss" roll of the user
 	 * @return					True if the attack should hit, false for miss
 	 */
-	protected abstract boolean hits(Chara user, Chara target, float roll);
+	protected abstract boolean hits(Battle battle, Chara user, Chara target, float roll);
 	
 	/**
 	 * Checks if the effect flag is present.
@@ -249,6 +286,20 @@ public abstract class EffectCombat extends AbilEffect {
 	 */
 	protected boolean weak(Chara target) {
 		return target.isWeakTo(mdo.damType);
+	}
+	
+	/**
+	 * Checks the shield value of a character.
+	 * @param	battle			The battle context of this call
+	 * @param	chara			The character to check
+	 * @return					The shield value dodge boost for that character
+	 */
+	protected int shielding(Battle battle, Chara chara) {
+		int shielding = 0;
+		for (EffectDefend defense : battle.getDefenses(chara)) {
+			shielding += defense.getShielding();
+		}
+		return shielding;
 	}
 
 }

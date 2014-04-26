@@ -7,6 +7,7 @@
 package net.wombatrpgs.saga.rpg.warheads;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.saga.rpg.Battle;
 import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectFixedMDO;
@@ -51,11 +52,11 @@ public class EffectFixed extends EffectCombat {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.EffectCombat#hits
-	 * (net.wombatrpgs.saga.rpg.Chara, net.wombatrpgs.saga.rpg.Chara, float)
+	 * (Battle, net.wombatrpgs.saga.rpg.Chara, net.wombatrpgs.saga.rpg.Chara, float)
 	 */
 	@Override
-	protected boolean hits(Chara user, Chara target, float roll) {
-		int temp = 100 - (user.get(mdo.accStat) + mdo.accuracy);
+	protected boolean hits(Battle battle, Chara user, Chara target, float roll) {
+		int temp = 100 - (user.get(mdo.accStat) + mdo.accuracy - shielding(battle, target));
 		if (mdo.dodgeStat != null) {
 			temp += target.get(mdo.dodgeStat);
 		}
