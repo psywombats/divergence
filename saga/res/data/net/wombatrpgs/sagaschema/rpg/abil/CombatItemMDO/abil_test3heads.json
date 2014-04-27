@@ -1,0 +1,17 @@
+{
+	"key" : "abil_test3heads",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "3-HEADS",
+	"type" : "ABILITY",
+	"uses" : 10,
+	"cost" : 0,
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectMultihitMDO",
+		"key" : "anon_CombatItemMDO_-1910209150"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

@@ -14,6 +14,7 @@ import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectBoostMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectDefendMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectFixedMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectHealMDO;
+import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectMultihitMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectNothingMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectPassiveMDO;
 
@@ -43,6 +44,8 @@ public class AbilEffectFactory {
 			return new EffectDefend((EffectDefendMDO) mdo, item);
 		} else if (EffectHealMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new EffectHeal((EffectHealMDO) mdo, item);
+		} else if (EffectMultihitMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new EffectMultihit((EffectMultihitMDO) mdo, item);
 		} else {
 			MGlobal.reporter.err("Unimplemented abil effect type: " +
 					mdo.getClass());

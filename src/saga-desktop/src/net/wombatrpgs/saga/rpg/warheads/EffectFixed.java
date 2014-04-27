@@ -31,19 +31,19 @@ public class EffectFixed extends EffectCombat {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.EffectCombat#calcPower
-	 * (net.wombatrpgs.saga.rpg.Chara)
+	 * (Battle, net.wombatrpgs.saga.rpg.Chara)
 	 */
 	@Override
-	protected int calcPower(Chara user) {
+	protected int calcPower(Battle battle, Chara user) {
 		return mdo.base + MGlobal.rand.nextInt(mdo.range);
 	}
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.EffectCombat#calcDamage
-	 * (int, net.wombatrpgs.saga.rpg.Chara)
+	 * (Battle, int, net.wombatrpgs.saga.rpg.Chara)
 	 */
 	@Override
-	protected int calcDamage(int power, Chara target) {
+	protected int calcDamage(Battle battle, int power, Chara target) {
 		if (mdo.defenseStat != null) {
 			power -= target.get(mdo.defenseStat);
 		}

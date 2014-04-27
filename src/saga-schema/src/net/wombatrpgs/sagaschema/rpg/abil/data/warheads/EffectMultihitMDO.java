@@ -19,11 +19,9 @@ public class EffectMultihitMDO extends EffectCombatMDO {
 	@Desc("Base power - base multiplier of each hit")
 	public Integer power;
 	
-	@Desc("First hits - how many times this attack hits on first use")
-	public Integer hitsFirst;
-	
-	@Desc("Successive hits - how many times this attack hits on other use")
-	public Integer hitsLast;
+	@Desc("Hits order - the attack will hit this many times with each use, " +
+				"comma separated, like \"3,2,2,1,1\" and then cycle")
+	public String hits;
 	
 	@Desc("Attack stat - this stat is quartered and then multiplied by power")
 	@DefaultValue("STR")

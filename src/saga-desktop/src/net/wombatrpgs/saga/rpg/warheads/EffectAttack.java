@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.saga.rpg.warheads;
 
-import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.rpg.Battle;
 import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.CombatItem;
@@ -33,26 +32,19 @@ public class EffectAttack extends EffectCombat {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.EffectCombat#calcPower
-	 * (net.wombatrpgs.saga.rpg.Chara)
+	 * (Battle, net.wombatrpgs.saga.rpg.Chara)
 	 */
 	@Override
-	protected int calcPower(Chara user) {
-		int temp = mdo.power;
-		int power = 0;
-		if (mdo.attackStat != null) {
-			temp *= Math.ceil((float) user.get(mdo.attackStat) / 4f);
-			power = user.get(mdo.attackStat);
-		}
-		power += (temp + MGlobal.rand.nextInt(temp));
-		return power;
+	protected int calcPower(Battle battle, Chara user) {
+		return statDamage(user, mdo.attackStat, mdo.power);
 	}
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.EffectCombat#calcDamage
-	 * (int, net.wombatrpgs.saga.rpg.Chara)
+	 * (Battle, int, net.wombatrpgs.saga.rpg.Chara)
 	 */
 	@Override
-	protected int calcDamage(int power, Chara target) {
+	protected int calcDamage(Battle battle, int power, Chara target) {
 		if (mdo.defendStat != null && !weak(target)) {
 			power -= target.get(mdo.defendStat);
 		}

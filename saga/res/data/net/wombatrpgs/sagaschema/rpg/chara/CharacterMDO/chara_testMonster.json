@@ -9,8 +9,10 @@
 	"portrait" : "None",
 	"equipped" : [
 		"item_testabil",
-		"abil_testExplode",
+		"abil_test8legs",
+		"abil_test3heads",
 		"abil_testPower",
+		"abil_testExplode",
 		"abil_testCare"
 	],
 	"stats" : {

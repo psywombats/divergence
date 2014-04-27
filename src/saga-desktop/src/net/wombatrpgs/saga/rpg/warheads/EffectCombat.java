@@ -131,7 +131,7 @@ public abstract class EffectCombat extends AbilEffect {
 				break;
 			}
 		}
-		int power = calcPower(intent.getActor());
+		int power = calcPower(battle, intent.getActor());
 		float roll = MGlobal.rand.nextFloat();
 		for (Chara victim : targets) {
 			// TODO: battle: animations in here somewhere
@@ -178,7 +178,7 @@ public abstract class EffectCombat extends AbilEffect {
 					battle.checkDeath(victim, true);
 				} else {
 					// This attack may have damaged the victim
-					int damage = calcDamage(power, victim);
+					int damage = calcDamage(battle, power, victim);
 					if (resists(victim) && !effect(OffenseFlag.IGNORE_RESISTANCES)) {
 						if (mdo.damType.isNegateable()) {
 							battle.println(tab + frontname + " is resistant to " + itemname + ".");
@@ -237,19 +237,21 @@ public abstract class EffectCombat extends AbilEffect {
 	/**
 	 * Calculates the damage output of this attack by a user. Does not deal
 	 * damage. Is affected by RNG.
+	 * @param battle TODO
 	 * @param	user			The character using this ability
 	 * @return					The damage of the attack, in HP
 	 */
-	protected abstract int calcPower(Chara user);
+	protected abstract int calcPower(Battle battle, Chara user);
 	
 	/**
 	 * Calculates the damage this attack would do against a hypothetical target.
 	 * Does not actually deal damage. Is not affected by RNG.
-	 * @param	user			The character using the ability
+	 * @param battle TODO
 	 * @param	target			The target to check against
+	 * @param	user			The character using the ability
 	 * @return					An appropriate amount of damage to deal, in HP
 	 */
-	protected abstract int calcDamage(int power, Chara target);
+	protected abstract int calcDamage(Battle battle, int power, Chara target);
 	
 	/**
 	 * Determines if this attack should hit a hypothetical target. Does not
@@ -301,6 +303,25 @@ public abstract class EffectCombat extends AbilEffect {
 			shielding += defense.getShielding();
 		}
 		return shielding;
+	}
+	
+	/**
+	 * Combat formula potentially involving a stat as the power mult. Relies on
+	 * the RNG.
+	 * @param	user			The chara using the effect
+	 * @param	powerStat		The stat to multiply with, or null for none
+	 * @param	power			The base multiplier for damage
+	 * @return					The power of the attack, in HP damage
+	 */
+	protected int statDamage(Chara user, Stat powerStat, int power) {
+		int temp = power;
+		int result = 0;
+		if (powerStat != null) {
+			temp *= Math.ceil((float) user.get(powerStat) / 4f);
+			result = user.get(powerStat);
+		}
+		result += (temp + MGlobal.rand.nextInt(temp));
+		return result;
 	}
 
 }
