@@ -8,19 +8,13 @@ package net.wombatrpgs.sagaschema.rpg.abil.data.warheads;
 
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
-import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.DamageType;
 import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseFlag;
-import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseProjector;
 
 /**
  * Superclass for some common combat data.
  */
-public abstract class EffectCombatMDO extends AbilEffectMDO {
-	
-	@Desc("Projector")
-	@DefaultValue("SINGLE_ENEMY")
-	public OffenseProjector projector;
+public abstract class EffectCombatMDO extends EffectEnemyTargetMDO {
 	
 	@Desc("Damage type")
 	@DefaultValue("PHYSICAL")

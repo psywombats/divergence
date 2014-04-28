@@ -8,19 +8,13 @@ package net.wombatrpgs.sagaschema.rpg.abil.data.warheads;
 
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
-import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
-import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseProjector;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Status;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**
  * Inflicts status conditions.
  */
-public class EffectStatusMDO extends AbilEffectMDO {
-	
-	@Desc("Projector")
-	@DefaultValue("SINGLE_ENEMY")
-	public OffenseProjector projector;
+public class EffectStatusMDO extends EffectEnemyTargetMDO {
 	
 	@Desc("Status to inflict")
 	public Status status;

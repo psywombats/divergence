@@ -69,12 +69,12 @@ public class EffectMultihit extends EffectCombat {
 	}
 
 	/**
-	 * @see net.wombatrpgs.saga.rpg.warheads.EffectCombat#hits
+	 * @see net.wombatrpgs.saga.rpg.warheads.EffectCombat#combatHits
 	 * (net.wombatrpgs.saga.rpg.Battle, net.wombatrpgs.saga.rpg.Chara,
 	 * net.wombatrpgs.saga.rpg.Chara, float)
 	 */
 	@Override
-	protected boolean hits(Battle battle, Chara user, Chara target, float roll) {
+	protected boolean combatHits(Battle battle, Chara user, Chara target, float roll) {
 		return true;
 	}
 

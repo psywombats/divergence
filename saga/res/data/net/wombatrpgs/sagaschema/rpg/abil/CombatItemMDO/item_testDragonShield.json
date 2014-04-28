@@ -5,7 +5,7 @@
 	"description" : "",
 	"abilityName" : "$BDRAGON",
 	"type" : "ITEM",
-	"uses" : 0,
+	"uses" : 50,
 	"cost" : 50000,
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectDefendMDO",

@@ -16,8 +16,6 @@ import net.wombatrpgs.saga.rpg.Battle;
 import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.Intent;
-import net.wombatrpgs.saga.rpg.Party;
-import net.wombatrpgs.saga.rpg.Intent.IntentListener;
 import net.wombatrpgs.saga.rpg.warheads.EffectDefend.DefendResult;
 import net.wombatrpgs.saga.rpg.warheads.EffectDefend.PostDefend;
 import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseFlag;
@@ -29,7 +27,7 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 /**
  * Superclass for some common combat ability effects.
  */
-public abstract class EffectCombat extends AbilEffect {
+public abstract class EffectCombat extends EffectEnemyTarget {
 	
 	protected EffectCombatMDO mdo;
 
@@ -42,206 +40,123 @@ public abstract class EffectCombat extends AbilEffect {
 		super(mdo, item);
 		this.mdo = mdo;
 	}
-
-	/** @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#isMapUsable() */
-	@Override public boolean isMapUsable() { return false; }
-
-	/** @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#isBattleUsable() */
-	@Override public boolean isBattleUsable() { return true; }
-
-	/**
-	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#modifyIntent
-	 * (net.wombatrpgs.saga.rpg.Intent, net.wombatrpgs.saga.rpg.Intent.IntentListener)
-	 */
-	@Override
-	public void modifyIntent(final Intent intent, final IntentListener listener) {
-		switch (mdo.projector) {
-		case SINGLE_ENEMY:
-			intent.clearTargets();
-			Chara selected = null;
-			if (intent.getTargets().size() > 0) {
-				selected = intent.getTargets().get(0);
-			}
-			intent.getBattle().selectSingleEnemy(selected, intent.genDefaultListener(listener));
-			break;
-		case GROUP_ENEMY:
-			int group = intent.inferEnemy();
-			intent.clearTargets();
-			intent.getBattle().selectEnemyGroup(group, intent.genDefaultListener(listener));
-			break;
-		case ALL_ENEMY:
-			intent.clearTargets();
-			intent.addTargets(intent.getBattle().getEnemy().getAll());
-			listener.onIntent(intent);
-			break;
-		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#modifyEnemyIntent
-	 * (net.wombatrpgs.saga.rpg.Intent)
-	 */
-	@Override
-	public void modifyEnemyIntent(Intent intent) {
-		Party player = intent.getBattle().getPlayer();
-		switch (mdo.projector) {
-		case SINGLE_ENEMY: case GROUP_ENEMY:
-			List<Integer> candidates = new ArrayList<Integer>();
-			for (int i = 0; i < player.groupCount(); i += 1) {
-				if (player.getFront(i).isAlive()) {
-					candidates.add(i);
-				}
-			}
-			int index = candidates.get(MGlobal.rand.nextInt(candidates.size()));
-			intent.addTargets(player.getFront(index));
-			break;
-		case ALL_ENEMY:
-			intent.addTargets(player.getAll());
-			break;
-		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#resolve
-	 * (net.wombatrpgs.saga.rpg.Intent)
-	 */
-	@Override
-	public void resolve(Intent intent) {
-		List<Chara> targets = new ArrayList<Chara>();
-		Battle battle = intent.getBattle();
-		Chara user = intent.getActor();
-		String username = user.getName();
-		Chara front = intent.getTargets().get(0);
-		String frontname = front.getName();
-		String itemname = intent.getItem().getName();
-		String tab = SConstants.TAB;
-		if (!intent.isRecursive()) {
-			switch (mdo.projector) {
-			case SINGLE_ENEMY:
-				battle.println(username + " attacks " + frontname + " by " + itemname + ".");
-				targets.add(front);
-				break;
-			case GROUP_ENEMY:
-				battle.println(username + " attacks " + frontname + " by " + itemname + ".");
-				targets.addAll(intent.getTargets());
-				break;
-			case ALL_ENEMY:
-				battle.println(username + " attacks by " + itemname + ".");
-				targets.addAll(intent.getTargets());
-				break;
-			}
-		}
-		int power = calcPower(battle, intent.getActor());
-		float roll = MGlobal.rand.nextFloat();
-		for (Chara victim : targets) {
-			// TODO: battle: animations in here somewhere
-			String victimname = victim.getName();
-			if (effect(OffenseFlag.ONLY_AFFECT_UNDEAD)) {
-				if (!user.is(Flag.UNDEAD)) {
-					battle.println(tab + "Nothing happens.");
-					continue;
-				}
-			}
-			if (effect(OffenseFlag.ONLY_AFFECT_HUMANS)) {
-				if (user.getRace() != Race.HUMAN) {
-					battle.println(tab + "Nothing happens.");
-					continue;
-				}
-			}
-			if (hits(battle, intent.getActor(), victim, roll)) {
-				
-				// Collect list of all effects triggered by this attack
-				List<PostDefend> callbacks = new ArrayList<PostDefend>();
-				boolean countered = false;
-				for (EffectDefend defense : battle.getDefenses(victim)) {
-					DefendResult result = defense.onAttack(victim, intent, mdo.damType);
-					if (result.callback != null) {
-						callbacks.add(result.callback);
-					}
-					if (result.countered) {
-						countered = true;
-						break;
-					}
-				}
-				
-				if (countered) {
-					// This attack has been blocked
-					// nothing?
-				} else if (weak(victim) && effect(OffenseFlag.CRITICAL_ON_WEAKNESS)) {
-					// This attack insta-killed the victim
-					victim.damage(victim.get(Stat.MHP));
-					battle.println("");
-					battle.println("");
-					battle.println(tab + tab + "CRITICAL HIT!");
-					battle.println("");
-					battle.println(frontname + " is dead.");
-					battle.checkDeath(victim, true);
-				} else {
-					// This attack may have damaged the victim
-					int damage = calcDamage(battle, power, victim);
-					if (resists(victim) && !effect(OffenseFlag.IGNORE_RESISTANCES)) {
-						if (mdo.damType.isNegateable()) {
-							battle.println(tab + frontname + " is resistant to " + itemname + ".");
-							damage = 0;
-						} else {
-							damage /= 2;
-						}
-					}
-					if (damage > 0) {
-						battle.println(tab + victimname + " takes " + damage + " damage.");
-						victim.damage(damage);
-						battle.checkDeath(victim, false);
-						if (effect(OffenseFlag.DRAIN_LIFE) && !victim.is(Flag.UNDEAD)) {
-							int healed = user.heal(damage);
-							if (healed > 0) {
-								battle.println(tab + username + " recovers " + damage + " HP.");
-							}
-						}
-					} else {
-						battle.println(tab + victimname + " takes no damage.");
-					}
-					if (effect(OffenseFlag.STUNS_ON_HIT) && victim.isAlive()) {
-						if (battle.cancelAction(victim)) {
-							battle.println(tab + "A stunning hit!");
-						}
-					}
-				}
-				
-				// Battle damage calculations have been resolved, now callbacks
-				for (PostDefend callback : callbacks) {
-					callback.onTriggerResolve(victim, intent);
-				}
-				
-			} else {
-				
-				// We missed... why?
-				// TODO: battle: something is buggy with shield+counter?
-				List<EffectDefend> defenses = battle.getDefenses(victim);
-				if (defenses.size() == 0) {
-					battle.println(tab + username + " misses " + victimname + ".");
-				} else {
-					Collections.sort(defenses);
-					EffectDefend blocker = defenses.get(0);
-					CombatItem shield = blocker.getItem();
-					String shieldname = shield.getName();
-					battle.println(tab + victimname + " deflects by " + shieldname + ".");
-				}
-			}
-		}
-		if (effect(OffenseFlag.KILLS_USER)) {
-			user.damage(user.get(Stat.HP));
-			battle.checkDeath(user, false);
-		}
-	}
 	
 	/**
-	 * Calculates the damage output of this attack by a user. Does not deal
-	 * damage. Is affected by RNG.
-	 * @param battle TODO
-	 * @param	user			The character using this ability
-	 * @return					The damage of the attack, in HP
+	 * @see net.wombatrpgs.saga.rpg.warheads.EffectEnemyTarget#onAffect
+	 * (net.wombatrpgs.saga.rpg.Battle, Intent,
+	 * net.wombatrpgs.saga.rpg.Chara, net.wombatrpgs.saga.rpg.Chara, int)
 	 */
-	protected abstract int calcPower(Battle battle, Chara user);
+	@Override
+	protected final void onAffect(Battle battle, Intent intent, Chara user, Chara victim, int power) {
+		String username = user.getName();
+		String itemname = intent.getItem().getName();
+		String victimname = victim.getName();
+		String tab = SConstants.TAB;
+		
+		// Collect list of all effects triggered by this attack
+		List<PostDefend> callbacks = new ArrayList<PostDefend>();
+		boolean countered = false;
+		for (EffectDefend defense : battle.getDefenses(victim)) {
+			DefendResult result = defense.onAttack(victim, intent, mdo.damType);
+			if (result.callback != null) {
+				callbacks.add(result.callback);
+			}
+			if (result.countered) {
+				countered = true;
+				break;
+			}
+		}
+		
+		if (countered) {
+			// This attack has been blocked
+			// no need to print a message because the block effect will cover it
+		} else if (weak(victim) && effect(OffenseFlag.CRITICAL_ON_WEAKNESS)) {
+			// This attack insta-killed the victim
+			victim.damage(victim.get(Stat.MHP));
+			battle.println("");
+			battle.println("");
+			battle.println(tab + tab + "CRITICAL HIT!");
+			battle.println("");
+			battle.println(victimname + " is dead.");
+			battle.checkDeath(victim, true);
+		} else {
+			// This attack may have damaged the victim
+			int damage = calcDamage(battle, power, victim);
+			if (resists(victim) && !effect(OffenseFlag.IGNORE_RESISTANCES)) {
+				if (mdo.damType.isNegateable()) {
+					battle.println(tab + victimname + " is resistant to " + itemname + ".");
+					damage = 0;
+				} else {
+					damage /= 2;
+				}
+			}
+			if (damage > 0) {
+				battle.println(tab + victimname + " takes " + damage + " damage.");
+				victim.damage(damage);
+				battle.checkDeath(victim, false);
+				if (effect(OffenseFlag.DRAIN_LIFE) && !victim.is(Flag.UNDEAD)) {
+					int healed = user.heal(damage);
+					if (healed > 0) {
+						battle.println(tab + username + " recovers " + damage + " HP.");
+					}
+				}
+			} else {
+				battle.println(tab + victimname + " takes no damage.");
+			}
+			if (effect(OffenseFlag.STUNS_ON_HIT) && victim.isAlive()) {
+				if (battle.cancelAction(victim)) {
+					battle.println(tab + "A stunning hit!");
+				}
+			}
+		}
+		
+		// Battle damage calculations have been resolved, now callbacks
+		for (PostDefend callback : callbacks) {
+			callback.onTriggerResolve(victim, intent);
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.saga.rpg.warheads.EffectEnemyTarget#hits
+	 * (net.wombatrpgs.saga.rpg.Battle, net.wombatrpgs.saga.rpg.Chara,
+	 * net.wombatrpgs.saga.rpg.Chara, int, float)
+	 */
+	@Override
+	protected final boolean hits(Battle battle, Chara user, Chara victim, int power, float roll) {
+		String tab = SConstants.TAB;
+		String username = user.getName();
+		String victimname = victim.getName();
+		
+		if (effect(OffenseFlag.ONLY_AFFECT_UNDEAD) && !user.is(Flag.UNDEAD)) {
+			// Enemy is exempt
+			battle.println(tab + "Nothing happens.");
+			return false;
+			
+		} else if (effect(OffenseFlag.ONLY_AFFECT_HUMANS) && user.getRace() != Race.HUMAN) {
+			// Enemy is exempt
+			battle.println(tab + "Nothing happens.");
+			return false;
+			
+		} else if (!combatHits(battle, user, victim, roll)) {
+			// We missed... why?
+			// TODO: battle: something is buggy with shield+counter?
+			if (shielding(battle, victim) > 0) {
+				battle.println(tab + username + " misses " + victimname + ".");
+			} else {
+				List<EffectDefend> defenses = battle.getDefenses(victim);
+				Collections.sort(defenses);
+				EffectDefend blocker = defenses.get(0);
+				CombatItem shield = blocker.getItem();
+				String shieldname = shield.getName();
+				battle.println(tab + victimname + " deflects by " + shieldname + ".");
+			}
+			return false;
+			
+		} else {
+			// We actually hit the jerk
+			return true;
+		}
+	}
 	
 	/**
 	 * Calculates the damage this attack would do against a hypothetical target.
@@ -254,16 +169,30 @@ public abstract class EffectCombat extends AbilEffect {
 	protected abstract int calcDamage(Battle battle, int power, Chara target);
 	
 	/**
-	 * Determines if this attack should hit a hypothetical target. Does not
-	 * actually deal damage. Is not affected by RNG.
+	 * Determines if this attack should hit a target via some physical combat
+	 * formula. Does not actually deal damage. Is not affected by RNG. Called
+	 * once per victim. No need to print a message, we'll figure out why.
 	 * @param	battle			The battle context of this check
 	 * @param	user			The character using the ability
 	 * @param	target			The target to check against
 	 * @param	roll			The "chance to miss" roll of the user
 	 * @return					True if the attack should hit, false for miss
 	 */
-	protected abstract boolean hits(Battle battle, Chara user, Chara target, float roll);
+	protected abstract boolean combatHits(Battle battle, Chara user, Chara target, float roll);
 	
+	/**
+	 * @see net.wombatrpgs.saga.rpg.warheads.EffectEnemyTarget#onResolveComplete
+	 * (Battle, Chara)
+	 */
+	@Override
+	protected void onResolveComplete(Battle battle, Chara user) {
+		super.onResolveComplete(battle, user);
+		if (effect(OffenseFlag.KILLS_USER)) {
+			user.damage(user.get(Stat.HP));
+			battle.checkDeath(user, false);
+		}
+	}
+
 	/**
 	 * Checks if the effect flag is present.
 	 * @param	flag			The flag to check

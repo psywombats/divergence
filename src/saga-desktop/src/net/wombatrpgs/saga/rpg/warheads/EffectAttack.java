@@ -52,11 +52,12 @@ public class EffectAttack extends EffectCombat {
 	}
 
 	/**
-	 * @see net.wombatrpgs.saga.rpg.warheads.EffectCombat#hits
-	 * (Battle, net.wombatrpgs.saga.rpg.Chara, net.wombatrpgs.saga.rpg.Chara, float)
+	 * @see net.wombatrpgs.saga.rpg.warheads.EffectCombat#combatHits
+	 * (net.wombatrpgs.saga.rpg.Battle, net.wombatrpgs.saga.rpg.Chara,
+	 * net.wombatrpgs.saga.rpg.Chara, float)
 	 */
 	@Override
-	protected boolean hits(Battle battle, Chara user, Chara target, float roll) {
+	protected boolean combatHits(Battle battle, Chara user, Chara target, float roll) {
 		if (mdo.miss == MissType.ALWAYS_HITS) return true;
 		Stat agi = Stat.AGI;
 		int temp = 100 - (target.get(agi) + shielding(battle, target) - user.get(agi));
