@@ -11,7 +11,8 @@
 		"item_testsword",
 		"item_testFireSword",
 		"item_testLegendSword",
-		"item_testShield"
+		"item_testShield",
+		"item_testPetrify"
 	],
 	"stats" : {
 		"hp" : 60,

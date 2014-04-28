@@ -1,0 +1,17 @@
+{
+	"key" : "item_testPetrify",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$OPETRIFY",
+	"type" : "ITEM",
+	"uses" : 50,
+	"cost" : 222000,
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectStatusMDO",
+		"key" : "anon_CombatItemMDO_-581251627"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

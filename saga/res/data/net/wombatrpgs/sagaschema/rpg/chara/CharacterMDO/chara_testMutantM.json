@@ -10,8 +10,8 @@
 	"equipped" : [
 		"abil_testFire",
 		"abil_testBarrier",
-		"abil_mutantBlank",
-		"abil_mutantBlank",
+		"abil_testCurse",
+		"abil_testHypnosis",
 		"item_testVampic",
 		"item_testPrayer",
 		"item_testCure"

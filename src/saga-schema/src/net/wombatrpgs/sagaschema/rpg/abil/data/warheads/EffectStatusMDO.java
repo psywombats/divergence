@@ -8,6 +8,7 @@ package net.wombatrpgs.sagaschema.rpg.abil.data.warheads;
 
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
+import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Status;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
@@ -25,10 +26,12 @@ public class EffectStatusMDO extends EffectEnemyTargetMDO {
 	
 	@Desc("Accuracy stat - added to chance to hit")
 	@DefaultValue("MANA")
+	@Nullable
 	public Stat accStat;
 	
 	@Desc("Evasion stat - subtracted from chance to hit")
 	@DefaultValue("MANA")
+	@Nullable
 	public Stat evadeStat;
 	
 }

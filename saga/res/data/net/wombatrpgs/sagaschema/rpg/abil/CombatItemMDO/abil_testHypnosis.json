@@ -1,0 +1,17 @@
+{
+	"key" : "abil_testHypnosis",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "HYPNOS",
+	"type" : "ABILITY",
+	"uses" : 20,
+	"cost" : 0,
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectStatusMDO",
+		"key" : "anon_CombatItemMDO_-1232046406"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

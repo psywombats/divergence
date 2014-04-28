@@ -1,0 +1,17 @@
+{
+	"key" : "item_testStun",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$GSTUN",
+	"type" : "ITEM",
+	"uses" : 30,
+	"cost" : 200,
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectStatusMDO",
+		"key" : "anon_CombatItemMDO_-1525912768"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

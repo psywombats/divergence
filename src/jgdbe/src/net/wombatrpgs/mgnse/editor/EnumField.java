@@ -10,6 +10,7 @@ import java.lang.reflect.Field;
 
 import javax.swing.JComboBox;
 
+import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Schema;
 import net.wombatrpgs.mgnse.Global;
@@ -38,6 +39,11 @@ public class EnumField extends FieldPanel {
 		}
 		for (Object value : field.getType().getEnumConstants()) {
 			input.addItem(value.toString());
+		}
+		if (defaultData == null || defaultData.equals("")) {
+			if (field.isAnnotationPresent(DefaultValue.class)) {
+				defaultData = field.getAnnotation(DefaultValue.class).value();
+			}
 		}
 		if (defaultData != null && !defaultData.equals("")) {
 			if (!selectString(input, defaultData.toString())) {

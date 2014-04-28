@@ -1,0 +1,17 @@
+{
+	"key" : "abil_testSing",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "SING",
+	"type" : "ABILITY",
+	"uses" : 3,
+	"cost" : 0,
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectStatusMDO",
+		"key" : "anon_CombatItemMDO_1979153167"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

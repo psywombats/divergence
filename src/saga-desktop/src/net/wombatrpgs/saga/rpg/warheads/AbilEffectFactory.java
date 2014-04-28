@@ -17,6 +17,7 @@ import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectHealMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectMultihitMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectNothingMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectPassiveMDO;
+import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectStatusMDO;
 
 /**
  * Constructs the item effect for combat items based on their MDO.
@@ -46,6 +47,8 @@ public class AbilEffectFactory {
 			return new EffectHeal((EffectHealMDO) mdo, item);
 		} else if (EffectMultihitMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new EffectMultihit((EffectMultihitMDO) mdo, item);
+		} else if (EffectStatusMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new EffectStatus((EffectStatusMDO) mdo, item);
 		} else {
 			MGlobal.reporter.err("Unimplemented abil effect type: " +
 					mdo.getClass());
