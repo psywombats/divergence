@@ -8,7 +8,12 @@ package net.wombatrpgs.saga.core;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import net.wombatrpgs.mgne.core.interfaces.Reporter;
 import net.wombatrpgs.mgne.core.reporters.DebugReporter;
@@ -31,10 +36,24 @@ public class PrintReporter implements Reporter {
 		File normalFile= new File("info.log");
 		// this, unfortunately, will never be closed
 		try {
-			errLog = new PrintWriter(errFile);
+			if (errFile.exists()) {
+				errLog = new PrintWriter(new FileWriter(errFile, true));
+				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				Calendar cal = Calendar.getInstance();
+				errLog.println();
+				errLog.println("########################################");
+				errLog.println(dateFormat.format(cal.getTime()));
+				errLog.println("########################################");
+			} else {
+				errLog = new PrintWriter(errFile);
+			}
+			errLog.flush();
 			normalLog = new PrintWriter(normalFile);
 		} catch (FileNotFoundException e) {
 			// can't really check for shit here haha
+			e.printStackTrace();
+		} catch (IOException e) {
+			// yeah screw it
 			e.printStackTrace();
 		}
 	}

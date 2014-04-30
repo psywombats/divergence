@@ -127,12 +127,12 @@ public abstract class EffectCombat extends EffectEnemyTarget {
 		String username = user.getName();
 		String victimname = victim.getName();
 		
-		if (effect(OffenseFlag.ONLY_AFFECT_UNDEAD) && !user.is(Flag.UNDEAD)) {
+		if (effect(OffenseFlag.ONLY_AFFECT_UNDEAD) && !victim.is(Flag.UNDEAD)) {
 			// Enemy is exempt
 			battle.println(tab + "Nothing happens.");
 			return false;
 			
-		} else if (effect(OffenseFlag.ONLY_AFFECT_HUMANS) && user.getRace() != Race.HUMAN) {
+		} else if (effect(OffenseFlag.ONLY_AFFECT_HUMANS) && victim.getRace() != Race.HUMAN) {
 			// Enemy is exempt
 			battle.println(tab + "Nothing happens.");
 			return false;
