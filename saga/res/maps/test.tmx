@@ -5,34 +5,29 @@
  </properties>
  <tileset firstgid="1" name="welp" tilewidth="16" tileheight="16">
   <image source="tilesets/welp.png" width="48" height="32"/>
-  <terraintypes>
-   <terrain name="New Terrain" tile="-1"/>
-  </terraintypes>
-  <tile id="0" terrain=",,0,0"/>
-  <tile id="1" terrain=",,0,0"/>
-  <tile id="2" terrain=",,0,">
+  <tile id="2">
    <properties>
     <property name="x" value=""/>
    </properties>
   </tile>
-  <tile id="3" terrain="0,0,,">
+  <tile id="3">
    <properties>
     <property name="x" value=""/>
    </properties>
   </tile>
-  <tile id="4" terrain="0,0,,">
+  <tile id="4">
    <properties>
     <property name="x" value=""/>
    </properties>
   </tile>
-  <tile id="5" terrain="0,,0,"/>
  </tileset>
+ <tileset firstgid="7" source="tilesets/lower.tsx"/>
  <layer name="Tile Layer 1" width="20" height="15">
   <properties>
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzFklsKACAIBEWs+x+5LyHExwYLfQwhxLiKJiJGZpN46Yf09j+rwR1e//B5rQnZjBreypc5u0yxX7VjxFfln3xdttd86J1NvmzXN/EGEF8H24feH8vH5ACaYwXf
+   eJyt1D0LgCAQgGHHskEQGhyLhr6Gaun//7MUPIjj7jzB4UVcnjsctMYY2zjXqJp5Q07jeSHwrpzGC0LgvTmNB/eOiHrfEZ2cR5le2Cd5c8HDZhAs7PUKT9qtdj/O2lAlzxW8CaXxpFYU5e2xg+lUzvl7d+xhWpRu638l9QE1iRQg
   </data>
  </layer>
  <objectgroup name="Object Layer 1" width="20" height="15">
