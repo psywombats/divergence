@@ -94,6 +94,25 @@ public abstract class EffectEnemyTarget extends AbilEffect {
 	}
 
 	/**
+	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#assignRandomTargets
+	 * (net.wombatrpgs.saga.rpg.Intent)
+	 */
+	@Override
+	public void assignRandomTargets(Intent intent) {
+		switch (mdo.projector) {
+		case ALL_ENEMY:
+			assignRandomParty(intent);
+			break;
+		case GROUP_ENEMY:
+			assignRandomGroup(intent);
+			break;
+		case SINGLE_ENEMY:
+			assignRandomTarget(intent);
+			break;
+		}
+	}
+
+	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#resolve
 	 * (net.wombatrpgs.saga.rpg.Intent)
 	 */

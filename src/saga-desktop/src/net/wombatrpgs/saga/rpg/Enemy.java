@@ -6,9 +6,6 @@
  */
 package net.wombatrpgs.saga.rpg;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.wombatrpgs.mgne.core.MGlobal;
 
 /**
@@ -34,18 +31,12 @@ public class Enemy extends Chara {
 	 */
 	public Intent act(Battle battle) {
 		Intent intent = new Intent(this, battle);
-		List<CombatItem> usable = new ArrayList<CombatItem>();
-		for (CombatItem item : getInventory().getItems()) {
-			if (item != null && item.isBattleUsable()) {
-				usable.add(item);
-			}
-		}
-		if (usable.size() == 0) {
+		CombatItem item = getRandomCombatItem();
+		if (item == null) {
 			MGlobal.reporter.err("Monster has no useable abils: " + this);
-			return null;
+		} else {
+			item.modifyEnemyIntent(intent);
 		}
-		CombatItem item = usable.get(MGlobal.rand.nextInt(usable.size()));
-		item.modifyEnemyIntent(intent);
 		return intent;
 	}
 	

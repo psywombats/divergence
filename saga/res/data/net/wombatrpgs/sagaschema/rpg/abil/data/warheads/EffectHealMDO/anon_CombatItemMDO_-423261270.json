@@ -7,5 +7,5 @@
 	"base" : 0,
 	"power" : 7,
 	"powerStat" : "MANA",
-	"status" : [ ]
+	"heals" : [ ]
 }

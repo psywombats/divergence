@@ -14,8 +14,8 @@ import net.wombatrpgs.saga.rpg.Battle;
 import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.Intent;
+import net.wombatrpgs.saga.rpg.Status;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectHealMDO;
-import net.wombatrpgs.sagaschema.rpg.chara.data.Status;
 
 /**
  * This is for the Rod.
@@ -69,10 +69,8 @@ public class EffectHeal extends EffectAllyTarget {
 				battle.println(tab + victimname + " recovered " + heal + " HP.");
 			}
 			Status status = victim.getStatus();
-			if (status != null && hasFlag(mdo.status, status)) {
-				String healstring = status.getHealString();
-				victim.setStatus(null);
-				battle.print(tab + victimname + healstring + ".");
+			if (status != null && status.isContainedIn(mdo.heals)) {
+				status.heal(battle, victim);
 			} else if (heal <= 0) {
 				battle.println(tab + "Nothing happens.");
 			}

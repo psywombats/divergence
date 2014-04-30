@@ -6,11 +6,16 @@
  */
 package net.wombatrpgs.saga.rpg.warheads;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import net.wombatrpgs.mgne.core.AssetQueuer;
+import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.Intent;
+import net.wombatrpgs.saga.rpg.Party;
 import net.wombatrpgs.saga.rpg.Intent.IntentListener;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 
@@ -67,6 +72,19 @@ public abstract class AbilEffect extends AssetQueuer {
 	public abstract void modifyEnemyIntent(Intent intent);
 	
 	/**
+	 * Assigns random targets to the intent as if confused. It will already have
+	 * been cleared.
+	 * @param	intent			The intent to modify.
+	 */
+	public abstract void assignRandomTargets(Intent intent);
+	
+	/**
+	 * Carry out an intent in battle. Preconditions handled elsewhere.
+	 * @param	intent			The intent to resolve
+	 */
+	public abstract void resolve(Intent intent);
+	
+	/**
 	 * Called when a round involving this ability begins. Usually does nothing,
 	 * but can sometimes apply pre-round effects like shielding.
 	 * @param	intent			The intent that will be resolved later this turn
@@ -76,12 +94,6 @@ public abstract class AbilEffect extends AssetQueuer {
 	}
 	
 	/**
-	 * Carry out an intent in battle. Preconditions handled elsewhere.
-	 * @param	intent			The intent to resolve
-	 */
-	public abstract void resolve(Intent intent);
-	
-	/**
 	 * Array containment test.
 	 * @param	flags			The set of flags to check
 	 * @param	flag			The flag to check among them
@@ -89,6 +101,64 @@ public abstract class AbilEffect extends AssetQueuer {
 	 */
 	protected static boolean hasFlag(Object[] flags, Object flag) {
 		return Arrays.asList(flags).contains(flag);
+	}
+	
+	/**
+	 * Randomly adds one party or another to the intent target list.
+	 * @param	intent			The intent to add to
+	 */
+	protected void assignRandomParty(Intent intent) {
+		Party enemy = intent.getBattle().getEnemy();
+		Party player = intent.getBattle().getPlayer();
+		if (MGlobal.rand.nextBoolean()) {
+			intent.addTargets(player.getAll());
+		} else {
+			intent.addTargets(enemy.getAll());
+		}
+	}
+	
+	/**
+	 * Randomly adds a group (player or enemy) to the intent target list.
+	 * @param	intent			The intent to add to
+	 */
+	protected void assignRandomGroup(Intent intent) {
+		List<Party> parties = new ArrayList<Party>();
+		parties.add(intent.getBattle().getEnemy());
+		parties.add(intent.getBattle().getPlayer());
+		List<List<Chara>> groups = new ArrayList<List<Chara>>();
+		for (Party party : parties) {
+			for (int i = 0; i < party.groupCount(); i += 1) {
+				if (party == intent.getBattle().getEnemy()) {
+					if (intent.getBattle().isEnemyAlive(i)) {
+						groups.add(party.getGroup(i));
+					}
+				}
+				if (party == intent.getBattle().getPlayer()) {
+					if (intent.getBattle().isPlayerAlive(i)) {
+						groups.add(party.getGroup(i));
+					}
+				}
+			}
+		}
+		int index = MGlobal.rand.nextInt(groups.size());
+		intent.addTargets(groups.get(index));
+	}
+	
+	/**
+	 * Randomly adds a single living target to the intent target list.
+	 * @param	intent			The intent to add to
+	 */
+	protected void assignRandomTarget(Intent intent) {
+		List<Chara> charas = new ArrayList<Chara>();
+		Party enemy = intent.getBattle().getEnemy();
+		Party player = intent.getBattle().getPlayer();
+		charas.addAll(player.getAll());
+		charas.addAll(enemy.getAll());
+		Chara target;
+		do {
+			target = charas.get(MGlobal.rand.nextInt(charas.size()));
+		} while (target.isDead());
+		intent.addTargets(target);
 	}
 
 }

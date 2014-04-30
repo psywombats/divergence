@@ -4,7 +4,7 @@
 	"name" : "anon_CombatItemMDO_-581251627",
 	"description" : "auto-generated anonymous polymorph",
 	"projector" : "SINGLE_ENEMY",
-	"status" : "STONE",
+	"status" : "status_stone",
 	"hit" : 80,
 	"accStat" : "MANA",
 	"evadeStat" : "MANA"

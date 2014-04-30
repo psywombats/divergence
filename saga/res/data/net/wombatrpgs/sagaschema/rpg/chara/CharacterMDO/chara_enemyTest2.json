@@ -3,12 +3,13 @@
 	"subfolder" : "test",
 	"name" : "GUNFISH",
 	"description" : "",
-	"race" : "ROBOT",
+	"race" : "MONSTER",
 	"gender" : "NONE",
 	"appearance" : "4dir_ffl2_human",
 	"portrait" : "battle_portraits/pira.png",
 	"equipped" : [
-		"item_testabil"
+		"item_testabil",
+		"abil_ofire"
 	],
 	"stats" : {
 		"hp" : 60,
@@ -18,8 +19,7 @@
 		"agi" : 2,
 		"mana" : 0,
 		"flags" : [
-			"AQUATIC",
-			"RESIST_FIRE"
+			"AQUATIC"
 		]
 	}
 }

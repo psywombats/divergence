@@ -42,6 +42,7 @@ public class EditorPanel extends JPanel {
 	private Schema source;
 	private File file;
 	private Logic logic;
+	private DirtyListener dirtyListener;
 	private int gridYIndex;
 	private boolean dirty;
 	private boolean showHeader;
@@ -71,11 +72,16 @@ public class EditorPanel extends JPanel {
 	public Schema getSchema() { return this.source; }
 	/** @return The tree of all schemers */
 	public SchemaTree getTree() { return this.logic.getSchemaTree(); }
+	/** @param The new dirty listener for this panel */
+	public void setDirtyListener(DirtyListener listener) { this.dirtyListener = listener; }
 	
 	/** @param dirty True if this panel has unsaved changes */
 	public void setDirty(boolean dirty) {
 		this.dirty = dirty;
 		logic.notifyDirty(this);
+		if (dirtyListener != null && dirty) {
+			dirtyListener.onDirty();
+		}
 	}
 
 	/**

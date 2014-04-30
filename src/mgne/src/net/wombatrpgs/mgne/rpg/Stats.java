@@ -51,6 +51,32 @@ public class Stats {
 	}
 	
 	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		String result = "";
+		for (NumericStat stat : statTypes.values()) {
+			float value = stats.get(stat.getID());
+			if (value != stat.getZero()) {
+				result += stat.getID() + ":" + Math.round(value) + ", ";
+			}
+		}
+		for (FlagStat flag : flagTypes.values()) {
+			boolean value = flags.get(flag.getID()).on();
+			if (value) {
+				result += flag.getID() + ":" + value + ", ";
+			}
+		}
+		if (result.length() > 0) {
+			result = result.substring(0, result.length() - 2);
+		} else {
+			result = "[]";
+		}
+		return result;
+	}
+
+	/**
 	 * Retrieves the value of a stat based on the ID string. The id is meant to
 	 * be something like 'str' and then this will return the strength value. If
 	 * no value for that stat is recorded, returns the identity for that stat,
@@ -134,7 +160,11 @@ public class Stats {
 		if (flag == null) {
 			flag = new FlagStatValue(value ? 1 : 0);
 		} else {
-			flag.modify(value);
+			if (value) {
+				flag = new FlagStatValue(flag.count + 1);
+			} else {
+				flag = new FlagStatValue(flag.count - 1);
+			}
 		}
 		flags.put(id, flag);
 	}
@@ -156,15 +186,16 @@ public class Stats {
 			}
 		}
 		for (FlagStat type : other.flagTypes.values()) {
-			FlagStatValue value = flags.get(type.getID());
-			FlagStatValue otherValue = other.flags.get(type.getID());
 			String id = type.getID();
+			FlagStatValue value = flags.get(id);
+			FlagStatValue otherValue = other.flags.get(id);
 			if (otherValue != null && otherValue.on()) {
 				if (value == null) {
 					flagTypes.put(type.getID(), type);
 					flags.put(id, new FlagStatValue(1));
-				} else if (otherValue.on()) {
-					value.increment();
+				} else {
+					value = new FlagStatValue(value.count + 1);
+					flags.put(id, value);
 				}
 			}
 		}
@@ -186,12 +217,14 @@ public class Stats {
 			}
 		}
 		for (FlagStat type : other.flagTypes.values()) {
-			FlagStatValue value = flags.get(type.getID());
-			FlagStatValue otherValue = other.flags.get(type.getID());
+			String id = type.getID();
+			FlagStatValue value = flags.get(id);
+			FlagStatValue otherValue = other.flags.get(id);
 			if (value == null) {
 				MGlobal.reporter.err("Decombined a non-combined stat set");
 			} else if (otherValue.on()) {
-				value.decrement();
+				value = new FlagStatValue(value.count - 1);
+				flags.put(id, value);
 			}
 		}
 	}

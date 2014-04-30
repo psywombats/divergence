@@ -145,6 +145,9 @@ public class Battle extends AssetQueuer implements Disposable {
 		for (TempStats temp : defendBoosts) {
 			temp.decombine();
 		}
+		for (Chara chara : player.getAll()) {
+			chara.onBattleEnd(this);
+		}
 		finished = true;
 	}
 	
@@ -382,12 +385,24 @@ public class Battle extends AssetQueuer implements Disposable {
 	protected void newRound() {
 		playerTurn.clear();
 		globalTurn.clear();
+		screen.onNewRound();
+	}
+	
+	/**
+	 * Called when a round draws to a close.
+	 */
+	protected void finishRound() {
+		for (Chara chara : player.getAll()) {
+			chara.onRoundEnd(this);
+		}
+		for (Chara chara : enemy.getAll()) {
+			chara.onRoundEnd(this);
+		}
 		for (TempStats temp : defendBoosts) {
 			temp.decombine();
 		}
 		defendEffects.clear();
 		defendBoosts.clear();
-		screen.onNewRound();
 	}
 	
 	/**
@@ -425,6 +440,7 @@ public class Battle extends AssetQueuer implements Disposable {
 					println("");
 					playNextIntent();
 				} else {
+					finishRound();
 					screen.setAuto(false);
 					println("");
 					playbackListener = new FinishListener() {

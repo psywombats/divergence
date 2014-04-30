@@ -34,7 +34,8 @@ import net.wombatrpgs.mgns.core.Schema;
 public abstract class FieldPanel extends JPanel implements 	DocumentListener, 
 															ActionListener,
 															ItemListener,
-															PropertyChangeListener {
+															PropertyChangeListener,
+															DirtyListener {
 	
 	private static final long serialVersionUID = -2777827947566521485L;
 	
@@ -57,17 +58,19 @@ public abstract class FieldPanel extends JPanel implements 	DocumentListener,
 	}
 	
 	@Override
-	public void insertUpdate(DocumentEvent e) { parent.setDirty(true); }
+	public void insertUpdate(DocumentEvent e) { dirty(); }
 	@Override
-	public void removeUpdate(DocumentEvent e) { parent.setDirty(true); }
+	public void removeUpdate(DocumentEvent e) { dirty(); }
 	@Override
-	public void changedUpdate(DocumentEvent e) { parent.setDirty(true); }
+	public void changedUpdate(DocumentEvent e) { dirty(); }
 	@Override
-	public void actionPerformed(ActionEvent e) { parent.setDirty(true); }
+	public void actionPerformed(ActionEvent e) { dirty(); }
 	@Override
-	public void itemStateChanged(ItemEvent e) { parent.setDirty(true); }
+	public void itemStateChanged(ItemEvent e) { dirty(); }
 	@Override
-	public void propertyChange(PropertyChangeEvent e) { parent.setDirty(true); }
+	public void propertyChange(PropertyChangeEvent e) { dirty(); }
+	@Override
+	public void onDirty() { dirty(); }
 
 	/**
 	 * Selects a string in a drop-down list.
@@ -164,6 +167,13 @@ public abstract class FieldPanel extends JPanel implements 	DocumentListener,
 		if (isHeader()) {
 			//setBackground(Color.CYAN);
 		}
+	}
+	
+	/**
+	 * Called when becomes dirty.
+	 */
+	private void dirty() {
+		parent.setDirty(true);
 	}
 
 }

@@ -9,7 +9,8 @@ package net.wombatrpgs.sagaschema.rpg.abil.data.warheads;
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
-import net.wombatrpgs.sagaschema.rpg.chara.data.Status;
+import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
+import net.wombatrpgs.sagaschema.rpg.StatusMDO;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**
@@ -31,6 +32,7 @@ public class EffectHealMDO extends EffectAllyTargetMDO {
 	public Stat powerStat;
 
 	@Desc("Heal status - cures these ailments")
-	public Status[] status;
+	@SchemaLink(StatusMDO.class)
+	public String[] heals;
 
 }

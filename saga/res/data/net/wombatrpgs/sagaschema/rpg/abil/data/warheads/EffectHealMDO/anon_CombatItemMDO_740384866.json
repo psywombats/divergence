@@ -6,6 +6,5 @@
 	"projector" : "SINGLE_ALLY",
 	"base" : 40,
 	"power" : 0,
-	"powerStat" : null,
-	"status" : [ ]
+	"powerStat" : null
 }

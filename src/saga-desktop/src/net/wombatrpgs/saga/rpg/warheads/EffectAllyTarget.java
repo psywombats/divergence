@@ -88,4 +88,26 @@ public abstract class EffectAllyTarget extends AbilEffect {
 		}
 	}
 
+	/**
+	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#assignRandomTargets
+	 * (net.wombatrpgs.saga.rpg.Intent)
+	 */
+	@Override
+	public void assignRandomTargets(Intent intent) {
+		switch (mdo.projector) {
+		case ALLY_PARTY:
+			assignRandomParty(intent);
+			break;
+		case PLAYER_PARTY_ENEMY_GROUP:
+			assignRandomGroup(intent);
+			break;
+		case SINGLE_ALLY:
+			assignRandomTarget(intent);
+			break;
+		case USER:
+			intent.addTargets(intent.getActor());
+			break;
+		}
+	}
+
 }

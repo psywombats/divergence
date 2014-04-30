@@ -140,6 +140,7 @@ public class PolymorphField extends FieldPanel {
 							f);
 				}
 				contents = new EditorPanel(schema, f, parent.getLogic(), false);
+				contents.setDirtyListener(this);
 				subpanel = new RemovablePanel(
 						this,
 						new RemovalListener() {

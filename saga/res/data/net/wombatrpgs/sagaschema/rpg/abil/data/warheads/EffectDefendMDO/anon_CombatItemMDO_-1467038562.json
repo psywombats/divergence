@@ -4,7 +4,7 @@
 	"name" : "anon_CombatItemMDO_-1467038562",
 	"description" : "auto-generated anonymous polymorph",
 	"projector" : "ALLY_PARTY",
-	"shielding" : 50,
+	"shielding" : 0,
 	"triggerTypes" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectNothingMDO",

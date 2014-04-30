@@ -141,14 +141,14 @@ public abstract class EffectCombat extends EffectEnemyTarget {
 			// We missed... why?
 			// TODO: battle: something is buggy with shield+counter?
 			if (shielding(battle, victim) > 0) {
-				battle.println(tab + username + " misses " + victimname + ".");
-			} else {
 				List<EffectDefend> defenses = battle.getDefenses(victim);
 				Collections.sort(defenses);
 				EffectDefend blocker = defenses.get(0);
 				CombatItem shield = blocker.getItem();
 				String shieldname = shield.getName();
 				battle.println(tab + victimname + " deflects by " + shieldname + ".");
+			} else {
+				battle.println(tab + username + " misses " + victimname + ".");
 			}
 			return false;
 			

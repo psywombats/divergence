@@ -4,7 +4,7 @@
 	"name" : "anon_CombatItemMDO_-167975521",
 	"description" : "auto-generated anonymous polymorph",
 	"projector" : "GROUP_ENEMY",
-	"status" : "CURSE",
+	"status" : "status_curse",
 	"hit" : 80,
 	"accStat" : "MANA",
 	"evadeStat" : "MANA"

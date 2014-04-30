@@ -160,31 +160,24 @@ public class Intent implements Comparable<Intent> {
 	 * caster status effects and checking for dead targets.
 	 */
 	public void resolve() {
+		
+		// dead men tell no tales
 		if (actor.isDead()) {
 			return;
 		}
-		// TODO: battle: misc status effects
-		if (actor.status != null) {
-			switch (actor.status) {
-			case BLIND:
-				// TODO: battle: blindness
-				break;
-			case CONFUSE:
-				// TODO: battle: confusion
-				break;
-			case CURSE:
-				break;
-			case PARALYZE:
-				battle.println(actor.getName() + " is paralyzed.");
-				return;
-			case SLEEP:
-				battle.println(actor.getName() + " is asleep.");
-				return;
-			case STONE:
-				battle.println(actor.getName() + " is stone.");
-				return;
-			}
+		
+		// sleeping ones shouldn't act
+		if (!actor.canAct(battle, false, false)) {
+			return;
 		}
+		
+		// confused guys are confused
+		if (actor.isConfused(battle, false, false)) {
+			setItem(actor.getRandomCombatItem());
+			item.assignRandomTargets(this);
+		}
+		
+		// don't attack corpses
 		List<Chara> deads = new ArrayList<Chara>();
 		for (Chara target : targets) {
 			if (target.isDead()) {
@@ -194,10 +187,14 @@ public class Intent implements Comparable<Intent> {
 		for (Chara dead : deads) {
 			targets.remove(dead);
 		}
+		
+		// don't attack empty space
 		if (item == null || targets.isEmpty()) {
 			battle.println(actor.getName() + " does nothing.");
 			return;
 		}
+		
+		// okay we have something to splatter!!
 		item.resolve(this);
 	}
 	

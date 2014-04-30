@@ -7,12 +7,12 @@
 	"base" : 0,
 	"power" : 0,
 	"powerStat" : null,
-	"status" : [
-		"BLIND",
-		"CURSE",
-		"SLEEP",
-		"PARALYZE",
-		"CONFUSE",
-		"STONE"
+	"heals" : [
+		"status_blind",
+		"status_confuse",
+		"status_curse",
+		"status_paralyze",
+		"status_sleep",
+		"status_stone"
 	]
 }

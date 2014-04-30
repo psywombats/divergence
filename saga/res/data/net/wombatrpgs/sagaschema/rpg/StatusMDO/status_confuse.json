@@ -1,0 +1,18 @@
+{
+	"key" : "status_confuse",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"fullName" : "CONFUSED",
+	"tag" : "CNFS",
+	"inflictString" : " is confused",
+	"healString" : "'s mind is back to normal",
+	"priority" : 20,
+	"resistFlag" : "RESIST_CONFUSE",
+	"preventChance" : 0,
+	"randomChance" : 100,
+	"recoverChance" : 33,
+	"lethality" : "NON_DEADLY",
+	"recover" : "RECOVER_AFTER_BATTLE",
+	"halvedStats" : [ ]
+}

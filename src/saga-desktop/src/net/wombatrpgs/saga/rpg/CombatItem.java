@@ -139,6 +139,19 @@ public class CombatItem extends AssetQueuer {
 	}
 	
 	/**
+	 * Picks random targets for this item as if the owner were confused and
+	 * attacking charas at random from both sides... hm, when could this be
+	 * useful? Rather than return target list, add them to the intent. If no
+	 * targets are available, do nothing.
+	 * @param	intent			The intent to modify
+	 */
+	public void assignRandomTargets(Intent intent) {
+		intent.setItem(this);
+		intent.clearTargets();
+		effect.assignRandomTargets(intent);
+	}
+	
+	/**
 	 * Called when a round begins in which this item is involved. This is used
 	 * to do things that should occur at the round start, before the item is
 	 * actually resolved. Most of the times it can do nothing.

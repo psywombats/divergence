@@ -4,7 +4,7 @@
 	"name" : "anon_CombatItemMDO_-1232046406",
 	"description" : "auto-generated anonymous polymorph",
 	"projector" : "GROUP_ENEMY",
-	"status" : "SLEEP",
+	"status" : "status_sleep",
 	"hit" : 80,
 	"accStat" : "MANA",
 	"evadeStat" : "MANA"

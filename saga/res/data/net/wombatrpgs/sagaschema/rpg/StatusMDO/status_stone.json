@@ -1,0 +1,18 @@
+{
+	"key" : "status_stone",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"fullName" : "STONE",
+	"tag" : "STON",
+	"inflictString" : " is turned to stone",
+	"healString" : " is stone no more",
+	"priority" : 80,
+	"resistFlag" : "RESIST_STONE",
+	"preventChance" : 100,
+	"randomChance" : 0,
+	"recoverChance" : 0,
+	"lethality" : "DEADLY",
+	"recover" : "PERSIST_UNTIL_HEAL",
+	"halvedStats" : [ ]
+}

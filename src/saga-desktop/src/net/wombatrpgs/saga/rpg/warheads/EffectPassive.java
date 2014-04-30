@@ -66,4 +66,13 @@ public class EffectPassive extends AbilEffect {
 		MGlobal.reporter.err("Unusable ability");
 	}
 
+	/**
+	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#assignRandomTargets
+	 * (net.wombatrpgs.saga.rpg.Intent)
+	 */
+	@Override
+	public void assignRandomTargets(Intent intent) {
+		MGlobal.reporter.err("Unusable ability");
+	}
+
 }

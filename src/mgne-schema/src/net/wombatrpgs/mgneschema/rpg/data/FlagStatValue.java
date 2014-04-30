@@ -12,7 +12,7 @@ package net.wombatrpgs.mgneschema.rpg.data;
  */
 public class FlagStatValue {
 	
-	public int count;
+	public final int count;
 	
 	/** @param count The initial count to start with */
 	public FlagStatValue(int count) { this.count = count; }
@@ -22,14 +22,13 @@ public class FlagStatValue {
 	
 	/** Checks if this flag is set */
 	public boolean on() { return count > 0; }
-	
-	/** Increments the number of items/abilities that are setting this flag */
-	public void increment() { count += 1; }
-	
-	/** Decrements the number of items/abilities that are setting this flag */
-	public void decrement() { count -= 1; }
-	
-	/** @param True to increment the value, false to decrement it */
-	public void modify(boolean on) { count += on ? 1 : -1; }
+
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "VALUE: " + count;
+	}
 	
 }

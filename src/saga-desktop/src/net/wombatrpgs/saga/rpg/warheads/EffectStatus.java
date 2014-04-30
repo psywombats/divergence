@@ -11,6 +11,7 @@ import net.wombatrpgs.saga.rpg.Battle;
 import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.Intent;
+import net.wombatrpgs.saga.rpg.Status;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectStatusMDO;
 
 /**
@@ -19,6 +20,7 @@ import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectStatusMDO;
 public class EffectStatus extends EffectEnemyTarget {
 	
 	protected EffectStatusMDO mdo;
+	Status status;
 
 	/**
 	 * Inherited constructor.
@@ -28,6 +30,7 @@ public class EffectStatus extends EffectEnemyTarget {
 	public EffectStatus(EffectStatusMDO mdo, CombatItem item) {
 		super(mdo, item);
 		this.mdo = mdo;
+		status = Status.get(mdo.status);
 	}
 
 	/**
@@ -37,11 +40,7 @@ public class EffectStatus extends EffectEnemyTarget {
 	 */
 	@Override
 	protected void onAffect(Battle battle, Intent intent, Chara user, Chara victim, int power) {
-		String tab = SConstants.TAB;
-		String victimname = victim.getName();
-		String inflictString = mdo.status.getInflictString();
-		victim.setStatus(mdo.status);
-		battle.println(tab + victimname + inflictString + ".");
+		status.inflict(battle, victim);
 	}
 
 	/**
@@ -65,13 +64,15 @@ public class EffectStatus extends EffectEnemyTarget {
 	@Override
 	protected boolean hits(Battle battle, Chara user, Chara target, int power, float roll) {
 		String tab = SConstants.TAB;
+		int temp = power;
 		if (target.getStatus() != null) {
-			if (target.getStatus().getPriority() > mdo.status.getPriority()) {
-				battle.println(tab + "Nothing happens.");
-				return false;
+			if (target.getStatus().getPriority() > status.getPriority()) {
+				temp -= 255;
 			}
 		}
-		int temp = power;
+		if (target.resists(status)) {
+			temp -= 255;
+		}
 		if (mdo.evadeStat != null) {
 			temp -= target.get(mdo.evadeStat);
 		}

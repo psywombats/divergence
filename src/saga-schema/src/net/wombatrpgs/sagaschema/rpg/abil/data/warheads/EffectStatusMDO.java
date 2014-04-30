@@ -9,7 +9,8 @@ package net.wombatrpgs.sagaschema.rpg.abil.data.warheads;
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
-import net.wombatrpgs.sagaschema.rpg.chara.data.Status;
+import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
+import net.wombatrpgs.sagaschema.rpg.StatusMDO;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**
@@ -18,7 +19,8 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 public class EffectStatusMDO extends EffectEnemyTargetMDO {
 	
 	@Desc("Status to inflict")
-	public Status status;
+	@SchemaLink(StatusMDO.class)
+	public String status;
 	
 	@Desc("Accuracy - base chance to hit, from 0 to 100 usually")
 	@DefaultValue("80")

@@ -3,8 +3,8 @@
 	"subfolder" : "",
 	"name" : "anon_CombatItemMDO_1979153167",
 	"description" : "auto-generated anonymous polymorph",
-	"projector" : "GROUP_ENEMY",
-	"status" : "CONFUSE",
+	"projector" : "ALL_ENEMY",
+	"status" : "status_confuse",
 	"hit" : 50,
 	"accStat" : "MANA",
 	"evadeStat" : "MANA"
