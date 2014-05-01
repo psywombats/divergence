@@ -39,7 +39,8 @@ public class Battle extends AssetQueuer implements Disposable {
 	
 	// internal constructs
 	protected FinishListener playbackListener;
-	protected List<Intent> playerTurn, globalTurn;
+	protected List<Intent> globalTurn;
+	protected Intent[] playerTurn;
 	protected List<Boolean> enemyAlive, playerAlive;
 	protected List<TempStats> boosts, defendBoosts;
 	protected Map<Chara, List<EffectDefend>> defendEffects;
@@ -70,7 +71,7 @@ public class Battle extends AssetQueuer implements Disposable {
 			queueInventory(chara.getInventory());
 		}
 		
-		playerTurn = new ArrayList<Intent>();
+		playerTurn = new Intent[player.size()];
 		globalTurn = new ArrayList<Intent>();
 		boosts = new ArrayList<TempStats>();
 		defendBoosts = new ArrayList<TempStats>();
@@ -167,7 +168,8 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * Called when the user says that they want to fight.
 	 */
 	public void onFight() {
-		actorIndex = 0;
+		actorIndex = -1;
+		incrementActorIndex(false);
 		buildNextIntent();
 	}
 	
@@ -383,7 +385,9 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * prompt pop-up and removes the ugly textbox.
 	 */
 	protected void newRound() {
-		playerTurn.clear();
+		for (int i = 0; i < player.size(); i += 1) {
+			playerTurn[i] = null;
+		}
 		globalTurn.clear();
 		screen.onNewRound();
 	}
@@ -409,7 +413,11 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * Plays out a round once the player turn is constructed.
 	 */
 	protected void playRound() {
-		globalTurn.addAll(playerTurn);
+		for (Intent intent : playerTurn) {
+			if (intent != null) {
+				globalTurn.add(intent);
+			}
+		}
 		Collections.sort(globalTurn);
 		screen.setAuto(true);
 		for (Intent intent : globalTurn) {
@@ -486,32 +494,29 @@ public class Battle extends AssetQueuer implements Disposable {
 	protected void buildNextIntent() {
 		Chara chara = player.getFront(actorIndex);
 		final Intent intent;
-		if (actorIndex < playerTurn.size()) {
-			intent = playerTurn.get(actorIndex);
+		if (playerTurn[actorIndex] != null) {
+			intent = playerTurn[actorIndex];
 		} else {
 			intent = new Intent(chara, this);
-			playerTurn.add(intent);
+			playerTurn[actorIndex] = intent;
 		}
 		targetingMode = false;
 		modifyIntent(intent, new IntentListener() {
 			@Override public void onIntent(Intent newIntent) {
 				if (newIntent == null) {
 					if (!targetingMode) {
-						if (actorIndex > 0) {
-							actorIndex -= 1;
-							playerTurn.remove(intent);
-							buildNextIntent();
-						} else {
+						int oldIndex = actorIndex;
+						incrementActorIndex(true);
+						if (oldIndex == actorIndex ) {
 							newRound();
+						} else {
+							buildNextIntent();
 						}
 					} else {
 						buildNextIntent();
 					}
 				} else {
-					do {
-						actorIndex += 1;
-					} while (actorIndex < player.size() && player.getFront(actorIndex).isDead());
-					
+					incrementActorIndex(false);
 					if (actorIndex == player.size()) {
 						queueEnemyIntents();
 						playRound();
@@ -625,6 +630,31 @@ public class Battle extends AssetQueuer implements Disposable {
 				finish();
 			}
 		});
+	}
+	
+	/**
+	 * Moves the index along by at least 1, skipping dead and unable to act.
+	 * Does not move past the end of the player size.
+	 * @param	decrement		True to move backwards instead, else false
+	 */
+	protected void incrementActorIndex(boolean decrement) {
+		if (decrement) {
+			do {
+				if (actorIndex > 0) {
+					actorIndex -= 1;
+				}
+			} while (actorIndex > 0 &&
+					!player.getFront(actorIndex).canConstructIntents(this));
+			if (actorIndex == 0) {
+				actorIndex = -1;
+				incrementActorIndex(false);
+			}
+		} else {
+			do {
+				actorIndex += 1;
+			} while (actorIndex < player.size() &&
+					!player.getFront(actorIndex).canConstructIntents(this));
+		}
 	}
 
 }
