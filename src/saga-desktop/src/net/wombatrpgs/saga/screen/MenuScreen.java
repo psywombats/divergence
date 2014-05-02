@@ -21,7 +21,7 @@ import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
 import net.wombatrpgs.saga.core.SGlobal;
-import net.wombatrpgs.saga.rpg.Chara;
+import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.ui.CharaSelector;
 import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
 

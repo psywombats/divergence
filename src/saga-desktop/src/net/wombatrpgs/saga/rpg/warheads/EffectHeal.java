@@ -11,10 +11,10 @@ import java.util.List;
 
 import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.rpg.Battle;
-import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.Intent;
-import net.wombatrpgs.saga.rpg.Status;
+import net.wombatrpgs.saga.rpg.chara.Chara;
+import net.wombatrpgs.saga.rpg.chara.Status;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectHealMDO;
 
 /**

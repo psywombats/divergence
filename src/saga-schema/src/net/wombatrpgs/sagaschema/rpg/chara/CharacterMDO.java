@@ -46,6 +46,15 @@ public class CharacterMDO extends MainSchema {
 	@Nullable
 	public String portrait;
 	
+	@Desc("Family - used for transformations")
+	@SchemaLink(MonsterFamilyMDO.class)
+	@Nullable
+	public String family;
+	
+	@Desc("GP - dropped when this character is defeated by the player")
+	@DefaultValue("0")
+	public Integer gp;
+	
 	@Desc("Equipped items/abilities")
 	@SchemaLink(CombatItemMDO.class)
 	public String equipped[];

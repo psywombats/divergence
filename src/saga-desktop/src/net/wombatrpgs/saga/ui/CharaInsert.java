@@ -15,7 +15,7 @@ import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
-import net.wombatrpgs.saga.rpg.Chara;
+import net.wombatrpgs.saga.rpg.chara.Chara;
 
 /**
  * Thing with walking character sprite and their HP. Subclassed for how much

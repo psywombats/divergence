@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**

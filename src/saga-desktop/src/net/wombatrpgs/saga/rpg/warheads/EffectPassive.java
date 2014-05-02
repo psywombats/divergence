@@ -10,7 +10,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.Intent;
 import net.wombatrpgs.saga.rpg.Intent.IntentListener;
-import net.wombatrpgs.saga.rpg.SagaStats;
+import net.wombatrpgs.saga.rpg.stats.SagaStats;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectPassiveMDO;
 
 /**

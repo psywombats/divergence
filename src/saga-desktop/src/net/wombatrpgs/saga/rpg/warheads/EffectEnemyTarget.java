@@ -11,11 +11,11 @@ import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.rpg.Battle;
-import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.Intent;
-import net.wombatrpgs.saga.rpg.Party;
 import net.wombatrpgs.saga.rpg.Intent.IntentListener;
+import net.wombatrpgs.saga.rpg.chara.Chara;
+import net.wombatrpgs.saga.rpg.chara.Party;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectEnemyTargetMDO;
 
 /**
@@ -178,7 +178,7 @@ public abstract class EffectEnemyTarget extends AbilEffect {
 	 * damage. Is affected by RNG. This is called once per attack usage. The
 	 * outputted power could be inflict power or actual damage in HP. The result
 	 * is later interpreted by onAffect.
-	 * @param battle TODO
+	 * @param	battle			The battle this calculation is a part of
 	 * @param	user			The character using this ability
 	 * @return					The damage or inflict power of this effect
 	 */

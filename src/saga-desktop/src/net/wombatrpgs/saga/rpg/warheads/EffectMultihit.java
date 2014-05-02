@@ -8,8 +8,8 @@ package net.wombatrpgs.saga.rpg.warheads;
 
 import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.rpg.Battle;
-import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.CombatItem;
+import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectMultihitMDO;
 
 /**
@@ -39,7 +39,7 @@ public class EffectMultihit extends EffectCombat {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.EffectCombat#calcPower
-	 * (Battle, net.wombatrpgs.saga.rpg.Chara)
+	 * (Battle, net.wombatrpgs.saga.rpg.chara.Chara)
 	 */
 	@Override
 	protected int calcPower(Battle battle, Chara user) {
@@ -57,7 +57,7 @@ public class EffectMultihit extends EffectCombat {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.EffectCombat#calcDamage
-	 * (Battle, int, net.wombatrpgs.saga.rpg.Chara)
+	 * (Battle, int, net.wombatrpgs.saga.rpg.chara.Chara)
 	 */
 	@Override
 	protected int calcDamage(Battle battle, int power, Chara target) {
@@ -70,8 +70,8 @@ public class EffectMultihit extends EffectCombat {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.EffectCombat#combatHits
-	 * (net.wombatrpgs.saga.rpg.Battle, net.wombatrpgs.saga.rpg.Chara,
-	 * net.wombatrpgs.saga.rpg.Chara, float)
+	 * (net.wombatrpgs.saga.rpg.Battle, net.wombatrpgs.saga.rpg.chara.Chara,
+	 * net.wombatrpgs.saga.rpg.chara.Chara, float)
 	 */
 	@Override
 	protected boolean combatHits(Battle battle, Chara user, Chara target, float roll) {

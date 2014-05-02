@@ -13,9 +13,9 @@ import java.util.List;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.rpg.Battle;
-import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.Intent;
+import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.warheads.EffectDefend.DefendResult;
 import net.wombatrpgs.saga.rpg.warheads.EffectDefend.PostDefend;
 import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseFlag;
@@ -44,7 +44,7 @@ public abstract class EffectCombat extends EffectEnemyTarget {
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.EffectEnemyTarget#onAffect
 	 * (net.wombatrpgs.saga.rpg.Battle, Intent,
-	 * net.wombatrpgs.saga.rpg.Chara, net.wombatrpgs.saga.rpg.Chara, int)
+	 * net.wombatrpgs.saga.rpg.chara.Chara, net.wombatrpgs.saga.rpg.chara.Chara, int)
 	 */
 	@Override
 	protected final void onAffect(Battle battle, Intent intent, Chara user, Chara victim, int power) {
@@ -118,8 +118,8 @@ public abstract class EffectCombat extends EffectEnemyTarget {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.EffectEnemyTarget#hits
-	 * (net.wombatrpgs.saga.rpg.Battle, net.wombatrpgs.saga.rpg.Chara,
-	 * net.wombatrpgs.saga.rpg.Chara, int, float)
+	 * (net.wombatrpgs.saga.rpg.Battle, net.wombatrpgs.saga.rpg.chara.Chara,
+	 * net.wombatrpgs.saga.rpg.chara.Chara, int, float)
 	 */
 	@Override
 	protected final boolean hits(Battle battle, Chara user, Chara victim, int power, float roll) {
@@ -161,7 +161,7 @@ public abstract class EffectCombat extends EffectEnemyTarget {
 	/**
 	 * Calculates the damage this attack would do against a hypothetical target.
 	 * Does not actually deal damage. Is not affected by RNG.
-	 * @param battle TODO
+	 * @param	battle			The battle this calculation is a part of
 	 * @param	target			The target to check against
 	 * @param	user			The character using the ability
 	 * @return					An appropriate amount of damage to deal, in HP

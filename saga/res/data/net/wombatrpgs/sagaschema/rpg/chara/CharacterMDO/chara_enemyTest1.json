@@ -7,6 +7,8 @@
 	"gender" : "NONE",
 	"appearance" : "4dir_ffl2_human",
 	"portrait" : "battle_portraits/goblin.png",
+	"family" : "family_testGoblins",
+	"gp" : 40,
 	"equipped" : [
 		"item_testabil"
 	],

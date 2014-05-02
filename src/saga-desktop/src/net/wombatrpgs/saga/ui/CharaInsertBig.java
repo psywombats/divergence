@@ -15,7 +15,7 @@ import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
-import net.wombatrpgs.saga.rpg.Chara;
+import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**

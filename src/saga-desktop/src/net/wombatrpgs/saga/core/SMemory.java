@@ -8,7 +8,7 @@ package net.wombatrpgs.saga.core;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.Memory;
-import net.wombatrpgs.saga.rpg.HeroParty;
+import net.wombatrpgs.saga.rpg.chara.HeroParty;
 
 /**
  * Saga memory for storing specialized saga data in mgne.

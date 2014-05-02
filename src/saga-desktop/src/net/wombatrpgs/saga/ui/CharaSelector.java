@@ -21,8 +21,8 @@ import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.saga.core.SGlobal;
-import net.wombatrpgs.saga.rpg.Chara;
-import net.wombatrpgs.saga.rpg.Party;
+import net.wombatrpgs.saga.rpg.chara.Chara;
+import net.wombatrpgs.saga.rpg.chara.Party;
 
 /**
  * Instead of selecting options, it selects characters. This should only really

@@ -23,7 +23,7 @@ import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.saga.rpg.CombatItem;
-import net.wombatrpgs.saga.rpg.Inventory;
+import net.wombatrpgs.saga.rpg.chara.Inventory;
 
 /**
  * Allows the user to select an ability from a list.

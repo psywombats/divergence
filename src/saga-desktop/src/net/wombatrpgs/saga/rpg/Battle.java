@@ -20,6 +20,14 @@ import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.Intent.IntentListener;
 import net.wombatrpgs.saga.rpg.Intent.TargetListener;
+import net.wombatrpgs.saga.rpg.chara.Chara;
+import net.wombatrpgs.saga.rpg.chara.Enemy;
+import net.wombatrpgs.saga.rpg.chara.EnemyParty;
+import net.wombatrpgs.saga.rpg.chara.HeroParty;
+import net.wombatrpgs.saga.rpg.chara.Inventory;
+import net.wombatrpgs.saga.rpg.chara.Party;
+import net.wombatrpgs.saga.rpg.stats.SagaStats;
+import net.wombatrpgs.saga.rpg.stats.TempStats;
 import net.wombatrpgs.saga.rpg.warheads.EffectDefend;
 import net.wombatrpgs.saga.screen.CombatScreen;
 import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
@@ -246,7 +254,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * @param	index			The index of the currently selected ally, or 0
 	 * @param	listener		The callback once target is selected
 	 */
-	// TODO: come up with some way of targeting dead people
+	// TODO: battle: come up with some way of targeting dead people
 	public void selectAlly(int index, TargetListener listener) {
 		targetingMode = true;
 		screen.selectAlly(index, listener);
@@ -606,16 +614,36 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * Called internally when the player wins the battle.
 	 */
 	protected void onVictory() {
-		// TODO: battle: spoils of war
 		println("");
 		println("");
-		screen.setAuto(false);
 		String leadername = player.findLeader().getName();
-		playback(leadername + " is victorious.", new FinishListener() {
-			@Override public void onFinish() {
-				finish();
-			}
-		});
+		println(leadername + " is victorious.");
+		
+		println("");
+		int gp = enemy.getDeathGold();
+		player.addGP(gp);
+		String gpstring = "Found " + gp + " GP.";
+		
+		Chara meatDropper = enemy.chooseMeatFamily();
+		if (meatDropper == null) {	
+			screen.setAuto(false);
+			playback(gpstring, new FinishListener() {
+				@Override public void onFinish() {
+					finish();
+				}
+			});
+		} else {
+			println(gpstring);
+			println("");
+			screen.setAuto(false);
+			String droppername = meatDropper.getName();
+			// TODO: battle: eat the meat!
+			playback("Found meat of " + droppername + ".", new FinishListener() {
+				@Override public void onFinish() {
+					finish();
+				}
+			});
+		}
 	}
 	
 	/**

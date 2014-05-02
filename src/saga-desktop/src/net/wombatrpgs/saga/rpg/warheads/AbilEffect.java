@@ -12,11 +12,11 @@ import java.util.List;
 
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.Intent;
-import net.wombatrpgs.saga.rpg.Party;
 import net.wombatrpgs.saga.rpg.Intent.IntentListener;
+import net.wombatrpgs.saga.rpg.chara.Chara;
+import net.wombatrpgs.saga.rpg.chara.Party;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 
 /**

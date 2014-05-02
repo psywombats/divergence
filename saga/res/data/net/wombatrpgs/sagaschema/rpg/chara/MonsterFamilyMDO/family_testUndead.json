@@ -1,0 +1,20 @@
+{
+	"key" : "family_testUndead",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"transformations" : [
+		{
+			"eat" : "family_testGoblins",
+			"result" : "family_testGoblins"
+		},
+		{
+			"eat" : "family_testFish",
+			"result" : "family_testFish"
+		},
+		{
+			"eat" : "family_testPlants",
+			"result" : "family_testPlants"
+		}
+	]
+}

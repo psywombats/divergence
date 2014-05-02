@@ -11,8 +11,8 @@ import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
-import net.wombatrpgs.saga.rpg.HeroParty;
-import net.wombatrpgs.sagaschema.settings.SagaSettings;
+import net.wombatrpgs.saga.SagaSettings;
+import net.wombatrpgs.saga.rpg.chara.HeroParty;
 
 /**
  * The counterpart to MGlobal. Holds Saga-related global information.
@@ -33,7 +33,7 @@ public class SGlobal {
 		List<Queueable> toLoad;
 		
 		// settings first
-		settings = MGlobal.data.getEntryFor(SConstants.KEY_SAGASETTINGS, SagaSettings.class);
+		settings = new SagaSettings();
 		toLoad = new ArrayList<Queueable>();
 		
 		// then everything else

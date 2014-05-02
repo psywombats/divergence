@@ -14,7 +14,7 @@ import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.CombatItem;
-import net.wombatrpgs.saga.rpg.Inventory;
+import net.wombatrpgs.saga.rpg.chara.Inventory;
 import net.wombatrpgs.saga.ui.ItemSelector;
 import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
 

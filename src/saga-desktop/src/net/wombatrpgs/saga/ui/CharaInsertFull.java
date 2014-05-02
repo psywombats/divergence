@@ -8,8 +8,8 @@ package net.wombatrpgs.saga.ui;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.saga.rpg.Chara;
-import net.wombatrpgs.saga.rpg.Status;
+import net.wombatrpgs.saga.rpg.chara.Chara;
+import net.wombatrpgs.saga.rpg.chara.Status;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

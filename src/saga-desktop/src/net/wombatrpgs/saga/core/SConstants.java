@@ -14,9 +14,6 @@ import net.wombatrpgs.mgne.core.MGlobal;
  */
 public class SConstants extends Constants {
 	
-	/** Keys for the unique MDOs in the database */
-	public static final String KEY_SAGASETTINGS = "sagasettings_default";
-	
 	/** Battle indent string */
 	public static final String TAB = MGlobal.charConverter.convert("$N$N");
 

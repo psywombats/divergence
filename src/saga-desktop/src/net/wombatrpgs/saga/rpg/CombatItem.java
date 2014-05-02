@@ -9,6 +9,8 @@ package net.wombatrpgs.saga.rpg;
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.rpg.Intent.IntentListener;
+import net.wombatrpgs.saga.rpg.chara.Inventory;
+import net.wombatrpgs.saga.rpg.stats.SagaStats;
 import net.wombatrpgs.saga.rpg.warheads.AbilEffect;
 import net.wombatrpgs.saga.rpg.warheads.AbilEffectFactory;
 import net.wombatrpgs.saga.ui.ItemSelector;

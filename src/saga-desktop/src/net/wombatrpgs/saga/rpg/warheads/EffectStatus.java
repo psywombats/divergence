@@ -8,10 +8,10 @@ package net.wombatrpgs.saga.rpg.warheads;
 
 import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.rpg.Battle;
-import net.wombatrpgs.saga.rpg.Chara;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.Intent;
-import net.wombatrpgs.saga.rpg.Status;
+import net.wombatrpgs.saga.rpg.chara.Chara;
+import net.wombatrpgs.saga.rpg.chara.Status;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectStatusMDO;
 
 /**
@@ -36,7 +36,7 @@ public class EffectStatus extends EffectEnemyTarget {
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.EffectEnemyTarget#onAffect
 	 * (net.wombatrpgs.saga.rpg.Battle, net.wombatrpgs.saga.rpg.Intent,
-	 * net.wombatrpgs.saga.rpg.Chara, net.wombatrpgs.saga.rpg.Chara, int)
+	 * net.wombatrpgs.saga.rpg.chara.Chara, net.wombatrpgs.saga.rpg.chara.Chara, int)
 	 */
 	@Override
 	protected void onAffect(Battle battle, Intent intent, Chara user, Chara victim, int power) {
@@ -45,7 +45,7 @@ public class EffectStatus extends EffectEnemyTarget {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.EffectEnemyTarget#calcPower
-	 * (net.wombatrpgs.saga.rpg.Battle, net.wombatrpgs.saga.rpg.Chara)
+	 * (net.wombatrpgs.saga.rpg.Battle, net.wombatrpgs.saga.rpg.chara.Chara)
 	 */
 	@Override
 	protected int calcPower(Battle battle, Chara user) {
@@ -58,8 +58,8 @@ public class EffectStatus extends EffectEnemyTarget {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.EffectEnemyTarget#hits
-	 * (net.wombatrpgs.saga.rpg.Battle, net.wombatrpgs.saga.rpg.Chara,
-	 * net.wombatrpgs.saga.rpg.Chara, int, float)
+	 * (net.wombatrpgs.saga.rpg.Battle, net.wombatrpgs.saga.rpg.chara.Chara,
+	 * net.wombatrpgs.saga.rpg.chara.Chara, int, float)
 	 */
 	@Override
 	protected boolean hits(Battle battle, Chara user, Chara target, int power, float roll) {
