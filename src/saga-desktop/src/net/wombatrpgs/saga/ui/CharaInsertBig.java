@@ -14,7 +14,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
+import net.wombatrpgs.mgne.ui.text.TextboxFormat;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
@@ -27,7 +27,7 @@ public class CharaInsertBig extends ScreenGraphic {
 	public static int HEIGHT = 18;
 	protected static int PADDING = 2;
 	
-	protected TextBoxFormat format;
+	protected TextboxFormat format;
 	protected Chara chara;
 	protected String hpText1, hpText2;
 	protected boolean updateNeeded;
@@ -39,7 +39,7 @@ public class CharaInsertBig extends ScreenGraphic {
 	 */
 	public CharaInsertBig(Chara chara) {
 		this.chara = chara;
-		format = new TextBoxFormat();
+		format = new TextboxFormat();
 		format.align = HAlignment.LEFT;
 		format.height = 80;
 		format.width = 160;

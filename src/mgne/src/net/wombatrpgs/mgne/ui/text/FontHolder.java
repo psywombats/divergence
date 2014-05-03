@@ -65,7 +65,7 @@ public class FontHolder implements Queueable {
 	 * @param 	text			The actual text to draw
 	 * @param	offY			Additional offset Y, to change lines (in px)
 	 */
-	public void draw(SpriteBatch batch, TextBoxFormat format, String text, int offY) {
+	public void draw(SpriteBatch batch, TextboxFormat format, String text, int offY) {
 		batch.begin();
 		TextBounds bounds = font.drawWrapped(batch, text, 
 				format.x, format.y + offY, 
@@ -122,7 +122,7 @@ public class FontHolder implements Queueable {
 	 * @param	text			The text to check
 	 * @return					True if this text would wrap, false otherwise
 	 */
-	public boolean isTooLong(TextBoxFormat format, String text) {
+	public boolean isTooLong(TextboxFormat format, String text) {
 		return getWidth(text) > format.width;
 	}
 }

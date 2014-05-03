@@ -50,7 +50,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	protected boolean cancellable;
 	protected int selectedX, selectedY;
 	protected float cursorX, cursorY;
-	protected SelectionListener listener;
+	protected SelectionListener onSelect, onHover;
 	
 	/**
 	 * Creates a new character selector with a custom party.
@@ -96,6 +96,9 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	
 	/** @return The height of the border of the background slice, in px */
 	public int getBorderHeight() { return bg.getBorderHeight(); }
+	
+	/** @param listener The callback for when the cursor moves */
+	public void setHoverListener(SelectionListener listener) { onHover = listener; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#setX(float)
@@ -186,7 +189,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	 * @param	canCancel		True if the user can cancel to select nobody
 	 */
 	public void awaitSelection(SelectionListener listener, boolean canCancel) {
-		this.listener = listener;
+		this.onSelect = listener;
 		this.cancellable = canCancel;
 		focus();
 		cursorOn = true;
@@ -219,6 +222,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	 */
 	public void unfocus() {
 		cursorOn = false;
+		onHover = null;
 		parent.removeCommandListener(this);
 		parent.popCommandContext();
 	}
@@ -281,6 +285,10 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 		cursorY -= inserts.get(0).getHeight() * 3 / 2;
 		cursorY += (getInsertHeight() - cursor.getHeight()) / 2;
 		cursorX -= (cursor.getWidth() / 2 - 3);
+		
+		if (onHover != null) {
+			onHover.onSelection(getSelected());
+		}
 	}
 	
 	/**
@@ -324,7 +332,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	 */
 	protected void cancel() {
 		if (cancellable) {
-			handleSelectResponse(listener.onSelection(null));
+			handleSelectResponse(onSelect.onSelection(null));
 		}
 	}
 	
@@ -332,9 +340,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	 * Called when the user confirms a character selection.
 	 */
 	protected void confirm() {
-		int selected = selectedX + selectedY * INSERTS_COUNT_HORIZ;
-		Chara character = inserts.get(selected).getChara();
-		handleSelectResponse(listener.onSelection(character));
+		handleSelectResponse(onSelect.onSelection(getSelected()));
 	}
 	
 	/**
@@ -361,6 +367,15 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	 */
 	protected int getInsertHeight() {
 		return fullMode ? CharaInsertFull.HEIGHT : CharaInsertSmall.HEIGHT;
+	}
+	
+	/**
+	 * Calculates the selected character from the cursor coords.
+	 * @return					The currently selected characters
+	 */
+	protected Chara getSelected() {
+		int selected = selectedX + selectedY * INSERTS_COUNT_HORIZ;
+		return inserts.get(selected).getChara();
 	}
 	
 	/**

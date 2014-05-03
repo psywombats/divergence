@@ -29,7 +29,7 @@ import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.Option;
 import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
+import net.wombatrpgs.mgne.ui.text.TextboxFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.saga.rpg.Battle;
@@ -49,7 +49,7 @@ import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
  * idea is that a battle is owned by a screen and controls the screen, but the
  * logic is kept separate from the display. Owned by a battle.
  */
-public class CombatScreen extends Screen {
+public class BattleScreen extends Screen {
 	
 	// positional constants
 	protected static final int OPTIONS_WIDTH = 108;
@@ -79,19 +79,21 @@ public class CombatScreen extends Screen {
 	// display
 	protected Nineslice optionsBG, insertsBG, monsterlistBG, abilsBG, actorBG;
 	protected CharaSelector partyInserts, enemyInserts, miniInserts;
-	protected TextBoxFormat monsterlistFormat;
+	protected TextboxFormat monsterlistFormat, meatFormat;
 	protected String[] monsterlist;
-	protected OptionSelector options;
+	protected OptionSelector fightOptions, meatOptions;
 	protected List<FacesAnimation> sprites;
 	protected BattleBox text;
 	protected CharaInsert actor;
 	protected ItemSelector abils;
+	protected List<String> meatMessages;
 	protected float globalX, globalY;
 	
 	// display toggles
 	protected boolean showPlayerInserts, showEnemyInserts;
 	protected boolean showMonsterList;
 	protected boolean showActor;
+	protected boolean showMeatMessage;
 	
 	// selection mode
 	protected boolean selectionMode;
@@ -104,11 +106,11 @@ public class CombatScreen extends Screen {
 	 * arguments to the battle.
 	 * @param	battle			The battle this screen will be used for
 	 */
-	public CombatScreen(final Battle battle) {
+	public BattleScreen(final Battle battle) {
 		this.battle = battle;
 		pushCommandContext(new CMapMenu());
 		
-		options = new OptionSelector(false, true, new Option("FIGHT") {
+		fightOptions = new OptionSelector(false, true, new Option("FIGHT") {
 			@Override public boolean onSelect() {
 				battle.onFight();
 				return false;
@@ -119,7 +121,20 @@ public class CombatScreen extends Screen {
 				return false;
 			}
 		});
-		assets.add(options);
+		assets.add(fightOptions);
+		
+		meatOptions = new OptionSelector(false, false, new Option("EAT") {
+			@Override public boolean onSelect() {
+				battle.onEat();
+				return true;
+			}
+		}, new Option("CANCEL") {
+			@Override public boolean onSelect() {
+				battle.onEatCancel();
+				return true;
+			}
+		});
+		assets.add(meatOptions);
 		
 		optionsBG = new Nineslice(OPTIONS_WIDTH, OPTIONS_HEIGHT);
 		insertsBG = new Nineslice(INSERTS_WIDTH + optionsBG.getBorderWidth(), INSERTS_HEIGHT);
@@ -148,8 +163,10 @@ public class CombatScreen extends Screen {
 		globalX = (getWidth() - (INSERTS_WIDTH + OPTIONS_WIDTH)) / 2;
 		globalY = 0;
 		
-		options.setX(globalX + OPTIONS_MARGIN);
-		options.setY(globalY - OPTIONS_MARGIN + OPTIONS_HEIGHT - options.getHeight());
+		fightOptions.setX(globalX + OPTIONS_MARGIN);
+		fightOptions.setY(globalY - OPTIONS_MARGIN + OPTIONS_HEIGHT - fightOptions.getHeight());
+		meatOptions.setX(globalX + (getWidth() - meatOptions.getWidth()) / 2);
+		meatOptions.setY(globalY + optionsBG.getBorderHeight() - 1);
 		
 		sprites = new ArrayList<FacesAnimation>();
 		for (Chara chara : battle.getPlayer().getAll()) {
@@ -162,13 +179,21 @@ public class CombatScreen extends Screen {
 		}
 		
 		FontHolder font = MGlobal.ui.getFont();
-		monsterlistFormat = new TextBoxFormat();
+		
+		monsterlistFormat = new TextboxFormat();
 		monsterlistFormat.align = HAlignment.LEFT;
 		monsterlistFormat.width = MONSTERLIST_WIDTH;
 		monsterlistFormat.height = MONSTERLIST_HEIGHT;
 		monsterlistFormat.x = (int) (globalX + MONSTERLIST_MARGIN);
 		monsterlistFormat.y = (int) (globalY + (MONSTERLIST_HEIGHT / 2) + font.getLineHeight()/2);
 		updateMList();
+		
+		meatFormat = new TextboxFormat();
+		meatFormat.align = HAlignment.LEFT;
+		meatFormat.width = ABILS_WIDTH;
+		meatFormat.height = ABILS_HEIGHT;
+		meatFormat.x = (int) (globalX + MONSTERLIST_WIDTH + ABILS_EDGE_PADDING);
+		meatFormat.y = (int) (globalY + OPTIONS_HEIGHT - ABILS_VERT_FUDGE - font.getLineHeight()*3);
 	}
 	
 	/** @param auto True to ignore human prompts for newline */
@@ -180,6 +205,7 @@ public class CombatScreen extends Screen {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
+		FontHolder font = MGlobal.ui.getFont();
 		if (showActor) {
 			actorBG.renderAt(batch, globalX, globalY);
 		} else {
@@ -198,7 +224,6 @@ public class CombatScreen extends Screen {
 		Party enemy = battle.getEnemy();
 		int groups = enemy.groupCount();
 		if (showMonsterList) {
-			FontHolder font = MGlobal.ui.getFont();
 			monsterlistBG.renderAt(batch, globalX, globalY);
 			switch (groups) {
 			case 1:
@@ -215,11 +240,17 @@ public class CombatScreen extends Screen {
 				break;
 			}
 		}
-		if (showActor) {
+		if (showActor || showMeatMessage) {
 			abilsBG.renderAt(batch, MONSTERLIST_WIDTH - monsterlistBG.getBorderWidth(), globalY);
 		}
 		if (containsChild(abils)) {
 			abils.render(batch);
+		} else if (showMeatMessage) {
+			int off = 0;
+			for (String line : meatMessages) {
+				font.draw(batch, meatFormat, line, (int) (off * -font.getLineHeight()));
+				off += 1;
+			}
 		}
 		WindowSettings win = MGlobal.window;
 		for (int i = 0 ; i < groups; i += 1) { 
@@ -328,10 +359,10 @@ public class CombatScreen extends Screen {
 		if (containsChild(abils)) {
 			removeChild(abils);
 		}
-		if (containsChild(options)) {
-			options.focus();
+		if (containsChild(fightOptions)) {
+			fightOptions.focus();
 		} else {
-			options.showAt((int) options.getX(), (int) options.getY());
+			fightOptions.showAt((int) fightOptions.getX(), (int) fightOptions.getY());
 		}
 	}
 	
@@ -341,6 +372,14 @@ public class CombatScreen extends Screen {
 	 */
 	public void onPlayerDeath(int index) {
 		sprites.get(index).stopMoving();
+	}
+	
+	/**
+	 * Called by the battle when it's time to eat the meat!!
+	 */
+	public void onMeatChoice() {
+		meatOptions.showAt((int) meatOptions.getX(), (int) meatOptions.getY());
+		meatOptions.focus();
 	}
 	
 	/**
@@ -371,8 +410,8 @@ public class CombatScreen extends Screen {
 		showPlayerInserts = false;
 		showEnemyInserts = false;
 		// showMonsterList = false;
-		if (containsChild(options)) {
-			removeChild(options);
+		if (containsChild(fightOptions)) {
+			removeChild(fightOptions);
 		}
 		addChild(abils);
 		
@@ -449,6 +488,44 @@ public class CombatScreen extends Screen {
 			miniInserts.setSelected(selected);
 		}
 		addChild(miniInserts);
+	}
+	
+	/**
+	 * Prompts the user to select a character to eat the meat!!
+	 * @param	selected		The character to start selected
+	 * @param	onHover			The callback for when the cursor moves
+	 * @param	onSelection		The callback for when the cursor selects
+	 */
+	public void selectMeatEater(int selected, SelectionListener onHover,
+			final SelectionListener onSelection) {
+		miniInserts.setHoverListener(onHover);
+		showMeatMessage = true;
+		if (containsChild(text)) {
+			text.fadeOut(TEXT_FADE_TIME);
+		}
+		if (containsChild(abils)) {
+			removeChild(abils);
+		}
+		selectAlly(selected, new TargetListener() {
+			@Override public void onTargetSelection(List<Chara> targets) {
+				removeChild(meatOptions);
+				removeChild(miniInserts);
+				showMeatMessage = false;
+				if (targets == null) {
+					onSelection.onSelection(null);
+				} else {
+					onSelection.onSelection(targets.get(0));
+				}
+			}
+		});
+	}
+	
+	/**
+	 * Sets the informative meat transformation message for meat selection mode.
+	 * @param	messages		The messages to display, broken into lines
+	 */
+	public void setMeatMessage(List<String> messages) {
+		this.meatMessages = messages;
 	}
 	
 	/**

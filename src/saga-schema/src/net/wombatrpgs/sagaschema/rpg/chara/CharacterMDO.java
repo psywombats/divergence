@@ -32,6 +32,16 @@ public class CharacterMDO extends MainSchema {
 	@Desc("Race")
 	public Race race;
 	
+	@Desc("Family - used for transformations, only monsters should have this")
+	@SchemaLink(MonsterFamilyMDO.class)
+	@Nullable
+	public String family;
+	
+	@Desc("Species - the name of the specific monster subtype, eg GOBLIN, "
+			+ "only monsters should have this")
+	@DefaultValue("")
+	public String species;
+	
 	@Desc("Gender")
 	@DefaultValue("NONE")
 	public Gender gender;
@@ -45,11 +55,6 @@ public class CharacterMDO extends MainSchema {
 	@FileLink("sprites")
 	@Nullable
 	public String portrait;
-	
-	@Desc("Family - used for transformations")
-	@SchemaLink(MonsterFamilyMDO.class)
-	@Nullable
-	public String family;
 	
 	@Desc("GP - dropped when this character is defeated by the player")
 	@DefaultValue("0")

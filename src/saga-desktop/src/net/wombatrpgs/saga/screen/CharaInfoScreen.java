@@ -17,7 +17,7 @@ import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
+import net.wombatrpgs.mgne.ui.text.TextboxFormat;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.ui.ItemSelector;
@@ -45,7 +45,7 @@ public class CharaInfoScreen extends Screen {
 	
 	protected Nineslice headerBG, statsBG, abilsBG;
 	protected CharaInsert header;
-	protected TextBoxFormat labelFormat, statFormat;
+	protected TextboxFormat labelFormat, statFormat;
 	protected List<Stat> statDisplay;
 	protected ItemSelector abils;
 	protected int headerX, headerY;
@@ -148,14 +148,14 @@ public class CharaInfoScreen extends Screen {
 		header.setX(globalX + headerX);
 		header.setY(globalY + headerY);
 		
-		labelFormat = new TextBoxFormat();
+		labelFormat = new TextboxFormat();
 		labelFormat.align = HAlignment.LEFT;
 		labelFormat.width = STATS_WIDTH - statsBG.getBorderWidth()*2;
 		labelFormat.height = 80;
 		labelFormat.x = globalX + statsBG.getBorderWidth();
 		labelFormat.y = globalY + getHeight() - (HEADER_HEIGHT + statsBG.getBorderHeight() / 2);
 		
-		statFormat = new TextBoxFormat();
+		statFormat = new TextboxFormat();
 		statFormat.align = HAlignment.RIGHT;
 		statFormat.width = STATS_WIDTH - statsBG.getBorderWidth()*5/2;
 		statFormat.height = 80;

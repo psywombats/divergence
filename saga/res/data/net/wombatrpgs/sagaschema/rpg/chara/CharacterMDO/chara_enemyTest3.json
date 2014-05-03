@@ -4,10 +4,11 @@
 	"name" : "TOPIARY",
 	"description" : "",
 	"race" : "MONSTER",
+	"family" : "family_testPlants",
+	"species" : "TOPIARY",
 	"gender" : "NONE",
 	"appearance" : "4dir_ffl2_human",
 	"portrait" : "battle_portraits/cactus.png",
-	"family" : "family_testPlants",
 	"gp" : 40,
 	"equipped" : [
 		"item_testabil",

@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 /**
  * Struct for textbox data.
  */
-public class TextBoxFormat {
+public class TextboxFormat {
 	
 	public int x, y;
 	public int width, height;

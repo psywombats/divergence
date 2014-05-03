@@ -29,7 +29,8 @@ import net.wombatrpgs.saga.rpg.chara.Party;
 import net.wombatrpgs.saga.rpg.stats.SagaStats;
 import net.wombatrpgs.saga.rpg.stats.TempStats;
 import net.wombatrpgs.saga.rpg.warheads.EffectDefend;
-import net.wombatrpgs.saga.screen.CombatScreen;
+import net.wombatrpgs.saga.screen.BattleScreen;
+import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
 import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
 import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
 
@@ -40,7 +41,7 @@ import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
 public class Battle extends AssetQueuer implements Disposable {
 	
 	// battle attributes
-	protected CombatScreen screen;
+	protected BattleScreen screen;
 	protected HeroParty player;
 	protected EnemyParty enemy;
 	protected boolean anonymous;
@@ -52,6 +53,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	protected List<Boolean> enemyAlive, playerAlive;
 	protected List<TempStats> boosts, defendBoosts;
 	protected Map<Chara, List<EffectDefend>> defendEffects;
+	protected Chara meatDropper;
 	protected int actorIndex;
 	protected boolean finished;
 	protected boolean targetingMode;
@@ -65,7 +67,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	public Battle(HeroParty player, EnemyParty enemy) {
 		this.player = player;
 		this.enemy = enemy;
-		this.screen = new CombatScreen(this);
+		this.screen = new BattleScreen(this);
 		anonymous = false;
 		finished = false;
 		
@@ -199,6 +201,50 @@ public class Battle extends AssetQueuer implements Disposable {
 				}
 			});
 		}
+	}
+	
+	/**
+	 * Called when the player elects to eat the meat!!
+	 */
+	public void onEat() {
+		screen.selectMeatEater(0, new SelectionListener() {
+			@Override public boolean onSelection(Chara selected) {
+				// TODO: transformation future information
+				String eatername = selected.getName();
+				String droppername = meatDropper.getName();
+				String tab = SConstants.TAB;
+				List<String> lines = new ArrayList<String>();
+				lines.add(eatername);
+				lines.add(tab + "+" + tab);
+				lines.add(droppername);
+				screen.setMeatMessage(lines);
+				return false;
+			}
+		}, new SelectionListener() {
+			@Override public boolean onSelection(Chara selected) {
+				// TODO: battle: transformation message
+				if (selected == null) {
+					onEatCancel();
+				} else {
+					println("Traaaansfoooooorm!!");
+					println("");
+					screen.setAuto(false);
+					playback("", new FinishListener() {
+						@Override public void onFinish() {
+							finish();
+						}
+					});
+				}
+				return true;
+			}
+		});
+	}
+	
+	/**
+	 * Called when the player declines to eat the meat... how sad.
+	 */
+	public void onEatCancel() {
+		finish();
 	}
 	
 	/**
@@ -624,7 +670,7 @@ public class Battle extends AssetQueuer implements Disposable {
 		player.addGP(gp);
 		String gpstring = "Found " + gp + " GP.";
 		
-		Chara meatDropper = enemy.chooseMeatFamily();
+		meatDropper = enemy.chooseMeatFamily();
 		if (meatDropper == null) {	
 			screen.setAuto(false);
 			playback(gpstring, new FinishListener() {
@@ -635,12 +681,13 @@ public class Battle extends AssetQueuer implements Disposable {
 		} else {
 			println(gpstring);
 			println("");
-			screen.setAuto(false);
 			String droppername = meatDropper.getName();
-			// TODO: battle: eat the meat!
-			playback("Found meat of " + droppername + ".", new FinishListener() {
+			println("Found meat of " + droppername + ".");
+			println("");
+			println("");
+			playback("", new FinishListener() {
 				@Override public void onFinish() {
-					finish();
+					screen.onMeatChoice();
 				}
 			});
 		}

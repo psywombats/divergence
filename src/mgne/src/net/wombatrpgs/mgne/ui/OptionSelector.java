@@ -20,7 +20,7 @@ import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
+import net.wombatrpgs.mgne.ui.text.TextboxFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.ui.NinesliceMDO;
 
@@ -45,7 +45,7 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	
 	// calculated
 	protected Nineslice bg;
-	protected TextBoxFormat format;
+	protected TextboxFormat format;
 	protected int width, height;
 	
 	// cursor
@@ -227,7 +227,7 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 		MGlobal.screens.peek().addChild(this);
 		focus();
 		
-		format = new TextBoxFormat();
+		format = new TextboxFormat();
 		format.align = HAlignment.LEFT;
 		format.width = (int) (width + padHoriz);
 		format.height = 100;

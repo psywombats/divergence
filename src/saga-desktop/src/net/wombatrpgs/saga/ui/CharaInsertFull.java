@@ -72,7 +72,7 @@ public class CharaInsertFull extends CharaInsert {
 		line1 = chara.getName();
 		Status status = chara.getStatus();
 		if (!combatMode && status == null) {
-			line2 = chara.getRace().getName() + " " + chara.getGender().getLabel();
+			line2 = chara.getSpecies() + " " + chara.getGender().getLabel();
 		} else {
 			if (status == null) {
 				skipStatus = true;

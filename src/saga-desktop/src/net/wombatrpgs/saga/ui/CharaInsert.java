@@ -13,7 +13,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
+import net.wombatrpgs.mgne.ui.text.TextboxFormat;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 
@@ -25,7 +25,7 @@ public abstract class CharaInsert extends ScreenGraphic {
 	
 	protected final static int PADDING = 2;
 	
-	protected TextBoxFormat format;
+	protected TextboxFormat format;
 	protected Chara chara;
 	
 	/**
@@ -34,7 +34,7 @@ public abstract class CharaInsert extends ScreenGraphic {
 	 */
 	public CharaInsert(Chara chara) {
 		this.chara = chara;
-		format = new TextBoxFormat();
+		format = new TextboxFormat();
 		format.align = HAlignment.LEFT;
 		refresh();
 	}

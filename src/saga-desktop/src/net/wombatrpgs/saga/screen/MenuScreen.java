@@ -19,7 +19,7 @@ import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.Option;
 import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
+import net.wombatrpgs.mgne.ui.text.TextboxFormat;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.ui.CharaSelector;
@@ -36,7 +36,7 @@ public class MenuScreen extends Screen implements Disposable {
 	protected OptionSelector menu, saveSelector;
 	
 	protected CharaSelector inserts;
-	protected TextBoxFormat format;
+	protected TextboxFormat format;
 	protected Nineslice infoBG;
 	protected String info1, info2;
 	protected int insertsX, insertsY;
@@ -100,7 +100,7 @@ public class MenuScreen extends Screen implements Disposable {
 		assets.add(inserts);
 		addUChild(inserts);
 		
-		format = new TextBoxFormat();
+		format = new TextboxFormat();
 		
 		silentAdd = false;
 	}

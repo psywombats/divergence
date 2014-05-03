@@ -20,7 +20,7 @@ import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.Option;
 import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.mgne.ui.text.TextBoxFormat;
+import net.wombatrpgs.mgne.ui.text.TextboxFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.chara.Inventory;
@@ -37,7 +37,7 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	
 	// layout
 	protected Screen parent;
-	protected TextBoxFormat format, usesFormat;
+	protected TextboxFormat format, usesFormat;
 	protected Nineslice bg;
 	protected int width, height, padding;
 	protected int count;
@@ -76,12 +76,12 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 		height = (int) (count * font.getLineHeight());
 		height += padding * (count-1);
 		
-		format = new TextBoxFormat();
+		format = new TextboxFormat();
 		format.align = HAlignment.LEFT;
 		format.width = width;
 		format.height = 240;
 		
-		usesFormat = new TextBoxFormat();
+		usesFormat = new TextboxFormat();
 		usesFormat.align = HAlignment.RIGHT;
 		usesFormat.width = 16;
 		usesFormat.height = 240;

@@ -4,10 +4,11 @@
 	"name" : "BURUBURU",
 	"description" : "",
 	"race" : "MONSTER",
+	"family" : "family_testUndead",
+	"species" : "BURUBURU",
 	"gender" : "NONE",
 	"appearance" : "4dir_ffl2_human",
 	"portrait" : "battle_portraits/ghost.png",
-	"family" : "family_testUndead",
 	"gp" : 40,
 	"equipped" : [
 		"abil_testIce",

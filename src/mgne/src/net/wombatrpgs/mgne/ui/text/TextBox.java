@@ -48,7 +48,7 @@ public class TextBox extends ScreenGraphic {
 	
 	protected Screen parent;
 	protected Nineslice backer;
-	protected TextBoxFormat bodyFormat, nameFormat;
+	protected TextboxFormat bodyFormat, nameFormat;
 	protected SoundObject typeSfx;
 	protected float sinceChar;
 	protected int totalLength;
@@ -69,8 +69,8 @@ public class TextBox extends ScreenGraphic {
 		this.font = font;
 		this.visibleChars = 0;
 		this.sinceChar = 0;
-		this.bodyFormat = new TextBoxFormat();
-		this.nameFormat = new TextBoxFormat();
+		this.bodyFormat = new TextboxFormat();
+		this.nameFormat = new TextboxFormat();
 		this.currentLines = new ArrayList<String>();
 		this.visibleLines = new ArrayList<String>();
 		this.words = new ArrayList<String>();

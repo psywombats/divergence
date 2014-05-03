@@ -4,10 +4,11 @@
 	"name" : "Tororo",
 	"description" : "",
 	"race" : "MONSTER",
+	"family" : "family_testFish",
+	"species" : "TORORO",
 	"gender" : "NONE",
 	"appearance" : "4dir_ffl2_human",
 	"portrait" : "None",
-	"family" : "family_testFish",
 	"gp" : 0,
 	"equipped" : [
 		"item_testabil",

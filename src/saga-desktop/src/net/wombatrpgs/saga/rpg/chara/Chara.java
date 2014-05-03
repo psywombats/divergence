@@ -139,6 +139,20 @@ public class Chara extends AssetQueuer implements Disposable {
 		}
 		return value;
 	}
+	
+	/**
+	 * Determines this character's species to use for transformation info. For
+	 * monsters, this will be GOBLIN etc, the monster type. Others can just
+	 * return their race name.
+	 * @return					The name of the transform species of this chara
+	 */
+	public String getSpecies() {
+		if (getRace() == Race.MONSTER) {
+			return mdo.species;
+		} else {
+			return getRace().getName();
+		}
+	}
 
 	/**
 	 * Creates an animation for use wherever. Use this if you need to have
