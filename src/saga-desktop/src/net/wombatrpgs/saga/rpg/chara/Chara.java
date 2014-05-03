@@ -20,7 +20,7 @@ import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.saga.rpg.Battle;
 import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.stats.SagaStats;
-import net.wombatrpgs.sagaschema.rpg.chara.CharacterMDO;
+import net.wombatrpgs.sagaschema.rpg.chara.CharaMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Gender;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Race;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Resistable;
@@ -33,7 +33,7 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
  */
 public class Chara extends AssetQueuer implements Disposable {
 	
-	protected CharacterMDO mdo;
+	protected CharaMDO mdo;
 	
 	protected SagaStats stats;
 	protected FacesAnimation appearance;
@@ -41,14 +41,17 @@ public class Chara extends AssetQueuer implements Disposable {
 	protected CharaInventory inventory;
 	protected Status status;
 	protected MonsterFamily family;
+	protected String name;
 	
 	/**
 	 * Creates a new character from data template.
 	 * @param	mdo				The data to create from
 	 */
-	public Chara(CharacterMDO mdo) {
+	public Chara(CharaMDO mdo) {
 		super();
 		this.mdo = mdo;
+		
+		name = mdo.name;
 		
 		stats = new SagaStats(mdo.stats);
 		inventory = new CharaInventory(mdo, this);
@@ -71,7 +74,7 @@ public class Chara extends AssetQueuer implements Disposable {
 	 * @param	key				The key of the data to create from
 	 */
 	public Chara(String key) {
-		this(MGlobal.data.getEntryFor(key, CharacterMDO.class));
+		this(MGlobal.data.getEntryFor(key, CharaMDO.class));
 	}
 	
 	/** @return The current value of the request flag */
@@ -84,7 +87,7 @@ public class Chara extends AssetQueuer implements Disposable {
 	public Graphic getPortrait() { return portrait; }
 	
 	/** @return The human name of the character */
-	public String getName() { return mdo.name; }
+	public String getName() { return name; }
 	
 	/** @return The race of the character, never null */
 	public Race getRace() { return mdo.race; }
@@ -109,6 +112,9 @@ public class Chara extends AssetQueuer implements Disposable {
 	
 	/** @return The monster family of this character, or null if none */
 	public MonsterFamily getFamily() { return family; }
+	
+	/** @return The power of this character's meat */
+	public int getEatLevel() { return mdo.meatEatLevel; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
@@ -353,6 +359,70 @@ public class Chara extends AssetQueuer implements Disposable {
 			return null;
 		} else {
 			return usable.get(MGlobal.rand.nextInt(usable.size()));
+		}
+	}
+	
+	/**
+	 * Transforms this chara into a more suitable format. This should basically
+	 * only be called on monsters. It overrides a bunch of equipped items, abils
+	 * etc in the process, so only abils should be equipped. Meant to be called
+	 * by the monster family calculating the transform.
+	 * @param	newForm			The data of the new template to transform to
+	 */
+	public void transform(CharaMDO newForm) {
+		
+		// destroy old stuff
+		for (CombatItem item : inventory.getItems()) {
+			inventory.drop(item);
+		}
+		assets.remove(appearance);
+		appearance.dispose();
+		if (MapThing.mdoHasProperty(mdo.portrait)) {
+			assets.remove(portrait);
+			portrait.dispose();
+		}
+		
+		// copy relevant stuff
+		this.mdo = newForm;
+		
+		// create new stuff
+		stats = new SagaStats(newForm.stats);
+		heal(get(Stat.MHP));
+		status = null;
+		inventory = new CharaInventory(mdo, this);
+		appearance = createSprite();
+		assets.add(appearance);
+		if (MapThing.mdoHasProperty(mdo.portrait)) {
+			portrait = new Graphic(Constants.SPRITES_DIR, mdo.portrait);
+			assets.add(portrait);
+		}
+		if (MapThing.mdoHasProperty(mdo.family)) {
+			family = MonsterFamily.get(mdo.family);
+		}
+		MGlobal.assets.loadAsset(this, "transformation to " + newForm.key);
+	}
+	
+	/**
+	 * Called by the battle when this character eats another.
+	 * @param	dropper			The character dropping the meat we're eating
+	 */
+	public void eat(Chara dropper) {
+		if (getFamily() != null) {
+			getFamily().transform(this, dropper);
+		}
+	}
+	
+	/**
+	 * Called by the battle to check what this character would become were it to
+	 * eat another character. Returns null if nothing would happen.
+	 * @param	dropper			The character dropping the meat we're eating
+	 * @return					The MDO of this character after, or null
+	 */
+	public CharaMDO predictEat(Chara dropper) {
+		if (getFamily() != null) {
+			return getFamily().getTransformResult(this, dropper);
+		} else {
+			return null;
 		}
 	}
 

@@ -190,7 +190,7 @@ public class BattleScreen extends Screen {
 		
 		meatFormat = new TextboxFormat();
 		meatFormat.align = HAlignment.LEFT;
-		meatFormat.width = ABILS_WIDTH;
+		meatFormat.width = INSERTS_WIDTH;
 		meatFormat.height = ABILS_HEIGHT;
 		meatFormat.x = (int) (globalX + MONSTERLIST_WIDTH + ABILS_EDGE_PADDING);
 		meatFormat.y = (int) (globalY + OPTIONS_HEIGHT - ABILS_VERT_FUDGE - font.getLineHeight()*3);
@@ -508,13 +508,16 @@ public class BattleScreen extends Screen {
 		}
 		selectAlly(selected, new TargetListener() {
 			@Override public void onTargetSelection(List<Chara> targets) {
-				removeChild(meatOptions);
-				removeChild(miniInserts);
-				showMeatMessage = false;
+				boolean close;
 				if (targets == null) {
-					onSelection.onSelection(null);
+					close = onSelection.onSelection(null);
 				} else {
-					onSelection.onSelection(targets.get(0));
+					close = onSelection.onSelection(targets.get(0));
+				}
+				if (close) {
+					removeChild(meatOptions);
+					removeChild(miniInserts);
+					showMeatMessage = false;
 				}
 			}
 		});

@@ -1,0 +1,10 @@
+{
+	"key" : "group_testSlimies",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"families" : [
+		"family_testFish",
+		"family_testUndead"
+	]
+}

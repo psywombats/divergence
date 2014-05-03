@@ -1,0 +1,27 @@
+{
+	"key" : "chara_testEnemyStrong",
+	"subfolder" : "test",
+	"name" : "MR. BAGS",
+	"description" : "",
+	"gender" : "NONE",
+	"race" : "MONSTER",
+	"family" : "None",
+	"species" : "MR. BAGS",
+	"appearance" : "4dir_ffl2_human",
+	"portrait" : "battle_portraits/sandbag.png",
+	"meatEatLevel" : 0,
+	"meatTargetLevel" : 0,
+	"gp" : 4000,
+	"equipped" : [
+		"item_testabil"
+	],
+	"stats" : {
+		"hp" : 1000,
+		"mhp" : 1000,
+		"str" : 80,
+		"def" : 10,
+		"agi" : 30,
+		"mana" : 10,
+		"flags" : [ ]
+	}
+}

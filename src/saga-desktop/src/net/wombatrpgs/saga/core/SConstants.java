@@ -15,6 +15,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 public class SConstants extends Constants {
 	
 	/** Battle indent string */
-	public static final String TAB = MGlobal.charConverter.convert("$N$N");
+	public static final String NBSP = MGlobal.charConverter.convert("$N");
+	public static final String TAB = NBSP + NBSP;
 
 }

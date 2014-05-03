@@ -32,6 +32,7 @@ import net.wombatrpgs.saga.rpg.warheads.EffectDefend;
 import net.wombatrpgs.saga.screen.BattleScreen;
 import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
 import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
+import net.wombatrpgs.sagaschema.rpg.chara.CharaMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
 
 /**
@@ -209,32 +210,67 @@ public class Battle extends AssetQueuer implements Disposable {
 	public void onEat() {
 		screen.selectMeatEater(0, new SelectionListener() {
 			@Override public boolean onSelection(Chara selected) {
-				// TODO: transformation future information
+				
 				String eatername = selected.getName();
 				String droppername = meatDropper.getName();
-				String tab = SConstants.TAB;
+				String sp = SConstants.NBSP;
 				List<String> lines = new ArrayList<String>();
-				lines.add(eatername);
-				lines.add(tab + "+" + tab);
-				lines.add(droppername);
+				
+				String line1 = eatername;
+				while (line1.length() < droppername.length() - 1) {
+					line1 = sp + line1 + sp;
+				}
+				lines.add(line1);
+				String line2 = "+";
+				while (line2.length() < droppername.length() - 1) {
+					line2 = sp + line2 + sp;
+				}
+				lines.add(line2);
+				String line3 = droppername;
+				while (line3.length() < eatername.length() - 1) {
+					line3 = sp + line3 + sp;
+				}
+				lines.add(line3);
+				lines.add("");
+				
+				String line4;
+				CharaMDO result = selected.predictEat(meatDropper);
+				String species = selected.getSpecies();
+				if (result == null || result.species.equals(species)) {
+					line4 = sp + "Nothing happens.";
+				} else {
+					line4 = sp + "to " + result.species;
+				}
+				lines.add(line4);
+				
 				screen.setMeatMessage(lines);
-				return false;
+				return true;
 			}
 		}, new SelectionListener() {
 			@Override public boolean onSelection(Chara selected) {
 				// TODO: battle: transformation message
 				if (selected == null) {
 					onEatCancel();
-				} else {
-					println("Traaaansfoooooorm!!");
-					println("");
-					screen.setAuto(false);
-					playback("", new FinishListener() {
-						@Override public void onFinish() {
-							finish();
-						}
-					});
 				}
+				if (selected.isDead()) return false;
+				
+				String eatername = selected.getName();
+				String oldSpecies = selected.getSpecies();
+				selected.eat(meatDropper);
+				String newSpecies = selected.getSpecies();
+				if (oldSpecies.equals(newSpecies)) {
+					println("Nothing happens.");
+				} else {
+					println(eatername + " transforms into " + newSpecies + ".");
+				}
+				
+				println("");
+				screen.setAuto(false);
+				playback("", new FinishListener() {
+					@Override public void onFinish() {
+						finish();
+					}
+				});
 				return true;
 			}
 		});

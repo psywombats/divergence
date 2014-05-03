@@ -10,14 +10,15 @@ import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.HeadlessSchema;
 import net.wombatrpgs.sagaschema.rpg.chara.MonsterFamilyMDO;
+import net.wombatrpgs.sagaschema.rpg.chara.MeatGroupMDO;
 
 /**
  * Connection between monster families.
  */
 public class TransformationMDO extends HeadlessSchema {
 	
-	@Desc("Meat family eaten")
-	@SchemaLink(MonsterFamilyMDO.class)
+	@Desc("Meat group eaten")
+	@SchemaLink(MeatGroupMDO.class)
 	public String eat;
 	
 	@Desc("Resulting family")

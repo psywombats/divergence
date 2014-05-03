@@ -12,13 +12,15 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MAssets;
+import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
 
 /**
  * Single-frame graphics instance. Not meant to appear on its own, really.
  * Animations have their own version of this. This class is dumb.
  */
-public class Graphic implements PosRenderable {
+public class Graphic implements PosRenderable, Disposable {
 	
 	protected transient Texture texture;
 	protected transient TextureRegion appearance;
@@ -97,6 +99,16 @@ public class Graphic implements PosRenderable {
 	 */
 	public Texture getTexture() {
 		return texture;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
+	 */
+	@Override
+	public void dispose() {
+		if (MGlobal.assets.isLoaded(filename)) {
+			MGlobal.assets.unload(filename);
+		}
 	}
 
 	/**

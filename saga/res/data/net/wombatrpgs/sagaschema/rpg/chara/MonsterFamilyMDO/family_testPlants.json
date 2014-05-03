@@ -5,16 +5,8 @@
 	"description" : "",
 	"transformations" : [
 		{
-			"eat" : "family_testGoblins",
-			"result" : "family_testGoblins"
-		},
-		{
-			"eat" : "family_testUndead",
+			"eat" : "group_testSlimies",
 			"result" : "family_testUndead"
-		},
-		{
-			"eat" : "family_testFish",
-			"result" : "family_testFish"
 		}
 	]
 }

@@ -8,7 +8,7 @@ package net.wombatrpgs.saga.rpg.chara;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.rpg.CombatItem;
-import net.wombatrpgs.sagaschema.rpg.chara.CharacterMDO;
+import net.wombatrpgs.sagaschema.rpg.chara.CharaMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Race;
 
 /**
@@ -24,7 +24,7 @@ public class CharaInventory extends Inventory {
 	 * Creates a new starter inventory suitable for the given character data.
 	 * @param	mdo				The data to create from
 	 */
-	public CharaInventory(CharacterMDO mdo, Chara chara) {
+	public CharaInventory(CharaMDO mdo, Chara chara) {
 		super(SLOT_COUNT);
 		this.chara = chara;
 		for (int i = 0; i < mdo.equipped.length; i += 1) {

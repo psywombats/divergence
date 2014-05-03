@@ -134,7 +134,7 @@ public class Database {
 	 * @return			All entries of that class
 	 */
 	@SuppressWarnings("unchecked")
-	public <T extends MainSchema> List<T> getEntriesByClass(Class<T> clazz) {
+	public <T extends MainSchema> List<T> getAll(Class<T> clazz) {
 		List<T> result = (List<T>) classShelf.get(clazz);
 		if (result == null) return new ArrayList<T>();
 		else return result;
