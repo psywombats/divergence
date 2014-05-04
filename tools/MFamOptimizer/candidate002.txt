@@ -1,0 +1,124 @@
+Report for config result002, error 137.98413
+Family count: 25
+Group count: 10
+Tier count: 6
+Size distribution:
+  1-member group x1
+  2-member group x5
+  3-member group x2
+  4-member group x2
+
+Transformation power gains breakdown: 
++3: 0.0004%
++2: 0.0432%
++1: 0.2872%
++0: 0.2844%
+-1: 0.1576%
+-2: 0.1337%
+-3: 0.0601%
+-4: 0.0265%
+-5: 0.0069%
+Average: -0.371 (deviation: 1.468)
+Biggest jump: tuw/Ploospia(0,0) eats zil/Djau(0,0) to edi/Gwegwia(3,2) (+3)
+
+The average group is transformed to 8.6 times (deviation 1.697, min aju with 4)
+By-tier breakdown:
+  Tier 0: targeted average 9.8889 times (deviation 0.5666)
+  Tier 1: targeted average 9 times (deviation 0.6325)
+  Tier 2: targeted average 8.6 times (deviation 0.4899)
+  Tier 3: targeted average 8 times (deviation 0.8165)
+  Tier 4: targeted average 4.5 times (deviation 0.5)
+  Tier 5: targeted average 5 times (deviation 0)
+Unreachable members: []
+
+Tier 0: opu, zil, mul, rul, tep, tuw, uja, vew, fur
+Tier 1: oge, eze, uhe, ome, eby
+Tier 2: ane, paw, isi, usy, job
+Tier 3: joh, edi, ror
+Tier 4: ete, aju
+Tier 5: lot
+
+       |     |     |     |     | job |     | fur |     |     |     |
+       |     |     |     | vew | paw |     | isi |     |     | eby |
+       |     | mul | ane | joh | tuw | aju | uhe | ome | lot | uja |
+       | opu | zil | rul | tep | oge | ete | eze | edi | ror | usy |
+-------+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+ opu   |     | rul | tep | tuw | job | mul | uhe | opu | joh | rul |
+ zil   | uja |     | fur | mul | uja | zil | fur | vew | mul | isi |
+ mul   | eze |     | opu | job | zil | ete | opu | uhe | oge | zil |
+ rul   | ane | fur |     | tep | vew | lot | paw | opu | eze | ane |
+ ane   | ror | fur |     | ome | zil | opu | oge | usy | job | opu |
+ tep   | uja | oge | tuw |     | paw | usy | eby | ane | vew | paw |
+ joh   | uhe | ome | rul |     | lot | uhe | ror | ome | ror | paw |
+ vew   | isi | tuw | fur |     | eby | tuw | tuw | uhe | lot | eby |
+ oge   | tep | uja | fur | opu |     | eby | ome | uja | usy | ome |
+ tuw   | ane | edi | isi | paw |     | eze | ane | usy | vew | oge |
+ paw   | paw | opu | job | fur |     | rul | eby | usy | ete | vew |
+ job   | aju | eby | joh | eze |     | mul | tep | joh | ane | mul |
+ ete   | eze | uja | oge | uja | rul |     | eby | isi | uja | ome |
+ aju   | uhe | paw | zil | edi | uhe |     | paw | tuw | tep | ror |
+ eze   | eze | uja | tep | uja | edi | tuw |     | job | tep | job |
+ uhe   | isi | tuw | edi | edi | eby | lot |     | vew | vew | mul |
+ isi   | zil | job | joh | job | ror | paw |     | vew | fur | eze |
+ fur   | fur | rul | joh | usy | rul | ete |     | oge | joh | tep |
+ edi   | zil | mul | isi | joh | edi | joh | eze |     | aju | tep |
+ ome   | opu | eze | ror | ror | rul | ome | oge |     | rul | vew |
+ ror   | ete | aju | lot | joh | fur | tuw | oge | zil |     | ane |
+ lot   | ror | lot | mul | rul | tep | ome | ane | oge |     | tuw |
+ usy   | zil | aju | isi | eze | opu | vew | usy | zil | ete |     |
+ uja   | job | fur | tep | usy | usy | edi | eby | zil | ome |     |
+ eby   | isi | uhe | mul | ome | edi | paw | isi | eby | oge |     |
+-------+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+
+Family:  Members:                                               Meat:  Target:
+-------+----------+----------+----------+----------+----------+-------+-------+
+ opu   | Niscoa     Ejikz      Byeekyu    Lua        Boope    | 0679e | 0568d |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ zil   | Djau       Zikzoa     Khuamb     Auskee     Isnoi    | 0378c | 0267b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ mul   | Pleuby     Craubaim   Skeegth    Freacweu   Tee      | 0285e | 0174d |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ rul   | Foist      Aimnaug    Oukkoatt   Zeakhill   Teewho   | 0669e | 0568d |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ ane   | Flua       Flo        Fwoo       Leath      Tei      | 147be | 136ad |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ tep   | Pwiav      Nausya     Moodwoo    Worria     Pwulch   | 039ab | 0289a |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ joh   | Cwidyeib   Tea        Ainas      Islelch    Klauknu  | 369c4 | 258b3 |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ vew   | Shezy      Cla        Fwaght     Scung      Syuhooch | 039bc | 028ab |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ oge   | Gweawhee   Flafwoal   Syiarhar   Kriach     Bro      | 148ac | 0379b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ tuw   | Ploospia   Braicwou   Trou       Wi         Raull    | 023ac | 0129b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ paw   | Ryei       Choix      Khes       Czei       Kha      | 2568a | 14579 |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ job   | Svee       Frelch     Cyoovaiv   Khouzyub   Ya       | 24abc | 139ab |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ ete   | Atweah     Syei       Steawrou   Siar       Draiskai | 47bce | 36abd |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ aju   | Rubyea     Rhuadool   Ba         Ryoo       Mnejeigh | 467ae | 3569d |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ eze   | Graumyir   Traumei    Trealee    Kloiby     Reisnoi  | 179bd | 068ac |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ uhe   | Stookz     Zoihoaz    Cyootze    Skooph     Brei     | 156ae | 0459d |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ isi   | Cliarst    Tzai       Thuaphia   Ophautz    Klaczi   | 2789c | 1678b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ fur   | Ja         Sporr      Khiagroi   Iasmu      Chuz     | 02469 | 01358 |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ edi   | Gwegwia    Iaghoatt   Seess      Kheevuar   Myautt   | 356ac | 2459b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ ome   | Ru         Cri        Cyosc      Me         Blee     | 189ab | 0789a |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ ror   | Rheejwas   Ouphi      Droi       Krea       Looch    | 356ab | 2459a |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ lot   | Moatz      Drott      Mnispu     Secwaud    Gwoiryua | 58abd | 479ac |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ usy   | Kleumyia   Krai       Ste        Douty      Crung    | 239ad | 1289c |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ uja   | Egwoss     Sceista    Iasmaiw    Iaswoaw    Nodya    | 069ae | 0589d |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ eby   | Czowo      Gailch     Sou        Twaukye    Gwourau  | 136ae | 0259d |
+-------+----------+----------+----------+----------+----------+-------+-------+

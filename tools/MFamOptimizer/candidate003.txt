@@ -1,0 +1,120 @@
+Report for config result003, error 150.3632
+Family count: 24
+Group count: 9
+Tier count: 5
+Size distribution:
+  1-member group x1
+  2-member group x4
+  3-member group x2
+  4-member group x1
+  5-member group x1
+
+Transformation power gains breakdown: 
++2: 0.034%
++1: 0.2958%
++0: 0.2966%
+-1: 0.1923%
+-2: 0.0959%
+-3: 0.0437%
+-4: 0.0359%
+-5: 0.0059%
+Average: -0.325 (deviation: 1.42)
+Biggest jump: gib/Fwoo(0,0) eats ceh/Eetee(1,0) to ufe/Eerst(2,1) (+2)
+
+The average group is transformed to 7.625 times (deviation 1.379, min cek with 4)
+By-tier breakdown:
+  Tier 0: targeted average 6.6667 times (deviation 0.7454)
+  Tier 1: targeted average 8.4 times (deviation 0.4899)
+  Tier 2: targeted average 8.5 times (deviation 0.7071)
+  Tier 3: targeted average 8 times (deviation 0.8165)
+  Tier 4: targeted average 4.5 times (deviation 0.5)
+Unreachable members: [Flody(2,1)]
+
+Tier 0: gib, ofo, vib, bik, nad, tyv
+Tier 1: von, ceh, ulo, man, oni
+Tier 2: ize, ufe, uvi, tel, yci, myn, ipo, cud
+Tier 3: igu, omi, ubu
+Tier 4: cek, ofo
+
+       |     |     |     |     |     | tyv |     |     |     |
+       |     |     |     |     |     | oni |     |     | ofo |
+       |     |     |     | ufe |     | ubu | nad |     | ipo |
+       | man | cud |     | gib | tel | myn | cek | bik | ulo |
+       | von | igu | ize | omi | uvi | yci | ofo | vib | ceh |
+-------+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+ von   |     | ubu | ize | ofo | ulo | oni | von | man | igu |
+ man   |     | tyv | oni | ceh | tyv | yci | gib | uvi | vib |
+ igu   | bik |     | myn | cud | cek | yci | nad | ize | man |
+ cud   | bik |     | myn | ceh | myn | ofo | omi | myn | yci |
+ ize   | ufe | igu |     | ofo | oni | tel | man | cek | ubu |
+ omi   | cud | yci | tel |     | myn | tel | man | man | von |
+ gib   | tyv | ufe | vib |     | vib | ufe | tyv | von | ufe |
+ ufe   | igu | igu | ubu |     | von | cek | ulo | ceh | ceh |
+ uvi   | cud | myn | vib | oni |     | ofo | man | ofo | tel |
+ tel   | von | ufe | ubu | nad |     | ofo | von | ofo | ize |
+ yci   | ulo | cud | cud | omi | ofo |     | cek | gib | ulo |
+ myn   | igu | oni | gib | tyv | ceh |     | myn | ufe | tyv |
+ ubu   | bik | ofo | von | igu | ize |     | ipo | ulo | nad |
+ oni   | oni | ipo | bik | ubu | von |     | man | yci | oni |
+ tyv   | ipo | vib | nad | ipo | uvi |     | tyv | man | tel |
+ ofo   | bik | igu | uvi | tyv | oni | ulo |     | ulo | bik |
+ cek   | ubu | ufe | ipo | yci | ofo | uvi |     | nad | ufe |
+ nad   | oni | ize | tel | ipo | cud | yci |     | vib | von |
+ vib   | ize | ceh | ubu | gib | uvi | ofo | uvi |     | ulo |
+ bik   | bik | nad | tyv | bik | omi | ufe | nad |     | myn |
+ ceh   | cud | omi | uvi | tel | oni | ipo | gib | gib |     |
+ ulo   | myn | cud | man | yci | omi | ize | myn | ulo |     |
+ ipo   | igu | ceh | omi | cud | ize | yci | ubu | ceh |     |
+ ofo   | uvi | ipo | ize | ubu | ofo | omi | von | ofo |     |
+-------+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+
+Family:  Members:                                               Meat:  Target:
+-------+----------+----------+----------+----------+----------+-------+-------+
+ von   | Vai        Nehoosk    Turhiakz   Dro        Gwasc    | 1239c | 0128b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ man   | Loicheax   Sve        Ealth      Sidrei     Faby     | 168ad | 0579c |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ igu   | Kria       Staise     Eitzi      Lacwauff   Czo      | 3479a | 23689 |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ cud   | Bitoang    Kreapyia   Rhaght     Aifwea     Czaur    | 289de | 178cd |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ ize   | Pausai     Byai       Twau       Kroo       Eethoa   | 248bd | 147ac |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ omi   | Kliath     Byee       Rianth     Moalth     Moost    | 346ae | 2359d |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ gib   | Fwoo       Spuabyou   Chou       Dreajoi    Plouspei | 02a4d | 0193c |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ ufe   | Eerst      Noi        Goisk      Wooleu     Gwo      | 246be | 135ad |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ uvi   | Veutwa     Fwaimneu   Grei       Smea       Mou      | 279bd | 168ac |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ tel   | Tootoorr   Broomb     Trea       Dja        Euree    | 235ae | 1349d |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ yci   | Cya        Sceuprai   Eekkoi     Croucwoi   Groi     | 2368e | 1257d |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ myn   | Crauss     Cloashoo   Fweuta     Eiwhia     Gwea     | 2abc8 | 19ab7 |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ ubu   | Kli        Greamnea   Seerirth   Opwua      Bleecluc | 367ab | 2569a |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ oni   | Svau       Gwoipreu   Pli        Meat       Neigop   | 138be | 027ad |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ tyv   | Wroagrou   Phaikh     Twau       Gweuxour   Smuaghua | 059ad | 0489c |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ ofo   | Yookkuad   Sloo       Eirch      Mniaxeum   Len      | 025ce | 014bd |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ cek   | Veumi      Ought      Ruast      Khau       Whofra   | 4589b | 3478a |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ nad   | Myeuviar   Flody      Teamnei    Go         Lusk     | 023ad | 0129c |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ vib   | Zorre      Shuazy     Oospu      Bro        Okhiby   | 045be | 034ad |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ bik   | Tweu       Eukyei     Khei       Smea       Cyai     | 0679d | 0568c |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ ceh   | Eetee      Byoa       Floa       Rhai       Kneileis | 1259d | 0248c |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ ulo   | Dre        Ko         Plea       Pleuw      Clea     | 1467e | 0356d |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ ipo   | Knoiweaw   Veeghau    Cwau       Earst      Wraifan  | 239ad | 1289c |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ ofo   | Livy       Vaskou     Uakyo      Cyuku      Maurr    | 4679c | 3568b |
+-------+----------+----------+----------+----------+----------+-------+-------+

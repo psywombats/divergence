@@ -1,0 +1,121 @@
+Report for config FFL:
+Family count: 25
+Group count: 11
+Tier count: 6
+Size distribution:
+  1-member group x2
+  2-member group x4
+  3-member group x5
+
+Transformation power gains breakdown: 
++2: 0.0251%
++1: 0.2863%
++0: 0.3973%
+-1: 0.208%
+-2: 0.0408%
+-3: 0.0224%
+-4: 0.0152%
+-5: 0.0042%
+-6: 0.0008%
+Average: -0.107 (deviation: 1.151)
+Biggest jump: ins/clipper(0,0) eats tgr/wolf(1,0) to inm/drgonfly(2,1) (+2)
+
+The average group is transformed to 9.583 times (deviation 2.139, min gol with 4)
+By-tier breakdown:
+  Tier 0: targeted average 10.8889 times (deviation 0.5666)
+  Tier 1: targeted average 10.5 times (deviation 0.7638)
+  Tier 2: targeted average 10 times (deviation 1)
+  Tier 3: targeted average 8 times (deviation 1.7889)
+  Tier 4: targeted average 4.5 times (deviation 0.5)
+Unreachable members: [shrimp(3,2), barracud(1,0), medusa(4,3), cactus(3,2), dragon 1(6,5), dragon 2(7,6), dragon 3(9,8), dragon 4(11,10), dragon 5(13,12)]
+
+Tier 0: ins, inm, skl, zom, wfm, oni, liz, rhi, brd
+Tier 1: fsh, slm, snk, wrm, gst, tgr
+Tier 2: bdm, dvl
+Tier 3: crb, eye, plt, oct, chi
+Tier 4: snw, gol
+Tier 6: dgn
+
+       | inm |     |     | snw | zom |     | oni |     |     |     | brd |
+       | crb |     | slm | wrm | skl | dvl | wfm | rhi | oct |     | dgn |
+       | ins | fsh | eye | snk | gst | bdm | tgr | liz | plt | gol | chi |
+-------+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+ ins   |     |     | brd | snk | skl | wrm | inm | liz | slm | eye | rhi |
+ crb   |     | bdm | oct | dvl | tgr | skl | rhi | wrm | inm |     | eye |
+ inm   |     | oni |     | slm | wfm | rhi | zom | ins | bdm | dvl | brd |
+ fsh   | inm |     | tgr | liz | wrm | bdm | oni | rhi | oct | skl |     |
+ eye   | dvl | oct |     |     | bdm | wfm | fsh | snk | zom | wrm | plt |
+ slm   | brd | ins |     | fsh | gst | snk |     | zom | wrm | plt | ins |
+ snk   | rhi | liz |     |     | slm | zom | wrm | fsh | wfm | gol | gst |
+ wrm   | snk | fsh | inm |     | fsh | oni | ins | slm | zom | oct | tgr |
+ snw   | oct | dvl | crb |     | plt | gol | chi | eye | skl |     | gol |
+ gst   | skl | wfm | oni | ins |     | brd | slm | inm | rhi | liz | zom |
+ skl   |     | inm | zom | wfm |     | ins | brd | oni | snk | crb | liz |
+ zom   | oni | wrm | liz | inm |     | slm | gst | skl | fsh | tgr | wfm |
+ bdm   | slm | brd | wrm | zom | snk |     | tgr | dvl |     | inm | fsh |
+ dvl   | dvl | zom | snk | skl | ins |     | bdm | gst |     | brd | wrm |
+ tgr   | fsh |     | slm | gst | zom | liz |     | wfm | brd | oni | snk |
+ wfm   | zom | skl | gst | oni | rhi | tgr |     |     | liz | wrm | inm |
+ oni   | gst |     | wfm | rhi | liz | dvl |     | brd | eye | snw | skl |
+ liz   | wfm | rhi | ins | tgr | brd |     | skl |     | crb | chi | oni |
+ rhi   | liz | tgr | skl | brd | inm |     | wfm |     | oni | snk | slm |
+ plt   | eye | gst | bdm | crb | dvl | fsh | oct | crb |     | ins | chi |
+ oct   | wrm | slm | fsh | eye | crb | inm | dvl | tgr |     | zom | bdm |
+ gol   | chi | plt | eye | bdm |     | snw | crb | snw | gst |     | oct |
+ chi   | plt | crb | oct | oct | eye | plt | snk | bdm | tgr |     |     |
+ dgn   | bdm | eye | snw | gol | chi | crb | plt | oct | snw | rhi |     |
+ brd   | ins | snk | rhi | wrm | oni | gst | liz |     | dvl | bdm |     |
+-------+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+
+Family:  Members:                                               Meat:  Target:
+-------+----------+----------+----------+----------+----------+-------+-------+
+ ins   | clipper    beetle     ant lion   atom ant   scorpion | 0678c | 0578b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ crb   | shrimp     atomcrab   crab       ice crab   kingcrab | 3478c | 2368b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ inm   | fly        drgonfly   hornet     mosquito   cicada   | 0245c | 0135b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ fsh   | barracud   pirahna    shark      gunfish    elec eel | 1258c | 0147b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ eye   | big eye    gazer      seeker     watcher    evil eye | 368bd | 257ac |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ slm   | slime      jelly      tororo     gummy      pudding  | 179bc | 068ab |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ snk   | snake      serpent    anaconda   hydra      ko-run   | 1469c | 0358b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ wrm   | worm       p-worm     crawler    lavaworm   sandworm | 1679c | 0578b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ snw   | medusa     siren      lamia      naga       scylla   | 45abd | 349bc |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ gst   | o-bake     phantom    buruburu   wraith     spector  | 128bd | 017ac |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ skl   | skeleton   red bone   dokuro     warrior    boneking | 039bd | 028ac |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ zom   | zombie     ghoul      mou-jya    wight      ghast    | 028bd | 017ac |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ bdm   | condor     raven      harpy      ten-gu     garuda   | 2469c | 1358b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ dvl   | gargoyle   imp        demon      demolord   demoking | 26abd | 159bc |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ tgr   | wolf       jaguar     sabercat   snowcat    blackcat | 1369c | 0258b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ wfm   | wererat    werewolf   catwoman   minotaur   rakshasa | 035ac | 0249b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ oni   | goblin     oni        ogre       giant      titan    | 017ad | 0169c |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ liz   | lizard     p-frog     gecko      dinosaur   salamand | 012ac | 0129b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ rhi   | redbull    rhino      triceras   behemoth   baku     | 0379c | 0268b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ plt   | cactus     p-flower   garlic     thorn      f-flower | 3468c | 2357b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ oct   | octopus    clam       amoeba     ammonite   squid    | 3579c | 2468b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ gol   | woodman    clayman    stoneman   ironman    fireman  | 478bd | 368ac |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ chi   | griffin    mantcore   chimera    nue        sphinx   | 358ad | 2479c |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ dgn   | dragon 1   dragon 2   dragon 3   dragon 4   dragon 5 | 679bd | 568ac |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ brd   | albatros   eagle      thunder    cocatris   rock     | 059bd | 048ac |
+-------+----------+----------+----------+----------+----------+-------+-------+

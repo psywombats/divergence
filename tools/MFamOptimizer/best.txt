@@ -1,0 +1,123 @@
+Report for config result001, error 26.787167
+Family count: 25
+Group count: 10
+Tier count: 6
+Size distribution:
+  1-member group x1
+  2-member group x5
+  3-member group x2
+  4-member group x2
+
+Transformation power gains breakdown: 
++2: 0.0357%
++1: 0.2669%
++0: 0.305%
+-1: 0.1891%
+-2: 0.1397%
+-3: 0.0498%
+-4: 0.0105%
+-5: 0.0033%
+Average: -0.338 (deviation: 1.32)
+Biggest jump: uge/Zasha(0,0) eats eze/Scich(0,0) to ucy/Pyau(2,1) (+2)
+
+The average group is transformed to 8.52 times (deviation 1.723, min tep with 4)
+By-tier breakdown:
+  Tier 0: targeted average 9.5 times (deviation 0.5)
+  Tier 1: targeted average 9.4 times (deviation 0.4899)
+  Tier 2: targeted average 8.5 times (deviation 0.5)
+  Tier 3: targeted average 8 times (deviation 0.8165)
+  Tier 4: targeted average 4.5 times (deviation 0.5)
+  Tier 5: targeted average 4 times (deviation 0)
+Unreachable members: []
+
+Tier 0: uge, owo, iti, mil, zav, eze, hid, bel, siv, ryl
+Tier 1: rop, her, ohu, wab, uva
+Tier 2: ara, wyp, jom, ucy
+Tier 3: aky, wel, awe
+Tier 4: rew, ize
+Tier 5: tep
+
+       |     |     |     |     | ucy |     | ryl |     |     |     |
+       |     |     |     | siv | hid |     | wyp |     |     | uva |
+       |     | iti | ara | aky | rop | ize | ohu | wab | tep | bel |
+       | uge | owo | mil | zav | eze | rew | her | wel | awe | jom |
+-------+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+ uge   |     | mil | zav | rop | ucy | iti | ohu | uge | aky | mil |
+ owo   | bel |     | ryl | iti | bel | owo | ryl | siv | iti | wyp |
+ iti   | her |     | uge | ucy | owo | rew | uge | ohu | eze | owo |
+ mil   | ara | ryl |     | zav | siv | tep | hid | uge | her | ara |
+ ara   | awe | ryl |     | wab | owo | uge | eze | jom | ucy | uge |
+ zav   | bel | eze | rop |     | hid | jom | uva | ara | siv | hid |
+ aky   | ohu | wab | mil |     | tep | ohu | awe | wab | awe | hid |
+ siv   | wyp | rop | ryl |     | uva | rop | rop | ohu | uge | uva |
+ eze   | zav | bel | ryl | uge |     | uva | wab | bel | jom | wab |
+ rop   | ara | wel | wyp | hid |     | her | ara | jom | siv | eze |
+ hid   | hid | uge | ucy | ryl |     | mil | uva | jom | rew | siv |
+ ucy   | ize | uva | aky | her |     | iti | zav | aky | ara | iti |
+ rew   | her | bel | eze | bel | mil |     | uva | wyp | bel | wab |
+ ize   | ohu | hid | owo | wel | ohu |     | hid | rop | zav | awe |
+ her   | her | bel | zav | bel | wel | rop |     | ucy | zav | ucy |
+ ohu   | wyp | rop | wel | wel | uva | tep |     | siv | siv | iti |
+ wyp   | owo | ucy | aky | ucy | awe | hid |     | awe | ryl | her |
+ ryl   | ryl | mil |     | jom | mil | rew |     | eze | aky | ara |
+ wel   | owo | iti | wyp | aky | wel | aky | her |     | ize | zav |
+ wab   | uge | her | awe | awe | mil | wab | eze |     | mil | siv |
+ awe   | rew | ize | tep | aky | ryl | rop | eze | awe |     | ara |
+ tep   | awe | tep | iti | mil | zav | wab | ara | eze |     | rop |
+ jom   | owo | ize | wyp | her | uge | siv | jom | owo | rew |     |
+ bel   | ucy | ohu | zav | jom | jom | wel | uva | owo | wab |     |
+ uva   | ohu | ohu | iti | wab | wel | hid | wyp | uva | eze |     |
+-------+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+
+Family:  Members:                                               Meat:  Target:
+-------+----------+----------+----------+----------+----------+-------+-------+
+ uge   | Zasha      Krelth     Growee     Steess     Spav     | 0679e | 0568d |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ owo   | Phougheu   Cyea       Stee       Ryeemyia   Teetz    | 0378c | 0267b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ iti   | Shiacri    Snoado     Spiawhia   Iswau      Jatraumy | 059be | 048ad |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ mil   | Iaknei     Sheu       Truad      Djoilli    Oulch    | 0669e | 0568d |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ ara   | Kleascea   Smanuasc   Eukoi      Ouweu      Dwuajwa  | 147be | 136ad |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ zav   | Pweajwo    Rhejoilc   Pwi        Kroi       Eekheu   | 039ab | 0289a |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ aky   | Ju         Wroog      Phoittau   Uascoi     Sloutza  | 369c4 | 258b3 |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ siv   | Khigth     Frua       Cleikwoi   Scax       Prauswa  | 0267c | 0156b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ eze   | Scich      Svou       Swu        Flewria    Eiproi   | 047ac | 0369b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ rop   | Ge         Auscau     Twoaplo    Stou       Sloi     | 1369e | 0259d |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ hid   | Meaz       Iflauzy    Faix       Gwauze     Heass    | 0289e | 0178d |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ ucy   | Pyau       Eiplee     Syeu       Xoirhi     Fiag     | 26ade | 159cd |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ rew   | Krenoi     Eefrea     Cwo        Piz        Whouphoa | 47bce | 36abd |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ ize   | Slislauc   Croow      Bria       Soo        Mneimiah | 467ae | 3569d |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ her   | Pleedwo    Syiglou    Kneinais   Oicwai     Eipwes   | 179bd | 068ac |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ ohu   | Sto        Stihoush   Wrukz      Eujwua     Scia     | 156ae | 0459d |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ wyp   | Jai        Dwiarhoa   Ra         Freu       Vumouty  | 2789c | 1678b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ ryl   | Brai       Foa        Steutwau   Tegwu      Khoplea  | 058be | 047ad |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ wel   | Cliarth    Gwia       Adroink    Rua        Koi      | 356ac | 2459b |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ wab   | Myouzy     Heuzy      Frokhoil   Skoi       Cyei     | 189ab | 0789a |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ awe   | Okyirch    Rhoasc     Tzotha     Gaus       Cwia     | 356ab | 2459a |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ tep   | Kalloock   Wrau       Whoi       Twoaflua   Twoogloa | 58abd | 479ac |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ jom   | Uaknirst   Bea        Pei        Leubroz    Pwasteag | 239ad | 1289c |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ bel   | Kau        Phoost     Myeu       Floukho    Prialth  | 069ae | 0589d |
+-------+----------+----------+----------+----------+----------+-------+-------+
+ uva   | Aiyakz     Krei       Oabyoavy   Phai       Woissee  | 136ae | 0259d |
+-------+----------+----------+----------+----------+----------+-------+-------+

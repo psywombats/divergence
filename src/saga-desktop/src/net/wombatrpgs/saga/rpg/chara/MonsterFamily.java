@@ -96,17 +96,14 @@ public class MonsterFamily {
 		
 		// Find the best power level fit for their meat power
 		int power = dropper.getEatLevel();
+		if (eater.getEatLevel() > power) power = eater.getEatLevel();
 		MonsterFamily resultFamily = get(link.result);
 		List<CharaMDO> charas = MGlobal.data.getAll(CharaMDO.class);
 		CharaMDO best = null;
 		int bestPower = -1;
 		for (CharaMDO charaMDO : charas) {
 			if (!resultFamily.mdo.key.equals(charaMDO.family)) continue;
-			if (charaMDO.meatTargetLevel > power + 2) continue;
-			if (charaMDO.meatTargetLevel == power + 1) {
-				best = charaMDO;
-				bestPower = power + 1;
-			}
+			if (charaMDO.meatTargetLevel > power) continue;
 			if (charaMDO.meatTargetLevel > bestPower) {
 				best = charaMDO;
 				bestPower = charaMDO.meatTargetLevel;

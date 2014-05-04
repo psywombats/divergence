@@ -115,6 +115,9 @@ public class Chara extends AssetQueuer implements Disposable {
 	
 	/** @return The power of this character's meat */
 	public int getEatLevel() { return mdo.meatEatLevel; }
+	
+	/** @return The power of meat needed for this character */
+	public int getTargetLevel() { return mdo.meatTargetLevel; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()

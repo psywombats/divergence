@@ -1,0 +1,32 @@
+		// create group distribution
+		Map<Integer, Integer> dist;
+		if (rand.nextFloat() > .05) {
+			dist = new HashMap<Integer, Integer>();
+			for (Group grp : p2.groups) {
+				Integer existing = dist.get(grp.families.size());
+				if (existing == null) existing = 0;
+				existing += 1;
+				dist.put(grp.families.size(), existing);
+			}
+			// mutation can create a new group
+			if (rand.nextFloat() > .9) {
+				List<Integer> sizes = new ArrayList<Integer>();
+				sizes.addAll(dist.keySet());
+				Collections.shuffle(sizes);
+				for (Integer size : sizes) {
+					if (size > 1) {
+						Integer existing = dist.get(size - 1);
+						if (existing == null) existing = 0;
+						dist.put(size - 1, existing);
+						dist.put(size, dist.get(size) - 1);
+					}
+				}
+			}
+		} else {
+			// mutation can use original groups
+			dist = p2.target.sizeDistribution;
+		}
+		
+		List<Group> newGroups = new ArrayList<Group>();
+		int addIndex = 0;
+		for (Fa)
