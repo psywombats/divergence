@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
@@ -28,6 +29,14 @@ public abstract class CharaInsert extends ScreenGraphic {
 	protected TextboxFormat format;
 	protected Chara chara;
 	
+	protected float spriteX, spriteY;
+	
+	protected boolean tracking;
+	protected FinishListener finishListener;
+	protected float origX, origY;
+	protected float targetX, targetY;
+	protected float moveTime, since;
+	
 	/**
 	 * Creates a new insert for a character.
 	 * @param	chara			The character to link to
@@ -41,6 +50,12 @@ public abstract class CharaInsert extends ScreenGraphic {
 	
 	/** @return The character associated with this insert */
 	public Chara getChara() { return chara; }
+	
+	/** @return The x-coord the sprite is rendered at (in scr px) */
+	public float getSpriteX() { return spriteX; }
+	
+	/** @return The y-coord the sprite is rendered at (in scr px) */
+	public float getSpriteY() { return spriteY; }
 	
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#setX(float)
@@ -70,6 +85,22 @@ public abstract class CharaInsert extends ScreenGraphic {
 			chara.getAppearance().startMoving();
 		}
 		chara.getAppearance().update(elapsed);
+		
+		if (tracking) {
+			since += elapsed;
+			if (since < moveTime) {
+				float r = since / moveTime;
+				spriteX = targetX * r + (1f - r) * origX;
+				spriteY = targetY * r + (1f - r) * origY;
+			} else {
+				spriteX = targetX;
+				spriteY = targetY;
+				tracking = false;
+				if (finishListener != null) {
+					finishListener.onFinish();
+				}
+			}
+		}
 	}
 	
 	/**
@@ -79,9 +110,7 @@ public abstract class CharaInsert extends ScreenGraphic {
 	@Override
 	public final void coreRender(SpriteBatch batch) {
 		FacesAnimation sprite = chara.getAppearance();
-		float renderX = x + PADDING;
-		float renderY = y + getHeight()/2 - sprite.getHeight()/2;
-		sprite.renderAt(batch, renderX, renderY);
+		sprite.renderAt(batch, spriteX, spriteY);
 		renderInserts(batch);
 	}
 
@@ -96,7 +125,28 @@ public abstract class CharaInsert extends ScreenGraphic {
 			chara.getAppearance().setFacing(OrthoDir.NORTH);
 			chara.getAppearance().stopMoving();
 		}
+		spriteX = x + PADDING;
+		spriteY = y + getHeight()/2 - chara.getAppearance().getHeight()/2;
 		coreRefresh();
+	}
+	
+	/**
+	 * Animates the sprite of this character moving to given screen location.
+	 * @param	x				The x-coord to move the sprite to (in screen px)
+	 * @param	y				The y-coord to move the sprite to (in screen px)
+	 * @param	time			How long the transition should take (in s)
+	 * @param	onFinish		The listener to call when done, or null
+	 */
+	public void moveSprite(float x, float y, float time, FinishListener onFinish) {
+		this.targetX = x;
+		this.targetY = y;
+		this.moveTime = time;
+		this.finishListener = onFinish;
+		
+		tracking = true;
+		since = 0;
+		origX = spriteX;
+		origY = spriteY;
 	}
 	
 	/**

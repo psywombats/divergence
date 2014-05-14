@@ -7,12 +7,14 @@
 package net.wombatrpgs.saga.ui;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
@@ -28,22 +30,25 @@ import net.wombatrpgs.saga.rpg.chara.Party;
  * Instead of selecting options, it selects characters. This should only really
  * work on the hero party, so it takes it by default.
  */
-public class CharaSelector extends ScreenGraphic implements CommandListener {
+public class CharaSelector extends ScreenGraphic implements	CommandListener {
 	
 	protected Screen parent;
 	protected Party party;
 	
-	// layout
-	protected static final int INSERTS_MARGIN = 5;
+	protected static final int INSERTS_MARGIN = 7;
+	protected static final int INDENT_SIZE = 4;
 	protected static final int DEFAULT_COLUMNS = 2;
 	protected static final int DEFAULT_ROWS = 3;
+	protected static final int DEFAULT_CURSOR_SPACE = -3;
+	protected static final float SWAP_VELOCITY = 60f; // in scrpx/s
 	
 	// inserts
 	protected int cols, rows;
-	protected float paddingFudge;
+	protected float padX, padY;
 	protected boolean fullMode, combatMode, showBG;
 	protected int insertsWidth, insertsHeight;
-	protected List<CharaInsert> inserts;
+	protected Collection<CharaInsert> allInserts;
+	protected List<CharaInsert> orderedInserts;
 	protected Nineslice bg;
 	
 	// cursor
@@ -52,24 +57,29 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	protected int selectedX, selectedY;
 	protected int indentX, indentY;
 	protected float cursorX, cursorY;
+	protected float cursorSpace;
 	protected SelectionListener onSelect, onHover;
 	
 	/**
 	 * Creates a new character selector with a custom party.
-	 * @param	fullMode		True to use large version
-	 * @param	combatMode		True to use combat status and not race etc
+	 * @param	full			True to use large version
+	 * @param	comb			True to use combat status and not race etc
 	 * @param	showBG			True to use the automatic nineslice bg
-	 * @param	padding			The horizontal floating fudge... ugly
+	 * @param	padX			The horizontal floating fudge
+	 * @param	padY			The vertical floating fudge
+	 * @param	cursorSpace		The pixels between charas and the cursor
 	 * @param	cols			The number of columns of inserts
 	 * @param	rows			The number of rows of inserts
 	 */
-	public CharaSelector(Party party, boolean fullMode, boolean combatMode,
-			boolean showBG, float padding, int cols, int rows) {
+	public CharaSelector(Party party, boolean full, boolean comb, boolean bgOn,
+			float padX, float padY, float cursorSpace, int cols, int rows) {
 		this.party = party;
-		this.fullMode = fullMode;
-		this.combatMode = combatMode;
-		this.showBG = showBG;
-		this.paddingFudge = padding;
+		this.fullMode = full;
+		this.combatMode = comb;
+		this.showBG = bgOn;
+		this.padX = padX;
+		this.padY = padY;
+		this.cursorSpace = cursorSpace;
 		this.cols = cols;
 		this.rows = rows;
 		insertsWidth = getInsertWidth();
@@ -78,7 +88,8 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 		insertsHeight *= rows;
 		insertsWidth += 2 * INSERTS_MARGIN;
 		insertsHeight += 2 * (INSERTS_MARGIN+2);
-		insertsWidth += padding * (cols-1);
+		insertsWidth += padX * (cols-1);
+		insertsHeight += padY * (rows-1);
 		
 		bg = new Nineslice();
 		assets.add(bg);
@@ -94,8 +105,8 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	 */
 	public CharaSelector(Party party, boolean fullMode, boolean combatMode,
 			boolean showBG, float padding) {
-		this(party, fullMode, combatMode, showBG, padding,
-				DEFAULT_COLUMNS, DEFAULT_ROWS);
+		this(party, fullMode, combatMode, showBG, padding, DEFAULT_CURSOR_SPACE,
+				0, DEFAULT_COLUMNS, DEFAULT_ROWS);
 	}
 	
 	/**
@@ -107,14 +118,14 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	 * @param	rows			The number of rows of inserts
 	 */
 	public CharaSelector(boolean full, boolean combat, int cols, int rows) {
-		this(SGlobal.heroes, full, combat, true, 0, cols, rows);
+		this(SGlobal.heroes, full, combat, true, 0, 0, DEFAULT_CURSOR_SPACE,
+				cols, rows);
 	}
 	
 	/**
 	 * Creates a new character selector for the hero party, showing bg, no pad.
 	 * @param	fullMode		True to use large version
 	 * @param	combatMode		True to use combat status and not race etc
-	 * @param	showBG			True to show the nineslice bg default
 	 */
 	public CharaSelector(boolean fullMode, boolean combatMode) {
 		this(fullMode, combatMode, DEFAULT_COLUMNS, DEFAULT_ROWS);
@@ -137,7 +148,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	 */
 	@Override
 	public void setX(float x) {
-		for (CharaInsert insert : inserts) {
+		for (CharaInsert insert : allInserts) {
 			insert.setX(insert.getX() + x - this.x);
 		}
 		super.setX(x);
@@ -148,7 +159,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	 */
 	@Override
 	public void setY(float y) {
-		for (CharaInsert insert : inserts) {
+		for (CharaInsert insert : allInserts) {
 			insert.setY(insert.getY() + y - this.y);
 		}
 		super.setY(y);
@@ -160,7 +171,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
-		for (CharaInsert insert : inserts) {
+		for (CharaInsert insert : allInserts) {
 			insert.update(elapsed);
 		}
 	}
@@ -176,7 +187,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 			createDisplay();
 			bg.resizeTo(insertsWidth, insertsHeight);
 		}
-		for (CharaInsert insert : inserts) {
+		for (CharaInsert insert : allInserts) {
 			insert.postProcessing(manager, pass);
 		}
 	}
@@ -207,19 +218,14 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 		if (showBG) {
 			bg.renderAt(batch, x, y);
 		}
-		for (CharaInsert insert : inserts) {
+		for (CharaInsert insert : orderedInserts) {
 			insert.render(batch);
 		}
+		if (indentOn) {
+			renderCursor(batch, indentX, indentY, INDENT_SIZE);
+		}
 		if (cursorOn) {
-			Graphic cursor = MGlobal.ui.getCursor();
-			cursorX = x;
-			cursorY = y + insertsHeight;
-			cursorX += (getInsertWidth() + paddingFudge) * selectedX;
-			cursorY -= getInsertHeight() * selectedY;
-			cursorY -= inserts.get(0).getHeight() * 3 / 2;
-			cursorY += (getInsertHeight() - cursor.getHeight()) / 2;
-			cursorX -= (cursor.getWidth() / 2 - 3);
-			MGlobal.ui.getCursor().renderAt(batch, cursorX, cursorY);
+			renderCursor(batch, selectedX, selectedY, 0);
 		}
 	}
 	
@@ -233,7 +239,6 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 		this.cancellable = canCancel;
 		focus();
 		cursorOn = true;
-		indentOn = false;
 		selectedX = 0;
 		selectedY = 0;
 		updateCursor();
@@ -243,7 +248,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	 * Updates the inserts to reflect health, status, etc.
 	 */
 	public void refresh() {
-		for (CharaInsert insert : inserts) {
+		for (CharaInsert insert : allInserts) {
 			insert.refresh();
 		}
 	}
@@ -251,8 +256,17 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	/**
 	 * Marks the selected cursor position by indenting a copy of the cursor.
 	 */
-	public void setIndent(int selected) {
-		
+	public void setIndent() {
+		indentOn = true;
+		indentX = selectedX;
+		indentY = selectedY;
+	}
+	
+	/**
+	 * Removes indent information.
+	 */
+	public void clearIndent() {
+		indentOn = false;
 	}
 	
 	/**
@@ -263,6 +277,62 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 		selectedX = selected % cols;
 		selectedY = (int) Math.floor((float) selected / (float) cols);
 		updateCursor();
+	}
+	
+	/**
+	 * Manually moves the cursor to be over a certain character.
+	 * @param	chara			The chara to select
+	 */
+	public void setSelected(Chara chara) {
+		setSelected(charaToIndex(chara));
+	}
+	
+	/**
+	 * Animates the sprites from two inserts swapping places. For use with the
+	 * party order selector screen. Performs both animation and order swap in
+	 * the inserts, but not the swap within the party.
+	 * @param	chara1			The index of the first character to move
+	 * @param	chara2			The index of the second character to move
+	 * @param	onFinish		The listener to call when done (or null)
+	 */
+	public void swap(final Chara chara1, final Chara chara2, final FinishListener onFinish) {
+		final CharaInsert insert1 = charaToInsert(chara1);
+		final CharaInsert insert2 = charaToInsert(chara2);
+		float x1 = insert1.getSpriteX();
+		float y1 = insert1.getSpriteY();
+		float x2 = insert2.getSpriteX();
+		float y2 = insert2.getSpriteY();
+		float t = Math.abs((y1 - y2) / SWAP_VELOCITY);
+		insert1.moveSprite(x2, y2, t, null);
+		insert2.moveSprite(x1, y1, t, new FinishListener() {
+			@Override public void onFinish() {
+				CharaInsert firstInsert, secondInsert;
+				int index1 = charaToIndex(chara1);
+				int index2 = charaToIndex(chara2);
+				if (index2 > index1) {
+					firstInsert = insert1;
+					secondInsert = insert2;
+				} else {
+					firstInsert = insert2;
+					secondInsert = insert1;
+					index1 = charaToIndex(chara2);
+					index2 = charaToIndex(chara1);
+				}
+				orderedInserts.remove(insert1);
+				orderedInserts.remove(insert2);
+				orderedInserts.add(index1, secondInsert);
+				orderedInserts.add(index2, firstInsert);
+				float tempX = insert1.getX();
+				float tempY = insert1.getY();
+				insert1.setX(insert2.getX());
+				insert1.setY(insert2.getY());
+				insert2.setX(tempX);
+				insert2.setY(tempY);
+				if (onFinish != null) {
+					onFinish.onFinish();
+				}
+			}
+		});
 	}
 	
 	/**
@@ -288,18 +358,20 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	 * Sets up the inserts. Called from the constructor?
 	 */
 	protected void createDisplay() {
-		if (inserts == null) {
-			inserts = new ArrayList<CharaInsert>();
+		if (allInserts == null) {
+			orderedInserts = new ArrayList<CharaInsert>();
+			allInserts = new ArrayList<CharaInsert>();
 		} else {
-			for (CharaInsert insert : inserts) {
+			for (CharaInsert insert : allInserts) {
 				assets.remove(insert);
 			}
-			inserts.clear();
+			orderedInserts.clear();
+			allInserts.clear();
 		}
 		
-		float insertX = x + INSERTS_MARGIN;
-		float insertY = y + insertsHeight - INSERTS_MARGIN*3/2 - getInsertHeight();
-		boolean left = true;
+		float baseX = x + INSERTS_MARGIN;
+		float baseY = y + insertsHeight - INSERTS_MARGIN*3/2 - getInsertHeight();
+		int col = 0;
 		for (Chara hero : party.getAll()) {
 			CharaInsert insert;
 			if (fullMode) {
@@ -307,18 +379,19 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 			} else {
 				insert = new CharaInsertSmall(hero);
 			}
+			float insertX = baseX + (insert.getWidth() + padX) * col;
+			float insertY = baseY;
 			insert.setX(insertX);
 			insert.setY(insertY);
-			if (left) {
-				insertX += (insert.getWidth() + paddingFudge);
-			} else {
-				insertX -= (insert.getWidth() + paddingFudge);
-				insertY -= insert.getHeight();
+			col += 1;
+			if (col >= cols) {
+				col = 0;
+				baseY -= (insert.getHeight() + padY);
 			}
-			left = !left;
-			inserts.add(insert);
+			orderedInserts.add(insert);
 			assets.add(insert);
 		}
+		allInserts.addAll(orderedInserts);
 	}
 	
 	/**
@@ -337,12 +410,12 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	protected void moveCursorVert(int delta) {
 		selectedY += delta;
 		if (selectedY < 0) {
-			selectedY = (int) Math.floor(inserts.size() / cols);
+			selectedY = (int) Math.floor(allInserts.size() / cols);
 		}
 		if (selectedY >= rows) {
 			selectedY = 0;
 		}
-		while (selectedX + selectedY * cols >= inserts.size()) {
+		while (selectedX + selectedY * cols >= allInserts.size()) {
 			selectedY -= 1;
 		}
 		updateCursor();
@@ -360,7 +433,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 		if (selectedX >= cols) {
 			selectedX = 0;
 		}
-		while (selectedX + selectedY * cols >= inserts.size()) {
+		while (selectedX + selectedY * cols >= allInserts.size()) {
 			selectedX -= 1;
 		}
 		updateCursor();
@@ -414,7 +487,56 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	 */
 	protected Chara getSelected() {
 		int selected = selectedX + selectedY * cols;
-		return inserts.get(selected).getChara();
+		return orderedInserts.get(selected).getChara();
+	}
+	
+	/**
+	 * Renders that pointy figure thing at a given row/column.
+	 * @param batch				The batch to render as part of
+	 * @param col				The selected column
+	 * @param row				The selected row
+	 * @param off				The offset to add to final x-coord (for indent)
+	 */
+	protected void renderCursor(SpriteBatch batch, int col, int row, int off) {
+		Graphic cursor = MGlobal.ui.getCursor();
+		cursorX = x;
+		cursorY = y + insertsHeight;
+		cursorX += (getInsertWidth() + padX) * col;
+		cursorY -= (getInsertHeight() + padY) * row;
+		cursorY -= orderedInserts.get(0).getHeight() * 3 / 2;
+		cursorY += (getInsertHeight() - cursor.getHeight()) / 2;
+		cursorX -= (cursor.getWidth() / 2 + cursorSpace);
+		MGlobal.ui.getCursor().renderAt(batch, cursorX + off, cursorY);
+	}
+	
+	/**
+	 * Returns the insert associated with the given character.
+	 * @param	chara			The chara to get the insert for
+	 * @return					The insert containing that chara
+	 */
+	protected CharaInsert charaToInsert(Chara chara) {
+		int index = charaToIndex(chara);
+		if (index >= 0) {
+			return orderedInserts.get(index);
+		} else {
+			return null;
+			
+		}
+	}
+	
+	/**
+	 * Returns the index of the insert associated with the given character.
+	 * @param	chara			The chara to get the insert for
+	 * @return					The index of the insert containing that chara
+	 */
+	protected int charaToIndex(Chara chara) {
+		for (int i = 0; i < orderedInserts.size(); i += 1) {
+			if (orderedInserts.get(i).getChara() == chara) {
+				return i;
+			}
+		}
+		MGlobal.reporter.err("No insert index found for " + chara);
+		return -1;
 	}
 	
 	/**

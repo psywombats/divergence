@@ -147,9 +147,9 @@ public class BattleScreen extends Screen {
 		assets.add(abilsBG);
 		assets.add(actorBG);
 		
-		partyInserts = new CharaSelector(battle.getPlayer(), true, true, false, 5);
-		enemyInserts = new CharaSelector(battle.getEnemy(), true, true, false, 5);
-		miniInserts = new CharaSelector(battle.getPlayer(), false, true, false, -3);
+		partyInserts = new CharaSelector(battle.getPlayer(), true, true, false, 3);
+		enemyInserts = new CharaSelector(battle.getEnemy(), true, true, false, 3);
+		miniInserts = new CharaSelector(battle.getPlayer(), false, true, false, -5);
 		assets.add(partyInserts);
 		assets.add(enemyInserts);
 		assets.add(miniInserts);

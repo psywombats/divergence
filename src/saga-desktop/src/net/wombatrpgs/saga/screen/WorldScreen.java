@@ -31,7 +31,7 @@ public class WorldScreen extends GameScreen {
 		if (super.onCommand(command)) return true;
 		switch (command) {
 		case WORLD_PAUSE:
-			MenuScreen menu = new MenuScreen();
+			PauseScreen menu = new PauseScreen();
 			MGlobal.assets.loadAsset(menu, "main menu");
 			MGlobal.screens.push(menu);
 		default:

@@ -26,12 +26,14 @@ import net.wombatrpgs.saga.ui.CharaSelector;
 import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
 
 /**
- * Any menu that takes up an entire scren.
+ * The main menu that gets called when the user pauses on the world map.
  */
-public class MenuScreen extends Screen implements Disposable {
+public class PauseScreen extends Screen implements Disposable {
 	
-	protected static final int INFO_HEIGHT = 28;
-	protected static final int INFO_MARGINS = 6;
+	protected static final int INFO_HEIGHT = 32;
+	protected static final int INFO_MARGINS = 8;
+	
+	protected static final int GLOBAL_Y = 92;
 	
 	protected OptionSelector menu, saveSelector;
 	
@@ -46,7 +48,7 @@ public class MenuScreen extends Screen implements Disposable {
 	/**
 	 * Creates a new menu screen with the main menu in it.
 	 */
-	public MenuScreen() {
+	public PauseScreen() {
 		pushCommandContext(new CMapMenu());
 		menu = new OptionSelector(
 			new Option("Save") {
@@ -60,6 +62,9 @@ public class MenuScreen extends Screen implements Disposable {
 			},
 			new Option("Items") {
 				@Override public boolean onSelect() { return onItems(); }
+			},
+			new Option("Order") {
+				@Override public boolean onSelect() { return onOrder(); }
 			});
 		menu.setCancel(new FinishListener() {
 			@Override public void onFinish() {
@@ -96,9 +101,6 @@ public class MenuScreen extends Screen implements Disposable {
 		
 		infoBG = new Nineslice();
 		assets.add(infoBG);
-		inserts = new CharaSelector(true, false);
-		assets.add(inserts);
-		addUChild(inserts);
 		
 		format = new TextboxFormat();
 		
@@ -211,6 +213,17 @@ public class MenuScreen extends Screen implements Disposable {
 	}
 	
 	/**
+	 * Called when the order option is selected from the main menu.
+	 * @return					False to keep menu open
+	 */
+	protected boolean onOrder() {
+		Screen nextMenu = new OrderScreen();
+		MGlobal.assets.loadAsset(nextMenu, "order menu");
+		MGlobal.screens.push(nextMenu);
+		return false;
+	}
+	
+	/**
 	 * Puts the main menu back in focus.
 	 */
 	protected void refocusMain() {
@@ -228,9 +241,17 @@ public class MenuScreen extends Screen implements Disposable {
 	 * Creates the character inserts and other assorted items
 	 */
 	protected void createDisplay() {
+		
+		if (inserts != null) {
+			removeUChild(inserts);
+		}
+		inserts = new CharaSelector(true, false);
+		MGlobal.assets.loadAsset(inserts, "pause menu inserts");
+		addUChild(inserts);
+		
 		FontHolder font = MGlobal.ui.getFont();
 		insertsX = MGlobal.window.getViewportWidth()/2 - inserts.getWidth()/2;
-		insertsY = MGlobal.window.getViewportHeight()/2 - inserts.getHeight()/2;
+		insertsY = GLOBAL_Y;
 		inserts.setX(insertsX);
 		inserts.setY(insertsY);
 

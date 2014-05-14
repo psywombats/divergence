@@ -74,6 +74,7 @@ public class ScreenStack implements	Disposable,
 		}
 		Screen oldTop = screens.pop();
 		oldTop.onFocusLost();
+		peek().onFocusGained();
 		return oldTop;
 	}
 	
