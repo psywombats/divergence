@@ -78,14 +78,8 @@ public abstract class EffectEnemyTarget extends AbilEffect {
 		Party player = intent.getBattle().getPlayer();
 		switch (mdo.projector) {
 		case SINGLE_ENEMY: case GROUP_ENEMY:
-			List<Integer> candidates = new ArrayList<Integer>();
-			for (int i = 0; i < player.groupCount(); i += 1) {
-				if (player.getFront(i).isAlive()) {
-					candidates.add(i);
-				}
-			}
-			int index = candidates.get(MGlobal.rand.nextInt(candidates.size()));
-			intent.addTargets(player.getFront(index));
+			List<Chara> targeted = player.selectFrontfacingGroup();
+			intent.addTargets(targeted);
 			break;
 		case ALL_ENEMY:
 			intent.addTargets(player.getAll());

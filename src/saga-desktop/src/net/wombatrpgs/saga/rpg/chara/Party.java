@@ -122,6 +122,38 @@ public class Party extends AssetQueuer implements Disposable {
 	}
 	
 	/**
+	 * Uses an RNG roll to target a group in this party. This method is
+	 * designed to favor groups in the front of the party for battle use.
+	 * Advances the RNG.
+	 * @return					A suitable group to target
+	 */
+	public List<Chara> selectFrontfacingGroup() {
+		List<List<Chara>> weightedGroups = new ArrayList<List<Chara>>();
+		for (int i = 0; i < groups.size(); i += 1) {
+			List<Chara> group = getGroup(i);
+			boolean active = false;
+			for (Chara member : group) {
+				if (!member.isDead()) {
+					active = true;
+					break;
+				}
+			}
+			if (!active) continue;
+			int weight;
+			switch (i) {
+			case 0:		weight = 3;		break;
+			case 1:		weight = 2;		break;
+			default:	weight = 1;		break;
+			}
+			for (int j = 0; j < weight; j += 1) {
+				weightedGroups.add(group);
+			}
+		}
+		int index = MGlobal.rand.nextInt(weightedGroups.size());
+		return weightedGroups.get(index);
+	}
+	
+	/**
 	 * Create the appropriate subclass of chara for this party. Override if the
 	 * party is made of players or enemies or something that requires subclass.
 	 * @param	mdoKey			The key of the mdo being instantiated
