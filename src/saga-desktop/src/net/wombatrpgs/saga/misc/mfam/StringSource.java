@@ -66,20 +66,24 @@ public class StringSource {
 	 * @return a random vaguely-pronouncable string name.
 	 */
 	public String randomName() {
-		String name = vowels[r.nextInt(vowels.length)];
-		if (r.nextBoolean()) {
-			name += consonants[r.nextInt(consonants.length)];
-			name += vowels[r.nextInt(vowels.length)];
+		if (MFamConstants.FUN_MODE) {
+			String name = vowels[r.nextInt(vowels.length)];
+			if (r.nextBoolean()) {
+				name += consonants[r.nextInt(consonants.length)];
+				name += vowels[r.nextInt(vowels.length)];
+			}
+			if (r.nextInt(100) < 40) name += enders[r.nextInt(enders.length)];
+			if (r.nextInt(100) < 70 || name.length() < 5) {
+				name = starters[r.nextInt(starters.length)]+name;
+			}
+			name = name.substring(0, 1).toUpperCase() + name.substring(1);
+			if (name.length() > 8) {
+				name = name.substring(0, 8);
+			}
+			return name;
+		} else {
+			return String.valueOf(r.nextInt(999999));
 		}
-		if (r.nextInt(100) < 40) name += enders[r.nextInt(enders.length)];
-		if (r.nextInt(100) < 70 || name.length() < 5) {
-			name = starters[r.nextInt(starters.length)]+name;
-		}
-		name = name.substring(0, 1).toUpperCase() + name.substring(1);
-		if (name.length() > 8) {
-			name = name.substring(0, 8);
-		}
-		return name;
 	}
 
 }

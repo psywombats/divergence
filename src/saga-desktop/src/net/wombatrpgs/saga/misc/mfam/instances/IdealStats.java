@@ -23,12 +23,17 @@ public class IdealStats extends FitnessStats {
 	public IdealStats() {
 		super();
 		
-		familyCount = 26;
-		groupCount = 11;
+		familyCount = 27;
+		groupCount = 12;
 		
-		sizeDistrib.put(1, 2);
-		sizeDistrib.put(2, 3);
-		sizeDistrib.put(3, 6);
+		sizeDistrib.put(1, 3);
+		sizeDistrib.put(2, 5);
+		sizeDistrib.put(3, 2);
+		sizeDistrib.put(4, 2);
+		sizeDistrib.put(5, 0);
+		sizeDistrib.put(6, 0);
+		sizeDistrib.put(7, 0);
+		sizeDistrib.put(8, 0);
 		
 		introLevels = 6;
 		introDistrib.put(0, nullArray(11));
@@ -38,36 +43,59 @@ public class IdealStats extends FitnessStats {
 		introDistrib.put(4, nullArray(2));
 		introDistrib.put(5, nullArray(1));
 		
-		levelAvgs.put(0, 10f);
-		levelAvgs.put(1, 9.5f);
-		levelAvgs.put(2, 9f);
-		levelAvgs.put(3, 7.5f);
-		levelAvgs.put(4, 6f);
-		levelAvgs.put(5, 4f);
+		levelDistrib.put(0, 11);
+		levelDistrib.put(1, 10);
+		levelDistrib.put(2, 10);
+		levelDistrib.put(3, 9);
+		levelDistrib.put(4, 10);
+		levelDistrib.put(5, 9);
+		levelDistrib.put(6, 10);
+		levelDistrib.put(7, 9);
+		levelDistrib.put(8, 10);
+		levelDistrib.put(9, 9);
+		levelDistrib.put(10, 10);
+		levelDistrib.put(11, 9);
+		levelDistrib.put(12, 10);
+		levelDistrib.put(13, 9);
 		
-		levelDevs.put(0, .5f);
-		levelDevs.put(1, .5f);
-		levelDevs.put(2, .6f);
-		levelDevs.put(3, .7f);
-		levelDevs.put(4, .6f);
-		levelDevs.put(5, .3f);
+		tierAvgs.put(0, 10f);
+		tierAvgs.put(1, 9.5f);
+		tierAvgs.put(2, 9f);
+		tierAvgs.put(3, 7.5f);
+		tierAvgs.put(4, 6f);
+		tierAvgs.put(5, 4f);
 		
-		gains.put(+2, .02f);
+		tierDevs.put(0, 0f);
+		tierDevs.put(1, 0f);
+		tierDevs.put(2, 0f);
+		tierDevs.put(3, 0f);
+		tierDevs.put(4, 0f);
+		tierDevs.put(5, 0f);
+		
+		gains.put(+3, .00f);
+		gains.put(+2, .00f);
 		gains.put(+1, .30f);
-		gains.put(+0, .33f);
+		gains.put(+0, .40f);
 		gains.put(-1, .20f);
 		gains.put(-2, .10f);
-		gains.put(-3, .05f);
+		gains.put(-3, .00f);
+		gains.put(-4, .00f);
+		gains.put(-5, .00f);
+		gains.put(-6, .00f);
 		
 		averageGain = 0f;
 		gainDev = 1f;
-		biggestGain = 2;
+		biggestGain = 1;
 		biggestLoss = -4;
+		
+		biggestLevel = 10;
+		smallestLevel = 9;
 		
 		transtoAvg = 9.5f;
 		transtoDev = 2;
 		transtoMin = 4;
 		
+		nontransCount = 15;
 		unreachCount = 0;
 	}
 	

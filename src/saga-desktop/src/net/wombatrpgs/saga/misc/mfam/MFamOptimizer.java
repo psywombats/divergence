@@ -62,21 +62,23 @@ public class MFamOptimizer {
 				seed = kryo.readObject(input, Config.class);
 				input.close();
 			} catch (FileNotFoundException e) {
-				System.out.println("Bad seed file " + args[2]);
+				System.out.println("Bad seed file " + args[3]);
 				return;
 			}
-			System.out.println("Using seed " + args[2]);
+			System.out.println("Using seed " + args[3]);
+			seed.genInfo = "fromSeed";
+			seed.target = ideal;
 		}
 		
 		for (int i = 0; i < trials; i += 1) {
 			System.out.println("Running trial " + i + "...");
-			GeneticOptimizer genetics;
+			Optimizer optimizer;
 			if (seed == null) {
-				genetics = new GeneticOptimizer(ideal);
+				optimizer = new GeneticOptimizer(ideal);
 			} else {
-				genetics = new GeneticOptimizer(ideal, seed);
+				optimizer = new TweakOptimizer(ideal, seed);
 			}
-			Config winner = genetics.run(generations);
+			Config winner = optimizer.run(generations);
 			best.add(winner);
 			if (best.size() > toSave) {
 				Collections.sort(best);

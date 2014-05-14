@@ -7,6 +7,8 @@
 package net.wombatrpgs.saga.misc.mfam;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -61,6 +63,8 @@ public class Config implements Comparable<Config> {
 			Family fam = families.get(i);
 			fam.fillLinks(rand, groups, families);
 		}
+		
+		genInfo = "randumbized";
 	}
 	
 	/**
@@ -155,12 +159,12 @@ public class Config implements Comparable<Config> {
 		
 		String divider = "";
 		divider += "-------+";
-		for (int i = 0; i < MFamConstants.FAMILY_SIZE; i += 1) {
-			divider += "----------+";
+		for (int i = 0; i < MFamConstants.FAMILY_SIZE+1; i += 1) {
+			divider += "------------+";
 		}
 		for (int j = 0; j < 2; j += 1) {
 			divider += "-";
-			for (int i = 0; i < MFamConstants.FAMILY_SIZE; i += 1) {
+			for (int i = 0; i < MFamConstants.FAMILY_SIZE+1; i += 1) {
 				divider += "-";
 			}
 			divider += "-+";
@@ -168,7 +172,7 @@ public class Config implements Comparable<Config> {
 		
 		String columns = "Family:  Members:";
 		while (columns.length() < divider.length() - 16) columns += " ";
-		columns += " Meat:  Target:\n";
+		columns += "Meat:   Target:\n";
 		graph += columns;
 		
 		graph += divider;
@@ -180,7 +184,7 @@ public class Config implements Comparable<Config> {
 			String target = "";
 			for (Member mem : fam.members) {
 				String memname = mem.name;
-				while (memname.length() < 8) memname += " ";
+				while (memname.length() < 10) memname += " ";
 				graph += " " + memname + " ";
 				if (mem == fam.members[MFamConstants.FAMILY_SIZE-1]) {
 					graph += "|";
@@ -190,6 +194,9 @@ public class Config implements Comparable<Config> {
 				power += Integer.toHexString(mem.power);
 				target += Integer.toHexString(mem.target);
 			}
+			power += "f";
+			target += "f";
+			graph += "            |";
 			graph += " " + power + " |";
 			graph += " " + target + " |";
 			graph += "\n" + divider + "\n";
@@ -217,6 +224,13 @@ public class Config implements Comparable<Config> {
 	 * Makes sure we have stats.
 	 */
 	protected void finalizeStats() {
+		for (Family fam : families) {
+			List<Member> sorted = Arrays.asList(fam.members);
+			Collections.sort(sorted);
+			for (int i = 0; i < fam.members.length; i += 1) {
+				fam.members[i] = sorted.get(i);
+			}
+		}
 		if (stats == null) {
 			stats = new FitnessStats(this);
 			if (target != null) {

@@ -26,17 +26,28 @@ public class Geneticist {
 	 * their offspring. Could choose one of several algorithms.
 	 * @param	p1				The first parent
 	 * @param	p2				The second parent
+	 * @param	gen				The generation of the simulation we're on
 	 * @return					Their offspring
 	 */
-	public static Config mate(Config p1, Config p2) {
-		switch (rand.nextInt(5)) {
-		case 0:		return levelsSwap(p1, p2);
-		case 1:		return takeFamily(p2, p2);
-		case 2:		return groupsSwap(p1, p2);
-		case 3:		return rebuildSet(p1, p2);
-		case 4:		return tweakValue(p1, p2);
-		default:	System.err.println("Default mate!"); return null;
+	public static Config mate(Config p1, Config p2, int gen) {
+		int changeLevel = rand.nextInt(6);
+		switch (changeLevel) {
+		case 0:		return groupsSwap(p1, p2);
+		case 1:		return changeJump(p1, p2);
+		case 2:		return takeFamily(p2, p2);
+		case 3:		return levelsSwap(p1, p2);
+		case 4:		return rebuildSet(p1, p2);
+		default:	return tweakValue(p1, p2);
 		}
+	}
+	
+	/**
+	 * Runs the ideal tweak for the parent and returns it as a descendant.
+	 * @param	p1				The autosexual parent
+	 * @return					The child
+	 */
+	public static Config idealize(Config p1) {
+		return idealTweak(p1, p1);
 	}
 	
 	/**
@@ -71,7 +82,7 @@ public class Geneticist {
 				if (target < 0) target = 0;
 				if (power > MFamConstants.POWER_MAX) power = MFamConstants.POWER_MAX;
 				if (target > MFamConstants.POWER_MAX) target = MFamConstants.POWER_MAX;
-				fam.members[j] = new Member(power, target);
+				fam.setMember(j, power, target);
 			}
 		}
 		child.genInfo = "levelsSwap";
@@ -104,7 +115,7 @@ public class Geneticist {
 		for (Group grp : child.groups) {
 			if (!grp.families.contains(newFam)) {
 				int index = rand.nextInt(child.families.size());
-				newFam.links.put(grp, child.families.get(index));
+				newFam.setLink(grp, child.families.get(index));
 			}
 		}
 		// randomly point families at this
@@ -112,7 +123,7 @@ public class Geneticist {
 			for (Group grp : child.groups) {
 				if (grp.families.contains(newFam) &&
 						(rand.nextInt(child.families.size()) == 0)) {
-					fam.links.put(grp, newFam);
+					fam.setLink(grp, newFam);
 				}
 			}
 		}
@@ -123,7 +134,7 @@ public class Geneticist {
 						!grp.families.contains(fam) &&
 						!grp.families.contains(newFam) &&
 						rand.nextFloat() > .4) {
-					fam.links.put(grp, newFam);
+					fam.setLink(grp, newFam);
 				}
 			}
 		}
@@ -174,13 +185,13 @@ public class Geneticist {
 		for (Family fam : child.families) {
 			for (Group oldGroup : child.groups) {
 				Family oldTarget = fam.links.get(oldGroup);
-				fam.links.remove(oldGroup);
+				fam.removeLink(oldGroup);
 				if (oldTarget == null) continue;
 				int i = child.groups.indexOf(oldGroup);
 				if (i < newGroups.size()) {
 					Group newGroup = newGroups.get(i);
 					if (!newGroup.families.contains(fam)) {
-						fam.links.put(newGroup, oldTarget);
+						fam.setLink(newGroup, oldTarget);
 					}
 				}
 			}
@@ -193,7 +204,7 @@ public class Geneticist {
 				if (!grp.families.contains(fam) && fam.links.get(grp) == null) {
 					int index = rand.nextInt(child.families.size() + 10);
 					if (index < child.families.size()) {
-						fam.links.put(grp, child.families.get(index));
+						fam.setLink(grp, child.families.get(index));
 					}
 				}
 			}
@@ -217,12 +228,13 @@ public class Geneticist {
 		if (rand.nextBoolean()) {
 			// tweak random family
 			fam.fillRandomly(rand);
+			child.genInfo = "rebdMembs";
 		} else {
 			// tweak random link
 			fam.fillLinks(rand, child.groups, child.families);
+			child.genInfo = "rebdLinks";
 		}
 		
-		child.genInfo = "rebuildSet";
 		return child;
 	}
 	
@@ -241,15 +253,20 @@ public class Geneticist {
 			Group grp = child.groups.get(rand.nextInt(child.groups.size()));
 			int index = rand.nextInt(child.families.size() + 6);
 			if (index >= child.families.size()) {
-				fam.links.remove(grp);
+				fam.removeLink(grp);
 			} else if (!grp.families.contains(fam)) { 
-				fam.links.put(grp, child.families.get(index));
+				fam.setLink(grp, child.families.get(index));
 			}
+			child.genInfo = "tweakLink";
 		} else {
-			Member mem = fam.members[rand.nextInt(fam.members.length)];
+			int index = rand.nextInt(fam.members.length);
+			Member mem = fam.members[index];
+			int power = mem.power;
+			int target = mem.target;
 			if (rand.nextBoolean()) {
 				// change power level
-				mem.power += rand.nextBoolean() ? 1 : -1;
+				power += rand.nextBoolean() ? 1 : -1;
+				child.genInfo = "tweakPower";
 			} else {
 				// change target level (and power level)
 				List<Integer> targets = new ArrayList<Integer>();
@@ -257,20 +274,125 @@ public class Geneticist {
 					if (other != mem) targets.add(other.target);
 				}
 				do {
-					mem.target = rand.nextInt(MFamConstants.POWER_MAX);
-				} while (targets.contains(mem.target));
-				mem.power = mem.target + 1;
+					target = rand.nextInt(MFamConstants.POWER_MAX);
+				} while (targets.contains(target));
+				power = target + 1;
+				child.genInfo = "tweakTarget";
 			}
-			if (mem.power < 0) mem.power = 0;
-			if (mem.target < 0) mem.target = 0;
-			if (mem.power > MFamConstants.POWER_MAX)
-				mem.power = MFamConstants.POWER_MAX;
-			if (mem.target > MFamConstants.POWER_MAX)
-				mem.target = MFamConstants.POWER_MAX;
+			if (power < 0) power = 0;
+			if (target < 0) target = 0;
+			if (power > MFamConstants.POWER_MAX)
+				power = MFamConstants.POWER_MAX;
+			if (target > MFamConstants.POWER_MAX)
+				target = MFamConstants.POWER_MAX;
+			fam.setMember(index, power, target);
 		}
 		
-		child.genInfo = "tweakValue";
 		return child;
+	}
+	
+	/**
+	 * Changes the target of the biggest jump in the config.
+	 * @param	p1				The first parent
+	 * @param	p2				The second parent
+	 * @return					Their offspring
+	 */
+	protected static Config changeJump(Config p1, Config p2) {
+		Config child = new Config(p1);
+		
+		int biggestGain = 0;
+		Family gainFam = null;
+		Group gainGrp = null;
+		for (Family family : child.families) {
+			family.rebuildPowerTargets();
+		}
+		for (Family family : child.families) {
+			for (Member eater : family.members) {
+				for (Family ateFamily : child.families) {
+					for (Member ate : ateFamily.members) {
+						// if (ate.power > eater.power) continue;
+						Group memberGroup = ateFamily.group;
+						Family targetFamily = family.links.get(memberGroup);
+						if (targetFamily == null) continue;
+						int power = ate.power;
+						if (eater.power > power) power = eater.power;
+						Member result = targetFamily.powerTargets[power];
+						
+						int gain = result.power - ((eater.power>ate.power) ? eater.power : ate.power);
+						if (gain > biggestGain) {
+							biggestGain = gain;
+							gainFam = family;
+							gainGrp = memberGroup;
+						}
+					}
+				}
+			}
+		}
+		gainFam.setLink(gainGrp, child.families.get(rand.nextInt(child.families.size())));
+		
+		child.genInfo = "changeJump";
+		return child;
+	}
+	
+	/**
+	 * Finds the best single change in one parent and returns that as child.
+	 * @param	p1				The first parent
+	 * @param	p2				The second parent
+	 * @return					Their offspring
+	 */
+	protected static Config idealTweak(Config p1, Config p2) {
+		p1.finalizeStats();
+		Config best = p1;
+		float bestErr = p1.error;
+		
+		// ideal link tweak
+		for (int famInd = 0; famInd < p1.families.size(); famInd += 1) {
+			for (int grpInd = 0; grpInd < p1.groups.size(); grpInd += 1) {
+				for (int tgtInd = 0; tgtInd < p1.families.size()+1; tgtInd += 1) {
+					Config child = new Config(p1);
+					Family fam = child.families.get(famInd);
+					Group grp = child.groups.get(grpInd);
+					Family tgt = null;
+					if (tgtInd < p1.families.size()) {
+						tgt = child.families.get(tgtInd);
+					}
+					if (grp.families.contains(fam)) continue;
+					if (tgt == null) {
+						fam.removeLink(grp);
+					} else {
+						fam.setLink(grp, tgt);
+					}
+					child.finalizeStats();
+					if (child.error < bestErr) {
+						best = child;
+						best.genInfo = "bestLink";
+						bestErr = child.error;
+					}
+				}
+			}
+		}
+		
+		// ideal target/power
+		for (int famInd = 0; famInd < p1.families.size(); famInd += 1) {
+			for (int memInd = 0; memInd < MFamConstants.FAMILY_SIZE; memInd += 1) {
+				for (int lvl = 0; lvl <= MFamConstants.POWER_MAX; lvl += 1) {
+					Config child = new Config(p1);
+					Family fam = child.families.get(famInd);
+					int power = lvl;
+					int target = lvl - 1;
+					if (target < 0) target = 0;
+					fam.setMember(memInd, power, target);
+					child.finalizeStats();
+					if (child.error < bestErr) {
+						best = child;
+						best.genInfo = "bestLevel";
+						bestErr = child.error;
+					}
+				}
+			}
+		}
+		
+		return best;
 	}
 	
 	/**
@@ -292,14 +414,14 @@ public class Geneticist {
 		for (Group grp : toRemove) {
 			config.groups.remove(grp);
 			for (Family fam : config.families) {
-				fam.links.remove(grp);
+				fam.removeLink(grp);
 			}
 		}
 		for (Family fam : config.families) {
 			for (Group grp : config.groups) {
 				if (fam.links.get(grp) == delFam) {
 					int index2 = rand.nextInt(config.families.size());
-					fam.links.put(grp, config.families.get(index2));
+					fam.setLink(grp, config.families.get(index2));
 				}
 			}
 		}

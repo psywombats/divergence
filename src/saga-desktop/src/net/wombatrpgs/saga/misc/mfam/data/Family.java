@@ -27,8 +27,14 @@ public class Family {
 	/** Transform targets when eating meat of group */
 	public Map<Group, Family> links;
 	
+	/** Group this family is a part of */
+	public Group group;
+	
 	/** Just for fun */
 	public String name;
+	
+	/** Index by meat power and the result will be transform target */
+	public Member[] powerTargets;
 	
 	public Family(String name) {
 		this.name = name;
@@ -47,6 +53,19 @@ public class Family {
 			Member mem2 = new Member(mem.power, mem.target);
 			members[i] = mem2;
 		}
+	}
+	
+	public void setMember(int i, int power, int target) {
+		members[i].power = power;
+		members[i].target = target;
+	}
+	
+	public void setLink(Group group, Family target) {
+		links.put(group, target);
+	}
+	
+	public void removeLink(Group group) {
+		links.remove(group);
 	}
 	
 	/**
@@ -80,9 +99,9 @@ public class Family {
 	
 	/**
 	 * Fills this family's links randomly with groups to families.
-	 * @param	rand				The RNG to use
-	 * @param	groups				The groups to use as keys
-	 * @param	families			The families to use as values
+	 * @param	rand			The RNG to use
+	 * @param	groups			The groups to use as keys
+	 * @param	families		The families to use as values
 	 */
 	public void fillLinks(Random rand, List<Group> groups, List<Family> families) {
 		for (Group grp : groups) {
@@ -92,6 +111,24 @@ public class Family {
 					links.put(grp, families.get(index));
 				}
 			}
+		}
+	}
+	
+	/**
+	 * Rebuilds the power target array.
+	 */
+	public void rebuildPowerTargets() {
+		powerTargets = new Member[MFamConstants.POWER_MAX+2];
+		for (int power = 0; power < MFamConstants.POWER_MAX+2; power += 1) {
+			Member result = null;
+			for (Member candidate : members) {
+				if (result == null || 
+						(candidate.target > result.target &&
+						power >= candidate.target)) {
+					result = candidate;
+				}
+			}
+			powerTargets[power] = result;
 		}
 	}
 	

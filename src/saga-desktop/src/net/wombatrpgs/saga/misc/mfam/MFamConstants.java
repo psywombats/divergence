@@ -17,7 +17,10 @@ public class MFamConstants {
 	public static final int FAMILY_SIZE = 5;
 	
 	/** Resolution for meat powers and targets */
-	public static final int POWER_MAX = 14;
+	public static final int POWER_MAX = 13;
+	
+	/** Name generation stuff? */
+	public static final boolean FUN_MODE = false;
 	
 	/** String source from GAR */
 	public static StringSource NAMEGEN = new StringSource();

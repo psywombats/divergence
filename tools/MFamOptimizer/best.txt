@@ -1,123 +1,143 @@
-Report for config result001, error 26.787167
-Family count: 25
-Group count: 10
-Tier count: 6
+Report for config result002, error 72.85568
+Family count: 26
+Group count: 9
+Tier count: 5
 Size distribution:
   1-member group x1
-  2-member group x5
-  3-member group x2
-  4-member group x2
+  2-member group x2
+  3-member group x3
+  4-member group x3
+Power level distributions:
+  L00: 10 monsters
+  L01: 9 monsters
+  L02: 9 monsters
+  L03: 9 monsters
+  L04: 9 monsters
+  L05: 9 monsters
+  L06: 9 monsters
+  L07: 9 monsters
+  L08: 12 monsters
+  L09: 9 monsters
+  L10: 9 monsters
+  L11: 9 monsters
+  L12: 9 monsters
+  L13: 9 monsters
 
 Transformation power gains breakdown: 
-+2: 0.0357%
-+1: 0.2669%
-+0: 0.305%
--1: 0.1891%
--2: 0.1397%
--3: 0.0498%
--4: 0.0105%
--5: 0.0033%
-Average: -0.338 (deviation: 1.32)
-Biggest jump: uge/Zasha(0,0) eats eze/Scich(0,0) to ucy/Pyau(2,1) (+2)
+(only transformations within monster level recorded)
++1: 0.2935%
++0: 0.2799%
+-1: 0.1967%
+-2: 0.1017%
+-3: 0.0721%
+-4: 0.0307%
+-5: 0.0182%
+-6: 0.0031%
+-7: 0.0040%
+Average: -0.584 (deviation: 1.569)
+Biggest jump: +1 in iny/423431(0,0) eats san/544223(0,0) to utu/679436(1,0)
+Biggest loss: -7 in san/544223(0,0) eats kip/747147(8,7) to eli/783111(1,1)
+1 non-incestuous meat eatings resulted in no transformation
 
-The average group is transformed to 8.52 times (deviation 1.723, min tep with 4)
+The average group is transformed to 7.308 times (deviation 1.169, min evu with 4)
 By-tier breakdown:
-  Tier 0: targeted average 9.5 times (deviation 0.5)
-  Tier 1: targeted average 9.4 times (deviation 0.4899)
-  Tier 2: targeted average 8.5 times (deviation 0.5)
-  Tier 3: targeted average 8 times (deviation 0.8165)
-  Tier 4: targeted average 4.5 times (deviation 0.5)
-  Tier 5: targeted average 4 times (deviation 0)
+  Tier 0: targeted average 8.0000 times (deviation 0.0000)
+  Tier 1: targeted average 8.0000 times (deviation 0.0000)
+  Tier 2: targeted average 7.0000 times (deviation 0.0000)
+  Tier 3: targeted average 6.0000 times (deviation 0.0000)
+  Tier 4: targeted average 4.0000 times (deviation 0.0000)
 Unreachable members: []
 
-Tier 0: uge, owo, iti, mil, zav, eze, hid, bel, siv, ryl
-Tier 1: rop, her, ohu, wab, uva
-Tier 2: ara, wyp, jom, ucy
-Tier 3: aky, wel, awe
-Tier 4: rew, ize
-Tier 5: tep
+Tier 0: suv, iny, nip, san, beh, eli, oco, ata, gad, vyk
+Tier 1: lat, utu, uda, naw, sod, mok, vol
+Tier 2: kip, uma, zed, eno
+Tier 3: nab, wem, gyb
+Tier 4: ebo, evu
 
-       |     |     |     |     | ucy |     | ryl |     |     |     |
-       |     |     |     | siv | hid |     | wyp |     |     | uva |
-       |     | iti | ara | aky | rop | ize | ohu | wab | tep | bel |
-       | uge | owo | mil | zav | eze | rew | her | wel | awe | jom |
--------+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
- uge   |     | mil | zav | rop | ucy | iti | ohu | uge | aky | mil |
- owo   | bel |     | ryl | iti | bel | owo | ryl | siv | iti | wyp |
- iti   | her |     | uge | ucy | owo | rew | uge | ohu | eze | owo |
- mil   | ara | ryl |     | zav | siv | tep | hid | uge | her | ara |
- ara   | awe | ryl |     | wab | owo | uge | eze | jom | ucy | uge |
- zav   | bel | eze | rop |     | hid | jom | uva | ara | siv | hid |
- aky   | ohu | wab | mil |     | tep | ohu | awe | wab | awe | hid |
- siv   | wyp | rop | ryl |     | uva | rop | rop | ohu | uge | uva |
- eze   | zav | bel | ryl | uge |     | uva | wab | bel | jom | wab |
- rop   | ara | wel | wyp | hid |     | her | ara | jom | siv | eze |
- hid   | hid | uge | ucy | ryl |     | mil | uva | jom | rew | siv |
- ucy   | ize | uva | aky | her |     | iti | zav | aky | ara | iti |
- rew   | her | bel | eze | bel | mil |     | uva | wyp | bel | wab |
- ize   | ohu | hid | owo | wel | ohu |     | hid | rop | zav | awe |
- her   | her | bel | zav | bel | wel | rop |     | ucy | zav | ucy |
- ohu   | wyp | rop | wel | wel | uva | tep |     | siv | siv | iti |
- wyp   | owo | ucy | aky | ucy | awe | hid |     | awe | ryl | her |
- ryl   | ryl | mil |     | jom | mil | rew |     | eze | aky | ara |
- wel   | owo | iti | wyp | aky | wel | aky | her |     | ize | zav |
- wab   | uge | her | awe | awe | mil | wab | eze |     | mil | siv |
- awe   | rew | ize | tep | aky | ryl | rop | eze | awe |     | ara |
- tep   | awe | tep | iti | mil | zav | wab | ara | eze |     | rop |
- jom   | owo | ize | wyp | her | uge | siv | jom | owo | rew |     |
- bel   | ucy | ohu | zav | jom | jom | wel | uva | owo | wab |     |
- uva   | ohu | ohu | iti | wab | wel | hid | wyp | uva | eze |     |
--------+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+       |     | evu |     |     | vyk |     |     | sod |     |
+       |     | ata |     |     | gad | naw | eli | uda | vol |
+       | eno | iny | gyb |     | oco | uma | ebo | wem | mok |
+       | kip | suv | nip | nab | beh | lat | san | utu | zed |
+-------+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+ kip   |     | utu | uma | ebo | iny | utu | beh | gyb | nab |
+ eno   |     | evu | eli | gad | kip | zed | zed | uda | zed |
+ suv   | uma |     | suv | kip | san | oco | ata | suv | wem |
+ iny   | mok |     | vyk | kip | naw | suv | utu | wem | iny |
+ ata   | eli |     | utu | gyb | oco | zed | naw | eli | iny |
+ evu   | evu |     | oco | vyk | ata | evu | ebo | nab | sod |
+ nip   | nip | iny |     | mok | vyk | ata | nip | eno | gad |
+ gyb   | san | lat |     | beh | eno | gad | wem | evu | gyb |
+ nab   | lat | ata | nip |     | gad | evu | san | zed | nip |
+ beh   | suv | suv | beh | gad |     | zed | uda | utu | vol |
+ oco   | suv | vol | utu | iny |     | eli | eli | uma | oco |
+ gad   | gad | sod | ata | oco |     | suv | nip | lat | beh |
+ vyk   | nip | mok | lat | ebo |     | sod | suv | iny | vol |
+ lat   | eno | eno | oco | gad | vol |     | uda | uma | vol |
+ uma   | iny | san | san | ebo | utu |     | mok | kip | beh |
+ naw   | nip | beh | eno | naw | mok |     | uda | sod | vol |
+ san   | eli | uda | nip | naw | naw | lat |     | iny | ata |
+ ebo   | mok | lat | ebo | sod | beh | wem |     | naw |     |
+ eli   | gyb | eli | uda | nab | uda | nip |     | mok | vol |
+ utu   | eno | san | naw | iny | oco | kip | gad |     | gad |
+ wem   | wem | beh | uma | zed | uda | eli | nab |     | nip |
+ uda   | suv | gyb | san | sod | sod | sod | uma |     | utu |
+ sod   | eno | oco | suv | wem | eli | sod | vyk |     | kip |
+ zed   | vyk | evu | vyk | mok | san | nab | oco | beh |     |
+ mok   | kip | vol | vyk | mok | lat | ata | naw | naw |     |
+ vol   | nab | vyk | wem | gyb | gyb | ata | lat | uma |     |
+-------+-----+-----+-----+-----+-----+-----+-----+-----+-----+
 
-Family:  Members:                                               Meat:  Target:
--------+----------+----------+----------+----------+----------+-------+-------+
- uge   | Zasha      Krelth     Growee     Steess     Spav     | 0679e | 0568d |
--------+----------+----------+----------+----------+----------+-------+-------+
- owo   | Phougheu   Cyea       Stee       Ryeemyia   Teetz    | 0378c | 0267b |
--------+----------+----------+----------+----------+----------+-------+-------+
- iti   | Shiacri    Snoado     Spiawhia   Iswau      Jatraumy | 059be | 048ad |
--------+----------+----------+----------+----------+----------+-------+-------+
- mil   | Iaknei     Sheu       Truad      Djoilli    Oulch    | 0669e | 0568d |
--------+----------+----------+----------+----------+----------+-------+-------+
- ara   | Kleascea   Smanuasc   Eukoi      Ouweu      Dwuajwa  | 147be | 136ad |
--------+----------+----------+----------+----------+----------+-------+-------+
- zav   | Pweajwo    Rhejoilc   Pwi        Kroi       Eekheu   | 039ab | 0289a |
--------+----------+----------+----------+----------+----------+-------+-------+
- aky   | Ju         Wroog      Phoittau   Uascoi     Sloutza  | 369c4 | 258b3 |
--------+----------+----------+----------+----------+----------+-------+-------+
- siv   | Khigth     Frua       Cleikwoi   Scax       Prauswa  | 0267c | 0156b |
--------+----------+----------+----------+----------+----------+-------+-------+
- eze   | Scich      Svou       Swu        Flewria    Eiproi   | 047ac | 0369b |
--------+----------+----------+----------+----------+----------+-------+-------+
- rop   | Ge         Auscau     Twoaplo    Stou       Sloi     | 1369e | 0259d |
--------+----------+----------+----------+----------+----------+-------+-------+
- hid   | Meaz       Iflauzy    Faix       Gwauze     Heass    | 0289e | 0178d |
--------+----------+----------+----------+----------+----------+-------+-------+
- ucy   | Pyau       Eiplee     Syeu       Xoirhi     Fiag     | 26ade | 159cd |
--------+----------+----------+----------+----------+----------+-------+-------+
- rew   | Krenoi     Eefrea     Cwo        Piz        Whouphoa | 47bce | 36abd |
--------+----------+----------+----------+----------+----------+-------+-------+
- ize   | Slislauc   Croow      Bria       Soo        Mneimiah | 467ae | 3569d |
--------+----------+----------+----------+----------+----------+-------+-------+
- her   | Pleedwo    Syiglou    Kneinais   Oicwai     Eipwes   | 179bd | 068ac |
--------+----------+----------+----------+----------+----------+-------+-------+
- ohu   | Sto        Stihoush   Wrukz      Eujwua     Scia     | 156ae | 0459d |
--------+----------+----------+----------+----------+----------+-------+-------+
- wyp   | Jai        Dwiarhoa   Ra         Freu       Vumouty  | 2789c | 1678b |
--------+----------+----------+----------+----------+----------+-------+-------+
- ryl   | Brai       Foa        Steutwau   Tegwu      Khoplea  | 058be | 047ad |
--------+----------+----------+----------+----------+----------+-------+-------+
- wel   | Cliarth    Gwia       Adroink    Rua        Koi      | 356ac | 2459b |
--------+----------+----------+----------+----------+----------+-------+-------+
- wab   | Myouzy     Heuzy      Frokhoil   Skoi       Cyei     | 189ab | 0789a |
--------+----------+----------+----------+----------+----------+-------+-------+
- awe   | Okyirch    Rhoasc     Tzotha     Gaus       Cwia     | 356ab | 2459a |
--------+----------+----------+----------+----------+----------+-------+-------+
- tep   | Kalloock   Wrau       Whoi       Twoaflua   Twoogloa | 58abd | 479ac |
--------+----------+----------+----------+----------+----------+-------+-------+
- jom   | Uaknirst   Bea        Pei        Leubroz    Pwasteag | 239ad | 1289c |
--------+----------+----------+----------+----------+----------+-------+-------+
- bel   | Kau        Phoost     Myeu       Floukho    Prialth  | 069ae | 0589d |
--------+----------+----------+----------+----------+----------+-------+-------+
- uva   | Aiyakz     Krei       Oabyoavy   Phai       Woissee  | 136ae | 0259d |
--------+----------+----------+----------+----------+----------+-------+-------+
+Family:  Members:                                                                       Meat:   Target:
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ kip   | 250331       462653       552174       747147       311647     |            | 2578bf | 1467af |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ eno   | 461786       720643       519440       350123       955852     |            | 29acdf | 189bcf |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ suv   | 279373       443160       611756       585084       379654     |            | 04bcdf | 03abcf |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ iny   | 423431       198162       848932       994031       767998     |            | 0248bf | 0137af |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ ata   | 684269       836872       162430       991185       557961     |            | 0567df | 0457cf |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ evu   | 23633        698636       809957       332936       424528     |            | 3568bf | 3457af |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ nip   | 142753       4701         525387       394840       58246      |            | 0379cf | 0268bf |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ gyb   | 292328       345455       828538       656410       967238     |            | 246bcf | 236abf |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ nab   | 228586       842875       712758       29086        395919     |            | 347adf | 2369cf |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ beh   | 196398       540217       312997       703038       406682     |            | 0679bf | 0568af |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ oco   | 981124       504322       228935       958361       298407     |            | 0589af | 04789f |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ gad   | 148332       419470       295368       424592       947943     |            | 0389af | 02789f |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ vyk   | 3215         915727       419248       666821       718530     |            | 0458bf | 0347af |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ lat   | 95015        244330       505651       876956       751583     |            | 159adf | 0489cf |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ uma   | 334618       184763       802274       703051       457964     |            | 239adf | 1289cf |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ naw   | 191418       281376       590785       925822       30680      |            | 1467cf | 0356bf |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ san   | 544223       366439       188304       633905       967485     |            | 027acf | 0169bf |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ ebo   | 491021       348969       808217       109009       819584     |            | 45688f | 34578f |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ eli   | 871522       783111       555771       549959       604762     |            | 01acdf | 019bcf |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ utu   | 679436       262085       808079       712359       691116     |            | 1247af | 01369f |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ wem   | 739947       920455       758999       721557       133742     |            | 246bcf | 236abf |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ uda   | 944059       724071       19187        130447       635311     |            | 11379f | 01268f |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ sod   | 585372       660645       21467        844048       713724     |            | 1568df | 0457cf |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ zed   | 379958       594136       189337       948005       712822     |            | 238bcf | 127abf |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ mok   | 298595       730471       531753       648265       459013     |            | 13568f | 02457f |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+
+ vol   | 243754       685325       298118       978322       329437     |            | 1389df | 0278cf |
+-------+------------+------------+------------+------------+------------+------------+--------+--------+

@@ -34,6 +34,7 @@ public class Group {
 	 */
 	public void addFamily(Family family) {
 		families.add(family);
+		family.group = this;
 	}
 
 	/** @see java.lang.Object#toString() */

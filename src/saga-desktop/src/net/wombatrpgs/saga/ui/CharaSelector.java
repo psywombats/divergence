@@ -35,10 +35,11 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	
 	// layout
 	protected static final int INSERTS_MARGIN = 5;
-	protected static final int INSERTS_COUNT_HORIZ = 2;
-	protected static final int INSERTS_COUNT_VERT = 3;
+	protected static final int DEFAULT_COLUMNS = 2;
+	protected static final int DEFAULT_ROWS = 3;
 	
 	// inserts
+	protected int cols, rows;
 	protected float paddingFudge;
 	protected boolean fullMode, combatMode, showBG;
 	protected int insertsWidth, insertsHeight;
@@ -46,9 +47,10 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	protected Nineslice bg;
 	
 	// cursor
-	protected boolean cursorOn;
+	protected boolean cursorOn, indentOn;
 	protected boolean cancellable;
 	protected int selectedX, selectedY;
+	protected int indentX, indentY;
 	protected float cursorX, cursorY;
 	protected SelectionListener onSelect, onHover;
 	
@@ -58,24 +60,54 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	 * @param	combatMode		True to use combat status and not race etc
 	 * @param	showBG			True to use the automatic nineslice bg
 	 * @param	padding			The horizontal floating fudge... ugly
+	 * @param	cols			The number of columns of inserts
+	 * @param	rows			The number of rows of inserts
 	 */
 	public CharaSelector(Party party, boolean fullMode, boolean combatMode,
-			boolean showBG, float padding) {
+			boolean showBG, float padding, int cols, int rows) {
 		this.party = party;
 		this.fullMode = fullMode;
 		this.combatMode = combatMode;
 		this.showBG = showBG;
-		this.paddingFudge += padding;
+		this.paddingFudge = padding;
+		this.cols = cols;
+		this.rows = rows;
 		insertsWidth = getInsertWidth();
 		insertsHeight = getInsertHeight();
-		insertsWidth *= INSERTS_COUNT_HORIZ;
-		insertsHeight *= INSERTS_COUNT_VERT;
+		insertsWidth *= cols;
+		insertsHeight *= rows;
 		insertsWidth += 2 * INSERTS_MARGIN;
 		insertsHeight += 2 * (INSERTS_MARGIN+2);
-		insertsWidth += padding * (INSERTS_COUNT_HORIZ-1);
+		insertsWidth += padding * (cols-1);
 		
 		bg = new Nineslice();
 		assets.add(bg);
+	}
+	
+	/**
+	 * Creates a new character selector with a custom party. Uses the default
+	 * two columns three rows approach.
+	 * @param	fullMode		True to use large version
+	 * @param	combatMode		True to use combat status and not race etc
+	 * @param	showBG			True to use the automatic nineslice bg
+	 * @param	padding			The horizontal floating fudge... ugly
+	 */
+	public CharaSelector(Party party, boolean fullMode, boolean combatMode,
+			boolean showBG, float padding) {
+		this(party, fullMode, combatMode, showBG, padding,
+				DEFAULT_COLUMNS, DEFAULT_ROWS);
+	}
+	
+	/**
+	 * Creates a new character selector for the hero party with no bg or padding
+	 * but with custom row/column count.
+	 * @param	full			True to use large version
+	 * @param	combat			True to use combat status and not race etc
+	 * @param	cols			The number of columns of inserts
+	 * @param	rows			The number of rows of inserts
+	 */
+	public CharaSelector(boolean full, boolean combat, int cols, int rows) {
+		this(SGlobal.heroes, full, combat, true, 0, cols, rows);
 	}
 	
 	/**
@@ -85,7 +117,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	 * @param	showBG			True to show the nineslice bg default
 	 */
 	public CharaSelector(boolean fullMode, boolean combatMode) {
-		this(SGlobal.heroes, fullMode, combatMode, true, 0);
+		this(fullMode, combatMode, DEFAULT_COLUMNS, DEFAULT_ROWS);
 	}
 
 	/** @see net.wombatrpgs.mgne.ui.OptionSelector#getWidth() */
@@ -179,6 +211,14 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 			insert.render(batch);
 		}
 		if (cursorOn) {
+			Graphic cursor = MGlobal.ui.getCursor();
+			cursorX = x;
+			cursorY = y + insertsHeight;
+			cursorX += (getInsertWidth() + paddingFudge) * selectedX;
+			cursorY -= getInsertHeight() * selectedY;
+			cursorY -= inserts.get(0).getHeight() * 3 / 2;
+			cursorY += (getInsertHeight() - cursor.getHeight()) / 2;
+			cursorX -= (cursor.getWidth() / 2 - 3);
 			MGlobal.ui.getCursor().renderAt(batch, cursorX, cursorY);
 		}
 	}
@@ -193,6 +233,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 		this.cancellable = canCancel;
 		focus();
 		cursorOn = true;
+		indentOn = false;
 		selectedX = 0;
 		selectedY = 0;
 		updateCursor();
@@ -208,12 +249,19 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	}
 	
 	/**
+	 * Marks the selected cursor position by indenting a copy of the cursor.
+	 */
+	public void setIndent(int selected) {
+		
+	}
+	
+	/**
 	 * Manually moves the cursor.
 	 * @param	selected		The index of the character to move to
 	 */
 	public void setSelected(int selected) {
-		selectedX = selected % INSERTS_COUNT_HORIZ;
-		selectedY = (int) Math.floor((float) selected / (float) INSERTS_COUNT_HORIZ);
+		selectedX = selected % cols;
+		selectedY = (int) Math.floor((float) selected / (float) cols);
 		updateCursor();
 	}
 	
@@ -276,16 +324,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	/**
 	 * Updates the cursor position based on the selection variable.
 	 */
-	protected void updateCursor() {
-		Graphic cursor = MGlobal.ui.getCursor();
-		cursorX = x;
-		cursorY = y + insertsHeight;
-		cursorX += (getInsertWidth() + paddingFudge) * selectedX;
-		cursorY -= getInsertHeight() * selectedY;
-		cursorY -= inserts.get(0).getHeight() * 3 / 2;
-		cursorY += (getInsertHeight() - cursor.getHeight()) / 2;
-		cursorX -= (cursor.getWidth() / 2 - 3);
-		
+	protected void updateCursor() {		
 		if (onHover != null) {
 			onHover.onSelection(getSelected());
 		}
@@ -298,12 +337,12 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	protected void moveCursorVert(int delta) {
 		selectedY += delta;
 		if (selectedY < 0) {
-			selectedY = (int) Math.floor(inserts.size() / INSERTS_COUNT_HORIZ);
+			selectedY = (int) Math.floor(inserts.size() / cols);
 		}
-		if (selectedY >= INSERTS_COUNT_VERT) {
+		if (selectedY >= rows) {
 			selectedY = 0;
 		}
-		while (selectedX + selectedY * INSERTS_COUNT_HORIZ >= inserts.size()) {
+		while (selectedX + selectedY * cols >= inserts.size()) {
 			selectedY -= 1;
 		}
 		updateCursor();
@@ -316,12 +355,12 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	protected void moveCursorHoriz(int delta) {
 		selectedX += delta;
 		if (selectedX < 0) {
-			selectedX = INSERTS_COUNT_HORIZ - 1;
+			selectedX = cols - 1;
 		}
-		if (selectedX >= INSERTS_COUNT_HORIZ) {
+		if (selectedX >= cols) {
 			selectedX = 0;
 		}
-		while (selectedX + selectedY * INSERTS_COUNT_HORIZ >= inserts.size()) {
+		while (selectedX + selectedY * cols >= inserts.size()) {
 			selectedX -= 1;
 		}
 		updateCursor();
@@ -374,7 +413,7 @@ public class CharaSelector extends ScreenGraphic implements CommandListener {
 	 * @return					The currently selected characters
 	 */
 	protected Chara getSelected() {
-		int selected = selectedX + selectedY * INSERTS_COUNT_HORIZ;
+		int selected = selectedX + selectedY * cols;
 		return inserts.get(selected).getChara();
 	}
 	
