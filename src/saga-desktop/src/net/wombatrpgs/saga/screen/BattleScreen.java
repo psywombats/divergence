@@ -31,6 +31,7 @@ import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextboxFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.Battle;
 import net.wombatrpgs.saga.rpg.Intent.TargetListener;
 import net.wombatrpgs.saga.rpg.chara.Chara;
@@ -71,7 +72,7 @@ public class BattleScreen extends SagaScreen {
 	
 	// battle box constants
 	protected static final int TEXT_LINES = 8;
-	protected static final float TEXT_FADE_TIME = .1f;
+	protected static final float TEXT_FADE_TIME = 0f;
 	
 	protected Battle battle;
 	
@@ -535,10 +536,11 @@ public class BattleScreen extends SagaScreen {
 	 */
 	@Override
 	protected void wipe() {
+		float[] wipe = SGlobal.graphics.getWhite();
 		WindowSettings window = MGlobal.window;
-		Gdx.gl.glClearColor(248.f/255.f, 248.f/255.f, 248.f/255.f, 1);
+		Gdx.gl.glClearColor(wipe[0], wipe[1], wipe[2], 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		shapes.setColor(248.f/255.f, 248.f/255.f, 248.f/255.f, 1);
+		shapes.setColor(wipe[0], wipe[1], wipe[2], 1);
 		shapes.begin(ShapeType.Filled);
 		shapes.rect(0, 0, window.getWidth(), window.getHeight());
 	}

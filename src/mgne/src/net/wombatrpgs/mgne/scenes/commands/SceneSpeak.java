@@ -21,7 +21,7 @@ import net.wombatrpgs.mgneschema.io.data.InputCommand;
  */
 public class SceneSpeak extends OneArgFunction {
 	
-	protected static final float FADE_TIME = .1f;
+	protected static final float FADE_TIME = 0f;
 
 	/**
 	 * @see org.luaj.vm2.lib.OneArgFunction#call(org.luaj.vm2.LuaValue)

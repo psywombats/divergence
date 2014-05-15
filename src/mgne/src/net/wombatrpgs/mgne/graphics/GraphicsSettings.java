@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
+import net.wombatrpgs.mgne.maps.MapThing;
 import net.wombatrpgs.mgneschema.settings.GraphicsSettingsMDO;
 import net.wombatrpgs.mgneschema.settings.data.ShaderEnabledState;
 import net.wombatrpgs.mgneschema.test.data.TestState;
@@ -121,8 +122,8 @@ public class GraphicsSettings extends AssetQueuer implements Disposable {
 	 * @param	shaderKey		The key to the data file of the shader
 	 * @return					The constructed shader, or null if no shaders
 	 */
-	protected ShaderFromData constructShader(String shaderKey) {
-		if (!isShaderEnabled() || shaderKey == null) {
+	public ShaderFromData constructShader(String shaderKey) {
+		if (!isShaderEnabled() || !MapThing.mdoHasProperty(shaderKey)) {
 			return null;
 		}
 		ShaderFromData shader = new ShaderFromData(shaderKey);

@@ -2,8 +2,8 @@
 	"key" : "sagasettings_default",
 	"subfolder" : "",
 	"name" : "",
-	"description" : " ",
+	"description" : "",
 	"heroParty" : "party_playerTest",
 	"monsterSettings" : "monstersettings_test",
-	"graphcisSettings" : "sagagraphics_gbc"
+	"graphcisSettings" : "sagagraphics_retouched"
 }

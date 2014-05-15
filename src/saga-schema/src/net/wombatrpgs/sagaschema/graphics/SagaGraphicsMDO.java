@@ -6,8 +6,10 @@
  */
 package net.wombatrpgs.sagaschema.graphics;
 
+import net.wombatrpgs.mgneschema.graphics.ShaderMDO;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
+import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 
 /**
@@ -15,6 +17,10 @@ import net.wombatrpgs.mgns.core.MainSchema;
  */
 @Path("graphics/")
 public class SagaGraphicsMDO extends MainSchema {
+	
+	@Desc("Shader - used to render pretty much everything")
+	@SchemaLink(ShaderMDO.class)
+	public String shader;
 	
 	@Desc("Filter black - what shaders treat as black in source graphics, use rrr,ggg,bbb format")
 	public String filterBlack;
@@ -25,13 +31,12 @@ public class SagaGraphicsMDO extends MainSchema {
 	@Desc("Filter white - what shaders treat as white in source graphics, use rrr,ggg,bbb format")
 	public String filterWhite;
 	
-	@Desc("Output black - output color shaders use as the gameboy black, use rrr,ggg,bbb format")
-	public String outBlack;
-	@Desc("Output dark gray - output color shaders use as the gameboy dark gray, use rrr,ggg,bbb format")
-	public String outDgray;
-	@Desc("Output light gray - output color shaders use as the gameboy light gray, use rrr,ggg,bbb format")
-	public String outLgray;
-	@Desc("Output white - output color shaders use as the gameboy white, use rrr,ggg,bbb format")
-	public String outWhite;
+	@Desc("Background palette - color mappings for the background level")
+	@SchemaLink(PaletteMDO.class)
+	public String bgPalette;
+	
+	@Desc("Foreground palette - color mappings for moving sprites")
+	@SchemaLink(PaletteMDO.class)
+	public String fgPalette;
 
 }

@@ -3,12 +3,11 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
-	"filterBlack" : "000,000,000",
-	"filterDgray" : "100,100,100",
+	"shader" : "shader_gameboy",
+	"filterBlack" : "0,0,0",
+	"filterDgray" : "85,85,85",
 	"filterLgray" : "171,171,171",
 	"filterWhite" : "255,255,255",
-	"outBlack" : "048,048,048",
-	"outDgray" : "059,170,181",
-	"outLgray" : "174,219,196",
-	"outWhite" : "255,255,242"
+	"bgPalette" : "palette_gbcBlueGreen",
+	"fgPalette" : "palette_gbcBrown"
 }

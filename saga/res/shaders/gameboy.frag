@@ -23,23 +23,30 @@ vec4 vec3to4(vec3 vec) {
 }
 
 void main() {
-	vec4 current = texture2D(u_texture, v_texCoords);
+	vec4 current = v_color * texture2D(u_texture, v_texCoords);
+	current[0] *= current[3];
+	current[1] *= current[3];
+	current[2] *= current[3];
 	
 	float dBlack = color_d(current, u_black);
 	float dDgray = color_d(current, u_dgray);
 	float dLgray = color_d(current, u_lgray);
 	float dWhite = color_d(current, u_white);
 	
-	if (dBlack <= dDgray && dBlack <= dLgray && dBlack <= dWhite) {
-		gl_FragColor = vec3to4(u_blackOut);
-	}
-	if (dDgray <= dBlack && dDgray <= dLgray && dDgray <= dWhite) {
-		gl_FragColor = vec3to4(u_dgrayOut);
-	}
-	if (dLgray <= dBlack && dLgray <= dDgray && dLgray <= dWhite) {
-		gl_FragColor = vec3to4(u_lgrayOut);
-	}
-	if (dWhite <= dBlack && dWhite <= dDgray && dWhite <= dLgray) {
-		gl_FragColor = vec3to4(u_whiteOut);
+	if (current[3] == 0) {
+		gl_FragColor = v_color * texture2D(u_texture, v_texCoords);
+	} else {
+		if (dBlack <= dDgray && dBlack <= dLgray && dBlack <= dWhite) {
+			gl_FragColor = vec3to4(u_blackOut);
+		}
+		if (dDgray <= dBlack && dDgray <= dLgray && dDgray <= dWhite) {
+			gl_FragColor = vec3to4(u_dgrayOut);
+		}
+		if (dLgray <= dBlack && dLgray <= dDgray && dLgray <= dWhite) {
+			gl_FragColor = vec3to4(u_lgrayOut);
+		}
+		if (dWhite <= dBlack && dWhite <= dDgray && dWhite <= dLgray) {
+			gl_FragColor = vec3to4(u_whiteOut);
+		}
 	}
 }

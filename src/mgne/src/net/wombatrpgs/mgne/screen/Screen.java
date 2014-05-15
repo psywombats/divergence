@@ -269,8 +269,8 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 		super.postProcessing(manager, pass);
 		if (pass == 0) {
 			
-			viewBatch = MGlobal.graphics.constructBatch();
-			uiBatch = MGlobal.graphics.constructBatch();
+			viewBatch = constructViewBatch();
+			uiBatch = constructUIBatch();
 			finalBatch = constructFinalBatch();
 			
 			buffer = new FrameBuffer(Format.RGB565, 
@@ -290,7 +290,7 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 			uiCam.update();
 			uiBatch.setProjectionMatrix(uiCam.combined);
 			shapes = new ShapeRenderer();
-			mapShader = null;
+			mapShader = constructMapShader();
 		}
 	}
 	
@@ -397,6 +397,34 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	 */
 	protected SpriteBatch constructFinalBatch() {
 		return MGlobal.graphics.constructFinalBatch();
+	}
+	
+	/**
+	 * Construct the batch used to draw UI elements that don't move with the
+	 * screen. Placed here for easy override.
+	 * @return					The ui render phase batch
+	 */
+	protected SpriteBatch constructUIBatch() {
+		return MGlobal.graphics.constructBatch();
+	}
+	
+	/**
+	 * Construct the batch used to draw events that appear relative to the hero
+	 * as they move on the screen. Placed here for easy override.
+	 * @return					The view render phase batch
+	 */
+	protected SpriteBatch constructViewBatch() {
+		return MGlobal.graphics.constructBatch();
+	}
+	
+	/**
+	 * Construct the batch used to draw the grid layers of maps, probably only
+	 * loaded ones. Placed here for easy override. May return null for use
+	 * default shader.
+	 * @return					The map grid shader, or null for default
+	 */
+	protected ShaderProgram constructMapShader() {
+		return null;
 	}
 
 }

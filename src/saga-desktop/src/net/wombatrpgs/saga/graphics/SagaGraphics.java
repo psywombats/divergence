@@ -15,6 +15,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.BatchWithShader;
 import net.wombatrpgs.mgne.graphics.ShaderFromData;
 import net.wombatrpgs.saga.core.SGlobal;
+import net.wombatrpgs.sagaschema.graphics.PaletteMDO;
 import net.wombatrpgs.sagaschema.graphics.SagaGraphicsMDO;
 
 /**
@@ -24,12 +25,26 @@ public class SagaGraphics {
 	
 	protected SagaGraphicsMDO mdo;
 	
+	protected float[] white, black;
+	
 	/**
 	 * Creates a new saga graphics from some data.
 	 * @param	mdo				The data to generate from
 	 */
 	public SagaGraphics(SagaGraphicsMDO mdo) {
 		this.mdo = mdo;
+		
+		white = new float[3];
+		black = new float[3];
+		PaletteMDO bg = MGlobal.data.getEntryFor(mdo.bgPalette, PaletteMDO.class);
+		Vector3 cWhite = parseCString(bg.outWhite);
+		Vector3 cBlack = parseCString(bg.outBlack);
+		white[0] = cWhite.x;
+		white[1] = cWhite.y;
+		white[2] = cWhite.z;
+		black[0] = cBlack.x;
+		black[1] = cBlack.y;
+		black[2] = cBlack.z;
 	}
 	
 	/**
@@ -48,12 +63,47 @@ public class SagaGraphics {
 	}
 	
 	/**
-	 * Constructs a new batch that uses the gameboy filter. Called by screen.
+	 * Constructs a new batch that uses the gameboy background filter.
 	 * @return					The batch using the gameboy filter
 	 */
-	public BatchWithShader constructGameboyBatch() {
+	public BatchWithShader constructBackgroundBatch() {
+		return constructGameboyBatch(mdo.bgPalette);
+	}
+	
+	/**
+	 * Constructs a new batch that uses the gameboy foreground filter.
+	 * @return					The batch using the gameboy filter
+	 */
+	public BatchWithShader constructForegroundBatch() {
+		return constructGameboyBatch(mdo.fgPalette);
+	}
+	
+	/**
+	 * Returns the stored array of the background white wipe color.
+	 * @return					The background color of the screen in float[]
+	 */
+	public float[] getWhite() {
+		return white;
+	}
+	
+	/**
+	 * Returns the stored array of the background white wipe color.
+	 * @return					The background color of the screen in float[]
+	 */
+	public float[] getBlack() {
+		return black;
+	}
+	
+	/**
+	 * Constructs a new batch that uses the gameboy filter. Will use the default
+	 * filter palette to parse colors.
+	 * @param	paletteKey		The database key of the output palette
+	 * @return					The batch using the gameboy filter
+	 */
+	protected BatchWithShader constructGameboyBatch(String paletteKey) {
 		SpriteBatch batch = MGlobal.graphics.constructBatch();
-		ShaderFromData shader =  MGlobal.graphics.constructGlobalShader();
+		ShaderFromData shader =  MGlobal.graphics.constructShader(mdo.shader);
+		PaletteMDO bg = MGlobal.data.getEntryFor(paletteKey, PaletteMDO.class);
 		
 		if (MGlobal.graphics.isShaderEnabled() && shader != null) {
 			batch.setShader(shader);
@@ -64,16 +114,15 @@ public class SagaGraphics {
 			shader.setUniformf("u_lgray", parseCString(mdo.filterLgray));
 			shader.setUniformf("u_white", parseCString(mdo.filterWhite));
 			
-			shader.setUniformf("u_blackOut", parseCString(mdo.outBlack));
-			shader.setUniformf("u_dgrayOut", parseCString(mdo.outDgray));
-			shader.setUniformf("u_lgrayOut", parseCString(mdo.outLgray));
-			shader.setUniformf("u_whiteOut", parseCString(mdo.outWhite));
+			shader.setUniformf("u_blackOut", parseCString(bg.outBlack));
+			shader.setUniformf("u_dgrayOut", parseCString(bg.outDgray));
+			shader.setUniformf("u_lgrayOut", parseCString(bg.outLgray));
+			shader.setUniformf("u_whiteOut", parseCString(bg.outWhite));
 			
 			batch.end();
 		}
 		
 		return new BatchWithShader(batch, shader);
-		
 	}
 	
 	/**
