@@ -12,8 +12,6 @@ import java.util.List;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.graphics.effects.Effect;
-import net.wombatrpgs.mgne.graphics.effects.EffectFactory;
 import net.wombatrpgs.mgne.io.audio.MusicObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.maps.layers.EventLayer;
@@ -51,7 +49,6 @@ public abstract class Level extends ScreenObject {
 	protected List<MapThing> removalObjects;
 	
 	protected MusicObject bgm;
-	protected Effect effect;
 	protected boolean reseting;
 	protected boolean updating;
 	
@@ -73,10 +70,6 @@ public abstract class Level extends ScreenObject {
 		removalEvents = new ArrayList<MapEvent>();
 		
 		// etc
-		if (MapThing.mdoHasProperty(mdo.effect)) {
-			effect = EffectFactory.create(this, mdo.effect);
-			assets.add(effect);
-		}
 		if (MapThing.mdoHasProperty(mdo.bgm)) {
 			bgm = new MusicObject(MGlobal.data.getEntryFor(mdo.bgm, MusicMDO.class));
 			assets.add(bgm);
@@ -139,9 +132,6 @@ public abstract class Level extends ScreenObject {
 		renderGrid(batch, false);
 		renderEvents(getScreen().getViewBatch());
 		renderGrid(batch, true);
-		if (effect != null) {
-			effect.render(batch);
-		}
 	}
 
 	/**
@@ -163,9 +153,6 @@ public abstract class Level extends ScreenObject {
 			MapThing object = objects.get(i);
 			object.update(elapsed);
 			if (reseting) break;
-		}
-		if (effect != null) {
-			effect.update(elapsed);
 		}
 		reseting = false;
 		updating = false;

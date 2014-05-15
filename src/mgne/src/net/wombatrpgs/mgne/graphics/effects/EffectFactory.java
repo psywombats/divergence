@@ -14,6 +14,7 @@ import net.wombatrpgs.mgneschema.graphics.effects.data.EffectMDO;
 /**
  * Creates effects from MDOs.
  */
+@Deprecated
 public class EffectFactory {
 	
 	/**

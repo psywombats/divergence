@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
-import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextboxFormat;
@@ -29,7 +28,7 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 /**
  * Displays detailed stats on a character.
  */
-public class CharaInfoScreen extends Screen {
+public class CharaInfoScreen extends SagaScreen {
 	
 	protected static final int HEADER_WIDTH = 160;
 	protected static final int HEADER_HEIGHT = 48;

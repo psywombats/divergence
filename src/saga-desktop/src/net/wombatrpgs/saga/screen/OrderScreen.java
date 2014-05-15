@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
-import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.chara.Chara;
@@ -22,7 +21,7 @@ import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
 /**
  * Screen for changing party order.
  */
-public class OrderScreen extends Screen {
+public class OrderScreen extends SagaScreen {
 	
 	protected static final int BG_WIDTH = 140;
 	protected static final int BG_HEIGHT = 180;

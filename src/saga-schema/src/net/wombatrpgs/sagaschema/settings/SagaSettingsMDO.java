@@ -10,6 +10,7 @@ import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
+import net.wombatrpgs.sagaschema.graphics.SagaGraphicsMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
 
 /**
@@ -25,5 +26,9 @@ public class SagaSettingsMDO extends MainSchema {
 	@Desc("Monster settings - meat chance, random encounter stuff, etc")
 	@SchemaLink(MonsterSettingsMDO.class)
 	public String monsterSettings;
+	
+	@Desc("Graphics settings - graphics settings to use for filters etc")
+	@SchemaLink(SagaGraphicsMDO.class)
+	public String graphcisSettings;
 
 }

@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
-import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.CombatItem;
@@ -27,7 +26,7 @@ import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
  * shopkeeper gold. Or something like that.
  */
 // TODO: ui: display abilities
-public class EquipScreen extends Screen {
+public class EquipScreen extends SagaScreen {
 	
 	protected static final int HEADER_WIDTH = 112;
 	protected static final int HEADER_HEIGHT = 48;

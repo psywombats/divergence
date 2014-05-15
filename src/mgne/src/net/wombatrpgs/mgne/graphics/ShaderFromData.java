@@ -29,5 +29,13 @@ public class ShaderFromData extends ShaderProgram {
 			MGlobal.reporter.warn("Bad shader:\n" + getLog());
 		}
 	}
+	
+	/**
+	 * Constructs a new shader from a key to its data.
+	 * @param	key				The key to the data to construct from
+	 */
+	public ShaderFromData(String key) {
+		this(MGlobal.data.getEntryFor(key, ShaderMDO.class));
+	}
 
 }

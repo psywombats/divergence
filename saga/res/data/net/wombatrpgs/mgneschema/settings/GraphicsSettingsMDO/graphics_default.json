@@ -3,6 +3,7 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : " ",
+	"globalShader" : "shader_gameboy",
 	"chunkingEnabled" : "DISABLED",
 	"shaderDebug" : "ENABLED",
 	"enabled" : "ENABLED"

@@ -175,6 +175,7 @@ public class Nineslice implements Queueable, PosRenderable, Disposable {
 				height,
 				false);
 		
+		// this batch is managed privately and need not be registered in MGlobal
 		SpriteBatch batch = new SpriteBatch();
 		Matrix4 matrix = new Matrix4();
 		matrix.setToOrtho2D(0, 0, width, height);

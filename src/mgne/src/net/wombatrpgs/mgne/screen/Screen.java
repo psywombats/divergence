@@ -52,8 +52,8 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	protected transient OrthographicCamera uiCam;
 	
 	/** Graphics shit, reloaded new each time */
-	protected transient SpriteBatch batch;
-	protected transient SpriteBatch privateBatch;
+	protected transient SpriteBatch viewBatch;
+	protected transient SpriteBatch finalBatch;
 	protected transient SpriteBatch uiBatch;
 	protected transient FrameBuffer buffer, lastBuffer;
 	protected transient ShapeRenderer shapes;
@@ -106,7 +106,7 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	public TrackerCam getCamera() { return cam; }
 	
 	/** @return Batch used for rendering contents of the viewport */
-	public SpriteBatch getViewBatch() { return batch; }
+	public SpriteBatch getViewBatch() { return viewBatch; }
 	
 	/** @return Batch used for UI components */
 	public SpriteBatch getUIBatch() { return uiBatch; }
@@ -214,7 +214,7 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	 */
 	public final void render() {
 		cam.update(0);
-		batch.setProjectionMatrix(cam.combined);
+		viewBatch.setProjectionMatrix(cam.combined);
 		WindowSettings window = MGlobal.window;
 		buffer.begin();
 		wipe();
@@ -222,9 +222,9 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 		buffer.end();
 		
 		// Draw the normal screen buffer into the last-buffer
-		privateBatch.begin();
+		finalBatch.begin();
 		lastBuffer.begin();
-		privateBatch.draw(
+		finalBatch.draw(
 				buffer.getColorBufferTexture(),			// texture
 				0, 0,									// x/y in screen space
 				0, 0,									// origin x/y screen
@@ -235,7 +235,7 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 				window.getWidth(), window.getHeight(),	// width/height texel
 				false, true								// flip horiz/vert
 			);
-		privateBatch.end();
+		finalBatch.end();
 		lastBuffer.end();
 		
 		buffer.begin();
@@ -243,10 +243,10 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 		buffer.end();
 		
 		// now draw the results to the screen
-		privateBatch.setColor(tint);
-		privateBatch.begin();
+		finalBatch.setColor(tint);
+		finalBatch.begin();
 		// oh god I'm so sorry
-		privateBatch.draw(
+		finalBatch.draw(
 				buffer.getColorBufferTexture(),			// texture
 				0, 0,									// x/y in screen space
 				0, 0,									// origin x/y screen
@@ -257,7 +257,7 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 				window.getWidth(), window.getHeight(),	// width/height texel
 				false, true								// flip horiz/vert
 			);
-		privateBatch.end();
+		finalBatch.end();
 	}
 
 	/**
@@ -268,9 +268,11 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	public void postProcessing(MAssets manager, int pass) {
 		super.postProcessing(manager, pass);
 		if (pass == 0) {
-			batch = new SpriteBatch();
-			privateBatch = new SpriteBatch();
-			uiBatch = new SpriteBatch();
+			
+			viewBatch = MGlobal.graphics.constructBatch();
+			uiBatch = MGlobal.graphics.constructBatch();
+			finalBatch = constructFinalBatch();
+			
 			buffer = new FrameBuffer(Format.RGB565, 
 					MGlobal.window.getWidth(),
 					MGlobal.window.getHeight(),
@@ -279,6 +281,7 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 					MGlobal.window.getWidth(),
 					MGlobal.window.getHeight(),
 					false);
+			
 			uiCam = new OrthographicCamera();
 			uiCam.zoom = MGlobal.window.getZoom();
 			uiCam.position.x = MGlobal.window.getWidth() / 2;
@@ -338,11 +341,8 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	 */
 	@Override
 	public void dispose() {
-		if (batch != null) batch.dispose();
-		if (privateBatch != null) privateBatch.dispose();
 		if (buffer != null) buffer.dispose();
 		if (lastBuffer != null) lastBuffer.dispose();
-		if (uiBatch != null) uiBatch.dispose();
 	}
 
 	/**
@@ -388,6 +388,15 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 		shapes.setColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
 		shapes.begin(ShapeType.Filled);
 		shapes.rect(0, 0, window.getWidth(), window.getHeight());
+	}
+	
+	/**
+	 * Construct the batch used to draw from internal frame buffer to the
+	 * screen. Placed here for easy override.
+	 * @return					The final render phase batch
+	 */
+	protected SpriteBatch constructFinalBatch() {
+		return MGlobal.graphics.constructFinalBatch();
 	}
 
 }

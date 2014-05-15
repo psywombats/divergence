@@ -13,7 +13,7 @@ import net.wombatrpgs.saga.rpg.chara.HeroParty;
 /**
  * Saga memory for storing specialized saga data in mgne.
  */
-public class SMemory extends Memory {
+public class SagaMemory extends Memory {
 	
 	protected HeroParty party;
 

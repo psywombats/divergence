@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.luaj.vm2.lib.TwoArgFunction;
 
+import net.wombatrpgs.mgne.graphics.GraphicsSettings;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.instances.GameScreen;
 
@@ -50,7 +51,7 @@ public abstract class MgnGame {
 	 * info from their own globals.
 	 * @return					The game memory manager object
 	 */
-	public Memory makeMemory() {
+	public Memory getMemory() {
 		return new Memory();
 	}
 	
@@ -62,6 +63,17 @@ public abstract class MgnGame {
 	 */
 	public Constants makeConstants() {
 		return new Constants();
+	}
+	
+	/**
+	 * Create and then return the graphics settings object used to manage the
+	 * shaders and sprite batches. This defaults to the engine graphics settings
+	 * but can be overridden to do things like pass arguments to the default
+	 * batch shader.
+	 * @return					The graphics object for this game
+	 */
+	public GraphicsSettings getGraphics() {
+		return new GraphicsSettings();
 	}
 	
 	/**

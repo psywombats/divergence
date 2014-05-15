@@ -1,8 +1,0 @@
-{
-	"key" : "shader_reality",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "",
-	"vertexFile" : "realitybend.vert",
-	"fragmentFile" : "realitybend.frag"
-}

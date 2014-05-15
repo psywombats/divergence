@@ -6,11 +6,14 @@
  */
 package net.wombatrpgs.mgneschema.settings;
 
+import net.wombatrpgs.mgneschema.graphics.ShaderMDO;
 import net.wombatrpgs.mgneschema.graphics.data.EffectEnabledType;
 import net.wombatrpgs.mgneschema.settings.data.ShaderEnabledState;
 import net.wombatrpgs.mgneschema.test.data.TestState;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
+import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
+import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 
 /**
@@ -18,6 +21,11 @@ import net.wombatrpgs.mgns.core.MainSchema;
  */
 @Path("graphics/")
 public class GraphicsSettingsMDO extends MainSchema {
+	
+	@Desc("Screen shader - used to draw the final screen")
+	@SchemaLink(ShaderMDO.class)
+	@Nullable
+	public String globalShader;
 	
 	@Desc("Chunking - (advanced) enables/disables the character order rendering algorithm")
 	public EffectEnabledType chunkingEnabled;

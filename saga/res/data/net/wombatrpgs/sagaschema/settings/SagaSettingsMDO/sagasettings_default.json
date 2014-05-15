@@ -4,5 +4,6 @@
 	"name" : "",
 	"description" : " ",
 	"heroParty" : "party_playerTest",
-	"monsterSettings" : "monstersettings_test"
+	"monsterSettings" : "monstersettings_test",
+	"graphcisSettings" : "sagagraphics_gbc"
 }

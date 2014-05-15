@@ -11,6 +11,7 @@ import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.command.CMapGame;
 import net.wombatrpgs.mgne.maps.Level;
+import net.wombatrpgs.mgne.screen.HeroSource;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.settings.IntroSettingsMDO;
@@ -19,12 +20,10 @@ import net.wombatrpgs.mgneschema.settings.IntroSettingsMDO;
  * This is the default screen that appears when the game is first loaded. Once
  * on this screen, the opening scene is played.
  */
-public class GameScreen extends Screen {
+public class GameScreen extends Screen implements HeroSource {
 	
 	protected Level map;
 	protected Avatar hero;
-	
-	protected boolean stasisMode;
 	
 	/**
 	 * Constructs the introduction scene. This consists of simply setting up the
@@ -33,6 +32,7 @@ public class GameScreen extends Screen {
 	public GameScreen() {
 		super();
 		MGlobal.levelManager.setScreen(this);
+		MGlobal.levelManager.setHeroTracker(this);
 		
 		IntroSettingsMDO introMDO=MGlobal.data.getEntryFor("default_intro", IntroSettingsMDO.class);
 		map = MGlobal.levelManager.getLevel(introMDO.map);
@@ -85,13 +85,11 @@ public class GameScreen extends Screen {
 		}
 		getCamera().update(0);
 	}
-	
+
 	/**
-	 * Fetches the player's avatar that's parading around on the map. This
-	 * replaces one of those public static monstrosities that's been kicking
-	 * around for forever.
-	 * @return					The representation of the player on the map
+	 * @see net.wombatrpgs.mgne.screen.HeroSource#getHero()
 	 */
+	@Override
 	public Avatar getHero() {
 		return hero;
 	}

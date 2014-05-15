@@ -7,7 +7,6 @@
 package net.wombatrpgs.mgne.screen.instances;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
@@ -49,7 +48,7 @@ public class TestScreen extends Screen {
 		
 		pushCommandContext(new CMapGame());
 		defaultFont = new BitmapFont();
-		batch = new SpriteBatch();
+		viewBatch = MGlobal.graphics.constructBatch();
 		cam.track(MGlobal.getHero());
 	}
 

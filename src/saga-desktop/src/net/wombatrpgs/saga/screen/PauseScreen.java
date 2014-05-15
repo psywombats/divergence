@@ -28,7 +28,7 @@ import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
 /**
  * The main menu that gets called when the user pauses on the world map.
  */
-public class PauseScreen extends Screen implements Disposable {
+public class PauseScreen extends SagaScreen implements Disposable {
 	
 	protected static final int INFO_HEIGHT = 32;
 	protected static final int INFO_MARGINS = 8;

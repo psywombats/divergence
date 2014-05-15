@@ -9,11 +9,12 @@ package net.wombatrpgs.mgne.maps;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.wombatrpgs.mgne.core.Avatar;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.scenes.TeleportManager;
+import net.wombatrpgs.mgne.screen.HeroSource;
 import net.wombatrpgs.mgne.screen.Screen;
-import net.wombatrpgs.mgne.screen.instances.GameScreen;
 import net.wombatrpgs.mgneschema.maps.LoadedMapMDO;
 import net.wombatrpgs.mgneschema.maps.data.MapMDO;
 import net.wombatrpgs.mgneschema.maps.gen.GeneratedMapMDO;
@@ -28,7 +29,8 @@ public class LevelManager {
 	
 	/** Goes from map IDs to their level manifestation */
 	protected Map<String, Level> levels;
-	protected GameScreen screen;
+	protected Screen screen;
+	protected HeroSource heroSource;
 	protected Level active;
 	protected TeleportManager teleport;
 	
@@ -39,11 +41,14 @@ public class LevelManager {
 		levels = new HashMap<String, Level>();
 	}
 	
-	/** @param screen The screen that will be showing levels */
-	public void setScreen(GameScreen screen) { this.screen = screen; }
+	/** @param source The item that will be providing the hero */
+	public void setHeroTracker(HeroSource source) { this.heroSource = source; }
+	
+	/**@param screen The screen that will be showing levels */
+	public void setScreen(Screen screen) { this.screen = screen; }
 	
 	/** @return The screen levels use */
-	public GameScreen getScreen() { return screen; }
+	public Screen getScreen() { return screen; }
 	
 	/** @return The currently active level */
 	public Level getActive() { return active; }
@@ -53,6 +58,9 @@ public class LevelManager {
 	
 	/** @return The teleport processor for these levels */
 	public TeleportManager getTele() { return this.teleport; }
+	
+	/** @return The hero of this level set! */
+	public Avatar getHero() { return heroSource.getHero(); }
 	
 	/**
 	 * Resets like it's a new game.

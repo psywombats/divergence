@@ -29,13 +29,11 @@ public class SuperGame implements ApplicationListener, FocusListener {
 	@Override
 	public void create() {
 		MGlobal.globalInit();
-		MGlobal.game.onCreate();
 	}
 
 	@Override
 	public void dispose() {
-		MGlobal.assets.dispose();
-		MGlobal.screens.dispose();
+		MGlobal.dispose();
 	}
 
 	@Override

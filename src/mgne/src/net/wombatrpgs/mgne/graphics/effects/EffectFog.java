@@ -27,6 +27,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 /**
  * Fog graphical effect.
  */
+@Deprecated
 public class EffectFog extends Effect {
 	
 	protected static int MAX_BEACONS = 50;

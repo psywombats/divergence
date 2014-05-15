@@ -12,6 +12,7 @@ import java.util.List;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.saga.SagaSettings;
+import net.wombatrpgs.saga.graphics.SagaGraphics;
 import net.wombatrpgs.saga.rpg.chara.HeroParty;
 
 /**
@@ -22,8 +23,11 @@ public class SGlobal {
 	/** RPG information */
 	public static HeroParty heroes;
 	
-	/** Settings */
+	/** Settings and default keys */
 	public static SagaSettings settings;
+	
+	/** Saga-specific graphics */
+	public static SagaGraphics graphics;
 	
 	/**
 	 * Sets up all the global variables. Called once when game is created.
@@ -37,6 +41,7 @@ public class SGlobal {
 		toLoad = new ArrayList<Queueable>();
 		
 		// then everything else
+		graphics = new SagaGraphics();
 		heroes = new HeroParty();
 		toLoad.add(heroes);
 		MGlobal.assets.loadAssets(toLoad, "SGlobal");

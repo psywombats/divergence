@@ -33,11 +33,11 @@ public class SagaGame extends MgnGame {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.MgnGame#makeMemory()
+	 * @see net.wombatrpgs.mgne.core.MgnGame#getMemory()
 	 */
 	@Override
-	public Memory makeMemory() {
-		return new SMemory();
+	public Memory getMemory() {
+		return new SagaMemory();
 	}
 
 	/**
@@ -58,4 +58,5 @@ public class SagaGame extends MgnGame {
 		libs.add(SagaSceneLib.class);
 		return libs;
 	}
+	
 }

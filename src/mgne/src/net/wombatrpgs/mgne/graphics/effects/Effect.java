@@ -17,6 +17,7 @@ import net.wombatrpgs.mgneschema.graphics.effects.data.EffectMDO;
  * A thing that represents a graphical effect on a map such as weather, fog,
  * etc.
  */
+@Deprecated
 public abstract class Effect extends ScreenObject implements Disposable {
 	
 	protected EffectMDO mdo;

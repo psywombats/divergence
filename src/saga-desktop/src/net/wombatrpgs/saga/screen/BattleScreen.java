@@ -22,7 +22,6 @@ import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
-import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.WindowSettings;
 import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgne.ui.Nineslice;
@@ -49,7 +48,7 @@ import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
  * idea is that a battle is owned by a screen and controls the screen, but the
  * logic is kept separate from the display. Owned by a battle.
  */
-public class BattleScreen extends Screen {
+public class BattleScreen extends SagaScreen {
 	
 	// positional constants
 	protected static final int OPTIONS_WIDTH = 108;

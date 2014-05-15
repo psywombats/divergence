@@ -24,7 +24,6 @@ import net.wombatrpgs.mgne.screen.ScreenStack;
 import net.wombatrpgs.mgne.screen.WindowSettings;
 import net.wombatrpgs.mgne.ui.UISettings;
 import net.wombatrpgs.mgne.util.CharConverter;
-import net.wombatrpgs.mgneschema.settings.GraphicsSettingsMDO;
 import net.wombatrpgs.mgneschema.settings.UISettingsMDO;
 import net.wombatrpgs.mgneschema.settings.WindowSettingsMDO;
 
@@ -116,17 +115,19 @@ public class MGlobal {
 			MGlobal.reporter.inform("Initializing data-dependant resources");
 			MGlobal.window = new WindowSettings(
 					MGlobal.data.getEntryFor(Constants.KEY_WINDOW, WindowSettingsMDO.class));
-			MGlobal.graphics = new GraphicsSettings(
-					MGlobal.data.getEntryFor(Constants.KEY_GRAPHICS, GraphicsSettingsMDO.class));
+			MGlobal.graphics = new GraphicsSettings();
 			MGlobal.ui = new UISettings(MGlobal.data.getEntryFor(
 					UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
 			MGlobal.keymap = Keymap.initDefaultKeymap();
-			MGlobal.memory = game.makeMemory();
+			MGlobal.memory = game.getMemory();
 			MGlobal.charConverter = new CharConverter();
 			MGlobal.lua = new Lua();
 			toLoad.add(ui);
 			toLoad.add(graphics);
 			assets.loadAssets(toLoad, "primary global assets");
+			
+			// now the game itself can be created
+			game.onCreate();
 			
 			// initializing graphics
 			MGlobal.reporter.inform("Creating level-dependant data");
@@ -157,12 +158,22 @@ public class MGlobal {
 	}
 	
 	/**
+	 * Static disposal call.
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
+	 */
+	public static void dispose() {
+		screens.dispose();
+		assets.dispose();
+		graphics.dispose();
+	}
+
+	/**
 	 * Replacement for the public static field. This gets the hero from the
 	 * game screen, which is owned by the level manager.
 	 * @return					The player avatar on the world map
 	 */
 	public static Avatar getHero() {
-		return levelManager.getScreen().getHero();
+		return levelManager.getHero();
 	}
 
 }

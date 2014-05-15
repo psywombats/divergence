@@ -1,8 +1,0 @@
-{
-	"key" : "shader_distortion",
-	"subfolder" : "",
-	"name" : "",
-	"description" : " ",
-	"vertexFile" : "distortion.vert",
-	"fragmentFile" : "distortion.frag"
-}
