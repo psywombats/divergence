@@ -118,7 +118,7 @@ public class Chara extends AssetQueuer implements Disposable {
 	
 	/** @return The power of meat needed for this character */
 	public int getTargetLevel() { return mdo.meatTargetLevel; }
-
+	
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
 	 */
@@ -332,6 +332,13 @@ public class Chara extends AssetQueuer implements Disposable {
 			stats.setStat(Stat.HP, get(Stat.MHP));
 		}
 		return get(Stat.HP) - old; 
+	}
+	
+	/**
+	 * Heals all of this character's HP.
+	 */
+	public void restoreHP() {
+		heal(get(Stat.MHP));
 	}
 	
 	/**

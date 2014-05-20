@@ -103,6 +103,10 @@ public class Nineslice implements Queueable, PosRenderable, Disposable {
 	 */
 	@Override
 	public void renderAt(SpriteBatch batch, float x, float y) {
+		if (width == 0 || height == 0) {
+			MGlobal.reporter.warn("Nineslice with 0 width/height: " + this);
+			return;
+		}
 		batch.begin();
 		batch.draw(appearance,
 				x, y,

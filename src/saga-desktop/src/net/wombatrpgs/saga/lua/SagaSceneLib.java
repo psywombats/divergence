@@ -23,6 +23,7 @@ public class SagaSceneLib extends TwoArgFunction {
 		LuaValue library = tableOf();
 		
 		env.set("battle", new SceneBattle());
+		env.set("inn", new SceneInn());
 		
 		env.set("sagalib", library);
 		return library;

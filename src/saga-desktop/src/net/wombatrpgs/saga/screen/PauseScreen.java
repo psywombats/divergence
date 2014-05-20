@@ -36,7 +36,6 @@ public class PauseScreen extends SagaScreen implements Disposable {
 	protected static final int GLOBAL_Y = 92;
 	
 	protected OptionSelector menu, saveSelector;
-	
 	protected CharaSelector inserts;
 	protected TextboxFormat format;
 	protected Nineslice infoBG;

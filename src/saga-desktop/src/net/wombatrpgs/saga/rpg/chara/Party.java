@@ -154,6 +154,16 @@ public class Party extends AssetQueuer implements Disposable {
 	}
 	
 	/**
+	 * Restores the HP of all characters in the party. This isn't really a full
+	 * heal because it doesn't touch status conditions.
+	 */
+	public void restoreHP() {
+		for (Chara member : members) {
+			member.restoreHP();
+		}
+	}
+	
+	/**
 	 * Create the appropriate subclass of chara for this party. Override if the
 	 * party is made of players or enemies or something that requires subclass.
 	 * @param	mdoKey			The key of the mdo being instantiated

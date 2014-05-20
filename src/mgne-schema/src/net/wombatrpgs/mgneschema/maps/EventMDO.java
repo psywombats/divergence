@@ -7,6 +7,7 @@
 package net.wombatrpgs.mgneschema.maps;
 
 import net.wombatrpgs.mgneschema.graphics.DirMDO;
+import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
@@ -34,6 +35,10 @@ public class EventMDO extends MainSchema {
 	@Desc("Group - any groups this NPC is in, when in doubt just leave blank, space seperated")
 	@DefaultValue("")
 	public String groups;
+	
+	@Desc("Face - the direction this NPC faces")
+	@DefaultValue("SOUTH")
+	public OrthoDir face;
 	
 	@Desc("onAdd - lua value, script is called when event is added to map")
 	@DefaultValue("")

@@ -79,6 +79,13 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 		onInteract = mdoToScene(mdo.onInteract);
 		onCollide = mdoToScene(mdo.onCollide);
 		
+		if (mdo.face != null) {
+			setFacing(mdo.face);
+		} else {
+			setFacing(OrthoDir.SOUTH);
+		}
+		
+		
 		zeroCoords();
 		regenerateLua();
 	}
