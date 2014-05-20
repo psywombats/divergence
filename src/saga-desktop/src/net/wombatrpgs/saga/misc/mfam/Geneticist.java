@@ -380,6 +380,11 @@ public class Geneticist {
 					Family fam = child.families.get(famInd);
 					int power = lvl;
 					int target = lvl - 1;
+					for (Member mem : fam.members) {
+						if (mem.power == power || mem.target == target) {
+							continue;
+						}
+					}
 					if (target < 0) target = 0;
 					fam.setMember(memInd, power, target);
 					child.finalizeStats();
