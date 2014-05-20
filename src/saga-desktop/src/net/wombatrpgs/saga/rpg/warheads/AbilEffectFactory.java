@@ -7,7 +7,7 @@
 package net.wombatrpgs.saga.rpg.warheads;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.saga.rpg.CombatItem;
+import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAttackMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectBoostMDO;

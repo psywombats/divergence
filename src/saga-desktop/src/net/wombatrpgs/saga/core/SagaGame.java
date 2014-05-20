@@ -15,7 +15,7 @@ import net.wombatrpgs.mgne.core.Memory;
 import net.wombatrpgs.mgne.core.MgnGame;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.saga.lua.SagaSceneLib;
-import net.wombatrpgs.saga.screen.WorldScreen;
+import net.wombatrpgs.saga.screen.SceneWorld;
 
 /**
  * One day, this class will tell MGNE how to run Saga.
@@ -27,7 +27,7 @@ public class SagaGame extends MgnGame {
 	 */
 	@Override
 	public Screen makeStarterScreen() {
-		WorldScreen screen = new WorldScreen();
+		SceneWorld screen = new SceneWorld();
 		MGlobal.assets.loadAsset(screen, "world screen");
 		return screen;
 	}

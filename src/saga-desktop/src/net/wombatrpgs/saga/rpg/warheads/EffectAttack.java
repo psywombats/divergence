@@ -7,8 +7,8 @@
 package net.wombatrpgs.saga.rpg.warheads;
 
 import net.wombatrpgs.saga.rpg.Battle;
-import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.chara.Chara;
+import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.sagaschema.rpg.abil.data.MissType;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAttackMDO;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;

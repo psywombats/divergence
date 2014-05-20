@@ -11,6 +11,8 @@ import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.core.SGlobal;
+import net.wombatrpgs.saga.rpg.items.CombatItem;
+import net.wombatrpgs.saga.rpg.items.PartyInventory;
 import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
 
 /**
@@ -38,7 +40,7 @@ public class HeroParty extends Party {
 	 */
 	protected HeroParty(PartyMDO mdo) {
 		super(mdo);
-		inventory = new PartyInventory();
+		inventory = new PartyInventory(this);
 	}
 	
 	/** @return The name of the location of the party in the world */
@@ -84,6 +86,15 @@ public class HeroParty extends Party {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * Adds a combat item to the party's inventory.
+	 * @param	item			The item to add
+	 * @return					True if it was added, false if we were full
+	 */
+	public boolean addItem(CombatItem item) {
+		return getInventory().add(item);
 	}
 
 }

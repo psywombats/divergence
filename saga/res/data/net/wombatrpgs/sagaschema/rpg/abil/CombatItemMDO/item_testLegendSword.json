@@ -6,7 +6,7 @@
 	"abilityName" : "$EDUREND",
 	"type" : "ITEM",
 	"uses" : 50,
-	"cost" : 1,
+	"cost" : 0,
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAttackMDO",
 		"key" : "anon_CombatItemMDO_41657651"

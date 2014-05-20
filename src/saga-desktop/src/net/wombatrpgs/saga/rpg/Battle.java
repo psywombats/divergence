@@ -24,12 +24,13 @@ import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.chara.Enemy;
 import net.wombatrpgs.saga.rpg.chara.EnemyParty;
 import net.wombatrpgs.saga.rpg.chara.HeroParty;
-import net.wombatrpgs.saga.rpg.chara.Inventory;
 import net.wombatrpgs.saga.rpg.chara.Party;
+import net.wombatrpgs.saga.rpg.items.CombatItem;
+import net.wombatrpgs.saga.rpg.items.Inventory;
 import net.wombatrpgs.saga.rpg.stats.SagaStats;
 import net.wombatrpgs.saga.rpg.stats.TempStats;
 import net.wombatrpgs.saga.rpg.warheads.EffectDefend;
-import net.wombatrpgs.saga.screen.BattleScreen;
+import net.wombatrpgs.saga.screen.ScreenBattle;
 import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
 import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
 import net.wombatrpgs.sagaschema.rpg.chara.CharaMDO;
@@ -42,7 +43,7 @@ import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
 public class Battle extends AssetQueuer implements Disposable {
 	
 	// battle attributes
-	protected BattleScreen screen;
+	protected ScreenBattle screen;
 	protected HeroParty player;
 	protected EnemyParty enemy;
 	protected boolean anonymous;
@@ -68,7 +69,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	public Battle(HeroParty player, EnemyParty enemy) {
 		this.player = player;
 		this.enemy = enemy;
-		this.screen = new BattleScreen(this);
+		this.screen = new ScreenBattle(this);
 		anonymous = false;
 		finished = false;
 		

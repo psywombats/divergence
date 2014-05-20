@@ -9,7 +9,7 @@ package net.wombatrpgs.saga.lua;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.scenes.SceneCommand;
 import net.wombatrpgs.mgne.scenes.SceneLib;
-import net.wombatrpgs.saga.screen.InnScreen;
+import net.wombatrpgs.saga.screen.ScreenInn;
 
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.ZeroArgFunction;
@@ -26,11 +26,11 @@ public class SceneInn extends ZeroArgFunction {
 	public LuaValue call() {
 		SceneLib.addFunction(new SceneCommand() {
 
-			InnScreen inn;
+			ScreenInn inn;
 
 			@Override protected void internalRun() {
 				// battle stuff moved here, problems before with null heroes
-				inn = new InnScreen();
+				inn = new ScreenInn();
 				MGlobal.assets.loadAsset(inn, "scene inn");
 				MGlobal.screens.push(inn);
 			}

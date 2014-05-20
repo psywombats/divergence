@@ -6,7 +6,7 @@
 	"abilityName" : "$OPETRIFY",
 	"type" : "ITEM",
 	"uses" : 50,
-	"cost" : 222000,
+	"cost" : 22200,
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectStatusMDO",
 		"key" : "anon_CombatItemMDO_-581251627"

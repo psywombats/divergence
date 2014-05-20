@@ -76,11 +76,18 @@
     <property name="onInteract" value="battle('party_testGroups')"/>
    </properties>
   </object>
-  <object name="inn" type="Character" x="240" y="128" width="16" height="16">
+  <object name="inn" type="Character" x="192" y="128" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="face" value="WEST"/>
     <property name="onInteract" value="inn()"/>
+   </properties>
+  </object>
+  <object name="shop" type="Character" x="192" y="144" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="WEST"/>
+    <property name="onInteract" value="shop('item_testWhip', 'item_testPotion', 'item_testCure')"/>
    </properties>
   </object>
  </objectgroup>

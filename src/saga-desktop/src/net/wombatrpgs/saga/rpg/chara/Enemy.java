@@ -8,8 +8,8 @@ package net.wombatrpgs.saga.rpg.chara;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.rpg.Battle;
-import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.Intent;
+import net.wombatrpgs.saga.rpg.items.CombatItem;
 
 /**
  * A character controlled by the AI.

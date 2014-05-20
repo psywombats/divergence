@@ -13,7 +13,7 @@ import org.luaj.vm2.lib.TwoArgFunction;
 
 import net.wombatrpgs.mgne.graphics.GraphicsSettings;
 import net.wombatrpgs.mgne.screen.Screen;
-import net.wombatrpgs.mgne.screen.instances.GameScreen;
+import net.wombatrpgs.mgne.screen.instances.ScreenGame;
 
 /**
  * The MgnGame corresponds to all the game-specific stuff a game might want to
@@ -41,7 +41,7 @@ public abstract class MgnGame {
 	 * @return					The first screen the engine will display
 	 */
 	public Screen makeStarterScreen() {
-		return new GameScreen();
+		return new ScreenGame();
 	}
 	
 	/**

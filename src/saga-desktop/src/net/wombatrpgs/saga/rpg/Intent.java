@@ -12,6 +12,7 @@ import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.rpg.chara.Chara;
+import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**

@@ -14,7 +14,7 @@ import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBox;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.ui.TextBoxMDO;
-import net.wombatrpgs.saga.screen.BattleScreen;
+import net.wombatrpgs.saga.screen.ScreenBattle;
 
 /**
  * Textbox equivalent for the combat screen. Supports the multiline functions
@@ -24,7 +24,7 @@ import net.wombatrpgs.saga.screen.BattleScreen;
  */
 public class BattleBox extends TextBox implements CommandListener {
 	
-	protected BattleScreen parent;
+	protected ScreenBattle parent;
 	
 	protected boolean auto;
 
@@ -35,7 +35,7 @@ public class BattleBox extends TextBox implements CommandListener {
 	 * @param	parent			The parent screen to which this box belongs
 	 * @param	lines			The new amount of lines in the battlebox
 	 */
-	public BattleBox(BattleScreen parent, int lines) {
+	public BattleBox(ScreenBattle parent, int lines) {
 		super(generateMDO(lines), MGlobal.ui.getFont());
 		this.parent = parent;
 		auto = false;

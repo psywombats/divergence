@@ -16,14 +16,13 @@ import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Graphic;
-import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.Option;
 import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextboxFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
-import net.wombatrpgs.saga.rpg.CombatItem;
-import net.wombatrpgs.saga.rpg.chara.Inventory;
+import net.wombatrpgs.saga.rpg.items.CombatItem;
+import net.wombatrpgs.saga.rpg.items.Inventory;
 
 /**
  * Allows the user to select an ability from a list.
@@ -37,9 +36,9 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	
 	// layout
 	protected Screen parent;
-	protected TextboxFormat format, usesFormat;
-	protected Nineslice bg;
-	protected int width, height, padding;
+	protected TextboxFormat nameFormat, usesFormat, priceFormat;
+	protected int width, height;
+	protected int padding;
 	protected int count;
 	
 	// cursor
@@ -53,7 +52,7 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	protected boolean indentOn;
 	protected float indentX, indentY;
 	
-	protected boolean battleOnly;
+	protected boolean battleOnly, showPrice;
 	
 	/**
 	 * Creates a new selector for a given inventory.
@@ -61,37 +60,36 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	 * @param	count			The number of items to display at once
 	 * @param	width			The width of the selector (in virt px)
 	 * @param	padding			The vertical padding between items (in virt px)
-	 * @param	useBG			True to use a nineslice bg, false for none
-	 * @para	battleOnly		True if only battle-useable items shown
+	 * @param	battleOnly		True if only battle-useable items shown
+	 * @param	showPrice		True to show the buy/sell value of the items
 	 */
 	public ItemSelector(Inventory inventory, int count, int width,
-			int padding, boolean useBG, boolean battleOnly) {
+			int padding, boolean battleOnly, boolean showPrice) {
 		this.inventory = inventory;
 		this.width = width;
 		this.padding = padding;
 		this.count = count;
 		this.battleOnly = battleOnly;
+		this.showPrice = showPrice;
 		
 		FontHolder font = MGlobal.ui.getFont();
 		height = (int) (count * font.getLineHeight());
 		height += padding * (count-1);
 		
-		format = new TextboxFormat();
-		format.align = HAlignment.LEFT;
-		format.width = width;
-		format.height = 240;
+		nameFormat = new TextboxFormat();
+		nameFormat.align = HAlignment.LEFT;
+		nameFormat.width = width;
+		nameFormat.height = 240;
 		
 		usesFormat = new TextboxFormat();
 		usesFormat.align = HAlignment.RIGHT;
 		usesFormat.width = 16;
 		usesFormat.height = 240;
 		
-		if (useBG) {
-			bg = new Nineslice();
-			assets.add(bg);
-			height += bg.getBorderHeight();
-			format.width -= bg.getBorderWidth() * 2;
-		}
+		priceFormat = new TextboxFormat();
+		priceFormat.align = HAlignment.RIGHT;
+		priceFormat.width = 48;
+		priceFormat.height = 240;
 	}
 
 	/** @see net.wombatrpgs.mgne.graphics.ScreenGraphic#getWidth() */
@@ -106,18 +104,19 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	 */
 	@Override
 	public void coreRender(SpriteBatch batch) {
-		if (bg != null) {
-			bg.renderAt(batch, x, y);
-		}
 		
 		FontHolder font = MGlobal.ui.getFont();
 		for (int i = 0; i < inventory.slotCount(); i += 1) {
 			CombatItem item = inventory.get(i);
 			int offY = (int) (-i * (font.getLineHeight() + padding));
 			if (item != null && (!battleOnly || item.isBattleUsable())) {
-				font.draw(batch, format, item.getName(), offY);
+				font.draw(batch, nameFormat, item.getName(), offY);
 				String uses = item.isUnlimited() ? "--" : String.valueOf(item.getUses());
+				String price = item.isSellable() ? String.valueOf(item.getCost()) : "--";
 				font.draw(batch, usesFormat, uses, offY);
+				if (showPrice) {
+					font.draw(batch, priceFormat, price, offY);
+				}
 			}
 		}
 		
@@ -152,19 +151,18 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	@Override
 	public void postProcessing(MAssets manager, int pass) {
 		super.postProcessing(manager, pass);
-		if (pass == 0 && bg != null) {
-			bg.resizeTo(width, height);
-		}
 		
 		FontHolder font = MGlobal.ui.getFont();
-		format.x = (int) x;
-		format.y = (int) (y + height + font.getLineHeight());
-		usesFormat.x = (int) (x + width - usesFormat.width );
-		usesFormat.y = (int) (y + height + font.getLineHeight());
-		if (bg != null) {
-			format.y -= bg.getBorderHeight();
-			usesFormat.y -= bg.getBorderHeight();
-			usesFormat.x -= bg.getBorderWidth();
+		nameFormat.x = (int) x;
+		nameFormat.y = (int) (y + height + font.getLineHeight());
+		if (showPrice) {
+			priceFormat.x = (int) (x + width - priceFormat.width );
+			priceFormat.y = (int) (y + height + font.getLineHeight());
+			usesFormat.x = priceFormat.x - (usesFormat.width + 8);
+			usesFormat.y = (int) (y + height + font.getLineHeight());
+		} else {
+			usesFormat.x = (int) (x + width - usesFormat.width );
+			usesFormat.y = (int) (y + height + font.getLineHeight());
 		}
 	}
 	

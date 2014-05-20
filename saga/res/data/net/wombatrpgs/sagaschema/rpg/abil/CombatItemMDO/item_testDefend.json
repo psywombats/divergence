@@ -6,7 +6,7 @@
 	"abilityName" : "$EDEFEND",
 	"type" : "ITEM",
 	"uses" : 50,
-	"cost" : 12000,
+	"cost" : 9800,
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectDefendMDO",
 		"key" : "anon_CombatItemMDO_-157393347"

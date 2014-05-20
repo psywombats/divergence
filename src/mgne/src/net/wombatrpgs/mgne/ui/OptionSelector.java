@@ -189,7 +189,9 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 			font.draw(getBatch(), format, o.getText(), off);
 			off -= (spacingVert + font.getLineHeight());
 		}
-		MGlobal.ui.getCursor().renderAt(getBatch(), cursorX, cursorY);
+		if (controlling) {
+			MGlobal.ui.getCursor().renderAt(getBatch(), cursorX, cursorY);
+		}
 	}
 
 	/**

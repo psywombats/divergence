@@ -8,10 +8,10 @@ package net.wombatrpgs.saga.rpg.warheads;
 
 import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.rpg.Battle;
-import net.wombatrpgs.saga.rpg.CombatItem;
 import net.wombatrpgs.saga.rpg.Intent;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.chara.Status;
+import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectStatusMDO;
 
 /**
