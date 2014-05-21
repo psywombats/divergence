@@ -12,13 +12,18 @@ import java.util.List;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextboxFormat;
+import net.wombatrpgs.mgneschema.io.data.InputCommand;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
+import net.wombatrpgs.saga.ui.CharaSelector;
+import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
 import net.wombatrpgs.saga.ui.ItemSelector;
 import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
 import net.wombatrpgs.saga.ui.CharaInsert;
@@ -28,7 +33,7 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 /**
  * Displays detailed stats on a character.
  */
-public class ScreenCharaInfo extends SagaScreen {
+public class ScreenCharaInfo extends SagaScreen implements TargetSelectable {
 	
 	protected static final int HEADER_WIDTH = 160;
 	protected static final int HEADER_HEIGHT = 48;
@@ -39,6 +44,7 @@ public class ScreenCharaInfo extends SagaScreen {
 	protected static final int ABILS_HEIGHT = 108;
 	protected static final int ABILS_EDGE_PADDING = 12;
 	protected static final int ABILS_LIST_PADDING = 3;
+	protected static final int INSERTS_PADDING = 3;
 	
 	protected Chara chara;
 	
@@ -47,6 +53,8 @@ public class ScreenCharaInfo extends SagaScreen {
 	protected TextboxFormat labelFormat, statFormat;
 	protected List<Stat> statDisplay;
 	protected ItemSelector abils;
+	protected CharaSelector inserts;
+	protected boolean showInserts;
 	protected int headerX, headerY;
 	protected int globalX, globalY;
 	
@@ -73,6 +81,9 @@ public class ScreenCharaInfo extends SagaScreen {
 				ABILS_WIDTH - ABILS_EDGE_PADDING * 2, ABILS_LIST_PADDING,
 				false, false);
 		assets.add(abils);
+		inserts = new CharaSelector(SGlobal.heroes, false, false, true, INSERTS_PADDING);
+		assets.add(inserts);
+		addUChild(inserts);
 		
 		globalX = (getWidth() - HEADER_WIDTH) / 2;
 		globalY = -(getHeight() - (HEADER_HEIGHT + STATS_HEIGHT - 
@@ -84,9 +95,54 @@ public class ScreenCharaInfo extends SagaScreen {
 		statDisplay.add(Stat.DEF);
 		statDisplay.add(Stat.MANA);
 		
+		showInserts = false;
 		createDisplay();
 	}
 	
+	/**
+	 * @see net.wombatrpgs.saga.screen.TargetSelectable#getUser()
+	 */
+	@Override
+	public Chara getUser() {
+		return chara;
+	}
+
+	/**
+	 * @see net.wombatrpgs.saga.screen.TargetSelectable#awaitSelection
+	 * (net.wombatrpgs.saga.ui.CharaSelector.SelectionListener)
+	 */
+	@Override
+	public void awaitSelection(final SelectionListener listener) {
+		inserts.awaitSelection(new SelectionListener() {
+			@Override public boolean onSelection(Chara selected) {
+				if (selected == null) {
+					showInserts = false;
+				}
+				return listener.onSelection(selected);
+			}
+		}, true);
+		showInserts = true;
+	}
+
+	/**
+	 * @see net.wombatrpgs.saga.screen.TargetSelectable#refresh()
+	 */
+	@Override
+	public void refresh() {
+		inserts.refresh();
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.screen.Screen#postProcessing
+	 * (net.wombatrpgs.mgne.core.MAssets, int)
+	 */
+	@Override
+	public void postProcessing(MAssets manager, int pass) {
+		super.postProcessing(manager, pass);
+		inserts.setX(globalX);
+		inserts.setY(globalY + getHeight() - HEADER_HEIGHT);
+	}
+
 	/**
 	 * @see net.wombatrpgs.mgne.screen.Screen#render
 	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
@@ -99,6 +155,9 @@ public class ScreenCharaInfo extends SagaScreen {
 				STATS_HEIGHT);
 		headerBG.renderAt(batch, globalX, globalY + getHeight() - HEADER_HEIGHT);
 		header.render(batch);
+		if (showInserts) {
+			inserts.render(batch);
+		}
 		
 		FontHolder font = MGlobal.ui.getFont();
 		for (int i = 0; i < statDisplay.size(); i += 1) {
@@ -119,6 +178,7 @@ public class ScreenCharaInfo extends SagaScreen {
 	@Override
 	public void onFocusGained() {
 		super.onFocusGained();
+		final ScreenCharaInfo parent = this;
 		abils.awaitSelection(new SlotListener() {
 			@Override public boolean onSelection(int selected) {
 				if (selected == -1) {
@@ -130,11 +190,25 @@ public class ScreenCharaInfo extends SagaScreen {
 						// TODO: sfx: failure sound
 						return false;
 					}
-					item.onMapUse(abils);
+					item.onMapUse(parent);
 				}
 				return false;
 			}
 		}, true);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.screen.Screen#onCommand
+	 * (net.wombatrpgs.mgneschema.io.data.InputCommand)
+	 */
+	@Override
+	public boolean onCommand(InputCommand command) {
+		if (showInserts && !inserts.isActive()) {
+			showInserts = false;
+			return true;
+		} else {
+			return super.onCommand(command);
+		}
 	}
 
 	/**

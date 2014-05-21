@@ -6,12 +6,14 @@
  */
 package net.wombatrpgs.saga.rpg.warheads;
 
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.rpg.Battle;
 import net.wombatrpgs.saga.rpg.Intent;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.rpg.stats.SagaStats;
+import net.wombatrpgs.saga.screen.TargetSelectable;
 import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.DamageType;
 import net.wombatrpgs.sagaschema.rpg.abil.data.DefenseFlag;
@@ -49,6 +51,15 @@ public class EffectDefend extends EffectAllyTarget implements Comparable<EffectD
 	
 	/** @return The dodge-increase shield rating of this defense */
 	public int getShielding() { return mdo.shielding; }
+
+	/**
+	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#onMapUse
+	 * (net.wombatrpgs.saga.screen.TargetSelectable)
+	 */
+	@Override
+	public void onMapUse(TargetSelectable caller) {
+		MGlobal.reporter.err("Unusable ability");
+	}
 
 	/**
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)

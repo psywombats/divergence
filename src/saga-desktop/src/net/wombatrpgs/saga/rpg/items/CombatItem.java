@@ -13,7 +13,7 @@ import net.wombatrpgs.saga.rpg.Intent.IntentListener;
 import net.wombatrpgs.saga.rpg.stats.SagaStats;
 import net.wombatrpgs.saga.rpg.warheads.AbilEffect;
 import net.wombatrpgs.saga.rpg.warheads.AbilEffectFactory;
-import net.wombatrpgs.saga.ui.ItemSelector;
+import net.wombatrpgs.saga.screen.TargetSelectable;
 import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
 
 /**
@@ -97,10 +97,10 @@ public class CombatItem extends AssetQueuer {
 
 	/**
 	 * Called when this item is used from the map menu.
-	 * @param	selector		The menu that invoked this item
+	 * @param	caller			The interface used to get other targets for this
 	 */
-	public void onMapUse(ItemSelector selector) {
-		// TODO: saga: onmapuse
+	public void onMapUse(TargetSelectable caller) {
+		effect.onMapUse(caller);
 	}
 	
 	/**
@@ -192,6 +192,16 @@ public class CombatItem extends AssetQueuer {
 	}
 	
 	/**
+	 * Called internally when the item is used in battle, or by the effect when
+	 * applied on the world map. Simulates wear on the item and removes it the
+	 * item reaches zero uses.
+	 */
+	public void deductUse() {
+		uses -= 1;
+		checkDiscard();
+	}
+	
+	/**
 	 * Calculates the price to buy the item at the current number of uses. Uses
 	 * the standard uses/max * cost formula.
 	 * @param	sellMode		True if the item is being sold back at 1/2 cost
@@ -217,15 +227,6 @@ public class CombatItem extends AssetQueuer {
 	 */
 	public int getCost() {
 		return container.valueOf(this);
-	}
-	
-	/**
-	 * Called internally when the item is used. Simulates wear on the item and
-	 * removes it if it breaks.
-	 */
-	protected void deductUse() {
-		uses -= 1;
-		checkDiscard();
 	}
 	
 	/**

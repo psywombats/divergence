@@ -142,6 +142,9 @@ public class CharaSelector extends ScreenGraphic implements	CommandListener {
 	
 	/** @param listener The callback for when the cursor moves */
 	public void setHoverListener(SelectionListener listener) { onHover = listener; }
+	
+	/** @return True if this selector is currently awaiting input */
+	public boolean isActive() { return cursorOn; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#setX(float)

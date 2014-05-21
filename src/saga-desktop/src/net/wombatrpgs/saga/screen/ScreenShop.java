@@ -28,7 +28,7 @@ import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
 /**
  * Shopping is my favorite hobby, even more than gam mak.
  */
-public class ShopScreen extends SagaScreen {
+public class ScreenShop extends SagaScreen {
 	
 	protected static final int ITEMS_WIDTH = 172;
 	protected static final int ITEMS_EDGE_PADDING = 12;
@@ -63,7 +63,7 @@ public class ShopScreen extends SagaScreen {
 	 * item mdos.
 	 * @param	mdos			The list of MDOs of items in the shop
 	 */
-	public ShopScreen(List<CombatItemMDO> mdos) {
+	public ScreenShop(List<CombatItemMDO> mdos) {
 		shop = new ShopInventory(mdos);
 		
 		menu = new OptionSelector(

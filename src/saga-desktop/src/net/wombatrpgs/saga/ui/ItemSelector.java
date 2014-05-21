@@ -23,11 +23,11 @@ import net.wombatrpgs.mgne.ui.text.TextboxFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.rpg.items.Inventory;
+import net.wombatrpgs.saga.screen.TargetSelectable;
 
 /**
  * Allows the user to select an ability from a list.
  */
-// TODO: ui: scrolling capabilities of abilselector
 public class ItemSelector extends ScreenGraphic implements CommandListener {
 	
 	protected static final int INDENT_SIZE = 4;
@@ -217,15 +217,15 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	
 	/**
 	 * Prompts the user to use or discard the selected item.
+	 * @param	screen			The screen that will be used for selecting chara
 	 */
-	public void useOrDiscard() {
-		final ItemSelector parent = this;
+	public void useOrDiscard(final TargetSelectable screen) {
 		final CombatItem item = inventory.get(selected);
 		OptionSelector selector = new OptionSelector(true,
 				new Option("Use") {
 					@Override public boolean onSelect() {
 						if (item.isMapUsable()) {
-							item.onMapUse(parent);
+							item.onMapUse(screen);
 							return true;
 						} else {
 							// TODO: sfx: failure sound

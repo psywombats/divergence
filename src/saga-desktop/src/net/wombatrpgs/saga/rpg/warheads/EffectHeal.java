@@ -10,11 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.wombatrpgs.saga.core.SConstants;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.Battle;
 import net.wombatrpgs.saga.rpg.Intent;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.chara.Status;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
+import net.wombatrpgs.saga.screen.TargetSelectable;
+import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectHealMDO;
 
 /**
@@ -31,6 +34,38 @@ public class EffectHeal extends EffectAllyTarget {
 
 	/** @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#isMapUsable() */
 	@Override public boolean isMapUsable() { return true; }
+
+	/**
+	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#onMapUse
+	 * (net.wombatrpgs.saga.screen.TargetSelectable)
+	 */
+	@Override
+	public void onMapUse(final TargetSelectable caller) {
+		final List<Chara> targets = new ArrayList<Chara>();
+		switch (mdo.projector) {
+		case ALLY_PARTY: case PLAYER_PARTY_ENEMY_GROUP:
+			targets.addAll(SGlobal.heroes.getAll());
+			applyMapEffect(caller, targets);
+			break;
+		case SINGLE_ALLY:
+			caller.awaitSelection(new SelectionListener() {
+				@Override public boolean onSelection(Chara selected) {
+					if (selected != null) {
+						targets.add(selected);
+						applyMapEffect(caller, targets);
+					}
+					return true;
+				}
+			});
+			break;
+		case USER:
+			if (caller.getUser() != null) {
+				targets.add(caller.getUser());
+				applyMapEffect(caller, targets);
+			}
+			break;
+		}
+	}
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#resolve
@@ -89,6 +124,34 @@ public class EffectHeal extends EffectAllyTarget {
 		}
 		heal += mdo.base;
 		return heal;
+	}
+	
+	/**
+	 * Applies the healing effect like in battle, but on the world map. This
+	 * performs the effect once the targets are finalized.
+	 * @param	caller			The screen calling the effect
+	 * @param	target			The finalized list of targets
+	 */
+	protected void applyMapEffect(TargetSelectable caller, List<Chara> targets) {
+		boolean affected = false;
+		for (Chara victim : targets) {
+			Chara user = caller.getUser() == null ? victim : caller.getUser();
+			if (victim.heal(calcPower(user)) > 0) {
+				affected = true;
+			}
+			Status status = victim.getStatus();
+			if (status != null && status.isContainedIn(mdo.heals)) {
+				status.heal(null, victim);
+				affected = true;
+			}
+		}
+		if (affected) {
+			item.deductUse();
+			// TODO: sfx: heal sfx
+			caller.refresh();
+		} else {
+			// TODO: sfx: fail sfx
+		}
 	}
 
 }

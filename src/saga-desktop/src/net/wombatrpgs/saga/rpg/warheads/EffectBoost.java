@@ -9,12 +9,14 @@ package net.wombatrpgs.saga.rpg.warheads;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.rpg.Battle;
 import net.wombatrpgs.saga.rpg.Intent;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.rpg.stats.SagaStats;
+import net.wombatrpgs.saga.screen.TargetSelectable;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectBoostMDO;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
@@ -40,6 +42,15 @@ public class EffectBoost extends EffectAllyTarget {
 
 	/** @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#isBattleUsable() */
 	@Override public boolean isBattleUsable() { return true; }
+
+	/**
+	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#onMapUse
+	 * (net.wombatrpgs.saga.screen.TargetSelectable)
+	 */
+	@Override
+	public void onMapUse(TargetSelectable caller) {
+		MGlobal.reporter.err("Unusable ability");
+	}
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#resolve

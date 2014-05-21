@@ -17,6 +17,7 @@ import net.wombatrpgs.saga.rpg.Intent.IntentListener;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.chara.Party;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
+import net.wombatrpgs.saga.screen.TargetSelectable;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 
 /**
@@ -92,6 +93,14 @@ public abstract class AbilEffect extends AssetQueuer {
 	public void onRoundStart(Intent intent) {
 		// default is nothing
 	}
+	
+	/**
+	 * Called when this object is used from the map, either from someone's
+	 * ability list or from the party inventory. If this item is not map usable,
+	 * just do nothing.
+	 * @param	caller			The screen that invoked this call
+	 */
+	public abstract void onMapUse(TargetSelectable caller);
 	
 	/**
 	 * Array containment test.

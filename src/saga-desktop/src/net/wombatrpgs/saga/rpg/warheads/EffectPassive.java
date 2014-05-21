@@ -11,6 +11,7 @@ import net.wombatrpgs.saga.rpg.Intent;
 import net.wombatrpgs.saga.rpg.Intent.IntentListener;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.rpg.stats.SagaStats;
+import net.wombatrpgs.saga.screen.TargetSelectable;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectPassiveMDO;
 
 /**
@@ -72,6 +73,15 @@ public class EffectPassive extends AbilEffect {
 	 */
 	@Override
 	public void assignRandomTargets(Intent intent) {
+		MGlobal.reporter.err("Unusable ability");
+	}
+
+	/**
+	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#onMapUse
+	 * (net.wombatrpgs.saga.screen.TargetSelectable)
+	 */
+	@Override
+	public void onMapUse(TargetSelectable caller) {
 		MGlobal.reporter.err("Unusable ability");
 	}
 

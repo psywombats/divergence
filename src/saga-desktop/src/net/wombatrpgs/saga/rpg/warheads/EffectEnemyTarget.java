@@ -16,6 +16,7 @@ import net.wombatrpgs.saga.rpg.Intent.IntentListener;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.chara.Party;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
+import net.wombatrpgs.saga.screen.TargetSelectable;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectEnemyTargetMDO;
 
 /**
@@ -104,6 +105,15 @@ public abstract class EffectEnemyTarget extends AbilEffect {
 			assignRandomTarget(intent);
 			break;
 		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#onMapUse
+	 * (net.wombatrpgs.saga.screen.TargetSelectable)
+	 */
+	@Override
+	public void onMapUse(TargetSelectable caller) {
+		MGlobal.reporter.err("Unusable ability");
 	}
 
 	/**
