@@ -28,7 +28,7 @@ public class CombatItem extends AssetQueuer {
 	protected AbilEffect effect;
 	protected String name;
 	protected SagaStats stats, robostats;
-	protected int uses;
+	protected int uses, usesWhenAdded;
 	
 	/**
 	 * Creates a new combat item from data.
@@ -78,9 +78,6 @@ public class CombatItem extends AssetQueuer {
 	/** @return True if this item can be sold to a shop, false otherwise */
 	public boolean isSellable() { return mdo.cost > 0; }
 	
-	/** @param container The new holder of this item */
-	public void setContainer(Inventory container) { this.container = container; }
-	
 	/** @return The global stats this item imbues when equipped */
 	public SagaStats getStatset() { return stats; }
 	
@@ -93,6 +90,16 @@ public class CombatItem extends AssetQueuer {
 	@Override
 	public String toString() {
 		return getName();
+	}
+	
+	/**
+	 * Called by the inventory when this item is added to it. Call for null to
+	 * remove from any inventories.
+	 * @param	inventory		The inventory added to, or null for removed
+	 */
+	public void onAddedTo(Inventory inventory) {
+		this.container = inventory;
+		usesWhenAdded = uses;
 	}
 
 	/**
@@ -185,10 +192,20 @@ public class CombatItem extends AssetQueuer {
 	}
 	
 	/**
-	 * Gives the item an extra use... like if someone reflected the attack.
+	 * Gives the item an extra use... like if someone reflected the attack. This
+	 * is kind of janky in retrospect.
 	 */
 	public void incrementUses() {
 		uses += 1;
+	}
+	
+	/**
+	 * Restores this item to the condition it was at when it was equipped. Note
+	 * that this is not an ARCANE-style restore, it's meant to be used for robot
+	 * equips and abilities mostly.
+	 */
+	public void restoreUses() {
+		uses = usesWhenAdded;
 	}
 	
 	/**

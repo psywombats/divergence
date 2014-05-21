@@ -343,6 +343,13 @@ public class Chara extends AssetQueuer implements Disposable {
 	}
 	
 	/**
+	 * Restores all natural (or robot-y) abilities to full power.
+	 */
+	public void resotreAbilUses() {
+		inventory.restoreAbilUses();
+	}
+	
+	/**
 	 * Modifies this character's stats in accordance with the given set.
 	 * @param	mod				The values to modify by
 	 * @param	decombine		True to decombine rather than apply stats

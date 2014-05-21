@@ -150,7 +150,7 @@ public class ScreenInn extends SagaScreen {
 	protected boolean onPay() {
 		if (SGlobal.heroes.getGP() >= payAmount) {
 			SGlobal.heroes.addGP(-1 * payAmount);
-			SGlobal.heroes.restoreHP();
+			SGlobal.heroes.innlikeHeal();
 			payString = "HP restored.";
 			inserts.refresh();
 			// TODO: sfx: heal chirrup

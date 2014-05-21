@@ -71,10 +71,10 @@ public abstract class Inventory {
 			CombatItem old = get(slot);
 			items[slot] = item;
 			if (item != null) {
-				item.setContainer(this);
+				item.onAddedTo(this);
 			}
 			if (old != null) {
-				old.setContainer(null);
+				old.onAddedTo(null);
 			}
 			return old;
 		}

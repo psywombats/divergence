@@ -154,12 +154,14 @@ public class Party extends AssetQueuer implements Disposable {
 	}
 	
 	/**
-	 * Restores the HP of all characters in the party. This isn't really a full
-	 * heal because it doesn't touch status conditions.
+	 * Restores the HP of all characters in the party, and puts any of their
+	 * innate abilities up to max uses. This isn't really a full heal because
+	 * it doesn't touch status conditions.
 	 */
-	public void restoreHP() {
+	public void innlikeHeal() {
 		for (Chara member : members) {
 			member.restoreHP();
+			member.resotreAbilUses();
 		}
 	}
 	
