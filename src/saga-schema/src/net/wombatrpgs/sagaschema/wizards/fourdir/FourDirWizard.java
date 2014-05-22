@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.sagaschema.wizards;
+package net.wombatrpgs.sagaschema.wizards.fourdir;
 
 import net.wombatrpgs.mgnse.wizard.Wizard;
 
