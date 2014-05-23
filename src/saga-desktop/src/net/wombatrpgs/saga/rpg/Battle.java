@@ -33,6 +33,7 @@ import net.wombatrpgs.saga.rpg.warheads.EffectDefend;
 import net.wombatrpgs.saga.screen.ScreenBattle;
 import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
 import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
+import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.CharaMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
 
@@ -249,7 +250,6 @@ public class Battle extends AssetQueuer implements Disposable {
 			}
 		}, new SelectionListener() {
 			@Override public boolean onSelection(Chara selected) {
-				// TODO: battle: transformation message
 				if (selected == null) {
 					onEatCancel();
 				}
@@ -265,7 +265,6 @@ public class Battle extends AssetQueuer implements Disposable {
 					println(eatername + " transforms into " + newSpecies + ".");
 				}
 				
-				println("");
 				screen.setAuto(false);
 				playback("", new FinishListener() {
 					@Override public void onFinish() {
@@ -299,6 +298,22 @@ public class Battle extends AssetQueuer implements Disposable {
 	 */
 	public void println(String line) {
 		screen.println(line);
+	}
+	
+	/**
+	 * Displays a battle animation on some enemy characters. This will only do
+	 * anything for the enemies that get passed in.
+	 * @param	animMDO			The MDO of the animation to play
+	 * @param	targets			The targets to play the animation on
+	 */
+	public void animate(BattleAnimMDO animMDO, List<Chara> targets) {
+		List<Chara> enemyTargets = new ArrayList<Chara>();
+		for (Chara target : targets) {
+			if (enemy.contains(target)) {
+				enemyTargets.add(target);
+			}
+		}
+		screen.animate(animMDO, targets);
 	}
 	
 	/**

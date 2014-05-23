@@ -39,7 +39,7 @@ public class PartyInventory extends Inventory {
 			return;
 		}
 		owner.addGP(item.getCost(true));
-		drop(i);
+		remove(i);
 		// TODO: sfx: sell sfx
 	}
 

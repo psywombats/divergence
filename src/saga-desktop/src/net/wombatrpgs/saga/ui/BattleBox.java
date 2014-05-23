@@ -27,6 +27,7 @@ public class BattleBox extends TextBox implements CommandListener {
 	protected ScreenBattle parent;
 	
 	protected boolean auto;
+	protected boolean shouldAdvance;
 
 	/**
 	 * Creates a new box with default font from supplied dimensions. Creates an
@@ -54,7 +55,7 @@ public class BattleBox extends TextBox implements CommandListener {
 		if (command == InputCommand.UI_CONFIRM) {
 			if (isFinished()) {
 				parent.removeCommandListener(this);
-				parent.onTextFinished();
+				shouldAdvance = true;
 			} else {
 				hurryUp();
 			}
@@ -72,7 +73,7 @@ public class BattleBox extends TextBox implements CommandListener {
 		super.update(elapsed);
 		if (isFinished() && auto) {
 			parent.removeCommandListener(this);
-			parent.onTextFinished();
+			shouldAdvance = true;
 		}
 	}
 
@@ -93,6 +94,7 @@ public class BattleBox extends TextBox implements CommandListener {
 	 * @param	text			The text to write to the screen
 	 */
 	public void println(String text) {
+		shouldAdvance = false;
 		print(text + " \n");
 	}
 	
@@ -102,10 +104,19 @@ public class BattleBox extends TextBox implements CommandListener {
 	 * @param	text			The text to write to the screen
 	 */
 	public void print(String text) {
+		shouldAdvance = false;
 		if (parent.getTopCommandListener() != this) {
 			parent.pushCommandListener(this);
 		}
 		Collections.addAll(words, text.split(" "));
+	}
+	
+	/**
+	 * Checks if the battle should continue past this battle box.
+	 * @return					True if the battle can advance
+	 */
+	public boolean shouldAdvance() {
+		return shouldAdvance;
 	}
 	
 	/**

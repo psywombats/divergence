@@ -8,7 +8,9 @@ package net.wombatrpgs.saga.screen;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -32,8 +34,13 @@ import net.wombatrpgs.mgne.ui.text.TextboxFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.saga.core.SGlobal;
+import net.wombatrpgs.saga.graphics.banim.BattleAnim;
+import net.wombatrpgs.saga.graphics.banim.BattleAnimFactory;
+import net.wombatrpgs.saga.rpg.AnimPlayback;
 import net.wombatrpgs.saga.rpg.Battle;
+import net.wombatrpgs.saga.rpg.TextPlayback;
 import net.wombatrpgs.saga.rpg.Intent.TargetListener;
+import net.wombatrpgs.saga.rpg.PlaybackStep;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.chara.Party;
 import net.wombatrpgs.saga.ui.BattleBox;
@@ -43,6 +50,7 @@ import net.wombatrpgs.saga.ui.CharaSelector;
 import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
 import net.wombatrpgs.saga.ui.ItemSelector;
 import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
+import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimMDO;
 
 /**
  * Screen for killing shit. This also encompasses a battle. Like Tactics, the
@@ -100,6 +108,11 @@ public class ScreenBattle extends SagaScreen {
 	protected TargetListener targetListener;
 	protected int selectedIndex;
 	protected boolean multiMode;
+	
+	// animation + graphics
+	protected List<PlaybackStep> playbackQueue;
+	protected List<BattleAnim> anims;
+	protected Map<Integer, BattleAnim> animsOnGroups;
 	
 	/**
 	 * Creates a new combat setup. This initializes the screen and passes the
@@ -194,10 +207,57 @@ public class ScreenBattle extends SagaScreen {
 		meatFormat.height = ABILS_HEIGHT;
 		meatFormat.x = (int) (globalX + MONSTERLIST_WIDTH + ABILS_EDGE_PADDING);
 		meatFormat.y = (int) (globalY + OPTIONS_HEIGHT - ABILS_VERT_FUDGE - font.getLineHeight()*3);
+		
+		anims = new ArrayList<BattleAnim>();
+		animsOnGroups = new HashMap<Integer, BattleAnim>();
+		playbackQueue = new ArrayList<PlaybackStep>();
 	}
 	
 	/** @param auto True to ignore human prompts for newline */
 	public void setAuto(boolean auto) { text.setAutoMode(auto); }
+	
+	/** @return True if the text box is not blocking battle playback */
+	public boolean isTextFinished() { return text.shouldAdvance(); }
+	
+	/** @return True if no animations are currently playing */
+	public boolean isAnimFinished() { return anims.size() == 0; }
+
+	/**
+	 * @see net.wombatrpgs.mgne.screen.Screen#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		super.update(elapsed);
+		boolean done = true;
+		for (BattleAnim anim : anims) {
+			if (!anim.isDone()) {
+				done = false;
+				break;
+			}
+		}
+		if (done) {
+			for (BattleAnim anim : anims) {
+				removeUChild(anim);
+				anim.dispose();
+			}
+			anims.clear();
+		}
+		if (playbackQueue.size() > 0) {
+			PlaybackStep current = playbackQueue.get(0);
+			if (!current.isStarted()) {
+				current.start();
+			}
+			if (current.isDone()) {
+				playbackQueue.remove(current);
+				if (playbackQueue.size() > 0) {
+					PlaybackStep next = playbackQueue.get(0);
+					next.start();
+				} else {
+					battle.onPlaybackFinished();
+				}
+			}
+		}
+	}
 
 	/**
 	 * @see net.wombatrpgs.mgne.screen.Screen#render
@@ -270,6 +330,12 @@ public class ScreenBattle extends SagaScreen {
 						renderX - cursor.getWidth() / 2,
 						renderY + (portrait.getHeight() - cursor.getHeight()) / 2);
 			}
+			BattleAnim anim = animsOnGroups.get(i);
+			if (anim != null) {
+				anim.renderAt(batch,
+						renderX + portrait.getWidth() / 2,
+						renderY + portrait.getHeight() / 2);
+			}
 		}
 		int players = sprites.size();
 		for (int i = 0; i < players; i += 1) {
@@ -298,6 +364,19 @@ public class ScreenBattle extends SagaScreen {
 	}
 	
 	/**
+	 * @see net.wombatrpgs.mgne.screen.Screen#onCommand
+	 * (net.wombatrpgs.mgneschema.io.data.InputCommand)
+	 */
+	@Override
+	public boolean onCommand(InputCommand command) {
+		if (anims.size() != 0) {
+			return true;
+		} else {
+			return super.onCommand(command);
+		}
+	}
+
+	/**
 	 * @see net.wombatrpgs.mgne.screen.Screen#dispose()
 	 */
 	@Override
@@ -307,38 +386,74 @@ public class ScreenBattle extends SagaScreen {
 			sprite.dispose();
 		}
 	}
-
+	
 	/**
-	 * Prints some text to the battle textbox. This will cause the battlebox to
-	 * fade in on the screen if it isn't already. The child battle will receive
-	 * a call when the line finishes displaying.
+	 * Prints some text to the battle textbox, right away, right now,
+	 * regardless of animation queue. This will cause the battlebox to fade in
+	 * on the screen if it isn't already.
 	 * @param	line			The text to print
 	 */
-	public void println(String line) {
+	public void immediatePrint(String line) {
 		if (!containsChild(text)) {
 			text.fadeIn(this, TEXT_FADE_TIME);
 		}
-		text.println(line);
+		text.print(line);
 	}
 	
 	/**
-	 * Prints some text to the battle textbox. Causes focus etc. Appends a
-	 * space. Make sure to call println to flush.
+	 * Adds a chunk of text playback to the playback queue, to be called when
+	 * everything else in the queue has finished resolving. Appends a space.
 	 * @param	line			The text to print
 	 */
 	public void print(String line) {
-		if (!containsChild(text)) {
-			text.fadeIn(this, TEXT_FADE_TIME);
-		}
-		text.print(line + " ");
+		TextPlayback step = new TextPlayback(this, line + " ");
+		playbackQueue.add(playbackQueue.size(), step);
 	}
 	
 	/**
-	 * Called by the battle textbox when its text has been consumed.
+	 * Adds a line of text playback to the playback queue, to be called when
+	 * everything else in the queue has finished resolving. Appends a newline.
+	 * @param	line			The text to print
 	 */
-	public void onTextFinished() {
-		// TODO: battle: only advance if the animation is done too
-		battle.onPlaybackFinished();
+	public void println(String line) {
+		TextPlayback step = new TextPlayback(this, line + "\n");
+		playbackQueue.add(playbackQueue.size(), step);
+	}
+	
+	/**
+	 * Immdiately plays a battle animation without regard for the anim queue.
+	 * @param	animMDO			The mdo of the animation to play
+	 * @param	targets			The targets to play it on
+	 */
+	public void immediateAnimate(BattleAnimMDO animMDO, List<Chara> targets) {
+		List<Integer> groups = new ArrayList<Integer>();
+		for (Chara enemy : targets) {
+			int index = battle.getEnemy().index(enemy);
+			if (!groups.contains(index)) {
+				groups.add(index);
+			}
+		}
+		for (Integer index : groups) {
+			BattleAnim anim = BattleAnimFactory.create(animMDO);
+			anims.add(anim);
+			animsOnGroups.put(index, anim);
+			anim.start();
+			addUChild(anim);
+		}
+		MGlobal.assets.loadAssets(anims, "battle animation " + animMDO);
+	}
+	
+	/**
+	 * Plays a battle animation on a bunch of dumb targets. The single mdo is
+	 * instantiated multiple times so that any RNG use within the anim is reset.
+	 * Probably uses ugly searches to map from the list of targets to locations
+	 * on screen.
+	 * @param	animMDO			The MDO of the animation to play
+	 * @param	targets			The enemies to play the animation on
+	 */
+	public void animate(BattleAnimMDO animMDO, List<Chara> targets) {
+		AnimPlayback step = new AnimPlayback(this, animMDO, targets);
+		playbackQueue.add(step);
 	}
 	
 	/**

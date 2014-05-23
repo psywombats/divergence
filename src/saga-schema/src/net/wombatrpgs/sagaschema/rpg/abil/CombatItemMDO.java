@@ -11,9 +11,11 @@ import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.InlinePolymorphic;
+import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.PolymorphicLink;
+import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilityType;
 import net.wombatrpgs.sagaschema.rpg.stats.NumericStatModMDO;
@@ -37,6 +39,11 @@ public class CombatItemMDO extends MainSchema {
 	@Desc("Cost - or zero for unsellable, halved for resale rate")
 	@DefaultValue("0")
 	public Integer cost;
+	
+	@Desc("Animation - graphical effect that plays when this item is used in battle")
+	@SchemaLink(BattleAnimMDO.class)
+	@Nullable
+	public String anim;
 	
 	@Desc("Effect - what happens when this applies")
 	@InlinePolymorphic(AbilEffectMDO.class)

@@ -152,6 +152,9 @@ public abstract class EffectEnemyTarget extends AbilEffect {
 			break;
 		}
 		
+		// Show it on the screen...
+		intent.getItem().animate(intent);
+		
 		// Calculate parameters and then affect targets
 		int power = calcPower(battle, intent.getActor());
 		float roll = MGlobal.rand.nextFloat();

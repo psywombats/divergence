@@ -8,12 +8,14 @@ package net.wombatrpgs.saga.rpg.items;
 
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.maps.MapThing;
 import net.wombatrpgs.saga.rpg.Intent;
 import net.wombatrpgs.saga.rpg.Intent.IntentListener;
 import net.wombatrpgs.saga.rpg.stats.SagaStats;
 import net.wombatrpgs.saga.rpg.warheads.AbilEffect;
 import net.wombatrpgs.saga.rpg.warheads.AbilEffectFactory;
 import net.wombatrpgs.saga.screen.TargetSelectable;
+import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
 
 /**
@@ -83,7 +85,7 @@ public class CombatItem extends AssetQueuer {
 	
 	/** @return The robot-specific stat boosts this item imbues when equipped */
 	public SagaStats getRobostats() { return robostats; }
-	
+
 	/**
 	 * @see java.lang.Object#toString()
 	 */
@@ -181,6 +183,18 @@ public class CombatItem extends AssetQueuer {
 	public void resolve(Intent intent) {
 		effect.resolve(intent);
 		deductUse();
+	}
+	
+	/**
+	 * Animates this item being used as part of an intent. Meant to be called
+	 * by the intent during its resolution.
+	 * @param	intent			The intent to animate
+	 */
+	public void animate(Intent intent) {
+		if (MapThing.mdoHasProperty(mdo.anim)) {
+			BattleAnimMDO animMDO = MGlobal.data.getEntryFor(mdo.anim, BattleAnimMDO.class);
+			intent.getBattle().animate(animMDO, intent.getTargets());
+		}
 	}
 	
 	/**

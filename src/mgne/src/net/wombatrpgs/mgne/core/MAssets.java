@@ -62,7 +62,7 @@ public class MAssets extends AssetManager {
 	 * @param	toLoad			All assets to load
 	 * @param	name			The name of what is being loadded
 	 */
-	public void loadAssets(Collection<Queueable> toLoad, String name) {
+	public void loadAssets(Collection<? extends Queueable> toLoad, String name) {
 		for (Queueable q : toLoad) q.queueRequiredAssets(this);
 		int pass;
 		for (pass = 0; needsLoading(); pass++) {

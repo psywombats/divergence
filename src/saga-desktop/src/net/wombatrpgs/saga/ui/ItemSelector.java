@@ -235,7 +235,7 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 				},
 				new Option("Drop") {
 					@Override public boolean onSelect() {
-						inventory.drop(selected);
+						inventory.remove(selected);
 						return true;
 					}
 				});

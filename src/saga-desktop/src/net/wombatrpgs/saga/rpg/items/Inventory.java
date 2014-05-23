@@ -11,7 +11,6 @@ import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 
-
 /**
  * Can produce a list of combat items.
  */
@@ -31,7 +30,6 @@ public abstract class Inventory {
 	
 	/** @return A list of all held items, but it does include null! */
 	public List<CombatItem> getItems() { return Arrays.asList(items); }
-	
 	/**
 	 * Tests for reserved at a slot location. A slot is reserved if nothing is
 	 * there and can't be added by the player (usually used for mutant abils).
@@ -119,20 +117,20 @@ public abstract class Inventory {
 	}
 	
 	/**
-	 * Destroys the item at the selected slot.
+	 * Removes the item at the selected slot. Does not dispose it.
 	 * @param	slot			The slot with the item to drop
 	 */
-	public final void drop(int slot) {
+	public final void remove(int slot) {
 		set(slot, null);
 	}
 	
 	/**
-	 * Destroys the item in this inventory.
+	 * Removes the item in this inventory. Does not dispose it.
 	 * @param	item			The item held by this inventory to destroy
 	 */
 	public final void drop(CombatItem item) {
 		if (item == null) return;
-		drop(slotFor(item));
+		remove(slotFor(item));
 	}
 	
 	/**
