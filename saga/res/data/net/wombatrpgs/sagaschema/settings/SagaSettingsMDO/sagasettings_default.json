@@ -2,8 +2,9 @@
 	"key" : "sagasettings_default",
 	"subfolder" : "",
 	"name" : "",
-	"description" : "",
+	"description" : " ",
 	"heroParty" : "party_playerTest",
 	"monsterSettings" : "monstersettings_test",
+	"mutantAbils" : "mutations_test",
 	"graphcisSettings" : "sagagraphics_retouched"
 }

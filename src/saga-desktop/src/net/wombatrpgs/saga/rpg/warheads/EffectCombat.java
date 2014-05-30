@@ -12,8 +12,8 @@ import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.core.SConstants;
-import net.wombatrpgs.saga.rpg.Battle;
-import net.wombatrpgs.saga.rpg.Intent;
+import net.wombatrpgs.saga.rpg.battle.Battle;
+import net.wombatrpgs.saga.rpg.battle.Intent;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.rpg.warheads.EffectDefend.DefendResult;
@@ -43,7 +43,7 @@ public abstract class EffectCombat extends EffectEnemyTarget {
 	
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.EffectEnemyTarget#onAffect
-	 * (net.wombatrpgs.saga.rpg.Battle, Intent,
+	 * (net.wombatrpgs.saga.rpg.battle.Battle, Intent,
 	 * net.wombatrpgs.saga.rpg.chara.Chara, net.wombatrpgs.saga.rpg.chara.Chara, int)
 	 */
 	@Override
@@ -72,7 +72,7 @@ public abstract class EffectCombat extends EffectEnemyTarget {
 			// no need to print a message because the block effect will cover it
 		} else if (weak(victim) && effect(OffenseFlag.CRITICAL_ON_WEAKNESS)) {
 			// This attack insta-killed the victim
-			victim.damage(victim.get(Stat.MHP));
+			victim.damage(victim.get(Stat.MHP), false);
 			battle.println("");
 			battle.println("");
 			battle.println(tab + tab + "CRITICAL HIT!");
@@ -92,7 +92,7 @@ public abstract class EffectCombat extends EffectEnemyTarget {
 			}
 			if (damage > 0) {
 				battle.println(tab + victimname + " takes " + damage + " damage.");
-				victim.damage(damage);
+				victim.damage(damage, isPhysical());
 				battle.checkDeath(victim, false);
 				if (effect(OffenseFlag.DRAIN_LIFE) && !victim.is(Flag.UNDEAD)) {
 					int healed = user.heal(damage);
@@ -118,7 +118,7 @@ public abstract class EffectCombat extends EffectEnemyTarget {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.EffectEnemyTarget#hits
-	 * (net.wombatrpgs.saga.rpg.Battle, net.wombatrpgs.saga.rpg.chara.Chara,
+	 * (net.wombatrpgs.saga.rpg.battle.Battle, net.wombatrpgs.saga.rpg.chara.Chara,
 	 * net.wombatrpgs.saga.rpg.chara.Chara, int, float)
 	 */
 	@Override
@@ -181,6 +181,13 @@ public abstract class EffectCombat extends EffectEnemyTarget {
 	protected abstract boolean combatHits(Battle battle, Chara user, Chara target, float roll);
 	
 	/**
+	 * Checks if this attack is a physical attack (ie, it includes defense of
+	 * the target somewhere in the calculation). Only important for mutations.
+	 * @return					True if effect is physical, false otherwise
+	 */
+	protected abstract boolean isPhysical();
+	
+	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.EffectEnemyTarget#onResolveComplete
 	 * (Battle, Chara)
 	 */
@@ -188,7 +195,7 @@ public abstract class EffectCombat extends EffectEnemyTarget {
 	protected void onResolveComplete(Battle battle, Chara user) {
 		super.onResolveComplete(battle, user);
 		if (effect(OffenseFlag.KILLS_USER)) {
-			user.damage(user.get(Stat.HP));
+			user.damage(user.get(Stat.HP), false);
 			battle.checkDeath(user, false);
 		}
 	}

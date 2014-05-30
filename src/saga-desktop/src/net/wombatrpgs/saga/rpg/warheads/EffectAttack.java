@@ -6,9 +6,10 @@
  */
 package net.wombatrpgs.saga.rpg.warheads;
 
-import net.wombatrpgs.saga.rpg.Battle;
+import net.wombatrpgs.saga.rpg.battle.Battle;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
+import net.wombatrpgs.saga.rpg.mutant.MutantEvent;
 import net.wombatrpgs.sagaschema.rpg.abil.data.MissType;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAttackMDO;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
@@ -28,6 +29,28 @@ public class EffectAttack extends EffectCombat {
 	public EffectAttack(EffectAttackMDO mdo, CombatItem item) {
 		super(mdo, item);
 		this.mdo = mdo;
+	}
+
+	/**
+	 * @see net.wombatrpgs.saga.rpg.warheads.EffectCombat#onResolveComplete
+	 * (net.wombatrpgs.saga.rpg.battle.Battle, net.wombatrpgs.saga.rpg.chara.Chara)
+	 */
+	@Override
+	protected void onResolveComplete(Battle battle, Chara user) {
+		super.onResolveComplete(battle, user);
+		switch (mdo.attackStat) {
+		case AGI:
+			user.recordEvent(MutantEvent.USED_AGI);
+			break;
+		case MANA:
+			user.recordEvent(MutantEvent.USED_MANA);
+			break;
+		case STR:
+			user.recordEvent(MutantEvent.USED_STR);
+			break;
+		default:
+			// doesn't matter
+		}
 	}
 
 	/**
@@ -53,7 +76,7 @@ public class EffectAttack extends EffectCombat {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.EffectCombat#combatHits
-	 * (net.wombatrpgs.saga.rpg.Battle, net.wombatrpgs.saga.rpg.chara.Chara,
+	 * (net.wombatrpgs.saga.rpg.battle.Battle, net.wombatrpgs.saga.rpg.chara.Chara,
 	 * net.wombatrpgs.saga.rpg.chara.Chara, float)
 	 */
 	@Override
@@ -63,6 +86,14 @@ public class EffectAttack extends EffectCombat {
 		int temp = 100 - (target.get(agi) + shielding(battle, target) - user.get(agi));
 		float chance = (float) temp / 100f;
 		return roll < chance;
+	}
+
+	/**
+	 * @see net.wombatrpgs.saga.rpg.warheads.EffectCombat#isPhysical()
+	 */
+	@Override
+	protected boolean isPhysical() {
+		return mdo.defendStat == Stat.DEF;
 	}
 
 }

@@ -9,8 +9,9 @@ package net.wombatrpgs.saga.rpg.items;
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.MapThing;
-import net.wombatrpgs.saga.rpg.Intent;
-import net.wombatrpgs.saga.rpg.Intent.IntentListener;
+import net.wombatrpgs.saga.rpg.battle.Intent;
+import net.wombatrpgs.saga.rpg.battle.Intent.IntentListener;
+import net.wombatrpgs.saga.rpg.mutant.MutantEvent;
 import net.wombatrpgs.saga.rpg.stats.SagaStats;
 import net.wombatrpgs.saga.rpg.warheads.AbilEffect;
 import net.wombatrpgs.saga.rpg.warheads.AbilEffectFactory;
@@ -182,6 +183,9 @@ public class CombatItem extends AssetQueuer {
 	 */
 	public void resolve(Intent intent) {
 		effect.resolve(intent);
+		if (intent.getActor().knowsAsAbil(this)) {
+			intent.getActor().recordEvent(MutantEvent.USED_ABILITY);
+		}
 		deductUse();
 	}
 	

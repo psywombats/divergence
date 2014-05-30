@@ -11,8 +11,8 @@ import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.core.SConstants;
-import net.wombatrpgs.saga.rpg.Battle;
-import net.wombatrpgs.saga.rpg.Intent;
+import net.wombatrpgs.saga.rpg.battle.Battle;
+import net.wombatrpgs.saga.rpg.battle.Intent;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.rpg.stats.SagaStats;
@@ -54,7 +54,7 @@ public class EffectBoost extends EffectAllyTarget {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#resolve
-	 * (net.wombatrpgs.saga.rpg.Intent)
+	 * (net.wombatrpgs.saga.rpg.battle.Intent)
 	 */
 	@Override
 	public void resolve(Intent intent) {

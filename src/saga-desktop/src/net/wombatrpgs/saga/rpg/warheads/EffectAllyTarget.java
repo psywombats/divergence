@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.saga.rpg.Intent;
-import net.wombatrpgs.saga.rpg.Intent.IntentListener;
+import net.wombatrpgs.saga.rpg.battle.Intent;
+import net.wombatrpgs.saga.rpg.battle.Intent.IntentListener;
 import net.wombatrpgs.saga.rpg.chara.Party;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAllyTargetMDO;
@@ -38,7 +38,7 @@ public abstract class EffectAllyTarget extends AbilEffect {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#modifyIntent
-	 * (net.wombatrpgs.saga.rpg.Intent, net.wombatrpgs.saga.rpg.Intent.IntentListener)
+	 * (net.wombatrpgs.saga.rpg.battle.Intent, net.wombatrpgs.saga.rpg.battle.Intent.IntentListener)
 	 */
 	@Override
 	public void modifyIntent(Intent intent, IntentListener listener) {
@@ -63,7 +63,7 @@ public abstract class EffectAllyTarget extends AbilEffect {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#modifyEnemyIntent
-	 * (net.wombatrpgs.saga.rpg.Intent)
+	 * (net.wombatrpgs.saga.rpg.battle.Intent)
 	 */
 	@Override
 	public void modifyEnemyIntent(Intent intent) {
@@ -90,7 +90,7 @@ public abstract class EffectAllyTarget extends AbilEffect {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#assignRandomTargets
-	 * (net.wombatrpgs.saga.rpg.Intent)
+	 * (net.wombatrpgs.saga.rpg.battle.Intent)
 	 */
 	@Override
 	public void assignRandomTargets(Intent intent) {

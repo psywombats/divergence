@@ -7,6 +7,8 @@
 package net.wombatrpgs.saga;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.saga.rpg.mutant.MutationSettings;
+import net.wombatrpgs.sagaschema.rpg.abil.MutationSettingsMDO;
 import net.wombatrpgs.sagaschema.settings.MonsterSettingsMDO;
 import net.wombatrpgs.sagaschema.settings.SagaSettingsMDO;
 
@@ -19,6 +21,7 @@ public class SagaSettings {
 	
 	protected SagaSettingsMDO mdo;
 	protected MonsterSettingsMDO monsterSettings;
+	protected MutationSettings mutations;
 	
 	/**
 	 * Constructs a new settings object from data.
@@ -29,6 +32,8 @@ public class SagaSettings {
 		
 		monsterSettings = MGlobal.data.getEntryFor(mdo.monsterSettings,
 				MonsterSettingsMDO.class);
+		mutations = new MutationSettings(MGlobal.data.getEntryFor(
+				mdo.mutantAbils, MutationSettingsMDO.class));
 	}
 	
 	/**
@@ -46,5 +51,8 @@ public class SagaSettings {
 	
 	/** @return The key of the default graphcis settings */
 	public String getGraphicsKey() { return mdo.graphcisSettings; }
+	
+	/** @return The list of abilities mutants can learn */
+	public MutationSettings getMutations() { return mutations; }
 
 }

@@ -157,7 +157,9 @@ public class Nineslice implements Queueable, PosRenderable, Disposable {
 	 */
 	@Override
 	public void dispose() {
-		appearance.dispose();
+		if (appearance != null) {
+			appearance.dispose();
+		}
 	}
 
 	/**

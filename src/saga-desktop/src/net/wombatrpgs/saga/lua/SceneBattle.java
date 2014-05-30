@@ -9,7 +9,7 @@ package net.wombatrpgs.saga.lua;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.scenes.SceneCommand;
 import net.wombatrpgs.mgne.scenes.SceneLib;
-import net.wombatrpgs.saga.rpg.Battle;
+import net.wombatrpgs.saga.rpg.battle.Battle;
 
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;

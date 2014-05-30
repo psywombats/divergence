@@ -17,9 +17,13 @@ import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.maps.MapThing;
 import net.wombatrpgs.mgne.ui.Graphic;
-import net.wombatrpgs.saga.rpg.Battle;
+import net.wombatrpgs.saga.core.SGlobal;
+import net.wombatrpgs.saga.rpg.battle.Battle;
 import net.wombatrpgs.saga.rpg.items.CharaInventory;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
+import net.wombatrpgs.saga.rpg.mutant.MutantEvent;
+import net.wombatrpgs.saga.rpg.mutant.Mutation;
+import net.wombatrpgs.saga.rpg.mutant.MutationManager;
 import net.wombatrpgs.saga.rpg.stats.SagaStats;
 import net.wombatrpgs.sagaschema.rpg.chara.CharaMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Gender;
@@ -43,6 +47,7 @@ public class Chara extends AssetQueuer implements Disposable {
 	protected Status status;
 	protected MonsterFamily family;
 	protected String name;
+	protected MutationManager mutantManager;
 	
 	/**
 	 * Creates a new character from data template.
@@ -223,11 +228,17 @@ public class Chara extends AssetQueuer implements Disposable {
 	}
 	
 	/**
-	 * Called when a battle with this character ends. Leveling up and stuff
-	 * might go here at some point, but it'd need a callback.
+	 * Called when a battle with this character begins.
+	 * @param	battle			The battle that just started
+	 */
+	public void onBattleStart(Battle battle) {
+		mutantManager = new MutationManager(this, battle);
+	}
+	
+	/**
+	 * Called when a battle with this character ends.
 	 * @param	battle			The battle that just ended
 	 */
-	// TODO: battle: callbacks and leveling
 	public void onBattleEnd(Battle battle) {
 		if (status != null) {
 			status.onBattleEnd(battle, this);
@@ -307,13 +318,28 @@ public class Chara extends AssetQueuer implements Disposable {
 	}
 	
 	/**
+	 * Modifies the character's base stat by a certain amount.
+	 * @param	stat			The stat to modify
+	 * @param	delta			The amount to modify it by
+	 */
+	public void modifyStat(Stat stat, int delta) {
+		stats.add(stat, delta);
+	}
+	
+	/**
 	 * Causes this character to lose some HP. Defense etc is not checked. Death
-	 * can be inflicted, but it will be silent.
+	 * can be inflicted, but it will be silent. The physical nature of the
+	 * attack is only useful insofar as a mutation is concerned.
 	 * @param	damage			The damage to deal, in HP
+	 * @param	physical		True if damage inflicted was physical
 	 * @return					True if this character died from the damage
 	 */
-	public boolean damage(int damage) {
+	public boolean damage(int damage, boolean physical) {
 		stats.subtract(Stat.HP, damage);
+		mutantManager.recordEvent(MutantEvent.DAMAGED);
+		if (physical) {
+			mutantManager.recordEvent(MutantEvent.DAMAGED_PHYSICALLY);
+		}
 		if (get(Stat.HP) <= 0) {
 			stats.setStat(Stat.HP, 0);
 			return true;
@@ -441,6 +467,42 @@ public class Chara extends AssetQueuer implements Disposable {
 			return getFamily().getTransformResult(this, dropper);
 		} else {
 			return null;
+		}
+	}
+	
+	/**
+	 * Checks if this character knows the given combat item as an ability. If
+	 * the item is null, not held by chara, or not the exact instance of an
+	 * abil owned by this chara, returns false.
+	 * @param	item			The item to check
+	 * @return					True if that item is an abil of this chara
+	 */
+	public boolean knowsAsAbil(CombatItem item) {
+		int slot = inventory.slotFor(item);
+		return inventory.reservedAt(slot);
+	}
+	
+	/**
+	 * Records a mutation event that can influence mutant direction.
+	 * @param	event			The event that occurred
+	 */
+	public void recordEvent(MutantEvent event) {
+		mutantManager.recordEvent(event);
+	}
+	
+	/**
+	 * Produces a set of mutation options available for mutants for the most
+	 * recent battle. This will be called once per battle. Should return null
+	 * if not a mutant or the RNG says no mutations this battle.
+	 * @return					A list of mutation options, or null
+	 */
+	public List<Mutation> generateMutations() {
+		if (!SGlobal.settings.getMutations().shouldMutate()) {
+			return null;
+		} else if (getRace() != Race.MUTANT) {
+			return null;
+		} else {
+			return mutantManager.produceOptions();
 		}
 	}
 

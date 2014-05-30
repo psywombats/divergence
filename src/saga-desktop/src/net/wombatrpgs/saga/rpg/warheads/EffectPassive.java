@@ -7,8 +7,8 @@
 package net.wombatrpgs.saga.rpg.warheads;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.saga.rpg.Intent;
-import net.wombatrpgs.saga.rpg.Intent.IntentListener;
+import net.wombatrpgs.saga.rpg.battle.Intent;
+import net.wombatrpgs.saga.rpg.battle.Intent.IntentListener;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.rpg.stats.SagaStats;
 import net.wombatrpgs.saga.screen.TargetSelectable;
@@ -42,7 +42,7 @@ public class EffectPassive extends AbilEffect {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#modifyIntent
-	 * (net.wombatrpgs.saga.rpg.Intent, net.wombatrpgs.saga.rpg.Intent.IntentListener)
+	 * (net.wombatrpgs.saga.rpg.battle.Intent, net.wombatrpgs.saga.rpg.battle.Intent.IntentListener)
 	 */
 	@Override
 	public void modifyIntent(Intent intent, IntentListener listener) {
@@ -51,7 +51,7 @@ public class EffectPassive extends AbilEffect {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#modifyEnemyIntent
-	 * (net.wombatrpgs.saga.rpg.Intent)
+	 * (net.wombatrpgs.saga.rpg.battle.Intent)
 	 */
 	@Override
 	public void modifyEnemyIntent(Intent intent) {
@@ -60,7 +60,7 @@ public class EffectPassive extends AbilEffect {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#resolve
-	 * (net.wombatrpgs.saga.rpg.Intent)
+	 * (net.wombatrpgs.saga.rpg.battle.Intent)
 	 */
 	@Override
 	public void resolve(Intent intent) {
@@ -69,7 +69,7 @@ public class EffectPassive extends AbilEffect {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.AbilEffect#assignRandomTargets
-	 * (net.wombatrpgs.saga.rpg.Intent)
+	 * (net.wombatrpgs.saga.rpg.battle.Intent)
 	 */
 	@Override
 	public void assignRandomTargets(Intent intent) {

@@ -13,7 +13,7 @@ import java.util.Map;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.core.SConstants;
-import net.wombatrpgs.saga.rpg.Battle;
+import net.wombatrpgs.saga.rpg.battle.Battle;
 import net.wombatrpgs.sagaschema.rpg.StatusMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Resistable;
 import net.wombatrpgs.sagaschema.rpg.data.LethalityType;

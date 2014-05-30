@@ -7,10 +7,11 @@
 package net.wombatrpgs.saga.rpg.warheads;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.saga.rpg.Battle;
+import net.wombatrpgs.saga.rpg.battle.Battle;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectFixedMDO;
+import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 
 /**
  * Guns, bows, whips, and grenades.
@@ -52,7 +53,7 @@ public class EffectFixed extends EffectCombat {
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.warheads.EffectCombat#combatHits
-	 * (net.wombatrpgs.saga.rpg.Battle, net.wombatrpgs.saga.rpg.chara.Chara,
+	 * (net.wombatrpgs.saga.rpg.battle.Battle, net.wombatrpgs.saga.rpg.chara.Chara,
 	 * net.wombatrpgs.saga.rpg.chara.Chara, float)
 	 */
 	@Override
@@ -63,6 +64,14 @@ public class EffectFixed extends EffectCombat {
 		}
 		float chance = (float) temp / 100f;
 		return roll > chance;
+	}
+
+	/**
+	 * @see net.wombatrpgs.saga.rpg.warheads.EffectCombat#isPhysical()
+	 */
+	@Override
+	protected boolean isPhysical() {
+		return mdo.defenseStat == Stat.DEF;
 	}
 
 }

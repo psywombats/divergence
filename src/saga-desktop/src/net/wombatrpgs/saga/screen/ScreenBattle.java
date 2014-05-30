@@ -20,6 +20,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.io.CommandListener;
@@ -36,13 +37,14 @@ import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.graphics.banim.BattleAnim;
 import net.wombatrpgs.saga.graphics.banim.BattleAnimFactory;
-import net.wombatrpgs.saga.rpg.AnimPlayback;
-import net.wombatrpgs.saga.rpg.Battle;
-import net.wombatrpgs.saga.rpg.TextPlayback;
-import net.wombatrpgs.saga.rpg.Intent.TargetListener;
-import net.wombatrpgs.saga.rpg.PlaybackStep;
+import net.wombatrpgs.saga.rpg.battle.AnimPlayback;
+import net.wombatrpgs.saga.rpg.battle.Battle;
+import net.wombatrpgs.saga.rpg.battle.PlaybackStep;
+import net.wombatrpgs.saga.rpg.battle.TextPlayback;
+import net.wombatrpgs.saga.rpg.battle.Intent.TargetListener;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.chara.Party;
+import net.wombatrpgs.saga.rpg.mutant.Mutation;
 import net.wombatrpgs.saga.ui.BattleBox;
 import net.wombatrpgs.saga.ui.CharaInsert;
 import net.wombatrpgs.saga.ui.CharaInsertFull;
@@ -636,6 +638,31 @@ public class ScreenBattle extends SagaScreen {
 				}
 			}
 		});
+	}
+	
+	/**
+	 * Prompts the player to choose between one of two mutations to apply, then
+	 * calls the finish listener. There's no need to save which mutation was
+	 * selected because it will already have been applied.
+	 * @param	mutations		The mutations to choose from, always size 2
+	 * @param	listener		The listener to call when finished
+	 */
+	public void selectMutation(List<Mutation> mutations, final FinishListener listener) {
+		List<Option> options = new ArrayList<Option>();
+		for (final Mutation mutation : mutations) {
+			options.add(new Option(mutation.getDesc()) {
+				@Override public boolean onSelect() {
+					mutation.apply();
+					listener.onFinish();
+					return true;
+				}
+			});
+		}
+		OptionSelector mutationOptions = new OptionSelector(true, false,
+				options.toArray(new Option[options.size()]));
+		mutationOptions.showAt(
+				(int) (globalX + (getWidth() - mutationOptions.getWidth()) / 2),
+				(int) (globalY + optionsBG.getBorderHeight() - 1));
 	}
 	
 	/**
