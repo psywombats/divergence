@@ -17,8 +17,8 @@ import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.rpg.stats.SagaStats;
 import net.wombatrpgs.saga.screen.TargetSelectable;
-import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectBoostMDO;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectBoostMDO;
 
 /**
  * Boost your stat for the duration of the battle.

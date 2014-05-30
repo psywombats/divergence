@@ -9,15 +9,16 @@ package net.wombatrpgs.saga.rpg.warheads;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
-import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAttackMDO;
-import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectBoostMDO;
-import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectDefendMDO;
-import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectFixedMDO;
-import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectHealMDO;
-import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectMultihitMDO;
-import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectNothingMDO;
-import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectPassiveMDO;
-import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectStatusMDO;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectBoostMDO;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectDefendMDO;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectFixedMDO;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectHealMDO;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectMultihitMDO;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectNothingMDO;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectPassiveMDO;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectStatCandyMDO;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO;
 
 /**
  * Constructs the item effect for combat items based on their MDO.
@@ -49,6 +50,8 @@ public class AbilEffectFactory {
 			return new EffectMultihit((EffectMultihitMDO) mdo, item);
 		} else if (EffectStatusMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new EffectStatus((EffectStatusMDO) mdo, item);
+		} else if (EffectStatCandyMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new EffectStatCandy((EffectStatCandyMDO) mdo, item);
 		} else {
 			MGlobal.reporter.err("Unimplemented abil effect type: " +
 					mdo.getClass());

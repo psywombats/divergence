@@ -19,10 +19,10 @@ import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.rpg.warheads.EffectDefend.DefendResult;
 import net.wombatrpgs.saga.rpg.warheads.EffectDefend.PostDefend;
 import net.wombatrpgs.sagaschema.rpg.abil.data.OffenseFlag;
-import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectCombatMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Race;
 import net.wombatrpgs.sagaschema.rpg.stats.Flag;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectCombatMDO;
 
 /**
  * Superclass for some common combat ability effects.

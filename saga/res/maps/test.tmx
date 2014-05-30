@@ -87,7 +87,7 @@
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="face" value="WEST"/>
-    <property name="onInteract" value="shop('item_testWhip', 'item_testPotion', 'item_testCure')"/>
+    <property name="onInteract" value="shop('item_testWhip', 'item_hp200', 'item_str24', 'item_testCure')"/>
    </properties>
   </object>
  </objectgroup>

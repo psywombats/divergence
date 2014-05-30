@@ -14,7 +14,7 @@ import net.wombatrpgs.saga.rpg.battle.Intent;
 import net.wombatrpgs.saga.rpg.battle.Intent.IntentListener;
 import net.wombatrpgs.saga.rpg.chara.Party;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
-import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAllyTargetMDO;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectAllyTargetMDO;
 
 /**
  * Any friendly ability that targets allies.

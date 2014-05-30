@@ -10,8 +10,8 @@ import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.rpg.battle.Battle;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
-import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectMultihitMDO;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectMultihitMDO;
 
 /**
  * 3-heads, 8-legs, etc

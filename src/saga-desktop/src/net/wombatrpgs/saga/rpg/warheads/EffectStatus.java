@@ -12,7 +12,7 @@ import net.wombatrpgs.saga.rpg.battle.Intent;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.chara.Status;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
-import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectStatusMDO;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO;
 
 /**
  * Inflicts status conditions on enemies.

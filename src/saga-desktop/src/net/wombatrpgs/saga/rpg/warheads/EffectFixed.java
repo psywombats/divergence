@@ -10,8 +10,8 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.rpg.battle.Battle;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
-import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectFixedMDO;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectFixedMDO;
 
 /**
  * Guns, bows, whips, and grenades.

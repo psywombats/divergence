@@ -17,7 +17,7 @@ import net.wombatrpgs.saga.screen.TargetSelectable;
 import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.DamageType;
 import net.wombatrpgs.sagaschema.rpg.abil.data.DefenseFlag;
-import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectDefendMDO;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectDefendMDO;
 
 /**
  * Increases physical attack evasion value and potentially grants other resists.

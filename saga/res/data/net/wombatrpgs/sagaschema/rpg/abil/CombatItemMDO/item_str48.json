@@ -1,0 +1,18 @@
+{
+	"key" : "item_str48",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "STRENGTH48",
+	"type" : "ITEM",
+	"uses" : 1,
+	"cost" : 800,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatCandyMDO",
+		"key" : "anon_CombatItemMDO_-2089069879"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

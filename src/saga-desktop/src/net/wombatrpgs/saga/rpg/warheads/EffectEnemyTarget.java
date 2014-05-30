@@ -17,7 +17,7 @@ import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.chara.Party;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.screen.TargetSelectable;
-import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectEnemyTargetMDO;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectEnemyTargetMDO;
 
 /**
  * Superclass for abilities that target the enemy.

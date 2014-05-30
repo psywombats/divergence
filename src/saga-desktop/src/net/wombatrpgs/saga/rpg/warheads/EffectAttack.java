@@ -11,8 +11,8 @@ import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.rpg.mutant.MutantEvent;
 import net.wombatrpgs.sagaschema.rpg.abil.data.MissType;
-import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectAttackMDO;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO;
 
 /**
  * Inflcict damage or status on the enemy.

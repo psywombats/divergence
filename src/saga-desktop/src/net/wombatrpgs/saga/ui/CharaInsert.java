@@ -124,6 +124,9 @@ public abstract class CharaInsert extends ScreenGraphic {
 		if (chara.isDead()) {
 			chara.getAppearance().setFacing(OrthoDir.NORTH);
 			chara.getAppearance().stopMoving();
+		} else {
+			chara.getAppearance().setFacing(OrthoDir.SOUTH);
+			chara.getAppearance().startMoving();
 		}
 		spriteX = x + PADDING;
 		spriteY = y + getHeight()/2 - chara.getAppearance().getHeight()/2;

@@ -18,7 +18,7 @@ import net.wombatrpgs.saga.rpg.chara.Status;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.screen.TargetSelectable;
 import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
-import net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectHealMDO;
+import net.wombatrpgs.sagaschema.rpg.warheads.EffectHealMDO;
 
 /**
  * This is for the Rod.

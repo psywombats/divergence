@@ -1,0 +1,18 @@
+{
+	"key" : "item_hp200",
+	"subfolder" : "potions",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "HP200",
+	"type" : "ITEM",
+	"uses" : 1,
+	"cost" : 100,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatCandyMDO",
+		"key" : "anon_CombatItemMDO_-1092350362"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}
