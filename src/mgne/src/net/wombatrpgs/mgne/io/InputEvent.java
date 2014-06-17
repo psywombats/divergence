@@ -17,19 +17,23 @@ public class InputEvent {
 	
 	public InputButton button;
 	public EventType type;
+	public Character c;
 	
 	public InputEvent(InputButton button, EventType type) {
 		this.button = button;
 		this.type = type;
 	}
 	
-	/** Kryo constructor */
-	protected InputEvent() { }
+	public InputEvent(char c) {
+		this(null, EventType.CHARACTER);
+		this.c = c;
+	}
 	
 	public enum EventType {
 		PRESS,
 		RELEASE,
 		HOLD,
+		CHARACTER,
 	}
 
 	/**

@@ -90,5 +90,12 @@
     <property name="onInteract" value="shop('item_testWhip', 'item_hp200', 'item_str24', 'item_testCure')"/>
    </properties>
   </object>
+  <object name="party4" type="Character" x="80" y="160" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="NORTH"/>
+    <property name="onInteract" value="recruit()"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

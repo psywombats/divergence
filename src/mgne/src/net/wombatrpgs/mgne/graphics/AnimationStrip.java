@@ -85,10 +85,10 @@ public class AnimationStrip implements	PosRenderable,
 	public TextureRegion getFrame(int frame) { return frames[frame]; }
 	
 	/** @return The width (in px) of current frames */
-	public int getWidth() { return currentFrame.getRegionWidth(); }
+	public int getWidth() { return mdo.frameWidth; }
 	
 	/** @return The height (in px) of current frames */
-	public int getHeight() { return currentFrame.getRegionHeight(); }
+	public int getHeight() { return mdo.frameHeight; }
 	
 	/** @return True if this animation is currently playing */
 	public boolean isMoving() { return moving; }

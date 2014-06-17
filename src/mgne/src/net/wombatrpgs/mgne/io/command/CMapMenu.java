@@ -30,7 +30,7 @@ public class CMapMenu extends EasyCommandMap {
 	protected void initBindings() {
 		bindings.put(new InputEvent(InputButton.BUTTON_A,		EventType.PRESS),	InputCommand.UI_CONFIRM);
 		bindings.put(new InputEvent(InputButton.BUTTON_B,		EventType.PRESS),	InputCommand.UI_CANCEL);
-		bindings.put(new InputEvent(InputButton.BUTTON_START,	EventType.PRESS),	InputCommand.UI_CANCEL);
+		bindings.put(new InputEvent(InputButton.BUTTON_START,	EventType.PRESS),	InputCommand.UI_FINISH);
 		
 		bindings.put(new InputEvent(InputButton.UP,				EventType.PRESS),	InputCommand.MOVE_UP);
 		bindings.put(new InputEvent(InputButton.DOWN,			EventType.PRESS),	InputCommand.MOVE_DOWN);

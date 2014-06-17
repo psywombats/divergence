@@ -40,8 +40,22 @@ public abstract class EasyCommandMap extends CommandMap {
 	 * (net.wombatrpgs.mgne.io.InputEvent)
 	 */
 	@Override
-	public InputCommand parse(InputEvent event) {
-		return bindings.get(event);
+	public final InputCommand parse(InputEvent event) {
+		if (event.type == EventType.CHARACTER) {
+			return parseCharacter(event.c);
+		} else {
+			return bindings.get(event);
+		}
+	}
+	
+	/**
+	 * Parse a character being entered. Usually return null unless some other
+	 * processing to a command is required.
+	 * @param	character		The character that was entered
+	 * @return					True if the char was processed, else false
+	 */
+	protected InputCommand parseCharacter(char character) {
+		return null;
 	}
 
 	/**

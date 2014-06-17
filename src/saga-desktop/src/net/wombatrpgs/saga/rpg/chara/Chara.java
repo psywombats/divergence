@@ -95,6 +95,9 @@ public class Chara extends AssetQueuer implements Disposable {
 	/** @return The human name of the character */
 	public String getName() { return name; }
 	
+	/** @param The new name for this character */
+	public void setName(String name) { this.name = name; }
+	
 	/** @return The race of the character, never null */
 	public Race getRace() { return mdo.race; }
 	

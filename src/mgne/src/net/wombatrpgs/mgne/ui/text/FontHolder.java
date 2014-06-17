@@ -77,7 +77,8 @@ public class FontHolder implements Queueable {
 	}
 	
 	/**
-	 * Ugly drawing method. Really only used for debug purposes.
+	 * Ugly drawing method. Really only used for debug purposes. Assume the
+	 * batch is already drawing.
 	 * @param	batch			The batch to draw in context of
 	 * @param	text			The text to draw
 	 * @param	x				The x to draw at (in px)
@@ -85,6 +86,18 @@ public class FontHolder implements Queueable {
 	 */
 	public void draw(SpriteBatch batch, String text, int x, int y) {
 		font.draw(batch, text, x, y);
+	}
+	
+	/**
+	 * Another ugly drawing method to draw a single character. Assumes the batch
+	 * is already drawing.
+	 * @param	batch			The batch to draw in context of
+	 * @param	c				The character to draw glyph of
+	 * @param	x				The x to draw at (in px)
+	 * @param	y				The y to draw at (in px)
+	 */
+	public void draw(SpriteBatch batch, char c, int x, int y) {
+		font.draw(batch, String.valueOf(c), x, y);
 	}
 	
 	/**
@@ -114,6 +127,14 @@ public class FontHolder implements Queueable {
 	 */
 	public float getWidth(String text) {
 		return font.getBounds(text).width;
+	}
+	
+	/**
+	 * Gets the length of a single character in this font, assuming monspace.
+	 * @return					The length of a single character, in px
+	 */
+	public float getCharWidth() {
+		return font.getBounds("a").width;
 	}
 	
 	/**

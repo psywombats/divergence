@@ -206,7 +206,8 @@ public class Keymap implements	InputProcessor,
 	 */
 	@Override
 	public boolean keyTyped(char character) {
-		return false;
+		queue.add(new InputEvent(character));
+		return true;
 	}
 
 	/**

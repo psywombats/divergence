@@ -24,6 +24,7 @@ public enum InputCommand {
 	
 	UI_CONFIRM,
 	UI_CANCEL,
+	UI_FINISH,
 	
 	GLOBAL_FULLSCREEN,
 	
