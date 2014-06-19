@@ -419,9 +419,6 @@ public class SchemaTree extends JTree {
 	 * @return The root schema directory for the data file
 	 */
 	private File getMainSchemaDirectory(File dataFile) {
-		if (dataFile.getName().contains("anon")) {
-			System.out.println("");
-		}
 		String subdir = getDataSubdir(dataFile);
 		if (subdir.equals("")) {
 			return dataFile.getParentFile();
@@ -472,12 +469,16 @@ public class SchemaTree extends JTree {
 	 * @param dir The directory to start loading from
 	 */
 	private void loadData(File dir) {
+		List<File> toAdd = new ArrayList<File>();
 		for (File file : dir.listFiles()) {
 			if (file.isDirectory()) {
 				loadData(file);
 			} else {
-				addDataEntry(file);
+				toAdd.add(file);
 			}
+		}
+		for (File file : toAdd) {
+			addDataEntry(file);
 		}
 		model = new DefaultTreeModel(tree);
 		this.setModel(model);

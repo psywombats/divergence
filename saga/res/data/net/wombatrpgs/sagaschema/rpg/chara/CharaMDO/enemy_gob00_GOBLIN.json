@@ -1,0 +1,25 @@
+{
+	"key" : "enemy_gob00_GOBLIN",
+	"subfolder" : "level00",
+	"name" : "GOBLIN",
+	"description" : "Converted from a report",
+	"gender" : "NONE",
+	"race" : "MONSTER",
+	"family" : "mfamily_gob",
+	"species" : "GOBLIN",
+	"appearance" : "4dir_ffl2_human",
+	"portrait" : "battle_portraits/goblin.png",
+	"meatEatLevel" : 0,
+	"meatTargetLevel" : 0,
+	"gp" : 40,
+	"equipped" : [ ],
+	"stats" : {
+		"hp" : null,
+		"mhp" : null,
+		"str" : null,
+		"def" : null,
+		"agi" : null,
+		"mana" : null,
+		"flags" : null
+	}
+}

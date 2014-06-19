@@ -1,0 +1,25 @@
+{
+	"key" : "enemy_arm03_BEETLE",
+	"subfolder" : "level03",
+	"name" : "BEETLE",
+	"description" : "Converted from a report",
+	"gender" : "NONE",
+	"race" : "MONSTER",
+	"family" : "mfamily_arm",
+	"species" : "BEETLE",
+	"appearance" : "4dir_ffl2_human",
+	"portrait" : "battle_portraits/goblin.png",
+	"meatEatLevel" : 4,
+	"meatTargetLevel" : 3,
+	"gp" : 120,
+	"equipped" : [ ],
+	"stats" : {
+		"hp" : null,
+		"mhp" : null,
+		"str" : null,
+		"def" : null,
+		"agi" : null,
+		"mana" : null,
+		"flags" : null
+	}
+}

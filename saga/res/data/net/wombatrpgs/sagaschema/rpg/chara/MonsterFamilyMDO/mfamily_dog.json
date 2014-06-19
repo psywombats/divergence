@@ -1,0 +1,44 @@
+{
+	"key" : "mfamily_dog",
+	"subfolder" : "",
+	"name" : "dog family",
+	"description" : "Generated from transforms chart",
+	"transformations" : [
+		{
+			"eat" : "mgroup_2",
+			"result" : "mfamily_eph"
+		},
+		{
+			"eat" : "mgroup_3",
+			"result" : "mfamily_brn"
+		},
+		{
+			"eat" : "mgroup_4",
+			"result" : "mfamily_hrs"
+		},
+		{
+			"eat" : "mgroup_5",
+			"result" : "mfamily_zom"
+		},
+		{
+			"eat" : "mgroup_6",
+			"result" : "mfamily_arm"
+		},
+		{
+			"eat" : "mgroup_7",
+			"result" : "mfamily_hag"
+		},
+		{
+			"eat" : "mgroup_8",
+			"result" : "mfamily_rat"
+		},
+		{
+			"eat" : "mgroup_10",
+			"result" : "mfamily_skl"
+		},
+		{
+			"eat" : "mgroup_12",
+			"result" : "mfamily_snk"
+		}
+	]
+}

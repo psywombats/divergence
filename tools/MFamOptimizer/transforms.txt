@@ -1,0 +1,33 @@
+       |     |     |     |     |     | wrd |     | dog |     |     |     |
+       |     | brn | eph | pnx |     | tmp |     | cat |     |     |     |
+       | elf | gst | got | brd | zom | dem | jly | wsl |     |     | goo |
+       | gob | wsp | hrs | fly | skl | hag | snk | rat | gol | arm | dis |
+-------+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+ gob   |     | dis | zom | hag | fly | hag | wsp | gob | wsl | arm |     |
+ elf   |     | wsl | elf | dog | gol | gob | skl | tmp | wsp | dog | hrs |
+ wsp   | jly |     | brd | rat | arm | wrd | snk | gob |     | wsl | elf |
+ gst   | gol |     | dem | eph | jly | gob | wrd | brd | pnx | dem | zom |
+ brn   | zom |     | dem | brd | dem | brd | eph | got | hrs | snk | tmp |
+ hrs   | cat | tmp |     | elf | eph | wsl | pnx | dog | brd | jly | dog |
+ got   | tmp | got |     | skl | wsl | goo | wrd | rat | eph | gol | goo |
+ eph   | wrd | wrd |     | eph | arm | wrd | pnx | dis |     | cat | jly |
+ fly   | gob | wsp | goo |     | got | rat | gst | wsl | dis | dis | goo |
+ brd   | arm | zom | gob |     | gol | zom |     | gob | pnx |     | gol |
+ pnx   | wrd | dem | got |     | wrd | tmp | wrd | tmp | eph | brn | wsp |
+ skl   | gob | got | hrs | fly |     | goo | wsp | gob | cat | dis | zom |
+ zom   | snk | elf | fly | hrs |     | snk | elf | cat | snk | hag | fly |
+ hag   | dog | dog | tmp | gob | elf |     | hrs | got | fly | cat | cat |
+ dem   | elf | elf | wsl | dis |     |     | pnx | arm | hrs | zom | gol |
+ tmp   | skl | got | brd | goo | dog |     | hrs | cat | gol | wsl | got |
+ wrd   | dog | jly | dog | fly | hag |     | brd | rat | goo | wsl | hag |
+ snk   | pnx | fly | wsp |     | cat | eph |     | eph | jly | gol | pnx |
+ jly   | elf | tmp | hrs | snk | gst | arm |     | gst |     | brn | snk |
+ rat   | arm | gob | skl | goo | hag | skl | skl |     | zom | goo | dis |
+ wsl   | arm | brd | brd |     | dis | arm | rat |     | fly | dis | dis |
+ cat   | zom | skl | eph | snk | jly | fly | wsl |     | elf | gol | wrd |
+ dog   | eph | brn | hrs | zom | arm | hag | rat |     | skl |     | snk |
+ gol   | brd | wsl | brd | snk | hag | gst | got | wsp |     | got | skl |
+ arm   | tmp | gst |     | elf | hag | rat | tmp | wrd | cat |     | goo |
+ dis   | gob | brn | dog | hag | rat | gst | rat | rat | gst | gol |     |
+ goo   | rat | fly | hrs | fly | skl | eph | cat | hag | elf | got |     |
+-------+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+

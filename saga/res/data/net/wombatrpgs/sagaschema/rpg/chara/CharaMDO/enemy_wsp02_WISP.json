@@ -1,0 +1,25 @@
+{
+	"key" : "enemy_wsp02_WISP",
+	"subfolder" : "level02",
+	"name" : "WISP",
+	"description" : "Converted from a report",
+	"gender" : "NONE",
+	"race" : "MONSTER",
+	"family" : "mfamily_wsp",
+	"species" : "WISP",
+	"appearance" : "4dir_ffl2_human",
+	"portrait" : "battle_portraits/goblin.png",
+	"meatEatLevel" : 3,
+	"meatTargetLevel" : 2,
+	"gp" : 80,
+	"equipped" : [ ],
+	"stats" : {
+		"hp" : null,
+		"mhp" : null,
+		"str" : null,
+		"def" : null,
+		"agi" : null,
+		"mana" : null,
+		"flags" : null
+	}
+}

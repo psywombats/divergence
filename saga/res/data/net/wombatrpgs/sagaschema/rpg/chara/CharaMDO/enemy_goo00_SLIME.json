@@ -1,0 +1,25 @@
+{
+	"key" : "enemy_goo00_SLIME",
+	"subfolder" : "level00",
+	"name" : "SLIME",
+	"description" : "Converted from a report",
+	"gender" : "NONE",
+	"race" : "MONSTER",
+	"family" : "mfamily_goo",
+	"species" : "SLIME",
+	"appearance" : "4dir_ffl2_human",
+	"portrait" : "battle_portraits/goblin.png",
+	"meatEatLevel" : 1,
+	"meatTargetLevel" : 0,
+	"gp" : 40,
+	"equipped" : [ ],
+	"stats" : {
+		"hp" : null,
+		"mhp" : null,
+		"str" : null,
+		"def" : null,
+		"agi" : null,
+		"mana" : null,
+		"flags" : null
+	}
+}

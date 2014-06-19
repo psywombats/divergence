@@ -1,0 +1,25 @@
+{
+	"key" : "enemy_snk02_ANACONDA",
+	"subfolder" : "level02",
+	"name" : "ANACONDA",
+	"description" : "Converted from a report",
+	"gender" : "NONE",
+	"race" : "MONSTER",
+	"family" : "mfamily_snk",
+	"species" : "ANACONDA",
+	"appearance" : "4dir_ffl2_human",
+	"portrait" : "battle_portraits/goblin.png",
+	"meatEatLevel" : 3,
+	"meatTargetLevel" : 2,
+	"gp" : 80,
+	"equipped" : [ ],
+	"stats" : {
+		"hp" : null,
+		"mhp" : null,
+		"str" : null,
+		"def" : null,
+		"agi" : null,
+		"mana" : null,
+		"flags" : null
+	}
+}

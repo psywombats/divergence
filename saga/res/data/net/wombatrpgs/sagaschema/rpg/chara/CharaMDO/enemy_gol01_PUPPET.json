@@ -1,0 +1,25 @@
+{
+	"key" : "enemy_gol01_PUPPET",
+	"subfolder" : "level01",
+	"name" : "PUPPET",
+	"description" : "Converted from a report",
+	"gender" : "NONE",
+	"race" : "MONSTER",
+	"family" : "mfamily_gol",
+	"species" : "PUPPET",
+	"appearance" : "4dir_ffl2_human",
+	"portrait" : "battle_portraits/goblin.png",
+	"meatEatLevel" : 2,
+	"meatTargetLevel" : 1,
+	"gp" : 40,
+	"equipped" : [ ],
+	"stats" : {
+		"hp" : null,
+		"mhp" : null,
+		"str" : null,
+		"def" : null,
+		"agi" : null,
+		"mana" : null,
+		"flags" : null
+	}
+}

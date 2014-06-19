@@ -1,0 +1,25 @@
+{
+	"key" : "enemy_skl03_RED BONE",
+	"subfolder" : "level03",
+	"name" : "RED BONE",
+	"description" : "Converted from a report",
+	"gender" : "NONE",
+	"race" : "MONSTER",
+	"family" : "mfamily_skl",
+	"species" : "RED BONE",
+	"appearance" : "4dir_ffl2_human",
+	"portrait" : "battle_portraits/goblin.png",
+	"meatEatLevel" : 4,
+	"meatTargetLevel" : 3,
+	"gp" : 120,
+	"equipped" : [ ],
+	"stats" : {
+		"hp" : null,
+		"mhp" : null,
+		"str" : null,
+		"def" : null,
+		"agi" : null,
+		"mana" : null,
+		"flags" : null
+	}
+}

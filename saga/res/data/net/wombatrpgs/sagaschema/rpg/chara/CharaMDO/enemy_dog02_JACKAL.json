@@ -1,0 +1,25 @@
+{
+	"key" : "enemy_dog02_JACKAL",
+	"subfolder" : "level02",
+	"name" : "JACKAL",
+	"description" : "Converted from a report",
+	"gender" : "NONE",
+	"race" : "MONSTER",
+	"family" : "mfamily_dog",
+	"species" : "JACKAL",
+	"appearance" : "4dir_ffl2_human",
+	"portrait" : "battle_portraits/goblin.png",
+	"meatEatLevel" : 3,
+	"meatTargetLevel" : 2,
+	"gp" : 80,
+	"equipped" : [ ],
+	"stats" : {
+		"hp" : null,
+		"mhp" : null,
+		"str" : null,
+		"def" : null,
+		"agi" : null,
+		"mana" : null,
+		"flags" : null
+	}
+}

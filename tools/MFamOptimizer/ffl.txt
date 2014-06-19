@@ -7,20 +7,19 @@ Size distribution:
   2-member group x4
   3-member group x5
 Power level distributions:
-  L00: 9 monsters
+  L00: 15 monsters
   L01: 8 monsters
-  L02: 7 monsters
-  L03: 9 monsters
-  L04: 7 monsters
-  L05: 7 monsters
-  L06: 9 monsters
-  L07: 9 monsters
-  L08: 9 monsters
-  L09: 10 monsters
-  L10: 6 monsters
-  L11: 10 monsters
-  L12: 14 monsters
-  L13: 11 monsters
+  L02: 10 monsters
+  L03: 7 monsters
+  L04: 6 monsters
+  L05: 10 monsters
+  L06: 7 monsters
+  L07: 8 monsters
+  L08: 13 monsters
+  L09: 6 monsters
+  L10: 8 monsters
+  L11: 16 monsters
+  L12: 11 monsters
 
 Transformation power gains breakdown: 
 (only transformations within monster level recorded)

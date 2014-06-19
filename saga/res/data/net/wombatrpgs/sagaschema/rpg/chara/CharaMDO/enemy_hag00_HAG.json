@@ -1,0 +1,25 @@
+{
+	"key" : "enemy_hag00_HAG",
+	"subfolder" : "level00",
+	"name" : "HAG",
+	"description" : "Converted from a report",
+	"gender" : "NONE",
+	"race" : "MONSTER",
+	"family" : "mfamily_hag",
+	"species" : "HAG",
+	"appearance" : "4dir_ffl2_human",
+	"portrait" : "battle_portraits/goblin.png",
+	"meatEatLevel" : 0,
+	"meatTargetLevel" : 0,
+	"gp" : 40,
+	"equipped" : [ ],
+	"stats" : {
+		"hp" : null,
+		"mhp" : null,
+		"str" : null,
+		"def" : null,
+		"agi" : null,
+		"mana" : null,
+		"flags" : null
+	}
+}

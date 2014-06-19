@@ -130,7 +130,7 @@ public class FitnessStats {
 		smallestLevel = Integer.MAX_VALUE;
 		for (Family fam : config.families) {
 			for (Member mem : fam.members) {
-				int level = mem.power;
+				int level = mem.target;
 				Integer existing = levelDistrib.get(level);
 				if (existing == null) {
 					existing = 0;
