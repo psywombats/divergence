@@ -8,7 +8,7 @@
 	"uses" : 3,
 	"cost" : 0,
 	"warhead" : {
-		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectHealMDO",
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectHealMDO",
 		"key" : "anon_CombatItemMDO_-1930259873"
 	},
 	"robostats" : {

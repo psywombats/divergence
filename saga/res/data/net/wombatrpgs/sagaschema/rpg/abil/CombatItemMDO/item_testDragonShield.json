@@ -8,7 +8,7 @@
 	"uses" : 50,
 	"cost" : 5000,
 	"warhead" : {
-		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectDefendMDO",
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectDefendMDO",
 		"key" : "anon_CombatItemMDO_-1467038562"
 	},
 	"robostats" : {

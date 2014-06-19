@@ -8,7 +8,7 @@
 	"uses" : 10,
 	"cost" : 0,
 	"warhead" : {
-		"clazz" : "net.wombatrpgs.sagaschema.rpg.abil.data.warheads.EffectMultihitMDO",
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectMultihitMDO",
 		"key" : "anon_CombatItemMDO_-1910209150"
 	},
 	"robostats" : {
