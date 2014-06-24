@@ -20,8 +20,8 @@ public class FacesAnimationFactory {
 	/**
 	 * Creates the right subclass of the mdo based on its type. The other
 	 * parameters are passed straight on to the constructor.
-	 * @param 	mdo				The MDO to make the object for
-	 * @return
+	 * @param 	mdo				The data to make the object for
+	 * @return					The animation from the data
 	 */
 	public static FacesAnimation create(DirMDO mdo) {
 		if (FourDirMDO.class.isAssignableFrom(mdo.getClass())) {

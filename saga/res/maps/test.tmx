@@ -94,7 +94,7 @@
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="face" value="NORTH"/>
-    <property name="onInteract" value="recruit()"/>
+    <property name="onInteract" value="recruit('recruit_test')"/>
    </properties>
   </object>
  </objectgroup>

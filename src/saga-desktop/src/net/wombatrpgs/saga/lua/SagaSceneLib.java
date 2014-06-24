@@ -26,6 +26,7 @@ public class SagaSceneLib extends TwoArgFunction {
 		env.set("inn", new SceneInn());
 		env.set("shop", new SceneShop());
 		env.set("recruit", new SceneRecruit());
+		env.set("name", new SceneName());
 		
 		env.set("sagalib", library);
 		return library;

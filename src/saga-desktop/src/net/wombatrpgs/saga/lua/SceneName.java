@@ -9,38 +9,40 @@ package net.wombatrpgs.saga.lua;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.scenes.SceneCommand;
 import net.wombatrpgs.mgne.scenes.SceneLib;
-import net.wombatrpgs.saga.screen.ScreenRecruit;
+import net.wombatrpgs.saga.core.SGlobal;
+import net.wombatrpgs.saga.screen.ScreenName;
 
 import org.luaj.vm2.LuaValue;
-import org.luaj.vm2.lib.OneArgFunction;
+import org.luaj.vm2.lib.ZeroArgFunction;
 
 /**
- * Recruit and name a character to the party.
+ * Allows the player to name the front player in their party?
  */
-public class SceneRecruit extends OneArgFunction {
+public class SceneName extends ZeroArgFunction {
 
 	/**
-	 * @see org.luaj.vm2.lib.OneArgFunction#call(org.luaj.vm2.LuaValue)
+	 * @see org.luaj.vm2.lib.ZeroArgFunction#call()
 	 */
 	@Override
-	public LuaValue call(final LuaValue arg) {
+	public LuaValue call() {
 		SceneLib.addFunction(new SceneCommand() {
 
-			ScreenRecruit recruitScreen;
+			ScreenName nameScreen;
 
 			@Override protected void internalRun() {
-				recruitScreen = new ScreenRecruit(arg.checkjstring());
-				MGlobal.assets.loadAsset(recruitScreen, "recruit screen");
-				MGlobal.screens.push(recruitScreen);
+				// battle stuff moved here, problems before with null heroes
+				nameScreen = new ScreenName(SGlobal.heroes.getFront());
+				MGlobal.assets.loadAsset(nameScreen, "name screen");
+				MGlobal.screens.push(nameScreen);
 			}
 
 			@Override protected void finish() {
 				super.finish();
-				recruitScreen.dispose();
+				nameScreen.dispose();
 			}
 
 			@Override protected boolean shouldFinish() {
-				return super.shouldFinish() && recruitScreen.isDone();
+				return super.shouldFinish() && nameScreen.isDone();
 			}
 			
 		});

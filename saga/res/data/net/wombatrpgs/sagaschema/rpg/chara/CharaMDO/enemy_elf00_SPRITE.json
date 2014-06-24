@@ -12,14 +12,17 @@
 	"meatEatLevel" : 0,
 	"meatTargetLevel" : 0,
 	"gp" : 40,
-	"equipped" : [ ],
+	"equipped" : [
+		"abil_dive",
+		"abil_othunder"
+	],
 	"stats" : {
-		"hp" : null,
-		"mhp" : null,
-		"str" : null,
-		"def" : null,
-		"agi" : null,
-		"mana" : null,
-		"flags" : null
+		"hp" : 20,
+		"mhp" : 20,
+		"str" : 3,
+		"def" : 2,
+		"agi" : 6,
+		"mana" : 8,
+		"flags" : [ ]
 	}
 }

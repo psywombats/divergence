@@ -1,0 +1,18 @@
+{
+	"key" : "abil_tail",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "TAIL",
+	"type" : "ABILITY",
+	"uses" : 15,
+	"cost" : 0,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_-150489525"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

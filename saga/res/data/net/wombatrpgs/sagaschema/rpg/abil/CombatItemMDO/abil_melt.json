@@ -1,0 +1,15 @@
+{
+	"key" : "abil_melt",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "",
+	"type" : "ABILITY",
+	"uses" : 0,
+	"cost" : 0,
+	"anim" : "None",
+	"warhead" : null,
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

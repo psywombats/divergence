@@ -76,9 +76,10 @@ public class PolymorphField extends FieldPanel {
 	 */
 	@Override
 	protected void copyTo(Schema s) {
+		if (contents == null) return;
 		try {
 			source.set(s, link);
-			if (!contents.getFile().exists()) {
+			if (contents.getFile() == null || !contents.getFile().exists()) {
 				contents.getFile().getParentFile().mkdirs();
 				contents.getFile().createNewFile();
 			}
@@ -135,9 +136,13 @@ public class PolymorphField extends FieldPanel {
 					schema.name = schema.key;
 				} else {
 					f = new File(parent.getLogic().pathForSchema(selected, link.key));
-					schema = parent.getLogic().getIn().instantiateData(
-							parent.getTree().getSchemaByFile(f),
-							f);
+					if (f.exists()) {
+						schema = parent.getLogic().getIn().instantiateData(
+								parent.getTree().getSchemaByFile(f),
+								f);
+					} else {
+						return;
+					}
 				}
 				contents = new EditorPanel(schema, f, parent.getLogic(), false);
 				contents.setDirtyListener(this);

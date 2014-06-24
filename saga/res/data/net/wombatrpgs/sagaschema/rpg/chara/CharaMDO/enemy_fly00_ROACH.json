@@ -12,14 +12,17 @@
 	"meatEatLevel" : 0,
 	"meatTargetLevel" : 0,
 	"gp" : 40,
-	"equipped" : [ ],
+	"equipped" : [
+		"abil_bite",
+		"abil_xice"
+	],
 	"stats" : {
-		"hp" : null,
-		"mhp" : null,
-		"str" : null,
-		"def" : null,
-		"agi" : null,
-		"mana" : null,
-		"flags" : null
+		"hp" : 60,
+		"mhp" : 60,
+		"str" : 5,
+		"def" : 2,
+		"agi" : 5,
+		"mana" : 4,
+		"flags" : [ ]
 	}
 }

@@ -35,6 +35,7 @@ public class InlineSchemaField extends FieldPanel {
 				Global.instance().err("Bad field", e);
 			}
 		}
+		input.setDirtyListener(this);
 		checkMute(input);
 		addConstrained(input);
 	}

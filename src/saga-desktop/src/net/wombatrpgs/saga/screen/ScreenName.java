@@ -174,7 +174,7 @@ public class ScreenName extends SagaScreen {
 		super.onFocusGained();
 		pushCommandContext(new CMapMenu() {
 			@Override protected InputCommand parseCharacter(char character) {
-				addLetter(character);
+				//addLetter(character);
 				return super.parseCharacter(character);
 			}
 		});
@@ -205,6 +205,15 @@ public class ScreenName extends SagaScreen {
 			selectX = 0;
 		}
 		return super.onCommand(command);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.screen.Screen#onFocusLost()
+	 */
+	@Override
+	public void onFocusLost() {
+		super.onFocusLost();
+		popCommandContext();
 	}
 
 	/**

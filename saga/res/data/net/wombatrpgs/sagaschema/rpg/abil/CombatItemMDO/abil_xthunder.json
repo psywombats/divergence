@@ -1,0 +1,13 @@
+{
+	"key" : "abil_xthunder",
+	"subfolder" : "weaknesses",
+	"name" : null,
+	"description" : null,
+	"abilityName" : null,
+	"type" : null,
+	"uses" : null,
+	"cost" : null,
+	"anim" : null,
+	"warhead" : null,
+	"robostats" : null
+}
