@@ -1,0 +1,11 @@
+{
+	"key" : "encounterset_test",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"encounters" : [
+		"encounter_test1",
+		"encounter_test2"
+	],
+	"steps" : 3
+}

@@ -17,7 +17,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.maps.layers.EventLayer;
 import net.wombatrpgs.mgne.maps.layers.LoadedGridLayer;
 import net.wombatrpgs.mgne.screen.Screen;
@@ -137,7 +136,7 @@ public class LoadedLevel extends Level {
 					generatedEventLayer = true;
 					eventLayer = new EventLayer(this);
 					for (MapObject object : layer.getObjects()) {
-						EventFactory.createAndPlace(new TiledMapObject(this, object));
+						MGlobal.eventFactory.createAndPlace(new TiledMapObject(this, object));
 					}
 				}
 			}

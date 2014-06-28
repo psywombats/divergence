@@ -102,7 +102,17 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * @param	mdo				The MDO of the enemy party in the battle
 	 */
 	public Battle(PartyMDO mdo) {
-		this(SGlobal.heroes, new EnemyParty(mdo));
+		this(new EnemyParty(mdo));
+	}
+	
+	/**
+	 * Creates a random encounter style battle with an enemy party. The other
+	 * party is assumed to be the SGlobal heroes. Will dispose the enemy party
+	 * when battle is finished.
+	 * @param	enemy			The enemy party in the battle
+	 */
+	public Battle(EnemyParty enemy) {
+		this(SGlobal.heroes, enemy);
 		anonymous = true;
 	}
 	
@@ -160,7 +170,6 @@ public class Battle extends AssetQueuer implements Disposable {
 	 */
 	public void finish() {
 		// TODO: battle: finish transitions
-		MGlobal.screens.pop();
 		for (TempStats temp : boosts) {
 			temp.decombine();
 		}
@@ -205,7 +214,7 @@ public class Battle extends AssetQueuer implements Disposable {
 				}
 			});
 		} else {
-			playback("Can't escape. \n", new FinishListener() {
+			playback("Can't escape.", new FinishListener() {
 				@Override public void onFinish() {
 					queueEnemyIntents();
 					playRound();

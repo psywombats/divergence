@@ -18,7 +18,7 @@ import net.wombatrpgs.mgneschema.settings.IntroSettingsMDO;
 /**
  * Shows up when you wander the overworld.
  */
-public class SceneWorld extends SagaScreen implements HeroSource {
+public class ScreenWorld extends SagaScreen implements HeroSource {
 	
 	protected Avatar hero;
 	protected Level map;
@@ -26,7 +26,7 @@ public class SceneWorld extends SagaScreen implements HeroSource {
 	/**
 	 * Creates a new world map screen.
 	 */
-	public SceneWorld() {
+	public ScreenWorld() {
 		super();
 		MGlobal.levelManager.setScreen(this);
 		MGlobal.levelManager.setHeroTracker(this);
@@ -81,6 +81,7 @@ public class SceneWorld extends SagaScreen implements HeroSource {
 			ScreenPause menu = new ScreenPause();
 			MGlobal.assets.loadAsset(menu, "main menu");
 			MGlobal.screens.push(menu);
+			return true;
 		default:
 			return hero.onCommand(command);
 		}

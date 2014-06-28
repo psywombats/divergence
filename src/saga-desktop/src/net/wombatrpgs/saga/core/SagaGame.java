@@ -13,9 +13,11 @@ import org.luaj.vm2.lib.TwoArgFunction;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.Memory;
 import net.wombatrpgs.mgne.core.MgnGame;
+import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.saga.lua.SagaSceneLib;
-import net.wombatrpgs.saga.screen.SceneWorld;
+import net.wombatrpgs.saga.maps.SagaEventFactory;
+import net.wombatrpgs.saga.screen.ScreenWorld;
 
 /**
  * One day, this class will tell MGNE how to run Saga.
@@ -27,17 +29,25 @@ public class SagaGame extends MgnGame {
 	 */
 	@Override
 	public Screen makeStarterScreen() {
-		SceneWorld screen = new SceneWorld();
+		ScreenWorld screen = new ScreenWorld();
 		MGlobal.assets.loadAsset(screen, "world screen");
 		return screen;
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.MgnGame#getMemory()
+	 * @see net.wombatrpgs.mgne.core.MgnGame#makeMemory()
 	 */
 	@Override
-	public Memory getMemory() {
+	public Memory makeMemory() {
 		return new SagaMemory();
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.MgnGame#makeEventFactory()
+	 */
+	@Override
+	public EventFactory makeEventFactory() {
+		return new SagaEventFactory();
 	}
 
 	/**

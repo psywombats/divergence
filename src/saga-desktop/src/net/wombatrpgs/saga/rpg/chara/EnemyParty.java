@@ -11,7 +11,10 @@ import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.core.SGlobal;
+import net.wombatrpgs.sagaschema.rpg.EncounterMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
+import net.wombatrpgs.sagaschema.rpg.chara.data.PartyEntryMDO;
+import net.wombatrpgs.sagaschema.rpg.data.EncounterMemberMDO;
 
 /**
  * A party controlled by the enemy AI.
@@ -26,6 +29,14 @@ public class EnemyParty extends Party {
 	 */
 	public EnemyParty(PartyMDO mdo) {
 		super(mdo);
+	}
+	
+	/**
+	 * Constructs an enemy party that fits the constraints of an encounter.
+	 * @param mdo
+	 */
+	public EnemyParty(EncounterMDO mdo) {
+		super(constructMDO(mdo));
 	}
 	
 	/** @return All enemies in this party */
@@ -65,6 +76,36 @@ public class EnemyParty extends Party {
 			return null;
 		}
 		return candidates.get(MGlobal.rand.nextInt(candidates.size()));
+	}
+	
+	/**
+	 * Generates a party mdo based on an encounter mdo.
+	 * @param	encounter		The mdo to base the party off
+	 * @return					The converted party mdo
+	 */
+	protected static PartyMDO constructMDO(EncounterMDO encounter) {
+		List<PartyEntryMDO> partyMDOs = new ArrayList<PartyEntryMDO>();
+		for (EncounterMemberMDO memberMDO : encounter.members) {
+			String amt = memberMDO.amount;
+			int min = Integer.valueOf(amt.substring(0, amt.indexOf('-')));
+			int max = Integer.valueOf(amt.substring(amt.indexOf('-') + 1));
+			PartyEntryMDO entryMDO = new PartyEntryMDO();
+			entryMDO.monster = memberMDO.enemy;
+			if (max == min) {
+				entryMDO.count = max;
+			} else {
+				entryMDO.count = MGlobal.rand.nextInt(max - min) + min;
+			}
+			if (entryMDO.count > 0) {
+				partyMDOs.add(entryMDO);
+			}
+		}
+		
+		PartyMDO party = new PartyMDO();
+		party.description = "Generated from EncounterMDO";
+		party.members = new PartyEntryMDO[partyMDOs.size()];
+		partyMDOs.toArray(party.members);
+		return party;
 	}
 
 	/**

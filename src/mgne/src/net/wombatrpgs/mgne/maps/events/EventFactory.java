@@ -11,7 +11,7 @@ import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgneschema.maps.EventMDO;
 
 /**
- * Creates and handles events from MDOs.
+ * Creates and handles events from map objects.
  */
 public class EventFactory {
 	
@@ -20,10 +20,20 @@ public class EventFactory {
 	 * @param 	parent			The parent level to add events to
 	 * @param 	object			The tiled object to create events from
 	 */
-	public static void createAndPlace(TiledMapObject object) {
+	public final void createAndPlace(TiledMapObject object) {
 		LoadedLevel parent = object.getLevel();
-		MapEvent event = new MapEvent(object.generateMDO(EventMDO.class));
+		MapEvent event = createEvent(object);
 		parent.addEvent(event, object.getTileX(), object.getTileY());
+	}
+	
+	/**
+	 * Creates an event from a map object. This can be overridden by specific
+	 * games to interpret map objects differently.
+	 * @param	object			The tiled object to create events from
+	 * @return					The created map event
+	 */
+	protected MapEvent createEvent(TiledMapObject object) {
+		return new MapEvent(object.generateMDO(EventMDO.class));
 	}
 	
 }

@@ -14,6 +14,8 @@ import net.wombatrpgs.mgne.maps.events.EventType;
 import net.wombatrpgs.mgns.core.MainSchema;
 
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
+import com.badlogic.gdx.math.Polygon;
 
 /**
  * A MGN wrapper for the LibGDX MapObject. Immutable.
@@ -25,6 +27,7 @@ public class TiledMapObject {
 	public static final String PROPERTY_X = "x";
 	public static final String PROPERTY_Y = "y";
 	// mgn-specific
+	public static final String PROPERTY_MDO = "mdo";
 	public static final String PROPERTY_Z = "z";
 	public static final String PROPERTY_ID = "id";
 	public static final String PROPERTY_TYPE = "type";
@@ -83,6 +86,21 @@ public class TiledMapObject {
 			return null;
 		}
 		return result;
+	}
+	
+	/**
+	 * Interprets this object as a polygon. Likely to blow up if this object is
+	 * not a polygon, but hey, the libgdx underpinning is really brittle so
+	 * don't blame me.
+	 * @return
+	 */
+	public Polygon getPolygon() {
+		if (PolygonMapObject.class.isAssignableFrom(object.getClass())) {
+			return ((PolygonMapObject) object).getPolygon();
+		} else {
+			MGlobal.reporter.err("Is not a polygon: " + object);
+			return null;
+		}
 	}
 	
 	/**

@@ -1,0 +1,17 @@
+{
+	"key" : "encounter_test1",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"members" : [
+		{
+			"enemy" : "chara_enemyTest2",
+			"amount" : "0-2"
+		},
+		{
+			"enemy" : "chara_enemyTest4",
+			"amount" : "2-4"
+		}
+	],
+	"weight" : 2
+}

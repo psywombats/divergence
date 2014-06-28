@@ -12,6 +12,7 @@ import java.util.List;
 import org.luaj.vm2.lib.TwoArgFunction;
 
 import net.wombatrpgs.mgne.graphics.GraphicsSettings;
+import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.instances.ScreenGame;
 
@@ -51,7 +52,7 @@ public abstract class MgnGame {
 	 * info from their own globals.
 	 * @return					The game memory manager object
 	 */
-	public Memory getMemory() {
+	public Memory makeMemory() {
 		return new Memory();
 	}
 	
@@ -72,8 +73,18 @@ public abstract class MgnGame {
 	 * batch shader.
 	 * @return					The graphics object for this game
 	 */
-	public GraphicsSettings getGraphics() {
+	public GraphicsSettings makeGraphics() {
 		return new GraphicsSettings();
+	}
+	
+	/**
+	 * Create and then return the event factory used to turn event data on maps
+	 * into java objects. The default handles NPC-ish and teleporty events, but
+	 * not things like random encounter areas and other game-specific junk.
+	 * @return					The event factory for this game
+	 */
+	public EventFactory makeEventFactory() {
+		return new EventFactory();
 	}
 	
 	/**

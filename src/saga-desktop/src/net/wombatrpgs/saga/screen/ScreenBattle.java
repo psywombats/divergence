@@ -259,6 +259,9 @@ public class ScreenBattle extends SagaScreen {
 				}
 			}
 		}
+		if (battle.isDone()) {
+			MGlobal.screens.pop();
+		}
 	}
 
 	/**

@@ -18,8 +18,6 @@ import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 public class Avatar extends MapEvent implements CommandListener {
 	
 	protected static final String HERO_DEFAULT = "event_hero";
-	
-	protected OrthoDir dirToMove, lastMove;
 
 	/**
 	 * For real hero constructor. Looks up the avatar in the database and
@@ -27,7 +25,6 @@ public class Avatar extends MapEvent implements CommandListener {
 	 */
 	public Avatar() {
 		super(MGlobal.data.getEntryFor(HERO_DEFAULT, EventMDO.class));
-		dirToMove = null;
 	}
 
 	/**
@@ -52,19 +49,7 @@ public class Avatar extends MapEvent implements CommandListener {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-		if (command == InputCommand.MOVE_STOP) {
-			dirToMove = null;
-		}
-		if (tracking) {
-			switch (command) {
-			case MOVE_LEFT:			dirToMove = OrthoDir.WEST;		break;
-			case MOVE_UP:			dirToMove = OrthoDir.NORTH;		break;
-			case MOVE_RIGHT:		dirToMove = OrthoDir.EAST;		break;
-			case MOVE_DOWN:			dirToMove = OrthoDir.SOUTH;		break;
-			default:												break;
-			}
-			return true;
-		} else {
+		if (!tracking) {
 			switch (command) {
 			case MOVE_LEFT:			move(OrthoDir.WEST);	break;
 			case MOVE_UP:			move(OrthoDir.NORTH);	break;
@@ -73,8 +58,8 @@ public class Avatar extends MapEvent implements CommandListener {
 			case WORLD_INTERACT:	interact();				break;
 			default:				return false;
 			}
-			return true;
 		}
+		return true;
 	}
 	
 	/**
@@ -82,9 +67,7 @@ public class Avatar extends MapEvent implements CommandListener {
 	 * @param	dir				The direction to move
 	 */
 	protected void move(OrthoDir dir) {
-		if (attemptStep(dir)) {
-			lastMove = dir;
-		}
+		attemptStep(dir);
 	}
 	
 	/**

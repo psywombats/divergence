@@ -20,6 +20,7 @@ import net.wombatrpgs.mgne.graphics.GraphicsSettings;
 import net.wombatrpgs.mgne.io.MFiles;
 import net.wombatrpgs.mgne.io.Keymap;
 import net.wombatrpgs.mgne.maps.LevelManager;
+import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.screen.ScreenStack;
 import net.wombatrpgs.mgne.screen.WindowSettings;
 import net.wombatrpgs.mgne.ui.UISettings;
@@ -39,8 +40,9 @@ public class MGlobal {
 	public static Lua lua;
 	public static boolean initialized = false;
 	
-	/** Assorted managers */
+	/** Managers and factories */
 	public static LevelManager levelManager;
+	public static EventFactory eventFactory;
 	
 	/** Screens */
 	public static ScreenStack screens;
@@ -99,6 +101,7 @@ public class MGlobal {
 			MGlobal.screens = new ScreenStack();
 			MGlobal.files = new MFiles();
 			MGlobal.levelManager = new LevelManager();
+			MGlobal.eventFactory = game.makeEventFactory();
 			
 			// load secondary data
 			// TODO: polish: load with a loading bar
@@ -119,7 +122,7 @@ public class MGlobal {
 			MGlobal.ui = new UISettings(MGlobal.data.getEntryFor(
 					UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
 			MGlobal.keymap = Keymap.initDefaultKeymap();
-			MGlobal.memory = game.getMemory();
+			MGlobal.memory = game.makeMemory();
 			MGlobal.charConverter = new CharConverter();
 			MGlobal.lua = new Lua();
 			toLoad.add(ui);

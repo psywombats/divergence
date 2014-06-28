@@ -190,7 +190,9 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	 */
 	@Override
 	public void onEvent(InputEvent event) {
-		InputCommand cmd = getTopCommandContext().parse(event);
+		CommandMap map = getTopCommandContext();
+		if (map == null) return;
+		InputCommand cmd = map.parse(event);
 		if (cmd == null) {
 			// we have no use for this command
 			return;
@@ -375,7 +377,12 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	 * @return					The command parser used on this screen
 	 */
 	protected CommandMap getTopCommandContext() {
-		return commandContext.peek();
+		if (commandContext.size() == 0) {
+			// ugly
+			return null;
+		} else {
+			return commandContext.peek();
+		}
 	}
 	
 	/**

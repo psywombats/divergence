@@ -97,5 +97,11 @@
     <property name="onInteract" value="recruit('recruit_test')"/>
    </properties>
   </object>
+  <object name="Encounter Test" type="Encounter" x="192" y="16">
+   <properties>
+    <property name="mdo" value="encounterset_test"/>
+   </properties>
+   <polygon points="0,0 0,32 80,32 80,80 112,80 112,0"/>
+  </object>
  </objectgroup>
 </map>
