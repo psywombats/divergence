@@ -38,5 +38,9 @@ public class SagaGraphicsMDO extends MainSchema {
 	@Desc("Foreground palette - color mappings for moving sprites")
 	@SchemaLink(PaletteMDO.class)
 	public String fgPalette;
+	
+	@Desc("Wipe shader - used for some screen transitions")
+	@SchemaLink(ShaderMDO.class)
+	public String wipeShader;
 
 }

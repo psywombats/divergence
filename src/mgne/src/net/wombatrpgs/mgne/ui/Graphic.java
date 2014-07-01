@@ -81,25 +81,6 @@ public class Graphic implements PosRenderable, Disposable {
 	
 	/** @param height The height to set as the base texture height, in px */
 	public void setTextureHeight(int height) { this.height = height; }
-	
-	/**
-	 * Returns the renderable portion of this image, if you want to be a dick
-	 * about it and render it yourself
-	 * @return					The preloaded texture region appearance
-	 */
-	public TextureRegion getGraphic() {
-		return appearance;
-	}
-	
-	/**
-	 * Returns the raw texture behind the graphic. This is only really useful
-	 * if you want to do weird things that texture regions can't do, like use
-	 * this thing as an alpha map.
-	 * @return					The loaded texture
-	 */
-	public Texture getTexture() {
-		return texture;
-	}
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
@@ -121,6 +102,20 @@ public class Graphic implements PosRenderable, Disposable {
 		batch.draw(appearance, x, y, getWidth(), getHeight());
 		batch.end();
 	}
+	
+	/**
+	 * Renders this graphic stretched.
+	 * @param	batch			The batch to render with
+	 * @param	x				The x-coord to render at (screen px)
+	 * @param	y				The y-coord to render at (screen px)
+	 * @param	width			The width to render the graphic (screen px)
+	 * @param	height			The height to render the graphic (screen px)
+	 */
+	public void renderAt(SpriteBatch batch, float x, float y, float width, float height) {
+		batch.begin();
+		batch.draw(appearance, x, y, width, height);
+		batch.end();
+	}
 
 	/**
 	 * @see java.lang.Object#toString()
@@ -128,6 +123,25 @@ public class Graphic implements PosRenderable, Disposable {
 	@Override
 	public String toString() {
 		return "<Graphic " + filename + ">";
+	}
+	
+	/**
+	 * Returns the renderable portion of this image, if you want to be a dick
+	 * about it and render it yourself
+	 * @return					The preloaded texture region appearance
+	 */
+	public TextureRegion getGraphic() {
+		return appearance;
+	}
+	
+	/**
+	 * Returns the raw texture behind the graphic. This is only really useful
+	 * if you want to do weird things that texture regions can't do, like use
+	 * this thing as an alpha map.
+	 * @return					The loaded texture
+	 */
+	public Texture getTexture() {
+		return texture;
 	}
 
 }

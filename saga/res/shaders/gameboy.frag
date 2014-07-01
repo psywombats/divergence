@@ -13,6 +13,7 @@ uniform vec3 u_blackOut;
 uniform vec3 u_dgrayOut;
 uniform vec3 u_lgrayOut;
 uniform vec3 u_whiteOut;
+uniform float elapsed;
 
 float color_d(vec4 c1, vec3 c2) {
 	return abs(c1[0] - c2[0]) + abs(c1[1] - c2[1]) + abs(c1[2] - c2[2]);
@@ -27,6 +28,9 @@ void main() {
 	current[0] *= current[3];
 	current[1] *= current[3];
 	current[2] *= current[3];
+	current[0] += elapsed;
+	current[1] += elapsed;
+	current[2] += elapsed;
 	
 	float dBlack = color_d(current, u_black);
 	float dDgray = color_d(current, u_dgray);

@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : " ",
 	"globalShader" : "None",
+	"background" : "black.png",
 	"chunkingEnabled" : "DISABLED",
 	"shaderDebug" : "ENABLED",
 	"enabled" : "ENABLED"

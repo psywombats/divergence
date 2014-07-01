@@ -25,6 +25,7 @@ import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
+import net.wombatrpgs.mgne.graphics.Effect;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.graphics.interfaces.Renderable;
 import net.wombatrpgs.mgne.io.ButtonListener;
@@ -63,6 +64,7 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	
 	protected List<Updateable> updateChildren, removeChildren, addChildren;
 	protected List<ScreenObject> screenObjects;
+	protected List<Effect> effects, removeEffects;
 	protected Stack<CommandListener> commandListeners;
 	protected Stack<CommandMap> commandContext;
 
@@ -79,6 +81,8 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 		removeChildren = new ArrayList<Updateable>();
 		addChildren = new ArrayList<Updateable>();
 		screenObjects = new ArrayList<ScreenObject>();
+		removeEffects = new ArrayList<Effect>();
+		effects = new ArrayList<Effect>();
 		
 		tint = new Color(1, 1, 1, 1);
 		cam = new TrackerCam(MGlobal.window.getWidth(), MGlobal.window.getHeight());
@@ -111,12 +115,6 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	/** @return Batch used for UI components */
 	public SpriteBatch getUIBatch() { return uiBatch; }
 	
-	/** @return Buffer used for rendering contents */
-	public FrameBuffer getBuffer() { return buffer; }
-	
-	/** @return Buffer used to accumulate frame data */
-	public FrameBuffer getLastBuffer() { return lastBuffer; }
-	
 	/** @return Game screen whole tint */
 	public Color getTint() { return tint; }
 	
@@ -146,6 +144,12 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	
 	/** @return The height (in px) of current frames */
 	public int getHeight() { return MGlobal.window.getViewportHeight(); }
+	
+	/** @param effect The new effect to add to this screen */
+	public void addEffect(Effect effect) { effects.add(effect); }
+	
+	/** @param effect The effect to remove from this screen */
+	public void removeEffect(Effect effect) { removeEffects.add(effect); }
 	
 	/**
 	 * Checks to see if a screen object exists on the screen. Also checks if the
@@ -219,7 +223,7 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 		viewBatch.setProjectionMatrix(cam.combined);
 		WindowSettings window = MGlobal.window;
 		buffer.begin();
-		wipe();
+		clear();
 		shapes.end();
 		buffer.end();
 		
@@ -243,6 +247,11 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 		buffer.begin();
 		render(getUIBatch());
 		buffer.end();
+		
+		// apply the screen effects
+		for (Effect effect : effects) {
+			effect.apply(buffer);
+		}
 		
 		// now draw the results to the screen
 		finalBatch.setColor(tint);
@@ -301,6 +310,12 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	 */
 	@Override
 	public void update(float elapsed) {
+		for (Effect effect : effects) {
+			effect.update(elapsed);
+		}
+		for (Effect effect : removeEffects) {
+			effects.remove(effect);
+		}
 		for (Updateable up : updateChildren) {
 			up.update(elapsed);
 		}
@@ -388,7 +403,7 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	/**
 	 * Screen-wiping procedure.
 	 */
-	protected void wipe() {
+	protected void clear() {
 		WindowSettings window = MGlobal.window;
 		Gdx.gl.glClearColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

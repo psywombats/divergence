@@ -31,6 +31,7 @@ import net.wombatrpgs.saga.rpg.mutant.Mutation;
 import net.wombatrpgs.saga.rpg.stats.SagaStats;
 import net.wombatrpgs.saga.rpg.stats.TempStats;
 import net.wombatrpgs.saga.rpg.warheads.EffectDefend;
+import net.wombatrpgs.saga.screen.SagaScreen.TransitionType;
 import net.wombatrpgs.saga.screen.ScreenBattle;
 import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
 import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
@@ -153,15 +154,12 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * smoothly transition etc.
 	 */
 	public void start() {
-		// TODO: battle: start transitions
-		MGlobal.screens.push(screen);
-		for (Chara chara : player.getAll()) {
-			chara.onBattleStart(this);
-		}
-		for (Chara chara : enemy.getAll()) {
-			chara.onBattleStart(this);
-		}
-		screen.onNewRound();
+		final Battle battle = this;
+		screen.transitonOn(TransitionType.WHITE, new FinishListener() {
+			@Override public void onFinish() {
+				battle.internalStart();
+			}
+		});
 	}
 	
 	/**
@@ -169,17 +167,12 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * play transitions etc.
 	 */
 	public void finish() {
-		// TODO: battle: finish transitions
-		for (TempStats temp : boosts) {
-			temp.decombine();
-		}
-		for (TempStats temp : defendBoosts) {
-			temp.decombine();
-		}
-		for (Chara chara : player.getAll()) {
-			chara.onBattleEnd(this);
-		}
-		finished = true;
+		final Battle battle = this;
+		screen.transitonOff(TransitionType.WHITE, new FinishListener() {
+			@Override public void onFinish() {
+				battle.internalFinish();
+			}
+		});
 	}
 	
 	/**
@@ -475,6 +468,36 @@ public class Battle extends AssetQueuer implements Disposable {
 			defenses = new ArrayList<EffectDefend>();
 		}
 		return defenses;
+	}
+	
+	/**
+	 * The actual changes that need to happen when the battle is finally on
+	 * screen and ready to begin.
+	 */
+	protected void internalStart() {
+		for (Chara chara : player.getAll()) {
+			chara.onBattleStart(this);
+		}
+		for (Chara chara : enemy.getAll()) {
+			chara.onBattleStart(this);
+		}
+		screen.onNewRound();
+	}
+	
+	/**
+	 * Actual finish component after screen transitions.
+	 */
+	protected void internalFinish() {
+		for (TempStats temp : boosts) {
+			temp.decombine();
+		}
+		for (TempStats temp : defendBoosts) {
+			temp.decombine();
+		}
+		for (Chara chara : player.getAll()) {
+			chara.onBattleEnd(this);
+		}
+		finished = true;
 	}
 	
 	/**

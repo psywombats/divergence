@@ -9,5 +9,6 @@
 	"filterLgray" : "171,171,171",
 	"filterWhite" : "255,255,255",
 	"bgPalette" : "palette_retouchedBlueGreen",
-	"fgPalette" : "palette_retouchedBrown"
+	"fgPalette" : "palette_retouchedBrown",
+	"wipeShader" : "shader_wipe"
 }

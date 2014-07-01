@@ -11,6 +11,7 @@ import net.wombatrpgs.mgneschema.graphics.data.EffectEnabledType;
 import net.wombatrpgs.mgneschema.settings.data.ShaderEnabledState;
 import net.wombatrpgs.mgneschema.test.data.TestState;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
+import net.wombatrpgs.mgns.core.Annotations.FileLink;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
@@ -26,6 +27,10 @@ public class GraphicsSettingsMDO extends MainSchema {
 	@SchemaLink(ShaderMDO.class)
 	@Nullable
 	public String globalShader;
+	
+	@Desc("Background texture - stretched to fit behind the map")
+	@FileLink("ui")
+	public String background;
 	
 	@Desc("Chunking - (advanced) enables/disables the character order rendering algorithm")
 	public EffectEnabledType chunkingEnabled;

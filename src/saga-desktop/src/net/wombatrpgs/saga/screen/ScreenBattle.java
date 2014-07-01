@@ -677,10 +677,10 @@ public class ScreenBattle extends SagaScreen {
 	}
 	
 	/**
-	 * @see net.wombatrpgs.mgne.screen.Screen#wipe()
+	 * @see net.wombatrpgs.mgne.screen.Screen#clear()
 	 */
 	@Override
-	protected void wipe() {
+	protected void clear() {
 		float[] wipe = SGlobal.graphics.getWhite();
 		WindowSettings window = MGlobal.window;
 		Gdx.gl.glClearColor(wipe[0], wipe[1], wipe[2], 1);

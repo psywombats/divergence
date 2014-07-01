@@ -15,6 +15,7 @@ import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.maps.MapThing;
+import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgneschema.settings.GraphicsSettingsMDO;
 import net.wombatrpgs.mgneschema.settings.data.ShaderEnabledState;
 import net.wombatrpgs.mgneschema.test.data.TestState;
@@ -36,6 +37,7 @@ public class GraphicsSettings extends AssetQueuer implements Disposable {
 	
 	protected List<SpriteBatch> batches;
 	protected List<ShaderFromData> shaders;
+	protected Graphic background;
 	
 	/**
 	 * Creates a new graphics settings from data. Should only be called once per
@@ -46,6 +48,8 @@ public class GraphicsSettings extends AssetQueuer implements Disposable {
 		this.mdo = mdo;
 		batches = new ArrayList<SpriteBatch>();
 		shaders = new ArrayList<ShaderFromData>();
+		background = new Graphic(mdo.background);
+		assets.add(background);
 	}
 	
 	/**
@@ -72,6 +76,14 @@ public class GraphicsSettings extends AssetQueuer implements Disposable {
 		for (SpriteBatch batch : batches) {
 			batch.dispose();
 		}
+	}
+	
+	/**
+	 * Retrieves the loaded background for behind maps.
+	 * @return					The loaded background graphic
+	 */
+	public Graphic getBackground() {
+		return background;
 	}
 
 	/**

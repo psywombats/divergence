@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Vector3;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.BatchWithShader;
 import net.wombatrpgs.mgne.graphics.ShaderFromData;
+import net.wombatrpgs.mgneschema.graphics.ShaderMDO;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.sagaschema.graphics.PaletteMDO;
 import net.wombatrpgs.sagaschema.graphics.SagaGraphicsMDO;
@@ -92,6 +93,14 @@ public class SagaGraphics {
 	 */
 	public float[] getBlack() {
 		return black;
+	}
+	
+	/**
+	 * Returns the set shader data for screen wipe transitions.
+	 * @return					The shader data for wipes
+	 */
+	public ShaderMDO getWipeShaderMDO() {
+		return MGlobal.data.getEntryFor(mdo.wipeShader, ShaderMDO.class);
 	}
 	
 	/**
