@@ -1,0 +1,17 @@
+{
+	"key" : "encounter_00_roach4_firefly2",
+	"subfolder" : "level00",
+	"name" : "",
+	"description" : "",
+	"members" : [
+		{
+			"enemy" : "enemy_fly00_ROACH",
+			"amount" : "2-4"
+		},
+		{
+			"enemy" : "enemy_arm00_FIREFLY",
+			"amount" : "0-2"
+		}
+	],
+	"weight" : 2
+}

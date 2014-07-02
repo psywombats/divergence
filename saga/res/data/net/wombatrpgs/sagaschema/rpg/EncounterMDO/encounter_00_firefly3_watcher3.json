@@ -1,0 +1,17 @@
+{
+	"key" : "encounter_00_firefly3_watcher3",
+	"subfolder" : "level00",
+	"name" : "",
+	"description" : "",
+	"members" : [
+		{
+			"enemy" : "enemy_arm00_FIREFLY",
+			"amount" : "1-3"
+		},
+		{
+			"enemy" : "enemy_wrd00_WATCHER",
+			"amount" : "1-3"
+		}
+	],
+	"weight" : 4
+}

@@ -1,0 +1,21 @@
+{
+	"key" : "encounter_00_goblin_weasel_hag",
+	"subfolder" : "level00",
+	"name" : "",
+	"description" : "",
+	"members" : [
+		{
+			"enemy" : "enemy_gob00_GOBLIN",
+			"amount" : "1"
+		},
+		{
+			"enemy" : "enemy_wsl00_WEASEL",
+			"amount" : "1"
+		},
+		{
+			"enemy" : "enemy_hag00_HAG",
+			"amount" : "1"
+		}
+	],
+	"weight" : 2
+}
