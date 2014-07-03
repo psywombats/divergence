@@ -12,14 +12,17 @@
 	"meatEatLevel" : 2,
 	"meatTargetLevel" : 1,
 	"gp" : 40,
-	"equipped" : [ ],
+	"equipped" : [
+		"abil_tusk",
+		"abil_xice"
+	],
 	"stats" : {
-		"hp" : null,
-		"mhp" : null,
-		"str" : null,
-		"def" : null,
-		"agi" : null,
-		"mana" : null,
-		"flags" : null
+		"hp" : 80,
+		"mhp" : 80,
+		"str" : 12,
+		"def" : 6,
+		"agi" : 5,
+		"mana" : 6,
+		"flags" : [ ]
 	}
 }

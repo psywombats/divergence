@@ -16,5 +16,7 @@
 	"recover" : "PERSIST_UNTIL_HEAL",
 	"halvedStats" : [
 		"AGI"
-	]
+	],
+	"dot" : 0,
+	"dotStat" : null
 }

@@ -17,5 +17,7 @@
 	"halvedStats" : [
 		"STR",
 		"DEF"
-	]
+	],
+	"dot" : 0,
+	"dotStat" : null
 }

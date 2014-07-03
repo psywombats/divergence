@@ -128,12 +128,12 @@ public class ScreenBattle extends SagaScreen {
 		fightOptions = new OptionSelector(false, true, new Option("FIGHT") {
 			@Override public boolean onSelect() {
 				battle.onFight();
-				return false;
+				return true;
 			}
 		}, new Option("RUN") {
 			@Override public boolean onSelect() {
 				battle.onRun();
-				return false;
+				return true;
 			}
 		});
 		assets.add(fightOptions);

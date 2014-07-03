@@ -14,5 +14,7 @@
 	"recoverChance" : 33,
 	"lethality" : "NON_DEADLY",
 	"recover" : "RECOVER_AFTER_BATTLE",
-	"halvedStats" : [ ]
+	"halvedStats" : [ ],
+	"dot" : 0,
+	"dotStat" : null
 }

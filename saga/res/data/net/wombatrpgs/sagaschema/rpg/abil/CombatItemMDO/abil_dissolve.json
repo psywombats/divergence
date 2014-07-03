@@ -5,7 +5,7 @@
 	"description" : "",
 	"abilityName" : "DISSOLVE",
 	"type" : "ABILITY",
-	"uses" : 10,
+	"uses" : 15,
 	"cost" : 0,
 	"anim" : "None",
 	"warhead" : {

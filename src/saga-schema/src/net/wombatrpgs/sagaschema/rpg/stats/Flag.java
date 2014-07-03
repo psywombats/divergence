@@ -28,6 +28,7 @@ public enum Flag implements FlagStatLinkable {
 	RESIST_PARALYZE,
 	RESIST_STONE,
 	RESIST_DEATH,
+	RESIST_POISON,
 	
 	RESIST_FIRE,
 	RESIST_ICE,

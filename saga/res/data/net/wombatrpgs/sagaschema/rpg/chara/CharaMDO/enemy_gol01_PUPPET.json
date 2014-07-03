@@ -14,12 +14,12 @@
 	"gp" : 40,
 	"equipped" : [ ],
 	"stats" : {
-		"hp" : null,
-		"mhp" : null,
-		"str" : null,
-		"def" : null,
-		"agi" : null,
-		"mana" : null,
-		"flags" : null
+		"hp" : 60,
+		"mhp" : 60,
+		"str" : 8,
+		"def" : 7,
+		"agi" : 8,
+		"mana" : 8,
+		"flags" : [ ]
 	}
 }

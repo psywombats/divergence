@@ -131,7 +131,10 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	public void removeCommandListener(CommandListener listener) { commandListeners.remove(listener); }
 	
 	/** @return The command listener currently receiving first commands */
-	public CommandListener getTopCommandListener() { return commandListeners.peek(); }
+	public CommandListener getTopCommandListener() {
+		if (commandListeners.size() == 0) return null;
+		else return commandListeners.peek();
+	}
 	
 	/** @param u The updateable child to add */
 	public void addUChild(Updateable u) { addChildren.add(u); }

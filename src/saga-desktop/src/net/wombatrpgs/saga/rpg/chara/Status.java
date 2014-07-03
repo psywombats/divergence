@@ -190,6 +190,27 @@ public class Status implements Resistable {
 	}
 	
 	/**
+	 * Called when a round ends and this status is still afflicted. Should
+	 * inflict damage over time and print update messages.
+	 * @param	battle			The battle in which a round ended
+	 * @param	chara			The afflicted moron
+	 */
+	public void onRoundEnd(Battle battle, Chara chara) {
+		if (mdo.dot > 0) {
+			int dot = mdo.dot;
+			if (mdo.dotStat != null) {
+				dot += chara.get(mdo.dotStat) / 10;
+			}
+			chara.damage(dot, false);
+			battle.println(chara.getName() + mdo.inflictString + ", " + 
+					chara.getName() + " takes " + dot + " damage.");
+			battle.checkDeath(chara, false);
+		} else if (mdo.preventChance > 0) {
+			battle.println(chara.getName() + mdo.inflictString + ".");
+		}
+	}
+	
+	/**
 	 * Called when a battle ends and this status is still on some sap. This
 	 * should probably just heal them if needed. No message.
 	 * @param	battle			The battle that just ended

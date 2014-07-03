@@ -63,5 +63,12 @@ public class StatusMDO extends MainSchema {
 	
 	@Desc("Reduced stats - in-battle values is reduced by 50% for these stats in battle")
 	public Stat[] halvedStats;
+	
+	@Desc("Damage over time - will be inflicted to the afflicted each turn, zero for none")
+	public Integer dot;
+	
+	@Desc("Damage over time stat - quartered and multiplied by DoT power")
+	@Nullable
+	public Stat dotStat;
 
 }

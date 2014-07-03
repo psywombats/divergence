@@ -256,6 +256,9 @@ public class Chara extends AssetQueuer implements Disposable {
 	public void onRoundEnd(Battle battle) {
 		if (status != null) {
 			status.checkHeal(battle, this);
+			if (status != null) {
+				status.onRoundEnd(battle, this);
+			}
 		}
 	}
 	

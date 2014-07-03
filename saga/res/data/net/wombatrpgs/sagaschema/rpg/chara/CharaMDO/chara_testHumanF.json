@@ -17,6 +17,7 @@
 		"item_testWhip",
 		"item_testDragonShield",
 		"item_testStun",
+		"item_testPGun",
 		"item_testPotion"
 	],
 	"stats" : {

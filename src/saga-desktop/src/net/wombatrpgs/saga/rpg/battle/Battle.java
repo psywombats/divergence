@@ -603,13 +603,19 @@ public class Battle extends AssetQueuer implements Disposable {
 					playNextIntent();
 				} else {
 					finishRound();
-					screen.setAuto(false);
-					println("");
 					playbackListener = new FinishListener() {
 						@Override public void onFinish() {
-							newRound();
+							screen.setAuto(false);
+							playback("", new FinishListener() {
+								@Override public void onFinish() {
+									newRound();
+								}
+							});
 						}
 					};
+					if (screen.isTextFinished()) {
+						playbackListener.onFinish();
+					}
 				}
 			}
 		};

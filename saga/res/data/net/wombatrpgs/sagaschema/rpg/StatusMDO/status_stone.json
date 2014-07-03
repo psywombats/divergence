@@ -14,5 +14,7 @@
 	"recoverChance" : 0,
 	"lethality" : "DEADLY",
 	"recover" : "PERSIST_UNTIL_HEAL",
-	"halvedStats" : [ ]
+	"halvedStats" : [ ],
+	"dot" : 0,
+	"dotStat" : null
 }
