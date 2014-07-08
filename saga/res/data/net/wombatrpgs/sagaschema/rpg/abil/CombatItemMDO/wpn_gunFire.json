@@ -1,0 +1,27 @@
+{
+	"key" : "wpn_gunFire",
+	"subfolder" : "weapon",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$GFIRE",
+	"type" : "ITEM",
+	"uses" : 30,
+	"cost" : 240,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectFixedMDO",
+		"key" : "anon_CombatItemMDO_-2081719700"
+	},
+	"robostats" : {
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 18.0
+			},
+			{
+				"stat" : "STR",
+				"value" : 2.0
+			}
+		]
+	}
+}

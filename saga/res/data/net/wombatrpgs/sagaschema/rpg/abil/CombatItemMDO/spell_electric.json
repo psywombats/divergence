@@ -1,0 +1,18 @@
+{
+	"key" : "spell_electric",
+	"subfolder" : "spell",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$HELECTRIC",
+	"type" : "ITEM",
+	"uses" : 30,
+	"cost" : 500,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_-1592119736"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

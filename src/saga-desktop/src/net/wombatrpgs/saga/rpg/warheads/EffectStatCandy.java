@@ -6,11 +6,15 @@
  */
 package net.wombatrpgs.saga.rpg.warheads;
 
+import java.util.Arrays;
+import java.util.List;
+
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.screen.TargetSelectable;
 import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
+import net.wombatrpgs.sagaschema.rpg.chara.data.Race;
 import net.wombatrpgs.sagaschema.rpg.warheads.EffectStatCandyMDO;
 
 /**
@@ -42,8 +46,8 @@ public class EffectStatCandy extends EffectBattleUnuseable {
 		caller.awaitSelection(new SelectionListener() {
 			@Override public boolean onSelection(Chara selected) {
 				if (selected != null) {
-					if (mdo.restrictRace != null &&
-							selected.getRace() != mdo.restrictRace) {
+					List<Race> allowed = Arrays.asList(mdo.restrictRace);
+					if (!allowed.contains(selected.getRace())) {
 						// TODO: sfx: fail sfx
 					} else if (mdo.maxValue != 0 &&
 							selected.get(mdo.stat) > mdo.maxValue) {

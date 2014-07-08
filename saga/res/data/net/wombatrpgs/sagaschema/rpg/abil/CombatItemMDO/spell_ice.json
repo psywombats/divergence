@@ -1,0 +1,18 @@
+{
+	"key" : "spell_ice",
+	"subfolder" : "spell",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$HICE",
+	"type" : "ITEM",
+	"uses" : 30,
+	"cost" : 500,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_-857666902"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

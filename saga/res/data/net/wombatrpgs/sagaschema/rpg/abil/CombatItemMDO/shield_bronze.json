@@ -1,0 +1,27 @@
+{
+	"key" : "shield_bronze",
+	"subfolder" : "armor",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$BBRONZE",
+	"type" : "ITEM",
+	"uses" : 0,
+	"cost" : 25,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectDefendMDO",
+		"key" : "anon_CombatItemMDO_-1826727546"
+	},
+	"robostats" : {
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 9.0
+			},
+			{
+				"stat" : "DEF",
+				"value" : 2.0
+			}
+		]
+	}
+}

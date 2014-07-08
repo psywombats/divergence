@@ -1,0 +1,18 @@
+{
+	"key" : "hand_gold",
+	"subfolder" : "armor",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$CGOLD",
+	"type" : "ITEM",
+	"uses" : 0,
+	"cost" : 125,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectPassiveMDO",
+		"key" : "anon_CombatItemMDO_-912754437"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

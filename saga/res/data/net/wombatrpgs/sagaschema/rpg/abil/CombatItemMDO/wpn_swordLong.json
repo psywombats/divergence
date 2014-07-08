@@ -1,0 +1,27 @@
+{
+	"key" : "wpn_swordLong",
+	"subfolder" : "weapon",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$ELONG",
+	"type" : "ITEM",
+	"uses" : 50,
+	"cost" : 120,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_-2009499444"
+	},
+	"robostats" : {
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 18.0
+			},
+			{
+				"stat" : "STR",
+				"value" : 4.0
+			}
+		]
+	}
+}

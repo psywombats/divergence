@@ -1,0 +1,28 @@
+{
+	"key" : "chara_leadHumanM",
+	"subfolder" : "guild",
+	"name" : "",
+	"description" : "",
+	"gender" : "MALE",
+	"race" : "HUMAN",
+	"family" : "None",
+	"species" : "",
+	"appearance" : "4dir_ffl2_human",
+	"portrait" : "None",
+	"meatEatLevel" : 0,
+	"meatTargetLevel" : 0,
+	"gp" : 0,
+	"equipped" : [
+		"wpn_swordLong",
+		"hand_bronze"
+	],
+	"stats" : {
+		"hp" : 60,
+		"mhp" : 60,
+		"str" : 8,
+		"def" : 0,
+		"agi" : 4,
+		"mana" : 0,
+		"flags" : [ ]
+	}
+}

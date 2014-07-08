@@ -1,0 +1,18 @@
+{
+	"key" : "pot_strength",
+	"subfolder" : "potions",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$TSTRENGTH",
+	"type" : "ITEM",
+	"uses" : 1,
+	"cost" : 1000,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatCandyMDO",
+		"key" : "anon_CombatItemMDO_1994076572"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

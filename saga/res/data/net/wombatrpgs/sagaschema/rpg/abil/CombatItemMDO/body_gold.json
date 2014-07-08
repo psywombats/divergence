@@ -1,0 +1,23 @@
+{
+	"key" : "body_gold",
+	"subfolder" : "armor",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$AGOLD",
+	"type" : "ITEM",
+	"uses" : 0,
+	"cost" : 175,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectPassiveMDO",
+		"key" : "anon_CombatItemMDO_-822075065"
+	},
+	"robostats" : {
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 18.0
+			}
+		]
+	}
+}

@@ -1,0 +1,27 @@
+{
+	"key" : "shield_gold",
+	"subfolder" : "armor",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$BGOLD",
+	"type" : "ITEM",
+	"uses" : 50,
+	"cost" : 50,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectDefendMDO",
+		"key" : "anon_CombatItemMDO_-806628868"
+	},
+	"robostats" : {
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 18.0
+			},
+			{
+				"stat" : "DEF",
+				"value" : 4.0
+			}
+		]
+	}
+}

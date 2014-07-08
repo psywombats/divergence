@@ -1,0 +1,15 @@
+{
+	"key" : "anon_CombatItemMDO_-806628868",
+	"subfolder" : "",
+	"name" : "anon_CombatItemMDO_-806628868",
+	"description" : "auto-generated anonymous polymorph",
+	"projector" : "USER",
+	"shielding" : 60,
+	"triggerTypes" : [ ],
+	"warhead" : null,
+	"stats" : {
+		"stats" : [ ],
+		"flags" : [ ]
+	},
+	"effects" : [ ]
+}

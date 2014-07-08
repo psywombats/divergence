@@ -1,0 +1,27 @@
+{
+	"key" : "wpn_whip",
+	"subfolder" : "weapon",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "WHIP",
+	"type" : "ITEM",
+	"uses" : 50,
+	"cost" : 88,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectFixedMDO",
+		"key" : "anon_CombatItemMDO_1518387438"
+	},
+	"robostats" : {
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 9.0
+			},
+			{
+				"stat" : "AGI",
+				"value" : 2.0
+			}
+		]
+	}
+}

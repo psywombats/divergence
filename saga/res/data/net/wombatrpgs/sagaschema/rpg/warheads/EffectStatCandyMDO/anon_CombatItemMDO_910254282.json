@@ -6,6 +6,8 @@
 	"stat" : "MHP",
 	"minGain" : 9,
 	"maxGain" : 19,
-	"restrictRace" : "HUMAN",
+	"restrictRace" : [
+		"HUMAN"
+	],
 	"maxValue" : 600
 }

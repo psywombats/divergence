@@ -1,0 +1,27 @@
+{
+	"key" : "wpn_rapier",
+	"subfolder" : "weapon",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "RAPIER",
+	"type" : "ITEM",
+	"uses" : 50,
+	"cost" : 32,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_-1698892094"
+	},
+	"robostats" : {
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 9.0
+			},
+			{
+				"stat" : "AGI",
+				"value" : 2.0
+			}
+		]
+	}
+}

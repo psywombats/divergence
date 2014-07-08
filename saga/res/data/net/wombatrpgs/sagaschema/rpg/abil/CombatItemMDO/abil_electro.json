@@ -1,0 +1,18 @@
+{
+	"key" : "abil_electro",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "ELECTRO",
+	"type" : "ABILITY",
+	"uses" : 10,
+	"cost" : 0,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectDebuffMDO",
+		"key" : "anon_CombatItemMDO_692328074"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

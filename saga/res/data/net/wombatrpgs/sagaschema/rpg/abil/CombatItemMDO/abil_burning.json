@@ -1,0 +1,18 @@
+{
+	"key" : "abil_burning",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "FIRE SKIN",
+	"type" : "ABILITY",
+	"uses" : 25,
+	"cost" : 0,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectDefendMDO",
+		"key" : "anon_CombatItemMDO_-1608953702"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

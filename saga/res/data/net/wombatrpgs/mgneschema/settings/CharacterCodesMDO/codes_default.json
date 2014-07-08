@@ -63,6 +63,26 @@
 		{
 			"code" : "$O",
 			"ascii" : 224
+		},
+		{
+			"code" : "$P",
+			"ascii" : 225
+		},
+		{
+			"code" : "$Q",
+			"ascii" : 226
+		},
+		{
+			"code" : "$R",
+			"ascii" : 227
+		},
+		{
+			"code" : "$S",
+			"ascii" : 228
+		},
+		{
+			"code" : "$T",
+			"ascii" : 229
 		}
 	]
 }

@@ -1,0 +1,27 @@
+{
+	"key" : "wpn_bowLong",
+	"subfolder" : "weapon",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$SLONG",
+	"type" : "ITEM",
+	"uses" : 50,
+	"cost" : 52,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectFixedMDO",
+		"key" : "anon_CombatItemMDO_-1339260304"
+	},
+	"robostats" : {
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 9.0
+			},
+			{
+				"stat" : "AGI",
+				"value" : 2.0
+			}
+		]
+	}
+}

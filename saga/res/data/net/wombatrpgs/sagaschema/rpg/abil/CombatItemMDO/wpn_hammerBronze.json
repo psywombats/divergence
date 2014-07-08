@@ -1,0 +1,27 @@
+{
+	"key" : "wpn_hammerBronze",
+	"subfolder" : "weapon",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$OBRONZE",
+	"type" : "ITEM",
+	"uses" : 50,
+	"cost" : 25,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_131184433"
+	},
+	"robostats" : {
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 9.0
+			},
+			{
+				"stat" : "STR",
+				"value" : 2.0
+			}
+		]
+	}
+}

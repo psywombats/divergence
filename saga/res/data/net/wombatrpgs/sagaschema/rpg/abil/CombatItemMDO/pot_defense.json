@@ -1,0 +1,18 @@
+{
+	"key" : "pot_defense",
+	"subfolder" : "potions",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$TDEFENSE",
+	"type" : "ITEM",
+	"uses" : 1,
+	"cost" : 2000,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatCandyMDO",
+		"key" : "anon_CombatItemMDO_1110773690"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

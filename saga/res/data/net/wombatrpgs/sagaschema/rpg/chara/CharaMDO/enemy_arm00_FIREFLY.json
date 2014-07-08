@@ -21,7 +21,7 @@
 		"mhp" : 40,
 		"str" : 6,
 		"def" : 6,
-		"agi" : 5,
+		"agi" : 4,
 		"mana" : 3,
 		"flags" : [ ]
 	}

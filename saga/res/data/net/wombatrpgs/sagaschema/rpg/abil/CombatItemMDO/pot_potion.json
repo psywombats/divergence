@@ -1,0 +1,18 @@
+{
+	"key" : "pot_potion",
+	"subfolder" : "potions",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$TPOTION",
+	"type" : "ITEM",
+	"uses" : 3,
+	"cost" : 0,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectHealMDO",
+		"key" : "anon_CombatItemMDO_916236238"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

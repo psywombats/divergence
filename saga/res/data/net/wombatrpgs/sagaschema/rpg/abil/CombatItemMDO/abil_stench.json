@@ -1,0 +1,18 @@
+{
+	"key" : "abil_stench",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "STENCH",
+	"type" : "ABILITY",
+	"uses" : 15,
+	"cost" : 0,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectDebuffMDO",
+		"key" : "anon_CombatItemMDO_1218791561"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

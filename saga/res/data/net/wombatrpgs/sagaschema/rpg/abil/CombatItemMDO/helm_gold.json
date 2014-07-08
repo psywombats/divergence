@@ -1,0 +1,23 @@
+{
+	"key" : "helm_gold",
+	"subfolder" : "armor",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$FGOLD",
+	"type" : "ITEM",
+	"uses" : 0,
+	"cost" : 150,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectPassiveMDO",
+		"key" : "anon_CombatItemMDO_-382527995"
+	},
+	"robostats" : {
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 18.0
+			}
+		]
+	}
+}

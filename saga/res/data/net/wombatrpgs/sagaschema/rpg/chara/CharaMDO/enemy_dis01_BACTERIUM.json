@@ -13,7 +13,8 @@
 	"meatTargetLevel" : 1,
 	"gp" : 40,
 	"equipped" : [
-		"abil_melt"
+		"abil_poison",
+		"abil_pskin"
 	],
 	"stats" : {
 		"hp" : 40,

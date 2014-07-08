@@ -1,0 +1,13 @@
+{
+	"key" : "anon_CombatItemMDO_1281170149",
+	"subfolder" : "",
+	"name" : "anon_CombatItemMDO_1281170149",
+	"description" : "auto-generated anonymous polymorph",
+	"projector" : "SINGLE_ENEMY",
+	"damType" : "ICE",
+	"sideEffects" : [ ],
+	"power" : 8,
+	"attackStat" : "MANA",
+	"defendStat" : "MANA",
+	"miss" : "ALWAYS_HITS"
+}

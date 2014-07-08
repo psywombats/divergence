@@ -1,0 +1,23 @@
+{
+	"key" : "helm_bronze",
+	"subfolder" : "armor",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$FBRONZE",
+	"type" : "ITEM",
+	"uses" : 0,
+	"cost" : 24,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectPassiveMDO",
+		"key" : "anon_CombatItemMDO_-1341789186"
+	},
+	"robostats" : {
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 9.0
+			}
+		]
+	}
+}

@@ -1,0 +1,18 @@
+{
+	"key" : "abil_pfang",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "TOXIN FANG",
+	"type" : "ABILITY",
+	"uses" : 25,
+	"cost" : 0,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
+		"key" : "anon_CombatItemMDO_1770747656"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

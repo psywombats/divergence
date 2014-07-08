@@ -104,7 +104,7 @@ public abstract class EffectCombat extends EffectEnemyTarget {
 				battle.println(tab + victimname + " takes no damage.");
 			}
 			if (effect(OffenseFlag.STUNS_ON_HIT) && victim.isAlive()) {
-				if (battle.cancelAction(victim)) {
+				if (battle.cancelAction(victim) && MGlobal.rand.nextFloat() > .4) {
 					battle.println(tab + "A stunning hit!");
 				}
 			}

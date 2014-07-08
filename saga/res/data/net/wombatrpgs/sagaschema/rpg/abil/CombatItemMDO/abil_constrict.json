@@ -1,0 +1,18 @@
+{
+	"key" : "abil_constrict",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "CONSTRICT",
+	"type" : "ITEM",
+	"uses" : 20,
+	"cost" : 0,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
+		"key" : "anon_CombatItemMDO_-1080646109"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

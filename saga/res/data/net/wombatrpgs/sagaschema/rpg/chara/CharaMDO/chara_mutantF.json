@@ -1,0 +1,31 @@
+{
+	"key" : "chara_mutantF",
+	"subfolder" : "guild",
+	"name" : "",
+	"description" : "",
+	"gender" : "FEMALE",
+	"race" : "MUTANT",
+	"family" : "None",
+	"species" : "",
+	"appearance" : "4dir_ffl2_human",
+	"portrait" : "None",
+	"meatEatLevel" : 0,
+	"meatTargetLevel" : 0,
+	"gp" : 0,
+	"equipped" : [
+		"abil_mutantBlank",
+		"abil_mutantBlank",
+		"abil_mutantBlank",
+		"abil_mutantBlank",
+		"wpn_rapier"
+	],
+	"stats" : {
+		"hp" : 20,
+		"mhp" : 20,
+		"str" : 3,
+		"def" : 0,
+		"agi" : 7,
+		"mana" : 5,
+		"flags" : [ ]
+	}
+}

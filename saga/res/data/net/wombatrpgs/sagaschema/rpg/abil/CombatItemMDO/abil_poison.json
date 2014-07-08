@@ -1,0 +1,18 @@
+{
+	"key" : "abil_poison",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "POISON",
+	"type" : "ABILITY",
+	"uses" : 25,
+	"cost" : 0,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
+		"key" : "anon_CombatItemMDO_-240074942"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

@@ -1,0 +1,27 @@
+{
+	"key" : "wpn_caneBronze",
+	"subfolder" : "weapon",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$PBRONZE",
+	"type" : "ITEM",
+	"uses" : 50,
+	"cost" : 22,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_-1469362985"
+	},
+	"robostats" : {
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 7.0
+			},
+			{
+				"stat" : "STR",
+				"value" : 1.0
+			}
+		]
+	}
+}

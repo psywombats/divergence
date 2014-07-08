@@ -12,14 +12,17 @@
 	"meatEatLevel" : 2,
 	"meatTargetLevel" : 1,
 	"gp" : 40,
-	"equipped" : [ ],
+	"equipped" : [
+		"abil_kick",
+		"abil_agility"
+	],
 	"stats" : {
-		"hp" : null,
-		"mhp" : null,
-		"str" : null,
-		"def" : null,
-		"agi" : null,
-		"mana" : null,
-		"flags" : null
+		"hp" : 80,
+		"mhp" : 80,
+		"str" : 10,
+		"def" : 5,
+		"agi" : 10,
+		"mana" : 2,
+		"flags" : [ ]
 	}
 }

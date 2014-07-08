@@ -1,0 +1,18 @@
+{
+	"key" : "spell_cure",
+	"subfolder" : "spell",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$HCURE",
+	"type" : "ITEM",
+	"uses" : 30,
+	"cost" : 1000,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectHealMDO",
+		"key" : "anon_CombatItemMDO_358875590"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

@@ -1,0 +1,23 @@
+{
+	"key" : "body_bronze",
+	"subfolder" : "armor",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$ABRONZE",
+	"type" : "ITEM",
+	"uses" : 0,
+	"cost" : 80,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectPassiveMDO",
+		"key" : "anon_CombatItemMDO_478147442"
+	},
+	"robostats" : {
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 9.0
+			}
+		]
+	}
+}

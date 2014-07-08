@@ -1,0 +1,18 @@
+{
+	"key" : "abil_punch",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "PUNCH",
+	"type" : "ABILITY",
+	"uses" : 25,
+	"cost" : 0,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_-837159753"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

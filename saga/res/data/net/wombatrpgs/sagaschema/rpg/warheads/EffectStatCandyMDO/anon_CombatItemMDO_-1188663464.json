@@ -6,6 +6,8 @@
 	"stat" : "AGI",
 	"minGain" : 2,
 	"maxGain" : 2,
-	"restrictRace" : "HUMAN",
+	"restrictRace" : [
+		"HUMAN"
+	],
 	"maxValue" : 24
 }

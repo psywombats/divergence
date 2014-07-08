@@ -1,0 +1,18 @@
+{
+	"key" : "spell_fog",
+	"subfolder" : "spell",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$HFOG",
+	"type" : "ITEM",
+	"uses" : 30,
+	"cost" : 500,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_-1299723484"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

@@ -1,0 +1,18 @@
+{
+	"key" : "item_testPGun",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$GPOISON",
+	"type" : "ITEM",
+	"uses" : 30,
+	"cost" : 0,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
+		"key" : "anon_CombatItemMDO_1809536847"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

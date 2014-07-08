@@ -1,0 +1,18 @@
+{
+	"key" : "spell_fire",
+	"subfolder" : "spell",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$HFIRE",
+	"type" : "ITEM",
+	"uses" : 30,
+	"cost" : 500,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_1791740895"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

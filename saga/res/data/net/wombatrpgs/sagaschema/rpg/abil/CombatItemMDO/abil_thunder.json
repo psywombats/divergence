@@ -1,0 +1,18 @@
+{
+	"key" : "abil_thunder",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "THUNDER",
+	"type" : "ABILITY",
+	"uses" : 10,
+	"cost" : 0,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_-828911372"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

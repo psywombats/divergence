@@ -7,7 +7,6 @@
 package net.wombatrpgs.sagaschema.rpg.warheads;
 
 import net.wombatrpgs.mgns.core.Annotations.Desc;
-import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Race;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
@@ -26,9 +25,8 @@ public class EffectStatCandyMDO extends AbilEffectMDO {
 	@Desc("Max gain")
 	public Integer maxGain;
 	
-	@Desc("Restricted race - if set, will allow only this race to consume")
-	@Nullable
-	public Race restrictRace;
+	@Desc("Restricted races - only these races allowed to consume")
+	public Race[] restrictRace;
 	
 	@Desc("Maximum effective value - characters with a stat value above this "
 			+ "will receive no effect from this item, or 0 for no maximum")
