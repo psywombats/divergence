@@ -8,6 +8,7 @@ package net.wombatrpgs.mgne.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
@@ -63,9 +64,10 @@ public class MGlobal {
 	public static GraphicsSettings graphics;
 	
 	/** Desktop mode */
-	public static String[] args;
+	public static Map<String, String> args;
 	public static Platform platform;
 	public static MgnGame game;
+	public static DebugLevel debug;
 	
 	/**
 	 * Called as part of the map game.

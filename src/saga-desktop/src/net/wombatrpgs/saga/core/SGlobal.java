@@ -47,8 +47,9 @@ public class SGlobal {
 		MGlobal.assets.loadAssets(toLoad, "SGlobal");
 		
 		// debug save-y stuff
-		if (MGlobal.args.length >= 1) {
-			MGlobal.memory.load(MGlobal.args[0]);
+		String savefile = MGlobal.args.get("savefile");
+		if (savefile != null) {
+			MGlobal.memory.load(savefile);
 		}
 	}
 

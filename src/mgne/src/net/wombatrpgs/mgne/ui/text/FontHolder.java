@@ -120,13 +120,21 @@ public class FontHolder implements Queueable {
 	}
 	
 	/**
-	 * Gets the length of a chunk of text if that text were to be rendered with
-	 * this font.
+	 * Gets the width of a chunk of text if that text to be rendered.
 	 * @param	text			The text to check
-	 * @return					How long that text would be, in px
+	 * @return					How wide that text would be, in px
 	 */
 	public float getWidth(String text) {
 		return font.getBounds(text).width;
+	}
+	
+	/**
+	 * Gets the height of a chunk of text if that text to be rendered.
+	 * @param	text			The text to check
+	 * @return					How high that text would be, in px
+	 */
+	public float getHeight(String text) {
+		return font.getBounds(text).height;
 	}
 	
 	/**

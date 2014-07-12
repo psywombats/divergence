@@ -17,17 +17,26 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
  * well-suited to asset management. Just use it.
  */
 public class ShaderFromData extends ShaderProgram {
+	
+	/**
+	 * Constructs a new shader from two filenames.
+	 * @param	vertexFile		The vertex filename, relative to shaders dir
+	 * @param	fragFile		The fragment filename, relative to shaders dir
+	 */
+	public ShaderFromData(String vertexFile, String fragFile) {
+		super(	MGlobal.files.getText(Constants.SHADERS_DIR + vertexFile),
+				MGlobal.files.getText(Constants.SHADERS_DIR + fragFile));
+		if (!isCompiled()) {
+			MGlobal.reporter.warn("Bad shader:\n" + getLog());
+		}
+	}
 
 	/**
 	 * Constructs a new shader from data.
 	 * @param 	mdo				The data to construct from
 	 */
 	public ShaderFromData(ShaderMDO mdo) {
-		super(	MGlobal.files.getText(Constants.SHADERS_DIR + mdo.vertexFile),
-				MGlobal.files.getText(Constants.SHADERS_DIR + mdo.fragmentFile));
-		if (!isCompiled()) {
-			MGlobal.reporter.warn("Bad shader:\n" + getLog());
-		}
+		this(mdo.vertexFile, mdo.fragmentFile);
 	}
 	
 	/**

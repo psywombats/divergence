@@ -29,11 +29,21 @@ public class Effect extends AssetQueuer implements Disposable, Updateable {
 	protected transient SpriteBatch effectBatch, standardBatch;
 	
 	/**
-	 * Creates a new effect that will copy screen data using the 
+	 * Creates a new effect that will copy screen data using the ... apparently
+	 * forgot to finish writing this.
 	 * @param	mdo				The data to create for effect copying
 	 */
 	public Effect(ShaderMDO mdo) {
-		this.mdo = mdo;
+		shader =  new ShaderFromData(mdo);
+	}
+	
+	/**
+	 * Creates an effect from raw shader files.
+	 * @param	vertexFile		The shader vert file, minus shader dir
+	 * @param	fragFile		The shader frag file, minus shader dir
+	 */
+	public Effect(String vertexFile, String fragFile) {
+		shader = new ShaderFromData(vertexFile, fragFile);
 	}
 
 	/**
@@ -43,7 +53,6 @@ public class Effect extends AssetQueuer implements Disposable, Updateable {
 	@Override
 	public void postProcessing(MAssets manager, int pass) {
 		super.postProcessing(manager, pass);
-		shader =  new ShaderFromData(mdo);
 		standardBatch = new SpriteBatch();
 		effectBatch = new SpriteBatch();
 		effectBatch.setShader(shader);
@@ -68,6 +77,14 @@ public class Effect extends AssetQueuer implements Disposable, Updateable {
 	public void dispose() {
 		buffer.dispose();
 		effectBatch.dispose();
+	}
+	
+	/**
+	 * Returns the shader so screens can tamper it. Ugly. Sorry.
+	 * @return					The shader used in this effect
+	 */
+	public ShaderFromData getShader() {
+		return shader;
 	}
 	
 	/**

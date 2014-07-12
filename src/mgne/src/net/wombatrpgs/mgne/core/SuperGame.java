@@ -1,5 +1,7 @@
 package net.wombatrpgs.mgne.core;
 
+import java.util.HashMap;
+
 import net.wombatrpgs.mgne.io.FocusListener;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -13,7 +15,7 @@ public class SuperGame implements ApplicationListener, FocusListener {
 	/**
 	 * Creates a new game. Requires a few setup tools that are platform
 	 * dependant. Actually they all got removed, but this is where they should
-	 * go.
+	 * go. This shouldn't do anyuthing fancy.
 	 * @param	game			Uh, the game we're gonna play?
 	 * @param	platform		The platform we're running on (eg, Desktop)
 	 * @param	args			The arguments passed from command line
@@ -22,8 +24,19 @@ public class SuperGame implements ApplicationListener, FocusListener {
 		super();
 		MGlobal.platform = platform;
 		MGlobal.game = game;
-		MGlobal.args = args;
-		// Don't you dare do anything fancy in here
+		MGlobal.args = new HashMap<String, String>();
+		
+		for (String arg : args) {
+			String var = arg.substring(0, arg.indexOf("=")).trim();
+			String val = arg.substring(arg.indexOf("=")+1).trim();
+			MGlobal.args.put(var, val);
+		}
+		String debug = MGlobal.args.get("debug");
+		if (debug != null) {
+			MGlobal.debug = DebugLevel.valueOf(debug.toUpperCase());
+		} else {
+			MGlobal.debug = DebugLevel.DEVELOP;
+		}
 	}
 	
 	@Override

@@ -1,0 +1,9 @@
+{
+	"key" : "sagaintro_default",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"introText" : "A long time ago, in a galaxy far, far away...\\n\\nIt is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire.\\n\\nDuring the battle, rebel spies managed to steal secret plans to the Empire's ultimate weapon, the Death Star, an armored space station with enough power to destroy an entire planet.\\n\\nPursued by the Empire's sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy... ",
+	"recruitLeader" : "recruit_lead",
+	"recruitMember" : "recruit_guild"
+}
