@@ -57,7 +57,9 @@ public class SagaScreen extends Screen {
 			if (sinceWipe > WIPE_TIME) {
 				sinceWipe = 0;
 				fade = null;
-				onWipeFinish.onFinish();
+				if (onWipeFinish != null) {
+					onWipeFinish.onFinish();
+				}
 			}
 		}
 		
@@ -104,7 +106,7 @@ public class SagaScreen extends Screen {
 	 * Transitions this screen into the stack by fading out the screen below,
 	 * fading in this screen, then calling the finish listener.
 	 * @param	transition		The transition color during the switch
-	 * @param	listener		The listener to call when this screen is here
+	 * @param	listener		The listener to call when done (or null)
 	 */
 	public void transitonOn(TransitionType transition, final FinishListener listener) {
 		transition(transition, listener, false);
@@ -114,7 +116,7 @@ public class SagaScreen extends Screen {
 	 * Transitions this screen off the stack by fading out this screen, fading
 	 * in the screen below, then calling the finish listener.
 	 * @param	transition		The transition color during the switch
-	 * @param	listener		The listener to call when this screen is here
+	 * @param	listener		The listener to call when done (or null)
 	 */
 	public void transitonOff(TransitionType transition, final FinishListener listener) {
 		transition(transition, listener, true);

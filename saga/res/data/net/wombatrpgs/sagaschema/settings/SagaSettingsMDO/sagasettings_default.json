@@ -3,7 +3,7 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : " ",
-	"heroParty" : "party_playerTest",
+	"heroParty" : "party_empty",
 	"monsterSettings" : "monstersettings_test",
 	"mutantAbils" : "mutations_test",
 	"graphcisSettings" : "sagagraphics_retouched"

@@ -38,7 +38,7 @@ public class HeroParty extends Party {
 	 * game. Oh and most likely it'll be empty except for testing purposes.
 	 * @param	mdo				The data to start with
 	 */
-	protected HeroParty(PartyMDO mdo) {
+	public HeroParty(PartyMDO mdo) {
 		super(mdo);
 		inventory = new PartyInventory(this);
 	}
@@ -72,6 +72,7 @@ public class HeroParty extends Party {
 		List<Chara> group = new ArrayList<Chara>();
 		group.add(hero);
 		groups.add(group);
+		members.add(hero);
 	}
 	
 	/**

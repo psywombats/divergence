@@ -262,6 +262,7 @@ public class Battle extends AssetQueuer implements Disposable {
 			@Override public boolean onSelection(Chara selected) {
 				if (selected == null) {
 					onEatCancel();
+					return true;
 				}
 				if (selected.isDead()) return false;
 				

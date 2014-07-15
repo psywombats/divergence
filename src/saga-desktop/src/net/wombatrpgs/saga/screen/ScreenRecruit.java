@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
@@ -42,6 +43,7 @@ public class ScreenRecruit extends SagaScreen {
 	protected ScreenName nameScreen;
 	protected List<String> names;
 	protected List<FacesAnimation> sprites;
+	protected FinishListener listener;
 	protected int selected;
 	
 	protected Nineslice titleBG, recruitBG;
@@ -106,11 +108,22 @@ public class ScreenRecruit extends SagaScreen {
 	}
 	
 	/**
-	 * Createsa new recruit screen based on the key to recruit data in the DB.
+	 * Creates a new recruit screen based on the key to recruit data in the DB.
 	 * @param	mdoKey			The key of data to use (RectruitSelectionMDO)
 	 */
 	public ScreenRecruit(String mdoKey) {
 		this(MGlobal.data.getEntryFor(mdoKey, RecruitSelectionMDO.class));
+	}
+	
+	/**
+	 * Creates a new recruit screen from data key and calls a finish listener
+	 * when player is done selecting their member.
+	 * @param	mdoKey			The key of data to use (RectruitSelectionMDO)
+	 * @param	listener		The listener to call when recruit is done
+	 */
+	public ScreenRecruit(String mdoKey, FinishListener listener) {
+		this(mdoKey);
+		this.listener = listener;
 	}
 
 	/**
@@ -198,7 +211,7 @@ public class ScreenRecruit extends SagaScreen {
 	 * @return					True if chara is done
 	 */
 	public boolean isDone() {
-		return nameScreen.isDone();
+		return nameScreen != null && nameScreen.isDone();
 	}
 	
 	/**
@@ -207,8 +220,9 @@ public class ScreenRecruit extends SagaScreen {
 	protected void onConfirm() {
 		CharaMDO result = MGlobal.data.getEntryFor(mdo.options[selected], CharaMDO.class);
 		Chara chara = new Chara(result);
+		MGlobal.assets.loadAsset(chara, "recruited chara");
 		SGlobal.heroes.addHero(chara);
-		nameScreen = new ScreenName(chara);
+		nameScreen = new ScreenName(chara, listener);
 		MGlobal.assets.loadAsset(nameScreen, "name screen");
 		MGlobal.screens.pop();
 		MGlobal.screens.push(nameScreen);

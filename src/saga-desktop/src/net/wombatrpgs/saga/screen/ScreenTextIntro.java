@@ -13,10 +13,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.Effect;
+import net.wombatrpgs.mgne.io.InputEvent;
+import net.wombatrpgs.mgne.io.Keymap.KeyState;
 import net.wombatrpgs.mgne.screen.WindowSettings;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextboxFormat;
+import net.wombatrpgs.mgneschema.io.data.InputButton;
 import net.wombatrpgs.sagaschema.settings.SagaIntroSettingsMDO;
 
 /**
@@ -28,9 +32,10 @@ public class ScreenTextIntro extends SagaScreen {
 	protected static final float SCROLL_SPEED = 12;	// in px/s
 	
 	protected SagaIntroSettingsMDO mdo;
+	protected SagaScreen recruit;
 	protected Effect effect;
 	protected String text;
-	protected boolean finished;
+	protected boolean finished, transitioning;
 	
 	protected TextboxFormat scrollFormat;
 	protected float scrolled, height;
@@ -53,6 +58,7 @@ public class ScreenTextIntro extends SagaScreen {
 		scrollFormat.y = 0;
 		
 		finished = false;
+		transitioning = false;
 		height = font.getHeight(text);
 		scrolled = window.getViewportHeight() * .1f;
 		
@@ -70,10 +76,44 @@ public class ScreenTextIntro extends SagaScreen {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
-		scrolled += elapsed * SCROLL_SPEED;
+		KeyState turbo = MGlobal.keymap.getButtonState(InputButton.BUTTON_A);
+		int mult = turbo == KeyState.DOWN ? 3 : 1;
+		scrolled += elapsed * SCROLL_SPEED * mult;
 		scrollFormat.y = (int) scrolled;
 		if (scrolled > height + MGlobal.window.getHeight() * .9f) {
 			finished = true;
+		}
+		
+		if (finished && !transitioning) {
+			transitioning = true;
+			final SagaScreen textIntro = this;
+			recruit = new ScreenRecruit(mdo.recruitLeader, new FinishListener() {
+				@Override public void onFinish() {
+					SagaScreen gameScreen = new ScreenWorld();
+					MGlobal.assets.loadAsset(gameScreen, "game screen");
+					gameScreen.transitonOn(TransitionType.BLACK, new FinishListener() {
+						@Override public void onFinish() {
+							textIntro.dispose();
+							recruit.dispose();
+						}
+					});
+				}
+			});
+			MGlobal.assets.loadAsset(recruit, "recruit screen");
+			recruit.transitonOn(TransitionType.BLACK, null);
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.screen.Screen#onEvent
+	 * (net.wombatrpgs.mgne.io.InputEvent)
+	 */
+	@Override
+	public void onEvent(InputEvent event) {
+		if (event.button == InputButton.BUTTON_START) {
+			finished = true;
+		} else {
+			super.onEvent(event);
 		}
 	}
 
@@ -85,6 +125,15 @@ public class ScreenTextIntro extends SagaScreen {
 	public void render(SpriteBatch batch) {
 		super.render(batch);
 		MGlobal.ui.getFont().draw(batch, scrollFormat, text, 0);
+	}
+	
+	/**
+	 * @see net.wombatrpgs.mgne.screen.Screen#dispose()
+	 */
+	@Override
+	public void dispose() {
+		super.dispose();
+		effect.dispose();
 	}
 
 	/**
@@ -98,15 +147,6 @@ public class ScreenTextIntro extends SagaScreen {
 		shapes.setColor(255, 255, 255, 1);
 		shapes.begin(ShapeType.Filled);
 		shapes.rect(0, 0, window.getWidth(), window.getHeight());
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.screen.Screen#dispose()
-	 */
-	@Override
-	public void dispose() {
-		super.dispose();
-		effect.dispose();
 	}
 
 }

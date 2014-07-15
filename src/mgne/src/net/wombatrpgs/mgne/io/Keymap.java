@@ -43,7 +43,7 @@ public class Keymap implements	InputProcessor,
 	protected List<InputEvent> queue;
 	protected Map<InputButton, KeyState> states;
 	protected Map<Integer, InputButton> keyToButton;
-	protected Map<InputButton, Integer> buttonToKey;
+	protected Map<InputButton, List<Integer>> buttonToKey;
 	
 	/**
 	 * Creates and intializes a new keymap.
@@ -55,11 +55,14 @@ public class Keymap implements	InputProcessor,
 		listeners = new ArrayList<ButtonListener>();
 		states = new HashMap<InputButton, KeyState>();
 		keyToButton = new HashMap<Integer, InputButton>();
-		buttonToKey = new HashMap<InputButton, Integer>();
+		buttonToKey = new HashMap<InputButton, List<Integer>>();
 		
+		for (InputButton button : InputButton.values()) {
+			buttonToKey.put(button, new ArrayList<Integer>());
+		}
 		for (KeyButtonPairMDO pairMDO : mdo.bindings) {
 			keyToButton.put(pairMDO.keyCode.keycode, pairMDO.button);
-			buttonToKey.put(pairMDO.button, pairMDO.keyCode.keycode);
+			buttonToKey.get(pairMDO.button).add(pairMDO.keyCode.keycode);
 		}
 		for (InputButton button : InputButton.values()) {
 			states.put(button, KeyState.UP);
@@ -91,7 +94,7 @@ public class Keymap implements	InputProcessor,
 	public void update(float elapsed) {
 		for (InputButton button : InputButton.values()) {
 			if (states.get(button) == KeyState.DOWN) {
-				if (!Gdx.input.isKeyPressed(buttonToKey.get(button))) {
+				if (!buttonDown(button)) {
 					// this is to prevent loss-of-focus getting state unsync'd
 					states.put(button, KeyState.UP);
 					queue.add(new InputEvent(button, EventType.RELEASE));
@@ -268,6 +271,20 @@ public class Keymap implements	InputProcessor,
 		for (ButtonListener listener : toTrigger) {
 			listener.onEvent(event);
 		}
+	}
+	
+	/**
+	 * Checks to see if a virtual button is pressed by any source.
+	 * @param	button			The button to check
+	 * @return					True if any of that button's buttons are down
+	 */
+	protected boolean buttonDown(InputButton button) {
+		for (Integer keycode : buttonToKey.get(button)) {
+			if (Gdx.input.isKeyPressed(keycode)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**

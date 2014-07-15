@@ -14,6 +14,7 @@ import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.saga.SagaSettings;
 import net.wombatrpgs.saga.graphics.SagaGraphics;
 import net.wombatrpgs.saga.rpg.chara.HeroParty;
+import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
 
 /**
  * The counterpart to MGlobal. Holds Saga-related global information.
@@ -42,7 +43,12 @@ public class SGlobal {
 		
 		// then everything else
 		graphics = new SagaGraphics();
-		heroes = new HeroParty();
+		String partyKey = MGlobal.args.get("party");
+		if (partyKey == null) {
+			heroes = new HeroParty();
+		} else {
+			heroes = new HeroParty(MGlobal.data.getEntryFor(partyKey, PartyMDO.class));
+		}
 		toLoad.add(heroes);
 		MGlobal.assets.loadAssets(toLoad, "SGlobal");
 		

@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.screen.WindowSettings;
@@ -37,6 +38,7 @@ public class ScreenName extends SagaScreen {
 	protected static final int LETTERS_PADDING_VERT = 3;
 	
 	protected Chara chara;
+	protected FinishListener listener;
 	protected List<Character> chars;
 	protected FacesAnimation sprite;
 	protected String name, underName;
@@ -75,7 +77,9 @@ public class ScreenName extends SagaScreen {
 		selectX = 0;
 		selectY = 0;
 		
-		name = chara.getName();
+		// should there be a default name?
+		// name = chara.getName();
+		name = "";
 		spot = 0;
 		sprite = chara.createSprite();
 		sprite.startMoving();
@@ -122,6 +126,16 @@ public class ScreenName extends SagaScreen {
 		
 		finished = false;
 		reconstructUnderName();
+	}
+	
+	/**
+	 * Creates a new naming screen that calls a listener when done.
+	 * @param	chara			The chara to name
+	 * @param	listener		The listener to call when done
+	 */
+	public ScreenName(Chara chara, FinishListener listener) {
+		this(chara);
+		this.listener = listener;
 	}
 	
 	/**
@@ -290,7 +304,9 @@ public class ScreenName extends SagaScreen {
 	 */
 	protected void finish() {
 		chara.setName(name);
-		MGlobal.screens.pop();
+		if (listener != null) {
+			listener.onFinish();
+		}
 		finished = true;
 	}
 
