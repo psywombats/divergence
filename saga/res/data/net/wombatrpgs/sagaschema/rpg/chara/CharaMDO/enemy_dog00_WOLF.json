@@ -2,7 +2,7 @@
 	"key" : "enemy_dog00_WOLF",
 	"subfolder" : "level00",
 	"name" : "WOLF",
-	"description" : "Converted from a report",
+	"description" : "high danger",
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "mfamily_dog",

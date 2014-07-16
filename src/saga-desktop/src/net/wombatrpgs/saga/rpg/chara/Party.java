@@ -14,6 +14,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.PartyEntryMDO;
+import net.wombatrpgs.sagaschema.rpg.stats.Flag;
 
 /**
  * Just a collection of characters. The player party is in a different subclass.
@@ -163,6 +164,20 @@ public class Party extends AssetQueuer implements Disposable {
 			member.restoreHP();
 			member.resotreAbilUses();
 		}
+	}
+	
+	/**
+	 * Determines if any member of this party has a certain flag.
+	 * @param	flag			The flag to check for
+	 * @return					True if any member has that flag
+	 */
+	public boolean hasFlag(Flag flag) {
+		for (Chara member : members) {
+			if (member.is(flag)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**

@@ -2,7 +2,7 @@
 	"key" : "enemy_hrs01_STALLION",
 	"subfolder" : "level01",
 	"name" : "STALLION",
-	"description" : "Converted from a report",
+	"description" : "high danger",
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "mfamily_hrs",

@@ -1,0 +1,18 @@
+{
+	"key" : "abil_whirl",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "WHIRLWIND",
+	"type" : "ABILITY",
+	"uses" : 5,
+	"cost" : 0,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_-1422073606"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

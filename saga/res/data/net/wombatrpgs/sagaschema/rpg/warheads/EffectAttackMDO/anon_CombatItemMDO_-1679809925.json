@@ -6,8 +6,8 @@
 	"projector" : "SINGLE_ENEMY",
 	"damType" : "NONELEMENTAL",
 	"sideEffects" : [ ],
-	"power" : 8,
+	"power" : 4,
 	"attackStat" : "MANA",
-	"defendStat" : "MANA",
+	"defendStat" : null,
 	"miss" : "ALWAYS_HITS"
 }

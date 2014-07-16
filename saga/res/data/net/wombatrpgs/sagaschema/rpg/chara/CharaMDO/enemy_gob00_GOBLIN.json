@@ -2,7 +2,7 @@
 	"key" : "enemy_gob00_GOBLIN",
 	"subfolder" : "level00",
 	"name" : "GOBLIN",
-	"description" : "Converted from a report",
+	"description" : "low danger",
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "mfamily_gob",

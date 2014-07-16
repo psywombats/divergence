@@ -2,7 +2,7 @@
 	"key" : "enemy_cat01_PANTHER",
 	"subfolder" : "level01",
 	"name" : "PANTHER",
-	"description" : "Converted from a report",
+	"description" : "low danger",
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "mfamily_cat",

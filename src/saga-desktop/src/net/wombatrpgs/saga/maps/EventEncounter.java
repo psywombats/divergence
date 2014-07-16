@@ -72,7 +72,7 @@ public class EventEncounter extends MapEvent {
 		}
 		EncounterMDO chosen = encounters.get(MGlobal.rand.nextInt(encounters.size()));
 		EnemyParty party = new EnemyParty(chosen);
-		Battle battle = new Battle(party);
+		Battle battle = new Battle(party, true);
 		MGlobal.assets.loadAsset(battle, "encounter " + chosen.key);
 		battle.start();
 	}

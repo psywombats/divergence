@@ -2,7 +2,7 @@
 	"key" : "enemy_got01_FAUN",
 	"subfolder" : "level01",
 	"name" : "FAUN",
-	"description" : "Converted from a report",
+	"description" : "low danger",
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "mfamily_got",

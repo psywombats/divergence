@@ -1,0 +1,18 @@
+{
+	"key" : "abil_tentacle",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "TENTACLE",
+	"type" : "ABILITY",
+	"uses" : 25,
+	"cost" : 0,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_-927670734"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

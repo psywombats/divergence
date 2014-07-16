@@ -8,7 +8,7 @@
 	"sideEffects" : [
 		"DRAIN_LIFE"
 	],
-	"power" : 8,
+	"power" : 5,
 	"attackStat" : "MANA",
 	"defendStat" : "MANA",
 	"miss" : "ALWAYS_HITS"

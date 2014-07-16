@@ -20,7 +20,7 @@
 		"abil_testSing",
 		"abil_testInk",
 		"abil_testCare",
-		"abil_testExplode"
+		"abil_ambush"
 	],
 	"stats" : {
 		"hp" : 60,

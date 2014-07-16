@@ -41,7 +41,7 @@ public class SceneBattle extends OneArgFunction {
 
 			@Override protected void internalRun() {
 				// battle stuff moved here, problems before with null heroes
-				battle = new Battle(mdoKey);
+				battle = new Battle(mdoKey, false);
 				MGlobal.assets.loadAsset(battle, "scene battle " + mdoKey);
 				battle.start();
 			}

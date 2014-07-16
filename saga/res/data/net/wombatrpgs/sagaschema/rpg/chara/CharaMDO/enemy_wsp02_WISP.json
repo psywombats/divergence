@@ -12,14 +12,17 @@
 	"meatEatLevel" : 3,
 	"meatTargetLevel" : 2,
 	"gp" : 80,
-	"equipped" : [ ],
+	"equipped" : [
+		"abil_sunburst",
+		"abil_claw"
+	],
 	"stats" : {
-		"hp" : null,
-		"mhp" : null,
-		"str" : null,
-		"def" : null,
-		"agi" : null,
-		"mana" : null,
-		"flags" : null
+		"hp" : 60,
+		"mhp" : 60,
+		"str" : 4,
+		"def" : 7,
+		"agi" : 10,
+		"mana" : 13,
+		"flags" : [ ]
 	}
 }

@@ -2,7 +2,7 @@
 	"key" : "enemy_wrd00_WATCHER",
 	"subfolder" : "level00",
 	"name" : "WATCHER",
-	"description" : "Converted from a report",
+	"description" : "low danger",
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "mfamily_wrd",

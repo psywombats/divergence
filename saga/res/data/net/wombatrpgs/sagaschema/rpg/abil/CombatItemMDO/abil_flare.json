@@ -1,0 +1,18 @@
+{
+	"key" : "abil_flare",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "FLARE",
+	"type" : "ABILITY",
+	"uses" : 3,
+	"cost" : 0,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_1273287592"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

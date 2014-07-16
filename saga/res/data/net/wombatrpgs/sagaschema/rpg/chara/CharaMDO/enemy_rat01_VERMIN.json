@@ -2,7 +2,7 @@
 	"key" : "enemy_rat01_VERMIN",
 	"subfolder" : "level01",
 	"name" : "VERMIN",
-	"description" : "Converted from a report",
+	"description" : "low danger",
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "mfamily_rat",

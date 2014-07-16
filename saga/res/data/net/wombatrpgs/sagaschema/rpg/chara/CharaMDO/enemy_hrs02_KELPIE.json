@@ -12,14 +12,20 @@
 	"meatEatLevel" : 3,
 	"meatTargetLevel" : 2,
 	"gp" : 80,
-	"equipped" : [ ],
+	"equipped" : [
+		"abil_kick",
+		"abil_bite",
+		"abil_oice"
+	],
 	"stats" : {
-		"hp" : null,
-		"mhp" : null,
-		"str" : null,
-		"def" : null,
-		"agi" : null,
-		"mana" : null,
-		"flags" : null
+		"hp" : 103,
+		"mhp" : 103,
+		"str" : 12,
+		"def" : 9,
+		"agi" : 14,
+		"mana" : 10,
+		"flags" : [
+			"AQUATIC"
+		]
 	}
 }

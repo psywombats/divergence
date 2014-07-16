@@ -2,7 +2,7 @@
 	"key" : "enemy_dis01_BACTERIUM",
 	"subfolder" : "level01",
 	"name" : "BACTERIUM",
-	"description" : "Converted from a report",
+	"description" : "high danger",
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "mfamily_dis",

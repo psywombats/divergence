@@ -12,14 +12,19 @@
 	"meatEatLevel" : 3,
 	"meatTargetLevel" : 2,
 	"gp" : 80,
-	"equipped" : [ ],
+	"equipped" : [
+		"abil_flame",
+		"abil_burning",
+		"abil_ofire",
+		"abil_warning"
+	],
 	"stats" : {
-		"hp" : null,
-		"mhp" : null,
-		"str" : null,
-		"def" : null,
-		"agi" : null,
-		"mana" : null,
-		"flags" : null
+		"hp" : 60,
+		"mhp" : 60,
+		"str" : 10,
+		"def" : 8,
+		"agi" : 10,
+		"mana" : 10,
+		"flags" : [ ]
 	}
 }

@@ -12,14 +12,21 @@
 	"meatEatLevel" : 3,
 	"meatTargetLevel" : 2,
 	"gp" : 80,
-	"equipped" : [ ],
+	"equipped" : [
+		"abil_chill",
+		"abil_tremble",
+		"abil_opara",
+		"abil_xfire"
+	],
 	"stats" : {
-		"hp" : null,
-		"mhp" : null,
-		"str" : null,
-		"def" : null,
-		"agi" : null,
-		"mana" : null,
-		"flags" : null
+		"hp" : 82,
+		"mhp" : 82,
+		"str" : 3,
+		"def" : 5,
+		"agi" : 10,
+		"mana" : 15,
+		"flags" : [
+			"UNDEAD"
+		]
 	}
 }

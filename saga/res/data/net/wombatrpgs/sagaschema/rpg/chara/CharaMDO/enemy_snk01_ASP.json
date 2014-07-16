@@ -2,7 +2,7 @@
 	"key" : "enemy_snk01_ASP",
 	"subfolder" : "level01",
 	"name" : "ASP",
-	"description" : "Converted from a report",
+	"description" : "mid danger",
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "mfamily_snk",
@@ -14,7 +14,8 @@
 	"gp" : 40,
 	"equipped" : [
 		"abil_bite",
-		"abil_constrict"
+		"abil_constrict",
+		"abil_xice"
 	],
 	"stats" : {
 		"hp" : 60,

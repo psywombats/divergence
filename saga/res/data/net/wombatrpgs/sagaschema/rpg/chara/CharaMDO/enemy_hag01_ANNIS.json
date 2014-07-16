@@ -2,7 +2,7 @@
 	"key" : "enemy_hag01_ANNIS",
 	"subfolder" : "level01",
 	"name" : "ANNIS",
-	"description" : "Converted from a report",
+	"description" : "low danger",
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "mfamily_hag",

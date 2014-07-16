@@ -6,7 +6,7 @@
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "family_testFish",
-	"species" : "WEREBEAR",
+	"species" : "GUNFISH",
 	"appearance" : "4dir_ffl2_human",
 	"portrait" : "battle_portraits/pira.png",
 	"meatEatLevel" : 1,
@@ -14,7 +14,8 @@
 	"gp" : 40,
 	"equipped" : [
 		"item_testabil",
-		"abil_ofire"
+		"abil_ofire",
+		"abil_warning"
 	],
 	"stats" : {
 		"hp" : 60,

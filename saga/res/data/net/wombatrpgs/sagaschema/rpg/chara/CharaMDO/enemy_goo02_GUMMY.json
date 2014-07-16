@@ -12,14 +12,18 @@
 	"meatEatLevel" : 3,
 	"meatTargetLevel" : 2,
 	"gp" : 80,
-	"equipped" : [ ],
+	"equipped" : [
+		"abil_melt",
+		"abil_oweapon",
+		"abil_xthunder"
+	],
 	"stats" : {
-		"hp" : null,
-		"mhp" : null,
-		"str" : null,
-		"def" : null,
-		"agi" : null,
-		"mana" : null,
-		"flags" : null
+		"hp" : 82,
+		"mhp" : 82,
+		"str" : 3,
+		"def" : 5,
+		"agi" : 7,
+		"mana" : 13,
+		"flags" : [ ]
 	}
 }

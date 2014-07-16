@@ -1,0 +1,18 @@
+{
+	"key" : "abil_opara",
+	"subfolder" : "resistances",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$LPARALYZE",
+	"type" : "ABILITY",
+	"uses" : 0,
+	"cost" : 0,
+	"anim" : "None",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectPassiveMDO",
+		"key" : "anon_CombatItemMDO_5005690"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

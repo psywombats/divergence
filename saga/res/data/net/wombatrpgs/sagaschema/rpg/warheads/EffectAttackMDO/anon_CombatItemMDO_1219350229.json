@@ -1,0 +1,13 @@
+{
+	"key" : "anon_CombatItemMDO_1219350229",
+	"subfolder" : "",
+	"name" : "anon_CombatItemMDO_1219350229",
+	"description" : "auto-generated anonymous polymorph",
+	"projector" : "GROUP_ENEMY",
+	"damType" : "EARTH",
+	"sideEffects" : [ ],
+	"power" : 5,
+	"attackStat" : "MANA",
+	"defendStat" : "MANA",
+	"miss" : "ALWAYS_HITS"
+}

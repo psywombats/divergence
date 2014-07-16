@@ -2,7 +2,7 @@
 	"key" : "enemy_goo00_SLIME",
 	"subfolder" : "level00",
 	"name" : "SLIME",
-	"description" : "Converted from a report",
+	"description" : "high danger",
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "mfamily_goo",

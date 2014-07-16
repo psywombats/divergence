@@ -38,6 +38,7 @@ import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.CharaMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
+import net.wombatrpgs.sagaschema.rpg.stats.Flag;
 
 /**
  * Counterpart to the tactics battle. Controls battle flow and logic but not its
@@ -45,11 +46,14 @@ import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
  */
 public class Battle extends AssetQueuer implements Disposable {
 	
+	protected static final float AMBUSH_RATE = .15f;
+	
 	// battle attributes
 	protected ScreenBattle screen;
 	protected HeroParty player;
 	protected EnemyParty enemy;
 	protected boolean anonymous;
+	protected boolean random;
 	
 	// internal constructs
 	protected FinishListener playbackListener;
@@ -61,6 +65,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	protected Chara meatDropper;
 	protected int actorIndex;
 	protected int mutateIndex;
+	protected boolean enemyDisabled;
 	protected boolean finished;
 	protected boolean targetingMode;
 	
@@ -69,11 +74,13 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * player's assets are not queued.
 	 * @param	player			The player controlling this battle
 	 * @param	enemy			The enemy they're fighting
+	 * @param	random			True to enable random encounter feature ambush
 	 */
-	public Battle(HeroParty player, EnemyParty enemy) {
+	public Battle(HeroParty player, EnemyParty enemy, boolean random) {
 		this.player = player;
 		this.enemy = enemy;
 		this.screen = new ScreenBattle(this);
+		this.random = random;
 		anonymous = false;
 		finished = false;
 		
@@ -101,9 +108,10 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * party is assumed to be the SGlobal heroes. Will dispose the enemy party
 	 * when battle is finished.
 	 * @param	mdo				The MDO of the enemy party in the battle
+	 * @param	random			True to enable random encounter feature ambush
 	 */
-	public Battle(PartyMDO mdo) {
-		this(new EnemyParty(mdo));
+	public Battle(PartyMDO mdo, boolean random) {
+		this(new EnemyParty(mdo), random);
 	}
 	
 	/**
@@ -111,9 +119,10 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * party is assumed to be the SGlobal heroes. Will dispose the enemy party
 	 * when battle is finished.
 	 * @param	enemy			The enemy party in the battle
+	 * @param	random			True to enable random encounter feature ambush
 	 */
-	public Battle(EnemyParty enemy) {
-		this(SGlobal.heroes, enemy);
+	public Battle(EnemyParty enemy, boolean random) {
+		this(SGlobal.heroes, enemy, random);
 		anonymous = true;
 	}
 	
@@ -122,9 +131,10 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * by its database key. The other party is assumed to be the SGlobal heroes.
 	 * Will dispose the enemy party when battle is finished.
 	 * @param	key				The key of the enemy party MDO
+	 * @param	random			True to enable random encounter feature ambush
 	 */
-	public Battle(String key) {
-		this(MGlobal.data.getEntryFor(key, PartyMDO.class));
+	public Battle(String key, boolean random) {
+		this(MGlobal.data.getEntryFor(key, PartyMDO.class), random);
 		anonymous = true;
 	}
 	
@@ -482,7 +492,29 @@ public class Battle extends AssetQueuer implements Disposable {
 		for (Chara chara : enemy.getAll()) {
 			chara.onBattleStart(this);
 		}
-		screen.onNewRound();
+		if (random && MGlobal.rand.nextFloat() < AMBUSH_RATE) {
+			if (player.hasFlag(Flag.AMBUSHER) && !enemy.hasFlag(Flag.NO_AMBUSH)) {
+				String leader = player.findLeader().getName();
+				playback(leader + " ambushes the enemy.", new FinishListener() {
+					@Override public void onFinish() {
+						screen.onNewRound();
+						enemyDisabled = true;
+					}
+				});
+			} else if (enemy.hasFlag(Flag.AMBUSHER) && !player.hasFlag(Flag.NO_AMBUSH)) {
+				String leader = player.findLeader().getName();
+				playback(leader + " is ambushed!", new FinishListener() {
+					@Override public void onFinish() {
+						queueEnemyIntents();
+						playRound();
+					}
+				});
+			} else {
+				screen.onNewRound();
+			}
+		} else {
+			screen.onNewRound();
+		}
 	}
 	
 	/**
@@ -725,9 +757,13 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * queue.
 	 */
 	protected void queueEnemyIntents() {
-		for (Enemy chara : enemy.getEnemies()) {
-			if (chara.isAlive()) {
-				globalTurn.add(chara.act(this));
+		if (enemyDisabled) {
+			enemyDisabled = false;
+		} else {
+			for (Enemy chara : enemy.getEnemies()) {
+				if (chara.isAlive()) {
+					globalTurn.add(chara.act(this));
+				}
 			}
 		}
 	}
