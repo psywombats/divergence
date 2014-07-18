@@ -31,7 +31,7 @@
   </data>
  </layer>
  <objectgroup name="Object Layer 1" width="20" height="15">
-  <object name="bort the bozo" type="Character" x="48" y="160" width="16" height="16">
+  <object name="bort the bozo" type="Character" x="208" y="192" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="onInteract" value="speak('hi my name is bort the bozo and I like to talk to myself an awful lot')"/>
@@ -102,6 +102,12 @@
     <property name="mdo" value="encounterset_test"/>
    </properties>
    <polygon points="0,0 0,32 80,32 80,80 112,80 112,0"/>
+  </object>
+  <object name="test script" type="Character" x="224" y="192" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="onInteract" value="play('testscript.lua')"/>
+   </properties>
   </object>
  </objectgroup>
 </map>

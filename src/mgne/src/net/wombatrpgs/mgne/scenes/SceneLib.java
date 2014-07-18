@@ -9,6 +9,9 @@ package net.wombatrpgs.mgne.scenes;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.lua.LoadableScript;
+import net.wombatrpgs.mgne.scenes.commands.ScenePlayExternal;
 import net.wombatrpgs.mgne.scenes.commands.SceneSpeak;
 import net.wombatrpgs.mgne.scenes.commands.SceneTeleport;
 import net.wombatrpgs.mgne.scenes.commands.SceneTint;
@@ -36,6 +39,7 @@ public class SceneLib extends TwoArgFunction {
 		env.set("tint", new SceneTint());
 		env.set("wait", new SceneWait());
 		env.set("speak", new SceneSpeak());
+		env.set("play", new ScenePlayExternal());
 		
 		env.set("scenelib", library);
 		return library;
@@ -51,6 +55,18 @@ public class SceneLib extends TwoArgFunction {
 		commands = new ArrayList<SceneCommand>();
 		script.call();
 		return commands;
+	}
+	
+	/**
+	 * Splices in a scene from an external file. This should only be called from
+	 * scenes in the context of parsing a commands list.
+	 * @param	filename		The name of the file to splice in, without dir
+	 * @return					The result of the evaluation, usually nil
+	 */
+	public static LuaValue spliceScene(String filename) {
+		LoadableScript script = new LoadableScript(filename);
+		MGlobal.assets.loadAsset(script, "spliced script " + filename);
+		return script.getScript().call();
 	}
 	
 	/**
