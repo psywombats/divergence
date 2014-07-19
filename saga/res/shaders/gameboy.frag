@@ -13,6 +13,8 @@ uniform vec3 u_blackOut;
 uniform vec3 u_dgrayOut;
 uniform vec3 u_lgrayOut;
 uniform vec3 u_whiteOut;
+uniform float u_margin;
+uniform float u_height;
 uniform float elapsed;
 
 float color_d(vec4 c1, vec3 c2) {
@@ -28,16 +30,22 @@ void main() {
 	current[0] *= current[3];
 	current[1] *= current[3];
 	current[2] *= current[3];
-	current[0] += elapsed;
-	current[1] += elapsed;
-	current[2] += elapsed;
+	float y = gl_FragCoord[1];
+	float off = elapsed;
+	if (y < u_margin) off += .6;
+	if (y < u_margin*2) off += .4;
+	if (y > u_height-u_margin) off += .4;
+	if (y > u_height-u_margin*2) off += .6;
+	current[0] += off;
+	current[1] += off;
+	current[2] += off;
 	
 	float dBlack = color_d(current, u_black);
 	float dDgray = color_d(current, u_dgray);
 	float dLgray = color_d(current, u_lgray);
 	float dWhite = color_d(current, u_white);
 	
-	if (current[3] == 0) {
+	if (current[3] == 0.0) {
 		gl_FragColor = v_color * texture2D(u_texture, v_texCoords);
 	} else {
 		if (dBlack <= dDgray && dBlack <= dLgray && dBlack <= dWhite) {

@@ -128,6 +128,8 @@ public class SagaGraphics {
 			shader.setUniformf("u_lgrayOut", parseCString(bg.outLgray));
 			shader.setUniformf("u_whiteOut", parseCString(bg.outWhite));
 			
+			shader.setUniformf("u_height", MGlobal.window.getHeight());
+			
 			batch.end();
 		}
 		

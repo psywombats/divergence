@@ -118,7 +118,7 @@ public class LoadedLevel extends Level {
 		// get the map
 		map = manager.get(mapPath, TiledMap.class);
 		renderer = new OrthogonalTiledMapRenderer(map, 1f);
-		renderer.getSpriteBatch().setShader(screen.getMapShader());
+		renderer.getSpriteBatch().setShader(screen.constructMapShader());
 		mapWidth = map.getProperties().get("width", Integer.class);
 		mapHeight = map.getProperties().get("height", Integer.class);
 	

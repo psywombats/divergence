@@ -6,18 +6,15 @@
  */
 package net.wombatrpgs.saga.screen;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
-import net.wombatrpgs.mgne.graphics.Effect;
 import net.wombatrpgs.mgne.io.InputEvent;
 import net.wombatrpgs.mgne.io.Keymap.KeyState;
 import net.wombatrpgs.mgne.screen.WindowSettings;
+import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextboxFormat;
 import net.wombatrpgs.mgneschema.io.data.InputButton;
@@ -33,7 +30,7 @@ public class ScreenTextIntro extends SagaScreen {
 	
 	protected SagaIntroSettingsMDO mdo;
 	protected SagaScreen recruit;
-	protected Effect effect;
+	protected Nineslice bg;
 	protected String text;
 	protected boolean finished, transitioning;
 	
@@ -62,9 +59,8 @@ public class ScreenTextIntro extends SagaScreen {
 		height = font.getHeight(text);
 		scrolled = window.getViewportHeight() * .1f;
 		
-		effect = new Effect("margin.vert", "margin.frag");
-		effects.add(effect);
-		assets.add(effect);
+		bg = new Nineslice(window.getWidth() + 32, window.getHeight() + 32);
+		assets.add(bg);
 	}
 	
 	/** @return True if the text has finished displaying */
@@ -76,6 +72,7 @@ public class ScreenTextIntro extends SagaScreen {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
+		
 		KeyState turbo = MGlobal.keymap.getButtonState(InputButton.BUTTON_A);
 		int mult = turbo == KeyState.DOWN ? 3 : 1;
 		scrolled += elapsed * SCROLL_SPEED * mult;
@@ -102,6 +99,16 @@ public class ScreenTextIntro extends SagaScreen {
 			MGlobal.assets.loadAsset(recruit, "recruit screen");
 			recruit.transitonOn(TransitionType.BLACK, null);
 		}
+		
+		int margin = (fade == null) ? 32 : 0;
+		
+		background.getShader().begin();
+		background.getShader().setUniformf("u_margin", margin);
+		background.getShader().end();
+		
+		foreground.getShader().begin();
+		foreground.getShader().setUniformf("u_margin", margin);
+		foreground.getShader().end();
 	}
 
 	/**
@@ -124,6 +131,9 @@ public class ScreenTextIntro extends SagaScreen {
 	@Override
 	public void render(SpriteBatch batch) {
 		super.render(batch);
+		bg.renderAt(background.getBatch(),
+				(MGlobal.window.getWidth() - bg.getWidth()) / 2,
+				(MGlobal.window.getHeight() - bg.getHeight()) / 2);
 		MGlobal.ui.getFont().draw(batch, scrollFormat, text, 0);
 	}
 	
@@ -133,20 +143,7 @@ public class ScreenTextIntro extends SagaScreen {
 	@Override
 	public void dispose() {
 		super.dispose();
-		effect.dispose();
-	}
-
-	/**
-	 * @see net.wombatrpgs.saga.screen.SagaScreen#clear()
-	 */
-	@Override
-	protected void clear() {
-		WindowSettings window = MGlobal.window;
-		Gdx.gl.glClearColor(255, 255, 255, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		shapes.setColor(255, 255, 255, 1);
-		shapes.begin(ShapeType.Filled);
-		shapes.rect(0, 0, window.getWidth(), window.getHeight());
+		bg.dispose();
 	}
 
 }

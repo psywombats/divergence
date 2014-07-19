@@ -32,5 +32,14 @@ public class BatchWithShader {
 	
 	/** @return The shader part of the tuple */
 	public ShaderProgram getShader() { return shader; }
+	
+	/**
+	 * Sets the batch to use a new shader.
+	 * @param	shader			The new shader program.
+	 */
+	public void setShader(ShaderProgram shader) {
+		this.shader = shader;
+		batch.setShader(shader);
+	}
 
 }

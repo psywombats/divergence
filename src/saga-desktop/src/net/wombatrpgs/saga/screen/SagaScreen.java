@@ -21,7 +21,7 @@ import net.wombatrpgs.saga.core.SGlobal;
  */
 public class SagaScreen extends Screen {
 	
-	protected static final float WIPE_TIME = 4.4f;	// in s
+	protected static final float WIPE_TIME = .4f;	// in s
 	
 	public enum FadeType {
 		TO_WHITE, TO_BLACK, FROM_WHITE, FROM_BLACK
@@ -91,6 +91,17 @@ public class SagaScreen extends Screen {
 			}
 		}
 	}
+	
+	/**
+	 * @see net.wombatrpgs.mgne.screen.Screen#constructMapShader()
+	 */
+	@Override
+	public ShaderProgram constructMapShader() {
+		if (background == null) {
+			background = SGlobal.graphics.constructBackgroundBatch();
+		}
+		return background.getShader();
+	}
 
 	/**
 	 * Fades out the screen with the appropriate transition.
@@ -143,17 +154,6 @@ public class SagaScreen extends Screen {
 			foreground = SGlobal.graphics.constructForegroundBatch();
 		}
 		return foreground.getBatch();
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.screen.Screen#constructMapShader()
-	 */
-	@Override
-	protected ShaderProgram constructMapShader() {
-		if (background == null) {
-			background = SGlobal.graphics.constructBackgroundBatch();
-		}
-		return background.getShader();
 	}
 
 	/**
