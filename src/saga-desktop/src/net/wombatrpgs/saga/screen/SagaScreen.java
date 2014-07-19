@@ -21,7 +21,7 @@ import net.wombatrpgs.saga.core.SGlobal;
  */
 public class SagaScreen extends Screen {
 	
-	protected static final float WIPE_TIME = .4f;	// in s
+	protected static final float WIPE_TIME = 4.4f;	// in s
 	
 	public enum FadeType {
 		TO_WHITE, TO_BLACK, FROM_WHITE, FROM_BLACK
@@ -52,17 +52,6 @@ public class SagaScreen extends Screen {
 	public void update(float elapsed) {
 		super.update(elapsed);
 		
-		if (fade != null) {
-			sinceWipe += elapsed;
-			if (sinceWipe > WIPE_TIME) {
-				sinceWipe = 0;
-				fade = null;
-				if (onWipeFinish != null) {
-					onWipeFinish.onFinish();
-				}
-			}
-		}
-		
 		float ratio = sinceWipe / WIPE_TIME;
 		float arg = 0;
 		if (ratio > .75) {
@@ -89,6 +78,18 @@ public class SagaScreen extends Screen {
 		background.getShader().begin();
 		background.getShader().setUniformf("elapsed", arg);
 		background.getShader().end();
+		
+		// we update /after/ the settings to avoid one-off-frame issues
+		if (fade != null) {
+			sinceWipe += elapsed;
+			if (sinceWipe > WIPE_TIME) {
+				if (onWipeFinish != null) {
+					FinishListener lastListener = onWipeFinish;
+					onWipeFinish = null;
+					lastListener.onFinish();
+				}
+			}
+		}
 	}
 
 	/**

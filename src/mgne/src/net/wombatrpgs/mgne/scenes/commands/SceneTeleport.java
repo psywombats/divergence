@@ -39,10 +39,11 @@ public class SceneTeleport extends ThreeArgFunction {
 			}
 
 			@Override protected void internalRun() {
-				Level map = MGlobal.levelManager.getLevel(mapName);
+				final Level map = MGlobal.levelManager.getLevel(mapName);
 				FinishListener onFinish = new FinishListener() {
 					@Override public void onFinish() {
 						teleportFinished = true;
+						map.update(0);
 					}
 				};
 				MGlobal.levelManager.getTele().teleport(mapName,
