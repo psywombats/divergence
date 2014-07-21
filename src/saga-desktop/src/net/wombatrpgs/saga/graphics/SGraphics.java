@@ -22,7 +22,7 @@ import net.wombatrpgs.sagaschema.graphics.SagaGraphicsMDO;
 /**
  * SaGa-style graphics settings.
  */
-public class SagaGraphics {
+public class SGraphics {
 	
 	protected SagaGraphicsMDO mdo;
 	
@@ -32,7 +32,7 @@ public class SagaGraphics {
 	 * Creates a new saga graphics from some data.
 	 * @param	mdo				The data to generate from
 	 */
-	public SagaGraphics(SagaGraphicsMDO mdo) {
+	public SGraphics(SagaGraphicsMDO mdo) {
 		this.mdo = mdo;
 		
 		white = new float[3];
@@ -52,14 +52,14 @@ public class SagaGraphics {
 	 * Creates a new saga graphics from the key to some data.
 	 * @param	key				The key to some data to use
 	 */
-	public SagaGraphics(String key) {
+	public SGraphics(String key) {
 		this(MGlobal.data.getEntryFor(key, SagaGraphicsMDO.class));
 	}
 	
 	/**
 	 * Creates a new saga graphics from the default key.
 	 */
-	public SagaGraphics() {
+	public SGraphics() {
 		this(SGlobal.settings.getGraphicsKey());
 	}
 	

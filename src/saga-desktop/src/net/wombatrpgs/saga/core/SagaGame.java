@@ -19,7 +19,7 @@ import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.saga.lua.SagaSceneLib;
 import net.wombatrpgs.saga.maps.SagaEventFactory;
 import net.wombatrpgs.saga.screen.SagaScreen;
-import net.wombatrpgs.saga.screen.ScreenTextIntro;
+import net.wombatrpgs.saga.screen.ScreenTitle;
 import net.wombatrpgs.saga.screen.ScreenWorld;
 
 /**
@@ -36,7 +36,7 @@ public class SagaGame extends MgnGame {
 		if (MGlobal.debug != DebugLevel.RELEASE) {
 			screen = new ScreenWorld();
 		} else {
-			screen = new ScreenTextIntro();
+			screen = new ScreenTitle();
 		}
 		MGlobal.assets.loadAsset(screen, "starter screen");
 		return screen;
@@ -47,7 +47,7 @@ public class SagaGame extends MgnGame {
 	 */
 	@Override
 	public Memory makeMemory() {
-		return new SagaMemory();
+		return new SMemory();
 	}
 
 	/**

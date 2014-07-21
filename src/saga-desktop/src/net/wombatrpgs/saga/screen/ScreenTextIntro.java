@@ -74,7 +74,7 @@ public class ScreenTextIntro extends SagaScreen {
 		super.update(elapsed);
 		
 		KeyState turbo = MGlobal.keymap.getButtonState(InputButton.BUTTON_A);
-		int mult = turbo == KeyState.DOWN ? 3 : 1;
+		int mult = turbo == KeyState.DOWN ? 5 : 1;
 		scrolled += elapsed * SCROLL_SPEED * mult;
 		scrollFormat.y = (int) scrolled;
 		if (scrolled > height + MGlobal.window.getHeight() * .9f) {
@@ -118,7 +118,7 @@ public class ScreenTextIntro extends SagaScreen {
 	@Override
 	public void onEvent(InputEvent event) {
 		if (event.button == InputButton.BUTTON_START) {
-			finished = true;
+			// finished = true;
 		} else {
 			super.onEvent(event);
 		}
