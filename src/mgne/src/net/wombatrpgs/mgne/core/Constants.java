@@ -41,7 +41,7 @@ public class Constants {
 	public static final String ITEMS_DIR = RESOURCE_DIR + "items/";
 	
 	/** Save file information */
-	public static final String SAVES_DIR = "saves/";
+	public static final String SAVES_DIR = "savedata/";
 	public static final String SAVES_PREFIX = "save";
 	public static final String SAVES_SUFFIX = ".sav";
 	

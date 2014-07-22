@@ -9,6 +9,7 @@ package net.wombatrpgs.saga.screen;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.io.InputEvent;
@@ -86,7 +87,7 @@ public class ScreenTextIntro extends SagaScreen {
 			final SagaScreen textIntro = this;
 			recruit = new ScreenRecruit(mdo.recruitLeader, new FinishListener() {
 				@Override public void onFinish() {
-					SagaScreen gameScreen = new ScreenWorld();
+					SagaScreen gameScreen = new ScreenWorld(Constants.KEY_INTRO);
 					MGlobal.assets.loadAsset(gameScreen, "game screen");
 					gameScreen.transitonOn(TransitionType.BLACK, new FinishListener() {
 						@Override public void onFinish() {

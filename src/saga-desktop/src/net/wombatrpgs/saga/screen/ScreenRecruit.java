@@ -203,7 +203,9 @@ public class ScreenRecruit extends SagaScreen {
 		for (FacesAnimation sprite : sprites) {
 			sprite.dispose();
 		}
-		nameScreen.dispose();
+		if (nameScreen != null) {
+			nameScreen.dispose();
+		}
 	}
 
 	/**

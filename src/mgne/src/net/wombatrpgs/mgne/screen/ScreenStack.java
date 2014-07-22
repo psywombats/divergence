@@ -156,7 +156,10 @@ public class ScreenStack implements	Disposable,
 	public void update() {
 		float elapsed = Gdx.graphics.getDeltaTime();
 		MGlobal.keymap.update(elapsed);
-		screens.peek().update(elapsed);
+		if (screens.size() > 0) {
+			// this check is to ensure the stack wasn't removed from under us
+			screens.peek().update(elapsed);
+		}
 		if (current != null) current.update(elapsed);
 		if (fadeOut != null) fadeOut.update(elapsed);
 	}

@@ -11,12 +11,14 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextboxFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.settings.IntroSettingsMDO;
+import net.wombatrpgs.saga.core.MemoryIndex;
 
 /**
  * As might be obvious, this is the title screen.
@@ -117,20 +119,35 @@ public class ScreenTitle extends SagaScreen {
 		if (selection > 1) selection = 0;
 		return true;
 	}
-	
+
 	/**
 	 * Called when the user confirms their selection on the menu.
 	 * @return					True to indicate command was processed
 	 */
 	public boolean confirm() {
-		// TODO: sfx: confirm on start
+		// TODO: sfx: confirm or error
 		if (selection == 0) {
 			// start
 			SagaScreen textIntro = new ScreenTextIntro();
 			MGlobal.assets.loadAsset(textIntro, "text intro");
-			textIntro.transitonOn(TransitionType.BLACK, null);
+			textIntro.transitonOn(TransitionType.BLACK, new FinishListener() {
+				@Override public void onFinish() {
+					dispose();
+				}
+			});
 		} else {
-			
+			// load
+			if (MemoryIndex.loadIndex().getSaveCount() > 0) {
+				SagaScreen textIntro = new ScreenSaves(false);
+				MGlobal.assets.loadAsset(textIntro, "text intro");
+				textIntro.transitonOn(TransitionType.BLACK, new FinishListener() {
+					@Override public void onFinish() {
+						dispose();
+					}
+				});
+			} else {
+				// yeah, brrrrrp
+			}
 		}
 		return true;
 	}

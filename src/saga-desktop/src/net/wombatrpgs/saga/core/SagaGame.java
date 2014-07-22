@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.luaj.vm2.lib.TwoArgFunction;
 
+import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.DebugLevel;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.Memory;
@@ -34,7 +35,7 @@ public class SagaGame extends MgnGame {
 	public Screen makeStarterScreen() {
 		SagaScreen screen;
 		if (MGlobal.debug != DebugLevel.RELEASE) {
-			screen = new ScreenWorld();
+			screen = new ScreenWorld(Constants.KEY_INTRO);
 		} else {
 			screen = new ScreenTitle();
 		}

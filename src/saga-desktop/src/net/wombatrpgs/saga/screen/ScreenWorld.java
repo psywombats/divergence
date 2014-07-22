@@ -24,14 +24,23 @@ public class ScreenWorld extends SagaScreen implements HeroSource {
 	protected Level map;
 	
 	/**
-	 * Creates a new world map screen.
+	 * All created ScreenWorld are hero sources.
 	 */
 	public ScreenWorld() {
-		super();
+		MGlobal.levelManager.setHeroTracker(this);
+		MGlobal.levelManager.setScreen(this);
+	}
+	
+	/**
+	 * Creates a new world map screen.
+	 * @param	key				The key to the intro settings to use
+	 */
+	public ScreenWorld(String key) {
+		this();
 		MGlobal.levelManager.setScreen(this);
 		MGlobal.levelManager.setHeroTracker(this);
 		
-		IntroSettingsMDO introMDO=MGlobal.data.getEntryFor("default_intro", IntroSettingsMDO.class);
+		IntroSettingsMDO introMDO = MGlobal.data.getEntryFor(key, IntroSettingsMDO.class);
 		map = MGlobal.levelManager.getLevel(introMDO.map);
 		MGlobal.levelManager.setActive(map);
 		if (map.getBGM() != null) {
@@ -46,13 +55,33 @@ public class ScreenWorld extends SagaScreen implements HeroSource {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.core.AssetQueuer#queueRequiredAssets
+	 * (net.wombatrpgs.mgne.core.MAssets)
+	 */
+	@Override
+	public void queueRequiredAssets(MAssets manager) {
+		super.queueRequiredAssets(manager);
+		if (map != null) {
+			map.queueRequiredAssets(manager);
+		}
+		if (hero != null) {
+			hero.queueRequiredAssets(manager);
+		}
+	}
+
+	/**
 	 * @see net.wombatrpgs.mgne.screen.Screen#postProcessing
 	 * (net.wombatrpgs.mgne.core.MAssets, int)
 	 */
 	@Override
 	public void postProcessing(MAssets manager, int pass) {
 		super.postProcessing(manager, pass);
-		
+		if (hero != null) {
+			hero.postProcessing(manager, pass);
+		}
+		if (map != null) {
+			map.postProcessing(manager, pass);
+		}
 		if (pass == 0 && hero.getParent() == null) {
 			hero.setTileX(2);
 			hero.setTileY(2);

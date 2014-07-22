@@ -83,6 +83,7 @@ public class LoadedLevel extends Level {
 		
 		if (pass == 0) {
 			processMap(manager);
+			MGlobal.assets.requestLoading();
 		} else {
 			eventLayer.postProcessing(manager, pass-1);
 		}
@@ -93,17 +94,15 @@ public class LoadedLevel extends Level {
 	 */
 	@Override
 	public String toString() {
-		String name = extractProperty(KEY_NAME);
+		String name = getProperty(KEY_NAME);
 		return (name == null) ? super.toString() : name;
 	}
-	
+
 	/**
-	 * Reads a property from the map data. This property was defined by the map
-	 * designer in the Tiled map properties.
-	 * @param	key				The key of the value to retrieve
-	 * @return					The value corresponding to that key
+	 * @see net.wombatrpgs.mgne.maps.Level#getProperty(java.lang.String)
 	 */
-	public String extractProperty(String key) {
+	@Override
+	public String getProperty(String key) {
 		return map.getProperties().get(key, String.class);
 	}
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="16" tileheight="16">
  <properties>
-  <property name="name" value="saga testmap"/>
+  <property name="name" value="saga testmap 2"/>
  </properties>
  <tileset firstgid="1" name="welp" tilewidth="16" tileheight="16">
   <image source="tilesets/welp.png" width="48" height="32"/>

@@ -30,6 +30,9 @@ public class SGlobal {
 	/** Saga-specific graphics */
 	public static SGraphics graphics;
 	
+	/** Miscellaneous globals */
+	public static int saveSlot;
+	
 	/**
 	 * Sets up all the global variables. Called once when game is created.
 	 */
@@ -57,6 +60,7 @@ public class SGlobal {
 		if (savefile != null) {
 			MGlobal.memory.load(savefile);
 		}
+		saveSlot = -1;
 	}
 
 }

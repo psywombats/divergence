@@ -119,8 +119,6 @@ public abstract class Level extends ScreenObject {
 	/** @see java.lang.Object#toString() */
 	@Override public String toString() { return mdo.key; }
 	
-
-	
 	/**
 	 * @see net.wombatrpgs.mgne.screen.ScreenObject#render
 	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
@@ -157,6 +155,16 @@ public abstract class Level extends ScreenObject {
 		reseting = false;
 		updating = false;
 		
+	}
+	
+	/**
+	 * Returns a key-value pair style entry for this map. This is usually null
+	 * unless the designer entered a key for the value on the loaded map.
+	 * @param	key				The key to get the value for
+	 * @return					The value for that key, or null if none
+	 */
+	public String getProperty(String key) {
+		return null;
 	}
 
 	/**
