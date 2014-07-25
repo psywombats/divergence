@@ -23,6 +23,12 @@ public class IntroSettingsMDO extends MainSchema {
 	@SchemaLink(MapMDO.class)
 	public String map;
 	
+	@Desc("Start x - tile on the map where hero starts, x-coord")
+	public Integer mapX;
+	
+	@Desc("Start y - tile on the map where the hero starts, y-coord")
+	public Integer mapY;
+	
 	@Desc("Title bg - title background image")
 	@FileLink("ui")
 	public String titleBG;

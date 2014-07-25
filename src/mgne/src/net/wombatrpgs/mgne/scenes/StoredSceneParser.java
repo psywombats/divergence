@@ -19,15 +19,26 @@ import net.wombatrpgs.mgne.core.MAssets;
 public class StoredSceneParser extends SceneParser {
 	
 	protected String filename;
+	protected LuaValue caller;
 	
 	/**
 	 * Creates a new scene parser for a given file. No autoplay. Assumes no
 	 * repeat.
 	 * @param	fileName		The filename to load, relative to scenes dir
+	 * @param	caller			The lua value this for this script
 	 */
-	public StoredSceneParser(String filename) {
+	public StoredSceneParser(String filename, LuaValue caller) {
 		super();
+		this.caller = caller;
 		this.filename = Constants.SCENES_DIR + filename;
+	}
+	
+	/**
+	 * Creates a new scene parser for a given file with no caller.
+	 * @param	filename		The filename to laod, relative to scenes dir
+	 */
+	public StoredSceneParser(String fileName) {
+		this(fileName, LuaValue.NIL);
 	}
 	
 	/**
@@ -51,7 +62,7 @@ public class StoredSceneParser extends SceneParser {
 	public void postProcessing(MAssets manager, int pass) {
 		if (pass == 0) {
 			LuaValue script = manager.get(filename, LuaValue.class);
-			commands = SceneLib.parseScene(script);
+			commands = SceneLib.parseScene(script, caller);
 		}
 		super.postProcessing(manager, pass);
 	}

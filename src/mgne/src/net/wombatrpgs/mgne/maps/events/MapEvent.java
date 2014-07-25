@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
+import org.luaj.vm2.lib.ThreeArgFunction;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 import org.luaj.vm2.lib.jse.CoerceLuaToJava;
 
@@ -74,6 +75,9 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 			assets.add(appearance);
 		}
 		
+		zeroCoords();
+		regenerateLua();
+		
 		onAdd = mdoToScene(mdo.onAdd);
 		onRemove = mdoToScene(mdo.onRemove);
 		onInteract = mdoToScene(mdo.onInteract);
@@ -85,9 +89,6 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 			setFacing(OrthoDir.SOUTH);
 		}
 		
-		
-		zeroCoords();
-		regenerateLua();
 	}
 	
 	/** Kryo constructor */
@@ -432,18 +433,30 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 			Lua.generateFunction(this, lua, "getY");
 			Lua.generateFunction(this, lua, "getTileX");
 			Lua.generateFunction(this, lua, "getTileY");
-			// TODO: lua: these will execute immediately
-			lua.set("attemptStep", new OneArgFunction() {
-				@Override public LuaValue call(LuaValue arg) {
-					String argString = (String) CoerceLuaToJava.coerce(arg, String.class);
+			Lua.generateFunction(this, lua, "isTracking");
+			lua.set("eventStep", new OneArgFunction() {
+				@Override public LuaValue call(LuaValue dirArg) {
+					String argString = dirArg.checkjstring();
 					boolean result = attemptStep(OrthoDir.valueOf(argString));
 					return CoerceJavaToLua.coerce(result);
 				}
 			});
-			lua.set("face", new OneArgFunction() {
-				@Override public LuaValue call(LuaValue arg) {
-					String argString = (String) CoerceLuaToJava.coerce(arg, String.class);
+			lua.set("eventFace", new OneArgFunction() {
+				@Override public LuaValue call(LuaValue dirArg) {
+					String argString = (String) CoerceLuaToJava.coerce(dirArg, String.class);
 					setFacing(OrthoDir.valueOf(argString));
+					return LuaValue.NIL;
+				}
+			});
+			lua.set("eventWalk", new ThreeArgFunction() {
+				@Override public LuaValue call(LuaValue self, LuaValue stepsArg, LuaValue dirArg) {
+					OrthoDir dir = OrthoDir.valueOf(dirArg.checkjstring());
+					int steps = stepsArg.checkint();
+					int targetX = (int) (getTileX() + steps * dir.getVector().x);
+					int targetY = (int) (getTileY() + steps * dir.getVector().y);
+					step(dir);
+					setFacing(dir);
+					targetTile(targetX, targetY);
 					return LuaValue.NIL;
 				}
 			});
@@ -472,7 +485,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 	 */
 	protected SceneParser mdoToScene(String lua) {
 		if (mdoHasProperty(lua) && lua.length() > 0) {
-			SceneParser scene = new StringSceneParser(lua);
+			SceneParser scene = new StringSceneParser(lua, toLua());
 			assets.add(scene);
 			return scene;
 		} else {

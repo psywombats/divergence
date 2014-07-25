@@ -7,6 +7,7 @@
 package net.wombatrpgs.saga.screen;
 
 import net.wombatrpgs.mgne.core.Avatar;
+import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.command.CMapGame;
@@ -20,6 +21,7 @@ import net.wombatrpgs.mgneschema.settings.IntroSettingsMDO;
  */
 public class ScreenWorld extends SagaScreen implements HeroSource {
 	
+	protected IntroSettingsMDO mdo;
 	protected Avatar hero;
 	protected Level map;
 	
@@ -29,6 +31,7 @@ public class ScreenWorld extends SagaScreen implements HeroSource {
 	public ScreenWorld() {
 		MGlobal.levelManager.setHeroTracker(this);
 		MGlobal.levelManager.setScreen(this);
+		mdo = MGlobal.data.getEntryFor(Constants.KEY_INTRO, IntroSettingsMDO.class);
 	}
 	
 	/**
@@ -83,8 +86,8 @@ public class ScreenWorld extends SagaScreen implements HeroSource {
 			map.postProcessing(manager, pass);
 		}
 		if (pass == 0 && hero.getParent() == null) {
-			hero.setTileX(2);
-			hero.setTileY(2);
+			hero.setTileX(mdo.mapX);
+			hero.setTileY(mdo.mapY);
 			while (!map.isTilePassable(hero.getTileX(), hero.getTileY())) {
 				hero.setTileX(MGlobal.rand.nextInt(map.getWidth()));
 				hero.setTileY(MGlobal.rand.nextInt(map.getHeight()));

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.scenes.SceneLib;
 
 import org.luaj.vm2.Globals;
@@ -61,7 +62,7 @@ public class Lua {
 	 * @return					A corresponding script, ready to run
 	 */
 	public LuaValue interpret(String chunk) {
-		return globals.load(prependRequires(chunk), "Lua.eval");
+		return globals.load(prependRequires(chunk));
 	}
 	
 	/**
@@ -85,9 +86,22 @@ public class Lua {
 	 * @param	caller			The calling object
 	 * @return					The result of the evaluation, or null if none
 	 */
-	public LuaValue run(String chunk, LuaConvertable caller) {
+	public LuaValue run(String chunk, MapEvent caller) {
 		globals.set("this", caller.toLua());
 		return runIfExists(chunk);
+	}
+	
+	/**
+	 * Sets some context for this call, then evaluates it. The caller will be
+	 * set to the 'this' object in Lua, so then the Lua function can call
+	 * functions on the caller.
+	 * @param	script			The script to interpret
+	 * @param	caller			The calling object
+	 * @return					THe result of the evaluation
+	 */
+	public LuaValue run(LuaValue script, LuaValue caller) {
+		globals.set("this", caller);
+		return script.call();
 	}
 	
 	/**
@@ -98,7 +112,8 @@ public class Lua {
 	 * @param	table			The lua object to attach the function to
 	 * @param	methodName		The name of the method to generate for
 	 */
-	public static void generateFunction(final Object caller, LuaValue table, final String methodName) {
+	public static void generateFunction(final Object caller, LuaValue table,
+			final String methodName) {
 		try {
 			final Method method = caller.getClass().getMethod(methodName);
 			LuaFunction func = new ZeroArgFunction() {

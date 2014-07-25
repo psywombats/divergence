@@ -58,7 +58,7 @@ public class ScreenTextIntro extends SagaScreen {
 		finished = false;
 		transitioning = false;
 		height = font.getHeight(text);
-		scrolled = window.getViewportHeight() * .1f;
+		scrolled = -6;
 		
 		bg = new Nineslice(window.getWidth() + 32, window.getHeight() + 32);
 		assets.add(bg);
@@ -101,7 +101,7 @@ public class ScreenTextIntro extends SagaScreen {
 			recruit.transitonOn(TransitionType.BLACK, null);
 		}
 		
-		int margin = (fade == null) ? 32 : 0;
+		int margin = (sinceWipe >= WIPE_TIME) ? 32 : 0;
 		
 		background.getShader().begin();
 		background.getShader().setUniformf("u_margin", margin);

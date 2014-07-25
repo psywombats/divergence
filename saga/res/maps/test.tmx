@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="16" tileheight="16">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="15" tilewidth="16" tileheight="16">
  <properties>
   <property name="name" value="saga testmap"/>
  </properties>
@@ -22,6 +22,7 @@
   </tile>
  </tileset>
  <tileset firstgid="7" source="tilesets/lower.tsx"/>
+ <tileset firstgid="63" source="tilesets/upper.tsx"/>
  <layer name="Tile Layer 1" width="20" height="15">
   <properties>
    <property name="z" value="0"/>
@@ -30,8 +31,8 @@
    eJyt1D0LgCAQgGHHskEQGhyLhr6Gaun//7MUPIjj7jzB4UVcnjsctMYY2zjXqJp5Q07jeSHwrpzGC0LgvTmNB/eOiHrfEZ2cR5le2Cd5c8HDZhAs7PUKT9qtdj/O2lAlzxW8CaXxpFYU5e2xg+lUzvl7d+xhWpRu638l9QE1iRQg
   </data>
  </layer>
- <objectgroup name="Object Layer 1" width="20" height="15">
-  <object name="bort the bozo" type="Character" x="208" y="192" width="16" height="16">
+ <objectgroup name="Object Layer 1">
+  <object name="bort the bozo" type="Character" x="240" y="192" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="onInteract" value="speak('hi my name is bort the bozo and I like to talk to myself an awful lot')"/>
@@ -90,7 +91,7 @@
     <property name="onInteract" value="shop('item_testWhip', 'item_hp200', 'item_str24', 'item_testCure')"/>
    </properties>
   </object>
-  <object name="party4" type="Character" x="80" y="160" width="16" height="16">
+  <object name="party4" type="Character" x="144" y="80" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="face" value="NORTH"/>
