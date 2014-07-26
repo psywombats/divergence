@@ -63,10 +63,11 @@ public class MAssets extends AssetManager {
 	 * @param	name			The name of what is being loadded
 	 */
 	public void loadAssets(Collection<? extends Queueable> toLoad, String name) {
+		boolean previousRequest = loadingRequested;
+		loadingRequested = false;
 		for (Queueable q : toLoad) q.queueRequiredAssets(this);
 		int pass;
 		for (pass = 0; needsLoading(); pass++) {
-			loadingRequested = false;
 			float assetStart = System.currentTimeMillis();
 			finishLoading();
 			float assetEnd = System.currentTimeMillis();
@@ -77,6 +78,7 @@ public class MAssets extends AssetManager {
 		if (pass == 0) {
 			for (Queueable q : toLoad) q.postProcessing(this, pass);
 		}
+		loadingRequested = previousRequest;
 	}
 	
 	/**
@@ -95,7 +97,9 @@ public class MAssets extends AssetManager {
 	 * @return					True if loading/processing should continue.
 	 */
 	protected boolean needsLoading() {
-		return getProgress() < 1 || loadingRequested;
+		boolean needsLoading = getProgress() < 1 || loadingRequested;
+		loadingRequested = false;
+		return needsLoading;
 	}
 
 }

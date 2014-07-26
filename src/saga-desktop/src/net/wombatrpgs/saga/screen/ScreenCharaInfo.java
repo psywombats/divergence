@@ -186,7 +186,7 @@ public class ScreenCharaInfo extends SagaScreen implements TargetSelectable {
 					return true;
 				} else {
 					CombatItem item = chara.getInventory().get(selected);
-					if (item == null) {
+					if (item == null || !item.isMapUsable()) {
 						// TODO: sfx: failure sound
 						return false;
 					}

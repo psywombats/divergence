@@ -20,12 +20,13 @@ public class StringSceneParser extends SceneParser {
 	/**
 	 * Creates a new string scene parser from a string representing lua code.
 	 * Prefixes the proper library calls and stuff like that.
-	 * @param	lua				The lua to run for the scene.
+	 * @param	lua				The lua to run for the scene
+	 * @param	caller			The calling lua object
 	 */
-	public StringSceneParser(String lua) {
+	public StringSceneParser(String lua, LuaValue caller) {
 		this.source = lua;
 		LuaValue script = MGlobal.lua.interpret(lua);
-		commands = SceneLib.parseScene(script);
+		commands = SceneLib.parseScene(script, caller);
 	}
 	
 	/** Kryo constructor */

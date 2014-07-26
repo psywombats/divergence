@@ -7,6 +7,7 @@
 package net.wombatrpgs.saga.screen;
 
 import net.wombatrpgs.mgne.core.Avatar;
+import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.command.CMapGame;
@@ -20,20 +21,30 @@ import net.wombatrpgs.mgneschema.settings.IntroSettingsMDO;
  */
 public class ScreenWorld extends SagaScreen implements HeroSource {
 	
+	protected IntroSettingsMDO mdo;
 	protected Avatar hero;
 	protected Level map;
 	
 	/**
-	 * Creates a new world map screen.
+	 * All created ScreenWorld are hero sources.
 	 */
 	public ScreenWorld() {
-		super();
+		MGlobal.levelManager.setHeroTracker(this);
+		MGlobal.levelManager.setScreen(this);
+		mdo = MGlobal.data.getEntryFor(Constants.KEY_INTRO, IntroSettingsMDO.class);
+	}
+	
+	/**
+	 * Creates a new world map screen.
+	 * @param	key				The key to the intro settings to use
+	 */
+	public ScreenWorld(String key) {
+		this();
 		MGlobal.levelManager.setScreen(this);
 		MGlobal.levelManager.setHeroTracker(this);
 		
-		IntroSettingsMDO introMDO=MGlobal.data.getEntryFor("default_intro", IntroSettingsMDO.class);
+		IntroSettingsMDO introMDO = MGlobal.data.getEntryFor(key, IntroSettingsMDO.class);
 		map = MGlobal.levelManager.getLevel(introMDO.map);
-		assets.add(map);
 		MGlobal.levelManager.setActive(map);
 		if (map.getBGM() != null) {
 			MGlobal.screens.playMusic(map.getBGM(), false);
@@ -47,16 +58,36 @@ public class ScreenWorld extends SagaScreen implements HeroSource {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.core.AssetQueuer#queueRequiredAssets
+	 * (net.wombatrpgs.mgne.core.MAssets)
+	 */
+	@Override
+	public void queueRequiredAssets(MAssets manager) {
+		super.queueRequiredAssets(manager);
+		if (map != null) {
+			map.queueRequiredAssets(manager);
+		}
+		if (hero != null) {
+			hero.queueRequiredAssets(manager);
+		}
+	}
+
+	/**
 	 * @see net.wombatrpgs.mgne.screen.Screen#postProcessing
 	 * (net.wombatrpgs.mgne.core.MAssets, int)
 	 */
 	@Override
 	public void postProcessing(MAssets manager, int pass) {
 		super.postProcessing(manager, pass);
-		
+		if (hero != null) {
+			hero.postProcessing(manager, pass);
+		}
+		if (map != null) {
+			map.postProcessing(manager, pass);
+		}
 		if (pass == 0 && hero.getParent() == null) {
-			hero.setTileX(2);
-			hero.setTileY(2);
+			hero.setTileX(mdo.mapX);
+			hero.setTileY(mdo.mapY);
 			while (!map.isTilePassable(hero.getTileX(), hero.getTileY())) {
 				hero.setTileX(MGlobal.rand.nextInt(map.getWidth()));
 				hero.setTileY(MGlobal.rand.nextInt(map.getHeight()));

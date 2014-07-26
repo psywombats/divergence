@@ -14,6 +14,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
+import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.Option;
@@ -112,6 +113,11 @@ public class ScreenPause extends SagaScreen implements Disposable {
 	@Override
 	public void onFocusGained() {
 		super.onFocusGained();
+		Level active = MGlobal.levelManager.getActive();
+		if (active != null) {
+			String location = active.getProperty("name");
+			if (location != null) SGlobal.heroes.setLocation(location);
+		}
 		if (!silentAdd) {
 			refocusMain();
 			createDisplay();
@@ -206,8 +212,11 @@ public class ScreenPause extends SagaScreen implements Disposable {
 	 * @return					False to keep menu open
 	 */
 	protected boolean onSave() {
-		menu.unfocus();
-		saveSelector.showAt(0, 0);
+//		menu.unfocus();
+//		saveSelector.showAt(0, 0);
+		SagaScreen screen = new ScreenSaves(true);
+		MGlobal.assets.loadAsset(screen, "save screen");
+		MGlobal.screens.push(screen);
 		return false;
 	}
 	

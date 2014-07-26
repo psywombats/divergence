@@ -59,7 +59,6 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	protected transient FrameBuffer buffer, lastBuffer;
 	protected transient ShapeRenderer shapes;
 	
-	protected transient ShaderProgram mapShader;
 	protected Color tint;
 	
 	protected List<Updateable> updateChildren, removeChildren, addChildren;
@@ -117,9 +116,6 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	
 	/** @return Game screen whole tint */
 	public Color getTint() { return tint; }
-	
-	/** @return The shader used to render maps */
-	public ShaderProgram getMapShader() { return mapShader; }
 	
 	/** @param listener The listener to receive command updates */
 	public void pushCommandListener(CommandListener listener) { commandListeners.push(listener); }
@@ -304,7 +300,6 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 			uiCam.update();
 			uiBatch.setProjectionMatrix(uiCam.combined);
 			shapes = new ShapeRenderer();
-			mapShader = constructMapShader();
 		}
 	}
 	
@@ -391,28 +386,13 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	}
 	
 	/**
-	 * Gets the command parser used on this screen. Usually only used by engine.
-	 * @return					The command parser used on this screen
+	 * Construct the batch used to draw the grid layers of maps, probably only
+	 * loaded ones. Placed here for easy override. May return null for use
+	 * default shader.
+	 * @return					The map grid shader, or null for default
 	 */
-	protected CommandMap getTopCommandContext() {
-		if (commandContext.size() == 0) {
-			// ugly
-			return null;
-		} else {
-			return commandContext.peek();
-		}
-	}
-	
-	/**
-	 * Screen-wiping procedure.
-	 */
-	protected void clear() {
-		WindowSettings window = MGlobal.window;
-		Gdx.gl.glClearColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		shapes.setColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
-		shapes.begin(ShapeType.Filled);
-		shapes.rect(0, 0, window.getWidth(), window.getHeight());
+	public ShaderProgram constructMapShader() {
+		return null;
 	}
 	
 	/**
@@ -443,13 +423,28 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	}
 	
 	/**
-	 * Construct the batch used to draw the grid layers of maps, probably only
-	 * loaded ones. Placed here for easy override. May return null for use
-	 * default shader.
-	 * @return					The map grid shader, or null for default
+	 * Gets the command parser used on this screen. Usually only used by engine.
+	 * @return					The command parser used on this screen
 	 */
-	protected ShaderProgram constructMapShader() {
-		return null;
+	protected CommandMap getTopCommandContext() {
+		if (commandContext.size() == 0) {
+			// ugly
+			return null;
+		} else {
+			return commandContext.peek();
+		}
+	}
+	
+	/**
+	 * Screen-wiping procedure.
+	 */
+	protected void clear() {
+		WindowSettings window = MGlobal.window;
+		Gdx.gl.glClearColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		shapes.setColor(15.f/255.f, 9.f/255.f, 7.f/255.f, 1);
+		shapes.begin(ShapeType.Filled);
+		shapes.rect(0, 0, window.getWidth(), window.getHeight());
 	}
 
 }

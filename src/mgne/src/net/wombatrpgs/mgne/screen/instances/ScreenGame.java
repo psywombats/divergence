@@ -7,6 +7,7 @@
 package net.wombatrpgs.mgne.screen.instances;
 
 import net.wombatrpgs.mgne.core.Avatar;
+import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.command.CMapGame;
@@ -34,7 +35,8 @@ public class ScreenGame extends Screen implements HeroSource {
 		MGlobal.levelManager.setScreen(this);
 		MGlobal.levelManager.setHeroTracker(this);
 		
-		IntroSettingsMDO introMDO=MGlobal.data.getEntryFor("default_intro", IntroSettingsMDO.class);
+		IntroSettingsMDO introMDO = MGlobal.data.getEntryFor(
+				Constants.KEY_INTRO, IntroSettingsMDO.class);
 		map = MGlobal.levelManager.getLevel(introMDO.map);
 		assets.add(map);
 		MGlobal.levelManager.setActive(map);

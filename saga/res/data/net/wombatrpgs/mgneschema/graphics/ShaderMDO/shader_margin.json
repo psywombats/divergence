@@ -1,0 +1,8 @@
+{
+	"key" : "shader_margin",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"vertexFile" : "margin.vert",
+	"fragmentFile" : "margin.frag"
+}

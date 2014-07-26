@@ -2,6 +2,9 @@
 	"key" : "default_intro",
 	"subfolder" : "",
 	"name" : "  ",
-	"description" : " engine searches for this mdo by name",
-	"map" : "map_blank"
+	"description" : "engine searches for this mdo by name",
+	"map" : "map_blank",
+	"mapX" : 3,
+	"mapY" : 2,
+	"titleBG" : "bad_title.png"
 }

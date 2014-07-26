@@ -34,7 +34,7 @@ import de.javakaffee.kryoserializers.KryoReflectionFactorySupport;
 public class Memory {
 	
 	/** Fields for the saving process */
-	protected transient KryoReflectionFactorySupport kryo;
+	protected transient Kryo kryo;
 	
 	/** Live memory */
 	protected Map<String, Boolean> switches;
@@ -87,6 +87,15 @@ public class Memory {
 	}
 	
 	/**
+	 * Formats the save file name for a given save name.
+	 * @param	saveName		The human name of the save file
+	 * @return					The appropriate file path to that save file
+	 */
+	public static String saveToPath(String saveName) {
+		return Constants.SAVES_DIR + saveName + Constants.SAVES_SUFFIX;
+	}
+	
+	/**
 	 * Sets a certain switch on or off.
 	 * @param	name			The name of the switch to toggle
 	 * @param	value			The value to toggle to (on=true, off=false)
@@ -107,12 +116,13 @@ public class Memory {
 	}
 	
 	/**
-	 * Formats the save file name for a given save name.
-	 * @param	saveName		The human name of the save file
-	 * @return					The appropriate file path to that save file
+	 * Retrieves the kryo serialization factory used for saving the game. This
+	 * can be used for any class looking for serialization, not just save files,
+	 * and the handlers for screens/keymaps/etc will still be available.
+	 * @return					The Kryo factory used for savegames
 	 */
-	public static String saveToPath(String saveName) {
-		return Constants.SAVES_DIR + saveName + Constants.SAVES_SUFFIX;
+	public Kryo getKryo() {
+		return kryo;
 	}
 	
 	/**
