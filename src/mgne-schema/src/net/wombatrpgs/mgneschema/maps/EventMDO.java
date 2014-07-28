@@ -7,6 +7,7 @@
 package net.wombatrpgs.mgneschema.maps;
 
 import net.wombatrpgs.mgneschema.graphics.DirMDO;
+import net.wombatrpgs.mgneschema.maps.data.DisplayType;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.MainSchema;
@@ -39,6 +40,13 @@ public class EventMDO extends MainSchema {
 	@Desc("Face - the direction this NPC faces")
 	@DefaultValue("SOUTH")
 	public OrthoDir face;
+	
+	@Desc("Display on/off")
+	@DefaultValue("SHOW")
+	public DisplayType hidden;
+	
+	@Desc("Hide script - if this lua script evals to true, will not show this event")
+	public String hide;
 	
 	@Desc("onAdd - lua value, script is called when event is added to map")
 	@DefaultValue("")
