@@ -104,6 +104,24 @@ public class Graphic implements PosRenderable, Disposable {
 	}
 	
 	/**
+	 * Renders this graphic at an angle.
+	 * @param	batch			The batch to render with
+	 * @param	x				The x-coord to render at (screen px)
+	 * @param	y				The y-coord to render at (screen px)
+	 * @param	angle			The angle to render at (in degrees?)
+	 */
+	public void renderAt(SpriteBatch batch, float x, float y, float angle) {
+		batch.begin();
+		batch.draw(appearance,
+				x, y,
+				getWidth() / 2, getHeight() / 2,
+				getWidth(), getHeight(),
+				1, 1,
+				angle);
+		batch.end();
+	}
+	
+	/**
 	 * Renders this graphic stretched.
 	 * @param	batch			The batch to render with
 	 * @param	x				The x-coord to render at (screen px)

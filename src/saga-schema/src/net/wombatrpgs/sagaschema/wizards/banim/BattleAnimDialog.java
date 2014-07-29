@@ -43,6 +43,7 @@ import javax.swing.event.DocumentListener;
 import net.wombatrpgs.mgnse.MainFrame;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimStripMDO;
 import net.wombatrpgs.sagaschema.graphics.banim.data.BattleStepMDO;
+import net.wombatrpgs.sagaschema.graphics.banim.data.RotationType;
 
 /**
  * Dialog for battle animations.
@@ -59,12 +60,15 @@ public class BattleAnimDialog extends JDialog implements	ActionListener,
 	
 	private static final String TOOL_EXPORT = "Export";
 	
+	private static final String ROTATION_ENABLED = RotationType.ROTATION_ENABLED.toString();
+	private static final String ROTATION_DISABLED = RotationType.ROTATION_DISABLED.toString();
+	
 	protected MainFrame frame;
 	
 	protected JMenuItem toolExport;
 	protected JMenu menuTools;
 	protected JMenuBar bar;
-	protected JComboBox<String> stepSelect, spriteSelect;
+	protected JComboBox<String> stepSelect, spriteSelect, rotationSelect;
 	protected JButton newStep;
 	protected JFormattedTextField fieldX, fieldY;
 	protected JFormattedTextField fieldStart, fieldDuration;
@@ -203,6 +207,13 @@ public class BattleAnimDialog extends JDialog implements	ActionListener,
 		fieldDuration.setColumns(8);
 		fieldDuration.getDocument().addDocumentListener(this);
 		optionsPane.add(fieldDuration, generateConstraints());
+		
+		addLabel(optionsPane, "Rotation?");
+		rotationSelect = new JComboBox<String>();
+		rotationSelect.addActionListener(this);
+		rotationSelect.addItem(ROTATION_DISABLED);
+		rotationSelect.addItem(ROTATION_ENABLED);
+		optionsPane.add(rotationSelect, generateConstraints());
 		
 		c = new GridBagConstraints();
 		c.weighty = 99;
@@ -352,6 +363,11 @@ public class BattleAnimDialog extends JDialog implements	ActionListener,
 			sprite = ii.getImage();
 			selectedStep.start = Float.valueOf(fieldStart.getValue().toString());
 			selectedStep.duration = Float.valueOf(fieldDuration.getValue().toString());
+			if (rotationSelect.getSelectedItem().equals(ROTATION_ENABLED)) {
+				selectedStep.rotation = RotationType.ROTATION_ENABLED;
+			} else {
+				selectedStep.rotation = RotationType.ROTATION_DISABLED;
+			}
 			locked = false;
 		}
 		repaint();
@@ -366,6 +382,7 @@ public class BattleAnimDialog extends JDialog implements	ActionListener,
 			fieldDuration.setValue(selectedStep.duration);
 			
 			spriteSelect.setSelectedItem(selectedStep.sprite);
+			rotationSelect.setSelectedItem(selectedStep.rotation);
 			ImageIcon ii = new ImageIcon("sprites/battle_anim/" + selectedStep.sprite);
 			sprite = ii.getImage();
 			locked = false;

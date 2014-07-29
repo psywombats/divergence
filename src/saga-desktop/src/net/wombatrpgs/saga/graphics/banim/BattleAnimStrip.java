@@ -12,9 +12,11 @@ import java.util.Map;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.Constants;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimStripMDO;
 import net.wombatrpgs.sagaschema.graphics.banim.data.BattleStepMDO;
+import net.wombatrpgs.sagaschema.graphics.banim.data.RotationType;
 
 /**
  * A strip-based battle animation.
@@ -24,6 +26,7 @@ public class BattleAnimStrip extends BattleAnim {
 	protected BattleAnimStripMDO mdo;
 	
 	protected Map<BattleStepMDO, Graphic> sprites;
+	protected float angle;
 	protected float duration;
 
 	/**
@@ -33,6 +36,7 @@ public class BattleAnimStrip extends BattleAnim {
 	public BattleAnimStrip(BattleAnimStripMDO mdo) {
 		super(mdo);
 		this.mdo = mdo;
+		angle = MGlobal.rand.nextInt(4) * 90;
 		
 		sprites = new HashMap<BattleStepMDO, Graphic>();
 		for (BattleStepMDO stepMDO : mdo.steps) {
@@ -45,6 +49,9 @@ public class BattleAnimStrip extends BattleAnim {
 			}
 		}
 	}
+	
+	/** @return How long this animation will last, in s */
+	public float getDuration() { return duration; }
 
 	/**
 	 * The provided x/y should be the center of the target's portrait.
@@ -57,9 +64,14 @@ public class BattleAnimStrip extends BattleAnim {
 			if (sinceStart > stepMDO.start &&
 					sinceStart < stepMDO.start + stepMDO.duration) {
 				Graphic sprite = sprites.get(stepMDO);
+				float stepAngle = 0;
+				if (stepMDO.rotation == RotationType.ROTATION_ENABLED) {
+					stepAngle = angle;
+				}
 				sprite.renderAt(batch,
 						stepMDO.x + x - sprite.getWidth() / 2,
-						-stepMDO.y + y - sprite.getHeight() / 2);
+						-stepMDO.y + y - sprite.getHeight() / 2,
+						stepAngle);
 			}
 		}
 	}

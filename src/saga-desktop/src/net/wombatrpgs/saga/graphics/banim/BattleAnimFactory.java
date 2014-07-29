@@ -8,6 +8,7 @@ package net.wombatrpgs.saga.graphics.banim;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimMDO;
+import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimSeriesMDO;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimStripMDO;
 
 /**
@@ -23,6 +24,8 @@ public class BattleAnimFactory {
 	public static BattleAnim create(BattleAnimMDO mdo) {
 		if (BattleAnimStripMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new BattleAnimStrip((BattleAnimStripMDO) mdo);
+		} else if (BattleAnimSeriesMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new BattleAnimSeries((BattleAnimSeriesMDO) mdo);
 		} else {
 			MGlobal.reporter.err("Unknown batle anim type: " + mdo);
 			return null;

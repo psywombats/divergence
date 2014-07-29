@@ -22,6 +22,7 @@ public abstract class BattleAnim extends AssetQueuer implements	Disposable,
 	protected BattleAnimMDO mdo;
 	
 	protected float sinceStart;
+	protected boolean playing;
 	
 	/**
 	 * Creates a new battle anim from data.
@@ -36,6 +37,9 @@ public abstract class BattleAnim extends AssetQueuer implements	Disposable,
 
 	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getHeight() */
 	@Override public int getHeight() { return 0; }
+	
+	/** @return True if animation has started yet, false otherwise */
+	public boolean isPlaying() { return playing; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
@@ -64,6 +68,15 @@ public abstract class BattleAnim extends AssetQueuer implements	Disposable,
 	 */
 	public void start() {
 		sinceStart = 0;
+		playing = true;
+	}
+	
+	/**
+	 * Sets this animation back to its initial state.
+	 */
+	public void reset() {
+		sinceStart = 0;
+		playing = false;
 	}
 
 }
