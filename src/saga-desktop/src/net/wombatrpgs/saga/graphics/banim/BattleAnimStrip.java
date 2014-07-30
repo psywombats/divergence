@@ -85,6 +85,24 @@ public class BattleAnimStrip extends BattleAnim {
 	}
 
 	/**
+	 * Only returns the width of the first frame, movement is not considered.
+	 * @see net.wombatrpgs.saga.graphics.banim.BattleAnim#getWidth()
+	 */
+	@Override
+	public int getWidth() {
+		return sprites.get(mdo.steps[0]).getWidth();
+	}
+
+	/**
+	 *  Only returns the height of the first frame, movement is not considered.
+	 * @see net.wombatrpgs.saga.graphics.banim.BattleAnim#getHeight()
+	 */
+	@Override
+	public int getHeight() {
+		return sprites.get(mdo.steps[0]).getHeight();
+	}
+
+	/**
 	 * @see net.wombatrpgs.saga.graphics.banim.BattleAnim#dispose()
 	 */
 	@Override

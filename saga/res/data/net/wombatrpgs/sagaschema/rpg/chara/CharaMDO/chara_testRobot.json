@@ -14,7 +14,8 @@
 	"gp" : 0,
 	"equipped" : [
 		"item_testsword",
-		"item_testDefend"
+		"item_testDefend",
+		"item_testSMG"
 	],
 	"stats" : {
 		"hp" : 40,

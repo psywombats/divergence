@@ -135,18 +135,5 @@ public class BattleAnimSeries extends BattleAnim {
 		located.y = randY * mdo.granularity;
 		located.strip.start();
 	}
-	
-	/**
-	 * Struct for a battle animation and its location.
-	 */
-	protected class LocatedAnim {
-		public BattleAnimStrip strip;
-		public int x, y;
-		public LocatedAnim(BattleAnimStrip strip) {
-			this.strip = strip;
-			this.x = 0;
-			this.y = 0;
-		}
-	}
 
 }

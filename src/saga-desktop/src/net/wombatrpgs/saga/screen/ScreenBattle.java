@@ -442,10 +442,12 @@ public class ScreenBattle extends SagaScreen {
 			BattleAnim anim = BattleAnimFactory.create(animMDO);
 			anims.add(anim);
 			animsOnGroups.put(index, anim);
-			anim.start();
 			addUChild(anim);
 		}
 		MGlobal.assets.loadAssets(anims, "battle animation " + animMDO);
+		for (BattleAnim anim : anims) {
+			anim.start();
+		}
 	}
 	
 	/**
