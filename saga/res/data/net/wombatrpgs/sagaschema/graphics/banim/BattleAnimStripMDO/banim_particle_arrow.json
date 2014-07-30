@@ -15,7 +15,7 @@
 		{
 			"sprite" : "battle_anim/arrow2.png",
 			"start" : 0.1,
-			"duration" : 0.0,
+			"duration" : 0.3,
 			"x" : 0.0,
 			"y" : 8.0,
 			"rotation" : "ROTATION_DISABLED"

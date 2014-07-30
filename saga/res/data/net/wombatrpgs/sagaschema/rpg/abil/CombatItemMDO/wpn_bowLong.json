@@ -7,7 +7,7 @@
 	"type" : "ITEM",
 	"uses" : 50,
 	"cost" : 52,
-	"anim" : "None",
+	"anim" : "banim_arrows",
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectFixedMDO",
 		"key" : "anon_CombatItemMDO_-1339260304"

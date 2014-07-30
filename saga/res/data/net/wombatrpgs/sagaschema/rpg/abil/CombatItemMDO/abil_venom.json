@@ -7,7 +7,7 @@
 	"type" : "ABILITY",
 	"uses" : 25,
 	"cost" : 0,
-	"anim" : "None",
+	"anim" : "banim_wound",
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
 		"key" : "anon_CombatItemMDO_368033125"

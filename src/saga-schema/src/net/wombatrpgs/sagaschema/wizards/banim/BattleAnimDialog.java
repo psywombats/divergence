@@ -363,7 +363,8 @@ public class BattleAnimDialog extends JDialog implements	ActionListener,
 			sprite = ii.getImage();
 			selectedStep.start = Float.valueOf(fieldStart.getValue().toString());
 			selectedStep.duration = Float.valueOf(fieldDuration.getValue().toString());
-			if (rotationSelect.getSelectedItem().equals(ROTATION_ENABLED)) {
+			if (rotationSelect.getSelectedItem() != null &&
+					rotationSelect.getSelectedItem().equals(ROTATION_ENABLED)) {
 				selectedStep.rotation = RotationType.ROTATION_ENABLED;
 			} else {
 				selectedStep.rotation = RotationType.ROTATION_DISABLED;
@@ -382,7 +383,11 @@ public class BattleAnimDialog extends JDialog implements	ActionListener,
 			fieldDuration.setValue(selectedStep.duration);
 			
 			spriteSelect.setSelectedItem(selectedStep.sprite);
-			rotationSelect.setSelectedItem(selectedStep.rotation);
+			if (selectedStep.rotation != null) {
+				rotationSelect.setSelectedItem(selectedStep.rotation);
+			} else {
+				rotationSelect.setSelectedItem(ROTATION_DISABLED);
+			}
 			ImageIcon ii = new ImageIcon("sprites/battle_anim/" + selectedStep.sprite);
 			sprite = ii.getImage();
 			locked = false;

@@ -7,7 +7,7 @@
 	"type" : "ABILITY",
 	"uses" : 20,
 	"cost" : 0,
-	"anim" : "None",
+	"anim" : "banim_ice",
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
 		"key" : "anon_CombatItemMDO_1281170149"

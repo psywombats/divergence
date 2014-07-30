@@ -8,6 +8,6 @@
 	"sideEffects" : [ ],
 	"power" : 4,
 	"attackStat" : "MANA",
-	"defendStat" : null,
+	"defendStat" : "DEF",
 	"miss" : "ALWAYS_HITS"
 }

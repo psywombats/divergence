@@ -7,7 +7,7 @@
 	"type" : "ITEM",
 	"uses" : 30,
 	"cost" : 500,
-	"anim" : "None",
+	"anim" : "banim_flame",
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
 		"key" : "anon_CombatItemMDO_1791740895"
