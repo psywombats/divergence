@@ -446,5 +446,13 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 		shapes.begin(ShapeType.Filled);
 		shapes.rect(0, 0, window.getWidth(), window.getHeight());
 	}
+	
+	/**
+	 * Goes back to writing on the standard buffer. Should be called after all
+	 * buffer ends in screen drawing routines.
+	 */
+	protected void resumeNormalBuffer() {
+		buffer.begin();
+	}
 
 }

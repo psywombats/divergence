@@ -5,10 +5,11 @@
 	"description" : "auto-generated anonymous polymorph",
 	"projector" : "ALL_ENEMY",
 	"damType" : "NONELEMENTAL",
-	"power" : 10,
-	"attackStat" : "MANA",
-	"defendStat" : null,
 	"sideEffects" : [
 		"KILLS_USER"
-	]
+	],
+	"power" : 10,
+	"attackStat" : "MANA",
+	"defendStat" : "DEF",
+	"miss" : "CAN_MISS"
 }

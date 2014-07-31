@@ -10,6 +10,7 @@ import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
+import net.wombatrpgs.saga.screen.ScreenBattle;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimMDO;
 
 /**
@@ -39,10 +40,10 @@ public abstract class BattleAnim extends AssetQueuer implements	Disposable,
 	@Override public int getHeight() { return 0; }
 	
 	/** @return True if animation has started yet, false otherwise */
-	public boolean isPlaying() { return playing; }
+	public final boolean isPlaying() { return playing; }
 	
 	/** @return True if animation has at any point been playing */
-	public boolean isStarted() { return started; }
+	public final boolean isStarted() { return started; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
@@ -70,8 +71,9 @@ public abstract class BattleAnim extends AssetQueuer implements	Disposable,
 	
 	/**
 	 * Start and reset this animation.
+	 * @param screen TODO
 	 */
-	public void start() {
+	public void start(ScreenBattle screen) {
 		sinceStart = 0;
 		started = true;
 		playing = true;
@@ -88,7 +90,7 @@ public abstract class BattleAnim extends AssetQueuer implements	Disposable,
 	/**
 	 * Stops this animation from gaining time.
 	 */
-	public void pause() {
+	public final void pause() {
 		playing = false;
 	}
 	
@@ -96,9 +98,17 @@ public abstract class BattleAnim extends AssetQueuer implements	Disposable,
 	 * Pauses this animation at a certain point in time.
 	 * @param time
 	 */
-	public void pauseAt(float time) {
+	public final void pauseAt(float time) {
 		pause();
 		sinceStart = time;
+	}
+	
+	/**
+	 * Called by the screen when this animation is terminated.
+	 * @param screen TODO
+	 */
+	public void finish(ScreenBattle screen) {
+		playing = false;
 	}
 
 }

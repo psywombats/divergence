@@ -14,15 +14,20 @@ import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Matrix4;
 
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
+import net.wombatrpgs.mgne.graphics.ShaderFromData;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.screen.WindowSettings;
@@ -97,6 +102,8 @@ public class ScreenBattle extends SagaScreen {
 	protected CharaInsert actor;
 	protected ItemSelector abils;
 	protected List<String> meatMessages;
+	protected transient FrameBuffer enemyBuffer;
+	protected transient SpriteBatch enemyBatch, enemyFinalBatch;
 	protected float globalX, globalY;
 	
 	// display toggles
@@ -232,9 +239,12 @@ public class ScreenBattle extends SagaScreen {
 		super.update(elapsed);
 		boolean done = true;
 		for (BattleAnim anim : anims) {
-			if (!anim.isDone()) {
+			if (anim.isDone()) {
+				if (anim.isPlaying()) {
+					anim.finish(this);
+				}
+			} else {
 				done = false;
-				break;
 			}
 		}
 		if (done) {
@@ -317,39 +327,66 @@ public class ScreenBattle extends SagaScreen {
 				off += 1;
 			}
 		}
+		
 		WindowSettings win = MGlobal.window;
+		
+		enemyBuffer.begin();
+		int enemyHeight = win.getViewportHeight() - OPTIONS_HEIGHT - SPRITES_HEIGHT;
+		shapes.begin(ShapeType.Filled);
+		float[] white = SGlobal.graphics.getWhite();
+		shapes.setColor(white[0], white[1], white[2], 0);
+		shapes.rect(0, 0, win.getViewportWidth(), enemyHeight);
+		shapes.end();
 		for (int i = 0 ; i < groups; i += 1) { 
 			List<Chara> group = enemy.getGroup(i);
 			if (group.size() == 0) continue;
 			if (!battle.isEnemyAlive(i)) continue;
 			Graphic portrait = enemy.getFront(i).getPortrait();
 			if (portrait == null) continue;
-			float renderX = globalX + (win.getViewportWidth() - portrait.getWidth()*groups) * (i+1)/(groups+1) +
-					(portrait.getWidth()) * i;
-			float renderY = globalY + OPTIONS_HEIGHT + SPRITES_HEIGHT +
-					((win.getViewportHeight() - OPTIONS_HEIGHT - SPRITES_HEIGHT) - portrait.getHeight()) / 2;
-			portrait.renderAt(batch, renderX, renderY);
+			float renderX = globalX + (win.getViewportWidth() - portrait.getWidth()*groups) *
+					(i+1)/(groups+1) + (portrait.getWidth()) * i;
+			float renderY = ((win.getViewportHeight() - OPTIONS_HEIGHT - SPRITES_HEIGHT) -
+					portrait.getHeight()) / 2;
+			portrait.renderAt(enemyBatch, renderX, renderY);
 			if (selectionMode && i == selectedIndex) {
 				Graphic cursor = MGlobal.ui.getCursor();
-				cursor.renderAt(batch,
+				cursor.renderAt(enemyBatch,
 						renderX - cursor.getWidth() / 2,
 						renderY + (portrait.getHeight() - cursor.getHeight()) / 2);
 			}
 			BattleAnim anim = animsOnGroups.get(i);
 			if (anim != null) {
-				anim.renderAt(batch,
+				anim.renderAt(enemyBatch,
 						renderX + portrait.getWidth() / 2,
 						renderY + portrait.getHeight() / 2);
 			}
 		}
+		enemyBuffer.end();
+		resumeNormalBuffer();
+		
+		enemyFinalBatch.begin();
+		enemyFinalBatch.draw(
+				enemyBuffer.getColorBufferTexture(),			// texture
+				0, globalY + OPTIONS_HEIGHT + SPRITES_HEIGHT,	// x/y in screen space
+				0, 0,											// origin x/y screen
+				win.getViewportWidth(), enemyHeight,			// width/height screen
+				1, 1,											// scale x/y
+				0,												// rotation in degrees
+				0, 0,											// x/y in texel space
+				win.getViewportWidth(), enemyHeight,			// width/height texel
+				false, true										// flip horiz/vert
+			);
+		enemyFinalBatch.end();
+		
 		int players = sprites.size();
 		for (int i = 0; i < players; i += 1) {
 			FacesAnimation anim = sprites.get(i);
-			float renderX = globalX + (win.getViewportWidth() - anim.getWidth()*players) * (i+1)/(players+1) +
-					(anim.getWidth()) * i;
+			float renderX = globalX + (win.getViewportWidth() - anim.getWidth()*players) *
+					(i+1)/(players+1) + (anim.getWidth()) * i;
 			float renderY = globalY + OPTIONS_HEIGHT + (SPRITES_HEIGHT - anim.getHeight()) / 2;
 			anim.renderAt(batch, renderX, renderY);
 		}
+		
 		super.render(batch);
 	}
 
@@ -366,6 +403,29 @@ public class ScreenBattle extends SagaScreen {
 		enemyInserts.setY(globalY + (INSERTS_HEIGHT - enemyInserts.getHeight()) / 2);
 		miniInserts.setX(globalX + (ACTOR_BG_WIDTH - miniInserts.getWidth()) / 2 + 5);
 		miniInserts.setY(globalY + (INSERTS_HEIGHT - miniInserts.getHeight()) / 2);
+		
+		WindowSettings win = MGlobal.window;
+		enemyBuffer = new FrameBuffer(Format.RGB565,
+				win.getViewportWidth(),
+				win.getViewportHeight() - OPTIONS_HEIGHT - SPRITES_HEIGHT,
+				false);
+		enemyBuffer.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		
+		enemyBatch = new SpriteBatch();
+		Matrix4 matrix = new Matrix4();
+		matrix.setToOrtho2D(0, 0,
+				win.getViewportWidth(),
+				win.getViewportHeight() - OPTIONS_HEIGHT - SPRITES_HEIGHT);
+		enemyBatch.setProjectionMatrix(matrix);
+		enemyBatch.setShader(background.getShader());
+		shapes.setProjectionMatrix(matrix);
+		
+		enemyFinalBatch = new SpriteBatch();
+		Matrix4 matrix2 = new Matrix4();
+		matrix2.setToOrtho2D(0, 0,
+				win.getViewportWidth(),
+				win.getViewportHeight());
+		enemyFinalBatch.setProjectionMatrix(matrix2);
 	}
 	
 	/**
@@ -390,6 +450,9 @@ public class ScreenBattle extends SagaScreen {
 		for (FacesAnimation sprite : sprites) {
 			sprite.dispose();
 		}
+		enemyBuffer.dispose();
+		enemyBatch.dispose();
+		enemyFinalBatch.dispose();
 	}
 	
 	/**
@@ -446,7 +509,7 @@ public class ScreenBattle extends SagaScreen {
 		}
 		MGlobal.assets.loadAssets(anims, "battle animation " + animMDO);
 		for (BattleAnim anim : anims) {
-			anim.start();
+			anim.start(this);
 		}
 	}
 	
@@ -676,6 +739,14 @@ public class ScreenBattle extends SagaScreen {
 	 */
 	public void setMeatMessage(List<String> messages) {
 		this.meatMessages = messages;
+	}
+	
+	/**
+	 * Sets the shader used to render all enemy portraits. Used by banims.
+	 * @param	shader			The shader to use for enemies
+	 */
+	public void setBattleShader(ShaderFromData shader) {
+		enemyFinalBatch.setShader(shader);
 	}
 	
 	/**

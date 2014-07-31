@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.saga.screen.ScreenBattle;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimSeriesMDO;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimStripMDO;
 
@@ -24,6 +25,7 @@ public class BattleAnimSeries extends BattleAnim {
 	protected BattleAnimStripMDO stripMDO;
 	
 	protected List<LocatedAnim> strips;
+	protected ScreenBattle screen;
 	protected float stripDuration;
 	protected int finishedCount;
 
@@ -111,11 +113,12 @@ public class BattleAnimSeries extends BattleAnim {
 	}
 
 	/**
-	 * @see net.wombatrpgs.saga.graphics.banim.BattleAnim#start()
+	 * @see net.wombatrpgs.saga.graphics.banim.BattleAnim#start(ScreenBattle)
 	 */
 	@Override
-	public void start() {
-		super.start();
+	public void start(ScreenBattle screen) {
+		super.start(screen);
+		this.screen = screen;
 		update(0);
 	}
 	
@@ -133,7 +136,7 @@ public class BattleAnimSeries extends BattleAnim {
 		int randY = MGlobal.rand.nextInt(range) - range/2;
 		located.x = randX * mdo.granularity;
 		located.y = randY * mdo.granularity;
-		located.strip.start();
+		located.strip.start(screen);
 	}
 
 }

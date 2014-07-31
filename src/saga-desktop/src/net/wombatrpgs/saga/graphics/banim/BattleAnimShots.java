@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.saga.screen.ScreenBattle;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimShotsMDO;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimStripMDO;
 
@@ -24,6 +25,7 @@ public class BattleAnimShots extends BattleAnim {
 	protected BattleAnimStripMDO stripMDO;
 	
 	protected List<LocatedAnim> anims;
+	protected ScreenBattle screen;
 	protected int startedCount, finishedCount;
 	protected float gainX, gainY;
 	protected boolean mirrorHoriz, mirrorVert;
@@ -75,11 +77,12 @@ public class BattleAnimShots extends BattleAnim {
 	}
 
 	/**
-	 * @see net.wombatrpgs.saga.graphics.banim.BattleAnim#start()
+	 * @see net.wombatrpgs.saga.graphics.banim.BattleAnim#start(ScreenBattle)
 	 */
 	@Override
-	public void start() {
-		super.start();
+	public void start(ScreenBattle screen) {
+		super.start(screen);
+		this.screen = screen;
 		
 		for (LocatedAnim anim : anims) {
 			anim.strip.reset();
@@ -117,7 +120,7 @@ public class BattleAnimShots extends BattleAnim {
 					anim.strip.pauseAt(anim.strip.getDuration() - .1f);
 				}
 			} else if (sinceStart >= mdo.delay * i) {
-				anim.strip.start();
+				anim.strip.start(screen);
 				int col = i % mdo.cols;
 				int row = (i - col) / rows;
 				anim.x = (int) (startX + col * (anim.strip.getWidth() + mdo.padX) +
