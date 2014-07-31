@@ -8,6 +8,9 @@
 	"uses" : 0,
 	"cost" : 125,
 	"anim" : "None",
+	"equip" : [
+		"GAUNTLET"
+	],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectPassiveMDO",
 		"key" : "anon_CombatItemMDO_-912754437"

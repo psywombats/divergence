@@ -89,7 +89,28 @@ public class CharaInventory extends Inventory {
 	}
 	
 	/**
-	 * Checks if the given slot can have an item stored in it.
+	 * Checks if the given slot can have the given item stored in it. This
+	 * checks for equipment exclusion flags as well as reserved slots
+	 * @param	slot			The slot to check
+	 * @param	item			The item to be equipped
+	 * @return					True if the item can be equipped there
+	 */
+	public boolean canEquip(int slot, CombatItem item) {
+		if (!equippableAt(slot)) return false;
+		if (item == null) return true;
+		for (int i = 0; i < capacity; i+= 1) {
+			if (slot == i) continue;
+			CombatItem other = get(i);
+			if (other != null && other.sharesFlagWith(item)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Checks if the given slot can have an item stored in it. Does not imply
+	 * that any old item can be put there.
 	 * @param	slot			The slot to check
 	 * @return					True if that slot can have an item, else false
 	 */

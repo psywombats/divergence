@@ -126,6 +126,10 @@ public class ScreenEquip extends SagaScreen {
 					if (selected != -1) {
 						CombatItem left = equipped.get(marked);
 						CombatItem right = inventory.get(selected);
+						if (!equipped.canEquip(marked, right)) {
+							// TODO: sfx: failure sound
+							return false;
+						}
 						equipped.drop(left);
 						inventory.drop(right);
 						equipped.set(marked, right);

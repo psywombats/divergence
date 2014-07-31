@@ -18,6 +18,7 @@ import net.wombatrpgs.mgns.core.PolymorphicLink;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilityType;
+import net.wombatrpgs.sagaschema.rpg.abil.data.EquipmentFlag;
 import net.wombatrpgs.sagaschema.rpg.stats.NumericStatModMDO;
 
 /**
@@ -44,6 +45,9 @@ public class CombatItemMDO extends MainSchema {
 	@SchemaLink(BattleAnimMDO.class)
 	@Nullable
 	public String anim;
+	
+	@Desc("Equipment types - characters can't equip two items that share a flag")
+	public EquipmentFlag[] equip;
 	
 	@Desc("Effect - what happens when this applies")
 	@InlinePolymorphic(AbilEffectMDO.class)
