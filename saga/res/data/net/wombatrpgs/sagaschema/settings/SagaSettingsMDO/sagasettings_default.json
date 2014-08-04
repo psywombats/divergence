@@ -6,5 +6,5 @@
 	"heroParty" : "party_empty",
 	"monsterSettings" : "monstersettings_test",
 	"mutantAbils" : "mutations_test",
-	"graphcisSettings" : "sagagraphics_retouched"
+	"graphicsSettings" : "sagagraphics_retouched"
 }

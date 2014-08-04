@@ -70,6 +70,15 @@ public class SagaGame extends MgnGame {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.core.MgnGame#onDataLoaded()
+	 */
+	@Override
+	public void onDataLoaded() {
+		super.onDataLoaded();
+		SGlobal.preLoad();
+	}
+
+	/**
 	 * @see net.wombatrpgs.mgne.core.MgnGame#onCreate()
 	 */
 	@Override

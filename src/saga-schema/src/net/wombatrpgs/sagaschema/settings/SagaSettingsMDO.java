@@ -34,6 +34,6 @@ public class SagaSettingsMDO extends MainSchema {
 	
 	@Desc("Graphics settings")
 	@SchemaLink(SagaGraphicsMDO.class)
-	public String graphcisSettings;
+	public String graphicsSettings;
 
 }

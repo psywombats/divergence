@@ -49,8 +49,8 @@ public class SagaSettings {
 	/** @return The key of the starting player party */
 	public String getStartingPartyKey() { return mdo.heroParty; }
 	
-	/** @return The key of the default graphcis settings */
-	public String getGraphicsKey() { return mdo.graphcisSettings; }
+	/** @return The key of the default graphics settings */
+	public String getGraphicsKey() { return mdo.graphicsSettings; }
 	
 	/** @return The list of abilities mutants can learn */
 	public MutationSettings getMutations() { return mutations; }

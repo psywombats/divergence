@@ -15,7 +15,7 @@ import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimMDO;
 /**
  * Plays back a battle animation.
  */
-public class AnimPlayback extends PlaybackStep {
+public class PlayAnim extends PlaybackStep {
 	
 	protected BattleAnimMDO animMDO;
 	protected List<Chara> targets;
@@ -26,7 +26,7 @@ public class AnimPlayback extends PlaybackStep {
 	 * @param	animMDO			The MDO of the animation to play
 	 * @param	targets			The targets of the animation
 	 */
-	public AnimPlayback(ScreenBattle screen, BattleAnimMDO animMDO, List<Chara> targets) {
+	public PlayAnim(ScreenBattle screen, BattleAnimMDO animMDO, List<Chara> targets) {
 		super(screen);
 		this.animMDO = animMDO;
 		this.targets = targets;

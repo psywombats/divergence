@@ -34,14 +34,18 @@ public class SGlobal {
 	public static int saveSlot;
 	
 	/**
+	 * Load the game settings. Call immediately after data is initialized.
+	 */
+	public static void preLoad() {
+		settings = new SagaSettings();
+	}
+	
+	/**
 	 * Sets up all the global variables. Called once when game is created.
 	 */
 	public static void globalInit() {
 		
 		List<Queueable> toLoad;
-		
-		// settings first
-		settings = new SagaSettings();
 		toLoad = new ArrayList<Queueable>();
 		
 		// then everything else

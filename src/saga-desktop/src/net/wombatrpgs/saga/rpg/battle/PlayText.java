@@ -11,7 +11,7 @@ import net.wombatrpgs.saga.screen.ScreenBattle;
 /**
  * Plays back some lines of text on the screen.
  */
-public class TextPlayback extends PlaybackStep {
+public class PlayText extends PlaybackStep {
 	
 	protected String text;
 
@@ -20,7 +20,7 @@ public class TextPlayback extends PlaybackStep {
 	 * @param	screen			The screen to create for
 	 * @param	text			The text to play back
 	 */
-	public TextPlayback(ScreenBattle screen, String text) {
+	public PlayText(ScreenBattle screen, String text) {
 		super(screen);
 		this.text = text;
 	}

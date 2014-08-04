@@ -333,6 +333,9 @@ public class Battle extends AssetQueuer implements Disposable {
 		String tab = SConstants.TAB;
 		String victimname = target.getName();
 		if (damage > 0) {
+			if (player.contains(target)) {
+				screen.shake(target);
+			}
 			println(SConstants.TAB + victimname + " takes " + damage + " damage.");
 		} else {
 			println(tab + victimname + " takes no damage.");

@@ -15,7 +15,7 @@ import net.wombatrpgs.saga.screen.ScreenBattle;
 /**
  * Number damage playback for when someone gets hit.
  */
-public class NumberPlayback extends PlaybackStep {
+public class PlayNumber extends PlaybackStep {
 	
 	protected NumberPopup popup;
 	protected List<Chara> targets;
@@ -24,7 +24,7 @@ public class NumberPlayback extends PlaybackStep {
 	 * Creates a number playback for some enemies.
 	 * @param screen
 	 */
-	public NumberPlayback(ScreenBattle screen, int damage, List<Chara> targets) {
+	public PlayNumber(ScreenBattle screen, int damage, List<Chara> targets) {
 		super(screen);
 		this.targets = targets;
 		popup = new NumberPopup(damage);
