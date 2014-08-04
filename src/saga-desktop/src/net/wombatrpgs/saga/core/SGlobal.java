@@ -45,7 +45,7 @@ public class SGlobal {
 		toLoad = new ArrayList<Queueable>();
 		
 		// then everything else
-		graphics = new SGraphics();
+		graphics = (SGraphics) MGlobal.graphics;
 		String partyKey = MGlobal.args.get("party");
 		if (partyKey == null) {
 			heroes = new HeroParty();

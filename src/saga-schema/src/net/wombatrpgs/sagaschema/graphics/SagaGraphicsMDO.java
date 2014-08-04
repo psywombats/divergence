@@ -7,6 +7,7 @@
 package net.wombatrpgs.sagaschema.graphics;
 
 import net.wombatrpgs.mgneschema.graphics.ShaderMDO;
+import net.wombatrpgs.mgneschema.ui.FontMDO;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
@@ -21,6 +22,10 @@ public class SagaGraphicsMDO extends MainSchema {
 	@Desc("Shader - used to render pretty much everything")
 	@SchemaLink(ShaderMDO.class)
 	public String shader;
+	
+	@Desc("Battle popup font - used to draw damage numbers")
+	@SchemaLink(FontMDO.class)
+	public String font;
 	
 	@Desc("Filter black - what shaders treat as black in source graphics, use rrr,ggg,bbb format")
 	public String filterBlack;

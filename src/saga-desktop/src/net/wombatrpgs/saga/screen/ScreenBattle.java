@@ -40,10 +40,12 @@ import net.wombatrpgs.mgne.ui.text.TextboxFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.saga.core.SGlobal;
+import net.wombatrpgs.saga.graphics.PortraitAnim;
 import net.wombatrpgs.saga.graphics.banim.BattleAnim;
 import net.wombatrpgs.saga.graphics.banim.BattleAnimFactory;
 import net.wombatrpgs.saga.rpg.battle.AnimPlayback;
 import net.wombatrpgs.saga.rpg.battle.Battle;
+import net.wombatrpgs.saga.rpg.battle.NumberPlayback;
 import net.wombatrpgs.saga.rpg.battle.PlaybackStep;
 import net.wombatrpgs.saga.rpg.battle.TextPlayback;
 import net.wombatrpgs.saga.rpg.battle.Intent.TargetListener;
@@ -120,8 +122,8 @@ public class ScreenBattle extends SagaScreen {
 	
 	// animation + graphics
 	protected List<PlaybackStep> playbackQueue;
-	protected List<BattleAnim> anims;
-	protected Map<Integer, BattleAnim> animsOnGroups;
+	protected List<PortraitAnim> anims;
+	protected Map<Integer, PortraitAnim> animsOnGroups;
 	
 	/**
 	 * Creates a new combat setup. This initializes the screen and passes the
@@ -217,8 +219,8 @@ public class ScreenBattle extends SagaScreen {
 		meatFormat.x = (int) (globalX + MONSTERLIST_WIDTH + ABILS_EDGE_PADDING);
 		meatFormat.y = (int) (globalY + OPTIONS_HEIGHT - ABILS_VERT_FUDGE - font.getLineHeight()*3);
 		
-		anims = new ArrayList<BattleAnim>();
-		animsOnGroups = new HashMap<Integer, BattleAnim>();
+		anims = new ArrayList<PortraitAnim>();
+		animsOnGroups = new HashMap<Integer, PortraitAnim>();
 		playbackQueue = new ArrayList<PlaybackStep>();
 	}
 	
@@ -238,7 +240,7 @@ public class ScreenBattle extends SagaScreen {
 	public void update(float elapsed) {
 		super.update(elapsed);
 		boolean done = true;
-		for (BattleAnim anim : anims) {
+		for (PortraitAnim anim : anims) {
 			if (anim.isDone()) {
 				if (anim.isPlaying()) {
 					anim.finish(this);
@@ -248,7 +250,7 @@ public class ScreenBattle extends SagaScreen {
 			}
 		}
 		if (done) {
-			for (BattleAnim anim : anims) {
+			for (PortraitAnim anim : anims) {
 				removeUChild(anim);
 				anim.dispose();
 			}
@@ -354,7 +356,7 @@ public class ScreenBattle extends SagaScreen {
 						renderX - cursor.getWidth() / 2,
 						renderY + (portrait.getHeight() - cursor.getHeight()) / 2);
 			}
-			BattleAnim anim = animsOnGroups.get(i);
+			PortraitAnim anim = animsOnGroups.get(i);
 			if (anim != null) {
 				anim.renderAt(enemyBatch,
 						renderX + portrait.getWidth() / 2,
@@ -489,18 +491,12 @@ public class ScreenBattle extends SagaScreen {
 	}
 	
 	/**
-	 * Immdiately plays a battle animation without regard for the anim queue.
+	 * Immediately plays a battle animation without regard for the anim queue.
 	 * @param	animMDO			The mdo of the animation to play
 	 * @param	targets			The targets to play it on
 	 */
 	public void immediateAnimate(BattleAnimMDO animMDO, List<Chara> targets) {
-		List<Integer> groups = new ArrayList<Integer>();
-		for (Chara enemy : targets) {
-			int index = battle.getEnemy().index(enemy);
-			if (!groups.contains(index)) {
-				groups.add(index);
-			}
-		}
+		List<Integer> groups = constructGroups(targets);
 		for (Integer index : groups) {
 			BattleAnim anim = BattleAnimFactory.create(animMDO);
 			anims.add(anim);
@@ -508,9 +504,25 @@ public class ScreenBattle extends SagaScreen {
 			addUChild(anim);
 		}
 		MGlobal.assets.loadAssets(anims, "battle animation " + animMDO);
-		for (BattleAnim anim : anims) {
+		for (PortraitAnim anim : anims) {
 			anim.start(this);
 		}
+	}
+	
+	/**
+	 * Animates a pre-loaded battle animation. Disregards animation queue. Only
+	 * call this from anim step classes, basically.
+	 * @param	anim			The animation to play
+	 * @param	targets			The targets to play it on
+	 */
+	public void immediateAnimate(PortraitAnim anim, List<Chara> targets) {
+		List<Integer> groups = constructGroups(targets);
+		anims.add(anim);
+		addUChild(anim);
+		for (Integer index : groups) {
+			animsOnGroups.put(index, anim);
+		}
+		anim.start(this);
 	}
 	
 	/**
@@ -522,7 +534,18 @@ public class ScreenBattle extends SagaScreen {
 	 * @param	targets			The enemies to play the animation on
 	 */
 	public void animate(BattleAnimMDO animMDO, List<Chara> targets) {
-		AnimPlayback step = new AnimPlayback(this, animMDO, targets);
+		PlaybackStep step = new AnimPlayback(this, animMDO, targets);
+		playbackQueue.add(step);
+	}
+	
+	/**
+	 * Plays the damage-taken animation on some targets. Respects playback. This
+	 * is the number popup equivalent of battle animations.
+	 * @param	damage			The damage takne
+	 * @param	targets			The targets taking the damage
+	 */
+	public void animateDamage(int damage, List<Chara> targets) {
+		PlaybackStep step = new NumberPlayback(this, damage, targets);
 		playbackQueue.add(step);
 	}
 	
@@ -847,6 +870,22 @@ public class ScreenBattle extends SagaScreen {
 	protected void cancelSelectionMode() {
 		selectionMode = false;
 		popCommandListener();
+	}
+	
+	/**
+	 * Constructs a set of the indices of groups containing the targets
+	 * @param	targets			The targets to get the groups of
+	 * @return					A list of the groups containing those targets
+	 */
+	protected List<Integer> constructGroups(List<Chara> targets) {
+		List<Integer> groups = new ArrayList<Integer>();
+		for (Chara enemy : targets) {
+			int index = battle.getEnemy().index(enemy);
+			if (!groups.contains(index)) {
+				groups.add(index);
+			}
+		}
+		return groups;
 	}
 
 }

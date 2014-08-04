@@ -20,7 +20,7 @@ import net.wombatrpgs.sagaschema.rpg.warheads.EffectStatCandyMDO;
 /**
  * HP200, Strong, etc.
  */
-public class EffectStatCandy extends EffectBattleUnuseable {
+public class EffectStatCandy extends EffectBattleUnusable {
 	
 	protected EffectStatCandyMDO mdo;
 

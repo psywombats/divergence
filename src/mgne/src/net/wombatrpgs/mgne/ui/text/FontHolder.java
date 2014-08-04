@@ -32,6 +32,14 @@ public class FontHolder implements Queueable {
 	public FontHolder(FontMDO mdo) {
 		this.mdo = mdo;
 	}
+	
+	/**
+	 * Creates a new font holder from the key to some data.
+	 * @param	mdoKey			The key to the data to generate from
+	 */
+	public FontHolder(String mdoKey) {
+		this(MGlobal.data.getEntryFor(mdoKey, FontMDO.class));
+	}
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets

@@ -15,14 +15,14 @@ import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 /**
  * Any effect that cannot be used in battle.
  */
-public abstract class EffectBattleUnuseable extends AbilEffect {
+public abstract class EffectBattleUnusable extends AbilEffect {
 
 	/**
 	 * Inherited constructor.
 	 * @param	mdo				The data to create the item from
 	 * @param	item			The item to create the item for
 	 */
-	public EffectBattleUnuseable(AbilEffectMDO mdo, CombatItem item) {
+	public EffectBattleUnusable(AbilEffectMDO mdo, CombatItem item) {
 		super(mdo, item);
 	}
 

@@ -14,7 +14,7 @@ import net.wombatrpgs.sagaschema.rpg.warheads.EffectNothingMDO;
 /**
  * Items unusable in battle and in the field.
  */
-public class EffectNothing extends EffectBattleUnuseable {
+public class EffectNothing extends EffectBattleUnusable {
 
 	/**
 	 * Inherited constructor.
