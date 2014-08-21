@@ -333,6 +333,15 @@ public abstract class Level extends ScreenObject {
 	}
 	
 	/**
+	 * Called when hero lands on this map.
+	 */
+	public void onFocusGained() {
+		for (MapThing object : objects) {
+			object.onMapFocusGained(this);
+		}
+	}
+	
+	/**
 	 * Determiens if an object will exist on this level in the upcoming update.
 	 * This doesn't check the active objects, but also the objects in the queue
 	 * for adding and excludes the removal queue. (actually there is no add

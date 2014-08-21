@@ -99,17 +99,25 @@ public abstract class MapThing extends AssetQueuer implements	Renderable,
 	}
 	
 	/**
+	 * Called when the parent map teleports on to us. Default does nothing
+	 * @param	map				The map that gained focus, should be our parent
+	 */
+	public void onMapFocusGained(Level map) {
+		// default is nothing
+	}
+
+	/**
 	 * Called when the parent map loses focus due to the hero teleporting to
 	 * someplace else. Default does nothing.
 	 * @param 	map				The map that lost focus, should be our parent
 	 */
 	public void onMapFocusLost(Level map) {
-		// default is nothing.
+		// default is nothing
 	}
-
+	
 	/**
-	 * Called when this object is tele'd onto a map.
-	 * @param 	map				The map this object is being removed from
+	 * Called when this object is put onto a map, by spawn or by tele
+	 * @param 	map				The map this object is being add to
 	 */
 	public void onAddedToMap(Level map) {
 		this.parent = map;

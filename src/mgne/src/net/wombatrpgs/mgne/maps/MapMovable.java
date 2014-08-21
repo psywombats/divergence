@@ -160,8 +160,9 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 			if (x == targetX && y == targetY) {
 				tracking = false;
 				if (trackingListener != null) {
-					trackingListener.onFinish();
+					FinishListener listener = trackingListener;
 					trackingListener = null;
+					listener.onFinish();
 				}
 			}
 		}

@@ -116,6 +116,7 @@ public class TeleportManager implements Queueable {
 		old.update(0);
 		
 		map.addEvent(MGlobal.getHero(), tileX, tileY);
+		map.onFocusGained();
 		MGlobal.levelManager.getScreen().getCamera().update(0);
 		MGlobal.levelManager.setActive(map);
 

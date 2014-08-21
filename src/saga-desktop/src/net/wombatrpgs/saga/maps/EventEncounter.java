@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Polygon;
 import net.wombatrpgs.mgne.core.Avatar;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
+import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.saga.rpg.battle.Battle;
@@ -28,6 +29,7 @@ public class EventEncounter extends MapEvent {
 	
 	protected EncounterSetMDO mdo;
 	protected Polygon polygon;
+	protected FinishListener onStep;
 	protected int lastX, lastY;
 	
 	/**
@@ -38,27 +40,37 @@ public class EventEncounter extends MapEvent {
 		String key = object.getString(TiledMapObject.PROPERTY_MDO);
 		mdo = MGlobal.data.getEntryFor(key, EncounterSetMDO.class);
 		polygon = object.getPolygon();
+		onStep = new FinishListener() {
+			@Override public void onFinish() {
+				Avatar hero = MGlobal.getHero();
+				if (MGlobal.rand.nextInt(mdo.steps) == 0 &&
+						polygon.contains(hero.getX(), hero.getY())) {
+					encounter();
+				}
+			}
+		};
+	}
+	
+	/**
+	 * @see net.wombatrpgs.mgne.maps.MapThing#onMapFocusGained
+	 * (net.wombatrpgs.mgne.maps.Level)
+	 */
+	@Override
+	public void onMapFocusGained(Level map) {
+		super.onMapFocusGained(map);
+		MGlobal.getHero().addStepListener(onStep);
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.maps.events.MapEvent#update(float)
+	 * @see net.wombatrpgs.mgne.maps.MapThing#onMapFocusLost
+	 * (net.wombatrpgs.mgne.maps.Level)
 	 */
 	@Override
-	public void update(float elapsed) {
-		super.update(elapsed);
-		final Avatar hero = MGlobal.getHero();
-		if (polygon.contains(hero.getX(), hero.getY())) {
-			hero.addTrackingListener(new FinishListener() {
-				@Override public void onFinish() {
-					if (MGlobal.rand.nextInt(mdo.steps) == 0 &&
-							polygon.contains(hero.getX(), hero.getY())) {
-						encounter();
-					}
-				}
-			});
-		}
+	public void onMapFocusLost(Level map) {
+		super.onMapFocusLost(map);
+		MGlobal.getHero().removeStepListener(onStep);
 	}
-	
+
 	/**
 	 * Starts an encounter with a group included in this encounter set.
 	 */
