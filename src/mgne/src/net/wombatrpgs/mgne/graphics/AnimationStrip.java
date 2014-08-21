@@ -191,18 +191,18 @@ public class AnimationStrip implements	PosRenderable,
 			case REPEAT:
 				looping = true;
 				anim = new Animation(1.0f/mdo.animSpeed, frames);
-				anim.setPlayMode(Animation.LOOP);
+				anim.setPlayMode(Animation.PlayMode.LOOP);
 				break;
 			case DO_NOTHING:
 				// big number = infinity
 				looping = false;
 				anim = new Animation(1000000f, frames);
-				anim.setPlayMode(Animation.LOOP);
+				anim.setPlayMode(Animation.PlayMode.LOOP);
 				break;
 			case PLAY_ONCE:
 				looping = false;
 				anim = new Animation(1.0f/mdo.animSpeed, frames);
-				anim.setPlayMode(Animation.NORMAL);
+				anim.setPlayMode(Animation.PlayMode.NORMAL);
 				break;
 			}
 		} else {

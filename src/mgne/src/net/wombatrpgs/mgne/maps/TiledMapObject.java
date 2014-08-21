@@ -55,17 +55,20 @@ public class TiledMapObject {
 	/** @return The integer value of the provided key */
 	public int getInt(String key) { return object.getProperties().get(key, Integer.class); }
 	
+	/** @return The float value of the provided key */
+	public float getFloat(String key) { return object.getProperties().get(key, Float.class); }
+	
 	/** @return The x-coord of this object on the map (in pixels) */
-	public int getX() { return getInt(PROPERTY_X); }
+	public int getX() { return Math.round(getFloat(PROPERTY_X)); }
 	
 	/** @return The y-coord of this object on the map (in pixels) */
-	public int getY() { return getInt(PROPERTY_Y); }
+	public int getY() { return Math.round(getFloat(PROPERTY_Y)); }
 	
 	/** @return The x-coord of this object on the map (in tiles) */
-	public int getTileX() { return getX() / parent.getTileWidth(); }
+	public int getTileX() { return (int) (getX() / parent.getTileWidth()); }
 	
 	/** @return The y-coord of this object on the map (in tiles) */
-	public int getTileY() { return getY() / parent.getTileWidth(); }
+	public int getTileY() { return (int) (getY() / parent.getTileWidth()); }
 	
 	/**
 	 * Reads the map object's event type from its property list. Reports a
