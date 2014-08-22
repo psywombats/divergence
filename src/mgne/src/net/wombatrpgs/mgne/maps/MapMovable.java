@@ -6,6 +6,9 @@
  */
 package net.wombatrpgs.mgne.maps;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -29,13 +32,14 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	protected float lastX, lastY;
 	
 	/** Misc */
-	protected FinishListener trackingListener;
+	protected List<FinishListener> trackingListeners;
 	
 	/**
 	 * Creates a new movable map thing. No data required.
 	 */
 	public MapMovable() {
 		zeroCoords();
+		trackingListeners = new ArrayList<FinishListener>();
 	}
 	
 	/** @see net.wombatrpgs.mgne.maps.Positionable#getX() */
@@ -69,7 +73,7 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	public boolean isMoving() { return vx != 0 || vy != 0; }
 	
 	/** @param Listener to call when tracking is finished */
-	public void addTrackingListener(FinishListener listener) { this.trackingListener = listener; }
+	public void addTrackingListener(FinishListener listener) { trackingListeners.add(listener); }
 	
 	/**
 	 * Updates the effective velocity of this map object.
@@ -159,9 +163,12 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 			}
 			if (x == targetX && y == targetY) {
 				tracking = false;
-				if (trackingListener != null) {
-					FinishListener listener = trackingListener;
-					trackingListener = null;
+				List<FinishListener> oldListeners = new ArrayList<FinishListener>();
+				for (FinishListener listener : trackingListeners) {
+					oldListeners.add(listener);
+				}
+				trackingListeners.clear();
+				for (FinishListener listener : oldListeners) {
 					listener.onFinish();
 				}
 			}

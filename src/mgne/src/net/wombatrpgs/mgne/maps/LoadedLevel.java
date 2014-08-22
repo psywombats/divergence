@@ -62,6 +62,9 @@ public class LoadedLevel extends Level {
 	
 	/** @return The event layer with all events on this map */
 	public EventLayer getEventLayer() { return eventLayer; }
+
+	/** @return The tiled map behind this loaded level */
+	public TiledMap getMap() { return map; }
 	
 	/**
 	 * @see net.wombatrpgs.mgne.screen.ScreenObject#queueRequiredAssets

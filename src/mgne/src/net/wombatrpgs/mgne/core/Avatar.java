@@ -24,6 +24,7 @@ public class Avatar extends MapEvent implements CommandListener {
 	protected static final String HERO_DEFAULT = "event_hero";
 	
 	protected List<FinishListener> stepListeners;
+	protected boolean paused;
 
 	/**
 	 * For real hero constructor. Looks up the avatar in the database and
@@ -53,6 +54,14 @@ public class Avatar extends MapEvent implements CommandListener {
 	}
 	
 	/**
+	 * Sets the paused state. Paused heroes can't move or interact.
+	 * @param	paused			True to pause, false to unpause
+	 */
+	public void pause(boolean paused) {
+		this.paused = paused;
+	}
+	
+	/**
 	 * Adds a callback for when the hero finishes taking a step. Make sure to
 	 * remove it when no longer necessary.
 	 * @param	listener		The listener to call
@@ -78,7 +87,7 @@ public class Avatar extends MapEvent implements CommandListener {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-		if (!tracking) {
+		if (!tracking && !paused) {
 			switch (command) {
 			case MOVE_LEFT:			move(OrthoDir.WEST);	break;
 			case MOVE_UP:			move(OrthoDir.NORTH);	break;
@@ -126,8 +135,8 @@ public class Avatar extends MapEvent implements CommandListener {
 			@Override public void onFinish() {
 				for (FinishListener listener : stepListeners) {
 					listener.onFinish();
-					addStepTracker();
 				}
+				addStepTracker();
 			}
 		});
 	}

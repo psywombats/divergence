@@ -79,12 +79,6 @@ public class ScreenWorld extends SagaScreen implements HeroSource {
 	@Override
 	public void postProcessing(MAssets manager, int pass) {
 		super.postProcessing(manager, pass);
-		if (hero != null) {
-			hero.postProcessing(manager, pass);
-		}
-		if (map != null) {
-			map.postProcessing(manager, pass);
-		}
 		if (pass == 0 && hero.getParent() == null) {
 			hero.setTileX(mdo.mapX);
 			hero.setTileY(mdo.mapY);

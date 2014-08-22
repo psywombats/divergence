@@ -41,7 +41,7 @@ public class SagaGame extends MgnGame {
 		} else {
 			screen = new ScreenTitle();
 		}
-		MGlobal.assets.loadAsset(screen, "starter screen");
+		//MGlobal.assets.loadAsset(screen, "starter screen");
 		return screen;
 	}
 
