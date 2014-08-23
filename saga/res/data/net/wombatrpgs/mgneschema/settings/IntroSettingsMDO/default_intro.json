@@ -3,7 +3,7 @@
 	"subfolder" : "",
 	"name" : "  ",
 	"description" : "engine searches for this mdo by name",
-	"map" : "map_blank",
+	"map" : "test.tmx",
 	"mapX" : 3,
 	"mapY" : 2,
 	"titleBG" : "bad_title.png"

@@ -234,9 +234,6 @@
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
-  <properties>
-   <property name="z" value=".5"/>
-  </properties>
   <object name="bort the bozo" type="Character" x="240" y="192" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
