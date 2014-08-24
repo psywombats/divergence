@@ -43,8 +43,14 @@ public class ScreenWorld extends SagaScreen implements HeroSource {
 		MGlobal.levelManager.setScreen(this);
 		MGlobal.levelManager.setHeroTracker(this);
 		
-		IntroSettingsMDO introMDO = MGlobal.data.getEntryFor(key, IntroSettingsMDO.class);
-		map = MGlobal.levelManager.getLevel(introMDO.map);
+		String introMapName;
+		if (MGlobal.args.get("map") != null) {
+			introMapName = MGlobal.args.get("map");
+		} else {
+			IntroSettingsMDO introMDO = MGlobal.data.getEntryFor(key, IntroSettingsMDO.class);
+			introMapName = introMDO.map;
+		}
+		map = MGlobal.levelManager.getLevel(introMapName);
 		MGlobal.levelManager.setActive(map);
 		if (map.getBGM() != null) {
 			MGlobal.screens.playMusic(map.getBGM(), false);
@@ -80,13 +86,18 @@ public class ScreenWorld extends SagaScreen implements HeroSource {
 	public void postProcessing(MAssets manager, int pass) {
 		super.postProcessing(manager, pass);
 		if (pass == 0 && hero.getParent() == null) {
-			hero.setTileX(mdo.mapX);
-			hero.setTileY(mdo.mapY);
-			while (!map.isTilePassable(hero.getTileX(), hero.getTileY())) {
-				hero.setTileX(MGlobal.rand.nextInt(map.getWidth()));
-				hero.setTileY(MGlobal.rand.nextInt(map.getHeight()));
-			}
 			map.addEvent(hero);
+			if (MGlobal.args.get("x") == null) {
+				hero.setTileX(mdo.mapX);
+				hero.setTileY(mdo.mapY);
+			} else {
+				hero.setTileX(Integer.valueOf(MGlobal.args.get("x")));
+				hero.setTileY(hero.getParent().getHeight()-Integer.valueOf(MGlobal.args.get("y"))-1);
+			}
+//			while (!map.isTilePassable(hero.getTileX(), hero.getTileY())) {
+//				hero.setTileX(MGlobal.rand.nextInt(map.getWidth()));
+//				hero.setTileY(MGlobal.rand.nextInt(map.getHeight()));
+//			}
 			map.onFocusGained();
 			hero.setX(hero.getTileX()*map.getTileWidth());
 			hero.setY(hero.getTileY()*map.getTileHeight());

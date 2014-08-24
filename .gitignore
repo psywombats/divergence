@@ -18,3 +18,8 @@ Thumbs.db
 *.log
 *.sav
 *.kryo
+
+# MGN binaries #
+################
+saga/game.jar
+saga/res/jar/SagaSchema.jar

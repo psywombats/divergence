@@ -6,11 +6,9 @@
  */
 package net.wombatrpgs.mgneschema.settings;
 
-import net.wombatrpgs.mgneschema.maps.data.MapMDO;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.FileLink;
 import net.wombatrpgs.mgns.core.Annotations.Path;
-import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 
 /**
@@ -20,7 +18,7 @@ import net.wombatrpgs.mgns.core.MainSchema;
 public class IntroSettingsMDO extends MainSchema {
 	
 	@Desc("Map - the map that things open on, usually a blank screen with the hero on it")
-	@SchemaLink(MapMDO.class)
+	@FileLink("maps")
 	public String map;
 	
 	@Desc("Start x - tile on the map where hero starts, x-coord")
