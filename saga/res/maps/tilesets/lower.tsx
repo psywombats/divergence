@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset name="lower" tilewidth="16" tileheight="16">
-<<<<<<< HEAD
- <image source="lower2.PNG" trans="ff0080" width="128" height="128"/>
-=======
  <image source="lower2.PNG" width="112" height="256"/>
  <tile id="3">
   <properties>
@@ -196,5 +193,4 @@
    <property name="x" value=""/>
   </properties>
  </tile>
->>>>>>> 121eb484f1295c8d3cff10a46031f8a8eb24eb7f
 </tileset>
