@@ -16,6 +16,7 @@ import net.wombatrpgs.mgne.maps.events.MapEvent;
 public class SagaEventFactory extends EventFactory {
 	
 	protected static final String TYPE_ENCOUNTER = "Encounter";
+	protected static final String TYPE_CEILING = "Ceiling";
 
 	/**
 	 * @see net.wombatrpgs.mgne.maps.events.EventFactory#createEvent
@@ -24,8 +25,10 @@ public class SagaEventFactory extends EventFactory {
 	@Override
 	protected MapEvent createEvent(TiledMapObject object) {
 		String type = object.getString(TiledMapObject.PROPERTY_TYPE);
-		if (type.equals(TYPE_ENCOUNTER)) {
+		if (TYPE_ENCOUNTER.equals(type)) {
 			return new EventEncounter(object);
+		} else if (TYPE_CEILING.equals(type)) {
+			return new EventCeiling(object);
 		}
 		return super.createEvent(object);
 	}

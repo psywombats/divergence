@@ -15,7 +15,6 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.audio.MusicObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.maps.layers.EventLayer;
-import net.wombatrpgs.mgne.maps.layers.GeneratedGridLayer;
 import net.wombatrpgs.mgne.maps.layers.GridLayer;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.ScreenObject;
@@ -172,7 +171,7 @@ public abstract class Level extends ScreenObject {
 	 * anyone but the map generator.
 	 * @param	layer			The layer to add
 	 */
-	public void addGridLayer(GeneratedGridLayer layer) {
+	public void addGridLayer(GridLayer layer) {
 		gridLayers.add(layer);
 	}
 	
@@ -329,6 +328,15 @@ public abstract class Level extends ScreenObject {
 	public void onFocusLost() {
 		for (MapThing object : objects) {
 			object.onMapFocusLost(this);
+		}
+	}
+	
+	/**
+	 * Called when hero lands on this map.
+	 */
+	public void onFocusGained() {
+		for (MapThing object : objects) {
+			object.onMapFocusGained(this);
 		}
 	}
 	

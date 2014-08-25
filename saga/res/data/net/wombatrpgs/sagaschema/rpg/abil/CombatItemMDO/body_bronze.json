@@ -8,6 +8,9 @@
 	"uses" : 0,
 	"cost" : 80,
 	"anim" : "None",
+	"equip" : [
+		"ARMOR"
+	],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectPassiveMDO",
 		"key" : "anon_CombatItemMDO_478147442"

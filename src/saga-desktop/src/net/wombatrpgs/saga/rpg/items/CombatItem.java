@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.saga.rpg.items;
 
+import java.util.EnumSet;
+
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.MapThing;
@@ -18,6 +20,7 @@ import net.wombatrpgs.saga.rpg.warheads.AbilEffectFactory;
 import net.wombatrpgs.saga.screen.TargetSelectable;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
+import net.wombatrpgs.sagaschema.rpg.abil.data.EquipmentFlag;
 
 /**
  * Represents the combat item MDO. This could be an item or ability, but either
@@ -30,6 +33,7 @@ public class CombatItem extends AssetQueuer {
 	protected Inventory container;
 	protected AbilEffect effect;
 	protected String name;
+	protected EnumSet<EquipmentFlag> equipFlags;
 	protected SagaStats stats, robostats;
 	protected int uses, usesWhenAdded;
 	
@@ -48,6 +52,12 @@ public class CombatItem extends AssetQueuer {
 		if (mdo.warhead != null) {
 			effect = AbilEffectFactory.create(mdo.warhead.key, this);
 			assets.add(effect);
+		}
+		
+		if (mdo.equip != null && mdo.equip.length > 0) {
+			equipFlags = EnumSet.of(mdo.equip[0], mdo.equip);
+		} else {
+			equipFlags = EnumSet.noneOf(EquipmentFlag.class);
 		}
 	}
 	
@@ -262,6 +272,21 @@ public class CombatItem extends AssetQueuer {
 	 */
 	public int getCost() {
 		return container.valueOf(this);
+	}
+	
+	/**
+	 * Checks if this item shares an equipemnt flag with another item, which
+	 * would indicate they are both helmets etc.
+	 * @param	other			The item to check against
+	 * @return					True if the items share a flag, false otherwise
+	 */
+	public boolean sharesFlagWith(CombatItem other) {
+		for (EquipmentFlag flag : equipFlags) {
+			if (other.equipFlags.contains(flag)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**

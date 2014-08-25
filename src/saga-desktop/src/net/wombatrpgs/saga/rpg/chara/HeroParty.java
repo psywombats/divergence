@@ -73,6 +73,7 @@ public class HeroParty extends Party {
 		group.add(hero);
 		groups.add(group);
 		members.add(hero);
+		assets.add(hero);
 	}
 	
 	/**

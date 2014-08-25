@@ -13,7 +13,9 @@ import com.badlogic.gdx.math.Vector3;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.BatchWithShader;
+import net.wombatrpgs.mgne.graphics.GraphicsSettings;
 import net.wombatrpgs.mgne.graphics.ShaderFromData;
+import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgneschema.graphics.ShaderMDO;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.sagaschema.graphics.PaletteMDO;
@@ -22,10 +24,11 @@ import net.wombatrpgs.sagaschema.graphics.SagaGraphicsMDO;
 /**
  * SaGa-style graphics settings.
  */
-public class SGraphics {
+public class SGraphics extends GraphicsSettings {
 	
 	protected SagaGraphicsMDO mdo;
 	
+	protected FontHolder numFont;
 	protected float[] white, black;
 	
 	/**
@@ -46,6 +49,9 @@ public class SGraphics {
 		black[0] = cBlack.x;
 		black[1] = cBlack.y;
 		black[2] = cBlack.z;
+		
+		numFont = new FontHolder(mdo.font);
+		assets.add(numFont);
 	}
 	
 	/**
@@ -101,6 +107,14 @@ public class SGraphics {
 	 */
 	public ShaderMDO getWipeShaderMDO() {
 		return MGlobal.data.getEntryFor(mdo.wipeShader, ShaderMDO.class);
+	}
+	
+	/**
+	 * Returns the font for rendering battle popup numbers.
+	 * @return					The number popup font
+	 */
+	public FontHolder getNumFont() {
+		return numFont;
 	}
 	
 	/**

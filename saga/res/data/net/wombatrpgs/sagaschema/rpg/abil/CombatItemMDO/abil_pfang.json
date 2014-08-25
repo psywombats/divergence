@@ -7,7 +7,7 @@
 	"type" : "ABILITY",
 	"uses" : 25,
 	"cost" : 0,
-	"anim" : "None",
+	"anim" : "banim_slash_double",
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
 		"key" : "anon_CombatItemMDO_1770747656"

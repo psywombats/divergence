@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.sagaschema.graphics.banim.data;
 
+import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.HeadlessSchema;
 import net.wombatrpgs.mgns.core.Annotations.FileLink;
@@ -32,5 +33,9 @@ public class BattleStepMDO extends HeadlessSchema {
 	@Desc("Appear y - y-coord the sprite's center appears at relative to the " +
 			"center of the enemy battle portrait")
 	public Float y;
+	
+	@Desc("Rotation type - enable if the result of rotation is good-looking and distinct")
+	@DefaultValue("ROTATION_DISABLED")
+	public RotationType rotation;
 
 }

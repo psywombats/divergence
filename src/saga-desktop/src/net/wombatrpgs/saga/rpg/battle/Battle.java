@@ -47,6 +47,7 @@ import net.wombatrpgs.sagaschema.rpg.stats.Flag;
 public class Battle extends AssetQueuer implements Disposable {
 	
 	protected static final float AMBUSH_RATE = .15f;
+	protected static final boolean POPUP_MODE = true;
 	
 	// battle attributes
 	protected ScreenBattle screen;
@@ -319,6 +320,26 @@ public class Battle extends AssetQueuer implements Disposable {
 	 */
 	public void println(String line) {
 		screen.println(line);
+	}
+	
+	/**
+	 * Prints a message or displays an animation the conveys to the player that
+	 * a character has taken damage. This depends on some ugly static flags and
+	 * will just be finalized with whatever looks better.
+	 * @param	target			The target taking damage
+	 * @param	damage			The damage being taken
+	 */
+	public void damagePlayback(Chara target, int damage) {
+		String tab = SConstants.TAB;
+		String victimname = target.getName();
+		if (damage > 0) {
+			if (player.contains(target)) {
+				screen.shake(target);
+			}
+			println(SConstants.TAB + victimname + " takes " + damage + " damage.");
+		} else {
+			println(tab + victimname + " takes no damage.");
+		}
 	}
 	
 	/**
@@ -790,8 +811,6 @@ public class Battle extends AssetQueuer implements Disposable {
 			}
 		}
 		for (int i = 0; i < player.groupCount(); i += 1) {
-			// TODO: battle: status effect display
-			// TODO: battle: chara revive display
 			boolean dead = player.getFront(i).isDead();
 			if (dead && isPlayerAlive(i)) {
 				screen.onPlayerDeath(i);

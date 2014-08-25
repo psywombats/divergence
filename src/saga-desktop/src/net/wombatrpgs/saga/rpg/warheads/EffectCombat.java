@@ -25,9 +25,12 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 import net.wombatrpgs.sagaschema.rpg.warheads.EffectCombatMDO;
 
 /**
- * Superclass for some common combat ability effects.
+ * Superclass for some common combat ability effects. Specifically, the ones
+ * that involve hitting people in the face.
  */
 public abstract class EffectCombat extends EffectEnemyTarget {
+	
+	protected static final float STUN_CHANCE = .6f;
 	
 	protected EffectCombatMDO mdo;
 
@@ -91,7 +94,7 @@ public abstract class EffectCombat extends EffectEnemyTarget {
 				}
 			}
 			if (damage > 0) {
-				battle.println(tab + victimname + " takes " + damage + " damage.");
+				battle.damagePlayback(victim, damage);
 				victim.damage(damage, isPhysical());
 				battle.checkDeath(victim, false);
 				if (effect(OffenseFlag.DRAIN_LIFE) && !victim.is(Flag.UNDEAD)) {
@@ -101,10 +104,10 @@ public abstract class EffectCombat extends EffectEnemyTarget {
 					}
 				}
 			} else {
-				battle.println(tab + victimname + " takes no damage.");
+				battle.damagePlayback(victim, 0);
 			}
 			if (effect(OffenseFlag.STUNS_ON_HIT) && victim.isAlive()) {
-				if (battle.cancelAction(victim) && MGlobal.rand.nextFloat() > .4) {
+				if (battle.cancelAction(victim) && MGlobal.rand.nextFloat() < STUN_CHANCE) {
 					battle.println(tab + "A stunning hit!");
 				}
 			}

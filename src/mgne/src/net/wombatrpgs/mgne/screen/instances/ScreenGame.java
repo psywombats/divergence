@@ -81,6 +81,7 @@ public class ScreenGame extends Screen implements HeroSource {
 				hero.setTileY(MGlobal.rand.nextInt(map.getHeight()));
 			}
 			map.addEvent(hero);
+			map.onFocusGained();
 			hero.setX(hero.getTileX()*map.getTileWidth());
 			hero.setY(hero.getTileY()*map.getTileHeight());
 			getCamera().track(hero);

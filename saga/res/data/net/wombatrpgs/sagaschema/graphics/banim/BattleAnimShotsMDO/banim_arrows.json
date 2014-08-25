@@ -1,0 +1,16 @@
+{
+	"key" : "banim_arrows",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"anim" : "banim_particle_arrow",
+	"count" : 3,
+	"delay" : 0.2,
+	"cols" : 2,
+	"padX" : 4.0,
+	"padY" : -8.0,
+	"gainX" : 4.0,
+	"gainY" : 4.0,
+	"jitterX" : 3.0,
+	"jitterY" : 3.0
+}

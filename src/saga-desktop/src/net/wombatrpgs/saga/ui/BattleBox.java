@@ -10,8 +10,10 @@ import java.util.Collections;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.CommandListener;
+import net.wombatrpgs.mgne.io.Keymap.KeyState;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBox;
+import net.wombatrpgs.mgneschema.io.data.InputButton;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.ui.TextBoxMDO;
 import net.wombatrpgs.saga.screen.ScreenBattle;
@@ -51,13 +53,13 @@ public class BattleBox extends TextBox implements CommandListener {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-		// TODO: polish: you should be able to hold 'a' to scroll the battle
 		if (command == InputCommand.UI_CONFIRM) {
 			if (isFinished()) {
 				parent.removeCommandListener(this);
 				shouldAdvance = true;
 			} else {
-				hurryUp();
+				// instead we'll poll for turbo
+				// hurryUp();
 			}
 			return true;
 		} else {
@@ -70,7 +72,11 @@ public class BattleBox extends TextBox implements CommandListener {
 	 */
 	@Override
 	public void update(float elapsed) {
-		super.update(elapsed);
+		if (MGlobal.keymap.getButtonState(InputButton.BUTTON_A) == KeyState.DOWN) {
+			super.update(elapsed * 5);
+		} else {
+			super.update(elapsed);
+		}
 		if (isFinished() && auto) {
 			parent.removeCommandListener(this);
 			shouldAdvance = true;

@@ -27,7 +27,6 @@ import org.luaj.vm2.lib.TwoArgFunction;
 public class SceneLib extends TwoArgFunction {
 	
 	protected static List<SceneCommand> commands;
-	protected static LuaValue globalCaller;
 
 	/**
 	 * @see org.luaj.vm2.lib.TwoArgFunction#call

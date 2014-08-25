@@ -7,6 +7,8 @@
 	"type" : "ITEM",
 	"uses" : 30,
 	"cost" : 30,
+	"anim" : "banim_quake",
+	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectFixedMDO",
 		"key" : "anon_CombatItemMDO_-1164367867"

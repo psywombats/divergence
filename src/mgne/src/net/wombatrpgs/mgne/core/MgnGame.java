@@ -88,6 +88,14 @@ public abstract class MgnGame {
 	}
 	
 	/**
+	 * Called when the data is loaded. This is guaranteed to be called once all
+	 * mdos are in memory but before any of the make creation methods.
+	 */
+	public void onDataLoaded() {
+		// noop
+	}
+	
+	/**
 	 * Called when the game is created. Globals etc should get initialized here.
 	 */
 	public void onCreate() {

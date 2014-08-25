@@ -7,7 +7,7 @@
 	"type" : "ITEM",
 	"uses" : 15,
 	"cost" : 0,
-	"anim" : "None",
+	"anim" : "banim_ice",
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectDebuffMDO",
 		"key" : "anon_CombatItemMDO_-1283125356"

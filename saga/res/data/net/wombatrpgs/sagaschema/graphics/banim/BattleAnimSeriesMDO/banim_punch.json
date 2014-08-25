@@ -1,0 +1,11 @@
+{
+	"key" : "banim_punch",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"anim" : "banim_particle_punch",
+	"count" : 8,
+	"concurrent" : 2,
+	"span" : 32,
+	"granularity" : 8
+}

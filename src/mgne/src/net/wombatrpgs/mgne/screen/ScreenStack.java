@@ -9,6 +9,7 @@ package net.wombatrpgs.mgne.screen;
 import java.util.Stack;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
@@ -154,6 +155,10 @@ public class ScreenStack implements	Disposable,
 	 * Updates all objects in the screen.
 	 */
 	public void update() {
+		
+		// I shouldn't have to be the one to call this, libgdx...
+		AnimatedTiledMapTile.updateAnimationBaseTime();
+		
 		float elapsed = Gdx.graphics.getDeltaTime();
 		MGlobal.keymap.update(elapsed);
 		if (screens.size() > 0) {

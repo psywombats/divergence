@@ -4,7 +4,7 @@
   <property name="name" value="Parish house"/>
  </properties>
  <tileset firstgid="1" source="../tilesets/lower.tsx"/>
- <tileset firstgid="57" source="../tilesets/upper.tsx"/>
+ <tileset firstgid="113" source="../tilesets/upper.tsx"/>
  <layer name="Tile Layer 1" width="60" height="60">
   <data>
    <tile gid="0"/>
@@ -3610,6 +3610,9 @@
   </data>
  </layer>
  <layer name="Tile Layer 2" width="60" height="60">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3854,8 +3857,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="90"/>
-   <tile gid="90"/>
+   <tile gid="146"/>
+   <tile gid="146"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3873,7 +3876,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="60"/>
+   <tile gid="116"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3914,10 +3917,10 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="99"/>
-   <tile gid="99"/>
+   <tile gid="155"/>
+   <tile gid="155"/>
    <tile gid="0"/>
-   <tile gid="62"/>
+   <tile gid="118"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3933,7 +3936,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="69"/>
+   <tile gid="125"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3941,10 +3944,10 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="62"/>
+   <tile gid="118"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="62"/>
+   <tile gid="118"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -3977,7 +3980,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="71"/>
+   <tile gid="127"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4001,10 +4004,10 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="71"/>
+   <tile gid="127"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="71"/>
+   <tile gid="127"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4094,9 +4097,9 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="59"/>
+   <tile gid="115"/>
    <tile gid="0"/>
-   <tile gid="59"/>
+   <tile gid="115"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4118,14 +4121,14 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="85"/>
+   <tile gid="141"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="95"/>
+   <tile gid="151"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4154,13 +4157,13 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="59"/>
+   <tile gid="115"/>
    <tile gid="0"/>
-   <tile gid="59"/>
-   <tile gid="59"/>
+   <tile gid="115"/>
+   <tile gid="115"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="85"/>
+   <tile gid="141"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4246,7 +4249,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="95"/>
+   <tile gid="151"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -4304,7 +4307,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="95"/>
+   <tile gid="151"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>

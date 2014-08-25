@@ -15,8 +15,10 @@ import net.wombatrpgs.mgne.core.DebugLevel;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.Memory;
 import net.wombatrpgs.mgne.core.MgnGame;
+import net.wombatrpgs.mgne.graphics.GraphicsSettings;
 import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.screen.Screen;
+import net.wombatrpgs.saga.graphics.SGraphics;
 import net.wombatrpgs.saga.lua.SagaSceneLib;
 import net.wombatrpgs.saga.maps.SagaEventFactory;
 import net.wombatrpgs.saga.screen.SagaScreen;
@@ -39,7 +41,7 @@ public class SagaGame extends MgnGame {
 		} else {
 			screen = new ScreenTitle();
 		}
-		MGlobal.assets.loadAsset(screen, "starter screen");
+		//MGlobal.assets.loadAsset(screen, "starter screen");
 		return screen;
 	}
 
@@ -57,6 +59,23 @@ public class SagaGame extends MgnGame {
 	@Override
 	public EventFactory makeEventFactory() {
 		return new SagaEventFactory();
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.MgnGame#makeGraphics()
+	 */
+	@Override
+	public GraphicsSettings makeGraphics() {
+		return new SGraphics();
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.MgnGame#onDataLoaded()
+	 */
+	@Override
+	public void onDataLoaded() {
+		super.onDataLoaded();
+		SGlobal.preLoad();
 	}
 
 	/**

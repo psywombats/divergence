@@ -118,9 +118,10 @@ public class MGlobal {
 	
 			// initialize everything that needed data
 			MGlobal.reporter.inform("Initializing data-dependant resources");
+			MGlobal.game.onDataLoaded();
 			MGlobal.window = new WindowSettings(
 					MGlobal.data.getEntryFor(Constants.KEY_WINDOW, WindowSettingsMDO.class));
-			MGlobal.graphics = new GraphicsSettings();
+			MGlobal.graphics = game.makeGraphics();
 			MGlobal.ui = new UISettings(MGlobal.data.getEntryFor(
 					UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
 			MGlobal.keymap = Keymap.initDefaultKeymap();

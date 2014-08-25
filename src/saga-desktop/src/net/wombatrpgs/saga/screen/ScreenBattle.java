@@ -14,15 +14,20 @@ import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Matrix4;
 
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
+import net.wombatrpgs.mgne.graphics.ShaderFromData;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.screen.WindowSettings;
@@ -35,12 +40,15 @@ import net.wombatrpgs.mgne.ui.text.TextboxFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.saga.core.SGlobal;
+import net.wombatrpgs.saga.graphics.PortraitAnim;
 import net.wombatrpgs.saga.graphics.banim.BattleAnim;
 import net.wombatrpgs.saga.graphics.banim.BattleAnimFactory;
-import net.wombatrpgs.saga.rpg.battle.AnimPlayback;
+import net.wombatrpgs.saga.rpg.battle.PlayAnim;
 import net.wombatrpgs.saga.rpg.battle.Battle;
+import net.wombatrpgs.saga.rpg.battle.PlayNumber;
+import net.wombatrpgs.saga.rpg.battle.PlayShake;
 import net.wombatrpgs.saga.rpg.battle.PlaybackStep;
-import net.wombatrpgs.saga.rpg.battle.TextPlayback;
+import net.wombatrpgs.saga.rpg.battle.PlayText;
 import net.wombatrpgs.saga.rpg.battle.Intent.TargetListener;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.chara.Party;
@@ -79,8 +87,11 @@ public class ScreenBattle extends SagaScreen {
 	protected static final int ABILS_VERT_FUDGE = -16;
 	protected static final int ABILS_BG_WIDTH = 196;
 	protected static final int ACTOR_BG_WIDTH = 124;
+	protected static final int SHAKE_VERT = 8;
 	
-	// battle box constants
+	// battle box and other constants
+	protected static final String KEY_SHADER_SHAKE = "shader_quake";
+	protected static final float SHAKE_DURATION = .5f;
 	protected static final int TEXT_LINES = 8;
 	protected static final float TEXT_FADE_TIME = 0f;
 	
@@ -97,6 +108,11 @@ public class ScreenBattle extends SagaScreen {
 	protected CharaInsert actor;
 	protected ItemSelector abils;
 	protected List<String> meatMessages;
+	protected Matrix4 playerMatrix, enemyMatrix;
+	protected ShaderFromData shakeShader;
+	protected transient FrameBuffer playerBuffer, enemyBuffer;
+	protected transient SpriteBatch playerBatch, playerFinalBatch;
+	protected transient SpriteBatch enemyBatch, enemyFinalBatch;
 	protected float globalX, globalY;
 	
 	// display toggles
@@ -113,8 +129,9 @@ public class ScreenBattle extends SagaScreen {
 	
 	// animation + graphics
 	protected List<PlaybackStep> playbackQueue;
-	protected List<BattleAnim> anims;
-	protected Map<Integer, BattleAnim> animsOnGroups;
+	protected List<PortraitAnim> anims;
+	protected Map<Integer, PortraitAnim> animsOnGroups;
+	protected Map<Integer, Float> shakeTimers;
 	
 	/**
 	 * Creates a new combat setup. This initializes the screen and passes the
@@ -210,9 +227,10 @@ public class ScreenBattle extends SagaScreen {
 		meatFormat.x = (int) (globalX + MONSTERLIST_WIDTH + ABILS_EDGE_PADDING);
 		meatFormat.y = (int) (globalY + OPTIONS_HEIGHT - ABILS_VERT_FUDGE - font.getLineHeight()*3);
 		
-		anims = new ArrayList<BattleAnim>();
-		animsOnGroups = new HashMap<Integer, BattleAnim>();
+		anims = new ArrayList<PortraitAnim>();
+		animsOnGroups = new HashMap<Integer, PortraitAnim>();
 		playbackQueue = new ArrayList<PlaybackStep>();
+		shakeTimers = new HashMap<Integer, Float>();
 	}
 	
 	/** @param auto True to ignore human prompts for newline */
@@ -231,14 +249,17 @@ public class ScreenBattle extends SagaScreen {
 	public void update(float elapsed) {
 		super.update(elapsed);
 		boolean done = true;
-		for (BattleAnim anim : anims) {
-			if (!anim.isDone()) {
+		for (PortraitAnim anim : anims) {
+			if (anim.isDone()) {
+				if (anim.isPlaying()) {
+					anim.finish(this);
+				}
+			} else {
 				done = false;
-				break;
 			}
 		}
 		if (done) {
-			for (BattleAnim anim : anims) {
+			for (PortraitAnim anim : anims) {
 				removeUChild(anim);
 				anim.dispose();
 			}
@@ -257,6 +278,12 @@ public class ScreenBattle extends SagaScreen {
 				} else {
 					battle.onPlaybackFinished();
 				}
+			}
+		}
+		for (int key : shakeTimers.keySet()) {
+			shakeTimers.put(key, shakeTimers.get(key) - elapsed);
+			if (shakeTimers.get(key) < 0) {
+				shakeTimers.remove(key);
 			}
 		}
 		if (battle.isDone()) {
@@ -317,39 +344,99 @@ public class ScreenBattle extends SagaScreen {
 				off += 1;
 			}
 		}
+		
 		WindowSettings win = MGlobal.window;
+		
+		enemyBuffer.begin();
+		int enemyHeight = win.getViewportHeight() - OPTIONS_HEIGHT - SPRITES_HEIGHT;
+		shapes.setProjectionMatrix(enemyMatrix);
+		shapes.begin(ShapeType.Filled);
+		float[] white = SGlobal.graphics.getWhite();
+		shapes.setColor(white[0], white[1], white[2], 0);
+		shapes.rect(0, 0, win.getViewportWidth(), enemyHeight);
+		shapes.end();
 		for (int i = 0 ; i < groups; i += 1) { 
 			List<Chara> group = enemy.getGroup(i);
 			if (group.size() == 0) continue;
 			if (!battle.isEnemyAlive(i)) continue;
 			Graphic portrait = enemy.getFront(i).getPortrait();
 			if (portrait == null) continue;
-			float renderX = globalX + (win.getViewportWidth() - portrait.getWidth()*groups) * (i+1)/(groups+1) +
-					(portrait.getWidth()) * i;
-			float renderY = globalY + OPTIONS_HEIGHT + SPRITES_HEIGHT +
-					((win.getViewportHeight() - OPTIONS_HEIGHT - SPRITES_HEIGHT) - portrait.getHeight()) / 2;
-			portrait.renderAt(batch, renderX, renderY);
+			float renderX = globalX + (win.getViewportWidth() - portrait.getWidth()*groups) *
+					(i+1)/(groups+1) + (portrait.getWidth()) * i;
+			float renderY = ((win.getViewportHeight() - OPTIONS_HEIGHT - SPRITES_HEIGHT) -
+					portrait.getHeight()) / 2;
+			portrait.renderAt(enemyBatch, renderX, renderY);
 			if (selectionMode && i == selectedIndex) {
 				Graphic cursor = MGlobal.ui.getCursor();
-				cursor.renderAt(batch,
+				cursor.renderAt(enemyBatch,
 						renderX - cursor.getWidth() / 2,
 						renderY + (portrait.getHeight() - cursor.getHeight()) / 2);
 			}
-			BattleAnim anim = animsOnGroups.get(i);
+			PortraitAnim anim = animsOnGroups.get(i);
 			if (anim != null) {
-				anim.renderAt(batch,
+				anim.renderAt(enemyBatch,
 						renderX + portrait.getWidth() / 2,
 						renderY + portrait.getHeight() / 2);
 			}
 		}
+		enemyBuffer.end();
+		resumeNormalBuffer();
+		
+		enemyFinalBatch.begin();
+		enemyFinalBatch.draw(
+				enemyBuffer.getColorBufferTexture(),			// texture
+				0, globalY + OPTIONS_HEIGHT + SPRITES_HEIGHT,	// x/y in screen space
+				0, 0,											// origin x/y screen
+				win.getViewportWidth(), enemyHeight,			// width/height screen
+				1, 1,											// scale x/y
+				0,												// rotation in degrees
+				0, 0,											// x/y in texel space
+				win.getViewportWidth(), enemyHeight,			// width/height texel
+				false, true										// flip horiz/vert
+			);
+		enemyFinalBatch.end();
+		
+		playerBuffer.begin();
+		shapes.setProjectionMatrix(playerMatrix);
+		shapes.begin(ShapeType.Filled);
+		shapes.setColor(white[0], white[1], white[2], 0);
+		shapes.rect(0, 0, win.getViewportWidth(), SPRITES_HEIGHT);
+		shapes.end();
 		int players = sprites.size();
 		for (int i = 0; i < players; i += 1) {
 			FacesAnimation anim = sprites.get(i);
-			float renderX = globalX + (win.getViewportWidth() - anim.getWidth()*players) * (i+1)/(players+1) +
-					(anim.getWidth()) * i;
-			float renderY = globalY + OPTIONS_HEIGHT + (SPRITES_HEIGHT - anim.getHeight()) / 2;
-			anim.renderAt(batch, renderX, renderY);
+			float renderX = globalX + (win.getViewportWidth() - anim.getWidth()*players) *
+					(i+1)/(players+1) + (anim.getWidth()) * i;
+			float renderY = (SPRITES_HEIGHT - anim.getHeight()) / 2;
+			shakeShader.begin();
+			shakeShader.setUniformf("u_offX", -1);
+			playerBatch.setShader(shakeShader);
+			if (shakeTimers.containsKey(i)) {
+				shakeShader.setUniformf("u_elapsed", shakeTimers.get(i));
+				shakeShader.setUniformf("u_offY", SHAKE_VERT);
+			} else {
+				shakeShader.setUniformf("u_offY", -1);
+			}
+			anim.renderAt(playerBatch, renderX, renderY);
+			shakeShader.end();
 		}
+		playerBuffer.end();
+		resumeNormalBuffer();
+		
+		playerFinalBatch.begin();
+		playerFinalBatch.draw(
+				playerBuffer.getColorBufferTexture(),	// texture
+				0, globalY + OPTIONS_HEIGHT,			// x/y in screen space
+				0, 0,									// origin x/y screen
+				win.getViewportWidth(), SPRITES_HEIGHT,	// width/height screen
+				1, 1,									// scale x/y
+				0,										// rotation in degrees
+				0, 0,									// x/y in texel space
+				win.getViewportWidth(), SPRITES_HEIGHT,	// width/height texel
+				false, true								// flip horiz/vert
+			);
+		playerFinalBatch.end();
+		
 		super.render(batch);
 	}
 
@@ -366,6 +453,55 @@ public class ScreenBattle extends SagaScreen {
 		enemyInserts.setY(globalY + (INSERTS_HEIGHT - enemyInserts.getHeight()) / 2);
 		miniInserts.setX(globalX + (ACTOR_BG_WIDTH - miniInserts.getWidth()) / 2 + 5);
 		miniInserts.setY(globalY + (INSERTS_HEIGHT - miniInserts.getHeight()) / 2);
+		
+		WindowSettings win = MGlobal.window;
+		
+		enemyBuffer = new FrameBuffer(Format.RGB565,
+				win.getViewportWidth(),
+				win.getViewportHeight() - OPTIONS_HEIGHT - SPRITES_HEIGHT,
+				false);
+		enemyBuffer.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		
+		playerBuffer = new FrameBuffer(Format.RGB565,
+				win.getViewportWidth(),
+				SPRITES_HEIGHT,
+				false);
+		playerBuffer.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		
+		playerBatch = new SpriteBatch();
+		
+		enemyBatch = new SpriteBatch();
+		enemyMatrix = new Matrix4();
+		enemyMatrix.setToOrtho2D(0, 0,
+				win.getViewportWidth(),
+				win.getViewportHeight() - OPTIONS_HEIGHT - SPRITES_HEIGHT);
+		enemyBatch.setProjectionMatrix(enemyMatrix);
+		enemyBatch.setShader(background.getShader());
+		
+		playerBatch = new SpriteBatch();
+		playerMatrix = new Matrix4();
+		playerMatrix.setToOrtho2D(0, 0,
+				win.getViewportWidth(),
+				SPRITES_HEIGHT);
+		playerBatch.setProjectionMatrix(playerMatrix);
+		playerBatch.setShader(shakeShader);
+		
+		shakeShader = SGlobal.graphics.constructShader(KEY_SHADER_SHAKE);
+		
+		enemyFinalBatch = new SpriteBatch();
+		Matrix4 matrix2 = new Matrix4();
+		matrix2.setToOrtho2D(0, 0,
+				win.getViewportWidth(),
+				win.getViewportHeight());
+		enemyFinalBatch.setProjectionMatrix(matrix2);
+		
+		playerFinalBatch = new SpriteBatch();
+		Matrix4 matrix3 = new Matrix4();
+		matrix3.setToOrtho2D(0, 0,
+				win.getViewportWidth(),
+				win.getViewportHeight());
+		playerFinalBatch.setProjectionMatrix(matrix3);
+		playerFinalBatch.setShader(foreground.getShader());
 	}
 	
 	/**
@@ -390,6 +526,12 @@ public class ScreenBattle extends SagaScreen {
 		for (FacesAnimation sprite : sprites) {
 			sprite.dispose();
 		}
+		playerBuffer.dispose();
+		playerBatch.dispose();
+		playerFinalBatch.dispose();
+		enemyBuffer.dispose();
+		enemyBatch.dispose();
+		enemyFinalBatch.dispose();
 	}
 	
 	/**
@@ -411,7 +553,7 @@ public class ScreenBattle extends SagaScreen {
 	 * @param	line			The text to print
 	 */
 	public void print(String line) {
-		TextPlayback step = new TextPlayback(this, line + " ");
+		PlayText step = new PlayText(this, line + " ");
 		playbackQueue.add(playbackQueue.size(), step);
 	}
 	
@@ -421,31 +563,56 @@ public class ScreenBattle extends SagaScreen {
 	 * @param	line			The text to print
 	 */
 	public void println(String line) {
-		TextPlayback step = new TextPlayback(this, line + "\n");
+		PlayText step = new PlayText(this, line + "\n");
 		playbackQueue.add(playbackQueue.size(), step);
 	}
 	
 	/**
-	 * Immdiately plays a battle animation without regard for the anim queue.
+	 * Immediately plays a battle animation without regard for the anim queue.
 	 * @param	animMDO			The mdo of the animation to play
 	 * @param	targets			The targets to play it on
 	 */
 	public void immediateAnimate(BattleAnimMDO animMDO, List<Chara> targets) {
-		List<Integer> groups = new ArrayList<Integer>();
-		for (Chara enemy : targets) {
-			int index = battle.getEnemy().index(enemy);
-			if (!groups.contains(index)) {
-				groups.add(index);
-			}
-		}
+		List<Integer> groups = constructGroups(targets);
 		for (Integer index : groups) {
 			BattleAnim anim = BattleAnimFactory.create(animMDO);
 			anims.add(anim);
 			animsOnGroups.put(index, anim);
-			anim.start();
 			addUChild(anim);
 		}
 		MGlobal.assets.loadAssets(anims, "battle animation " + animMDO);
+		for (PortraitAnim anim : anims) {
+			anim.start(this);
+		}
+	}
+	
+	/**
+	 * Animates a pre-loaded battle animation. Disregards animation queue. Only
+	 * call this from anim step classes, basically.
+	 * @param	anim			The animation to play
+	 * @param	targets			The targets to play it on
+	 */
+	public void immediateAnimate(PortraitAnim anim, List<Chara> targets) {
+		List<Integer> groups = constructGroups(targets);
+		anims.add(anim);
+		addUChild(anim);
+		for (Integer index : groups) {
+			animsOnGroups.put(index, anim);
+		}
+		anim.start(this);
+	}
+	
+	/**
+	 * Animates a shake on a player character without regard for play order.
+	 * @param	target			The player character to shake
+	 */
+	public void immediateShake(Chara target) {
+		Party heroes = battle.getPlayer();
+		for (int i = 0; i < heroes.groupCount(); i += 1) {
+			if (heroes.getGroup(i).contains(target)) {
+				shakeTimers.put(i, SHAKE_DURATION);
+			}
+		}
 	}
 	
 	/**
@@ -457,7 +624,27 @@ public class ScreenBattle extends SagaScreen {
 	 * @param	targets			The enemies to play the animation on
 	 */
 	public void animate(BattleAnimMDO animMDO, List<Chara> targets) {
-		AnimPlayback step = new AnimPlayback(this, animMDO, targets);
+		PlaybackStep step = new PlayAnim(this, animMDO, targets);
+		playbackQueue.add(step);
+	}
+	
+	/**
+	 * Plays the damage-taken animation on some targets. Respects playback. This
+	 * is the number popup equivalent of battle animations.
+	 * @param	damage			The damage takne
+	 * @param	targets			The targets taking the damage
+	 */
+	public void animateDamage(int damage, List<Chara> targets) {
+		PlaybackStep step = new PlayNumber(this, damage, targets);
+		playbackQueue.add(step);
+	}
+	
+	/**
+	 * Shakes a (player) target. Respects battle playback order.
+	 * @param	target			The player to shake
+	 */
+	public void shake(Chara target) {
+		PlaybackStep step = new PlayShake(this, target);
 		playbackQueue.add(step);
 	}
 	
@@ -677,6 +864,14 @@ public class ScreenBattle extends SagaScreen {
 	}
 	
 	/**
+	 * Sets the shader used to render all enemy portraits. Used by banims.
+	 * @param	shader			The shader to use for enemies
+	 */
+	public void setBattleShader(ShaderFromData shader) {
+		enemyFinalBatch.setShader(shader);
+	}
+	
+	/**
 	 * @see net.wombatrpgs.mgne.screen.Screen#clear()
 	 */
 	@Override
@@ -774,6 +969,22 @@ public class ScreenBattle extends SagaScreen {
 	protected void cancelSelectionMode() {
 		selectionMode = false;
 		popCommandListener();
+	}
+	
+	/**
+	 * Constructs a set of the indices of groups containing the targets
+	 * @param	targets			The targets to get the groups of
+	 * @return					A list of the groups containing those targets
+	 */
+	protected List<Integer> constructGroups(List<Chara> targets) {
+		List<Integer> groups = new ArrayList<Integer>();
+		for (Chara enemy : targets) {
+			int index = battle.getEnemy().index(enemy);
+			if (!groups.contains(index)) {
+				groups.add(index);
+			}
+		}
+		return groups;
 	}
 
 }

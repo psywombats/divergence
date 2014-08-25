@@ -1,0 +1,27 @@
+{
+	"key" : "item_testSMG",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "SMG",
+	"type" : "ITEM",
+	"uses" : 30,
+	"cost" : 1500,
+	"anim" : "banim_smg",
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectFixedMDO",
+		"key" : "anon_CombatItemMDO_-417021591"
+	},
+	"robostats" : {
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 18.0
+			},
+			{
+				"stat" : "STR",
+				"value" : 4.0
+			}
+		]
+	}
+}

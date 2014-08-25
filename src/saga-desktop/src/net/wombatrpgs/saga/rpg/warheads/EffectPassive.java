@@ -15,7 +15,7 @@ import net.wombatrpgs.sagaschema.rpg.warheads.EffectPassiveMDO;
 /**
  * Passive stat-granting items.
  */
-public class EffectPassive extends EffectBattleUnuseable {
+public class EffectPassive extends EffectBattleUnusable {
 	
 	protected EffectPassiveMDO mdo;
 

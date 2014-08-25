@@ -31,6 +31,7 @@ import net.wombatrpgs.mgne.scenes.StringSceneParser;
 import net.wombatrpgs.mgneschema.graphics.DirMDO;
 import net.wombatrpgs.mgneschema.maps.EventMDO;
 import net.wombatrpgs.mgneschema.maps.data.DirVector;
+import net.wombatrpgs.mgneschema.maps.data.DisplayType;
 import net.wombatrpgs.mgneschema.maps.data.EightDir;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 
@@ -50,10 +51,13 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 	/** General children and info */
 	protected EventMDO mdo;
 	protected FacesAnimation appearance;
+	protected boolean eventHidden;
+	protected boolean switchHidden;
 	
 	/** Lua */
 	protected SceneParser onAdd, onRemove, onInteract, onCollide;
 	protected LuaValue lua;
+	protected LuaValue hide;
 	
 	/** Tile-based positioning */
 	protected int tileX, tileY;
@@ -88,7 +92,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 		} else {
 			setFacing(OrthoDir.SOUTH);
 		}
-		
+		eventHidden = mdo.hidden == DisplayType.HIDDEN;
 	}
 	
 	/** Kryo constructor */
@@ -117,6 +121,12 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 	
 	/** @see net.wombatrpgs.mgne.core.lua.LuaConvertable#toLua() */
 	@Override public LuaValue toLua() { return lua; }
+	
+	/** Hides this event so that it no longer renders or collides */
+	public void hide() { eventHidden = true; }
+	
+	/** Shows this event so that it renders and collides */
+	public void show() { eventHidden = false; }
 	
 	/**
 	 * Gets the facing for the character. Returns null if no appearance.
@@ -175,6 +185,9 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 		if (appearance != null) {
 			appearance.update(elapsed);
 		}
+		if (hide != null) {
+			switchHidden = hide.call().checkboolean();
+		}
 	}
 	
 	/**
@@ -193,9 +206,11 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
-		super.render(batch);
-		if (appearance != null) {
-			renderLocal(batch, appearance, 0, 0);
+		if (!eventHidden && !switchHidden) {
+			super.render(batch);
+			if (appearance != null) {
+				renderLocal(batch, appearance, 0, 0);
+			}
 		}
 	}
 	
@@ -434,6 +449,8 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 			Lua.generateFunction(this, lua, "getTileX");
 			Lua.generateFunction(this, lua, "getTileY");
 			Lua.generateFunction(this, lua, "isTracking");
+			Lua.generateFunction(this, lua, "show");
+			Lua.generateFunction(this, lua, "hide");
 			lua.set("eventStep", new OneArgFunction() {
 				@Override public LuaValue call(LuaValue dirArg) {
 					String argString = dirArg.checkjstring();
@@ -457,9 +474,15 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 					step(dir);
 					setFacing(dir);
 					targetTile(targetX, targetY);
+					tileX = targetX;
+					tileY = targetY;
 					return LuaValue.NIL;
 				}
 			});
+			
+			if (mdo != null && mdo.hide != null && mdo.hide.length() > 0) {
+				hide = MGlobal.lua.interpret(mdo.hide);
+			}
 		}
 	}
 	

@@ -1,0 +1,11 @@
+{
+	"key" : "banim_gas",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"anim" : "banim_particle_gas",
+	"count" : 12,
+	"concurrent" : 4,
+	"span" : 48,
+	"granularity" : 8
+}
