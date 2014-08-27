@@ -6,6 +6,9 @@
  */
 package net.wombatrpgs.saga.screen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -34,6 +37,9 @@ public class ScreenTextIntro extends SagaScreen {
 	protected Nineslice bg;
 	protected String text;
 	protected boolean finished, transitioning;
+	
+	protected List<ScreenRecruit> friendScreens;
+	protected int recruitIndex;
 	
 	protected TextboxFormat scrollFormat;
 	protected float scrolled, height;
@@ -85,16 +91,37 @@ public class ScreenTextIntro extends SagaScreen {
 		if (finished && !transitioning) {
 			transitioning = true;
 			final SagaScreen textIntro = this;
-			recruit = new ScreenRecruit(mdo.recruitLeader, new FinishListener() {
-				@Override public void onFinish() {
-					SagaScreen gameScreen = new ScreenWorld(Constants.KEY_INTRO);
-					MGlobal.assets.loadAsset(gameScreen, "game screen");
-					gameScreen.transitonOn(TransitionType.BLACK, new FinishListener() {
+			friendScreens = new ArrayList<ScreenRecruit>();
+			recruitIndex = 0;
+			for (int i = 0; i < 3; i += 1) {
+				friendScreens.add(new ScreenRecruit(mdo.recruitMember));
+				if (i < 2) {
+					friendScreens.get(i).setFinishListener(new FinishListener() {
 						@Override public void onFinish() {
-							textIntro.dispose();
-							recruit.dispose();
+							nextFriend();
 						}
 					});
+				} else {
+					friendScreens.get(i).setFinishListener(new FinishListener() {
+						@Override public void onFinish() {
+							SagaScreen gameScreen = new ScreenWorld(Constants.KEY_INTRO);
+							MGlobal.assets.loadAsset(gameScreen, "game screen");
+							gameScreen.transitonOn(TransitionType.BLACK, new FinishListener() {
+								@Override public void onFinish() {
+									textIntro.dispose();
+									recruit.dispose();
+									for (SagaScreen screen : friendScreens) {
+										screen.dispose();
+									}
+								}
+							});
+						}
+					});
+				}
+			}
+			recruit = new ScreenRecruit(mdo.recruitLeader, new FinishListener() {
+				@Override public void onFinish() {
+					nextFriend();
 				}
 			});
 			MGlobal.assets.loadAsset(recruit, "recruit screen");
@@ -145,6 +172,16 @@ public class ScreenTextIntro extends SagaScreen {
 	public void dispose() {
 		super.dispose();
 		bg.dispose();
+	}
+	
+	/**
+	 * Sets up the next friend recruitment screen.
+	 */
+	protected void nextFriend() {
+		ScreenRecruit next = friendScreens.get(recruitIndex);
+		MGlobal.assets.loadAsset(next, "friend screen");
+		recruitIndex += 1;
+		next.transitonOn(TransitionType.BLACK, null);
 	}
 
 }
