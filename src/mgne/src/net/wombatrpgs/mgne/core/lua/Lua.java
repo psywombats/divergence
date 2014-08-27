@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.scenes.SceneLib;
 
 import org.luaj.vm2.Globals;
@@ -63,7 +62,7 @@ public class Lua {
 	 * @return					A corresponding script, ready to run
 	 */
 	public LuaValue interpret(String chunk) {
-		return globals.load(prependRequires(chunk));
+		return globals.load(chunk);
 	}
 	
 	/**
@@ -76,7 +75,8 @@ public class Lua {
 		if (chunk == null || chunk.length() == 0) {
 			return null;
 		}
-		return interpret(chunk).call();
+		String full = prependRequires(chunk);
+		return interpret(full).call();
 	}
 	
 	/**
@@ -87,7 +87,7 @@ public class Lua {
 	 * @param	caller			The calling object
 	 * @return					The result of the evaluation, or null if none
 	 */
-	public LuaValue run(String chunk, MapEvent caller) {
+	public LuaValue run(String chunk, LuaConvertable caller) {
 		globals.set("this", caller.toLua());
 		return runIfExists(chunk);
 	}

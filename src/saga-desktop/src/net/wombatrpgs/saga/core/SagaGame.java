@@ -19,6 +19,7 @@ import net.wombatrpgs.mgne.graphics.GraphicsSettings;
 import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.saga.graphics.SGraphics;
+import net.wombatrpgs.saga.lua.SagaEventLib;
 import net.wombatrpgs.saga.lua.SagaSceneLib;
 import net.wombatrpgs.saga.maps.SagaEventFactory;
 import net.wombatrpgs.saga.screen.SagaScreen;
@@ -94,6 +95,7 @@ public class SagaGame extends MgnGame {
 	public List<Class<? extends TwoArgFunction>> getLuaLibs() {
 		List<Class<? extends TwoArgFunction>> libs = super.getLuaLibs();
 		libs.add(SagaSceneLib.class);
+		libs.add(SagaEventLib.class);
 		return libs;
 	}
 	

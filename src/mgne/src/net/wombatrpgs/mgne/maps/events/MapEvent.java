@@ -72,15 +72,22 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 		super();
 		this.mdo = mdo;
 		
+		zeroCoords();
+		regenerateLua();
+		
 		if (mdoHasProperty(mdo.appearance)) {
-			DirMDO dirMDO = MGlobal.data.getEntryFor(mdo.appearance, DirMDO.class);
+			String mdoName;
+			if (mdo.appearance.startsWith("lua")) {
+				String script = mdo.appearance.substring(4, mdo.appearance.length() - 1);
+				mdoName = MGlobal.lua.run(script, this).checkjstring();
+			} else {
+				mdoName = mdo.appearance;
+			}
+			DirMDO dirMDO = MGlobal.data.getEntryFor(mdoName, DirMDO.class);
 			appearance = FacesAnimationFactory.create(dirMDO);
 			appearance.startMoving();
 			assets.add(appearance);
 		}
-		
-		zeroCoords();
-		regenerateLua();
 		
 		onAdd = mdoToScene(mdo.onAdd);
 		onRemove = mdoToScene(mdo.onRemove);

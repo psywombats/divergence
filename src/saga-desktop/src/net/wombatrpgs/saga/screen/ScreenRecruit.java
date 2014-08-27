@@ -217,6 +217,14 @@ public class ScreenRecruit extends SagaScreen {
 	}
 	
 	/**
+	 * Designates a listener to call when recruiting is copmlete.
+	 * @param listener
+	 */
+	public void setFinishListener(FinishListener listener) {
+		this.listener = listener;
+	}
+	
+	/**
 	 * Transitions to the name screen.
 	 */
 	protected void onConfirm() {
