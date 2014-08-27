@@ -312,5 +312,11 @@
     <property name="onInteract" value="play('testscript.lua')"/>
    </properties>
   </object>
+  <object name="chameleon" type="Character" x="256" y="192" width="16" height="16">
+   <properties>
+    <property name="appearance" value="lua(return getHero(1).getSpriteName())"/>
+    <property name="onInteract" value="speak('wow I look an awful lot like you!!')"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

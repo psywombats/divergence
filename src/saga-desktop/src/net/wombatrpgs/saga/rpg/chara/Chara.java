@@ -9,9 +9,15 @@ package net.wombatrpgs.saga.rpg.chara;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.lib.ZeroArgFunction;
+import org.luaj.vm2.lib.jse.CoerceJavaToLua;
+
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.lua.Lua;
+import net.wombatrpgs.mgne.core.lua.LuaConvertable;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
@@ -36,7 +42,7 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
  * An in-game character. Not called Character so as not to conflict with the one
  * in java.lang.
  */
-public class Chara extends AssetQueuer implements Disposable {
+public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 	
 	protected CharaMDO mdo;
 	
@@ -48,6 +54,7 @@ public class Chara extends AssetQueuer implements Disposable {
 	protected MonsterFamily family;
 	protected String name;
 	protected MutationManager mutantManager;
+	protected LuaValue lua;
 	
 	/**
 	 * Creates a new character from data template.
@@ -128,6 +135,17 @@ public class Chara extends AssetQueuer implements Disposable {
 	/** @return The power of meat needed for this character */
 	public int getTargetLevel() { return mdo.meatTargetLevel; }
 	
+	/**
+	 * @see net.wombatrpgs.mgne.core.lua.LuaConvertable#toLua()
+	 */
+	@Override
+	public LuaValue toLua() {
+		if (lua == null) {
+			regenerateLua();
+		}
+		return lua;
+	}
+
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
 	 */
@@ -510,6 +528,20 @@ public class Chara extends AssetQueuer implements Disposable {
 		} else {
 			return mutantManager.produceOptions();
 		}
+	}
+	
+	/**
+	 * Generates lua object with some basic commands to get chara info.
+	 */
+	public void regenerateLua() {
+		lua = LuaValue.tableOf();
+		Lua.generateFunction(this, lua, "getName");
+		Lua.generateFunction(this, lua, "isAlive");
+		lua.set("getSpriteName", new ZeroArgFunction() {
+			@Override public LuaValue call() {
+				return CoerceJavaToLua.coerce(mdo.appearance);
+			}
+		});
 	}
 
 }
