@@ -51,6 +51,7 @@ public class ScreenWorld extends SagaScreen implements HeroSource {
 			introMapName = introMDO.map;
 		}
 		map = MGlobal.levelManager.getLevel(introMapName);
+		assets.add(map);
 		MGlobal.levelManager.setActive(map);
 		if (map.getBGM() != null) {
 			MGlobal.screens.playMusic(map.getBGM(), false);

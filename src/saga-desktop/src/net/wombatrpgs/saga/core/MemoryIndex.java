@@ -24,7 +24,7 @@ import com.esotericsoftware.kryo.io.Output;
  */
 public class MemoryIndex extends AssetQueuer {
 	
-	protected static final String indexName = "descriptors.kyro";
+	protected static final String indexName = "descriptors.kryo";
 	
 	// data to save/load
 	protected List<SaveDescriptor> descriptors;
