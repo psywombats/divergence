@@ -3,7 +3,7 @@
     <!--this file was created by Eclipse Runnable JAR Export Wizard-->
     <!--ANT 1.7 is required                                        -->
     <target name="create_run_jar">
-        <jar destfile="C:/Users/aking_2/saga/saga/game.jar">
+        <jar destfile="../../saga/game.jar">
             <manifest>
                 <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
                 <attribute name="Rsrc-Main-Class" value="net.wombatrpgs.saga.core.Main"/>
@@ -11,28 +11,28 @@
                 <attribute name="Rsrc-Class-Path" value="./ jackson-annotations-2.0.4.jar jackson-core-2.0.4.jar jackson-databind-2.0.4.jar gdx.jar jackson-core-2.0.4.jar jackson-databind-2.0.4.jar luaj-jse-3.0-beta2.jar kryo-2.23.0.jar asm-4.0.jar minlog-1.2.jar objenesis-1.2.jar reflectasm-1.07.jar kryo-serializers-0.26.jar gdx-backend-lwjgl-natives.jar gdx-backend-lwjgl.jar gdx-natives.jar"/>
             </manifest>
             <zipfileset src="jar-in-jar-loader.zip"/>
-            <fileset dir="C:/Users/aking_2/saga/src/saga-desktop/bin"/>
-            <fileset dir="C:/Users/aking_2/saga/src/mgne/bin"/>
-            <fileset dir="C:/Users/aking_2/saga/src/jgdb-schema/bin"/>
-            <fileset dir="C:/Users/aking_2/saga/src/mgne-schema/bin"/>
-            <fileset dir="C:/Users/aking_2/saga/src/jgdbe/bin"/>
-            <zipfileset dir="C:\Users\aking_2\saga\src\jgdbe\lib" includes="jackson-annotations-2.0.4.jar"/>
-            <zipfileset dir="C:\Users\aking_2\saga\src\jgdbe\lib" includes="jackson-core-2.0.4.jar"/>
-            <zipfileset dir="C:\Users\aking_2\saga\src\jgdbe\lib" includes="jackson-databind-2.0.4.jar"/>
-            <zipfileset dir="C:\Users\aking_2\saga\src\mgne\lib" includes="gdx.jar"/>
-            <zipfileset dir="C:\Users\aking_2\saga\src\mgne\lib" includes="jackson-core-2.0.4.jar"/>
-            <zipfileset dir="C:\Users\aking_2\saga\src\mgne\lib" includes="jackson-databind-2.0.4.jar"/>
-            <zipfileset dir="C:\Users\aking_2\saga\src\mgne\lib" includes="luaj-jse-3.0-beta2.jar"/>
-            <zipfileset dir="C:\Users\aking_2\saga\src\mgne\lib" includes="kryo-2.23.0.jar"/>
-            <zipfileset dir="C:\Users\aking_2\saga\src\mgne\lib" includes="asm-4.0.jar"/>
-            <zipfileset dir="C:\Users\aking_2\saga\src\mgne\lib" includes="minlog-1.2.jar"/>
-            <zipfileset dir="C:\Users\aking_2\saga\src\mgne\lib" includes="objenesis-1.2.jar"/>
-            <zipfileset dir="C:\Users\aking_2\saga\src\mgne\lib" includes="reflectasm-1.07.jar"/>
-            <zipfileset dir="C:\Users\aking_2\saga\src\mgne\lib" includes="kryo-serializers-0.26.jar"/>
-            <zipfileset dir="C:\Users\aking_2\saga\src\saga-desktop\lib" includes="gdx-backend-lwjgl-natives.jar"/>
-            <zipfileset dir="C:\Users\aking_2\saga\src\saga-desktop\lib" includes="gdx-backend-lwjgl.jar"/>
-            <zipfileset dir="C:\Users\aking_2\saga\src\saga-desktop\lib" includes="gdx-natives.jar"/>
-            <fileset dir="C:/Users/aking_2/saga/src/saga-schema/bin"/>
+            <fileset dir="../../src/saga-desktop/bin"/>
+            <fileset dir="../../src/mgne/bin"/>
+            <fileset dir="../../src/jgdb-schema/bin"/>
+            <fileset dir="../../src/mgne-schema/bin"/>
+            <fileset dir="../../src/jgdbe/bin"/>
+            <zipfileset dir="..\..\src\jgdbe\lib" includes="jackson-annotations-2.0.4.jar"/>
+            <zipfileset dir="..\..\src\jgdbe\lib" includes="jackson-core-2.0.4.jar"/>
+            <zipfileset dir="..\..\src\jgdbe\lib" includes="jackson-databind-2.0.4.jar"/>
+            <zipfileset dir="..\..\src\mgne\lib" includes="gdx.jar"/>
+            <zipfileset dir="..\..\src\mgne\lib" includes="jackson-core-2.0.4.jar"/>
+            <zipfileset dir="..\..\src\mgne\lib" includes="jackson-databind-2.0.4.jar"/>
+            <zipfileset dir="..\..\src\mgne\lib" includes="luaj-jse-3.0-beta2.jar"/>
+            <zipfileset dir="..\..\src\mgne\lib" includes="kryo-2.23.0.jar"/>
+            <zipfileset dir="..\..\src\mgne\lib" includes="asm-4.0.jar"/>
+            <zipfileset dir="..\..\src\mgne\lib" includes="minlog-1.2.jar"/>
+            <zipfileset dir="..\..\src\mgne\lib" includes="objenesis-1.2.jar"/>
+            <zipfileset dir="..\..\src\mgne\lib" includes="reflectasm-1.07.jar"/>
+            <zipfileset dir="..\..\src\mgne\lib" includes="kryo-serializers-0.26.jar"/>
+            <zipfileset dir="..\..\src\saga-desktop\lib" includes="gdx-backend-lwjgl-natives.jar"/>
+            <zipfileset dir="..\..\src\saga-desktop\lib" includes="gdx-backend-lwjgl.jar"/>
+            <zipfileset dir="..\..\src\saga-desktop\lib" includes="gdx-natives.jar"/>
+            <fileset dir="../../src/saga-schema/bin"/>
         </jar>
     </target>
 </project>
