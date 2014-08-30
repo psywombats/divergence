@@ -12,6 +12,7 @@ import java.util.List;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.Turnable;
 import net.wombatrpgs.mgne.io.audio.MusicObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.maps.layers.EventLayer;
@@ -32,7 +33,7 @@ import net.wombatrpgs.mgneschema.maps.data.MapMDO;
  * variable number of steps per turn, even if that's always 1 in an RPG, or
  * an infinitesmal amount in a rainfall-like ARPG.
  */
-public abstract class Level extends ScreenObject {
+public abstract class Level extends ScreenObject implements Turnable {
 	
 	public static final int TILE_WIDTH = 16;
 	public static final int TILE_HEIGHT = 16;
@@ -44,6 +45,7 @@ public abstract class Level extends ScreenObject {
 	protected List<GridLayer> gridLayers;
 	
 	protected List<MapThing> objects;
+	protected List<Turnable> turnChildren;
 	protected List<MapEvent> removalEvents;
 	protected List<MapThing> removalObjects;
 	
@@ -67,6 +69,7 @@ public abstract class Level extends ScreenObject {
 		objects = new ArrayList<MapThing>();
 		removalObjects = new ArrayList<MapThing>();
 		removalEvents = new ArrayList<MapEvent>();
+		turnChildren = new ArrayList<Turnable>();
 		
 		// etc
 		if (MapThing.mdoHasProperty(mdo.bgm)) {
@@ -156,6 +159,16 @@ public abstract class Level extends ScreenObject {
 		
 	}
 	
+	/**
+	 * @see net.wombatrpgs.mgne.core.interfaces.Turnable#onTurn()
+	 */
+	@Override
+	public void onTurn() {
+		for (Turnable turnable : turnChildren) {
+			turnable.onTurn();
+		}
+	}
+
 	/**
 	 * Returns a key-value pair style entry for this map. This is usually null
 	 * unless the designer entered a key for the value on the loaded map.
@@ -255,6 +268,7 @@ public abstract class Level extends ScreenObject {
 	public void addEvent(MapEvent newEvent) {
 		eventLayer.add(newEvent);
 		addObject(newEvent);
+		turnChildren.add(newEvent);
 	}
 	
 	/**

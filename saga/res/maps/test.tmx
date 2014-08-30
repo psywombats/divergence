@@ -234,10 +234,11 @@
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
-  <object name="bort the bozo" type="Character" x="240" y="192" width="16" height="16">
+  <object name="bort the bozo" type="Character" x="208" y="192" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="onInteract" value="speak('hi my name is bort the bozo and I like to talk to myself an awful lot')"/>
+    <property name="onTurn" value="this.wander()"/>
    </properties>
   </object>
   <object name="teleport" type="Event" x="304" y="112" width="16" height="16">
@@ -312,7 +313,7 @@
     <property name="onInteract" value="play('testscript.lua')"/>
    </properties>
   </object>
-  <object name="chameleon" type="Character" x="256" y="192" width="16" height="16">
+  <object name="chameleon" type="Character" x="240" y="192" width="16" height="16">
    <properties>
     <property name="appearance" value="lua(return getHero(1).getSpriteName())"/>
     <property name="onInteract" value="speak('wow I look an awful lot like you!!')"/>
