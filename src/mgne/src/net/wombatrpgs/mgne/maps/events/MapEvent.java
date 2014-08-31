@@ -57,7 +57,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	protected boolean switchHidden;
 	
 	/** Lua */
-	protected SceneParser onAdd, onRemove, onInteract, onCollide;
+	protected SceneParser onAdd, onRemove, onInteract, onCollide, onEnter;
 	protected LuaValue turn;
 	protected LuaValue lua;
 	protected LuaValue hide;
@@ -96,6 +96,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 		onRemove = mdoToScene(mdo.onRemove);
 		onInteract = mdoToScene(mdo.onInteract);
 		onCollide = mdoToScene(mdo.onCollide);
+		onEnter = mdoToScene(mdo.onEnter);
 		
 		if (mdo.face != null) {
 			setFacing(mdo.face);
@@ -295,6 +296,22 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 		runScene(onRemove);
 	}
 	
+	/**
+	 * @see net.wombatrpgs.mgne.maps.MapThing#onMapFocusGained
+	 * (net.wombatrpgs.mgne.maps.Level)
+	 */
+	@Override
+	public void onMapFocusGained(Level map) {
+		super.onMapFocusGained(map);
+		if (onEnter != null) {
+			MGlobal.levelManager.getTele().getPost().addListener(new FinishListener() {
+				@Override public void onFinish() {
+					runScene(onEnter);
+				}
+			});
+		}
+	}
+
 	/**
 	 * What happens when a character moves into this event? By default, nothing
 	 * happens, but characters should be attacked, items should be auto-grabbed,
@@ -510,22 +527,24 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 			lua.set("wander", new ZeroArgFunction() {
 				@Override public LuaValue call() {
 					if (MGlobal.rand.nextInt(4) == 0) {
-						int index = MGlobal.rand.nextInt(OrthoDir.values().length);
-						OrthoDir dir = OrthoDir.values()[index];
-						int toX = (int) (getTileX() + dir.getVector().x);
-						int toY = (int) (getTileY() + dir.getVector().y);
-						if (!parent.isTilePassable(toX, toY)) {
-							return LuaValue.FALSE;
-						}
-						for (MapEvent event : parent.getEventsAt(toX, toY)) {
-							if (event.hasCollideTrigger()) {
-								return LuaValue.FALSE;
+						for (int attempt = 0; attempt < 10; attempt += 1) {
+							int index = MGlobal.rand.nextInt(OrthoDir.values().length);
+							OrthoDir dir = OrthoDir.values()[index];
+							int toX = (int) (getTileX() + dir.getVector().x);
+							int toY = (int) (getTileY() + dir.getVector().y);
+							if (!parent.isTilePassable(toX, toY)) {
+								continue;
 							}
+							for (MapEvent event : parent.getEventsAt(toX, toY)) {
+								if (event.hasCollideTrigger()) {
+									continue;
+								}
+							}
+							attemptStep(dir);
+							break;
 						}
-						attemptStep(dir);
-						return LuaValue.TRUE;
 					}
-					return LuaValue.TRUE;
+					return LuaValue.NIL;
 				}
 				
 			});

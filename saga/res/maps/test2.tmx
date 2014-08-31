@@ -63,5 +63,10 @@
    </properties>
    <polygon points="0,0 0,96 32,96 32,112 48,112 48,96 80,96 80,0 0,0"/>
   </object>
+  <object name="autostart" type="Event" x="0" y="0" width="16" height="16">
+   <properties>
+    <property name="onEnter" value="speak('this is an autostart event!')"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

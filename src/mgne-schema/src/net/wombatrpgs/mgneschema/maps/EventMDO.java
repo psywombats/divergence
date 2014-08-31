@@ -52,6 +52,10 @@ public class EventMDO extends MainSchema {
 	@DefaultValue("")
 	public String onAdd;
 	
+	@Desc("onEnter - lua value, script is called when hero enters the map")
+	@DefaultValue("")
+	public String onEnter;
+	
 	@Desc("onRemove - lua value, script is called when event is removed from map")
 	@DefaultValue("")
 	public String onRemove;
