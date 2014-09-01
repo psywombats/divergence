@@ -5,9 +5,9 @@
     <target name="create_run_jar">
         <jar destfile="C:/Users/aking_2/saga/saga/res/jar/SagaSchema.jar">
             <zipfileset src="jar-in-jar-loader.zip"/>
-            <fileset dir="C:/Users/aking_2/saga/src/saga-schema/bin"/>
-            <fileset dir="C:/Users/aking_2/saga/src/jgdb-schema/bin"/>
-            <fileset dir="C:/Users/aking_2/saga/src/mgne-schema/bin"/>
+            <fileset dir="../saga-schema/bin"/>
+            <fileset dir="../jgdb-schema/bin"/>
+            <fileset dir="../mgne-schema/bin"/>
         </jar>
     </target>
 </project>

@@ -105,7 +105,12 @@ public class Avatar extends MapEvent implements CommandListener {
 	 * @param	dir				The direction to move
 	 */
 	protected void move(OrthoDir dir) {
+		int atX = getTileX();
+		int atY = getTileY();
 		attemptStep(dir);
+		if (atX != getTileX() || atY != getTileY()) {
+			parent.onTurn();
+		}
 	}
 	
 	/**
@@ -116,6 +121,7 @@ public class Avatar extends MapEvent implements CommandListener {
 		for (MapEvent event : parent.getEventsAt(getTileX(), getTileY())) {
 			if (event == this) continue;
 			if (!event.isPassable()) continue;
+			if (event.isHidden()) continue;
 			if (event.onInteract()) return;
 		}
 		OrthoDir facing = getFacing();

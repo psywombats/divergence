@@ -7,7 +7,8 @@
 package net.wombatrpgs.mgne.scenes.commands;
 
 import org.luaj.vm2.LuaValue;
-import org.luaj.vm2.lib.OneArgFunction;
+import org.luaj.vm2.Varargs;
+import org.luaj.vm2.lib.VarArgFunction;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.scenes.SceneCommand;
@@ -19,15 +20,15 @@ import net.wombatrpgs.mgneschema.io.data.InputCommand;
  * Waits for a certain amount of time to elapse. Given in seconds.
  * Usage: {@code wait(<time>)}
  */
-public class SceneSpeak extends OneArgFunction {
+public class SceneSpeak extends VarArgFunction {
 	
 	protected static final float FADE_TIME = 0f;
 
 	/**
-	 * @see org.luaj.vm2.lib.OneArgFunction#call(org.luaj.vm2.LuaValue)
+	 * @see org.luaj.vm2.lib.VarArgFunction#invoke(org.luaj.vm2.Varargs)
 	 */
 	@Override
-	public LuaValue call(final LuaValue arg) {
+	public Varargs invoke(final Varargs args) {
 		SceneLib.addFunction(new SceneCommand() {
 			
 			TextBox box;
@@ -36,7 +37,11 @@ public class SceneSpeak extends OneArgFunction {
 			boolean setText;
 			
 			/* Initializer */ {
-				text = arg.toString();
+				if (args.narg() == 1) {
+					text = args.checkjstring(1);
+				} else if (args.narg() == 2) {
+					text = args.checkjstring(1) + ":  " + args.checkjstring(2);
+				}
 			}
 			
 			@Override protected void internalRun() {
@@ -75,5 +80,7 @@ public class SceneSpeak extends OneArgFunction {
 		});
 		return LuaValue.NIL;
 	}
+
+	
 
 }

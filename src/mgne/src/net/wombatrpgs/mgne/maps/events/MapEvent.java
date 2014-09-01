@@ -10,7 +10,8 @@ import java.util.List;
 
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
-import org.luaj.vm2.lib.ThreeArgFunction;
+import org.luaj.vm2.lib.TwoArgFunction;
+import org.luaj.vm2.lib.ZeroArgFunction;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 import org.luaj.vm2.lib.jse.CoerceLuaToJava;
 
@@ -20,6 +21,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
+import net.wombatrpgs.mgne.core.interfaces.Turnable;
 import net.wombatrpgs.mgne.core.lua.Lua;
 import net.wombatrpgs.mgne.core.lua.LuaConvertable;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
@@ -46,7 +48,7 @@ import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
  * As of 2014-01-28, it's getting combined with character events to represent
  * any object on the map, whether it moves or not.
  */
-public class MapEvent extends MapMovable implements	LuaConvertable {
+public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	
 	/** General children and info */
 	protected EventMDO mdo;
@@ -55,7 +57,8 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 	protected boolean switchHidden;
 	
 	/** Lua */
-	protected SceneParser onAdd, onRemove, onInteract, onCollide;
+	protected SceneParser onAdd, onRemove, onInteract, onCollide, onEnter;
+	protected LuaValue turn;
 	protected LuaValue lua;
 	protected LuaValue hide;
 	
@@ -93,6 +96,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 		onRemove = mdoToScene(mdo.onRemove);
 		onInteract = mdoToScene(mdo.onInteract);
 		onCollide = mdoToScene(mdo.onCollide);
+		onEnter = mdoToScene(mdo.onEnter);
 		
 		if (mdo.face != null) {
 			setFacing(mdo.face);
@@ -124,7 +128,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 	public void setAppearance(FacesAnimation appearance) { this.appearance = appearance; }
 	
 	/** @return True if the object is passable, false otherwise */
-	public boolean isPassable() { return appearance == null; }
+	public boolean isPassable() { return appearance == null || isHidden(); }
 	
 	/** @see net.wombatrpgs.mgne.core.lua.LuaConvertable#toLua() */
 	@Override public LuaValue toLua() { return lua; }
@@ -134,6 +138,8 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 	
 	/** Shows this event so that it renders and collides */
 	public void show() { eventHidden = false; }
+	
+	public boolean isHidden() { return eventHidden || switchHidden; }
 	
 	/**
 	 * Gets the facing for the character. Returns null if no appearance.
@@ -182,6 +188,26 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 	}
 	
 	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		if (getName() != null) {
+			if (parent != null) {
+				return parent.toString() + "/" + getName();
+			} else {
+				return getName();
+			}
+		} else {
+			if (mdo.key == null) {
+				return mdo.description;
+			} else {
+				return mdo.key;
+			}
+		}
+	}
+
+	/**
 	 * Update yoself! This is called from the rendering loop but it's with some
 	 * filters set on it for target framerate. As of 2012-01-30 it's not called
 	 * from the idiotic update loop.
@@ -193,7 +219,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 			appearance.update(elapsed);
 		}
 		if (hide != null) {
-			switchHidden = hide.call().checkboolean();
+			switchHidden = MGlobal.lua.run(hide, lua).checkboolean();
 		}
 	}
 	
@@ -213,7 +239,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
-		if (!eventHidden && !switchHidden) {
+		if (!isHidden()) {
 			super.render(batch);
 			if (appearance != null) {
 				renderLocal(batch, appearance, 0, 0);
@@ -221,6 +247,16 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 		}
 	}
 	
+	/**
+	 * @see net.wombatrpgs.mgne.core.interfaces.Turnable#onTurn()
+	 */
+	@Override
+	public void onTurn() {
+		if (turn != null && !isHidden()) {
+			MGlobal.lua.run(turn, lua);
+		}
+	}
+
 	/**
 	 * Determines the orthographic direction to some tile location.
 	 * @param	tileX			The x-loc to get direction towards (in tiles)
@@ -283,6 +319,22 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 	}
 	
 	/**
+	 * @see net.wombatrpgs.mgne.maps.MapThing#onMapFocusGained
+	 * (net.wombatrpgs.mgne.maps.Level)
+	 */
+	@Override
+	public void onMapFocusGained(Level map) {
+		super.onMapFocusGained(map);
+		if (onEnter != null) {
+			MGlobal.levelManager.getTele().getPost().addListener(new FinishListener() {
+				@Override public void onFinish() {
+					runScene(onEnter);
+				}
+			});
+		}
+	}
+
+	/**
 	 * What happens when a character moves into this event? By default, nothing
 	 * happens, but characters should be attacked, items should be auto-grabbed,
 	 * and so on. This will start evaluation when the hero stops moving.
@@ -307,6 +359,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 	 */
 	public boolean onInteract() {
 		if (mdoHasProperty(mdo.onInteract)) {
+			faceToward(MGlobal.getHero());
 			runScene(onInteract);
 			return true;
 		} else {
@@ -386,7 +439,6 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 			for (MapEvent event : events) {
 				event.onCollide(this);
 				if (!event.isPassable()) {
-					// travelPlan.add(new StepBump(this, directionTo(targetX, targetY)));
 					colliding = true;
 				}
 			}
@@ -397,7 +449,6 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 				return true;
 			}
 		} else {
-			// travelPlan.add(new StepBump(this, directionTo(targetX, targetY)));
 			List<MapEvent> events = parent.getEventsAt(getTileX(), getTileY());
 			for (MapEvent event : events) {
 				if (event != this) {
@@ -430,6 +481,15 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 		setTileY(tileY);
 		setX(tileX * parent.getTileWidth());
 		setY(tileY * parent.getTileHeight());
+	}
+	
+	/**
+	 * Determines if this event will cause something to happen when the hero
+	 * steps inside it. This is to make sure NPCs don't wander into teleports.
+	 * @return					True if has a collision trigger
+	 */
+	public boolean hasCollideTrigger() {
+		return !isHidden() && onCollide != null && isPassable();
 	}
 	
 	/**
@@ -472,8 +532,8 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 					return LuaValue.NIL;
 				}
 			});
-			lua.set("eventWalk", new ThreeArgFunction() {
-				@Override public LuaValue call(LuaValue self, LuaValue stepsArg, LuaValue dirArg) {
+			lua.set("eventWalk", new TwoArgFunction() {
+				@Override public LuaValue call(LuaValue stepsArg, LuaValue dirArg) {
 					OrthoDir dir = OrthoDir.valueOf(dirArg.checkjstring());
 					int steps = stepsArg.checkint();
 					int targetX = (int) (getTileX() + steps * dir.getVector().x);
@@ -486,9 +546,36 @@ public class MapEvent extends MapMovable implements	LuaConvertable {
 					return LuaValue.NIL;
 				}
 			});
+			lua.set("wander", new ZeroArgFunction() {
+				@Override public LuaValue call() {
+					if (MGlobal.rand.nextInt(4) == 0) {
+						for (int attempt = 0; attempt < 10; attempt += 1) {
+							int index = MGlobal.rand.nextInt(OrthoDir.values().length);
+							OrthoDir dir = OrthoDir.values()[index];
+							int toX = (int) (getTileX() + dir.getVector().x);
+							int toY = (int) (getTileY() + dir.getVector().y);
+							if (!parent.isTilePassable(toX, toY)) {
+								continue;
+							}
+							for (MapEvent event : parent.getEventsAt(toX, toY)) {
+								if (event.hasCollideTrigger()) {
+									continue;
+								}
+							}
+							attemptStep(dir);
+							break;
+						}
+					}
+					return LuaValue.NIL;
+				}
+				
+			});
 			
 			if (mdo != null && mdo.hide != null && mdo.hide.length() > 0) {
 				hide = MGlobal.lua.interpret(mdo.hide);
+			}
+			if (mdo != null && mdo.onTurn != null && mdo.onTurn.length() > 0) {
+				turn = MGlobal.lua.interpret(mdo.onTurn);
 			}
 		}
 	}

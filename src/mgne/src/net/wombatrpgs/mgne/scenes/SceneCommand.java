@@ -6,9 +6,13 @@
  */
 package net.wombatrpgs.mgne.scenes;
 
+import org.luaj.vm2.LuaValue;
+
 import net.wombatrpgs.mgne.core.AssetQueuer;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.io.CommandListener;
+import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 
@@ -101,6 +105,26 @@ public abstract class SceneCommand extends AssetQueuer implements	Updateable,
 	 */
 	protected void addToQueue() {
 		// default is nothing
+	}
+	
+	/**
+	 * Extracts the lua value of an event from an argument passed to a scene
+	 * command call. The arg could be the name of an event or the event itself.
+	 * @param	eventArg		The event parameter passed from script
+	 * @return					The lua value of that event
+	 */
+	protected static LuaValue eventLua(LuaValue eventArg) {
+		if (eventArg.isstring()) {
+			String eventName = eventArg.checkjstring();
+			MapEvent event = MGlobal.levelManager.getActive().getEventByName(eventName);
+			if (event == null) {
+				MGlobal.reporter.err("No event named '" + eventName + "'");
+				return LuaValue.NIL;
+			}
+			return event.toLua();
+		} else {
+			return eventArg;
+		}
 	}
 	
 	/**

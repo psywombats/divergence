@@ -14,6 +14,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.scenes.SceneLib;
 
 import org.luaj.vm2.Globals;
+import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaFunction;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.TwoArgFunction;
@@ -48,8 +49,8 @@ public class Lua {
 	
 	/**
 	 * Loads the contents of a file as a lua value.
-	 * @param	file				The file to load, a lua source
-	 * @return						The lua script in that file
+	 * @param	file			The file to load, a lua source
+	 * @return					The lua script in that file
 	 */
 	public LuaValue load(FileHandle file) {
 		return globals.load(prependRequires(file.readString()), file.name());
@@ -62,7 +63,12 @@ public class Lua {
 	 * @return					A corresponding script, ready to run
 	 */
 	public LuaValue interpret(String chunk) {
-		return globals.load(chunk);
+		try {
+			return globals.load(chunk);
+		} catch (LuaError error) {
+			MGlobal.reporter.err("Lua error: chunk = " + chunk);
+			throw error;
+		}
 	}
 	
 	/**
@@ -72,11 +78,16 @@ public class Lua {
 	 * @return					The result of the evaluation, or null if none
 	 */
 	public LuaValue runIfExists(String chunk) {
-		if (chunk == null || chunk.length() == 0) {
-			return null;
+		try {
+			if (chunk == null || chunk.length() == 0) {
+				return null;
+			}
+			String full = prependRequires(chunk);
+			return interpret(full).call();
+		} catch (LuaError error) {
+			MGlobal.reporter.err("Lua error: chunk = " + chunk);
+			throw error;
 		}
-		String full = prependRequires(chunk);
-		return interpret(full).call();
 	}
 	
 	/**
@@ -98,11 +109,16 @@ public class Lua {
 	 * functions on the caller.
 	 * @param	script			The script to interpret
 	 * @param	caller			The calling object
-	 * @return					THe result of the evaluation
+	 * @return					The result of the evaluation
 	 */
 	public LuaValue run(LuaValue script, LuaValue caller) {
-		globals.set("this", caller);
-		return script.call();
+		try {
+			globals.set("this", caller);
+			return script.call();
+		} catch (LuaError error) {
+			MGlobal.reporter.err("Lua error: caller = " + caller);
+			throw error;
+		}
 	}
 	
 	/**

@@ -6,10 +6,10 @@
 	"anchor" : "TOP",
 	"scaling" : "FIXED_SIZE",
 	"nineslice" : "nineslice_ffl",
-	"typeSpeed" : 30,
+	"typeSpeed" : 32,
 	"typeSfx" : "None",
-	"lines" : 3,
-	"marginWidth" : 8,
-	"marginTop" : 6,
-  "marginBottom" : 6
+	"lines" : 4,
+	"marginWidth" : 11,
+	"marginTop" : 9,
+	"marginBottom" : 9
 }

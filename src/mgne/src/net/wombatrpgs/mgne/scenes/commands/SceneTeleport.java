@@ -13,43 +13,61 @@ import net.wombatrpgs.mgne.scenes.SceneCommand;
 import net.wombatrpgs.mgne.scenes.SceneLib;
 
 import org.luaj.vm2.LuaValue;
-import org.luaj.vm2.lib.ThreeArgFunction;
+import org.luaj.vm2.Varargs;
+import org.luaj.vm2.lib.VarArgFunction;
 
 /**
  * Teleports hero to some remote locale.
+ * Usage: {@code teleport(<mapname>, <x>, <y>, [transitionEnabled])}
  */
-public class SceneTeleport extends ThreeArgFunction {
+public class SceneTeleport extends VarArgFunction {
 
 	/**
-	 * @see org.luaj.vm2.lib.ThreeArgFunction#call
-	 * (org.luaj.vm2.LuaValue, org.luaj.vm2.LuaValue, org.luaj.vm2.LuaValue)
+	 * @see org.luaj.vm2.lib.VarArgFunction#invoke(org.luaj.vm2.Varargs)
 	 */
-	@Override public LuaValue call(final LuaValue map, final LuaValue x, final LuaValue y) {
+	@Override
+	public Varargs invoke(final Varargs args) {
 		SceneLib.addFunction(new SceneCommand() {
 			
 			String mapName;
 			int tileX, tileY;
 			boolean teleportFinished;
+			boolean useTransition;
 			
 			/* Initializer */ {
-				mapName = map.checkjstring();
-				tileX = x.checkint();
-				tileY = y.checkint();
+				mapName = args.arg(1).checkjstring();
+				tileX = args.arg(2).checkint();
+				tileY = args.arg(3).checkint();
+				if (args.narg() == 4) {
+					useTransition = args.arg(4).checkboolean();
+				} else {
+					useTransition = true;
+				}
 				teleportFinished = false;
 			}
 
 			@Override protected void internalRun() {
-				final Level map = MGlobal.levelManager.getLevel(mapName);
-				FinishListener onFinish = new FinishListener() {
-					@Override public void onFinish() {
-						teleportFinished = true;
-						map.update(0);
-					}
-				};
-				MGlobal.levelManager.getTele().teleport(mapName,
-						tileX,
-						map.getHeight() - (tileY+1),
-						onFinish);
+				if (useTransition) {
+					final Level map = MGlobal.levelManager.getLevel(mapName);
+					FinishListener onFinish = new FinishListener() {
+						@Override public void onFinish() {
+							teleportFinished = true;
+							map.update(0);
+						}
+					};
+					MGlobal.levelManager.getTele().teleport(mapName,
+							tileX,
+							map.getHeight() - (tileY+1),
+							onFinish);
+				} else {
+					MGlobal.levelManager.getTele().teleportRaw(mapName,
+							tileX,
+							tileY);
+					Level map = MGlobal.levelManager.getActive();
+					MGlobal.getHero().setTileLocation(tileX, map.getHeight() - (tileY+1));
+					map.update(0);
+					teleportFinished = true;
+				}
 			}
 
 			@Override protected boolean shouldFinish() {

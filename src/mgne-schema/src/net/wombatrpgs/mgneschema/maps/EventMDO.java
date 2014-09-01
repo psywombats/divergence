@@ -29,10 +29,6 @@ public class EventMDO extends MainSchema {
 	@Nullable
 	public String appearance;
 	
-	@Desc("Name - identifier for the NPC, it's fine to be blank")
-	@DefaultValue("")
-	public String name;
-	
 	@Desc("Group - any groups this NPC is in, when in doubt just leave blank, space seperated")
 	@DefaultValue("")
 	public String groups;
@@ -51,6 +47,10 @@ public class EventMDO extends MainSchema {
 	@Desc("onAdd - lua value, script is called when event is added to map")
 	@DefaultValue("")
 	public String onAdd;
+	
+	@Desc("onEnter - lua value, script is called when hero enters the map")
+	@DefaultValue("")
+	public String onEnter;
 	
 	@Desc("onRemove - lua value, script is called when event is removed from map")
 	@DefaultValue("")

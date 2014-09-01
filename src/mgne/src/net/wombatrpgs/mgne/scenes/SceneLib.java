@@ -11,8 +11,11 @@ import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.lua.LoadableScript;
+import net.wombatrpgs.mgne.scenes.commands.SceneFace;
+import net.wombatrpgs.mgne.scenes.commands.SceneHideAvatar;
 import net.wombatrpgs.mgne.scenes.commands.ScenePlayExternal;
 import net.wombatrpgs.mgne.scenes.commands.SceneSpeak;
+import net.wombatrpgs.mgne.scenes.commands.SceneSwitch;
 import net.wombatrpgs.mgne.scenes.commands.SceneTeleport;
 import net.wombatrpgs.mgne.scenes.commands.SceneTint;
 import net.wombatrpgs.mgne.scenes.commands.SceneWait;
@@ -42,6 +45,9 @@ public class SceneLib extends TwoArgFunction {
 		env.set("speak", new SceneSpeak());
 		env.set("play", new ScenePlayExternal());
 		env.set("walk", new SceneWalk());
+		env.set("face", new SceneFace());
+		env.set("hideHero", new SceneHideAvatar());
+		env.set("sceneSwitch", new SceneSwitch());
 		
 		env.set("scenelib", library);
 		return library;
