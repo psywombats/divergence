@@ -29,10 +29,6 @@ public class EventMDO extends MainSchema {
 	@Nullable
 	public String appearance;
 	
-	@Desc("Name - identifier for the NPC, it's fine to be blank")
-	@DefaultValue("")
-	public String name;
-	
 	@Desc("Group - any groups this NPC is in, when in doubt just leave blank, space seperated")
 	@DefaultValue("")
 	public String groups;

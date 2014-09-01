@@ -57,16 +57,12 @@ public class TiledGridLayer extends GridLayer {
 	 */
 	@Override
 	public boolean isTilePassable(int tileX, int tileY) {
+		if (z >= 1) return true;
 		if (getTileID(tileX, tileY) == 0) {
 			// there is no tile at this location
-			return !isLowerChip();
+			return z > 0;
 		} else {
-			if (isLowerChip()) {
-				return (getTileProperty(tileX, tileY, Constants.PROPERTY_IMPASSABLE) == null);
-			} else {
-				return (getTileProperty(tileX, tileY, Constants.PROPERTY_PASSABLE) == null);
-			}
-			
+			return (getTileProperty(tileX, tileY, Constants.PROPERTY_IMPASSABLE) == null);
 		}
 	}
 

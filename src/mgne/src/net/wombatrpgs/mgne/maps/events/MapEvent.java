@@ -128,7 +128,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	public void setAppearance(FacesAnimation appearance) { this.appearance = appearance; }
 	
 	/** @return True if the object is passable, false otherwise */
-	public boolean isPassable() { return appearance == null; }
+	public boolean isPassable() { return appearance == null || isHidden(); }
 	
 	/** @see net.wombatrpgs.mgne.core.lua.LuaConvertable#toLua() */
 	@Override public LuaValue toLua() { return lua; }
@@ -138,6 +138,8 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	
 	/** Shows this event so that it renders and collides */
 	public void show() { eventHidden = false; }
+	
+	public boolean isHidden() { return eventHidden || switchHidden; }
 	
 	/**
 	 * Gets the facing for the character. Returns null if no appearance.
@@ -186,6 +188,26 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	}
 	
 	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		if (getName() != null) {
+			if (parent != null) {
+				return parent.toString() + "/" + getName();
+			} else {
+				return getName();
+			}
+		} else {
+			if (mdo.key == null) {
+				return mdo.description;
+			} else {
+				return mdo.key;
+			}
+		}
+	}
+
+	/**
 	 * Update yoself! This is called from the rendering loop but it's with some
 	 * filters set on it for target framerate. As of 2012-01-30 it's not called
 	 * from the idiotic update loop.
@@ -217,7 +239,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
-		if (!eventHidden && !switchHidden) {
+		if (!isHidden()) {
 			super.render(batch);
 			if (appearance != null) {
 				renderLocal(batch, appearance, 0, 0);
@@ -230,7 +252,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	 */
 	@Override
 	public void onTurn() {
-		if (turn != null) {
+		if (turn != null && !isHidden()) {
 			MGlobal.lua.run(turn, lua);
 		}
 	}
@@ -467,7 +489,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	 * @return					True if has a collision trigger
 	 */
 	public boolean hasCollideTrigger() {
-		return onCollide != null && isPassable();
+		return !isHidden() && onCollide != null && isPassable();
 	}
 	
 	/**

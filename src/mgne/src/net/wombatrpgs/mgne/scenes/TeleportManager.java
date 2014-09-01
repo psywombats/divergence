@@ -96,6 +96,16 @@ public class TeleportManager implements Queueable {
 	}
 	
 	/**
+	 * Teleports without a transition to a map given by name.
+	 * @param	mapName			The name of the map to teleport to (.tmx?)
+	 * @param 	tileX			The x-coord to teleport to (in tiles)
+	 * @param 	tileY			The y-coord to teleport to (in tiles)
+	 */
+	public void teleportRaw(String mapName, int tileX, int tileY) {
+		teleportRaw(MGlobal.levelManager.getLevel(mapName), tileX, tileY);
+	}
+	
+	/**
 	 * Teleports the hero to the map. This is a core teleport event and doesn't
 	 * actually deal with the pre/post stuff... Assumes the teleport affects the
 	 * hero and not some other goober.

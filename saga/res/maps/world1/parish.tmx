@@ -10,7 +10,7 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2TMQrDMAxFHToE0q3QIVt8gbZL2/vfrAnIID5SXMc2ZPjDg2BF1jP+nkIIEyGEEJflBA6Wzwjof7zaXk+tzx3QM7A2CLhe6zIrn8fKU3jBjPfKR/gqH1xv4RONmdaMIUONgyZC3dobc5IcWuQnOSSwbvn0zM8Rn575mTN372WhZ362/quQm9PLA31uQumeLV08H3xzFpZTbtZS4KPBjCPopvtKzuH5WOz5oNu/57DeL3Kk72w+2J98SvqQSyOi800IIR4/xRhpX5ASAAA=
+   H4sIAAAAAAAAC+2TMQrDMAxFHTq0pFuhQ7b4Am2XtPe/WVOQQXykuI5tyPCHB8GKrGf8PYYQRkIIIS7zARwsnzOg//FqWz21PndAz8DaIOB6rcukfB4rT+EFM5aVt/BRPrjewifCzIszY8hQ46CJULf2xpwkhxb5SQ4JrFs+PfOzx6dnfqbM3XtZ6JmfX/9VyM3p5YE+N6F0z5Yung++OQvLKTdrLvDRYMYRdNN9JefwfCy2fNDt33NY7xfZ03c0H+xPPiV9yKkR0fkmhBCPLwvQvbeQEgAA
   </data>
  </layer>
  <layer name="Tile Layer 2" width="36" height="33">
@@ -18,7 +18,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2WvQ6FMAiF+/JsN7o73cEHdfEkhNAW6Q8d+iVEGrU9QqGeKaUzY0fhXoTRAhq2xdmR8VvmaTHK+C3zaFql9fw2y3zcNDR98L/GJfd8aX3wK+ij1/fmCO9adFiAJu9exBw98eSL6xmBZz+Pxlo/M7RIPbn8zcTSp2cDHVp8RuXpL8bErqU+V+MWVy9YK6KuOSTGX/Rcr/WE56DWD2eBGNVyFsUqdQ5W6IPQ0VLrvYk+qyTavonSAuTZFQ3/54yOzWYzkgfNoXMVkBIAAA==
+   H4sIAAAAAAAAC+2WzQ6EIAyEeXfT20bvnvawD7oXJ2lIC7X8lANfMhGilpEW8EopXYrOwr0I0QIetuJ0Ku2WOC0ipd0SR/Kaq+e3WeJxSUj+0H47L9rzpfHBp+CPnrY3R3jX4sMCPHlrETF64skX9zMCTz2Pxrp+Sl6OQX60/M3Esk/PBj6k+RlVM9+sT+xa2udq/LKrF4wVsa45lPXf+Lkf9YTnoLYfzgJzVMtZFKusc7DCPggfLWu9N5HnpoRUN1FeQH52RcP/OaPnZrMZyR/fjnt8kBIAAA==
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
@@ -26,6 +26,7 @@
    <properties>
     <property name="appearance" value="lua(return getHero(1).getSpriteName())"/>
     <property name="face" value="NORTH"/>
+    <property name="hide" value="return getSwitch('opening_flashback')"/>
     <property name="onInteract" value="speak(getHero(1).getName() .. ':  You should talk to BORG and Elder before we leave.')"/>
    </properties>
   </object>
@@ -33,6 +34,7 @@
    <properties>
     <property name="appearance" value="lua(return getHero(2).getSpriteName())"/>
     <property name="face" value="WEST"/>
+    <property name="hide" value="return getSwitch('opening_flashback')"/>
     <property name="onInteract" value="speak(getHero(2).getName() .. ':  ' .. getHero(0).getName() .. ', aren\'t you ready to leave yet?')"/>
    </properties>
   </object>
@@ -40,7 +42,45 @@
    <properties>
     <property name="appearance" value="lua(return getHero(3).getSpriteName())"/>
     <property name="face" value="WEST"/>
+    <property name="hide" value="return getSwitch('opening_flashback')"/>
     <property name="onInteract" value="speak(getHero(3).getName() .. ':  We\'ll wait for you here. Say your goodbyes, the journey starts today!')"/>
+   </properties>
+  </object>
+  <object name="borg" type="Character" x="304" y="256" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="hide" value="return not getSwitch('opening_flashback')"/>
+   </properties>
+  </object>
+  <object name="elder" type="Character" x="320" y="256" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="hide" value="return not getSwitch('opening_flashback')"/>
+   </properties>
+  </object>
+  <object name="clone" type="Character" x="128" y="288" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="hide" value="return not getSwitch('opening_flashback')"/>
+   </properties>
+  </object>
+  <object name="jonas" type="Character" x="304" y="320" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return not getSwitch('opening_flashback')"/>
+   </properties>
+  </object>
+  <object name="janine" type="Character" x="320" y="320" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return not getSwitch('opening_flashback')"/>
+   </properties>
+  </object>
+  <object type="Event" x="160" y="208" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/parish_interior.tmx', 24, 12)"/>
    </properties>
   </object>
  </objectgroup>

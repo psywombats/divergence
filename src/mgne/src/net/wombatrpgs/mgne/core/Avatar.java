@@ -121,6 +121,7 @@ public class Avatar extends MapEvent implements CommandListener {
 		for (MapEvent event : parent.getEventsAt(getTileX(), getTileY())) {
 			if (event == this) continue;
 			if (!event.isPassable()) continue;
+			if (event.isHidden()) continue;
 			if (event.onInteract()) return;
 		}
 		OrthoDir facing = getFacing();

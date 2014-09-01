@@ -17,8 +17,9 @@ import org.luaj.vm2.lib.VarArgFunction;
  * Moves a map event across the map. The final parameter will halt execution
  * until the character reaches their destination. Like all scenelib commands,
  * these do not execute immediately but rather wait for their sequence in a
- * scripted scene.
- * Usage: {@code walk(<event>, <steps>, <direction>, [wait])}
+ * scripted scene. The event provided can be an event name which will be
+ * looked up at time of execution.
+ * Usage: {@code walk(<event> or <eventName>, <steps>, <direction>, [wait])}
  */
 public class SceneWalk extends VarArgFunction {
 	/**
@@ -28,19 +29,19 @@ public class SceneWalk extends VarArgFunction {
 	public Varargs invoke(final Varargs args) {
 		SceneLib.addFunction(new SceneCommand() {
 			
-			LuaValue event = args.arg(1);
+			LuaValue eventArg = args.arg(1);
 			LuaValue steps = args.arg(2);
 			LuaValue dir = args.arg(3);
 			boolean wait = args.narg() >= 4 ? args.checkboolean(4) : true;
 
 			@Override protected void internalRun() {
-				event.method("eventWalk", steps, dir);
+				eventLua(eventArg).get("eventWalk").call(steps, dir);
 			}
 
 			@Override protected boolean shouldFinish() {
 				if (!super.shouldFinish()) return false;
 				if (wait) {
-					return event.get("isTracking").call().checkboolean();
+					return !eventLua(eventArg).get("isTracking").call().checkboolean();
 				} else {
 					return true;
 				}

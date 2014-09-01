@@ -11,6 +11,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 import org.luaj.vm2.lib.TwoArgFunction;
+import org.luaj.vm2.lib.ZeroArgFunction;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
 /**
@@ -32,6 +33,7 @@ public class MgnLib extends TwoArgFunction {
 				return CoerceJavaToLua.coerce(value);
 			}
 		});
+		
 		env.set("setSwitch", new TwoArgFunction() {
 			@Override public LuaValue call(LuaValue arg1, LuaValue arg2) {
 				boolean value = arg2.checkboolean();
@@ -39,6 +41,12 @@ public class MgnLib extends TwoArgFunction {
 				boolean oldValue = MGlobal.memory.getSwitch(switchName);
 				MGlobal.memory.setSwitch(switchName, value);
 				return CoerceJavaToLua.coerce(oldValue);
+			}
+		});
+		
+		env.set("getAvatar", new ZeroArgFunction() {
+			@Override public LuaValue call() {
+				return MGlobal.getHero().toLua();
 			}
 		});
 		
