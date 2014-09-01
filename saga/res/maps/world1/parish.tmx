@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="36" height="33" tilewidth="16" tileheight="16">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="36" height="43" tilewidth="16" tileheight="16">
  <properties>
   <property name="name" value="Parish"/>
  </properties>
  <tileset firstgid="1" source="../tilesets/lower.tsx"/>
  <tileset firstgid="113" source="../tilesets/upper.tsx"/>
- <layer name="Tile Layer 1" width="36" height="33">
+ <layer name="Tile Layer 1" width="36" height="43">
   <properties>
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2TMQrDMAxFHTq0pFuhQ7b4Am2XtPe/WVOQQXykuI5tyPCHB8GKrGf8PYYQRkIIIS7zARwsnzOg//FqWz21PndAz8DaIOB6rcukfB4rT+EFM5aVt/BRPrjewifCzIszY8hQ46CJULf2xpwkhxb5SQ4JrFs+PfOzx6dnfqbM3XtZ6JmfX/9VyM3p5YE+N6F0z5Yung++OQvLKTdrLvDRYMYRdNN9JefwfCy2fNDt33NY7xfZ03c0H+xPPiV9yKkR0fkmhBCPLwvQvbeQEgAA
+   H4sIAAAAAAAAC+2TMQ6DMAxFE3UoolulDtngAm2XtgP3v1dBClL69U1IMKKDhydBROyX8N0651rDMAzDMIwMZ+Bonxtw1D34uP4aeUc+K2v5iv65e0h9mkIfDfAevIBGr67w+7T/HnlOfaT6LD+e/EdtH6k+y48n/3GrSwAfqX4uP1o5nXx66CvNC8uvRn4C0JO+uGdtfmq8ZocZNj+4JuXnPvKIPF1drmt85vw07jc/6XptroOT8zjE90HwXGJLhqf9l0iuz14e6HONlNbUnnPmgzPHYE65Xl2BTwpmHEG3dF/JOSQfxpIPuq09B5tfRNq3lNl/80E39lw6dycleuHZMAxD4guHWf/2MBgAAA==
   </data>
  </layer>
- <layer name="Tile Layer 2" width="36" height="33">
+ <layer name="Tile Layer 2" width="36" height="43">
   <properties>
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2WzQ6EIAyEeXfT20bvnvawD7oXJ2lIC7X8lANfMhGilpEW8EopXYrOwr0I0QIetuJ0Ku2WOC0ipd0SR/Kaq+e3WeJxSUj+0H47L9rzpfHBp+CPnrY3R3jX4sMCPHlrETF64skX9zMCTz2Pxrp+Sl6OQX60/M3Esk/PBj6k+RlVM9+sT+xa2udq/LKrF4wVsa45lPXf+Lkf9YTnoLYfzgJzVMtZFKusc7DCPggfLWu9N5HnpoRUN1FeQH52RcP/OaPnZrMZyR/fjnt8kBIAAA==
+   H4sIAAAAAAAAC+2WPQ7DIAyFOVHbpe0BK1ayd+pRmwFLloX5cWKMFH/SU5oAzpNtSLcQwuZyucyUlOZKFZXmXlkadWvFrI1HBU+tXqiNp471rjVE4eopjd+7Fub1+DnSW3gt9kaBPXXbdc96KOcCe6OkfH3ueuXfbzQmqROXCxwPNArEl+QroLXwbokHDI4l8XP0/RySXtZktJ+16d0/NS8fJT9c7WZS2reWfrCnUn6O9Mwv8LWkzyO6cnWa0b9Az9kzg0juR/x8s84E16B1Fs4CctSqmRWr7HNghXMQfKyw1wHL72aJUt9YeQHot8uaM/9zOs7K/AHAbpDoMBgAAA==
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
-  <object name="friend" type="Character" x="304" y="384" width="16" height="16">
+  <object name="friend" type="Character" x="304" y="544" width="16" height="16">
    <properties>
     <property name="appearance" value="lua(return getHero(1).getSpriteName())"/>
     <property name="face" value="NORTH"/>
@@ -30,7 +30,7 @@
     <property name="onInteract" value="speak(getHero(1).getName() .. ':  You should talk to BORG and Elder before we leave.')"/>
    </properties>
   </object>
-  <object name="friend" type="Character" x="320" y="368" width="16" height="16">
+  <object name="friend" type="Character" x="320" y="528" width="16" height="16">
    <properties>
     <property name="appearance" value="lua(return getHero(2).getSpriteName())"/>
     <property name="face" value="WEST"/>
@@ -38,7 +38,7 @@
     <property name="onInteract" value="speak(getHero(2).getName() .. ':  ' .. getHero(0).getName() .. ', aren\'t you ready to leave yet?')"/>
    </properties>
   </object>
-  <object name="friend" type="Character" x="320" y="352" width="16" height="16">
+  <object name="friend" type="Character" x="320" y="512" width="16" height="16">
    <properties>
     <property name="appearance" value="lua(return getHero(3).getSpriteName())"/>
     <property name="face" value="WEST"/>
@@ -46,41 +46,51 @@
     <property name="onInteract" value="speak(getHero(3).getName() .. ':  We\'ll wait for you here. Say your goodbyes, the journey starts today!')"/>
    </properties>
   </object>
-  <object name="borg" type="Character" x="304" y="256" width="16" height="16">
+  <object name="borg" type="Character" x="304" y="416" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="hide" value="return not getSwitch('opening_flashback')"/>
    </properties>
   </object>
-  <object name="elder" type="Character" x="320" y="256" width="16" height="16">
+  <object name="elder" type="Character" x="320" y="416" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="hide" value="return not getSwitch('opening_flashback')"/>
    </properties>
   </object>
-  <object name="clone" type="Character" x="128" y="288" width="16" height="16">
+  <object name="clone" type="Character" x="128" y="448" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="hide" value="return not getSwitch('opening_flashback')"/>
    </properties>
   </object>
-  <object name="jonas" type="Character" x="304" y="320" width="16" height="16">
-   <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
-    <property name="face" value="NORTH"/>
-    <property name="hide" value="return not getSwitch('opening_flashback')"/>
-   </properties>
-  </object>
-  <object name="janine" type="Character" x="320" y="320" width="16" height="16">
+  <object name="jonas" type="Character" x="304" y="480" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="face" value="NORTH"/>
     <property name="hide" value="return not getSwitch('opening_flashback')"/>
    </properties>
   </object>
-  <object type="Event" x="160" y="208" width="16" height="16">
+  <object name="janine" type="Character" x="320" y="480" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return not getSwitch('opening_flashback')"/>
+   </properties>
+  </object>
+  <object type="Event" x="368" y="416" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/parish_interior.tmx', 24, 12)"/>
+   </properties>
+  </object>
+  <object type="Event" x="272" y="416" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/parish_interior.tmx', 24, 31)"/>
+   </properties>
+  </object>
+  <object type="Event" x="160" y="368" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/parish_interior.tmx', 3, 31)"/>
    </properties>
   </object>
  </objectgroup>

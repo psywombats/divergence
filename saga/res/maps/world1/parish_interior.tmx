@@ -10,7 +10,7 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3WMQrDMAwFUI+eCtlyirZL2/vfrGQIhA5OhEWJyXug0ZI/COxSuILbgcrslTGnxzLn0aho3vXctNO3Z06PZc67UdG867l5p2/PnB7LnNqoaN5Wr6w5PeS9Rt4p4R4j5Z0T7jFK3sz39+x576X9Lj4DvUbI+yrtd/ET6LXdiVqO7c6//1eZtrtSS+x/Fdmjs9juSi2x/1VkjwAAAAAAAAAAAADg1xe0yiqZQDgAAA==
+   H4sIAAAAAAAAC+3YMQ7DIAyFYY9MlbLlFG2Xtve/WcUQKRPwgp2A8n8SY2yehASxGe7g0bA8a3n06ZH7vApLzbt9t1Tq9vTpkft8C0vNu323Vur29OmR+6TCUvOWann16UHee+RdHPYxU97VYR+z5PW8f0fP+7TyvfgWas2Q92Ple/En1NqfiWRtZ+fs95Wn/VlJpr2vlHM0iv1ZSaa9r5RzBAAA5hDx1hv5/Vib0x2ZpUXU9FKb0x2ZpUXU9KL8uyl5R/v/i9wbeclL3nOos5eranpRZi+ts5aIml6U2UvrrCWiJgAAAAAAAAAAwFX+8h9y/kA4AAA=
   </data>
  </layer>
  <layer name="Tile Layer 2" width="60" height="60">
@@ -18,7 +18,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3RwQpAQBAGYO9MbvIELi4OXlbiIGWFXVt8X027NTWzf1sUwBf0a8VQRZqT0rjWrH44qznp1wf3XNoX56fexaLcnbF1gd6QaGfINu82c+id3Jfjj3P4S04AAAAAAAAAAAAAgCsmoLsNcEA4AAA=
+   H4sIAAAAAAAAC+3YzQqCQBAAYN+5EDqET9ClSwffoHrIlDxI4A81urp9HwwjrMzOwJ6mKIAcXLuIcAyqs6S6i1b5Y63zxHk58J1KtWL9pe/i7fCRo11Gzk4L3TmmP29/5rE++d4tdQMr+Zc5AQCAPETt8bZgarfQ7tPqiX/m1CwH8tZE7dOqgZyLexOPJp6pG5kpem+1l/ccJff3DAAAAAAAAFv3AqrLwI9AOAAA
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
@@ -51,7 +51,37 @@
   </object>
   <object type="Event" x="384" y="208" width="16" height="16">
    <properties>
-    <property name="onCollide" value="teleport('world1/parish.tmx', 10, 14)"/>
+    <property name="onCollide" value="teleport('world1/parish.tmx', 23, 27)"/>
+   </properties>
+  </object>
+  <object type="Event" x="384" y="512" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/parish.tmx', 17, 27)"/>
+   </properties>
+  </object>
+  <object type="Event" x="48" y="512" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/parish.tmx', 10, 24)"/>
+   </properties>
+  </object>
+  <object name="inn" type="Character" x="384" y="432" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="onInteract" value="inn()"/>
+   </properties>
+  </object>
+  <object name="elder" type="Character" x="48" y="432" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="hide" value="return getSwitch('opening_talked_elder')"/>
+    <property name="onInteract" value="play('elder01.lua')"/>
+   </properties>
+  </object>
+  <object name="elder" type="Character" x="48" y="432" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="hide" value="return not getSwitch('opening_talked_elder')"/>
+    <property name="onInteract" value="speak('Elder', 'Take care.')"/>
    </properties>
   </object>
  </objectgroup>
@@ -60,7 +90,7 @@
    <property name="z" value="1.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3OQQ0AMAgEMBRM8L4YxwW3ZK2CVgEAAK846cCymw4s63QAAAAAAAAAAAAAgK8M/WL1vUA4AAA=
+   H4sIAAAAAAAAC+3YOREAIBDAwFOAYFqMo+Iehl0FqRMBAABMsboDiu3ugGKnOwAAAAA+l/FeJv+cjPcy+edkvBc/BwAAAAAAeN0FEEu/uEA4AAA=
   </data>
  </layer>
 </map>

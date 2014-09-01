@@ -27,7 +27,7 @@ walk("jonas", 10, "SOUTH", false)
 walk("janine", 10, "SOUTH", true);
 
 fade('black')
-teleport('world1/parish_interior.tmx', 24, 8, false)
+teleport('world1/parish_interior.tmx', 24, 18, false)
 sceneSwitch('opening_flashback', false)
 hideHero(false)
 face(getAvatar(), 'EAST')
