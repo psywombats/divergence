@@ -67,6 +67,20 @@ public class TiledGridLayer extends GridLayer {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.maps.layers.GridLayer#isBridge(int, int)
+	 */
+	@Override
+	public boolean isBridge(int tileX, int tileY) {
+		if (isLowerChip()) return false;
+		if (getTileID(tileX, tileY) == 0) {
+			// there is no tile at this location
+			return false;
+		} else {
+			return (getTileProperty(tileX, tileY, Constants.PROPERTY_PASSABLE) != null);
+		}
+	}
+
+	/**
 	 * An easy way to keep track of properties.
 	 * @param 	key				The key of the desired property
 	 * @return					The value of that property

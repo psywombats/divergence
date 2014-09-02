@@ -33,7 +33,7 @@ public class SceneFace extends TwoArgFunction {
 			LuaValue dir = dirArg;
 
 			@Override protected void internalRun() {
-				eventLua(event).get("eventFace").call(dir);
+				argToLua(event).get("eventFace").call(dir);
 			}
 			
 		});

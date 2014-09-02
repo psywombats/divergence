@@ -204,15 +204,32 @@ public abstract class Level extends ScreenObject implements Turnable {
 	 * account event passability.
 	 * @param 	tileX			The checked x-coord (in tiles)
 	 * @param 	tileY			The checked y-coord (in tiles)
-	 * @return 					True if layer is passable, false otherwise
+	 * @return 					True if level is passable, false otherwise
 	 */
 	public boolean isChipPassable(int tileX, int tileY) {
 		for (GridLayer layer : gridLayers) {
 			if (!layer.isTilePassable(tileX, tileY)) {
-				return false;
+				if (!isUpperChipBridge(tileX, tileY)) {
+					return false;
+				}
 			}
 		}
 		return true;
+	}
+	
+	/**
+	 * Checks if any bridge tiles at the tile make it auto-passable.
+	 * @param 	tileX			The checked x-coord (in tiles)
+	 * @param 	tileY			The checked y-coord (in tiles)
+	 * @return 					True if upper is bridge, false otherwise
+	 */
+	public boolean isUpperChipBridge(int tileX, int tileY) {
+		for (GridLayer layer : gridLayers) {
+			if (layer.isBridge(tileX, tileY)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**

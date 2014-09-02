@@ -15,6 +15,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
+import net.wombatrpgs.mgneschema.maps.data.DirEnum;
+import net.wombatrpgs.mgneschema.maps.data.DirVector;
 import net.wombatrpgs.mgneschema.maps.data.EightDir;
 
 /**
@@ -27,6 +29,7 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	protected float vx, vy;
 	
 	/** Tracking values */
+	protected List<DirEnum> path;
 	protected boolean tracking;
 	protected float targetX, targetY;
 	protected float lastX, lastY;
@@ -40,6 +43,7 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	public MapMovable() {
 		zeroCoords();
 		trackingListeners = new ArrayList<FinishListener>();
+		path = new ArrayList<DirEnum>();
 	}
 	
 	/** @see net.wombatrpgs.mgne.maps.Positionable#getX() */
@@ -162,14 +166,18 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 				vy = 0;
 			}
 			if (x == targetX && y == targetY) {
-				tracking = false;
-				List<FinishListener> oldListeners = new ArrayList<FinishListener>();
-				for (FinishListener listener : trackingListeners) {
-					oldListeners.add(listener);
-				}
-				trackingListeners.clear();
-				for (FinishListener listener : oldListeners) {
-					listener.onFinish();
+				if (path.size() == 0) {
+					tracking = false;
+					List<FinishListener> oldListeners = new ArrayList<FinishListener>();
+					for (FinishListener listener : trackingListeners) {
+						oldListeners.add(listener);
+					}
+					trackingListeners.clear();
+					for (FinishListener listener : oldListeners) {
+						listener.onFinish();
+					}
+				} else {
+					targetNextTile();
 				}
 			}
 		}
@@ -234,6 +242,15 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	}
 	
 	/**
+	 * Tracks a path of steps until the end of the path.
+	 * @param	newSteps		The path to follow, usually from pathfinding
+	 */
+	public void followPath(List<? extends DirEnum> newSteps) {
+		path.addAll(newSteps);
+		targetNextTile();
+	}
+	
+	/**
 	 * Stops all movement in a key-friendly way.
 	 */
 	public void halt() {
@@ -266,6 +283,18 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	protected void storeXY() {
 		lastX = x;
 		lastY = y;
+	}
+	
+	/**
+	 * Moves the tracker to the next tile in the path.
+	 */
+	protected void targetNextTile() {
+		DirEnum dir = path.get(0);
+		path.remove(0);
+		DirVector vec =  dir.getVector();
+		float targetX = getX() + vec.x * parent.getTileWidth();
+		float targetY = getY() + vec.y * parent.getTileHeight();
+		targetLocation(targetX, targetY);
 	}
 
 }

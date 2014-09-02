@@ -172,6 +172,14 @@
    <frame tileid="77" duration="500"/>
   </animation>
  </tile>
+ <tile id="58">
+  <animation>
+   <frame tileid="59" duration="500"/>
+   <frame tileid="60" duration="500"/>
+   <frame tileid="61" duration="500"/>
+   <frame tileid="62" duration="500"/>
+  </animation>
+ </tile>
  <tile id="63">
   <properties>
    <property name="x" value=""/>

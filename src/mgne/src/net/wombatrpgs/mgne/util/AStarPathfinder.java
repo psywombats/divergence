@@ -102,30 +102,27 @@ public class AStarPathfinder {
 	
 	/**
 	 * Finds the path for an actor using all 8 directions.
-	 * @param	actor			The actor to get the path for
 	 * @return					The resulting path, or null if none
 	 */
 	public List<EightDir> getEightPath(MapEvent actor) {
-		return getPath(actor, EightDir.values());
+		return getPath(EightDir.values());
 	}
 	
 	/**
 	 * Finds the path for an actor using cardinal directions.
-	 * @param	actor			The actor to get the path for
 	 * @return					The resulting path, or null if none
 	 */
-	public List<OrthoDir> getOrthoPath(MapEvent actor) {
-		return getPath(actor, OrthoDir.values());
+	public List<OrthoDir> getOrthoPath() {
+		return getPath(OrthoDir.values());
 	}
 	
 	/**
 	 * Calculates the path to the location. Woo hoo!
 	 * @param	<T>				The type of direction enum to use
 	 * @param	directions		The set of all allowable directions to step
-	 * @param	actor			The event that will be pathing
 	 * @return					The steps to get to destination, or null if none
 	 */
-	public <T extends DirEnum> List<T> getPath(MapEvent actor, T[] directions) {
+	public <T extends DirEnum> List<T> getPath(T[] directions) {
 		Queue<Path<T>> queue = new PriorityQueue<Path<T>>();
 		queue.add(new Path<T>(toX, toY, fromX, fromY));
 		// I can't believe I'm making a 2D array like this
@@ -157,7 +154,7 @@ public class AStarPathfinder {
 					if (nextX >= 0 && nextX < map.getWidth() &&
 						nextY >= 0 && nextY < map.getHeight() &&
 						!visited.get(nextY).get(nextX) &&
-						map.isTilePassable(nextX, nextY)) {
+						map.isChipPassable(nextX, nextY)) {
 						
 						queue.add(new Path<T>(node, dir));
 					}

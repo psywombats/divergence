@@ -32,6 +32,7 @@ import net.wombatrpgs.mgne.scenes.SceneParser;
 import net.wombatrpgs.mgne.scenes.StringSceneParser;
 import net.wombatrpgs.mgneschema.graphics.DirMDO;
 import net.wombatrpgs.mgneschema.maps.EventMDO;
+import net.wombatrpgs.mgneschema.maps.data.DirEnum;
 import net.wombatrpgs.mgneschema.maps.data.DirVector;
 import net.wombatrpgs.mgneschema.maps.data.DisplayType;
 import net.wombatrpgs.mgneschema.maps.data.EightDir;
@@ -493,6 +494,22 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	}
 	
 	/**
+	 * @see net.wombatrpgs.mgne.maps.MapMovable#targetNextTile()
+	 */
+	@Override
+	protected void targetNextTile() {
+		DirEnum dir = path.get(0);
+		super.targetNextTile();
+		DirVector vec = dir.getVector();
+		setVelocity(
+				vec.x * (parent.getTileWidth() / MGlobal.constants.getDelay()),
+				vec.y * (parent.getTileHeight() / MGlobal.constants.getDelay()));
+		setTileX((int) (getTileX() + vec.x));
+		setTileY((int) (getTileY() + vec.y));
+		setFacing((OrthoDir) dir);
+	}
+
+	/**
 	 * Runs a scene, probably one we generated from MDO.
 	 * @param	chunk			The chunk of text to run, possibly null
 	 */
@@ -518,6 +535,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 			Lua.generateFunction(this, lua, "isTracking");
 			Lua.generateFunction(this, lua, "show");
 			Lua.generateFunction(this, lua, "hide");
+			Lua.generateFunction(this, lua, "getName");
 			lua.set("eventStep", new OneArgFunction() {
 				@Override public LuaValue call(LuaValue dirArg) {
 					String argString = dirArg.checkjstring();

@@ -1,27 +1,29 @@
 /**
- *  SceneWalk.java
- *  Created on Jul 25, 2014 1:13:41 PM for project mgne
+ *  ScenPathTo.java
+ *  Created on Sep 1, 2014 3:34:45 PM for project mgne
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
 package net.wombatrpgs.mgne.scenes.commands;
 
+import java.util.List;
+
+import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.scenes.SceneCommand;
 import net.wombatrpgs.mgne.scenes.SceneLib;
+import net.wombatrpgs.mgne.util.AStarPathfinder;
+import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
 import org.luaj.vm2.lib.VarArgFunction;
 
 /**
- * Moves a map event across the map. The final parameter will halt execution
- * until the character reaches their destination. Like all scenelib commands,
- * these do not execute immediately but rather wait for their sequence in a
- * scripted scene. The event provided can be an event name which will be
- * looked up at time of execution.
- * Usage: {@code walk(<event> or <eventName>, <steps>, <direction>, [wait])}
+ * Oh god, A* pathfinding.
+ * Usage: {@code path(<event> or <eventname>, <tilex>, <tiley>, [wait])}
  */
-public class SceneWalk extends VarArgFunction {
+public class ScenePathToTile extends VarArgFunction {
 	
 	/**
 	 * @see org.luaj.vm2.lib.VarArgFunction#invoke(org.luaj.vm2.Varargs)
@@ -31,14 +33,23 @@ public class SceneWalk extends VarArgFunction {
 		SceneLib.addFunction(new SceneCommand() {
 			
 			LuaValue eventArg = args.arg(1);
-			LuaValue steps = args.arg(2);
-			LuaValue dir = args.arg(3);
+			int tileX = args.arg(2).checkint();
+			int tileY = args.arg(3).checkint();
 			boolean wait = args.narg() >= 4 ? args.checkboolean(4) : true;
 
 			@Override protected void internalRun() {
-				argToLua(eventArg).get("eventWalk").call(steps, dir);
+				MapEvent event = argToEvent(eventArg);
+				AStarPathfinder pather = new AStarPathfinder(
+						MGlobal.levelManager.getActive(),
+						event.getTileX(),
+						event.getTileY(),
+						tileX, MGlobal.levelManager.getActive().getHeight() - tileY - 1);
+				List<OrthoDir> path = pather.getOrthoPath();
+				if (path != null) {
+					event.followPath(path);
+				}
 			}
-
+			
 			@Override protected boolean shouldFinish() {
 				if (!super.shouldFinish()) return false;
 				if (wait) {
@@ -51,4 +62,5 @@ public class SceneWalk extends VarArgFunction {
 		});
 		return LuaValue.NIL;
 	}
+	
 }

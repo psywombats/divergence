@@ -64,6 +64,14 @@ public class GeneratedGridLayer extends GridLayer {
 	}
 	
 	/**
+	 * @see net.wombatrpgs.mgne.maps.layers.GridLayer#isBridge(int, int)
+	 */
+	@Override
+	public boolean isBridge(int tileX, int tileY) {
+		return false;
+	}
+
+	/**
 	 * Checks if a tile at the given location is see-through. Does not check
 	 * for out of bounds.
 	 * @param	tileX			The x-coord of the tile to check (in tiles)

@@ -101,6 +101,11 @@
    <property name="x" value=""/>
   </properties>
  </tile>
+ <tile id="25">
+  <properties>
+   <property name="o" value=""/>
+  </properties>
+ </tile>
  <tile id="27">
   <properties>
    <property name="x" value=""/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="36" height="43" tilewidth="16" tileheight="16">
  <properties>
-  <property name="name" value="Parish"/>
+  <property name="name" value="Forest Town"/>
  </properties>
  <tileset firstgid="1" source="../tilesets/lower.tsx"/>
  <tileset firstgid="113" source="../tilesets/upper.tsx"/>
@@ -10,7 +10,7 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2TMQ6DMAxFE3UoolulDtngAm2XtgP3v1dBClL69U1IMKKDhydBROyX8N0651rDMAzDMIwMZ+Bonxtw1D34uP4aeUc+K2v5iv65e0h9mkIfDfAevIBGr67w+7T/HnlOfaT6LD+e/EdtH6k+y48n/3GrSwAfqX4uP1o5nXx66CvNC8uvRn4C0JO+uGdtfmq8ZocZNj+4JuXnPvKIPF1drmt85vw07jc/6XptroOT8zjE90HwXGJLhqf9l0iuz14e6HONlNbUnnPmgzPHYE65Xl2BTwpmHEG3dF/JOSQfxpIPuq09B5tfRNq3lNl/80E39lw6dycleuHZMAxD4guHWf/2MBgAAA==
+   H4sIAAAAAAAAC+2Tuw7CMAxFEzGAyobEkK35AWABhv7/f9FKqWRd2XnVVRk8HKmNGvskvR6cc4NhGIZhGEaBM3C0zx046h58Wn/PfBLfylq+o3/pHqjPpdFHA7wHL6DRa2z8nvbfI8/UR6rP5ccz/1HbR6rP5ccz/3GrSwAfqX4pP1o5XXxihQ/mRjM/AYhMX9xTm58er9VhhZsfXJPy85h5Jl6uL9c9PlJ+6HpvroOT8zil90nwzLElw8v+a6LUZy8P9LklWmtqzznngzPHwTmVeo0NPhTMOIJudF/LOSQfjpwPutWeg5tfRNqXy+y/+aAb99w6dyclovBsGIYh8QM3RTnxMBgAAA==
   </data>
  </layer>
  <layer name="Tile Layer 2" width="36" height="43">
@@ -18,7 +18,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2WPQ7DIAyFOVHbpe0BK1ayd+pRmwFLloX5cWKMFH/SU5oAzpNtSLcQwuZyucyUlOZKFZXmXlkadWvFrI1HBU+tXqiNp471rjVE4eopjd+7Fub1+DnSW3gt9kaBPXXbdc96KOcCe6OkfH3ueuXfbzQmqROXCxwPNArEl+QroLXwbokHDI4l8XP0/RySXtZktJ+16d0/NS8fJT9c7WZS2reWfrCnUn6O9Mwv8LWkzyO6cnWa0b9Az9kzg0juR/x8s84E16B1Fs4CctSqmRWr7HNghXMQfKyw1wHL72aJUt9YeQHot8uaM/9zOs7K/AHAbpDoMBgAAA==
+   H4sIAAAAAAAAC+2WPQ7DIAyFOVHbpe0JWTqQvVOP2gxYsizMjxNjpPiTntIEcJ5sQ7qFEDaXy2WmpDRXqqg098rSqFsrZm08Knhq9UJtPHWsd60hCldPafzetTCvx8+R3sJrsTcK7KnbrnvWQzkX2Bsl5etz1yv/fqMxSZ24XOB4oFEgviRfAa2Fd0s8YHAsiZ+j7+eQ9LImo/2sTe/+qXn5KPnhajeT0r619IM9lfJzpGd+ga8lfR7RlavTjP4Fes6eGURyP+Lnm3UmuAats3AWkKNWzaxYZZ8DK5yD4GOFvQ5YfjdLlPrGygtAv13WnPmf03FW5g9wCyl2MBgAAA==
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
@@ -26,7 +26,7 @@
    <properties>
     <property name="appearance" value="lua(return getHero(1).getSpriteName())"/>
     <property name="face" value="NORTH"/>
-    <property name="hide" value="return getSwitch('opening_flashback')"/>
+    <property name="hide" value="return getSwitch('opening_flashback') or (getSwitch('opening_talked_elder') and getSwitch('opening_talked_borg'))"/>
     <property name="onInteract" value="speak(getHero(1).getName() .. ':  You should talk to BORG and Elder before we leave.')"/>
    </properties>
   </object>
@@ -34,7 +34,7 @@
    <properties>
     <property name="appearance" value="lua(return getHero(2).getSpriteName())"/>
     <property name="face" value="WEST"/>
-    <property name="hide" value="return getSwitch('opening_flashback')"/>
+    <property name="hide" value="return getSwitch('opening_flashback') or (getSwitch('opening_talked_elder') and getSwitch('opening_talked_borg'))"/>
     <property name="onInteract" value="speak(getHero(2).getName() .. ':  ' .. getHero(0).getName() .. ', aren\'t you ready to leave yet?')"/>
    </properties>
   </object>
@@ -42,11 +42,11 @@
    <properties>
     <property name="appearance" value="lua(return getHero(3).getSpriteName())"/>
     <property name="face" value="WEST"/>
-    <property name="hide" value="return getSwitch('opening_flashback')"/>
+    <property name="hide" value="return getSwitch('opening_flashback') or (getSwitch('opening_talked_elder') and getSwitch('opening_talked_borg'))"/>
     <property name="onInteract" value="speak(getHero(3).getName() .. ':  We\'ll wait for you here. Say your goodbyes, the journey starts today!')"/>
    </properties>
   </object>
-  <object name="borg" type="Character" x="304" y="416" width="16" height="16">
+  <object name="past_borg" type="Character" x="304" y="416" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="hide" value="return not getSwitch('opening_flashback')"/>
@@ -91,6 +91,36 @@
   <object type="Event" x="160" y="368" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/parish_interior.tmx', 3, 31)"/>
+   </properties>
+  </object>
+  <object name="friend3" type="Character" x="320" y="496" width="16" height="16">
+   <properties>
+    <property name="appearance" value="lua(return getHero(1).getSpriteName())"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return (not (getSwitch('opening_talked_elder') and getSwitch('opening_talked_borg'))) or getSwitch('opening_finished')"/>
+    <property name="onInteract" value="play('borg02.lua')"/>
+   </properties>
+  </object>
+  <object name="friend1" type="Character" x="304" y="480" width="16" height="16">
+   <properties>
+    <property name="appearance" value="lua(return getHero(2).getSpriteName())"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return (not (getSwitch('opening_talked_elder') and getSwitch('opening_talked_borg'))) or getSwitch('opening_finished')"/>
+    <property name="onInteract" value="play('borg02.lua')"/>
+   </properties>
+  </object>
+  <object name="friend2" type="Character" x="320" y="480" width="16" height="16">
+   <properties>
+    <property name="appearance" value="lua(return getHero(3).getSpriteName())"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return (not (getSwitch('opening_talked_elder') and getSwitch('opening_talked_borg'))) or getSwitch('opening_finished')"/>
+    <property name="onInteract" value="play('borg02.lua')"/>
+   </properties>
+  </object>
+  <object name="borg" type="Character" x="368" y="416" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="hide" value="return not getSwitch('opening_borg_visible')"/>
    </properties>
   </object>
  </objectgroup>

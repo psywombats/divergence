@@ -113,7 +113,7 @@ public abstract class SceneCommand extends AssetQueuer implements	Updateable,
 	 * @param	eventArg		The event parameter passed from script
 	 * @return					The lua value of that event
 	 */
-	protected static LuaValue eventLua(LuaValue eventArg) {
+	protected static LuaValue argToLua(LuaValue eventArg) {
 		if (eventArg.isstring()) {
 			String eventName = eventArg.checkjstring();
 			MapEvent event = MGlobal.levelManager.getActive().getEventByName(eventName);
@@ -125,6 +125,27 @@ public abstract class SceneCommand extends AssetQueuer implements	Updateable,
 		} else {
 			return eventArg;
 		}
+	}
+	
+	/**
+	 * Extracts the map event from an argument passed to a script. The arg could
+	 * be the lua valua of an event or its string name.
+	 * @param	eventArg		The event parameter passed from script
+	 * @return					The map event corresponding to that arg
+	 */
+	protected static MapEvent argToEvent(LuaValue eventArg) {
+		String eventName;
+		if (eventArg.isstring()) {
+			eventName = eventArg.checkjstring();
+		} else {
+			eventName = eventArg.get("getName").call().checkjstring();
+		}
+		MapEvent event = MGlobal.levelManager.getActive().getEventByName(eventName);
+		if (event == null) {
+			MGlobal.reporter.err("No event named '" + eventName + "'");
+			return null;
+		}
+		return event;
 	}
 	
 	/**

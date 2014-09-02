@@ -13,6 +13,8 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.lua.LoadableScript;
 import net.wombatrpgs.mgne.scenes.commands.SceneFace;
 import net.wombatrpgs.mgne.scenes.commands.SceneHideAvatar;
+import net.wombatrpgs.mgne.scenes.commands.ScenePathToEvent;
+import net.wombatrpgs.mgne.scenes.commands.ScenePathToTile;
 import net.wombatrpgs.mgne.scenes.commands.ScenePlayExternal;
 import net.wombatrpgs.mgne.scenes.commands.SceneSpeak;
 import net.wombatrpgs.mgne.scenes.commands.SceneSwitch;
@@ -48,6 +50,8 @@ public class SceneLib extends TwoArgFunction {
 		env.set("face", new SceneFace());
 		env.set("hideHero", new SceneHideAvatar());
 		env.set("sceneSwitch", new SceneSwitch());
+		env.set("path", new ScenePathToTile());
+		env.set("pathEvent", new ScenePathToEvent());
 		
 		env.set("scenelib", library);
 		return library;

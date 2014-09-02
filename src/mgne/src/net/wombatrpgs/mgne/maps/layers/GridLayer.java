@@ -41,6 +41,14 @@ public abstract class GridLayer extends Layer {
 	}
 	
 	/**
+	 * Checks if the tile at the given location bridges over lower chips.
+	 * @param	tileX			The x-coord to check (in tiles)
+	 * @param	tileY			The y-coord to check (in tiles)
+	 * @return					True if the tile at location is bridging
+	 */
+	public abstract boolean isBridge(int tileX, int tileY);
+	
+	/**
 	 * Gets the z-value of the layer. Layers with the same z-value share
 	 * collisions and collision detection. 0 represents the floor, and each
 	 * subsequent integer is another floor.
