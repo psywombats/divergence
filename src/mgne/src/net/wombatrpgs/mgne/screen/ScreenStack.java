@@ -11,6 +11,7 @@ import java.util.Stack;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
 
+import net.wombatrpgs.mgne.core.DebugLevel;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
@@ -136,18 +137,18 @@ public class ScreenStack implements	Disposable,
 		if (screens.size() == 0) {
 			MGlobal.reporter.warn("No screens in stack, but told to render");
 		} else {
-			try {
+			if (MGlobal.debug != DebugLevel.DEBUG) {
+				try {
+					screens.peek().render();
+					update();
+				} catch (Exception e) {
+					MGlobal.reporter.err("Uncaught MGNE exception: ", e);
+					Gdx.app.exit();
+				}
+			} else {
 				screens.peek().render();
-			} catch (Exception e) {
-				MGlobal.reporter.err("Exception during render: ", e);
-				Gdx.app.exit();
+				update();
 			}
-		}
-		try {
-			update();
-		} catch (Exception e) {
-			MGlobal.reporter.err("Exception during update: ", e);
-			Gdx.app.exit();
 		}
 	}
 	
