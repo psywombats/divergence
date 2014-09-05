@@ -11,7 +11,6 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.maps.Level;
-import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.settings.TeleportSettingsMDO;
 
 /**
@@ -115,26 +114,21 @@ public class TeleportManager implements Queueable {
 	 */
 	public void teleportRaw(Level map, int tileX, int tileY) {
 		
-		MapEvent victim = MGlobal.getHero();
-		Level old = victim.getParent();
+		Level old = MGlobal.levelManager.getActive();
 		
-		if (old.getBGM() != null && !old.getBGM().matches(map.getBGM())) {
+		if (old == null || old.getBGM() == null || !old.getBGM().matches(map.getBGM())) {
 			MGlobal.screens.playMusic(map.getBGM(), false);
 		}
-		old.onFocusLost();
-		old.removeEvent(victim);
-		old.update(0);
+		if (old != null) {
+			old.onFocusLost();
+			old.update(0);
+		}
 		
-		map.addEvent(MGlobal.getHero(), tileX, tileY);
+		map.addEvent(MGlobal.getHero(), tileX, map.getHeight() - tileY - 1);
 		map.onFocusGained();
+		MGlobal.getHero().onAddedToMap(map);
 		MGlobal.levelManager.getScreen().getCamera().update(0);
 		MGlobal.levelManager.setActive(map);
-
-		//MGlobal.screens.getCamera().constrainMaps(map);
-		
-		MGlobal.levelManager.getScreen().addChild(map);
-		MGlobal.levelManager.getScreen().removeChild(old);
-		
 	}
 
 }

@@ -14,6 +14,7 @@ import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.BatchWithShader;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.WindowSettings;
+import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.saga.core.SGlobal;
 
 /**
@@ -37,6 +38,7 @@ public class SagaScreen extends Screen {
 	protected FinishListener onWipeFinish;
 	protected float sinceWipe;
 	protected FadeType fade;
+	protected boolean fadeDummyFrame;
 	
 	/**
 	 * Constructs a new screen with the saga-specific effects.
@@ -51,6 +53,11 @@ public class SagaScreen extends Screen {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
+		
+		if (fadeDummyFrame == true && elapsed > 0) {
+			fadeDummyFrame = false;
+			return;
+		}
 		
 		float ratio = sinceWipe / WIPE_TIME;
 		float arg = 0;
@@ -104,6 +111,16 @@ public class SagaScreen extends Screen {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.screen.Screen#onCommand
+	 * (net.wombatrpgs.mgneschema.io.data.InputCommand)
+	 */
+	@Override
+	public boolean onCommand(InputCommand command) {
+		if (fade != null && sinceWipe <= WIPE_TIME) return true;
+		return super.onCommand(command);
+	}
+
+	/**
 	 * Fades out the screen with the appropriate transition.
 	 * @param	fade			The fade to/from and color
 	 * @param	listener		The listener to call when transition is done
@@ -112,6 +129,7 @@ public class SagaScreen extends Screen {
 		this.fade = fade;
 		sinceWipe = 0;
 		onWipeFinish = listener;
+		fadeDummyFrame = true;
 	}
 	
 	/**

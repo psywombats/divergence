@@ -64,9 +64,7 @@ public class Keymap implements	InputProcessor,
 			keyToButton.put(pairMDO.keyCode.keycode, pairMDO.button);
 			buttonToKey.get(pairMDO.button).add(pairMDO.keyCode.keycode);
 		}
-		for (InputButton button : InputButton.values()) {
-			states.put(button, KeyState.UP);
-		}
+		clearState();
 	}
 	
 	/** Constructor for Kryo */
@@ -175,6 +173,16 @@ public class Keymap implements	InputProcessor,
 		} else {
 			MGlobal.reporter.warn("Trying to self-absorb keymap " + this);
 		}
+	}
+	
+	/**
+	 * Clears the up/down state of all buttons.
+	 */
+	public void clearState() {
+		for (InputButton button : InputButton.values()) {
+			states.put(button, KeyState.UP);
+		}
+		queue.clear();
 	}
 
 	/**

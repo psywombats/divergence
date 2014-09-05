@@ -199,12 +199,15 @@ public class ScreenSaves extends SagaScreen {
 		} else {
 			this.fade(FadeType.TO_BLACK, new FinishListener() {
 				@Override public void onFinish() {
-					MGlobal.memory.load(fileName);
-					// now we are at the pause menu save screen (!!)
-					MGlobal.screens.pop();
-					MGlobal.screens.pop();
-					SagaScreen world = (SagaScreen) MGlobal.screens.peek();
-					world.fade(FadeType.FROM_BLACK, null);
+					MGlobal.memory.loadAndSetScreen(fileName);
+					SagaScreen screen = (SagaScreen) MGlobal.levelManager.getScreen();
+					MGlobal.screens.push(screen);
+					screen.fade(FadeType.FROM_BLACK, new FinishListener() {
+						@Override public void onFinish() {
+							dispose();
+						}
+					});
+					screen.update(0);
 				}
 			});
 		}

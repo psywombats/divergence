@@ -12,9 +12,11 @@ import java.util.List;
 import org.luaj.vm2.lib.TwoArgFunction;
 
 import net.wombatrpgs.mgne.graphics.GraphicsSettings;
+import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.instances.ScreenGame;
+import net.wombatrpgs.mgneschema.settings.IntroSettingsMDO;
 
 /**
  * The MgnGame corresponds to all the game-specific stuff a game might want to
@@ -38,11 +40,27 @@ public abstract class MgnGame {
 	 * engine-provided GameScreen class if left alone. Whatever it returns is
 	 * probably responsible for stuff like creating the hero, so it might as
 	 * well just extend GameScreen anyway. Actually, it's probably the title
-	 * screen... which is then responsible for all that, etc.
+	 * screen, in which case, override this thing wholesale.
 	 * @return					The first screen the engine will display
 	 */
-	public Screen makeStarterScreen() {
-		return new ScreenGame();
+	public Screen makeStarterScreen() {		
+		Screen screen = makeLevelScreen();
+		readyLevelScreen(screen);
+		return screen;
+	}
+	
+	/**
+	 * Create and return a level screen of the game. The screen should not
+	 * require much loading and should not expect an active level in the
+	 * level manager, but by the time the level is pushed to the stack, a level
+	 * will be active. The screen should come pre-processed.
+	 * @param	firstLevel		The first level to display
+	 * @return					The level display screen, showing that level
+	 */
+	public Screen makeLevelScreen() {
+		ScreenGame screen = new ScreenGame();
+		MGlobal.assets.loadAsset(screen, "level screen");
+		return screen;
 	}
 	
 	/**
@@ -121,5 +139,37 @@ public abstract class MgnGame {
 	public boolean synchronizeSprites() {
 		return true;
 	}
-
+	
+	/**
+	 * Preps a screen that will display the levels. This is mainly meant as
+	 * a ready-to-go helper for setting up the hero, level, and hero location
+	 * from MDO. Should be usable in production.
+	 * @param	levelScreen		The screen to prep for level display
+	 */
+	public void readyLevelScreen(Screen levelScreen) {
+		IntroSettingsMDO mdo = MGlobal.data.getEntryFor(Constants.KEY_INTRO, IntroSettingsMDO.class);
+		MGlobal.levelManager.setScreen(levelScreen);
+		
+		String mapName;
+		if (MGlobal.args.get("map") != null) {
+			mapName = MGlobal.args.get("map");
+		} else {
+			mapName = mdo.map;
+		}
+		Level level = MGlobal.levelManager.getLevel(mapName);
+		MGlobal.assets.loadAsset(level, "first level");
+		Avatar hero = new Avatar();
+		
+		if (MGlobal.args.get("x") == null) {
+			hero.setTileX(mdo.mapX);
+			hero.setTileY(mdo.mapY);
+		} else {
+			hero.setTileX(Integer.valueOf(MGlobal.args.get("x")));
+			hero.setTileY(Integer.valueOf(MGlobal.args.get("y"))-1);
+		}
+		
+		MGlobal.levelManager.setNewActiveSet(hero, level);
+		MGlobal.assets.loadAsset(hero, "hero");
+	}
+	
 }

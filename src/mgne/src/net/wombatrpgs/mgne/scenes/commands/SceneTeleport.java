@@ -57,14 +57,14 @@ public class SceneTeleport extends VarArgFunction {
 					};
 					MGlobal.levelManager.getTele().teleport(mapName,
 							tileX,
-							map.getHeight() - (tileY+1),
+							tileY,
 							onFinish);
 				} else {
 					MGlobal.levelManager.getTele().teleportRaw(mapName,
 							tileX,
 							tileY);
 					Level map = MGlobal.levelManager.getActive();
-					MGlobal.getHero().setTileLocation(tileX, map.getHeight() - (tileY+1));
+					MGlobal.getHero().setTileLocation(tileX, tileY);
 					map.update(0);
 					teleportFinished = true;
 				}

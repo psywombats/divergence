@@ -99,12 +99,13 @@ public class ScreenTitle extends SagaScreen {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
+		if (super.onCommand(command)) return true;
 		switch (command) {
 		case MOVE_LEFT:		return moveCursor(-1);
 		case MOVE_RIGHT:	return moveCursor(1);
 		case UI_CONFIRM:	return confirm();
 		case UI_FINISH:		return confirm();
-		default:			return super.onCommand(command);
+		default:			return false;
 		}
 	}
 		

@@ -1,9 +1,9 @@
 {
 	"key" : "default_intro",
 	"subfolder" : "",
-	"name" : "  ",
+	"name" : "",
 	"description" : "engine searches for this mdo by name",
-	"map" : "test.tmx",
+	"map" : "world1/parish.tmx",
 	"mapX" : 19,
 	"mapY" : 29,
 	"titleBG" : "bad_title.png"

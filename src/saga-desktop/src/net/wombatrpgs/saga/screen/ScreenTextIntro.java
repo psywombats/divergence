@@ -12,7 +12,6 @@ import java.util.List;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.io.InputEvent;
@@ -104,8 +103,9 @@ public class ScreenTextIntro extends SagaScreen {
 				} else {
 					friendScreens.get(i).setFinishListener(new FinishListener() {
 						@Override public void onFinish() {
-							SagaScreen gameScreen = new ScreenWorld(Constants.KEY_INTRO);
+							SagaScreen gameScreen = (SagaScreen) MGlobal.game.makeLevelScreen();
 							MGlobal.assets.loadAsset(gameScreen, "game screen");
+							MGlobal.game.readyLevelScreen(gameScreen);
 							gameScreen.transitonOn(TransitionType.BLACK, new FinishListener() {
 								@Override public void onFinish() {
 									textIntro.dispose();

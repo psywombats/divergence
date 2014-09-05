@@ -6,105 +6,22 @@
  */
 package net.wombatrpgs.saga.screen;
 
-import net.wombatrpgs.mgne.core.Avatar;
-import net.wombatrpgs.mgne.core.Constants;
-import net.wombatrpgs.mgne.core.MAssets;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.command.CMapGame;
-import net.wombatrpgs.mgne.maps.Level;
-import net.wombatrpgs.mgne.screen.HeroSource;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
-import net.wombatrpgs.mgneschema.settings.IntroSettingsMDO;
 
 /**
  * Shows up when you wander the overworld.
  */
-public class ScreenWorld extends SagaScreen implements HeroSource {
-	
-	protected IntroSettingsMDO mdo;
-	protected Avatar hero;
-	protected Level map;
+public class ScreenWorld extends SagaScreen {
 	
 	/**
-	 * All created ScreenWorld are hero sources.
+	 * Constructs the SaGa world screen.
 	 */
 	public ScreenWorld() {
-		MGlobal.levelManager.setHeroTracker(this);
-		MGlobal.levelManager.setScreen(this);
-		mdo = MGlobal.data.getEntryFor(Constants.KEY_INTRO, IntroSettingsMDO.class);
-	}
-	
-	/**
-	 * Creates a new world map screen.
-	 * @param	key				The key to the intro settings to use
-	 */
-	public ScreenWorld(String key) {
-		this();
-		MGlobal.levelManager.setScreen(this);
-		MGlobal.levelManager.setHeroTracker(this);
-		
-		String introMapName;
-		if (MGlobal.args.get("map") != null) {
-			introMapName = MGlobal.args.get("map");
-		} else {
-			IntroSettingsMDO introMDO = MGlobal.data.getEntryFor(key, IntroSettingsMDO.class);
-			introMapName = introMDO.map;
-		}
-		map = MGlobal.levelManager.getLevel(introMapName);
-		assets.add(map);
-		MGlobal.levelManager.setActive(map);
-		if (map.getBGM() != null) {
-			MGlobal.screens.playMusic(map.getBGM(), false);
-		}
-		
-		addChild(map);
 		pushCommandContext(new CMapGame());
-		
-		hero = new Avatar();
-		assets.add(hero);
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.core.AssetQueuer#queueRequiredAssets
-	 * (net.wombatrpgs.mgne.core.MAssets)
-	 */
-	@Override
-	public void queueRequiredAssets(MAssets manager) {
-		super.queueRequiredAssets(manager);
-		if (map != null) {
-			map.queueRequiredAssets(manager);
-		}
-		if (hero != null) {
-			hero.queueRequiredAssets(manager);
-		}
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.screen.Screen#postProcessing
-	 * (net.wombatrpgs.mgne.core.MAssets, int)
-	 */
-	@Override
-	public void postProcessing(MAssets manager, int pass) {
-		super.postProcessing(manager, pass);
-		if (pass == 0 && hero.getParent() == null) {
-			map.addEvent(hero);
-			if (MGlobal.args.get("x") == null) {
-				hero.setTileX(mdo.mapX);
-				hero.setTileY(mdo.mapY);
-			} else {
-				hero.setTileX(Integer.valueOf(MGlobal.args.get("x")));
-				hero.setTileY(hero.getParent().getHeight()-Integer.valueOf(MGlobal.args.get("y"))-1);
-			}
-//			while (!map.isTilePassable(hero.getTileX(), hero.getTileY())) {
-//				hero.setTileX(MGlobal.rand.nextInt(map.getWidth()));
-//				hero.setTileY(MGlobal.rand.nextInt(map.getHeight()));
-//			}
-			map.onFocusGained();
-			hero.setX(hero.getTileX()*map.getTileWidth());
-			hero.setY(hero.getTileY()*map.getTileHeight());
-			getCamera().track(hero);
-		}
-		getCamera().update(0);
 	}
 
 	/**
@@ -121,16 +38,27 @@ public class ScreenWorld extends SagaScreen implements HeroSource {
 			MGlobal.screens.push(menu);
 			return true;
 		default:
-			return hero.onCommand(command);
+			return MGlobal.getHero().onCommand(command);
 		}
+	}
+	
+	/**
+	 * @see net.wombatrpgs.mgne.screen.Screen#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		super.update(elapsed);
+		MGlobal.levelManager.getActive().update(elapsed);
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.screen.HeroSource#getHero()
+	 * @see net.wombatrpgs.mgne.screen.Screen#render
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
 	 */
 	@Override
-	public Avatar getHero() {
-		return hero;
+	public void render(SpriteBatch batch) {
+		super.render(batch);
+		MGlobal.levelManager.getActive().render(batch);
 	}
 
 }

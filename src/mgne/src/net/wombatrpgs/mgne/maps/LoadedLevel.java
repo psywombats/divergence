@@ -35,6 +35,7 @@ public class LoadedLevel extends Level {
 	
 	protected static final String KEY_NAME = "name";
 	
+	protected LoadedMapMDO mdo;
 	protected transient TiledMap map;
 	protected transient OrthogonalTiledMapRenderer renderer;
 	protected String mapPath;
@@ -48,6 +49,7 @@ public class LoadedLevel extends Level {
 	 */
 	public LoadedLevel(LoadedMapMDO mdo, Screen screen) {
 		super(mdo, screen);
+		this.mdo = mdo;
 		mapPath = Constants.MAPS_DIR + mdo.file;
 	}
 	
@@ -97,8 +99,7 @@ public class LoadedLevel extends Level {
 	 */
 	@Override
 	public String toString() {
-		String name = getProperty(KEY_NAME);
-		return (name == null) ? super.toString() : name;
+		return mdo.file;
 	}
 
 	/**
@@ -107,6 +108,14 @@ public class LoadedLevel extends Level {
 	@Override
 	public String getProperty(String key) {
 		return map.getProperties().get(key, String.class);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.maps.Level#getKeyName()
+	 */
+	@Override
+	public String getKeyName() {
+		return mdo.file;
 	}
 
 	/**
@@ -120,7 +129,7 @@ public class LoadedLevel extends Level {
 		// get the map
 		map = manager.get(mapPath, TiledMap.class);
 		renderer = new OrthogonalTiledMapRenderer(map, 1f);
-		renderer.getSpriteBatch().setShader(screen.constructMapShader());
+		renderer.getSpriteBatch().setShader(MGlobal.levelManager.getScreen().constructMapShader());
 		mapWidth = map.getProperties().get("width", Integer.class);
 		mapHeight = map.getProperties().get("height", Integer.class);
 	

@@ -39,7 +39,6 @@ public abstract class Level extends ScreenObject implements Turnable {
 	public static final int TILE_HEIGHT = 16;
 	
 	protected MapMDO mdo;
-	protected Screen screen;
 	
 	protected EventLayer eventLayer;
 	protected List<GridLayer> gridLayers;
@@ -62,7 +61,6 @@ public abstract class Level extends ScreenObject implements Turnable {
 	 */
 	public Level(MapMDO mdo, Screen screen) {
 		this.mdo = mdo;
-		this.screen = screen;
 		
 		// list init
 		gridLayers = new ArrayList<GridLayer>();
@@ -117,9 +115,6 @@ public abstract class Level extends ScreenObject implements Turnable {
 	
 	/** @see net.wombatrpgs.mgne.screen.ScreenObject#ignoresTint() */
 	@Override public boolean ignoresTint() { return false; }
-
-	/** @see java.lang.Object#toString() */
-	@Override public String toString() { return mdo.key; }
 	
 	/**
 	 * @see net.wombatrpgs.mgne.screen.ScreenObject#render
@@ -178,6 +173,12 @@ public abstract class Level extends ScreenObject implements Turnable {
 	public String getProperty(String key) {
 		return null;
 	}
+	
+	/**
+	 * Returns the name of the key of this map, used by the level manager.
+	 * @return					The string key used to fetch this map.
+	 */
+	public abstract String getKeyName();
 
 	/**
 	 * Adds a grid layer to the level. This really shouldn't be called by

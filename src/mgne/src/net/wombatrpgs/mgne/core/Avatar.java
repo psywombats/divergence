@@ -24,6 +24,7 @@ public class Avatar extends MapEvent implements CommandListener {
 	protected static final String HERO_DEFAULT = "event_hero";
 	
 	protected List<FinishListener> stepListeners;
+	protected String parentName;
 	protected boolean paused;
 
 	/**
@@ -100,6 +101,15 @@ public class Avatar extends MapEvent implements CommandListener {
 		return true;
 	}
 	
+	/**
+	 * Called when this avatar is loaded from memory.
+	 */
+	public void onUnloaded() {
+		this.vx = 0;
+		this.vy = 0;
+		this.tracking = false;
+	}
+
 	/**
 	 * Moves in a certain dir on the map?
 	 * @param	dir				The direction to move

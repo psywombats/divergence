@@ -34,9 +34,10 @@ public class SMemory extends Memory {
 	 */
 	@Override
 	protected void unloadFields() {
-		super.unloadFields();
+		// fifo, bitch
 		SGlobal.heroes = this.party;
 		SGlobal.saveSlot = this.saveSlot;
+		super.unloadFields();
 	}
 
 	/**
@@ -44,8 +45,8 @@ public class SMemory extends Memory {
 	 */
 	@Override
 	protected void loadAssets() {
-		super.loadAssets();
 		MGlobal.assets.loadAsset(SGlobal.heroes, "loaded heroes");
+		super.loadAssets();
 	}
 
 }

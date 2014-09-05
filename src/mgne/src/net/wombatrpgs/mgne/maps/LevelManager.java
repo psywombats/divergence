@@ -13,7 +13,6 @@ import net.wombatrpgs.mgne.core.Avatar;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.scenes.TeleportManager;
-import net.wombatrpgs.mgne.screen.HeroSource;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgneschema.maps.LoadedMapMDO;
 import net.wombatrpgs.mgneschema.maps.data.MapMDO;
@@ -30,7 +29,7 @@ public class LevelManager {
 	/** Goes from map IDs to their level manifestation */
 	protected Map<String, Level> levels;
 	protected Screen screen;
-	protected HeroSource heroSource;
+	protected Avatar hero;
 	protected Level active;
 	protected TeleportManager teleport;
 	
@@ -40,9 +39,6 @@ public class LevelManager {
 	public LevelManager() {
 		levels = new HashMap<String, Level>();
 	}
-	
-	/** @param source The item that will be providing the hero */
-	public void setHeroTracker(HeroSource source) { this.heroSource = source; }
 	
 	/**@param screen The screen that will be showing levels */
 	public void setScreen(Screen screen) { this.screen = screen; }
@@ -56,11 +52,18 @@ public class LevelManager {
 	/** @param active The new active level */
 	public void setActive(Level active) { this.active = active; }
 	
-	/** @return The teleport processor for these levels */
-	public TeleportManager getTele() { return this.teleport; }
-	
 	/** @return The hero of this level set! */
-	public Avatar getHero() { return heroSource.getHero(); }
+	public Avatar getHero() { return hero; }
+	
+	/** @return The teleport processor for these levels */
+	public TeleportManager getTele() {
+		if (teleport == null) {
+			teleport = new TeleportManager(MGlobal.data.getEntryFor(
+					TeleportManager.MD0_KEY, TeleportSettingsMDO.class));
+			MGlobal.assets.loadAsset(teleport, "teleport global");
+		}
+		return teleport;
+	}
 	
 	/**
 	 * Resets like it's a new game.
@@ -84,6 +87,19 @@ public class LevelManager {
 		return getLevel(mapID, MGlobal.assets);
 	}
 	
+	/**
+	 * Set a new active hero and map. This should perform all the stuff found
+	 * in a raw teleport to get the hero on to the map. Assume the hero is
+	 * currently in limbo on no map. The hero's location will be set later.
+	 * @param	hero			The hero to become active
+	 * @param	map				The map to become active
+	 */
+	public void setNewActiveSet(Avatar hero, Level map) {
+		this.hero = hero;
+		getTele().teleportRaw(map, hero.getTileX(), hero.getTileY());
+		getScreen().getCamera().track(MGlobal.getHero());
+		getScreen().getCamera().update(0);
+	}
 
 	/**
 	 * The old getLevel code, but can load with any loader. Use the default
@@ -93,11 +109,6 @@ public class LevelManager {
 	 * @return					The map, either gen'd or stored
 	 */
 	protected Level getLevel(String mapID, MAssets loader) {
-		if (teleport == null) {
-			teleport = new TeleportManager(MGlobal.data.getEntryFor(
-					TeleportManager.MD0_KEY, TeleportSettingsMDO.class));
-			loader.loadAsset(teleport, "teleport global");
-		}
 		if (!levels.containsKey(mapID)) {
 			MapMDO mapMDO = getLevelMDO(mapID);
 			Level map = createMap(mapMDO, screen);

@@ -10,9 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import net.wombatrpgs.mgne.core.lua.Lua;
 import net.wombatrpgs.mgne.io.Keymap;
+import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.Positionable;
-import net.wombatrpgs.mgne.screen.ScreenStack;
+import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.TrackerCam;
 
 import com.badlogic.gdx.graphics.Color;
@@ -41,8 +43,9 @@ public class Memory {
 	
 	/** Stuff to be serialized */
 	protected Random rand;
-	protected ScreenStack screens;
 	protected Keymap keymap;
+	protected Level level;
+	protected Avatar hero;
 	
 	/**
 	 * Creates a new memory holder! This is great! It should also probably only
@@ -162,12 +165,24 @@ public class Memory {
 	}
 	
 	/**
+	 * Performs the loading process and sets the screen to the level screen.
+	 * @param	fileName		The name of the file to read from
+	 */
+	public void loadAndSetScreen(String fileName) {
+		Screen gameScreen = MGlobal.game.makeLevelScreen();
+		MGlobal.levelManager.setScreen(gameScreen);
+		load(fileName);
+		MGlobal.assets.loadAsset(gameScreen, "game screen");
+	}
+	
+	/**
 	 * Performs the messy part of copying stuff from global into the save.
 	 */
 	protected void storeFields() {
 		rand = MGlobal.rand;
-		screens = MGlobal.screens;
 		keymap = MGlobal.keymap;
+		level = MGlobal.levelManager.getActive();
+		hero = MGlobal.getHero();
 	}
 
 	/**
@@ -175,15 +190,22 @@ public class Memory {
 	 */
 	protected void unloadFields() {
 		
+		// this is needed to prevent lua calls from becoming stale?
+		MGlobal.lua = new Lua();
+		
 		// rand is copied directly
 		MGlobal.rand = rand;
 		
-		// the old screen stack is disposed and we copy the new one over
-		MGlobal.screens.dispose();
-		MGlobal.screens = screens;
+		// put the hero on the new map
+		MGlobal.levelManager.setNewActiveSet(hero, level);
+		hero.setTileLocation(
+				hero.getTileX(),
+				level.getHeight() - hero.getTileY() - 1);
+		hero.onUnloaded();
 		
 		// everything listening to the current keymap will listen to the stored
 		keymap.absorbListeners(MGlobal.keymap);
+		keymap.clearState();
 		MGlobal.keymap = keymap;
 	}
 	
@@ -192,5 +214,7 @@ public class Memory {
 	 */
 	protected void loadAssets() {
 		MGlobal.assets.loadAsset(MGlobal.screens, "loaded screens");
+		MGlobal.assets.loadAsset(MGlobal.levelManager.getActive(), "current level");
+		MGlobal.assets.loadAsset(MGlobal.getHero(), "avatar");
 	}
 }

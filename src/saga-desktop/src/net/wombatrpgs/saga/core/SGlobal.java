@@ -62,7 +62,7 @@ public class SGlobal {
 		// debug save-y stuff
 		String savefile = MGlobal.args.get("savefile");
 		if (savefile != null) {
-			MGlobal.memory.load(savefile);
+			MGlobal.memory.loadAndSetScreen(savefile);
 		}
 		saveSlot = -1;
 	}

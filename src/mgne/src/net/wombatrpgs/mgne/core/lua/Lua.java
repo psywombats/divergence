@@ -64,7 +64,7 @@ public class Lua {
 	 */
 	public LuaValue interpret(String chunk) {
 		try {
-			return globals.load(chunk);
+			return globals.load(prependRequires(chunk));
 		} catch (LuaError error) {
 			MGlobal.reporter.err("Lua error: chunk = " + chunk);
 			throw error;

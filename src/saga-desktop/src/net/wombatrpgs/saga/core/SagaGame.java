@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.luaj.vm2.lib.TwoArgFunction;
 
-import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.Memory;
 import net.wombatrpgs.mgne.core.MgnGame;
@@ -21,7 +20,6 @@ import net.wombatrpgs.saga.graphics.SGraphics;
 import net.wombatrpgs.saga.lua.SagaEventLib;
 import net.wombatrpgs.saga.lua.SagaSceneLib;
 import net.wombatrpgs.saga.maps.SagaEventFactory;
-import net.wombatrpgs.saga.screen.SagaScreen;
 import net.wombatrpgs.saga.screen.ScreenTitle;
 import net.wombatrpgs.saga.screen.ScreenWorld;
 
@@ -35,13 +33,20 @@ public class SagaGame extends MgnGame {
 	 */
 	@Override
 	public Screen makeStarterScreen() {
-		SagaScreen screen;
 		if ("false".equals(MGlobal.args.get("title")) || MGlobal.args.get("map") != null) {
-			screen = new ScreenWorld(Constants.KEY_INTRO);
+			return super.makeStarterScreen();
 		} else {
-			screen = new ScreenTitle();
+			return new ScreenTitle();
 		}
-		//MGlobal.assets.loadAsset(screen, "starter screen");
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.MgnGame#makeLevelScreen()
+	 */
+	@Override
+	public Screen makeLevelScreen() {
+		ScreenWorld screen = new ScreenWorld();
+		MGlobal.assets.loadAsset(screen, "world screen");
 		return screen;
 	}
 
