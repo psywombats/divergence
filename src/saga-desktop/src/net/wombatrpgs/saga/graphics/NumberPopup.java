@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 
 import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.mgne.ui.text.TextboxFormat;
+import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.saga.core.SGlobal;
 
 /**
@@ -24,7 +24,7 @@ public class NumberPopup extends PortraitAnim {
 	
 	protected String damage;
 	protected FontHolder font;
-	protected TextboxFormat format;
+	protected TextFormat format;
 	protected int x, y;
 	protected int offY;
 	protected int width, height;
@@ -42,7 +42,7 @@ public class NumberPopup extends PortraitAnim {
 		width = (int) font.getWidth(this.damage);
 		height = (int) font.getLineHeight();
 		
-		format = new TextboxFormat();
+		format = new TextFormat();
 		format.align = HAlignment.LEFT;
 		format.height = height + 1;
 		format.width = width + 1;

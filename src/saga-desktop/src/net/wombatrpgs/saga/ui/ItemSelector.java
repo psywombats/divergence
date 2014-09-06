@@ -19,7 +19,7 @@ import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgne.ui.Option;
 import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.mgne.ui.text.TextboxFormat;
+import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.rpg.items.Inventory;
@@ -36,7 +36,7 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	
 	// layout
 	protected Screen parent;
-	protected TextboxFormat nameFormat, usesFormat, priceFormat;
+	protected TextFormat nameFormat, usesFormat, priceFormat;
 	protected int width, height;
 	protected int padding;
 	protected int count;
@@ -76,17 +76,17 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 		height = (int) (count * font.getLineHeight());
 		height += padding * (count-1);
 		
-		nameFormat = new TextboxFormat();
+		nameFormat = new TextFormat();
 		nameFormat.align = HAlignment.LEFT;
 		nameFormat.width = width;
 		nameFormat.height = 240;
 		
-		usesFormat = new TextboxFormat();
+		usesFormat = new TextFormat();
 		usesFormat.align = HAlignment.RIGHT;
 		usesFormat.width = 16;
 		usesFormat.height = 240;
 		
-		priceFormat = new TextboxFormat();
+		priceFormat = new TextFormat();
 		priceFormat.align = HAlignment.RIGHT;
 		priceFormat.width = 48;
 		priceFormat.height = 240;

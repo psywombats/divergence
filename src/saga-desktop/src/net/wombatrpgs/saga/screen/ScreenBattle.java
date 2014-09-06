@@ -36,7 +36,7 @@ import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.Option;
 import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.mgne.ui.text.TextboxFormat;
+import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.saga.core.SGlobal;
@@ -100,7 +100,7 @@ public class ScreenBattle extends SagaScreen {
 	// display
 	protected Nineslice optionsBG, insertsBG, monsterlistBG, abilsBG, actorBG;
 	protected CharaSelector partyInserts, enemyInserts, miniInserts;
-	protected TextboxFormat monsterlistFormat, meatFormat;
+	protected TextFormat monsterlistFormat, meatFormat;
 	protected String[] monsterlist;
 	protected OptionSelector fightOptions, meatOptions;
 	protected List<FacesAnimation> sprites;
@@ -212,7 +212,7 @@ public class ScreenBattle extends SagaScreen {
 		
 		FontHolder font = MGlobal.ui.getFont();
 		
-		monsterlistFormat = new TextboxFormat();
+		monsterlistFormat = new TextFormat();
 		monsterlistFormat.align = HAlignment.LEFT;
 		monsterlistFormat.width = MONSTERLIST_WIDTH;
 		monsterlistFormat.height = MONSTERLIST_HEIGHT;
@@ -220,7 +220,7 @@ public class ScreenBattle extends SagaScreen {
 		monsterlistFormat.y = (int) (globalY + (MONSTERLIST_HEIGHT / 2) + font.getLineHeight()/2);
 		updateMList();
 		
-		meatFormat = new TextboxFormat();
+		meatFormat = new TextFormat();
 		meatFormat.align = HAlignment.LEFT;
 		meatFormat.width = INSERTS_WIDTH;
 		meatFormat.height = ABILS_HEIGHT;

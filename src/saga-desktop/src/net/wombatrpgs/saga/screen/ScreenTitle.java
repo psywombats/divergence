@@ -15,7 +15,7 @@ import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.mgne.ui.text.TextboxFormat;
+import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.settings.IntroSettingsMDO;
 import net.wombatrpgs.saga.core.MemoryIndex;
@@ -35,7 +35,7 @@ public class ScreenTitle extends SagaScreen {
 	
 	protected IntroSettingsMDO intro;
 	protected Graphic bg;
-	protected TextboxFormat formatBegin, formatContinue;
+	protected TextFormat formatBegin, formatContinue;
 	protected int selection = 0;
 	
 	/**
@@ -47,14 +47,14 @@ public class ScreenTitle extends SagaScreen {
 		bg = new Graphic(intro.titleBG);
 		assets.add(bg);
 		
-		formatBegin = new TextboxFormat();
+		formatBegin = new TextFormat();
 		formatBegin.align = HAlignment.LEFT;
 		formatBegin.height = 32;
 		formatBegin.width = TEXT_WIDTH;
 		formatBegin.x = BEGIN_X;
 		formatBegin.y = TEXT_Y;
 		
-		formatContinue = new TextboxFormat();
+		formatContinue = new TextFormat();
 		formatContinue.align = HAlignment.LEFT;
 		formatContinue.height = 32;
 		formatContinue.width = TEXT_WIDTH;

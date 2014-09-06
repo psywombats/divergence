@@ -19,7 +19,7 @@ import net.wombatrpgs.mgne.io.Keymap.KeyState;
 import net.wombatrpgs.mgne.screen.WindowSettings;
 import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.mgne.ui.text.TextboxFormat;
+import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.mgneschema.io.data.InputButton;
 import net.wombatrpgs.sagaschema.settings.SagaIntroSettingsMDO;
 
@@ -40,7 +40,7 @@ public class ScreenTextIntro extends SagaScreen {
 	protected List<ScreenRecruit> friendScreens;
 	protected int recruitIndex;
 	
-	protected TextboxFormat scrollFormat;
+	protected TextFormat scrollFormat;
 	protected float scrolled, height;
 	
 	/**
@@ -53,7 +53,7 @@ public class ScreenTextIntro extends SagaScreen {
 		
 		FontHolder font = MGlobal.ui.getFont();
 		WindowSettings window = MGlobal.window;
-		scrollFormat = new TextboxFormat();
+		scrollFormat = new TextFormat();
 		scrollFormat.align = HAlignment.CENTER;
 		scrollFormat.height = 5000;
 		scrollFormat.width = window.getViewportWidth() * 2 / 3;

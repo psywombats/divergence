@@ -18,7 +18,7 @@ import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.Option;
 import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.mgne.ui.text.TextboxFormat;
+import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.chara.Chara;
@@ -38,7 +38,7 @@ public class ScreenInn extends SagaScreen {
 	protected OptionSelector menu;
 	protected CharaSelector inserts;
 	protected Nineslice infoBG;
-	protected TextboxFormat format;
+	protected TextFormat format;
 	
 	protected String payString;
 	protected int payAmount;
@@ -78,7 +78,7 @@ public class ScreenInn extends SagaScreen {
 		payAmount = calcPayAmount();
 		payString = "It will cost " + payAmount + " GP to stay here.";
 		
-		format = new TextboxFormat();
+		format = new TextFormat();
 		format.align = HAlignment.LEFT;
 		format.width = inserts.getWidth();
 		format.height = INFO_HEIGHT;

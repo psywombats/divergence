@@ -20,7 +20,7 @@ import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.Option;
 import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.mgne.ui.text.TextboxFormat;
+import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.ui.CharaSelector;
@@ -38,7 +38,7 @@ public class ScreenPause extends SagaScreen implements Disposable {
 	
 	protected OptionSelector menu, saveSelector;
 	protected CharaSelector inserts;
-	protected TextboxFormat format;
+	protected TextFormat format;
 	protected Nineslice infoBG;
 	protected String info1, info2;
 	protected int insertsX, insertsY;
@@ -102,7 +102,7 @@ public class ScreenPause extends SagaScreen implements Disposable {
 		infoBG = new Nineslice();
 		assets.add(infoBG);
 		
-		format = new TextboxFormat();
+		format = new TextFormat();
 		
 		silentAdd = false;
 	}

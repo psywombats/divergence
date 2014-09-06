@@ -20,7 +20,7 @@ import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.mgne.ui.text.TextboxFormat;
+import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.chara.Chara;
@@ -47,7 +47,7 @@ public class ScreenRecruit extends SagaScreen {
 	protected int selected;
 	
 	protected Nineslice titleBG, recruitBG;
-	protected TextboxFormat titleFormat, recruitFormat;
+	protected TextFormat titleFormat, recruitFormat;
 	protected int menuX, menuY;
 	protected int menuHeight;
 	protected int titleY;
@@ -88,7 +88,7 @@ public class ScreenRecruit extends SagaScreen {
 		
 		FontHolder font = MGlobal.ui.getFont();
 		
-		recruitFormat = new TextboxFormat();
+		recruitFormat = new TextFormat();
 		recruitFormat.align = HAlignment.LEFT;
 		recruitFormat.height = sprites.get(0).getHeight();
 		recruitFormat.width = MENU_WIDTH - recruitBG.getBorderWidth()*2;
@@ -96,7 +96,7 @@ public class ScreenRecruit extends SagaScreen {
 				PADDING_HORIZ * 2 + recruitBG.getBorderWidth();
 		recruitFormat.y = 0;
 		
-		titleFormat = new TextboxFormat();
+		titleFormat = new TextFormat();
 		titleFormat.align = HAlignment.CENTER;
 		titleFormat.height = sprites.get(0).getHeight();
 		titleFormat.width = MENU_WIDTH;

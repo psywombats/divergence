@@ -20,7 +20,7 @@ import net.wombatrpgs.mgne.screen.WindowSettings;
 import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.mgne.ui.text.TextboxFormat;
+import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.rpg.chara.Chara;
@@ -47,7 +47,7 @@ public class ScreenName extends SagaScreen {
 	protected int selectX, selectY;
 	
 	protected Nineslice nameBG, lettersBG;
-	protected TextboxFormat nameFormat;
+	protected TextFormat nameFormat;
 	protected int nameX, nameY;
 	protected int lettersX, lettersY;
 	protected int spriteX, spriteY;
@@ -116,7 +116,7 @@ public class ScreenName extends SagaScreen {
 		spriteX = nameX + sprite.getWidth();
 		spriteY = nameY + (nameBG.getHeight() - sprite.getHeight()) / 2;
 		
-		nameFormat = new TextboxFormat();
+		nameFormat = new TextFormat();
 		nameFormat.x = spriteX + sprite.getWidth() / 2 + sprite.getWidth();
 		nameFormat.y = (int) (spriteY + (sprite.getHeight() - font.getLineHeight()) / 2 +
 				font.getLineHeight());

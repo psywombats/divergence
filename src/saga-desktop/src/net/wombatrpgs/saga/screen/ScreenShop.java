@@ -17,7 +17,7 @@ import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.Option;
 import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.mgne.ui.text.TextboxFormat;
+import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.rpg.items.ShopInventory;
@@ -48,7 +48,7 @@ public class ScreenShop extends SagaScreen {
 	protected Nineslice shopBG, partyBG;
 	protected Nineslice shopViewBG, partyViewBG;
 	protected Nineslice headerBG, gpBG;
-	protected TextboxFormat headerFormat, gpFormat;
+	protected TextFormat headerFormat, gpFormat;
 	protected String headerString;
 	protected float globalX, globalY;
 	protected float shopX, shopY, partyX, partyY;
@@ -142,7 +142,7 @@ public class ScreenShop extends SagaScreen {
 		
 		FontHolder font = MGlobal.ui.getFont();
 		
-		headerFormat = new TextboxFormat();
+		headerFormat = new TextFormat();
 		headerFormat.align = HAlignment.LEFT;
 		headerFormat.width = ITEMS_WIDTH * 2 -  shopBG.getBorderWidth();
 		headerFormat.height = HEADER_HEIGHT;
@@ -150,7 +150,7 @@ public class ScreenShop extends SagaScreen {
 		headerFormat.y = (int) headerY + HEADER_MARGINS + headerBG.getBorderHeight() + 3;
 		headerString = "Welcome.";
 		
-		gpFormat = new TextboxFormat();
+		gpFormat = new TextFormat();
 		gpFormat.align = HAlignment.RIGHT;
 		gpFormat.width = GP_WIDTH - 2 * GP_MARGINS;
 		gpFormat.height = GP_HEIGHT;
