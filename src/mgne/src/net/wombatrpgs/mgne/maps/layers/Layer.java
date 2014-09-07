@@ -14,7 +14,7 @@ import net.wombatrpgs.mgne.maps.Level;
  * A layer in a map, either a grid layer or an object layer. It's how Tiled
  * handles it.
  */
-public abstract class Layer extends AssetQueuer implements Renderable {
+public abstract class Layer extends AssetQueuer implements	Renderable {
 	
 	protected Level parent;
 	
@@ -50,6 +50,14 @@ public abstract class Layer extends AssetQueuer implements Renderable {
 	 */
 	public abstract boolean isTilePassable(int tileX, int tileY);
 	
+	/**
+	 * Checking to see if a position in the grid has any tile in it.
+	 * @param 	x				The x-coord of the tile to check (in tiles)
+	 * @param 	y				The y-coord of the tile to check (in tiles)
+	 * @return					True if any tile exists there
+	 */
+	public abstract boolean hasTileAt(int tileX, int tileY);
+
 	/**
 	 * Determines whether this layer is an object layer, a so-called upper
 	 * chip layer. This means that unoccupied grid squares on this layer will

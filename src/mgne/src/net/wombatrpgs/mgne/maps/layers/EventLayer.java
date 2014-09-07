@@ -91,6 +91,14 @@ public class EventLayer extends Layer {
 		return true;
 	}
 
+	/**
+	 * @see net.wombatrpgs.mgne.maps.layers.Layer#hasTileAt(int, int)
+	 */
+	@Override
+	public boolean hasTileAt(int tileX, int tileY) {
+		return false;
+	}
+
 	/** @return All events contained on this layer */
 	public List<MapEvent> getEvents() { return events; }
 

@@ -15,8 +15,8 @@ import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.LoadedLevel;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.layers.TiledGridLayer;
+import net.wombatrpgs.mgne.screen.WindowSettings;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
@@ -45,6 +45,7 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 	protected Polygon polygon;
 	protected transient Cell roof, empty;
 	protected int currentRadius;
+	protected int lastVisible;
 	protected float sinceStart;
 
 	/**
@@ -75,7 +76,13 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 				radius *= -1;
 			}
 			if (radius != currentRadius) {
-				setRadius(radius);
+				int visible = setRadius(radius);
+				if (visible == lastVisible) {
+					lastVisible = visible;
+					update((1f/TILE_DEPLOY_TIME) * sinceStart);
+				} else {
+					lastVisible = visible;
+				}
 				if (Math.abs(radius) >= getVisionRadius()) {
 					if (state == DeployState.RETRACTING) {
 						instantRetract();
@@ -103,20 +110,19 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.maps.layers.TiledGridLayer#render(com.badlogic.gdx.graphics.g2d.SpriteBatch)
-	 */
-	@Override
-	public void render(SpriteBatch batch) {
-		// TODO Auto-generated method stub
-		super.render(batch);
-	}
-
-	/**
 	 * @see net.wombatrpgs.mgne.maps.layers.TiledGridLayer#isTilePassable(int, int)
 	 */
 	@Override
 	public boolean isTilePassable(int tileX, int tileY) {
 		return true;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.maps.layers.GridLayer#getZ()
+	 */
+	@Override
+	public float getZ() {
+		return 1f;
 	}
 
 	/**
@@ -197,9 +203,10 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 	 * @return					The maximum number of tiles visible from center
 	 */
 	protected int getVisionRadius() {
+		WindowSettings win = MGlobal.window;
 		Level map = event.getLevel();
-		int horiz = (int) Math.ceil(map.getWidthPixels() / ((float) map.getTileWidth() * 2f)) + 1;
-		int vert = (int) Math.ceil(map.getHeightPixels() / ((float) map.getTileHeight() * 2f)) + 1;
+		int horiz = win.getViewportWidth() / map.getTileWidth() + 1;
+		int vert = win.getViewportHeight() / map.getTileHeight() + 1;
 		return (horiz > vert) ? horiz : vert;
 	}
 	
@@ -231,8 +238,10 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 	 * room, where negative radii are a retracted roof, not over the room but
 	 * over the rest of the map instead. A radius of 0 would be no roof tiles.
 	 * @param	radius			The radius to draw tiles out to
+	 * @return					The number of visible ceiling tiles
 	 */
-	protected void setRadius(int radius) {
+	protected int setRadius(int radius) {
+		int set = 0;
 		currentRadius = radius;
 		Level map = event.getLevel();
 		int absRadius = Math.abs(radius);
@@ -242,7 +251,7 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 					int x = col * map.getTileWidth() + map.getTileWidth() / 2;
 					int y = row * map.getTileHeight() + map.getTileHeight() / 2;
 					if (polygon.contains(x, y) ^ (radius < 0)) {
-						layer.setCell(col, row, roof);
+						set += attemptSetAt(col, row) ? 1 : 0;
 					} else {
 						layer.setCell(col, row, empty);
 					}
@@ -259,12 +268,29 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 					boolean inRange = Math.abs(col - heroCol) < absRadius &&
 							Math.abs(row - heroRow) < absRadius;
 					if (inRange ^ polygon.contains(x, y) ^ (radius >= 0)) {
-						layer.setCell(col, row, roof);
+						set += attemptSetAt(col, row) ? 1 : 0;
 					} else {
 						layer.setCell(col, row, empty);
 					}
 				}
 			}
+		}
+		return set;
+	}
+	
+	/**
+	 * Sets a tile to covered if it meets the roof conditions.
+	 * @param	col			The column to set at
+	 * @param	row			The row to set at
+	 * @return				True if the tile was set, false otherwise
+	 */
+	protected boolean attemptSetAt(int col, int row) {
+		if (!parent.isBlankTile(col, row)) {
+			layer.setCell(col, row, roof);
+			return true;
+		} else {
+			layer.setCell(col, row, empty);
+			return false;
 		}
 	}
 

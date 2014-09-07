@@ -7,6 +7,7 @@
 package net.wombatrpgs.mgne.maps;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -152,6 +153,7 @@ public abstract class Level extends ScreenObject implements Turnable {
 		reseting = false;
 		updating = false;
 		
+		Collections.sort(gridLayers);
 	}
 	
 	/**
@@ -231,6 +233,21 @@ public abstract class Level extends ScreenObject implements Turnable {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * Checks if there are any tiles at all at the given space.
+	 * @param 	tileX			The checked x-coord (in tiles)
+	 * @param 	tileY			The checked y-coord (in tiles)
+	 * @return					True if no tiles exist at that location
+	 */
+	public boolean isBlankTile(int tileX, int tileY) {
+		for (GridLayer layer : gridLayers) {
+			if (layer.hasTileAt(tileX, tileY)) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	/**

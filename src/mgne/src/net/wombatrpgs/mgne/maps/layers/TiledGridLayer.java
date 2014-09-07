@@ -81,6 +81,14 @@ public class TiledGridLayer extends GridLayer {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.maps.layers.Layer#hasTileAt(int, int)
+	 */
+	@Override
+	public boolean hasTileAt(int tileX, int tileY) {
+		return getTileID(tileX, tileY) != 0;
+	}
+
+	/**
 	 * An easy way to keep track of properties.
 	 * @param 	key				The key of the desired property
 	 * @return					The value of that property

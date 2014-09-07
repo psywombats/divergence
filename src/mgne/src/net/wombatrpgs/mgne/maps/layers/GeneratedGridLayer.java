@@ -72,6 +72,14 @@ public class GeneratedGridLayer extends GridLayer {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.maps.layers.Layer#hasTileAt(int, int)
+	 */
+	@Override
+	public boolean hasTileAt(int tileX, int tileY) {
+		return tileData[tileY][tileX] == null;
+	}
+
+	/**
 	 * Checks if a tile at the given location is see-through. Does not check
 	 * for out of bounds.
 	 * @param	tileX			The x-coord of the tile to check (in tiles)

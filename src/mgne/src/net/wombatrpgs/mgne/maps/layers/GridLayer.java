@@ -16,7 +16,7 @@ import net.wombatrpgs.mgne.maps.Level;
  * ones just make reference to the tiled layer that spawned them. This class
  * holds their common functionality.
  */
-public abstract class GridLayer extends Layer {
+public abstract class GridLayer extends Layer implements Comparable<GridLayer> {
 	
 	protected float z;
 	
@@ -48,6 +48,14 @@ public abstract class GridLayer extends Layer {
 	 */
 	public abstract boolean isBridge(int tileX, int tileY);
 	
+	/**
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(GridLayer other) {
+		return (int) ((getZ() * 4) - (other.getZ() * 4));
+	}
+
 	/**
 	 * Gets the z-value of the layer. Layers with the same z-value share
 	 * collisions and collision detection. 0 represents the floor, and each
