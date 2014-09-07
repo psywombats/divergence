@@ -123,5 +123,62 @@
     <property name="hide" value="return not getSwitch('opening_borg_visible')"/>
    </properties>
   </object>
+  <object name="NPC" type="Character" x="48" y="432" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="onInteract" value="speak('The tunnels outside town lead to a city on the river.')"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="128" y="352" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="WEST"/>
+    <property name="onInteract" value="speak('Elder found BORG and fixed him up, but BORG\'s memory was wiped.')"/>
+    <property name="onTurn" value="this.wander()"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="160" y="464" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return getSwitch('opening_flashback')"/>
+    <property name="onInteract" value="speak('Nobody but Elder remembers what it was like when Hero was a center of trade instead of a monster town.')"/>
+    <property name="onTurn" value="this.wander()"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="432" y="448" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="WEST"/>
+    <property name="hide" value="return getSwitch('opening_flashback')"/>
+    <property name="onInteract" value="speak('There are other towns across the river, but monsters make the journey dangerous.')"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="432" y="352" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="NORTH"/>
+    <property name="onInteract" value="speak('There are other towns across the river, but monsters make the journey dangerous.')"/>
+    <property name="onTurn" value="this.wander()"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="304" y="384" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="EAST"/>
+    <property name="hide" value="return getSwitch('opening_flashback')"/>
+    <property name="onInteract" value="speak('Friendly monsters are rare in these parts, but I hear they can be powerful allies.')"/>
+    <property name="onTurn" value="this.wander()"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="240" y="304" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return getSwitch('opening_flashback')"/>
+    <property name="onInteract" value="speak('After Jonas and Janine left, we counted on David to defend the town. Now that he\'s gone, what are we supposed to do?')"/>
+    <property name="onTurn" value="this.wander()"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

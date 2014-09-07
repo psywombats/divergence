@@ -8,7 +8,7 @@ speak("Elder", "I'm one of the few alive who remember when the gates were sealed
 speak("Elder", "In fact, they gave each of the city elders one of the four otherworldly artifacts, so if we wished, we could reopen the way to Hero.")
 speak(hero, "So you have one of these artifacts?")
 speak("Elder", "Yes. My artifact is actually a set of items, magical sending stones that let the owners talk across great distances.")
-speak("Elder", "I gave one of these sending stones to my son, David, who left to find Hero himself. I can't hear David on my stone any more.")
+speak("Elder", "I gave one of these sending stones to my son, David. Against my wishes, he ran away to find Hero himself. I can't hear David on my stone any more.")
 speak(hero, "So something happened to him?")
 speak("Elder", "I don't know. If you can find David, I will gladly give you a sending stone.")
 speak(hero, "Thank you, Elder.")
