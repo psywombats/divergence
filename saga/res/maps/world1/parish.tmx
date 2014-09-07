@@ -146,7 +146,7 @@
     <property name="onTurn" value="this.wander()"/>
    </properties>
   </object>
-  <object name="NPC" type="Character" x="432" y="448" width="16" height="16">
+  <object name="NPC" type="Character" x="432" y="464" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="face" value="WEST"/>
@@ -158,6 +158,7 @@
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="face" value="NORTH"/>
+    <property name="hide" value="return getSwitch('opening_flashback')"/>
     <property name="onInteract" value="speak('There are other towns across the river, but monsters make the journey dangerous.')"/>
     <property name="onTurn" value="this.wander()"/>
    </properties>

@@ -64,7 +64,6 @@ public class SceneTeleport extends VarArgFunction {
 							tileX,
 							tileY);
 					Level map = MGlobal.levelManager.getActive();
-					MGlobal.getHero().setTileLocation(tileX, tileY);
 					map.update(0);
 					teleportFinished = true;
 				}

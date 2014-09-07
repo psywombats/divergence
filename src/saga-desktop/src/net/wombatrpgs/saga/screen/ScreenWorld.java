@@ -57,8 +57,8 @@ public class ScreenWorld extends SagaScreen {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
-		super.render(batch);
 		MGlobal.levelManager.getActive().render(batch);
+		super.render(batch);
 	}
 
 }

@@ -10,7 +10,7 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3YMQ7DIAyFYY9MlbLlFG2Xtve/WcUQKRPwgp2A8n8SY2yehASxGe7g0bA8a3n06ZH7vApLzbt9t1Tq9vTpkft8C0vNu323Vur29OmR+6TCUvOWann16UHee+RdHPYxU97VYR+z5PW8f0fP+7TyvfgWas2Q92Ple/En1NqfiWRtZ+fs95Wn/VlJpr2vlHM0iv1ZSaa9r5RzBAAA5hDx1hv5/Vib0x2ZpUXU9FKb0x2ZpUXU9KL8uyl5R/v/i9wbeclL3nOos5eranpRZi+ts5aIml6U2UvrrCWiJgAAAAAAAAAAwFX+8h9y/kA4AAA=
+   H4sIAAAAAAAAC+3YMQ6DMAyF4YyZKrFxisJSev+bVQxILJgYv4Sg/p+UETtPshTklPAPXgVHWUvRJ2LtMxnHm3f7bjiopegTsfZZjOPNu303HtRS9IlY+2TjePNatSZRn4iWeRdRn4iWeVV9IrY7DoJ7PCnvKLhHyaz0kFf5/vae953s93d21HpC3k+y39+vo9Z+JnIqm53W/1dK+1nJyZ6byBz1Yj8rOdlzE5kjAADwDDX+9Xr+fzzb013ZpdWoqXK2p7uyS6tRU8Wzi/Dk7W2fUfNu5CUvedvw7l7uqqni2b2U7lpq1FTx7F5Kdy01agIAAAAAAAAAANzlB4oRQkFAOAAA
   </data>
  </layer>
  <layer name="Tile Layer 2" width="60" height="60">
@@ -18,7 +18,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3YzQqCQBAAYN+5EDqET9ClSwffoHrIlDxI4A81urp9HwwjrMzOwJ6mKIAcXLuIcAyqs6S6i1b5Y63zxHk58J1KtWL9pe/i7fCRo11Gzk4L3TmmP29/5rE++d4tdQMr+Zc5AQCAPETt8bZgarfQ7tPqiX/m1CwH8tZE7dOqgZyLexOPJp6pG5kpem+1l/ccJff3DAAAAAAAAFv3AqrLwI9AOAAA
+   H4sIAAAAAAAAC+3YTQrCMBAG0NxZKbgQT+DGjYveQD2kLXRRgrRFp3/xPRiySJhJIKsvJaAEt64iHIP6zKnuqlX92Os84UyVrWu6LDhjiVmkdMjWaNeBvdNMM4f039t/89A9+d597Qss5F/eCQAAlCEqx9uCsWyhzdPqkTNTeub53BZyuk+i8rQ8nystp3s09WzqtfZFJorOrfbyn6OU/p8BAAAAAABg697lV3f+QDgAAA==
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
@@ -83,6 +83,13 @@
     <property name="hide" value="return not getSwitch('opening_talked_elder')"/>
     <property name="onInteract" value="speak('Elder', 'Take care.')"/>
    </properties>
+  </object>
+  <object name="room" type="Ceiling" x="464" y="144">
+   <properties>
+    <property name="roofID" value="13"/>
+    <property name="roofTileset" value="lower"/>
+   </properties>
+   <polygon points="0,0 0,-64 16,-64 16,-96 112,-96 112,48 16,48 16,0"/>
   </object>
  </objectgroup>
  <layer name="Tile Layer 3" width="60" height="60">
