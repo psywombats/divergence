@@ -11,10 +11,10 @@ import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.core.SGlobal;
-import net.wombatrpgs.sagaschema.rpg.EncounterMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.PartyEntryMDO;
-import net.wombatrpgs.sagaschema.rpg.data.EncounterMemberMDO;
+import net.wombatrpgs.sagaschema.rpg.encounter.EncounterMDO;
+import net.wombatrpgs.sagaschema.rpg.encounter.data.EncounterMemberMDO;
 
 /**
  * A party controlled by the enemy AI.

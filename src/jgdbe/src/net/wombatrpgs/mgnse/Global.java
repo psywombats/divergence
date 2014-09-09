@@ -56,6 +56,16 @@ public class Global {
 		return instance;
 	}
 	
+	/** @return The node for that schema in the map */
+	public SchemaNode getNode(Class<? extends MainSchema> schema) {
+		for (Class<? extends Schema> subClass : map.keySet()) {
+			if (subClass.getName().equals(schema.getName())) {
+				return map.get(subClass);
+			}
+		}
+		return null;
+	}
+	
 	/** @param map The new map to set */
 	public void setSchemaMap(HashMap<Class<? extends MainSchema>, SchemaNode> map) { this.map = map; }
 	

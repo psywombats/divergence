@@ -19,8 +19,9 @@ import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.saga.rpg.battle.Battle;
 import net.wombatrpgs.saga.rpg.chara.EnemyParty;
-import net.wombatrpgs.sagaschema.rpg.EncounterMDO;
-import net.wombatrpgs.sagaschema.rpg.EncounterSetMDO;
+import net.wombatrpgs.sagaschema.rpg.encounter.EncounterMDO;
+import net.wombatrpgs.sagaschema.rpg.encounter.EncounterSetMDO;
+import net.wombatrpgs.sagaschema.rpg.encounter.data.EncounterSetMemberMDO;
 
 /**
  * A block area where the player can fight some random encounters!
@@ -76,9 +77,9 @@ public class EventEncounter extends MapEvent {
 	 */
 	public void encounter() {
 		List<EncounterMDO> encounters = new ArrayList<EncounterMDO>();
-		for (String key : mdo.encounters) {
-			EncounterMDO mdo = MGlobal.data.getEntryFor(key, EncounterMDO.class);
-			for (int i = 0; i < mdo.weight; i += 1) {
+		for (EncounterSetMemberMDO member : mdo.encounters) {
+			EncounterMDO mdo = MGlobal.data.getEntryFor(member.encounter, EncounterMDO.class);
+			for (int i = 0; i < member.weight; i += 1) {
 				encounters.add(mdo);
 			}
 		}

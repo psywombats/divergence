@@ -10,8 +10,8 @@ import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
-import net.wombatrpgs.sagaschema.rpg.StatusMDO;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
+import net.wombatrpgs.sagaschema.rpg.status.StatusMDO;
 
 /**
  * Inflicts status conditions.

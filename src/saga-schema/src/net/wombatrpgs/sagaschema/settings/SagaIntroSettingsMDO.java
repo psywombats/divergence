@@ -10,7 +10,7 @@ import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
-import net.wombatrpgs.sagaschema.rpg.RecruitSelectionMDO;
+import net.wombatrpgs.sagaschema.rpg.chara.RecruitSelectionMDO;
 
 /**
  * More settings for game stuff.

@@ -420,7 +420,7 @@ public class SchemaTree extends JTree {
 	 */
 	private File getMainSchemaDirectory(File dataFile) {
 		String subdir = getDataSubdir(dataFile);
-		if (subdir.equals("")) {
+		if (subdir == null || subdir.equals("")) {
 			return dataFile.getParentFile();
 		}
 		String path = dataFile.getParentFile().getAbsolutePath();

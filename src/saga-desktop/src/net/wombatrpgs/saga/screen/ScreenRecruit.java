@@ -24,8 +24,8 @@ import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.chara.Chara;
-import net.wombatrpgs.sagaschema.rpg.RecruitSelectionMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.CharaMDO;
+import net.wombatrpgs.sagaschema.rpg.chara.RecruitSelectionMDO;
 
 /**
  * Screen to select from a bunch of different 

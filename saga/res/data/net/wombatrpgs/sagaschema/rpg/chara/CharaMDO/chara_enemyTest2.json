@@ -10,7 +10,7 @@
 	"appearance" : "4dir_ffl2_human",
 	"portrait" : "battle_portraits/pira.png",
 	"meatEatLevel" : 1,
-	"meatTargetLevel" : 1,
+	"meatTargetLevel" : -1,
 	"gp" : 40,
 	"equipped" : [
 		"item_testabil",

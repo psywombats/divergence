@@ -10,7 +10,7 @@
 	"appearance" : "4dir_ffl2_human",
 	"portrait" : "battle_portraits/sandbag.png",
 	"meatEatLevel" : 0,
-	"meatTargetLevel" : 0,
+	"meatTargetLevel" : -1,
 	"gp" : 4000,
 	"equipped" : [
 		"item_testabil"

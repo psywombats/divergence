@@ -15,10 +15,6 @@ public class BattleAnimWizard extends Wizard {
 
 	protected BattleAnimDialog dialog;
 
-	public BattleAnimWizard() {
-		super();
-	}
-
 	/**
 	 * @see net.wombatrpgs.mgnse.wizard.Wizard#getName()
 	 */

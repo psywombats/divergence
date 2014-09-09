@@ -14,12 +14,12 @@ import java.util.Map;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.rpg.battle.Battle;
-import net.wombatrpgs.sagaschema.rpg.StatusMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Resistable;
-import net.wombatrpgs.sagaschema.rpg.data.LethalityType;
-import net.wombatrpgs.sagaschema.rpg.data.RecoverType;
 import net.wombatrpgs.sagaschema.rpg.stats.Flag;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
+import net.wombatrpgs.sagaschema.rpg.status.StatusMDO;
+import net.wombatrpgs.sagaschema.rpg.status.data.LethalityType;
+import net.wombatrpgs.sagaschema.rpg.status.data.RecoverType;
 
 /**
  * Status condtion.
