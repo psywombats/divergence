@@ -11,6 +11,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.maps.Level;
+import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 import net.wombatrpgs.mgneschema.settings.TeleportSettingsMDO;
 
 /**
@@ -18,7 +19,8 @@ import net.wombatrpgs.mgneschema.settings.TeleportSettingsMDO;
  */
 public class TeleportManager implements Queueable {
 	
-	public static final String MD0_KEY = "default_teleport";
+	public static final String MDO_KEY = "default_teleport";
+	public static final String KEY_ENTRY_DIR = "entryDir";
 	
 	protected TeleportSettingsMDO mdo;
 	protected StoredSceneParser preParser, postParser;
@@ -80,6 +82,10 @@ public class TeleportManager implements Queueable {
 					postParser.addListener(listener);
 				}
 				postParser.run();
+				String entryDir = map.getProperty(KEY_ENTRY_DIR);
+				if (entryDir != null && !entryDir.isEmpty()) {
+					MGlobal.getHero().setFacing(OrthoDir.valueOf(entryDir));
+				}
 			};
 		});
 	}

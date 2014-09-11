@@ -59,7 +59,7 @@ public class LevelManager {
 	public TeleportManager getTele() {
 		if (teleport == null) {
 			teleport = new TeleportManager(MGlobal.data.getEntryFor(
-					TeleportManager.MD0_KEY, TeleportSettingsMDO.class));
+					TeleportManager.MDO_KEY, TeleportSettingsMDO.class));
 			MGlobal.assets.loadAsset(teleport, "teleport global");
 		}
 		return teleport;

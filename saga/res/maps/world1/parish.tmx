@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="36" height="43" tilewidth="16" tileheight="16">
  <properties>
+  <property name="entryDir" value="NORTH"/>
   <property name="name" value="Forest Town"/>
  </properties>
  <tileset firstgid="1" source="../tilesets/lower.tsx"/>
@@ -179,6 +180,11 @@
     <property name="hide" value="return getSwitch('opening_flashback')"/>
     <property name="onInteract" value="speak('After Jonas and Janine left, we counted on David to defend the town. Now that he\'s gone, what are we supposed to do?')"/>
     <property name="onTurn" value="this.wander()"/>
+   </properties>
+  </object>
+  <object name="tele" type="Event" x="304" y="560" width="32" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/overworld.tmx', 12, 18)"/>
    </properties>
   </object>
  </objectgroup>

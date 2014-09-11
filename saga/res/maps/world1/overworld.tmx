@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="16" tileheight="16">
+ <properties>
+  <property name="name" value="Forest Town"/>
+ </properties>
+ <tileset firstgid="1" source="../tilesets/lower.tsx"/>
+ <tileset firstgid="113" source="../tilesets/upper.tsx"/>
+ <layer name="Tile Layer 1" width="64" height="64">
+  <properties>
+   <property name="z" value="0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2aSW7DMAxFnaN5ad+iO9//BEWBCiA+KE6ixCTQ4sOOI1N8HOQhuY/juBP0JNn5VG3+eh82/+bf/Jt/8+fr9a9Z/JfxWBV78wfVvhvhp/akY1XiuFHPIdfHiO3KGFj9e8i+Jw5W+xUxsPrU+FsNfAu/5CM3LrIGfCq/1gPZ7FX8Hv8e+Nx6gbtmcMc/NQZtzMz83wa7r8O//mSwN83qfxy7kh99xLod5ddiIY1Zxd/mpfa5+Uf4pbiiTkbZvFp9cXGO8ntyxsXmBFsrY0Dn9vJH6pWrkZX8Ugw8/NFebdy9+q/oCW/+Z65TXE2skoXfy65xSDXwbvyRvONYPP8k29W17+GPsPdYqI3K5yL0pcc/0u80p5ydqmcD7l6gvQPIYpdijcrm5/gsejo2Ij5gT79gH+/Hs/nxedXDn5V3vLdBXcw2K/e9Z3WNP8KNuZbWcy7/dJtd99xzWWb+NXZc+7T8j9ZBNj8K57LwSzHAWNzMPCMx8PLju2BNGfzZvWCxLcnDb4mBxUbmOtDrAyuPl39Uq9bCan7Jr159ZteBl99avzNilaEM/qwYRPyZGYPempBV/71arqgDz7y938Mpk3Y9kd45V/FbJf0fQIoBx0y3kVys4MX5sP7pWI3dck/7DvmX5sP7QM0Ox8rte/pxRc57+bf0AZ5r/Z3RmouV/D1F/xek6WRU0fMWfqoZfnCx4FSZ/2sSfxV749diwPHjeRlr2Gp2qQao/w/sc+f0OKP8M3mt/DT/kv7G9NZ37zpWwW6tf9oHTd/AL3HT+x+tDri10cu/6rpn5b+Y7SV8ruYZ4ff0/Kz8V/BfzD7NrZZ3ehxV/duuRdx78Si/ZVy2/z8TFK1/1AzfZvm6tbW19Wn6BXo3p38AQAAA
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="64" height="64">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3ZTQrCMBAG0Hg9j+XWbVfdFjynBgpCxUWLcUbnPSjJqnxNJ/1JWgMAAAD2mKMDFHd5HNe1rahf+7S2o2Qe2+r3n9Zu0QEoRb3xTd5tuZj/QDfyv+tX9DWQU3SIBM7RAQAggL0QIlgfiTNFB4CElugAEMR34Ov8r/g8UAdPo+rBXlRuy6bd9vkP85v+0XMAwKfdAe7vM20AQAAA
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1">
+  <object name="Hometown" type="Event" x="192" y="288" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/parish.tmx', 20, 34)"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
