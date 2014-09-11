@@ -1,6 +1,6 @@
 /**
  *  EventEncounter.java
- *  Created on Jun 26, 2014 3:05:10 PM for project saga-desktop
+ *  Created on Sep 10, 2014 10:09:53 PM for project saga-desktop
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
@@ -24,32 +24,32 @@ import net.wombatrpgs.sagaschema.rpg.encounter.EncounterSetMDO;
 import net.wombatrpgs.sagaschema.rpg.encounter.data.EncounterSetMemberMDO;
 
 /**
- * A block area where the player can fight some random encounters!
+ * Abstract superclass for simple encounters and terrain-based encounters.
  */
-public class EventEncounter extends MapEvent {
+public abstract class EventEncounter extends MapEvent {
 	
-	protected EncounterSetMDO mdo;
-	protected Polygon polygon;
+	protected Polygon poly;
 	protected FinishListener onStep;
 	protected int lastX, lastY;
 	
 	/**
-	 * Creates an encounter event region from a tiled map object.
-	 * @param	object			The object to create from
+	 * Creates a new encounter event that acts as if it covers the entire map.
 	 */
-	public EventEncounter(TiledMapObject object) {
-		String key = object.getString(TiledMapObject.PROPERTY_MDO);
-		mdo = MGlobal.data.getEntryFor(key, EncounterSetMDO.class);
-		polygon = object.getPolygon();
+	public EventEncounter() {
 		onStep = new FinishListener() {
 			@Override public void onFinish() {
-				Avatar hero = MGlobal.getHero();
-				if (MGlobal.rand.nextInt(mdo.steps) == 0 &&
-						polygon.contains(hero.getX(), hero.getY())) {
-					encounter();
-				}
+				onStep();
 			}
 		};
+	}
+	
+	/**
+	 * Creates a new encounter event. Registers a listener etc.
+	 * @param	object			The tiled object defining this event's poly
+	 */
+	public EventEncounter(TiledMapObject object) {
+		this();
+		poly = object.getPolygon();
 	}
 	
 	/**
@@ -71,16 +71,17 @@ public class EventEncounter extends MapEvent {
 		super.onMapFocusLost(map);
 		MGlobal.getHero().removeStepListener(onStep);
 	}
-
+	
 	/**
 	 * Starts an encounter with a group included in this encounter set.
+	 * @param	mdo				The MDO of the group to battle
 	 */
-	public void encounter() {
+	public void encounter(EncounterSetMDO mdo) {
 		List<EncounterMDO> encounters = new ArrayList<EncounterMDO>();
 		for (EncounterSetMemberMDO member : mdo.encounters) {
-			EncounterMDO mdo = MGlobal.data.getEntryFor(member.encounter, EncounterMDO.class);
+			EncounterMDO encMDO = MGlobal.data.getEntryFor(member.encounter, EncounterMDO.class);
 			for (int i = 0; i < member.weight; i += 1) {
-				encounters.add(mdo);
+				encounters.add(encMDO);
 			}
 		}
 		EncounterMDO chosen = encounters.get(MGlobal.rand.nextInt(encounters.size()));
@@ -89,5 +90,29 @@ public class EventEncounter extends MapEvent {
 		MGlobal.assets.loadAsset(battle, "encounter " + chosen.key);
 		battle.start();
 	}
+	
+	/**
+	 * Called each time the hero finishes a step.
+	 */
+	protected final void onStep() {
+		Avatar hero = MGlobal.getHero();
+		int terrainID = MGlobal.levelManager.getActive().getTerrainAt(
+				MGlobal.getHero().getTileX(),
+				MGlobal.getHero().getTileY());
+		EncounterSetMDO mdo = getEncounterSetForTerrain(terrainID);
+		if (MGlobal.rand.nextInt(mdo.steps) == 0 &&
+				(poly == null || poly.contains(hero.getX(), hero.getY()))) {
+			encounter(mdo);
+		}
+	}
+	
+	/**
+	 * Fetches the correct encounter set for the terrain supplied. Or return
+	 * null for no encounter. Keep in mind the terrain ID is supplied by gid
+	 * not relative to the tileset.
+	 * @param	terrain			The terrain the hero is currently on (gid)
+	 * @return					The encounters faces in that terrain
+	 */
+	protected abstract EncounterSetMDO getEncounterSetForTerrain(int terrain);
 
 }

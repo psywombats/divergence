@@ -168,7 +168,7 @@ public class EventLayer extends Layer {
 	public List<MapEvent> getEventsAt(int tileX, int tileY) {
 		List<MapEvent> results = new ArrayList<MapEvent>();
 		for (MapEvent event : events) {
-			if (event.getTileX() == tileX && event.getTileY() == tileY) {
+			if (event.containsTile(tileX, tileY)) {
 				results.add(event);
 			}
 		}

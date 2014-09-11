@@ -56,6 +56,7 @@ public class Constants {
 	public static final String PROPERTY_PASSABLE = "o";
 	public static final String PROPERTY_IMPASSABLE = "x";
 	public static final String PROPERTY_Z = "z";
+	public static final String PROPERTY_FIRST_GID = "firstgid";
 	
 	/** Strings could be null or else this */
 	public static final String NULL_MDO = "None";

@@ -336,6 +336,14 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.maps.MapMovable#containsTile(int, int)
+	 */
+	@Override
+	public boolean containsTile(int tileX, int tileY) {
+		return this.tileX == tileX && this.tileY == tileY;
+	}
+
+	/**
 	 * What happens when a character moves into this event? By default, nothing
 	 * happens, but characters should be attacked, items should be auto-grabbed,
 	 * and so on. This will start evaluation when the hero stops moving.

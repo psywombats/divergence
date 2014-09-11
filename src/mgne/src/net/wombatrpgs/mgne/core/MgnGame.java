@@ -165,7 +165,7 @@ public abstract class MgnGame {
 			hero.setTileY(mdo.mapY);
 		} else {
 			hero.setTileX(Integer.valueOf(MGlobal.args.get("x")));
-			hero.setTileY(Integer.valueOf(MGlobal.args.get("y"))-1);
+			hero.setTileY(Integer.valueOf(MGlobal.args.get("y")));
 		}
 		
 		MGlobal.levelManager.setNewActiveSet(hero, level);

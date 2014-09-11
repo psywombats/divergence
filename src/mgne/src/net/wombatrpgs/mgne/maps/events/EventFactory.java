@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.mgne.maps.events;
 
+import com.badlogic.gdx.maps.tiled.TiledMap;
+
 import net.wombatrpgs.mgne.maps.LoadedLevel;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgneschema.maps.EventMDO;
@@ -24,6 +26,17 @@ public class EventFactory {
 		LoadedLevel parent = object.getLevel();
 		MapEvent event = createEvent(object);
 		parent.addEvent(event, object.getTileX(), object.getTileY());
+	}
+	
+	/**
+	 * Creates an event implied from a map property. It's fine to return null
+	 * if the property isn't recognized (and that's the default behavior).
+	 * @param	map				The tiled map being loaded
+	 * @param	key				The key of the map property
+	 * @param	value			The string of the map property
+	 */
+	public MapEvent createFromMapProperty(TiledMap map, String key, String value) {
+		return null;
 	}
 	
 	/**

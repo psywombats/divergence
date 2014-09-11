@@ -49,6 +49,15 @@ public abstract class GridLayer extends Layer implements Comparable<GridLayer> {
 	public abstract boolean isBridge(int tileX, int tileY);
 	
 	/**
+	 * Fetches the terrain ID (defined in Tiled usually) of the tile located
+	 * at the given coordiantes.
+	 * @param	tileX			The location to check (in tiles)
+	 * @param	tileY			The location to check (in tiles)
+	 * @return					The terrain ID at that location
+	 */
+	public abstract int getTerrainAt(int tileX, int tileY);
+	
+	/**
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override

@@ -11,8 +11,10 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.LoadedLevel;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
@@ -36,6 +38,19 @@ public class TiledGridLayer extends GridLayer {
 		if (getProperty(Constants.PROPERTY_Z) == null) {
 			MGlobal.reporter.warn("Layer with no Z exists on map " + parent);
 		}
+	}
+	
+	/**
+	 * Converts from the tileset/id format to global tile id format.
+	 * @param	tilesetName		The name of the tileset with the tile
+	 * @param	relativeTileID	The ID of the tile within that tileset
+	 * @return					The global ID of that tile (gid)
+	 */
+	public static int relativeToAbsoluteTileID(TiledMap map, String tilesetName, int relativeTileID) {
+		TiledMapTileSet tileset = getTilesetByName(map, tilesetName);
+		String key = Constants.PROPERTY_FIRST_GID;
+		int offset = Integer.valueOf(tileset.getProperties().get(key).toString());
+		return relativeTileID + offset;
 	}
 
 	/**
@@ -89,6 +104,30 @@ public class TiledGridLayer extends GridLayer {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.maps.layers.GridLayer#getTerrainAt(int, int)
+	 */
+	@Override
+	public int getTerrainAt(int tileX, int tileY) {
+		return getTileID(tileX, tileY);
+	}
+	
+	/**
+	 * Finds the tileset with the given name in the list of tilesets.
+	 * @param	map				The map to check on
+	 * @param	tilesetName		The name of the tileset to fetch
+	 * @return					That tileset
+	 */
+	protected static TiledMapTileSet getTilesetByName(TiledMap map, String tilesetName) {
+		for (TiledMapTileSet tileset : map.getTileSets()) {
+			if (tileset.getName().equals(tilesetName)) {
+				return tileset;
+			}
+		}
+		MGlobal.reporter.warn("No tileset found with name " + tilesetName);
+		return null;
+	}
+
+	/**
 	 * An easy way to keep track of properties.
 	 * @param 	key				The key of the desired property
 	 * @return					The value of that property
@@ -123,5 +162,15 @@ public class TiledGridLayer extends GridLayer {
 		Cell cell = layer.getCell(tileX, tileY);
 		return (cell == null) ? 0 : cell.getTile().getId();
 	}
-
+	
+	/**
+	 * Converts from the tileset/id format to global tile id format. Assumes
+	 * that the current map is the one to use.
+	 * @param	tilesetName		The name of the tileset with the tile
+	 * @param	relativeTileID	The ID of the tile within that tileset
+	 * @return					The global ID of that tile (gid)
+	 */
+	protected int relativeToAbsoluteTileID(String tilesetName, int relativeTileID) {
+		return relativeToAbsoluteTileID(parent.getMap(), tilesetName, relativeTileID);
+	}
 }

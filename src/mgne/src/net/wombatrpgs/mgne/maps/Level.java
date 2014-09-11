@@ -192,6 +192,23 @@ public abstract class Level extends ScreenObject implements Turnable {
 	}
 	
 	/**
+	 * Fetches the terrain ID (defined in Tiled usually) of the tile located
+	 * at the given coordiantes.
+	 * @param	tileX			The location to check (in tiles)
+	 * @param	tileY			The location to check (in tiles)
+	 * @return					The terrain ID at that location
+	 */
+	public int getTerrainAt(int tileX, int tileY) {
+		for (GridLayer layer : gridLayers) {
+			int id = layer.getTerrainAt(tileX, tileY);
+			if (id != 0) {
+				return id;
+			}
+		}
+		return 0;
+	}
+	
+	/**
 	 * Determines if the specified location is passable. Takes into account
 	 * both grid and events.
 	 * @param	tileX			The location to check (in tiles)

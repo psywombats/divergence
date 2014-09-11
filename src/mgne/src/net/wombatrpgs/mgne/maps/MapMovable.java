@@ -196,6 +196,19 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	}
 	
 	/**
+	 * Checks if this map-movable object contains the given point, inclusive.
+	 * @param	tileX			The x-coord to check (in tiles)
+	 * @param	tileY			The y-coord to check (in tiles)
+	 * @return
+	 */
+	public boolean containsTile(int tileX, int tileY) {
+		return	(x >= tileX * parent.getTileWidth()) && 
+				(x <= (tileX+1) * parent.getTileWidth()) &&
+				(y >= tileY * parent.getTileHeight()) && 
+				(y <= (tileY+1) * parent.getTileHeight());
+	}
+	
+	/**
 	 * Renders some texture relative to this event. All pixels are virtual.
 	 * @param	batch			The batch to render with
 	 * @param	tex				The texture to render

@@ -239,7 +239,9 @@ public class EncounterDialog extends JDialog implements ActionListener {
 	}
 	
 	private void nameEncounter(EncounterMDO mdo) {
-		mdo.key = "encounter";
+		String levelString = String.valueOf(level);
+		while (levelString.length() < 2) levelString = "0" + levelString;
+		mdo.key = "encounter_lvl" + levelString;
 		for (EncounterMemberMDO member : mdo.members) {
 			mdo.key += "_";
 			int index = member.enemy.lastIndexOf('_');

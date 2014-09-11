@@ -30,8 +30,6 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 	protected static final float TILE_DEPLOY_TIME = .075f;	// in s
 	protected static final String KEY_ROOF_ID = "roofID";
 	protected static final String KEY_ROOF_TILESET = "roofTileset";
-	protected static final String KEY_FIRST_GID = "firstgid";
-	protected static final int MASK_CLEAR = 0xE0000000;
 	
 	protected enum DeployState {
 		DEPLOYED,
@@ -222,13 +220,8 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 			MGlobal.reporter.err("No id or tileset name on roof event: " + event);
 			return;
 		}
-		for (TiledMapTileSet tileset : event.getLevel().getMap().getTileSets()) {
-			if (tileset.getName().equals(tilesetName)) {
-				int offset = Integer.valueOf(tileset.getProperties().get(KEY_FIRST_GID).toString());
-				roof.setTile(tileset.getTile(id + offset));
-				break;
-			}
-		}
+		TiledMapTileSet tileset = getTilesetByName(parent.getMap(), tilesetName);
+		roof.setTile(tileset.getTile(relativeToAbsoluteTileID(tilesetName, id)));
 	}
 	
 	/**
