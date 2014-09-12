@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="16" tileheight="16">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="16" tileheight="16">
  <properties>
-  <property name="name" value="Home World"/>
-  <property name="terrainEncounter" value="terrain_world1"/>
+  <property name="encounter" value="encounterset_level00_danger02"/>
+  <property name="name" value="North Passage"/>
  </properties>
  <tileset firstgid="1" name="lower" tilewidth="16" tileheight="16">
   <image source="../tilesets/lower2.PNG" width="112" height="256"/>
@@ -243,31 +243,81 @@
   </tile>
  </tileset>
  <tileset firstgid="113" source="../tilesets/upper.tsx"/>
- <layer name="Tile Layer 1" width="64" height="64">
+ <layer name="Tile Layer 1" width="40" height="40">
   <properties>
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2aSW7DMAxFk6N56Zyi7cqrovdftQUqgPigOIkSm0CLDzuOTPFxUDzkcbvdHgm6kuw8qzZ/vQ+bf/Nv/s2/+fN1/9Ms/tN4rIq9+YNq343wU3vSsSpx3KjrJtfHiO3KGFj9u8i+Jw5W+xUxsPrU+FsNvAq/5CM3LrIGPCu/1gPZ7FX8Hv8u+Nx64YQtPf4KMWhjvPn3xOBhsEtju5K9KdL/llpAX1byYwzQ11F+rRYkX1bxt3mxd3HMKD+NgTT2YJTNq9UXF+covydnXGwOsLUyBnRuL3+kXrn6X8kvxcDDH+3Vxt2r/4qe8OZ/5jrF1cQqWfi97BqHVAOr2TX+SN5xLJ5/kO3q2vfkP8LeY6E2Ku+L0Jce/0i/05xydqruDbhrAa4HMtc6yUY2P8dn0dWxEfEBe/oO+3g9ns2P97Ee/qy847UNCu+tM+KAtmkstHhEnoFxuZbWcy7/dJtd99x9WWb+NXZc+7T8j9ZBNj8K57LwSzHAWDyYeUZi4OXHZ8GaMvize8FiW5KH3xIDi43MdaDXB1YeL/+oVq2F1fySX736zK4DL7+1fmfEKkMZ/FkxiPgzMwa9NSGr/nu1XFEHnnl778Mpk/Z7Ij1zruK3Svo/gBQDjpluI7lYwYvzYf3TsRq75Zr2P+Rfmg+vAzU7HCu37+nHFTnv5d/SB3hu7/3f248+ArlYyd9T9H9BVJ8/+oJjB6OKnrfwU83wg4sFp8r8n5P4q9gbvxYDjh/Py1jDVrNLNUD9v2CfO6fHGeWfyWvlp/mX9Dum96zKu45VsFvrn/ZB0yvwS9z0+kerA25t9PKv+t2z8p/M9hQ+V/OM8Ht6flb+K/hPZp/mVss7PY6qfrdrEfdcPMpvGZft//sEResfNcO3Wb5ubW1tPZu+Acrk0WAAQAAA
+   H4sIAAAAAAAAC+2XOxKAIAwFuYF2FlBxCu9/MhuKDAOSxPBRX7HNixN3lIkmOOcCAAAoOIXXe0KPPGcX+kVCjzznEPpthB556X6r+vlUb52BWX4x1VtngPvMrXLpGYCfvZ8vYJXTutYvFrDKaV3rNxqJ3yjgB7+3+3H+77RY+NF5RXvfzTUuFn60R633zPm3+nyu9VjF7w7ObjNzdnB2m1VnG/yeo9nPRqLdz0a+269////sB+ZzASFPGM0AGQAA
   </data>
  </layer>
- <layer name="Tile Layer 2" width="64" height="64">
+ <layer name="Tile Layer 2" width="40" height="40">
   <properties>
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3ZTQrCMBAG0Hg9j+XWbVfdFjynBgpCxUWLcUbnPSjJqnxNJ/1JWgMAAAD2mKMDFHd5HNe1rahf+7S2o2Qe2+r3n9Zu0QEoRb3xTd5tuZj/QDfyv+tX9DWQU3SIBM7RAQAggL0QIlgfiTNFB4CElugAEMR34Ov8r/g8UAdPo+rBXlRuy6bd9vkP85v+0XMAwKfdAe7vM20AQAAA
+   H4sIAAAAAAAAC+3OoQEAAAgDoL3t99Z1gwUuIAEAAAC4m+8AAEBZXO5mOwAZAAA=
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
-  <object name="Hometown" type="Event" x="192" y="288" width="16" height="16">
+  <object name="tele" type="Event" x="512" y="96" width="16" height="16">
    <properties>
-    <property name="onCollide" value="teleport('world1/parish.tmx', 20, 34)"/>
+    <property name="onCollide" value="teleport('world1/overworld.tmx', 16, 23)"/>
    </properties>
   </object>
-  <object name="Pass" type="Event" x="256" y="368" width="16" height="16">
+  <object name="room" type="Ceiling" x="64" y="112">
    <properties>
-    <property name="onCollide" value="teleport('world1/pass01.tmx', 32, 7)"/>
+    <property name="roofID" value="27"/>
+    <property name="roofTileset" value="lower"/>
+   </properties>
+   <polygon points="0,0 48,0 48,80 32,80 32,128 16,128 16,80 0,80"/>
+  </object>
+  <object name="room" type="Ceiling" x="160" y="112">
+   <properties>
+    <property name="roofID" value="27"/>
+    <property name="roofTileset" value="lower"/>
+   </properties>
+   <polygon points="0,0 48,0 48,80 32,80 32,128 16,128 16,80 0,80"/>
+  </object>
+  <object name="room" type="Ceiling" x="256" y="112">
+   <properties>
+    <property name="roofID" value="27"/>
+    <property name="roofTileset" value="lower"/>
+   </properties>
+   <polygon points="0,0 48,0 48,80 32,80 32,128 16,128 16,80 0,80"/>
+  </object>
+  <object name="room" type="Ceiling" x="352" y="112">
+   <properties>
+    <property name="roofID" value="27"/>
+    <property name="roofTileset" value="lower"/>
+   </properties>
+   <polygon points="0,0 48,0 48,80 32,80 32,128 16,128 16,80 0,80"/>
+  </object>
+  <object name="roof" type="Ceiling" x="384" y="464">
+   <properties>
+    <property name="roofID" value="34"/>
+    <property name="roofTileset" value="lower"/>
+   </properties>
+   <polygon points="0,0 16,0 16,48 32,48 32,128 -16,128 -16,48 0,48"/>
+  </object>
+  <object name="potion" type="Chest" x="272" y="160" width="16" height="16">
+   <properties>
+    <property name="item" value="pot_potion"/>
+   </properties>
+  </object>
+  <object name="hp200" type="Chest" x="368" y="160" width="16" height="16">
+   <properties>
+    <property name="item" value="item_hp200"/>
+   </properties>
+  </object>
+  <object name="bronze shield" type="Chest" x="80" y="160" width="16" height="16">
+   <properties>
+    <property name="item" value="shield_bronze"/>
+   </properties>
+  </object>
+  <object name="spellbook" type="Chest" x="384" y="560" width="16" height="16">
+   <properties>
+    <property name="item" value="spell_fire"/>
    </properties>
   </object>
  </objectgroup>

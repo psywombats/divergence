@@ -52,7 +52,7 @@ public class SagaEventFactory extends EventFactory {
 	public MapEvent createFromMapProperty(TiledMap map, String key, String value) {
 		MapEvent superResult = super.createFromMapProperty(map, key, value);
 		if (superResult != null) return superResult;
-		if (TYPE_ENCOUNTER.equals(key)) {
+		if (PROPERTY_ENCOUNTER.equals(key)) {
 			EncounterSetMDO mdo = MGlobal.data.getEntryFor(value, EncounterSetMDO.class);
 			return new EventSimpleEncounter(mdo);
 		} else if (PROPERTY_TERRAIN_ENCOUNTER.equals(key)) {
