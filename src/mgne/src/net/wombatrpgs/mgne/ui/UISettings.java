@@ -8,6 +8,7 @@ package net.wombatrpgs.mgne.ui;
 
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.ui.text.BlockingTextBox;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextBox;
 import net.wombatrpgs.mgneschema.graphics.IconSetMDO;
@@ -31,6 +32,7 @@ public class UISettings extends AssetQueuer {
 	protected FontHolder font;
 	protected TextBoxMDO boxMDO;
 	protected TextBox box;
+	protected BlockingTextBox blockingBox;
 	protected IconSet icons;
 	protected NinesliceMDO ninesliceMDO;
 	protected Graphic cursor;
@@ -47,6 +49,8 @@ public class UISettings extends AssetQueuer {
 		boxMDO = MGlobal.data.getEntryFor(mdo.box, TextBoxMDO.class);
 		box = new TextBox(boxMDO, font);
 		assets.add(box);
+		blockingBox = new BlockingTextBox(boxMDO, font);
+		assets.add(blockingBox);
 		icons = new IconSet(MGlobal.data.getEntryFor(mdo.icons, IconSetMDO.class));
 		assets.add(icons);
 		cursor = new Graphic(mdo.cursor);
@@ -57,6 +61,9 @@ public class UISettings extends AssetQueuer {
 	
 	/** @return The text box associated with these settings */
 	public TextBox getBox() { return this.box; }
+	
+	/** @return The blocking version of the text box */
+	public BlockingTextBox getBlockingBox() { return this.blockingBox; }
 	
 	/** @return The text box data associated with these settings */
 	public TextBoxMDO getBoxMDO() { return this.boxMDO; }

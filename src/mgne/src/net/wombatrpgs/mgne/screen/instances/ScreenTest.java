@@ -43,7 +43,7 @@ public class ScreenTest extends Screen {
 			font = new FontHolder(fontMDO);
 			TextBoxMDO textMDO = MGlobal.data.getEntryFor(testMDO.box, TextBoxMDO.class);
 			box = new TextBox(textMDO, font);
-			box.setText(testMDO.text);
+			box.showText(testMDO.text);
 		}
 		
 		pushCommandContext(new CMapGame());

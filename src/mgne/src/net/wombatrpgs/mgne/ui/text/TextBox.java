@@ -234,7 +234,7 @@ public class TextBox extends ScreenGraphic {
 	 * cutscene. This does not add the textbox to the current screen.
 	 * @param	text			The hunk of text to display	
 	 */
-	public void setText(String text) {
+	public void showText(String text) {
 		reset();
 		Collections.addAll(words, text.split("\\s+"));
 		advanceLines(mdo.lines);

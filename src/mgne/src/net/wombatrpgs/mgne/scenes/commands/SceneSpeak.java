@@ -13,16 +13,13 @@ import org.luaj.vm2.lib.VarArgFunction;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.scenes.SceneCommand;
 import net.wombatrpgs.mgne.scenes.SceneLib;
-import net.wombatrpgs.mgne.ui.text.TextBox;
-import net.wombatrpgs.mgneschema.io.data.InputCommand;
+import net.wombatrpgs.mgne.ui.text.BlockingTextBox;
 
 /**
  * Waits for a certain amount of time to elapse. Given in seconds.
  * Usage: {@code wait(<time>)}
  */
 public class SceneSpeak extends VarArgFunction {
-	
-	protected static final float FADE_TIME = 0f;
 
 	/**
 	 * @see org.luaj.vm2.lib.VarArgFunction#invoke(org.luaj.vm2.Varargs)
@@ -31,10 +28,8 @@ public class SceneSpeak extends VarArgFunction {
 	public Varargs invoke(final Varargs args) {
 		SceneLib.addFunction(new SceneCommand() {
 			
-			TextBox box;
+			BlockingTextBox box;
 			String text;
-			boolean blocking;
-			boolean setText;
 			
 			/* Initializer */ {
 				if (args.narg() == 1) {
@@ -45,36 +40,12 @@ public class SceneSpeak extends VarArgFunction {
 			}
 			
 			@Override protected void internalRun() {
-				box = MGlobal.ui.getBox();
-				box.fadeIn(parent.getScreen(), FADE_TIME);
-				blocking = true;
-				setText = false;
-			}
-
-			@Override public void update(float elapsed) {
-				super.update(elapsed);
-				if (box.isTweening()) return;
-				if (!setText) {
-					box.setText(text);
-					setText = true;
-				}
-			}
-			
-			@Override public boolean onCommand(InputCommand command) {
-				if (blocking && command == InputCommand.UI_CONFIRM) {
-					if (box.isFinished()) {
-						box.fadeOut(FADE_TIME);
-						blocking = false;
-					} else {
-						box.hurryUp();
-					}
-					return true;
-				}
-				return false;
+				box = MGlobal.ui.getBlockingBox();
+				box.showText(parent.getScreen(), text);
 			}
 			
 			@Override protected boolean shouldFinish() {
-				return !blocking && super.shouldFinish();
+				return !box.isBlocking() && super.shouldFinish();
 			}
 			
 		});
