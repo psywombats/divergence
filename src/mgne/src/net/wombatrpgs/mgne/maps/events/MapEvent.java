@@ -529,6 +529,16 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	}
 	
 	/**
+	 * Interprets some lua as a scene coming from this event and runs it.
+	 * @param	chunk			The chunk of lua to run
+	 */
+	protected void runLuaScene(String chunk) {
+		SceneParser scene = mdoToScene(chunk);
+		MGlobal.assets.loadAsset(scene, "improvised event scene");
+		scene.run();
+	}
+	
+	/**
 	 * Reconstructs the lua value if none is currently available. This is called
 	 * in the constructor and also post processing because the lua will be lost
 	 * when this object is serialized.

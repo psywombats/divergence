@@ -108,6 +108,14 @@ public class Memory {
 	}
 	
 	/**
+	 * Turns a switch on.
+	 * @param	name			The name of the switch to turn on
+	 */
+	public void setSwitch(String name) {
+		setSwitch(name, true);
+	}
+	
+	/**
 	 * Determines if a certain switch is on or off. If the switch hasn't been
 	 * touched yet, it's assumed that the switch is off.
 	 * @param	name			The name of the switch to check

@@ -68,5 +68,10 @@
     <property name="onEnter" value="speak('this is an autostart event!')"/>
    </properties>
   </object>
+  <object name="potion" type="Chest" x="144" y="160" width="16" height="16">
+   <properties>
+    <property name="item" value="pot_potion"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

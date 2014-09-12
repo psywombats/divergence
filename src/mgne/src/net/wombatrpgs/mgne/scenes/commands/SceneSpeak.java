@@ -41,7 +41,7 @@ public class SceneSpeak extends VarArgFunction {
 			
 			@Override protected void internalRun() {
 				box = MGlobal.ui.getBlockingBox();
-				box.showText(parent.getScreen(), text);
+				box.blockText(parent.getScreen(), text);
 			}
 			
 			@Override protected boolean shouldFinish() {

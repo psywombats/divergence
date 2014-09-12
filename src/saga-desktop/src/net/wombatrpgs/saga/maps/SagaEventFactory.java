@@ -22,6 +22,7 @@ public class SagaEventFactory extends EventFactory {
 	
 	protected static final String TYPE_ENCOUNTER = "Encounter";
 	protected static final String TYPE_CEILING = "Ceiling";
+	protected static final String TYPE_CHEST = "Chest";
 	
 	protected static final String PROPERTY_ENCOUNTER = "encounter";
 	protected static final String PROPERTY_TERRAIN_ENCOUNTER = "terrainEncounter";
@@ -37,6 +38,8 @@ public class SagaEventFactory extends EventFactory {
 			return new EventSimpleEncounter(object);
 		} else if (TYPE_CEILING.equals(type)) {
 			return new EventCeiling(object);
+		} else if (TYPE_CHEST.equals(type)) {
+			return new EventChest(object);
 		}
 		return super.createEvent(object);
 	}
