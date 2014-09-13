@@ -17,7 +17,8 @@
 		"item_testFireSword",
 		"item_testLegendSword",
 		"item_testShield",
-		"item_testPetrify"
+		"item_testPetrify",
+		"abil_stench"
 	],
 	"stats" : {
 		"hp" : 60,

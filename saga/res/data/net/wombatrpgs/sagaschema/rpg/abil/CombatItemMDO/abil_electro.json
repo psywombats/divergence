@@ -8,6 +8,7 @@
 	"uses" : 10,
 	"cost" : 0,
 	"anim" : "banim_lightning",
+	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectDebuffMDO",
 		"key" : "anon_CombatItemMDO_692328074"
