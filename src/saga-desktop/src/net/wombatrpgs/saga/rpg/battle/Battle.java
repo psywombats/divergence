@@ -127,18 +127,6 @@ public class Battle extends AssetQueuer implements Disposable {
 		anonymous = true;
 	}
 	
-	/**
-	 * Creates a random encounter style battle with an enemy party, looked up
-	 * by its database key. The other party is assumed to be the SGlobal heroes.
-	 * Will dispose the enemy party when battle is finished.
-	 * @param	key				The key of the enemy party MDO
-	 * @param	random			True to enable random encounter feature ambush
-	 */
-	public Battle(String key, boolean random) {
-		this(MGlobal.data.getEntryFor(key, PartyMDO.class), random);
-		anonymous = true;
-	}
-	
 	/** @return True if the battle is all over, including screen off */
 	public boolean isDone() { return finished; }
 	

@@ -10,6 +10,9 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.scenes.SceneCommand;
 import net.wombatrpgs.mgne.scenes.SceneLib;
 import net.wombatrpgs.saga.rpg.battle.Battle;
+import net.wombatrpgs.saga.rpg.chara.EnemyParty;
+import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
+import net.wombatrpgs.sagaschema.rpg.encounter.EncounterMDO;
 
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
@@ -41,7 +44,14 @@ public class SceneBattle extends OneArgFunction {
 
 			@Override protected void internalRun() {
 				// battle stuff moved here, problems before with null heroes
-				battle = new Battle(mdoKey, false);
+				PartyMDO partyMDO = MGlobal.data.getIfExists(mdoKey, PartyMDO.class);
+				if (partyMDO != null) {
+					battle = new Battle(partyMDO, true);
+				} else {
+					EncounterMDO encounterMDO = MGlobal.data.getEntryFor(mdoKey, EncounterMDO.class);
+					EnemyParty party = new EnemyParty(encounterMDO);
+					battle = new Battle(party, true);
+				}
 				MGlobal.assets.loadAsset(battle, "scene battle " + mdoKey);
 				battle.start();
 			}

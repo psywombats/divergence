@@ -1,7 +1,7 @@
 {
-	"key" : "chara_robot",
-	"subfolder" : "guild",
-	"name" : "ROBOT",
+	"key" : "chara_borg",
+	"subfolder" : "npcs",
+	"name" : "BORG",
 	"description" : "",
 	"gender" : "NONE",
 	"race" : "ROBOT",
@@ -13,7 +13,7 @@
 	"meatTargetLevel" : 0,
 	"gp" : 0,
 	"equipped" : [
-		"wpn_gunColt"
+		"abil_acid"
 	],
 	"stats" : {
 		"hp" : 40,
