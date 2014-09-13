@@ -10,10 +10,10 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3YMQrDMAyFYY2eCtlyiqZL0/vfrHQweLETxc9KQv8PvCWSHxhsZIZ/8NixlLUUfXr8+iyN5c2b/5sqtWr9IvOujeXNm/+bK7Vq/SLzpsby5m3VWkR9ekTmXUV9ekTmVfXpkfc4CfZxp7yzYB97zkrtm8i8yvv36nmf1r5/X45ad8j7tvb9+3HUKs9Esn1nJ/p9BQAAAI0Rb70rvx+35nRHZmkjaqpszemOzNJG1FTxzCI8ea82zxi5N/KSl7wxvLOXs2qqlHO6ZJqZ3YiaKuWcLplmZjeiJgAAAAAAAAAAwFm+NghrQkA4AAA=
+   H4sIAAAAAAAAC+3YMQ6DMAyFYY+ZKrFxitKl9P43qzogsSRg8mxA/T8pG9h5UqRENsM/eOxYylqKPj1+fabG8uZd/hsqtWr9MvPOjeXNu/w3VmrV+mXmLY3lzduqNYn69MjMO4v69MjMq+rTY9njINjHnfKOgn3sOSu1bzLzKu/fq+d9Wvv+fTlq3SHv29r378dRa30miu07O9nvqyjl7A0AAAAki3jrXfn9uDWnOzJLi6ipsjWnOzJLi6ip4plFePJebZ4RuTfykpe8Obyzl7NqqqzndMU0M7uImirrOV0xzcwuoiYAAAAAAAAAAMBZvneRlj9AOAAA
   </data>
  </layer>
- <layer name="Tile Layer 2" width="60" height="60">
+ <layer name="Tile Layer 2" width="60" height="60" visible="0">
   <properties>
    <property name="z" value=".5"/>
   </properties>
@@ -92,7 +92,7 @@
    <polygon points="0,0 0,144 96,144 96,0"/>
   </object>
  </objectgroup>
- <layer name="Tile Layer 3" width="60" height="60">
+ <layer name="Tile Layer 3" width="60" height="60" visible="0">
   <properties>
    <property name="z" value="1.0"/>
   </properties>
@@ -100,7 +100,7 @@
    H4sIAAAAAAAAC+3YwQ2AIBQDUCZwFOEi7r8ZzIDKB/Ne0mvTc1MCAABWcUQPmODsyYMpAXufunrqYO6AvQAAAPBnX3wvK/85eZPOt9RNOgEAAAAAAGZq+xTtaEA4AAA=
   </data>
  </layer>
- <layer name="Tile Layer 4" width="60" height="60">
+ <layer name="Tile Layer 4" width="60" height="60" visible="0">
   <properties>
    <property name="z" value="1.5"/>
   </properties>
