@@ -295,7 +295,7 @@
   </object>
   <object name="roof" type="Ceiling" x="384" y="464">
    <properties>
-    <property name="roofID" value="34"/>
+    <property name="roofID" value="27"/>
     <property name="roofTileset" value="lower"/>
    </properties>
    <polygon points="0,0 16,0 16,48 32,48 32,128 -16,128 -16,48 0,48"/>
@@ -317,7 +317,12 @@
   </object>
   <object name="spellbook" type="Chest" x="384" y="560" width="16" height="16">
    <properties>
-    <property name="item" value="spell_fire"/>
+    <property name="item" value="wpn_gunColt"/>
+   </properties>
+  </object>
+  <object name="tele" type="Event" x="240" y="464" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/pass02.tmx', 6, 7)"/>
    </properties>
   </object>
  </objectgroup>

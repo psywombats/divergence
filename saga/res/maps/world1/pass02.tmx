@@ -270,7 +270,7 @@
     <property name="roofID" value="27"/>
     <property name="roofTileset" value="lower"/>
    </properties>
-   <polygon points="-160,-32 192,-32 192,80 32,80 32,112 16,112 16,80 -160,80"/>
+   <polygon points="-128,-32 192,-32 192,80 32,80 32,112 16,112 16,80 -128,80"/>
   </object>
   <object name="potion" type="Chest" x="336" y="544" width="16" height="16">
    <properties>
@@ -300,6 +300,7 @@
   </object>
   <object name="trigger" type="Event" x="528" y="192" width="16" height="16">
    <properties>
+    <property name="hide" value="return getSwitch('puppet_dead')"/>
     <property name="onCollide" value="play('borg03.lua')"/>
    </properties>
   </object>

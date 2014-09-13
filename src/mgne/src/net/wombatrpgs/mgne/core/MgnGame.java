@@ -157,7 +157,6 @@ public abstract class MgnGame {
 			mapName = mdo.map;
 		}
 		Level level = MGlobal.levelManager.getLevel(mapName);
-		MGlobal.assets.loadAsset(level, "first level");
 		Avatar hero = new Avatar();
 		
 		if (MGlobal.args.get("x") == null) {
