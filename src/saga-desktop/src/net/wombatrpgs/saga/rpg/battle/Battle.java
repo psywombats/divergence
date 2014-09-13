@@ -55,6 +55,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	protected EnemyParty enemy;
 	protected boolean anonymous;
 	protected boolean random;
+	protected boolean fleeable;
 	
 	// internal constructs
 	protected FinishListener playbackListener;
@@ -135,6 +136,9 @@ public class Battle extends AssetQueuer implements Disposable {
 	
 	/** @return The party the player is against */
 	public Party getEnemy() { return enemy; }
+	
+	/** @param fleeable True if the party can run from this encounter */
+	public void setFleeable(boolean fleeable) { this.fleeable = fleeable; }
 
 	/**
 	 * Only call once the screen is removed, please.
@@ -199,7 +203,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * Called when the user says that they want to run.
 	 */
 	public void onRun() {
-		if (calcRunChance() >= MGlobal.rand.nextFloat()) {
+		if (fleeable && calcRunChance() >= MGlobal.rand.nextFloat()) {
 			playback(player.getFront().getName() + " runs.", new FinishListener() {
 				@Override public void onFinish() {
 					finish();

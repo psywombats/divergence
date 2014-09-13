@@ -101,7 +101,8 @@ public abstract class EventEncounter extends MapEvent {
 				MGlobal.getHero().getTileY());
 		EncounterSetMDO mdo = getEncounterSetForTerrain(terrainID);
 		if (MGlobal.rand.nextInt(mdo.steps) == 0 &&
-				(poly == null || poly.contains(hero.getX(), hero.getY()))) {
+				(poly == null || poly.contains(hero.getX(), hero.getY())) &&
+				!"off".equals(MGlobal.args.get("encounters"))) {
 			encounter(mdo);
 		}
 	}

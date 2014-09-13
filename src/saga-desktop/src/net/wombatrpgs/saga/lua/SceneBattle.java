@@ -15,26 +15,29 @@ import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
 import net.wombatrpgs.sagaschema.rpg.encounter.EncounterMDO;
 
 import org.luaj.vm2.LuaValue;
-import org.luaj.vm2.lib.OneArgFunction;
+import org.luaj.vm2.Varargs;
+import org.luaj.vm2.lib.VarArgFunction;
 
 /**
  * Starts a battle against the party specificied by the argument data key.
+ * Usage: {@code battle(<mdo>, [fleeable])}
  */
-public class SceneBattle extends OneArgFunction {
+public class SceneBattle extends VarArgFunction {
 
 	/**
-	 * @see org.luaj.vm2.lib.OneArgFunction#call(org.luaj.vm2.LuaValue)
+	 * @see org.luaj.vm2.lib.VarArgFunction#invoke(org.luaj.vm2.Varargs)
 	 */
 	@Override
-	public LuaValue call(final LuaValue arg) {
+	public Varargs invoke(final Varargs args) {
 		SceneLib.addFunction(new SceneCommand() {
 			
 			String mdoKey;
 			Battle battle;
+			boolean fleeable;
 			
 			/* Initializer */ {
-				mdoKey = arg.toString();
-				// battle = new Battle(mdoKey);
+				mdoKey = args.arg(1).checkjstring();
+				fleeable = args.narg() >= 2 ? args.checkboolean(2) : true;
 			}
 
 			@Override protected void addToQueue() {
@@ -53,6 +56,7 @@ public class SceneBattle extends OneArgFunction {
 					battle = new Battle(party, true);
 				}
 				MGlobal.assets.loadAsset(battle, "scene battle " + mdoKey);
+				battle.setFleeable(fleeable);
 				battle.start();
 			}
 
