@@ -29,6 +29,14 @@ public class EventMDO extends MainSchema {
 	@Nullable
 	public String appearance;
 	
+	@Desc("Width of this event, in tiles")
+	@DefaultValue("1")
+	public Float width;
+	
+	@Desc("Height of this event, in tiles")
+	@DefaultValue("1")
+	public Float height;
+	
 	@Desc("Group - any groups this NPC is in, when in doubt just leave blank, space seperated")
 	@DefaultValue("")
 	public String groups;

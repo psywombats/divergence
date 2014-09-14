@@ -65,6 +65,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	
 	/** Tile-based positioning */
 	protected int tileX, tileY;
+	protected int tileWidth, tileHeight;
 
 	/**
 	 * Creates a new map event for the level at the origin. It will need its
@@ -78,6 +79,9 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 		
 		zeroCoords();
 		regenerateLua();
+		
+		tileWidth = Math.round(mdo.width);
+		tileHeight = Math.round(mdo.height);
 		
 		if (mdoHasProperty(mdo.appearance)) {
 			String mdoName;
@@ -340,7 +344,10 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	 */
 	@Override
 	public boolean containsTile(int tileX, int tileY) {
-		return this.tileX == tileX && this.tileY == tileY;
+		return	this.tileX + tileWidth > tileX &&
+				this.tileX <= tileX  &&
+				this.tileY + tileHeight > tileY &&
+				this.tileY <= tileY;
 	}
 
 	/**
