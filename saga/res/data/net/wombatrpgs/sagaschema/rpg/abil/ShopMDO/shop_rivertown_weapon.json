@@ -1,0 +1,14 @@
+{
+	"key" : "shop_rivertown_weapon",
+	"subfolder" : "world1",
+	"name" : "",
+	"description" : "",
+	"items" : [
+		"wpn_hammerBronze",
+		"wpn_rapier",
+		"wpn_gunColt",
+		"wpn_swordLong",
+		"wpn_caneBronze",
+		"spell_electric"
+	]
+}

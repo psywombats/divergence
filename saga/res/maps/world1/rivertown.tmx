@@ -1,194 +1,401 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="36" height="43" tilewidth="16" tileheight="16">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="48" height="48" tilewidth="16" tileheight="16">
  <properties>
-  <property name="name" value="Forest Town"/>
+  <property name="name" value="River Town"/>
  </properties>
- <tileset firstgid="1" source="../tilesets/lower.tsx"/>
+ <tileset firstgid="1" name="lower" tilewidth="16" tileheight="16">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+  <image source="../tilesets/lower2.PNG" width="112" height="256"/>
+  <tile id="3">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="47">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="48">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="52">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="53">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="54">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="56">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="57">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+   <animation>
+    <frame tileid="56" duration="500"/>
+    <frame tileid="63" duration="500"/>
+    <frame tileid="70" duration="500"/>
+    <frame tileid="77" duration="500"/>
+   </animation>
+  </tile>
+  <tile id="58">
+   <animation>
+    <frame tileid="59" duration="500"/>
+    <frame tileid="60" duration="500"/>
+    <frame tileid="61" duration="500"/>
+    <frame tileid="62" duration="500"/>
+   </animation>
+  </tile>
+  <tile id="63">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="70">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="77">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="84">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="85">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+   <animation>
+    <frame tileid="84" duration="500"/>
+    <frame tileid="91" duration="500"/>
+    <frame tileid="98" duration="500"/>
+    <frame tileid="105" duration="500"/>
+   </animation>
+  </tile>
+  <tile id="91">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="95">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="97">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="98">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="102">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="103">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="104">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="105">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="109">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="111">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+ </tileset>
  <tileset firstgid="113" source="../tilesets/upper.tsx"/>
- <layer name="Tile Layer 1" width="36" height="43">
+ <layer name="Tile Layer 1" width="48" height="48">
   <properties>
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2TsQ6DIBCGIR3a2K1JBzadGqdO1sH3f69KciTkzx0IYu1ww5cokbtP+K8zxnSKoiiKoigZrsDZPk/grHOwtP5a+RDjxlq2on/uHELNaeVGPvMPz2eKzmEmH44WvfrC7+P+R+Q59pHqc/mxzD229pHqc/mxzD3udXHgI81LLj+tcup9hkRfKTct8+OAgemLe7bmp8YrOAS4+cE1KT/+ft/EaOpyXeMj5Sder821M3IeF3pfBM8UezLs99+JXJ+jPNDnQZTWbD3nnA/OHAfnlOvVF/jEYMYRdIv3lfyH5MOR8kG3rf/BzS8i7Utl9t980I17Lp27SyMG4VlRFEXiC64rwgwwGAAA
+   H4sIAAAAAAAAC+3ZMQ7CMAwF0AISQwUTLGzlUlwB7n8CGKhkWd/xD+AkSB7+UqnRSxM7LeymadoNmPsrDyK9nekfM+lPf/p/678S2ahswTVmnGj/xQjjt+5t6V+MMH7r3hZ+6zlbQX6d+R25DlF++Zz3IIwf3TerdYjyS8cZRM8F+Y8gch1a+Q/vnETkXCw/mncP/8mJ5T+AyFpo5f+0fq25Rvtr+k5N/9G96BLkXya+73zjX4L8Xv2tXp3aNZuD/aX9q73Ij+YoE+2fQbT3BsLsqRZ+pl5v6jryoxqK9HvrLoP8uibQGfxPzx/1gBb+Uv+s2f/WeR3t9/on03961q/XP73+37t/1mTE8+tbv/f+EeW/ivH1uaVdJX+pflq8P0u/NOtebvl7vT8jvzSX+hFaL2vvR/utvYC+p0b3l74d9f5h6nbk78dS3bbyr/nEb62TdK8Z0W/t9x5+K4yfGSfq9wcvjJ8ZJ+r3By+Mnxkn/39Jf/rTn/5Y/xMUARgMACQAAA==
   </data>
  </layer>
- <layer name="Tile Layer 2" width="36" height="43">
+ <layer name="Tile Layer 2" width="48" height="48">
   <properties>
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2WPQ7CMAyFfSJgAU6YhSHdmbgAnLEdYsmKnD+njiORT3pqaRL3yXZSNgDYlpaWzOSV5krllOb+szTqVoqZG3cKnkq9kBv3FeuX5lBMqp7S+LVrcV6Nn57eomuptxjcU5dD16Cbci6otxgfrvdDj3D/JGOSOqVyQeOhWsH4knwBWYvvlnig0FgSP73vTyHpZU1a+1mb2v2T8/Jinn3J/U/oJ1W7kXD71tIP9cTlp6dnPsDXEpjnjlxTdRrRv0jN2TMCF/1u8fMOOhNag9JZOArMUalmVsyyz5EZzkH0McNeRyy/mxxc31h5QeJvlzVn/udcLGZmB3YxgNgwGAAA
+   H4sIAAAAAAAAC+3VPQqAMAyA0d7aM+gBMjj4gxd1iWCDIMbStPC9JYR2SEvTpAQAAAD0QzRukUX8NJlcHnflFo1r4VpqsucGeiEmok1DdAFOs8bR5KjreFlnhvnwfwJ+9E95113uoVV8d38DzKO20bcAACDaCWlVmloAJAAA
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
-  <object name="friend" type="Character" x="304" y="544" width="16" height="16">
+  <object type="Event" x="160" y="656" width="448" height="16">
    <properties>
-    <property name="appearance" value="lua(return getHero(1).getSpriteName())"/>
-    <property name="face" value="NORTH"/>
-    <property name="hide" value="return getSwitch('opening_flashback') or (getSwitch('opening_talked_elder') and getSwitch('opening_talked_borg'))"/>
-    <property name="onInteract" value="speak(getHero(1).getName() .. ':  You should talk to BORG and Elder before we leave.')"/>
+    <property name="onCollide" value="teleport('world1/overworld.tmx', 19, 31)"/>
    </properties>
   </object>
-  <object name="friend" type="Character" x="320" y="528" width="16" height="16">
-   <properties>
-    <property name="appearance" value="lua(return getHero(2).getSpriteName())"/>
-    <property name="face" value="WEST"/>
-    <property name="hide" value="return getSwitch('opening_flashback') or (getSwitch('opening_talked_elder') and getSwitch('opening_talked_borg'))"/>
-    <property name="onInteract" value="speak(getHero(2).getName() .. ':  ' .. getHero(0).getName() .. ', aren\'t you ready to go yet?')"/>
-   </properties>
-  </object>
-  <object name="friend" type="Character" x="320" y="512" width="16" height="16">
-   <properties>
-    <property name="appearance" value="lua(return getHero(3).getSpriteName())"/>
-    <property name="face" value="WEST"/>
-    <property name="hide" value="return getSwitch('opening_flashback') or (getSwitch('opening_talked_elder') and getSwitch('opening_talked_borg'))"/>
-    <property name="onInteract" value="speak(getHero(3).getName() .. ':  We\'ll wait for you here. Say your goodbyes, the journey starts today!')"/>
-   </properties>
-  </object>
-  <object name="past_borg" type="Character" x="304" y="416" width="16" height="16">
-   <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
-    <property name="hide" value="return not getSwitch('opening_flashback')"/>
-   </properties>
-  </object>
-  <object name="elder" type="Character" x="320" y="416" width="16" height="16">
-   <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
-    <property name="hide" value="return not getSwitch('opening_flashback')"/>
-   </properties>
-  </object>
-  <object name="clone" type="Character" x="128" y="448" width="16" height="16">
-   <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
-    <property name="hide" value="return not getSwitch('opening_flashback')"/>
-   </properties>
-  </object>
-  <object name="jonas" type="Character" x="304" y="480" width="16" height="16">
-   <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
-    <property name="face" value="NORTH"/>
-    <property name="hide" value="return not getSwitch('opening_flashback')"/>
-   </properties>
-  </object>
-  <object name="janine" type="Character" x="320" y="480" width="16" height="16">
-   <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
-    <property name="face" value="NORTH"/>
-    <property name="hide" value="return not getSwitch('opening_flashback')"/>
-   </properties>
-  </object>
-  <object type="Event" x="368" y="416" width="16" height="16">
-   <properties>
-    <property name="onCollide" value="teleport('world1/parish_interior.tmx', 24, 12)"/>
-   </properties>
-  </object>
-  <object type="Event" x="272" y="416" width="16" height="16">
-   <properties>
-    <property name="onCollide" value="teleport('world1/parish_interior.tmx', 24, 31)"/>
-   </properties>
-  </object>
-  <object type="Event" x="160" y="368" width="16" height="16">
-   <properties>
-    <property name="onCollide" value="teleport('world1/parish_interior.tmx', 3, 31)"/>
-   </properties>
-  </object>
-  <object name="friend3" type="Character" x="320" y="496" width="16" height="16">
-   <properties>
-    <property name="appearance" value="lua(return getHero(1).getSpriteName())"/>
-    <property name="face" value="NORTH"/>
-    <property name="hide" value="return (not (getSwitch('opening_talked_elder') and getSwitch('opening_talked_borg'))) or getSwitch('opening_finished')"/>
-    <property name="onInteract" value="play('borg02.lua')"/>
-   </properties>
-  </object>
-  <object name="friend1" type="Character" x="304" y="480" width="16" height="16">
-   <properties>
-    <property name="appearance" value="lua(return getHero(2).getSpriteName())"/>
-    <property name="face" value="NORTH"/>
-    <property name="hide" value="return (not (getSwitch('opening_talked_elder') and getSwitch('opening_talked_borg'))) or getSwitch('opening_finished')"/>
-    <property name="onInteract" value="play('borg02.lua')"/>
-   </properties>
-  </object>
-  <object name="friend2" type="Character" x="320" y="480" width="16" height="16">
-   <properties>
-    <property name="appearance" value="lua(return getHero(3).getSpriteName())"/>
-    <property name="face" value="NORTH"/>
-    <property name="hide" value="return (not (getSwitch('opening_talked_elder') and getSwitch('opening_talked_borg'))) or getSwitch('opening_finished')"/>
-    <property name="onInteract" value="play('borg02.lua')"/>
-   </properties>
-  </object>
-  <object name="borg" type="Character" x="368" y="416" width="16" height="16">
-   <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
-    <property name="hide" value="return not getSwitch('opening_borg_visible')"/>
-   </properties>
-  </object>
-  <object name="NPC" type="Character" x="48" y="432" width="16" height="16">
-   <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
-    <property name="onInteract" value="speak('The tunnels outside town lead to a city on the river.')"/>
-   </properties>
-  </object>
-  <object name="NPC" type="Character" x="128" y="352" width="16" height="16">
-   <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
-    <property name="face" value="WEST"/>
-    <property name="onInteract" value="speak('Elder found BORG and fixed him up, but BORG\'s memory was wiped.')"/>
-    <property name="onTurn" value="this.wander()"/>
-   </properties>
-  </object>
-  <object name="NPC" type="Character" x="160" y="464" width="16" height="16">
-   <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
-    <property name="face" value="NORTH"/>
-    <property name="hide" value="return getSwitch('opening_flashback')"/>
-    <property name="onInteract" value="speak('Nobody but Elder remembers what it was like when Hero was a center of trade instead of a monster town.')"/>
-    <property name="onTurn" value="this.wander()"/>
-   </properties>
-  </object>
-  <object name="NPC" type="Character" x="432" y="464" width="16" height="16">
-   <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
-    <property name="face" value="WEST"/>
-    <property name="hide" value="return getSwitch('opening_flashback')"/>
-    <property name="onInteract" value="speak('There are other towns across the river, but monsters make the journey dangerous.')"/>
-   </properties>
-  </object>
-  <object name="NPC" type="Character" x="432" y="352" width="16" height="16">
-   <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
-    <property name="face" value="NORTH"/>
-    <property name="hide" value="return getSwitch('opening_flashback')"/>
-    <property name="onInteract" value="speak('There are other towns across the river, but monsters make the journey dangerous.')"/>
-    <property name="onTurn" value="this.wander()"/>
-   </properties>
-  </object>
-  <object name="NPC" type="Character" x="304" y="384" width="16" height="16">
-   <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
-    <property name="face" value="EAST"/>
-    <property name="hide" value="return getSwitch('opening_flashback')"/>
-    <property name="onInteract" value="speak('Friendly monsters are rare in these parts, but I hear they can be powerful allies.')"/>
-    <property name="onTurn" value="this.wander()"/>
-   </properties>
-  </object>
-  <object name="NPC" type="Character" x="240" y="304" width="16" height="16">
+  <object name="NPC" type="Character" x="576" y="336" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="face" value="SOUTH"/>
-    <property name="hide" value="return getSwitch('opening_flashback')"/>
-    <property name="onInteract" value="speak('After Jonas and Janine left, we counted on David to defend the town. Now that he\'s gone, what are we supposed to do?')"/>
+    <property name="onInteract" value="speak('Are you planning a trip across the bridge? Monsters are much more vicious east of the river.')"/>
     <property name="onTurn" value="this.wander()"/>
    </properties>
   </object>
-  <object name="tele" type="Event" x="304" y="560" width="16" height="16">
+  <object type="Event" x="160" y="128" width="16" height="528">
    <properties>
-    <property name="onCollide" value="teleport('world1/overworld.tmx', 12, 18)"/>
+    <property name="onCollide" value="teleport('world1/overworld.tmx', 19, 31)"/>
    </properties>
   </object>
-  <object name="tele" type="Event" x="320" y="560" width="16" height="16">
+  <object type="Event" x="160" y="112" width="448" height="16">
    <properties>
-    <property name="onCollide" value="teleport('world1/overworld.tmx', 12, 18)"/>
+    <property name="onCollide" value="teleport('world1/overworld.tmx', 19, 31)"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="416" y="432" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="NORTH"/>
+    <property name="onInteract" value="speak('Before the portals in Hero opened, this town used to be at war with most of its neighbors.')"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="224" y="496" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="EAST"/>
+    <property name="onInteract" value="speak('I tried to visit the Airseed Shrine once, but I couldn\'t find a way over the mountains.')"/>
+    <property name="onTurn" value="this.wander()"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="528" y="416" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="WEST"/>
+    <property name="onInteract" value="speak('The governor lives in this house. Be polite!')"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="416" y="208" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="WEST"/>
+    <property name="onInteract" value="speak('Welcome to the river city! It\'s hard journey to come south over the mountains.')"/>
+    <property name="onTurn" value="this.wander()"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="304" y="560" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="SOUTH"/>
+    <property name="onInteract" value="speak('A pub can be a good place to find information... or just a good drink.')"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="432" y="608" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="WEST"/>
+    <property name="onInteract" value="speak('The robots that hail from beyond Hero are amazing. They gain the power of items equipped to them.')"/>
+    <property name="onTurn" value="this.wander()"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="288" y="384" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="EAST"/>
+    <property name="onInteract" value="speak('The swamps south of here can be tricky to traverse. I don\'t think any have been down that way in years.')"/>
+    <property name="onTurn" value="this.wander()"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="208" y="224" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="hide" value="return getSwitch('opening_flashback')"/>
+    <property name="onInteract" value="speak('Now that Hero is sealed off, this town is the most active trading hub on the continent.')"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="544" y="272" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="WEST"/>
+    <property name="onInteract" value="speak('Once in a while a shop might have an artifact from Hero, but magical items are rare nowadays.')"/>
+    <property name="onTurn" value="this.wander()"/>
+   </properties>
+  </object>
+  <object type="Event" x="272" y="240" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/rivertown_interior.tmx', 4, 8)"/>
+   </properties>
+  </object>
+  <object type="Event" x="496" y="256" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/rivertown_interior.tmx', 30, 11)"/>
+   </properties>
+  </object>
+  <object type="Event" x="320" y="544" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/rivertown_interior.tmx', 10, 30)"/>
+   </properties>
+  </object>
+  <object type="Event" x="512" y="400" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/rivertown_interior.tmx', 28, 30)"/>
    </properties>
   </object>
  </objectgroup>

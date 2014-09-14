@@ -6,8 +6,9 @@
 	"abilityName" : "$TXPOTION",
 	"type" : "ITEM",
 	"uses" : 3,
-	"cost" : 200,
+	"cost" : 130,
 	"anim" : "None",
+	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectHealMDO",
 		"key" : "anon_CombatItemMDO_1090976191"

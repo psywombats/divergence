@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.saga.screen;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
@@ -24,6 +25,7 @@ import net.wombatrpgs.saga.rpg.items.ShopInventory;
 import net.wombatrpgs.saga.ui.ItemSelector;
 import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
 import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
+import net.wombatrpgs.sagaschema.rpg.abil.ShopMDO;
 
 /**
  * Shopping is my favorite hobby, even more than gam mak.
@@ -161,6 +163,14 @@ public class ScreenShop extends SagaScreen {
 	}
 	
 	/**
+	 * Create a shop from an MDO rather than list of item MDOs.
+	 * @param	mdo				The data to create from
+	 */
+	public ScreenShop(ShopMDO mdo) {
+		this(extractMDOs(mdo));
+	}
+	
+	/**
 	 * @see net.wombatrpgs.mgne.screen.Screen#onFocusGained()
 	 */
 	@Override
@@ -203,6 +213,19 @@ public class ScreenShop extends SagaScreen {
 	 */
 	public boolean isDone() {
 		return done;
+	}
+	
+	/**
+	 * Peels a list of combat item MDOs out of the shop mdo's list of keys.
+	 * @param	mdo				The shop MDO to extract from
+	 * @return					The list of combat item MDOs in the shop
+	 */
+	protected static List<CombatItemMDO> extractMDOs(ShopMDO mdo) {
+		List<CombatItemMDO> mdos = new ArrayList<CombatItemMDO>();
+		for (String itemKey : mdo.items) {
+			mdos.add(MGlobal.data.getEntryFor(itemKey, CombatItemMDO.class));
+		}
+		return mdos;
 	}
 	
 	/**

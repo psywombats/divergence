@@ -190,6 +190,11 @@
    <property name="x" value=""/>
   </properties>
  </tile>
+ <tile id="73">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
  <tile id="77">
   <properties>
    <property name="x" value=""/>
@@ -216,12 +221,57 @@
    <property name="x" value=""/>
   </properties>
  </tile>
+ <tile id="95">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="96">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="97">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
  <tile id="98">
   <properties>
    <property name="x" value=""/>
   </properties>
  </tile>
+ <tile id="102">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="103">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="104">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
  <tile id="105">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="109">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="110">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="111">
   <properties>
    <property name="x" value=""/>
   </properties>

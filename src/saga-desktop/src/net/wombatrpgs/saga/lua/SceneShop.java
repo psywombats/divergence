@@ -14,6 +14,7 @@ import net.wombatrpgs.mgne.scenes.SceneCommand;
 import net.wombatrpgs.mgne.scenes.SceneLib;
 import net.wombatrpgs.saga.screen.ScreenShop;
 import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
+import net.wombatrpgs.sagaschema.rpg.abil.ShopMDO;
 
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
@@ -34,12 +35,17 @@ public class SceneShop extends VarArgFunction {
 			ScreenShop shop;
 
 			@Override protected void internalRun() {
-				List<CombatItemMDO> mdos = new ArrayList<CombatItemMDO>();
-				for (int i = 1; i <= args.narg(); i += 1) {
-					String key = args.checkstring(i).checkjstring();
-					mdos.add(MGlobal.data.getEntryFor(key, CombatItemMDO.class));
+				if (args.narg() > 1) {
+					List<CombatItemMDO> mdos = new ArrayList<CombatItemMDO>();
+					for (int i = 1; i <= args.narg(); i += 1) {
+						String key = args.checkstring(i).checkjstring();
+						mdos.add(MGlobal.data.getEntryFor(key, CombatItemMDO.class));
+					}
+					shop = new ScreenShop(mdos);
+				} else {
+					String key = args.arg(1).checkjstring();
+					shop = new ScreenShop(MGlobal.data.getEntryFor(key, ShopMDO.class));
 				}
-				shop = new ScreenShop(mdos);
 				MGlobal.assets.loadAsset(shop, "scene shop");
 				MGlobal.screens.push(shop);
 			}

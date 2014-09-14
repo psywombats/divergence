@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="60" tilewidth="16" tileheight="16">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="37" height="34" tilewidth="16" tileheight="16">
  <properties>
   <property name="name" value="Forest Town"/>
  </properties>
  <tileset firstgid="1" source="../tilesets/lower.tsx"/>
  <tileset firstgid="113" source="../tilesets/upper.tsx"/>
- <layer name="Tile Layer 1" width="60" height="60">
+ <layer name="Tile Layer 1" width="37" height="34">
   <properties>
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3YMQ6DMAyF4YyZKrFxipaFcv+bFQYklgRMng2o/ydlAztPighySvgHrwNLWUvRp8XS51NZ1rzre12hVqlfZN5vZVnzru/1hVqlfpF5c2VZ89Zqvec1CPq0iMw7zmsS9GkRmVfVp8W6x06wjyfl7QX7OHJWSs9E5lXev3fPu3wza/fvYKj1hLzLN7N2/06GWtszkdOxsxP9f+UlX70BAACAYB7/enf+f9yb052ZpXnUVNmb052ZpXnUVLHMIix57zbP8NwbeclL3hjW2ctVNVW2c7qcNDM7j5oq2zldTpqZnUdNAAAAAAAAAACAq/wArwpREEA4AAA=
+   H4sIAAAAAAAAC+2XsQrAIAxEHZ0K3fyKtkvb//+z6iCIkJiY1ArNQaBDvXuLwXPOxNFCGE0vSk763pHhMuVzK+AF5dVMFzJcpnwuAF5QXs3kkeEyYV5bnIOQM5LpjHNPxkTNyT7rhExhANOC/FMzae4nDaZ0F7D9dHzAlO4Ctp9uJlOZ27vH35IfkGEymUx/1ht7X+rZ6gY9PUHq2eoGPT1B6sl5E3KYJJ7GZEzaTJx3KpVJ4ll2A+90eoLUs+wG3un0BKnnA89ogp6oEwAA
   </data>
  </layer>
- <layer name="Tile Layer 2" width="60" height="60">
+ <layer name="Tile Layer 2" width="37" height="34">
   <properties>
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3YQQrCMBAF0N5ZKbgQT+DGjYveQD2kLXRRArZFp01N34Mhi4SZBLL6VQWU4NZXhGNQnyU1fXXqH3udZ56rkzWXy8pz1pq3Z4dkjXYd2TstNHPM8L3DN4/dk+/dc19gJXt5JwAAUIaoHG8LprKFLktrJs7M6Zlmc7kzuk+isrQ0mysto3u09WzrlfsiM0XnVv/yn6OU/p8BAAAAAABg696gcs3uQDgAAA==
+   H4sIAAAAAAAAC+3XTQqAIBAFYO9cCC2iE7Rp08IbVIeswEAG/CmfWPE+GAZUhgE3M0oRlTHZQGhBdYyNk86s1Se+0yKHDA97uWsQ+QsakdHGwF3nOXd7cvsK1fq7uXYDjjf1QkRERHGo3SGVb8a7nPO7ibxJqSn3gZw9BDW/y32gxl6wHLEesQFroudw5N+hvOHvqKwdCVNj/KgTAAA=
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
@@ -92,20 +92,20 @@
    <polygon points="0,0 0,144 96,144 96,0"/>
   </object>
  </objectgroup>
- <layer name="Tile Layer 3" width="60" height="60">
+ <layer name="Tile Layer 3" width="37" height="34">
   <properties>
    <property name="z" value="1.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3YwQ2AIBQDUCZwFOEi7r8ZzIDKB/Ne0mvTc1MCAABWcUQPmODsyYMpAXufunrqYO6AvQAAAPBnX3wvK/85eZPOt9RNOgEAAAAAAGZq+xTtaEA4AAA=
+   H4sIAAAAAAAAC+3Wuw0AIAhFUSZwFLFR999MCifgEwvvSV5LbokIAACIaq8Drm5T50ZR07Qt53ZREwAAwC8q/tToTU2pyL25UiriNw8W/25uqBMAAA==
   </data>
  </layer>
- <layer name="Tile Layer 4" width="60" height="60">
+ <layer name="Tile Layer 4" width="37" height="34">
   <properties>
    <property name="z" value="1.5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3YsREAIAzEsMxMy/JMET4c0gSuXQUAAJCx0gGX7XQAAAAA8JWO9zL553S8Fz8HAAAAAAB43QFOrLOHQDgAAA==
+   H4sIAAAAAAAAC+3WsQkAMAwDQc+cNst7gVQJRhDuBnhUqgoA+NFKDzjY6QEAAMRN/NTX5sRPvWk29cG0SqgTAAA=
   </data>
  </layer>
 </map>
