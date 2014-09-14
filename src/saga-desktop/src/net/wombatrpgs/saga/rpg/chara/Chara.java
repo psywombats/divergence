@@ -272,10 +272,23 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 	 * @param	battle			The battle with a round that just ended
 	 */
 	public void onRoundEnd(Battle battle) {
+		if (isDead()) {
+			return;
+		}
 		if (status != null) {
 			status.checkHeal(battle, this);
 			if (status != null) {
 				status.onRoundEnd(battle, this);
+			}
+		}
+		if (is(Flag.REGENERATING)) {
+			int toRegen = get(Stat.MHP) / 10;
+			if (get(Stat.HP) + toRegen > get(Stat.MHP)) {
+				toRegen = get(Stat.MHP) - get(Stat.HP); 
+			}
+			if (toRegen > 0) {
+				battle.println(getName() + " recovers by " + toRegen + ".");
+				heal(toRegen);
 			}
 		}
 	}

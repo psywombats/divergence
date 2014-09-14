@@ -41,7 +41,9 @@ public enum Flag implements FlagStatLinkable {
 	WEAK_EARTH,
 	
 	AMBUSHER,
-	NO_AMBUSH;
+	NO_AMBUSH,
+	
+	REGENERATING;
 
 	private FlagStat flag;
 	

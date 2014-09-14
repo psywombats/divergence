@@ -280,11 +280,15 @@ public class ScreenBattle extends SagaScreen {
 				}
 			}
 		}
+		List<Integer> toRemove = new ArrayList<Integer>();
 		for (int key : shakeTimers.keySet()) {
 			shakeTimers.put(key, shakeTimers.get(key) - elapsed);
 			if (shakeTimers.get(key) < 0) {
-				shakeTimers.remove(key);
+				toRemove.add(key);
 			}
+		}
+		for (int key : toRemove) {
+			shakeTimers.remove(key);
 		}
 		if (battle.isDone()) {
 			MGlobal.screens.pop();

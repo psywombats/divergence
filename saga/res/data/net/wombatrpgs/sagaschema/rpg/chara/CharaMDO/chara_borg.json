@@ -13,7 +13,9 @@
 	"meatTargetLevel" : 0,
 	"gp" : 0,
 	"equipped" : [
-		"abil_acid"
+		"wpn_gunFire",
+		"wpn_rapier",
+		"item_selfix"
 	],
 	"stats" : {
 		"hp" : 40,
