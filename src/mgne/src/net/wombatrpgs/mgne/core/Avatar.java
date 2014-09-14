@@ -141,6 +141,14 @@ public class Avatar extends MapEvent implements CommandListener {
 			if (event.isPassable()) continue;
 			if (event.onInteract()) return;
 		}
+		if (parent.tileHasProperty(tileX, tileY, Constants.PROPERTY_COUNTER)) {
+			tileX += (int) facing.getVector().x;
+			tileY += (int) facing.getVector().y;
+			for (MapEvent event : parent.getEventsAt(tileX, tileY)) {
+				if (event.isPassable()) continue;
+				if (event.onInteract()) return;
+			}
+		}
 	}
 	
 	/**

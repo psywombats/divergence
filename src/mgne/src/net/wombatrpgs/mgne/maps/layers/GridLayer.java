@@ -41,12 +41,13 @@ public abstract class GridLayer extends Layer implements Comparable<GridLayer> {
 	}
 	
 	/**
-	 * Checks if the tile at the given location bridges over lower chips.
+	 * Checks if the tile at the given location has the given property.
 	 * @param	tileX			The x-coord to check (in tiles)
 	 * @param	tileY			The y-coord to check (in tiles)
-	 * @return					True if the tile at location is bridging
+	 * @param	property		The property to check for
+	 * @return					True if that property exists there
 	 */
-	public abstract boolean isBridge(int tileX, int tileY);
+	public abstract boolean hasPropertyAt(int tileX, int tileY, String property);
 	
 	/**
 	 * Fetches the terrain ID (defined in Tiled usually) of the tile located

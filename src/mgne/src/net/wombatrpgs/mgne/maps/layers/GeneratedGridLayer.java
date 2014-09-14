@@ -62,12 +62,13 @@ public class GeneratedGridLayer extends GridLayer {
 				(tileY >= 0 && tileY < parent.getHeight()) &&
 				(tileData[tileY][tileX] == null || tileData[tileY][tileX].isPassable());
 	}
-	
+
 	/**
-	 * @see net.wombatrpgs.mgne.maps.layers.GridLayer#isBridge(int, int)
+	 * @see net.wombatrpgs.mgne.maps.layers.GridLayer#hasPropertyAt(int, int, java.lang.String)
 	 */
 	@Override
-	public boolean isBridge(int tileX, int tileY) {
+	public boolean hasPropertyAt(int tileX, int tileY, String property) {
+		// TODO: generated maps: hasPropertyAt
 		return false;
 	}
 

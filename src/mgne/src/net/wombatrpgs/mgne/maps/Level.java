@@ -12,6 +12,7 @@ import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Turnable;
 import net.wombatrpgs.mgne.io.audio.MusicObject;
@@ -229,7 +230,7 @@ public abstract class Level extends ScreenObject implements Turnable {
 	public boolean isChipPassable(int tileX, int tileY) {
 		for (GridLayer layer : gridLayers) {
 			if (!layer.isTilePassable(tileX, tileY)) {
-				if (!isUpperChipBridge(tileX, tileY)) {
+				if (!tileHasProperty(tileX, tileY, Constants.PROPERTY_PASSABLE)) {
 					return false;
 				}
 			}
@@ -238,14 +239,15 @@ public abstract class Level extends ScreenObject implements Turnable {
 	}
 	
 	/**
-	 * Checks if any bridge tiles at the tile make it auto-passable.
+	 * Checks if there are any tiles at the given space that have a property.
 	 * @param 	tileX			The checked x-coord (in tiles)
 	 * @param 	tileY			The checked y-coord (in tiles)
-	 * @return 					True if upper is bridge, false otherwise
+	 * @param	property		The property to check for
+	 * @return					True if any tiles there have that property
 	 */
-	public boolean isUpperChipBridge(int tileX, int tileY) {
+	public boolean tileHasProperty(int tileX, int tileY, String property) {
 		for (GridLayer layer : gridLayers) {
-			if (layer.isBridge(tileX, tileY)) {
+			if (layer.hasPropertyAt(tileX, tileY, property)) {
 				return true;
 			}
 		}

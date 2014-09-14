@@ -82,16 +82,16 @@ public class TiledGridLayer extends GridLayer {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.maps.layers.GridLayer#isBridge(int, int)
+	 * @see net.wombatrpgs.mgne.maps.layers.GridLayer#hasPropertyAt
+	 * (int, int, java.lang.String)
 	 */
 	@Override
-	public boolean isBridge(int tileX, int tileY) {
-		if (isLowerChip()) return false;
+	public boolean hasPropertyAt(int tileX, int tileY, String property) {
 		if (getTileID(tileX, tileY) == 0) {
 			// there is no tile at this location
 			return false;
 		} else {
-			return (getTileProperty(tileX, tileY, Constants.PROPERTY_PASSABLE) != null);
+			return (getTileProperty(tileX, tileY, property) != null);
 		}
 	}
 
