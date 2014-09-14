@@ -275,5 +275,11 @@
     <property name="onCollide" value="teleport('world1/pass02.tmx', 33, 7)"/>
    </properties>
   </object>
+  <object name="autostart" type="Event" x="176" y="288" width="16" height="16">
+   <properties>
+    <property name="hide" value="return getSwitch('borg4')"/>
+    <property name="onEnter" value="play('borg04.lua')"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

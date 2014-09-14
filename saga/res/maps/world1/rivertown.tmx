@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="36" height="43" tilewidth="16" tileheight="16">
+ <properties>
+  <property name="name" value="Forest Town"/>
+ </properties>
+ <tileset firstgid="1" source="../tilesets/lower.tsx"/>
+ <tileset firstgid="113" source="../tilesets/upper.tsx"/>
+ <layer name="Tile Layer 1" width="36" height="43">
+  <properties>
+   <property name="z" value="0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2TsQ6DIBCGIR3a2K1JBzadGqdO1sH3f69KciTkzx0IYu1ww5cokbtP+K8zxnSKoiiKoigZrsDZPk/grHOwtP5a+RDjxlq2on/uHELNaeVGPvMPz2eKzmEmH44WvfrC7+P+R+Q59pHqc/mxzD229pHqc/mxzD3udXHgI81LLj+tcup9hkRfKTct8+OAgemLe7bmp8YrOAS4+cE1KT/+ft/EaOpyXeMj5Sder821M3IeF3pfBM8UezLs99+JXJ+jPNDnQZTWbD3nnA/OHAfnlOvVF/jEYMYRdIv3lfyH5MOR8kG3rf/BzS8i7Utl9t980I17Lp27SyMG4VlRFEXiC64rwgwwGAAA
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="36" height="43">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2WPQ7CMAyFfSJgAU6YhSHdmbgAnLEdYsmKnD+njiORT3pqaRL3yXZSNgDYlpaWzOSV5krllOb+szTqVoqZG3cKnkq9kBv3FeuX5lBMqp7S+LVrcV6Nn57eomuptxjcU5dD16Cbci6otxgfrvdDj3D/JGOSOqVyQeOhWsH4knwBWYvvlnig0FgSP73vTyHpZU1a+1mb2v2T8/Jinn3J/U/oJ1W7kXD71tIP9cTlp6dnPsDXEpjnjlxTdRrRv0jN2TMCF/1u8fMOOhNag9JZOArMUalmVsyyz5EZzkH0McNeRyy/mxxc31h5QeJvlzVn/udcLGZmB3YxgNgwGAAA
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1">
+  <object name="friend" type="Character" x="304" y="544" width="16" height="16">
+   <properties>
+    <property name="appearance" value="lua(return getHero(1).getSpriteName())"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return getSwitch('opening_flashback') or (getSwitch('opening_talked_elder') and getSwitch('opening_talked_borg'))"/>
+    <property name="onInteract" value="speak(getHero(1).getName() .. ':  You should talk to BORG and Elder before we leave.')"/>
+   </properties>
+  </object>
+  <object name="friend" type="Character" x="320" y="528" width="16" height="16">
+   <properties>
+    <property name="appearance" value="lua(return getHero(2).getSpriteName())"/>
+    <property name="face" value="WEST"/>
+    <property name="hide" value="return getSwitch('opening_flashback') or (getSwitch('opening_talked_elder') and getSwitch('opening_talked_borg'))"/>
+    <property name="onInteract" value="speak(getHero(2).getName() .. ':  ' .. getHero(0).getName() .. ', aren\'t you ready to go yet?')"/>
+   </properties>
+  </object>
+  <object name="friend" type="Character" x="320" y="512" width="16" height="16">
+   <properties>
+    <property name="appearance" value="lua(return getHero(3).getSpriteName())"/>
+    <property name="face" value="WEST"/>
+    <property name="hide" value="return getSwitch('opening_flashback') or (getSwitch('opening_talked_elder') and getSwitch('opening_talked_borg'))"/>
+    <property name="onInteract" value="speak(getHero(3).getName() .. ':  We\'ll wait for you here. Say your goodbyes, the journey starts today!')"/>
+   </properties>
+  </object>
+  <object name="past_borg" type="Character" x="304" y="416" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="hide" value="return not getSwitch('opening_flashback')"/>
+   </properties>
+  </object>
+  <object name="elder" type="Character" x="320" y="416" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="hide" value="return not getSwitch('opening_flashback')"/>
+   </properties>
+  </object>
+  <object name="clone" type="Character" x="128" y="448" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="hide" value="return not getSwitch('opening_flashback')"/>
+   </properties>
+  </object>
+  <object name="jonas" type="Character" x="304" y="480" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return not getSwitch('opening_flashback')"/>
+   </properties>
+  </object>
+  <object name="janine" type="Character" x="320" y="480" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return not getSwitch('opening_flashback')"/>
+   </properties>
+  </object>
+  <object type="Event" x="368" y="416" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/parish_interior.tmx', 24, 12)"/>
+   </properties>
+  </object>
+  <object type="Event" x="272" y="416" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/parish_interior.tmx', 24, 31)"/>
+   </properties>
+  </object>
+  <object type="Event" x="160" y="368" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/parish_interior.tmx', 3, 31)"/>
+   </properties>
+  </object>
+  <object name="friend3" type="Character" x="320" y="496" width="16" height="16">
+   <properties>
+    <property name="appearance" value="lua(return getHero(1).getSpriteName())"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return (not (getSwitch('opening_talked_elder') and getSwitch('opening_talked_borg'))) or getSwitch('opening_finished')"/>
+    <property name="onInteract" value="play('borg02.lua')"/>
+   </properties>
+  </object>
+  <object name="friend1" type="Character" x="304" y="480" width="16" height="16">
+   <properties>
+    <property name="appearance" value="lua(return getHero(2).getSpriteName())"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return (not (getSwitch('opening_talked_elder') and getSwitch('opening_talked_borg'))) or getSwitch('opening_finished')"/>
+    <property name="onInteract" value="play('borg02.lua')"/>
+   </properties>
+  </object>
+  <object name="friend2" type="Character" x="320" y="480" width="16" height="16">
+   <properties>
+    <property name="appearance" value="lua(return getHero(3).getSpriteName())"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return (not (getSwitch('opening_talked_elder') and getSwitch('opening_talked_borg'))) or getSwitch('opening_finished')"/>
+    <property name="onInteract" value="play('borg02.lua')"/>
+   </properties>
+  </object>
+  <object name="borg" type="Character" x="368" y="416" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="hide" value="return not getSwitch('opening_borg_visible')"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="48" y="432" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="onInteract" value="speak('The tunnels outside town lead to a city on the river.')"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="128" y="352" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="WEST"/>
+    <property name="onInteract" value="speak('Elder found BORG and fixed him up, but BORG\'s memory was wiped.')"/>
+    <property name="onTurn" value="this.wander()"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="160" y="464" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return getSwitch('opening_flashback')"/>
+    <property name="onInteract" value="speak('Nobody but Elder remembers what it was like when Hero was a center of trade instead of a monster town.')"/>
+    <property name="onTurn" value="this.wander()"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="432" y="464" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="WEST"/>
+    <property name="hide" value="return getSwitch('opening_flashback')"/>
+    <property name="onInteract" value="speak('There are other towns across the river, but monsters make the journey dangerous.')"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="432" y="352" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return getSwitch('opening_flashback')"/>
+    <property name="onInteract" value="speak('There are other towns across the river, but monsters make the journey dangerous.')"/>
+    <property name="onTurn" value="this.wander()"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="304" y="384" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="EAST"/>
+    <property name="hide" value="return getSwitch('opening_flashback')"/>
+    <property name="onInteract" value="speak('Friendly monsters are rare in these parts, but I hear they can be powerful allies.')"/>
+    <property name="onTurn" value="this.wander()"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="240" y="304" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return getSwitch('opening_flashback')"/>
+    <property name="onInteract" value="speak('After Jonas and Janine left, we counted on David to defend the town. Now that he\'s gone, what are we supposed to do?')"/>
+    <property name="onTurn" value="this.wander()"/>
+   </properties>
+  </object>
+  <object name="tele" type="Event" x="304" y="560" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/overworld.tmx', 12, 18)"/>
+   </properties>
+  </object>
+  <object name="tele" type="Event" x="320" y="560" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/overworld.tmx', 12, 18)"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
