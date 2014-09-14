@@ -12,6 +12,7 @@ import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.ui.Nineslice;
+import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.chara.Party;
@@ -94,6 +95,19 @@ public class ScreenOrder extends SagaScreen {
 	}
 	
 	/**
+	 * @see net.wombatrpgs.saga.screen.SagaScreen#onCommand
+	 * (net.wombatrpgs.mgneschema.io.data.InputCommand)
+	 */
+	@Override
+	public boolean onCommand(InputCommand command) {
+		if (selector.isSwapping()) {
+			return true;
+		} else {
+			return super.onCommand(command);
+		}
+	}
+
+	/**
 	 * Awaits the player selecting a first character to swap.
 	 */
 	protected void awaitFirstSelection() {
@@ -142,6 +156,7 @@ public class ScreenOrder extends SagaScreen {
 	protected boolean onSecondSelect(Chara selected) {
 		Chara chara1 = firstSelected;
 		Chara chara2 = selected;
+		if (chara1 == chara2) return false;
 		party.swap(chara1, chara2);
 		selector.swap(chara1, chara2, new FinishListener() {
 			@Override public void onFinish() {

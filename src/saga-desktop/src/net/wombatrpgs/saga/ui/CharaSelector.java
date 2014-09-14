@@ -54,6 +54,7 @@ public class CharaSelector extends ScreenGraphic implements	CommandListener {
 	// cursor
 	protected boolean cursorOn, indentOn;
 	protected boolean cancellable;
+	protected boolean swapping;
 	protected int selectedX, selectedY;
 	protected int indentX, indentY;
 	protected float cursorX, cursorY;
@@ -145,6 +146,9 @@ public class CharaSelector extends ScreenGraphic implements	CommandListener {
 	
 	/** @return True if this selector is currently awaiting input */
 	public boolean isActive() { return cursorOn; }
+	
+	/** @return True if this selector is currently swapping */
+	public boolean isSwapping() { return swapping; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#setX(float)
@@ -299,6 +303,7 @@ public class CharaSelector extends ScreenGraphic implements	CommandListener {
 	 * @param	onFinish		The listener to call when done (or null)
 	 */
 	public void swap(final Chara chara1, final Chara chara2, final FinishListener onFinish) {
+		swapping = true;
 		final CharaInsert insert1 = charaToInsert(chara1);
 		final CharaInsert insert2 = charaToInsert(chara2);
 		float x1 = insert1.getSpriteX();
@@ -334,6 +339,7 @@ public class CharaSelector extends ScreenGraphic implements	CommandListener {
 				if (onFinish != null) {
 					onFinish.onFinish();
 				}
+				swapping = false;
 			}
 		});
 	}
