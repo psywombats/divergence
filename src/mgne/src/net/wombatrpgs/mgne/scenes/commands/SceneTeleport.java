@@ -11,6 +11,7 @@ import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.scenes.SceneCommand;
 import net.wombatrpgs.mgne.scenes.SceneLib;
+import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.Varargs;
@@ -18,7 +19,7 @@ import org.luaj.vm2.lib.VarArgFunction;
 
 /**
  * Teleports hero to some remote locale.
- * Usage: {@code teleport(<mapname>, <x>, <y>, [transitionEnabled])}
+ * Usage: {@code teleport(<mapname>, <x>, <y>, [direction], [transitionEnabled])}
  */
 public class SceneTeleport extends VarArgFunction {
 
@@ -30,6 +31,7 @@ public class SceneTeleport extends VarArgFunction {
 		SceneLib.addFunction(new SceneCommand() {
 			
 			String mapName;
+			OrthoDir dir;
 			int tileX, tileY;
 			boolean teleportFinished;
 			boolean useTransition;
@@ -38,11 +40,8 @@ public class SceneTeleport extends VarArgFunction {
 				mapName = args.arg(1).checkjstring();
 				tileX = args.arg(2).checkint();
 				tileY = args.arg(3).checkint();
-				if (args.narg() == 4) {
-					useTransition = args.arg(4).checkboolean();
-				} else {
-					useTransition = true;
-				}
+				dir = (args.narg() >= 4) ? OrthoDir.valueOf(args.arg(4).checkjstring()) : null;
+				useTransition = (args.narg() >= 5) ? args.arg(5).checkboolean() : true;
 				teleportFinished = false;
 			}
 
@@ -58,11 +57,21 @@ public class SceneTeleport extends VarArgFunction {
 					MGlobal.levelManager.getTele().teleport(mapName,
 							tileX,
 							tileY,
-							onFinish);
+							onFinish,
+							new FinishListener() {
+								@Override public void onFinish() {
+									if (dir != null) {
+										MGlobal.getHero().setFacing(dir);
+									}
+								}
+					});
 				} else {
 					MGlobal.levelManager.getTele().teleportRaw(mapName,
 							tileX,
 							tileY);
+					if (dir != null) {
+						MGlobal.getHero().setFacing(dir);
+					}
 					Level map = MGlobal.levelManager.getActive();
 					map.update(0);
 					teleportFinished = true;

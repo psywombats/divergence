@@ -181,12 +181,7 @@
     <property name="onTurn" value="this.wander()"/>
    </properties>
   </object>
-  <object name="tele" type="Event" x="304" y="560" width="16" height="16">
-   <properties>
-    <property name="onCollide" value="teleport('world1/overworld.tmx', 12, 18)"/>
-   </properties>
-  </object>
-  <object name="tele" type="Event" x="320" y="560" width="16" height="16">
+  <object name="tele" type="Event" x="304" y="560" width="32" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/overworld.tmx', 12, 18)"/>
    </properties>

@@ -65,18 +65,23 @@ public class TeleportManager implements Queueable {
 	 * Teleports the hero to the map, but has to interpret the map. This could
 	 * be an actual name of a .tmx file or a database key. This will look to
 	 * resolve to a .tmx if it ends with tmx, else resolve to database key.
-	 * Calls some listener when the whole teleport is done.
+	 * Calls some listener when the whole teleport is done. Null for either
+	 * listener is fine.
 	 * @param	mapName			The name of the level to teleport to
 	 * @param 	tileX			The x-coord to teleport to (in tiles)
 	 * @param 	tileY			The y-coord to teleport to (in tiles)
-	 * @param	listener		The listener to call when teleport is done
+	 * @param	listener		A listener to call when teleport is done
+	 * @param	midListener		A listener to call when screen is faded out
 	 */
 	public void teleport(String mapName, final int tileX, final int tileY,
-			final FinishListener listener) {
+			final FinishListener listener, final FinishListener midListener) {
 		final Level map = MGlobal.levelManager.getLevel(mapName);
 		preParser.run();
 		preParser.addListener(new FinishListener() {
 			@Override public void onFinish() {
+				if (midListener != null) {
+					midListener.onFinish();
+				}
 				teleportRaw(map, tileX, tileY);
 				if (listener != null) {
 					postParser.addListener(listener);
@@ -97,7 +102,7 @@ public class TeleportManager implements Queueable {
 	 * @param 	tileY			The y-coord to teleport to (in tiles)
 	 */
 	public void teleport(String mapName, int tileX, int tileY) {
-		teleport(mapName, tileX, tileY, null);
+		teleport(mapName, tileX, tileY, null, null);
 	}
 	
 	/**

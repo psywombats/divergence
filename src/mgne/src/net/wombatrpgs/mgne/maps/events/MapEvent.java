@@ -330,7 +330,8 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	@Override
 	public void onMapFocusGained(Level map) {
 		super.onMapFocusGained(map);
-		if (onEnter != null) {
+		update(0);
+		if (onEnter != null && !isHidden()) {
 			MGlobal.levelManager.getTele().getPost().addListener(new FinishListener() {
 				@Override public void onFinish() {
 					runScene(onEnter);
