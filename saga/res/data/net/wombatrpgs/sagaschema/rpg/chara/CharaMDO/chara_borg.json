@@ -13,8 +13,9 @@
 	"meatTargetLevel" : 0,
 	"gp" : 0,
 	"equipped" : [
-		"wpn_gunFire",
+		"wpn_axeBattle",
 		"wpn_rapier",
+		"wpn_gunFire",
 		"item_selfix"
 	],
 	"stats" : {

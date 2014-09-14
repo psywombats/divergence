@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="36" height="43" tilewidth="16" tileheight="16">
  <properties>
-  <property name="entryDir" value="NORTH"/>
   <property name="name" value="Forest Town"/>
  </properties>
  <tileset firstgid="1" source="../tilesets/lower.tsx"/>
@@ -19,7 +18,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2WPQ7CMAyFcyJgAU6YhSHdmbhAOSMdYsmyYsd1cFJBPumpgfw92U7aJYSwTE1NDVNyGmtVdBr7z/LIW21NqT86eKrVgtSfFPOnjiEKl0/r+tq5ME7jp6W28FzsjQJn6rTpnHVxjgX2Rkn5ed10y+076rPkiYsFXg/EsaL2G7VhfUu8ApoLe1MP3L4ceC2LHykGLVhq2ZO99dxKLY/a8yN5eRj25dDcQxLWfTlK57ZnvUieSvFpqZlXKOcyFP6P6MnlqcULl8eVDsz9mrunB5H83uPnmfVNcA5qd2EvIEa1nI3iKOccsNyDXj48zroVz/emhVLdjPIC0HfXaKRvzsnkl/gAK12NuzAYAAA=
+   H4sIAAAAAAAAC+2WPQ7CMAyFfSJgAU6YhSHdmbgAnLEdYsmKnD+njiORT3pqaRL3yXZSNgDYlpaWzOSV5krllOb+szTqVoqZG3cKnkq9kBv3FeuX5lBMqp7S+LVrcV6Nn57eomuptxjcU5dD16Cbci6otxgfrvdDj3D/JGOSOqVyQeOhWsH4knwBWYvvlnig0FgSP73vTyHpZU1a+1mb2v2T8/Jinn3J/U/oJ1W7kXD71tIP9cTlp6dnPsDXEpjnjlxTdRrRv0jN2TMCF/1u8fMOOhNag9JZOArMUalmVsyyz5EZzkH0McNeRyy/mxxc31h5QeJvlzVn/udcLGZmB3YxgNgwGAAA
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
@@ -36,7 +35,7 @@
     <property name="appearance" value="lua(return getHero(2).getSpriteName())"/>
     <property name="face" value="WEST"/>
     <property name="hide" value="return getSwitch('opening_flashback') or (getSwitch('opening_talked_elder') and getSwitch('opening_talked_borg'))"/>
-    <property name="onInteract" value="speak(getHero(2).getName() .. ':  ' .. getHero(0).getName() .. ', aren\'t you ready to leave yet?')"/>
+    <property name="onInteract" value="speak(getHero(2).getName() .. ':  ' .. getHero(0).getName() .. ', aren\'t you ready to go yet?')"/>
    </properties>
   </object>
   <object name="friend" type="Character" x="320" y="512" width="16" height="16">

@@ -277,14 +277,14 @@
     <property name="item" value="pot_potion"/>
    </properties>
   </object>
-  <object name="hp200" type="Chest" x="400" y="336" width="16" height="16">
+  <object name="gold glove" type="Chest" x="400" y="336" width="16" height="16">
    <properties>
-    <property name="item" value="item_hp200"/>
+    <property name="item" value="hand_gold"/>
    </properties>
   </object>
-  <object name="bronze shield" type="Chest" x="272" y="336" width="16" height="16">
+  <object name="str24" type="Chest" x="272" y="336" width="16" height="16">
    <properties>
-    <property name="item" value="shield_bronze"/>
+    <property name="item" value="pot_str24"/>
    </properties>
   </object>
   <object name="tele" type="Event" x="528" y="96" width="16" height="16">

@@ -43,7 +43,9 @@ public enum Flag implements FlagStatLinkable {
 	AMBUSHER,
 	NO_AMBUSH,
 	
-	REGENERATING;
+	REGENERATING,
+	
+	EQUIPMENT_FIX;
 
 	private FlagStat flag;
 	

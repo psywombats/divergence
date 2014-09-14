@@ -22,5 +22,6 @@ pathEvent("borg", "hero")
 
 sceneSwitch('opening_borg_visible', false)
 sceneSwitch('opening_finished', true)
+addMember('chara_borg')
 
 speak(hero, "Now let's find the way to Hero!")

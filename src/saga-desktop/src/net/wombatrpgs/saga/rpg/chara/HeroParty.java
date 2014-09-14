@@ -77,6 +77,27 @@ public class HeroParty extends Party {
 	}
 	
 	/**
+	 * Removes a hero from the party, usually the 5th temporary member.
+	 * @param	hero			The character to remove
+	 */
+	public void removeHero(Chara hero) {
+		assets.remove(hero);
+		members.remove(hero);
+		List<Chara> toRemove = null;
+		for (List<Chara> group : groups) {
+			if (group.contains(hero)) {
+				toRemove = group;
+				break;
+			}
+		}
+		if (toRemove == null) {
+			MGlobal.reporter.warn("No group found when removing hero " + hero);
+		} else {
+			groups.remove(toRemove);
+		}
+	}
+	
+	/**
 	 * Finds the first non-dead party member. He's the leader. Don't call this
 	 * when the party is all dead, please.
 	 * @return					The first non-dead member, or null if all dead

@@ -8,6 +8,7 @@
 	"uses" : 50,
 	"cost" : 25,
 	"anim" : "banim_wound",
+	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
 		"key" : "anon_CombatItemMDO_131184433"

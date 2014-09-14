@@ -10,7 +10,7 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3YsQqDMBDG8YyZCm6+gTg51b7/m7UOQpZEz3w5I/3/INDB3OWDUOVCwD94nVjKWoo+NbY+S2FZ8+77hkytXD/PvGthWfPu+8ZMrVw/z7yxsKx5S7Wm35oFfWp45l1FfWp45lX1qbGfcRCc40l5R8E5ztyV3DOeeZXv397zbv+ZpffvbKj1hLzvUH7/fgy10jsRw7m74/19pTQlv6Nxr+UeAQAA9KjFt17P349Hc7ors7QWNVWO5nRXZmktaqpYZhGWvL3NM1qejbzkJa8P6+zlrpoq6ZwuBs3MrkVNlXROF4NmZteiJgAAAAAAAAAAwF2+loqHd0A4AAA=
+   H4sIAAAAAAAAC+3YMQ6DMAyF4YyZKrFxipaFcv+bFQYklgRMng2o/ydlAztPighySvgHrwNLWUvRp8XS51NZ1rzre12hVqlfZN5vZVnzru/1hVqlfpF5c2VZ89Zqvec1CPq0iMw7zmsS9GkRmVfVp8W6x06wjyfl7QX7OHJWSs9E5lXev3fPu3wza/fvYKj1hLzLN7N2/06GWtszkdOxsxP9f+UlX70BAACAYB7/enf+f9yb052ZpXnUVNmb052ZpXnUVLHMIix57zbP8NwbeclL3hjW2ctVNVW2c7qcNDM7j5oq2zldTpqZnUdNAAAAAAAAAACAq/wArwpREEA4AAA=
   </data>
  </layer>
  <layer name="Tile Layer 2" width="60" height="60">
@@ -18,16 +18,16 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3YPQoCMRCG4RzBbm8hNuLBVgQL8QQ2NlvsDfw7owmbQgIm0UyS/XkfGLaIzEwgWHxKAYi1qr2Ax9WWhL39NkL9cuhtGYfEXifP2VrXxpmTOi/VOWPvra6dMyfnPAxaNfy/tJn6Xzxnx0wzfcw9G/v9vLNvT/yvq71AIUu5Z03PwPmryBaYgtBb8eEdAQCApZDK8cYglC2YLK0P/Camp5vN1c7ovpHK0txsbm4Z3U3XXdej9iKRpHOrqbxnKXN/z0Bpv2QvsVlLjp4AAAAAAAAAAGA83nhZtwpAOAAA
+   H4sIAAAAAAAAC+3YQQrCMBAF0N5ZKbgQT+DGjYveQD2kLXRRArZFp01N34Mhi4SZBLL6VQWU4NZXhGNQnyU1fXXqH3udZ56rkzWXy8pz1pq3Z4dkjXYd2TstNHPM8L3DN4/dk+/dc19gJXt5JwAAUIaoHG8LprKFLktrJs7M6Zlmc7kzuk+isrQ0mysto3u09WzrlfsiM0XnVv/yn6OU/p8BAAAAAABg696gcs3uQDgAAA==
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
   <object type="Event" x="64" y="144" width="16" height="16">
    <properties>
-    <property name="onCollide" value="teleport('world1/parish_interior.tmx', 24, 5)"/>
+    <property name="onCollide" value="teleport('world1/parish_interior.tmx', 24, 4)"/>
    </properties>
   </object>
-  <object type="Event" x="384" y="64" width="16" height="16">
+  <object type="Event" x="384" y="48" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/parish_interior.tmx', 4, 8)"/>
    </properties>

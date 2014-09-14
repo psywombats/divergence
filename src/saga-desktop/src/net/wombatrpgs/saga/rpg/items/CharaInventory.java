@@ -10,6 +10,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.sagaschema.rpg.chara.CharaMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.Race;
+import net.wombatrpgs.sagaschema.rpg.stats.Flag;
 
 /**
  * A collection of combat items worn by a character.
@@ -116,6 +117,8 @@ public class CharaInventory extends Inventory {
 	 */
 	public boolean equippableAt(int slot) {
 		if (reservedAt(slot)) {
+			return false;
+		} else if (chara.is(Flag.EQUIPMENT_FIX)) {
 			return false;
 		} else {
 			return chara.getRace() != Race.MONSTER;
