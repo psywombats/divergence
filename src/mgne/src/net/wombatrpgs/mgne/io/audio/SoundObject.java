@@ -30,6 +30,14 @@ public class SoundObject extends AudioObject {
 	}
 	
 	/**
+	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		// Nothing?
+	}
+
+	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
 	 */
 	@Override
@@ -70,11 +78,6 @@ public class SoundObject extends AudioObject {
 	@Override
 	protected void postAudioProcessing(AssetManager manager) {
 		coreSound = (Sound) manager.get(filename, getLoaderClass());
-	}
-
-	@Override
-	public void update(float elapsed) {
-
 	}
 
 }

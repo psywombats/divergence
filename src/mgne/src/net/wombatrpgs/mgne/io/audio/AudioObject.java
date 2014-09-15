@@ -16,12 +16,9 @@ import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgneschema.audio.data.AudioMDO;
 
 /**
- * Any old sound that can be played and stopped at will. ...well sort of? Maybe?
- * Honestly 90% of the time I write these class descriptions before I actually
- * write the class. AAND yep it just turned abstract. Shouldn't write these so
- * fast. Actually now it's a factory for libgdx sounds.
- * 
- * MR: does not handle maps
+ * Superclass for both music and sound, handles loading LibGDX sounds. Replaces
+ * the old extremely unhelpful class comment. Mostly load this from the sound
+ * manager.
  */
 public abstract class AudioObject implements	Disposable,
 												Queueable,

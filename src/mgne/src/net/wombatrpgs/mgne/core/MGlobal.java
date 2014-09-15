@@ -20,6 +20,7 @@ import net.wombatrpgs.mgne.core.lua.Lua;
 import net.wombatrpgs.mgne.graphics.GraphicsSettings;
 import net.wombatrpgs.mgne.io.MFiles;
 import net.wombatrpgs.mgne.io.Keymap;
+import net.wombatrpgs.mgne.io.audio.SoundManager;
 import net.wombatrpgs.mgne.maps.LevelManager;
 import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.screen.ScreenStack;
@@ -44,6 +45,7 @@ public class MGlobal {
 	/** Managers and factories */
 	public static LevelManager levelManager;
 	public static EventFactory eventFactory;
+	public static SoundManager sfx;
 	
 	/** Screens */
 	public static ScreenStack screens;
@@ -104,6 +106,7 @@ public class MGlobal {
 			MGlobal.files = new MFiles();
 			MGlobal.levelManager = new LevelManager();
 			MGlobal.eventFactory = game.makeEventFactory();
+			MGlobal.sfx = new SoundManager();
 			
 			// load secondary data
 			// TODO: polish: load with a loading bar
@@ -171,6 +174,7 @@ public class MGlobal {
 		screens.dispose();
 		assets.dispose();
 		graphics.dispose();
+		sfx.dispose();
 	}
 
 	/**
