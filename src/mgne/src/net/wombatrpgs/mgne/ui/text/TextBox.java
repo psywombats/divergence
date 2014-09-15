@@ -95,7 +95,8 @@ public class TextBox extends ScreenGraphic {
 	@Override public int getHeight() { return boxHeight; }
 
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#coreRender(com.badlogic.gdx.graphics.g2d.SpriteBatch)
+	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#coreRender
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
 	 */
 	@Override
 	public void coreRender(SpriteBatch batch) {

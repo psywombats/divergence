@@ -1,13 +1,19 @@
 {
 	"key" : "abil_xthunder",
 	"subfolder" : "weaknesses",
-	"name" : null,
-	"description" : null,
-	"abilityName" : null,
-	"type" : null,
-	"uses" : null,
-	"cost" : null,
-	"anim" : null,
-	"warhead" : null,
-	"robostats" : null
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$MTHUNDER",
+	"type" : "ABILITY",
+	"uses" : 0,
+	"cost" : 0,
+	"anim" : "None",
+	"equip" : [ ],
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectPassiveMDO",
+		"key" : "anon_CombatItemMDO_-639405903"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
 }

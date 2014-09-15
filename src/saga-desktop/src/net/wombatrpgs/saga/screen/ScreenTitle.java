@@ -36,7 +36,8 @@ public class ScreenTitle extends SagaScreen {
 	protected IntroSettingsMDO intro;
 	protected Graphic bg;
 	protected TextFormat formatBegin, formatContinue;
-	protected int selection = 0;
+	protected int selection;
+	protected boolean transitioning;
 	
 	/**
 	 * Creates the title screen!
@@ -100,6 +101,7 @@ public class ScreenTitle extends SagaScreen {
 	@Override
 	public boolean onCommand(InputCommand command) {
 		if (super.onCommand(command)) return true;
+		if (transitioning) return true;
 		switch (command) {
 		case MOVE_LEFT:		return moveCursor(-1);
 		case MOVE_RIGHT:	return moveCursor(1);
@@ -127,6 +129,7 @@ public class ScreenTitle extends SagaScreen {
 	 */
 	public boolean confirm() {
 		// TODO: sfx: confirm or error
+		transitioning = true;
 		if (selection == 0) {
 			// start
 			SagaScreen textIntro = new ScreenTextIntro();

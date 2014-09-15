@@ -43,6 +43,9 @@ public class CombatItem extends AssetQueuer {
 	 */
 	public CombatItem(CombatItemMDO mdo) {
 		this.mdo = mdo;
+		if (mdo.uses == null) {
+			MGlobal.reporter.err("MDO needs uses: " + mdo);
+		}
 		uses = mdo.uses;
 		name = MGlobal.charConverter.convert(mdo.abilityName);
 		
