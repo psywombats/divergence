@@ -19,6 +19,7 @@ import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
+import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
@@ -187,7 +188,7 @@ public class ScreenCharaInfo extends SagaScreen implements TargetSelectable {
 				} else {
 					CombatItem item = chara.getInventory().get(selected);
 					if (item == null || !item.isMapUsable()) {
-						// TODO: sfx: failure sound
+						MGlobal.sfx.play(SConstants.SFX_FAIL);
 						return false;
 					}
 					item.onMapUse(parent);

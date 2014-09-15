@@ -9,6 +9,7 @@ package net.wombatrpgs.saga.rpg.warheads;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.battle.Battle;
@@ -147,10 +148,10 @@ public class EffectHeal extends EffectAllyTarget {
 		}
 		if (affected) {
 			item.deductUse();
-			// TODO: sfx: heal sfx
+			// TODO: sfx: call the item's set SFX
 			caller.refresh();
 		} else {
-			// TODO: sfx: fail sfx
+			MGlobal.sfx.play(SConstants.SFX_FAIL);
 		}
 	}
 

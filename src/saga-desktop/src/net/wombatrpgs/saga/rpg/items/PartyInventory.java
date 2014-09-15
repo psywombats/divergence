@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.saga.rpg.items;
 
+import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.rpg.chara.HeroParty;
 
 
@@ -35,12 +37,12 @@ public class PartyInventory extends Inventory {
 		CombatItem item = get(i);
 		if (item == null) return;
 		if (!item.isSellable()) {
-			// TODO: sfx: failure sfx
+			MGlobal.sfx.play(SConstants.SFX_FAIL);
 			return;
 		}
 		owner.addGP(item.getCost(true));
 		remove(i);
-		// TODO: sfx: sell sfx
+		MGlobal.sfx.play(SConstants.SFX_GET);
 	}
 
 }

@@ -17,5 +17,11 @@ public class SConstants extends Constants {
 	/** Battle indent string */
 	public static final String NBSP = MGlobal.charConverter.convert("$N");
 	public static final String TAB = NBSP + NBSP;
+	
+	/** SFX keys */
+	public static final String SFX_GET = "get";
+	public static final String SFX_FAIL = "fail";
+	public static final String SFX_SAVE = "save";
+	public static final String SFX_INN = "inn";
 
 }

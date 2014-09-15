@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.ui.Nineslice;
+import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.items.CharaInventory;
@@ -127,7 +128,7 @@ public class ScreenEquip extends SagaScreen {
 						CombatItem left = equipped.get(marked);
 						CombatItem right = inventory.get(selected);
 						if (!equipped.canEquip(marked, right)) {
-							// TODO: sfx: failure sound
+							MGlobal.sfx.play(SConstants.SFX_FAIL);
 							return false;
 						}
 						equipped.drop(left);
@@ -144,7 +145,7 @@ public class ScreenEquip extends SagaScreen {
 			items.setSelected(lastRight);
 			return true;
 		} else {
-			// TODO: sfx: failure sound
+			MGlobal.sfx.play(SConstants.SFX_FAIL);
 			return false;
 		}
 	}

@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.screen.TargetSelectable;
@@ -48,13 +49,13 @@ public class EffectStatCandy extends EffectBattleUnusable {
 				if (selected != null) {
 					List<Race> allowed = Arrays.asList(mdo.restrictRace);
 					if (!allowed.contains(selected.getRace())) {
-						// TODO: sfx: fail sfx
+						MGlobal.sfx.play(SConstants.SFX_FAIL);
 					} else if (mdo.maxValue != 0 &&
 							selected.get(mdo.stat) > mdo.maxValue) {
-						// TODO: sfx: fail sfx
+						MGlobal.sfx.play(SConstants.SFX_FAIL);
 						// TODO: polish: maybe print an error message?
 					} else {
-						// TODO: sfx: stat gain sfx
+						// TODO: sfx: call the item's set SFX
 						int gain = MGlobal.rand.nextInt(mdo.maxGain - mdo.minGain);
 						gain += mdo.minGain;
 						selected.modifyStat(mdo.stat, gain);

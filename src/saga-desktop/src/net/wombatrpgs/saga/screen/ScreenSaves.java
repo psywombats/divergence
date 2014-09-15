@@ -19,6 +19,7 @@ import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.saga.core.MemoryIndex;
+import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.core.SaveDescriptor;
 
@@ -186,7 +187,7 @@ public class ScreenSaves extends SagaScreen {
 	 * @return					True to halt processing
 	 */
 	protected boolean confirm() {
-		// TODO: sfx: confirm save sfx
+		MGlobal.sfx.play(SConstants.SFX_SAVE);
 		int slot = scroll + selection;
 		String slotno = (slot < 10) ? ("0" + slot) : String.valueOf(slot);
 		final String fileName = Memory.saveToPath(slotno);

@@ -20,6 +20,7 @@ import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
+import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.ui.CharaSelector;
@@ -153,7 +154,7 @@ public class ScreenInn extends SagaScreen {
 			SGlobal.heroes.innlikeHeal();
 			payString = "HP restored.";
 			inserts.refresh();
-			// TODO: sfx: heal chirrup
+			MGlobal.sfx.play(SConstants.SFX_INN);
 			menu.unfocus();
 			pushCommandContext(new CMapMenu());
 			pushCommandListener(new CommandListener() {

@@ -19,6 +19,7 @@ import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.settings.IntroSettingsMDO;
 import net.wombatrpgs.saga.core.MemoryIndex;
+import net.wombatrpgs.saga.core.SConstants;
 
 /**
  * As might be obvious, this is the title screen.
@@ -128,7 +129,6 @@ public class ScreenTitle extends SagaScreen {
 	 * @return					True to indicate command was processed
 	 */
 	public boolean confirm() {
-		// TODO: sfx: confirm or error
 		transitioning = true;
 		if (selection == 0) {
 			// start
@@ -150,7 +150,7 @@ public class ScreenTitle extends SagaScreen {
 					}
 				});
 			} else {
-				// yeah, brrrrrp
+				MGlobal.sfx.play(SConstants.SFX_FAIL);
 			}
 		}
 		return true;

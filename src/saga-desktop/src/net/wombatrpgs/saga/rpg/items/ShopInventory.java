@@ -9,6 +9,7 @@ package net.wombatrpgs.saga.rpg.items;
 import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
 
@@ -56,7 +57,7 @@ public class ShopInventory extends Inventory {
 		CombatItem item = new CombatItem(mdos.get(i));
 		SGlobal.heroes.addItem(item);
 		SGlobal.heroes.addGP(-1 * item.getCost(false));
-		// TODO: sfx: buy sfx
+		MGlobal.sfx.play(SConstants.SFX_GET);
 	}
 
 }

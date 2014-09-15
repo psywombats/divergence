@@ -106,7 +106,6 @@ public class MGlobal {
 			MGlobal.files = new MFiles();
 			MGlobal.levelManager = new LevelManager();
 			MGlobal.eventFactory = game.makeEventFactory();
-			MGlobal.sfx = new SoundManager();
 			
 			// load secondary data
 			// TODO: polish: load with a loading bar
@@ -131,6 +130,8 @@ public class MGlobal {
 			MGlobal.memory = game.makeMemory();
 			MGlobal.charConverter = new CharConverter();
 			MGlobal.lua = new Lua();
+			MGlobal.sfx = new SoundManager();
+			toLoad.add(sfx);
 			toLoad.add(ui);
 			toLoad.add(graphics);
 			assets.loadAssets(toLoad, "primary global assets");

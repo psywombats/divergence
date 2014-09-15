@@ -1,7 +1,24 @@
 {
 	"key" : "soundmanager_default",
 	"subfolder" : "",
-	"name" : null,
-	"description" : null,
-	"entries" : null
+	"name" : "",
+	"description" : "",
+	"entries" : [
+		{
+			"key" : "fail",
+			"file" : "chip_failure.wav"
+		},
+		{
+			"key" : "get",
+			"file" : "ffl1_23_pluck.wav"
+		},
+		{
+			"key" : "save",
+			"file" : "ffl1_21_save.wav"
+		},
+		{
+			"key" : "inn",
+			"file" : "ffl1_17_heal.wav"
+		}
+	]
 }

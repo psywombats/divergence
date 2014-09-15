@@ -21,6 +21,7 @@ import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
+import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.rpg.items.Inventory;
 import net.wombatrpgs.saga.screen.TargetSelectable;
@@ -228,7 +229,7 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 							item.onMapUse(screen);
 							return true;
 						} else {
-							// TODO: sfx: failure sound
+							MGlobal.sfx.play(SConstants.SFX_FAIL);
 							return false;
 						}
 					}
