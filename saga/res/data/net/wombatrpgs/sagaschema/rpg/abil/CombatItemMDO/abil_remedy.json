@@ -7,7 +7,8 @@
 	"type" : "ABILITY",
 	"uses" : 10,
 	"cost" : 0,
-	"anim" : "None",
+	"anim" : "banim_cure",
+	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectHealMDO",
 		"key" : "anon_CombatItemMDO_1691178559"

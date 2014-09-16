@@ -18,7 +18,7 @@ import net.wombatrpgs.mgns.core.Annotations.ExcludeFromTree;
 @ExcludeFromTree
 public class BattleAnimMDO extends MainSchema {
 	
-	@Desc("Sound effect - plays with the animation and on the map when used")
+	@Desc("Sound effect - plays with the animation in battle only")
 	@FileLink("audio")
 	@Nullable
 	public String sound;

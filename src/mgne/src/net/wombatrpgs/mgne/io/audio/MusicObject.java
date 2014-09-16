@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.mgne.io.audio;
 
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgneschema.audio.MusicMDO;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -41,7 +42,9 @@ public class MusicObject extends AudioObject {
 	 */
 	@Override
 	public void dispose() {
-		coreMusic.dispose();
+		if (MGlobal.assets.isLoaded(filename)) {
+			MGlobal.assets.unload(filename);
+		}
 	}
 	
 	/**
@@ -60,7 +63,8 @@ public class MusicObject extends AudioObject {
 				if (this.elapsed >= fadeTime) {
 					coreStop();
 				} else {
-					coreMusic.setVolume((1f - (this.elapsed / fadeTime)) * previous + targetVolume * (this.elapsed / fadeTime));
+					coreMusic.setVolume((1f - (this.elapsed / fadeTime)) * previous + 
+							targetVolume * (this.elapsed / fadeTime));
 				}
 			}
 			if (this.elapsed == fadeTime) {

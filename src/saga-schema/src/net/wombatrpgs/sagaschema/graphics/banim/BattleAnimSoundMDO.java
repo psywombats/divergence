@@ -1,6 +1,6 @@
 /**
  *  BattleAnimSoundMDO.java
- *  Created on Sep 15, 2014 9:05:57 PM for project saga-schema
+ *  Created on Sep 15, 2014 10:23:44 PM for project saga-schema
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
@@ -10,7 +10,7 @@ import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.sagaschema.graphics.banim.data.BattleAnimMDO;
 
 /**
- * Dumb thing just plays sound!
+ * Just plays the sound!
  */
 @Path("graphics/")
 public class BattleAnimSoundMDO extends BattleAnimMDO {

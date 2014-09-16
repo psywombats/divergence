@@ -7,7 +7,8 @@
 	"type" : "ABILITY",
 	"uses" : 15,
 	"cost" : 0,
-	"anim" : "banim_slash",
+	"anim" : "banim_slash_agi",
+	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
 		"key" : "anon_CombatItemMDO_-150489525"

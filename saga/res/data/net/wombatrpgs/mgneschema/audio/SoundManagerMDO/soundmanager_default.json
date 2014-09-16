@@ -23,6 +23,10 @@
 		{
 			"key" : "battle",
 			"file" : "ffl1_05_encounter.wav"
+		},
+		{
+			"key" : "cure",
+			"file" : "ffl1_10_positive.wav"
 		}
 	]
 }

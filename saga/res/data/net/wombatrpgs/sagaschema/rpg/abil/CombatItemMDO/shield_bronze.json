@@ -7,7 +7,8 @@
 	"type" : "ITEM",
 	"uses" : 0,
 	"cost" : 25,
-	"anim" : "None",
+	"anim" : "banim_defend",
+	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectDefendMDO",
 		"key" : "anon_CombatItemMDO_-1826727546"

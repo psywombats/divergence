@@ -7,7 +7,8 @@
 	"type" : "ABILITY",
 	"uses" : 25,
 	"cost" : 0,
-	"anim" : "None",
+	"anim" : "banim_riddle",
+	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
 		"key" : "anon_CombatItemMDO_47984166"

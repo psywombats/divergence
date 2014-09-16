@@ -8,6 +8,7 @@
 	"uses" : 1,
 	"cost" : 200,
 	"anim" : "None",
+	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatCandyMDO",
 		"key" : "anon_CombatItemMDO_-1188663464"

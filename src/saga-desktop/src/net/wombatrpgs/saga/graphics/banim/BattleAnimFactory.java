@@ -10,6 +10,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimSeriesMDO;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimShaderMDO;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimShotsMDO;
+import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimSoundMDO;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimStripMDO;
 import net.wombatrpgs.sagaschema.graphics.banim.data.BattleAnimMDO;
 
@@ -32,6 +33,8 @@ public class BattleAnimFactory {
 			return new BattleAnimShots((BattleAnimShotsMDO) mdo);
 		} else if (BattleAnimShaderMDO.class.isAssignableFrom(mdo.getClass())) {
 			return new BattleAnimShader((BattleAnimShaderMDO) mdo);
+		} else if (BattleAnimSoundMDO.class.isAssignableFrom(mdo.getClass())) {
+			return new BattleAnimSound((BattleAnimSoundMDO) mdo);
 		} else {
 			MGlobal.reporter.err("Unknown batle anim type: " + mdo);
 			return null;
