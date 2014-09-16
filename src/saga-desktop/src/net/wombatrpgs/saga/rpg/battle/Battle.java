@@ -648,7 +648,6 @@ public class Battle extends AssetQueuer implements Disposable {
 					println("");
 					playNextIntent();
 				} else {
-					println("");
 					finishRound();
 					screen.setAuto(false);
 					playbackListener = new FinishListener() {
