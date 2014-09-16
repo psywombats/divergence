@@ -1,0 +1,28 @@
+{
+	"key" : "wpn_bowPoison",
+	"subfolder" : "weapon",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$SPOISON",
+	"type" : "ITEM",
+	"uses" : 50,
+	"cost" : 330,
+	"anim" : "banim_arrows",
+	"equip" : [ ],
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
+		"key" : "anon_CombatItemMDO_-520166188"
+	},
+	"robostats" : {
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 36.0
+			},
+			{
+				"stat" : "AGI",
+				"value" : 5.0
+			}
+		]
+	}
+}

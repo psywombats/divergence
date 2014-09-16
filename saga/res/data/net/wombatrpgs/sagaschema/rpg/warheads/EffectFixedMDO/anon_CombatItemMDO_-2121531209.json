@@ -1,15 +1,15 @@
 {
-	"key" : "anon_CombatItemMDO_549308896",
+	"key" : "anon_CombatItemMDO_-2121531209",
 	"subfolder" : "",
-	"name" : "anon_CombatItemMDO_549308896",
+	"name" : "anon_CombatItemMDO_-2121531209",
 	"description" : "auto-generated anonymous polymorph",
-	"projector" : "SINGLE_ENEMY",
+	"projector" : "GROUP_ENEMY",
 	"damType" : "WEAPON",
 	"sideEffects" : [ ],
-	"base" : 60,
-	"range" : 8,
+	"base" : 36,
+	"range" : 6,
 	"defenseStat" : "DEF",
-	"accuracy" : 70,
+	"accuracy" : 85,
 	"accStat" : "STR",
 	"dodgeStat" : "AGI"
 }

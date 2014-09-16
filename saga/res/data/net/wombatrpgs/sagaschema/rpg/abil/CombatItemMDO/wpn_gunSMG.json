@@ -1,27 +1,27 @@
 {
-	"key" : "wpn_gunColt",
+	"key" : "wpn_gunSMG",
 	"subfolder" : "weapon",
 	"name" : "",
 	"description" : "",
-	"abilityName" : "$GCOLT",
+	"abilityName" : "$GSMG",
 	"type" : "ITEM",
 	"uses" : 30,
-	"cost" : 140,
-	"anim" : "banim_wound",
+	"cost" : 1500,
+	"anim" : "banim_smg",
 	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectFixedMDO",
-		"key" : "anon_CombatItemMDO_549308896"
+		"key" : "anon_CombatItemMDO_-2121531209"
 	},
 	"robostats" : {
 		"stats" : [
 			{
 				"stat" : "MHP",
-				"value" : 18.0
+				"value" : 36.0
 			},
 			{
 				"stat" : "STR",
-				"value" : 3.0
+				"value" : 5.0
 			}
 		]
 	}

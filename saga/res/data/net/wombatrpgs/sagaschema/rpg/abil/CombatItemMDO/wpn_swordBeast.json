@@ -1,27 +1,27 @@
 {
-	"key" : "wpn_axeBattle",
+	"key" : "wpn_swordBeast",
 	"subfolder" : "weapon",
 	"name" : "",
 	"description" : "",
-	"abilityName" : "$RAXE",
+	"abilityName" : "$EBATTLE",
 	"type" : "ITEM",
 	"uses" : 50,
-	"cost" : 420,
+	"cost" : 2200,
 	"anim" : "banim_slash",
 	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
-		"key" : "anon_CombatItemMDO_-1617475530"
+		"key" : "anon_CombatItemMDO_-2009499444"
 	},
 	"robostats" : {
 		"stats" : [
 			{
 				"stat" : "MHP",
-				"value" : 27.0
+				"value" : 45.0
 			},
 			{
 				"stat" : "STR",
-				"value" : 3.0
+				"value" : 7.0
 			}
 		]
 	}

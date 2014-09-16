@@ -1,27 +1,27 @@
 {
-	"key" : "wpn_gunColt",
+	"key" : "wpn_hammerGold",
 	"subfolder" : "weapon",
 	"name" : "",
 	"description" : "",
-	"abilityName" : "$GCOLT",
+	"abilityName" : "$OBRONZE",
 	"type" : "ITEM",
-	"uses" : 30,
-	"cost" : 140,
+	"uses" : 50,
+	"cost" : 389,
 	"anim" : "banim_wound",
 	"equip" : [ ],
 	"warhead" : {
-		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectFixedMDO",
-		"key" : "anon_CombatItemMDO_549308896"
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_131184433"
 	},
 	"robostats" : {
 		"stats" : [
 			{
 				"stat" : "MHP",
-				"value" : 18.0
+				"value" : 27.0
 			},
 			{
 				"stat" : "STR",
-				"value" : 3.0
+				"value" : 4.0
 			}
 		]
 	}

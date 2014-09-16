@@ -1,27 +1,27 @@
 {
-	"key" : "wpn_axeBattle",
+	"key" : "wpn_saber",
 	"subfolder" : "weapon",
 	"name" : "",
 	"description" : "",
-	"abilityName" : "$RAXE",
+	"abilityName" : "SABER",
 	"type" : "ITEM",
 	"uses" : 50,
-	"cost" : 420,
-	"anim" : "banim_slash",
+	"cost" : 2100,
+	"anim" : "banim_slash_double",
 	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
-		"key" : "anon_CombatItemMDO_-1617475530"
+		"key" : "anon_CombatItemMDO_-1698892094"
 	},
 	"robostats" : {
 		"stats" : [
 			{
 				"stat" : "MHP",
-				"value" : 27.0
+				"value" : 36.0
 			},
 			{
-				"stat" : "STR",
-				"value" : 3.0
+				"stat" : "AGI",
+				"value" : 5.0
 			}
 		]
 	}

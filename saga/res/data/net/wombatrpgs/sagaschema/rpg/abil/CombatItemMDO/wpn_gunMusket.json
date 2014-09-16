@@ -1,12 +1,12 @@
 {
-	"key" : "wpn_gunColt",
+	"key" : "wpn_gunMusket",
 	"subfolder" : "weapon",
 	"name" : "",
 	"description" : "",
-	"abilityName" : "$GCOLT",
+	"abilityName" : "$GMUSKET",
 	"type" : "ITEM",
 	"uses" : 30,
-	"cost" : 140,
+	"cost" : 600,
 	"anim" : "banim_wound",
 	"equip" : [ ],
 	"warhead" : {
@@ -17,11 +17,11 @@
 		"stats" : [
 			{
 				"stat" : "MHP",
-				"value" : 18.0
+				"value" : 36.0
 			},
 			{
 				"stat" : "STR",
-				"value" : 3.0
+				"value" : 5.0
 			}
 		]
 	}
