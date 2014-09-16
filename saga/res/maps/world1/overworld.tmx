@@ -11,7 +11,7 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2aSW7DMAxFk6N56Zyi7cqrovdftQUqgPigOIkSm0CLDzuOTPFxUDzkcbvdHgm6kuw8qzZ/vQ+bf/Nv/s2/+fN1/9Ms/tN4rIq9+YNq343wU3vSsSpx3KjrJtfHiO3KGFj9u8i+Jw5W+xUxsPrU+FsNvAq/5CM3LrIGPCu/1gPZ7FX8Hv8u+Nx64YQtPf4KMWhjvPn3xOBhsEtju5K9KdL/llpAX1byYwzQ11F+rRYkX1bxt3mxd3HMKD+NgTT2YJTNq9UXF+covydnXGwOsLUyBnRuL3+kXrn6X8kvxcDDH+3Vxt2r/4qe8OZ/5jrF1cQqWfi97BqHVAOr2TX+SN5xLJ5/kO3q2vfkP8LeY6E2Ku+L0Jce/0i/05xydqruDbhrAa4HMtc6yUY2P8dn0dWxEfEBe/oO+3g9ns2P97Ee/qy847UNCu+tM+KAtmkstHhEnoFxuZbWcy7/dJtd99x9WWb+NXZc+7T8j9ZBNj8K57LwSzHAWDyYeUZi4OXHZ8GaMvize8FiW5KH3xIDi43MdaDXB1YeL/+oVq2F1fySX736zK4DL7+1fmfEKkMZ/FkxiPgzMwa9NSGr/nu1XFEHnnl778Mpk/Z7Ij1zruK3Svo/gBQDjpluI7lYwYvzYf3TsRq75Zr2P+Rfmg+vAzU7HCu37+nHFTnv5d/SB3hu7/3f248+ArlYyd9T9H9BVJ8/+oJjB6OKnrfwU83wg4sFp8r8n5P4q9gbvxYDjh/Py1jDVrNLNUD9v2CfO6fHGeWfyWvlp/mX9Dum96zKu45VsFvrn/ZB0yvwS9z0+kerA25t9PKv+t2z8p/M9hQ+V/OM8Ht6flb+K/hPZp/mVss7PY6qfrdrEfdcPMpvGZft//sEResfNcO3Wb5ubW1tPZu+Acrk0WAAQAAA
+   H4sIAAAAAAAAC+2aSW7DMAxFnaN5aZ+i7UqrovdfNQUqgPigOEiUiARafNhxZYqPgyo7uY/juANUguy8qjZ/vg+bf/Nv/s2/+eP1+Ncs/st4LYu9+oOqfxvhp/aka1niuFHlkOtjxHZmDKz+FXLuiYPVfkYMrD5V/loD78Iv+ciN61kDXpVf64Fo9ix+j38FPtdeuOBIr79DDOoYb/49MbgNdmlsV7JX9fS/pRbQl5X8GAP0dZRfqwXJl1X8dV7sXRwzyk9jII09GUXzavXFxbmX35MzLjYn2FoZAzq3l7+nXrn6X8kvxcDD39urlbtV/xk94c3/zHWKq4lVsvB72TUOqQZWs2v8PXnHsXj/SY6ra9+T/x72Fgu1kflchL60+Ef6neaUs5P1bMDtBbgeiFzrJBvR/ByfRaVho8cH7OkHnON+PJofn2M9/FF5x70NCp+tI+KAtmkstHj0vAPjci2t51z+6TG67rnnMgu/NQ4aO659Wv5H62CUX1tDcC4LvxQDjMXNzDMSAy8/vgvWFMEf3QsW25I8/JYYWGxErgOtPrDyePlHtWotzOaX/GrVZ3QdePmt9TsjVhGK4I+KQY8/M2PQWhOi6r9Vyxl14Jm39X04ZdL+n0jvnLP46fy3YF/6PYAUA46ZHntyMYOf46XPv1j/dKzGbtnTZue/le/CSPOhxcqde/pxJi/OQ/mtfYC2Wt//fTz15fBnFf8N83Bz9v4uiOr7qR+4djJaWfOUX5oXe2GGL1wsOM3g11Tzf03iz2DHvHv58b6INWwlu1YH1P8C59w9Lc5e/pm8Vn6af0l/Y1rvqrzrWAa7tf5pH1S9A7/ETfc/Wh1wa6OXf9Vez8p/McdL+JzNM8Lv6flZ+c/gv5hzmlst7/Q6Kvu7XYu49+K9/JZx0f5/TlBv/aNm+DbL162tra1X0y8liRaYAEAAAA==
   </data>
  </layer>
  <layer name="Tile Layer 2" width="64" height="64">
@@ -19,7 +19,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3ZTQrCMBAG0Hg9j+XWbVfdFjynBgpCxUWLcUbnPSjJqnxNJ/1JWgMAAAD2mKMDFHd5HNe1rahf+7S2o2Qe2+r3n9Zu0QEoRb3xTd5tuZj/QDfyv+tX9DWQU3SIBM7RAQAggL0QIlgfiTNFB4CElugAEMR34Ov8r/g8UAdPo+rBXlRuy6bd9vkP85v+0XMAwKfdAe7vM20AQAAA
+   H4sIAAAAAAAAC+3ZsQqDMBAA0Hx7V1enrILfWYVAwdJBaby09x6EyyRnvMQYSwEAAADOqNEJJPfY2tRiRvu9zy32MvLYZn/+lLJGJ0Aq6o07ebeNxfwHdj2/u36FMxAAyMs+gAjOR+LM0QnAgJboBCCIfeD7/M+4HqiDl1714F/U2JZDPPb5D/VD/+o1AODbnnXUNEgAQAAA
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
@@ -47,6 +47,11 @@
   <object name="River Town" type="Event" x="304" y="496" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/rivertown.tmx', 24, 8, 'SOUTH')"/>
+   </properties>
+  </object>
+  <object name="River Town" type="Event" x="304" y="704" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/shrine01.tmx', 11, 39, 'NORTH')"/>
    </properties>
   </object>
  </objectgroup>
