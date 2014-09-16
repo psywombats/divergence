@@ -16,6 +16,11 @@
 		"key" : "anon_CombatItemMDO_-912754437"
 	},
 	"robostats" : {
-		"stats" : [ ]
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 18.0
+			}
+		]
 	}
 }
