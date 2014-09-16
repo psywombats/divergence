@@ -68,20 +68,23 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	protected int tileWidth, tileHeight;
 
 	/**
-	 * Creates a new map event for the level at the origin. It will need its
-	 * location set. This is private so use one of the public constructors that
-	 * takes location info instead.
+	 * Creates a new map event from data.
 	 * @param	mdo				The data to construct from
 	 */
-	protected MapEvent(EventMDO mdo) {
+	public MapEvent(EventMDO mdo) {
 		super();
 		this.mdo = mdo;
 		
 		zeroCoords();
 		regenerateLua();
 		
-		tileWidth = Math.round(mdo.width);
-		tileHeight = Math.round(mdo.height);
+		if (mdo.width != null && mdo.height != null) {
+			tileWidth = Math.round(mdo.width);
+			tileHeight = Math.round(mdo.height);
+		} else {
+			tileWidth = 1;
+			tileHeight = 1;
+		}
 		
 		if (mdoHasProperty(mdo.appearance)) {
 			String mdoName;
@@ -110,9 +113,6 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 		}
 		eventHidden = mdo.hidden == DisplayType.HIDDEN;
 	}
-	
-	/** Kryo constructor */
-	protected MapEvent() { }
 	
 	/** @param tileX The new x-coord of this event (in tiles) */
 	public void setTileX(int tileX) { this.tileX = tileX; }
@@ -175,6 +175,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	 * @return					The non-unique identifying name of this object
 	 */
 	public String getName() {
+		if (mdo == null) return null;
 		return mdo.name;
 	}
 	
@@ -204,10 +205,14 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 				return getName();
 			}
 		} else {
-			if (mdo.key == null) {
-				return mdo.description;
+			if (mdo != null) {
+				if (mdo.key == null) {
+					return mdo.description;
+				} else {
+					return mdo.key;
+				}
 			} else {
-				return mdo.key;
+				return "event " + getTileX() + "," + getTileY();
 			}
 		}
 	}

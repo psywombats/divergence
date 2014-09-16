@@ -11,6 +11,7 @@ import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
+import net.wombatrpgs.mgneschema.maps.EventMDO;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
@@ -33,6 +34,7 @@ public class EventChest extends MapEvent {
 	 * @param	object			The object to create from
 	 */
 	public EventChest(TiledMapObject object) {
+		super(object.generateMDO(EventMDO.class));
 		openSprite = FacesAnimationFactory.create(KEY_ANIM_OPEN);
 		closedSprite = FacesAnimationFactory.create(KEY_ANIM_CLOSED);
 		assets.add(openSprite);

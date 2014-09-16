@@ -17,6 +17,7 @@ import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
+import net.wombatrpgs.mgneschema.maps.EventMDO;
 import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.rpg.battle.Battle;
 import net.wombatrpgs.saga.rpg.chara.EnemyParty;
@@ -37,6 +38,7 @@ public abstract class EventEncounter extends MapEvent {
 	 * Creates a new encounter event that acts as if it covers the entire map.
 	 */
 	public EventEncounter() {
+		super(new EventMDO());
 		onStep = new FinishListener() {
 			@Override public void onFinish() {
 				onStep();

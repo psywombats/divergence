@@ -14,6 +14,7 @@ import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
+import net.wombatrpgs.mgneschema.maps.EventMDO;
 
 /**
  * An event that spawns/unspawns the ceiling when the hero walks under it.
@@ -30,6 +31,7 @@ public class EventCeiling extends MapEvent {
 	 * @param	object			The object to create from
 	 */
 	public EventCeiling(TiledMapObject object) {
+		super(object.generateMDO(EventMDO.class));
 		polygon = object.getPolygon();
 		layer = new CeilingLayer(object, polygon);
 		assets.add(layer);

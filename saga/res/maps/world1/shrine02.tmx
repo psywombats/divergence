@@ -285,7 +285,7 @@
     <property name="roofID" value="3"/>
     <property name="roofTileset" value="lower"/>
    </properties>
-   <polygon points="0,0 64,0 64,-48 80,-48 80,-160 320,-160 320,0 400,0 400,-256 0,-256"/>
+   <polygon points="0,0 64,0 64,-48 80,-48 80,-160 288,-160 288,-144 320,-144 320,16 400,16 400,-256 0,-256"/>
   </object>
  </objectgroup>
  <layer name="Tile Layer 3" width="32" height="32">
