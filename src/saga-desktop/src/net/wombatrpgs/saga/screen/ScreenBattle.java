@@ -60,7 +60,7 @@ import net.wombatrpgs.saga.ui.CharaSelector;
 import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
 import net.wombatrpgs.saga.ui.ItemSelector;
 import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
-import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimMDO;
+import net.wombatrpgs.sagaschema.graphics.banim.data.BattleAnimMDO;
 
 /**
  * Screen for killing shit. This also encompasses a battle. Like Tactics, the

@@ -15,7 +15,7 @@ import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.PolymorphicLink;
-import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimMDO;
+import net.wombatrpgs.sagaschema.graphics.banim.data.BattleAnimMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilityType;
 import net.wombatrpgs.sagaschema.rpg.abil.data.EquipmentFlag;

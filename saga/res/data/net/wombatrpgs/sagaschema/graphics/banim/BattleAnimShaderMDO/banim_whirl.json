@@ -3,6 +3,7 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
+	"sound" : "ffl1_36_whirl.wav",
 	"shader" : "shader_whirl",
 	"duration" : 0.7
 }

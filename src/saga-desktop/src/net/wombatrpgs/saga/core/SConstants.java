@@ -23,5 +23,6 @@ public class SConstants extends Constants {
 	public static final String SFX_FAIL = "fail";
 	public static final String SFX_SAVE = "save";
 	public static final String SFX_INN = "inn";
+	public static final String SFX_BATTLE = "battle";
 
 }

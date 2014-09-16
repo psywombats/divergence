@@ -19,6 +19,10 @@
 		{
 			"key" : "inn",
 			"file" : "ffl1_17_heal.wav"
+		},
+		{
+			"key" : "battle",
+			"file" : "ffl1_05_encounter.wav"
 		}
 	]
 }

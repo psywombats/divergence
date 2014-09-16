@@ -10,6 +10,7 @@ import net.wombatrpgs.mgneschema.graphics.ShaderMDO;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
+import net.wombatrpgs.sagaschema.graphics.banim.data.BattleAnimMDO;
 
 /**
  * Battle animation that operates by warping the enemy.

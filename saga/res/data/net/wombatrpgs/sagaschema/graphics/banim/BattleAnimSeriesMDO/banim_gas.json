@@ -3,6 +3,7 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
+	"sound" : "ffl1_04_gas.wav",
 	"anim" : "banim_particle_gas",
 	"count" : 12,
 	"concurrent" : 4,

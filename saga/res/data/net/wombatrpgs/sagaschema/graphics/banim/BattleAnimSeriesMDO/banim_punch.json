@@ -3,6 +3,7 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
+	"sound" : "ffl1_07_kick.wav",
 	"anim" : "banim_particle_punch",
 	"count" : 8,
 	"concurrent" : 2,

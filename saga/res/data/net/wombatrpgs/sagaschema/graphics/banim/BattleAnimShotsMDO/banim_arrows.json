@@ -3,6 +3,7 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
+	"sound" : "ffl1_19_bow.wav",
 	"anim" : "banim_particle_arrow",
 	"count" : 3,
 	"delay" : 0.2,

@@ -18,7 +18,7 @@ import net.wombatrpgs.saga.rpg.stats.SagaStats;
 import net.wombatrpgs.saga.rpg.warheads.AbilEffect;
 import net.wombatrpgs.saga.rpg.warheads.AbilEffectFactory;
 import net.wombatrpgs.saga.screen.TargetSelectable;
-import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimMDO;
+import net.wombatrpgs.sagaschema.graphics.banim.data.BattleAnimMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.EquipmentFlag;
 

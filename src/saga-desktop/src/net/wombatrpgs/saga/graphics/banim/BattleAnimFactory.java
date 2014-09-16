@@ -7,11 +7,11 @@
 package net.wombatrpgs.saga.graphics.banim;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimMDO;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimSeriesMDO;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimShaderMDO;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimShotsMDO;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimStripMDO;
+import net.wombatrpgs.sagaschema.graphics.banim.data.BattleAnimMDO;
 
 /**
  * Creates battle animations from MDOs.

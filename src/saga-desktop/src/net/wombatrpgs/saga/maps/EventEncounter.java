@@ -17,6 +17,7 @@ import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
+import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.rpg.battle.Battle;
 import net.wombatrpgs.saga.rpg.chara.EnemyParty;
 import net.wombatrpgs.sagaschema.rpg.encounter.EncounterMDO;
@@ -77,6 +78,7 @@ public abstract class EventEncounter extends MapEvent {
 	 * @param	mdo				The MDO of the group to battle
 	 */
 	public void encounter(EncounterSetMDO mdo) {
+		MGlobal.sfx.play(SConstants.SFX_BATTLE);
 		List<EncounterMDO> encounters = new ArrayList<EncounterMDO>();
 		for (EncounterSetMemberMDO member : mdo.encounters) {
 			EncounterMDO encMDO = MGlobal.data.getEntryFor(member.encounter, EncounterMDO.class);

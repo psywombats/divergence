@@ -3,6 +3,7 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
+	"sound" : "ffl1_13_smg.wav",
 	"anim" : "banim_wound",
 	"count" : 12,
 	"delay" : 0.1,

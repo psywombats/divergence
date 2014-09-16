@@ -10,6 +10,7 @@ import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
+import net.wombatrpgs.sagaschema.graphics.banim.data.BattleAnimMDO;
 
 /**
  * A series of battle animation strips play.

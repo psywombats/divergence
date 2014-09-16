@@ -9,6 +9,7 @@ package net.wombatrpgs.saga.lua;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.scenes.SceneCommand;
 import net.wombatrpgs.mgne.scenes.SceneLib;
+import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.rpg.battle.Battle;
 import net.wombatrpgs.saga.rpg.chara.EnemyParty;
 import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
@@ -47,6 +48,7 @@ public class SceneBattle extends VarArgFunction {
 
 			@Override protected void internalRun() {
 				// battle stuff moved here, problems before with null heroes
+				MGlobal.sfx.play(SConstants.SFX_BATTLE);
 				PartyMDO partyMDO = MGlobal.data.getIfExists(mdoKey, PartyMDO.class);
 				if (partyMDO != null) {
 					battle = new Battle(partyMDO, true);

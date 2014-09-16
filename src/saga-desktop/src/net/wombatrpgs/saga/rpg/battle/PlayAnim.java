@@ -10,7 +10,7 @@ import java.util.List;
 
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.screen.ScreenBattle;
-import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimMDO;
+import net.wombatrpgs.sagaschema.graphics.banim.data.BattleAnimMDO;
 
 /**
  * Plays back a battle animation.

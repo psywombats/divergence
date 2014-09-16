@@ -3,6 +3,7 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
+	"sound" : "ffl1_34_ice.wav",
 	"anim" : "banim_particle_ice",
 	"count" : 15,
 	"concurrent" : 5,
