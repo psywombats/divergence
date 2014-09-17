@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="37" height="34" tilewidth="16" tileheight="16">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="37" height="35" tilewidth="16" tileheight="16">
  <properties>
   <property name="name" value="Forest Town"/>
  </properties>
  <tileset firstgid="1" source="../tilesets/lower.tsx"/>
  <tileset firstgid="113" source="../tilesets/upper.tsx"/>
- <layer name="Tile Layer 1" width="37" height="34">
+ <layer name="Tile Layer 1" width="37" height="35">
   <properties>
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2XsQrAIAxEHZ0K3fyKtkvb//+z6iCIkJiY1ArNQaBDvXuLwXPOxNFCGE0vSk763pHhMuVzK+AF5dVMFzJcpnwuAF5QXs3kkeEyYV5bnIOQM5LpjHNPxkTNyT7rhExhANOC/FMzae4nDaZ0F7D9dHzAlO4Ctp9uJlOZ27vH35IfkGEymUx/1ht7X+rZ6gY9PUHq2eoGPT1B6sl5E3KYJJ7GZEzaTJx3KpVJ4ll2A+90eoLUs+wG3un0BKnnA89ogp6oEwAA
+   H4sIAAAAAAAAC+2XsQrAIAxEHZ2Ebv2D4tSp7f//WesgiGCaM2l1yEHAobk8KAbPOROiwChNL86cdN6JQply39Lwas2rmU6iUKbctza8WvNqJk8UykR5bU9Fxpw/mY6nrsmYuHOyzzIh0/oDUyC+qZk095MGU7oL1H6KA5jSXaD20wUylXN797imtuLswV7kf5hMJpPpm70v9XzLBj05Qer5lg16coLUE3kTIkwST2MyJm0m5J3KZZJ4ltnAO52cIPUss4F3OjnhC8/RugF88zQdPBQAAA==
   </data>
  </layer>
- <layer name="Tile Layer 2" width="37" height="34">
+ <layer name="Tile Layer 2" width="37" height="35">
   <properties>
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3XTQqAIBAFYO9cCC2iE7Rp08IbVIeswEAG/CmfWPE+GAZUhgE3M0oRlTHZQGhBdYyNk86s1Se+0yKHDA97uWsQ+QsakdHGwF3nOXd7cvsK1fq7uXYDjjf1QkRERHGo3SGVb8a7nPO7ibxJqSn3gZw9BDW/y32gxl6wHLEesQFroudw5N+hvOHvqKwdCVNj/KgTAAA=
+   H4sIAAAAAAAAC+3XTQqAIBAF4O5cBC2iE7Rp06Ib9HfGFApkIJ3yiRHvg0FIGQYlmCkKojSGMxAqUJ7pDKuOzNUqz9Vi9ele1vJUJ9ZcNhO78mwpVrTes9fcfHdrcuvy5fq7MXcBji/VErIF9rX/CemF7tyH70FElAZqdtC66/Eutn+fAmc0OeU8EDOHoPp3OQ/kmAtmE4uJFZgT3Ycj3w7lC29HaT3pU7V9aWzOA73xVPY8FAAA
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
@@ -92,20 +92,20 @@
    <polygon points="0,0 0,144 96,144 96,0"/>
   </object>
  </objectgroup>
- <layer name="Tile Layer 3" width="37" height="34">
+ <layer name="Tile Layer 3" width="37" height="35">
   <properties>
    <property name="z" value="1.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3Wuw0AIAhFUSZwFLFR999MCifgEwvvSV5LbokIAACIaq8Drm5T50ZR07Qt53ZREwAAwC8q/tToTU2pyL25UiriNw8W/25uqBMAAA==
+   H4sIAAAAAAAAC+3WsQ0AIAwDwUzAKlSE/TcjJXWClYI/ya3l0mYAAKBqdA+4zGRUVsST2cJdAAAAP1D81Gqn4ntWO/3JCn1nhwNzh+3kPBQAAA==
   </data>
  </layer>
- <layer name="Tile Layer 4" width="37" height="34">
+ <layer name="Tile Layer 4" width="37" height="35">
   <properties>
    <property name="z" value="1.5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3WsQkAMAwDQc+cNst7gVQJRhDuBnhUqgoA+NFKDzjY6QEAAMRN/NTX5sRPvWk29cG0SqgTAAA=
+   H4sIAAAAAAAAC+3WsQkAMAwDQc+cNst7gXTBCMzdAELlVwEAG530gYebPgAAQNxEp/5uTnTqlvZtSIKT0zwUAAA=
   </data>
  </layer>
 </map>
