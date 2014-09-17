@@ -9,6 +9,7 @@ package net.wombatrpgs.mgneschema.maps;
 import net.wombatrpgs.mgneschema.graphics.DirMDO;
 import net.wombatrpgs.mgneschema.maps.data.DisplayType;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
+import net.wombatrpgs.mgneschema.maps.data.PassabilityType;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
@@ -28,6 +29,10 @@ public class EventMDO extends MainSchema {
 	@DefaultValue("")
 	@Nullable
 	public String appearance;
+	
+	@Desc("Passability")
+	@DefaultValue("PASSABLE")
+	public PassabilityType passable;
 	
 	@Desc("Width of this event, in tiles")
 	@DefaultValue("1")

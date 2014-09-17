@@ -37,6 +37,7 @@ import net.wombatrpgs.mgneschema.maps.data.DirVector;
 import net.wombatrpgs.mgneschema.maps.data.DisplayType;
 import net.wombatrpgs.mgneschema.maps.data.EightDir;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
+import net.wombatrpgs.mgneschema.maps.data.PassabilityType;
 
 /**
  * A map event is any map object defined in Tiled, including characters and
@@ -77,6 +78,9 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 		
 		zeroCoords();
 		regenerateLua();
+		if (mdo.passable == null) {
+			mdo.passable = PassabilityType.PASSABLE;
+		}
 		
 		if (mdo.width != null && mdo.height != null) {
 			tileWidth = Math.round(mdo.width);
@@ -132,9 +136,6 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	/** @param appearance The new anim for this event */
 	public void setAppearance(FacesAnimation appearance) { this.appearance = appearance; }
 	
-	/** @return True if the object is passable, false otherwise */
-	public boolean isPassable() { return appearance == null || isHidden(); }
-	
 	/** @see net.wombatrpgs.mgne.core.lua.LuaConvertable#toLua() */
 	@Override public LuaValue toLua() { return lua; }
 	
@@ -144,7 +145,15 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	/** Shows this event so that it renders and collides */
 	public void show() { eventHidden = false; }
 	
+	/** @return True if this event is hidden via script */
 	public boolean isHidden() { return eventHidden || switchHidden; }
+	
+	/** @return True if the object is passable, false otherwise */
+	public boolean isPassable() {
+		if (isHidden()) return true;
+		if (mdo.passable != PassabilityType.PASSABLE) return false;
+		return appearance == null;
+	}
 	
 	/**
 	 * Gets the facing for the character. Returns null if no appearance.
