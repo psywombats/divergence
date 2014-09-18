@@ -55,10 +55,9 @@ public class EffectStatCandy extends EffectBattleUnusable {
 						MGlobal.sfx.play(SConstants.SFX_FAIL);
 						// TODO: polish: maybe print an error message?
 					} else {
-						// TODO: sfx: call the item's set SFX
-						int gain = MGlobal.rand.nextInt(mdo.maxGain - mdo.minGain);
-						gain += mdo.minGain;
-						selected.modifyStat(mdo.stat, gain);
+						int delta = mdo.maxGain - mdo.minGain;
+						if (delta > 0) delta = MGlobal.rand.nextInt(delta);
+						selected.modifyStat(mdo.stat, (mdo.minGain + delta));
 						caller.refresh();
 					}
 				}

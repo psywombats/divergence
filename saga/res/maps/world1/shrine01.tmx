@@ -274,6 +274,7 @@
    <properties>
     <property name="hide" value="return hasItem('key_shrineKey')"/>
     <property name="onInteract" value="speak('It\'s locked.')"/>
+    <property name="passable" value="IMPASSABLE"/>
    </properties>
   </object>
   <object name="tele" type="Event" x="304" y="400" width="16" height="16">
