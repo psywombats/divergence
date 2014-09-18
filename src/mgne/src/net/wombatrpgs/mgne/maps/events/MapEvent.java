@@ -373,6 +373,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	 * @param	event			The jerk that ran into us
 	 */
 	public void onCollide(MapEvent event) {
+		if (isHidden()) return;
 		if (event == MGlobal.getHero()) {
 			event.addTrackingListener(new FinishListener() {
 				@Override public void onFinish() {

@@ -75,6 +75,15 @@ public class TiledMapObject {
 	public int getTileY() { return (int) (getY() / parent.getTileWidth()); }
 	
 	/**
+	 * Checks if a property exists on this object, regardless of value.
+	 * @param	key				The key of the property to check
+	 * @return					True if that property exists
+	 */
+	public boolean propertyExists(String key) {
+		return object.getProperties().get(key) != null;
+	}
+	
+	/**
 	 * Reads the map object's event type from its property list. Reports a
 	 * problem if the event has no event type.
 	 * @return

@@ -355,6 +355,16 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 	}
 	
 	/**
+	 * Checks if this character is carrying at item of the given type. Note that
+	 * this checks keys rather than specific instantiations of the item.
+	 * @param	itemKey			The key of the item to search for
+	 * @return					True if this character is carrying that type
+	 */
+	public boolean isCarryingItemType(String itemKey) {
+		return inventory.containsItemType(itemKey);
+	}
+	
+	/**
 	 * Modifies the character's base stat by a certain amount.
 	 * @param	stat			The stat to modify
 	 * @param	delta			The amount to modify it by

@@ -1,0 +1,30 @@
+{
+	"key" : "key_artifactScuba",
+	"subfolder" : "key",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$FSCUBA",
+	"type" : "ITEM",
+	"uses" : 0,
+	"cost" : 0,
+	"anim" : "None",
+	"equip" : [
+		"HELMET"
+	],
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectNothingMDO",
+		"key" : "anon_CombatItemMDO_2026334106"
+	},
+	"robostats" : {
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 9.0
+			},
+			{
+				"stat" : "DEF",
+				"value" : 1.0
+			}
+		]
+	}
+}

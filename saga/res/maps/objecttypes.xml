@@ -3,4 +3,7 @@
  <objecttype name="Event" color="#0004ff"/>
  <objecttype name="Character" color="#00a41b"/>
  <objecttype name="Encounter" color="#ffaaff"/>
+ <objecttype name="Ceiling" color="#99241b"/>
+ <objecttype name="Chest" color="#652fa4"/>
+ <objecttype name="Door" color="#4e75a4"/>
 </objecttypes>

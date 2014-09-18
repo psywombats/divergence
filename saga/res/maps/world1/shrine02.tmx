@@ -287,6 +287,31 @@
    </properties>
    <polygon points="0,0 64,0 64,-48 80,-48 80,-160 288,-160 288,-144 320,-144 320,16 400,16 400,-256 0,-256"/>
   </object>
+  <object name="door" type="Door" x="240" y="144" width="16" height="16">
+   <properties>
+    <property name="keyItem" value="key_shrineKey"/>
+   </properties>
+  </object>
+  <object name="door" type="Door" x="352" y="160" width="16" height="16">
+   <properties>
+    <property name="keyItem" value="key_shrineKey"/>
+   </properties>
+  </object>
+  <object name="chest" type="Chest" x="192" y="80" width="16" height="16">
+   <properties>
+    <property name="item" value="pot_defense"/>
+   </properties>
+  </object>
+  <object name="chest" type="Chest" x="320" y="80" width="16" height="16">
+   <properties>
+    <property name="item" value="body_bronze"/>
+   </properties>
+  </object>
+  <object name="tele" type="Event" x="256" y="304" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/shrine03.tmx', 16, 16)"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Tile Layer 3" width="32" height="32">
   <properties>

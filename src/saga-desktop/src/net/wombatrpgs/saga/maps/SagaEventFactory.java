@@ -12,6 +12,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
+import net.wombatrpgs.sagaschema.events.EventDoorMDO;
 import net.wombatrpgs.sagaschema.rpg.encounter.EncounterSetMDO;
 import net.wombatrpgs.sagaschema.rpg.encounter.TerrainEncounterSetMDO;
 
@@ -23,6 +24,7 @@ public class SagaEventFactory extends EventFactory {
 	protected static final String TYPE_ENCOUNTER = "Encounter";
 	protected static final String TYPE_CEILING = "Ceiling";
 	protected static final String TYPE_CHEST = "Chest";
+	protected static final String TYPE_DOOR = "Door";
 	
 	protected static final String PROPERTY_ENCOUNTER = "encounter";
 	protected static final String PROPERTY_TERRAIN_ENCOUNTER = "terrainEncounter";
@@ -40,6 +42,8 @@ public class SagaEventFactory extends EventFactory {
 			return new EventCeiling(object);
 		} else if (TYPE_CHEST.equals(type)) {
 			return new EventChest(object);
+		} else if (TYPE_DOOR.equals(type)) {
+			return new EventDoor(object.generateMDO(EventDoorMDO.class));
 		}
 		return super.createEvent(object);
 	}

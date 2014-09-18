@@ -63,7 +63,15 @@ public class HeroParty extends Party {
 	
 	/** @retrun The front member of the party */
 	public Chara getFront() { return getFront(0); }
-	
+
+	/**
+	 * @see net.wombatrpgs.saga.rpg.chara.Party#isCarryingItemType(java.lang.String)
+	 */
+	@Override
+	public boolean isCarryingItemType(String itemKey) {
+		return super.isCarryingItemType(itemKey) || inventory.containsItemType(itemKey);
+	}
+
 	/**
 	 * Adds a character to the party.
 	 * @param	hero			The character to add

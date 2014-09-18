@@ -174,5 +174,20 @@ public abstract class Inventory {
 		}
 		return false;
 	}
+	
+	/**
+	 * Checks if this inventory contains an item of the given type. Note that
+	 * this checks keys rather than specific instantiations of the item.
+	 * @param	itemKey			The item type to check for
+	 * @return					True if this inventory contains that type
+	 */
+	public final boolean containsItemType(String itemKey) {
+		for (CombatItem other : items) {
+			if (other != null && other.getKey().equals(itemKey)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

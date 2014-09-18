@@ -7,6 +7,7 @@
 package net.wombatrpgs.saga.lua;
 
 import net.wombatrpgs.saga.core.SGlobal;
+import net.wombatrpgs.saga.rpg.items.CombatItem;
 
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
@@ -33,6 +34,23 @@ public class SagaEventLib extends TwoArgFunction {
 				} else {
 					return SGlobal.heroes.getFront(slot).toLua();
 				}
+			}
+		});
+		
+		env.set("hasItem", new OneArgFunction() {
+			@Override public LuaValue call(LuaValue itemArg) {
+				String key = itemArg.checkjstring();
+				return SGlobal.heroes.isCarryingItemType(key) ? LuaValue.TRUE : LuaValue.FALSE;
+			}
+		});
+		
+		env.set("addItem", new OneArgFunction() {
+			@Override public LuaValue call(LuaValue itemArg) {
+				String key = itemArg.checkjstring();
+				CombatItem item = new CombatItem(key);
+				// TODO: check if space is available before granting item
+				SGlobal.heroes.addItem(item);
+				return LuaValue.NIL;
 			}
 		});
 		

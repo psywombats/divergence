@@ -272,6 +272,7 @@
   </object>
   <object name="door" type="Event" x="368" y="304" width="16" height="16">
    <properties>
+    <property name="hide" value="return hasItem('key_shrineKey')"/>
     <property name="onInteract" value="speak('It\'s locked.')"/>
    </properties>
   </object>
@@ -283,6 +284,12 @@
   <object name="tele" type="Event" x="432" y="400" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/shrine02.tmx', 22, 27)"/>
+   </properties>
+  </object>
+  <object name="tele" type="Event" x="368" y="304" width="16" height="16">
+   <properties>
+    <property name="hide" value="return not hasItem('key_shrineKey')"/>
+    <property name="onCollide" value="teleport('world1/shrine03.tmx', 16, 25)"/>
    </properties>
   </object>
  </objectgroup>

@@ -12,6 +12,7 @@ import java.util.List;
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
+import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.PartyEntryMDO;
 import net.wombatrpgs.sagaschema.rpg.stats.Flag;
@@ -174,6 +175,34 @@ public class Party extends AssetQueuer implements Disposable {
 	public boolean hasFlag(Flag flag) {
 		for (Chara member : members) {
 			if (member.is(flag)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Checks if any member of this party is carrying the given item. Any
+	 * subclasses that have a party inventory should check this as well. Note
+	 * that this checks the item key rather than item instance so that separate
+	 * instantiations of the same type of item are counted.
+	 * @param	item			The item to check if carrying shares a type
+	 * @return					True if the party carries an item of that type
+	 */
+	public boolean isCarryingItemType(CombatItem item) {
+		return isCarryingItemType(item.getKey());
+	}
+	
+	/**
+	 * Checks if any member of this party is carrying the given item. Any
+	 * subclasses that have a party inventory should check this as well. Item
+	 * keys are compared.
+	 * @param	itemKey			The key to check for in items
+	 * @return					True if the party carries an item of that type
+	 */
+	public boolean isCarryingItemType(String itemKey) {
+		for (Chara member : members) {
+			if (member.isCarryingItemType(itemKey)) {
 				return true;
 			}
 		}

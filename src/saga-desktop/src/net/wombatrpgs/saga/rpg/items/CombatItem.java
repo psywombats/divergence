@@ -99,6 +99,9 @@ public class CombatItem extends AssetQueuer {
 	
 	/** @return The robot-specific stat boosts this item imbues when equipped */
 	public SagaStats getRobostats() { return robostats; }
+	
+	/** @return The MDO key of this item, used to compare for equality */
+	public String getKey() { return mdo.key; }
 
 	/**
 	 * @see java.lang.Object#toString()
