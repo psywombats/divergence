@@ -74,13 +74,6 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 				radius *= -1;
 			}
 			if (radius != currentRadius) {
-				int visible = setRadius(radius);
-				if (visible == lastVisible) {
-					lastVisible = visible;
-					update((1f/TILE_DEPLOY_TIME) * sinceStart);
-				} else {
-					lastVisible = visible;
-				}
 				if (Math.abs(radius) >= getVisionRadius()) {
 					if (state == DeployState.RETRACTING) {
 						instantRetract();
@@ -88,6 +81,13 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 						instantDeploy();
 					}
 					resumeHero();
+				} else {
+					int visible = setRadius(radius);
+					if (visible == lastVisible) {
+						lastVisible = visible;
+						update(TILE_DEPLOY_TIME);
+					}
+					lastVisible = visible;
 				}
 			}
 		}
@@ -244,7 +244,7 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 					int x = col * map.getTileWidth() + map.getTileWidth() / 2;
 					int y = row * map.getTileHeight() + map.getTileHeight() / 2;
 					if (polygon.contains(x, y) ^ (radius < 0)) {
-						set += attemptSetAt(col, row) ? 1 : 0;
+						set += (inSight(col, row) && attemptSetAt(col, row)) ? 1 : 0;
 					} else {
 						layer.setCell(col, row, empty);
 					}
@@ -261,7 +261,7 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 					boolean inRange = Math.abs(col - heroCol) < absRadius &&
 							Math.abs(row - heroRow) < absRadius;
 					if (inRange ^ polygon.contains(x, y) ^ (radius >= 0)) {
-						set += attemptSetAt(col, row) ? 1 : 0;
+						set += (inSight(col, row) && attemptSetAt(col, row)) ? 1 : 0;
 					} else {
 						layer.setCell(col, row, empty);
 					}
@@ -285,6 +285,24 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 			layer.setCell(col, row, empty);
 			return false;
 		}
+	}
+	
+	/**
+	 * Checks if a given tile location is visible on the screen.
+	 * @param	col				The column to check (in tiles)
+	 * @param	row				The row to check (in tiles)
+	 * @return					True if that location is in sight.
+	 */
+	protected boolean inSight(int col, int row) {
+		int x = MGlobal.getHero().getTileX();
+		int y = MGlobal.getHero().getTileY();
+		WindowSettings win = MGlobal.window;
+		Level map = parent;
+		int width = (int) Math.ceil((float) win.getViewportWidth() / (float) map.getTileWidth() / 2f) + 1;
+		int height = (int) Math.ceil((float) win.getViewportHeight() / (float) map.getTileHeight() / 2f) + 1;
+		int dx = Math.abs(x - col);
+		int dy = Math.abs(y - row);
+		return (dx <= width && dy <= height);
 	}
 
 }
