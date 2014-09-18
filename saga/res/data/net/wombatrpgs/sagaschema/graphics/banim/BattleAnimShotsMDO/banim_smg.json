@@ -4,7 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"sound" : "ffl1_13_smg.wav",
-	"anim" : "banim_wound",
+	"anim" : "banim_particle_wound",
 	"count" : 12,
 	"delay" : 0.1,
 	"cols" : 4,
