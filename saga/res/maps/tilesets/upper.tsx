@@ -38,7 +38,7 @@
  </tile>
  <tile id="10">
   <properties>
-   <property name="x" value=""/>
+   <property name="o" value=""/>
   </properties>
  </tile>
  <tile id="11">
