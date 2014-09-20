@@ -26,6 +26,15 @@ public enum InputCommand {
 	UI_CANCEL,
 	UI_FINISH,
 	
+	RAW_A,
+	RAW_B,
+	RAW_START,
+	RAW_SELECT,
+	RAW_UP,
+	RAW_DOWN,
+	RAW_LEFT,
+	RAW_RIGHT,
+	
 	GLOBAL_FULLSCREEN,
 	
 }

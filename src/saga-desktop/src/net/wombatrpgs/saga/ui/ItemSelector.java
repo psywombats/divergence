@@ -13,7 +13,7 @@ import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.io.CommandListener;
-import net.wombatrpgs.mgne.io.command.CMapMenu;
+import net.wombatrpgs.mgne.io.command.CMapRaw;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgne.ui.Option;
@@ -43,11 +43,11 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	protected int count;
 	
 	// cursor
+	protected SlotListener listener, selectListener;
 	protected boolean cursorOn;
 	protected boolean cancellable;
 	protected float cursorX, cursorY;
 	protected int selected;
-	protected SlotListener listener;
 	
 	// cursor indent
 	protected boolean indentOn;
@@ -137,10 +137,12 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	@Override
 	public boolean onCommand(InputCommand command) {
 		switch (command) {
-		case MOVE_UP:		moveCursor(-1);		return true;
-		case MOVE_DOWN:		moveCursor(1);		return true;
-		case UI_CANCEL:		cancel();			return true;
-		case UI_CONFIRM:	confirm();			return true;
+		case RAW_UP:		moveCursor(-1);		return true;
+		case RAW_DOWN:		moveCursor(1);		return true;
+		case RAW_A:			confirm();			return true;
+		case RAW_B:			cancel();			return true;
+		case RAW_START:		cancel();			return true;
+		case RAW_SELECT:	select();			return true;
 		default:								return true;
 		}
 	}
@@ -217,6 +219,13 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	}
 	
 	/**
+	 * Also listens for when the user presses select on an item for some reason.
+	 */
+	public void attachSelectListener(SlotListener listener) {
+		this.selectListener = listener;
+	}
+	
+	/**
 	 * Prompts the user to use or discard the selected item.
 	 * @param	screen			The screen that will be used for selecting chara
 	 */
@@ -259,7 +268,7 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	protected void focus() {
 		clearIndent();
 		parent = MGlobal.screens.peek();
-		parent.pushCommandContext(new CMapMenu());
+		parent.pushCommandContext(new CMapRaw());
 		parent.pushCommandListener(this);
 	}
 	
@@ -277,6 +286,13 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	 */
 	protected void confirm() {
 		handleListener(listener.onSelection(selected));
+	}
+	
+	/**
+	 * Called when the weird user presses select on an item?
+	 */
+	protected void select() {
+		handleListener(selectListener.onSelection(selected));
 	}
 	
 	/**

@@ -5,8 +5,9 @@
 	"description" : "auto-generated anonymous polymorph",
 	"projector" : "GROUP_ENEMY",
 	"damType" : "FIRE",
+	"sideEffects" : [ ],
 	"power" : 4,
 	"attackStat" : "MANA",
 	"defendStat" : "AGI",
-	"sideEffects" : [ ]
+	"miss" : "CAN_MISS"
 }

@@ -277,7 +277,12 @@ public class CombatItem extends AssetQueuer {
 	 * @return					The cost to buy the item, in GP
 	 */
 	public int getCost() {
-		return container.valueOf(this);
+		if (container == null) {
+			MGlobal.reporter.warn("No container for item: " + this);
+			return -1;
+		} else {
+			return container.valueOf(this);
+		}
 	}
 	
 	/**

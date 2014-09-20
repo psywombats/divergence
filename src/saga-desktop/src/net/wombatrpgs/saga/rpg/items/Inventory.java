@@ -113,7 +113,12 @@ public abstract class Inventory {
 	 * @param	slot2			The other slot to swap
 	 */
 	public final void swap(int slot1, int slot2) {
-		set(slot2, set(slot1, get(slot2)));
+		CombatItem item1 = get(slot1);
+		CombatItem item2 = get(slot2);
+		remove(slot1);
+		remove(slot2);
+		set(slot1, item2);
+		set(slot2, item1);
 	}
 	
 	/**

@@ -111,37 +111,33 @@ public class ScreenInventory extends SagaScreen implements TargetSelectable {
 	@Override
 	public void onFocusGained() {
 		super.onFocusGained();
-		final ScreenInventory parent = this;
 		marked = -1;
 		items.awaitSelection(new SlotListener() {
 			@Override public boolean onSelection(int selected) {
-				if (marked == -1) {
-					if (selected == -1) {
-						MGlobal.screens.pop();
-						return true;
+				if (selected == -1) {
+					if (marked == -1) {
+						return cancelMenu(selected);
 					} else {
-						marked = selected;
-						items.setIndent();
+						return clearMark(selected);
 					}
 				} else {
-					items.clearIndent();
-					if (selected == -1) {
-						items.setSelected(marked);
+					if (marked == -1) {
+						return use(selected);
 					} else {
-						if (marked != selected) {
-							inventory.swap(marked, selected);
-						} else {
-							CombatItem item = inventory.get(selected);
-							if (item != null) {
-								items.useOrDiscard(parent);
-							}
-						}
+						return swap(selected);
 					}
-					marked = -1;
 				}
-				return false;
 			}
 		}, true);
+		items.attachSelectListener(new SlotListener() {
+			@Override public boolean onSelection(int selected) {
+				if (marked == -1) {
+					return setMark(selected);
+				} else {
+					return swap(selected);
+				}
+			}
+		});
 	}
 
 	/**
@@ -154,6 +150,66 @@ public class ScreenInventory extends SagaScreen implements TargetSelectable {
 		
 		inserts.setX(globalX + ITEMS_WIDTH - bg.getBorderWidth());
 		inserts.setY(globalY + ITEMS_HEIGHT - inserts.getHeight());
+	}
+	
+	/**
+	 * Clears the item swap marker.
+	 * @param	selected		-1 for cancel on the menu
+	 * @return					False to keep the menu open
+	 */
+	protected boolean clearMark(int selected) {
+		items.clearIndent();
+		items.setSelected(marked);
+		marked = -1;
+		return false;
+	}
+	
+	/**
+	 * Cancels out of the item selection.
+	 * @param	selected		-1 for cancel on the menu
+	 * @return					True to defocus the menu
+	 */
+	protected boolean cancelMenu(int selected) {
+		MGlobal.screens.pop();
+		return true;
+	}
+	
+	/**
+	 * Sets the item swap marker.
+	 * @param	selected		The position of the cursor
+	 * @return					False to keep the menu open
+	 */
+	protected boolean setMark(int selected) {
+		marked = selected;
+		items.setIndent();
+		return false;
+	}
+	
+	/**
+	 * Swaps the seleced with marked item.
+	 * @param	selected		The position of the cursor
+	 * @return					False to keep the menu open
+	 */
+	protected boolean swap(int selected) {
+		if (marked != selected) {
+			inventory.swap(marked, selected);
+		}
+		items.clearIndent();
+		marked = -1;
+		return false;
+	}
+	
+	/**
+	 * Uses the selected item.
+	 * @param	selected		The position of the cursor
+	 * @return					False to keep the menu open
+	 */
+	protected boolean use(int selected) {
+		CombatItem item = inventory.get(selected);
+		if (item != null) {
+			items.useOrDiscard(this);
+		}
+		return false;
 	}
 	
 }
