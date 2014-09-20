@@ -129,9 +129,9 @@ public class ScreenTitle extends SagaScreen {
 	 * @return					True to indicate command was processed
 	 */
 	public boolean confirm() {
-		transitioning = true;
 		if (selection == 0) {
 			// start
+			transitioning = true;
 			SagaScreen textIntro = new ScreenTextIntro();
 			MGlobal.assets.loadAsset(textIntro, "text intro");
 			textIntro.transitonOn(TransitionType.BLACK, new FinishListener() {
@@ -142,6 +142,7 @@ public class ScreenTitle extends SagaScreen {
 		} else {
 			// load
 			if (MemoryIndex.loadIndex().getSaveCount() > 0) {
+				transitioning = true;
 				SagaScreen textIntro = new ScreenSaves(false);
 				MGlobal.assets.loadAsset(textIntro, "text intro");
 				textIntro.transitonOn(TransitionType.BLACK, new FinishListener() {
