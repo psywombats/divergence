@@ -33,9 +33,16 @@ public abstract class PlaybackStep {
 	/**
 	 * Starts playback by setting an internal flag, then calling the subclass.
 	 */
-	public void start() {
+	public final void start() {
 		started = true;
 		internalStart();
+	}
+	
+	/**
+	 * Called once when the step is done executing. Default is nothing.
+	 */
+	public void finish() {
+		// noop
 	}
 	
 	/**

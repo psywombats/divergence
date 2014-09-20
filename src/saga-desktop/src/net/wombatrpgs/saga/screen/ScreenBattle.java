@@ -46,6 +46,7 @@ import net.wombatrpgs.saga.graphics.banim.BattleAnimFactory;
 import net.wombatrpgs.saga.rpg.battle.PlayAnim;
 import net.wombatrpgs.saga.rpg.battle.Battle;
 import net.wombatrpgs.saga.rpg.battle.PlayNumber;
+import net.wombatrpgs.saga.rpg.battle.PlayPause;
 import net.wombatrpgs.saga.rpg.battle.PlayShake;
 import net.wombatrpgs.saga.rpg.battle.PlaybackStep;
 import net.wombatrpgs.saga.rpg.battle.PlayText;
@@ -233,9 +234,6 @@ public class ScreenBattle extends SagaScreen {
 		shakeTimers = new HashMap<Integer, Float>();
 	}
 	
-	/** @param auto True to ignore human prompts for newline */
-	public void setAuto(boolean auto) { text.setAutoMode(auto); }
-	
 	/** @return True if the text box is not blocking battle playback */
 	public boolean isTextFinished() { return text.shouldAdvance(); }
 	
@@ -272,6 +270,7 @@ public class ScreenBattle extends SagaScreen {
 			}
 			if (current.isDone()) {
 				playbackQueue.remove(current);
+				current.finish();
 				if (playbackQueue.size() > 0) {
 					PlaybackStep next = playbackQueue.get(0);
 					next.start();
@@ -650,6 +649,13 @@ public class ScreenBattle extends SagaScreen {
 	}
 	
 	/**
+	 * Adds a pause for human prompt into the animation queue.
+	 */
+	public void animatePause() {
+		playbackQueue.add(new PlayPause(this));
+	}
+	
+	/**
 	 * Shakes a (player) target. Respects battle playback order.
 	 * @param	target			The player to shake
 	 */
@@ -666,7 +672,6 @@ public class ScreenBattle extends SagaScreen {
 		showPlayerInserts = true;
 		showMonsterList = true;
 		showActor = false;
-		setAuto(false);
 		updateMList();
 		partyInserts.refresh();
 		miniInserts.refresh();

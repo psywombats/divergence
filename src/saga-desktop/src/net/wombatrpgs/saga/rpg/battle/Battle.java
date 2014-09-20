@@ -309,12 +309,12 @@ public class Battle extends AssetQueuer implements Disposable {
 					println(eatername + " transforms into " + newSpecies + ".");
 				}
 				
-				screen.setAuto(false);
-				playback("", new FinishListener() {
+				screen.animatePause();
+				playbackListener = new FinishListener() {
 					@Override public void onFinish() {
 						finish();
 					}
-				});
+				};
 				return true;
 			}
 		});
@@ -595,9 +595,6 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * @param	listener		What to do when the text display is done
 	 */
 	protected void playback(String line, FinishListener listener) {
-		if (playbackListener != null) {
-			MGlobal.reporter.warn("Multiple playback finish listeners.");
-		}
 		playbackListener = listener;
 		screen.println(line);
 	}
@@ -649,7 +646,6 @@ public class Battle extends AssetQueuer implements Disposable {
 			}
 		}
 		Collections.sort(globalTurn);
-		screen.setAuto(true);
 		for (Intent intent : globalTurn) {
 			intent.onRoundStart();
 		}
@@ -681,19 +677,12 @@ public class Battle extends AssetQueuer implements Disposable {
 					playNextIntent();
 				} else {
 					finishRound();
-					screen.setAuto(false);
+					screen.animatePause();
 					playbackListener = new FinishListener() {
 						@Override public void onFinish() {
-							playback("", new FinishListener() {
-								@Override public void onFinish() {
-									newRound();
-								}
-							});
+							newRound();
 						}
 					};
-					if (screen.isTextFinished()) {
-						playbackListener.onFinish();
-					}
 				}
 			}
 		};
@@ -900,12 +889,13 @@ public class Battle extends AssetQueuer implements Disposable {
 		
 		meatDropper = enemy.chooseMeatFamily();
 		if (meatDropper == null) {	
-			screen.setAuto(false);
-			playback(gpstring, new FinishListener() {
+			println(gpstring);
+			screen.animatePause();
+			playbackListener = new FinishListener() {
 				@Override public void onFinish() {
 					finish();
 				}
-			});
+			};
 		} else {
 			println(gpstring);
 			println("");
@@ -927,12 +917,13 @@ public class Battle extends AssetQueuer implements Disposable {
 	protected void onDefeat() {
 		// TODO: battle: game over, player!
 		println("");
-		screen.setAuto(false);
-		playback("The party is lost...", new FinishListener() {
+		println("The party is lost...");
+		screen.animatePause();
+		playbackListener = new FinishListener() {
 			@Override public void onFinish() {
 				finish();
 			}
-		});
+		};
 	}
 	
 	/**

@@ -28,7 +28,6 @@ public class BattleBox extends TextBox implements CommandListener {
 	
 	protected ScreenBattle parent;
 	
-	protected boolean auto;
 	protected boolean shouldAdvance;
 
 	/**
@@ -41,11 +40,7 @@ public class BattleBox extends TextBox implements CommandListener {
 	public BattleBox(ScreenBattle parent, int lines) {
 		super(generateMDO(lines), MGlobal.ui.getFont());
 		this.parent = parent;
-		auto = false;
 	}
-	
-	/** @param auto True to not wait for human input */
-	public void setAutoMode(boolean auto) { this.auto = auto; }
 	
 	/**
 	 * @see net.wombatrpgs.mgne.io.CommandListener#onCommand
@@ -77,7 +72,7 @@ public class BattleBox extends TextBox implements CommandListener {
 		} else {
 			super.update(elapsed);
 		}
-		if (isFinished() && auto) {
+		if (isFinished()) {
 			parent.removeCommandListener(this);
 			shouldAdvance = true;
 		}
