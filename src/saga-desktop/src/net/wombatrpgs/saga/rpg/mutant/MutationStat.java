@@ -47,6 +47,15 @@ public class MutationStat extends Mutation {
 	}
 
 	/**
+	 * @see net.wombatrpgs.saga.rpg.mutant.Mutation#getMessage()
+	 */
+	@Override
+	public String getMessage() {
+		return chara.getName() + "'s " + stat.getFullName() + " rose by " +
+				delta + ".";
+	}
+
+	/**
 	 * @see net.wombatrpgs.saga.rpg.mutant.Mutation#apply()
 	 */
 	@Override

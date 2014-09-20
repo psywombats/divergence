@@ -58,6 +58,20 @@ public class MutationAbil extends Mutation {
 	}
 
 	/**
+	 * @see net.wombatrpgs.saga.rpg.mutant.Mutation#getMessage()
+	 */
+	@Override
+	public String getMessage() {
+		CombatItem loseAbil = chara.getInventory().get(lose);
+		if (loseAbil == null) {
+			return "acquired " + gain.getName();
+		} else {
+			return chara.getName() + " lost " + loseAbil.getName() +
+					" and acquired " + gain.getName();
+		}
+	}
+
+	/**
 	 * @see net.wombatrpgs.saga.rpg.mutant.Mutation#apply()
 	 */
 	@Override

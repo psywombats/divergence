@@ -42,5 +42,12 @@ public abstract class Mutation {
 	 * @return					The stat controlling this level, or null
 	 */
 	public abstract Stat getStat();
+	
+	/**
+	 * Returns the descriptive message displayed in the battle box once the
+	 * player selects this option. Should be in the past tense.
+	 * @return					The message for the level option
+	 */
+	public abstract String getMessage();
 
 }

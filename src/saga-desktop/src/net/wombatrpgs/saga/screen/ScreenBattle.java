@@ -847,6 +847,7 @@ public class ScreenBattle extends SagaScreen {
 			options.add(new Option(mutation.getDesc()) {
 				@Override public boolean onSelect() {
 					mutation.apply();
+					println(mutation.getMessage());
 					listener.onFinish();
 					return true;
 				}
