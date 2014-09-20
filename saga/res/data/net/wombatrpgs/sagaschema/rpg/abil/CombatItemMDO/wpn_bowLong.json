@@ -6,11 +6,11 @@
 	"abilityName" : "$SLONG",
 	"type" : "ITEM",
 	"uses" : 50,
-	"cost" : 52,
+	"cost" : 152,
 	"anim" : "banim_arrows",
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectFixedMDO",
-		"key" : "anon_CombatItemMDO_-1339260304"
+		"key" : "anon_CombatItemMDO_-417021591"
 	},
 	"robostats" : {
 		"stats" : [
