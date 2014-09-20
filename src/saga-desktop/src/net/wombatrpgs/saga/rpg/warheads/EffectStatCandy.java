@@ -55,9 +55,11 @@ public class EffectStatCandy extends EffectBattleUnusable {
 						MGlobal.sfx.play(SConstants.SFX_FAIL);
 						// TODO: polish: maybe print an error message?
 					} else {
+						MGlobal.sfx.play(SConstants.SFX_CURE);
 						int delta = mdo.maxGain - mdo.minGain;
 						if (delta > 0) delta = MGlobal.rand.nextInt(delta);
 						selected.modifyStat(mdo.stat, (mdo.minGain + delta));
+						getItem().deductUse();
 						caller.refresh();
 					}
 				}

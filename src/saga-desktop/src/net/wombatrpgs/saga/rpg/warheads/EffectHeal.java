@@ -148,7 +148,7 @@ public class EffectHeal extends EffectAllyTarget {
 		}
 		if (affected) {
 			item.deductUse();
-			// TODO: sfx: call the item's set SFX
+			MGlobal.sfx.play(SConstants.SFX_CURE);
 			caller.refresh();
 		} else {
 			MGlobal.sfx.play(SConstants.SFX_FAIL);
