@@ -17,6 +17,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.io.CommandListener;
+import net.wombatrpgs.mgne.io.CommandMap;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Graphic;
@@ -34,6 +35,7 @@ public class CharaSelector extends ScreenGraphic implements	CommandListener {
 	
 	protected Screen parent;
 	protected Party party;
+	protected CommandMap context;
 	
 	protected static final int INSERTS_MARGIN = 7;
 	protected static final int INDENT_SIZE = 4;
@@ -94,6 +96,8 @@ public class CharaSelector extends ScreenGraphic implements	CommandListener {
 		
 		bg = new Nineslice();
 		assets.add(bg);
+		
+		context = new CMapMenu();
 	}
 	
 	/**
@@ -364,7 +368,7 @@ public class CharaSelector extends ScreenGraphic implements	CommandListener {
 		cursorOn = false;
 		onHover = null;
 		parent.removeCommandListener(this);
-		parent.popCommandContext();
+		parent.removeCommandContext(context);
 	}
 	
 	/**
@@ -372,7 +376,7 @@ public class CharaSelector extends ScreenGraphic implements	CommandListener {
 	 */
 	protected void focus() {
 		parent = MGlobal.screens.peek();
-		parent.pushCommandContext(new CMapMenu());
+		parent.pushCommandContext(context);
 		parent.pushCommandListener(this);
 	}
 	

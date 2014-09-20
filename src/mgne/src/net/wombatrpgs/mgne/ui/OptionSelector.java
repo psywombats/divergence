@@ -18,6 +18,7 @@ import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.io.CommandListener;
+import net.wombatrpgs.mgne.io.CommandMap;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextFormat;
@@ -54,6 +55,7 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	protected float cursorX, cursorY;
 	
 	// etc state
+	protected CommandMap context;
 	protected FinishListener cancel;
 	protected boolean cancellable;
 	protected boolean controlling;
@@ -89,6 +91,8 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 				padVert * 2);
 		bg = new Nineslice(bgMDO);
 		assets.add(bg);
+		
+		context = new CMapMenu();
 	}
 	
 	/**
@@ -251,7 +255,7 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	public void unfocus() {
 		if (controlling) {
 			MGlobal.screens.peek().removeCommandListener(this);
-			MGlobal.screens.peek().popCommandContext();
+			MGlobal.screens.peek().removeCommandContext(context);
 		}
 		controlling = false;
 	}
@@ -260,7 +264,7 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	 * Resumes the menu for input reception. Should already be on screen.
 	 */
 	public void focus() {
-		MGlobal.screens.peek().pushCommandContext(new CMapMenu());
+		MGlobal.screens.peek().pushCommandContext(context);
 		MGlobal.screens.peek().pushCommandListener(this);
 		controlling = true;
 	}
@@ -270,7 +274,9 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	 */
 	public void close() {
 		unfocus();
-		MGlobal.screens.peek().removeChild(this);
+		if (MGlobal.screens.peek().containsChild(this)) {
+			MGlobal.screens.peek().removeChild(this);
+		}
 		if (autoload) {
 			dispose();
 		}

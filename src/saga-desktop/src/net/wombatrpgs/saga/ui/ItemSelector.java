@@ -13,6 +13,7 @@ import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.io.CommandListener;
+import net.wombatrpgs.mgne.io.CommandMap;
 import net.wombatrpgs.mgne.io.command.CMapRaw;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Graphic;
@@ -34,6 +35,7 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	protected static final int INDENT_SIZE = 4;
 	
 	protected Inventory inventory;
+	protected CommandMap context;
 	
 	// layout
 	protected Screen parent;
@@ -91,6 +93,8 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 		priceFormat.align = HAlignment.RIGHT;
 		priceFormat.width = 48;
 		priceFormat.height = 240;
+		
+		context = new CMapRaw();
 	}
 
 	/** @see net.wombatrpgs.mgne.graphics.ScreenGraphic#getWidth() */
@@ -259,7 +263,7 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	public void unfocus() {
 		cursorOn = false;
 		parent.removeCommandListener(this);
-		parent.popCommandContext();
+		parent.removeCommandContext(context);
 	}
 	
 	/**
@@ -268,7 +272,7 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	protected void focus() {
 		clearIndent();
 		parent = MGlobal.screens.peek();
-		parent.pushCommandContext(new CMapRaw());
+		parent.pushCommandContext(context);
 		parent.pushCommandListener(this);
 	}
 	

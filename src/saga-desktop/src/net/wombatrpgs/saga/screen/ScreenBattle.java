@@ -972,7 +972,7 @@ public class ScreenBattle extends SagaScreen {
 	 */
 	protected void cancelSelectionMode() {
 		selectionMode = false;
-		popCommandListener();
+		removeCommandListener(this);
 	}
 	
 	/**

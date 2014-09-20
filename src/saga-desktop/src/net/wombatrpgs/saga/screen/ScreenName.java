@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
+import net.wombatrpgs.mgne.io.CommandMap;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.screen.WindowSettings;
 import net.wombatrpgs.mgne.ui.Graphic;
@@ -38,6 +39,7 @@ public class ScreenName extends SagaScreen {
 	protected static final int LETTERS_PADDING_VERT = 3;
 	
 	protected Chara chara;
+	protected CommandMap context;
 	protected FinishListener listener;
 	protected List<Character> chars;
 	protected FacesAnimation sprite;
@@ -126,6 +128,13 @@ public class ScreenName extends SagaScreen {
 		
 		finished = false;
 		reconstructUnderName();
+		
+		context = new CMapMenu() {
+			@Override protected InputCommand parseCharacter(char character) {
+				//addLetter(character);
+				return super.parseCharacter(character);
+			}
+		};
 	}
 	
 	/**
@@ -186,12 +195,7 @@ public class ScreenName extends SagaScreen {
 	@Override
 	public void onFocusGained() {
 		super.onFocusGained();
-		pushCommandContext(new CMapMenu() {
-			@Override protected InputCommand parseCharacter(char character) {
-				//addLetter(character);
-				return super.parseCharacter(character);
-			}
-		});
+		pushCommandContext(context);
 	}
 
 	/**
@@ -227,7 +231,7 @@ public class ScreenName extends SagaScreen {
 	@Override
 	public void onFocusLost() {
 		super.onFocusLost();
-		popCommandContext();
+		removeCommandContext(context);
 	}
 
 	/**

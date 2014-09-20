@@ -120,9 +120,6 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	/** @param listener The listener to receive command updates */
 	public void pushCommandListener(CommandListener listener) { commandListeners.push(listener); }
 	
-	/** Pops the latest listener from the command listener stack */
-	public void popCommandListener() { commandListeners.pop(); }
-	
 	/** @param listener The listener to stop receiving command updates */
 	public void removeCommandListener(CommandListener listener) { commandListeners.remove(listener); }
 	
@@ -165,11 +162,7 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	 * @param	map				The map to remove
 	 */
 	public void removeCommandContext(CommandMap map) {
-		if (map == getTopCommandContext()) {
-			popCommandContext();
-		} else {
-			commandContext.remove(map);
-		}
+		commandContext.remove(map);
 	}
 	
 	/**
@@ -178,13 +171,6 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	 */
 	public void pushCommandContext(CommandMap map) {
 		commandContext.push(map);
-	}
-	
-	/**
-	 * Removes the last active command context.
-	 */
-	public void popCommandContext() {
-		commandContext.pop();
 	}
 
 	/**

@@ -7,6 +7,7 @@
 package net.wombatrpgs.mgne.ui.text;
 
 import net.wombatrpgs.mgne.io.CommandListener;
+import net.wombatrpgs.mgne.io.CommandMap;
 import net.wombatrpgs.mgne.io.command.CMapScene;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
@@ -19,6 +20,7 @@ public class BlockingTextBox extends TextBox implements CommandListener {
 	
 	protected static final float FADE_TIME = 0f;
 	
+	protected CommandMap context;
 	protected boolean blocking;
 	protected boolean setText;
 	protected Screen screen;
@@ -33,6 +35,7 @@ public class BlockingTextBox extends TextBox implements CommandListener {
 		super(mdo, font);
 		blocking = false;
 		setText = false;
+		context = new CMapScene();
 	}
 
 	/**
@@ -44,8 +47,8 @@ public class BlockingTextBox extends TextBox implements CommandListener {
 		if (blocking && command == InputCommand.UI_CONFIRM) {
 			if (isFinished()) {
 				fadeOut(FADE_TIME);
-				screen.popCommandListener();
-				screen.popCommandContext();
+				screen.removeCommandListener(this);
+				screen.removeCommandContext(context);
 				blocking = false;
 			} else {
 				hurryUp();
@@ -86,7 +89,7 @@ public class BlockingTextBox extends TextBox implements CommandListener {
 		setText = false;
 		fadeIn(screen, FADE_TIME);
 		screen.pushCommandListener(this);
-		screen.pushCommandContext(new CMapScene());
+		screen.pushCommandContext(context);
 		blocking = true;
 	}
 
