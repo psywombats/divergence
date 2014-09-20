@@ -996,7 +996,7 @@ public class ScreenBattle extends SagaScreen {
 		List<Integer> groups = new ArrayList<Integer>();
 		for (Chara enemy : targets) {
 			int index = battle.getEnemy().index(enemy);
-			if (!groups.contains(index)) {
+			if (index != -1 && !groups.contains(index)) {
 				groups.add(index);
 			}
 		}
