@@ -801,7 +801,6 @@ public class ScreenBattle extends SagaScreen {
 				} else {
 					listener.onTargetSelection(Arrays.asList(selected));
 				}
-				removeChild(miniInserts);
 				showMonsterList = true;
 				return true;
 			}
@@ -837,7 +836,6 @@ public class ScreenBattle extends SagaScreen {
 					close = onSelection.onSelection(targets.get(0));
 				}
 				if (close) {
-					removeChild(meatOptions);
 					removeChild(miniInserts);
 					showMeatMessage = false;
 				}

@@ -56,6 +56,14 @@ public abstract class EffectCombat extends EffectEnemyTarget {
 		String victimname = victim.getName();
 		String tab = SConstants.TAB;
 		
+		if (victim.get(Stat.HP) < 0) {
+			MGlobal.reporter.warn("Attacking a dead guy");
+		}
+		
+		if (user.get(Stat.HP) < 0) {
+			MGlobal.reporter.warn("Dead man walking!");
+		}
+		
 		// Collect list of all effects triggered by this attack
 		List<PostDefend> callbacks = new ArrayList<PostDefend>();
 		boolean countered = false;

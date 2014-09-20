@@ -538,12 +538,14 @@ public class Battle extends AssetQueuer implements Disposable {
 		if (random && MGlobal.rand.nextFloat() < AMBUSH_RATE) {
 			if (player.hasFlag(Flag.AMBUSHER) && !enemy.hasFlag(Flag.NO_AMBUSH)) {
 				String leader = player.findLeader().getName();
-				playback(leader + " ambushes the enemy.", new FinishListener() {
+				println(leader + " ambushes the enemy.");
+				screen.animatePause();
+				playbackListener = new FinishListener() {
 					@Override public void onFinish() {
 						screen.onNewRound();
 						enemyDisabled = true;
 					}
-				});
+				};
 			} else if (enemy.hasFlag(Flag.AMBUSHER) && !player.hasFlag(Flag.NO_AMBUSH)) {
 				String leader = player.findLeader().getName();
 				playback(leader + " is ambushed!", new FinishListener() {
@@ -657,11 +659,6 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * call if no intents are left.
 	 */
 	protected void playNextIntent() {
-		if (globalTurn.size() > 0) {
-			Intent intent = globalTurn.get(0);
-			globalTurn.remove(0);
-			intent.resolve();
-		}
 		playbackListener = new FinishListener() {
 			@Override public void onFinish() {
 				updateLivenessLists();
@@ -686,8 +683,11 @@ public class Battle extends AssetQueuer implements Disposable {
 				}
 			}
 		};
-		// failed escape during ambush?
-		if (globalTurn.size() == 0) {
+		if (globalTurn.size() > 0) {
+			Intent intent = globalTurn.get(0);
+			globalTurn.remove(0);
+			intent.resolve();
+		} else {
 			playbackListener.onFinish();
 		}
 	}
@@ -701,7 +701,7 @@ public class Battle extends AssetQueuer implements Disposable {
 			Chara mutant = player.getAll().get(mutateIndex);
 			mutateIndex += 1;
 			final List<Mutation> mutations = mutant.generateMutations();
-			if (mutations == null) {
+			if (mutations == null || mutant.isDead()) {
 				playNextMutation();
 			} else {
 				println("");

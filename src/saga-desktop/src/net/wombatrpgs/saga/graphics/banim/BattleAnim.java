@@ -7,6 +7,7 @@
 package net.wombatrpgs.saga.graphics.banim;
 
 import net.wombatrpgs.mgne.io.audio.SoundObject;
+import net.wombatrpgs.mgne.maps.MapThing;
 import net.wombatrpgs.saga.graphics.PortraitAnim;
 import net.wombatrpgs.saga.screen.ScreenBattle;
 import net.wombatrpgs.sagaschema.graphics.banim.data.BattleAnimMDO;
@@ -26,7 +27,7 @@ public abstract class BattleAnim extends PortraitAnim {
 	 */
 	public BattleAnim(BattleAnimMDO mdo) {
 		this.mdo = mdo;
-		if (mdo.sound != null) {
+		if (MapThing.mdoHasProperty(mdo.sound)) {
 			sound = SoundObject.createFromFile(mdo.sound);
 			assets.add(sound);
 		}

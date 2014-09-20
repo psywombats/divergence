@@ -46,7 +46,7 @@
 		},
 		{
 			"encounter" : "encounter_lvl00_WOLF2-4",
-			"weight" : 2
+			"weight" : 2000
 		}
 	],
 	"steps" : 32
