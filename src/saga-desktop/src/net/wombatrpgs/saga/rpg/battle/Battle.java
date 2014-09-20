@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.wombatrpgs.mgne.core.AssetQueuer;
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
@@ -31,6 +32,8 @@ import net.wombatrpgs.saga.rpg.mutant.Mutation;
 import net.wombatrpgs.saga.rpg.stats.SagaStats;
 import net.wombatrpgs.saga.rpg.stats.TempStats;
 import net.wombatrpgs.saga.rpg.warheads.EffectDefend;
+import net.wombatrpgs.saga.screen.SagaScreen;
+import net.wombatrpgs.saga.screen.SagaScreen.FadeType;
 import net.wombatrpgs.saga.screen.SagaScreen.TransitionType;
 import net.wombatrpgs.saga.screen.ScreenBattle;
 import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
@@ -67,6 +70,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	protected Chara meatDropper;
 	protected int actorIndex;
 	protected int mutateIndex;
+	protected boolean initialized;
 	protected boolean enemyDisabled;
 	protected boolean finished;
 	protected boolean targetingMode;
@@ -153,16 +157,42 @@ public class Battle extends AssetQueuer implements Disposable {
 	}
 	
 	/**
+	 * @see net.wombatrpgs.mgne.core.AssetQueuer#postProcessing
+	 * (net.wombatrpgs.mgne.core.MAssets, int)
+	 */
+	@Override
+	public void postProcessing(MAssets manager, int pass) {
+		super.postProcessing(manager, pass);
+		initialized = true;
+	}
+
+	/**
 	 * Call this to begin the battle. Will bring the screen to the front. Should
 	 * smoothly transition etc.
 	 */
 	public void start() {
 		final Battle battle = this;
-		screen.transitonOn(TransitionType.WHITE, new FinishListener() {
-			@Override public void onFinish() {
-				battle.internalStart();
-			}
-		});
+		if (initialized) {
+			screen.transitonOn(TransitionType.WHITE, new FinishListener() {
+				@Override public void onFinish() {
+					battle.internalStart();
+				}
+			});
+		} else {
+			SagaScreen current = (SagaScreen) MGlobal.screens.peek();
+			current.fade(FadeType.TO_WHITE, new FinishListener() {
+				@Override public void onFinish() {
+					MGlobal.assets.loadAsset(battle, "battle");
+					MGlobal.screens.push(screen);
+					screen.fade(FadeType.FROM_WHITE, new FinishListener() {
+						@Override public void onFinish() {
+							battle.internalStart();
+						}
+					});
+					screen.update(0);
+				}
+			});
+		}
 	}
 	
 	/**
