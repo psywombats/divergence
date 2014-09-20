@@ -40,10 +40,25 @@ public class CharaInsertFull extends CharaInsert {
 	}
 	
 	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getWidth() */
-	@Override public int getWidth() { return WIDTH; }
+	@Override public int getWidth() {
+		int min = WIDTH;
+		int calcd = (int) (PADDING*2 + chara.getAppearance().getWidth());
+		calcd += MGlobal.ui.getFont().getWidth(chara.getName());
+		return Math.max(min, calcd);
+	}
 	
 	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getHeight() */
 	@Override public int getHeight() { return HEIGHT; }
+	
+	/**
+	 * Calculates the maximum width an insert of this type could occupy.
+	 * @return					The max width, in pixels
+	 */
+	public static int getMaxWidth() {
+		int calcd = (int) (PADDING*2 + 16);
+		calcd += MGlobal.ui.getFont().getWidth("0123456789");
+		return calcd;
+	}
 	
 	/**
 	 * @see net.wombatrpgs.saga.ui.CharaInsert#renderInserts

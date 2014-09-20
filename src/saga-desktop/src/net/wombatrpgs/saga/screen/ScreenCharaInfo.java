@@ -36,12 +36,12 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
  */
 public class ScreenCharaInfo extends SagaScreen implements TargetSelectable {
 	
-	protected static final int HEADER_WIDTH = 160;
-	protected static final int HEADER_HEIGHT = 48;
+	protected static final int HEADER_WIDTH = 178;
+	protected static final int HEADER_HEIGHT = 52;
 	protected static final int STATS_WIDTH = 48;
 	protected static final int STATS_HEIGHT = 108;
 	protected static final int STATS_PADDING = 8;
-	protected static final int ABILS_WIDTH = 112;
+	protected static final int ABILS_WIDTH = 128;
 	protected static final int ABILS_HEIGHT = 108;
 	protected static final int ABILS_EDGE_PADDING = 12;
 	protected static final int ABILS_LIST_PADDING = 3;

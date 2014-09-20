@@ -28,11 +28,11 @@ import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
  */
 public class ScreenEquip extends SagaScreen {
 	
-	protected static final int HEADER_WIDTH = 112;
-	protected static final int HEADER_HEIGHT = 48;
-	protected static final int ABILS_WIDTH = 112;
+	protected static final int HEADER_WIDTH = 128;
+	protected static final int HEADER_HEIGHT = 60;
+	protected static final int ABILS_WIDTH = 128;
 	protected static final int ABILS_HEIGHT = 100;
-	protected static final int ITEMS_WIDTH = 112;
+	protected static final int ITEMS_WIDTH = 128;
 	protected static final int ITEMS_HEIGHT = 122;
 	protected static final int ITEMS_EDGE_PADDING = 12;
 	protected static final int ITEMS_LIST_PADDING = 3;

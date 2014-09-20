@@ -32,13 +32,13 @@ import net.wombatrpgs.sagaschema.rpg.abil.ShopMDO;
  */
 public class ScreenShop extends SagaScreen {
 	
-	protected static final int ITEMS_WIDTH = 172;
+	protected static final int ITEMS_WIDTH = 188;
 	protected static final int ITEMS_EDGE_PADDING = 12;
 	protected static final int ITEMS_LIST_PADDING = 3;
 	protected static final int ITEMS_PRICE_WIDTH = 56;
 	protected static final int HEADER_HEIGHT = 24;
 	protected static final int HEADER_MARGINS = 8;
-	protected static final int GP_WIDTH = 80;
+	protected static final int GP_WIDTH = 90;
 	protected static final int GP_HEIGHT = 24;
 	protected static final int GP_MARGINS = 8;
 	protected static final int GLOBAL_Y = 80;

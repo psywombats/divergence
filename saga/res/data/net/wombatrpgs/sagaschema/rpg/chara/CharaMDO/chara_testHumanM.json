@@ -1,7 +1,7 @@
 {
 	"key" : "chara_testHumanM",
 	"subfolder" : "test",
-	"name" : "BobHuman",
+	"name" : "BobHumannn",
 	"description" : "",
 	"gender" : "MALE",
 	"race" : "HUMAN",
@@ -18,7 +18,8 @@
 		"item_testLegendSword",
 		"item_testShield",
 		"item_testPetrify",
-		"abil_stench"
+		"abil_stench",
+		"item_testLonggg"
 	],
 	"stats" : {
 		"hp" : 60,

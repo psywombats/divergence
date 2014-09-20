@@ -31,10 +31,11 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
  */
 public class ScreenInn extends SagaScreen {
 	
-	protected static final int INFO_HEIGHT = 32;
-	protected static final int INFO_MARGINS = 8;
+	protected static final int INFO_HEIGHT = 40;
+	protected static final int INFO_MARGINS = 10;
+	protected static final int INSERTS_PAD_Y = 4;
 	
-	protected static final int GLOBAL_Y = 92;
+	protected static final int GLOBAL_Y = 82;
 	
 	protected OptionSelector menu;
 	protected CharaSelector inserts;
@@ -69,6 +70,7 @@ public class ScreenInn extends SagaScreen {
 		assets.add(infoBG);
 		
 		inserts = new CharaSelector(true, false);
+		inserts.setPadY(INSERTS_PAD_Y);
 		addUChild(inserts);
 		assets.add(inserts);
 		
@@ -81,11 +83,11 @@ public class ScreenInn extends SagaScreen {
 		
 		format = new TextFormat();
 		format.align = HAlignment.LEFT;
-		format.width = inserts.getWidth();
+		format.width = inserts.getWidth() - INFO_MARGINS / 2 - 10;
 		format.height = INFO_HEIGHT;
 		format.x = insertsX + INFO_MARGINS;
 		format.y = (int) (insertsY + inserts.getHeight() + INFO_MARGINS +
-				font.getLineHeight()*2  - inserts.getBorderHeight());
+				font.getLineHeight()*2  - inserts.getBorderHeight()) + 5;
 		
 		done = false;
 	}

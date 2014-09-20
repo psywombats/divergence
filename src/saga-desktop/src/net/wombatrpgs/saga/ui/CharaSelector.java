@@ -149,6 +149,19 @@ public class CharaSelector extends ScreenGraphic implements	CommandListener {
 	
 	/** @return True if this selector is currently swapping */
 	public boolean isSwapping() { return swapping; }
+	
+	/** @param padY The new vertical padding, in px */
+	public void setPadY(int padY) {
+		this.padY = padY;
+		insertsWidth = getInsertWidth();
+		insertsHeight = getInsertHeight();
+		insertsWidth *= cols;
+		insertsHeight *= rows;
+		insertsWidth += 2 * INSERTS_MARGIN;
+		insertsHeight += 2 * (INSERTS_MARGIN);
+		insertsWidth += padX * (cols-1);
+		insertsHeight += padY * (rows-1) + 2;
+	}
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#setX(float)
@@ -388,7 +401,7 @@ public class CharaSelector extends ScreenGraphic implements	CommandListener {
 			} else {
 				insert = new CharaInsertSmall(hero);
 			}
-			float insertX = baseX + (insert.getWidth() + padX) * col;
+			float insertX = baseX + (getInsertWidth() + padX) * col;
 			float insertY = baseY;
 			insert.setX(insertX);
 			insert.setY(insertY);
@@ -479,7 +492,11 @@ public class CharaSelector extends ScreenGraphic implements	CommandListener {
 	 * @return					The width of an insert (in virtual px)
 	 */
 	protected int getInsertWidth() {
-		return fullMode ? CharaInsertFull.WIDTH : CharaInsertSmall.WIDTH;
+		if (fullMode) {
+			return CharaInsertFull.getMaxWidth();
+		} else {
+			return CharaInsertSmall.WIDTH;
+		}
 	}
 	
 	/**

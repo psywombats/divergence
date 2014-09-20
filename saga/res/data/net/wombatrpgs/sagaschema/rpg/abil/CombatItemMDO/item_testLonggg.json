@@ -1,0 +1,19 @@
+{
+	"key" : "item_testLonggg",
+	"subfolder" : "test",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$ELONGGGGGG",
+	"type" : "ITEM",
+	"uses" : 99,
+	"cost" : 999999,
+	"anim" : "banim_slash",
+	"equip" : [ ],
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_1026188262"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

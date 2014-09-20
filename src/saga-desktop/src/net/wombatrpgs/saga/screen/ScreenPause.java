@@ -31,10 +31,10 @@ import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
  */
 public class ScreenPause extends SagaScreen implements Disposable {
 	
-	protected static final int INFO_HEIGHT = 32;
-	protected static final int INFO_MARGINS = 8;
+	protected static final int INFO_HEIGHT = 40;
+	protected static final int INFO_MARGINS = 10;
 	
-	protected static final int GLOBAL_Y = 92;
+	protected static final int GLOBAL_Y = 88;
 	
 	protected OptionSelector menu, saveSelector;
 	protected CharaSelector inserts;
@@ -254,6 +254,7 @@ public class ScreenPause extends SagaScreen implements Disposable {
 			removeUChild(inserts);
 		}
 		inserts = new CharaSelector(true, false);
+		inserts.setPadY(4);
 		MGlobal.assets.loadAsset(inserts, "pause menu inserts");
 		addUChild(inserts);
 		
@@ -266,11 +267,11 @@ public class ScreenPause extends SagaScreen implements Disposable {
 		info1 = "Floor: " + SGlobal.heroes.getLocation();
 		info2 = "GP: " + SGlobal.heroes.getGP();
 		format.align = HAlignment.LEFT;
-		format.width = inserts.getWidth();
+		format.width = inserts.getWidth() - INFO_MARGINS / 2;
 		format.height = INFO_HEIGHT;
 		format.x = insertsX + INFO_MARGINS;
 		format.y = (int) (insertsY + inserts.getHeight() + INFO_MARGINS +
-				font.getLineHeight()*2  - inserts.getBorderHeight());
+				font.getLineHeight()*2  - inserts.getBorderHeight()) + 5;
 	}
 	
 }

@@ -26,7 +26,7 @@ import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
  */
 public class ScreenInventory extends SagaScreen implements TargetSelectable {
 	
-	protected static final int ITEMS_WIDTH = 112;
+	protected static final int ITEMS_WIDTH = 128;
 	protected static final int ITEMS_HEIGHT = 130;
 	protected static final int ITEMS_EDGE_PADDING = 12;
 	protected static final int ITEMS_LIST_PADDING = 3;
