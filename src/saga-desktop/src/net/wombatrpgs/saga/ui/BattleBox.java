@@ -28,6 +28,7 @@ public class BattleBox extends TextBox implements CommandListener {
 	
 	protected ScreenBattle parent;
 	
+	protected boolean receivedDown;
 	protected boolean shouldAdvance;
 
 	/**
@@ -53,8 +54,7 @@ public class BattleBox extends TextBox implements CommandListener {
 				parent.removeCommandListener(this);
 				shouldAdvance = true;
 			} else {
-				// instead we'll poll for turbo
-				// hurryUp();
+				receivedDown = true;
 			}
 			return true;
 		} else {
@@ -67,10 +67,13 @@ public class BattleBox extends TextBox implements CommandListener {
 	 */
 	@Override
 	public void update(float elapsed) {
-		if (MGlobal.keymap.getButtonState(InputButton.BUTTON_A) == KeyState.DOWN) {
+		if (MGlobal.keymap.getButtonState(InputButton.BUTTON_A) == KeyState.DOWN && receivedDown) {
 			super.update(elapsed * 5);
 		} else {
 			super.update(elapsed);
+		}
+		if (receivedDown && (MGlobal.keymap.getButtonState(InputButton.BUTTON_A) != KeyState.DOWN)) {
+			receivedDown = false;
 		}
 		if (isFinished()) {
 			parent.removeCommandListener(this);
