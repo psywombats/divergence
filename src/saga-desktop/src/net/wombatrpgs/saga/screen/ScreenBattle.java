@@ -578,15 +578,21 @@ public class ScreenBattle extends SagaScreen {
 	 */
 	public void immediateAnimate(BattleAnimMDO animMDO, List<Chara> targets) {
 		List<Integer> groups = constructGroups(targets);
-		for (Integer index : groups) {
+		if (groups.size() > 0) {
+			for (Integer index : groups) {
+				BattleAnim anim = BattleAnimFactory.create(animMDO);
+				anims.add(anim);
+				animsOnGroups.put(index, anim);
+				addUChild(anim);
+			}
+			MGlobal.assets.loadAssets(anims, "battle animation " + animMDO);
+			for (PortraitAnim anim : anims) {
+				anim.start(this);
+			}
+		} else {
 			BattleAnim anim = BattleAnimFactory.create(animMDO);
-			anims.add(anim);
-			animsOnGroups.put(index, anim);
-			addUChild(anim);
-		}
-		MGlobal.assets.loadAssets(anims, "battle animation " + animMDO);
-		for (PortraitAnim anim : anims) {
-			anim.start(this);
+			MGlobal.assets.loadAsset(anim, "battle animation sfx " + animMDO);
+			anim.playSound();
 		}
 	}
 	

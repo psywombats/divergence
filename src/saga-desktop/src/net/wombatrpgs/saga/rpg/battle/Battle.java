@@ -661,9 +661,11 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * call if no intents are left.
 	 */
 	protected void playNextIntent() {
-		Intent intent = globalTurn.get(0);
-		globalTurn.remove(0);
-		intent.resolve();
+		if (globalTurn.size() > 0) {
+			Intent intent = globalTurn.get(0);
+			globalTurn.remove(0);
+			intent.resolve();
+		}
 		playbackListener = new FinishListener() {
 			@Override public void onFinish() {
 				updateLivenessLists();
@@ -695,6 +697,10 @@ public class Battle extends AssetQueuer implements Disposable {
 				}
 			}
 		};
+		// failed escape during ambush?
+		if (globalTurn.size() == 0) {
+			playbackListener.onFinish();
+		}
 	}
 	
 	/**
