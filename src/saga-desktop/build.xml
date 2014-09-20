@@ -112,6 +112,19 @@
                 <propertyref name="build.compiler"/>
             </propertyset>
         </ant>
+		<jar destfile="../../saga/res/jar/SagaSchema.jar">
+            <zipfileset src="jar-in-jar-loader.zip"/>
+            <fileset dir="../saga-schema/bin"/>
+            <fileset dir="../jgdb-schema/bin"/>
+            <fileset dir="../mgne-schema/bin"/>
+        </jar>
+    </target>
+    <target depends="init,build-subprojects" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="saga-desktop.classpath"/>
+        </javac>
 		<jar destfile="../../saga/game.jar">
             <manifest>
                 <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
@@ -143,19 +156,6 @@
             <zipfileset dir="..\..\src\saga-desktop\lib" includes="gdx-natives.jar"/>
             <fileset dir="../../src/saga-schema/bin"/>
         </jar>
-		<jar destfile="../../saga/res/jar/SagaSchema.jar">
-            <zipfileset src="jar-in-jar-loader.zip"/>
-            <fileset dir="../saga-schema/bin"/>
-            <fileset dir="../jgdb-schema/bin"/>
-            <fileset dir="../mgne-schema/bin"/>
-        </jar>
-    </target>
-    <target depends="init" name="build-project">
-        <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
-            <src path="src"/>
-            <classpath refid="saga-desktop.classpath"/>
-        </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
     <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">

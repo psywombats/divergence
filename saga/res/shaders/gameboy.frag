@@ -33,9 +33,9 @@ void main() {
 	float y = gl_FragCoord[1];
 	float off = elapsed;
 	if (y < u_margin) off += .6;
-	if (y < u_margin*2) off += .4;
+	if (y < u_margin*2.0) off += .4;
 	if (y > u_height-u_margin) off += .4;
-	if (y > u_height-u_margin*2) off += .6;
+	if (y > u_height-u_margin*2.0) off += .6;
 	current[0] += off;
 	current[1] += off;
 	current[2] += off;
