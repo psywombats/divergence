@@ -13,11 +13,13 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
+import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.chara.Party;
 import net.wombatrpgs.saga.ui.CharaSelector;
 import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
+import net.wombatrpgs.sagaschema.rpg.stats.Flag;
 
 /**
  * Screen for changing party order.
@@ -157,6 +159,10 @@ public class ScreenOrder extends SagaScreen {
 		Chara chara1 = firstSelected;
 		Chara chara2 = selected;
 		if (chara1 == chara2) return false;
+		if (chara1.is(Flag.EQUIPMENT_FIX) || chara2.is(Flag.EQUIPMENT_FIX)) {
+			MGlobal.sfx.play(SConstants.SFX_FAIL);
+			return false;
+		}
 		party.swap(chara1, chara2);
 		selector.swap(chara1, chara2, new FinishListener() {
 			@Override public void onFinish() {
