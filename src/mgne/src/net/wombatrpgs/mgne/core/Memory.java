@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Random;
 
 import net.wombatrpgs.mgne.core.lua.Lua;
-import net.wombatrpgs.mgne.io.Keymap;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.Positionable;
 import net.wombatrpgs.mgne.screen.Screen;
@@ -43,7 +42,6 @@ public class Memory {
 	
 	/** Stuff to be serialized */
 	protected Random rand;
-	protected Keymap keymap;
 	protected Level level;
 	protected Avatar hero;
 	
@@ -188,7 +186,6 @@ public class Memory {
 	 */
 	protected void storeFields() {
 		rand = MGlobal.rand;
-		keymap = MGlobal.keymap;
 		level = MGlobal.levelManager.getActive();
 		hero = MGlobal.getHero();
 	}
@@ -210,11 +207,6 @@ public class Memory {
 				hero.getTileX(),
 				level.getHeight() - hero.getTileY() - 1);
 		hero.onUnloaded();
-		
-		// everything listening to the current keymap will listen to the stored
-		keymap.absorbListeners(MGlobal.keymap);
-		keymap.clearState();
-		MGlobal.keymap = keymap;
 	}
 	
 	/**

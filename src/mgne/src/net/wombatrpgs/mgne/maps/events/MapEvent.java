@@ -59,10 +59,10 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	protected boolean switchHidden;
 	
 	/** Lua */
-	protected SceneParser onAdd, onRemove, onInteract, onCollide, onEnter;
-	protected LuaValue turn;
-	protected LuaValue lua;
-	protected LuaValue hide;
+	protected transient SceneParser onAdd, onRemove, onInteract, onCollide, onEnter;
+	protected transient LuaValue lua;
+	protected transient LuaValue turn;
+	protected transient LuaValue hide;
 	
 	/** Tile-based positioning */
 	protected int tileX, tileY;
@@ -103,12 +103,6 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 			appearance.startMoving();
 			assets.add(appearance);
 		}
-		
-		onAdd = mdoToScene(mdo.onAdd);
-		onRemove = mdoToScene(mdo.onRemove);
-		onInteract = mdoToScene(mdo.onInteract);
-		onCollide = mdoToScene(mdo.onCollide);
-		onEnter = mdoToScene(mdo.onEnter);
 		
 		if (mdo.face != null) {
 			setFacing(mdo.face);
@@ -628,8 +622,13 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 					}
 					return LuaValue.NIL;
 				}
-				
 			});
+			
+			onAdd = mdoToScene(mdo.onAdd);
+			onRemove = mdoToScene(mdo.onRemove);
+			onInteract = mdoToScene(mdo.onInteract);
+			onCollide = mdoToScene(mdo.onCollide);
+			onEnter = mdoToScene(mdo.onEnter);
 			
 			if (mdo != null && mdo.hide != null && mdo.hide.length() > 0) {
 				hide = MGlobal.lua.interpret(mdo.hide);
