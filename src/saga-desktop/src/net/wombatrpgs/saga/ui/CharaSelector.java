@@ -18,7 +18,7 @@ import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.io.CommandMap;
-import net.wombatrpgs.mgne.io.command.CMapMenu;
+import net.wombatrpgs.mgne.io.command.CMapRaw;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgne.ui.Nineslice;
@@ -97,7 +97,7 @@ public class CharaSelector extends ScreenGraphic implements	CommandListener {
 		bg = new Nineslice();
 		assets.add(bg);
 		
-		context = new CMapMenu();
+		context = new CMapRaw();
 	}
 	
 	/**
@@ -223,12 +223,13 @@ public class CharaSelector extends ScreenGraphic implements	CommandListener {
 	@Override
 	public boolean onCommand(InputCommand command) {
 		switch (command) {
-		case MOVE_UP:		moveCursorVert(-1);		return true;
-		case MOVE_DOWN:		moveCursorVert(1);		return true;
-		case MOVE_LEFT:		moveCursorHoriz(-1);	return true;
-		case MOVE_RIGHT:	moveCursorHoriz(1);		return true;
-		case UI_CONFIRM:	confirm();				return true;
-		case UI_CANCEL:		cancel();				return true;
+		case RAW_UP:		moveCursorVert(-1);		return true;
+		case RAW_DOWN:		moveCursorVert(1);		return true;
+		case RAW_LEFT:		moveCursorHoriz(-1);	return true;
+		case RAW_RIGHT:		moveCursorHoriz(1);		return true;
+		case RAW_A:			confirm();				return true;
+		case RAW_B:			cancel();				return true;
+		case RAW_START:		cancel();				return true;
 		default:									return true;
 		}
 	}

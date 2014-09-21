@@ -13,7 +13,7 @@ import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
-import net.wombatrpgs.mgne.io.command.CMapMenu;
+import net.wombatrpgs.mgne.io.command.CMapRaw;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Nineslice;
@@ -49,7 +49,7 @@ public class ScreenPause extends SagaScreen implements Disposable {
 	 * Creates a new menu screen with the main menu in it.
 	 */
 	public ScreenPause() {
-		pushCommandContext(new CMapMenu());
+		pushCommandContext(new CMapRaw());
 		menu = new OptionSelector(
 			new Option("Save") {
 				@Override public boolean onSelect() { return onSave(); }
@@ -123,7 +123,7 @@ public class ScreenPause extends SagaScreen implements Disposable {
 			createDisplay();
 		}
 	}
-	
+
 	/**
 	 * @see net.wombatrpgs.mgne.screen.Screen#render
 	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)

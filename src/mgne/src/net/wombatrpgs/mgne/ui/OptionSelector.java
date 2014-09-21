@@ -19,7 +19,7 @@ import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.io.CommandMap;
-import net.wombatrpgs.mgne.io.command.CMapMenu;
+import net.wombatrpgs.mgne.io.command.CMapRaw;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
@@ -92,7 +92,7 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 		bg = new Nineslice(bgMDO);
 		assets.add(bg);
 		
-		context = new CMapMenu();
+		context = new CMapRaw();
 	}
 	
 	/**
@@ -162,10 +162,11 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	@Override
 	public boolean onCommand(InputCommand command) {
 		switch (command) {
-		case MOVE_UP:		moveCursor(-1);		return true;
-		case MOVE_DOWN:		moveCursor(1);		return true;
-		case UI_CONFIRM:	confirm();			return true;
-		case UI_CANCEL:		cancel();			return true;
+		case RAW_UP:		moveCursor(-1);		return true;
+		case RAW_DOWN:		moveCursor(1);		return true;
+		case RAW_A:			confirm();			return true;
+		case RAW_B:			cancel();			return true;
+		case RAW_START:		cancel();			return true;
 		default:								return true;
 		}
 	}
