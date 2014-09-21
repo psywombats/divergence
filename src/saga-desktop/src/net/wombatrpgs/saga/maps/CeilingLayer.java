@@ -203,8 +203,8 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 	protected int getVisionRadius() {
 		WindowSettings win = MGlobal.window;
 		Level map = event.getLevel();
-		int horiz = win.getViewportWidth() / map.getTileWidth() + 1;
-		int vert = win.getViewportHeight() / map.getTileHeight() + 1;
+		int horiz = (int) Math.ceil((float) (win.getViewportWidth() / map.getTileWidth()) / 2f);
+		int vert = (int) Math.ceil((float) (win.getViewportHeight() / map.getTileHeight()) / 2f);
 		return (horiz > vert) ? horiz : vert;
 	}
 	
@@ -238,33 +238,21 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 		currentRadius = radius;
 		Level map = event.getLevel();
 		int absRadius = Math.abs(radius);
-		if (radius >= getVisionRadius()) {
-			for (int col = 0; col < layer.getWidth(); col += 1) {
-				for (int row = 0; row < layer.getHeight(); row += 1) {
-					int x = col * map.getTileWidth() + map.getTileWidth() / 2;
-					int y = row * map.getTileHeight() + map.getTileHeight() / 2;
-					if (polygon.contains(x, y) ^ (radius < 0)) {
-						set += (inSight(col, row) && attemptSetAt(col, row)) ? 1 : 0;
-					} else {
-						layer.setCell(col, row, empty);
-					}
-				}
-			}
-		} else {
-			Avatar hero = MGlobal.getHero();
-			int heroCol = hero.getTileX();
-			int heroRow = hero.getTileY();
-			for (int col = 0; col < layer.getWidth(); col += 1) {
-				for (int row = 0; row < layer.getHeight(); row += 1) {
-					int x = col * map.getTileWidth() + map.getTileWidth() / 2;
-					int y = row * map.getTileHeight() + map.getTileHeight() / 2;
-					boolean inRange = Math.abs(col - heroCol) < absRadius &&
-							Math.abs(row - heroRow) < absRadius;
-					if (inRange ^ polygon.contains(x, y) ^ (radius >= 0)) {
-						set += (inSight(col, row) && attemptSetAt(col, row)) ? 1 : 0;
-					} else {
-						layer.setCell(col, row, empty);
-					}
+		Avatar hero = MGlobal.getHero();
+		int heroCol = hero.getTileX();
+		int heroRow = hero.getTileY();
+		int vision = getVisionRadius();
+		for (int col = 0; col < layer.getWidth(); col += 1) {
+			for (int row = 0; row < layer.getHeight(); row += 1) {
+				int x = col * map.getTileWidth() + map.getTileWidth() / 2;
+				int y = row * map.getTileHeight() + map.getTileHeight() / 2;
+				boolean inRange = Math.abs(col - heroCol) < absRadius &&
+						Math.abs(row - heroRow) < absRadius;
+				if (inRange ^ polygon.contains(x, y) ^ (radius >= 0)) {
+					boolean wasSet = attemptSetAt(col, row);
+					if (wasSet && radius < vision) set += 1;
+				} else {
+					layer.setCell(col, row, empty);
 				}
 			}
 		}
@@ -285,24 +273,6 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 			layer.setCell(col, row, empty);
 			return false;
 		}
-	}
-	
-	/**
-	 * Checks if a given tile location is visible on the screen.
-	 * @param	col				The column to check (in tiles)
-	 * @param	row				The row to check (in tiles)
-	 * @return					True if that location is in sight.
-	 */
-	protected boolean inSight(int col, int row) {
-		int x = MGlobal.getHero().getTileX();
-		int y = MGlobal.getHero().getTileY();
-		WindowSettings win = MGlobal.window;
-		Level map = parent;
-		int width = (int) Math.ceil((float) win.getViewportWidth() / (float) map.getTileWidth() / 2f) + 1;
-		int height = (int) Math.ceil((float) win.getViewportHeight() / (float) map.getTileHeight() / 2f) + 1;
-		int dx = Math.abs(x - col);
-		int dy = Math.abs(y - row);
-		return (dx <= width && dy <= height);
 	}
 
 }
