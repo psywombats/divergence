@@ -54,8 +54,11 @@ public class DebugThread implements Runnable {
 					try {
 						LuaValue script = MGlobal.lua.interpret("return (" + line + ")");
 						LuaValue result = MGlobal.lua.run(script, LuaValue.NIL);
-						Object resultObject = CoerceLuaToJava.coerce(result, Object.class);
-						System.out.println(resultObject.toString());
+						if (result != LuaValue.NIL) {
+							Object resultObject = CoerceLuaToJava.coerce(result, Object.class);
+							System.out.println(resultObject.toString());
+						}
+						System.out.println("Executed successfully");
 					} catch (LuaError error) {
 						System.err.println(error.getMessage());
 					}

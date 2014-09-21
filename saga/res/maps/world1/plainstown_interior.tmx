@@ -560,10 +560,10 @@
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="hide" value="return (not getSwitch('shrine_done')) or (getSwitch('champion_dead'))"/>
-    <property name="onInteract" value="play('champion01.lua')"/>
+    <property name="onInteract" value="play('champion02.lua')"/>
    </properties>
   </object>
-  <object name="champion" type="Character" x="432" y="80" width="16" height="16">
+  <object name="champion" type="Character" x="448" y="80" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="hide" value="return not getSwitch('champion_dead')"/>
