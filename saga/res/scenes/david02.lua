@@ -37,4 +37,6 @@ sceneSwitch('borg_leaves_shrine', false)
 
 speak(hero4, "Now what?")
 speak(hero1, "We have two artifacts, we just need two more.")
+
+removeMember()
 sceneSwitch('shrine_done', true)

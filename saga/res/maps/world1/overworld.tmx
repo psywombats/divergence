@@ -54,5 +54,10 @@
     <property name="onCollide" value="teleport('world1/shrine01.tmx', 11, 39, 'NORTH')"/>
    </properties>
   </object>
+  <object name="River Town" type="Event" x="832" y="672" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/plainstown.tmx', 14, 22, 'EAST')"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
