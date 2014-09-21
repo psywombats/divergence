@@ -59,6 +59,10 @@
 		{
 			"keyCode" : "F12",
 			"button" : "FULLSCREEN"
+		},
+		{
+			"keyCode" : "F9",
+			"button" : "DEBUG"
 		}
 	]
 }

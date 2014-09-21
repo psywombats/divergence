@@ -24,5 +24,6 @@ public enum InputButton {
 	BUTTON_SELECT,		// aka who the hell uses this
 	
 	FULLSCREEN,
+	DEBUG
 
 }

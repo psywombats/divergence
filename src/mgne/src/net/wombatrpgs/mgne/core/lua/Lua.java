@@ -122,6 +122,22 @@ public class Lua {
 	}
 	
 	/**
+	 * Prepends a few lines dealing with library includes to a chunk of Lua
+	 * code. This is probably called on all stuff being passed in from external
+	 * files to MGN.
+	 * @param	chunk			The chunk to modify
+	 * @return					That same chunk, but with lib requires prepended
+	 */
+	public String prependRequires(String chunk) {
+		chunk = chunk + "\n";
+		for (Class<? extends TwoArgFunction> clazz : libClasses) {
+			String require = "require('" + clazz.getName() + "')\n";
+			chunk = require + chunk;
+		}
+		return chunk;
+	}
+	
+	/**
 	 * Generates a lua function for the caller object and sets it in the
 	 * table. The function should be a getter or other small function with no
 	 * arguments. Meant to be called as part of LuaConvertable conversions.
@@ -149,22 +165,6 @@ public class Lua {
 			MGlobal.reporter.err("Bad method for class " + caller.getClass() +
 					" with method " + methodName, e);
 		}
-	}
-	
-	/**
-	 * Prepends a few lines dealing with library includes to a chunk of Lua
-	 * code. This is probably called on all stuff being passed in from external
-	 * files to MGN.
-	 * @param	chunk			The chunk to modify
-	 * @return					That same chunk, but with lib requires prepended
-	 */
-	protected String prependRequires(String chunk) {
-		chunk = chunk + "\n";
-		for (Class<? extends TwoArgFunction> clazz : libClasses) {
-			String require = "require('" + clazz.getName() + "')\n";
-			chunk = require + chunk;
-		}
-		return chunk;
 	}
 
 }

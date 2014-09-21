@@ -12,9 +12,13 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.BatchWithShader;
+import net.wombatrpgs.mgne.io.InputEvent;
+import net.wombatrpgs.mgne.io.InputEvent.EventType;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.WindowSettings;
+import net.wombatrpgs.mgneschema.io.data.InputButton;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
+import net.wombatrpgs.saga.core.DebugThread;
 import net.wombatrpgs.saga.core.SGlobal;
 
 /**
@@ -108,6 +112,19 @@ public class SagaScreen extends Screen {
 			background = SGlobal.graphics.constructBackgroundBatch();
 		}
 		return background.getShader();
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.screen.Screen#onEvent
+	 * (net.wombatrpgs.mgne.io.InputEvent)
+	 */
+	@Override
+	public void onEvent(InputEvent event) {
+		if (event.button == InputButton.DEBUG && event.type == EventType.PRESS) {
+			DebugThread.launchInstance();
+		} else {
+			super.onEvent(event);
+		}
 	}
 
 	/**
