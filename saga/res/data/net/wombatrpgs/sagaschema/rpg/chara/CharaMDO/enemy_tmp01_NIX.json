@@ -8,7 +8,7 @@
 	"family" : "mfamily_tmp",
 	"species" : "NIX",
 	"appearance" : "4dir_ffl2_human",
-	"portrait" : "battle_portraits/goblin.png",
+	"portrait" : "battle_portraits/tmp.png",
 	"meatEatLevel" : 2,
 	"meatTargetLevel" : 1,
 	"gp" : 40,
@@ -20,9 +20,9 @@
 		"hp" : 40,
 		"mhp" : 40,
 		"str" : 7,
-		"def" : 5,
-		"agi" : 8,
-		"mana" : 11,
+		"def" : 4,
+		"agi" : 7,
+		"mana" : 10,
 		"flags" : [ ]
 	}
 }

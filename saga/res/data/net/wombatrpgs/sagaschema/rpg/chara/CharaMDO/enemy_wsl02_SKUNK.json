@@ -8,7 +8,7 @@
 	"family" : "mfamily_wsl",
 	"species" : "SKUNK",
 	"appearance" : "4dir_ffl2_human",
-	"portrait" : "battle_portraits/goblin.png",
+	"portrait" : "battle_portraits/wsl.png",
 	"meatEatLevel" : 3,
 	"meatTargetLevel" : 2,
 	"gp" : 80,

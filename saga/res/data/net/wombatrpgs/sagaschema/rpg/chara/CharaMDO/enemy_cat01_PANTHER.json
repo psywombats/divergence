@@ -8,7 +8,7 @@
 	"family" : "mfamily_cat",
 	"species" : "PANTHER",
 	"appearance" : "4dir_ffl2_human",
-	"portrait" : "battle_portraits/goblin.png",
+	"portrait" : "battle_portraits/cat.png",
 	"meatEatLevel" : 2,
 	"meatTargetLevel" : 1,
 	"gp" : 40,

@@ -8,7 +8,7 @@
 	"family" : "mfamily_pnx",
 	"species" : "TENGU",
 	"appearance" : "4dir_ffl2_human",
-	"portrait" : "battle_portraits/goblin.png",
+	"portrait" : "battle_portraits/pnx.png",
 	"meatEatLevel" : 3,
 	"meatTargetLevel" : 2,
 	"gp" : 80,

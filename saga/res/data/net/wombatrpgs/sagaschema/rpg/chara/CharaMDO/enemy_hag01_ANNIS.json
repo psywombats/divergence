@@ -8,7 +8,7 @@
 	"family" : "mfamily_hag",
 	"species" : "ANNIS",
 	"appearance" : "4dir_ffl2_human",
-	"portrait" : "battle_portraits/goblin.png",
+	"portrait" : "battle_portraits/hag.png",
 	"meatEatLevel" : 2,
 	"meatTargetLevel" : 1,
 	"gp" : 40,
