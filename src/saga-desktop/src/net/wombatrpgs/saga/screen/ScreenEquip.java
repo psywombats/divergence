@@ -139,6 +139,7 @@ public class ScreenEquip extends SagaScreen {
 					}
 					focusAbils();
 					abils.setSelected(marked);
+					header.refresh();
 					return true;
 				}
 			}, true);
