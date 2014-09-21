@@ -53,6 +53,25 @@ public class Avatar extends MapEvent implements CommandListener {
 	public String getName() {
 		return "hero";
 	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.io.CommandListener#onCommand
+	 * (net.wombatrpgs.mgneschema.io.data.InputCommand)
+	 */
+	@Override
+	public boolean onCommand(InputCommand command) {
+		if (!tracking && !paused) {
+			switch (command) {
+			case MOVE_LEFT:			move(OrthoDir.WEST);	break;
+			case MOVE_UP:			move(OrthoDir.NORTH);	break;
+			case MOVE_RIGHT:		move(OrthoDir.EAST);	break;
+			case MOVE_DOWN:			move(OrthoDir.SOUTH);	break;
+			case WORLD_INTERACT:	interact();				break;
+			default:				return false;
+			}
+		}
+		return true;
+	}
 	
 	/**
 	 * Sets the paused state. Paused heroes can't move or interact.
@@ -81,25 +100,6 @@ public class Avatar extends MapEvent implements CommandListener {
 		}
 		stepListeners.remove(listener);
 	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.io.CommandListener#onCommand
-	 * (net.wombatrpgs.mgneschema.io.data.InputCommand)
-	 */
-	@Override
-	public boolean onCommand(InputCommand command) {
-		if (!tracking && !paused) {
-			switch (command) {
-			case MOVE_LEFT:			move(OrthoDir.WEST);	break;
-			case MOVE_UP:			move(OrthoDir.NORTH);	break;
-			case MOVE_RIGHT:		move(OrthoDir.EAST);	break;
-			case MOVE_DOWN:			move(OrthoDir.SOUTH);	break;
-			case WORLD_INTERACT:	interact();				break;
-			default:				return false;
-			}
-		}
-		return true;
-	}
 	
 	/**
 	 * Called when this avatar is loaded from memory.
@@ -115,11 +115,15 @@ public class Avatar extends MapEvent implements CommandListener {
 	 * @param	dir				The direction to move
 	 */
 	protected void move(OrthoDir dir) {
-		int atX = getTileX();
-		int atY = getTileY();
-		attemptStep(dir);
-		if (atX != getTileX() || atY != getTileY()) {
+		if (attemptStep(dir)) {
 			parent.onTurn();
+		} else {
+			int targetX = (int) (getTileX() + dir.getVector().x);
+			int targetY = (int) (getTileY() + dir.getVector().y);
+			for (MapEvent event : parent.getEventsAt(targetX, targetY)) {
+				if (event == this) continue;
+				event.onCollide(this);
+			}
 		}
 	}
 	

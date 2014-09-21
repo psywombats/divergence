@@ -2,7 +2,7 @@
 	"key" : "enemy_wsl02_SKUNK",
 	"subfolder" : "level02",
 	"name" : "SKUNK",
-	"description" : "Converted from a report",
+	"description" : "low danger",
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "mfamily_wsl",

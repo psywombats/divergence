@@ -18,7 +18,7 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 public class MutationAbil extends Mutation {
 	
 	public int lose;
-	public CombatItem gain;
+	public CombatItem gainAbil, loseAbil;
 	
 	/**
 	 * Creates a level up option for a mutant an ability and gaining another.
@@ -29,7 +29,8 @@ public class MutationAbil extends Mutation {
 	public MutationAbil(Chara chara, int loseSlot, CombatItem gainAbil) {
 		super(chara);
 		this.lose = loseSlot;
-		this.gain = gainAbil;
+		this.gainAbil = gainAbil;
+		this.loseAbil = chara.getInventory().get(lose);
 	}
 	
 	/**
@@ -49,11 +50,10 @@ public class MutationAbil extends Mutation {
 	 */
 	@Override
 	public String getDesc() {
-		CombatItem loseAbil = chara.getInventory().get(lose);
 		if (loseAbil == null) {
-			return "acquire " + gain.getName();
+			return "acquire " + gainAbil.getName();
 		} else {
-			return "lose " + loseAbil.getName() + ", acquire " + gain.getName();
+			return "lose " + loseAbil.getName() + ", acquire " + gainAbil.getName();
 		}
 	}
 
@@ -62,12 +62,11 @@ public class MutationAbil extends Mutation {
 	 */
 	@Override
 	public String getMessage() {
-		CombatItem loseAbil = chara.getInventory().get(lose);
 		if (loseAbil == null) {
-			return "acquired " + gain.getName();
+			return "acquired " + gainAbil.getName();
 		} else {
 			return chara.getName() + " lost " + loseAbil.getName() +
-					" and acquired " + gain.getName();
+					" and acquired " + gainAbil.getName();
 		}
 	}
 
@@ -76,7 +75,7 @@ public class MutationAbil extends Mutation {
 	 */
 	@Override
 	public void apply() {
-		chara.getInventory().set(lose, gain);
+		chara.getInventory().set(lose, gainAbil);
 	}
 
 	/**

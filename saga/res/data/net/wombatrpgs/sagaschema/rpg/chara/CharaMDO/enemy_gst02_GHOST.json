@@ -2,7 +2,7 @@
 	"key" : "enemy_gst02_GHOST",
 	"subfolder" : "level02",
 	"name" : "GHOST",
-	"description" : "Converted from a report",
+	"description" : "mid danger",
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "mfamily_gst",

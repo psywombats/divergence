@@ -102,5 +102,14 @@ public class SagaGame extends MgnGame {
 		libs.add(SagaEventLib.class);
 		return libs;
 	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.MgnGame#dispose()
+	 */
+	@Override
+	public void dispose() {
+		super.dispose();
+		DebugThread.stopInstance();
+	}
 	
 }

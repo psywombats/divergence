@@ -23,6 +23,7 @@ public class DebugThread implements Runnable {
 	
 	protected static DebugThread instance;
 	
+	protected Thread thread;
 	protected boolean running;
 	
 	/**
@@ -38,16 +39,23 @@ public class DebugThread implements Runnable {
 		}
 	}
 	
+	public static void stopInstance() {
+		if (instance != null && instance.isRunning()) {
+			MGlobal.reporter.inform("Debug thread stopped.");
+			instance.running = false;
+		}
+	}
+	
 	/**
 	 * @see java.lang.Runnable#run()
 	 */
 	@Override
 	public void run() {
 		Scanner sc = new Scanner(System.in);
-		while (true) {
+		while (running) {
 			final String line = sc.nextLine();
 			if (line.equals("exit") || line.equals("exit()")) {
-				break;
+				stopInstance();
 			}
 			Gdx.app.postRunnable(new Runnable() {
 				@Override public void run() {
@@ -81,7 +89,7 @@ public class DebugThread implements Runnable {
 	 */
 	protected void launch() {
 		running = true;
-		Thread thread = new Thread(this);
+		thread = new Thread(this);
 		thread.start();
 	}
 

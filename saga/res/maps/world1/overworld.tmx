@@ -61,7 +61,7 @@
   </object>
   <object name="Southern Stronghold" type="Event" x="816" y="848" width="16" height="16">
    <properties>
-    <property name="onCollide" value="teleport('world1/hq10.tmx', 8, 11, 'SOUTH')"/>
+    <property name="onCollide" value="teleport('world1/hq01.tmx', 11, 8, 'SOUTH')"/>
    </properties>
   </object>
  </objectgroup>

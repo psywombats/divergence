@@ -89,6 +89,7 @@ public class Battle extends AssetQueuer implements Disposable {
 		this.random = random;
 		anonymous = false;
 		finished = false;
+		fleeable = true;
 		
 		assets.add(enemy);
 		assets.add(screen);

@@ -176,6 +176,7 @@ public class MGlobal {
 		assets.dispose();
 		graphics.dispose();
 		sfx.dispose();
+		game.dispose();
 	}
 
 	/**

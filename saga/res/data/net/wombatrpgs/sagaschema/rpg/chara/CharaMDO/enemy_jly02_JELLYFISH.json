@@ -2,7 +2,7 @@
 	"key" : "enemy_jly02_JELLYFISH",
 	"subfolder" : "level02",
 	"name" : "JELLYFISH",
-	"description" : "Converted from a report",
+	"description" : "low danger",
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "mfamily_jly",

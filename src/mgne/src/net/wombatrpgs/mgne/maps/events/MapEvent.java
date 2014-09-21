@@ -381,11 +381,15 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	public void onCollide(MapEvent event) {
 		if (isHidden()) return;
 		if (event == MGlobal.getHero()) {
-			event.addTrackingListener(new FinishListener() {
-				@Override public void onFinish() {
-					runScene(onCollide);
-				}
-			});
+			if (isPassable()) {
+				event.addTrackingListener(new FinishListener() {
+					@Override public void onFinish() {
+						runScene(onCollide);
+					}
+				});
+			} else {
+				runScene(onCollide);
+			}
 		}
 	}
 	
@@ -503,7 +507,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	 * @param	dir				The direction to step
 	 * @return					True if the move succeeded, false if we hit
 	 */
-	public boolean attemptStep(OrthoDir dir) {
+	public final boolean attemptStep(OrthoDir dir) {
 		int targetX = (int) (tileX + dir.getVector().x);
 		int targetY = (int) (tileY + dir.getVector().y);
 		return attemptStep(targetX, targetY);
@@ -616,18 +620,27 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 				@Override public LuaValue call() {
 					if (isTracking()) return LuaValue.NIL;
 					for (int attempt = 0; attempt < 10; attempt += 1) {
+						boolean cancel = false;
 						int index = MGlobal.rand.nextInt(OrthoDir.values().length);
 						OrthoDir dir = OrthoDir.values()[index];
 						int toX = (int) (getTileX() + dir.getVector().x);
 						int toY = (int) (getTileY() + dir.getVector().y);
-						if (!parent.isTilePassable(toX, toY)) {
-							continue;
-						}
 						for (MapEvent event : parent.getEventsAt(toX, toY)) {
+							if (event == MGlobal.getHero()) {
+								setFacing(dir);
+								runScene(onCollide);
+								cancel = true;
+								break;
+							}
 							if (event.hasCollideTrigger()) {
+								cancel = true;
 								break;
 							}
 						}
+						if (!parent.isTilePassable(toX, toY)) {
+							cancel = true;;
+						}
+						if (cancel) continue;
 						attemptStep(dir);
 						break;
 					}

@@ -12,6 +12,7 @@ import java.util.List;
 import org.luaj.vm2.lib.TwoArgFunction;
 
 import net.wombatrpgs.mgne.graphics.GraphicsSettings;
+import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.screen.Screen;
@@ -33,7 +34,7 @@ import net.wombatrpgs.mgneschema.settings.IntroSettingsMDO;
  * hooked in somewhere. Otherwise, let's hope the game can be mostly scripts and
  * database entries!
  */
-public abstract class MgnGame {
+public abstract class MgnGame implements Disposable {
 	
 	/**
 	 * Create and then return the first scene of the game. This defaults to the
@@ -169,6 +170,15 @@ public abstract class MgnGame {
 		
 		MGlobal.levelManager.setNewActiveSet(hero, level);
 		MGlobal.assets.loadAsset(hero, "hero");
+	}
+
+	/**
+	 * Called when the game is shutting down. Default is nothing.
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
+	 */
+	@Override
+	public void dispose() {
+		// noop
 	}
 	
 }

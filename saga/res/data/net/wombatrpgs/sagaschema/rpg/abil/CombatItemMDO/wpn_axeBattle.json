@@ -3,7 +3,7 @@
 	"subfolder" : "weapon",
 	"name" : "",
 	"description" : "",
-	"abilityName" : "$RAXE",
+	"abilityName" : "$RBATTLE",
 	"type" : "ITEM",
 	"uses" : 50,
 	"cost" : 420,
