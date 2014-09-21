@@ -506,22 +506,22 @@
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
-  <object type="Event" x="176" y="272" width="16" height="16">
+  <object name="tele" type="Event" x="176" y="272" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/hq01.tmx', 11, 23)"/>
    </properties>
   </object>
-  <object type="Event" x="272" y="272" width="16" height="16">
+  <object name="tele" type="Event" x="272" y="272" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/hq01.tmx', 17, 23)"/>
    </properties>
   </object>
-  <object type="Event" x="464" y="272" width="16" height="16">
+  <object name="tele" type="Event" x="464" y="272" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/hq01.tmx', 17, 29)"/>
    </properties>
   </object>
-  <object type="Event" x="560" y="400" width="16" height="16">
+  <object name="tele" type="Event" x="560" y="400" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/hq01.tmx', 35, 31)"/>
    </properties>

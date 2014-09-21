@@ -52,17 +52,19 @@ import net.wombatrpgs.mgneschema.maps.data.PassabilityType;
  */
 public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	
+	protected static final float BEHAVIOR_MAX_DELAY = 7f;
+	
 	/** General children and info */
 	protected EventMDO mdo;
 	protected FacesAnimation appearance;
+	protected float toNextBehavior;
 	protected boolean eventHidden;
 	protected boolean switchHidden;
 	
 	/** Lua */
 	protected transient SceneParser onAdd, onRemove, onInteract, onCollide, onEnter;
 	protected transient LuaValue lua;
-	protected transient LuaValue turn;
-	protected transient LuaValue hide;
+	protected transient LuaValue turn, hide, behavior;
 	
 	/** Tile-based positioning */
 	protected int tileX, tileY;
@@ -109,7 +111,10 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 		} else {
 			setFacing(OrthoDir.SOUTH);
 		}
+		
 		eventHidden = mdo.hidden == DisplayType.HIDDEN;
+		
+		toNextBehavior = MGlobal.rand.nextFloat() * BEHAVIOR_MAX_DELAY;
 	}
 	
 	/** @param tileX The new x-coord of this event (in tiles) */
@@ -233,6 +238,13 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 		}
 		if (hide != null) {
 			switchHidden = MGlobal.lua.run(hide, lua).checkboolean();
+		}
+		toNextBehavior -= elapsed;
+		if (toNextBehavior <= 0) {
+			toNextBehavior = MGlobal.rand.nextFloat() * BEHAVIOR_MAX_DELAY;
+			if (behavior != null && !isHidden()) {
+				MGlobal.lua.run(behavior, lua);
+			}
 		}
 	}
 	
@@ -602,23 +614,22 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 			});
 			lua.set("wander", new ZeroArgFunction() {
 				@Override public LuaValue call() {
-					if (MGlobal.rand.nextInt(4) == 0) {
-						for (int attempt = 0; attempt < 10; attempt += 1) {
-							int index = MGlobal.rand.nextInt(OrthoDir.values().length);
-							OrthoDir dir = OrthoDir.values()[index];
-							int toX = (int) (getTileX() + dir.getVector().x);
-							int toY = (int) (getTileY() + dir.getVector().y);
-							if (!parent.isTilePassable(toX, toY)) {
-								continue;
-							}
-							for (MapEvent event : parent.getEventsAt(toX, toY)) {
-								if (event.hasCollideTrigger()) {
-									continue;
-								}
-							}
-							attemptStep(dir);
-							break;
+					if (isTracking()) return LuaValue.NIL;
+					for (int attempt = 0; attempt < 10; attempt += 1) {
+						int index = MGlobal.rand.nextInt(OrthoDir.values().length);
+						OrthoDir dir = OrthoDir.values()[index];
+						int toX = (int) (getTileX() + dir.getVector().x);
+						int toY = (int) (getTileY() + dir.getVector().y);
+						if (!parent.isTilePassable(toX, toY)) {
+							continue;
 						}
+						for (MapEvent event : parent.getEventsAt(toX, toY)) {
+							if (event.hasCollideTrigger()) {
+								break;
+							}
+						}
+						attemptStep(dir);
+						break;
 					}
 					return LuaValue.NIL;
 				}
@@ -635,6 +646,9 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 			}
 			if (mdo != null && mdo.onTurn != null && mdo.onTurn.length() > 0) {
 				turn = MGlobal.lua.interpret(mdo.onTurn);
+			}
+			if (mdo != null && mdo.onBehavior != null && mdo.onBehavior.length() > 0) {
+				behavior = MGlobal.lua.interpret(mdo.onBehavior);
 			}
 		}
 	}

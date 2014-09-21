@@ -538,8 +538,8 @@
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="face" value="NORTH"/>
     <property name="hide" value="return getSwitch('shrine_done')"/>
+    <property name="onBehavior" value="this.wander()"/>
     <property name="onInteract" value="speak('You\'re not welcome here.')"/>
-    <property name="onTurn" value="this.wander()"/>
    </properties>
   </object>
   <object type="Event" x="208" y="224" width="352" height="16">
@@ -577,8 +577,8 @@
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="face" value="SOUTH"/>
     <property name="hide" value="return getSwitch('shrine_done')"/>
+    <property name="onBehavior" value="this.wander()"/>
     <property name="onInteract" value="speak('For years this town has held the monsters at bay. Those thankless other cities send no support.')"/>
-    <property name="onTurn" value="this.wander()"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="416" y="320" width="16" height="16">
@@ -586,8 +586,8 @@
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="face" value="NORTH"/>
     <property name="hide" value="return getSwitch('shrine_done')"/>
+    <property name="onBehavior" value="this.wander()"/>
     <property name="onInteract" value="speak('Our champion wields an everburning torch. His might allows us to stand against our enemies.')"/>
-    <property name="onTurn" value="this.wander()"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="448" y="464" width="16" height="16">
@@ -595,8 +595,8 @@
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="face" value="WEST"/>
     <property name="hide" value="return getSwitch('shrine_done')"/>
+    <property name="onBehavior" value="this.wander()"/>
     <property name="onInteract" value="speak('This place is really just a camp, set up by our heroic ancestors to stem the flow of monsters from the south.')"/>
-    <property name="onTurn" value="this.wander()"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="272" y="352" width="16" height="16">
@@ -604,8 +604,8 @@
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="face" value="SOUTH"/>
     <property name="hide" value="return getSwitch('shrine_done')"/>
+    <property name="onBehavior" value="this.wander()"/>
     <property name="onInteract" value="speak('It\'s thanks to us warriors that your pathetic hometown isn\'t crawling with beasts.')"/>
-    <property name="onTurn" value="this.wander()"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="272" y="288" width="16" height="16">

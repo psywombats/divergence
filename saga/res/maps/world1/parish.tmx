@@ -133,8 +133,8 @@
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="face" value="WEST"/>
+    <property name="onBehavior" value="this.wander()"/>
     <property name="onInteract" value="speak('Elder found BORG and fixed him up, but BORG\'s memory was wiped.')"/>
-    <property name="onTurn" value="this.wander()"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="160" y="464" width="16" height="16">
@@ -142,8 +142,8 @@
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="face" value="NORTH"/>
     <property name="hide" value="return getSwitch('opening_flashback')"/>
+    <property name="onBehavior" value="this.wander()"/>
     <property name="onInteract" value="speak('Nobody but Elder remembers what it was like when Hero was a center of trade instead of a monster town.')"/>
-    <property name="onTurn" value="this.wander()"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="432" y="464" width="16" height="16">
@@ -159,8 +159,8 @@
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="face" value="NORTH"/>
     <property name="hide" value="return getSwitch('opening_flashback')"/>
+    <property name="onBehavior" value="this.wander()"/>
     <property name="onInteract" value="speak('I once visited a city to the south. You can buy all sorts of arms and armor there.')"/>
-    <property name="onTurn" value="this.wander()"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="304" y="384" width="16" height="16">
@@ -168,8 +168,8 @@
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="face" value="EAST"/>
     <property name="hide" value="return getSwitch('opening_flashback')"/>
+    <property name="onBehavior" value="this.wander()"/>
     <property name="onInteract" value="speak('Friendly monsters are rare in these parts, but I hear they can be powerful allies.')"/>
-    <property name="onTurn" value="this.wander()"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="240" y="304" width="16" height="16">
@@ -177,8 +177,8 @@
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="face" value="SOUTH"/>
     <property name="hide" value="return getSwitch('opening_flashback')"/>
+    <property name="onBehavior" value="this.wander()"/>
     <property name="onInteract" value="speak('After Jonas and Janine left, we\'ve been counting on BORG to defend the town.')"/>
-    <property name="onTurn" value="this.wander()"/>
    </properties>
   </object>
   <object name="tele" type="Event" x="304" y="560" width="32" height="16">

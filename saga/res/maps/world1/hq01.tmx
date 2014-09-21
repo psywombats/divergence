@@ -511,27 +511,27 @@
     <property name="item" value="pot_mana"/>
    </properties>
   </object>
-  <object type="Event" x="176" y="112" width="16" height="16">
+  <object name="tele" type="Event" x="176" y="112" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/overworld.tmx', 51, 53)"/>
    </properties>
   </object>
-  <object type="Event" x="176" y="384" width="16" height="16">
+  <object name="tele" type="Event" x="176" y="384" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/hq02.tmx', 11, 18)"/>
    </properties>
   </object>
-  <object type="Event" x="272" y="384" width="16" height="16">
+  <object name="tele" type="Event" x="272" y="384" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/hq02.tmx', 17, 18)"/>
    </properties>
   </object>
-  <object type="Event" x="464" y="384" width="16" height="16">
+  <object name="tele" type="Event" x="464" y="384" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/hq02.tmx', 29, 18)"/>
    </properties>
   </object>
-  <object type="Event" x="560" y="512" width="16" height="16">
+  <object name="tele" type="Event" x="560" y="512" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/hq02.tmx', 35, 26)"/>
    </properties>

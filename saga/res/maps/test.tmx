@@ -237,8 +237,8 @@
   <object name="bort the bozo" type="Character" x="208" y="192" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="onBehavior" value="this.wander()"/>
     <property name="onInteract" value="speak('hi my name is bort the bozo and I like to talk to myself an awful lot')"/>
-    <property name="onTurn" value="this.wander()"/>
    </properties>
   </object>
   <object name="teleport" type="Event" x="304" y="112" width="16" height="16">

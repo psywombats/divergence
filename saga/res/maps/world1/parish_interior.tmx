@@ -45,8 +45,8 @@
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="face" value="WEST"/>
     <property name="hide" value="return not getSwitch('opening_talked_borg')"/>
+    <property name="onBehavior" value="this.wander()"/>
     <property name="onInteract" value="speak('BORG', 'Elder wanted to speak with you before you left.')"/>
-    <property name="onTurn" value="this.wander()"/>
    </properties>
   </object>
   <object type="Event" x="384" y="208" width="16" height="16">

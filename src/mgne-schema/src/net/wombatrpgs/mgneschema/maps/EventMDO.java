@@ -80,5 +80,9 @@ public class EventMDO extends MainSchema {
 	@Desc("onInteract - lua value, script is called when player talks to this event")
 	@DefaultValue("")
 	public String onInteract;
+	
+	@Desc("onBehavior - lua value, called abritrarily once every couple seconds")
+	@DefaultValue("")
+	public String onBehavior;
 
 }
