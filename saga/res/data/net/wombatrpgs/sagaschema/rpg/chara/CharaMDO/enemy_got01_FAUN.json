@@ -7,7 +7,7 @@
 	"race" : "MONSTER",
 	"family" : "mfamily_got",
 	"species" : "FAUN",
-	"appearance" : "4dir_ffl2_human",
+	"appearance" : "4dir_horse",
 	"portrait" : "battle_portraits/got.png",
 	"meatEatLevel" : 1,
 	"meatTargetLevel" : 1,

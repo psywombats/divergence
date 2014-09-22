@@ -9,7 +9,7 @@ speak(hero, "Well actually, I'm looking for family, but I think they must be in 
 speak("Governor", "Well I'm sorry I don't have anything to give. We built a shrine to the airseed years and years ago. The airseed is holy, so we kept it in a special room at the shrine.")
 speak(hero2, "It sounds like we should go to that shrine.")
 speak("Governor", "Maybe. But the shrine is overrun with monsters. None of the townsfolk have been there in a long time.")
-speak("BORG", "I don't think we have much of a choice, " .. hero)
+speak("BORG", "I don't think we have much of a choice, " .. hero .. ".")
 speak("Governor", "A man named David left for that shrine the other day, but nobody's seen him since. Most people around here think he's dead.")
 speak(hero, "We'll have to be careful.")
 speak("Governor", "You can try to visit the shrine if you like, but I'll offer no help. The shrine is south of here. Whatever treasure you find there is yours to keep.")

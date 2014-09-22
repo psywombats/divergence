@@ -7,7 +7,7 @@
 	"race" : "MONSTER",
 	"family" : "mfamily_dis",
 	"species" : "BACTERIUM",
-	"appearance" : "4dir_ffl2_human",
+	"appearance" : "4dir_slime",
 	"portrait" : "battle_portraits/dis.png",
 	"meatEatLevel" : 2,
 	"meatTargetLevel" : 1,

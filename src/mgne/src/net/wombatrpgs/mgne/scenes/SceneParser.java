@@ -30,6 +30,7 @@ import net.wombatrpgs.mgneschema.io.data.InputCommand;
 public abstract class SceneParser implements 	Updateable,
 												CommandListener,
 												Queueable {
+	protected static int runningCount;
 	
 	protected Screen parent;
 	protected List<FinishListener> listeners;
@@ -114,6 +115,9 @@ public abstract class SceneParser implements 	Updateable,
 	
 	/** @return The level currently active. Same as the static call */
 	public Level getLevel() { return MGlobal.levelManager.getActive(); }
+	
+	/** @return True if any scene parsers are running */
+	public static boolean anyRunning() { return runningCount > 0; }
 
 	/**
 	 * Runs the scene assuming it should be run in the current context. The only
@@ -138,6 +142,7 @@ public abstract class SceneParser implements 	Updateable,
 		runningCommands = commands.iterator();
 		nextCommand();
 		running = true;
+		runningCount += 1;
 	}
 	
 	/**
@@ -171,6 +176,7 @@ public abstract class SceneParser implements 	Updateable,
 		parent.removeCommandListener(this);
 		parent.removeUChild(this);
 		running = false;
+		runningCount -= 1;
 		for (FinishListener listener : listeners) {
 			listener.onFinish();
 		}

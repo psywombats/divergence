@@ -7,7 +7,7 @@
 	"race" : "MONSTER",
 	"family" : "mfamily_snk",
 	"species" : "ASP",
-	"appearance" : "4dir_ffl2_human",
+	"appearance" : "4dir_jelly",
 	"portrait" : "battle_portraits/snk.png",
 	"meatEatLevel" : 2,
 	"meatTargetLevel" : 1,

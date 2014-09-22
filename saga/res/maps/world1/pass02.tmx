@@ -294,7 +294,7 @@
   </object>
   <object name="puppet" type="Character" x="528" y="160" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_golem"/>
     <property name="hide" value="return getSwitch('puppet_dead')"/>
    </properties>
   </object>

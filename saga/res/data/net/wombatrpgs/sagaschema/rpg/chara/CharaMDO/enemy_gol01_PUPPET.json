@@ -7,7 +7,7 @@
 	"race" : "MONSTER",
 	"family" : "mfamily_gol",
 	"species" : "PUPPET",
-	"appearance" : "4dir_ffl2_human",
+	"appearance" : "4dir_golem",
 	"portrait" : "battle_portraits/gol.png",
 	"meatEatLevel" : 2,
 	"meatTargetLevel" : 1,

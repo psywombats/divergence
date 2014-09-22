@@ -48,32 +48,32 @@
   </object>
   <object name="past_borg" type="Character" x="304" y="416" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_robot"/>
     <property name="hide" value="return not getSwitch('opening_flashback')"/>
    </properties>
   </object>
   <object name="elder" type="Character" x="320" y="416" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_elder"/>
     <property name="hide" value="return not getSwitch('opening_flashback')"/>
    </properties>
   </object>
   <object name="clone" type="Character" x="128" y="448" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="lua(return getHero(0).getSpriteName())"/>
     <property name="hide" value="return not getSwitch('opening_flashback')"/>
    </properties>
   </object>
   <object name="jonas" type="Character" x="304" y="480" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_jonas"/>
     <property name="face" value="NORTH"/>
     <property name="hide" value="return not getSwitch('opening_flashback')"/>
    </properties>
   </object>
   <object name="janine" type="Character" x="320" y="480" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_janine"/>
     <property name="face" value="NORTH"/>
     <property name="hide" value="return not getSwitch('opening_flashback')"/>
    </properties>
@@ -125,13 +125,13 @@
   </object>
   <object name="NPC" type="Character" x="48" y="432" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_slime"/>
     <property name="onInteract" value="speak('The tunnels outside town lead to a city on the river.')"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="128" y="352" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_mutant_f"/>
     <property name="face" value="WEST"/>
     <property name="onBehavior" value="this.wander()"/>
     <property name="onInteract" value="speak('Elder found BORG and fixed him up, but BORG\'s memory was wiped.')"/>
@@ -139,7 +139,7 @@
   </object>
   <object name="NPC" type="Character" x="160" y="464" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_mutant_m"/>
     <property name="face" value="NORTH"/>
     <property name="hide" value="return getSwitch('opening_flashback')"/>
     <property name="onBehavior" value="this.wander()"/>
@@ -148,7 +148,7 @@
   </object>
   <object name="NPC" type="Character" x="432" y="464" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_human_m"/>
     <property name="face" value="WEST"/>
     <property name="hide" value="return getSwitch('opening_flashback')"/>
     <property name="onInteract" value="speak('There are other towns across the river, but monsters make the journey dangerous.')"/>
@@ -156,7 +156,7 @@
   </object>
   <object name="NPC" type="Character" x="432" y="352" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_elf"/>
     <property name="face" value="NORTH"/>
     <property name="hide" value="return getSwitch('opening_flashback')"/>
     <property name="onBehavior" value="this.wander()"/>
@@ -165,7 +165,7 @@
   </object>
   <object name="NPC" type="Character" x="304" y="384" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_human_f"/>
     <property name="face" value="EAST"/>
     <property name="hide" value="return getSwitch('opening_flashback')"/>
     <property name="onBehavior" value="this.wander()"/>
@@ -174,7 +174,7 @@
   </object>
   <object name="NPC" type="Character" x="240" y="304" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_human_m"/>
     <property name="face" value="SOUTH"/>
     <property name="hide" value="return getSwitch('opening_flashback')"/>
     <property name="onBehavior" value="this.wander()"/>

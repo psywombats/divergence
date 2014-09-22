@@ -7,7 +7,7 @@
 	"race" : "MONSTER",
 	"family" : "mfamily_wsp",
 	"species" : "WISP",
-	"appearance" : "4dir_ffl2_human",
+	"appearance" : "4dir_ghost",
 	"portrait" : "battle_portraits/wsp.png",
 	"meatEatLevel" : 3,
 	"meatTargetLevel" : 2,

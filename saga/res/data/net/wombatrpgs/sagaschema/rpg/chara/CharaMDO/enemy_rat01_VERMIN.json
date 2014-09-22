@@ -7,7 +7,7 @@
 	"race" : "MONSTER",
 	"family" : "mfamily_rat",
 	"species" : "VERMIN",
-	"appearance" : "4dir_ffl2_human",
+	"appearance" : "4dir_rat",
 	"portrait" : "battle_portraits/rat.png",
 	"meatEatLevel" : 0,
 	"meatTargetLevel" : 1,

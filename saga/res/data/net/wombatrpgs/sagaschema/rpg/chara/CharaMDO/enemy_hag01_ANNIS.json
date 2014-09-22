@@ -7,7 +7,7 @@
 	"race" : "MONSTER",
 	"family" : "mfamily_hag",
 	"species" : "ANNIS",
-	"appearance" : "4dir_ffl2_human",
+	"appearance" : "4dir_demon",
 	"portrait" : "battle_portraits/hag.png",
 	"meatEatLevel" : 2,
 	"meatTargetLevel" : 1,

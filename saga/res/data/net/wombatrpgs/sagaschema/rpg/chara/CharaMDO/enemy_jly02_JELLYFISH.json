@@ -7,7 +7,7 @@
 	"race" : "MONSTER",
 	"family" : "mfamily_jly",
 	"species" : "JELLYFISH",
-	"appearance" : "4dir_ffl2_human",
+	"appearance" : "4dir_jelly",
 	"portrait" : "battle_portraits/jly.png",
 	"meatEatLevel" : 3,
 	"meatTargetLevel" : 2,

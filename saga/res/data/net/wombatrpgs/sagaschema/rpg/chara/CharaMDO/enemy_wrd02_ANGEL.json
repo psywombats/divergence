@@ -7,7 +7,7 @@
 	"race" : "MONSTER",
 	"family" : "mfamily_wrd",
 	"species" : "ANGEL",
-	"appearance" : "4dir_ffl2_human",
+	"appearance" : "4dir_demon",
 	"portrait" : "battle_portraits/wrd.png",
 	"meatEatLevel" : 3,
 	"meatTargetLevel" : 2,

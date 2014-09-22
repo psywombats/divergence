@@ -524,7 +524,7 @@
   </object>
   <object name="boss" type="Character" x="240" y="336" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_bird"/>
     <property name="face" value="WEST"/>
     <property name="hide" value="return getSwitch('hq_dead')"/>
     <property name="onInteract" value="play('hqboss.lua')"/>

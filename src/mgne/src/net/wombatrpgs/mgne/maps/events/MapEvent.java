@@ -239,7 +239,9 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 		if (hide != null) {
 			switchHidden = MGlobal.lua.run(hide, lua).checkboolean();
 		}
-		toNextBehavior -= elapsed;
+		if (!SceneParser.anyRunning()) {
+			toNextBehavior -= elapsed;
+		}
 		if (toNextBehavior <= 0) {
 			toNextBehavior = MGlobal.rand.nextFloat() * BEHAVIOR_MAX_DELAY;
 			if (behavior != null && !isHidden()) {

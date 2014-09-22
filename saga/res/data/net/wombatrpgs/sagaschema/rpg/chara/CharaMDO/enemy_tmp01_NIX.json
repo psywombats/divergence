@@ -7,7 +7,7 @@
 	"race" : "MONSTER",
 	"family" : "mfamily_tmp",
 	"species" : "NIX",
-	"appearance" : "4dir_ffl2_human",
+	"appearance" : "4dir_demon",
 	"portrait" : "battle_portraits/tmp.png",
 	"meatEatLevel" : 2,
 	"meatTargetLevel" : 1,

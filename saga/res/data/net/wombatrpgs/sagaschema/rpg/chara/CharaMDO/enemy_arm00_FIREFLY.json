@@ -7,7 +7,7 @@
 	"race" : "MONSTER",
 	"family" : "mfamily_arm",
 	"species" : "FIREFLY",
-	"appearance" : "4dir_ffl2_human",
+	"appearance" : "4dir_beetle",
 	"portrait" : "battle_portraits/arm.png",
 	"meatEatLevel" : 1,
 	"meatTargetLevel" : 0,

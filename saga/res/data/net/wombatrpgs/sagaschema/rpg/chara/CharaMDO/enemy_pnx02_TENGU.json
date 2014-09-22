@@ -7,7 +7,7 @@
 	"race" : "MONSTER",
 	"family" : "mfamily_pnx",
 	"species" : "TENGU",
-	"appearance" : "4dir_ffl2_human",
+	"appearance" : "4dir_bird",
 	"portrait" : "battle_portraits/pnx.png",
 	"meatEatLevel" : 3,
 	"meatTargetLevel" : 2,

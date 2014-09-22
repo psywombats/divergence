@@ -7,7 +7,7 @@
 	"race" : "MONSTER",
 	"family" : "mfamily_dog",
 	"species" : "WOLF",
-	"appearance" : "4dir_ffl2_human",
+	"appearance" : "4dir_rat",
 	"portrait" : "battle_portraits/dog.png",
 	"meatEatLevel" : 1,
 	"meatTargetLevel" : 0,

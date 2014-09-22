@@ -299,7 +299,7 @@
   </object>
   <object name="shrineboss" type="Event" x="240" y="384" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_horse"/>
     <property name="face" value="WEST"/>
     <property name="hide" value="return getSwitch('shrine_dead')"/>
     <property name="onInteract" value="play('shrineboss.lua')"/>
@@ -307,7 +307,7 @@
   </object>
   <object name="shrineboss" type="Event" x="272" y="384" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_horse"/>
     <property name="face" value="EAST"/>
     <property name="hide" value="return getSwitch('shrine_dead')"/>
     <property name="onInteract" value="play('shrineboss.lua')"/>
@@ -315,7 +315,7 @@
   </object>
   <object name="shrineboss" type="Event" x="256" y="368" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_rat"/>
     <property name="face" value="SOUTH"/>
     <property name="hide" value="return getSwitch('shrine_dead')"/>
     <property name="onInteract" value="play('shrineboss.lua')"/>
@@ -342,14 +342,14 @@
   </object>
   <object name="david" type="Character" x="256" y="112" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_david"/>
     <property name="hide" value="return getSwitch('shrine_done')"/>
     <property name="onInteract" value="play('david02.lua')"/>
    </properties>
   </object>
   <object name="borg" type="Character" x="256" y="144" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_robot"/>
     <property name="face" value="NORTH"/>
     <property name="hide" value="return not getSwitch('borg_leaves_shrine')"/>
    </properties>

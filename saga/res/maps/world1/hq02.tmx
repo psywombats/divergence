@@ -528,7 +528,7 @@
   </object>
   <object name="guard" type="Character" x="160" y="368" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_elf"/>
     <property name="face" value="NORTH"/>
     <property name="hide" value="return not getSwitch('shrine_done')"/>
     <property name="onBehavior" value="this.wander()"/>
@@ -538,7 +538,7 @@
   </object>
   <object name="guard" type="Character" x="272" y="368" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_rat"/>
     <property name="face" value="NORTH"/>
     <property name="hide" value="return not getSwitch('shrine_done')"/>
     <property name="onBehavior" value="this.wander()"/>
@@ -548,7 +548,7 @@
   </object>
   <object name="guard" type="Character" x="368" y="368" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_elf"/>
     <property name="face" value="NORTH"/>
     <property name="hide" value="return not getSwitch('shrine_done')"/>
     <property name="onBehavior" value="this.wander()"/>
@@ -558,7 +558,7 @@
   </object>
   <object name="guard" type="Character" x="464" y="480" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_rat"/>
     <property name="face" value="EAST"/>
     <property name="hide" value="return not getSwitch('shrine_done')"/>
     <property name="onBehavior" value="this.wander()"/>

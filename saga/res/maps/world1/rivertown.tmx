@@ -540,7 +540,7 @@
   </object>
   <object name="NPC" type="Character" x="576" y="336" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_mutant_m"/>
     <property name="face" value="SOUTH"/>
     <property name="onBehavior" value="this.wander()"/>
     <property name="onInteract" value="speak('Are you planning a trip across the bridge? Monsters are much more vicious east of the river.')"/>
@@ -558,14 +558,14 @@
   </object>
   <object name="NPC" type="Character" x="416" y="432" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_human_m"/>
     <property name="face" value="NORTH"/>
     <property name="onInteract" value="speak('Before the portals in Hero opened, this town used to be at war with most of its neighbors.')"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="224" y="496" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_bird"/>
     <property name="face" value="EAST"/>
     <property name="onBehavior" value="this.wander()"/>
     <property name="onInteract" value="speak('I tried to visit the Airseed Shrine once, but I couldn\'t find a way over the mountains.')"/>
@@ -573,29 +573,29 @@
   </object>
   <object name="NPC" type="Character" x="528" y="416" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_horse"/>
     <property name="face" value="WEST"/>
     <property name="onInteract" value="speak('The governor lives in this house. Be polite!')"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="416" y="208" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_mutant_f"/>
     <property name="face" value="WEST"/>
     <property name="onBehavior" value="this.wander()"/>
-    <property name="onInteract" value="speak('Welcome to the river city! It\'s hard journey to come south over the mountains.')"/>
+    <property name="onInteract" value="speak('Welcome to the river city! It\'s a hard journey to come south over the mountains.')"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="304" y="560" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_slime"/>
     <property name="face" value="SOUTH"/>
     <property name="onInteract" value="speak('A pub can be a good place to find information... or just a good drink.')"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="432" y="608" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_human_f"/>
     <property name="face" value="WEST"/>
     <property name="onBehavior" value="this.wander()"/>
     <property name="onInteract" value="speak('The robots that hail from beyond Hero are amazing. They gain the power of items equipped to them.')"/>
@@ -603,7 +603,7 @@
   </object>
   <object name="NPC" type="Character" x="288" y="384" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_human_m"/>
     <property name="face" value="EAST"/>
     <property name="onBehavior" value="this.wander()"/>
     <property name="onInteract" value="speak('The swamps south of here can be tricky to traverse. I don\'t think any have been down that way in years.')"/>
@@ -611,17 +611,17 @@
   </object>
   <object name="NPC" type="Character" x="208" y="224" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_elf"/>
     <property name="hide" value="return getSwitch('opening_flashback')"/>
     <property name="onInteract" value="speak('Now that Hero is sealed off, this town is the most active trading hub on the continent.')"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="544" y="272" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_human_f"/>
     <property name="face" value="WEST"/>
     <property name="onBehavior" value="this.wander()"/>
-    <property name="onInteract" value="speak('Once in a while a shop might have an artifact from Hero, but magical items are rare nowadays.')"/>
+    <property name="onInteract" value="speak('Once in a while a shop might have a relic from Hero, but magical items are rare nowadays.')"/>
    </properties>
   </object>
   <object type="Event" x="272" y="240" width="16" height="16">

@@ -7,7 +7,7 @@
 	"race" : "MONSTER",
 	"family" : "mfamily_eph",
 	"species" : "ELEPHANT",
-	"appearance" : "4dir_ffl2_human",
+	"appearance" : "4dir_horse",
 	"portrait" : "battle_portraits/eph.png",
 	"meatEatLevel" : 2,
 	"meatTargetLevel" : 1,

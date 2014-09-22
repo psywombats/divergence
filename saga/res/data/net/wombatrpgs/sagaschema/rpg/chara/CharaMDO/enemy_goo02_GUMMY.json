@@ -7,7 +7,7 @@
 	"race" : "MONSTER",
 	"family" : "mfamily_goo",
 	"species" : "GUMMY",
-	"appearance" : "4dir_ffl2_human",
+	"appearance" : "4dir_slime",
 	"portrait" : "battle_portraits/goo.png",
 	"meatEatLevel" : 3,
 	"meatTargetLevel" : 2,

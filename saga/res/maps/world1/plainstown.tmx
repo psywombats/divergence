@@ -535,7 +535,7 @@
  <objectgroup name="Object Layer 1">
   <object name="NPC" type="Character" x="256" y="288" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_knight"/>
     <property name="face" value="NORTH"/>
     <property name="hide" value="return getSwitch('shrine_done')"/>
     <property name="onBehavior" value="this.wander()"/>
@@ -574,7 +574,7 @@
   </object>
   <object name="NPC" type="Character" x="320" y="512" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_knight"/>
     <property name="face" value="SOUTH"/>
     <property name="hide" value="return getSwitch('shrine_done')"/>
     <property name="onBehavior" value="this.wander()"/>
@@ -583,7 +583,7 @@
   </object>
   <object name="NPC" type="Character" x="416" y="320" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_beetle"/>
     <property name="face" value="NORTH"/>
     <property name="hide" value="return getSwitch('shrine_done')"/>
     <property name="onBehavior" value="this.wander()"/>
@@ -592,7 +592,7 @@
   </object>
   <object name="NPC" type="Character" x="448" y="464" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_human_m"/>
     <property name="face" value="WEST"/>
     <property name="hide" value="return getSwitch('shrine_done')"/>
     <property name="onBehavior" value="this.wander()"/>
@@ -601,7 +601,7 @@
   </object>
   <object name="NPC" type="Character" x="272" y="352" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_human_f"/>
     <property name="face" value="SOUTH"/>
     <property name="hide" value="return getSwitch('shrine_done')"/>
     <property name="onBehavior" value="this.wander()"/>

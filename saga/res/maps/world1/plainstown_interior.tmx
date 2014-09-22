@@ -535,7 +535,7 @@
  <objectgroup name="Object Layer 1">
   <object name="inn" type="Character" x="48" y="64" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_human_m"/>
     <property name="onInteract" value="inn()"/>
    </properties>
   </object>
@@ -551,21 +551,21 @@
   </object>
   <object name="champion" type="Character" x="448" y="96" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_knight"/>
     <property name="hide" value="return getSwitch('shrine_done')"/>
     <property name="onInteract" value="play('champion01.lua')"/>
    </properties>
   </object>
   <object name="champion" type="Character" x="448" y="80" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="anim_dead"/>
     <property name="hide" value="return (not getSwitch('shrine_done')) or (getSwitch('champion_dead'))"/>
     <property name="onInteract" value="play('champion02.lua')"/>
    </properties>
   </object>
   <object name="champion" type="Character" x="448" y="80" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="anim_dead"/>
     <property name="hide" value="return not getSwitch('champion_dead')"/>
     <property name="onInteract" value="speak('He is dead.')"/>
    </properties>

@@ -24,7 +24,7 @@
  <objectgroup name="Object Layer 1">
   <object name="inn" type="Character" x="64" y="48" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_human_m"/>
     <property name="face" value="SOUTH"/>
     <property name="onInteract" value="inn()"/>
    </properties>
@@ -51,70 +51,70 @@
   </object>
   <object name="shop" type="Character" x="480" y="96" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_human_m"/>
     <property name="face" value="SOUTH"/>
     <property name="onInteract" value="shop('shop_rivertown_weapon')"/>
    </properties>
   </object>
   <object name="shop" type="Character" x="416" y="80" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_human_m"/>
     <property name="face" value="SOUTH"/>
     <property name="onInteract" value="shop('shop_rivertown_armor')"/>
    </properties>
   </object>
   <object name="shop" type="Character" x="544" y="80" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_human_m"/>
     <property name="face" value="SOUTH"/>
     <property name="onInteract" value="shop('shop_world1_potions')"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="160" y="368" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_human_m"/>
     <property name="face" value="SOUTH"/>
     <property name="onInteract" value="speak('Eastern cities are a little reclusive. You won\'t find a place more hospitable than this!')"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="192" y="416" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_demon"/>
     <property name="face" value="SOUTH"/>
     <property name="onInteract" value="speak('The champion of the plains town wields the everburning torch, a magical weapon that gives off light even without air.')"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="208" y="432" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_demon"/>
     <property name="face" value="WEST"/>
     <property name="onInteract" value="speak('Here in the river city we built a shrine to the airseed, a magical artifact that lets you breathe where others suffocate.')"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="192" y="448" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_demon"/>
     <property name="face" value="NORTH"/>
     <property name="onInteract" value="speak('In the city keep of the mountain town, their elder guards the magus eye, a magical talisman that guides the user away from invisible traps.')"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="48" y="416" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_human_f"/>
     <property name="face" value="SOUTH"/>
-    <property name="onInteract" value="speak('A man named Dav stopped by here a few weeks ago. I hear he had one of the four artifacts that unseal Hero!')"/>
+    <property name="onInteract" value="speak('A man named David stopped by here a few weeks ago. I hear he had one of the four artifacts that unseal Hero!')"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="80" y="368" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_mutant_m"/>
     <property name="face" value="EAST"/>
     <property name="onInteract" value="speak('Maybe you haven\'t noticed, but this bar is popular with treasure hunters. If you want my opinion... Hero is a deathtrap. What use are artifacts when the monsters inside will eat you alive?')"/>
    </properties>
   </object>
   <object name="mayor" type="Character" x="480" y="432" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_elder"/>
     <property name="face" value="WEST"/>
     <property name="hide" value="return getSwitch('mayor01')"/>
     <property name="onInteract" value="play('mayor01.lua')"/>
@@ -122,7 +122,7 @@
   </object>
   <object name="mayor" type="Character" x="480" y="432" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_elder"/>
     <property name="face" value="WEST"/>
     <property name="hide" value="return not getSwitch('mayor01')"/>
     <property name="onInteract" value="speak('The shrine is south of here. Whatever treasure you find there is yours to keep.')"/>

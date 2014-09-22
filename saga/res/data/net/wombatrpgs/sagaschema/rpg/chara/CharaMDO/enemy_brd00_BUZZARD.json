@@ -7,7 +7,7 @@
 	"race" : "MONSTER",
 	"family" : "mfamily_brd",
 	"species" : "BUZZARD",
-	"appearance" : "4dir_ffl2_human",
+	"appearance" : "4dir_bird",
 	"portrait" : "battle_portraits/brd.png",
 	"meatEatLevel" : 0,
 	"meatTargetLevel" : 0,

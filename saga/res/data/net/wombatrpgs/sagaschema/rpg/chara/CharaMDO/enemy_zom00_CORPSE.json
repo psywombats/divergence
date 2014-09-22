@@ -7,7 +7,7 @@
 	"race" : "MONSTER",
 	"family" : "mfamily_zom",
 	"species" : "CORPSE",
-	"appearance" : "4dir_ffl2_human",
+	"appearance" : "4dir_skeleton",
 	"portrait" : "battle_portraits/zom.png",
 	"meatEatLevel" : 1,
 	"meatTargetLevel" : 0,
