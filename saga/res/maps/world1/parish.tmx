@@ -119,7 +119,7 @@
   </object>
   <object name="borg" type="Character" x="368" y="416" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="4dir_robot"/>
     <property name="hide" value="return not getSwitch('opening_borg_visible')"/>
    </properties>
   </object>

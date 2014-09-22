@@ -3,7 +3,7 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
-	"appearance" : "4dir_ffl2_human",
+	"appearance" : "lua(return getHero(0).getSpriteName())",
 	"width" : 1.0,
 	"height" : 1.0,
 	"groups" : "",
