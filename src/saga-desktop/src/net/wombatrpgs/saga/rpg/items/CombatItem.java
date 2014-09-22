@@ -213,7 +213,7 @@ public class CombatItem extends AssetQueuer {
 	public void animate(Intent intent) {
 		if (MapThing.mdoHasProperty(mdo.anim)) {
 			BattleAnimMDO animMDO = MGlobal.data.getEntryFor(mdo.anim, BattleAnimMDO.class);
-			intent.getBattle().animate(animMDO, intent.getTargets());
+			intent.getBattle().animate(intent.getActor(), animMDO, intent.getTargets());
 		}
 	}
 	

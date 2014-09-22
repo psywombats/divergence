@@ -45,12 +45,14 @@ import net.wombatrpgs.saga.graphics.banim.BattleAnim;
 import net.wombatrpgs.saga.graphics.banim.BattleAnimFactory;
 import net.wombatrpgs.saga.rpg.battle.PlayAnim;
 import net.wombatrpgs.saga.rpg.battle.Battle;
+import net.wombatrpgs.saga.rpg.battle.PlayMoveSprite;
 import net.wombatrpgs.saga.rpg.battle.PlayNumber;
 import net.wombatrpgs.saga.rpg.battle.PlayPause;
 import net.wombatrpgs.saga.rpg.battle.PlayShake;
 import net.wombatrpgs.saga.rpg.battle.PlaybackStep;
 import net.wombatrpgs.saga.rpg.battle.PlayText;
 import net.wombatrpgs.saga.rpg.battle.Intent.TargetListener;
+import net.wombatrpgs.saga.rpg.battle.PlayMoveSprite.SpriteMoveType;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.chara.Party;
 import net.wombatrpgs.saga.rpg.mutant.Mutation;
@@ -79,7 +81,7 @@ public class ScreenBattle extends SagaScreen {
 	protected static final int MONSTERLIST_WIDTH = 124;
 	protected static final int MONSTERLIST_HEIGHT = 48;
 	protected static final int MONSTERLIST_MARGIN = 10;
-	protected static final int SPRITES_HEIGHT = 24;
+	protected static final int SPRITES_HEIGHT = 32;
 	protected static final int ACTOR_PADDING = 10;
 	protected static final int ABILS_WIDTH = 112;
 	protected static final int ABILS_HEIGHT = 96;
@@ -95,6 +97,8 @@ public class ScreenBattle extends SagaScreen {
 	protected static final float SHAKE_DURATION = .5f;
 	protected static final int TEXT_LINES = 8;
 	protected static final float TEXT_FADE_TIME = 0f;
+	protected static final float ADVANCE_DURATION = .2f;
+	protected static final int ADVANCE_LENGTH = 8; // in px
 	
 	protected Battle battle;
 	
@@ -133,6 +137,9 @@ public class ScreenBattle extends SagaScreen {
 	protected List<PortraitAnim> anims;
 	protected Map<Integer, PortraitAnim> animsOnGroups;
 	protected Map<Integer, Float> shakeTimers;
+	protected Chara movingHero;
+	protected float moveTime;
+	protected boolean moveRetreat;
 	
 	/**
 	 * Creates a new combat setup. This initializes the screen and passes the
@@ -239,6 +246,9 @@ public class ScreenBattle extends SagaScreen {
 	
 	/** @return True if no animations are currently playing */
 	public boolean isAnimFinished() { return anims.size() == 0; }
+	
+	/** @return True if the hero has finished moving up/down */
+	public boolean isAdvanceFinished() { return moveTime >= ADVANCE_DURATION; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.screen.Screen#update(float)
@@ -246,6 +256,7 @@ public class ScreenBattle extends SagaScreen {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
+		moveTime += elapsed;
 		boolean done = true;
 		for (PortraitAnim anim : anims) {
 			if (anim.isDone()) {
@@ -411,6 +422,13 @@ public class ScreenBattle extends SagaScreen {
 			float renderX = globalX + (win.getViewportWidth() - anim.getWidth()*players) *
 					(i+1)/(players+1) + (anim.getWidth()) * i;
 			float renderY = (SPRITES_HEIGHT - anim.getHeight()) / 2;
+			if (SGlobal.heroes.getFront(i) == movingHero) {
+				float r = moveTime / ADVANCE_DURATION;
+				if (r > 1f) r = 1f;
+				if (moveRetreat) r = 1f - r;
+				float delta = r * (float) ADVANCE_LENGTH;
+				renderY += delta;
+			}
 			shakeShader.begin();
 			shakeShader.setUniformf("u_offX", -1);
 			playerBatch.setShader(shakeShader);
@@ -625,6 +643,17 @@ public class ScreenBattle extends SagaScreen {
 	}
 	
 	/**
+	 * Animates a chara stepping back or forward without regard for play order.
+	 * @param	target			The chara to move
+	 * @param	type			Whether to advance or retreat
+	 */
+	public void immediateAdvance(Chara target, SpriteMoveType type) {
+		this.movingHero = target;
+		moveTime = 0;
+		moveRetreat = (type == SpriteMoveType.RETURN);
+	}
+	
+	/**
 	 * Plays a battle animation on a bunch of dumb targets. The single mdo is
 	 * instantiated multiple times so that any RNG use within the anim is reset.
 	 * Probably uses ugly searches to map from the list of targets to locations
@@ -653,6 +682,15 @@ public class ScreenBattle extends SagaScreen {
 	 */
 	public void animatePause() {
 		playbackQueue.add(new PlayPause(this));
+	}
+	
+	/**
+	 * Animates a hero advancing to attack.
+	 * @param	hero			The hero to animate
+	 * @param	type			Whether to move forwards or backwards
+	 */
+	public void animateAdvance(Chara hero, SpriteMoveType type) {
+		playbackQueue.add(new PlayMoveSprite(this, hero, type));
 	}
 	
 	/**

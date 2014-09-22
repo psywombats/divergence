@@ -21,6 +21,7 @@ import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.battle.Intent.IntentListener;
 import net.wombatrpgs.saga.rpg.battle.Intent.TargetListener;
+import net.wombatrpgs.saga.rpg.battle.PlayMoveSprite.SpriteMoveType;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.chara.Enemy;
 import net.wombatrpgs.saga.rpg.chara.EnemyParty;
@@ -368,17 +369,24 @@ public class Battle extends AssetQueuer implements Disposable {
 	/**
 	 * Displays a battle animation on some enemy characters. This will only do
 	 * anything for the enemies that get passed in.
+	 * @param	user			The idiot doing the attacking
 	 * @param	animMDO			The MDO of the animation to play
 	 * @param	targets			The targets to play the animation on
 	 */
-	public void animate(BattleAnimMDO animMDO, List<Chara> targets) {
+	public void animate(Chara user, BattleAnimMDO animMDO, List<Chara> targets) {
 		List<Chara> enemyTargets = new ArrayList<Chara>();
 		for (Chara target : targets) {
 			if (enemy.contains(target)) {
 				enemyTargets.add(target);
 			}
 		}
-		screen.animate(animMDO, targets);
+		if (SGlobal.heroes.contains(user)) {
+			screen.animateAdvance(user, SpriteMoveType.ADVANCE);
+			screen.animate(animMDO, targets);
+			screen.animateAdvance(user, SpriteMoveType.RETURN);
+		} else {
+			screen.animate(animMDO, targets);
+		}
 	}
 	
 	/**

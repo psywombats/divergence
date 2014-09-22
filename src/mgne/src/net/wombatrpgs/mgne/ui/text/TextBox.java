@@ -131,7 +131,7 @@ public class TextBox extends ScreenGraphic {
 		boxHeight = (int) (font.getLineHeight() * mdo.lines);
 		boxHeight += mdo.marginTop + mdo.marginBottom;
 		if (backer != null) {
-			backer.resizeTo(boxWidth, boxHeight);
+			backer.resizeTo(boxWidth, boxHeight+2);
 		}
 		
 		bodyFormat.x = mdo.marginWidth;

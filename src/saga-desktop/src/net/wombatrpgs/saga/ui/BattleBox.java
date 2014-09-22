@@ -39,7 +39,7 @@ public class BattleBox extends TextBox implements CommandListener {
 	 * @param	lines			The new amount of lines in the battlebox
 	 */
 	public BattleBox(ScreenBattle parent, int lines) {
-		super(generateMDO(lines), MGlobal.ui.getFont());
+		super(generateMDO(lines-1), MGlobal.ui.getFont());
 		this.parent = parent;
 	}
 	
