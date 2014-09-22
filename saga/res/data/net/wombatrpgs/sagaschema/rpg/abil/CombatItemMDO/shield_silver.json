@@ -1,0 +1,28 @@
+{
+	"key" : "shield_silver",
+	"subfolder" : "armor",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$BSILVER",
+	"type" : "ITEM",
+	"uses" : 50,
+	"cost" : 500,
+	"anim" : "banim_defend",
+	"equip" : [ ],
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectDefendMDO",
+		"key" : "anon_CombatItemMDO_-806628868"
+	},
+	"robostats" : {
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 27.0
+			},
+			{
+				"stat" : "DEF",
+				"value" : 5.0
+			}
+		]
+	}
+}

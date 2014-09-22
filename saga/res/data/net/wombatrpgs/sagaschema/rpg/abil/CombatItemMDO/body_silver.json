@@ -1,0 +1,26 @@
+{
+	"key" : "body_silver",
+	"subfolder" : "armor",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$ASILVER",
+	"type" : "ITEM",
+	"uses" : 0,
+	"cost" : 2200,
+	"anim" : "None",
+	"equip" : [
+		"ARMOR"
+	],
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectPassiveMDO",
+		"key" : "anon_CombatItemMDO_-822075065"
+	},
+	"robostats" : {
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 36.0
+			}
+		]
+	}
+}

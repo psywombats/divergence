@@ -1,0 +1,26 @@
+{
+	"key" : "helm_silver",
+	"subfolder" : "armor",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$FSILVER",
+	"type" : "ITEM",
+	"uses" : 0,
+	"cost" : 500,
+	"anim" : "None",
+	"equip" : [
+		"HELMET"
+	],
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectPassiveMDO",
+		"key" : "anon_CombatItemMDO_-382527995"
+	},
+	"robostats" : {
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 27.0
+			}
+		]
+	}
+}

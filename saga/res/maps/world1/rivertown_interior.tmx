@@ -95,7 +95,7 @@
    <properties>
     <property name="appearance" value="4dir_demon"/>
     <property name="face" value="NORTH"/>
-    <property name="onInteract" value="speak('In the city keep of the mountain town, their elder guards the magus eye, a magical talisman that guides the user away from invisible traps.')"/>
+    <property name="onInteract" value="speak('In the city keep of the mountain town, their wiseman guards the magus eye, a magical talisman that guides the user away from invisible traps.')"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="48" y="416" width="16" height="16">

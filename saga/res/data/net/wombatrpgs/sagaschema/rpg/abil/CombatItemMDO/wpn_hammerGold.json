@@ -3,7 +3,7 @@
 	"subfolder" : "weapon",
 	"name" : "",
 	"description" : "",
-	"abilityName" : "$OBRONZE",
+	"abilityName" : "$OGOLD",
 	"type" : "ITEM",
 	"uses" : 50,
 	"cost" : 389,

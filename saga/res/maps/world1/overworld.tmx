@@ -11,7 +11,7 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2aSW7DMAxFnaN5aZ+i7UqrovdfNQUqgPigOEiUiARafNhxZYqPgyo7uY/juANUguy8qjZ/vg+bf/Nv/s2/+eP1+Ncs/st4LYu9+oOqfxvhp/aka1niuFHlkOtjxHZmDKz+FXLuiYPVfkYMrD5V/loD78Iv+ciN61kDXpVf64Fo9ix+j38FPtdeuOBIr79DDOoYb/49MbgNdmlsV7JX9fS/pRbQl5X8GAP0dZRfqwXJl1X8dV7sXRwzyk9jII09GUXzavXFxbmX35MzLjYn2FoZAzq3l7+nXrn6X8kvxcDD39urlbtV/xk94c3/zHWKq4lVsvB72TUOqQZWs2v8PXnHsXj/SY6ra9+T/x72Fgu1kflchL60+Ef6neaUs5P1bMDtBbgeiFzrJBvR/ByfRaVho8cH7OkHnON+PJofn2M9/FF5x70NCp+tI+KAtmkstHj0vAPjci2t51z+6TG67rnnMgu/NQ4aO659Wv5H62CUX1tDcC4LvxQDjMXNzDMSAy8/vgvWFMEf3QsW25I8/JYYWGxErgOtPrDyePlHtWotzOaX/GrVZ3QdePmt9TsjVhGK4I+KQY8/M2PQWhOi6r9Vyxl14Jm39X04ZdL+n0jvnLP46fy3YF/6PYAUA46ZHntyMYOf46XPv1j/dKzGbtnTZue/le/CSPOhxcqde/pxJi/OQ/mtfYC2Wt//fTz15fBnFf8N83Bz9v4uiOr7qR+4djJaWfOUX5oXe2GGL1wsOM3g11Tzf03iz2DHvHv58b6INWwlu1YH1P8C59w9Lc5e/pm8Vn6af0l/Y1rvqrzrWAa7tf5pH1S9A7/ETfc/Wh1wa6OXf9Vez8p/McdL+JzNM8Lv6flZ+c/gv5hzmlst7/Q6Kvu7XYu49+K9/JZx0f5/TlBv/aNm+DbL162tra1X0y8liRaYAEAAAA==
+   H4sIAAAAAAAAC+2aOW7EMAxFPUdzaZ8iSaUqyP2rTIAIID4oLhIlYgYqPrxEpvi4KF7mPo7jDlAJsvOq2vz5Pmz+zb/5N//mj9fjX7P4L+O5LPbqD6r+bYSf2pPOZYnjRpVDro8R25kxsPpXyL4nDlb7GTGw+lT5aw28C7/kIzeuZw14VX6tB6LZs/g9/hU4rr1wwZaef4cY1DHe/HticBvs0tiuZK/q6X9LLaAvK/kxBujrKL9WC5Ivq/jrvNi7OGaUn8ZAGnsyiubV6ouLcy+/J2dcbE6wtTIGdG4vf0+9cvW/kl+KgYe/t1crd6v+M3rCm/+Z6xRXE6tk4feyaxxSDaxm1/h78o5j8fgk29W178l/DzvHgtdnPhehPy3+kX6nOeVsZD0bcPcCXA9ErnWSjWh+js+i0rDR4wP29AP28X48mh+fYz38UXnHexsUPltHxAFt01ho8eh5B8blWlrPufzTbXTdc89lFn5rHDT2U5ivFYOROhjl19YQnMvCL8UAY3Ez84zEwMuP74I1RfBH94LFtiQPvyUGFhuR60CrD6w8Xv5RrVoLs/klv1r1GV0HXn5r/c6IVYQi+KNi0OPPzBi01oSo+m/VckYdeOZtfQ+nTNr/E+mdcxY/nf8W7Eu/B5BiwDHTbU8uZvBzvPT5F+ufjtXYLfe02flv5bsw0nxosXL7nn6cyYvzUH5rH6Ct1ve/j6e+HP6s4r9hHm7O3t8FUX0/9QPnTkYra57yS/NiL8zwhYsFpxn8mmr+r0n8GeyYdy8/Xhexhq1k1+qA+l9gn7umxdnLP5PXyk/zL+lvTOtdlXcdy2C31j/tg6p34Je46f2PVgfc2ujlX3WvZ+W/mO0lHGfzjPB7en5W/jP4L2af5lbLOz2Pyv62axH3XryX3zIu2v/PCeqtf9QM32b5urW1tfVq+gVCDzrAAEAAAA==
   </data>
  </layer>
  <layer name="Tile Layer 2" width="64" height="64">
@@ -62,6 +62,11 @@
   <object name="Southern Stronghold" type="Event" x="816" y="848" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/hq01.tmx', 11, 8, 'SOUTH')"/>
+   </properties>
+  </object>
+  <object name="Mountain Town" type="Event" x="704" y="400" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/mountaintown.tmx', 28, 35, 'NORTH')"/>
    </properties>
   </object>
  </objectgroup>
