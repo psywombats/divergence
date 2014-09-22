@@ -529,7 +529,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3UMQ6AMAgF0J6/u6v1Bl6xE4tLncSS9xbC9kmA1gAAvncsenijZweAn4sbGakp6rgfdUexExVmWYlZz9QUkCP2/8oMUVTlvwkAAMDeJqrsUlMAJAAA
+   H4sIAAAAAAAAC+3UKxKAMAxAwZ4fj+RzA66IigFRFKFh13TqXmbStgYA8L65c4cnpuwA+Lh4I1tqRR3H5RxR7ESFWXpi1jW14h+W7ABuYv/3zIiiKv+bAAAAjO0ElXgq6wAkAAA=
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
@@ -584,7 +584,7 @@
     <property name="appearance" value="4dir_mutant_f"/>
     <property name="face" value="NORTH"/>
     <property name="onBehavior" value="this.wander()"/>
-    <property name="onInteract" value="speak('I\'m looking to buy supplies here before going on an expedition to the north.')"/>
+    <property name="onInteract" value="speak('The magus eye is the pride of the city. The wearer will never stumble into any traps!')"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="400" y="304" width="16" height="16">
@@ -618,6 +618,20 @@
   <object name="door" type="Event" x="304" y="224" width="16" height="16">
    <properties>
     <property name="onInteract" value="speak('It\'s locked.')"/>
+    <property name="passable" value="IMPASSABLE"/>
+   </properties>
+  </object>
+  <object name="well1" type="Event" x="368" y="384" width="16" height="16">
+   <properties>
+    <property name="hide" value="return hasItem('key_artifactScuba')"/>
+    <property name="onInteract" value="speak(getHero(0).getName(), 'The well looks too deep to dive without drowning.')"/>
+    <property name="passable" value="IMPASSABLE"/>
+   </properties>
+  </object>
+  <object name="well2" type="Event" x="368" y="384" width="16" height="16">
+   <properties>
+    <property name="hide" value="return not hasItem('key_artifactScuba')"/>
+    <property name="onInteract" value="play('well.lua')"/>
     <property name="passable" value="IMPASSABLE"/>
    </properties>
   </object>
