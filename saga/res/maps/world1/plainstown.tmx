@@ -529,7 +529,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3VsQqEMAwA0P68i8N9g4OgN5z+ooq4FIcuXqy+B6EUOqQ0TVICAAAAqNOcrU/0y/ZTSBbA27Rp761dcB5XKumvb5gzm+1+x5s/1d3m6bDGmMV3jSYyqT/6RCcQrObe0heeu9uf41o113QpNQ0AAJxZAFEgQXCAKwAA
+   H4sIAAAAAAAAC+3VMQqAMBAEwHzexsI3WAhq5ReNiE3aSM7gDCxpNyTcpQQAAADQp6M4AXjHmO7ZOgf3iPaXPXPd73lz2lhztiJ7zhBZqqEpukCwnmfLEl2AT+r5TwMAANQ4AWwO0+6AKwAA
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
