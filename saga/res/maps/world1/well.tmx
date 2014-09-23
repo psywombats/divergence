@@ -294,7 +294,7 @@
     <property name="item" value="body_gold"/>
    </properties>
   </object>
-  <object name="chest" type="Chest" x="240" y="112" width="16" height="16">
+  <object name="chest" type="Chest" x="240" y="128" width="16" height="16">
    <properties>
     <property name="item" value="key_artifactHeatgoggle"/>
     <property name="keyItem" value=""/>
@@ -303,6 +303,16 @@
   <object name="tele" type="Event" x="240" y="240" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/mountaintown.tmx', 19, 15)"/>
+   </properties>
+  </object>
+  <object name="chest" type="Chest" x="224" y="112" width="16" height="16">
+   <properties>
+    <property name="collectable" value="stone_earth"/>
+   </properties>
+  </object>
+  <object name="chest" type="Chest" x="256" y="112" width="16" height="16">
+   <properties>
+    <property name="collectable" value="stone_air"/>
    </properties>
   </object>
  </objectgroup>

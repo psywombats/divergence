@@ -23,7 +23,7 @@ import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.rpg.items.ShopInventory;
 import net.wombatrpgs.saga.ui.ItemSelector;
-import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
+import net.wombatrpgs.saga.ui.SlotListener;
 import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.ShopMDO;
 

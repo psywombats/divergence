@@ -62,7 +62,7 @@ import net.wombatrpgs.saga.ui.CharaInsertFull;
 import net.wombatrpgs.saga.ui.CharaSelector;
 import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
 import net.wombatrpgs.saga.ui.ItemSelector;
-import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
+import net.wombatrpgs.saga.ui.SlotListener;
 import net.wombatrpgs.sagaschema.graphics.banim.data.BattleAnimMDO;
 
 /**

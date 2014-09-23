@@ -18,8 +18,9 @@ import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.rpg.items.Inventory;
 import net.wombatrpgs.saga.ui.CharaSelector;
 import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
+import net.wombatrpgs.saga.ui.CollectionSelector;
 import net.wombatrpgs.saga.ui.ItemSelector;
-import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
+import net.wombatrpgs.saga.ui.SlotListener;
 
 /**
  * Items display!
@@ -31,12 +32,17 @@ public class ScreenInventory extends SagaScreen implements TargetSelectable {
 	protected static final int ITEMS_EDGE_PADDING = 12;
 	protected static final int ITEMS_LIST_PADDING = 3;
 	protected static final int INSERTS_PADDING = 3;
+	protected static final int COLLECTION_WIDTH = 92;
+	protected static final int COLLECTION_PADDING = 3;
 	
 	protected Inventory inventory;
 	protected ItemSelector items;
 	protected CharaSelector inserts;
-	protected Nineslice bg;
+	protected CollectionSelector collection;
+	protected Nineslice bg, collectionBG;
 	protected int marked;
+	protected float collectionX, collectionY;
+	protected float collectionHeight;
 	protected float globalX, globalY;
 	
 	/**
@@ -52,15 +58,31 @@ public class ScreenInventory extends SagaScreen implements TargetSelectable {
 				ITEMS_WIDTH - ITEMS_EDGE_PADDING * 2, ITEMS_LIST_PADDING,
 				false, false);
 		inserts = new CharaSelector(SGlobal.heroes, false, false, true, INSERTS_PADDING);
+		collection = new CollectionSelector(SGlobal.heroes.getCollection(),
+				SGlobal.heroes.getCollection().getTypeCount(),
+				COLLECTION_WIDTH, ITEMS_LIST_PADDING, false);
 		assets.add(inserts);
 		assets.add(items);
+		assets.add(collection);
 		addUChild(inserts);
+		
+		collectionBG = new Nineslice();
+		assets.add(collectionBG);
+		
+		collectionHeight = collection.getHeight() +
+				collectionBG.getBorderHeight()*2 + COLLECTION_PADDING*2;
 		
 		globalX = (getWidth() - (ITEMS_WIDTH + inserts.getWidth())) / 2;
 		globalY = (getHeight() - ITEMS_HEIGHT) / 2;
 		
 		items.setX(globalX + (ITEMS_WIDTH - items.getWidth()) / 2);
 		items.setY(globalY + (ITEMS_HEIGHT - items.getHeight()) / 2 - 7);
+		
+		collectionX = globalX + ITEMS_WIDTH - bg.getBorderWidth();
+		collectionY = globalY + ITEMS_HEIGHT - inserts.getHeight() -
+				collectionHeight + collectionBG.getBorderHeight();
+		collection.setX(collectionX + collectionBG.getBorderWidth() + COLLECTION_PADDING);
+		collection.setY(collectionY - COLLECTION_PADDING + 3);
 	}
 
 	/**
@@ -94,6 +116,10 @@ public class ScreenInventory extends SagaScreen implements TargetSelectable {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
+		if (SGlobal.heroes.getCollection().getTypeCount() > 0) {
+			collectionBG.renderAt(batch, collectionX, collectionY);
+			collection.render(batch);
+		}
 		if (inserts.isActive()) {
 			bg.renderAt(batch, globalX, globalY);
 			inserts.render(batch);
@@ -150,6 +176,10 @@ public class ScreenInventory extends SagaScreen implements TargetSelectable {
 		
 		inserts.setX(globalX + ITEMS_WIDTH - bg.getBorderWidth());
 		inserts.setY(globalY + ITEMS_HEIGHT - inserts.getHeight());
+		
+		collectionBG.resizeTo(
+				COLLECTION_WIDTH + 24,
+				(int) collectionHeight);
 	}
 	
 	/**

@@ -38,7 +38,7 @@ import net.wombatrpgs.saga.screen.SagaScreen.FadeType;
 import net.wombatrpgs.saga.screen.SagaScreen.TransitionType;
 import net.wombatrpgs.saga.screen.ScreenBattle;
 import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
-import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
+import net.wombatrpgs.saga.ui.SlotListener;
 import net.wombatrpgs.sagaschema.graphics.banim.data.BattleAnimMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.CharaMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;

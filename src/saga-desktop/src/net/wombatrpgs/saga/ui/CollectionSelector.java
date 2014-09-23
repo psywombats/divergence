@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.saga.ui;
 
+import java.util.Map;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 
@@ -17,32 +19,27 @@ import net.wombatrpgs.mgne.io.CommandMap;
 import net.wombatrpgs.mgne.io.command.CMapRaw;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Graphic;
-import net.wombatrpgs.mgne.ui.Option;
-import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
-import net.wombatrpgs.saga.core.SConstants;
-import net.wombatrpgs.saga.rpg.items.CombatItem;
-import net.wombatrpgs.saga.rpg.items.Inventory;
-import net.wombatrpgs.saga.screen.TargetSelectable;
+import net.wombatrpgs.saga.rpg.items.CollectableSet;
 
 /**
- * Allows the user to select an ability from a list.
+ * Allows the user to select an item from a collection.
  */
-public class ItemSelector extends ScreenGraphic implements CommandListener {
+public class CollectionSelector extends ScreenGraphic implements CommandListener {
 	
 	protected static final int INDENT_SIZE = 4;
 	
-	protected Inventory inventory;
+	protected CollectableSet collection;
 	protected CommandMap context;
 	
 	// layout
 	protected Screen parent;
-	protected TextFormat nameFormat, usesFormat, priceFormat;
+	protected TextFormat nameFormat, quantityFormat;
+	protected int count;
 	protected int width, height;
 	protected int padding;
-	protected int count;
 	
 	// cursor
 	protected SlotListener listener, selectListener;
@@ -55,25 +52,22 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	protected boolean indentOn;
 	protected float indentX, indentY;
 	
-	protected boolean battleOnly, showPrice;
+	protected boolean displayIfEmpty;
 	
 	/**
 	 * Creates a new selector for a given inventory.
-	 * @param	inventory		The set of items to create for
-	 * @param	count			The number of items to display at once
+	 * @param	collection		The collection whose contents to display
+	 * @param	count			The number of collectables to display at once
 	 * @param	width			The width of the selector (in virt px)
 	 * @param	padding			The vertical padding between items (in virt px)
-	 * @param	battleOnly		True if only battle-useable items shown
-	 * @param	showPrice		True to show the buy/sell value of the items
+	 * @param	displayIfEmpty	True to display even a blank collection
 	 */
-	public ItemSelector(Inventory inventory, int count, int width,
-			int padding, boolean battleOnly, boolean showPrice) {
-		this.inventory = inventory;
+	public CollectionSelector(CollectableSet collection, int count, int width,
+			int padding, boolean displayIfEmpty) {
+		this.collection = collection;
 		this.width = width;
 		this.padding = padding;
-		this.count = count;
-		this.battleOnly = battleOnly;
-		this.showPrice = showPrice;
+		this.displayIfEmpty = displayIfEmpty;
 		
 		FontHolder font = MGlobal.ui.getFont();
 		height = (int) (count * font.getLineHeight());
@@ -84,15 +78,10 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 		nameFormat.width = width;
 		nameFormat.height = 240;
 		
-		usesFormat = new TextFormat();
-		usesFormat.align = HAlignment.RIGHT;
-		usesFormat.width = 16;
-		usesFormat.height = 240;
-		
-		priceFormat = new TextFormat();
-		priceFormat.align = HAlignment.RIGHT;
-		priceFormat.width = 48;
-		priceFormat.height = 240;
+		quantityFormat = new TextFormat();
+		quantityFormat.align = HAlignment.RIGHT;
+		quantityFormat.width = 16;
+		quantityFormat.height = 240;
 		
 		context = new CMapRaw();
 	}
@@ -109,20 +98,16 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	 */
 	@Override
 	public void coreRender(SpriteBatch batch) {
-		
 		FontHolder font = MGlobal.ui.getFont();
-		for (int i = 0; i < inventory.slotCount(); i += 1) {
-			CombatItem item = inventory.get(i);
+		Map<String, Integer> pairs = collection.toNameQuantityPairs();
+		if (!displayIfEmpty && pairs.size() == 0) return;
+		int i = 0;
+		for (String name : pairs.keySet()) {
 			int offY = (int) (-i * (font.getLineHeight() + padding));
-			if (item != null && (!battleOnly || item.isBattleUsable())) {
-				font.draw(batch, nameFormat, item.getName(), offY);
-				String uses = item.isUnlimited() ? "--" : String.valueOf(item.getUses());
-				String price = item.isSellable() ? String.valueOf(item.getCost()) : "--";
-				font.draw(batch, usesFormat, uses, offY);
-				if (showPrice) {
-					font.draw(batch, priceFormat, price, offY);
-				}
-			}
+			font.draw(batch, nameFormat, name, offY);
+			String quantity = pairs.get(name).toString();
+			font.draw(batch, quantityFormat, quantity, offY);
+			i += 1;
 		}
 		
 		Graphic cursor = MGlobal.ui.getCursor();
@@ -158,19 +143,11 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	@Override
 	public void postProcessing(MAssets manager, int pass) {
 		super.postProcessing(manager, pass);
-		
 		FontHolder font = MGlobal.ui.getFont();
 		nameFormat.x = (int) x;
 		nameFormat.y = (int) (y + height + font.getLineHeight());
-		if (showPrice) {
-			priceFormat.x = (int) (x + width - priceFormat.width );
-			priceFormat.y = (int) (y + height + font.getLineHeight());
-			usesFormat.x = priceFormat.x - (usesFormat.width + 8);
-			usesFormat.y = (int) (y + height + font.getLineHeight());
-		} else {
-			usesFormat.x = (int) (x + width - usesFormat.width );
-			usesFormat.y = (int) (y + height + font.getLineHeight());
-		}
+		quantityFormat.x = (int) (x + width - quantityFormat.width );
+		quantityFormat.y = (int) (y + height + font.getLineHeight());
 	}
 	
 	/**
@@ -213,12 +190,6 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 		cursorOn = true;
 		
 		selected = 0;
-		if (battleOnly) {
-			while (!inventory.get(selected).isBattleUsable() &&
-					selected < inventory.slotCount()) {
-				selected += 1;
-			}
-		}
 		updateCursor();
 	}
 	
@@ -227,34 +198,6 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	 */
 	public void attachSelectListener(SlotListener listener) {
 		this.selectListener = listener;
-	}
-	
-	/**
-	 * Prompts the user to use or discard the selected item.
-	 * @param	screen			The screen that will be used for selecting chara
-	 */
-	public void useOrDiscard(final TargetSelectable screen) {
-		final CombatItem item = inventory.get(selected);
-		OptionSelector selector = new OptionSelector(true,
-				new Option("Use") {
-					@Override public boolean onSelect() {
-						if (item.isMapUsable()) {
-							item.onMapUse(screen);
-							return true;
-						} else {
-							MGlobal.sfx.play(SConstants.SFX_FAIL);
-							return false;
-						}
-					}
-				},
-				new Option("Drop") {
-					@Override public boolean onSelect() {
-						inventory.remove(selected);
-						return true;
-					}
-				});
-		selector.setCancellable(true);
-		selector.showAt((int) cursorX, (int) cursorY); 
 	}
 	
 	/**

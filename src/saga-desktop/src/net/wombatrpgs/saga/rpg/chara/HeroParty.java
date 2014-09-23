@@ -11,6 +11,7 @@ import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.saga.core.SGlobal;
+import net.wombatrpgs.saga.rpg.items.CollectableSet;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.rpg.items.PartyInventory;
 import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
@@ -23,16 +24,8 @@ public class HeroParty extends Party {
 	protected int gp;
 	protected String location;
 	protected PartyInventory inventory;
+	protected CollectableSet collection;
 	
-	/**
-	 * Creates the hero party by looking the default up in the database.
-	 */
-	public HeroParty() {
-		this(MGlobal.data.getEntryFor(SGlobal.settings.getStartingPartyKey(),
-				PartyMDO.class));
-		gp = 0;
-	}
-
 	/**
 	 * The hero party. Really should only be called once at the beginning of the
 	 * game. Oh and most likely it'll be empty except for testing purposes.
@@ -41,6 +34,15 @@ public class HeroParty extends Party {
 	public HeroParty(PartyMDO mdo) {
 		super(mdo);
 		inventory = new PartyInventory(this);
+		collection = new CollectableSet();
+	}
+	
+	/**
+	 * Creates the hero party by looking the default up in the database.
+	 */
+	public HeroParty() {
+		this(MGlobal.data.getEntryFor(SGlobal.settings.getStartingPartyKey(),
+				PartyMDO.class));
 	}
 	
 	/** @return The name of the location of the party in the world */
@@ -63,6 +65,9 @@ public class HeroParty extends Party {
 	
 	/** @retrun The front member of the party */
 	public Chara getFront() { return getFront(0); }
+	
+	/** @return The party's collectable set */
+	public CollectableSet getCollection() { return collection; }
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.chara.Party#isCarryingItemType(java.lang.String)

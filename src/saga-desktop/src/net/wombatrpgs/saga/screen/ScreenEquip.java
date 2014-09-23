@@ -20,7 +20,7 @@ import net.wombatrpgs.saga.rpg.items.PartyInventory;
 import net.wombatrpgs.saga.ui.CharaInsert;
 import net.wombatrpgs.saga.ui.CharaInsertFull;
 import net.wombatrpgs.saga.ui.ItemSelector;
-import net.wombatrpgs.saga.ui.ItemSelector.SlotListener;
+import net.wombatrpgs.saga.ui.SlotListener;
 
 /**
  * Equip items to heroes and strip them of their weapons to sell for ill-gotten
