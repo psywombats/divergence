@@ -56,7 +56,7 @@
   </object>
   <object name="Plains Town" type="Event" x="832" y="672" width="16" height="16">
    <properties>
-    <property name="onCollide" value="teleport('world1/plainstown.tmx', 14, 22, 'EAST')"/>
+    <property name="onCollide" value="teleport('world1/plainstown.tmx', 14, 25, 'EAST')"/>
    </properties>
   </object>
   <object name="Southern Stronghold" type="Event" x="816" y="848" width="16" height="16">

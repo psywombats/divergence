@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="48" height="48" tilewidth="16" tileheight="16">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="58" height="48" tilewidth="16" tileheight="16">
  <properties>
   <property name="name" value="Plains Town"/>
  </properties>
@@ -516,24 +516,24 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tile Layer 1" width="48" height="48">
+ <layer name="Tile Layer 1" width="58" height="48">
   <properties>
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2VsQ7CMAxEgzqgZmDjN4AF+P8/ox0iWdFhQwQ6R7rhLW2H5/psL6WURQghhBBCCPFXDj+G6V8N9vkRkM2/ea/A/wzI5G/dkf9942F4JvPvs9P7z5L/b3hXawb/aF5t1vq8MfPfHE6AT+tj+dv/6O2bGtTHyo/tgbdvalBfhvxHc3vZuBpuk/mj/rTesf1HboD9nuG/zy7aKetAf1j+aCZRD1B/2Pt/9/cyjXrT3vW7l+WP8O5ZJv9odqNssfMT4WUrw/yO3ICZ/TPtTyGEEEKIWXkB8fHNMQAkAAA=
+   H4sIAAAAAAAAC+2VPQ7CMAyFizqgdmDjDIiJCRg4C3D/W5AMkazo5aeuVLvoDd9CKpTPz7HHYRhGQgghhBBCCCG742CEhec78AF8C3ecBfL3I8CT5xKS3wQ8zwBPnr15SkfkeQ88BE9nnpo8Ud/+2/vU1sXaU0tr7sgez/vcc555LidAbx0855nP2dp8nRt18Jxnnmltvs6NOnjOc2n2l8BNcN1Rnks8Ud6pF/aSp2aHyu8tPHt3f5xBaIZOijpt7Zk71pyjD5otqDboPyz3p7yP3OfonvGs9uZQ1uks30kWnqUckCcinaN96c3z1eHZmkGtnrbuW5lJj2eJWk97m0PyfWp3Dtoj1p5rM9SytSchhBBCCCEe+QG8RIv1gCsAAA==
   </data>
  </layer>
- <layer name="Tile Layer 2" width="48" height="48">
+ <layer name="Tile Layer 2" width="58" height="48">
   <properties>
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3UsQkAIAwEwMzvFG7giiJiYy9quGvSPiT5CAAAADJo2wQ4pcTsmno5xym/9+nIvXYEGfz+k7zLbQEAkEkHbWW6NgAkAAA=
+   H4sIAAAAAAAAC+3VsQqEMAwA0P68i8N9g4OgN5z+ooq4FIcuXqy+B6EUOqQ0TVICAAAAqNOcrU/0y/ZTSBbA27Rp761dcB5XKumvb5gzm+1+x5s/1d3m6bDGmMV3jSYyqT/6RCcQrObe0heeu9uf41o113QpNQ0AAJxZAFEgQXCAKwAA
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
-  <object name="NPC" type="Character" x="256" y="288" width="16" height="16">
+  <object name="NPC" type="Character" x="416" y="288" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_knight"/>
     <property name="face" value="NORTH"/>
@@ -542,17 +542,17 @@
     <property name="onInteract" value="speak('You\'re not welcome here.')"/>
    </properties>
   </object>
-  <object type="Event" x="208" y="224" width="352" height="16">
+  <object type="Event" x="208" y="224" width="512" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/overworld.tmx', 52, 42)"/>
    </properties>
   </object>
-  <object type="Event" x="320" y="384" width="16" height="16">
+  <object type="Event" x="480" y="384" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/plainstown_interior.tmx', 3, 8)"/>
    </properties>
   </object>
-  <object type="Event" x="208" y="576" width="352" height="16">
+  <object type="Event" x="208" y="576" width="512" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/overworld.tmx', 52, 42)"/>
    </properties>
@@ -562,17 +562,17 @@
     <property name="onCollide" value="teleport('world1/overworld.tmx', 52, 42)"/>
    </properties>
   </object>
-  <object type="Event" x="544" y="240" width="16" height="336">
+  <object type="Event" x="704" y="240" width="16" height="336">
    <properties>
     <property name="onCollide" value="teleport('world1/overworld.tmx', 52, 42)"/>
    </properties>
   </object>
-  <object type="Event" x="464" y="416" width="16" height="16">
+  <object type="Event" x="624" y="416" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/plainstown_interior.tmx', 28, 9)"/>
    </properties>
   </object>
-  <object name="NPC" type="Character" x="320" y="512" width="16" height="16">
+  <object name="NPC" type="Character" x="400" y="512" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_knight"/>
     <property name="face" value="SOUTH"/>
@@ -581,7 +581,7 @@
     <property name="onInteract" value="speak('For years this town has held the monsters at bay. Those thankless other cities send no support.')"/>
    </properties>
   </object>
-  <object name="NPC" type="Character" x="416" y="320" width="16" height="16">
+  <object name="NPC" type="Character" x="576" y="320" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_beetle"/>
     <property name="face" value="NORTH"/>
@@ -590,7 +590,7 @@
     <property name="onInteract" value="speak('Our champion wields an everburning torch. His might allows us to stand against our enemies.')"/>
    </properties>
   </object>
-  <object name="NPC" type="Character" x="448" y="464" width="16" height="16">
+  <object name="NPC" type="Character" x="608" y="464" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_human_m"/>
     <property name="face" value="WEST"/>
@@ -599,7 +599,7 @@
     <property name="onInteract" value="speak('This place is really just a camp, set up by our heroic ancestors to stem the flow of monsters from the south.')"/>
    </properties>
   </object>
-  <object name="NPC" type="Character" x="272" y="352" width="16" height="16">
+  <object name="NPC" type="Character" x="272" y="336" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_human_f"/>
     <property name="face" value="SOUTH"/>
@@ -608,35 +608,35 @@
     <property name="onInteract" value="speak('It\'s thanks to us warriors that your pathetic hometown isn\'t crawling with beasts.')"/>
    </properties>
   </object>
-  <object name="NPC" type="Character" x="272" y="288" width="16" height="16">
+  <object name="NPC" type="Character" x="432" y="288" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="hide" value="return not getSwitch('shrine_done')"/>
     <property name="onInteract" value="speak('He is dead.')"/>
    </properties>
   </object>
-  <object name="NPC" type="Character" x="256" y="352" width="16" height="16">
+  <object name="NPC" type="Character" x="256" y="336" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="hide" value="return not getSwitch('shrine_done')"/>
     <property name="onInteract" value="speak('He is dead.')"/>
    </properties>
   </object>
-  <object name="NPC" type="Character" x="336" y="512" width="16" height="16">
+  <object name="NPC" type="Character" x="416" y="512" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="hide" value="return not getSwitch('shrine_done')"/>
     <property name="onInteract" value="speak('He is dead.')"/>
    </properties>
   </object>
-  <object name="NPC" type="Character" x="464" y="464" width="16" height="16">
+  <object name="NPC" type="Character" x="624" y="464" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="hide" value="return not getSwitch('shrine_done')"/>
     <property name="onInteract" value="speak('He is dead.')"/>
    </properties>
   </object>
-  <object name="NPC" type="Character" x="400" y="336" width="16" height="16">
+  <object name="NPC" type="Character" x="560" y="336" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="hide" value="return not getSwitch('shrine_done')"/>
