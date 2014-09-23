@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="36" height="13" tilewidth="16" tileheight="16">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="36" height="12" tilewidth="16" tileheight="16">
  <properties>
   <property name="name" value="River Town"/>
  </properties>
@@ -516,20 +516,20 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tile Layer 1" width="36" height="13">
+ <layer name="Tile Layer 1" width="36" height="12">
   <properties>
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2UoQ6AQAxDK6f2GwSFAv7/z8jUVXDcOgjqmjRTa15NHYCLzkjNdPrbBCs8ldy4h2CFp5Ib1wQrPJXcyTN53vI4/X+5PxWeBW0DDOOdWAWeOz91Du1oG2AY78SZ5OGe7F7nbM+quCe71znb829d3E4ae1AHAAA=
+   H4sIAAAAAAAAC+2UoQ6AQAxDK6f2GwSFAv7/z8gEuQqOWwfymjRTa15NHYCLzkjNdPrbBCs8ldy4h2CFp5Ib1wQrPJXcyTN5vvI4/f+5PxWeBW0DDOOdWAWeJ791Du1oG2AY78SZ5OGe7F7nbM+quCe71/nueQGD3AfCwAYAAA==
   </data>
  </layer>
- <layer name="Tile Layer 2" width="36" height="13">
+ <layer name="Tile Layer 2" width="36" height="12">
   <properties>
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAUDBUqgmFI1MFCGgyYW1EIxpWpgoB4HTQ+wCohXA/EaKpvbS0B+OhFmVEJpSuOL2mAg44sWgNr5axQwMKwlUf06mriC9oBcfwIAzqye+FAHAAA=
+   H4sIAAAAAAAAC2NgGAUDBUqgmFI1MFCGgyYW1EIxpWpgoB4HTQ+wCohXA/EaKpvbS0B+OhFmVEJpSuOL2mAg44sWgNr5axQMPgAA228BCsAGAAA=
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
@@ -571,20 +571,20 @@
    </properties>
   </object>
  </objectgroup>
- <layer name="Tile Layer 3" width="36" height="13">
+ <layer name="Tile Layer 3" width="36" height="12">
   <properties>
    <property name="z" value="1.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMgoEHfAPtADSgTwc7SPGzGc1cgQD08DMpgB5+piYAAHtxJsZQBwAA
+   H4sIAAAAAAAAC2NgGAWjYBSMgoEHfAPtADSgTwc7SPGzGc1cgQD08DMpgJCfAaf36lvABgAA
   </data>
  </layer>
- <layer name="Tile Layer 4" width="36" height="13">
+ <layer name="Tile Layer 4" width="36" height="12">
   <properties>
    <property name="z" value="1.5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMglGADooG2gFooJoOdoxEP1MTAADQ0hP/UAcAAA==
+   H4sIAAAAAAAAC2NgGAWjYBSMglGADooG2gFooJoOdgw1PwMAWMcTUcAGAAA=
   </data>
  </layer>
 </map>

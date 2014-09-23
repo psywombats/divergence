@@ -10,7 +10,7 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2TQQ7CIBBFIS5M6s7EBbuyUg+gLnr/e9kmkJCf+VAotS5m8ZKWlJlX+DMYYwZFURRFUZQCZ+Bonxtw1DnYsH6feQSeK2vZhv6lc4g1XzPvwOeH54N9LaFHr7Hy+7T/HnlOfVh9KT9WuMfePqy+lB8r3ONWFwc+bF5K+emV08XHZ/qy3PTMjwO80Bf3rM1Pi1d0iEjzg2ssP3i/Lblu8WH5Sddbc+0Mz+MU3ifimWNLhpf9l0Cpz14e6HMN1NbsPeeSD86chORU6jVW+KRgxhF0S/fV/Afzkcj5oNva/5DmF2H7cpn9Nx90k55r5+7UCU+eFUVRGF94T8RoMBgAAA==
+   H4sIAAAAAAAAC+2TTQrCMBBGE1wIXQousmtW6gFUsPfw/kexhQmEz5n8NbUuZvGgDc3Ma/LNYIwZFEVRFEVRMhyBvX3OwF7nYGn9MnMlboW1bEP/3DmEmveZB/H84flgXyvQo9dY+X3cf4s8xz5SfS4/lrnH3j5SfS4/lrnHtS4OfKR5yeWnV04XH5/oK+WmZ34c4Jm+uKc0Py1ewSHAzQ+uSfnB+23JdYuPlJ94vTXXzsh5nOh9EjxTrMnwsv9F5Pps5YE+J6K2Zu85Dz5vwprvmePgnHK9xgqfGMw4gm7xvpr/kHw4Uj7oVvof3Pwi0r5UZv/NB92459q5O3TCC8+KoigSHytYk90wGAAA
   </data>
  </layer>
  <layer name="Tile Layer 2" width="36" height="43">
@@ -18,7 +18,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2WSw4DIQiGubybLmb2XfUC0zN2IwkhgohFJy1fQjqtCn94OD0B4ExLS9tmR9Ber5Wgvf9sEXXr+dTWS4CmXi9o64fhfNo9jCPV0+vfehb3WfTM9BY9S7VxcKY4kbmg2lpxJdDvqDYpF9QfmsRFnt/kGf178gXkLMbmGqS4EtSXR4+Wgxk8vRzJaD/P0qujdX40LQ9HXAnLPaThjSvRmtuV/aJpauVnpmde0K4l1N9pPgv5lOo0o0Wq48U31nXL3bOCwr6P6HlW+ya0Br27cBWYo17NdnGXOUc892CUjohZ9xL53vTQ6ptdWhD+7tqN9p8zSX6JD+WliiEwGAAA
+   H4sIAAAAAAAAC+2WzQoDIQyEfXkvPezee+qj9tKBEIzGuDFC88FQ2tU45MftXUq5U6lUmC6ntVZVp7X/LI+6jWL2nlcHT6Ne6D2/FPtTZ4gj1dMaX7sX6zR+VnqL7qXeOJgpjmcuqLfWuRKIO+tNygWNB82C+JZ8FbIXZ1s8UGgsi5/V8yUsvezJbD97o52fnpeXkx+pdjtpzW2kH+qplZ+VnvkUuZb890o+pTrt6F+guXt2UNn3GT/vn56E1mB0F+4CORrVLIpT5hyccA/CxwmzDiLfmy1afRPlBfB3VzRP/udMkpP5AmAPV+IwGAAA
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
