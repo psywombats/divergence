@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="36" height="12" tilewidth="16" tileheight="16">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="36" height="13" tilewidth="16" tileheight="16">
  <properties>
   <property name="name" value="River Town"/>
  </properties>
@@ -516,20 +516,20 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tile Layer 1" width="36" height="12">
+ <layer name="Tile Layer 1" width="36" height="13">
   <properties>
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2UMQ6AMAwDPWbKU4AF+P/PUAZUD5TGgbGWrEyxzosdgIvOSM10+lsFKzyV3LiHYIWnkhvXBCs8ldzJM3m+8jj9/7k/FZ4FbQMM453YBJ4nv3UO7WgbYBjvxJnk4Z7sXudsz6q4J7vX+e55AX5/1HbABgAA
+   H4sIAAAAAAAAC+2UoQ6AQAxDK6f2GwSFAv7/z8jUVXDcOgjqmjRTa15NHYCLzkjNdPrbBCs8ldy4h2CFp5Ib1wQrPJXcyTN53vI4/X+5PxWeBW0DDOOdWAWeOz91Du1oG2AY78SZ5OGe7F7nbM+quCe71znb829d3E4ae1AHAAA=
   </data>
  </layer>
- <layer name="Tile Layer 2" width="36" height="12">
+ <layer name="Tile Layer 2" width="36" height="13">
   <properties>
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAUDBUqgmFI1MFCGgyYW1EIxpWpgoB4HTQ+wCohXA/EaKpvbS0B+OhFmVEJpSuOL2mAg44sWgNr5axQMPgAA228BCsAGAAA=
+   H4sIAAAAAAAAC2NgGAUDBUqgmFI1MFCGgyYW1EIxpWpgoB4HTQ+wCohXA/EaKpvbS0B+OhFmVEJpSuOL2mAg44sWgNr5axQwMKwlUf06mriC9oBcfwIAzqye+FAHAAA=
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
@@ -541,12 +541,12 @@
   </object>
   <object type="Event" x="48" y="144" width="16" height="16">
    <properties>
-    <property name="onCollide" value="teleport('world1/plainstown.tmx', 20, 25)"/>
+    <property name="onCollide" value="teleport('world1/plainstown.tmx', 30, 25)"/>
    </properties>
   </object>
   <object type="Event" x="448" y="160" width="16" height="16">
    <properties>
-    <property name="onCollide" value="teleport('world1/plainstown.tmx', 29, 27)"/>
+    <property name="onCollide" value="teleport('world1/plainstown.tmx', 39, 27)"/>
    </properties>
   </object>
   <object name="champion" type="Character" x="448" y="96" width="16" height="16">
@@ -571,20 +571,20 @@
    </properties>
   </object>
  </objectgroup>
- <layer name="Tile Layer 3" width="36" height="12">
+ <layer name="Tile Layer 3" width="36" height="13">
   <properties>
    <property name="z" value="1.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMgoEHfAPtADSgTwc7SPGzGc1cgQD08DMpgJCfAaf36lvABgAA
+   H4sIAAAAAAAAC2NgGAWjYBSMgoEHfAPtADSgTwc7SPGzGc1cgQD08DMpgB5+piYAAHtxJsZQBwAA
   </data>
  </layer>
- <layer name="Tile Layer 4" width="36" height="12">
+ <layer name="Tile Layer 4" width="36" height="13">
   <properties>
    <property name="z" value="1.5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMglGADooG2gFooJoOdgw1PwMAWMcTUcAGAAA=
+   H4sIAAAAAAAAC2NgGAWjYBSMglGADooG2gFooJoOdoxEP1MTAADQ0hP/UAcAAA==
   </data>
  </layer>
 </map>
