@@ -356,11 +356,7 @@
   </object>
   <object name="door" type="Door" x="176" y="176" width="16" height="16">
    <properties>
-    <property name="keyItem" value="key_shrineKey"/>
-   </properties>
-  </object>
-  <object name="door" type="Door" x="336" y="176" width="16" height="16">
-   <properties>
+    <property name="appearance" value="anim_bars"/>
     <property name="keyItem" value="key_shrineKey"/>
    </properties>
   </object>
@@ -371,6 +367,13 @@
   </object>
   <object name="door" type="Door" x="256" y="160" width="16" height="16">
    <properties>
+    <property name="appearance" value="anim_bars"/>
+    <property name="keyItem" value="key_shrineKey"/>
+   </properties>
+  </object>
+  <object name="door" type="Door" x="336" y="176" width="16" height="16">
+   <properties>
+    <property name="appearance" value="anim_bars"/>
     <property name="keyItem" value="key_shrineKey"/>
    </properties>
   </object>

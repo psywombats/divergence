@@ -289,11 +289,7 @@
   </object>
   <object name="door" type="Door" x="240" y="144" width="16" height="16">
    <properties>
-    <property name="keyItem" value="key_shrineKey"/>
-   </properties>
-  </object>
-  <object name="door" type="Door" x="352" y="160" width="16" height="16">
-   <properties>
+    <property name="appearance" value="anim_bars"/>
     <property name="keyItem" value="key_shrineKey"/>
    </properties>
   </object>
@@ -310,6 +306,12 @@
   <object name="tele" type="Event" x="256" y="304" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/shrine03.tmx', 16, 16)"/>
+   </properties>
+  </object>
+  <object name="door" type="Door" x="352" y="160" width="16" height="16">
+   <properties>
+    <property name="appearance" value="anim_bars"/>
+    <property name="keyItem" value="key_shrineKey"/>
    </properties>
   </object>
  </objectgroup>
