@@ -9,6 +9,7 @@ package net.wombatrpgs.saga.core;
 import java.util.Scanner;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.scenes.SceneLib;
 
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaValue;
@@ -66,6 +67,7 @@ public class DebugThread implements Runnable {
 							Object resultObject = CoerceLuaToJava.coerce(result, Object.class);
 							System.out.println(resultObject.toString());
 						}
+						SceneLib.runExtraCommands();
 						System.out.println("Executed successfully");
 					} catch (LuaError error) {
 						System.err.println(error.getMessage());

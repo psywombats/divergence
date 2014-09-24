@@ -27,9 +27,9 @@ import net.wombatrpgs.mgneschema.io.data.InputCommand;
  * scenes and those interpreted from strings or whatever on maps. The only thing
  * it's missing is how the commandMap gets populated.
  */
-public abstract class SceneParser implements 	Updateable,
-												CommandListener,
-												Queueable {
+public class SceneParser implements	Updateable,
+									CommandListener,
+									Queueable {
 	protected static int runningCount;
 	
 	protected Screen parent;
@@ -165,6 +165,17 @@ public abstract class SceneParser implements 	Updateable,
 		} else {
 			MGlobal.reporter.warn("Tried to remove a non-listener: " + listener);
 		}
+	}
+	
+	/**
+	 * Adds a bunch of scene commands to this parser.
+	 * @param	newCommands		The list of commands to add		
+	 */
+	public void addSceneCommands(List<SceneCommand> newCommands) {
+		if (commands == null) {
+			commands = new ArrayList<SceneCommand>();
+		}
+		commands.addAll(newCommands);
 	}
 	
 	/**

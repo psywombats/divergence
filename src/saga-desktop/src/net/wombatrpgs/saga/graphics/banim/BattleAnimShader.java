@@ -75,7 +75,7 @@ public class BattleAnimShader extends BattleAnim {
 	@Override
 	public void finish(ScreenBattle screen) {
 		super.finish(screen);
-		screen.setBattleShader(null);
+		screen.resetBattleShader();
 	}
 
 }

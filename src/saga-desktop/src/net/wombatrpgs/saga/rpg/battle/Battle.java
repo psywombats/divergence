@@ -670,26 +670,31 @@ public class Battle extends AssetQueuer implements Disposable {
 	protected void playNextIntent() {
 		playbackListener = new FinishListener() {
 			@Override public void onFinish() {
-				updateLivenessLists();
-				if (enemyWon()) {
-					onDefeat();
-					return;
-				} else if (playerWon()) {
-					onVictory();
-					return;
-				}
-				if (globalTurn.size() > 0) {
-					println("");
-					playNextIntent();
-				} else {
-					finishRound();
-					screen.animatePause();
-					playbackListener = new FinishListener() {
-						@Override public void onFinish() {
-							newRound();
+				playbackListener = new FinishListener() {
+					@Override public void onFinish() {
+						if (enemyWon()) {
+							onDefeat();
+							return;
+						} else if (playerWon()) {
+							onVictory();
+							return;
 						}
-					};
-				}
+						if (globalTurn.size() > 0) {
+							println("");
+							playNextIntent();
+						} else {
+							finishRound();
+							screen.animatePause();
+							playbackListener = new FinishListener() {
+								@Override public void onFinish() {
+									newRound();
+									// triple-nested, aw yeah
+								}
+							};
+						}
+					}
+				};
+				updateLivenessLists();
 			}
 		};
 		if (globalTurn.size() > 0) {
@@ -819,7 +824,13 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * Make sure all the enemy portraits are still rendering correctly.
 	 */
 	protected void updateLivenessLists() {
-		enemyAlive = new ArrayList<Boolean>();
+		boolean needToWait = false;
+		if (enemyAlive == null) {
+			enemyAlive = new ArrayList<Boolean>();
+			for (int i = 0; i < enemy.groupCount(); i += 1) {
+				enemyAlive.add(true);
+			}
+		}
 		for (int i = 0; i < enemy.groupCount(); i += 1) {
 			boolean alive = false;
 			for (Chara chara : enemy.getGroup(i)) {
@@ -828,8 +839,13 @@ public class Battle extends AssetQueuer implements Disposable {
 					break;
 				}
 			}
-			enemyAlive.add(alive);
+			if (!alive && enemyAlive.get(i)) {
+				screen.animateDeath(i);
+				needToWait = true;
+			}
+			enemyAlive.set(i, alive);
 		}
+		
 		if (playerAlive == null) {
 			playerAlive = new ArrayList<Boolean>();
 			for (int i = 0; i < player.groupCount(); i += 1) {
@@ -842,6 +858,10 @@ public class Battle extends AssetQueuer implements Disposable {
 				screen.onPlayerDeath(i);
 				playerAlive.set(i, false);
 			}
+		}
+		
+		if (!needToWait && playbackListener != null) {
+			playbackListener.onFinish();
 		}
 	}
 	

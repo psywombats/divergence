@@ -45,6 +45,7 @@ import net.wombatrpgs.saga.graphics.banim.BattleAnim;
 import net.wombatrpgs.saga.graphics.banim.BattleAnimFactory;
 import net.wombatrpgs.saga.rpg.battle.PlayAnim;
 import net.wombatrpgs.saga.rpg.battle.Battle;
+import net.wombatrpgs.saga.rpg.battle.PlayDeath;
 import net.wombatrpgs.saga.rpg.battle.PlayMoveSprite;
 import net.wombatrpgs.saga.rpg.battle.PlayNumber;
 import net.wombatrpgs.saga.rpg.battle.PlayPause;
@@ -69,6 +70,15 @@ import net.wombatrpgs.sagaschema.graphics.banim.data.BattleAnimMDO;
  * Screen for killing shit. This also encompasses a battle. Like Tactics, the
  * idea is that a battle is owned by a screen and controls the screen, but the
  * logic is kept separate from the display. Owned by a battle.
+ * 
+ * Note 2014-09-24: This thing got out of hand fast. There are a lot of
+ * different components and things to render. Some problems no one will remeber
+ * in three years though: the enemies are rendered in two passes. The first pass
+ * draws each of the enemies with their specified effect (dying shader). The
+ * second applies the battle animation effect (quake, whirl). When neither of
+ * those is happening both shaders apply the gameboy colors. It's a bad system
+ * to save a frame buffer, but it means enemies can't be shaking, dying, and
+ * correctly colored at the same time.
  */
 public class ScreenBattle extends SagaScreen {
 	
@@ -94,7 +104,9 @@ public class ScreenBattle extends SagaScreen {
 	
 	// battle box and other constants
 	protected static final String KEY_SHADER_SHAKE = "shader_quake";
+	protected static final String KEY_SHADER_DEATH = "shader_blinds";
 	protected static final float SHAKE_DURATION = .5f;
+	protected static final float DEATH_DURATION = .4f;
 	protected static final int TEXT_LINES = 8;
 	protected static final float TEXT_FADE_TIME = 0f;
 	protected static final float ADVANCE_DURATION = .2f;
@@ -114,7 +126,7 @@ public class ScreenBattle extends SagaScreen {
 	protected ItemSelector abils;
 	protected List<String> meatMessages;
 	protected Matrix4 playerMatrix, enemyMatrix;
-	protected ShaderFromData shakeShader;
+	protected ShaderFromData shakeShader, deathShader;
 	protected transient FrameBuffer playerBuffer, enemyBuffer;
 	protected transient SpriteBatch playerBatch, playerFinalBatch;
 	protected transient SpriteBatch enemyBatch, enemyFinalBatch;
@@ -137,6 +149,7 @@ public class ScreenBattle extends SagaScreen {
 	protected List<PortraitAnim> anims;
 	protected Map<Integer, PortraitAnim> animsOnGroups;
 	protected Map<Integer, Float> shakeTimers;
+	protected Map<Integer, Float> deathTimers;
 	protected Chara movingHero;
 	protected float moveTime;
 	protected boolean moveRetreat;
@@ -239,6 +252,7 @@ public class ScreenBattle extends SagaScreen {
 		animsOnGroups = new HashMap<Integer, PortraitAnim>();
 		playbackQueue = new ArrayList<PlaybackStep>();
 		shakeTimers = new HashMap<Integer, Float>();
+		deathTimers = new HashMap<Integer, Float>();
 	}
 	
 	/** @return True if the text box is not blocking battle playback */
@@ -249,6 +263,9 @@ public class ScreenBattle extends SagaScreen {
 	
 	/** @return True if the hero has finished moving up/down */
 	public boolean isAdvanceFinished() { return moveTime >= ADVANCE_DURATION; }
+	
+	/** @return True if all death animations are finished playing */
+	public boolean isDeathFinished() { return deathTimers.size() == 0; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.screen.Screen#update(float)
@@ -293,13 +310,16 @@ public class ScreenBattle extends SagaScreen {
 		List<Integer> toRemove = new ArrayList<Integer>();
 		for (int key : shakeTimers.keySet()) {
 			shakeTimers.put(key, shakeTimers.get(key) - elapsed);
-			if (shakeTimers.get(key) < 0) {
-				toRemove.add(key);
-			}
+			if (shakeTimers.get(key) < 0) toRemove.add(key);
 		}
-		for (int key : toRemove) {
-			shakeTimers.remove(key);
+		for (int key : toRemove) shakeTimers.remove(key);
+		toRemove.clear();
+		for (int key : deathTimers.keySet()) {
+			deathTimers.put(key, deathTimers.get(key) - elapsed);
+			if (deathTimers.get(key) < 0) toRemove.add(key);
 		}
+		for (int key : toRemove) deathTimers.remove(key);
+		
 		if (battle.isDone()) {
 			MGlobal.screens.pop();
 		}
@@ -372,20 +392,33 @@ public class ScreenBattle extends SagaScreen {
 		for (int i = 0 ; i < groups; i += 1) { 
 			List<Chara> group = enemy.getGroup(i);
 			if (group.size() == 0) continue;
-			if (!battle.isEnemyAlive(i)) continue;
+			if (!battle.isEnemyAlive(i) && !deathTimers.containsKey(i)) continue;
+			
 			Graphic portrait = enemy.getFront(i).getPortrait();
 			if (portrait == null) continue;
+			if (deathTimers.containsKey(i)) {
+				deathShader.begin();
+				enemyBatch.setShader(deathShader);
+				deathShader.setUniformf("u_elapsedRatio", 1f - (deathTimers.get(i) / DEATH_DURATION));
+			}
 			float renderX = globalX + (win.getViewportWidth() - portrait.getWidth()*groups) *
 					(i+1)/(groups+1) + (portrait.getWidth()) * i;
 			float renderY = ((win.getViewportHeight() - OPTIONS_HEIGHT - SPRITES_HEIGHT) -
 					portrait.getHeight()) / 2;
 			portrait.renderAt(enemyBatch, renderX, renderY);
+			if (deathTimers.containsKey(i)) {
+				deathShader.end();
+				enemyBatch.setShader(background.getShader());
+			}
+			
 			if (selectionMode && i == selectedIndex) {
 				Graphic cursor = MGlobal.ui.getCursor();
 				cursor.renderAt(enemyBatch,
 						renderX - cursor.getWidth() / 2,
 						renderY + (portrait.getHeight() - cursor.getHeight()) / 2);
 			}
+			deathShader.end();
+			
 			PortraitAnim anim = animsOnGroups.get(i);
 			if (anim != null) {
 				anim.renderAt(enemyBatch,
@@ -507,14 +540,13 @@ public class ScreenBattle extends SagaScreen {
 		playerBatch.setProjectionMatrix(playerMatrix);
 		playerBatch.setShader(shakeShader);
 		
-		shakeShader = SGlobal.graphics.constructShader(KEY_SHADER_SHAKE);
-		
 		enemyFinalBatch = new SpriteBatch();
 		Matrix4 matrix2 = new Matrix4();
 		matrix2.setToOrtho2D(0, 0,
 				win.getViewportWidth(),
 				win.getViewportHeight());
 		enemyFinalBatch.setProjectionMatrix(matrix2);
+		resetBattleShader();
 		
 		playerFinalBatch = new SpriteBatch();
 		Matrix4 matrix3 = new Matrix4();
@@ -523,6 +555,9 @@ public class ScreenBattle extends SagaScreen {
 				win.getViewportHeight());
 		playerFinalBatch.setProjectionMatrix(matrix3);
 		playerFinalBatch.setShader(foreground.getShader());
+		
+		shakeShader = SGlobal.graphics.constructShader(KEY_SHADER_SHAKE);
+		deathShader = SGlobal.graphics.constructShader(KEY_SHADER_DEATH);
 	}
 	
 	/**
@@ -553,6 +588,7 @@ public class ScreenBattle extends SagaScreen {
 		enemyBuffer.dispose();
 		enemyBatch.dispose();
 		enemyFinalBatch.dispose();
+		deathShader.dispose();
 	}
 	
 	/**
@@ -685,12 +721,28 @@ public class ScreenBattle extends SagaScreen {
 	}
 	
 	/**
+	 * Animates the death of the ith enemy group without the anim queue.
+	 * @param	index			The index of the group to animate dying
+	 */
+	public void animateDeath(int index) {
+		playbackQueue.add(new PlayDeath(this, index));
+	}
+	
+	/**
 	 * Animates a hero advancing to attack.
 	 * @param	hero			The hero to animate
 	 * @param	type			Whether to move forwards or backwards
 	 */
 	public void animateAdvance(Chara hero, SpriteMoveType type) {
 		playbackQueue.add(new PlayMoveSprite(this, hero, type));
+	}
+	
+	/**
+	 * Animates the death of the ith enemy group without the anim queue.
+	 * @param	index			The index of the group to animate dying
+	 */
+	public void immediateAnimateDeath(int index) {
+		deathTimers.put(index, DEATH_DURATION);
 	}
 	
 	/**
@@ -921,6 +973,13 @@ public class ScreenBattle extends SagaScreen {
 	 */
 	public void setBattleShader(ShaderFromData shader) {
 		enemyFinalBatch.setShader(shader);
+	}
+	
+	/**
+	 * Sets the battle shader back to default.
+	 */
+	public void resetBattleShader() {
+		enemyFinalBatch.setShader(background.getShader());
 	}
 	
 	/**
