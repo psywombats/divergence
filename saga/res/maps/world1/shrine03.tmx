@@ -324,13 +324,13 @@
   <object name="chest" type="Chest" x="256" y="352" width="16" height="16">
    <properties>
     <property name="item" value="key_shrineKey"/>
-    <property name="keyItem" value=""/>
+    <property name="keyItem" value="KEY_ITEM"/>
    </properties>
   </object>
   <object name="chest" type="Chest" x="240" y="352" width="16" height="16">
    <properties>
     <property name="item" value="key_artifactScuba"/>
-    <property name="keyItem" value=""/>
+    <property name="keyItem" value="KEY_ITEM"/>
    </properties>
   </object>
   <object name="chest" type="Chest" x="272" y="352" width="16" height="16"/>

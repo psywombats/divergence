@@ -11,11 +11,12 @@ import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
-import net.wombatrpgs.mgneschema.maps.EventMDO;
 import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.items.Collectable;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
+import net.wombatrpgs.sagaschema.events.EventChestMDO;
+import net.wombatrpgs.sagaschema.events.data.KeyItemType;
 import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
 
 /**
@@ -29,6 +30,7 @@ public class EventChest extends MapEvent {
 	protected static String KEY_ANIM_CLOSED = "anim_chest_closed";
 	protected static String KEY_ANIM_OPEN = "anim_chest_open";
 	
+	protected EventChestMDO mdo;
 	protected FacesAnimation openSprite, closedSprite;
 	protected String switchName;
 	protected CombatItem item;
@@ -36,30 +38,28 @@ public class EventChest extends MapEvent {
 	protected boolean keyItem;
 	
 	/**
-	 * Creates a new event from a Tiled object.
-	 * @param	object			The object to create from
+	 * Creates a new event from data.
+	 * @param	mdo					The data to create from
+	 * @param	object				The raw object, has some extra info we need
 	 */
-	public EventChest(TiledMapObject object) {
-		super(object.generateMDO(EventMDO.class));
+	public EventChest(EventChestMDO mdo, TiledMapObject object) {
+		super(mdo);
 		openSprite = FacesAnimationFactory.create(KEY_ANIM_OPEN);
 		closedSprite = FacesAnimationFactory.create(KEY_ANIM_CLOSED);
 		assets.add(openSprite);
 		assets.add(closedSprite);
 		
-		String itemKey = object.getString(PROPERTY_ITEM_KEY);
-		if (mdoHasProperty(itemKey)) {
-			item = new CombatItem(MGlobal.data.getEntryFor(itemKey, CombatItemMDO.class));
+		if (mdoHasProperty(mdo.item)) {
+			item = new CombatItem(MGlobal.data.getEntryFor(mdo.item, CombatItemMDO.class));
 			assets.add(item);
-		}
-		String collectableKey = object.getString(PROPERTY_COLLECTABLE_KEY);
-		if (mdoHasProperty(collectableKey)) {
-			collectable = new Collectable(collectableKey);
+		} else if (mdoHasProperty(mdo.collectable)) {
+			collectable = new Collectable(mdo.collectable);
 		}
 		
 		switchName = "chest_" + object.getLevel().getKeyName();
 		switchName += "(" + object.getTileX() + "," + object.getTileY() + ")";
 		
-		keyItem = object.propertyExists(PROPERTY_KEY_ITEM);
+		keyItem = (mdo.keyItem == KeyItemType.KEY_ITEM);
 		
 		setAppearance();
 	}

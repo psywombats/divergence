@@ -297,7 +297,7 @@
   <object name="chest" type="Chest" x="240" y="128" width="16" height="16">
    <properties>
     <property name="item" value="key_artifactHeatgoggle"/>
-    <property name="keyItem" value=""/>
+    <property name="keyItem" value="KEY_ITEM"/>
    </properties>
   </object>
   <object name="tele" type="Event" x="240" y="240" width="16" height="16">

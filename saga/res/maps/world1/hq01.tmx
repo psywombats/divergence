@@ -548,6 +548,7 @@
   </object>
   <object name="door" type="Event" x="176" y="272" width="16" height="16">
    <properties>
+    <property name="appearance" value="anim_bars"/>
     <property name="hide" value="return getSwitch('shrine_done')"/>
     <property name="onInteract" value="speak('It\'s locked.')"/>
     <property name="passable" value="IMPASSABLE"/>

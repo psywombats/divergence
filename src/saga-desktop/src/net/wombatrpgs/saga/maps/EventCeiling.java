@@ -14,26 +14,30 @@ import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
-import net.wombatrpgs.mgneschema.maps.EventMDO;
+import net.wombatrpgs.sagaschema.events.EventCeilingMDO;
 
 /**
  * An event that spawns/unspawns the ceiling when the hero walks under it.
  */
 public class EventCeiling extends MapEvent {
 	
+	protected EventCeilingMDO mdo;
 	protected Polygon polygon;
 	protected CeilingLayer layer;
 	protected FinishListener stepListener;
 	protected boolean wasIn;
 	
 	/**
-	 * Creates an ceiling event region from a tiled map object.
-	 * @param	object			The object to create from
+	 * Creates an ceiling event region from a mdo and tiled map object.
+	 * @param	mdo				The data to create from
+	 * @param	object			The object to use poly from
 	 */
-	public EventCeiling(TiledMapObject object) {
-		super(object.generateMDO(EventMDO.class));
+	public EventCeiling(EventCeilingMDO mdo, TiledMapObject object) {
+		super(mdo);
+		this.mdo = mdo;
+		this.parent = object.getLevel();
 		polygon = object.getPolygon();
-		layer = new CeilingLayer(object, polygon);
+		layer = new CeilingLayer(this, polygon);
 		assets.add(layer);
 		stepListener = new FinishListener() {
 			@Override public void onFinish() {
@@ -48,6 +52,12 @@ public class EventCeiling extends MapEvent {
 			}
 		};
 	}
+	
+	/** @return The numeric tile ID of the roof chip */
+	public int getTileID() { return mdo.roofID; }
+	
+	/** @return The name of the tileset this ceiling's roof is from */
+	public String getTilesetString() { return mdo.roofTileset; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.maps.events.MapEvent#update(float)

@@ -8,6 +8,7 @@ package net.wombatrpgs.saga.maps;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
+import net.wombatrpgs.sagaschema.events.EventEncounterMDO;
 import net.wombatrpgs.sagaschema.rpg.encounter.EncounterSetMDO;
 
 /**
@@ -21,10 +22,9 @@ public class EventSimpleEncounter extends EventEncounter {
 	 * Creates an encounter event region from a tiled map object.
 	 * @param	object			The object to create from
 	 */
-	public EventSimpleEncounter(TiledMapObject object) {
+	public EventSimpleEncounter(EventEncounterMDO mdo, TiledMapObject object) {
 		super(object);
-		String key = object.getString(TiledMapObject.PROPERTY_MDO);
-		mdo = MGlobal.data.getEntryFor(key, EncounterSetMDO.class);
+		this.mdo = MGlobal.data.getEntryFor(mdo.mdo, EncounterSetMDO.class);
 	}
 	
 	/**

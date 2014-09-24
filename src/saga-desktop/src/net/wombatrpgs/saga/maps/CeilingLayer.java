@@ -13,7 +13,6 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.LoadedLevel;
-import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.layers.TiledGridLayer;
 import net.wombatrpgs.mgne.screen.WindowSettings;
 
@@ -38,7 +37,7 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 		RETRACTED,
 	};
 	
-	protected TiledMapObject event;
+	protected EventCeiling event;
 	protected DeployState state;
 	protected Polygon polygon;
 	protected transient Cell roof, empty;
@@ -51,8 +50,8 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 	 * @param	event			The ceiling event creating the ceiling layer
 	 * @param	polygon			The polygon defining this layer
 	 */
-	public CeilingLayer(TiledMapObject event, Polygon polygon) {
-		super(extractParent(event), generateLayer(event));
+	public CeilingLayer(EventCeiling event, Polygon polygon) {
+		super((LoadedLevel) extractParent(event), generateLayer(event));
 		this.event = event;
 		this.polygon = polygon;
 		generateCells();
@@ -164,8 +163,8 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 	 * @param	event			The event to extract from
 	 * @return					The loaded level that event is from
 	 */
-	protected static LoadedLevel extractParent(TiledMapObject event) {
-		return event.getLevel();
+	protected static Level extractParent(EventCeiling event) {
+		return event.getParent();
 	}
 	
 	/**
@@ -173,8 +172,8 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 	 * @param	event			The event to generate from
 	 * @return					The ceiling represented by that event
 	 */
-	protected static TiledMapTileLayer generateLayer(TiledMapObject event) {
-		LoadedLevel parent = event.getLevel();
+	protected static TiledMapTileLayer generateLayer(EventCeiling event) {
+		Level parent = event.getParent();
 		TiledMapTileLayer layer = new TiledMapTileLayer(
 				parent.getWidth(), parent.getHeight(),
 				parent.getTileWidth(), parent.getTileHeight());
@@ -202,7 +201,7 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 	 */
 	protected int getVisionRadius() {
 		WindowSettings win = MGlobal.window;
-		Level map = event.getLevel();
+		Level map = event.getParent();
 		int horiz = (int) Math.ceil((float) (win.getViewportWidth() / map.getTileWidth()) / 2f);
 		int vert = (int) Math.ceil((float) (win.getViewportHeight() / map.getTileHeight()) / 2f);
 		return (horiz > vert) ? horiz : vert;
@@ -214,8 +213,8 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 	protected void generateCells() {
 		empty = null;	// as in, do not display
 		roof = new Cell();
-		Integer id = Integer.valueOf(event.getString(KEY_ROOF_ID));
-		String tilesetName = event.getString(KEY_ROOF_TILESET);
+		Integer id = event.getTileID();
+		String tilesetName = event.getTilesetString();
 		if (id == null || tilesetName == null) {
 			MGlobal.reporter.err("No id or tileset name on roof event: " + event);
 			return;
@@ -236,7 +235,7 @@ public class CeilingLayer extends TiledGridLayer implements Updateable {
 	protected int setRadius(int radius) {
 		int set = 0;
 		currentRadius = radius;
-		Level map = event.getLevel();
+		Level map = event.getParent();
 		int absRadius = Math.abs(radius);
 		Avatar hero = MGlobal.getHero();
 		int heroCol = hero.getTileX();

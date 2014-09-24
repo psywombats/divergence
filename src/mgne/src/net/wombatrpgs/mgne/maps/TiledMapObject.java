@@ -163,6 +163,8 @@ public class TiledMapObject {
 						@SuppressWarnings("rawtypes")
 						Class<? extends Enum> enumClass = (Class<? extends Enum>) field.getType();
 						field.set(mdo, Enum.valueOf(enumClass, value.toString()));
+					} else if (Integer.class.isAssignableFrom(field.getType())) {
+						field.set(mdo, Integer.valueOf(value.toString()));
 					} else {
 						field.set(mdo, value);
 					}
