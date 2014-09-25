@@ -29,9 +29,11 @@ public class Avatar extends MapEvent implements CommandListener {
 
 	/**
 	 * For real hero constructor. Looks up the avatar in the database and
-	 * uses it to set up a map event.
+	 * uses it to set up a map event. Takes an argument so that kryo doesn't try
+	 * to call this.
+	 * @param	game			The game creating the hero
 	 */
-	public Avatar() {
+	public Avatar(MgnGame game) {
 		super(MGlobal.data.getEntryFor(HERO_DEFAULT, EventMDO.class));
 		stepListeners = new ArrayList<FinishListener>();
 		addStepTracker();

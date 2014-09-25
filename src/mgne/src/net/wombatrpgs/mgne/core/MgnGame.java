@@ -158,7 +158,7 @@ public abstract class MgnGame implements Disposable {
 			mapName = mdo.map;
 		}
 		Level level = MGlobal.levelManager.getLevel(mapName);
-		Avatar hero = new Avatar();
+		Avatar hero = new Avatar(this);
 		
 		if (MGlobal.args.get("x") == null) {
 			hero.setTileX(mdo.mapX);
