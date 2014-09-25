@@ -333,7 +333,11 @@
     <property name="keyItem" value="KEY_ITEM"/>
    </properties>
   </object>
-  <object name="chest" type="Chest" x="272" y="352" width="16" height="16"/>
+  <object name="chest" type="Chest" x="272" y="352" width="16" height="16">
+   <properties>
+    <property name="hide" value="return getSwitch('shrine_done')"/>
+   </properties>
+  </object>
   <object name="trigger" type="Event" x="256" y="176" width="16" height="16">
    <properties>
     <property name="hide" value="return getSwitch('david01')"/>
@@ -375,6 +379,13 @@
    <properties>
     <property name="appearance" value="anim_bars"/>
     <property name="keyItem" value="key_shrineKey"/>
+   </properties>
+  </object>
+  <object name="chest" type="Chest" x="272" y="352" width="16" height="16">
+   <properties>
+    <property name="hide" value="return not getSwitch('shrine_done')"/>
+    <property name="item" value="key_artifactRadio"/>
+    <property name="keyItem" value="KEY_ITEM"/>
    </properties>
   </object>
  </objectgroup>

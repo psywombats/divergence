@@ -9,10 +9,6 @@
 	"cost" : 0,
 	"anim" : "None",
 	"equip" : [ ],
-	"warhead" : {
-		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectNothingMDO",
-		"key" : "anon_CombatItemMDO_-785458564"
-	},
 	"robostats" : {
 		"stats" : [ ]
 	}

@@ -37,7 +37,7 @@ public class ScreenSaves extends SagaScreen {
 	protected static final int PAD_VERT = 3;
 	protected static final int PAD_SPRITES = 2;
 	protected static final int PAD_LEFT = 12;
-	protected static final int SPACE_LEFT = 140;
+	protected static final int SPACE_LEFT = 112;
 	
 	protected static final String STRING_NEW = "New slot";
 	

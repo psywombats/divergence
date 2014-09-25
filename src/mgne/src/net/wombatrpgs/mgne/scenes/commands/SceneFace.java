@@ -17,7 +17,7 @@ import org.luaj.vm2.lib.TwoArgFunction;
  * direct integration, it doesn't play immediately. This could be replaced with
  * a function to just delay a script execution. The event can be replaced with
  * an event name that will be looked up at time of execution.
- * Usage: {@code walk(<event> or <eventName>, <direction>)}
+ * Usage: {@code face(<event> or <eventName>, <direction>)}
  */
 public class SceneFace extends TwoArgFunction {
 

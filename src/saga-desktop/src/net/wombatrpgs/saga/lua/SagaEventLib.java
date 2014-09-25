@@ -48,8 +48,9 @@ public class SagaEventLib extends TwoArgFunction {
 			@Override public LuaValue call(LuaValue itemArg) {
 				String key = itemArg.checkjstring();
 				CombatItem item = new CombatItem(key);
-				// TODO: check if space is available before granting item
-				SGlobal.heroes.addItem(item);
+				if (!SGlobal.heroes.getInventory().isFull()) {
+					SGlobal.heroes.addItem(item);
+				}
 				return LuaValue.NIL;
 			}
 		});

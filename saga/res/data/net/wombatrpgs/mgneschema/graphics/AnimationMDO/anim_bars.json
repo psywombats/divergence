@@ -7,7 +7,7 @@
 	"mode" : "DO_NOTHING",
 	"frameCount" : 1,
 	"frameWidth" : 16,
-	"frameHeight" : 16,
+	"frameHeight" : 32,
 	"offX" : 0,
 	"offY" : 0,
 	"animSpeed" : 1,
