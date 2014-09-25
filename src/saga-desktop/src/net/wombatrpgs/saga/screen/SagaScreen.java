@@ -150,6 +150,17 @@ public class SagaScreen extends Screen {
 	}
 	
 	/**
+	 * Checks if this screen is currently fading.
+	 * @return					True if a fade is active
+	 */
+	public boolean isFading() {
+		if (fade == null) return false;
+		if (sinceWipe == 0) return false;
+		if (sinceWipe > WIPE_TIME) return false;
+		return true;
+	}
+	
+	/**
 	 * Transitions this screen into the stack by fading out the screen below,
 	 * fading in this screen, then calling the finish listener.
 	 * @param	transition		The transition color during the switch

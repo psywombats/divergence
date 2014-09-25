@@ -1,0 +1,8 @@
+{
+	"key" : "shader_monsterin",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"vertexFile" : "monsterin.vert",
+	"fragmentFile" : "monsterin.frag"
+}

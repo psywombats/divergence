@@ -175,26 +175,23 @@ public class Battle extends AssetQueuer implements Disposable {
 	public void start() {
 		final Battle battle = this;
 		if (initialized) {
-			screen.transitonOn(TransitionType.WHITE, new FinishListener() {
-				@Override public void onFinish() {
-					battle.internalStart();
-				}
-			});
+			screen.transitonOn(TransitionType.WHITE, null);
 		} else {
 			SagaScreen current = (SagaScreen) MGlobal.screens.peek();
 			current.fade(FadeType.TO_WHITE, new FinishListener() {
 				@Override public void onFinish() {
 					MGlobal.assets.loadAsset(battle, "battle");
 					MGlobal.screens.push(screen);
-					screen.fade(FadeType.FROM_WHITE, new FinishListener() {
-						@Override public void onFinish() {
-							battle.internalStart();
-						}
-					});
+					screen.fade(FadeType.FROM_WHITE, null);
 					screen.update(0);
 				}
 			});
 		}
+		playbackListener = new FinishListener() {
+			@Override public void onFinish() {
+				battle.internalStart();
+			}
+		};
 	}
 	
 	/**

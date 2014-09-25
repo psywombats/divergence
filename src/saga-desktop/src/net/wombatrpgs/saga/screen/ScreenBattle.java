@@ -102,11 +102,15 @@ public class ScreenBattle extends SagaScreen {
 	protected static final int ACTOR_BG_WIDTH = 124;
 	protected static final int SHAKE_VERT = 8;
 	
-	// battle box and other constants
+	// shader constants
 	protected static final String KEY_SHADER_SHAKE = "shader_quake";
 	protected static final String KEY_SHADER_DEATH = "shader_blinds";
-	protected static final float SHAKE_DURATION = .5f;
+	protected static final String KEY_SHADER_MONSTERIN = "shader_monsterin";
+	protected static final float SHAKE_DURATION = .4f;
 	protected static final float DEATH_DURATION = .4f;
+	protected static final float MONSTERIN_DURATION = 1.5f;
+	
+	// battle box and other constants
 	protected static final int TEXT_LINES = 8;
 	protected static final float TEXT_FADE_TIME = 0f;
 	protected static final float ADVANCE_DURATION = .2f;
@@ -126,7 +130,7 @@ public class ScreenBattle extends SagaScreen {
 	protected ItemSelector abils;
 	protected List<String> meatMessages;
 	protected Matrix4 playerMatrix, enemyMatrix;
-	protected ShaderFromData shakeShader, deathShader;
+	protected ShaderFromData shakeShader, deathShader, monsterinShader;
 	protected transient FrameBuffer playerBuffer, enemyBuffer;
 	protected transient SpriteBatch playerBatch, playerFinalBatch;
 	protected transient SpriteBatch enemyBatch, enemyFinalBatch;
@@ -152,7 +156,9 @@ public class ScreenBattle extends SagaScreen {
 	protected Map<Integer, Float> deathTimers;
 	protected Chara movingHero;
 	protected float moveTime;
+	protected float sinceStart;
 	protected boolean moveRetreat;
+	protected boolean monsteredIn;
 	
 	/**
 	 * Creates a new combat setup. This initializes the screen and passes the
@@ -274,6 +280,14 @@ public class ScreenBattle extends SagaScreen {
 	public void update(float elapsed) {
 		super.update(elapsed);
 		moveTime += elapsed;
+		if (!isFading()) {
+			sinceStart += elapsed;
+			if (sinceStart > MONSTERIN_DURATION && !monsteredIn) {
+				monsteredIn = true;
+				battle.onPlaybackFinished();
+				resetBattleShader();
+			}
+		}
 		boolean done = true;
 		for (PortraitAnim anim : anims) {
 			if (anim.isDone()) {
@@ -417,7 +431,6 @@ public class ScreenBattle extends SagaScreen {
 						renderX - cursor.getWidth() / 2,
 						renderY + (portrait.getHeight() - cursor.getHeight()) / 2);
 			}
-			deathShader.end();
 			
 			PortraitAnim anim = animsOnGroups.get(i);
 			if (anim != null) {
@@ -429,10 +442,17 @@ public class ScreenBattle extends SagaScreen {
 		enemyBuffer.end();
 		resumeNormalBuffer();
 		
+		float height = globalY + OPTIONS_HEIGHT + SPRITES_HEIGHT;
+		if (sinceStart < MONSTERIN_DURATION) {
+			monsterinShader.begin();
+			enemyFinalBatch.setShader(monsterinShader);
+			monsterinShader.setUniformf("u_elapsedRatio", sinceStart / MONSTERIN_DURATION);
+			monsterinShader.setUniformf("u_portraitHeight", 48f / height);
+		}
 		enemyFinalBatch.begin();
 		enemyFinalBatch.draw(
 				enemyBuffer.getColorBufferTexture(),			// texture
-				0, globalY + OPTIONS_HEIGHT + SPRITES_HEIGHT,	// x/y in screen space
+				0, height,										// x/y in screen space
 				0, 0,											// origin x/y screen
 				win.getViewportWidth(), enemyHeight,			// width/height screen
 				1, 1,											// scale x/y
@@ -442,6 +462,9 @@ public class ScreenBattle extends SagaScreen {
 				false, true										// flip horiz/vert
 			);
 		enemyFinalBatch.end();
+		if (sinceStart < MONSTERIN_DURATION) {
+			monsterinShader.end();
+		}
 		
 		playerBuffer.begin();
 		shapes.setProjectionMatrix(playerMatrix);
@@ -546,7 +569,6 @@ public class ScreenBattle extends SagaScreen {
 				win.getViewportWidth(),
 				win.getViewportHeight());
 		enemyFinalBatch.setProjectionMatrix(matrix2);
-		resetBattleShader();
 		
 		playerFinalBatch = new SpriteBatch();
 		Matrix4 matrix3 = new Matrix4();
@@ -558,6 +580,7 @@ public class ScreenBattle extends SagaScreen {
 		
 		shakeShader = SGlobal.graphics.constructShader(KEY_SHADER_SHAKE);
 		deathShader = SGlobal.graphics.constructShader(KEY_SHADER_DEATH);
+		monsterinShader = SGlobal.graphics.constructShader(KEY_SHADER_MONSTERIN);
 	}
 	
 	/**
@@ -589,6 +612,8 @@ public class ScreenBattle extends SagaScreen {
 		enemyBatch.dispose();
 		enemyFinalBatch.dispose();
 		deathShader.dispose();
+		shakeShader.dispose();
+		monsterinShader.dispose();
 	}
 	
 	/**

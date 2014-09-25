@@ -68,7 +68,7 @@ public class BattleBox extends TextBox implements CommandListener {
 	@Override
 	public void update(float elapsed) {
 		if (MGlobal.keymap.getButtonState(InputButton.BUTTON_A) == KeyState.DOWN && receivedDown) {
-			super.update(elapsed * 5);
+			super.update(elapsed * 4);
 		} else {
 			super.update(elapsed);
 		}
