@@ -11,6 +11,7 @@ package net.wombatrpgs.sagaschema.rpg.status.data;
  */
 public enum LethalityType {
 	
+	DEATH,
 	DEADLY,
 	NON_DEADLY,
 

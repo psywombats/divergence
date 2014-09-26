@@ -16,7 +16,7 @@
 		{
 			"sprite" : "battle_anim/wound.png",
 			"start" : 0.1,
-			"duration" : 0.3,
+			"duration" : 0.5,
 			"x" : 0.0,
 			"y" : 0.0,
 			"rotation" : "ROTATION_DISABLED"

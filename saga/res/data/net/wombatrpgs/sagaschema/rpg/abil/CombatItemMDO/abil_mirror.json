@@ -1,0 +1,19 @@
+{
+	"key" : "abil_mirror",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "MIRROR",
+	"type" : "ABILITY",
+	"uses" : 5,
+	"cost" : 0,
+	"anim" : "banim_mirror",
+	"equip" : [ ],
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectDefendMDO",
+		"key" : "anon_CombatItemMDO_444398665"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

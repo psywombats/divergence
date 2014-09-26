@@ -1,17 +1,17 @@
 {
-	"key" : "abil_venom",
+	"key" : "abil_kinesis",
 	"subfolder" : "abil",
 	"name" : "",
 	"description" : "",
-	"abilityName" : "TOXIN",
+	"abilityName" : "KINESIS",
 	"type" : "ABILITY",
-	"uses" : 25,
+	"uses" : 10,
 	"cost" : 0,
-	"anim" : "banim_wound",
+	"anim" : "banim_ice",
 	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
-		"key" : "anon_CombatItemMDO_368033125"
+		"key" : "anon_CombatItemMDO_2063959615"
 	},
 	"robostats" : {
 		"stats" : [ ]

@@ -73,7 +73,7 @@ public class Status implements Resistable {
 	public RecoverType getRecover() { return mdo.recover; }
 	
 	/** @return True if this status effect is the same as death */
-	public boolean isDeadly() { return mdo.lethality == LethalityType.DEADLY; }
+	public boolean isDeadly() { return mdo.lethality != LethalityType.NON_DEADLY; }
 
 	/**
 	 * @see java.lang.Object#toString()
@@ -173,7 +173,11 @@ public class Status implements Resistable {
 			String tab = SConstants.TAB;
 			battle.println(tab + chara.getName() + mdo.inflictString + ".");
 		}
-		chara.setStatus(this);
+		if (mdo.lethality == LethalityType.DEATH) {
+			chara.modifyStat(Stat.HP, -1 * chara.get(Stat.HP));
+		} else {
+			chara.setStatus(this);
+		}
 	}
 	
 	/**
@@ -185,6 +189,9 @@ public class Status implements Resistable {
 	public void heal(Battle battle, Chara chara) {
 		if (battle != null) {
 			battle.println(chara.getName() + mdo.healString + ".");
+		}
+		if (mdo.lethality == LethalityType.DEATH) {
+			chara.heal(1);
 		}
 		chara.setStatus(null);
 	}

@@ -10,6 +10,7 @@ import net.wombatrpgs.mgneschema.maps.EventMDO;
 import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Nullable;
+import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.sagaschema.events.data.KeyItemType;
 import net.wombatrpgs.sagaschema.rpg.abil.CollectableMDO;
@@ -18,6 +19,7 @@ import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
 /**
  * SaGa generic treasure chest event.
  */
+@Path("maps/")
 public class EventChestMDO extends EventMDO {
 	
 	@Desc("Item - the item in the chest, or empty")

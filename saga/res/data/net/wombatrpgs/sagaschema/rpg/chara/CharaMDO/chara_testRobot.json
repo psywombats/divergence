@@ -15,7 +15,8 @@
 	"equipped" : [
 		"item_testsword",
 		"item_testDefend",
-		"item_testSMG"
+		"item_testSMG",
+		"abil_dgaze"
 	],
 	"stats" : {
 		"hp" : 40,

@@ -1,17 +1,17 @@
 {
-	"key" : "abil_venom",
+	"key" : "abil_sgaze",
 	"subfolder" : "abil",
 	"name" : "",
 	"description" : "",
-	"abilityName" : "TOXIN",
-	"type" : "ABILITY",
-	"uses" : 25,
+	"abilityName" : "STONE GAZE",
+	"type" : "ITEM",
+	"uses" : 5,
 	"cost" : 0,
-	"anim" : "banim_wound",
+	"anim" : "banim_fadeout",
 	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
-		"key" : "anon_CombatItemMDO_368033125"
+		"key" : "anon_CombatItemMDO_-749064492"
 	},
 	"robostats" : {
 		"stats" : [ ]

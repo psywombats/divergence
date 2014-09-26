@@ -57,10 +57,10 @@ public class BattleAnimShader extends BattleAnim {
 	@Override
 	public void start(ScreenBattle screen) {
 		super.start(screen);
-		if (mdo.scope == ShaderScopeType.ENEMY_AREA) {
-			screen.setEnemiesShader(shader);
-		} else {
+		if (mdo.scope == ShaderScopeType.PORTRAIT) {
 			screen.setPortraitShader(shader);
+		} else {
+			screen.setEnemiesShader(shader);
 		}
 	}
 

@@ -1,17 +1,17 @@
 {
-	"key" : "abil_venom",
+	"key" : "abil_hypnosis",
 	"subfolder" : "abil",
 	"name" : "",
 	"description" : "",
-	"abilityName" : "TOXIN",
+	"abilityName" : "HYPNOSIS",
 	"type" : "ABILITY",
-	"uses" : 25,
+	"uses" : 20,
 	"cost" : 0,
-	"anim" : "banim_wound",
+	"anim" : "banim_fadeout",
 	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
-		"key" : "anon_CombatItemMDO_368033125"
+		"key" : "anon_CombatItemMDO_-2136969597"
 	},
 	"robostats" : {
 		"stats" : [ ]
