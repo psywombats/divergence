@@ -221,7 +221,7 @@ public class CombatItem extends AssetQueuer {
 	 * Halves the uses on this item, like if a robot equipped it.
 	 */
 	public void halveUses() {
-		uses = Math.round((float) uses / 2f);
+		uses = (int) Math.floor((float) uses / 2f);
 		checkDiscard();
 	}
 	
