@@ -1,0 +1,19 @@
+{
+	"key" : "abil_hypnosis",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "HYPNOSIS",
+	"type" : "ABILITY",
+	"uses" : 20,
+	"cost" : 0,
+	"anim" : "banim_fadeout",
+	"equip" : [ ],
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
+		"key" : "anon_CombatItemMDO_-2136969597"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

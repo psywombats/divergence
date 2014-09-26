@@ -18,7 +18,8 @@
 		"item_testDragonShield",
 		"item_testStun",
 		"item_testPGun",
-		"item_testPotion"
+		"item_testPotion",
+		"wpn_hammerBronze"
 	],
 	"stats" : {
 		"hp" : 60,

@@ -1,0 +1,19 @@
+{
+	"key" : "abil_dgaze",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "DEATH GAZE",
+	"type" : "ABILITY",
+	"uses" : 5,
+	"cost" : 0,
+	"anim" : "banim_fadeout",
+	"equip" : [ ],
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
+		"key" : "anon_CombatItemMDO_583921524"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

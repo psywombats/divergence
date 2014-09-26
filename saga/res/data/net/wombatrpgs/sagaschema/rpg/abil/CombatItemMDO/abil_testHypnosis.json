@@ -7,6 +7,8 @@
 	"type" : "ABILITY",
 	"uses" : 20,
 	"cost" : 0,
+	"anim" : "banim_fadeout",
+	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
 		"key" : "anon_CombatItemMDO_-1232046406"

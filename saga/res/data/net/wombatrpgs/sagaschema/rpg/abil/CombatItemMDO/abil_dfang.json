@@ -1,0 +1,19 @@
+{
+	"key" : "abil_dfang",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "DEATH FANG",
+	"type" : "ITEM",
+	"uses" : 5,
+	"cost" : 0,
+	"anim" : "banim_wound",
+	"equip" : [ ],
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
+		"key" : "anon_CombatItemMDO_563728527"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

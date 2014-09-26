@@ -3,11 +3,12 @@
 	"subfolder" : "abil",
 	"name" : "",
 	"description" : "",
-	"abilityName" : "VENOM",
+	"abilityName" : "TOXIN",
 	"type" : "ABILITY",
 	"uses" : 25,
 	"cost" : 0,
 	"anim" : "banim_wound",
+	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
 		"key" : "anon_CombatItemMDO_368033125"

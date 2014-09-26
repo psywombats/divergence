@@ -1,0 +1,19 @@
+{
+	"key" : "abil_kinesis",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "KINESIS",
+	"type" : "ABILITY",
+	"uses" : 10,
+	"cost" : 0,
+	"anim" : "banim_ice",
+	"equip" : [ ],
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
+		"key" : "anon_CombatItemMDO_2063959615"
+	},
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

@@ -20,7 +20,7 @@ import net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO;
 public class EffectStatus extends EffectEnemyTarget {
 	
 	protected EffectStatusMDO mdo;
-	Status status;
+	protected Status status;
 
 	/**
 	 * Inherited constructor.

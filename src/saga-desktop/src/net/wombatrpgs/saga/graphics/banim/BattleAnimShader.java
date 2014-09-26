@@ -10,6 +10,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.ShaderFromData;
 import net.wombatrpgs.saga.screen.ScreenBattle;
 import net.wombatrpgs.sagaschema.graphics.banim.BattleAnimShaderMDO;
+import net.wombatrpgs.sagaschema.graphics.banim.data.ShaderScopeType;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -56,7 +57,11 @@ public class BattleAnimShader extends BattleAnim {
 	@Override
 	public void start(ScreenBattle screen) {
 		super.start(screen);
-		screen.setBattleShader(shader);
+		if (mdo.scope == ShaderScopeType.PORTRAIT) {
+			screen.setPortraitShader(shader);
+		} else {
+			screen.setEnemiesShader(shader);
+		}
 	}
 
 	/**
@@ -66,7 +71,7 @@ public class BattleAnimShader extends BattleAnim {
 	public void update(float elapsed) {
 		super.update(elapsed);
 		shader.begin();
-		shader.setUniformf("u_elapsed", sinceStart);
+		shader.setUniformf("u_elapsed", (sinceStart / mdo.duration));
 	}
 
 	/**
@@ -75,7 +80,8 @@ public class BattleAnimShader extends BattleAnim {
 	@Override
 	public void finish(ScreenBattle screen) {
 		super.finish(screen);
-		screen.resetBattleShader();
+		screen.resetEnemiesShader();
+		screen.resetPortraitShader();
 	}
 
 }

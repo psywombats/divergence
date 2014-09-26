@@ -143,6 +143,7 @@ public class ScreenBattle extends SagaScreen {
 	protected boolean showMeatMessage;
 	
 	// selection mode
+	protected CommandListener selectListener;
 	protected boolean selectionMode;
 	protected TargetListener targetListener;
 	protected int selectedIndex;
@@ -259,6 +260,19 @@ public class ScreenBattle extends SagaScreen {
 		playbackQueue = new ArrayList<PlaybackStep>();
 		shakeTimers = new HashMap<Integer, Float>();
 		deathTimers = new HashMap<Integer, Float>();
+		
+		selectListener = new CommandListener() {
+			@Override public boolean onCommand(InputCommand command) {
+				switch (command) {
+				case MOVE_LEFT:		moveCursor(-1);		break;
+				case MOVE_RIGHT:	moveCursor(1);		break;
+				case UI_CONFIRM:	selectConfirm();	break;
+				case UI_CANCEL:		selectCancel();		break;
+				default:								break;
+				}
+				return true;
+			}
+		};
 	}
 	
 	/** @return True if the text box is not blocking battle playback */
@@ -285,7 +299,7 @@ public class ScreenBattle extends SagaScreen {
 			if (sinceStart > MONSTERIN_DURATION && !monsteredIn) {
 				monsteredIn = true;
 				battle.onPlaybackFinished();
-				resetBattleShader();
+				resetEnemiesShader();
 			}
 		}
 		boolean done = true;
@@ -553,7 +567,7 @@ public class ScreenBattle extends SagaScreen {
 				win.getViewportWidth(),
 				win.getViewportHeight() - OPTIONS_HEIGHT - SPRITES_HEIGHT);
 		enemyBatch.setProjectionMatrix(enemyMatrix);
-		enemyBatch.setShader(background.getShader());
+		resetPortraitShader();
 		
 		playerBatch = new SpriteBatch();
 		playerMatrix = new Matrix4();
@@ -885,18 +899,7 @@ public class ScreenBattle extends SagaScreen {
 		showMonsterList = true;
 		selectionMode = true;
 		moveCursor(0);
-		pushCommandListener(new CommandListener() {
-			@Override public boolean onCommand(InputCommand command) {
-				switch (command) {
-				case MOVE_LEFT:		moveCursor(-1);		break;
-				case MOVE_RIGHT:	moveCursor(1);		break;
-				case UI_CONFIRM:	selectConfirm();	break;
-				case UI_CANCEL:		selectCancel();		break;
-				default:								break;
-				}
-				return true;
-			}
-		});
+		pushCommandListener(selectListener);
 		// TODO: battle: use multimode to render enemy inserts maybe?
 	}
 	
@@ -996,15 +999,30 @@ public class ScreenBattle extends SagaScreen {
 	 * Sets the shader used to render all enemy portraits. Used by banims.
 	 * @param	shader			The shader to use for enemies
 	 */
-	public void setBattleShader(ShaderFromData shader) {
+	public void setEnemiesShader(ShaderFromData shader) {
 		enemyFinalBatch.setShader(shader);
 	}
 	
 	/**
 	 * Sets the battle shader back to default.
 	 */
-	public void resetBattleShader() {
+	public void resetEnemiesShader() {
 		enemyFinalBatch.setShader(background.getShader());
+	}
+	
+	/**
+	 * Sets the shader used for inidividual enemy portraits.
+	 * @param	shader			The shdaer to use
+	 */
+	public void setPortraitShader(ShaderFromData shader) {
+		enemyBatch.setShader(shader);
+	}
+	
+	/**
+	 * Resets the individual enemy portrait shader back to default.
+	 */
+	public void resetPortraitShader() {
+		enemyBatch.setShader(background.getShader());
 	}
 	
 	/**
@@ -1104,7 +1122,7 @@ public class ScreenBattle extends SagaScreen {
 	 */
 	protected void cancelSelectionMode() {
 		selectionMode = false;
-		removeCommandListener(this);
+		removeCommandListener(selectListener);
 	}
 	
 	/**
