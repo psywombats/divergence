@@ -7,10 +7,12 @@
 package net.wombatrpgs.sagaschema.graphics.banim;
 
 import net.wombatrpgs.mgneschema.graphics.ShaderMDO;
+import net.wombatrpgs.mgns.core.Annotations.DefaultValue;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.sagaschema.graphics.banim.data.BattleAnimMDO;
+import net.wombatrpgs.sagaschema.graphics.banim.data.ShaderScopeType;
 
 /**
  * Battle animation that operates by warping the enemy.
@@ -24,5 +26,9 @@ public class BattleAnimShaderMDO extends BattleAnimMDO {
 	
 	@Desc("Duration - in seconds")
 	public Float duration;
+	
+	@Desc("Scope - will still apply to all enemies")
+	@DefaultValue("ENEMY_AREA")
+	public ShaderScopeType scope;
 
 }

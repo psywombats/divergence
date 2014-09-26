@@ -14,11 +14,13 @@ import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
+import net.wombatrpgs.mgns.core.Annotations.Path;
 import net.wombatrpgs.sagaschema.events.EventCeilingMDO;
 
 /**
  * An event that spawns/unspawns the ceiling when the hero walks under it.
  */
+@Path("maps/")
 public class EventCeiling extends MapEvent {
 	
 	protected EventCeilingMDO mdo;

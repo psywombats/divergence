@@ -299,7 +299,7 @@ public class ScreenBattle extends SagaScreen {
 			if (sinceStart > MONSTERIN_DURATION && !monsteredIn) {
 				monsteredIn = true;
 				battle.onPlaybackFinished();
-				resetBattleShader();
+				resetEnemiesShader();
 			}
 		}
 		boolean done = true;
@@ -567,7 +567,7 @@ public class ScreenBattle extends SagaScreen {
 				win.getViewportWidth(),
 				win.getViewportHeight() - OPTIONS_HEIGHT - SPRITES_HEIGHT);
 		enemyBatch.setProjectionMatrix(enemyMatrix);
-		enemyBatch.setShader(background.getShader());
+		resetPortraitShader();
 		
 		playerBatch = new SpriteBatch();
 		playerMatrix = new Matrix4();
@@ -999,15 +999,30 @@ public class ScreenBattle extends SagaScreen {
 	 * Sets the shader used to render all enemy portraits. Used by banims.
 	 * @param	shader			The shader to use for enemies
 	 */
-	public void setBattleShader(ShaderFromData shader) {
+	public void setEnemiesShader(ShaderFromData shader) {
 		enemyFinalBatch.setShader(shader);
 	}
 	
 	/**
 	 * Sets the battle shader back to default.
 	 */
-	public void resetBattleShader() {
+	public void resetEnemiesShader() {
 		enemyFinalBatch.setShader(background.getShader());
+	}
+	
+	/**
+	 * Sets the shader used for inidividual enemy portraits.
+	 * @param	shader			The shdaer to use
+	 */
+	public void setPortraitShader(ShaderFromData shader) {
+		enemyBatch.setShader(shader);
+	}
+	
+	/**
+	 * Resets the individual enemy portrait shader back to default.
+	 */
+	public void resetPortraitShader() {
+		enemyBatch.setShader(background.getShader());
 	}
 	
 	/**

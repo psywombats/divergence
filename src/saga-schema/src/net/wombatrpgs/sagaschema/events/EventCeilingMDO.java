@@ -8,10 +8,12 @@ package net.wombatrpgs.sagaschema.events;
 
 import net.wombatrpgs.mgneschema.maps.EventMDO;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
+import net.wombatrpgs.mgns.core.Annotations.Path;
 
 /**
  * An on-the-fly room, except not so on-the-fly.
  */
+@Path("maps/")
 public class EventCeilingMDO extends EventMDO {
 	
 	@Desc("Roof ID - the tile ID of the chip to use for the roof")
