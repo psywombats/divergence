@@ -143,6 +143,7 @@ public class ScreenBattle extends SagaScreen {
 	protected boolean showMeatMessage;
 	
 	// selection mode
+	protected CommandListener selectListener;
 	protected boolean selectionMode;
 	protected TargetListener targetListener;
 	protected int selectedIndex;
@@ -259,6 +260,19 @@ public class ScreenBattle extends SagaScreen {
 		playbackQueue = new ArrayList<PlaybackStep>();
 		shakeTimers = new HashMap<Integer, Float>();
 		deathTimers = new HashMap<Integer, Float>();
+		
+		selectListener = new CommandListener() {
+			@Override public boolean onCommand(InputCommand command) {
+				switch (command) {
+				case MOVE_LEFT:		moveCursor(-1);		break;
+				case MOVE_RIGHT:	moveCursor(1);		break;
+				case UI_CONFIRM:	selectConfirm();	break;
+				case UI_CANCEL:		selectCancel();		break;
+				default:								break;
+				}
+				return true;
+			}
+		};
 	}
 	
 	/** @return True if the text box is not blocking battle playback */
@@ -885,18 +899,7 @@ public class ScreenBattle extends SagaScreen {
 		showMonsterList = true;
 		selectionMode = true;
 		moveCursor(0);
-		pushCommandListener(new CommandListener() {
-			@Override public boolean onCommand(InputCommand command) {
-				switch (command) {
-				case MOVE_LEFT:		moveCursor(-1);		break;
-				case MOVE_RIGHT:	moveCursor(1);		break;
-				case UI_CONFIRM:	selectConfirm();	break;
-				case UI_CANCEL:		selectCancel();		break;
-				default:								break;
-				}
-				return true;
-			}
-		});
+		pushCommandListener(selectListener);
 		// TODO: battle: use multimode to render enemy inserts maybe?
 	}
 	
@@ -1104,7 +1107,7 @@ public class ScreenBattle extends SagaScreen {
 	 */
 	protected void cancelSelectionMode() {
 		selectionMode = false;
-		removeCommandListener(this);
+		removeCommandListener(selectListener);
 	}
 	
 	/**
