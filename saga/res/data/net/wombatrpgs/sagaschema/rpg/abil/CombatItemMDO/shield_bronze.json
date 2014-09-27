@@ -13,6 +13,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectDefendMDO",
 		"key" : "anon_CombatItemMDO_-1826727546"
 	},
+	"tier" : 1,
 	"robostats" : {
 		"stats" : [
 			{

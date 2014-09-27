@@ -4,7 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "STONE GAZE",
-	"type" : "ITEM",
+	"type" : "ABILITY",
 	"uses" : 5,
 	"cost" : 0,
 	"anim" : "banim_fadeout",
@@ -13,6 +13,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
 		"key" : "anon_CombatItemMDO_-749064492"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

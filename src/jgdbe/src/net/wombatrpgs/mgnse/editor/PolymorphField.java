@@ -117,7 +117,9 @@ public class PolymorphField extends FieldPanel {
 		}
 		if (link != null) {
 			selected = (Class<? extends PolymorphicSchema>) parent.getTree().getSchemaByName(link.clazz);
-			selector.setSelectedItem(selected.getSimpleName());
+			if (selected != null) {
+				selector.setSelectedItem(selected.getSimpleName());
+			}
 		}
 		if (selected != null) {
 			try {

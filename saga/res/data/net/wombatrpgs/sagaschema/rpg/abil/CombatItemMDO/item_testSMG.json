@@ -8,19 +8,21 @@
 	"uses" : 30,
 	"cost" : 1500,
 	"anim" : "banim_smg",
+	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectFixedMDO",
 		"key" : "anon_CombatItemMDO_-417021591"
 	},
+	"tier" : 1,
 	"robostats" : {
 		"stats" : [
 			{
 				"stat" : "MHP",
-				"value" : 18.0
+				"value" : 9.0
 			},
 			{
-				"stat" : "STR",
-				"value" : 4.0
+				"stat" : "AGI",
+				"value" : 2.0
 			}
 		]
 	}

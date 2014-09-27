@@ -7,10 +7,13 @@
 	"type" : "ITEM",
 	"uses" : 3,
 	"cost" : 24,
+	"anim" : null,
+	"equip" : null,
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectHealMDO",
 		"key" : "anon_CombatItemMDO_740384866"
 	},
+	"tier" : null,
 	"robostats" : {
 		"stats" : [ ]
 	}

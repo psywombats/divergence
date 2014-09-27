@@ -7,11 +7,23 @@
 	"type" : "ITEM",
 	"uses" : 50,
 	"cost" : 5000,
+	"anim" : "None",
+	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectDefendMDO",
 		"key" : "anon_CombatItemMDO_961006691"
 	},
+	"tier" : 1,
 	"robostats" : {
-		"stats" : [ ]
+		"stats" : [
+			{
+				"stat" : "MHP",
+				"value" : 9.0
+			},
+			{
+				"stat" : "DEF",
+				"value" : 2.0
+			}
+		]
 	}
 }

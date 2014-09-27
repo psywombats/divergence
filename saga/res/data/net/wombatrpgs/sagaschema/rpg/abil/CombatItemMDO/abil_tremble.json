@@ -4,14 +4,16 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "TREMBLE",
-	"type" : "ITEM",
+	"type" : "ABILITY",
 	"uses" : 15,
 	"cost" : 0,
 	"anim" : "banim_ice",
+	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectDebuffMDO",
 		"key" : "anon_CombatItemMDO_-1283125356"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

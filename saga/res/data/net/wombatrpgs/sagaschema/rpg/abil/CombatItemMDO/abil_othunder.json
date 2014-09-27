@@ -4,7 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$LTHUNDER",
-	"type" : "ITEM",
+	"type" : "ABILITY",
 	"uses" : 0,
 	"cost" : 0,
 	"anim" : "None",
@@ -13,6 +13,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectPassiveMDO",
 		"key" : "anon_CombatItemMDO_-1259245986"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

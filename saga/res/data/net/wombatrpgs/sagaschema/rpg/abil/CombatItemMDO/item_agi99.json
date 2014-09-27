@@ -13,6 +13,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatCandyMDO",
 		"key" : "anon_CombatItemMDO_528986767"
 	},
+	"tier" : null,
 	"robostats" : {
 		"stats" : [ ]
 	}

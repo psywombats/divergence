@@ -12,13 +12,14 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
+
 import net.wombatrpgs.mgnse.Global;
 import net.wombatrpgs.mgnse.tree.SchemaNode;
 import net.wombatrpgs.mgnse.wizard.Wizard;
 import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilEffectMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.data.AbilityType;
-import net.wombatrpgs.sagaschema.rpg.chara.CharaMDO;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 import net.wombatrpgs.sagaschema.rpg.stats.StatEntryMDO;
 import net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO;
@@ -48,51 +49,73 @@ public class Robostats extends Wizard {
 	 */
 	@Override
 	public void run() {
-		SchemaNode node = Global.instance().getNode(CharaMDO.class);
+		SchemaNode node = Global.instance().getNode(CombatItemMDO.class);
 		List<CombatItemMDO> itemMDOs = new ArrayList<CombatItemMDO>();
 		recursivelyAdd(node, itemMDOs);
 		for (CombatItemMDO itemMDO : itemMDOs) {
 			if (itemMDO.type != AbilityType.ITEM) continue;
+			if (itemMDO.warhead == null) continue;
 			String className = itemMDO.warhead.clazz;
 			String key = itemMDO.warhead.key;
-			Set<Stat> stats = EnumSet.of(Stat.MHP);
+			Set<Stat> stats = EnumSet.noneOf(Stat.class);
+			Integer tier = itemMDO.tier;
 			if (isClass(className, EffectBoostMDO.class)) {
 				EffectBoostMDO mdo = loadMDO(key, EffectBoostMDO.class);
 				stats.add((mdo.powerStat == null) ? Stat.STR : mdo.powerStat);
+				stats.add(Stat.MHP);
 			} else if (isClass(className, EffectDefendMDO.class)) {
 				stats.add(Stat.DEF);
+				stats.add(Stat.MHP);
 			} else if (isClass(className, EffectAttackMDO.class)) {
 				EffectAttackMDO mdo = loadMDO(key, EffectAttackMDO.class);
 				stats.add(mdo.attackStat);
+				stats.add(Stat.MHP);
 			} else if (isClass(className, EffectFixedMDO.class)) {
 				EffectFixedMDO mdo = loadMDO(key, EffectFixedMDO.class);
 				stats.add(mdo.accStat);
+				stats.add(Stat.MHP);
 			} else if (isClass(className, EffectMultihitMDO.class)) {
 				EffectMultihitMDO mdo = loadMDO(key, EffectMultihitMDO.class);
 				stats.add(mdo.attackStat);
+				stats.add(Stat.MHP);
 			} else if (isClass(className, EffectDebuffMDO.class)) {
 				EffectDebuffMDO mdo = loadMDO(key, EffectDebuffMDO.class);
 				stats.add(mdo.attackStat);
+				stats.add(Stat.MHP);
 			} else if (isClass(className, EffectStatusMDO.class)) {
 				EffectStatusMDO mdo = loadMDO(key, EffectStatusMDO.class);
-				stats.add(mdo.accStat);
+				if (mdo.accStat != null) stats.add(mdo.accStat);
+				stats.add(Stat.MHP);
 			} else if (isClass(className, EffectPassiveMDO.class)) {
+				stats.add(Stat.MHP);
 				//EffectPassiveMDO mdo = loadMDO(key, EffectPassiveMDO.class);
 				// never mind
 			}
+			if ((tier == null || tier == 0) && stats.size() > 0) {
+				Global.instance().warn(itemMDO.key + " has no tier");
+				continue;
+			}
+			stats.remove(Stat.MANA);
+			if (stats.size() == 0) {
+				continue;
+			}
 			List<StatEntryMDO> entries = new ArrayList<StatEntryMDO>();
 			for (Stat stat : stats) {
-				if (stat == Stat.MANA) continue;
 				StatEntryMDO entryMDO = new StatEntryMDO();
 				entryMDO.stat = stat;
-				entryMDO.value = (float) itemMDO.tier;
+				entryMDO.value = (float) tier;
 				entryMDO.value *= (stat == Stat.MHP) ? 9 : 2;
 				entries.add(entryMDO);
 			}
-			itemMDO.robostats.stats = new StatEntryMDO[0];
+			itemMDO.robostats.stats = new StatEntryMDO[entries.size()];
 			entries.toArray(itemMDO.robostats.stats);
 			frame.getLogic().getOut().writeNewSchema(itemMDO);
 		}
+		
+		JOptionPane.showMessageDialog(frame,
+				"Robostats regenerated successfully.\n",
+				"Generation Complete",
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	private void recursivelyAdd(SchemaNode node, List<CombatItemMDO> current) {

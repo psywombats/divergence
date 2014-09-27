@@ -4,7 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "DEATH FANG",
-	"type" : "ITEM",
+	"type" : "ABILITY",
 	"uses" : 5,
 	"cost" : 0,
 	"anim" : "banim_wound",
@@ -13,6 +13,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
 		"key" : "anon_CombatItemMDO_563728527"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}
