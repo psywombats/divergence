@@ -143,11 +143,11 @@ public class ScreenBattle extends SagaScreen {
 	protected boolean showMeatMessage;
 	
 	// selection mode
+	protected Map<Chara, Integer> lastSelected;
 	protected CommandListener selectListener;
-	protected boolean selectionMode;
 	protected TargetListener targetListener;
 	protected int selectedIndex;
-	protected boolean multiMode;
+	protected boolean multiMode, selectionMode;
 	
 	// animation + graphics
 	protected List<PlaybackStep> playbackQueue;
@@ -273,6 +273,11 @@ public class ScreenBattle extends SagaScreen {
 				return true;
 			}
 		};
+		
+		lastSelected = new HashMap<Chara, Integer>();
+		for (Chara hero : battle.getPlayer().getAll()) {
+			lastSelected.put(hero, 0);
+		}
 	}
 	
 	/** @return True if the text box is not blocking battle playback */
@@ -839,7 +844,7 @@ public class ScreenBattle extends SagaScreen {
 	 * @param	selected		The index of the item previously selected, or -1
 	 * @param	listener		The callback for when a slot is selected
 	 */
-	public void selectItem(Chara chara, int selected, final SlotListener listener) {
+	public void selectItem(final Chara chara, int selected, final SlotListener listener) {
 		
 		if (abils != null && containsChild(abils)) {
 			removeChild(abils);
@@ -870,6 +875,9 @@ public class ScreenBattle extends SagaScreen {
 		abils.awaitSelection(new SlotListener() {
 			@Override public boolean onSelection(int selected) {
 				ItemSelector oldAbils = abils;
+				if (selected != -1) {
+					lastSelected.put(chara, selected);
+				}
 				boolean willUnfocus = listener.onSelection(selected);
 				if (willUnfocus && selected != -1) {
 					if (oldAbils == abils) {
@@ -881,6 +889,8 @@ public class ScreenBattle extends SagaScreen {
 		}, true);
 		if (selected != -1) {
 			abils.setSelected(selected);
+		} else {
+			abils.setSelected(lastSelected.get(chara));
 		}
 	}
 	
