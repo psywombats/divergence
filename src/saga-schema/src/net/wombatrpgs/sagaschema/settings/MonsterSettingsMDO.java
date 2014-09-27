@@ -18,5 +18,8 @@ public class MonsterSettingsMDO extends MainSchema {
 	
 	@Desc("Meat abundancy - chance that a group drops meat from 0 to 100")
 	public Integer meatChance;
+	
+	@Desc("Loot abundancy - chance that a group drops a loot item (if available)")
+	public Integer lootChance;
 
 }

@@ -43,8 +43,11 @@ public class SagaSettings {
 		this(MGlobal.data.getEntryFor(KEY_DEFAULT, SagaSettingsMDO.class));
 	}
 	
-	/** @return The likelihood of enemy party droppning meat, from 0 to 100 */
+	/** @return The likelihood of enemy party dropping meat, from 0 to 100 */
 	public int getMeatChance() { return monsterSettings.meatChance; }
+	
+	/** @return The likelihood of enemy party dropping item, from 0 to 100 */
+	public int getLootChance() { return monsterSettings.lootChance; }
 	
 	/** @return The key of the starting player party */
 	public String getStartingPartyKey() { return mdo.heroParty; }

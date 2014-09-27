@@ -3,5 +3,6 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
-	"meatChance" : 100
+	"meatChance" : 40,
+	"lootChance" : 100
 }

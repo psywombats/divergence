@@ -68,6 +68,11 @@ public class CharaMDO extends MainSchema {
 	@DefaultValue("0")
 	public Integer gp;
 	
+	@Desc("Loot - dropped when this monster is defeated")
+	@SchemaLink(CombatItemMDO.class)
+	@Nullable
+	public String loot;
+	
 	@Desc("Equipped items/abilities")
 	@SchemaLink(CombatItemMDO.class)
 	public String equipped[];

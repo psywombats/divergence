@@ -12,6 +12,7 @@
 	"meatEatLevel" : 1,
 	"meatTargetLevel" : -1,
 	"gp" : 40,
+	"loot" : "item_testCure",
 	"equipped" : [
 		"abil_testIce",
 		"abil_oweapon"

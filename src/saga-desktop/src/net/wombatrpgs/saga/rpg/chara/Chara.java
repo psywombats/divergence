@@ -135,6 +135,9 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 	/** @return The power of meat needed for this character */
 	public int getTargetLevel() { return mdo.meatTargetLevel; }
 	
+	/** @return The key of the loot this chara can drop, or null or None */
+	public String getLootKey() { return mdo.loot; }
+	
 	/**
 	 * @see net.wombatrpgs.mgne.core.lua.LuaConvertable#toLua()
 	 */

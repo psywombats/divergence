@@ -901,6 +901,7 @@ public class Battle extends AssetQueuer implements Disposable {
 		String leadername = player.findLeader().getName();
 		println(leadername + " is victorious.");
 		mutateIndex = 0;
+		screen.animatePause();
 		playNextMutation();
 	}
 	
@@ -908,33 +909,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * Called when levelups (mutations) are finished playing back.
 	 */
 	protected void onLevelupFinished() {
-		println("");
-		int gp = enemy.getDeathGold();
-		player.addGP(gp);
-		String gpstring = "Found " + gp + " GP.";
-		
-		meatDropper = enemy.chooseMeatFamily();
-		if (meatDropper == null) {	
-			println(gpstring);
-			screen.animatePause();
-			playbackListener = new FinishListener() {
-				@Override public void onFinish() {
-					finish();
-				}
-			};
-		} else {
-			println(gpstring);
-			println("");
-			String droppername = meatDropper.getName();
-			println("Found meat of " + droppername + ".");
-			println("");
-			println("");
-			playback("", new FinishListener() {
-				@Override public void onFinish() {
-					screen.onMeatChoice();
-				}
-			});
-		}
+		handleLoot();
 	}
 	
 	/**
@@ -974,6 +949,55 @@ public class Battle extends AssetQueuer implements Disposable {
 				actorIndex += 1;
 			} while (actorIndex < player.size() &&
 					!player.getFront(actorIndex).canConstructIntents(this));
+		}
+	}
+	
+	/**
+	 * The good stuff! Hands out loot to the hero, then moves on to levelup
+	 * finished?
+	 */
+	protected void handleLoot() {
+		int gp = enemy.getDeathGold();
+		player.addGP(gp);
+		println("");
+		println("Found " + gp + " GP.");
+		CombatItem loot = enemy.chooseLoot();
+		if (loot != null && !player.getInventory().isFull()) {
+			println("");
+			println("Found " + loot.getName() + ".");
+			player.addItem(loot);
+		}
+		playbackListener = new FinishListener() {
+			@Override public void onFinish() {
+				handleMeat();
+			}
+		};
+	}
+	
+	/**
+	 * Eat the meat! Questions the heroes about their dietary preferences if
+	 * meat happens to drop this battle.
+	 */
+	protected void handleMeat() {
+		meatDropper = enemy.chooseMeatFamily();
+		if (meatDropper == null) {
+			screen.animatePause();
+			playbackListener = new FinishListener() {
+				@Override public void onFinish() {
+					finish();
+				}
+			};
+		} else {
+			println("");
+			String droppername = meatDropper.getName();
+			println("Found meat of " + droppername + ".");
+			println("");
+			println("");
+			playback("", new FinishListener() {
+				@Override public void onFinish() {
+					screen.onMeatChoice();
+				}
+			});
 		}
 	}
 

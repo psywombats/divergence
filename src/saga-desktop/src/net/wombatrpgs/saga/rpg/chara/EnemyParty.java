@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.maps.MapThing;
 import net.wombatrpgs.saga.core.SGlobal;
+import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.PartyEntryMDO;
 import net.wombatrpgs.sagaschema.rpg.encounter.EncounterMDO;
@@ -74,8 +76,34 @@ public class EnemyParty extends Party {
 		}
 		if (candidates.size() == 0) {
 			return null;
+		} else {
+			return candidates.get(MGlobal.rand.nextInt(candidates.size()));
 		}
-		return candidates.get(MGlobal.rand.nextInt(candidates.size()));
+	}
+	
+	/**
+	 * Selects a loot item to drop for this battle. Sometimes returns null if no
+	 * characters have a loot items assigned or loot is not abundant (RNG).
+	 * @return					The item dropped, or null for none
+	 */
+	public CombatItem chooseLoot() {
+		int chance = SGlobal.settings.getLootChance();
+		if (MGlobal.rand.nextInt(100) > chance) {
+			return null;
+		}
+		List<String> keys = new ArrayList<String>();
+		for (int i = 0; i < groupCount(); i += 1) {
+			Chara candidate = getFront(i);
+			String key = candidate.getLootKey();
+			if (MapThing.mdoHasProperty(key)) {
+				keys.add(key);
+			}
+		}
+		if (keys.size() == 0) {
+			return null;
+		} else {
+			return new CombatItem(keys.get(MGlobal.rand.nextInt(keys.size())));
+		}
 	}
 	
 	/**
