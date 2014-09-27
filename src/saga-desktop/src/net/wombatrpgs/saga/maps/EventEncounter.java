@@ -100,15 +100,17 @@ public abstract class EventEncounter extends MapEvent {
 	protected final void onStep() {
 		Avatar hero = MGlobal.getHero();
 		int terrainID = MGlobal.levelManager.getActive().getTerrainAt(
-				MGlobal.getHero().getTileX(),
-				MGlobal.getHero().getTileY());
+				hero.getTileX(),
+				hero.getTileY());
 		EncounterSetMDO mdo = getEncounterSetForTerrain(terrainID);
-		if (mdo != null &&
-				MGlobal.rand.nextInt(mdo.steps) == 0 &&
-				(poly == null || poly.contains(hero.getX(), hero.getY())) &&
-				!"off".equals(MGlobal.args.get("encounters"))) {
-			encounter(mdo);
+		if (mdo == null) return;
+		if (MGlobal.rand.nextInt(mdo.steps) > 0) return;
+		if ("off".equals(MGlobal.args.get("encounters"))) return;
+		if (poly != null && !poly.contains(hero.getX(), hero.getY())) return;
+		for (MapEvent event : hero.getParent().getEventsAt(hero.getTileX(), hero.getTileY())) {
+			if (event.hasCollideTrigger()) return;
 		}
+		encounter(mdo);
 	}
 	
 	/**
