@@ -54,6 +54,9 @@ public class CombatItemMDO extends MainSchema {
 	@Nullable
 	public PolymorphicLink warhead;
 	
+	@Desc("Tier - mostly cosmetic, but can be used to autogenerate robostats")
+	public Integer tier;
+	
 	@Desc("Robo stats - these boosts are granted to robots that equip this")
 	@InlineSchema(NumericStatModMDO.class)
 	public NumericStatModMDO robostats;
