@@ -7,6 +7,7 @@
 package net.wombatrpgs.saga.rpg.chara;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.luaj.vm2.LuaValue;
@@ -356,6 +357,18 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 		} else {
 			return false;
 		}
+	}
+	
+	/**
+	 * Checks if this character has any of the provided flags.
+	 * @param	flags			The flags to check for
+	 * @return					True if any exist on this character
+	 */
+	public boolean isAny(Collection<Flag> flags) {
+		for (Flag flag : flags) {
+			if (is(flag)) return true;
+		}
+		return false;
 	}
 	
 	/**

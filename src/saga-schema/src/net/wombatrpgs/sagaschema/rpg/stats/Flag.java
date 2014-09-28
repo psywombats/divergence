@@ -17,6 +17,7 @@ public enum Flag implements FlagStatLinkable {
 	AQUATIC,
 	DRACONIC,
 	UNDEAD,
+	ANIMAL,
 	
 	RESIST_DAMAGE,
 	RESIST_WEAPON,

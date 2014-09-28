@@ -7,6 +7,7 @@
 package net.wombatrpgs.saga.rpg.warheads;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -235,7 +236,7 @@ public abstract class EffectCombat extends EffectEnemyTarget {
 	 * @return					True if the target is weak, else false
 	 */
 	protected boolean weak(Chara target) {
-		return target.isWeakTo(mdo.damType);
+		return target.isWeakTo(mdo.damType) || target.isAny(Arrays.asList(mdo.slayerFlags));
 	}
 	
 	/**
