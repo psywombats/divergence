@@ -69,7 +69,7 @@ public class BlockingTextBox extends TextBox implements CommandListener {
 			setText = true;
 		}
 	}
-	
+
 	/**
 	 * Checks if this box is currently clogging the command flow.
 	 * @return					True if this box is blocking

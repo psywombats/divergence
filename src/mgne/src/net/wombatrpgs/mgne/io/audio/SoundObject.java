@@ -19,7 +19,7 @@ import net.wombatrpgs.mgneschema.audio.data.RepeatType;
 public class SoundObject extends AudioObject {
 	
 	protected SoundMDO mdo;
-	protected Sound coreSound;
+	protected transient Sound coreSound;
 
 	/**
 	 * Constructs a sound object for another object from data.

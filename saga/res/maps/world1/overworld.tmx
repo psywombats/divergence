@@ -69,5 +69,10 @@
     <property name="onCollide" value="teleport('world1/mountaintown.tmx', 28, 35, 'NORTH')"/>
    </properties>
   </object>
+  <object name="Cave of Hero" type="Event" x="832" y="320" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/herocave01.tmx', 18, 31, 'NORTH')"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
