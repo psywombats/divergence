@@ -1,0 +1,31 @@
+{
+	"key" : "enemy_bossHero",
+	"subfolder" : "boss",
+	"name" : "AUGUR",
+	"description" : "",
+	"gender" : "FEMALE",
+	"race" : "MUTANT",
+	"family" : "None",
+	"species" : "",
+	"appearance" : "4dir_mutant_f",
+	"portrait" : "battle_portraits/tmp.png",
+	"meatEatLevel" : 3,
+	"meatTargetLevel" : 3,
+	"gp" : 1000,
+	"loot" : "spell_fire",
+	"equipped" : [
+		"wpn_swordSilver",
+		"spell_fire",
+		"shield_silver",
+		"abil_opara"
+	],
+	"stats" : {
+		"hp" : 240,
+		"mhp" : 240,
+		"str" : 12,
+		"def" : 7,
+		"agi" : 12,
+		"mana" : 12,
+		"flags" : [ ]
+	}
+}

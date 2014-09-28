@@ -8,7 +8,8 @@
 	"sideEffects" : [
 		"CRITICAL_ON_WEAKNESS"
 	],
-	"power" : 6,
+	"slayerFlags" : [ ],
+	"power" : 3,
 	"attackStat" : "STR",
 	"defendStat" : "DEF",
 	"miss" : "CAN_MISS"

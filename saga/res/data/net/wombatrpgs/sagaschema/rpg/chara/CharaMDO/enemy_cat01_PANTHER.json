@@ -12,6 +12,7 @@
 	"meatEatLevel" : 2,
 	"meatTargetLevel" : 1,
 	"gp" : 40,
+	"loot" : "None",
 	"equipped" : [
 		"abil_claw",
 		"abil_stench"
@@ -23,6 +24,8 @@
 		"def" : 7,
 		"agi" : 11,
 		"mana" : 5,
-		"flags" : [ ]
+		"flags" : [
+			"ANIMAL"
+		]
 	}
 }

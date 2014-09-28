@@ -6,7 +6,8 @@
 	"projector" : "SINGLE_ENEMY",
 	"damType" : "WEAPON",
 	"sideEffects" : [ ],
-	"power" : 4,
+	"slayerFlags" : [ ],
+	"power" : 2,
 	"attackStat" : "STR",
 	"defendStat" : "DEF",
 	"miss" : "CAN_MISS"

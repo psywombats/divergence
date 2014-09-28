@@ -12,6 +12,7 @@
 	"meatEatLevel" : 3,
 	"meatTargetLevel" : 2,
 	"gp" : 80,
+	"loot" : "None",
 	"equipped" : [
 		"abil_claw",
 		"abil_bite",
@@ -24,6 +25,8 @@
 		"def" : 6,
 		"agi" : 12,
 		"mana" : 13,
-		"flags" : [ ]
+		"flags" : [
+			"ANIMAL"
+		]
 	}
 }

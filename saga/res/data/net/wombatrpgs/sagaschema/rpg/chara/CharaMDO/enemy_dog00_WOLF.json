@@ -12,6 +12,7 @@
 	"meatEatLevel" : 1,
 	"meatTargetLevel" : 0,
 	"gp" : 40,
+	"loot" : "None",
 	"equipped" : [
 		"abil_bite",
 		"abil_oice"
@@ -23,6 +24,8 @@
 		"def" : 3,
 		"agi" : 7,
 		"mana" : 3,
-		"flags" : [ ]
+		"flags" : [
+			"ANIMAL"
+		]
 	}
 }

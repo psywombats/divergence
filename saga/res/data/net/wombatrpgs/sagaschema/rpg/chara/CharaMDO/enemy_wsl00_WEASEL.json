@@ -12,6 +12,7 @@
 	"meatEatLevel" : 0,
 	"meatTargetLevel" : 0,
 	"gp" : 40,
+	"loot" : "None",
 	"equipped" : [
 		"abil_claw",
 		"abil_ambush"
@@ -21,8 +22,10 @@
 		"mhp" : 20,
 		"str" : 6,
 		"def" : 3,
-		"agi" : 9,
+		"agi" : 10,
 		"mana" : 3,
-		"flags" : [ ]
+		"flags" : [
+			"ANIMAL"
+		]
 	}
 }

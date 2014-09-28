@@ -1,0 +1,20 @@
+{
+	"key" : "spell_prayer",
+	"subfolder" : "spell",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "$HPRAYER",
+	"type" : "ITEM",
+	"uses" : 30,
+	"cost" : 1000,
+	"anim" : "banim_spell",
+	"equip" : [ ],
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
+		"key" : "anon_CombatItemMDO_-1313694024"
+	},
+	"tier" : 0,
+	"robostats" : {
+		"stats" : [ ]
+	}
+}
