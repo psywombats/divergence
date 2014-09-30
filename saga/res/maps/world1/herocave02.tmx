@@ -25,7 +25,7 @@
  <objectgroup name="Object Layer 1">
   <object name="tele" type="Event" x="192" y="304" width="16" height="16">
    <properties>
-    <property name="onCollide" value="teleport('world1/herocave02.tmx', 18, 24)"/>
+    <property name="onCollide" value="teleport('world1/herocave01.tmx', 18, 24)"/>
    </properties>
   </object>
   <object name="chest" type="Chest" x="416" y="448" width="16" height="16">
@@ -122,6 +122,11 @@
     <property name="appearance" value="4dir_ffl2_human"/>
     <property name="onInteract" value="speak(getHero(0).getName(), 'The magus eye revealed a trap. It looks hot there.')"/>
     <property name="passable" value="IMPASSABLE"/>
+   </properties>
+  </object>
+  <object name="tele" type="Event" x="336" y="128" width="16" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('world1/herocave03.tmx', 31, 28)"/>
    </properties>
   </object>
  </objectgroup>

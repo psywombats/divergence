@@ -42,6 +42,7 @@ public abstract class EffectCombat extends EffectEnemyTarget {
 	 */
 	public EffectCombat(EffectCombatMDO mdo, CombatItem item) {
 		super(mdo, item);
+		if (mdo.slayerFlags == null) mdo.slayerFlags = new Flag[0];
 		this.mdo = mdo;
 	}
 	

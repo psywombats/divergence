@@ -15,8 +15,10 @@
 	"loot" : "None",
 	"equipped" : [
 		"wpn_axeBattle",
-		"shield_gold",
-		"wpn_gunStun"
+		"shield_silver",
+		"wpn_gunStun",
+		"helm_silver",
+		"hand_silver"
 	],
 	"stats" : {
 		"hp" : 80,
