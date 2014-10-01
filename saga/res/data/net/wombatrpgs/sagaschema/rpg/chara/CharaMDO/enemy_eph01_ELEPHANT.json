@@ -11,7 +11,8 @@
 	"portrait" : "battle_portraits/eph.png",
 	"meatEatLevel" : 2,
 	"meatTargetLevel" : 1,
-	"gp" : 40,
+	"gp" : 60,
+	"loot" : "None",
 	"equipped" : [
 		"abil_tusk",
 		"abil_xice"

@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.saga.misc.mfam;
+package net.wombatrpgs.saga.misc.mfam.convert;
 
 import java.io.File;
 import java.io.FileNotFoundException;

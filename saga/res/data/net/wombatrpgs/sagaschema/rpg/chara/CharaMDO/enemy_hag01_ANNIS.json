@@ -11,7 +11,8 @@
 	"portrait" : "battle_portraits/hag.png",
 	"meatEatLevel" : 2,
 	"meatTargetLevel" : 1,
-	"gp" : 40,
+	"gp" : 60,
+	"loot" : "None",
 	"equipped" : [
 		"abil_claw",
 		"abil_bother"
