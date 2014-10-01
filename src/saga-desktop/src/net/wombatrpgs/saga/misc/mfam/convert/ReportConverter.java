@@ -27,8 +27,8 @@ import net.wombatrpgs.sagaschema.rpg.stats.StatSetMDO;
  */
 public class ReportConverter {
 	
-	protected static final int[] GP_DROPS = {40, 40, 80, 120, 240, 400, 600,
-		600, 900, 1200, 1600, 2000, 2400, 2400, 0, 0};
+	protected static final int[] GP_DROPS = {40, 60, 80, 120, 240, 400, 600,
+		600, 900, 1200, 1600, 2000, 2400, 2800, 0, 0};
 	
 	/**
 	 * Converts a stored report into MDO stencils. Will need to be filled in by
@@ -92,8 +92,10 @@ public class ReportConverter {
 				mdo.stats = new StatSetMDO();
 				mdo.subfolder = "level" + levelString;
 				
-				String dirname = args[0] + "/res/data/net/wombatrpgs/" +
-						"sagaschema/rpg/chara/charaMDO/";
+//				String dirname = args[0] + "/res/data/net/wombatrpgs/" +
+//						"sagaschema/rpg/chara/charaMDO/";
+				String dirname = "out";
+				
 				File outdir = new File(dirname);
 				outdir.mkdir();
 				File outfile = new File(dirname + "/" + mdo.key + ".json");

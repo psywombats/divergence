@@ -1,0 +1,26 @@
+{
+	"key" : "enemy_swd03_SOLDIER",
+	"subfolder" : "level03",
+	"name" : "SOLDIER",
+	"description" : "Converted from a report",
+	"gender" : "NONE",
+	"race" : "MONSTER",
+	"family" : "mfamily_swd",
+	"species" : "SOLDIER",
+	"appearance" : "4dir_ffl2_human",
+	"portrait" : "battle_portraits/goblin.png",
+	"meatEatLevel" : 0,
+	"meatTargetLevel" : 3,
+	"gp" : 120,
+	"loot" : null,
+	"equipped" : [ ],
+	"stats" : {
+		"hp" : null,
+		"mhp" : null,
+		"str" : null,
+		"def" : null,
+		"agi" : null,
+		"mana" : null,
+		"flags" : null
+	}
+}

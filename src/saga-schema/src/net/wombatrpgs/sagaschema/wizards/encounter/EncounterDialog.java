@@ -46,7 +46,7 @@ import net.wombatrpgs.sagaschema.rpg.encounter.data.EncounterSetMemberMDO;
 public class EncounterDialog extends JDialog implements ActionListener {
 	
 	private static final long serialVersionUID = 1L;
-	private static final int MONSTER_MAX = 14;
+	private static final int MONSTER_MAX = 15;
 	private static final String NO_MONSTER = "[no monster]";
 	
 	private static final int WINDOW_WIDTH = 500;

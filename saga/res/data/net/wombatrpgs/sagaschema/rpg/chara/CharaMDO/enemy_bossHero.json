@@ -8,7 +8,7 @@
 	"family" : "None",
 	"species" : "",
 	"appearance" : "4dir_human_m",
-	"portrait" : "battle_portraits/wiz.png",
+	"portrait" : "battle_portraits/psi.png",
 	"meatEatLevel" : 3,
 	"meatTargetLevel" : 3,
 	"gp" : 1000,

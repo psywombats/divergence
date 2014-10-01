@@ -15,6 +15,7 @@ import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.sagaschema.rpg.chara.PartyMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.PartyEntryMDO;
+import net.wombatrpgs.sagaschema.rpg.chara.data.Race;
 import net.wombatrpgs.sagaschema.rpg.encounter.EncounterMDO;
 import net.wombatrpgs.sagaschema.rpg.encounter.data.EncounterMemberMDO;
 
@@ -70,7 +71,7 @@ public class EnemyParty extends Party {
 		List<Chara> candidates = new ArrayList<Chara>();
 		for (int i = 0; i < groupCount(); i += 1) {
 			Chara candidate = getFront(i);
-			if (candidate.getFamily() != null) {
+			if (candidate.getFamily() != null && candidate.getRace() == Race.MONSTER) {
 				candidates.add(candidate);
 			}
 		}

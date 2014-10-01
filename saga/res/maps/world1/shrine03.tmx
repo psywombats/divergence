@@ -299,7 +299,7 @@
   </object>
   <object name="shrineboss" type="Event" x="240" y="384" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_horse"/>
+    <property name="appearance" value="4dir_demon"/>
     <property name="face" value="WEST"/>
     <property name="hide" value="return getSwitch('shrine_dead')"/>
     <property name="onInteract" value="play('shrineboss.lua')"/>
