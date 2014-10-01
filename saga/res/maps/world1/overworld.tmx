@@ -35,7 +35,7 @@
   </object>
   <object name="Pass" type="Event" x="256" y="432" width="16" height="16">
    <properties>
-    <property name="onCollide" value="teleport('world1/pass02.tmx', 33, 7, 'SOUTH')"/>
+    <property name="onCollide" value="play('pass_teleport.lua')"/>
    </properties>
   </object>
   <object name="autostart" type="Event" x="176" y="288" width="16" height="16">
