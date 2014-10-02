@@ -7,6 +7,7 @@
 package net.wombatrpgs.mgne.maps.layers;
 
 import net.wombatrpgs.mgne.core.AssetQueuer;
+import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.graphics.interfaces.Renderable;
 import net.wombatrpgs.mgne.maps.Level;
 
@@ -14,7 +15,8 @@ import net.wombatrpgs.mgne.maps.Level;
  * A layer in a map, either a grid layer or an object layer. It's how Tiled
  * handles it.
  */
-public abstract class Layer extends AssetQueuer implements	Renderable {
+public abstract class Layer extends AssetQueuer implements	Renderable,
+															Disposable {
 	
 	protected Level parent;
 	

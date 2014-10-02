@@ -168,6 +168,16 @@ public class Party extends AssetQueuer implements Disposable {
 	}
 	
 	/**
+	 * Restors the HP, status, abilities, etc of all party members.
+	 */
+	public void fullHeal() {
+		innlikeHeal();
+		for (Chara member : members) {
+			member.setStatus(null);
+		}
+	}
+	
+	/**
 	 * Determines if any member of this party has a certain flag.
 	 * @param	flag			The flag to check for
 	 * @return					True if any member has that flag

@@ -148,7 +148,7 @@ public class ScreenInn extends SagaScreen {
 	
 	/**
 	 * Called when the user elects to pay the inn fee.
-	 * @return					True to keep the menu open.
+	 * @return					False to keep the menu open
 	 */
 	protected boolean onPay() {
 		if (SGlobal.heroes.getGP() >= payAmount) {

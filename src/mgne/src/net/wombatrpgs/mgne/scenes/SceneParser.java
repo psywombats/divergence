@@ -179,17 +179,27 @@ public class SceneParser implements	Updateable,
 	}
 	
 	/**
-	 * Called when this parser finishes execution.
+	 * Cuts short this parser's execution. Meant to be called by its children.
 	 */
-	protected void terminate() {
+	public void abort() {
+		terminate(true);
+	}
+	
+	/**
+	 * Called when this parser finishes execution.
+	 * @param	forced			True if the termination was unexpected
+	 */
+	protected void terminate(boolean forced) {
 		MGlobal.reporter.inform("Terminated a scene: " + this);
 		parent.removeCommandContext(commandMap);
 		parent.removeCommandListener(this);
 		parent.removeUChild(this);
 		running = false;
 		runningCount -= 1;
-		for (FinishListener listener : listeners) {
-			listener.onFinish();
+		if (!forced) {
+			for (FinishListener listener : listeners) {
+				listener.onFinish();
+			}
 		}
 		listeners.clear();
 	}
@@ -202,7 +212,7 @@ public class SceneParser implements	Updateable,
 			currentCommand = runningCommands.next();
 			currentCommand.run(this);
 		} else {
-			terminate();
+			terminate(false);
 		}
 	}
 }

@@ -99,8 +99,13 @@ public class EventLayer extends Layer {
 		return false;
 	}
 
-	/** @return All events contained on this layer */
-	public List<MapEvent> getEvents() { return events; }
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
+	 */
+	@Override
+	public void dispose() {
+		// events are mapthings and will be disposed there
+	}
 
 	/**
 	 * Adds another map event to this layer. Charas should be added from their

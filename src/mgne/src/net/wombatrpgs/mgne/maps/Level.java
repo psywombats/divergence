@@ -15,10 +15,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Turnable;
+import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.io.audio.MusicObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.maps.layers.EventLayer;
 import net.wombatrpgs.mgne.maps.layers.GridLayer;
+import net.wombatrpgs.mgne.maps.layers.Layer;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.ScreenObject;
 import net.wombatrpgs.mgneschema.audio.MusicMDO;
@@ -35,7 +37,7 @@ import net.wombatrpgs.mgneschema.maps.data.MapMDO;
  * variable number of steps per turn, even if that's always 1 in an RPG, or
  * an infinitesmal amount in a rainfall-like ARPG.
  */
-public abstract class Level extends ScreenObject implements Turnable {
+public abstract class Level extends ScreenObject implements Turnable, Disposable {
 	
 	public static final int TILE_WIDTH = 16;
 	public static final int TILE_HEIGHT = 16;
@@ -164,6 +166,23 @@ public abstract class Level extends ScreenObject implements Turnable {
 	public void onTurn() {
 		for (Turnable turnable : turnChildren) {
 			turnable.onTurn();
+		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
+	 */
+	@Override
+	public void dispose() {
+		if (bgm != null) {
+			bgm.dispose();
+		}
+		eventLayer.dispose();
+		for (Layer layer : gridLayers) {
+			layer.dispose();
+		}
+		for (MapThing thing : objects) {
+			thing.dispose();
 		}
 	}
 

@@ -37,6 +37,7 @@ import net.wombatrpgs.saga.screen.SagaScreen;
 import net.wombatrpgs.saga.screen.SagaScreen.FadeType;
 import net.wombatrpgs.saga.screen.SagaScreen.TransitionType;
 import net.wombatrpgs.saga.screen.ScreenBattle;
+import net.wombatrpgs.saga.screen.ScreenDeath;
 import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
 import net.wombatrpgs.saga.ui.SlotListener;
 import net.wombatrpgs.sagaschema.graphics.banim.data.BattleAnimMDO;
@@ -73,7 +74,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	protected int mutateIndex;
 	protected boolean initialized;
 	protected boolean enemyDisabled;
-	protected boolean finished;
+	protected boolean finished, aborted;
 	protected boolean targetingMode;
 	
 	/**
@@ -145,6 +146,9 @@ public class Battle extends AssetQueuer implements Disposable {
 	
 	/** @param fleeable True if the party can run from this encounter */
 	public void setFleeable(boolean fleeable) { this.fleeable = fleeable; }
+	
+	/** @return True if battle was cut short by hero death */
+	public boolean wasAborted() { return aborted; }
 
 	/**
 	 * Only call once the screen is removed, please.
@@ -531,6 +535,33 @@ public class Battle extends AssetQueuer implements Disposable {
 	}
 	
 	/**
+	 * Restarts a battle with both parties at full health... almost like the
+	 * hero died and had to restart.
+	 */
+	public void restart() {
+		resetBoosts();
+		player.fullHeal();
+		enemy.fullHeal();
+		
+		assets.remove(screen);
+		screen.dispose();
+		screen = new ScreenBattle(this);
+		assets.add(screen);
+		MGlobal.assets.loadAsset(screen, "new battle screen");
+		
+		start();
+	}
+	
+	/**
+	 * Marks the battle as finished but incomplete, usually because the player
+	 * gave up.
+	 */
+	public void abort() {
+		internalFinish();
+		aborted = true;
+	}
+	
+	/**
 	 * The actual changes that need to happen when the battle is finally on
 	 * screen and ready to begin.
 	 */
@@ -572,15 +603,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * Actual finish component after screen transitions.
 	 */
 	protected void internalFinish() {
-		for (TempStats temp : boosts) {
-			temp.decombine();
-		}
-		for (TempStats temp : defendBoosts) {
-			temp.decombine();
-		}
-		for (Chara chara : player.getAll()) {
-			chara.onBattleEnd(this);
-		}
+		resetBoosts();
 		finished = true;
 	}
 	
@@ -916,13 +939,15 @@ public class Battle extends AssetQueuer implements Disposable {
 	 * Called internall when the enemy wins the battle.
 	 */
 	protected void onDefeat() {
-		// TODO: battle: game over, player!
 		println("");
-		println("The party is lost...");
+		println("The enemy is victorious.");
 		screen.animatePause();
+		final Battle battle = this;
 		playbackListener = new FinishListener() {
 			@Override public void onFinish() {
-				finish();
+				SagaScreen deathScreen = new ScreenDeath(battle);
+				MGlobal.assets.loadAsset(deathScreen, "death screen");
+				deathScreen.transitonOn(TransitionType.WHITE, null);
 			}
 		};
 	}
@@ -998,6 +1023,21 @@ public class Battle extends AssetQueuer implements Disposable {
 					screen.onMeatChoice();
 				}
 			});
+		}
+	}
+	
+	/**
+	 * Undoes all the changes this battle had on character stats.
+	 */
+	protected void resetBoosts() {
+		for (TempStats temp : boosts) {
+			temp.decombine();
+		}
+		for (TempStats temp : defendBoosts) {
+			temp.decombine();
+		}
+		for (Chara chara : player.getAll()) {
+			chara.onBattleEnd(this);
 		}
 	}
 

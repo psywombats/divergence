@@ -64,6 +64,9 @@ public class SceneBattle extends VarArgFunction {
 
 			@Override protected void finish() {
 				super.finish();
+				if (battle.wasAborted()) {
+					parent.abort();
+				}
 				battle.dispose();
 			}
 

@@ -112,6 +112,14 @@ public class TiledGridLayer extends GridLayer {
 	}
 	
 	/**
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
+	 */
+	@Override
+	public void dispose() {
+		// the layer will be disposed as part of the map, maybe?
+	}
+
+	/**
 	 * Finds the tileset with the given name in the list of tilesets.
 	 * @param	map				The map to check on
 	 * @param	tilesetName		The name of the tileset to fetch

@@ -121,6 +121,16 @@ public class LoadedLevel extends Level {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.maps.Level#dispose()
+	 */
+	@Override
+	public void dispose() {
+		super.dispose();
+		map.dispose();
+		renderer.dispose();
+	}
+
+	/**
 	 * Does the post processing for the map. This should involve processing the
 	 * map itself, and then setting up all the assets the map requires for
 	 * processing.

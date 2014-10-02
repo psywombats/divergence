@@ -12,6 +12,7 @@ import java.util.Map;
 import net.wombatrpgs.mgne.core.Avatar;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.scenes.TeleportManager;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgneschema.maps.LoadedMapMDO;
@@ -24,7 +25,7 @@ import net.wombatrpgs.mgneschema.settings.TeleportSettingsMDO;
  * should probably support asynchronous loading at some point. This... This is
  * probably a memory hog.
  */
-public class LevelManager {
+public class LevelManager implements Disposable {
 	
 	/** Goes from map IDs to their level manifestation */
 	protected Map<String, Level> levels;
@@ -66,14 +67,26 @@ public class LevelManager {
 	}
 	
 	/**
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
+	 */
+	@Override
+	public void dispose() {
+		for (Level level : levels.values()) {
+			level.dispose();
+		}
+	}
+
+	/**
 	 * Resets like it's a new game.
 	 */
 	public void reset() {
 		screen = null;
 		active = null;
 		teleport = null;
+		for (Level level : levels.values()) {
+			level.dispose();
+		}
 		levels.clear();
-		levels = new HashMap<String, Level>();
 	}
 	
 	/**

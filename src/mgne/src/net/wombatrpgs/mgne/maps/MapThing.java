@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
+import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.graphics.interfaces.Renderable;
 
 /**
@@ -19,7 +20,8 @@ import net.wombatrpgs.mgne.graphics.interfaces.Renderable;
  * and not Object to prevent a name collision with some LibGDX class.
  */
 public abstract class MapThing extends AssetQueuer implements	Renderable,
-																Updateable {
+																Updateable,
+																Disposable {
 	
 	/** Level this object exists on */
 	protected Level parent;
@@ -85,6 +87,14 @@ public abstract class MapThing extends AssetQueuer implements	Renderable,
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
+		// noop
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
+	 */
+	@Override
+	public void dispose() {
 		// noop
 	}
 

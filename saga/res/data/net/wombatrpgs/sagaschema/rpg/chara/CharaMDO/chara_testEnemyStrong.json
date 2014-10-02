@@ -12,8 +12,9 @@
 	"meatEatLevel" : 0,
 	"meatTargetLevel" : -1,
 	"gp" : 4000,
+	"loot" : "None",
 	"equipped" : [
-		"item_testabil"
+		"abil_quake"
 	],
 	"stats" : {
 		"hp" : 1000,
@@ -21,7 +22,7 @@
 		"str" : 80,
 		"def" : 10,
 		"agi" : 30,
-		"mana" : 10,
+		"mana" : 40,
 		"flags" : [ ]
 	}
 }

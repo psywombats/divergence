@@ -89,6 +89,14 @@ public class GeneratedGridLayer extends GridLayer {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
+	 */
+	@Override
+	public void dispose() {
+		// noop for now?
+	}
+
+	/**
 	 * Checks if a tile at the given location is see-through. Does not check
 	 * for out of bounds.
 	 * @param	tileX			The x-coord of the tile to check (in tiles)
