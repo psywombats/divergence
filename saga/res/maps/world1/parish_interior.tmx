@@ -70,17 +70,17 @@
     <property name="onInteract" value="inn()"/>
    </properties>
   </object>
-  <object name="elder" type="Character" x="48" y="432" width="16" height="16">
+  <object name="elder" type="Character" x="64" y="432" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_elder"/>
     <property name="hide" value="return getSwitch('opening_talked_elder')"/>
     <property name="onInteract" value="play('elder01.lua')"/>
    </properties>
   </object>
-  <object name="elder" type="Character" x="48" y="432" width="16" height="16">
+  <object name="elder" type="Character" x="64" y="432" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_elder"/>
-    <property name="hide" value="return not getSwitch('opening_talked_elder')"/>
+    <property name="hide" value="return (not getSwitch('opening_talked_elder')) or (getSwitch('shrine_done'))"/>
     <property name="onInteract" value="speak('Elder', 'Take care.')"/>
    </properties>
   </object>
@@ -90,6 +90,22 @@
     <property name="roofTileset" value="lower"/>
    </properties>
    <polygon points="0,0 0,144 96,144 96,0"/>
+  </object>
+  <object name="elder" type="Character" x="64" y="432" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_elder"/>
+    <property name="hide" value="return not getSwitch('shrine_done')"/>
+    <property name="onInteract" value="speak('Elder', 'BORG tells me you found a sending stone. Please keep it, and bring me more news.')"/>
+   </properties>
+  </object>
+  <object name="borg" type="Character" x="400" y="128" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_robot"/>
+    <property name="face" value="WEST"/>
+    <property name="hide" value="return not getSwitch('shrine_done')"/>
+    <property name="onBehavior" value="this.wander()"/>
+    <property name="onInteract" value="speak('BORG', getHero(0).getName() .. '! Good to see you, and stay safe.')"/>
+   </properties>
   </object>
  </objectgroup>
  <layer name="Tile Layer 3" width="37" height="35">

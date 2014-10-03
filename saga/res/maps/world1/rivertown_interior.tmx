@@ -124,8 +124,16 @@
    <properties>
     <property name="appearance" value="4dir_elder"/>
     <property name="face" value="WEST"/>
-    <property name="hide" value="return not getSwitch('mayor01')"/>
+    <property name="hide" value="return (not getSwitch('mayor01') or getSwitch('shrine_done'))"/>
     <property name="onInteract" value="speak('The shrine is south of here. Whatever treasure you find there is yours to keep.')"/>
+   </properties>
+  </object>
+  <object name="mayor" type="Character" x="480" y="432" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_elder"/>
+    <property name="face" value="WEST"/>
+    <property name="hide" value="return not getSwitch('shrine_done')"/>
+    <property name="onInteract" value="speak('David came back from the shrine. He spoke very highly of you, I am impressed.')"/>
    </properties>
   </object>
  </objectgroup>
