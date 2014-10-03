@@ -578,7 +578,7 @@
     <property name="onInteract" value="shop('shop_mountaintown_weapon')"/>
    </properties>
   </object>
-  <object name="wiseman" type="Character" x="48" y="80" width="16" height="16">
+  <object name="wiseman" type="Character" x="48" y="64" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_elder"/>
     <property name="hide" value="return not hasItem('key_artifactHeatgoggle')"/>
