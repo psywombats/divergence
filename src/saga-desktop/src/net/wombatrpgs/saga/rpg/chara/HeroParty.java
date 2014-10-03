@@ -25,6 +25,7 @@ public class HeroParty extends Party {
 	protected String location;
 	protected PartyInventory inventory;
 	protected CollectableSet collection;
+	protected List<Chara> heroes;
 	
 	/**
 	 * The hero party. Really should only be called once at the beginning of the
@@ -33,6 +34,7 @@ public class HeroParty extends Party {
 	 */
 	public HeroParty(PartyMDO mdo) {
 		super(mdo);
+		heroes = new ArrayList<Chara>();
 		inventory = new PartyInventory(this);
 		collection = new CollectableSet();
 	}
@@ -68,6 +70,9 @@ public class HeroParty extends Party {
 	
 	/** @return The party's collectable set */
 	public CollectableSet getCollection() { return collection; }
+	
+	/** @return The nth hero of the story (0 for protagonist) */
+	public Chara getStoryHero(int slot) { return heroes.get(slot); }
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.chara.Party#isCarryingItemType(java.lang.String)
@@ -87,6 +92,7 @@ public class HeroParty extends Party {
 		groups.add(group);
 		members.add(hero);
 		assets.add(hero);
+		heroes.add(hero);
 	}
 	
 	/**

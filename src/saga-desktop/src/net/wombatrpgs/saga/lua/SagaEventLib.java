@@ -32,7 +32,7 @@ public class SagaEventLib extends TwoArgFunction {
 				if (slot >= SGlobal.heroes.size()) {
 					return LuaValue.NIL;
 				} else {
-					return SGlobal.heroes.getFront(slot).toLua();
+					return SGlobal.heroes.getStoryHero(slot).toLua();
 				}
 			}
 		});
