@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.mgne.scenes;
 
+import java.util.List;
+
 import org.luaj.vm2.LuaValue;
 
 import net.wombatrpgs.mgne.core.AssetQueuer;
@@ -33,6 +35,7 @@ public abstract class SceneCommand extends AssetQueuer implements	Updateable,
 	protected SceneParser parent;
 	
 	protected float timeToWait, timeSinceStart;
+	protected int index, count;
 	protected boolean finished;
 	protected boolean running;
 	
@@ -89,6 +92,31 @@ public abstract class SceneCommand extends AssetQueuer implements	Updateable,
 		timeSinceStart = 0;
 		timeToWait = 0;
 		internalRun();
+	}
+	
+	/**
+	 * This identifier marks the type of command. Commands with identical
+	 * identifiers will have their merge function called together.
+	 * @return					The identifier of this command
+	 */
+	public final String getID() {
+		return String.valueOf(getClass().hashCode());
+	}
+	
+	/**
+	 * Called on the first of a group of commands of the same type that appear
+	 * together in sequence. By default, this just returns the whole group. 
+	 * Some commands may wish to modify themselves when placed with others (such
+	 * as the text box).
+	 * @param	commands		The original commands of the same type
+	 * @return					Those commands, modified for sequence
+	 */
+	public List<SceneCommand> merge(List<SceneCommand> commands) {
+		for (int i = 0; i < commands.size(); i += 1) {
+			commands.get(i).index = i;
+			commands.get(i).count = commands.size();
+		}
+		return commands;
 	}
 	
 	/**

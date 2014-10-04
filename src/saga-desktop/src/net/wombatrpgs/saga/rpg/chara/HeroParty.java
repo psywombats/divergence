@@ -34,9 +34,12 @@ public class HeroParty extends Party {
 	 */
 	public HeroParty(PartyMDO mdo) {
 		super(mdo);
-		heroes = new ArrayList<Chara>();
 		inventory = new PartyInventory(this);
 		collection = new CollectableSet();
+		heroes = new ArrayList<Chara>();
+		for (Chara hero : getAll()) {
+			heroes.add(hero);
+		}
 	}
 	
 	/**

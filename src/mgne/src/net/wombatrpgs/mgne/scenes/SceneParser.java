@@ -30,6 +30,7 @@ import net.wombatrpgs.mgneschema.io.data.InputCommand;
 public class SceneParser implements	Updateable,
 									CommandListener,
 									Queueable {
+	
 	protected static int runningCount;
 	
 	protected Screen parent;
@@ -107,6 +108,19 @@ public class SceneParser implements	Updateable,
 			for (SceneCommand command : commands) {
 				command.postProcessing(manager, pass - 1);
 			}
+			List<SceneCommand> replacementSet = new ArrayList<SceneCommand>();
+			List<SceneCommand> currentSet = new ArrayList<SceneCommand>();
+			for (SceneCommand command : commands) {
+				if (!currentSet.isEmpty() && !command.getID().equals(currentSet.get(0).getID())) {
+					replacementSet.addAll(currentSet.get(0).merge(currentSet));
+					currentSet.clear();
+				}
+				currentSet.add(command);
+			}
+			if (!currentSet.isEmpty()) {
+				replacementSet.addAll(currentSet.get(0).merge(currentSet));
+			}
+			commands = replacementSet;
 		}
 	}
 

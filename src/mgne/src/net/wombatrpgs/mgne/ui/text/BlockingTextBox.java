@@ -18,11 +18,12 @@ import net.wombatrpgs.mgneschema.ui.TextBoxMDO;
  */
 public class BlockingTextBox extends TextBox implements CommandListener {
 	
-	protected static final float FADE_TIME = 0f;
+	protected static final float FADE_TIME = .2f;
 	
 	protected CommandMap context;
 	protected boolean blocking;
 	protected boolean setText;
+	protected boolean animateOff;
 	protected Screen screen;
 	protected String textToShow;
 
@@ -46,7 +47,9 @@ public class BlockingTextBox extends TextBox implements CommandListener {
 	public boolean onCommand(InputCommand command) {
 		if (blocking && command == InputCommand.UI_CONFIRM) {
 			if (isFinished()) {
-				fadeOut(FADE_TIME);
+				if (animateOff) {
+					fadeOut(FADE_TIME);
+				}
 				screen.removeCommandListener(this);
 				screen.removeCommandContext(context);
 				blocking = false;
@@ -79,18 +82,36 @@ public class BlockingTextBox extends TextBox implements CommandListener {
 	}
 	
 	/**
-	 * Displays some text stuff. Fades in and displays the textbox.
+	 * Displays some text stuff. Fades in and displays the textbox if told.
+	 * @param	screen			The screen to fade in on
+	 * @param	text			The text to display
+	 * @param	animateOn		True to animate this textbox joining the screen
+	 * @param	animateOff		True to animate this textbox leaving the screen
+	 */
+	public void blockText(Screen screen, String text, boolean animateOn, boolean animateOff) {
+		this.textToShow = text;
+		this.screen = screen;
+		this.animateOff = animateOff;
+		setText = false;
+		if (animateOn) {
+			fadeIn(screen, FADE_TIME);
+		} else {
+			if (!screen.containsChild(this)) {
+				screen.addChild(this);
+			}
+		}
+		screen.pushCommandListener(this);
+		screen.pushCommandContext(context);
+		blocking = true;
+	}
+	
+	/**
+	 * Displays text stuff with full animation.
 	 * @param	screen			The screen to fade in on
 	 * @param	text			The text to display
 	 */
 	public void blockText(Screen screen, String text) {
-		this.textToShow = text;
-		this.screen = screen;
-		setText = false;
-		fadeIn(screen, FADE_TIME);
-		screen.pushCommandListener(this);
-		screen.pushCommandContext(context);
-		blocking = true;
+		blockText(screen, text, true, true);
 	}
 
 }

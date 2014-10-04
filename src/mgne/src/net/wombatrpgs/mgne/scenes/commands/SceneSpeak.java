@@ -41,7 +41,9 @@ public class SceneSpeak extends VarArgFunction {
 			
 			@Override protected void internalRun() {
 				box = MGlobal.ui.getBlockingBox();
-				box.blockText(parent.getScreen(), text);
+				boolean animateOn = (index == 0);
+				boolean animateOff = (index == count-1);
+				box.blockText(parent.getScreen(), text, animateOn, animateOff);
 			}
 			
 			@Override protected boolean shouldFinish() {
@@ -51,7 +53,5 @@ public class SceneSpeak extends VarArgFunction {
 		});
 		return LuaValue.NIL;
 	}
-
 	
-
 }
