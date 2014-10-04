@@ -18,7 +18,7 @@ import net.wombatrpgs.mgneschema.ui.TextBoxMDO;
  */
 public class BlockingTextBox extends TextBox implements CommandListener {
 	
-	protected static final float FADE_TIME = .2f;
+	protected static final float FADE_TIME = .15f;
 	
 	protected CommandMap context;
 	protected boolean blocking;
@@ -48,7 +48,7 @@ public class BlockingTextBox extends TextBox implements CommandListener {
 		if (blocking && command == InputCommand.UI_CONFIRM) {
 			if (isFinished()) {
 				if (animateOff) {
-					fadeOut(FADE_TIME);
+					expandOut(FADE_TIME);
 				}
 				screen.removeCommandListener(this);
 				screen.removeCommandContext(context);
@@ -94,7 +94,7 @@ public class BlockingTextBox extends TextBox implements CommandListener {
 		this.animateOff = animateOff;
 		setText = false;
 		if (animateOn) {
-			fadeIn(screen, FADE_TIME);
+			expandIn(screen, FADE_TIME);
 		} else {
 			if (!screen.containsChild(this)) {
 				screen.addChild(this);

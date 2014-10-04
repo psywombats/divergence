@@ -57,6 +57,10 @@ public class TextBox extends ScreenGraphic {
 	protected boolean waiting;
 	protected boolean allVisible;
 	
+	protected float expandTime, elapsedExpand;
+	protected boolean expandingIn, expandingOut;
+	protected int expandBackerHeight;
+	
 	/**
 	 * Creates a new text box from data. Does not deal with the loading of its
 	 * font's assets.
@@ -106,16 +110,19 @@ public class TextBox extends ScreenGraphic {
 			if (mdo.anchor == BoxAnchorType.BOTTOM) {
 				atY = MGlobal.window.getViewportHeight() - boxHeight;
 			}
+			atY += (boxHeight - expandBackerHeight) / 2;
 			backer.renderAt(getBatch(), 0, atY);
 		}
 		
 		// now for the font
-		font.setAlpha(currentColor.a);
-		for (int i = 0; i < visibleLines.size(); i++) {
-			font.draw(getBatch(), bodyFormat,
-					visibleLines.get(i), (int) (font.getLineHeight() * -i));
+		if (!expandingIn && !expandingOut) {
+			font.setAlpha(currentColor.a);
+			for (int i = 0; i < visibleLines.size(); i++) {
+				font.draw(getBatch(), bodyFormat,
+						visibleLines.get(i), (int) (font.getLineHeight() * -i));
+			}
+			font.setAlpha(1);
 		}
-		font.setAlpha(1);
 	}
 
 	/**
@@ -132,6 +139,7 @@ public class TextBox extends ScreenGraphic {
 		boxHeight += mdo.marginTop + mdo.marginBottom;
 		if (backer != null) {
 			backer.resizeTo(boxWidth, boxHeight+2);
+			expandBackerHeight = boxHeight+2;
 		}
 		
 		bodyFormat.x = mdo.marginWidth;
@@ -151,6 +159,8 @@ public class TextBox extends ScreenGraphic {
 	 */
 	@Override
 	public void fadeIn(Screen screen, float fadeTime) {
+		backer.resizeTo(boxWidth, boxHeight+2);
+		expandBackerHeight = boxHeight+2;
 		reset();
 		super.fadeIn(screen, fadeTime);
 	}
@@ -162,8 +172,32 @@ public class TextBox extends ScreenGraphic {
 	public void update(float elapsed) {
 		super.update(elapsed);
 		
+		if (expandingIn || expandingOut) {
+			elapsedExpand += elapsed;
+			float r = elapsedExpand / expandTime;
+			if (r > 1) {
+				if (expandingOut) {
+					parent.removeChild(this);
+				}
+				expandingIn = false;
+				expandingOut = false;
+				expandBackerHeight = boxHeight+2;
+				backer.resizeTo(boxWidth, boxHeight+2);
+			} else {
+				if (expandingOut) r = 1f - r;
+				int heightGain = (boxHeight+2) - backer.getBorderHeight()*2;
+				int backerHeight = (int) (backer.getBorderHeight()*2 + heightGain*r);
+				backerHeight -= backerHeight % 4;
+				if (backerHeight != expandBackerHeight) {
+					expandBackerHeight = backerHeight;
+					backer.resizeTo(boxWidth, backerHeight);
+				}
+			}
+		}
+		
 		if (currentLines.size() == 0) return;
 		if (waiting) return;
+		if (expandingIn || expandingOut) return;
 		if (allVisible) {
 			if (waitOnNewline()) {
 				return;
@@ -262,6 +296,32 @@ public class TextBox extends ScreenGraphic {
 	 */
 	public boolean isFinished() {
 		return allVisible && words.size() == 0;
+	}
+	
+	/**
+	 * Animates this textbox expanding in, similar to a fadein.
+	 */
+	public void expandIn(Screen screen, float expandTime) {
+		this.parent = screen;
+		this.expandTime = expandTime;
+		reset();
+		expandingIn = true;
+		elapsedExpand = 0;
+		expandBackerHeight = -1;
+		update(0);
+		if (!screen.containsChild(this)) {
+			screen.addChild(this);
+		}
+	}
+	
+	/**
+	 * Animates this textbox expanding out (closing) like a fadeout.
+	 */
+	public void expandOut(float expandTime) {
+		this.expandTime = expandTime;
+		expandingIn = false;
+		expandingOut = true;
+		elapsedExpand = 0;
 	}
 	
 	/**
