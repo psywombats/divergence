@@ -32,7 +32,7 @@ class ClassicEmu extends MusicEmu
 	{
 		int pos = 0;
 		while ( true )
-		{
+		{	
 			int n = buf.readSamples( out, pos, count );
 			mixSamples( out, pos, n );
 			
@@ -49,6 +49,7 @@ class ClassicEmu extends MusicEmu
 			
 			int clocks = runMsec( bufLength );
 			buf.endFrame( clocks );
+		
 		}
 		return pos;
 	}
