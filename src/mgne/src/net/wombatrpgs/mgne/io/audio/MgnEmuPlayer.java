@@ -15,21 +15,19 @@ import gme.MusicEmu;
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MAssets;
-import net.wombatrpgs.mgne.core.interfaces.Updateable;
 
 /**
  * The MGN version of EmuPlayer. Not a manager in itself. Handles all track from
  * a specific gbs file.
  */
-public class MgnEmuPlayer extends AssetQueuer implements Updateable {
+public class MgnEmuPlayer extends AssetQueuer {
 	
-	protected static final int BUFFER_LENGTH = 16384; // in samples
+	protected static final int BUFFER_LENGTH = 8192; // in samples
 	
 	protected String fileName;
 	protected MusicEmu emu;
 	protected SoundManager manager;
 	protected boolean playing;
-	protected int queuedSamples;
 	
 	/**
 	 * Creates a new player for a specific music package file.
@@ -41,6 +39,9 @@ public class MgnEmuPlayer extends AssetQueuer implements Updateable {
 		
 		playing = false;
 	}
+	
+	/** @return True if a track is playing on this emulator */
+	public boolean isPlaying() { return playing; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
@@ -61,23 +62,17 @@ public class MgnEmuPlayer extends AssetQueuer implements Updateable {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
+	 * Blocking IO call to play some samples from this emulator to the sound
+	 * manager audio device.
 	 */
-	@Override
-	public void update(float elapsed) {
+	public void play() {
 		AudioDevice device = manager.getDevice();
 		if (playing && !emu.trackEnded()) {
-			int deltaSamples = (int) Math.floor(elapsed * SoundManager.SAMPLE_RATE);
-			queuedSamples -= deltaSamples;
-			System.out.println("d: " + deltaSamples + "  q: " + queuedSamples);
-			if (queuedSamples < BUFFER_LENGTH / 2) {
-				byte [] buffer = new byte [BUFFER_LENGTH * 2];
-				short[] shorts = new short[BUFFER_LENGTH];
-				int count = emu.play(buffer, BUFFER_LENGTH);
-				ByteBuffer.wrap(buffer).order(ByteOrder.BIG_ENDIAN).asShortBuffer().get(shorts);
-				device.writeSamples(shorts, 0, count);
-				queuedSamples = BUFFER_LENGTH;
-			}
+			byte [] buffer = new byte [BUFFER_LENGTH * 2];
+			short[] shorts = new short[BUFFER_LENGTH];
+			int count = emu.play(buffer, BUFFER_LENGTH);
+			ByteBuffer.wrap(buffer).order(ByteOrder.BIG_ENDIAN).asShortBuffer().get(shorts);
+			device.writeSamples(shorts, 0, count);
 		}
 	}
 	
@@ -88,7 +83,6 @@ public class MgnEmuPlayer extends AssetQueuer implements Updateable {
 	public void playTrack(int track) {
 		emu.startTrack(track);
 		playing = true;
-		queuedSamples = 0;
 	}
 
 }

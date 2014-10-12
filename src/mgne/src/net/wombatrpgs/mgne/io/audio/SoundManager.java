@@ -15,7 +15,6 @@ import com.badlogic.gdx.audio.AudioDevice;
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgneschema.audio.SoundManagerMDO;
 import net.wombatrpgs.mgneschema.audio.data.EmuMusicEntryMDO;
@@ -25,8 +24,7 @@ import net.wombatrpgs.mgneschema.audio.data.SoundManagerEntryMDO;
  * General purpose sfx queuer and player. Lives in global land and plays a file
  * based on short ID string.
  */
-public class SoundManager extends AssetQueuer implements	Disposable,
-															Updateable {
+public class SoundManager extends AssetQueuer implements Disposable {
 	
 	public static final int SAMPLE_RATE = 44100;
 	
@@ -36,7 +34,9 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 	protected Map<String, SoundObject> sounds;
 	protected Map<String, MgnEmuPlayer> players;
 	protected Map<String, EmuMusicEntryMDO> emuEntries;
+	protected boolean emuThreadRunning;
 	protected transient AudioDevice out;
+	protected transient Thread emuThread;
 	
 	/**
 	 * Creates a sound manager from data.
@@ -63,6 +63,20 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 				assets.add(player);
 			}
 		}
+		
+		emuThreadRunning = false;
+		emuThread = new Thread(new Runnable() {
+			@Override public void run() {
+				// only one should be playing at once
+				while (emuThreadRunning) {
+					for (MgnEmuPlayer player : players.values()) {
+						if (player.isPlaying()) {
+							player.play();
+						}
+					}
+				}
+			}
+		});
 	}
 	
 	/**
@@ -84,15 +98,13 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 			sound.dispose();
 		}
 		out.dispose();
-	}
-	
-	/**
-	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
-	 */
-	@Override
-	public void update(float elapsed) {
-		for (MgnEmuPlayer player : players.values()) {
-			player.update(elapsed);
+		if (emuThreadRunning) {
+			emuThreadRunning = false;
+			try {
+				emuThread.join();
+			} catch (InterruptedException e) {
+				MGlobal.reporter.err(e);
+			}
 		}
 	}
 
@@ -127,6 +139,10 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 	public void playBGM(String key) {
 		BgmLookup bgm = lookupBGM(key);
 		bgm.player.playTrack(bgm.entryMDO.track);
+		if (!emuThreadRunning) {
+			emuThreadRunning = true;
+			emuThread.start();
+		}
 	}
 	
 	/**

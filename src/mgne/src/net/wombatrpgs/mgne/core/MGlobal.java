@@ -177,6 +177,7 @@ public class MGlobal {
 		graphics.dispose();
 		sfx.dispose();
 		game.dispose();
+		MGlobal.reporter.inform("MGN disposal complete.");
 	}
 
 	/**
