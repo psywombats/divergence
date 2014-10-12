@@ -1,0 +1,94 @@
+/**
+ *  MgnEmuPlayer.java
+ *  Created on Oct 9, 2014 6:42:52 PM for project gme-java
+ *  Author: psy_wombats
+ *  Contact: psy_wombats@wombatrpgs.net
+ */
+package net.wombatrpgs.mgne.io.audio;
+
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+
+import com.badlogic.gdx.audio.AudioDevice;
+
+import gme.MusicEmu;
+import net.wombatrpgs.mgne.core.AssetQueuer;
+import net.wombatrpgs.mgne.core.Constants;
+import net.wombatrpgs.mgne.core.MAssets;
+import net.wombatrpgs.mgne.core.interfaces.Updateable;
+
+/**
+ * The MGN version of EmuPlayer. Not a manager in itself. Handles all track from
+ * a specific gbs file.
+ */
+public class MgnEmuPlayer extends AssetQueuer implements Updateable {
+	
+	protected static final int BUFFER_LENGTH = 16384; // in samples
+	
+	protected String fileName;
+	protected MusicEmu emu;
+	protected SoundManager manager;
+	protected boolean playing;
+	protected int queuedSamples;
+	
+	/**
+	 * Creates a new player for a specific music package file.
+	 * @param	gbsFileName		The path of the .gbs file to load
+	 */
+	public MgnEmuPlayer(String gbsFileName, SoundManager manager) {
+		this.fileName = Constants.AUDIO_DIR + gbsFileName;
+		this.manager = manager;
+		
+		playing = false;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#queueRequiredAssets
+	 * (net.wombatrpgs.mgne.core.MAssets)
+	 */
+	@Override
+	public void queueRequiredAssets(MAssets manager) {
+		manager.load(fileName, MusicEmu.class);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
+	 * (net.wombatrpgs.mgne.core.MAssets, int)
+	 */
+	@Override
+	public void postProcessing(MAssets manager, int pass) {
+		emu = manager.get(fileName, MusicEmu.class);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		AudioDevice device = manager.getDevice();
+		if (playing && !emu.trackEnded()) {
+			int deltaSamples = (int) Math.floor(elapsed * SoundManager.SAMPLE_RATE);
+			queuedSamples -= deltaSamples;
+			System.out.println("d: " + deltaSamples + "  q: " + queuedSamples);
+			if (queuedSamples < BUFFER_LENGTH / 2) {
+				byte [] buffer = new byte [BUFFER_LENGTH * 2];
+				short[] shorts = new short[BUFFER_LENGTH];
+				int count = emu.play(buffer, BUFFER_LENGTH);
+				ByteBuffer.wrap(buffer).order(ByteOrder.BIG_ENDIAN).asShortBuffer().get(shorts);
+				device.writeSamples(shorts, 0, count);
+				queuedSamples = BUFFER_LENGTH;
+			}
+		}
+	}
+	
+	/**
+	 * Plays the given track in this file.
+	 * @param	track			The index of the track to play
+	 */
+	public void playTrack(int track) {
+		emu.startTrack(track);
+		playing = true;
+		queuedSamples = 0;
+	}
+
+}

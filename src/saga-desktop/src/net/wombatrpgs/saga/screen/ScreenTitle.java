@@ -71,6 +71,7 @@ public class ScreenTitle extends SagaScreen {
 	public void onFocusGained() {
 		super.onFocusGained();
 		pushCommandContext(new CMapMenu());
+		MGlobal.sfx.playBGM("title");
 	}
 
 	/**

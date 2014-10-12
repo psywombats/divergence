@@ -55,5 +55,12 @@ public class GmeTester {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Test for the non-
+	 */
+	public void testLibGDX() {
+		//
+	}
 
 }

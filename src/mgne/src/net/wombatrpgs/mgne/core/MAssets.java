@@ -6,6 +6,8 @@
  */
 package net.wombatrpgs.mgne.core;
 
+import gme.MusicEmu;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.List;
 import net.wombatrpgs.mgne.core.data.DataEntry;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.io.loaders.DataLoader;
+import net.wombatrpgs.mgne.io.loaders.EmuLoader;
 import net.wombatrpgs.mgne.io.loaders.LuaLoader;
 import net.wombatrpgs.mgne.io.loaders.SceneLoader;
 import net.wombatrpgs.mgne.scenes.LineData;
@@ -44,6 +47,7 @@ public class MAssets extends AssetManager {
 		setLoader(DataEntry.class, new DataLoader(new InternalFileHandleResolver()));
 		setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
 		setLoader(LuaValue.class, new LuaLoader(new InternalFileHandleResolver()));
+		setLoader(MusicEmu.class, new EmuLoader(new InternalFileHandleResolver()));
 		
 		loadingRequested = false;
 	}

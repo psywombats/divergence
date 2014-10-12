@@ -22,5 +22,6 @@
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/aking_2/Desktop/portable_executables/kryo-2.23.0/serializers/kryo-serializers-0.26-sources.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/gme-java"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

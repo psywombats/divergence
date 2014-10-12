@@ -19,6 +19,15 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA */
 
 public class EmuPlayer implements Runnable
 {
+	private int sampleRate = 0;
+	AudioFormat audioFormat;
+	DataLine.Info lineInfo;
+	MusicEmu emu;
+	Thread thread;
+	volatile boolean playing_;
+	SourceDataLine line;
+	double volume_ = 1.0;
+	
 	// Number of tracks
 	public int getTrackCount() { return emu.trackCount(); }
 	
@@ -115,15 +124,6 @@ public class EmuPlayer implements Runnable
 			this.sampleRate = sampleRate;
 		}
 	}
-	
-	private int sampleRate = 0;
-	AudioFormat audioFormat;
-	DataLine.Info lineInfo;
-	MusicEmu emu;
-	Thread thread;
-	volatile boolean playing_;
-	SourceDataLine line;
-	double volume_ = 1.0;
 	
 	public void run()
 	{

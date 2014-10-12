@@ -1,14 +1,13 @@
 /**
- *  LuaLoader.java
- *  Created on Jan 24, 2014 3:03:24 AM for project saga
+ *  EmuLoader.java
+ *  Created on Oct 11, 2014 11:55:05 AM for project mgne
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
 package net.wombatrpgs.mgne.io.loaders;
 
-import org.luaj.vm2.LuaValue;
-
-import net.wombatrpgs.mgne.core.MGlobal;
+import gme.GbsEmu;
+import gme.MusicEmu;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;
@@ -19,25 +18,28 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 
 /**
- * I copy/pasted the scene loader and expected it to load lua scripts. Sort of.
+ * Loads up a gameboy emulator from file.
  */
-public class LuaLoader extends SynchronousAssetLoader<LuaValue, LuaLoader.LuaParameter> {
-
-	public LuaLoader(FileHandleResolver resolver) {
+public class EmuLoader extends SynchronousAssetLoader<MusicEmu, EmuLoader.EmuParameter> {
+	
+	public EmuLoader(FileHandleResolver resolver) {
 		super(resolver);
 	}
-
+	
 	/**
 	 * @see com.badlogic.gdx.assets.loaders.SynchronousAssetLoader#load
 	 * (com.badlogic.gdx.assets.AssetManager, java.lang.String,
 	 * com.badlogic.gdx.files.FileHandle, com.badlogic.gdx.assets.AssetLoaderParameters)
 	 */
 	@Override
-	public LuaValue load(AssetManager assetManager, String fileName,
-			FileHandle file, LuaParameter parameter) {
-		return MGlobal.lua.load(resolve(fileName));
+	public MusicEmu load(AssetManager assetManager, String fileName,
+			FileHandle file, EmuParameter parameter) {
+		GbsEmu emu = new GbsEmu();
+		emu.setSampleRate(44100);
+		emu.loadFile(file.readBytes());
+		return emu;
 	}
-
+	
 	/**
 	 * @see com.badlogic.gdx.assets.loaders.AssetLoader#getDependencies
 	 * (java.lang.String, com.badlogic.gdx.files.FileHandle,
@@ -46,11 +48,11 @@ public class LuaLoader extends SynchronousAssetLoader<LuaValue, LuaLoader.LuaPar
 	@SuppressWarnings("rawtypes") // dammit libgdx
 	@Override
 	public Array<AssetDescriptor> getDependencies(String fileName, FileHandle file,
-			LuaParameter parameter) {
+			EmuParameter parameter) {
 		return null;
 	}
-
-	static public class LuaParameter extends AssetLoaderParameters<LuaValue> {
+	
+	static public class EmuParameter extends AssetLoaderParameters<MusicEmu> {
 		
 	}
 

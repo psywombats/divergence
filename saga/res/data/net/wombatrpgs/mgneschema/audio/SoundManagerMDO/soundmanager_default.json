@@ -28,5 +28,12 @@
 			"key" : "cure",
 			"file" : "ffl1_10_positive.wav"
 		}
+	],
+	"musicEntries" : [
+		{
+			"refKey" : "title",
+			"gbsPath" : "ffl1.gbs",
+			"track" : 1
+		}
 	]
 }
