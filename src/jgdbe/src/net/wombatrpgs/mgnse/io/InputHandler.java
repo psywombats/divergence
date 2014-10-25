@@ -50,10 +50,10 @@ public class InputHandler {
 			public boolean accept(File f) {
 				if (f.isDirectory()) return true;
 				String name = f.getName();
-				return name.endsWith(".mgndb");
+				return name.endsWith(".jgdb");
 			}
 			public String getDescription() {
-				return "MGN Database Files (*.mgndb)";
+				return "JGDB Database Files (*.jgdb)";
 			}
 		};
 		JFileChooser chooser;
@@ -71,7 +71,7 @@ public class InputHandler {
 		case JFileChooser.APPROVE_OPTION:
 			selected = chooser.getSelectedFile();
 			if (!selected.getName().contains(".")){
-				selected = new File(oldFile.getAbsolutePath() + ".mgndb");
+				selected = new File(oldFile.getAbsolutePath() + ".jgdb");
 			}
 			break;
 		}
