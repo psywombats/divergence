@@ -18,7 +18,6 @@ import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.io.ButtonListener;
 import net.wombatrpgs.mgne.io.InputEvent;
-import net.wombatrpgs.mgne.io.audio.MusicObject;
 
 /**
  * A bunch of screens stacked on top of each other that make up the game
@@ -31,7 +30,6 @@ public class ScreenStack implements	Disposable,
 									Queueable {
 	
 	private Stack<Screen> screens;
-	protected MusicObject current, fadeOut;
 	
 	/**
 	 * Creates and initializes a new empty stack of screens.
@@ -166,8 +164,6 @@ public class ScreenStack implements	Disposable,
 			// this check is to ensure the stack wasn't removed from under us
 			screens.peek().update(elapsed);
 		}
-		if (current != null) current.update(elapsed);
-		if (fadeOut != null) fadeOut.update(elapsed);
 	}
 	
 	/**
@@ -176,27 +172,6 @@ public class ScreenStack implements	Disposable,
 	 */
 	public int size() {
 		return screens.size();
-	}
-	
-	/**
-	 * Will update music to play! Because before there were way too many bugs.
-	 * @param	music			The music to play
-	 * @param	immediate		True to instaplay, false otherwise
-	 */
-	public void playMusic(MusicObject music, boolean immediate) {
-		if (fadeOut != null) {
-			fadeOut.stop();
-		}
-		fadeOut = current;
-		if (current != null) {
-			if (immediate) current.stop();
-			else current.fadeOut(.5f);
-		}
-		current = music;
-		if (music != null) {
-			if (immediate) music.play();
-			else music.fadeIn(.5f);
-		}
 	}
 	
 	/**

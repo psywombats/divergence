@@ -16,12 +16,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
-import net.wombatrpgs.mgne.io.audio.SoundObject;
 import net.wombatrpgs.mgne.maps.MapThing;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.WindowSettings;
 import net.wombatrpgs.mgne.ui.Nineslice;
-import net.wombatrpgs.mgneschema.audio.SoundMDO;
 import net.wombatrpgs.mgneschema.ui.NinesliceMDO;
 import net.wombatrpgs.mgneschema.ui.TextBoxMDO;
 import net.wombatrpgs.mgneschema.ui.data.BoxAnchorType;
@@ -49,7 +47,6 @@ public class TextBox extends ScreenGraphic {
 	protected Screen parent;
 	protected Nineslice backer;
 	protected TextFormat bodyFormat, nameFormat;
-	protected SoundObject typeSfx;
 	protected float sinceChar;
 	protected int totalLength;
 	protected int visibleChars;
@@ -81,10 +78,6 @@ public class TextBox extends ScreenGraphic {
 		this.waiting = false;
 		this.fadingOut = false;
 		
-		if (MapThing.mdoHasProperty(mdo.typeSfx)) {
-			typeSfx = new SoundObject(MGlobal.data.getEntryFor(mdo.typeSfx, SoundMDO.class));
-			assets.add(typeSfx);
-		}
 		if (MapThing.mdoHasProperty(mdo.nineslice)) {
 			backer = new Nineslice(MGlobal.data.getEntryFor(mdo.nineslice, NinesliceMDO.class));
 			assets.add(backer);
@@ -231,7 +224,9 @@ public class TextBox extends ScreenGraphic {
 						if (lastChar == '\\') {
 							char special = line.charAt(at);
 							if (special == '\\') {
-								typeSfx.play();
+								if (MapThing.mdoHasProperty(mdo.typeRefKey)) {
+									MGlobal.audio.playSFX(mdo.typeRefKey);
+								}
 							} else if (special == 'n') {
 								newLine = line.substring(0, line.indexOf("\\n"));
 								currentLines.set(atLine, newLine);
@@ -247,7 +242,9 @@ public class TextBox extends ScreenGraphic {
 							}
 						} else if (Character.isLetter(lastChar) || Character.isDigit(lastChar)) {
 							if (!playedType) {
-								if (typeSfx != null) typeSfx.play();
+								if (MapThing.mdoHasProperty(mdo.typeRefKey)) {
+									MGlobal.audio.playSFX(mdo.typeRefKey);
+								}
 								playedType = true;
 							}
 						}

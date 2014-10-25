@@ -127,8 +127,17 @@ public class TeleportManager implements Queueable {
 		
 		Level old = MGlobal.levelManager.getActive();
 		
-		if (old == null || old.getBGM() == null || !old.getBGM().matches(map.getBGM())) {
-			MGlobal.screens.playMusic(map.getBGM(), false);
+		boolean oldHasMusic = (old != null) && (old.getBGM() != null);
+		boolean newHasMusic = (map != null) && (map.getBGM() != null);
+		boolean matches = oldHasMusic && newHasMusic && !old.getBGM().equals(map.getBGM());
+		if (!matches) {
+			// TODO: sfx: fade out the music
+			if (oldHasMusic) {
+				old.getBGM().fadeOutBGM(0);
+			}
+			if (newHasMusic) {
+				map.getBGM().playBGM();
+			}
 		}
 		if (old != null) {
 			old.onFocusLost();

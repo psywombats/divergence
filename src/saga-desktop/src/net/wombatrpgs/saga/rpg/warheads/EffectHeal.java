@@ -148,10 +148,10 @@ public class EffectHeal extends EffectAllyTarget {
 		}
 		if (affected) {
 			item.deductUse();
-			MGlobal.sfx.play(SConstants.SFX_CURE);
+			MGlobal.audio.playSFX(SConstants.SFX_CURE);
 			caller.refresh();
 		} else {
-			MGlobal.sfx.play(SConstants.SFX_FAIL);
+			MGlobal.audio.playSFX(SConstants.SFX_FAIL);
 		}
 	}
 

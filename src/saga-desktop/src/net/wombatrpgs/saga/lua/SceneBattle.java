@@ -48,7 +48,7 @@ public class SceneBattle extends VarArgFunction {
 
 			@Override protected void internalRun() {
 				// battle stuff moved here, problems before with null heroes
-				MGlobal.sfx.play(SConstants.SFX_BATTLE);
+				MGlobal.audio.playSFX(SConstants.SFX_BATTLE);
 				PartyMDO partyMDO = MGlobal.data.getIfExists(mdoKey, PartyMDO.class);
 				if (partyMDO != null) {
 					battle = new Battle(partyMDO, true);

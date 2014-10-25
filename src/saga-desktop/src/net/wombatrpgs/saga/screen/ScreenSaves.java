@@ -187,7 +187,7 @@ public class ScreenSaves extends SagaScreen {
 	 * @return					True to halt processing
 	 */
 	protected boolean confirm() {
-		MGlobal.sfx.play(SConstants.SFX_SAVE);
+		MGlobal.audio.playSFX(SConstants.SFX_SAVE);
 		int slot = scroll + selection;
 		String slotno = (slot < 10) ? ("0" + slot) : String.valueOf(slot);
 		final String fileName = Memory.saveToPath(slotno);

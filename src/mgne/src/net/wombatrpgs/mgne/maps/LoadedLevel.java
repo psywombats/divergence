@@ -36,6 +36,7 @@ import net.wombatrpgs.mgneschema.maps.LoadedMapMDO;
 public class LoadedLevel extends Level {
 	
 	protected static final String KEY_NAME = "name";
+	protected static final String KEY_BGM = "bgm";
 	
 	protected LoadedMapMDO mdo;
 	protected transient TiledMap map;
@@ -174,5 +175,13 @@ public class LoadedLevel extends Level {
 			}
 		}
 		eventLayer.queueRequiredAssets(manager);
+		
+		// get the background music
+		if (map.getProperties().containsKey(KEY_BGM)) {
+			String refKey = map.getProperties().get(KEY_BGM).toString();
+			bgm = MGlobal.audio.generateMusicForKey(refKey);
+			assets.add(bgm);
+			bgm.queueRequiredAssets(manager);
+		}
 	}
 }

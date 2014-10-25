@@ -29,7 +29,7 @@ public class SceneSound extends OneArgFunction {
 			String soundKey = soundArg.checkjstring();
 			
 			@Override protected void internalRun() {
-				MGlobal.sfx.play(soundKey);
+				MGlobal.audio.playSFX(soundKey);
 			}
 			
 		});

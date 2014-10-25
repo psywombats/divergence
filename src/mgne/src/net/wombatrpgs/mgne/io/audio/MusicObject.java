@@ -7,18 +7,18 @@
 package net.wombatrpgs.mgne.io.audio;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgneschema.audio.MusicMDO;
+import net.wombatrpgs.mgneschema.audio.data.LoadedMusicEntryMDO;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 
 /**
- * Background music object. If it's playing, it's on a map.
+ * Preloaded background music, usually MP3 or OGG etc.
  */
-public class MusicObject extends AudioObject {
+public class MusicObject extends LoadedAudioObject {
 	
-	protected MusicMDO mdo;
-	protected Music coreMusic;
+	protected LoadedMusicEntryMDO mdo;
+	protected transient Music coreMusic;
 	
 	protected float fadeTime;
 	protected float previous;
@@ -29,12 +29,12 @@ public class MusicObject extends AudioObject {
 	 * Generate music for wherever. It'll automagically follow the hero.
 	 * @param 	mdo				The data to generate music from
 	 */
-	public MusicObject(MusicMDO mdo) {
-		super(mdo);
+	public MusicObject(LoadedMusicEntryMDO mdo) {
+		super(mdo.path);
 		this.mdo = mdo;
 		
 		fadeTime = 0;
-		targetVolume = (float) mdo.volume / 100f;
+		targetVolume = 100;
 	}
 	
 	/**
@@ -94,6 +94,15 @@ public class MusicObject extends AudioObject {
 	}
 	
 	/**
+	 * Gets the comparison key of this object. Two music objects are the same if
+	 * they share a key.
+	 * @return					The unique key of this music
+	 */
+	public String getKey() {
+		return mdo.refKey;
+	}
+	
+	/**
 	 * Sets this music to fade in in a certain duration. Starts playing if not
 	 * already playing.
 	 * @param	time			How long it should take to fade in (in s)
@@ -104,7 +113,7 @@ public class MusicObject extends AudioObject {
 		}
 		this.fadeTime = time;
 		elapsed = 0;
-		targetVolume = (float) mdo.volume / 100f;
+		targetVolume = 100;
 	}
 	
 	/**
@@ -119,24 +128,22 @@ public class MusicObject extends AudioObject {
 		previous = coreMusic.getVolume();
 	}
 	
-	/** @return The volume */
-	public float getVolume() {
-		return coreMusic.getVolume();
-	}
+	/** @return The volume, from 0-100 */
+	public float getVolume() { return coreMusic.getVolume(); }
 
 	/**
-	 * @see net.wombatrpgs.mgne.io.audio.AudioObject#corePlay()
+	 * @see net.wombatrpgs.mgne.io.audio.LoadedAudioObject#corePlay()
 	 */
 	@Override
 	protected void corePlay() {
-		this.targetVolume = mdo.volume;
+		this.targetVolume = 100;
 		if (!coreMusic.isPlaying()) {
 			coreMusic.play();
 		}
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.io.audio.AudioObject#coreStop()
+	 * @see net.wombatrpgs.mgne.io.audio.LoadedAudioObject#coreStop()
 	 */
 	@Override
 	protected void coreStop() {
@@ -145,7 +152,7 @@ public class MusicObject extends AudioObject {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.io.audio.AudioObject#getLoaderClass()
+	 * @see net.wombatrpgs.mgne.io.audio.LoadedAudioObject#getLoaderClass()
 	 */
 	@Override
 	protected Class<?> getLoaderClass() {
@@ -153,14 +160,14 @@ public class MusicObject extends AudioObject {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.io.audio.AudioObject#postAudioProcessing
+	 * @see net.wombatrpgs.mgne.io.audio.LoadedAudioObject#postAudioProcessing
 	 * (com.badlogic.gdx.assets.AssetManager)
 	 */
 	@Override
 	protected void postAudioProcessing(AssetManager manager) {
 		coreMusic = (Music) manager.get(filename, getLoaderClass());
 		coreMusic.setLooping(true);
-		coreMusic.setVolume((float) mdo.volume / 100f);
+		coreMusic.setVolume(100);
 	}
 
 }

@@ -160,7 +160,6 @@ public class LevelManager implements Disposable {
 		MapMDO mdo = MGlobal.data.getIfExists(name, MapMDO.class);
 		if (mdo == null) {
 			LoadedMapMDO loadedMDO = new LoadedMapMDO();
-			loadedMDO.bgm = null;
 			loadedMDO.effect = null;
 			loadedMDO.file = name;
 			mdo = loadedMDO;

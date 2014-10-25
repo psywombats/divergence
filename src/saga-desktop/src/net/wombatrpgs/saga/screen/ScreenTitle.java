@@ -71,7 +71,7 @@ public class ScreenTitle extends SagaScreen {
 	public void onFocusGained() {
 		super.onFocusGained();
 		pushCommandContext(new CMapMenu());
-		MGlobal.sfx.playBGM("title");
+		MGlobal.audio.playEmuBGM("title");
 	}
 
 	/**
@@ -152,7 +152,7 @@ public class ScreenTitle extends SagaScreen {
 					}
 				});
 			} else {
-				MGlobal.sfx.play(SConstants.SFX_FAIL);
+				MGlobal.audio.playSFX(SConstants.SFX_FAIL);
 			}
 		}
 		return true;

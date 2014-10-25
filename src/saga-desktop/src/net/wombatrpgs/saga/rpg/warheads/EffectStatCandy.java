@@ -49,13 +49,13 @@ public class EffectStatCandy extends EffectBattleUnusable {
 				if (selected != null) {
 					List<Race> allowed = Arrays.asList(mdo.restrictRace);
 					if (!allowed.contains(selected.getRace())) {
-						MGlobal.sfx.play(SConstants.SFX_FAIL);
+						MGlobal.audio.playSFX(SConstants.SFX_FAIL);
 					} else if (mdo.maxValue != 0 &&
 							selected.get(mdo.stat) > mdo.maxValue) {
-						MGlobal.sfx.play(SConstants.SFX_FAIL);
+						MGlobal.audio.playSFX(SConstants.SFX_FAIL);
 						// TODO: polish: maybe print an error message?
 					} else {
-						MGlobal.sfx.play(SConstants.SFX_CURE);
+						MGlobal.audio.playSFX(SConstants.SFX_CURE);
 						int delta = mdo.maxGain - mdo.minGain;
 						if (delta > 0) delta = MGlobal.rand.nextInt(delta);
 						selected.modifyStat(mdo.stat, (mdo.minGain + delta));

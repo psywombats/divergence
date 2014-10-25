@@ -16,14 +16,13 @@ import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Turnable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
-import net.wombatrpgs.mgne.io.audio.MusicObject;
+import net.wombatrpgs.mgne.io.audio.BackgroundMusic;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.maps.layers.EventLayer;
 import net.wombatrpgs.mgne.maps.layers.GridLayer;
 import net.wombatrpgs.mgne.maps.layers.Layer;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.ScreenObject;
-import net.wombatrpgs.mgneschema.audio.MusicMDO;
 import net.wombatrpgs.mgneschema.maps.data.MapMDO;
 
 /**
@@ -52,7 +51,7 @@ public abstract class Level extends ScreenObject implements Turnable, Disposable
 	protected List<MapEvent> removalEvents;
 	protected List<MapThing> removalObjects;
 	
-	protected MusicObject bgm;
+	protected BackgroundMusic bgm;
 	protected boolean reseting;
 	protected boolean updating;
 	
@@ -66,18 +65,12 @@ public abstract class Level extends ScreenObject implements Turnable, Disposable
 	public Level(MapMDO mdo, Screen screen) {
 		this.mdo = mdo;
 		
-		// list init
 		gridLayers = new ArrayList<GridLayer>();
 		objects = new ArrayList<MapThing>();
 		removalObjects = new ArrayList<MapThing>();
 		removalEvents = new ArrayList<MapEvent>();
 		turnChildren = new ArrayList<Turnable>();
 		
-		// etc
-		if (MapThing.mdoHasProperty(mdo.bgm)) {
-			bgm = new MusicObject(MGlobal.data.getEntryFor(mdo.bgm, MusicMDO.class));
-			assets.add(bgm);
-		}
 		reseting = false;
 	}
 	
@@ -106,10 +99,7 @@ public abstract class Level extends ScreenObject implements Turnable, Disposable
 	public int getTileHeight() { return TILE_HEIGHT; }
 	
 	/** @return The default bgm for this level */
-	public MusicObject getBGM() { return this.bgm; }
-	
-	/** @param The new BGM object on this level */
-	public void setBGM(MusicObject bgm) { this.bgm = bgm; }
+	public BackgroundMusic getBGM() { return this.bgm; }
 	
 	/** @return The key to this map's mdo */
 	public String getKey() { return mdo.key; }

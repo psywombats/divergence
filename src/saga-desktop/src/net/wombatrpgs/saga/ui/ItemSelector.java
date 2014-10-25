@@ -242,7 +242,7 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 							item.onMapUse(screen);
 							return true;
 						} else {
-							MGlobal.sfx.play(SConstants.SFX_FAIL);
+							MGlobal.audio.playSFX(SConstants.SFX_FAIL);
 							return false;
 						}
 					}

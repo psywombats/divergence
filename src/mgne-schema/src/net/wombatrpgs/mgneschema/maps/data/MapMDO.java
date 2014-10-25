@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.mgneschema.maps.data;
 
-import net.wombatrpgs.mgneschema.audio.MusicMDO;
 import net.wombatrpgs.mgneschema.graphics.effects.data.EffectMDO;
 import net.wombatrpgs.mgns.core.MainSchema;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
@@ -24,10 +23,5 @@ public class MapMDO extends MainSchema {
 	@SchemaLink(EffectMDO.class)
 	@Nullable
 	public String effect;
-	
-	@Desc("BGM")
-	@SchemaLink(MusicMDO.class)
-	@Nullable
-	public String bgm;
 
 }

@@ -3,7 +3,7 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
-	"entries" : [
+	"soundEffectEntries" : [
 		{
 			"key" : "fail",
 			"file" : "chip_failure.wav"
@@ -29,11 +29,12 @@
 			"file" : "ffl1_10_positive.wav"
 		}
 	],
-	"musicEntries" : [
+	"emuMusicEntries" : [
 		{
 			"refKey" : "title",
 			"gbsPath" : "ffl1.gbs",
-			"track" : 1
+			"track" : 0
 		}
-	]
+	],
+	"loadedMusicEntries" : [ ]
 }

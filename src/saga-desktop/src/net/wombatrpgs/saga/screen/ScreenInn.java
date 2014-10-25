@@ -156,7 +156,7 @@ public class ScreenInn extends SagaScreen {
 			SGlobal.heroes.innlikeHeal();
 			payString = "HP restored.";
 			inserts.refresh();
-			MGlobal.sfx.play(SConstants.SFX_INN);
+			MGlobal.audio.playSFX(SConstants.SFX_INN);
 			menu.unfocus();
 			pushCommandContext(new CMapMenu());
 			pushCommandListener(new CommandListener() {

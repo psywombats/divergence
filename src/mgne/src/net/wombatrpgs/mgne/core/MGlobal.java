@@ -45,7 +45,7 @@ public class MGlobal {
 	/** Managers and factories */
 	public static LevelManager levelManager;
 	public static EventFactory eventFactory;
-	public static SoundManager sfx;
+	public static SoundManager audio;
 	
 	/** Screens */
 	public static ScreenStack screens;
@@ -130,8 +130,8 @@ public class MGlobal {
 			MGlobal.memory = game.makeMemory();
 			MGlobal.charConverter = new CharConverter();
 			MGlobal.lua = new Lua();
-			MGlobal.sfx = new SoundManager();
-			toLoad.add(sfx);
+			MGlobal.audio = new SoundManager();
+			toLoad.add(audio);
 			toLoad.add(ui);
 			toLoad.add(graphics);
 			assets.loadAssets(toLoad, "primary global assets");
@@ -175,7 +175,7 @@ public class MGlobal {
 		screens.dispose();
 		assets.dispose();
 		graphics.dispose();
-		sfx.dispose();
+		audio.dispose();
 		game.dispose();
 		MGlobal.reporter.inform("MGN disposal complete.");
 	}

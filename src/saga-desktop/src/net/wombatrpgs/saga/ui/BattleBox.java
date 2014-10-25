@@ -139,7 +139,6 @@ public class BattleBox extends TextBox implements CommandListener {
 		mdo.marginWidth = orig.marginWidth + 2;
 		mdo.nineslice = orig.nineslice;
 		mdo.scaling = orig.scaling;
-		mdo.typeSfx = orig.typeSfx;
 		mdo.typeSpeed = orig.typeSpeed;
 		return mdo;
 	}

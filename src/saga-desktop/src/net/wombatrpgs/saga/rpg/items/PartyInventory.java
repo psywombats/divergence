@@ -37,12 +37,12 @@ public class PartyInventory extends Inventory {
 		CombatItem item = get(i);
 		if (item == null) return;
 		if (!item.isSellable()) {
-			MGlobal.sfx.play(SConstants.SFX_FAIL);
+			MGlobal.audio.playSFX(SConstants.SFX_FAIL);
 			return;
 		}
 		owner.addGP(item.getCost(true));
 		remove(i);
-		MGlobal.sfx.play(SConstants.SFX_GET);
+		MGlobal.audio.playSFX(SConstants.SFX_GET);
 	}
 
 }

@@ -7,7 +7,6 @@
 	"scaling" : "FIXED_SIZE",
 	"nineslice" : "nineslice_ffl",
 	"typeSpeed" : 32,
-	"typeSfx" : "None",
 	"lines" : 4,
 	"marginWidth" : 11,
 	"marginTop" : 9,

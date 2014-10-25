@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.mgneschema.ui;
 
-import net.wombatrpgs.mgneschema.audio.SoundMDO;
 import net.wombatrpgs.mgneschema.ui.data.BoxAnchorType;
 import net.wombatrpgs.mgneschema.ui.data.TextScaleType;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
@@ -35,10 +34,9 @@ public class TextBoxMDO extends MainSchema {
 	@Desc("Text autotype speed - in characters per second")
 	public Integer typeSpeed;
 	
-	@Desc("Type sfx - plays once per character autotyped")
-	@SchemaLink(SoundMDO.class)
-	@Nullable
-	public String typeSfx;
+	@Desc("Type sfx reference key - plays once per character autotyped,"
+			+ "corresponds to entry in sound manager, or empty")
+	public String typeRefKey;
 	
 	@Desc("Line count")
 	public Integer lines;

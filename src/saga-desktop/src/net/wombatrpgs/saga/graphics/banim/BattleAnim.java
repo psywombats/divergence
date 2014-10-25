@@ -6,7 +6,7 @@
  */
 package net.wombatrpgs.saga.graphics.banim;
 
-import net.wombatrpgs.mgne.io.audio.SoundObject;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.MapThing;
 import net.wombatrpgs.saga.graphics.PortraitAnim;
 import net.wombatrpgs.saga.screen.ScreenBattle;
@@ -19,18 +19,12 @@ public abstract class BattleAnim extends PortraitAnim {
 	
 	protected BattleAnimMDO mdo;
 	
-	protected SoundObject sound;
-	
 	/**
 	 * Creates a new battle anim from data.
 	 * @param	mdo				The data to create from.
 	 */
 	public BattleAnim(BattleAnimMDO mdo) {
 		this.mdo = mdo;
-		if (MapThing.mdoHasProperty(mdo.sound)) {
-			sound = SoundObject.createFromFile(mdo.sound);
-			assets.add(sound);
-		}
 	}
 
 	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getWidth() */
@@ -44,8 +38,8 @@ public abstract class BattleAnim extends PortraitAnim {
 	 * of the animation and when used on the map.
 	 */
 	public void playSound() {
-		if (sound != null) {
-			sound.play();
+		if (MapThing.mdoHasProperty(mdo.sound)) {
+			MGlobal.audio.playSFX(mdo.sound);
 		}
 	}
 
@@ -57,17 +51,6 @@ public abstract class BattleAnim extends PortraitAnim {
 	public void start(ScreenBattle screen) {
 		super.start(screen);
 		playSound();
-	}
-
-	/**
-	 * @see net.wombatrpgs.saga.graphics.PortraitAnim#dispose()
-	 */
-	@Override
-	public void dispose() {
-		super.dispose();
-		if (sound != null) {
-			sound.dispose();
-		}
 	}
 
 }

@@ -188,10 +188,10 @@ public class ScreenCharaInfo extends SagaScreen implements TargetSelectable {
 				} else {
 					CombatItem item = chara.getInventory().get(selected);
 					if (item == null || !item.isMapUsable()) {
-						MGlobal.sfx.play(SConstants.SFX_FAIL);
+						MGlobal.audio.playSFX(SConstants.SFX_FAIL);
 						return false;
 					}
-					MGlobal.sfx.play(SConstants.SFX_CURE);
+					MGlobal.audio.playSFX(SConstants.SFX_CURE);
 					item.onMapUse(parent);
 				}
 				return false;

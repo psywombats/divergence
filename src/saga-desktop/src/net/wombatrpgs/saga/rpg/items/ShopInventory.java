@@ -57,7 +57,7 @@ public class ShopInventory extends Inventory {
 		CombatItem item = new CombatItem(mdos.get(i));
 		SGlobal.heroes.addItem(item);
 		SGlobal.heroes.addGP(-1 * item.getCost(false));
-		MGlobal.sfx.play(SConstants.SFX_GET);
+		MGlobal.audio.playSFX(SConstants.SFX_GET);
 	}
 
 }

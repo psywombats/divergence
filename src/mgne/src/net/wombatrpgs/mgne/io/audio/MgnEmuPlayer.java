@@ -84,5 +84,13 @@ public class MgnEmuPlayer extends AssetQueuer {
 		emu.startTrack(track);
 		playing = true;
 	}
+	
+	/**
+	 * Fades out the BGM in the given amount of seconds.
+	 * @param	seconds			The amount of seconds to take to fade
+	 */
+	public void fadeout(int seconds) {
+		emu.setFade(emu.currentTime(), seconds);
+	}
 
 }

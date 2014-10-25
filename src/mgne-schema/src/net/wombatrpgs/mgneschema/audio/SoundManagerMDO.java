@@ -7,7 +7,8 @@
 package net.wombatrpgs.mgneschema.audio;
 
 import net.wombatrpgs.mgneschema.audio.data.EmuMusicEntryMDO;
-import net.wombatrpgs.mgneschema.audio.data.SoundManagerEntryMDO;
+import net.wombatrpgs.mgneschema.audio.data.LoadedMusicEntryMDO;
+import net.wombatrpgs.mgneschema.audio.data.SoundEffectEntryMDO;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.InlineSchema;
 import net.wombatrpgs.mgns.core.Annotations.Path;
@@ -19,12 +20,16 @@ import net.wombatrpgs.mgns.core.MainSchema;
 @Path("audio/")
 public class SoundManagerMDO extends MainSchema {
 	
-	@Desc("Sound manager entries")
-	@InlineSchema(SoundManagerEntryMDO.class)
-	public SoundManagerEntryMDO[] entries;
+	@Desc("Sound effect entries")
+	@InlineSchema(SoundEffectEntryMDO.class)
+	public SoundEffectEntryMDO[] soundEffectEntries;
 	
 	@Desc("Emu track entries")
 	@InlineSchema(EmuMusicEntryMDO.class)
-	public EmuMusicEntryMDO[] musicEntries;
+	public EmuMusicEntryMDO[] emuMusicEntries;
+	
+	@Desc("Loaded music entries")
+	@InlineSchema(LoadedMusicEntryMDO.class)
+	public LoadedMusicEntryMDO[] loadedMusicEntries;
 
 }

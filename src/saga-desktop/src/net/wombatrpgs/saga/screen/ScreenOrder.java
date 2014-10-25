@@ -160,7 +160,7 @@ public class ScreenOrder extends SagaScreen {
 		Chara chara2 = selected;
 		if (chara1 == chara2) return false;
 		if (chara1.is(Flag.EQUIPMENT_FIX) || chara2.is(Flag.EQUIPMENT_FIX)) {
-			MGlobal.sfx.play(SConstants.SFX_FAIL);
+			MGlobal.audio.playSFX(SConstants.SFX_FAIL);
 			return false;
 		}
 		party.swap(chara1, chara2);

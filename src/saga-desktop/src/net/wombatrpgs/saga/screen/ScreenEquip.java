@@ -128,7 +128,7 @@ public class ScreenEquip extends SagaScreen {
 						CombatItem left = equipped.get(marked);
 						CombatItem right = inventory.get(selected);
 						if (!equipped.canEquip(marked, right)) {
-							MGlobal.sfx.play(SConstants.SFX_FAIL);
+							MGlobal.audio.playSFX(SConstants.SFX_FAIL);
 							return false;
 						}
 						equipped.drop(left);
@@ -146,7 +146,7 @@ public class ScreenEquip extends SagaScreen {
 			items.setSelected(lastRight);
 			return true;
 		} else {
-			MGlobal.sfx.play(SConstants.SFX_FAIL);
+			MGlobal.audio.playSFX(SConstants.SFX_FAIL);
 			return false;
 		}
 	}

@@ -80,7 +80,7 @@ public abstract class EventEncounter extends MapEvent {
 	 * @param	mdo				The MDO of the group to battle
 	 */
 	public void encounter(EncounterSetMDO mdo) {
-		MGlobal.sfx.play(SConstants.SFX_BATTLE);
+		MGlobal.audio.playSFX(SConstants.SFX_BATTLE);
 		List<EncounterMDO> encounters = new ArrayList<EncounterMDO>();
 		for (EncounterSetMemberMDO member : mdo.encounters) {
 			EncounterMDO encMDO = MGlobal.data.getEntryFor(member.encounter, EncounterMDO.class);

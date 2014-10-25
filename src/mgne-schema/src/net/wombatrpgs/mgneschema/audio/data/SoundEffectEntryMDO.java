@@ -13,7 +13,7 @@ import net.wombatrpgs.mgns.core.HeadlessSchema;
 /**
  * Entry in the sound manager?
  */
-public class SoundManagerEntryMDO extends HeadlessSchema {
+public class SoundEffectEntryMDO extends HeadlessSchema {
 	
 	@Desc("Reference key - can use this to refer to sound in-game")
 	public String key;

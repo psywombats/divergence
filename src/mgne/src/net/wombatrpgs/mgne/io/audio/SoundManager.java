@@ -15,16 +15,19 @@ import com.badlogic.gdx.audio.AudioDevice;
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgneschema.audio.SoundManagerMDO;
 import net.wombatrpgs.mgneschema.audio.data.EmuMusicEntryMDO;
-import net.wombatrpgs.mgneschema.audio.data.SoundManagerEntryMDO;
+import net.wombatrpgs.mgneschema.audio.data.LoadedMusicEntryMDO;
+import net.wombatrpgs.mgneschema.audio.data.SoundEffectEntryMDO;
 
 /**
  * General purpose sfx queuer and player. Lives in global land and plays a file
  * based on short ID string.
  */
-public class SoundManager extends AssetQueuer implements Disposable {
+public class SoundManager extends AssetQueuer implements	Disposable,
+															Updateable {
 	
 	public static final int SAMPLE_RATE = 44100;
 	
@@ -34,6 +37,8 @@ public class SoundManager extends AssetQueuer implements Disposable {
 	protected Map<String, SoundObject> sounds;
 	protected Map<String, MgnEmuPlayer> players;
 	protected Map<String, EmuMusicEntryMDO> emuEntries;
+	protected Map<String, LoadedMusicEntryMDO> loadedEntries;
+	protected MusicObject current, fadeOut;
 	protected boolean emuThreadRunning;
 	protected transient AudioDevice out;
 	protected transient Thread emuThread;
@@ -46,15 +51,15 @@ public class SoundManager extends AssetQueuer implements Disposable {
 		this.mdo = mdo;
 		
 		sounds = new HashMap<String, SoundObject>();
-		for (SoundManagerEntryMDO entryMDO : mdo.entries) {
-			SoundObject sound = SoundObject.createFromFile(entryMDO.file);
+		for (SoundEffectEntryMDO entryMDO : mdo.soundEffectEntries) {
+			SoundObject sound = new SoundObject(entryMDO);
 			sounds.put(entryMDO.key, sound);
 			assets.add(sound);
 		}
 		
 		players = new HashMap<String, MgnEmuPlayer>();
 		emuEntries = new HashMap<String, EmuMusicEntryMDO>();
-		for (EmuMusicEntryMDO entryMDO : mdo.musicEntries) {
+		for (EmuMusicEntryMDO entryMDO : mdo.emuMusicEntries) {
 			emuEntries.put(entryMDO.refKey, entryMDO);
 			MgnEmuPlayer player = players.get(entryMDO.gbsPath);
 			if (player == null) {
@@ -64,15 +69,24 @@ public class SoundManager extends AssetQueuer implements Disposable {
 			}
 		}
 		
+		for (LoadedMusicEntryMDO entryMDO : mdo.loadedMusicEntries) {
+			loadedEntries.put(entryMDO.refKey, entryMDO);
+		}
+		
 		emuThreadRunning = false;
 		emuThread = new Thread(new Runnable() {
 			@Override public void run() {
 				// only one should be playing at once
 				while (emuThreadRunning) {
+					boolean playing = false;
 					for (MgnEmuPlayer player : players.values()) {
 						if (player.isPlaying()) {
 							player.play();
+							playing = true;
 						}
+					}
+					if (!playing) {
+						emuThreadRunning = false;
 					}
 				}
 			}
@@ -109,6 +123,15 @@ public class SoundManager extends AssetQueuer implements Disposable {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		if (current != null) current.update(elapsed);
+		if (fadeOut != null) fadeOut.update(elapsed);
+	}
+
+	/**
 	 * @see net.wombatrpgs.mgne.core.AssetQueuer#postProcessing
 	 * (net.wombatrpgs.mgne.core.MAssets, int)
 	 */
@@ -123,7 +146,7 @@ public class SoundManager extends AssetQueuer implements Disposable {
 	 * Plays the sound effect with the given key.
 	 * @param	key				The arbitrary tag string given in data for sfx
 	 */
-	public void play(String key) {
+	public void playSFX(String key) {
 		SoundObject sound = sounds.get(key);
 		if (sound == null) {
 			MGlobal.reporter.warn("Sound not found for key: " + key);
@@ -133,15 +156,68 @@ public class SoundManager extends AssetQueuer implements Disposable {
 	}
 	
 	/**
-	 * Plays the emu background music with the given key.
+	 * Plays the emu background music with the given key. Probably shouldn't be
+	 * called by anything but the emulated music object itself.
 	 * @param	key				The arbitrary tag string given in data for bgm
 	 */
-	public void playBGM(String key) {
+	public void playEmuBGM(String key) {
 		BgmLookup bgm = lookupBGM(key);
 		bgm.player.playTrack(bgm.entryMDO.track);
 		if (!emuThreadRunning) {
 			emuThreadRunning = true;
 			emuThread.start();
+		}
+	}
+	
+	/**
+	 * Fades out the background music in the given amount of time. Only accepts
+	 * seconds because the underlying emulator is a little inflexible.
+	 * @param	seconds			The amount of time to fade in, in seconds
+	 */
+	public void fadeoutEmuBGM(int seconds) {
+		for (MgnEmuPlayer player : players.values()) {
+			player.fadeout(seconds);
+		}
+	}
+	
+	/**
+	 * Will update music to play! Because before there were way too many bugs.
+	 * @param	music			The music to play
+	 * @param	immediate		True to instaplay, false otherwise
+	 */
+	public void playMusic(MusicObject music, boolean immediate) {
+		if (fadeOut != null) {
+			fadeOut.stop();
+		}
+		fadeOut = current;
+		if (current != null) {
+			if (immediate) current.stop();
+			else current.fadeOut(.5f);
+		}
+		current = music;
+		if (music != null) {
+			if (immediate) music.play();
+			else music.fadeIn(.5f);
+		}
+	}
+	
+	/**
+	 * Creates a background music object for the given reference key. The refkey
+	 * is arbitrarily defined in the MDO and can be used to generate the music
+	 * from map or event. It's fine to call this multiple times with the same
+	 * key, as the actual music objects are only loaded once. The returned
+	 * object will need asset loading.
+	 * @param	refKey			The reference key to use to lookup bgm in mdo
+	 * @return					A background music object for that key
+	 */
+	public BackgroundMusic generateMusicForKey(String refKey) {
+		if (emuEntries.containsKey(refKey)) {
+			return new EmuBGM(emuEntries.get(refKey));
+		} else if (loadedEntries.containsKey(refKey)) {
+			return new LoadedBGM(loadedEntries.get(refKey));
+		} else {
+			MGlobal.reporter.err("No music found for key " + refKey);
+			return null;
 		}
 	}
 	

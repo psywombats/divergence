@@ -97,7 +97,7 @@ public class EventChest extends MapEvent {
 								"Retrieved a " + collectable.getName() + ".");
 						SGlobal.heroes.getCollection().addCollectable(collectable);
 					}
-					MGlobal.sfx.play(SConstants.SFX_GET);
+					MGlobal.audio.playSFX(SConstants.SFX_GET);
 					MGlobal.memory.setSwitch(switchName);
 					setAppearance();
 				}
