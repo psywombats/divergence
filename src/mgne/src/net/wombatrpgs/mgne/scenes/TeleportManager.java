@@ -124,26 +124,7 @@ public class TeleportManager implements Queueable {
 	 * @param 	tileY			The y-coord to teleport to (in tiles)
 	 */
 	public void teleportRaw(Level map, int tileX, int tileY) {
-		
-		Level old = MGlobal.levelManager.getActive();
-		
-		boolean oldHasMusic = (old != null) && (old.getBGM() != null);
-		boolean newHasMusic = (map != null) && (map.getBGM() != null);
-		boolean matches = oldHasMusic && newHasMusic && !old.getBGM().equals(map.getBGM());
-		if (!matches) {
-			// TODO: sfx: fade out the music
-			if (oldHasMusic) {
-				old.getBGM().fadeOutBGM(0);
-			}
-			if (newHasMusic) {
-				map.getBGM().playBGM();
-			}
-		}
-		if (old != null) {
-			old.onFocusLost();
-			old.update(0);
-		}
-		
+		MGlobal.audio.playBGM(map.getBGM());
 		map.addEvent(MGlobal.getHero(), tileX, map.getHeight() - tileY - 1);
 		map.onFocusGained();
 		MGlobal.getHero().onAddedToMap(map);

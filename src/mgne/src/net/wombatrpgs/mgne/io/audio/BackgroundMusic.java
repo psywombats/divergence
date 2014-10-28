@@ -7,12 +7,23 @@
 package net.wombatrpgs.mgne.io.audio;
 
 import net.wombatrpgs.mgne.core.AssetQueuer;
+import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 
 /**
  * Bridges the gap between emulated and loaded background music.
  */
-public abstract class BackgroundMusic extends AssetQueuer implements Disposable {
+public abstract class BackgroundMusic extends AssetQueuer implements	Disposable,
+																		Updateable {
+
+	/**
+	 * Default does nothing.
+	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		// nothing
+	}
 
 	/**
 	 * @see java.lang.Object#equals(java.lang.Object)

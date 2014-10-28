@@ -30,6 +30,7 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 															Updateable {
 	
 	public static final int SAMPLE_RATE = 44100;
+	public static final float FADE_TIME = 0;
 	
 	protected static final String KEY_SOUND_DEFAULT = "soundmanager_default";
 	
@@ -38,7 +39,7 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 	protected Map<String, MgnEmuPlayer> players;
 	protected Map<String, EmuMusicEntryMDO> emuEntries;
 	protected Map<String, LoadedMusicEntryMDO> loadedEntries;
-	protected MusicObject current, fadeOut;
+	protected BackgroundMusic current, fadeOut;
 	protected boolean emuThreadRunning;
 	protected transient AudioDevice out;
 	protected transient Thread emuThread;
@@ -120,6 +121,14 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 				MGlobal.reporter.err(e);
 			}
 		}
+		if (current != null) {
+			current.fadeOutBGM(0);
+			current.dispose();
+		}
+		if (fadeOut != null) {
+			fadeOut.fadeOutBGM(0);
+			fadeOut.dispose();
+		}
 	}
 
 	/**
@@ -156,6 +165,32 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 	}
 	
 	/**
+	 * Transition from the current BGM into a new track.
+	 * @param	bgm				The new music to play, or null for none
+	 */
+	public void playBGM(BackgroundMusic bgm) {
+		boolean matches = false;
+		if (bgm == null || current == null) {
+			matches = (current == null && bgm == null);
+		} else {
+			matches = bgm.equals(current);
+		}
+		if (!matches) {
+			if (fadeOut != null) {
+				fadeOut.dispose();
+			}
+			fadeOut = current;
+			if (fadeOut != null) {
+				fadeOut.fadeOutBGM(FADE_TIME);
+			}
+			current = bgm;
+			if (current != null) {
+				current.fadeInBGM(FADE_TIME);
+			}
+		}
+	}
+	
+	/**
 	 * Plays the emu background music with the given key. Probably shouldn't be
 	 * called by anything but the emulated music object itself.
 	 * @param	key				The arbitrary tag string given in data for bgm
@@ -177,27 +212,6 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 	public void fadeoutEmuBGM(int seconds) {
 		for (MgnEmuPlayer player : players.values()) {
 			player.fadeout(seconds);
-		}
-	}
-	
-	/**
-	 * Will update music to play! Because before there were way too many bugs.
-	 * @param	music			The music to play
-	 * @param	immediate		True to instaplay, false otherwise
-	 */
-	public void playMusic(MusicObject music, boolean immediate) {
-		if (fadeOut != null) {
-			fadeOut.stop();
-		}
-		fadeOut = current;
-		if (current != null) {
-			if (immediate) current.stop();
-			else current.fadeOut(.5f);
-		}
-		current = music;
-		if (music != null) {
-			if (immediate) music.play();
-			else music.fadeIn(.5f);
 		}
 	}
 	

@@ -51,6 +51,15 @@ public class LoadedBGM extends BackgroundMusic {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.io.audio.BackgroundMusic#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		super.update(elapsed);
+		music.update(elapsed);
+	}
+
+	/**
 	 * @see net.wombatrpgs.mgne.io.audio.BackgroundMusic#getKey()
 	 */
 	@Override
