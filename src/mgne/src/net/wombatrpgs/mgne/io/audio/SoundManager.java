@@ -70,6 +70,7 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 			}
 		}
 		
+		loadedEntries = new HashMap<String, LoadedMusicEntryMDO>();
 		for (LoadedMusicEntryMDO entryMDO : mdo.loadedMusicEntries) {
 			loadedEntries.put(entryMDO.refKey, entryMDO);
 		}
@@ -169,13 +170,15 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 	 * @param	bgm				The new music to play, or null for none
 	 */
 	public void playBGM(BackgroundMusic bgm) {
-		boolean matches = false;
-		if (bgm == null || current == null) {
-			matches = (current == null && bgm == null);
+		boolean shouldSwitch = false;
+		if (bgm == null) {
+			shouldSwitch = (current != null);
+		} else if (current == null) {
+			shouldSwitch = bgm.shouldSwitchTo(current);
 		} else {
-			matches = bgm.equals(current);
+			shouldSwitch = bgm.shouldSwitchTo(current) && current.shouldSwitchTo(bgm);
 		}
-		if (!matches) {
+		if (shouldSwitch) {
 			if (fadeOut != null) {
 				fadeOut.dispose();
 			}
@@ -229,6 +232,8 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 			return new EmuBGM(emuEntries.get(refKey));
 		} else if (loadedEntries.containsKey(refKey)) {
 			return new LoadedBGM(loadedEntries.get(refKey));
+		} else if (NoChangeBGM.NO_CHANGE_KEY.equals(refKey)) {
+			return new NoChangeBGM();
 		} else {
 			MGlobal.reporter.err("No music found for key " + refKey);
 			return null;

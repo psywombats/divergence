@@ -30,9 +30,8 @@ public abstract class BackgroundMusic extends AssetQueuer implements	Disposable,
 	 */
 	@Override
 	public boolean equals(Object object) {
-		if (object.getClass() != this.getClass()) {
-			return false;
-		}
+		if (object == null) return false;
+		if (object.getClass() != this.getClass()) return false;
 		BackgroundMusic bgm = (BackgroundMusic) object;
 		return getKey().equals(bgm.getKey());
 	}
@@ -50,6 +49,17 @@ public abstract class BackgroundMusic extends AssetQueuer implements	Disposable,
 	 */
 	public void playBGM() {
 		fadeInBGM(0);
+	}
+	
+	/**
+	 * Checks if this background music should switch when this track starts
+	 * playing on top of another track. For most bgm, this should just be a
+	 * quick equals. The NoChangeBGM will want to always return false.
+	 * @param	other		The other background music to compare against
+	 * @return				True if the music should fade and switch
+	 */
+	public boolean shouldSwitchTo(BackgroundMusic other) {
+		return !this.equals(other);
 	}
 
 	/**
