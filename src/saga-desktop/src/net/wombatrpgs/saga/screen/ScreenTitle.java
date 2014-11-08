@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
+import net.wombatrpgs.mgne.io.audio.BackgroundMusic;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
@@ -33,10 +34,12 @@ public class ScreenTitle extends SagaScreen {
 	
 	protected static final String STRING_BEGIN = "START";
 	protected static final String STRING_CONTINUE = "CONTINUE";
+	protected static final String BGM_NAME = "ffl3_title";
 	
 	protected IntroSettingsMDO intro;
 	protected Graphic bg;
 	protected TextFormat formatBegin, formatContinue;
+	protected BackgroundMusic bgm;
 	protected int selection;
 	protected boolean transitioning;
 	
@@ -62,6 +65,9 @@ public class ScreenTitle extends SagaScreen {
 		formatContinue.width = TEXT_WIDTH;
 		formatContinue.x = CONTINUE_X;
 		formatContinue.y = TEXT_Y;
+		
+		bgm = MGlobal.audio.generateMusicForKey(BGM_NAME);
+		assets.add(bgm);
 	}
 
 	/**
@@ -71,7 +77,7 @@ public class ScreenTitle extends SagaScreen {
 	public void onFocusGained() {
 		super.onFocusGained();
 		pushCommandContext(new CMapMenu());
-		MGlobal.audio.playEmuBGM("title");
+		bgm.play();
 	}
 
 	/**
@@ -156,6 +162,15 @@ public class ScreenTitle extends SagaScreen {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.screen.Screen#dispose()
+	 */
+	@Override
+	public void dispose() {
+		super.dispose();
+		bgm.dispose();
 	}
 	
 }

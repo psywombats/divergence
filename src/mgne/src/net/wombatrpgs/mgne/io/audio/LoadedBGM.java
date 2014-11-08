@@ -27,36 +27,52 @@ public class LoadedBGM extends BackgroundMusic {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.io.audio.BackgroundMusic#fadeInBGM(float)
-	 */
-	@Override
-	public void fadeInBGM(float seconds) {
-		music.fadeIn(seconds);
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.io.audio.BackgroundMusic#fadeOutBGM(float)
-	 */
-	@Override
-	public void fadeOutBGM(float seconds) {
-		music.fadeOut(seconds);
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
-	 */
-	@Override
-	public void dispose() {
-		music.dispose();
-	}
-
-	/**
 	 * @see net.wombatrpgs.mgne.io.audio.BackgroundMusic#update(float)
 	 */
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
 		music.update(elapsed);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.io.audio.BackgroundMusic#playInternal()
+	 */
+	@Override
+	protected void playInternal() {
+		music.play();
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.io.audio.BackgroundMusic#stopInternal()
+	 */
+	@Override
+	protected void stopInternal() {
+		music.stop();
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.io.audio.BackgroundMusic#fadeInInternal(float)
+	 */
+	@Override
+	protected void fadeInInternal(float seconds) {
+		music.fadeIn(seconds);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.io.audio.BackgroundMusic#fadeOutInternal(float)
+	 */
+	@Override
+	protected void fadeOutInternal(float seconds) {
+		music.fadeOut(seconds);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.io.audio.BackgroundMusic#disposeInternal()
+	 */
+	@Override
+	protected void disposeInternal() {
+		music.dispose();
 	}
 
 	/**

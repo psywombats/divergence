@@ -15,6 +15,7 @@ import com.badlogic.gdx.audio.AudioDevice;
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgneschema.audio.SoundManagerMDO;
@@ -123,11 +124,11 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 			}
 		}
 		if (current != null) {
-			current.fadeOutBGM(0);
+			current.stop();
 			current.dispose();
 		}
 		if (fadeOut != null) {
-			fadeOut.fadeOutBGM(0);
+			fadeOut.stop();
 			fadeOut.dispose();
 		}
 	}
@@ -180,15 +181,23 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 		}
 		if (shouldSwitch) {
 			if (fadeOut != null) {
+				fadeOut.stop();
 				fadeOut.dispose();
 			}
 			fadeOut = current;
-			if (fadeOut != null) {
-				fadeOut.fadeOutBGM(FADE_TIME);
-			}
 			current = bgm;
-			if (current != null) {
-				current.fadeInBGM(FADE_TIME);
+			if (fadeOut != null) {
+				fadeOut.fadeOutBGM(FADE_TIME, new FinishListener() {
+					@Override public void onFinish() {
+						if (current != null) {
+							current.fadeInBGM(FADE_TIME, null);
+						}
+					}
+				});
+			} else {
+				if (current != null) {
+					current.fadeInBGM(FADE_TIME, null);
+				}
 			}
 		}
 	}
@@ -237,7 +246,7 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 		} else {
 			MGlobal.reporter.err("No music found for key " + refKey);
 			return null;
-		}
+ 		}
 	}
 	
 	/**

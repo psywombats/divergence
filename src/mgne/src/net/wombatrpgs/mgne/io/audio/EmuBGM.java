@@ -25,27 +25,42 @@ public class EmuBGM extends BackgroundMusic {
 	}
 
 	/**
-	 * Rounds seconds because the emulator doesn't support it.
-	 * @see net.wombatrpgs.mgne.io.audio.BackgroundMusic#fadeInBGM(float)
+	 * @see net.wombatrpgs.mgne.io.audio.BackgroundMusic#playInternal()
 	 */
 	@Override
-	public void fadeInBGM(float seconds) {
+	protected void playInternal() {
 		MGlobal.audio.playEmuBGM(mdo.refKey);
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.io.audio.BackgroundMusic#fadeOutBGM(float)
+	 * @see net.wombatrpgs.mgne.io.audio.BackgroundMusic#stopInternal()
 	 */
 	@Override
-	public void fadeOutBGM(float seconds) {
+	protected void stopInternal() {
+		MGlobal.audio.fadeoutEmuBGM(0);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.io.audio.BackgroundMusic#fadeInInternal(float)
+	 */
+	@Override
+	protected void fadeInInternal(float seconds) {
+		MGlobal.audio.playEmuBGM(mdo.refKey);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.io.audio.BackgroundMusic#fadeOutInternal(float)
+	 */
+	@Override
+	protected void fadeOutInternal(float seconds) {
 		MGlobal.audio.fadeoutEmuBGM(Math.round(seconds));
 	}
-	
+
 	/**
-	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
+	 * @see net.wombatrpgs.mgne.io.audio.BackgroundMusic#disposeInternal()
 	 */
 	@Override
-	public void dispose() {
+	protected void disposeInternal() {
 		// nothing to do
 	}
 
