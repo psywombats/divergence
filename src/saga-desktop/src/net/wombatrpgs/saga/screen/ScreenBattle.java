@@ -29,6 +29,7 @@ import net.wombatrpgs.mgne.core.interfaces.Queueable;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.ShaderFromData;
 import net.wombatrpgs.mgne.io.CommandListener;
+import net.wombatrpgs.mgne.io.audio.BackgroundMusic;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.screen.WindowSettings;
 import net.wombatrpgs.mgne.ui.Graphic;
@@ -115,6 +116,7 @@ public class ScreenBattle extends SagaScreen {
 	protected static final float TEXT_FADE_TIME = 0f;
 	protected static final float ADVANCE_DURATION = .2f;
 	protected static final int ADVANCE_LENGTH = 8; // in px
+	protected static final String BGM_NAME = "ffl3_battle";
 	
 	protected Battle battle;
 	
@@ -155,6 +157,7 @@ public class ScreenBattle extends SagaScreen {
 	protected Map<Integer, PortraitAnim> animsOnGroups;
 	protected Map<Integer, Float> shakeTimers;
 	protected Map<Integer, Float> deathTimers;
+	protected BackgroundMusic bgm;
 	protected Chara movingHero;
 	protected float moveTime;
 	protected float sinceStart;
@@ -278,6 +281,9 @@ public class ScreenBattle extends SagaScreen {
 		for (Chara hero : battle.getPlayer().getAll()) {
 			lastSelected.put(hero, 0);
 		}
+		
+		bgm = MGlobal.audio.generateMusicForKey(BGM_NAME);
+		assets.add(bgm);
 	}
 	
 	/** @return True if the text box is not blocking battle playback */
@@ -616,6 +622,15 @@ public class ScreenBattle extends SagaScreen {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.screen.Screen#onFocusGained()
+	 */
+	@Override
+	public void onFocusGained() {
+		super.onFocusGained();
+		bgm.play();
+	}
+
+	/**
 	 * @see net.wombatrpgs.mgne.screen.Screen#dispose()
 	 */
 	@Override
@@ -633,6 +648,7 @@ public class ScreenBattle extends SagaScreen {
 		deathShader.dispose();
 		shakeShader.dispose();
 		monsterinShader.dispose();
+		bgm.dispose();
 	}
 	
 	/**
