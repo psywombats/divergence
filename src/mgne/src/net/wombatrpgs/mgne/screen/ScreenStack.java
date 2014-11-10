@@ -164,6 +164,8 @@ public class ScreenStack implements	Disposable,
 			// this check is to ensure the stack wasn't removed from under us
 			screens.peek().update(elapsed);
 		}
+		
+		MGlobal.audio.update(elapsed);
 	}
 	
 	/**

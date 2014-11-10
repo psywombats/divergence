@@ -106,6 +106,9 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 	/** @return The audio device associated with this manager */
 	public AudioDevice getDevice() { return out; }
 	
+	/** @return The currently playing music, null for no music */
+	public BackgroundMusic getCurrentBGM() { return current; }
+	
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
 	 */

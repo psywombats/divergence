@@ -157,7 +157,7 @@ public class ScreenBattle extends SagaScreen {
 	protected Map<Integer, PortraitAnim> animsOnGroups;
 	protected Map<Integer, Float> shakeTimers;
 	protected Map<Integer, Float> deathTimers;
-	protected BackgroundMusic bgm;
+	protected BackgroundMusic bgm, lastMusic;
 	protected Chara movingHero;
 	protected float moveTime;
 	protected float sinceStart;
@@ -627,7 +627,17 @@ public class ScreenBattle extends SagaScreen {
 	@Override
 	public void onFocusGained() {
 		super.onFocusGained();
-		bgm.play();
+		lastMusic = MGlobal.audio.getCurrentBGM();
+		MGlobal.audio.playBGM(bgm);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.screen.Screen#onFocusLost()
+	 */
+	@Override
+	public void onFocusLost() {
+		super.onFocusLost();
+		MGlobal.audio.playBGM(lastMusic);
 	}
 
 	/**

@@ -93,7 +93,8 @@ public abstract class BackgroundMusic extends AssetQueuer implements	Disposable,
 	}
 
 	/**
-	 * Fades in this music over a period of time.
+	 * Fades in this music over a period of time. Should only be called from
+	 * the sound manager.
 	 * @param	seconds			The amount in seconds to fade in across
 	 * @param	listener		The listener to notify when done, or null
 	 */
@@ -113,7 +114,8 @@ public abstract class BackgroundMusic extends AssetQueuer implements	Disposable,
 	}
 	
 	/**
-	 * Fades out this music over a period of time.
+	 * Fades out this music over a period of time. Should usually only be called
+	 * from the sound manager.
 	 * @param	seconds			The amount in seconds to fade out across
 	 * @param	listener		The listener to notify when done, or null
 	 */
@@ -133,7 +135,7 @@ public abstract class BackgroundMusic extends AssetQueuer implements	Disposable,
 	}
 	
 	/**
-	 * Immediately plays the BGM.
+	 * Immediately plays the BGM. Should only be called from the sound manager.
 	 */
 	public final void play() {
 		fadingOut = false;
@@ -149,7 +151,7 @@ public abstract class BackgroundMusic extends AssetQueuer implements	Disposable,
 	}
 	
 	/**
-	 * Immediately stops the BGM.
+	 * Immediately stops the BGM. Should usually be called from sound manager.
 	 */
 	public final void stop() {
 		if (!currentlyPlaying) {

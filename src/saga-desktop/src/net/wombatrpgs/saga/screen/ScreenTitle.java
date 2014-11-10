@@ -77,7 +77,7 @@ public class ScreenTitle extends SagaScreen {
 	public void onFocusGained() {
 		super.onFocusGained();
 		pushCommandContext(new CMapMenu());
-		bgm.play();
+		MGlobal.audio.playBGM(bgm);
 	}
 
 	/**
