@@ -104,6 +104,7 @@ public class TextBox extends ScreenGraphic {
 				atY = MGlobal.window.getViewportHeight() - boxHeight;
 			}
 			atY += (boxHeight - expandBackerHeight) / 2;
+			atY += 1;
 			backer.renderAt(getBatch(), 0, atY);
 		}
 		
