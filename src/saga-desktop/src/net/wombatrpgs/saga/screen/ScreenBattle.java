@@ -117,6 +117,7 @@ public class ScreenBattle extends SagaScreen {
 	protected static final float ADVANCE_DURATION = .2f;
 	protected static final int ADVANCE_LENGTH = 8; // in px
 	protected static final String BGM_NAME = "ffl3_battle";
+	protected static final String VICTORY_BGM_NAME = "ffl1_victory";
 	
 	protected Battle battle;
 	
@@ -157,7 +158,7 @@ public class ScreenBattle extends SagaScreen {
 	protected Map<Integer, PortraitAnim> animsOnGroups;
 	protected Map<Integer, Float> shakeTimers;
 	protected Map<Integer, Float> deathTimers;
-	protected BackgroundMusic bgm, lastMusic;
+	protected BackgroundMusic bgm, lastBGM, victoryBGM;
 	protected Chara movingHero;
 	protected float moveTime;
 	protected float sinceStart;
@@ -283,7 +284,9 @@ public class ScreenBattle extends SagaScreen {
 		}
 		
 		bgm = MGlobal.audio.generateMusicForKey(BGM_NAME);
+		victoryBGM = MGlobal.audio.generateMusicForKey(VICTORY_BGM_NAME);
 		assets.add(bgm);
+		assets.add(victoryBGM);
 	}
 	
 	/** @return True if the text box is not blocking battle playback */
@@ -297,7 +300,7 @@ public class ScreenBattle extends SagaScreen {
 	
 	/** @return True if all death animations are finished playing */
 	public boolean isDeathFinished() { return deathTimers.size() == 0; }
-
+	
 	/**
 	 * @see net.wombatrpgs.mgne.screen.Screen#update(float)
 	 */
@@ -627,7 +630,7 @@ public class ScreenBattle extends SagaScreen {
 	@Override
 	public void onFocusGained() {
 		super.onFocusGained();
-		lastMusic = MGlobal.audio.getCurrentBGM();
+		lastBGM = MGlobal.audio.getCurrentBGM();
 		MGlobal.audio.playBGM(bgm);
 	}
 
@@ -637,7 +640,7 @@ public class ScreenBattle extends SagaScreen {
 	@Override
 	public void onFocusLost() {
 		super.onFocusLost();
-		MGlobal.audio.playBGM(lastMusic);
+		MGlobal.audio.playBGM(lastBGM);
 	}
 
 	/**
@@ -1059,6 +1062,13 @@ public class ScreenBattle extends SagaScreen {
 	 */
 	public void resetPortraitShader() {
 		enemyBatch.setShader(background.getShader());
+	}
+	
+	/**
+	 * Called when the player is victorious. Changes the bgm.
+	 */
+	public void onVictory() {
+		MGlobal.audio.playBGM(victoryBGM);
 	}
 	
 	/**

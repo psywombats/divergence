@@ -921,6 +921,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	protected void onVictory() {
 		println("");
 		println("");
+		screen.onVictory();
 		String leadername = player.findLeader().getName();
 		println(leadername + " is victorious.");
 		mutateIndex = 0;
