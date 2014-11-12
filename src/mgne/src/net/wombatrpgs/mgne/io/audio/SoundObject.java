@@ -17,7 +17,6 @@ import net.wombatrpgs.mgneschema.audio.data.SoundEffectEntryMDO;
  */
 public class SoundObject extends LoadedAudioObject {
 	
-	protected SoundEffectEntryMDO mdo;
 	protected transient Sound coreSound;
 
 	/**
@@ -26,7 +25,14 @@ public class SoundObject extends LoadedAudioObject {
 	 */
 	public SoundObject(SoundEffectEntryMDO mdo) {
 		super(mdo.file);
-		this.mdo = mdo;
+	}
+	
+	/**
+	 * Constructs a sound object for a given sound file.
+	 * @param	filename		The name of the data file, relative to audio dir
+	 */
+	public SoundObject(String filename) {
+		super(filename);
 	}
 
 	/**
