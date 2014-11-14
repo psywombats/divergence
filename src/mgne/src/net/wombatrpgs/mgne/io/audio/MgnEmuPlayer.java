@@ -18,7 +18,9 @@ import net.wombatrpgs.mgne.core.MAssets;
 
 /**
  * The MGN version of EmuPlayer. Not a manager in itself. Handles all track from
- * a specific gbs file.
+ * a specific gbs file. Even though this class isn't a singleton, it doesn't
+ * necessarily play nicely with other instances because the underlying instance
+ * uses some static members. The emulator could probably use a rewrite.
  */
 public class MgnEmuPlayer extends AssetQueuer {
 	
@@ -64,8 +66,9 @@ public class MgnEmuPlayer extends AssetQueuer {
 	/**
 	 * Blocking IO call to play some samples from this emulator to the sound
 	 * manager audio device.
+	 * @return					True if any samples were written
 	 */
-	public void play() {
+	public boolean writeSamples() {
 		AudioDevice device = manager.getDevice();
 		if (playing && !emu.trackEnded()) {
 			byte [] buffer = new byte [BUFFER_LENGTH * 2];
@@ -73,7 +76,9 @@ public class MgnEmuPlayer extends AssetQueuer {
 			int count = emu.play(buffer, BUFFER_LENGTH);
 			ByteBuffer.wrap(buffer).order(ByteOrder.BIG_ENDIAN).asShortBuffer().get(shorts);
 			device.writeSamples(shorts, 0, count);
+			return true;
 		}
+		return false;
 	}
 	
 	/**

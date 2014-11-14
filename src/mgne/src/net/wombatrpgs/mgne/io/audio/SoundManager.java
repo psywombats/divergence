@@ -84,8 +84,11 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 					boolean playing = false;
 					for (MgnEmuPlayer player : players.values()) {
 						if (player.isPlaying()) {
-							player.play();
-							playing = true;
+							boolean samplesWritten = player.writeSamples();
+							if (samplesWritten) {
+								playing = true;
+								break;
+							}
 						}
 					}
 					if (!playing) {
