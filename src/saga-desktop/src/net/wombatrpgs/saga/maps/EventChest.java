@@ -119,7 +119,7 @@ public class EventChest extends MapEvent {
 	
 	/**
 	 * Checks if this chest should appear open or closed.
-	 * @return
+	 * @return					True if the chest should be open
 	 */
 	protected boolean chestOpened() {
 		if (keyItem) {

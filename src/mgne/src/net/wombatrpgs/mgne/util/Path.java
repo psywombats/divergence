@@ -14,6 +14,7 @@ import net.wombatrpgs.mgneschema.maps.data.DirEnum;
 /**
  * A partial path to a destination on a map. Only stores destination, not
  * obstacle data. Sorts itself by a birds-eye heuristic.
+ * @param <T> The type of step contained in the path
  */
 public class Path<T extends DirEnum> implements Comparable<Path<T>> {
 	
@@ -92,7 +93,7 @@ public class Path<T extends DirEnum> implements Comparable<Path<T>> {
 	/**
 	 * Calculates the "score" of this path. In this case, it's traveled
 	 * distance plus estimated distance to go.
-	 * @return
+	 * @return					The score of the path, relative to other scores
 	 */
 	protected float heuristic() {
 		float dx = destX - atX;

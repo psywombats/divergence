@@ -105,11 +105,12 @@ public class ScreenTest extends Screen {
 	}
 
 	/**
-	 * @see net.wombatrpgs.rainfall.core.GameScreen#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int pass)
+	 * @see net.wombatrpgs.mgne.screen.Screen#postProcessing
+	 * (net.wombatrpgs.mgne.core.MAssets, int)
 	 */
 	@Override
 	public void postProcessing(MAssets manager, int pass) {
+		super.postProcessing(manager, pass);
 		if (pass > 0) return;
 		if (font != null) {
 			font.postProcessing(manager, pass);
@@ -118,5 +119,5 @@ public class ScreenTest extends Screen {
 			box.postProcessing(manager, pass);
 		}
 	}
-
+	
 }

@@ -19,7 +19,6 @@ public class EventFactory {
 	
 	/**
 	 * Handles an entry from the map and turns it into the relevant event(s).
-	 * @param 	parent			The parent level to add events to
 	 * @param 	object			The tiled object to create events from
 	 */
 	public final void createAndPlace(TiledMapObject object) {
@@ -34,8 +33,10 @@ public class EventFactory {
 	 * @param	map				The tiled map being loaded
 	 * @param	key				The key of the map property
 	 * @param	value			The string of the map property
+	 * @return					The newly created event
 	 */
 	public MapEvent createFromMapProperty(TiledMap map, String key, String value) {
+		// override me!
 		return null;
 	}
 	

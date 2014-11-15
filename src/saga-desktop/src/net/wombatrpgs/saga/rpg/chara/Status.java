@@ -85,7 +85,7 @@ public class Status implements Resistable {
 	
 	/**
 	 * Checks if this status is represented in a list of keys to statuses.
-	 * @param	statusKeys		The list of keys to statusMDO to check against
+	 * @param	statusList		The list of statuses to check against
 	 * @return					True if this status is present, false otherwise
 	 */
 	public boolean isContainedIn(String[] statusList) {

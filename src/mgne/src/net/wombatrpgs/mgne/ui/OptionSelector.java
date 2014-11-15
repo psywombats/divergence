@@ -63,10 +63,10 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	/**
 	 * Creates a fully custom options selector!
 	 * @param	options			The options the player can select from
-	 * @param	bg				The background nineslice to use
+	 * @param	bgMDO			The data for the background nineslice to use
 	 * @param	font			The font to render option text with
-	 * @param	padLeft			The space (in pixels) from left border
-	 * @param	padRight		The space (in pixels) from right border
+	 * @param	padHoriz		The space (in pixels) from side borders
+	 * @param	padVert			The space (in pixels) from top/bottom borders
 	 * @param	spacing			The space (in pixels) between two options
 	 */
 	public OptionSelector(List<Option> options, NinesliceMDO bgMDO,
@@ -98,7 +98,7 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 	/**
 	 * Creates a new options selector with default padding.
 	 * @param	options			The options the player can select from
-	 * @param	bg				The background nineslice to use
+	 * @param	bgMDO			The data for background nineslice to use
 	 * @param	font			The font to render option text in
 	 */
 	public OptionSelector(List<Option> options, NinesliceMDO bgMDO, FontHolder font) {

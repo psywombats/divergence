@@ -27,7 +27,7 @@ public class StoredSceneParser extends SceneParser {
 	 * @param	fileName		The filename to load, relative to scenes dir
 	 * @param	caller			The lua value this for this script
 	 */
-	public StoredSceneParser(String filename, LuaValue caller) {
+	public StoredSceneParser(String fileName, LuaValue caller) {
 		super();
 		this.caller = caller;
 		this.filename = Constants.SCENES_DIR + filename;
@@ -35,7 +35,7 @@ public class StoredSceneParser extends SceneParser {
 	
 	/**
 	 * Creates a new scene parser for a given file with no caller.
-	 * @param	filename		The filename to laod, relative to scenes dir
+	 * @param	fileName		The filename to laod, relative to scenes dir
 	 */
 	public StoredSceneParser(String fileName) {
 		this(fileName, LuaValue.NIL);

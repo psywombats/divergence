@@ -34,6 +34,7 @@ public class MgnEmuPlayer extends AssetQueuer {
 	/**
 	 * Creates a new player for a specific music package file.
 	 * @param	gbsFileName		The path of the .gbs file to load
+	 * @param	manager			The sound manager the emu is managed by
 	 */
 	public MgnEmuPlayer(String gbsFileName, SoundManager manager) {
 		this.fileName = Constants.AUDIO_DIR + gbsFileName;

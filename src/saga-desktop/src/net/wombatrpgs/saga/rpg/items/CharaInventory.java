@@ -24,6 +24,7 @@ public class CharaInventory extends Inventory {
 	/**
 	 * Creates a new starter inventory suitable for the given character data.
 	 * @param	mdo				The data to create from
+	 * @param	chara			The character to create for
 	 */
 	public CharaInventory(CharaMDO mdo, Chara chara) {
 		super(SLOT_COUNT);

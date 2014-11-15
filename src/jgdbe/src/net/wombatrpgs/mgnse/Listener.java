@@ -15,7 +15,6 @@ import javax.swing.event.TreeSelectionListener;
 
 import net.wombatrpgs.mgnse.wizard.Wizard;
 
-
 /**
  * Handles all frame input and other user actions.
  */
@@ -26,6 +25,7 @@ public class Listener implements ActionListener, TreeSelectionListener {
 	
 	/**
 	 * Initializes the input. Listeners must be added elsewhere.
+	 * @param frame The parent frame of the whole editor
 	 * @param logic The game logic this input thing should call.
 	 */
 	public Listener(MainFrame frame, Logic logic) {

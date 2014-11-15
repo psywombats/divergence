@@ -20,7 +20,7 @@ public class FlagStatValue {
 	/** Creates a new value at 0 */
 	public FlagStatValue() { this(0); }
 	
-	/** Checks if this flag is set */
+	/** @return True if this flag is set */
 	public boolean on() { return count > 0; }
 
 	/**

@@ -31,6 +31,8 @@ public abstract class ParticleSet implements Queueable {
 	 * name.
 	 * @param 	fileName			The full path to the file with particles
 	 * @param	frameCount			How many frames are contained in that tex
+	 * @param	frameWidth			The width of a single frame in real px
+	 * @param	frameHeight			The width of a single frame, in real px
 	 */
 	public ParticleSet(String fileName, int frameCount, int frameWidth, int frameHeight) {
 		this.fileName = fileName;

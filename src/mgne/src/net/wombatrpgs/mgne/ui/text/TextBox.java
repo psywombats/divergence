@@ -298,6 +298,8 @@ public class TextBox extends ScreenGraphic {
 	
 	/**
 	 * Animates this textbox expanding in, similar to a fadein.
+	 * @param	screen			The screen the box will expand onto
+	 * @param	expandTime		The time it will take to expand, in seconds
 	 */
 	public void expandIn(Screen screen, float expandTime) {
 		this.parent = screen;
@@ -314,6 +316,7 @@ public class TextBox extends ScreenGraphic {
 	
 	/**
 	 * Animates this textbox expanding out (closing) like a fadeout.
+	 * @param expandTime		The time it will take to expand, in seconds
 	 */
 	public void expandOut(float expandTime) {
 		this.expandTime = expandTime;

@@ -32,8 +32,6 @@ public class NumberPopup extends PortraitAnim {
 	/**
 	 * Creates a popup for a single damage value.
 	 * @param	damage			The damage value to show
-	 * @param	startX			The x-coord of the middle of the display target
-	 * @param	startY			The y-coord of the middle of the display target
 	 */
 	public NumberPopup(int damage) {
 		this.damage = String.valueOf(damage);

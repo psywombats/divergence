@@ -51,8 +51,8 @@ public abstract class MapThing extends AssetQueuer implements	Renderable,
 	/** @return How this object responds to pausing */
 	public PauseLevel getPauseLevel() { return this.pauseLevel; }
 	
-	/** @param How this object will respond to pausing */
-	public void setPauseLevel(PauseLevel level) { this.pauseLevel = level; }
+	/** @param level How this object will respond to pausing */
+	@Deprecated public void setPauseLevel(PauseLevel level) { this.pauseLevel = level; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Updateable#update(float)

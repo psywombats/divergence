@@ -56,7 +56,11 @@ public class Global {
 		return instance;
 	}
 	
-	/** @return The node for that schema in the map */
+	/**
+	 * Gets the node associated with a class of schema.
+	 * @param schema The schema to fetch for
+	 * @return The node for that schema
+	 */
 	public SchemaNode getNode(Class<? extends MainSchema> schema) {
 		for (Class<? extends Schema> subClass : map.keySet()) {
 			if (subClass.getName().equals(schema.getName())) {

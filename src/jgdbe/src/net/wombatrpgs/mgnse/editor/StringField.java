@@ -24,6 +24,7 @@ public class StringField extends FieldPanel {
 	
 	/**
 	 * Creates and initializes a new string field editor.
+	 * @param parent The parent panel for the field
 	 * @param defaultData The string this field should contain by default
 	 * @param field The field to check for annotations and shit
 	 * @param schema The data object to read/write values from

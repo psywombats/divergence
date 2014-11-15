@@ -12,7 +12,6 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 import net.wombatrpgs.mgne.maps.Level;
-import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.maps.data.DirEnum;
 import net.wombatrpgs.mgneschema.maps.data.DirVector;
 import net.wombatrpgs.mgneschema.maps.data.EightDir;
@@ -104,7 +103,7 @@ public class AStarPathfinder {
 	 * Finds the path for an actor using all 8 directions.
 	 * @return					The resulting path, or null if none
 	 */
-	public List<EightDir> getEightPath(MapEvent actor) {
+	public List<EightDir> getEightPath() {
 		return getPath(EightDir.values());
 	}
 	

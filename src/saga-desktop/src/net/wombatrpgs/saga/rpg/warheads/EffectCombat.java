@@ -175,8 +175,8 @@ public abstract class EffectCombat extends EffectEnemyTarget {
 	 * Calculates the damage this attack would do against a hypothetical target.
 	 * Does not actually deal damage. Is not affected by RNG.
 	 * @param	battle			The battle this calculation is a part of
+	 * @param	power			The output power of the effect (before def)
 	 * @param	target			The target to check against
-	 * @param	user			The character using the ability
 	 * @return					An appropriate amount of damage to deal, in HP
 	 */
 	protected abstract int calcDamage(Battle battle, int power, Chara target);

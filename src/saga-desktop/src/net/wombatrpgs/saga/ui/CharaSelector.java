@@ -65,9 +65,10 @@ public class CharaSelector extends ScreenGraphic implements	CommandListener {
 	
 	/**
 	 * Creates a new character selector with a custom party.
+	 * @param	party			The party whose inventory to show
 	 * @param	full			True to use large version
 	 * @param	comb			True to use combat status and not race etc
-	 * @param	showBG			True to use the automatic nineslice bg
+	 * @param	bgOn			True to use the automatic nineslice bg
 	 * @param	padX			The horizontal floating fudge
 	 * @param	padY			The vertical floating fudge
 	 * @param	cursorSpace		The pixels between charas and the cursor
@@ -103,6 +104,7 @@ public class CharaSelector extends ScreenGraphic implements	CommandListener {
 	/**
 	 * Creates a new character selector with a custom party. Uses the default
 	 * two columns three rows approach.
+	 * @param	party			The party whose inventory to show
 	 * @param	fullMode		True to use large version
 	 * @param	combatMode		True to use combat status and not race etc
 	 * @param	showBG			True to use the automatic nineslice bg

@@ -46,16 +46,16 @@ public abstract class Layer extends AssetQueuer implements	Renderable,
 	/**
 	 * Checking to see if a position in the grid is passable. I have no idea
 	 * why this used to require an event.
-	 * @param 	x				The x-coord of the tile to check (in tiles)
-	 * @param 	y				The y-coord of the tile to check (in tiles)
+	 * @param 	tileX			The x-coord of the tile to check (in tiles)
+	 * @param 	tileY			The y-coord of the tile to check (in tiles)
 	 * @return					True if that tile is passable, false otherwise
 	 */
 	public abstract boolean isTilePassable(int tileX, int tileY);
 	
 	/**
 	 * Checking to see if a position in the grid has any tile in it.
-	 * @param 	x				The x-coord of the tile to check (in tiles)
-	 * @param 	y				The y-coord of the tile to check (in tiles)
+	 * @param 	tileX			The x-coord of the tile to check (in tiles)
+	 * @param 	tileY			The y-coord of the tile to check (in tiles)
 	 * @return					True if any tile exists there
 	 */
 	public abstract boolean hasTileAt(int tileX, int tileY);

@@ -81,7 +81,8 @@ public class AnimationStrip implements	PosRenderable,
 	/** @return How many frames this anim goes through in a second */
 	public float getFPS() { return this.mdo.animSpeed; }
 	
-	/** @return The frame with the given ordinal */
+	/**	@param frame The ordinal of the frame
+	 *	@return The frame with the given ordinal */
 	public TextureRegion getFrame(int frame) { return frames[frame]; }
 	
 	/** @return The width (in px) of current frames */
@@ -169,10 +170,10 @@ public class AnimationStrip implements	PosRenderable,
 	public void queueRequiredAssets(MAssets manager) {
 		manager.load(fileName, Texture.class);
 	}
-
+	
 	/**
-	 * @see net.wombatrpgs.rainfall.graphics.Renderable#postProcessing
-	 * (com.badlogic.gdx.assets.AssetManager, int pass)
+	 * @see net.wombatrpgs.mgne.core.interfaces.Queueable#postProcessing
+	 * (net.wombatrpgs.mgne.core.MAssets, int)
 	 */
 	@Override
 	public void postProcessing(MAssets manager, int pass) {
@@ -210,7 +211,7 @@ public class AnimationStrip implements	PosRenderable,
 		}
 		update(0);
 	}
-	
+
 	/**
 	 * Determines if this thing should play multiple times. Actually just
 	 * consults the MDO.

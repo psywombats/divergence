@@ -84,6 +84,7 @@ public abstract class SceneCommand extends AssetQueuer implements	Updateable,
 
 	/**
 	 * Call this when it's this scene's turn to run.
+	 * @param	parent			The parser to run within the context of
 	 */
 	public final void run(SceneParser parent) {
 		this.parent = parent;

@@ -19,7 +19,9 @@ public class EventSimpleEncounter extends EventEncounter {
 	protected EncounterSetMDO mdo;
 	
 	/**
-	 * Creates an encounter event region from a tiled map object.
+	 * Creates an encounter event region from a tiled map object. Sort of a
+	 * weird mdo/object hybrid constructor?
+	 * @param	mdo				The data to create from
 	 * @param	object			The object to create from
 	 */
 	public EventSimpleEncounter(EventEncounterMDO mdo, TiledMapObject object) {

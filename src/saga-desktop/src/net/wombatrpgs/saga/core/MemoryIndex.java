@@ -42,7 +42,7 @@ public class MemoryIndex extends AssetQueuer {
 	
 	/**
 	 * Loads the serialized memory index, or creates a new one if none exists.
-	 * @return
+	 * @return					The index of loaded memory
 	 */
 	public static MemoryIndex loadIndex() {
 		String fileName = Constants.SAVES_DIR + indexName;

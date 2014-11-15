@@ -12,8 +12,9 @@ package net.wombatrpgs.mgneschema.rpg.data;
  * of Eric per se, but rather that Eric could potentially have a strength, and
  * that LIO and Alan have strength as well.
  * 
- * Parameterized over stat value. This means things like str and agi are over
- * Integer and flags CANNOT_DRAIN are over bool. Probably subclassed.
+ * @param <T> The stat type, either a boolean for a flag or else int/float. This
+ * means things like str and agi are over Integer and flags CANNOT_DRAIN are
+ * over bool. Probably subclassed.
  */
 public abstract class StatType<T> {
 	

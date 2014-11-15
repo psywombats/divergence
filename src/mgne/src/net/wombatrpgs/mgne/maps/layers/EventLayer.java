@@ -27,8 +27,6 @@ public class EventLayer extends Layer {
 	/**
 	 * Creates a new object layer with a parent level and no objects.
 	 * @param 	parent			The parent level of the layer
-	 * @param	layer			The underlying tiled layer
-	 * @param	index			The ordinal of this event layer (of event layer)
 	 */
 	public EventLayer(Level parent) {
 		super(parent);

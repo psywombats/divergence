@@ -153,7 +153,7 @@ public class Memory {
 	/**
 	 * Loads memory from a file. Has a bunch of side effects on the global
 	 * object as it overwrites saved global values.
-	 * @param	savefile		The name of the file to read from
+	 * @param	fileName		The name of the file to read from
 	 */
 	public void load(String fileName) {
 		MGlobal.reporter.inform("Loading from " + fileName);

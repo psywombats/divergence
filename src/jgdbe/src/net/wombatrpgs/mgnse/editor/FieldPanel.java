@@ -46,6 +46,7 @@ public abstract class FieldPanel extends JPanel implements 	DocumentListener,
 	/**
 	 * Creates and initializes a new panel. Checks for header status, starts
 	 * layout stuff.
+	 * @param parent The parent editor this field is a part of
 	 * @param field The source field this is being generated from
 	 */
 	public FieldPanel(EditorPanel parent, Field field) {

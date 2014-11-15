@@ -33,7 +33,8 @@ public class TrackerCam extends OrthographicCamera implements Updateable {
 	 * Creates a tracker cam with a given target and speed.
 	 * @param	viewportWidth	The width of the viewport for this cam
 	 * @param	viewportHeight	The height of the viewport for this cam
-	 * @param
+	 * @param	target			The position to constantly track
+	 * @param	panSpeed		The speed to track that target, in px/s
 	 */
 	public TrackerCam(float viewportWidth, float viewportHeight,
 			Positionable target, float panSpeed) {

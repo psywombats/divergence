@@ -27,7 +27,7 @@ public class BatchWithShader {
 		this.shader = shader;
 	}
 	
-	/** @reutrn The batch part of the tuple */
+	/** @return The batch part of the tuple */
 	public SpriteBatch getBatch() { return batch; }
 	
 	/** @return The shader part of the tuple */

@@ -91,7 +91,8 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 		this(MGlobal.data.getEntryFor(key, CharaMDO.class));
 	}
 	
-	/** @return The current value of the request flag */
+	/**	@param flag The flag to check
+	 *	@return The current value of the request flag */
 	public boolean is(Flag flag) { return stats.flag(flag); }
 	
 	/** @return The appearance of this character */
@@ -103,7 +104,7 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 	/** @return The human name of the character */
 	public String getName() { return name; }
 	
-	/** @param The new name for this character */
+	/** @param name The new name for this character */
 	public void setName(String name) { this.name = name; }
 	
 	/** @return The race of the character, never null */
@@ -303,7 +304,7 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 	 * conditions (such as death) that would prevent action. Prints a message
 	 * if the character cannot act.
 	 * @param	battle			The battle this check is a part of
-	 * @param	aboslute		True if only 100% inaction rate should be used
+	 * @param	absolute		True if only 100% inaction rate should be used
 	 * @param	silent			True to suppress the printout
 	 * @return					True if chara can act, false if not
 	 */

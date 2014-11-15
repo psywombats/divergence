@@ -25,6 +25,8 @@ public class GeneratedGridLayer extends GridLayer {
 	/**
 	 * Creates a new grid layer with a parent level and z. This is expected for
 	 * subclasses that will manipulate their own tile data.
+	 * @param	parent			The parent map
+	 * @param	z				The z-index of the new layer
 	 */
 	public GeneratedGridLayer(Level parent, float z) {
 		super(parent, z);

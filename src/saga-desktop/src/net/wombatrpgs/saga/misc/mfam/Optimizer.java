@@ -41,6 +41,7 @@ public abstract class Optimizer {
 	/**
 	 * Runs the optimizer for a number of generations then returns the result.
 	 * @param	generations		The number of generations to run for.
+	 * @return					The optimal configuration found
 	 */
 	public abstract Config run(int generations);
 

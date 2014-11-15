@@ -18,6 +18,8 @@ Thumbs.db
 *.log
 *.sav
 *.kryo
+doc/*
+
 
 # MGN binaries #
 ################

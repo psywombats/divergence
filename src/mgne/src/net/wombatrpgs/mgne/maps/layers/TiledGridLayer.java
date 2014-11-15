@@ -42,6 +42,7 @@ public class TiledGridLayer extends GridLayer {
 	
 	/**
 	 * Converts from the tileset/id format to global tile id format.
+	 * @param	map				The Tiled map that's the parent of this layer
 	 * @param	tilesetName		The name of the tileset with the tile
 	 * @param	relativeTileID	The ID of the tile within that tileset
 	 * @return					The global ID of that tile (gid)

@@ -53,10 +53,10 @@ public class Intent implements Comparable<Intent> {
 	/** @return All targeted characters */
 	public List<Chara> getTargets() { return targets; }
 	
-	/** @param More targets of this combat item */
+	/** @param targets More targets of this combat item */
 	public void addTargets(Chara... targets) { Collections.addAll(this.targets, targets); }
 	
-	/** @param More targets of this combat item */
+	/** @param targets More targets of this combat item */
 	public void addTargets(List<Chara> targets) { this.targets.addAll(targets); }
 	
 	/** @return The battle this intent is a part of */
@@ -68,7 +68,7 @@ public class Intent implements Comparable<Intent> {
 	/** @return The item this chara is using */
 	public CombatItem getItem() { return item; }
 	
-	/** @param The combat item the player selected for this intent */
+	/** @param item The combat item the player selected for this intent */
 	public void setItem(CombatItem item) { this.item = item; }
 	
 	/** Clears the targets list */

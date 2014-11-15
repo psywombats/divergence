@@ -61,12 +61,12 @@ public abstract class ScreenGraphic extends ScreenObject implements PositionSeta
 	/** @see net.wombatrpgs.mgne.maps.Positionable#getY() */
 	@Override public float getY() {	return this.y; }
 	
-	/** @see net.wombatrpgs.mgne.maps.PositionSetable#setX(int) */
+	/** @see net.wombatrpgs.mgne.maps.PositionSetable#setX(float) */
 	@Override public void setX(float x) { this.x = x; }
 
-	/** @see net.wombatrpgs.mgne.maps.PositionSetable#setY(int) */
+	/**  @see net.wombatrpgs.mgne.maps.PositionSetable#setY(float) */
 	@Override public void setY(float y) { this.y = y; }
-	
+
 	/** @return True if we're currently moving to another place/color */
 	public boolean isTweening() { return tweening; }
 	

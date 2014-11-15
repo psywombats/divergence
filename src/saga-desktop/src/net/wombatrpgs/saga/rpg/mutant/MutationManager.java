@@ -48,6 +48,7 @@ public class MutationManager {
 	
 	/**
 	 * Records an event as having occurred.
+	 * @param	event			The event that occurred
 	 */
 	public void recordEvent(MutantEvent event) {
 		Integer existing = hits.get(event);
@@ -59,8 +60,6 @@ public class MutationManager {
 	 * Finalize the event list and produce a list of available level up options.
 	 * This should always be length 2 unless something changes? Should only be
 	 * called once per instance.
-	 * @param	chara			The character to grant the gain to
-	 * @param	level			The level of the battle in progress
 	 * @return					A list of possible leveling options
 	 */
 	public List<Mutation> produceOptions() {

@@ -288,7 +288,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	 * Determines the orthographic direction to some tile location.
 	 * @param	tileX			The x-loc to get direction towards (in tiles)
 	 * @param	tileY			The y-loc to get direction towards (in tiles)
-	 * @return					
+	 * @return					The direction from this event to the tile		
 	 */
 	public OrthoDir directionToTile(int tileX, int tileY) {
 		return directionTo(tileX * parent.getTileWidth(), tileY * parent.getTileHeight()).toOrtho();
@@ -298,7 +298,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	 * Calculates the manhattan distance between this and some other location.
 	 * @param	tileX			The x-coord to calc distance to, in tiles
 	 * @param	tileY			The y-coord to calc distance to, in tiles
-	 * @return
+	 * @return					The manhattan distance of this event to the tile
 	 */
 	public int tileDistanceTo(int tileX, int tileY) {
 		return Math.abs(tileX - this.tileX) + Math.abs(tileY - this.tileY); 
@@ -555,7 +555,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 
 	/**
 	 * Runs a scene, probably one we generated from MDO.
-	 * @param	chunk			The chunk of text to run, possibly null
+	 * @param	scene			The scene to run
 	 */
 	protected void runScene(SceneParser scene) {
 		// maybe some safety checks should go here?

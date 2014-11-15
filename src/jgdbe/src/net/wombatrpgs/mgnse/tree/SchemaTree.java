@@ -69,11 +69,16 @@ public class SchemaTree extends JTree {
 	
 	/** @param dataDir The new location of the database entries */
 	public void setDataDir(File dataDir) { this.dataDir = dataDir; }
-	/** @param schemaFile The new (jar) schema file */
+	/** @param schemaJar The new (jar) schema file */
 	public void addSchemaJar(File schemaJar) { schemaJars.add(schemaJar); }
 	/** @return All known schema types */
 	public List<ClassWrapper> getSchema() { return schema; }
-	/** @return All subclasses of a polymorphic schema */
+	
+	/**
+	 * Fetches all implementers of the given polymorphic schema
+	 * @param schemaClass The class to fetch implementors of
+	 * @return All subclasses of a polymorphic schema
+	 */
 	public List<Class<? extends PolymorphicSchema>> getSubclasses(Class<?> schemaClass) {
 		return polyMap.get(schemaClass);
 	}
@@ -391,7 +396,7 @@ public class SchemaTree extends JTree {
 	
 	/**
 	 * Gets the actual schema for a data object based on its name.
-	 * @param dataFile The data file to get the schema for
+	 * @param className The name of the schema to fetch
 	 * @return The class of schema of the data
 	 */
 	@SuppressWarnings("unchecked")

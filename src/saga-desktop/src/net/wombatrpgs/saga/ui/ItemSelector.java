@@ -224,6 +224,7 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	
 	/**
 	 * Also listens for when the user presses select on an item for some reason.
+	 * @param	listener		The listener to call when a selection is made
 	 */
 	public void attachSelectListener(SlotListener listener) {
 		this.selectListener = listener;

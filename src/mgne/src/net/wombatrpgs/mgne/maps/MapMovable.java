@@ -52,10 +52,10 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	/** @see net.wombatrpgs.mgne.maps.Positionable#getY() */
 	@Override public float getY() { return y; }
 
-	/** @see net.wombatrpgs.mgne.maps.PositionSetable#setX(int) */
+	/** @see net.wombatrpgs.mgne.maps.PositionSetable#setX(float) */
 	@Override public void setX(float x) { this.x = x; }
 
-	/** @see net.wombatrpgs.mgne.maps.PositionSetable#setY(int) */
+	/** @see net.wombatrpgs.mgne.maps.PositionSetable#setY(float) */
 	@Override public void setY(float y) { this.y = y; }
 	
 	/** @return The x-velocity of this object, in px/s */
@@ -64,11 +64,11 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	/** @return The y-velocity of this object, in px/s */
 	public float getVY() { return this.vy; }
 	
-	/** @param f The offset to add to x */
-	public void moveX(float f) { this.x += f; }
+	/** @param x The offset to add to x */
+	public void moveX(float x) { this.x += x; }
 	
 	/** @param y The offset to add to x */
-	public void moveY(float g) { this.y += g; }
+	public void moveY(float y) { this.y += y; }
 	
 	/** @return True if this object is moving towards a location */
 	public boolean isTracking() { return tracking; }
@@ -76,7 +76,7 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	/** @return True if the object is moving, false otherwise */
 	public boolean isMoving() { return vx != 0 || vy != 0; }
 	
-	/** @param Listener to call when tracking is finished */
+	/** @param listener The listener to call when tracking is finished */
 	public void addTrackingListener(FinishListener listener) { trackingListeners.add(listener); }
 	
 	/**
@@ -124,7 +124,7 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	 * Calculates the direction towards some point on the map.
 	 * @param	x				The x-coord to face towards (in px)
 	 * @param	y				The y-coord to face towards (in px)
-	 * @return
+	 * @return					The direction from this object to that point
 	 */
 	public EightDir directionTo(float x, float y) {
 		float dx = getX() - x;
@@ -199,7 +199,7 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	 * Checks if this map-movable object contains the given point, inclusive.
 	 * @param	tileX			The x-coord to check (in tiles)
 	 * @param	tileY			The y-coord to check (in tiles)
-	 * @return
+	 * @return					True if that tile lies within this object
 	 */
 	public boolean containsTile(int tileX, int tileY) {
 		return	(x >= tileX * parent.getTileWidth()) && 

@@ -129,7 +129,6 @@ public class ScreenStack implements	Disposable,
 
 	/**
 	 * Renders the top screen on the stack.
-	 * @param	camera			The camera to render with
 	 */
 	public void render() {
 		if (screens.size() == 0) {

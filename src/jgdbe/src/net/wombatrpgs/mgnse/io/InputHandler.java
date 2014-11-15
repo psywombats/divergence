@@ -99,6 +99,7 @@ public class InputHandler {
 	
 	/**
 	 * Loads the user settings config file.
+	 * @param appConfigFile The file to use
 	 * @return the config contained in the json file, null if error
 	 */
 	public AppConfig parseAppConfig(File appConfigFile) {
@@ -155,6 +156,7 @@ public class InputHandler {
 	 * Loads up and instantiates a database entry into a schema.
 	 * @param schema The schema class of the new entry
  	 * @param data The file with the data used to populate it
+	 * @return The instantiated schema
 	 */
 	public MainSchema instantiateData(Class<? extends MainSchema> schema,  File data) {
 		MainSchema object = null;

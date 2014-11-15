@@ -25,6 +25,7 @@ public class IntegerField extends FieldPanel {
 
 	/**
 	 * Creates and initializes a new integer field editor.
+	 * @param parent		The parent panel of the field
 	 * @param defaultData 	The integer this field should contain by default
 	 * @param field 		The field to check for annotations and shit
 	 * @param schema 		The data object to read/write values from

@@ -40,7 +40,7 @@ public class Avatar extends MapEvent implements CommandListener {
 	}
 
 	/**
-	 * @see net.wombatrpgs.saga.rpg.CharacterEvent#reset()
+	 * @see net.wombatrpgs.mgne.maps.MapThing#reset()
 	 */
 	@Override
 	public void reset() {

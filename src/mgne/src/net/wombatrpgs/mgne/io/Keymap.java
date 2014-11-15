@@ -47,6 +47,7 @@ public class Keymap implements	InputProcessor,
 	
 	/**
 	 * Creates and intializes a new keymap.
+	 * @param	mdo				The data to create from
 	 */
 	public Keymap(KeymapMDO mdo) {
 		this();

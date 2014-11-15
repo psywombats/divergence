@@ -22,7 +22,9 @@ public class PlayNumber extends PlaybackStep {
 
 	/**
 	 * Creates a number playback for some enemies.
-	 * @param screen
+	 * @param	screen			The screen to play on
+	 * @param	damage			The amount of damage to take
+	 * @param	targets			The list of targets being damaged
 	 */
 	public PlayNumber(ScreenBattle screen, int damage, List<Chara> targets) {
 		super(screen);

@@ -72,7 +72,7 @@ public class EditorPanel extends JPanel {
 	public Schema getSchema() { return this.source; }
 	/** @return The tree of all schemers */
 	public SchemaTree getTree() { return this.logic.getSchemaTree(); }
-	/** @param The new dirty listener for this panel */
+	/** @param listener The new dirty listener for this panel */
 	public void setDirtyListener(DirtyListener listener) { this.dirtyListener = listener; }
 	
 	/** @param dirty True if this panel has unsaved changes */

@@ -131,7 +131,7 @@ public class EffectHeal extends EffectAllyTarget {
 	 * Applies the healing effect like in battle, but on the world map. This
 	 * performs the effect once the targets are finalized.
 	 * @param	caller			The screen calling the effect
-	 * @param	target			The finalized list of targets
+	 * @param	targets			The finalized list of targets
 	 */
 	protected void applyMapEffect(TargetSelectable caller, List<Chara> targets) {
 		boolean affected = false;

@@ -55,7 +55,6 @@ public abstract class MgnGame implements Disposable {
 	 * require much loading and should not expect an active level in the
 	 * level manager, but by the time the level is pushed to the stack, a level
 	 * will be active. The screen should come pre-processed.
-	 * @param	firstLevel		The first level to display
 	 * @return					The level display screen, showing that level
 	 */
 	public Screen makeLevelScreen() {

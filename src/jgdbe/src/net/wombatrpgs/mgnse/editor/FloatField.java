@@ -25,6 +25,7 @@ public class FloatField extends FieldPanel {
 
 	/**
 	 * Creates and initializes a new float field editor.
+	 * @param parent		The parent editor this field is a part of
 	 * @param defaultData 	The integer this field should contain by default
 	 * @param field 		The field to check for annotations and shit
 	 * @param schema 		The data object to read/write values from

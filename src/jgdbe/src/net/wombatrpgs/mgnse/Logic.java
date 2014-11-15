@@ -47,6 +47,7 @@ public class Logic {
 	 * Creates a new Logic object. It needs a parent to perform some basic i/o.
 	 * @param parent The parent frame
 	 * @param tree The tree this logic should work on
+	 * @param contentPane The right-hand panel with the editor contents?
 	 */
 	public Logic(MainFrame parent, SchemaTree tree, JPanel contentPane) {
 		this.in = new InputHandler(parent);
@@ -230,7 +231,6 @@ public class Logic {
 	
 	/**
 	 * Creates a new schema of the specified type.
-	 * @param T the type of schema to create
 	 * @param schema The type of schema to create
 	 * @param source Starter data for the schema, null if none
 	 */

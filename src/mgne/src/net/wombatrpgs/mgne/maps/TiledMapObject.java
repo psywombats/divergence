@@ -53,13 +53,16 @@ public class TiledMapObject {
 	/** @return The parent level of this tiled map object */
 	public LoadedLevel getLevel() { return parent; }
 	
-	/** @return The string value of the provided key */
+	/**	@param key The key of the property to fetch
+	 *	@return The string value of the provided key */
 	public String getString(String key) { return object.getProperties().get(key, String.class); }
 	
-	/** @return The integer value of the provided key */
+	/**	@param key The key of the property to fetch
+	 *	@return The integer value of the provided key */
 	public int getInt(String key) { return object.getProperties().get(key, Integer.class); }
 	
-	/** @return The float value of the provided key */
+	/**	@param key The key of the property to fetch
+	 *	@return The float value of the provided key */
 	public float getFloat(String key) { return object.getProperties().get(key, Float.class); }
 	
 	/** @return The x-coord of this object on the map (in pixels) */
@@ -86,7 +89,7 @@ public class TiledMapObject {
 	/**
 	 * Reads the map object's event type from its property list. Reports a
 	 * problem if the event has no event type.
-	 * @return
+	 * @return					The type of the map object (from property)
 	 */
 	public EventType getType() {
 		String value = getString(PROPERTY_TYPE);
@@ -108,7 +111,7 @@ public class TiledMapObject {
 	 * Interprets this object as a polygon. Likely to blow up if this object is
 	 * not a polygon, but hey, the libgdx underpinning is really brittle so
 	 * don't blame me.
-	 * @return
+	 * @return					The polygon representation of this object
 	 */
 	public Polygon getPolygon() {
 		if (PolygonMapObject.class.isAssignableFrom(object.getClass())) {

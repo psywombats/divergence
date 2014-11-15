@@ -32,8 +32,8 @@ public class Stats {
 	 * Creates a new stats object with the given types of stats. Populates the
 	 * initial values with the identity for each stat type. Mainly meant to be
 	 * called by a subclass constructor.
-	 * @param	statTypes		All numeric types this stats object contains
-	 * @param	flagTypes		All flag types this stats object contains
+	 * @param	allStats		All numeric types this stats object contains
+	 * @param	allFlags		All flag types this stats object contains
 	 */
 	public Stats(Collection<NumericStat> allStats, Collection<FlagStat> allFlags) {
 		statTypes = new HashMap<String, NumericStat>();

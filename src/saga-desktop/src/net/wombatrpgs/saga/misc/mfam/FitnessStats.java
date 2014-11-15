@@ -467,6 +467,7 @@ public class FitnessStats {
 	
 	/**
 	 * Reports some information in string form.
+	 * @return					The report string
 	 */
 	public String report() {
 		String report = "";
@@ -635,7 +636,7 @@ public class FitnessStats {
 	
 	/**
 	 * Calculates the standard deviation in a list.
-	 * @param	list			The list to calculate the deviation of
+	 * @param	gains			The list to calculate the deviation of
 	 * @return					The standard deviation
 	 */
 	protected static float stdev(List<Integer> gains) {

@@ -43,8 +43,7 @@ public class PolymorphField extends FieldPanel {
 	/**
 	 * Creates a new subpanel for selecting a subclass.
 	 * @param	parent			The editor to create for
-	 * @param	defaultData		The existing subclass that's there, or null
-	 * @param	annotation		The annotation containing the poly class
+	 * @param	data			Not entirely sure anymore
 	 * @param	field			The field to wrap around
 	 */
 	public PolymorphField(EditorPanel parent, PolymorphicLink data, Field field) {

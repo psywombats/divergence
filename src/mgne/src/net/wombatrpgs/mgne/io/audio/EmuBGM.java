@@ -18,7 +18,7 @@ public class EmuBGM extends BackgroundMusic {
 	
 	/**
 	 * Creates a new emu bgm to wrap a music object.
-	 * @param	emuMusic		The music object to wrap
+	 * @param	mdo				The data entry to create from
 	 */
 	public EmuBGM(EmuMusicEntryMDO mdo) {
 		this.mdo = mdo;

@@ -49,13 +49,15 @@ public class Party extends AssetQueuer implements Disposable {
 	/** @return The total number of characters in the party */
 	public int size() { return members.size(); }
 	
-	/** @return The nth monster group */
+	/**	@param n The index of the monster group to get
+	 *	@return The nth monster group */
 	public List<Chara> getGroup(int n) { return groups.get(n); }
 	
 	/** @return All members of this party */
 	public List<Chara> getAll() { return members; }
 	
-	/** @return A representative of the nth group */
+	/**	@param n The index of the group to get
+	 *	@return A representative of the nth group */
 	public Chara getFront(int n) { return getGroup(n).get(0); }
 
 	/**

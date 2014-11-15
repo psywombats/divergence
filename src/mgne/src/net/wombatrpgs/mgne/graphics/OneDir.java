@@ -19,8 +19,7 @@ public class OneDir extends FacesAnimation {
 
 	/**
 	 * Goes through the normal rigamarole of settings up an animation.
-	 * @param 	mdo				The animation strip this thing's holding
-	 * @param 	parent			The parent map
+	 * @param 	mdo				The data to create from
 	 */
 	public OneDir(AnimationMDO mdo) {
 		super(1);

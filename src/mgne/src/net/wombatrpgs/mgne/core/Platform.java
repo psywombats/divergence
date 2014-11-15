@@ -17,7 +17,7 @@ public abstract class Platform {
 	/**
 	 * Returns the releveant reporter for this platform. On desktop this should
 	 * print to a file or something, android saves a log?
-	 * @return
+	 * @return					The reporter for the platform
 	 */
 	public abstract Reporter getReporter();
 
