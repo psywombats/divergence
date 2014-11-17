@@ -18,7 +18,7 @@ import net.wombatrpgs.mgne.core.MAssets;
  */
 public class StoredSceneParser extends SceneParser {
 	
-	protected String filename;
+	protected String fileName;
 	protected LuaValue caller;
 	
 	/**
@@ -30,7 +30,7 @@ public class StoredSceneParser extends SceneParser {
 	public StoredSceneParser(String fileName, LuaValue caller) {
 		super();
 		this.caller = caller;
-		this.filename = Constants.SCENES_DIR + filename;
+		this.fileName = Constants.SCENES_DIR + fileName;
 	}
 	
 	/**
