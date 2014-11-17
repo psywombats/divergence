@@ -22,7 +22,7 @@
    H4sIAAAAAAAAC+3XQQqAIBAFUO9cCC3CE7Rp06IbVIdMwUAGNKsfWf0Hw4DKMOBmRimie/Q+EGpQndGHoy/WajPfaZFTzMlejjIiv0ElMlqXuGsi52FPYV+pWl83PN1AoKReiIiIaB9qd8gVm/E2bn4fd97k1JT7wJU9BDW/y33gib1gsjHbWIA10XM48u9QSvg7+p8VocNmnjwUAAA=
   </data>
  </layer>
- <objectgroup name="Object Layer 1">
+ <objectgroup name="Object Layer 1" visible="0">
   <object type="Event" x="64" y="144" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/parish_interior.tmx', 24, 4)"/>

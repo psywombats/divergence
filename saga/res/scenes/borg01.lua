@@ -34,7 +34,7 @@ face('borg', 'WEST')
 fade('normal')
 
 speak(hero, "I want to find out what happened to them. Maybe Jonas and Janine found their way into Hero.")
-speak("BORG", "If find any hint of them, you come back and tell me, okay? And be careful!")
+speak("BORG", "If you find any hint of them, you come back and tell me, okay? And be careful!")
 speak(hero, "I will.")
 speak("BORG", "Oh, Elder wanted to talk to you before you left.")
 sceneSwitch('opening_talked_borg', true)

@@ -43,7 +43,9 @@ public abstract class BattleAnim extends PortraitAnim {
 	 * of the animation and when used on the map.
 	 */
 	public void playSound() {
-		sfx.play();
+		if (sfx != null) {
+			sfx.play();
+		}
 	}
 
 	/**
