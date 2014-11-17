@@ -55,7 +55,7 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 	protected MonsterFamily family;
 	protected String name;
 	protected MutationManager mutantManager;
-	protected LuaValue lua;
+	protected transient LuaValue lua;
 	
 	/**
 	 * Creates a new character from data template.
