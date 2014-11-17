@@ -41,7 +41,7 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 	protected Map<String, EmuMusicEntryMDO> emuEntries;
 	protected Map<String, LoadedMusicEntryMDO> loadedEntries;
 	protected BackgroundMusic current, fadeOut;
-	protected boolean emuThreadRunning;
+	protected boolean emuThreadStarted;
 	protected transient AudioDevice out;
 	protected transient Thread emuThread;
 	
@@ -76,23 +76,18 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 			loadedEntries.put(entryMDO.refKey, entryMDO);
 		}
 		
-		emuThreadRunning = false;
+		emuThreadStarted = false;
 		emuThread = new Thread(new Runnable() {
 			@Override public void run() {
 				// only one should be playing at once
-				while (emuThreadRunning) {
-					boolean playing = false;
+				while (emuThreadStarted) {
 					for (MgnEmuPlayer player : players.values()) {
 						if (player.isPlaying()) {
 							boolean samplesWritten = player.writeSamples();
 							if (samplesWritten) {
-								playing = true;
 								break;
 							}
 						}
-					}
-					if (!playing) {
-						emuThreadRunning = false;
 					}
 				}
 			}
@@ -121,8 +116,8 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 			sound.dispose();
 		}
 		out.dispose();
-		if (emuThreadRunning) {
-			emuThreadRunning = false;
+		if (emuThreadStarted) {
+			emuThreadStarted = false;
 			try {
 				emuThread.join();
 			} catch (InterruptedException e) {
@@ -216,8 +211,8 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 	public void playEmuBGM(String key) {
 		BgmLookup bgm = lookupBGM(key);
 		bgm.player.playTrack(bgm.entryMDO.track);
-		if (!emuThreadRunning) {
-			emuThreadRunning = true;
+		if (!emuThreadStarted) {
+			emuThreadStarted = true;
 			emuThread.start();
 		}
 	}

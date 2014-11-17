@@ -31,7 +31,7 @@
 		},
 		{
 			"sprite" : "battle_anim/slash_mirror.png",
-			"start" : 0.0,
+			"start" : 0.5,
 			"duration" : 0.3,
 			"x" : 0.0,
 			"y" : 0.0,
