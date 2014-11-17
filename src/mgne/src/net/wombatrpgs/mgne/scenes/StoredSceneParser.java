@@ -24,7 +24,7 @@ public class StoredSceneParser extends SceneParser {
 	/**
 	 * Creates a new scene parser for a given file. No autoplay. Assumes no
 	 * repeat.
-	 * @param	fileName		The filename to load, relative to scenes dir
+	 * @param	fileName		The fileName to load, relative to scenes dir
 	 * @param	caller			The lua value this for this script
 	 */
 	public StoredSceneParser(String fileName, LuaValue caller) {
@@ -35,7 +35,7 @@ public class StoredSceneParser extends SceneParser {
 	
 	/**
 	 * Creates a new scene parser for a given file with no caller.
-	 * @param	fileName		The filename to laod, relative to scenes dir
+	 * @param	fileName		The fileName to laod, relative to scenes dir
 	 */
 	public StoredSceneParser(String fileName) {
 		this(fileName, LuaValue.NIL);
@@ -49,8 +49,8 @@ public class StoredSceneParser extends SceneParser {
 	 */
 	@Override
 	public void queueRequiredAssets(MAssets manager) {
-		if (filename != null) {
-			manager.load(filename, LuaValue.class);
+		if (fileName != null) {
+			manager.load(fileName, LuaValue.class);
 		}
 	}
 
@@ -61,7 +61,7 @@ public class StoredSceneParser extends SceneParser {
 	@Override
 	public void postProcessing(MAssets manager, int pass) {
 		if (pass == 0) {
-			LuaValue script = manager.get(filename, LuaValue.class);
+			LuaValue script = manager.get(fileName, LuaValue.class);
 			commands = SceneLib.parseScene(script, caller);
 		}
 		super.postProcessing(manager, pass);
@@ -72,8 +72,8 @@ public class StoredSceneParser extends SceneParser {
 	 */
 	@Override
 	public String toString() {
-		if (filename != null) {
-			return filename;
+		if (fileName != null) {
+			return fileName;
 		} else {
 			return "anon scene";
 		}
