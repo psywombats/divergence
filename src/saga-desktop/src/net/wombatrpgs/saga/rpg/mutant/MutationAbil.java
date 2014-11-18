@@ -62,7 +62,7 @@ public class MutationAbil extends Mutation {
 	 */
 	@Override
 	public String getMessage() {
-		if (loseAbil == null) {
+		if (loseAbil == null || loseAbil.getName().isEmpty()) {
 			return "acquired " + gainAbil.getName();
 		} else {
 			return chara.getName() + " lost " + loseAbil.getName() +

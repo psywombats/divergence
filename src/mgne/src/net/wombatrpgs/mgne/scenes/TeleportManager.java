@@ -125,6 +125,10 @@ public class TeleportManager implements Queueable {
 	 */
 	public void teleportRaw(Level map, int tileX, int tileY) {
 		MGlobal.audio.playBGM(map.getBGM());
+		Level old = MGlobal.getHero().getParent();
+		if (old != null) {
+			old.onFocusLost();
+		}
 		map.addEvent(MGlobal.getHero(), tileX, map.getHeight() - tileY - 1);
 		map.onFocusGained();
 		MGlobal.getHero().onAddedToMap(map);
