@@ -11,10 +11,10 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2XsQrAIAxEHZ2Ebv2D4tSp7f//WesgiGCaM2l1yEHAobk8KAbPOROiwChNL86cdN6JQply39Lwas2rmU6iUKbctza8WvNqJk8UykR5bU9Fxpw/mY6nrsmYuHOyzzIh0/oDUyC+qZk095MGU7oL1H6KA5jSXaD20wUylXN797imtuLswV7kf5hMJpPpm70v9XzLBj05Qer5lg16coLUE3kTIkwST2MyJm0m5J3KZZJ4ltnAO52cIPUss4F3OjnhC8/RugF88zQdPBQAAA==
+   H4sIAAAAAAAAC+2XvQrAIAyEHZ0Et75BcerU9v3frHUQRDBNTPyB5iDQod59i8EzRkWRQ4ykFyYnfh/AUJnSOV/xquWVTBcwVKZ0bqt41fJKJgsMlQny2t8JiJyRTOc792JM2Jzk4xdk2gYwOeCfkklyP0kwxbsA7acwgSneBWg/3USmPLd1j/eSHZChUqlUf1aPvc/1/OoGLT2B6/nVDVp6AteT8iakMHE8lUmZpJko71QsE8cz7wbWyPQErmfeDayR6Qk9PGfrAWJM6EM8FAAA
   </data>
  </layer>
- <layer name="Tile Layer 2" width="37" height="35">
+ <layer name="Tile Layer 2" width="37" height="35" visible="0">
   <properties>
    <property name="z" value=".5"/>
   </properties>
@@ -114,10 +114,10 @@
    <property name="z" value="1.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3WsQ0AIAwDwUzAKlSE/TcjJXWClYI/ya3l0mYAAKBqdA+4zGRUVsST2cJdAAAAP1D81Gqn4ntWO/3JCn1nhwNzh+3kPBQAAA==
+   H4sIAAAAAAAAC+3WsQ0AIAgFUSZwDWNFJe6/mRROoBAK7yW/JVciAgAAXrXqgKP79HIjqWn67HIrqQkAAOAXGX/q600NqYi9aSEV+TcrbG04Mbo8FAAA
   </data>
  </layer>
- <layer name="Tile Layer 4" width="37" height="35">
+ <layer name="Tile Layer 4" width="37" height="35" visible="0">
   <properties>
    <property name="z" value="1.5"/>
   </properties>
