@@ -195,6 +195,8 @@ public class Memory {
 	 */
 	protected void unloadFields() {
 		
+		MGlobal.memory.switches = switches;
+		
 		// this is needed to prevent lua calls from becoming stale?
 		MGlobal.lua = new Lua();
 		
