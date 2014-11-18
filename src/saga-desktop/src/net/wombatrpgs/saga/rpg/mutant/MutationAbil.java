@@ -50,7 +50,7 @@ public class MutationAbil extends Mutation {
 	 */
 	@Override
 	public String getDesc() {
-		if (loseAbil == null) {
+		if (loseAbil == null || loseAbil.getName().isEmpty()) {
 			return "acquire " + gainAbil.getName();
 		} else {
 			return "lose " + loseAbil.getName() + ", acquire " + gainAbil.getName();
