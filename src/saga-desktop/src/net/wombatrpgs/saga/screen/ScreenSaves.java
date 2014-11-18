@@ -147,7 +147,7 @@ public class ScreenSaves extends SagaScreen {
 		case MOVE_UP:		return moveCursor(-1);
 		case MOVE_DOWN:		return moveCursor(1);
 		case UI_CONFIRM:	return confirm();
-		case UI_FINISH:		return confirm();
+		case UI_FINISH:		return cancel();
 		case UI_CANCEL:		return cancel();
 		default:			return super.onCommand(command);
 		}
