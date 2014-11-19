@@ -14,7 +14,7 @@
    H4sIAAAAAAAAC+2XvQrAIAyEHZ0Et75BcerU9v3frHUQRDBNTPyB5iDQod59i8EzRkWRQ4ykFyYnfh/AUJnSOV/xquWVTBcwVKZ0bqt41fJKJgsMlQny2t8JiJyRTOc792JM2Jzk4xdk2gYwOeCfkklyP0kwxbsA7acwgSneBWg/3USmPLd1j/eSHZChUqlUf1aPvc/1/OoGLT2B6/nVDVp6AteT8iakMHE8lUmZpJko71QsE8cz7wbWyPQErmfeDayR6Qk9PGfrAWJM6EM8FAAA
   </data>
  </layer>
- <layer name="Tile Layer 2" width="37" height="35" visible="0">
+ <layer name="Tile Layer 2" width="37" height="35">
   <properties>
    <property name="z" value=".5"/>
   </properties>
@@ -22,7 +22,7 @@
    H4sIAAAAAAAAC+3XQQqAIBAFUO9cCC3CE7Rp06IbVIdMwUAGNKsfWf0Hw4DKMOBmRimie/Q+EGpQndGHoy/WajPfaZFTzMlejjIiv0ElMlqXuGsi52FPYV+pWl83PN1AoKReiIiIaB9qd8gVm/E2bn4fd97k1JT7wJU9BDW/y33gib1gsjHbWIA10XM48u9QSvg7+p8VocNmnjwUAAA=
   </data>
  </layer>
- <objectgroup name="Object Layer 1" visible="0">
+ <objectgroup name="Object Layer 1">
   <object type="Event" x="64" y="144" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/parish_interior.tmx', 24, 4)"/>
@@ -117,7 +117,7 @@
    H4sIAAAAAAAAC+3WsQ0AIAgFUSZwDWNFJe6/mRROoBAK7yW/JVciAgAAXrXqgKP79HIjqWn67HIrqQkAAOAXGX/q600NqYi9aSEV+TcrbG04Mbo8FAAA
   </data>
  </layer>
- <layer name="Tile Layer 4" width="37" height="35" visible="0">
+ <layer name="Tile Layer 4" width="37" height="35">
   <properties>
    <property name="z" value="1.5"/>
   </properties>

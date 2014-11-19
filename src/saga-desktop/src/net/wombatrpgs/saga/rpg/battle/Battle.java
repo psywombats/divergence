@@ -259,8 +259,8 @@ public class Battle extends AssetQueuer implements Disposable {
 		screen.selectMeatEater(0, new SelectionListener() {
 			@Override public boolean onSelection(Chara selected) {
 				
-				String eatername = selected.getName();
-				String droppername = meatDropper.getName();
+				String eatername = selected.getSpecies();
+				String droppername = meatDropper.getSpecies();
 				String sp = SConstants.NBSP;
 				List<String> lines = new ArrayList<String>();
 				
