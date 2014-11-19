@@ -10,11 +10,15 @@
     <property name="jgdb-schema.location" value="../jgdb-schema"/>
     <property name="jgdbe.location" value="../jgdbe"/>
     <property name="mgne-schema.location" value="../mgne-schema"/>
+    <property name="gme-java.location" value="../gme-java"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
     <path id="jgdb-schema.classpath">
         <pathelement location="${jgdb-schema.location}/bin"/>
+    </path>
+    <path id="gme-java.classpath">
+        <pathelement location="${gme-java.location}/bin"/>
     </path>
     <path id="jgdbe.classpath">
         <pathelement location="${jgdbe.location}/bin"/>
@@ -32,6 +36,7 @@
         <pathelement location="bin"/>
         <path refid="jgdb-schema.classpath"/>
         <path refid="mgne-schema.classpath"/>
+        <path refid="gme-java.classpath"/>
         <pathelement location="lib/gdx.jar"/>
         <pathelement location="lib/jackson-core-2.0.4.jar"/>
         <pathelement location="lib/jackson-databind-2.0.4.jar"/>
@@ -59,10 +64,16 @@
         <ant antfile="compile.xml" dir="${jgdb-schema.location}" inheritAll="false" target="clean"/>
         <ant antfile="compile.xml" dir="${jgdbe.location}" inheritAll="false" target="clean"/>
         <ant antfile="compile.xml" dir="${mgne-schema.location}" inheritAll="false" target="clean"/>
+        <ant antfile="compile.xml" dir="${gme-java.location}" inheritAll="false" target="clean"/>
     </target>
     <target depends="build-subprojects,build-project" name="build"/>
     <target name="build-subprojects">
         <ant antfile="compile.xml" dir="${jgdb-schema.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
+        <ant antfile="compile.xml" dir="${gme-java.location}" inheritAll="false" target="build-project">
             <propertyset>
                 <propertyref name="build.compiler"/>
             </propertyset>

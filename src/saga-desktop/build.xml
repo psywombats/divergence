@@ -11,6 +11,7 @@
     <property name="jgdbe.location" value="../jgdbe"/>
     <property name="mgne-schema.location" value="../mgne-schema"/>
     <property name="saga-schema.location" value="../saga-schema"/>
+    <property name="gme-java.location" value="../gme-java"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
@@ -43,6 +44,9 @@
         <pathelement location="${mgne.location}/lib/objenesis-1.2.jar"/>
         <pathelement location="${mgne.location}/lib/reflectasm-1.07.jar"/>
         <pathelement location="${mgne.location}/lib/kryo-serializers-0.26.jar"/>
+    </path>
+    <path id="gme-java.classpath">
+        <pathelement location="${gme-java.location}/bin"/>
     </path>
     <path id="saga-schema.classpath">
         <pathelement location="${saga-schema.location}/bin"/>
@@ -84,9 +88,15 @@
         <ant antfile="compile.xml" dir="${mgne-schema.location}" inheritAll="false" target="clean"/>
         <ant antfile="compile.xml" dir="${mgne.location}" inheritAll="false" target="clean"/>
         <ant antfile="compile.xml" dir="${saga-schema.location}" inheritAll="false" target="clean"/>
+        <ant antfile="compile.xml" dir="${gme-java.location}" inheritAll="false" target="clean"/>
     </target>
     <target depends="build-subprojects,build-project" name="build"/>
     <target name="build-subprojects">
+        <ant antfile="compile.xml" dir="${gme-java.location}" inheritAll="false" target="build-project">
+            <propertyset>
+                <propertyref name="build.compiler"/>
+            </propertyset>
+        </ant>
         <ant antfile="compile.xml" dir="${jgdb-schema.location}" inheritAll="false" target="build-project">
             <propertyset>
                 <propertyref name="build.compiler"/>
@@ -133,6 +143,7 @@
                 <attribute name="Rsrc-Class-Path" value="./ jackson-annotations-2.0.4.jar jackson-core-2.0.4.jar jackson-databind-2.0.4.jar gdx.jar jackson-core-2.0.4.jar jackson-databind-2.0.4.jar luaj-jse-3.0-beta2.jar kryo-2.23.0.jar asm-4.0.jar minlog-1.2.jar objenesis-1.2.jar reflectasm-1.07.jar kryo-serializers-0.26.jar gdx-backend-lwjgl-natives.jar gdx-backend-lwjgl.jar gdx-natives.jar"/>
             </manifest>
             <zipfileset src="jar-in-jar-loader.zip"/>
+            <fileset dir="../../src/gme-java/bin"/>
             <fileset dir="../../src/saga-desktop/bin"/>
             <fileset dir="../../src/mgne/bin"/>
             <fileset dir="../../src/jgdb-schema/bin"/>
