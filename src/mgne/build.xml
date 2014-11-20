@@ -6,19 +6,17 @@
               as the first entry and export the buildfile again. --><project basedir="." default="build" name="mgne">
     <property environment="env"/>
     <property name="saga-desktop.location" value="../saga-desktop"/>
+    <property name="mgne.location" value="../mgne"/>
     <property name="ECLIPSE_HOME" value="../../../Desktop/portable_executables/eclipse"/>
+    <property name="gme-java.location" value="../gme-java"/>
     <property name="jgdb-schema.location" value="../jgdb-schema"/>
     <property name="jgdbe.location" value="../jgdbe"/>
     <property name="mgne-schema.location" value="../mgne-schema"/>
-    <property name="gme-java.location" value="../gme-java"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
     <path id="jgdb-schema.classpath">
         <pathelement location="${jgdb-schema.location}/bin"/>
-    </path>
-    <path id="gme-java.classpath">
-        <pathelement location="${gme-java.location}/bin"/>
     </path>
     <path id="jgdbe.classpath">
         <pathelement location="${jgdbe.location}/bin"/>
@@ -32,11 +30,17 @@
         <path refid="jgdb-schema.classpath"/>
         <path refid="jgdbe.classpath"/>
     </path>
+    <path id="gme-java.classpath">
+        <pathelement location="${gme-java.location}/bin"/>
+        <pathelement location="${saga-desktop.location}/lib/gdx-backend-lwjgl-natives.jar"/>
+        <pathelement location="${saga-desktop.location}/lib/gdx-backend-lwjgl.jar"/>
+        <pathelement location="${saga-desktop.location}/lib/gdx-natives.jar"/>
+        <pathelement location="${mgne.location}/lib/gdx.jar"/>
+    </path>
     <path id="mgne.classpath">
         <pathelement location="bin"/>
         <path refid="jgdb-schema.classpath"/>
         <path refid="mgne-schema.classpath"/>
-        <path refid="gme-java.classpath"/>
         <pathelement location="lib/gdx.jar"/>
         <pathelement location="lib/jackson-core-2.0.4.jar"/>
         <pathelement location="lib/jackson-databind-2.0.4.jar"/>
@@ -47,6 +51,7 @@
         <pathelement location="lib/objenesis-1.2.jar"/>
         <pathelement location="lib/reflectasm-1.07.jar"/>
         <pathelement location="lib/kryo-serializers-0.26.jar"/>
+        <path refid="gme-java.classpath"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
@@ -61,29 +66,29 @@
         <delete dir="bin"/>
     </target>
     <target depends="clean" name="cleanall">
-        <ant antfile="compile.xml" dir="${jgdb-schema.location}" inheritAll="false" target="clean"/>
-        <ant antfile="compile.xml" dir="${jgdbe.location}" inheritAll="false" target="clean"/>
-        <ant antfile="compile.xml" dir="${mgne-schema.location}" inheritAll="false" target="clean"/>
-        <ant antfile="compile.xml" dir="${gme-java.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${gme-java.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${jgdb-schema.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${jgdbe.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${mgne-schema.location}" inheritAll="false" target="clean"/>
     </target>
     <target depends="build-subprojects,build-project" name="build"/>
     <target name="build-subprojects">
-        <ant antfile="compile.xml" dir="${jgdb-schema.location}" inheritAll="false" target="build-project">
+        <ant antfile="build.xml" dir="${gme-java.location}" inheritAll="false" target="build-project">
             <propertyset>
                 <propertyref name="build.compiler"/>
             </propertyset>
         </ant>
-        <ant antfile="compile.xml" dir="${gme-java.location}" inheritAll="false" target="build-project">
+        <ant antfile="build.xml" dir="${jgdb-schema.location}" inheritAll="false" target="build-project">
             <propertyset>
                 <propertyref name="build.compiler"/>
             </propertyset>
         </ant>
-        <ant antfile="compile.xml" dir="${jgdbe.location}" inheritAll="false" target="build-project">
+        <ant antfile="build.xml" dir="${jgdbe.location}" inheritAll="false" target="build-project">
             <propertyset>
                 <propertyref name="build.compiler"/>
             </propertyset>
         </ant>
-        <ant antfile="compile.xml" dir="${mgne-schema.location}" inheritAll="false" target="build-project">
+        <ant antfile="build.xml" dir="${mgne-schema.location}" inheritAll="false" target="build-project">
             <propertyset>
                 <propertyref name="build.compiler"/>
             </propertyset>
@@ -97,8 +102,8 @@
         </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
-        <ant antfile="compile.xml" dir="${saga-desktop.location}" inheritAll="false" target="clean"/>
-        <ant antfile="compile.xml" dir="${saga-desktop.location}" inheritAll="false" target="build">
+        <ant antfile="build.xml" dir="${saga-desktop.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${saga-desktop.location}" inheritAll="false" target="build">
             <propertyset>
                 <propertyref name="build.compiler"/>
             </propertyset>

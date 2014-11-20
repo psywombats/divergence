@@ -40,32 +40,32 @@
         </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects">
-        <ant antfile="compile.xml" dir="${jgdbe.location}" inheritAll="false" target="clean"/>
-        <ant antfile="compile.xml" dir="${jgdbe.location}" inheritAll="false" target="build">
+        <ant antfile="build.xml" dir="${jgdbe.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${jgdbe.location}" inheritAll="false" target="build">
             <propertyset>
                 <propertyref name="build.compiler"/>
             </propertyset>
         </ant>
-        <ant antfile="compile.xml" dir="${mgne.location}" inheritAll="false" target="clean"/>
-        <ant antfile="compile.xml" dir="${mgne.location}" inheritAll="false" target="build">
+        <ant antfile="build.xml" dir="${mgne.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${mgne.location}" inheritAll="false" target="build">
             <propertyset>
                 <propertyref name="build.compiler"/>
             </propertyset>
         </ant>
-        <ant antfile="compile.xml" dir="${mgne-schema.location}" inheritAll="false" target="clean"/>
-        <ant antfile="compile.xml" dir="${mgne-schema.location}" inheritAll="false" target="build">
+        <ant antfile="build.xml" dir="${mgne-schema.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${mgne-schema.location}" inheritAll="false" target="build">
             <propertyset>
                 <propertyref name="build.compiler"/>
             </propertyset>
         </ant>
-        <ant antfile="compile.xml" dir="${saga-desktop.location}" inheritAll="false" target="clean"/>
-        <ant antfile="compile.xml" dir="${saga-desktop.location}" inheritAll="false" target="build">
+        <ant antfile="build.xml" dir="${saga-desktop.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${saga-desktop.location}" inheritAll="false" target="build">
             <propertyset>
                 <propertyref name="build.compiler"/>
             </propertyset>
         </ant>
-        <ant antfile="compile.xml" dir="${saga-schema.location}" inheritAll="false" target="clean"/>
-        <ant antfile="compile.xml" dir="${saga-schema.location}" inheritAll="false" target="build">
+        <ant antfile="build.xml" dir="${saga-schema.location}" inheritAll="false" target="clean"/>
+        <ant antfile="build.xml" dir="${saga-schema.location}" inheritAll="false" target="build">
             <propertyset>
                 <propertyref name="build.compiler"/>
             </propertyset>
