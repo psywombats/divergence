@@ -20,6 +20,7 @@ import net.wombatrpgs.saga.rpg.warheads.AbilEffectFactory;
 import net.wombatrpgs.saga.screen.TargetSelectable;
 import net.wombatrpgs.sagaschema.graphics.banim.data.BattleAnimMDO;
 import net.wombatrpgs.sagaschema.rpg.abil.CombatItemMDO;
+import net.wombatrpgs.sagaschema.rpg.abil.data.AbilityType;
 import net.wombatrpgs.sagaschema.rpg.abil.data.EquipmentFlag;
 
 /**
@@ -102,6 +103,9 @@ public class CombatItem extends AssetQueuer {
 	
 	/** @return The MDO key of this item, used to compare for equality */
 	public String getKey() { return mdo.key; }
+	
+	/** @return The type (item or ability) of this combat item */
+	public AbilityType getType() { return mdo.type; }
 
 	/**
 	 * @see java.lang.Object#toString()
@@ -304,9 +308,12 @@ public class CombatItem extends AssetQueuer {
 	 * Checks if this item should be discarded, and if so, discards it.
 	 */
 	protected void checkDiscard() {
-		if (uses <= 0 && mdo.uses > 0) {
-			container.drop(this);
-		}
+		if (container == null) return;
+		if (uses > 0) return;
+		if (mdo.uses == 0) return;
+		if (mdo.type == AbilityType.ABILITY) return;
+		
+		container.drop(this);
 	}
 
 }

@@ -70,26 +70,35 @@ public class CharaInventory extends Inventory {
 	}
 	
 	/**
-	 * Restores any abilities in this inventory to top form.
+	 * @see net.wombatrpgs.saga.rpg.items.Inventory#regeneratesAt(int)
 	 */
-	public void restoreAbilUses() {
+	@Override
+	public boolean regeneratesAt(int n) {
 		switch (chara.getRace()) {
 		case HUMAN:
-			// losers
-			break;
+			return false;
 		case MONSTER: case ROBOT:
-			for (int i = 0; i < SLOT_COUNT; i += 1) {
-				restoreAt(i);
-			}
-			break;
+			return true;
 		case MUTANT:
-			for (int i = 0; i < 4; i += 1) {
-				restoreAt(i);
-			}
-			break;
+			return n < 4;
+		default:
+			MGlobal.reporter.warn("Unknown race: " + chara.getRace());
+			return false;
 		}
 	}
 	
+	/**
+	 * Restores any abilities in this inventory to top form.
+	 */
+	public void restoreAbilUses() {
+		for (int i = 0; i < capacity; i += 1) {
+			if (regeneratesAt(i)) {
+				restoreAt(i);
+			}
+		}
+	}
+
+
 	/**
 	 * Checks if the given slot can have the given item stored in it. This
 	 * checks for equipment exclusion flags as well as reserved slots

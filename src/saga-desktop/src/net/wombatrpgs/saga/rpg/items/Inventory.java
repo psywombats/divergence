@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.sagaschema.rpg.abil.data.AbilityType;
 
 /**
  * Can produce a list of combat items.
@@ -81,11 +82,22 @@ public abstract class Inventory {
 	/**
 	 * Calculates the price of the item at the given slot. Most of the time this
 	 * is the sell value, but for shops it's the buy value.
-	 * @param	i				The index of the slot to check
+	 * @param	n				The index of the slot to check
 	 * @return					The value of the item at the given slot, in GP
 	 */
-	public int valueAt(int i) {
-		return get(i).getCost(true);
+	public int valueAt(int n) {
+		return get(n).getCost(true);
+	}
+	
+	/**
+	 * Determines if the item at slot n regenerates its uses at any point. This
+	 * is used to make sure regenerating items are not discarded.
+	 * @param	n				The index of the slot to check
+	 * @return					True if that item can regenerate
+	 */
+	public boolean regeneratesAt(int n) {
+		CombatItem item = get(n);
+		return (item != null && item.getType() == AbilityType.ABILITY);
 	}
 	
 	/**
