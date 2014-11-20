@@ -109,6 +109,7 @@ public class CharaInventory extends Inventory {
 	public boolean canEquip(int slot, CombatItem item) {
 		if (!equippableAt(slot)) return false;
 		if (item == null) return true;
+		if (chara.getRace() == Race.ROBOT && item.getUses() == 1) return false;
 		for (int i = 0; i < capacity; i+= 1) {
 			if (slot == i) continue;
 			CombatItem other = get(i);
