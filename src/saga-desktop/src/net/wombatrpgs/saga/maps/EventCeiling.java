@@ -71,32 +71,13 @@ public class EventCeiling extends MapEvent {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.maps.events.MapEvent#onAddedToMap
-	 * (net.wombatrpgs.mgne.maps.Level)
-	 */
-	@Override
-	public void onAddedToMap(Level map) {
-		super.onAddedToMap(map);
-		map.addGridLayer(layer);
-	}
-
-	/**
-	 * @see net.wombatrpgs.mgne.maps.events.MapEvent#onRemovedFromMap
-	 * (net.wombatrpgs.mgne.maps.Level)
-	 */
-	@Override
-	public void onRemovedFromMap(Level map) {
-		super.onRemovedFromMap(map);
-		// screw it, you're stuck with a non-functional ceiling
-	}
-
-	/**
 	 * @see net.wombatrpgs.mgne.maps.MapThing#onMapFocusGained
 	 * (net.wombatrpgs.mgne.maps.Level)
 	 */
 	@Override
 	public void onMapFocusGained(Level map) {
 		super.onMapFocusGained(map);
+		map.addGridLayer(layer);
 		quicksetState();
 		MGlobal.getHero().addStepListener(stepListener);
 	}

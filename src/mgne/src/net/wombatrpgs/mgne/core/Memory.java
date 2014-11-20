@@ -204,6 +204,7 @@ public class Memory {
 		MGlobal.rand = rand;
 		
 		// put the hero on the new map
+		MGlobal.assets.loadAsset(level, "loaded level");
 		MGlobal.levelManager.setNewActiveSet(hero, level);
 		hero.setTileLocation(
 				hero.getTileX(),
@@ -216,7 +217,6 @@ public class Memory {
 	 */
 	protected void loadAssets() {
 		MGlobal.assets.loadAsset(MGlobal.screens, "loaded screens");
-		MGlobal.assets.loadAsset(MGlobal.levelManager.getActive(), "current level");
 		MGlobal.assets.loadAsset(MGlobal.getHero(), "avatar");
 	}
 }
