@@ -15,8 +15,7 @@
 	"loot" : "None",
 	"equipped" : [
 		"wpn_axeBattle",
-		"wpn_rapier",
-		"wpn_gunFire",
+		"wpn_gunStun",
 		"item_selfix"
 	],
 	"stats" : {
