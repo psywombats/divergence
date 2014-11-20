@@ -12,6 +12,7 @@
 	"meatEatLevel" : 0,
 	"meatTargetLevel" : 0,
 	"gp" : 0,
+	"loot" : "None",
 	"equipped" : [
 		"wpn_axeBattle",
 		"wpn_rapier",
@@ -25,6 +26,8 @@
 		"def" : 4,
 		"agi" : 4,
 		"mana" : 0,
-		"flags" : [ ]
+		"flags" : [
+			"EQUIPMENT_FIX"
+		]
 	}
 }

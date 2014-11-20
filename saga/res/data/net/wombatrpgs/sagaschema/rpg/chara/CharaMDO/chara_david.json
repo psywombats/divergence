@@ -27,6 +27,8 @@
 		"def" : 0,
 		"agi" : 8,
 		"mana" : 0,
-		"flags" : [ ]
+		"flags" : [
+			"EQUIPMENT_FIX"
+		]
 	}
 }
