@@ -83,7 +83,7 @@ public class ScreenTextIntro extends SagaScreen {
 		int mult = turbo == KeyState.DOWN ? 5 : 1;
 		scrolled += elapsed * SCROLL_SPEED * mult;
 		scrollFormat.y = (int) scrolled;
-		if (scrolled > height + MGlobal.window.getHeight() * .9f) {
+		if (scrolled > height + MGlobal.window.getHeight()) {
 			finished = true;
 		}
 		
