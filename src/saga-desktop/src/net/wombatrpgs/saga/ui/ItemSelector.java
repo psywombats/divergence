@@ -212,13 +212,7 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 		focus();
 		cursorOn = true;
 		
-		selected = 0;
-		if (battleOnly) {
-			while (!inventory.get(selected).isBattleUsable() &&
-					selected < inventory.slotCount()) {
-				selected += 1;
-			}
-		}
+		selected = findFirstSelectableSlot();
 		updateCursor();
 	}
 	
@@ -329,6 +323,20 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 		if (result) {
 			unfocus();
 		}
+	}
+	
+	/**
+	 * Looks up the first item that can be used from this selection.
+	 * @return					The index of the first usable item, if any
+	 */
+	protected int findFirstSelectableSlot() {
+		for (int i = 0; i < inventory.slotCount(); i += 1) {
+			CombatItem item = inventory.get(i);
+			if (item == null) continue;
+			if (!item.isBattleUsable() && battleOnly) continue;
+			return i;
+		}
+		return 0; // oops?
 	}
 
 }

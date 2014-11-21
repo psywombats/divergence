@@ -280,7 +280,7 @@ public class ScreenBattle extends SagaScreen {
 		
 		lastSelected = new HashMap<Chara, Integer>();
 		for (Chara hero : battle.getPlayer().getAll()) {
-			lastSelected.put(hero, 0);
+			lastSelected.put(hero, -1);
 		}
 		
 		bgm = MGlobal.audio.generateMusicForKey(BGM_NAME);
@@ -919,7 +919,10 @@ public class ScreenBattle extends SagaScreen {
 		if (selected != -1) {
 			abils.setSelected(selected);
 		} else {
-			abils.setSelected(lastSelected.get(chara));
+			int selectedMemo = lastSelected.get(chara);
+			if (selectedMemo != -1) {
+				abils.setSelected(selectedMemo);
+			}
 		}
 	}
 	
