@@ -1,4 +1,4 @@
 cd saga-desktop/
-call ant clean
+call ant cleanall
 call ant
 PAUSE
