@@ -5,7 +5,7 @@
 	"description" : "",
 	"abilityName" : "$BBRONZE",
 	"type" : "ITEM",
-	"uses" : 0,
+	"uses" : 50,
 	"cost" : 25,
 	"anim" : "banim_defend",
 	"equip" : [ ],
