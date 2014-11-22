@@ -235,7 +235,9 @@ public class ScreenBattle extends SagaScreen {
 		sprites = new ArrayList<FacesAnimation>();
 		for (Chara chara : battle.getPlayer().getAll()) {
 			FacesAnimation anim = chara.createSprite();
-			anim.startMoving();
+			if (chara.isAlive()) {
+				anim.startMoving();
+			}
 			anim.setFacing(OrthoDir.NORTH);
 			addUChild(anim);
 			sprites.add(anim);
