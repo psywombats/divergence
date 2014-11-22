@@ -7,7 +7,7 @@
 	"type" : "ITEM",
 	"uses" : 30,
 	"cost" : 200,
-	"anim" : "None",
+	"anim" : "banim_beam",
 	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",

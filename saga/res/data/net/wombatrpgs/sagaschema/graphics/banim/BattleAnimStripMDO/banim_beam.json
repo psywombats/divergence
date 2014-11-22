@@ -11,7 +11,7 @@
 			"duration" : 0.6,
 			"x" : 0.0,
 			"y" : 16.0,
-			"rotation" : "ROTATION_ENABLED"
+			"rotation" : "ROTATION_DISABLED"
 		},
 		{
 			"sprite" : "battle_anim/ball_small.png",
@@ -43,7 +43,7 @@
 			"duration" : 0.2,
 			"x" : 0.0,
 			"y" : 0.0,
-			"rotation" : "ROTATION_ENABLED"
+			"rotation" : "ROTATION_DISABLED"
 		}
 	]
 }
