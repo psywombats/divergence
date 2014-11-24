@@ -8,11 +8,10 @@ package net.wombatrpgs.mgne.core.reporters;
 
 import net.wombatrpgs.mgne.core.interfaces.Reporter;
 
-
 /**
  * A little reporter meant for psy to test shit.
  */
-public class DebugReporter implements Reporter {
+public class DummyReporter implements Reporter {
 	
 	public static boolean VERBOSE = true;
 
