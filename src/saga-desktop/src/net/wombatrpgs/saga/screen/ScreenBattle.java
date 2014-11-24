@@ -244,6 +244,8 @@ public class ScreenBattle extends SagaScreen {
 			assets.add(anim);
 		}
 		
+		MGlobal.reporter.err("Easy error");
+		
 		FontHolder font = MGlobal.ui.getFont();
 		
 		monsterlistFormat = new TextFormat();

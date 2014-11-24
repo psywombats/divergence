@@ -52,6 +52,7 @@
         <pathelement location="lib/reflectasm-1.07.jar"/>
         <pathelement location="lib/kryo-serializers-0.26.jar"/>
         <path refid="gme-java.classpath"/>
+        <pathelement location="lib/mysql-connector-java-5.1.15-bin.jar"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>

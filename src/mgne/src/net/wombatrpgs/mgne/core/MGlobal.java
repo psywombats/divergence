@@ -188,5 +188,13 @@ public class MGlobal {
 	public static Avatar getHero() {
 		return levelManager.getHero();
 	}
+	
+	/**
+	 * Fetches the versioning info for the wrapped game.
+	 * @return					The versioning info
+	 */
+	public static VersionInfo getVersion() {
+		return game.getVersionInfo();
+	}
 
 }

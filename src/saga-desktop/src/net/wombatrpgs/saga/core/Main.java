@@ -3,7 +3,7 @@ package net.wombatrpgs.saga.core;
 import net.wombatrpgs.mgne.core.Platform;
 import net.wombatrpgs.mgne.core.SuperGame;
 import net.wombatrpgs.mgne.core.interfaces.Reporter;
-import net.wombatrpgs.mgne.core.reporters.FileReporter;
+import net.wombatrpgs.mgne.core.reporters.DatabaseReporter;
 
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
@@ -41,7 +41,7 @@ public class Main {
 				new SagaGame(),
 				new Platform() {
 					@Override public Reporter getReporter() {
-						return new FileReporter();
+						return new DatabaseReporter();
 					}
 		}, args), cfg);
 	}

@@ -13,6 +13,7 @@ import org.luaj.vm2.lib.TwoArgFunction;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.Memory;
 import net.wombatrpgs.mgne.core.MgnGame;
+import net.wombatrpgs.mgne.core.VersionInfo;
 import net.wombatrpgs.mgne.graphics.GraphicsSettings;
 import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.screen.Screen;
@@ -101,6 +102,18 @@ public class SagaGame extends MgnGame {
 		libs.add(SagaSceneLib.class);
 		libs.add(SagaEventLib.class);
 		return libs;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.MgnGame#getVersionInfo()
+	 */
+	@Override
+	public VersionInfo getVersionInfo() {
+		return new VersionInfo(SConstants.VERSION, SConstants.BUILD, SConstants.GAME_NAME) {
+			@Override public String getUserName() {
+				return System.getProperty("user.name");
+			}
+		};
 	}
 
 	/**

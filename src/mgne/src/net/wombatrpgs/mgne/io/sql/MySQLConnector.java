@@ -76,7 +76,7 @@ public class MySQLConnector {
 		try {
 			PreparedStatement statement = connection.prepareStatement(query);
 			for (int i = 0; i < entries.size(); i += 1) {
-				entries.get(i).set(statement, i);
+				entries.get(i).set(statement, i+1);
 			}
 			statement.execute();
 		} catch (SQLException e) {

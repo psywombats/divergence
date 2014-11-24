@@ -170,6 +170,13 @@ public abstract class MgnGame implements Disposable {
 		MGlobal.levelManager.setNewActiveSet(hero, level);
 		MGlobal.assets.loadAsset(hero, "hero");
 	}
+	
+	/**
+	 * Supply the version info associated with this game. This is used for error
+	 * reporting.
+	 * @return					The version information for the game
+	 */
+	public abstract VersionInfo getVersionInfo();
 
 	/**
 	 * Called when the game is shutting down. Default is nothing.
