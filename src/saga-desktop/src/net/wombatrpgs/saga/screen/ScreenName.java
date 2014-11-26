@@ -307,6 +307,7 @@ public class ScreenName extends SagaScreen {
 	 * Assigns the name to the character and closes the screen.
 	 */
 	protected void finish() {
+		if (finished) return;
 		chara.setName(name);
 		if (listener != null) {
 			listener.onFinish();

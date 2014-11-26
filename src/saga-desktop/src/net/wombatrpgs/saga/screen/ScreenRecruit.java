@@ -47,6 +47,7 @@ public class ScreenRecruit extends SagaScreen {
 	protected List<FacesAnimation> sprites;
 	protected FinishListener listener;
 	protected int selected;
+	protected boolean confirming;
 	
 	protected Nineslice titleBG, recruitBG;
 	protected TextFormat titleFormat, recruitFormat;
@@ -231,6 +232,8 @@ public class ScreenRecruit extends SagaScreen {
 	 * Transitions to the name screen.
 	 */
 	protected void onConfirm() {
+		if (confirming) return;
+		confirming = true;
 		CharaMDO result = MGlobal.data.getEntryFor(mdo.options[selected], CharaMDO.class);
 		Chara chara = new Chara(result);
 		MGlobal.assets.loadAsset(chara, "recruited chara");
