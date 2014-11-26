@@ -111,15 +111,15 @@
  </objectgroup>
  <layer name="Tile Layer 3" width="37" height="35">
   <properties>
-   <property name="z" value="1.0"/>
+   <property name="z" value="2"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3WQQ0AIAwEwSrACj/8S8NAf03TBGYEXO65EQBA1Zo+kNjTBxJn+gAAwGc6OrW62dGp1c2OTn2lfS9m0XsEPBQAAA==
+   H4sIAAAAAAAAC+3WsQ0AIAhEUSZwFLUR999MCydQLhT+l1xLfokZAAB4VbIDjrrXLtdFTWPPLzdFTQAAAL9Q/KmvN1tIRexND6nQ38ywAJBkYp08FAAA
   </data>
  </layer>
  <layer name="Tile Layer 4" width="37" height="35">
   <properties>
-   <property name="z" value="1.5"/>
+   <property name="z" value="2.5"/>
   </properties>
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3WsQkAMAwDQc+cNst7gXTBCMzdAELlVwEAG530gYebPgAAQNxEp/5uTnTqlvZtSIKT0zwUAAA=

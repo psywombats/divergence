@@ -115,7 +115,6 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 		for (SoundObject sound : sounds.values()) {
 			sound.dispose();
 		}
-		out.dispose();
 		if (emuThreadStarted) {
 			emuThreadStarted = false;
 			try {
@@ -132,6 +131,7 @@ public class SoundManager extends AssetQueuer implements	Disposable,
 			fadeOut.stop();
 			fadeOut.dispose();
 		}
+		out.dispose();
 	}
 
 	/**
