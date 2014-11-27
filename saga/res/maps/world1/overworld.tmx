@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="16" tileheight="16">
+<map version="1.0" orientation="orthogonal" width="64" height="64" tilewidth="16" tileheight="16">
  <properties>
   <property name="bgm" value="ffl3_overworld"/>
   <property name="name" value="Home World"/>
@@ -12,7 +12,7 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2aOW7EMAxFPUdzaZ8iSaUqyP2rTIAIID4oLhIlYgYqPrxEpvi4KF7mPo7jDlAJsvOq2vz5Pmz+zb/5N//mj9fjX7P4L+O5LPbqD6r+bYSf2pPOZYnjRpVDro8R25kxsPpXyL4nDlb7GTGw+lT5aw28C7/kIzeuZw14VX6tB6LZs/g9/hU4rr1wwZaef4cY1DHe/HticBvs0tiuZK/q6X9LLaAvK/kxBujrKL9WC5Ivq/jrvNi7OGaUn8ZAGnsyiubV6ouLcy+/J2dcbE6wtTIGdG4vf0+9cvW/kl+KgYe/t1crd6v+M3rCm/+Z6xRXE6tk4feyaxxSDaxm1/h78o5j8fgk29W178l/DzvHgtdnPhehPy3+kX6nOeVsZD0bcPcCXA9ErnWSjWh+js+i0rDR4wP29AP28X48mh+fYz38UXnHexsUPltHxAFt01ho8eh5B8blWlrPufzTbXTdc89lFn5rHDT2U5ivFYOROhjl19YQnMvCL8UAY3Ez84zEwMuP74I1RfBH94LFtiQPvyUGFhuR60CrD6w8Xv5RrVoLs/klv1r1GV0HXn5r/c6IVYQi+KNi0OPPzBi01oSo+m/VckYdeOZtfQ+nTNr/E+mdcxY/nf8W7Eu/B5BiwDHTbU8uZvBzvPT5F+ufjtXYLfe02flv5bsw0nxosXL7nn6cyYvzUH5rH6Ct1ve/j6e+HP6s4r9hHm7O3t8FUX0/9QPnTkYra57yS/NiL8zwhYsFpxn8mmr+r0n8GeyYdy8/Xhexhq1k1+qA+l9gn7umxdnLP5PXyk/zL+lvTOtdlXcdy2C31j/tg6p34Je46f2PVgfc2ujlX3WvZ+W/mO0lHGfzjPB7en5W/jP4L2af5lbLOz2Pyv62axH3XryX3zIu2v/PCeqtf9QM32b5urW1tfVq+gVCDzrAAEAAAA==
+   H4sIAAAAAAAAC+2ayU7EMAyGO4/WY/sUwCknxPufGCQiWb8cL4kTiyGHX11IHX9eQpe5j+O4A1SC7PxVbf58Hzb/5t/8m3/zx+vxq1n8l/FcFnv1B1X/NsJP7UnnssRxo8oh18eI7cwYWP0rZN8TB6v9jBhYfar8tQZehV/ykRvXswb8VX6tB6LZs/g9/hU4rr1wwZaef4UY1DHe/HticBvs0tiuZK/q6X9LLaAvK/kxBujrKL9WC5Ivq/jrvNi7OGaUn8ZAGnsyiubV6ouLcy+/J2dcbE6wtTIGdG4vf0+9cvW/kl+KgYe/t1crd6v+M3rCm/+Z6xRXE6tk4feyaxxSDaxm1/h78o5j8fgk29W178l/DzvHgtdnPhehPy3+kX6nOeVsZD0bcPcCXA9ErnWSjWh+js+i0rDR4wP29AP28X48mh+fYz38UXnHexsUPltHxAFt01ho8eh5B8blWlrPufzTbXTdc89lFn5rHDT2U5ivFYOROhjl19YQnMvCL8UAY3Ez84zEwMuP74I1RfBH94LFtiQPvyUGFhuR60CrD6w8Xv5RrVoLs/klv1r1GV0HXn5r/c6IVYQi+KNi0OPPzBi01oSo+m/VckYdeOZtfQ+nTNr/E+mdcxY/nf8W7Eu/B5BiwDHTbU8uZvBzvPT5F+ufjtXYLfe02flv5bsw0nxosXL7nn6cyYvzUH5rH6Ct1ve/t6c+HP6s4r9hHm7O3t8FUX0+9QXnTkYra57yS/NiL8zwhYsFpxn8mmr+r0n8GeyYdy8/Xhexhq1k1+qA+l9gn7umxdnLP5PXyk/zL+lnTOtdlXcdy2C31j/tg6pX4Je46f2PVgfc2ujlX3WvZ+W/mO0lHGfzjPB7en5W/jP4L2af5lbLOz2Pyv62axH3XryX3zIu2v/3CSqNfe7YO26Gr1tbW1v/Ud+pWs0BAEAAAA==
   </data>
  </layer>
  <layer name="Tile Layer 2" width="64" height="64">
@@ -23,7 +23,7 @@
    H4sIAAAAAAAAC+3ZsQqDMBAA0Hx7V1enrILfWYVAwdJBaby09x6EyyRnvMQYSwEAAADOqNEJJPfY2tRiRvu9zy32MvLYZn/+lLJGJ0Aq6o07ebeNxfwHdj2/u36FMxAAyMs+gAjOR+LM0QnAgJboBCCIfeD7/M+4HqiDl1714F/U2JZDPPb5D/VD/+o1AODbnnXUNEgAQAAA
   </data>
  </layer>
- <objectgroup name="Object Layer 1">
+ <objectgroup name="Object Layer 1" width="0" height="0">
   <object name="Hometown" type="Event" x="192" y="288" width="16" height="16">
    <properties>
     <property name="onCollide" value="teleport('world1/parish.tmx', 20, 34, 'NORTH')"/>

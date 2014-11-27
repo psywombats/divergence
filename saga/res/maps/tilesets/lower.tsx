@@ -165,20 +165,6 @@
   <properties>
    <property name="x" value=""/>
   </properties>
-  <animation>
-   <frame tileid="56" duration="500"/>
-   <frame tileid="63" duration="500"/>
-   <frame tileid="70" duration="500"/>
-   <frame tileid="77" duration="500"/>
-  </animation>
- </tile>
- <tile id="58">
-  <animation>
-   <frame tileid="59" duration="500"/>
-   <frame tileid="60" duration="500"/>
-   <frame tileid="61" duration="500"/>
-   <frame tileid="62" duration="500"/>
-  </animation>
  </tile>
  <tile id="63">
   <properties>
@@ -209,14 +195,23 @@
   <properties>
    <property name="x" value=""/>
   </properties>
-  <animation>
-   <frame tileid="84" duration="500"/>
-   <frame tileid="91" duration="500"/>
-   <frame tileid="98" duration="500"/>
-   <frame tileid="105" duration="500"/>
-  </animation>
  </tile>
  <tile id="91">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="95">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="96">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="97">
   <properties>
    <property name="x" value=""/>
   </properties>
@@ -226,7 +221,17 @@
    <property name="x" value=""/>
   </properties>
  </tile>
+ <tile id="102">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
  <tile id="103">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="104">
   <properties>
    <property name="x" value=""/>
   </properties>
@@ -236,7 +241,17 @@
    <property name="x" value=""/>
   </properties>
  </tile>
- <tile id="107">
+ <tile id="109">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="110">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="111">
   <properties>
    <property name="x" value=""/>
   </properties>
