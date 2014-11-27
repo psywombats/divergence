@@ -248,7 +248,7 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 	public void onUnequip(CombatItem item) {
 		applyStatset(item.getStatset(), true);
 		if (getRace() == Race.ROBOT) {
-			item.halveUses();
+			//item.halveUses();
 			applyStatset(item.getRobostats(), true);
 			heal(0);
 		}
