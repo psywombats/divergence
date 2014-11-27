@@ -124,6 +124,13 @@ public class MonsterFamily {
 			MGlobal.reporter.err("Empty family: " + otherFamily.mdo.key);
 			return null;
 		}
+		
+		// Can't transform into monster we haven't implemented yet
+		// change this once they're updated
+		if (best.meatEatLevel > 3) {
+			return null;
+		}
+		
 		return best;
 	}
 	

@@ -2,24 +2,28 @@
 	"key" : "enemy_rat03_GIANT RAT",
 	"subfolder" : "level03",
 	"name" : "GIANT RAT",
-	"description" : "Converted from a report",
+	"description" : "threat 1",
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "mfamily_rat",
 	"species" : "GIANT RAT",
-	"appearance" : "4dir_ffl2_human",
-	"portrait" : "battle_portraits/goblin.png",
+	"appearance" : "4dir_rat",
+	"portrait" : "battle_portraits/rat.png",
 	"meatEatLevel" : 4,
 	"meatTargetLevel" : 3,
 	"gp" : 120,
-	"equipped" : [ ],
+	"loot" : "None",
+	"equipped" : [
+		"abil_claw",
+		"abil_bite"
+	],
 	"stats" : {
-		"hp" : null,
-		"mhp" : null,
-		"str" : null,
-		"def" : null,
-		"agi" : null,
-		"mana" : null,
-		"flags" : null
+		"hp" : 150,
+		"mhp" : 150,
+		"str" : 15,
+		"def" : 13,
+		"agi" : 14,
+		"mana" : 12,
+		"flags" : [ ]
 	}
 }

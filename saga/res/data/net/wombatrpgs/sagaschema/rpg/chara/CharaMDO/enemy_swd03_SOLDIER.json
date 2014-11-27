@@ -2,25 +2,27 @@
 	"key" : "enemy_swd03_SOLDIER",
 	"subfolder" : "level03",
 	"name" : "SOLDIER",
-	"description" : "Converted from a report",
+	"description" : "threat 2",
 	"gender" : "NONE",
 	"race" : "MONSTER",
-	"family" : "mfamily_swd",
+	"family" : "None",
 	"species" : "SOLDIER",
 	"appearance" : "4dir_ffl2_human",
-	"portrait" : "battle_portraits/goblin.png",
+	"portrait" : "battle_portraits/swd.png",
 	"meatEatLevel" : 0,
 	"meatTargetLevel" : 3,
 	"gp" : 120,
-	"loot" : null,
-	"equipped" : [ ],
+	"loot" : "wpn_katana",
+	"equipped" : [
+		"wpn_katana"
+	],
 	"stats" : {
-		"hp" : null,
-		"mhp" : null,
-		"str" : null,
-		"def" : null,
-		"agi" : null,
-		"mana" : null,
-		"flags" : null
+		"hp" : 103,
+		"mhp" : 103,
+		"str" : 16,
+		"def" : 10,
+		"agi" : 17,
+		"mana" : 3,
+		"flags" : [ ]
 	}
 }

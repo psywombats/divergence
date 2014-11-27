@@ -2,24 +2,30 @@
 	"key" : "enemy_arm03_BEETLE",
 	"subfolder" : "level03",
 	"name" : "BEETLE",
-	"description" : "Converted from a report",
+	"description" : "threat 2",
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "mfamily_arm",
 	"species" : "BEETLE",
-	"appearance" : "4dir_ffl2_human",
-	"portrait" : "battle_portraits/goblin.png",
+	"appearance" : "4dir_beetle",
+	"portrait" : "battle_portraits/arm.png",
 	"meatEatLevel" : 4,
 	"meatTargetLevel" : 3,
 	"gp" : 120,
-	"equipped" : [ ],
+	"loot" : "None",
+	"equipped" : [
+		"abil_bite",
+		"abil_shell"
+	],
 	"stats" : {
-		"hp" : null,
-		"mhp" : null,
-		"str" : null,
-		"def" : null,
-		"agi" : null,
-		"mana" : null,
-		"flags" : null
+		"hp" : 103,
+		"mhp" : 103,
+		"str" : 16,
+		"def" : 19,
+		"agi" : 11,
+		"mana" : 9,
+		"flags" : [
+			"ANIMAL"
+		]
 	}
 }

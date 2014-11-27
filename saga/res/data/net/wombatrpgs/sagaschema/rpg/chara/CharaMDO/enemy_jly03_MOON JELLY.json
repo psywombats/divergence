@@ -2,24 +2,33 @@
 	"key" : "enemy_jly03_MOON JELLY",
 	"subfolder" : "level03",
 	"name" : "MOON JELLY",
-	"description" : "Converted from a report",
+	"description" : "threat 1",
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "mfamily_jly",
 	"species" : "MOON JELLY",
-	"appearance" : "4dir_ffl2_human",
-	"portrait" : "battle_portraits/goblin.png",
+	"appearance" : "4dir_jelly",
+	"portrait" : "battle_portraits/jly.png",
 	"meatEatLevel" : 4,
 	"meatTargetLevel" : 3,
 	"gp" : 120,
-	"equipped" : [ ],
+	"loot" : "None",
+	"equipped" : [
+		"abil_tentacle",
+		"abil_heal",
+		"abil_recover",
+		"abil_warning"
+	],
 	"stats" : {
-		"hp" : null,
-		"mhp" : null,
-		"str" : null,
-		"def" : null,
-		"agi" : null,
-		"mana" : null,
-		"flags" : null
+		"hp" : 126,
+		"mhp" : 126,
+		"str" : 3,
+		"def" : 6,
+		"agi" : 12,
+		"mana" : 18,
+		"flags" : [
+			"AQUATIC",
+			"ANIMAL"
+		]
 	}
 }

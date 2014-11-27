@@ -2,24 +2,30 @@
 	"key" : "enemy_dem03_IMP",
 	"subfolder" : "level03",
 	"name" : "IMP",
-	"description" : "Converted from a report",
+	"description" : "threat 1",
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "mfamily_dem",
 	"species" : "IMP",
-	"appearance" : "4dir_ffl2_human",
-	"portrait" : "battle_portraits/goblin.png",
+	"appearance" : "4dir_demon",
+	"portrait" : "battle_portraits/dem.png",
 	"meatEatLevel" : 4,
 	"meatTargetLevel" : 3,
 	"gp" : 120,
-	"equipped" : [ ],
+	"loot" : "None",
+	"equipped" : [
+		"abil_claw",
+		"abil_dive",
+		"abil_poison",
+		"abil_ofire"
+	],
 	"stats" : {
-		"hp" : null,
-		"mhp" : null,
-		"str" : null,
-		"def" : null,
-		"agi" : null,
-		"mana" : null,
-		"flags" : null
+		"hp" : 126,
+		"mhp" : 126,
+		"str" : 14,
+		"def" : 7,
+		"agi" : 14,
+		"mana" : 14,
+		"flags" : [ ]
 	}
 }

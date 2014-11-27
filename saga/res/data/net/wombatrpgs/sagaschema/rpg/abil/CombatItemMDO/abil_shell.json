@@ -1,0 +1,17 @@
+{
+	"key" : "abil_shell",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "SHELL",
+	"type" : "ABILITY",
+	"uses" : 30,
+	"cost" : 0,
+	"anim" : "banim_defend",
+	"equip" : [ ],
+	"warhead" : null,
+	"tier" : 0,
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

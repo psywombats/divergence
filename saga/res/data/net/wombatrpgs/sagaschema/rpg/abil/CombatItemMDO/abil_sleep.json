@@ -1,0 +1,20 @@
+{
+	"key" : "abil_sleep",
+	"subfolder" : "abil",
+	"name" : "",
+	"description" : "",
+	"abilityName" : "SLEEP",
+	"type" : "ABILITY",
+	"uses" : 10,
+	"cost" : 0,
+	"anim" : "banim_spell",
+	"equip" : [ ],
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
+		"key" : "anon_CombatItemMDO_1769031266"
+	},
+	"tier" : 0,
+	"robostats" : {
+		"stats" : [ ]
+	}
+}

@@ -2,24 +2,29 @@
 	"key" : "enemy_hag03_BANSHEE",
 	"subfolder" : "level03",
 	"name" : "BANSHEE",
-	"description" : "Converted from a report",
+	"description" : "threat 3",
 	"gender" : "NONE",
 	"race" : "MONSTER",
 	"family" : "mfamily_hag",
 	"species" : "BANSHEE",
-	"appearance" : "4dir_ffl2_human",
-	"portrait" : "battle_portraits/goblin.png",
+	"appearance" : "4dir_demon",
+	"portrait" : "battle_portraits/hag.png",
 	"meatEatLevel" : 4,
 	"meatTargetLevel" : 3,
 	"gp" : 120,
-	"equipped" : [ ],
+	"loot" : "None",
+	"equipped" : [
+		"abil_claw",
+		"abil_tremble",
+		"abil_scream"
+	],
 	"stats" : {
-		"hp" : null,
-		"mhp" : null,
-		"str" : null,
-		"def" : null,
-		"agi" : null,
-		"mana" : null,
-		"flags" : null
+		"hp" : 103,
+		"mhp" : 103,
+		"str" : 13,
+		"def" : 9,
+		"agi" : 9,
+		"mana" : 14,
+		"flags" : [ ]
 	}
 }
