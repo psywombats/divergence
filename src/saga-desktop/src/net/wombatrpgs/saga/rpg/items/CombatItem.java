@@ -53,6 +53,7 @@ public class CombatItem extends AssetQueuer {
 		stats = new SagaStats();
 		robostats = new SagaStats(mdo.robostats);
 		
+		// this case should only happen for defense combat items
 		if (mdo.warhead != null) {
 			effect = AbilEffectFactory.create(mdo.warhead.key, this);
 			assets.add(effect);
@@ -68,11 +69,14 @@ public class CombatItem extends AssetQueuer {
 	/**
 	 * Creates a combat item with a fixed effect. Does not queue the effect.
 	 * @param	mdo				The data to create from
-	 * @param	effect			The effect to create with
+	 * @param	effect			The effect to create with, must not be null
 	 */
 	public CombatItem(CombatItemMDO mdo, AbilEffect effect) {
 		this(mdo);
 		this.effect = effect;
+		if (effect == null) {
+			MGlobal.reporter.err("Null effect for mdo: " + mdo);
+		}
 	}
 	
 	/**
@@ -130,6 +134,7 @@ public class CombatItem extends AssetQueuer {
 	 * @param	caller			The interface used to get other targets for this
 	 */
 	public void onMapUse(TargetSelectable caller) {
+		ensureEffect();
 		effect.onMapUse(caller);
 	}
 	
@@ -138,6 +143,7 @@ public class CombatItem extends AssetQueuer {
 	 * @return					True if this item can be used on the map
 	 */
 	public boolean isMapUsable() {
+		ensureEffect();
 		return effect.isMapUsable();
 	}
 	
@@ -146,6 +152,7 @@ public class CombatItem extends AssetQueuer {
 	 * @return					True if this item can be used in battle
 	 */
 	public boolean isBattleUsable() {
+		ensureEffect();
 		return effect.isBattleUsable();
 	}
 	
@@ -314,6 +321,15 @@ public class CombatItem extends AssetQueuer {
 		if (mdo.type == AbilityType.ABILITY) return;
 		
 		container.drop(this);
+	}
+	
+	/**
+	 * Makes sure the item effect is non-null.
+	 */
+	protected void ensureEffect() {
+		if (effect == null) {
+			MGlobal.reporter.err("Null effect on item: " + mdo.abilityName);
+		}
 	}
 
 }
