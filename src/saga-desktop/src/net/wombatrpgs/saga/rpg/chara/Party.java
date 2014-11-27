@@ -121,7 +121,7 @@ public class Party extends AssetQueuer implements Disposable {
 	 * @param	chara1			One of the characters to group swap
 	 * @param	chara2			The other character to group swap
 	 */
-	public void swap(Chara chara1, Chara chara2) {
+	public final void swap(Chara chara1, Chara chara2) {
 		swap(charaToIndex(chara1), charaToIndex(chara2));
 	}
 	

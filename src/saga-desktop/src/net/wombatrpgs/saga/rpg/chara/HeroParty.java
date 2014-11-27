@@ -68,9 +68,6 @@ public class HeroParty extends Party {
 	/** @return The inventory of the party */
 	public PartyInventory getInventory() { return inventory; }
 	
-	/** @return The front member of the party */
-	public Chara getFront() { return getFront(0); }
-	
 	/** @return The party's collectable set */
 	public CollectableSet getCollection() { return collection; }
 	
@@ -84,6 +81,15 @@ public class HeroParty extends Party {
 	@Override
 	public boolean isCarryingItemType(String itemKey) {
 		return super.isCarryingItemType(itemKey) || inventory.containsItemType(itemKey);
+	}
+
+	/**
+	 * @see net.wombatrpgs.saga.rpg.chara.Party#swap(int, int)
+	 */
+	@Override
+	public void swap(int index1, int index2) {
+		super.swap(index1, index2);
+		setLeaderAppearance();
 	}
 
 	/**
@@ -141,6 +147,52 @@ public class HeroParty extends Party {
 	 */
 	public boolean addItem(CombatItem item) {
 		return getInventory().add(item);
+	}
+	
+	/**
+	 * Dead heroes should be put in the back.
+	 */
+	public void reorderDeadHeroes() {
+		List<Chara> oldHeroes = new ArrayList<Chara>();
+		for (Chara hero : oldHeroes) {
+			if (hero.isDead()) {
+				insert(hero, 4); // last player-controlled slot in party
+			}
+		}
+		setLeaderAppearance();
+	}
+	
+	/**
+	 * Sets the avatar's appearance to match the party leader.
+	 */
+	public void setLeaderAppearance() {
+		MGlobal.getHero().setAppearance(findLeader().getAppearance());
+	}
+	
+	/**
+	 * Puts a character at specific location in the party, moving everyone else
+	 * back by an slot
+	 * @param	hero			The hero to insert
+	 * @param	index			The index to insert them at, 0 is front
+	 */
+	public void insert(Chara hero, int index) {
+		if (contains(hero)) {
+			removeHero(hero);
+		}
+		List<Chara> oldHeroes = new ArrayList<Chara>();
+		oldHeroes.addAll(heroes);
+		groups.clear();
+		members.clear();
+		heroes.clear();
+		int existingIndex = 0;
+		for (int i = 0; i < groups.size()+1; i += 1) {
+			if (index == i) {
+				addHero(hero);
+			} else {
+				addHero(oldHeroes.get(existingIndex));
+				existingIndex += 1;
+			}
+		}
 	}
 
 }

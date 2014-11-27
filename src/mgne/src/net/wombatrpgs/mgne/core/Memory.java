@@ -109,7 +109,7 @@ public class Memory {
 	 * Turns a switch on.
 	 * @param	name			The name of the switch to turn on
 	 */
-	public void setSwitch(String name) {
+	public final void setSwitch(String name) {
 		setSwitch(name, true);
 	}
 	

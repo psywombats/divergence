@@ -31,7 +31,7 @@ public class SceneName extends ZeroArgFunction {
 
 			@Override protected void internalRun() {
 				// battle stuff moved here, problems before with null heroes
-				nameScreen = new ScreenName(SGlobal.heroes.getFront());
+				nameScreen = new ScreenName(SGlobal.heroes.getFront(0));
 				MGlobal.assets.loadAsset(nameScreen, "name screen");
 				MGlobal.screens.push(nameScreen);
 			}

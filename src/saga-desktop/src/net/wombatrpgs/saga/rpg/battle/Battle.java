@@ -204,6 +204,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	 */
 	public void finish() {
 		final Battle battle = this;
+		player.reorderDeadHeroes();
 		screen.transitonOff(TransitionType.WHITE, new FinishListener() {
 			@Override public void onFinish() {
 				battle.internalFinish();
@@ -237,7 +238,7 @@ public class Battle extends AssetQueuer implements Disposable {
 	 */
 	public void onRun() {
 		if (fleeable && calcRunChance() >= MGlobal.rand.nextFloat()) {
-			playback(player.getFront().getName() + " runs.", new FinishListener() {
+			playback(player.findLeader().getName() + " runs.", new FinishListener() {
 				@Override public void onFinish() {
 					finish();
 				}
