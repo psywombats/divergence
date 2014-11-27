@@ -5,43 +5,43 @@
 	"description" : "Generated from transforms chart",
 	"transformations" : [
 		{
-			"eat" : "mgroup_2",
+			"eat" : "mgroup_1",
 			"result" : "mfamily_brd"
 		},
 		{
-			"eat" : "mgroup_3",
+			"eat" : "mgroup_2",
 			"result" : "mfamily_wsl"
 		},
 		{
-			"eat" : "mgroup_4",
+			"eat" : "mgroup_3",
 			"result" : "mfamily_brd"
 		},
 		{
-			"eat" : "mgroup_5",
+			"eat" : "mgroup_4",
 			"result" : "mfamily_snk"
 		},
 		{
-			"eat" : "mgroup_6",
+			"eat" : "mgroup_5",
 			"result" : "mfamily_hag"
 		},
 		{
-			"eat" : "mgroup_7",
+			"eat" : "mgroup_6",
 			"result" : "mfamily_gst"
 		},
 		{
-			"eat" : "mgroup_8",
+			"eat" : "mgroup_7",
 			"result" : "mfamily_got"
 		},
 		{
-			"eat" : "mgroup_9",
+			"eat" : "mgroup_8",
 			"result" : "mfamily_wsp"
 		},
 		{
-			"eat" : "mgroup_11",
+			"eat" : "mgroup_10",
 			"result" : "mfamily_got"
 		},
 		{
-			"eat" : "mgroup_12",
+			"eat" : "mgroup_11",
 			"result" : "mfamily_skl"
 		}
 	]

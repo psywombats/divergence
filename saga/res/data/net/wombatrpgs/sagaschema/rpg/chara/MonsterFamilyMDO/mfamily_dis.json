@@ -5,28 +5,32 @@
 	"description" : "Generated from transforms chart",
 	"transformations" : [
 		{
-			"eat" : "mgroup_2",
+			"eat" : "mgroup_1",
 			"result" : "mfamily_gob"
 		},
 		{
-			"eat" : "mgroup_3",
+			"eat" : "mgroup_2",
 			"result" : "mfamily_brn"
 		},
 		{
-			"eat" : "mgroup_4",
+			"eat" : "mgroup_3",
 			"result" : "mfamily_dog"
 		},
 		{
-			"eat" : "mgroup_5",
+			"eat" : "mgroup_4",
 			"result" : "mfamily_hag"
 		},
 		{
-			"eat" : "mgroup_6",
+			"eat" : "mgroup_5",
 			"result" : "mfamily_rat"
 		},
 		{
-			"eat" : "mgroup_7",
+			"eat" : "mgroup_6",
 			"result" : "mfamily_gst"
+		},
+		{
+			"eat" : "mgroup_7",
+			"result" : "mfamily_rat"
 		},
 		{
 			"eat" : "mgroup_8",
@@ -34,14 +38,10 @@
 		},
 		{
 			"eat" : "mgroup_9",
-			"result" : "mfamily_rat"
-		},
-		{
-			"eat" : "mgroup_10",
 			"result" : "mfamily_gst"
 		},
 		{
-			"eat" : "mgroup_11",
+			"eat" : "mgroup_10",
 			"result" : "mfamily_gol"
 		}
 	]

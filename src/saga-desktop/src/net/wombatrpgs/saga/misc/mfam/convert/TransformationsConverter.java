@@ -28,7 +28,7 @@ public class TransformationsConverter {
 
 	/**
 	 * Converts a transformation report into monster family mdos.
-	 * @param	args				<damedir> <reportfile>
+	 * @param	args				<gamedir> <reportfile>
 	 */
 	public static void main(String[] args) {
 		if (args.length != 2) {
@@ -100,13 +100,13 @@ public class TransformationsConverter {
 			int groupIndex = 1;
 			while (sub.hasNext()) {
 				String resultTag = sub.next().trim();
-				groupIndex += 1;
 				if (resultTag.length() > 0) {
 					TransformationMDO transform = new TransformationMDO();
 					transform.eat = "mgroup_" + groupIndex;
 					transform.result = "mfamily_" + resultTag;
 					transforms.add(transform);
 				}
+				groupIndex += 1;
 			}
 			sub.close();
 			
