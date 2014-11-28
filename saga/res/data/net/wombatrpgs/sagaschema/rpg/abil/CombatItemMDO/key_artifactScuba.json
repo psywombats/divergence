@@ -11,6 +11,11 @@
 	"equip" : [
 		"HELMET"
 	],
+	"warhead" : {
+		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectNothingMDO",
+		"key" : "anon_CombatItemMDO_-2034561211"
+	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [
 			{
