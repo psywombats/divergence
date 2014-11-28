@@ -35,9 +35,7 @@ public class MySQLConnector {
 		} catch (ClassNotFoundException e) {
 			MGlobal.reporter.err(e);
 		}
-		/* I'm dumb enough to embed passwords into my source code, but not dumb
-		 * enough to embed secure ones */
-		connection = DriverManager.getConnection(url, "wombatrp_games", "#3TitwtwE#3");
+		connection = DriverManager.getConnection(url, "wombatrp_games", "");
 	}
 	
 	/**
