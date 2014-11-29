@@ -42,7 +42,7 @@ public class Memory {
 	
 	/** Stuff to be serialized */
 	protected Random rand;
-	protected Level level;
+	protected String levelKey;
 	protected Avatar hero;
 	
 	/**
@@ -186,7 +186,7 @@ public class Memory {
 	 */
 	protected void storeFields() {
 		rand = MGlobal.rand;
-		level = MGlobal.levelManager.getActive();
+		levelKey = MGlobal.levelManager.getActive().getKeyName();
 		hero = MGlobal.getHero();
 	}
 
@@ -204,7 +204,8 @@ public class Memory {
 		MGlobal.rand = rand;
 		
 		// put the hero on the new map
-		MGlobal.assets.loadAsset(level, "loaded level");
+		Level level = MGlobal.levelManager.getLevel(levelKey);
+		level.addEvent(hero, hero.getTileX(), hero.getTileY());
 		MGlobal.levelManager.setNewActiveSet(hero, level);
 		hero.setTileLocation(
 				hero.getTileX(),

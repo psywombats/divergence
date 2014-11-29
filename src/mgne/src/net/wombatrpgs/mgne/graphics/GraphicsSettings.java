@@ -36,7 +36,7 @@ public class GraphicsSettings extends AssetQueuer implements Disposable {
 	protected GraphicsSettingsMDO mdo;
 	
 	protected List<SpriteBatch> batches;
-	protected List<ShaderFromData> shaders;
+	protected transient List<ShaderFromData> shaders;
 	protected Graphic background;
 	
 	/**

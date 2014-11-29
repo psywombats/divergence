@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.saga.graphics.banim;
 
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.ShaderFromData;
 import net.wombatrpgs.saga.screen.ScreenBattle;
@@ -21,7 +22,7 @@ public class BattleAnimShader extends BattleAnim {
 	
 	protected BattleAnimShaderMDO mdo;
 	
-	protected ShaderFromData shader;
+	protected transient ShaderFromData shader;
 
 	/**
 	 * Creates an animation from data.
@@ -30,8 +31,6 @@ public class BattleAnimShader extends BattleAnim {
 	public BattleAnimShader(BattleAnimShaderMDO mdo) {
 		super(mdo);
 		this.mdo = mdo;
-		
-		shader = MGlobal.graphics.constructShader(mdo.shader);
 	}
 
 	/**
@@ -49,6 +48,16 @@ public class BattleAnimShader extends BattleAnim {
 	@Override
 	public boolean isDone() {
 		return sinceStart >= mdo.duration;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.AssetQueuer#postProcessing
+	 * (net.wombatrpgs.mgne.core.MAssets, int)
+	 */
+	@Override
+	public void postProcessing(MAssets manager, int pass) {
+		super.postProcessing(manager, pass);
+		shader = MGlobal.graphics.constructShader(mdo.shader);
 	}
 
 	/**
