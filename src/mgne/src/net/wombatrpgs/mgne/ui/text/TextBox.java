@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.ScreenGraphic;
 import net.wombatrpgs.mgne.maps.MapThing;
 import net.wombatrpgs.mgne.screen.Screen;
@@ -54,6 +55,7 @@ public class TextBox extends ScreenGraphic {
 	protected boolean waiting;
 	protected boolean allVisible;
 	
+	protected FinishListener outListener;
 	protected float expandTime, elapsedExpand;
 	protected boolean expandingIn, expandingOut;
 	protected int expandBackerHeight;
@@ -172,6 +174,7 @@ public class TextBox extends ScreenGraphic {
 			if (r > 1) {
 				if (expandingOut) {
 					parent.removeChild(this);
+					outListener.onFinish();
 				}
 				expandingIn = false;
 				expandingOut = false;
@@ -278,6 +281,9 @@ public class TextBox extends ScreenGraphic {
 	 * characters in the box or by unsetting its most recent wait.
 	 */
 	public void hurryUp() {
+		if (expandingIn || expandingOut) {
+			return;
+		}
 		if (waiting) {
 			waiting = false;
 			sinceChar = 0;
@@ -316,10 +322,20 @@ public class TextBox extends ScreenGraphic {
 	
 	/**
 	 * Animates this textbox expanding out (closing) like a fadeout.
-	 * @param expandTime		The time it will take to expand, in seconds
+	 * @param	expandTime		The time it will take to expand, in seconds
 	 */
 	public void expandOut(float expandTime) {
+		expandOut(expandTime, null);
+	}
+	
+	/**
+	 * Animates this textbox expanding out (closing) like a fadeout.
+	 * @param	expandTime		The time it will take to expand, in seconds
+	 * @param	outListener		The listener for on complete, or null
+	 */
+	public void expandOut(float expandTime, FinishListener outListener) {
 		this.expandTime = expandTime;
+		this.outListener = outListener;
 		expandingIn = false;
 		expandingOut = true;
 		elapsedExpand = 0;

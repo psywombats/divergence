@@ -16,8 +16,8 @@ import net.wombatrpgs.mgne.scenes.SceneLib;
 import net.wombatrpgs.mgne.ui.text.BlockingTextBox;
 
 /**
- * Waits for a certain amount of time to elapse. Given in seconds.
- * Usage: {@code wait(<time>)}
+ * A hero speaks!
+ * Usage: {@code speak([name], <speech>)}
  */
 public class SceneSpeak extends VarArgFunction {
 

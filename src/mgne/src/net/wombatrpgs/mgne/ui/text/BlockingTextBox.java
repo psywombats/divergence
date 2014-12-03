@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.mgne.ui.text;
 
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.io.CommandMap;
 import net.wombatrpgs.mgne.io.command.CMapScene;
@@ -45,14 +46,22 @@ public class BlockingTextBox extends TextBox implements CommandListener {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
+		if (expandingIn || expandingOut) {
+			return true;
+		}
 		if (blocking && command == InputCommand.UI_CONFIRM) {
 			if (isFinished()) {
 				if (animateOff) {
-					expandOut(FADE_TIME);
+					expandOut(FADE_TIME, new FinishListener() {
+						@Override public void onFinish() {
+							blocking = false;
+						}
+					});
+				} else {
+					blocking = false;
 				}
 				screen.removeCommandListener(this);
 				screen.removeCommandContext(context);
-				blocking = false;
 			} else {
 				hurryUp();
 			}
