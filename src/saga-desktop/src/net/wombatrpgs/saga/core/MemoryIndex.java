@@ -6,9 +6,6 @@
  */
 package net.wombatrpgs.saga.core;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
@@ -24,28 +21,46 @@ import com.esotericsoftware.kryo.io.Output;
  */
 public class MemoryIndex extends AssetQueuer {
 	
-	protected static final String indexName = "descriptors.kryo";
+	protected static final String INDEX_NAME = "descriptors.kryo";
+	protected static final int SAVE_SLOT_COUNT= 5;
 	
 	// data to save/load
-	protected List<SaveDescriptor> descriptors;
-	protected SaveDescriptor lastLoaded;
+	protected SaveDescriptor descriptors[];
+	protected int lastSavedIndex;
 	
 	/**
 	 * Creates a new index. Probably only should be used if one doesn't exist.
 	 */
 	public MemoryIndex() {
-		descriptors = new ArrayList<SaveDescriptor>();
+		descriptors = new SaveDescriptor[SAVE_SLOT_COUNT];
 	}
 	
-	/** @return The total number of save files */
-	public int getSaveCount() { return descriptors.size(); }
+	/** @return The maximum number of save slots */
+	public int maxSavesCount() { return SAVE_SLOT_COUNT; }
+	
+	/** @return The index of the last saved file slot */
+	public int getLastSavedIndex() { return lastSavedIndex; }
+	
+	/**
+	 * Counts the number of non-null saves existing in the save slots.
+	 * @return					The number of saves existing, from 0 to max save
+	 */
+	public int existingSavesCount() {
+		int count = 0;
+		for (int i = 0; i < SAVE_SLOT_COUNT; i += 1) {
+			if (descriptors[i] != null) {
+				count += 1;
+			}
+		}
+		return count;
+	}
 	
 	/**
 	 * Loads the serialized memory index, or creates a new one if none exists.
 	 * @return					The index of loaded memory
 	 */
 	public static MemoryIndex loadIndex() {
-		String fileName = Constants.SAVES_DIR + indexName;
+		String fileName = Constants.SAVES_DIR + INDEX_NAME;
 		FileHandle handle = Gdx.files.internal(fileName);
 		if (handle.exists()) {
 			Kryo kryo = MGlobal.memory.getKryo();
@@ -64,7 +79,7 @@ public class MemoryIndex extends AssetQueuer {
 	 * @return					The descriptor for that slot
 	 */
 	public SaveDescriptor getSave(int slot) {
-		return descriptors.get(slot);
+		return descriptors[slot];
 	}
 	
 	/**
@@ -76,20 +91,20 @@ public class MemoryIndex extends AssetQueuer {
 	public void addSave(int slot) {
 		SaveDescriptor save = SaveDescriptor.generateDescriptor();
 		assets.add(save);
+		lastSavedIndex = slot;
 		MGlobal.assets.loadAsset(save, "new save descriptor");
-		if (slot >= descriptors.size()) {
-			descriptors.add(save);
-		} else {
-			descriptors.remove(slot);
-			descriptors.add(slot, save);
+		if (descriptors[slot] != null) {
+			assets.remove(descriptors[slot]);
+			descriptors[slot].dispose();
 		}
+		descriptors[slot] = save;
 	}
 	
 	/**
 	 * Saves this index to its designated location.
 	 */
 	public void save() {
-		String fileName = Constants.SAVES_DIR + indexName;
+		String fileName = Constants.SAVES_DIR + INDEX_NAME;
 		Kryo kryo = MGlobal.memory.getKryo();
 		Output output = new Output(MGlobal.files.getOuputStream(fileName));
 		MGlobal.reporter.inform("Writing saves index to " + fileName);

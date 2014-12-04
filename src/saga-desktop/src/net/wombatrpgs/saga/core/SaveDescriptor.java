@@ -27,23 +27,15 @@ public class SaveDescriptor extends AssetQueuer implements Disposable {
 	protected List<FacesAnimation> sprites;
 	protected String leaderString;
 	protected String location;
+	protected String fileName;
 	protected Date lastSaved;
-	
-	/**
-	 * Creates a new descriptor describing pretty much nothing.
-	 */
-	public SaveDescriptor() {
-		
-	}
+	protected int build;
 	
 	/** @return The name of the leader of the saved party */
 	public String getLeaderString() { return leaderString; }
 	
 	/** @return The name of the location of the saved party */
 	public String getLocation() {  return location; }
-	
-	/** @return The date the saved data was last saved */
-	public Date getSaveDate() { return lastSaved; }
 	
 	/** @return The sprites used for this descriptor */
 	public List<FacesAnimation> getSprites() { return sprites; }
@@ -66,6 +58,10 @@ public class SaveDescriptor extends AssetQueuer implements Disposable {
 //				"/" + leader.get(Stat.MHP);
 		save.location = SGlobal.heroes.getLocation();
 		save.lastSaved = new Date();
+		save.build = SConstants.BUILD;
+		save.fileName = save.getLeaderString().replace(' ', '_');
+		save.fileName += ("_" + save.getDateString());
+		save.fileName += ("_" + System.currentTimeMillis());
 		return save;
 	}
 
@@ -86,6 +82,16 @@ public class SaveDescriptor extends AssetQueuer implements Disposable {
 	public String getDateString() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		return format.format(lastSaved);
+	}
+	
+	/**
+	 * Checks if this save is outdated. Because the serialization system sucks
+	 * and there's no migration system in place, loading this save file would
+	 * probably crash.
+	 * @return					True for outdated, false for current build
+	 */
+	public boolean isOutdated() {
+		return build != SConstants.BUILD;
 	}
 
 }

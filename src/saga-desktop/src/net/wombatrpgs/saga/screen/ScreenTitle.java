@@ -148,7 +148,7 @@ public class ScreenTitle extends SagaScreen {
 			});
 		} else {
 			// load
-			if (MemoryIndex.loadIndex().getSaveCount() > 0) {
+			if (MemoryIndex.loadIndex().existingSavesCount() > 0) {
 				transitioning = true;
 				SagaScreen textIntro = new ScreenSaves(false);
 				MGlobal.assets.loadAsset(textIntro, "text intro");

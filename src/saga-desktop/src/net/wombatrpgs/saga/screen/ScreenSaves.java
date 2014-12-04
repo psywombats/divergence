@@ -40,6 +40,7 @@ public class ScreenSaves extends SagaScreen {
 	protected static final int SPACE_LEFT = 112;
 	
 	protected static final String STRING_NEW = "New slot";
+	protected static final String STRING_OUTDATE = "old version save";
 	
 	// data
 	protected MemoryIndex index;
@@ -68,8 +69,12 @@ public class ScreenSaves extends SagaScreen {
 		
 		refresh();
 		
-		if (saveMode && SGlobal.saveSlot != -1) {
-			moveCursor(SGlobal.saveSlot);
+		if (saveMode) {
+			if (SGlobal.saveSlot != -1) {
+				moveCursor(SGlobal.saveSlot);
+			}
+		} else {
+			moveCursor(index.getLastSavedIndex());
 		}
 	}
 
@@ -99,7 +104,7 @@ public class ScreenSaves extends SagaScreen {
 			int atY = MGlobal.window.getViewportHeight() - ((i+1) * FILE_HEIGHT);
 			bg.renderAt(batch, atX, atY);
 			
-			if (i + scroll < index.getSaveCount()) {
+			if (i + scroll < index.maxSavesCount() && index.getSave(i + scroll) != null) {
 				SaveDescriptor save = index.getSave(i + scroll);
 				FacesAnimation sample = save.getSprites().get(0);
 				atY += (FILE_HEIGHT - (sample.getHeight() + font.getLineHeight() + PAD_VERT)) / 2;
@@ -111,15 +116,18 @@ public class ScreenSaves extends SagaScreen {
 				atX = (MGlobal.window.getViewportWidth() - FILE_WIDTH) / 2 + PAD_LEFT;
 				atY += (font.getLineHeight() + sample.getHeight() + PAD_VERT);
 				batch.begin();
-				font.draw(batch, save.getLeaderString(), atX, atY);
+				String titleString = save.isOutdated() ? STRING_OUTDATE : save.getLeaderString();
+				font.draw(batch, titleString, atX, atY);
 				batch.end();
 				
-				atX += SPACE_LEFT;
-				batch.begin();
-				font.draw(batch, save.getDateString(), atX, atY);
-				atY -= (font.getLineHeight() + PAD_VERT);
-				font.draw(batch, save.getLocation(), atX, atY);
-				batch.end();
+				if (!save.isOutdated()) {
+					atX += SPACE_LEFT;
+					batch.begin();
+					font.draw(batch, save.getDateString(), atX, atY);
+					atY -= (font.getLineHeight() + PAD_VERT);
+					font.draw(batch, save.getLocation(), atX, atY);
+					batch.end();
+				}
 			} else {
 				atX = (MGlobal.window.getViewportWidth() - FILE_WIDTH) / 2 + PAD_LEFT;
 				atY = (int) (MGlobal.window.getViewportHeight() - ((i+1) * FILE_HEIGHT) +
@@ -198,19 +206,23 @@ public class ScreenSaves extends SagaScreen {
 			index.save();
 			refresh();
 		} else {
-			this.fade(FadeType.TO_BLACK, new FinishListener() {
-				@Override public void onFinish() {
-					MGlobal.memory.loadAndSetScreen(fileName);
-					SagaScreen screen = (SagaScreen) MGlobal.levelManager.getScreen();
-					MGlobal.screens.push(screen);
-					screen.fade(FadeType.FROM_BLACK, new FinishListener() {
-						@Override public void onFinish() {
-							dispose();
-						}
-					});
-					screen.update(0);
-				}
-			});
+			if (index.getSave(slot).isOutdated()) {
+				MGlobal.audio.playSFX(SConstants.SFX_FAIL);
+			} else {
+				this.fade(FadeType.TO_BLACK, new FinishListener() {
+					@Override public void onFinish() {
+						MGlobal.memory.loadAndSetScreen(fileName);
+						SagaScreen screen = (SagaScreen) MGlobal.levelManager.getScreen();
+						MGlobal.screens.push(screen);
+						screen.fade(FadeType.FROM_BLACK, new FinishListener() {
+							@Override public void onFinish() {
+								dispose();
+							}
+						});
+						screen.update(0);
+					}
+				});
+			}
 		}
 		return true;
 	}
@@ -235,8 +247,8 @@ public class ScreenSaves extends SagaScreen {
 	 * Updates the display of the save slots for after saving a file.
 	 */
 	protected void refresh() {
-		max = index.getSaveCount() + (saveMode ? 1 : 0);
-		for (int i = 0; i < index.getSaveCount(); i += 1) {
+		for (int i = 0; i < index.maxSavesCount(); i += 1) {
+			if (index.getSave(i) == null) continue;
 			for (FacesAnimation sprite : index.getSave(i).getSprites()) {
 				sprite.startMoving();
 				if (!updateChildren.contains(sprite)) {
