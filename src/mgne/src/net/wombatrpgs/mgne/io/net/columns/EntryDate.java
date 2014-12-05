@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mgne.io.sql.columns;
+package net.wombatrpgs.mgne.io.net.columns;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -34,7 +34,7 @@ public class EntryDate extends ColumnEntry<Date> {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.io.sql.columns.ColumnEntry#set
+	 * @see net.wombatrpgs.mgne.io.net.columns.ColumnEntry#set
 	 * (java.sql.PreparedStatement, int)
 	 */
 	@Override

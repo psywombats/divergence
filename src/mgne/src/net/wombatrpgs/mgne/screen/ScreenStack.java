@@ -143,17 +143,21 @@ public class ScreenStack implements	Disposable,
 	 */
 	public void update() {
 		
-		// I shouldn't have to be the one to call this, libgdx...
-		AnimatedTiledMapTile.updateAnimationBaseTime();
-		
-		float elapsed = Gdx.graphics.getDeltaTime();
-		MGlobal.keymap.update(elapsed);
-		if (screens.size() > 0) {
-			// this check is to ensure the stack wasn't removed from under us
-			screens.peek().update(elapsed);
+		try {
+			// I shouldn't have to be the one to call this, libgdx...
+			AnimatedTiledMapTile.updateAnimationBaseTime();
+			
+			float elapsed = Gdx.graphics.getDeltaTime();
+			MGlobal.keymap.update(elapsed);
+			if (screens.size() > 0) {
+				// this check is to ensure the stack wasn't removed from under us
+				screens.peek().update(elapsed);
+			}
+			
+			MGlobal.audio.update(elapsed);
+		} catch (Exception e) {
+			MGlobal.reporter.err(e);
 		}
-		
-		MGlobal.audio.update(elapsed);
 	}
 	
 	/**

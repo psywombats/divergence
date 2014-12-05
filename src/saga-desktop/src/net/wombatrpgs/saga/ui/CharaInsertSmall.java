@@ -63,7 +63,13 @@ public class CharaInsertSmall extends CharaInsert {
 		} else {
 			hpText1 = status.getTag();
 		}
-		hpText2 = "/ " + (int) chara.get(Stat.MHP);
+		int mhp = chara.get(Stat.MHP);
+		if (mhp >= 100) {
+			hpText2 = "/" + (int) chara.get(Stat.MHP);
+		} else {
+			hpText2 = "/ " + (int) chara.get(Stat.MHP);
+		}
+		
 	}
 
 }

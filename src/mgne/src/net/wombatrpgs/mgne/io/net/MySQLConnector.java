@@ -1,4 +1,4 @@
-package net.wombatrpgs.mgne.io.sql;
+package net.wombatrpgs.mgne.io.net;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.io.sql.columns.ColumnEntry;
+import net.wombatrpgs.mgne.io.net.columns.ColumnEntry;
 
 /**
  * Adapted from the class of the same name in Golden Age. This version is

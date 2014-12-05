@@ -21,6 +21,7 @@ import net.wombatrpgs.mgne.ui.Option;
 import net.wombatrpgs.mgne.ui.OptionSelector;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextFormat;
+import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.ui.CharaSelector;
@@ -31,9 +32,10 @@ import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
  */
 public class ScreenPause extends SagaScreen implements Disposable {
 	
+	protected static final String SWITCH_DISABLE_REORDER = "disable_reorder";
+	
 	protected static final int INFO_HEIGHT = 40;
 	protected static final int INFO_MARGINS = 10;
-	
 	protected static final int GLOBAL_Y = 88;
 	
 	protected OptionSelector menu, saveSelector;
@@ -225,9 +227,13 @@ public class ScreenPause extends SagaScreen implements Disposable {
 	 * @return					False to keep menu open
 	 */
 	protected boolean onOrder() {
-		Screen nextMenu = new ScreenOrder();
-		MGlobal.assets.loadAsset(nextMenu, "order menu");
-		MGlobal.screens.push(nextMenu);
+		if (MGlobal.memory.getSwitch(SWITCH_DISABLE_REORDER)) {
+			MGlobal.audio.playSFX(SConstants.SFX_FAIL);
+		} else {
+			Screen nextMenu = new ScreenOrder();
+			MGlobal.assets.loadAsset(nextMenu, "order menu");
+			MGlobal.screens.push(nextMenu);
+		}
 		return false;
 	}
 	

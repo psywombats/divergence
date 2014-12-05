@@ -8,12 +8,11 @@ package net.wombatrpgs.mgne.core.reporters;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,20 +22,20 @@ import java.util.List;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.VersionInfo;
 import net.wombatrpgs.mgne.core.interfaces.Reporter;
-import net.wombatrpgs.mgne.io.sql.MySQLConnector;
-import net.wombatrpgs.mgne.io.sql.columns.ColumnEntry;
-import net.wombatrpgs.mgne.io.sql.columns.EntryDate;
-import net.wombatrpgs.mgne.io.sql.columns.EntryInt;
-import net.wombatrpgs.mgne.io.sql.columns.EntryString;
+import net.wombatrpgs.mgne.io.net.PostConnector;
+import net.wombatrpgs.mgne.io.net.columns.ColumnEntry;
+import net.wombatrpgs.mgne.io.net.columns.EntryDate;
+import net.wombatrpgs.mgne.io.net.columns.EntryInt;
+import net.wombatrpgs.mgne.io.net.columns.EntryString;
 
 import com.badlogic.gdx.Gdx;
 
 /**
  * HTTP POST's to a PHP script that updates the error database.
  */
-public class RemoteReporter implements Reporter {
+public class PostReporter implements Reporter {
 	
-	protected static final String TABLE_ERRORS = "mgn_errors";
+	protected static final String POST_URL = "http://www.wombatrpgs.net/misc/mgne_errors.php";
 	
 	protected static final String FIELD_GAME = "game";
 	protected static final String FIELD_VERSION = "version";
@@ -46,19 +45,22 @@ public class RemoteReporter implements Reporter {
 	protected static final String FIELD_TIME = "time";
 	
 	protected PrintWriter errLog, normalLog;
+	protected FileOutputStream errStream;
+	protected PostConnector connector;
 	protected boolean httpOn;
 	
 	/**
 	 * Creates a new database reporter. Does not initialize the database
 	 * connection until an error actually comes in.
 	 */
-	public RemoteReporter() {
+	public PostReporter() {
 		File errFile = new File("error.log");
-		File normalFile= new File("info.log");
+		File normalFile = new File("info.log");
 		// this, unfortunately, will never be closed
 		try {
 			if (errFile.exists()) {
-				errLog = new PrintWriter(new FileWriter(errFile, true));
+				errStream = new FileOutputStream(errFile, true);
+				errLog = new PrintWriter(errStream);
 				errLog.println();
 			} else {
 				errLog = new PrintWriter(errFile);
@@ -69,10 +71,11 @@ public class RemoteReporter implements Reporter {
 			errLog.println(dateFormat.format(cal.getTime()));
 			errLog.println("########################################");
 			errLog.flush();
+			errStream.flush();
 			
 			// this will redirect all exceptions to the error log and console
 			final PrintStream console = System.err;
-			System.setErr(new PrintStream(errFile) {
+			System.setErr(new PrintStream(errStream) {
 
 				@Override public void write(byte[] buffer, int offset, int length) {
 					super.write(buffer, offset, length);
@@ -120,6 +123,7 @@ public class RemoteReporter implements Reporter {
 	@Override
 	public void warn(String warning) {
 		errLog.println(warning);
+		errLog.flush();
 	}
 
 	/**
@@ -131,7 +135,7 @@ public class RemoteReporter implements Reporter {
 		StringWriter writer = new StringWriter();
 		PrintWriter printer = new PrintWriter(writer);
 		e.printStackTrace(printer);
-		warn(error + "\n" + e);
+		warn(error + "\n" + writer);
 	}
 
 	/**
@@ -141,6 +145,13 @@ public class RemoteReporter implements Reporter {
 	public void err(String error) {
 		System.err.println(error);
 		sendError(error);
+		try {
+			errStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		errLog.close();
+		normalLog.close();
 		Gdx.app.exit();
 	}
 
@@ -153,7 +164,7 @@ public class RemoteReporter implements Reporter {
 		StringWriter writer = new StringWriter();
 		PrintWriter printer = new PrintWriter(writer);
 		e.printStackTrace(printer);
-		err(error + "\n" + e);
+		err(error + "\n" + writer);
 	}
 
 	/**
@@ -168,22 +179,17 @@ public class RemoteReporter implements Reporter {
 	/**
 	 * Initializes the database connection if not already active.
 	 */
-	protected void prepareConnector() {
+	protected void prepareHTTP() {
 		httpOn = true;
-//		if (connector == null) {
-//			connector = new MySQLConnector();
-//			try {
-//				//connector.connect();
-//			} catch (SQLException e) {
-//				err(e);
-//			}
-//		}
+		if (connector == null) {
+			connector = new PostConnector(POST_URL);
+		}
 	}
 	
 	/**
 	 * Marks the connector as done for now.
 	 */
-	protected void doneConnector() {
+	protected void doneHTTP() {
 		httpOn = false;
 	}
 	
@@ -193,11 +199,11 @@ public class RemoteReporter implements Reporter {
 	 */
 	protected void sendError(String errorString) {
 		if (httpOn) {
-			// the error was generated in the sql handler, screw this
+			// the error was generated in the http handler, screw this
 			return;
 		}
 		MGlobal.reporter.inform("Sending error information to db...");
-		prepareConnector();
+		prepareHTTP();
 		
 		VersionInfo info = MGlobal.getVersion();
 		List<ColumnEntry<?>> entries = new ArrayList<ColumnEntry<?>>();
@@ -207,8 +213,15 @@ public class RemoteReporter implements Reporter {
 		entries.add(new EntryString(FIELD_USER, info.getUserName()));
 		entries.add(new EntryDate(FIELD_TIME));
 		entries.add(new EntryString(FIELD_ERROR, errorString));
-		//connector.insert(TABLE_ERRORS, entries);
 		
-		doneConnector();
+		try {
+			String result = connector.post(entries);
+			MGlobal.reporter.inform("Posted error to DB done, status: " + result);
+		} catch (IOException e) {
+			System.err.println("Error sending other error to DB, oh crap");
+			e.printStackTrace();
+		}
+		
+		doneHTTP();
 	}
 }

@@ -41,7 +41,7 @@ public class CharaSelector extends ScreenGraphic implements	CommandListener {
 	protected static final int INDENT_SIZE = 4;
 	protected static final int DEFAULT_COLUMNS = 2;
 	protected static final int DEFAULT_ROWS = 3;
-	protected static final int DEFAULT_CURSOR_SPACE = -3;
+	protected static final int DEFAULT_CURSOR_SPACE = -1;
 	protected static final float SWAP_VELOCITY = 60f; // in scrpx/s
 	
 	// inserts
