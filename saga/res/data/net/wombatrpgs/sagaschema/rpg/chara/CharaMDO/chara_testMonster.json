@@ -12,6 +12,7 @@
 	"meatEatLevel" : 5,
 	"meatTargetLevel" : 5,
 	"gp" : 0,
+	"loot" : "None",
 	"equipped" : [
 		"item_testabil",
 		"abil_test8legs",
@@ -23,8 +24,8 @@
 		"abil_ambush"
 	],
 	"stats" : {
-		"hp" : 60,
-		"mhp" : 60,
+		"hp" : 101,
+		"mhp" : 101,
 		"str" : 3,
 		"def" : 2,
 		"agi" : 4,
