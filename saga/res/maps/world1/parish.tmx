@@ -187,5 +187,11 @@
     <property name="onCollide" value="teleport('world1/overworld.tmx', 12, 18)"/>
    </properties>
   </object>
+  <object name="autostart" type="Event" x="352" y="496" width="16" height="16">
+   <properties>
+    <property name="hide" value="return getSwitch('disabled_reorder_done')"/>
+    <property name="onEnter" value="setSwitch('disable_reorder', true); setSwitch('disabled_reorder_done', true)"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

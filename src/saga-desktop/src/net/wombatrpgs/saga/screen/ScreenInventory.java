@@ -31,7 +31,7 @@ public class ScreenInventory extends SagaScreen implements TargetSelectable {
 	protected static final int ITEMS_HEIGHT = 130;
 	protected static final int ITEMS_EDGE_PADDING = 12;
 	protected static final int ITEMS_LIST_PADDING = 3;
-	protected static final int INSERTS_PADDING = 3;
+	protected static final int INSERTS_PADDING_X = 3;
 	protected static final int COLLECTION_WIDTH = 92;
 	protected static final int COLLECTION_PADDING = 3;
 	
@@ -57,7 +57,7 @@ public class ScreenInventory extends SagaScreen implements TargetSelectable {
 		items = new ItemSelector(inventory, inventory.slotCount(),
 				ITEMS_WIDTH - ITEMS_EDGE_PADDING * 2, ITEMS_LIST_PADDING,
 				false, false);
-		inserts = new CharaSelector(SGlobal.heroes, false, false, true, INSERTS_PADDING);
+		inserts = new CharaSelector(SGlobal.heroes, false, false, true, INSERTS_PADDING_X);
 		collection = new CollectionSelector(SGlobal.heroes.getCollection(),
 				SGlobal.heroes.getCollection().getTypeCount(),
 				COLLECTION_WIDTH, ITEMS_LIST_PADDING, false);
