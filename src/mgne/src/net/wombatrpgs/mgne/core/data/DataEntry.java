@@ -44,6 +44,7 @@ public class DataEntry {
 		String className = ourPath.substring(Constants.DATA_DIR.length(), ourPath.length());
 		className = className.replace('\\', '/');
 		if (className.startsWith("/")) className = className.substring(1);
+		System.out.println(ourPath);
 		if (!dataFile.isDirectory()) {
 			className = className.substring(0, className.lastIndexOf('/'));
 		}
