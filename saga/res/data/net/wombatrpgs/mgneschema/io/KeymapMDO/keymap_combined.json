@@ -54,7 +54,7 @@
 		},
 		{
 			"keyCode" : "ENTER",
-			"button" : "BUTTON_SELECT"
+			"button" : "BUTTON_START"
 		},
 		{
 			"keyCode" : "F12",
@@ -63,6 +63,10 @@
 		{
 			"keyCode" : "F9",
 			"button" : "DEBUG"
+		},
+		{
+			"keyCode" : "TAB",
+			"button" : "BUTTON_SELECT"
 		}
 	]
 }
