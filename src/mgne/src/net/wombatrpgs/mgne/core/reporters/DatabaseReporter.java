@@ -25,11 +25,11 @@ import com.badlogic.gdx.Gdx;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.VersionInfo;
 import net.wombatrpgs.mgne.core.interfaces.Reporter;
-import net.wombatrpgs.mgne.io.sql.MySQLConnector;
-import net.wombatrpgs.mgne.io.sql.columns.ColumnEntry;
-import net.wombatrpgs.mgne.io.sql.columns.EntryDate;
-import net.wombatrpgs.mgne.io.sql.columns.EntryInt;
-import net.wombatrpgs.mgne.io.sql.columns.EntryString;
+import net.wombatrpgs.mgne.io.net.MySQLConnector;
+import net.wombatrpgs.mgne.io.net.columns.ColumnEntry;
+import net.wombatrpgs.mgne.io.net.columns.EntryDate;
+import net.wombatrpgs.mgne.io.net.columns.EntryInt;
+import net.wombatrpgs.mgne.io.net.columns.EntryString;
 
 /**
  * A reporter that phones home to the WRPGs SQL database.

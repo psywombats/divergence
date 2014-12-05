@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mgne.io.sql.columns;
+package net.wombatrpgs.mgne.io.net.columns;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -45,5 +45,13 @@ public abstract class ColumnEntry<T> {
 	 * @throws	SQLException	If something goes wrong in setting statement
 	 */
 	public abstract void set(PreparedStatement statement, int index) throws SQLException;
+	
+	/**
+	 * Returns the string value of the stored column's value.
+	 * @return					The string contents of the entry
+	 */
+	public String getValueString() {
+		return value.toString();
+	}
 
 }

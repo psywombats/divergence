@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mgne.io.sql.columns;
+package net.wombatrpgs.mgne.io.net.columns;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -24,7 +24,7 @@ public class EntryString extends ColumnEntry<String> {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.io.sql.columns.ColumnEntry#set
+	 * @see net.wombatrpgs.mgne.io.net.columns.ColumnEntry#set
 	 * (java.sql.PreparedStatement, int)
 	 */
 	@Override
