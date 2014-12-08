@@ -307,7 +307,13 @@ public class ScreenName extends SagaScreen {
 	 * Assigns the name to the character and closes the screen.
 	 */
 	protected void finish() {
-		if (finished) return;
+		if (finished) {
+			return;
+		}
+		if (name.length() == 0) {
+			MGlobal.audio.playSFX(SConstants.SFX_FAIL);
+			return;
+		}
 		chara.setName(name);
 		if (listener != null) {
 			listener.onFinish();
