@@ -154,7 +154,7 @@ public class DatabaseReporter implements Reporter {
 		StringWriter writer = new StringWriter();
 		PrintWriter printer = new PrintWriter(writer);
 		e.printStackTrace(printer);
-		err(error + "\n" + e);
+		err(error + "\n" + writer.toString());
 	}
 
 	/**

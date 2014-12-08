@@ -198,7 +198,9 @@ public class Database {
 				queueFilesInDir(manager, child);
 			}
 		} else {
-			manager.load(dir.path(), DataEntry.class);
+			if (dir.extension().equals("json")) {
+				manager.load(dir.path(), DataEntry.class);
+			}
 		}
 	}
 	
