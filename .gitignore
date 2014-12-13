@@ -19,6 +19,7 @@ Thumbs.db
 *.sav
 *.kryo
 doc/*
+saga/savedata/*
 
 
 # MGN binaries #

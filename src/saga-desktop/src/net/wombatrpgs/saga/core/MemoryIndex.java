@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.saga.core;
 
-import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 
@@ -19,9 +18,9 @@ import com.esotericsoftware.kryo.io.Output;
 /**
  * Serialized object to keep track of save files.
  */
-public class MemoryIndex extends AssetQueuer {
+public class MemoryIndex {
 	
-	protected static final String INDEX_NAME = "descriptors.kryo";
+	protected static final String INDEX_NAME = "descriptors.json";
 	protected static final int SAVE_SLOT_COUNT= 5;
 	
 	// data to save/load
@@ -90,13 +89,7 @@ public class MemoryIndex extends AssetQueuer {
 	 */
 	public void addSave(int slot) {
 		SaveDescriptor save = SaveDescriptor.generateDescriptor();
-		assets.add(save);
 		lastSavedIndex = slot;
-		MGlobal.assets.loadAsset(save, "new save descriptor");
-		if (descriptors[slot] != null) {
-			assets.remove(descriptors[slot]);
-			descriptors[slot].dispose();
-		}
 		descriptors[slot] = save;
 	}
 	

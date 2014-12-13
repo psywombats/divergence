@@ -6,12 +6,16 @@
  */
 package net.wombatrpgs.saga.screen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.Memory;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
+import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.screen.WindowSettings;
 import net.wombatrpgs.mgne.ui.Graphic;
@@ -50,6 +54,7 @@ public class ScreenSaves extends SagaScreen {
 	
 	// graphics crap
 	protected Nineslice bg;
+	protected List<List<FacesAnimation>> sprites;
 	
 	/**
 	 * Creates a new screen in either load or save mode.
@@ -58,7 +63,6 @@ public class ScreenSaves extends SagaScreen {
 	public ScreenSaves(boolean saveMode) {
 		this.saveMode = saveMode;
 		this.index = MemoryIndex.loadIndex();
-		assets.add(index);
 		
 		scroll = 0;
 		selection = 0;
@@ -106,10 +110,10 @@ public class ScreenSaves extends SagaScreen {
 			
 			if (i + scroll < index.maxSavesCount() && index.getSave(i + scroll) != null) {
 				SaveDescriptor save = index.getSave(i + scroll);
-				FacesAnimation sample = save.getSprites().get(0);
+				FacesAnimation sample = sprites.get(i).get(0);
 				atY += (FILE_HEIGHT - (sample.getHeight() + font.getLineHeight() + PAD_VERT)) / 2;
 				atX += PAD_LEFT;
-				for (FacesAnimation sprite : save.getSprites()) {
+				for (FacesAnimation sprite : sprites.get(i)) {
 					sprite.renderAt(batch, atX, atY);
 					atX += (sprite.getWidth() + PAD_SPRITES);
 				}
@@ -247,15 +251,30 @@ public class ScreenSaves extends SagaScreen {
 	 * Updates the display of the save slots for after saving a file.
 	 */
 	protected void refresh() {
+		if (sprites != null) {
+			for (List<FacesAnimation> spriteSet : sprites) {
+				for (FacesAnimation sprite : spriteSet) {
+					assets.remove(sprite);
+					sprite.dispose();
+				}
+			}
+		}
+		sprites = new ArrayList<List<FacesAnimation>>();
 		for (int i = 0; i < index.maxSavesCount(); i += 1) {
+			List<FacesAnimation> spriteSet = new ArrayList<FacesAnimation>();
+			sprites.add(spriteSet);
 			if (index.getSave(i) == null) continue;
-			for (FacesAnimation sprite : index.getSave(i).getSprites()) {
+			for (String spriteKey : index.getSave(i).getSpriteKeys()) {
+				FacesAnimation sprite = FacesAnimationFactory.create(spriteKey);
+				assets.add(sprite);
+				spriteSet.add(sprite);
 				sprite.startMoving();
 				if (!updateChildren.contains(sprite)) {
 					addUChild(sprite);
 				}
 			}
 		}
+		MGlobal.assets.loadAsset(this, "save sprites");
 	}
 
 }

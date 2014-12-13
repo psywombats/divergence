@@ -11,9 +11,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.badlogic.gdx.utils.Disposable;
-
-import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 
@@ -22,9 +19,9 @@ import net.wombatrpgs.saga.rpg.chara.Chara;
  * be queued/loaded to make sure the sprites are in memory, but they are created
  * and read in from the memory index.
  */
-public class SaveDescriptor extends AssetQueuer implements Disposable {
+public class SaveDescriptor {
 	
-	protected List<FacesAnimation> sprites;
+	protected List<String> spriteKeys;
 	protected String leaderString;
 	protected String location;
 	protected String fileName;
@@ -37,8 +34,8 @@ public class SaveDescriptor extends AssetQueuer implements Disposable {
 	/** @return The name of the location of the saved party */
 	public String getLocation() {  return location; }
 	
-	/** @return The sprites used for this descriptor */
-	public List<FacesAnimation> getSprites() { return sprites; }
+	/** @return The sprite keys used for this descriptor */
+	public List<String> getSpriteKeys() { return spriteKeys; }
 	
 	/**
 	 * Generates a new save descriptor for the party currently in memory.
@@ -46,11 +43,10 @@ public class SaveDescriptor extends AssetQueuer implements Disposable {
 	 */
 	public static SaveDescriptor generateDescriptor() {
 		SaveDescriptor save = new SaveDescriptor();
-		save.sprites = new ArrayList<FacesAnimation>();
+		save.spriteKeys = new ArrayList<String>();
 		for (Chara hero : SGlobal.heroes.getAll()) {
 			FacesAnimation sprite = hero.createSprite();
-			save.assets.add(sprite);
-			save.sprites.add(sprite);
+			save.spriteKeys.add(sprite.getKey());
 		}
 		Chara leader = SGlobal.heroes.findLeader();
 		save.leaderString = leader.getName();
@@ -63,16 +59,6 @@ public class SaveDescriptor extends AssetQueuer implements Disposable {
 		save.fileName += ("_" + save.getDateString());
 		save.fileName += ("_" + System.currentTimeMillis());
 		return save;
-	}
-
-	/**
-	 * @see com.badlogic.gdx.utils.Disposable#dispose()
-	 */
-	@Override
-	public void dispose() {
-		for (FacesAnimation sprite : sprites) {
-			sprite.dispose();
-		}
 	}
 	
 	/**
