@@ -3,7 +3,8 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
-	"appearance" : "lua(return getHero(0).getSpriteName())",
+	"appearance" : "4dir_ffl2_human",
+	"passable" : "PASSABLE",
 	"width" : 1.0,
 	"height" : 1.0,
 	"groups" : "",
@@ -15,5 +16,6 @@
 	"onRemove" : "",
 	"onTurn" : "",
 	"onCollide" : "",
-	"onInteract" : ""
+	"onInteract" : "",
+	"onBehavior" : ""
 }

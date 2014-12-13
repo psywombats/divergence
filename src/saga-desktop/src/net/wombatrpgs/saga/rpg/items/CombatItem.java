@@ -67,6 +67,15 @@ public class CombatItem extends AssetQueuer {
 	}
 	
 	/**
+	 * Creates a new combat item from serialized item data.
+	 * @param	memory			The saved data to restore from
+	 */
+	public CombatItem(ItemMemory memory) {
+		this(memory.key);
+		this.uses = memory.uses;
+	}
+	
+	/**
 	 * Creates a combat item with a fixed effect. Does not queue the effect.
 	 * @param	mdo				The data to create from
 	 * @param	effect			The effect to create with, must not be null

@@ -36,6 +36,16 @@ public class CharaInventory extends Inventory {
 			set(i, item);
 		}
 	}
+	
+	/**
+	 * Creates a new chara inventory from stored serialized data.
+	 * @param	chara			The chara to load for
+	 * @param 	memory			The memory to load from
+	 */
+	public CharaInventory(Chara chara, InventoryMemory memory) {
+		super(memory);
+		this.chara = chara;
+	}
 
 	/**
 	 * @see net.wombatrpgs.saga.rpg.items.Inventory#set

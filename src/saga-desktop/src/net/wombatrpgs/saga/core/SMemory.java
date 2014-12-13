@@ -9,6 +9,7 @@ package net.wombatrpgs.saga.core;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.Memory;
 import net.wombatrpgs.saga.rpg.chara.HeroParty;
+import net.wombatrpgs.saga.rpg.chara.PartyMemory;
 
 /**
  * Saga memory for storing specialized saga data in mgne.
@@ -16,7 +17,7 @@ import net.wombatrpgs.saga.rpg.chara.HeroParty;
 public class SMemory extends Memory {
 	
 	// fields to store/unload
-	protected HeroParty party;
+	protected PartyMemory partyMemory;
 	protected int saveSlot;
 
 	/**
@@ -25,7 +26,7 @@ public class SMemory extends Memory {
 	@Override
 	protected void storeFields() {
 		super.storeFields();
-		this.party = SGlobal.heroes;
+		this.partyMemory = new PartyMemory(SGlobal.heroes);
 		this.saveSlot = SGlobal.saveSlot;
 	}
 
@@ -34,8 +35,7 @@ public class SMemory extends Memory {
 	 */
 	@Override
 	protected void unloadFields() {
-		// fifo, bitch
-		SGlobal.heroes = this.party;
+		SGlobal.heroes = new HeroParty(this.partyMemory);
 		SGlobal.saveSlot = this.saveSlot;
 		super.unloadFields();
 	}

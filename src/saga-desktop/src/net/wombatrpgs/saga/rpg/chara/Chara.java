@@ -45,6 +45,7 @@ import net.wombatrpgs.sagaschema.rpg.stats.Stat;
  */
 public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 	
+	// careful, this is only guaranteed for NPCs
 	protected CharaMDO mdo;
 	
 	protected SagaStats stats;
@@ -55,6 +56,9 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 	protected MonsterFamily family;
 	protected String name;
 	protected MutationManager mutantManager;
+	protected Race race;
+	protected Gender gender;
+	protected String species;
 	protected transient LuaValue lua;
 	
 	/**
@@ -66,13 +70,16 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 		this.mdo = mdo;
 		
 		name = mdo.name;
+		gender = mdo.gender;
+		race = mdo.race;
+		species = mdo.species;
 		
 		stats = new SagaStats(mdo.stats);
 		inventory = new CharaInventory(mdo, this);
 		heal(get(Stat.MHP));
 		status = null;
 		
-		appearance = createSprite();
+		appearance = FacesAnimationFactory.create(mdo.appearance);
 		assets.add(appearance);
 		if (MapThing.mdoHasProperty(mdo.portrait)) {
 			portrait = new Graphic(Constants.SPRITES_DIR, mdo.portrait);
@@ -91,6 +98,34 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 		this(MGlobal.data.getEntryFor(key, CharaMDO.class));
 	}
 	
+	/**
+	 * Creates a new character from saved serialized data.
+	 * @param	memory			The memory to create from
+	 */
+	public Chara(CharaMemory memory) {
+		this.stats = memory.stats;
+		this.inventory = new CharaInventory(this, memory.inventory);
+		this.name = memory.name;
+		this.race = memory.race;
+		this.gender = memory.gender;
+		this.species = memory.species;
+		
+		this.appearance = FacesAnimationFactory.create(memory.animKey);
+		assets.add(appearance);
+		appearance.startMoving();
+		
+		if (MapThing.mdoHasProperty(memory.statusKey)) {
+			this.status = Status.get(memory.statusKey);
+		}
+		if (MapThing.mdoHasProperty(memory.graphicKey)) {
+			this.portrait = new Graphic(memory.graphicKey);
+			assets.add(portrait);
+		}
+		if (MapThing.mdoHasProperty(memory.monsterFamilyKey)) {
+			this.family = MonsterFamily.get(memory.monsterFamilyKey);
+		}
+	}
+	
 	/**	@param flag The flag to check
 	 *	@return The current value of the request flag */
 	public boolean is(Flag flag) { return stats.flag(flag); }
@@ -107,11 +142,14 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 	/** @param name The new name for this character */
 	public void setName(String name) { this.name = name; }
 	
+	/** @return The stat values of this chara, don't use this */
+	public SagaStats getStats() { return this.stats; }
+	
 	/** @return The race of the character, never null */
-	public Race getRace() { return mdo.race; }
+	public Race getRace() { return race; }
 	
 	/** @return The gender of the character, never null */
-	public Gender getGender() { return mdo.gender; }
+	public Gender getGender() { return gender; }
 	
 	/** @return The status condition of the character, or null for normal */
 	public Status getStatus() { return status; }
@@ -168,6 +206,18 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 	}
 	
 	/**
+	 * Gets the unique key of the monster family, if it exists.
+	 * @return					The mdo key of the mon fam, or empty string
+	 */
+	public String getMonsterFamilyKey() {
+		if (family == null) {
+			return null;
+		} else {
+			return family.getKey();
+		}
+	}
+	
+	/**
 	 * Calculates the current value of the requested stat, taking into account
 	 * all modifiers, equipment, and status penalties.
 	 * @param	stat			The stat to get the value of
@@ -189,7 +239,7 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 	 */
 	public String getSpecies() {
 		if (getRace() == Race.MONSTER) {
-			return mdo.species;
+			return species;
 		} else {
 			return getRace().getName();
 		}
@@ -202,7 +252,7 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 	 * @return					A new sprite for this character
 	 */
 	public FacesAnimation createSprite() {
-		return FacesAnimationFactory.create(mdo.appearance);
+		return FacesAnimationFactory.create(appearance.getKey());
 	}
 
 	/**
@@ -493,6 +543,7 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 		
 		// copy relevant stuff
 		this.mdo = newForm;
+		this.species = newForm.species;
 		
 		// create new stuff
 		stats = new SagaStats(newForm.stats);
@@ -580,7 +631,7 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 		Lua.generateFunction(this, lua, "isAlive");
 		lua.set("getSpriteName", new ZeroArgFunction() {
 			@Override public LuaValue call() {
-				return CoerceJavaToLua.coerce(mdo.appearance);
+				return CoerceJavaToLua.coerce(appearance.getKey());
 			}
 		});
 	}

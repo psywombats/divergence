@@ -30,6 +30,16 @@ public class PartyInventory extends Inventory {
 	}
 	
 	/**
+	 * Creates a new inventory from serialized save data.
+	 * @param	party			The party to create from
+	 * @param	memory			The serialized data to load from
+	 */
+	public PartyInventory(HeroParty party, InventoryMemory memory) {
+		super(memory);
+		this.owner = party;
+	}
+	
+	/**
 	 * Sells the item at a certain slot. Null is fine.
 	 * @param	i				The index of the slot to sell at
 	 */

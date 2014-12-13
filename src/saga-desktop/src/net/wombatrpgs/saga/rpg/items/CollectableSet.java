@@ -12,7 +12,8 @@ import java.util.Map;
 import net.wombatrpgs.mgne.core.MGlobal;
 
 /**
- * A bunch of collectables.
+ * A bunch of collectables. Ensure this remains a POJO as it's serialized in
+ * JSON directly.
  */
 public class CollectableSet {
 	

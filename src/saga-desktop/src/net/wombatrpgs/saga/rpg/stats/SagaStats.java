@@ -17,7 +17,7 @@ import net.wombatrpgs.sagaschema.rpg.stats.StatModMDO;
 import net.wombatrpgs.sagaschema.rpg.stats.StatSetMDO;
 
 /**
- * The SaGa version of the MGN stats.
+ * The SaGa version of the MGN stats. Theoretically it's json-serializable.
  */
 public class SagaStats extends StatEnumLink {
 	

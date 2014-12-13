@@ -25,6 +25,9 @@ public class MonsterFamily {
 	
 	protected MonsterFamilyMDO mdo;
 	
+	/** @return The unique key of this family (its mdo key) */
+	public String getKey() { return mdo.key; }
+	
 	/**
 	 * Returns the monster family indicated by the MDO, either by creating it
 	 * from scratch or returning the singleton copy.

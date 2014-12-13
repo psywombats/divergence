@@ -43,6 +43,14 @@ public class Party extends AssetQueuer implements Disposable {
 		rebuildMembers();
 	}
 	
+	/**
+	 * Creates a new, empty party.
+	 */
+	protected Party() {
+		groups = new ArrayList<List<Chara>>();
+		rebuildMembers();
+	}
+	
 	/** @return The number of groups in this party */
 	public int groupCount() { return groups.size(); }
 	

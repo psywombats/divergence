@@ -81,6 +81,9 @@ public class Graphic implements PosRenderable, Disposable {
 	
 	/** @param height The height to set as the base texture height, in px */
 	public void setTextureHeight(int height) { this.height = height; }
+	
+	/** @return The unique key of this graphic (ie its filename) */
+	public String getKey() { return filename; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()

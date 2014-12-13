@@ -29,6 +29,17 @@ public abstract class Inventory {
 		items = new CombatItem[capacity];
 	}
 	
+	/**
+	 * Creates an inventory from serialized save data.
+	 * @param	memory			The memory to create from
+	 */
+	public Inventory(InventoryMemory memory) {
+		this(memory.items.length);
+		for (int i = 0; i < capacity; i += 1) {
+			items[i] = memory.at(i);
+		}
+	}
+	
 	/** @return A list of all held items, but it does include null! */
 	public List<CombatItem> getItems() { return Arrays.asList(items); }
 	/**

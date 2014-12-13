@@ -50,6 +50,31 @@ public class HeroParty extends Party {
 				PartyMDO.class));
 	}
 	
+	/**
+	 * Creates a hero party from serialized memory.
+	 * @param	memory			The memory to load from
+	 */
+	public HeroParty(PartyMemory memory) {
+		this.gp = memory.gp;
+		this.location = memory.location;
+		this.inventory = new PartyInventory(this, memory.inventory);
+		this.collection = memory.collectables;
+		
+		heroes = new ArrayList<Chara>();
+		for (int i = 0; i < memory.charas.length; i += 1) {
+			groups.add(new ArrayList<Chara>());
+		}
+		for (int i = 0; i < memory.charas.length; i += 1) {
+			CharaMemory charaMemory = memory.charas[i];
+			int groupIndex = memory.charaOrderIndices[i];
+			Chara chara = new Chara(charaMemory);
+			assets.add(chara);
+			heroes.add(chara);
+			groups.get(groupIndex).add(chara);
+		}
+		rebuildMembers();
+	}
+	
 	/** @return The name of the location of the party in the world */
 	public String getLocation() { return location; }
 	

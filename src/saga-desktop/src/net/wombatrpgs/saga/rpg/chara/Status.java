@@ -28,7 +28,7 @@ public class Status implements Resistable {
 	
 	protected StatusMDO mdo;
 	
-	protected static Map<String, Status> instances;
+	protected transient static Map<String, Status> instances;
 	
 	/**
 	 * Retrieves the status singleton object for the provided key. Creates the
@@ -74,13 +74,16 @@ public class Status implements Resistable {
 	
 	/** @return True if this status effect is the same as death */
 	public boolean isDeadly() { return mdo.lethality != LethalityType.NON_DEADLY; }
+	
+	/** @return The unique key of this status (its mdo key) */
+	public String getKey() { return mdo.key; }
 
 	/**
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return mdo.key;
+		return getKey();
 	}
 	
 	/**
