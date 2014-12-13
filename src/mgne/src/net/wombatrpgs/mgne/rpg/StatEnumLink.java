@@ -8,7 +8,11 @@ package net.wombatrpgs.mgne.rpg;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import net.wombatrpgs.mgneschema.rpg.data.FlagStat;
 import net.wombatrpgs.mgneschema.rpg.data.FlagStatLinkable;
@@ -18,17 +22,10 @@ import net.wombatrpgs.mgneschema.rpg.data.NumericStatLinkable;
 /**
  * A simple extension to Stats that works with an enum set.
  */
-public class StatEnumLink extends Stats {
-
-	/**
-	 * Creates a new statset from a collection of linkables.
-	 * @param	allNumerics		The collection of all numeric linkables
-	 * @param	allFlags			The collection of all flag linkables
-	 */
-	public StatEnumLink(Collection<? extends NumericStatLinkable> allNumerics,
-			Collection<? extends FlagStatLinkable> allFlags) {
-		super(convertNumeric(allNumerics), convertFlag(allFlags));
-	}
+public abstract class StatEnumLink extends Stats {
+	
+	@JsonIgnore protected static Map<String, FlagStat> flagTypes;
+	@JsonIgnore protected static Map<String, NumericStat> statTypes;
 	
 	/**
 	 * Retrieves the numeric value associated with a stat link.
@@ -121,6 +118,50 @@ public class StatEnumLink extends Stats {
 			stats.add(link.getFlag());
 		}
 		return stats;
+	}
+	
+	/**
+	 * @see net.wombatrpgs.mgne.rpg.Stats#statTypes()
+	 */
+	@Override
+	protected Map<String, NumericStat> statTypes() {
+		if (statTypes == null) {
+			regenerateTypes();
+		}
+		return statTypes;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.rpg.Stats#flagTypes()
+	 */
+	@Override
+	protected Map<String, FlagStat> flagTypes() {
+		if (flagTypes == null) {
+			regenerateTypes();
+		}
+		return flagTypes;
+	}
+	
+	/** @return The collection of all numeric stats in game */
+	protected abstract Collection<? extends NumericStatLinkable> numerics();
+	
+	/** @return The collection of all flag stats in game */
+	protected abstract Collection<? extends FlagStatLinkable> flags();
+	
+	/**
+	 * Constructs the internal numeric/flag maps (caching).
+	 */
+	protected void regenerateTypes() {
+		Collection<NumericStat> allStats = convertNumeric(numerics());
+		Collection<FlagStat> allFlags = convertFlag(flags());
+		statTypes = new HashMap<String, NumericStat>();
+		flagTypes = new HashMap<String, FlagStat>();
+		for (NumericStat stat : allStats) {
+			statTypes.put(stat.getID(), stat);
+		}
+		for (FlagStat flag : allFlags) {
+			flagTypes.put(flag.getID(), flag);
+		}
 	}
 
 }

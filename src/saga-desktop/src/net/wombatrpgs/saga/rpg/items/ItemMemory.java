@@ -14,6 +14,9 @@ public  class ItemMemory {
 	public String key;
 	public int uses;
 	
+	/** Serializable constructor */
+	public ItemMemory() { }
+	
 	/**
 	 * Creates a new memory of a combat item.
 	 * @param	item			The item to take a snapshot of

@@ -16,7 +16,7 @@ import java.util.Scanner;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
-import net.wombatrpgs.saga.misc.mfam.io.PerfectPrinter;
+import net.wombatrpgs.mgne.io.json.PerfectPrinter;
 import net.wombatrpgs.sagaschema.rpg.chara.MeatGroupMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.MonsterFamilyMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.data.TransformationMDO;

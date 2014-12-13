@@ -9,6 +9,8 @@ package net.wombatrpgs.saga.rpg.items;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import net.wombatrpgs.mgne.core.MGlobal;
 
 /**
@@ -17,7 +19,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
  */
 public class CollectableSet {
 	
-	protected Map<Collectable, Integer> quantities;
+	public Map<Collectable, Integer> quantities;
 	
 	/**
 	 * Creates an empty collectable set.
@@ -62,6 +64,7 @@ public class CollectableSet {
 	 * @param	collectable		The collectable to check quantity of
 	 * @return					The number of that collectable in stock
 	 */
+	@JsonIgnore
 	public int getQuantity(Collectable collectable) {
 		Integer quantity = quantities.get(collectable);
 		return (quantity == null) ? 0 : quantity;
@@ -84,6 +87,7 @@ public class CollectableSet {
 	 * Counts the number of unique items appearing in this collection.
 	 * @return					The number of unique items contained
 	 */
+	@JsonIgnore
 	public int getTypeCount() {
 		return quantities.size();
 	}

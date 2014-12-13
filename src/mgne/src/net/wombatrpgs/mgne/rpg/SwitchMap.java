@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class SwitchMap {
 	
-	protected Map<String, Boolean> switches;
+	public Map<String, Boolean> switches;
 	
 	/**
 	 * Creates a new, blank switch map. All switches are set to false.

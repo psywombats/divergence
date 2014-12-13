@@ -6,23 +6,18 @@
  */
 package net.wombatrpgs.saga.misc.mfam;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.esotericsoftware.kryo.io.Input;
-import com.esotericsoftware.kryo.io.Output;
+//import com.esotericsoftware.kryo.io.Input;
+//import com.esotericsoftware.kryo.io.Output;
 
-import de.javakaffee.kryoserializers.KryoReflectionFactorySupport;
+
+
+//import de.javakaffee.kryoserializers.KryoReflectionFactorySupport;
 import net.wombatrpgs.saga.misc.mfam.instances.IdealStats;
-import net.wombatrpgs.saga.misc.mfam.instances.OrigConfig;
 
 /**
  * Attempts to optimize monster transformations based on specifications.
@@ -49,7 +44,7 @@ public class MFamOptimizer {
 				toSave + " results");
 		List<Config> best = new ArrayList<Config>();
 		FitnessStats ideal = new IdealStats();
-		KryoReflectionFactorySupport kryo = new KryoReflectionFactorySupport();
+		//KryoReflectionFactorySupport kryo = new KryoReflectionFactorySupport();
 		
 		Config seed = null;
 		if (args.length >= 4) {
@@ -57,17 +52,17 @@ public class MFamOptimizer {
 			if (!seedFile.exists() || seedFile.isDirectory()) {
 				System.out.println("Bad seed file " + args[2]);
 			}
-			try {
-				Input input = new Input(new FileInputStream(seedFile));
-				seed = kryo.readObject(input, Config.class);
-				input.close();
-			} catch (FileNotFoundException e) {
-				System.out.println("Bad seed file " + args[3]);
-				return;
-			}
+//			try {
+//				Input input = new Input(new FileInputStream(seedFile));
+//				seed = kryo.readObject(input, Config.class);
+//				input.close();
+//			} catch (FileNotFoundException e) {
+//				System.out.println("Bad seed file " + args[3]);
+//				return;
+//			}
 			System.out.println("Using seed " + args[3]);
-			seed.genInfo = "fromSeed";
-			seed.target = ideal;
+			//seed.genInfo = "fromSeed";
+			//seed.target = ideal;
 		}
 		
 		for (int i = 0; i < trials; i += 1) {
@@ -89,30 +84,30 @@ public class MFamOptimizer {
 		System.out.println("Trials finished, printing reports.");
 		
 		int labelNo = 1;
-		for (Config top : best) {
+		for (@SuppressWarnings("unused") Config top : best) {
 			String label = Integer.toString(labelNo);
 			while (label.length() < 3) label = "0" + label;
 			label = "result" + label;
-			try {
-				// cryo file
-				Output output = new Output(new FileOutputStream(new File(label + ".cryo")));
-				kryo.writeObject(output, top);
-				output.close();
-				// report file
-				File info = new File(label + ".txt");
-				info.createNewFile();
-				BufferedWriter writer = new BufferedWriter(new FileWriter(info));
-				writer.write("Report for config " + label + ", error " + top.error);
-				writer.write(top.stats.report());
-				writer.write("\n");
-				writer.write(top.stats.ranks());
-				writer.write("\n");
-				writer.write(top.graph());
-				writer.close();
-				labelNo += 1;
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				// cryo file
+//				Output output = new Output(new FileOutputStream(new File(label + ".cryo")));
+//				kryo.writeObject(output, top);
+//				output.close();
+//				// report file
+//				File info = new File(label + ".txt");
+//				info.createNewFile();
+//				BufferedWriter writer = new BufferedWriter(new FileWriter(info));
+//				writer.write("Report for config " + label + ", error " + top.error);
+//				writer.write(top.stats.report());
+//				writer.write("\n");
+//				writer.write(top.stats.ranks());
+//				writer.write("\n");
+//				writer.write(top.graph());
+//				writer.close();
+//				labelNo += 1;
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
 		}
 		
 		System.out.println("All done!");
@@ -123,30 +118,30 @@ public class MFamOptimizer {
 	 * Writes the original stats to a file.
 	 */
 	protected static void storeFFL() {
-		KryoReflectionFactorySupport kryo = new KryoReflectionFactorySupport();
-		try {
-			// cryo file
-			Output output = new Output(
-					new FileOutputStream(new File("ffl.cryo")));
-			Config origConfig = new OrigConfig();
-			FitnessStats origStats = new FitnessStats(origConfig);
-			origConfig.stats = origStats;
-			kryo.writeObject(output, origConfig);
-			output.close();
-			// report file
-			File info = new File("ffl.txt");
-			info.createNewFile();
-			BufferedWriter writer = new BufferedWriter(new FileWriter(info));
-			writer.write("Report for config FFL:");
-			writer.write(origStats.report());
-			writer.write("\n");
-			writer.write(origStats.ranks());
-			writer.write("\n");
-			writer.write(origConfig.graph());
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		KryoReflectionFactorySupport kryo = new KryoReflectionFactorySupport();
+//		try {
+//			// cryo file
+//			Output output = new Output(
+//					new FileOutputStream(new File("ffl.cryo")));
+//			Config origConfig = new OrigConfig();
+//			FitnessStats origStats = new FitnessStats(origConfig);
+//			origConfig.stats = origStats;
+//			kryo.writeObject(output, origConfig);
+//			output.close();
+//			// report file
+//			File info = new File("ffl.txt");
+//			info.createNewFile();
+//			BufferedWriter writer = new BufferedWriter(new FileWriter(info));
+//			writer.write("Report for config FFL:");
+//			writer.write(origStats.report());
+//			writer.write("\n");
+//			writer.write(origStats.ranks());
+//			writer.write("\n");
+//			writer.write(origConfig.graph());
+//			writer.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 }

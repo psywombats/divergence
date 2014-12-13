@@ -17,8 +17,8 @@ import net.wombatrpgs.saga.rpg.chara.PartyMemory;
 public class SMemory extends Memory {
 	
 	// fields to store/unload
-	protected PartyMemory partyMemory;
-	protected int saveSlot;
+	public PartyMemory partyMemory;
+	public int saveSlot;
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.Memory#storeFields()

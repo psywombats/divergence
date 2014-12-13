@@ -6,22 +6,19 @@
  */
 package net.wombatrpgs.mgne.core;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import net.wombatrpgs.mgne.core.lua.Lua;
+import net.wombatrpgs.mgne.io.json.PerfectPrinter;
 import net.wombatrpgs.mgne.maps.Level;
-import net.wombatrpgs.mgne.maps.Positionable;
 import net.wombatrpgs.mgne.maps.events.Avatar;
 import net.wombatrpgs.mgne.maps.events.AvatarMemory;
 import net.wombatrpgs.mgne.rpg.SwitchMap;
 import net.wombatrpgs.mgne.screen.Screen;
-import net.wombatrpgs.mgne.screen.TrackerCam;
 
-import com.badlogic.gdx.graphics.Color;
-import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.Serializer;
-import com.esotericsoftware.kryo.io.Input;
-import com.esotericsoftware.kryo.io.Output;
-
-import de.javakaffee.kryoserializers.KryoReflectionFactorySupport;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 /**
  * I don't know, all of the switches and variables for the game? It's meant to
@@ -29,19 +26,17 @@ import de.javakaffee.kryoserializers.KryoReflectionFactorySupport;
  * stored its save games: party progress, plus all the F9 stuff. Well we'll
  * store the current stuff too!
  * 
- * This kind of neeeds to be fleshed out and made to persist.
+ * It now runs off JSON. Don't touch its public properties please, they're there
+ * so it's a bean rather than a something-jackson-can't-save.
  */
 public class Memory {
 	
-	/** Fields for the saving process */
-	protected transient Kryo kryo;
-	
 	/** Live memory */
-	protected SwitchMap switches;
+	public SwitchMap switches;
 	
 	/** Stuff to be serialized */
-	protected String levelKey;
-	protected AvatarMemory heroMemory;
+	public String levelKey;
+	public AvatarMemory heroMemory;
 	
 	/**
 	 * Creates a new memory holder! This is great! It should also probably only
@@ -49,40 +44,6 @@ public class Memory {
 	 */
 	public Memory() {
 		switches = new SwitchMap();
-		
-		kryo = new KryoReflectionFactorySupport();
-		
-		// Now we need to register the custom serializers. This is mostly for
-		// data classes (texture, sound, etc) and immutables
-
-		// this one from libgdx wiki
-		kryo.register(Color.class, new Serializer<Color>() {
-			@Override public Color read(Kryo kryo, Input input, Class<Color> type) {
-				Color color = new Color();
-				Color.rgba8888ToColor(color, input.readInt());
-				return color;
-			}
-			@Override public void write(Kryo kryo, Output output, Color color) {
-				output.writeInt(Color.rgba8888(color));
-			}
-		});
-		
-		// but these are mine
-		kryo.register(TrackerCam.class, new Serializer<TrackerCam>() {
-			@Override public void write(Kryo kryo, Output output, TrackerCam object) {
-				output.writeFloat(object.viewportWidth);
-				output.writeFloat(object.viewportHeight);
-				output.writeFloat(object.getPanSpeed());
-				kryo.writeClassAndObject(output, object.getTarget());
-			}
-			@Override public TrackerCam read(Kryo kryo, Input input, Class<TrackerCam> type) {
-				float w = input.readFloat();
-				float h = input.readFloat();
-				float s = input.readFloat();
-				Positionable target = (Positionable) kryo.readClassAndObject(input);
-				return new TrackerCam(w, h, target, s);
-			}
-		});
 	}
 	
 	/**
@@ -123,28 +84,26 @@ public class Memory {
 	}
 	
 	/**
-	 * Retrieves the kryo serialization factory used for saving the game. This
-	 * can be used for any class looking for serialization, not just save files,
-	 * and the handlers for screens/keymaps/etc will still be available.
-	 * @return					The Kryo factory used for savegames
-	 */
-	public Kryo getKryo() {
-		return kryo;
-	}
-	
-	/**
 	 * Writes this save data to a file.
 	 * @param	fileName		The name of the file to write to
 	 */
 	public void save(String fileName) {
 		MGlobal.reporter.inform("Saving to " + fileName);
-		Output output = new Output(MGlobal.files.getOuputStream(fileName));
+		OutputStream output = MGlobal.files.getOuputStream(fileName);
 		
 		// store all objects in memory in this object
 		storeFields();
 		
-		kryo.writeObject(output, this);
-		output.close();
+		ObjectMapper mapper = new ObjectMapper();
+		ObjectWriter writer = mapper.writer(new PerfectPrinter());
+		try {
+			writer.writeValue(output, this);
+			output.close();
+		} catch (Exception e) {
+			MGlobal.reporter.err("Error saving", e);
+			return;
+		}
+		
 		MGlobal.reporter.inform("Save complete.");
 	}
 	
@@ -155,8 +114,17 @@ public class Memory {
 	 */
 	public void load(String fileName) {
 		MGlobal.reporter.inform("Loading from " + fileName);
-		Input input = new Input(MGlobal.files.getInputStream(fileName));
-		Memory saved = kryo.readObject(input, this.getClass());
+		InputStream input = MGlobal.files.getInputStream(fileName);
+		ObjectMapper mapper = new ObjectMapper();
+		Memory saved = null;
+		
+		try {
+			saved = mapper.readValue(input, getClass());
+			input.close();
+		} catch (Exception e) {
+			MGlobal.reporter.err("Error loading", e);
+			return;
+		}
 		
 		// write all stored objects to global etc
 		saved.unloadFields();
@@ -164,7 +132,6 @@ public class Memory {
 		// load required assets
 		loadAssets();
 		
-		input.close();
 		MGlobal.reporter.inform("Load complete.");
 	}
 	

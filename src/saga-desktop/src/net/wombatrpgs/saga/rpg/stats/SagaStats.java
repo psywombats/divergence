@@ -7,8 +7,11 @@
 package net.wombatrpgs.saga.rpg.stats;
 
 import java.util.Arrays;
+import java.util.Collection;
 
 import net.wombatrpgs.mgne.rpg.StatEnumLink;
+import net.wombatrpgs.mgneschema.rpg.data.FlagStatLinkable;
+import net.wombatrpgs.mgneschema.rpg.data.NumericStatLinkable;
 import net.wombatrpgs.sagaschema.rpg.stats.NumericStatModMDO;
 import net.wombatrpgs.sagaschema.rpg.stats.Stat;
 import net.wombatrpgs.sagaschema.rpg.stats.Flag;
@@ -22,10 +25,10 @@ import net.wombatrpgs.sagaschema.rpg.stats.StatSetMDO;
 public class SagaStats extends StatEnumLink {
 	
 	/**
-	 * Creates a new set of stats with all default values.
+	 * Creates a stats set with all default values.
 	 */
 	public SagaStats() {
-		super(Arrays.asList(Stat.values()), Arrays.asList(Flag.values()));
+		
 	}
 	
 	/**
@@ -33,7 +36,6 @@ public class SagaStats extends StatEnumLink {
 	 * @param	mdo				The data to read from
 	 */
 	public SagaStats(StatSetMDO mdo) {
-		this();
 		setStat(Stat.MHP,	mdo.mhp	);
 		setStat(Stat.HP,	mdo.hp	);
 		setStat(Stat.STR,	mdo.str	);
@@ -48,7 +50,6 @@ public class SagaStats extends StatEnumLink {
 	 * @param	mdo					The data to read from, or null
 	 */
 	public SagaStats(NumericStatModMDO mdo) {
-		this();
 		if (mdo != null) {
 			for (StatEntryMDO entryMDO : mdo.stats) {
 				setStat(entryMDO.stat, entryMDO.value);
@@ -61,13 +62,28 @@ public class SagaStats extends StatEnumLink {
 	 * @param	mdo				The data to read from, or null
 	 */
 	public SagaStats(StatModMDO mdo) {
-		this();
 		if (mdo != null) {
 			for (StatEntryMDO entryMDO : mdo.stats) {
 				setStat(entryMDO.stat, entryMDO.value);
 			}
 			updateFlags(Arrays.asList(mdo.flags), true);
 		}
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.rpg.StatEnumLink#numerics()
+	 */
+	@Override
+	protected Collection<? extends NumericStatLinkable> numerics() {
+		return Arrays.asList(Stat.values());
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.rpg.StatEnumLink#flags()
+	 */
+	@Override
+	protected Collection<? extends FlagStatLinkable> flags() {
+		return Arrays.asList(Flag.values());
 	}
 
 }

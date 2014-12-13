@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.saga.misc.mfam.io;
+package net.wombatrpgs.mgne.io.json;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 
 /**

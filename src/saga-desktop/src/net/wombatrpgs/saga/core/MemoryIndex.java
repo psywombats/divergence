@@ -6,14 +6,17 @@
  */
 package net.wombatrpgs.saga.core;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.io.json.PerfectPrinter;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.io.Input;
-import com.esotericsoftware.kryo.io.Output;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 /**
  * Serialized object to keep track of save files.
@@ -24,8 +27,8 @@ public class MemoryIndex {
 	protected static final int SAVE_SLOT_COUNT= 5;
 	
 	// data to save/load
-	protected SaveDescriptor descriptors[];
-	protected int lastSavedIndex;
+	public SaveDescriptor descriptors[];
+	public int lastSavedIndex;
 	
 	/**
 	 * Creates a new index. Probably only should be used if one doesn't exist.
@@ -62,10 +65,17 @@ public class MemoryIndex {
 		String fileName = Constants.SAVES_DIR + INDEX_NAME;
 		FileHandle handle = Gdx.files.internal(fileName);
 		if (handle.exists()) {
-			Kryo kryo = MGlobal.memory.getKryo();
+			ObjectMapper mapper = new ObjectMapper();
 			MGlobal.reporter.inform("Loading index memory from " + fileName);
-			Input input = new Input(MGlobal.files.getInputStream(fileName));
-			return kryo.readObject(input, MemoryIndex.class);
+			InputStream input = MGlobal.files.getInputStream(fileName);
+			try {
+				MemoryIndex index = mapper.readValue(input, MemoryIndex.class);
+				input.close();
+				return index;
+			} catch (Exception e) {
+				MGlobal.reporter.err("Error loading index", e);
+				return null;
+			}
 		} else {
 			MGlobal.reporter.inform("Index memory does not exist at " + fileName);
 			return new MemoryIndex();
@@ -98,11 +108,16 @@ public class MemoryIndex {
 	 */
 	public void save() {
 		String fileName = Constants.SAVES_DIR + INDEX_NAME;
-		Kryo kryo = MGlobal.memory.getKryo();
-		Output output = new Output(MGlobal.files.getOuputStream(fileName));
+		ObjectMapper mapper = new ObjectMapper();
+		OutputStream output = MGlobal.files.getOuputStream(fileName);
+		ObjectWriter writer = mapper.writer(new PerfectPrinter());
 		MGlobal.reporter.inform("Writing saves index to " + fileName);
-		kryo.writeObject(output, this);
-		output.close();
+		try {
+			writer.writeValue(output, this);
+			output.close();
+		} catch (Exception e) {
+			MGlobal.reporter.err("Error saving index", e);
+		}
 	}
 
 }

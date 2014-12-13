@@ -44,13 +44,8 @@
         <pathelement location="lib/gdx.jar"/>
         <pathelement location="lib/jackson-core-2.0.4.jar"/>
         <pathelement location="lib/jackson-databind-2.0.4.jar"/>
+		<pathelement location="lib/jackson-annotations-2.0.4.jar"/>
         <pathelement location="lib/luaj-jse-3.0-beta2.jar"/>
-        <pathelement location="lib/kryo-2.23.0.jar"/>
-        <pathelement location="lib/asm-4.0.jar"/>
-        <pathelement location="lib/minlog-1.2.jar"/>
-        <pathelement location="lib/objenesis-1.2.jar"/>
-        <pathelement location="lib/reflectasm-1.07.jar"/>
-        <pathelement location="lib/kryo-serializers-0.26.jar"/>
         <path refid="gme-java.classpath"/>
         <pathelement location="lib/mysql-connector-java-5.1.15-bin.jar"/>
     </path>

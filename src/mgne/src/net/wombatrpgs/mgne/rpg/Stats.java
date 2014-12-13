@@ -6,7 +6,6 @@
  */
 package net.wombatrpgs.mgne.rpg;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,33 +19,22 @@ import net.wombatrpgs.mgneschema.rpg.data.NumericStat;
  * version that includes specifics and potentially advanced getters. Sort of
  * based on how te4 handles things.
  */
-public class Stats {
+public abstract class Stats {
 	
-	protected Map<String, NumericStat> statTypes;
-	protected Map<String, FlagStat> flagTypes;
-	
-	protected Map<String, Float> stats;
-	protected Map<String, FlagStatValue> flags;
+	public Map<String, Float> statValues;
+	public Map<String, FlagStatValue> statTypes;
 	
 	/**
-	 * Creates a new stats object with the given types of stats. Populates the
-	 * initial values with the identity for each stat type. Mainly meant to be
-	 * called by a subclass constructor.
-	 * @param	allStats		All numeric types this stats object contains
-	 * @param	allFlags		All flag types this stats object contains
+	 * Creates a new stats object with all defaults.
 	 */
-	public Stats(Collection<NumericStat> allStats, Collection<FlagStat> allFlags) {
-		statTypes = new HashMap<String, NumericStat>();
-		flagTypes = new HashMap<String, FlagStat>();
-		stats = new HashMap<String, Float>();
-		flags = new HashMap<String, FlagStatValue>();
-		for (NumericStat stat : allStats) {
-			statTypes.put(stat.getID(), stat);
-			stats.put(stat.getID(), stat.getZero());
+	public Stats() {
+		statValues = new HashMap<String, Float>();
+		statTypes = new HashMap<String, FlagStatValue>();
+		for (NumericStat stat : statTypes().values()) {
+			statValues.put(stat.getID(), stat.getZero());
 		}
-		for (FlagStat flag : allFlags) {
-			flagTypes.put(flag.getID(), flag);
-			flags.put(flag.getID(), flag.getZero());
+		for (FlagStat flag : flagTypes().values()) {
+			statTypes.put(flag.getID(), flag.getZero());
 		}
 	}
 	
@@ -56,14 +44,14 @@ public class Stats {
 	@Override
 	public String toString() {
 		String result = "";
-		for (NumericStat stat : statTypes.values()) {
-			float value = stats.get(stat.getID());
+		for (NumericStat stat : statTypes().values()) {
+			float value = statValues.get(stat.getID());
 			if (value != stat.getZero()) {
 				result += stat.getID() + ":" + Math.round(value) + ", ";
 			}
 		}
-		for (FlagStat flag : flagTypes.values()) {
-			boolean value = flags.get(flag.getID()).on();
+		for (FlagStat flag : flagTypes().values()) {
+			boolean value = statTypes.get(flag.getID()).on();
 			if (value) {
 				result += flag.getID() + ":" + value + ", ";
 			}
@@ -85,11 +73,11 @@ public class Stats {
 	 * @return					The value of that stat
 	 */
 	public Float stat(String id) {
-		Float value = stats.get(id);
+		Float value = statValues.get(id);
 		if (value != null) {
 			return value;
 		} else {
-			NumericStat stat = statTypes.get(id);
+			NumericStat stat = statTypes().get(id);
 			if (stat == null) {
 				MGlobal.reporter.warn("No stat for id: " + id + " on " + this);
 				return null;
@@ -107,7 +95,7 @@ public class Stats {
 	 * @return					True if that flag is set, false otherwise
 	 */
 	public Boolean flag(String id) {
-		FlagStatValue value = flags.get(id);
+		FlagStatValue value = statTypes.get(id);
 		if (value != null) {
 			return value.on();
 		} else {
@@ -121,7 +109,7 @@ public class Stats {
 	 * @param	value			The new value for the stat
 	 */
 	public void setStat(String id, float value) {
-		stats.put(id, value);
+		statValues.put(id, value);
 	}
 	
 	/**
@@ -131,8 +119,8 @@ public class Stats {
 	 * @param	value			The value to add to the stat
 	 */
 	public void addStat(String id, float value) {
-		NumericStat stat = statTypes.get(id);
-		float current = stats.get(id);
+		NumericStat stat = statTypes().get(id);
+		float current = statValues.get(id);
 		setStat(id, stat.combine(current, value));
 	}
 	
@@ -143,8 +131,8 @@ public class Stats {
 	 * @param	value			The value to add to the stat
 	 */
 	public void subtractStat(String id, float value) {
-		NumericStat stat = statTypes.get(id);
-		float current = stats.get(id);
+		NumericStat stat = statTypes().get(id);
+		float current = statValues.get(id);
 		setStat(id, stat.decombine(current, value));
 	}
 	
@@ -156,7 +144,7 @@ public class Stats {
 	 * @param	value			True to add the flag, false to remove it
 	 */
 	public void updateFlag(String id, boolean value) {
-		FlagStatValue flag = flags.get(id);
+		FlagStatValue flag = statTypes.get(id);
 		if (flag == null) {
 			flag = new FlagStatValue(value ? 1 : 0);
 		} else {
@@ -166,7 +154,7 @@ public class Stats {
 				flag = new FlagStatValue(flag.count - 1);
 			}
 		}
-		flags.put(id, flag);
+		statTypes.put(id, flag);
 	}
 	
 	/**
@@ -175,28 +163,18 @@ public class Stats {
 	 * @param	other			The other stats to merge in
 	 */
 	public void combine(Stats other) {
-		for (NumericStat type : other.statTypes.values()) {
-			Float value = stats.get(type.getID());
+		for (NumericStat type : statTypes().values()) {
+			Float value = statValues.get(type.getID());
 			String id = type.getID();
-			if (value == null) {
-				statTypes.put(type.getID(), type);
-				stats.put(id, other.stat(id));
-			} else {
-				stats.put(id, type.combine(value, other.stat(id)));
-			}
+			statValues.put(id, type.combine(value, other.stat(id)));
 		}
-		for (FlagStat type : other.flagTypes.values()) {
+		for (FlagStat type :flagTypes().values()) {
 			String id = type.getID();
-			FlagStatValue value = flags.get(id);
-			FlagStatValue otherValue = other.flags.get(id);
+			FlagStatValue value = statTypes.get(id);
+			FlagStatValue otherValue = other.statTypes.get(id);
 			if (otherValue != null && otherValue.on()) {
-				if (value == null) {
-					flagTypes.put(type.getID(), type);
-					flags.put(id, new FlagStatValue(1));
-				} else {
-					value = new FlagStatValue(value.count + 1);
-					flags.put(id, value);
-				}
+				value = new FlagStatValue(value.count + 1);
+				statTypes.put(id, value);
 			}
 		}
 	}
@@ -207,26 +185,32 @@ public class Stats {
 	 * @param	other			The other stats to merge in
 	 */
 	public void decombine(Stats other) {
-		for (NumericStat type : other.statTypes.values()) {
-			Float value = stats.get(type.getID());
+		for (NumericStat type : statTypes().values()) {
+			Float value = statValues.get(type.getID());
 			String id = type.getID();
 			if (value == null) {
 				MGlobal.reporter.err("Decombined a non-combined stat set");
 			} else {
-				stats.put(id, type.decombine(value, other.stat(id)));
+				statValues.put(id, type.decombine(value, other.stat(id)));
 			}
 		}
-		for (FlagStat type : other.flagTypes.values()) {
+		for (FlagStat type : flagTypes().values()) {
 			String id = type.getID();
-			FlagStatValue value = flags.get(id);
-			FlagStatValue otherValue = other.flags.get(id);
+			FlagStatValue value = statTypes.get(id);
+			FlagStatValue otherValue = other.statTypes.get(id);
 			if (value == null) {
 				MGlobal.reporter.err("Decombined a non-combined stat set");
 			} else if (otherValue.on()) {
 				value = new FlagStatValue(value.count - 1);
-				flags.put(id, value);
+				statTypes.put(id, value);
 			}
 		}
 	}
+	
+	/** @return The whole list of numeric stats in the game */
+	protected abstract Map<String, NumericStat> statTypes();
+	
+	/** @return The whole list of flag stats in the game */
+	protected abstract Map<String, FlagStat> flagTypes();
 
 }

@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 
@@ -21,12 +23,12 @@ import net.wombatrpgs.saga.rpg.chara.Chara;
  */
 public class SaveDescriptor {
 	
-	protected List<String> spriteKeys;
-	protected String leaderString;
-	protected String location;
-	protected String fileName;
-	protected Date lastSaved;
-	protected int build;
+	public List<String> spriteKeys;
+	public String leaderString;
+	public String location;
+	public String fileName;
+	public Date lastSaved;
+	public int build;
 	
 	/** @return The name of the leader of the saved party */
 	public String getLeaderString() { return leaderString; }
@@ -65,6 +67,7 @@ public class SaveDescriptor {
 	 * Converts the save date into human-readable format.
 	 * @return					The mm/yy/dd whatever data conversion
 	 */
+	@JsonIgnore
 	public String getDateString() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		return format.format(lastSaved);
@@ -76,6 +79,7 @@ public class SaveDescriptor {
 	 * probably crash.
 	 * @return					True for outdated, false for current build
 	 */
+	@JsonIgnore
 	public boolean isOutdated() {
 		return build != SConstants.BUILD;
 	}

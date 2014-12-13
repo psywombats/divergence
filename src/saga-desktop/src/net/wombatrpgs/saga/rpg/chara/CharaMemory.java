@@ -27,6 +27,9 @@ public class CharaMemory {
 	public Gender gender;
 	public String species;
 	
+	/** Serializable constructor */
+	public CharaMemory() { }
+	
 	/**
 	 * Creates a new snapshot of an rpg character.
 	 * @param	chara			The chara to take snapshot of

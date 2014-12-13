@@ -17,6 +17,9 @@ public class AvatarMemory {
 	public OrthoDir dir;
 	public String animKey;
 	
+	/** Serializable constructor */
+	public AvatarMemory() { }
+	
 	/**
 	 * Creates a serializable snapshot of the provided avatar.
 	 * @param	avatar			The avatar to save

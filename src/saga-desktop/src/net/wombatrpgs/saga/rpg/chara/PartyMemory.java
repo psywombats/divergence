@@ -21,6 +21,9 @@ public class PartyMemory {
 	public CharaMemory[] charas;
 	public int[] charaOrderIndices;
 	
+	/** Serializable constructor */
+	public PartyMemory() { }
+	
 	/**
 	 * Creates a new snapshot of the provided party.
 	 * @param	party			The party to take a snapshot of

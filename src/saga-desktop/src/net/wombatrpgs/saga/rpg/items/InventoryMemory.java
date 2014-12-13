@@ -13,6 +13,9 @@ public class InventoryMemory {
 	
 	public ItemMemory[] items;
 	
+	/** Serializable constructor */
+	public InventoryMemory() { }
+	
 	/**
 	 * Creates a new snapshot from the inventory provided.
 	 * @param	inventory		The inventory to memorize
