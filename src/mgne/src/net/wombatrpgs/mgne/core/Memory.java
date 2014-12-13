@@ -6,13 +6,12 @@
  */
 package net.wombatrpgs.mgne.core;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
 import net.wombatrpgs.mgne.core.lua.Lua;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.Positionable;
+import net.wombatrpgs.mgne.maps.events.Avatar;
+import net.wombatrpgs.mgne.maps.events.AvatarMemory;
+import net.wombatrpgs.mgne.rpg.SwitchMap;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.TrackerCam;
 
@@ -38,19 +37,18 @@ public class Memory {
 	protected transient Kryo kryo;
 	
 	/** Live memory */
-	protected Map<String, Boolean> switches;
+	protected SwitchMap switches;
 	
 	/** Stuff to be serialized */
-	protected Random rand;
 	protected String levelKey;
-	protected Avatar hero;
+	protected AvatarMemory heroMemory;
 	
 	/**
 	 * Creates a new memory holder! This is great! It should also probably only
 	 * be called from MGlobal.
 	 */
 	public Memory() {
-		switches = new HashMap<String, Boolean>();
+		switches = new SwitchMap();
 		
 		kryo = new KryoReflectionFactorySupport();
 		
@@ -185,9 +183,8 @@ public class Memory {
 	 * Performs the messy part of copying stuff from global into the save.
 	 */
 	protected void storeFields() {
-		rand = MGlobal.rand;
 		levelKey = MGlobal.levelManager.getActive().getKeyName();
-		hero = MGlobal.getHero();
+		heroMemory = new AvatarMemory(MGlobal.getHero());
 	}
 
 	/**
@@ -200,11 +197,9 @@ public class Memory {
 		// this is needed to prevent lua calls from becoming stale?
 		MGlobal.lua = new Lua();
 		
-		// rand is copied directly
-		MGlobal.rand = rand;
-		
 		// put the hero on the new map
 		Level level = MGlobal.levelManager.getLevel(levelKey);
+		Avatar hero = new Avatar(heroMemory);
 		level.addEvent(hero, hero.getTileX(), hero.getTileY());
 		MGlobal.levelManager.setNewActiveSet(hero, level);
 		hero.setTileLocation(

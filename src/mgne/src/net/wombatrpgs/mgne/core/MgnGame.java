@@ -14,6 +14,7 @@ import org.luaj.vm2.lib.TwoArgFunction;
 import net.wombatrpgs.mgne.graphics.GraphicsSettings;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.maps.Level;
+import net.wombatrpgs.mgne.maps.events.Avatar;
 import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.instances.ScreenGame;
@@ -157,7 +158,7 @@ public abstract class MgnGame implements Disposable {
 			mapName = mdo.map;
 		}
 		Level level = MGlobal.levelManager.getLevel(mapName);
-		Avatar hero = new Avatar(this);
+		Avatar hero = new Avatar();
 		
 		if (MGlobal.args.get("x") == null) {
 			hero.setTileX(mdo.mapX);

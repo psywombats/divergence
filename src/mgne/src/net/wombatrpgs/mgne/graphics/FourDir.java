@@ -24,13 +24,10 @@ public class FourDir extends FacesAnimation {
 	 * @param 	mdo				The MDO with relevant data
 	 */
 	public FourDir(FourDirMDO mdo) {
-		super(OrthoDir.values().length);
+		super(mdo, OrthoDir.values().length);
 		this.mdo = mdo;
 		sliceAnimations();
 	}
-	
-	/** Kryo constructor */
-	protected FourDir() { }
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.FacesAnimation#currentDirOrdinal()

@@ -6,13 +6,13 @@
  */
 package net.wombatrpgs.saga.maps;
 
-import net.wombatrpgs.mgne.core.Avatar;
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.LoadedLevel;
+import net.wombatrpgs.mgne.maps.events.Avatar;
 import net.wombatrpgs.mgne.maps.layers.TiledGridLayer;
 import net.wombatrpgs.mgne.screen.WindowSettings;
 

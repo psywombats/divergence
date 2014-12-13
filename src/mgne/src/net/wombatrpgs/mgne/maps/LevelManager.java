@@ -9,10 +9,10 @@ package net.wombatrpgs.mgne.maps;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.wombatrpgs.mgne.core.Avatar;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
+import net.wombatrpgs.mgne.maps.events.Avatar;
 import net.wombatrpgs.mgne.scenes.TeleportManager;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgneschema.maps.LoadedMapMDO;

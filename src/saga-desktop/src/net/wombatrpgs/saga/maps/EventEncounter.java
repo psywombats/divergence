@@ -11,11 +11,11 @@ import java.util.List;
 
 import com.badlogic.gdx.math.Polygon;
 
-import net.wombatrpgs.mgne.core.Avatar;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
+import net.wombatrpgs.mgne.maps.events.Avatar;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.maps.EventMDO;
 import net.wombatrpgs.saga.core.SConstants;

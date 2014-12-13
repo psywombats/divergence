@@ -1,0 +1,31 @@
+		// Now we need to register the custom serializers. This is mostly for
+		// data classes (texture, sound, etc) and immutables
+
+		// this one from libgdx wiki
+		kryo.register(Color.class, new Serializer<Color>() {
+			@Override public Color read(Kryo kryo, Input input, Class<Color> type) {
+				Color color = new Color();
+				Color.rgba8888ToColor(color, input.readInt());
+				return color;
+			}
+			@Override public void write(Kryo kryo, Output output, Color color) {
+				output.writeInt(Color.rgba8888(color));
+			}
+		});
+		
+		// but these are mine
+		kryo.register(TrackerCam.class, new Serializer<TrackerCam>() {
+			@Override public void write(Kryo kryo, Output output, TrackerCam object) {
+				output.writeFloat(object.viewportWidth);
+				output.writeFloat(object.viewportHeight);
+				output.writeFloat(object.getPanSpeed());
+				kryo.writeClassAndObject(output, object.getTarget());
+			}
+			@Override public TrackerCam read(Kryo kryo, Input input, Class<TrackerCam> type) {
+				float w = input.readFloat();
+				float h = input.readFloat();
+				float s = input.readFloat();
+				Positionable target = (Positionable) kryo.readClassAndObject(input);
+				return new TrackerCam(w, h, target, s);
+			}
+		});

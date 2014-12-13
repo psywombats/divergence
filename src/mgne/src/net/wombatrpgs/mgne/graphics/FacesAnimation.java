@@ -15,6 +15,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
+import net.wombatrpgs.mgneschema.graphics.DirMDO;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 
 /**
@@ -30,6 +31,7 @@ public abstract class FacesAnimation implements	PosRenderable,
 	
 	protected OrthoDir currentDir;
 	protected AnimationStrip[] animations;
+	protected DirMDO mdo;
 	protected int rangeX, rangeY;
 	protected int facings;
 	protected boolean flickering;
@@ -37,9 +39,11 @@ public abstract class FacesAnimation implements	PosRenderable,
 	
 	/**
 	 * Sets up an animation from data for a specific map.
+	 * @param	mdo				The data used to create this anim
 	 * @param	facings			How many facings make up this animation
 	 */
-	public FacesAnimation(int facings) {
+	public FacesAnimation(DirMDO mdo, int facings) {
+		this.mdo = mdo;
 		this.facings = facings;
 		setFacing(OrthoDir.SOUTH);
 		animations = new AnimationStrip[facings];
@@ -49,8 +53,8 @@ public abstract class FacesAnimation implements	PosRenderable,
 		rangeY = 0;
 	}
 	
-	/** Kryo constructor */
-	protected FacesAnimation() { }
+	/** @return The mdo key used to create this animation */
+	public String getKey() { return mdo.key; }
 	
 	/** @return The direction currently facing */
 	public OrthoDir getFacing() { return currentDir; }

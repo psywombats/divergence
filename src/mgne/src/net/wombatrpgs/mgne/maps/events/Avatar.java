@@ -4,14 +4,16 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.mgne.core;
+package net.wombatrpgs.mgne.maps.events;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import net.wombatrpgs.mgne.core.Constants;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
+import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mgne.io.CommandListener;
-import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.maps.EventMDO;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
@@ -31,12 +33,25 @@ public class Avatar extends MapEvent implements CommandListener {
 	 * For real hero constructor. Looks up the avatar in the database and
 	 * uses it to set up a map event. Takes an argument so that kryo doesn't try
 	 * to call this.
-	 * @param	game			The game creating the hero
 	 */
-	public Avatar(MgnGame game) {
+	public Avatar() {
 		super(MGlobal.data.getEntryFor(HERO_DEFAULT, EventMDO.class));
 		stepListeners = new ArrayList<FinishListener>();
 		addStepTracker();
+	}
+	
+	/**
+	 * Creates a new avatar from a stored snapshot.
+	 * @param	memory			The memory to restore from
+	 */
+	public Avatar(AvatarMemory memory) {
+		this();
+		setTileX(memory.tileX);
+		setTileY(memory.tileY);
+		appearance = FacesAnimationFactory.create(memory.animKey);
+		appearance.startMoving();
+		assets.add(appearance);
+		setFacing(memory.dir);
 	}
 
 	/**

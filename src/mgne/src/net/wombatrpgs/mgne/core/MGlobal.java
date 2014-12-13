@@ -22,6 +22,7 @@ import net.wombatrpgs.mgne.io.MFiles;
 import net.wombatrpgs.mgne.io.Keymap;
 import net.wombatrpgs.mgne.io.audio.SoundManager;
 import net.wombatrpgs.mgne.maps.LevelManager;
+import net.wombatrpgs.mgne.maps.events.Avatar;
 import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.screen.ScreenStack;
 import net.wombatrpgs.mgne.screen.WindowSettings;

@@ -27,7 +27,7 @@ public class TwoDir extends FacesAnimation {
 	 * @param 	mdo				The MDO with relevant data
 	 */
 	public TwoDir(TwoDirMDO mdo) {
-		super(2);
+		super(mdo, 2);
 		this.mdo = mdo;
 		sliceAnimations();
 	}

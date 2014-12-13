@@ -22,7 +22,7 @@ public class OneDir extends FacesAnimation {
 	 * @param 	mdo				The data to create from
 	 */
 	public OneDir(AnimationMDO mdo) {
-		super(1);
+		super(mdo, 1);
 		this.mdo = mdo;
 		sliceAnimations();
 	}
