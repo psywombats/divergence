@@ -114,7 +114,7 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 		for (int i = 0; i < inventory.slotCount(); i += 1) {
 			CombatItem item = inventory.get(i);
 			int offY = (int) (-i * (font.getLineHeight() + padding));
-			if (item != null && (!battleOnly || item.isBattleUsable())) {
+			if (shouldDisplayItem(item)) {
 				font.draw(batch, nameFormat, item.getName(), offY);
 				String uses = item.isUnlimited() ? "--" : String.valueOf(item.getUses());
 				String price = item.isSellable() ? String.valueOf(item.getCost()) : "--";
@@ -337,6 +337,20 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 			return i;
 		}
 		return 0; // oops?
+	}
+	
+	/**
+	 * Determines if a specific item should be selectable.
+	 * @param	item			The item to check
+	 * @return					True if it should be displayed
+	 */
+	protected boolean shouldDisplayItem(CombatItem item) {
+		if (item == null) return false;
+		if (battleOnly) {
+			return item.isBattleUsable() && item.getUses() > 0;
+		} else {
+			return true;
+		}
 	}
 
 }
