@@ -1,17 +1,18 @@
 {
 	"key" : "chara_leadHumanM",
 	"subfolder" : "guild",
-	"name" : "HUMAN    M",
+	"name" : "Eric",
 	"description" : "",
 	"gender" : "MALE",
 	"race" : "HUMAN",
 	"family" : "None",
-	"species" : "",
+	"species" : "HUMAN    M",
 	"appearance" : "4dir_human_m",
 	"portrait" : "None",
 	"meatEatLevel" : 0,
 	"meatTargetLevel" : 0,
 	"gp" : 0,
+	"loot" : "None",
 	"equipped" : [
 		"wpn_swordLong",
 		"hand_bronze"

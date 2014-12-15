@@ -1,7 +1,7 @@
 {
 	"key" : "enemy_fly00_ROACH",
 	"subfolder" : "level00",
-	"name" : "ROACH",
+	"name" : "Kame",
 	"description" : "low danger",
 	"gender" : "NONE",
 	"race" : "MONSTER",
@@ -12,6 +12,7 @@
 	"meatEatLevel" : 0,
 	"meatTargetLevel" : 0,
 	"gp" : 40,
+	"loot" : "None",
 	"equipped" : [
 		"abil_bite",
 		"abil_xice"

@@ -1,17 +1,18 @@
 {
 	"key" : "chara_leadHumanF",
 	"subfolder" : "guild",
-	"name" : "HUMAN    F",
+	"name" : "Hana",
 	"description" : "",
 	"gender" : "FEMALE",
 	"race" : "HUMAN",
 	"family" : "None",
-	"species" : "",
+	"species" : "HUMAN    F",
 	"appearance" : "4dir_human_f",
 	"portrait" : "None",
 	"meatEatLevel" : 0,
 	"meatTargetLevel" : 0,
 	"gp" : 0,
+	"loot" : "None",
 	"equipped" : [
 		"wpn_bowLong",
 		"helm_bronze"

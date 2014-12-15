@@ -68,7 +68,7 @@ public class ScreenRecruit extends SagaScreen {
 		
 		for (String mdoKey : mdo.options) {
 			CharaMDO charaMDO = MGlobal.data.getEntryFor(mdoKey, CharaMDO.class);
-			names.add(charaMDO.name);
+			names.add(charaMDO.species);
 			FacesAnimation anim = FacesAnimationFactory.create(charaMDO.appearance);
 			anim.startMoving();
 			sprites.add(anim);

@@ -1,17 +1,18 @@
 {
 	"key" : "chara_robot",
 	"subfolder" : "guild",
-	"name" : "ROBOT",
+	"name" : "TALON Mk3",
 	"description" : "",
 	"gender" : "NONE",
 	"race" : "ROBOT",
 	"family" : "None",
-	"species" : "",
+	"species" : "ROBOT",
 	"appearance" : "4dir_robot",
 	"portrait" : "None",
 	"meatEatLevel" : 0,
 	"meatTargetLevel" : 0,
 	"gp" : 0,
+	"loot" : "None",
 	"equipped" : [
 		"wpn_gunColt"
 	],

@@ -79,9 +79,7 @@ public class ScreenName extends SagaScreen {
 		selectX = 0;
 		selectY = 0;
 		
-		// should there be a default name?
-		// name = chara.getName();
-		name = "";
+		name = chara.getName();
 		spot = 0;
 		sprite = chara.createSprite();
 		sprite.startMoving();
@@ -277,6 +275,9 @@ public class ScreenName extends SagaScreen {
 	 * @param	character		The character to append
 	 */
 	protected void addLetter(char character) {
+		if (name.equals(chara.getName())) {
+			name = "";
+		}
 		String oldName = name;
 		name = name.substring(0, spot) + String.valueOf(character);
 		if (spot < oldName.length()) {
@@ -292,6 +293,9 @@ public class ScreenName extends SagaScreen {
 	 * Deletes the currently selected character.
 	 */
 	protected void removeLetter() {
+		if (name.equals(chara.getName())) {
+			name = "";
+		}
 		if (name.length() > 0) {
 			if (spot == name.length()) {
 				name = name.substring(0, name.length() - 1);

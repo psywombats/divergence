@@ -1,7 +1,7 @@
 {
 	"key" : "enemy_skl00_SKELETON",
 	"subfolder" : "level00",
-	"name" : "SKELETON",
+	"name" : "Dokuro",
 	"description" : "high danger",
 	"gender" : "NONE",
 	"race" : "MONSTER",
@@ -12,6 +12,7 @@
 	"meatEatLevel" : 1,
 	"meatTargetLevel" : 0,
 	"gp" : 40,
+	"loot" : "None",
 	"equipped" : [
 		"abil_bone"
 	],
