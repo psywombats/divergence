@@ -611,35 +611,35 @@
   </object>
   <object name="NPC" type="Character" x="432" y="288" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="anim_dead"/>
     <property name="hide" value="return not getSwitch('shrine_done')"/>
     <property name="onInteract" value="speak('He is dead.')"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="256" y="336" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="anim_dead"/>
     <property name="hide" value="return not getSwitch('shrine_done')"/>
     <property name="onInteract" value="speak('He is dead.')"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="416" y="512" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="anim_dead"/>
     <property name="hide" value="return not getSwitch('shrine_done')"/>
     <property name="onInteract" value="speak('He is dead.')"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="624" y="464" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="anim_dead"/>
     <property name="hide" value="return not getSwitch('shrine_done')"/>
     <property name="onInteract" value="speak('He is dead.')"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="560" y="336" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="anim_dead"/>
     <property name="hide" value="return not getSwitch('shrine_done')"/>
     <property name="onInteract" value="speak('He is dead.')"/>
    </properties>
