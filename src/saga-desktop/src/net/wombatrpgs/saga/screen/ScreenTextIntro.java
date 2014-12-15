@@ -21,6 +21,7 @@ import net.wombatrpgs.mgne.ui.Nineslice;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.mgneschema.io.data.InputButton;
+import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.sagaschema.settings.SagaIntroSettingsMDO;
 
 /**
@@ -106,6 +107,7 @@ public class ScreenTextIntro extends SagaScreen {
 							SagaScreen gameScreen = (SagaScreen) MGlobal.game.makeLevelScreen();
 							MGlobal.assets.loadAsset(gameScreen, "game screen");
 							MGlobal.game.readyLevelScreen(gameScreen);
+							SGlobal.heroes.setLeaderAppearance();
 							gameScreen.transitonOn(TransitionType.BLACK, new FinishListener() {
 								@Override public void onFinish() {
 									textIntro.dispose();

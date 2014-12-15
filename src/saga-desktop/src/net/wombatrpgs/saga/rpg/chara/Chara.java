@@ -536,6 +536,7 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 		}
 		assets.remove(appearance);
 		appearance.dispose();
+		appearance = null;
 		if (MapThing.mdoHasProperty(mdo.portrait)) {
 			assets.remove(portrait);
 			portrait.dispose();
@@ -550,8 +551,9 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 		heal(get(Stat.MHP));
 		status = null;
 		inventory = new CharaInventory(mdo, this);
-		appearance = createSprite();
+		appearance = FacesAnimationFactory.create(mdo.appearance);
 		assets.add(appearance);
+		SGlobal.heroes.setLeaderAppearance();
 		if (MapThing.mdoHasProperty(mdo.portrait)) {
 			portrait = new Graphic(Constants.SPRITES_DIR, mdo.portrait);
 			assets.add(portrait);
