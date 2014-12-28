@@ -81,7 +81,8 @@ public class ScreenEquip extends SagaScreen {
 				false, false);
 		abils.setX(globalX + (ABILS_WIDTH - abils.getWidth()) / 2);
 		abils.setY(globalY + (ABILS_HEIGHT - abils.getHeight()) / 2 - 5);
-		items.setX(globalX + ABILS_WIDTH - abilsBG.getBorderWidth() + (ITEMS_WIDTH - items.getWidth()) / 2);
+		items.setX(globalX + ABILS_WIDTH - abilsBG.getBorderWidth() +
+				(ITEMS_WIDTH - items.getWidth()) / 2);
 		items.setY(globalY + (ITEMS_HEIGHT - items.getHeight()) / 2 - 5);
 		assets.add(abils);
 		assets.add(items);
@@ -135,6 +136,8 @@ public class ScreenEquip extends SagaScreen {
 						inventory.drop(right);
 						equipped.set(marked, right);
 						inventory.set(selected, left);
+						if (left != null) left.checkDiscard();
+						if (right != null) right.checkDiscard();
 						lastRight = selected;
 					}
 					focusAbils();

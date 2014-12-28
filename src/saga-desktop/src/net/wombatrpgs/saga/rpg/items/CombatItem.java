@@ -323,7 +323,7 @@ public class CombatItem extends AssetQueuer {
 	/**
 	 * Checks if this item should be discarded, and if so, discards it.
 	 */
-	protected void checkDiscard() {
+	public void checkDiscard() {
 		if (container == null) return;
 		if (uses > 0) return;
 		if (mdo.uses == 0) return;
