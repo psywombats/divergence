@@ -26,6 +26,7 @@ public class CharaMemory {
 	public Race race;
 	public Gender gender;
 	public String species;
+	public int meatEatLevel, meatTargetLevel;
 	
 	/** Serializable constructor */
 	public CharaMemory() { }
@@ -45,6 +46,8 @@ public class CharaMemory {
 		this.race = chara.getRace();
 		this.gender = chara.getGender();
 		this.species = chara.getSpecies();
+		this.meatEatLevel = chara.getEatLevel();
+		this.meatTargetLevel = chara.getTargetLevel();
 	}
 
 }

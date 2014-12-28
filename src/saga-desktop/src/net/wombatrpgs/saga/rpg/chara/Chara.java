@@ -59,6 +59,7 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 	protected Race race;
 	protected Gender gender;
 	protected String species;
+	protected int meatEatLevel, meatTargetLevel;
 	protected transient LuaValue lua;
 	
 	/**
@@ -74,6 +75,8 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 		gender = mdo.gender;
 		race = mdo.race;
 		species = mdo.species;
+		meatEatLevel = mdo.meatEatLevel;
+		meatTargetLevel = mdo.meatTargetLevel;
 		
 		stats = new SagaStats(mdo.stats);
 		inventory = new CharaInventory(mdo, this);
@@ -118,6 +121,8 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 		this.race = memory.race;
 		this.gender = memory.gender;
 		this.species = memory.species;
+		this.meatEatLevel = memory.meatEatLevel;
+		this.meatTargetLevel = memory.meatTargetLevel;
 		
 		this.appearance = FacesAnimationFactory.create(memory.animKey);
 		assets.add(appearance);
@@ -179,10 +184,10 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 	public MonsterFamily getFamily() { return family; }
 	
 	/** @return The power of this character's meat */
-	public int getEatLevel() { return mdo.meatEatLevel; }
+	public int getEatLevel() { return meatEatLevel; }
 	
 	/** @return The power of meat needed for this character */
-	public int getTargetLevel() { return mdo.meatTargetLevel; }
+	public int getTargetLevel() { return meatTargetLevel; }
 	
 	/** @return The key of the loot this chara can drop, or null or None */
 	public String getLootKey() { return mdo.loot; }
@@ -554,6 +559,8 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 		// copy relevant stuff
 		this.mdo = newForm;
 		this.species = newForm.species;
+		this.meatEatLevel = newForm.meatEatLevel;
+		this.meatTargetLevel = newForm.meatTargetLevel;
 		
 		// create new stuff
 		stats = new SagaStats(newForm.stats);
