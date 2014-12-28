@@ -380,7 +380,8 @@ public class ScreenBattle extends SagaScreen {
 			actorBG.renderAt(batch, globalX, globalY);
 		} else {
 			optionsBG.renderAt(batch, globalX, globalY);
-			insertsBG.renderAt(batch, globalX + OPTIONS_WIDTH - optionsBG.getBorderWidth(), globalY);
+			insertsBG.renderAt(batch, globalX + OPTIONS_WIDTH - optionsBG.getBorderWidth(),
+					globalY);
 		}
 		if (showEnemyInserts) {
 			enemyInserts.render(batch);
@@ -443,7 +444,8 @@ public class ScreenBattle extends SagaScreen {
 			if (deathTimers.containsKey(i)) {
 				deathShader.begin();
 				enemyBatch.setShader(deathShader);
-				deathShader.setUniformf("u_elapsedRatio", 1f - (deathTimers.get(i) / DEATH_DURATION));
+				deathShader.setUniformf("u_elapsedRatio",
+						1f - (deathTimers.get(i) / DEATH_DURATION));
 			}
 			float renderX = globalX + (win.getViewportWidth() - portrait.getWidth()*groups) *
 					(i+1)/(groups+1) + (portrait.getWidth()) * i;
@@ -573,7 +575,8 @@ public class ScreenBattle extends SagaScreen {
 				win.getViewportWidth(),
 				SPRITES_HEIGHT,
 				false);
-		playerBuffer.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		playerBuffer.getColorBufferTexture().setFilter(TextureFilter.Nearest,
+				TextureFilter.Nearest);
 		
 		playerBatch = new SpriteBatch();
 		

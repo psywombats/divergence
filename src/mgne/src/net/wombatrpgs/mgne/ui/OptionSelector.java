@@ -277,6 +277,8 @@ public class OptionSelector extends ScreenGraphic implements	CommandListener,
 		unfocus();
 		if (MGlobal.screens.peek().containsChild(this)) {
 			MGlobal.screens.peek().removeChild(this);
+			MGlobal.screens.peek().removeCommandListener(this);
+			MGlobal.screens.peek().removeCommandContext(context);
 		}
 		if (autoload) {
 			dispose();

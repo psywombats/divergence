@@ -313,12 +313,12 @@ public class Battle extends AssetQueuer implements Disposable {
 					println(eatername + " transforms into " + newSpecies + ".");
 				}
 				
-				screen.animatePause();
 				playbackListener = new FinishListener() {
 					@Override public void onFinish() {
 						finish();
 					}
 				};
+				screen.animatePause();
 				return true;
 			}
 		});

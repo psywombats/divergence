@@ -220,4 +220,12 @@ public class HeroParty extends Party {
 		}
 	}
 
+	/**
+	 * @see net.wombatrpgs.saga.rpg.chara.Party#instantiateChara(java.lang.String)
+	 */
+	@Override
+	protected Chara instantiateChara(String mdoKey) {
+		return new Chara(mdoKey, false);
+	}
+
 }
