@@ -168,10 +168,10 @@ public class Memory {
 		Level level = MGlobal.levelManager.getLevel(levelKey);
 		Avatar hero = new Avatar(heroMemory);
 		level.addEvent(hero, hero.getTileX(), hero.getTileY());
-		MGlobal.levelManager.setNewActiveSet(hero, level);
 		hero.setTileLocation(
 				hero.getTileX(),
 				level.getHeight() - hero.getTileY() - 1);
+		MGlobal.levelManager.setNewActiveSet(hero, level);
 		hero.onUnloaded();
 	}
 	
