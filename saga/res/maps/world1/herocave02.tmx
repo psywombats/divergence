@@ -71,56 +71,56 @@
   </object>
   <object name="trap" type="Event" x="368" y="224" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="anim_bubbles"/>
     <property name="onInteract" value="speak(getHero(0).getName(), 'The magus eye revealed a trap. It looks hot there.')"/>
     <property name="passable" value="IMPASSABLE"/>
    </properties>
   </object>
   <object name="trap" type="Event" x="336" y="384" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="anim_bubbles"/>
     <property name="onInteract" value="speak(getHero(0).getName(), 'The magus eye revealed a trap. It looks hot there.')"/>
     <property name="passable" value="IMPASSABLE"/>
    </properties>
   </object>
   <object name="trap" type="Event" x="320" y="320" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="anim_bubbles"/>
     <property name="onInteract" value="speak(getHero(0).getName(), 'The magus eye revealed a trap. It looks hot there.')"/>
     <property name="passable" value="IMPASSABLE"/>
    </properties>
   </object>
   <object name="trap" type="Event" x="368" y="272" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="anim_bubbles"/>
     <property name="onInteract" value="speak(getHero(0).getName(), 'The magus eye revealed a trap. It looks hot there.')"/>
     <property name="passable" value="IMPASSABLE"/>
    </properties>
   </object>
   <object name="trap" type="Event" x="336" y="272" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="anim_bubbles"/>
     <property name="onInteract" value="speak(getHero(0).getName(), 'The magus eye revealed a trap. It looks hot there.')"/>
     <property name="passable" value="IMPASSABLE"/>
    </properties>
   </object>
   <object name="trap" type="Event" x="304" y="208" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="anim_bubbles"/>
     <property name="onInteract" value="speak(getHero(0).getName(), 'The magus eye revealed a trap. It looks hot there.')"/>
     <property name="passable" value="IMPASSABLE"/>
    </properties>
   </object>
   <object name="trap" type="Event" x="320" y="224" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="anim_bubbles"/>
     <property name="onInteract" value="speak(getHero(0).getName(), 'The magus eye revealed a trap. It looks hot there.')"/>
     <property name="passable" value="IMPASSABLE"/>
    </properties>
   </object>
   <object name="trap" type="Event" x="352" y="208" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_ffl2_human"/>
+    <property name="appearance" value="anim_bubbles"/>
     <property name="onInteract" value="speak(getHero(0).getName(), 'The magus eye revealed a trap. It looks hot there.')"/>
     <property name="passable" value="IMPASSABLE"/>
    </properties>
