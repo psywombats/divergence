@@ -71,7 +71,7 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 		super();
 		this.mdo = mdo;
 		
-		name = mdo.name;
+		name = clearName ? mdo.species : mdo.name;
 		gender = mdo.gender;
 		race = mdo.race;
 		species = mdo.species;
@@ -107,7 +107,16 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 	 * @param	key				The key of the data to create from
 	 */
 	public Chara(String key) {
-		this(MGlobal.data.getEntryFor(key, CharaMDO.class));
+		this(key, true);
+	}
+	
+	/**
+	 * Creates a new character from a database entry key.
+	 * @param	key				The key to create from
+	 * @param	clearName		True to wipe the name from the character
+	 */
+	public Chara(String key, boolean clearName) {
+		this(MGlobal.data.getEntryFor(key, CharaMDO.class), clearName);
 	}
 	
 	/**
@@ -500,7 +509,7 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 	/**
 	 * Restores all natural (or robot-y) abilities to full power.
 	 */
-	public void resotreAbilUses() {
+	public void restoreAbilUses() {
 		inventory.restoreAbilUses();
 	}
 	
@@ -551,7 +560,7 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 		assets.remove(appearance);
 		appearance.dispose();
 		appearance = null;
-		if (MapThing.mdoHasProperty(mdo.portrait)) {
+		if (mdo != null && MapThing.mdoHasProperty(mdo.portrait)) {
 			assets.remove(portrait);
 			portrait.dispose();
 		}

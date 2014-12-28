@@ -13,6 +13,7 @@ public  class ItemMemory {
 	
 	public String key;
 	public int uses;
+	public int usesWhenAdded;
 	
 	/** Serializable constructor */
 	public ItemMemory() { }
@@ -24,5 +25,6 @@ public  class ItemMemory {
 	public ItemMemory(CombatItem item) {
 		this.key = item.getKey();
 		this.uses = item.getUses();
+		this.usesWhenAdded = item.getAddedUses();
 	}
 }

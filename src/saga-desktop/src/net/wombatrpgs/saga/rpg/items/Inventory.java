@@ -37,6 +37,9 @@ public abstract class Inventory {
 		this(memory.items.length);
 		for (int i = 0; i < capacity; i += 1) {
 			items[i] = memory.at(i);
+			if (items[i] != null) {
+				items[i].setContainer(this);
+			}
 		}
 	}
 	

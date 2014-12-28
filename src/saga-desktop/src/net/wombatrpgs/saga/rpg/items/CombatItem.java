@@ -73,6 +73,7 @@ public class CombatItem extends AssetQueuer {
 	public CombatItem(ItemMemory memory) {
 		this(memory.key);
 		this.uses = memory.uses;
+		this.usesWhenAdded = memory.usesWhenAdded;
 	}
 	
 	/**
@@ -119,6 +120,12 @@ public class CombatItem extends AssetQueuer {
 	
 	/** @return The type (item or ability) of this combat item */
 	public AbilityType getType() { return mdo.type; }
+	
+	/** @param inventory The inventory that contains this item */
+	public void setContainer(Inventory inventory) { this.container = inventory; }
+	
+	/** @return The number of uses this item had when equipped */
+	public int getAddedUses() { return usesWhenAdded; }
 
 	/**
 	 * @see java.lang.Object#toString()

@@ -32,7 +32,7 @@ public class SceneAddMember extends OneArgFunction {
 			
 			/* Initializer */ {
 				mdoKey = arg.checkjstring();
-				chara = new Chara(mdoKey);
+				chara = new Chara(mdoKey, false);
 			}
 			
 			@Override protected void addToQueue() {

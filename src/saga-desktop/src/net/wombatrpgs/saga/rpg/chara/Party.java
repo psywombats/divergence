@@ -173,7 +173,7 @@ public class Party extends AssetQueuer implements Disposable {
 	public void innlikeHeal() {
 		for (Chara member : members) {
 			member.restoreHP();
-			member.resotreAbilUses();
+			member.restoreAbilUses();
 		}
 	}
 	
