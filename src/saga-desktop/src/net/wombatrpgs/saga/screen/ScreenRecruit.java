@@ -235,7 +235,7 @@ public class ScreenRecruit extends SagaScreen {
 		if (confirming) return;
 		confirming = true;
 		CharaMDO result = MGlobal.data.getEntryFor(mdo.options[selected], CharaMDO.class);
-		Chara chara = new Chara(result);
+		Chara chara = new Chara(result, false);
 		MGlobal.assets.loadAsset(chara, "recruited chara");
 		SGlobal.heroes.addHero(chara);
 		nameScreen = new ScreenName(chara, listener);

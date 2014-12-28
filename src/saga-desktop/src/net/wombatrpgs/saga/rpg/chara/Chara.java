@@ -64,8 +64,9 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 	/**
 	 * Creates a new character from data template.
 	 * @param	mdo				The data to create from
+	 * @param	clearName		True to wipe the default name from the character
 	 */
-	public Chara(CharaMDO mdo) {
+	public Chara(CharaMDO mdo, boolean clearName) {
 		super();
 		this.mdo = mdo;
 		
@@ -88,6 +89,14 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 		if (MapThing.mdoHasProperty(mdo.family)) {
 			family = MonsterFamily.get(mdo.family);
 		}
+	}
+	
+	/**
+	 * Creates a new character from a database entry.
+	 * @param	mdo				The database entry to create from
+	 */
+	public Chara(CharaMDO mdo) {
+		this(mdo, true);
 	}
 	
 	/**
