@@ -25,7 +25,7 @@ public class EffectDebuff extends EffectEnemyTarget {
 	/**
 	 * Creates a new debuff effect from data.
 	 * @param	mdo				The data to create from
-	 * @param item
+	 * @param	item			The combat item to create for
 	 */
 	public EffectDebuff(EffectDebuffMDO mdo, CombatItem item) {
 		super(mdo, item);
@@ -52,7 +52,7 @@ public class EffectDebuff extends EffectEnemyTarget {
 		}
 		if (debuffPower > 0) {
 			SagaStats mod = new SagaStats();
-			mod.setStat(mdo.drainStat, debuffPower);
+			mod.setStat(mdo.drainStat, -1 * debuffPower);
 			battle.applyBoost(victim, mod);
 			battle.println(tab + victimname + "'s " + statName + " is down by "
 					+ debuffPower + ".");
