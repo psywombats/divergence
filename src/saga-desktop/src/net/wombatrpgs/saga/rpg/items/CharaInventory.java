@@ -98,6 +98,16 @@ public class CharaInventory extends Inventory {
 	}
 	
 	/**
+	 * @see net.wombatrpgs.saga.rpg.items.Inventory#checkDiscard
+	 * (net.wombatrpgs.saga.rpg.items.CombatItem)
+	 */
+	@Override
+	public void checkDiscard(CombatItem item) {
+		if (chara.getRace() == Race.ROBOT) return;
+		super.checkDiscard(item);
+	}
+
+	/**
 	 * Restores any abilities in this inventory to top form.
 	 */
 	public void restoreAbilUses() {
@@ -107,7 +117,6 @@ public class CharaInventory extends Inventory {
 			}
 		}
 	}
-
 
 	/**
 	 * Checks if the given slot can have the given item stored in it. This

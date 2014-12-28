@@ -112,6 +112,16 @@ public abstract class Inventory {
 	}
 	
 	/**
+	 * Checks if a given item in this inventory should be discarded, and if so,
+	 * drops it. Assumes the item is in the inventory. Called only from the item
+	 * usually.
+	 * @param	item			The item to check to discard
+	 */
+	public void checkDiscard(CombatItem item) {
+		drop(item);
+	}
+	
+	/**
 	 * Calculates the price of an item in this inventory. Will blow up if the
 	 * inventory does not actually contain the item.
 	 * @param	item			The item to value check

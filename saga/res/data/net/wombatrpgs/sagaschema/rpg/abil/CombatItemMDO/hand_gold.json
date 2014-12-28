@@ -6,7 +6,7 @@
 	"abilityName" : "$CGOLD",
 	"type" : "ITEM",
 	"uses" : 0,
-	"cost" : 125,
+	"cost" : 165,
 	"anim" : "None",
 	"equip" : [
 		"GAUNTLET"

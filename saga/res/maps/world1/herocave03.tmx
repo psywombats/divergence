@@ -11,7 +11,7 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2VMQ6AIAxF6z08ARuX4ECuXt4FkwYacSEt+oaXNB3gQcpnF5EdAAAAQpMqh6q9nTS5cqra20lTDLydWr9Ngd/3/CLPn/b0dljR787kIrHzuag6Se866s06m/U+svSuo96sv8fKF8t11Jv19p/2aPuWf7uW15y+uaOoGYDfP/wAAGBdLi4/fZoAGQAA
+   H4sIAAAAAAAAC+2VSwrAIAxE4z08gTsv4YG67eW7UQiS4o/UtJ3FgxAYM4aQeCLyAAAAADBNyBwsHtWGCW0vMXOyeFQbJ7S9JIEntCM1HGPU36x2pYbrZJc/a/2zPH+8ltbbX/ZX9moivR27QtmricXSPWjltP4mzTi/B6VuK6d5P+odIXlt5TTvx12NOi/5r9/aNac9PbK6A+DvH/4AAAC8lws5q2mZABkAAA==
   </data>
  </layer>
  <layer name="Tile Layer 2" width="40" height="40">
@@ -19,7 +19,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3VoREAIBADQbrGvqVrPCYC8cyw687FZQwAgDszdLcK3W2FBuC9bzlV94DAtwAAP9ozozhjABkAAA==
+   H4sIAAAAAAAAC+3VMQoAIAwDQH/t2tVf+4QKWkS82zIEsqU1AIA9PclV3VWR5KruqpHkqi7ASyr+4aS4PSDhHwCAH01oQ7rwABkAAA==
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
@@ -43,13 +43,23 @@
     <property name="onInteract" value="play('augur.lua')"/>
    </properties>
   </object>
+  <object name="door" type="Event" x="224" y="208" width="16" height="16">
+   <properties>
+    <property name="onInteract" value="playScene('herogate01.lua')"/>
+   </properties>
+  </object>
+  <object name="chest" type="Chest" x="464" y="224" width="16" height="16">
+   <properties>
+    <property name="collectable" value="stone_water"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Tile Layer 3" width="40" height="40">
   <properties>
    <property name="z" value="1.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3OAQkAAAwDoAV5/5yPMRiawAQAAAAAOq4dAGDWA2HIfU0AGQAA
+   H4sIAAAAAAAAC+3WMQ0AAAgEsReCf51IAAa2NjkPlwAAwE0tAwCYeAYAvjRQxd5HABkAAA==
   </data>
  </layer>
 </map>

@@ -19,7 +19,7 @@ import org.luaj.vm2.lib.VarArgFunction;
  * these do not execute immediately but rather wait for their sequence in a
  * scripted scene. The event provided can be an event name which will be
  * looked up at time of execution.
- * Usage: {@code walk(<event> or <eventName>, <steps>, <direction>, [wait])}
+ * Usage: {@code walk(<event> or <eventName>, <steps>, <direction>, [wait=true])}
  */
 public class SceneWalk extends VarArgFunction {
 	

@@ -329,7 +329,7 @@ public class CombatItem extends AssetQueuer {
 		if (mdo.uses == 0) return;
 		if (mdo.type == AbilityType.ABILITY) return;
 		
-		container.drop(this);
+		container.checkDiscard(this);
 	}
 	
 	/**

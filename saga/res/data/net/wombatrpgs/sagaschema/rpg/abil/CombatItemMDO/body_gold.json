@@ -6,7 +6,7 @@
 	"abilityName" : "$AGOLD",
 	"type" : "ITEM",
 	"uses" : 0,
-	"cost" : 175,
+	"cost" : 280,
 	"anim" : "None",
 	"equip" : [
 		"ARMOR"

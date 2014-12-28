@@ -118,7 +118,7 @@ public class Chara extends AssetQueuer implements Disposable, LuaConvertable {
 			this.status = Status.get(memory.statusKey);
 		}
 		if (MapThing.mdoHasProperty(memory.graphicKey)) {
-			this.portrait = new Graphic(memory.graphicKey);
+			this.portrait = new Graphic("", memory.graphicKey);
 			assets.add(portrait);
 		}
 		if (MapThing.mdoHasProperty(memory.monsterFamilyKey)) {

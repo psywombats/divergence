@@ -6,7 +6,7 @@
 	"abilityName" : "$BGOLD",
 	"type" : "ITEM",
 	"uses" : 50,
-	"cost" : 50,
+	"cost" : 60,
 	"anim" : "banim_defend",
 	"equip" : [ ],
 	"warhead" : {

@@ -6,7 +6,7 @@
 	"abilityName" : "$CSILVER",
 	"type" : "ITEM",
 	"uses" : 0,
-	"cost" : 380,
+	"cost" : 450,
 	"anim" : "None",
 	"equip" : [
 		"GAUNTLET"

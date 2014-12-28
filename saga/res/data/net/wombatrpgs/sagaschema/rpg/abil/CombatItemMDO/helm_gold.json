@@ -6,7 +6,7 @@
 	"abilityName" : "$FGOLD",
 	"type" : "ITEM",
 	"uses" : 0,
-	"cost" : 150,
+	"cost" : 200,
 	"anim" : "None",
 	"equip" : [
 		"HELMET"

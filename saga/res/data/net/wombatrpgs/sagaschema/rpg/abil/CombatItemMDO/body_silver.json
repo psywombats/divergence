@@ -6,7 +6,7 @@
 	"abilityName" : "$ASILVER",
 	"type" : "ITEM",
 	"uses" : 0,
-	"cost" : 2200,
+	"cost" : 2400,
 	"anim" : "None",
 	"equip" : [
 		"ARMOR"
