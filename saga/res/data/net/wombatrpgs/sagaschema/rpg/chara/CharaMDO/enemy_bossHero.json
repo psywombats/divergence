@@ -6,7 +6,7 @@
 	"gender" : "MALE",
 	"race" : "MUTANT",
 	"family" : "None",
-	"species" : "",
+	"species" : "AUGUR",
 	"appearance" : "4dir_human_m",
 	"portrait" : "battle_portraits/psi.png",
 	"meatEatLevel" : 3,

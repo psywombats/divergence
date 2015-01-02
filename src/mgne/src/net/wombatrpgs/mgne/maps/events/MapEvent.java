@@ -133,7 +133,10 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	public FacesAnimation getAppearance() { return appearance; }
 	
 	/** @param appearance The new anim for this event */
-	public void setAppearance(FacesAnimation appearance) { this.appearance = appearance; }
+	public void setAppearance(FacesAnimation appearance) {
+		this.appearance = appearance;
+		appearance.startMoving();
+	}
 	
 	/** @see net.wombatrpgs.mgne.core.lua.LuaConvertable#toLua() */
 	@Override public LuaValue toLua() { return lua; }

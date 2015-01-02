@@ -47,7 +47,9 @@ public class Intent implements Comparable<Intent> {
 		this.battle = battle;
 		targets = new ArrayList<Chara>();
 		priority = (int) actor.get(Stat.AGI);
-		priority += MGlobal.rand.nextInt(priority);
+		if (priority > 0) {
+			priority += MGlobal.rand.nextInt(priority);
+		}
 	}
 	
 	/** @return All targeted characters */

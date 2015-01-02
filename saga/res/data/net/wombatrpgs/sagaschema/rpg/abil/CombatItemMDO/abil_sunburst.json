@@ -8,10 +8,12 @@
 	"uses" : 20,
 	"cost" : 0,
 	"anim" : "banim_flame",
+	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
 		"key" : "anon_CombatItemMDO_977923189"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

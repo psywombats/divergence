@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="16" tileheight="16">
  <properties>
-  <property name="bgm" value="no_change"/>
+  <property name="bgm" value="ffl1_cave"/>
   <property name="name" value="Cave of Hero"/>
  </properties>
  <tileset firstgid="1" source="../tilesets/lower.tsx"/>
@@ -45,7 +45,8 @@
   </object>
   <object name="door" type="Event" x="224" y="208" width="16" height="16">
    <properties>
-    <property name="onInteract" value="playScene('herogate01.lua')"/>
+    <property name="onInteract" value="play('herogate01.lua')"/>
+    <property name="passable" value="IMPASSABLE"/>
    </properties>
   </object>
   <object name="chest" type="Chest" x="464" y="224" width="16" height="16">
