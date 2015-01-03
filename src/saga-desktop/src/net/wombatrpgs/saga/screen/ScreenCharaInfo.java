@@ -6,18 +6,12 @@
  */
 package net.wombatrpgs.saga.screen;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.ui.Nineslice;
-import net.wombatrpgs.mgne.ui.text.FontHolder;
-import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.saga.core.SConstants;
 import net.wombatrpgs.saga.core.SGlobal;
@@ -29,7 +23,7 @@ import net.wombatrpgs.saga.ui.ItemSelector;
 import net.wombatrpgs.saga.ui.CharaInsert;
 import net.wombatrpgs.saga.ui.CharaInsertFull;
 import net.wombatrpgs.saga.ui.SlotListener;
-import net.wombatrpgs.sagaschema.rpg.stats.Stat;
+import net.wombatrpgs.saga.ui.StatsBar;
 
 /**
  * Displays detailed stats on a character.
@@ -38,21 +32,17 @@ public class ScreenCharaInfo extends SagaScreen implements TargetSelectable {
 	
 	protected static final int HEADER_WIDTH = 178;
 	protected static final int HEADER_HEIGHT = 52;
-	protected static final int STATS_WIDTH = 48;
-	protected static final int STATS_HEIGHT = 108;
-	protected static final int STATS_PADDING = 8;
 	protected static final int ABILS_WIDTH = 128;
 	protected static final int ABILS_HEIGHT = 108;
 	protected static final int ABILS_EDGE_PADDING = 12;
-	protected static final int ABILS_LIST_PADDING = 3;
+	protected static final int ABILS_LIST_PADDING = 4;
 	protected static final int INSERTS_PADDING = 3;
 	
 	protected Chara chara;
 	
-	protected Nineslice headerBG, statsBG, abilsBG;
+	protected Nineslice headerBG, abilsBG;
+	protected StatsBar stats;
 	protected CharaInsert header;
-	protected TextFormat labelFormat, statFormat;
-	protected List<Stat> statDisplay;
 	protected ItemSelector abils;
 	protected CharaSelector inserts;
 	protected boolean showInserts;
@@ -67,12 +57,12 @@ public class ScreenCharaInfo extends SagaScreen implements TargetSelectable {
 		this.chara = chara;
 		pushCommandContext(new CMapMenu());
 		
+		stats = new StatsBar(chara);
+		assets.add(stats);
+		
 		headerBG = new Nineslice(HEADER_WIDTH, HEADER_HEIGHT);
 		assets.add(headerBG);
-		statsBG = new Nineslice(STATS_WIDTH,
-				STATS_HEIGHT + headerBG.getBorderHeight());
-		assets.add(statsBG);
-		abilsBG = new Nineslice(ABILS_WIDTH + statsBG.getBorderWidth(),
+		abilsBG = new Nineslice(ABILS_WIDTH + stats.getBorderWidth(),
 				ABILS_HEIGHT + headerBG.getBorderHeight());
 		assets.add(abilsBG);
 		header = new CharaInsertFull(chara, false);
@@ -87,14 +77,11 @@ public class ScreenCharaInfo extends SagaScreen implements TargetSelectable {
 		addUChild(inserts);
 		
 		globalX = (getWidth() - HEADER_WIDTH) / 2;
-		globalY = -(getHeight() - (HEADER_HEIGHT + STATS_HEIGHT - 
-				statsBG.getBorderHeight())) / 2;
+		globalY = -(getHeight() - (HEADER_HEIGHT + stats.getHeight())) / 2;
 		
-		statDisplay = new ArrayList<Stat>();
-		statDisplay.add(Stat.STR);
-		statDisplay.add(Stat.AGI);
-		statDisplay.add(Stat.DEF);
-		statDisplay.add(Stat.MANA);
+		stats.setX(globalX);
+		stats.setY(globalY + getHeight() - HEADER_HEIGHT -
+				stats.getHeight() + headerBG.getBorderHeight());
 		
 		showInserts = false;
 		createDisplay();
@@ -150,22 +137,14 @@ public class ScreenCharaInfo extends SagaScreen implements TargetSelectable {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
-		abilsBG.renderAt(batch, globalX + STATS_WIDTH - statsBG.getBorderWidth(),
-				globalY + getHeight() - HEADER_HEIGHT - STATS_HEIGHT);
-		statsBG.renderAt(batch, globalX, globalY + getHeight() - HEADER_HEIGHT -
-				STATS_HEIGHT);
+		abilsBG.renderAt(batch, globalX + stats.getWidth() - stats.getBorderWidth(),
+				globalY + getHeight() - HEADER_HEIGHT - stats.getHeight() +
+				stats.getBorderHeight());
+		stats.render(batch);
 		headerBG.renderAt(batch, globalX, globalY + getHeight() - HEADER_HEIGHT);
 		header.render(batch);
 		if (showInserts) {
 			inserts.render(batch);
-		}
-		
-		FontHolder font = MGlobal.ui.getFont();
-		for (int i = 0; i < statDisplay.size(); i += 1) {
-			Stat stat = statDisplay.get(i);
-			int offY = (int) (-i * (font.getLineHeight()*2 + STATS_PADDING));
-			font.draw(batch, labelFormat, stat.getLabel(), offY);
-			font.draw(batch, statFormat, (int) chara.get(stat) + "", offY);
 		}
 		
 		abils.render(batch);
@@ -217,31 +196,15 @@ public class ScreenCharaInfo extends SagaScreen implements TargetSelectable {
 	 * Creates the header/stats display.
 	 */
 	protected void createDisplay() {
-		FontHolder font = MGlobal.ui.getFont();
 		headerX = (HEADER_WIDTH - header.getWidth()) / 2;
 		headerY = getHeight() - HEADER_HEIGHT + (HEADER_HEIGHT - header.getHeight()) / 2;
 		header.refresh();
 		header.setX(globalX + headerX);
 		header.setY(globalY + headerY);
 		
-		labelFormat = new TextFormat();
-		labelFormat.align = HAlignment.LEFT;
-		labelFormat.width = STATS_WIDTH - statsBG.getBorderWidth()*2;
-		labelFormat.height = 80;
-		labelFormat.x = globalX + statsBG.getBorderWidth();
-		labelFormat.y = globalY + getHeight() - (HEADER_HEIGHT + statsBG.getBorderHeight() / 2);
-		
-		statFormat = new TextFormat();
-		statFormat.align = HAlignment.RIGHT;
-		statFormat.width = STATS_WIDTH - statsBG.getBorderWidth()*5/2;
-		statFormat.height = 80;
-		statFormat.x = globalX + statsBG.getBorderWidth();
-		statFormat.y = globalY + (int) (getHeight() - (HEADER_HEIGHT +
-				statsBG.getBorderHeight() / 2 + font.getLineHeight()));
-		
-		abils.setX(globalX + STATS_WIDTH - statsBG.getBorderWidth()/2 +
+		abils.setX(globalX + stats.getWidth() - stats.getBorderWidth()/2 +
 				(ABILS_WIDTH - abils.getWidth()) / 2);
-		abils.setY(globalY + getHeight() - HEADER_HEIGHT - ABILS_EDGE_PADDING -
+		abils.setY(globalY + getHeight() - HEADER_HEIGHT - ABILS_EDGE_PADDING/2 -
 				abils.getHeight() - headerBG.getBorderHeight());
 	}
 
