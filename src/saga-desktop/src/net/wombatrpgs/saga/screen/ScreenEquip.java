@@ -21,6 +21,7 @@ import net.wombatrpgs.saga.ui.CharaInsert;
 import net.wombatrpgs.saga.ui.CharaInsertFull;
 import net.wombatrpgs.saga.ui.ItemSelector;
 import net.wombatrpgs.saga.ui.SlotListener;
+import net.wombatrpgs.saga.ui.StatsBar;
 
 /**
  * Equip items to heroes and strip them of their weapons to sell for ill-gotten
@@ -36,6 +37,8 @@ public class ScreenEquip extends SagaScreen {
 	protected static final int ITEMS_HEIGHT = 122;
 	protected static final int ITEMS_EDGE_PADDING = 12;
 	protected static final int ITEMS_LIST_PADDING = 3;
+	protected static final int STATS_HEIGHT = 32;
+	protected static final int STATS_PADDING = 54;
 	
 	protected Chara chara;
 	protected PartyInventory inventory;
@@ -44,6 +47,7 @@ public class ScreenEquip extends SagaScreen {
 	protected Nineslice headerBG, abilsBG, itemsBG;
 	protected CharaInsert header;
 	protected ItemSelector abils, items;
+	protected StatsBar stats;
 	protected int globalX, globalY;
 	protected int marked, lastRight;
 	
@@ -65,11 +69,12 @@ public class ScreenEquip extends SagaScreen {
 		assets.add(itemsBG);
 		
 		globalX = (getWidth() - (ITEMS_WIDTH + ABILS_WIDTH - abilsBG.getBorderWidth())) / 2;
-		globalY = (getHeight() - (ABILS_HEIGHT + HEADER_HEIGHT)) / 2;
+		globalY = (getHeight() - (ABILS_HEIGHT + HEADER_HEIGHT + STATS_HEIGHT)) / 2;
 		
 		header = new CharaInsertFull(chara, false);
 		header.setX(globalX + (HEADER_WIDTH - header.getWidth()) / 2);
-		header.setY(globalY + ABILS_HEIGHT + (HEADER_HEIGHT - header.getHeight()) / 2);
+		header.setY(globalY + STATS_HEIGHT + ABILS_HEIGHT +
+				(HEADER_HEIGHT - header.getHeight()) / 2);
 		assets.add(header);
 		addUChild(header);
 		
@@ -80,12 +85,19 @@ public class ScreenEquip extends SagaScreen {
 				ITEMS_WIDTH - ITEMS_EDGE_PADDING * 2, ITEMS_LIST_PADDING,
 				false, false);
 		abils.setX(globalX + (ABILS_WIDTH - abils.getWidth()) / 2);
-		abils.setY(globalY + (ABILS_HEIGHT - abils.getHeight()) / 2 - 5);
+		abils.setY(globalY + STATS_HEIGHT + (ABILS_HEIGHT - abils.getHeight()) / 2 - 5);
 		items.setX(globalX + ABILS_WIDTH - abilsBG.getBorderWidth() +
 				(ITEMS_WIDTH - items.getWidth()) / 2);
-		items.setY(globalY + (ITEMS_HEIGHT - items.getHeight()) / 2 - 5);
+		items.setY(globalY + STATS_HEIGHT + (ITEMS_HEIGHT - items.getHeight()) / 2 - 5);
 		assets.add(abils);
 		assets.add(items);
+		
+		stats = new StatsBar(chara,
+				ABILS_WIDTH + ITEMS_WIDTH - headerBG.getBorderWidth(),
+				STATS_HEIGHT + headerBG.getBorderHeight(), STATS_PADDING, true);
+		assets.add(stats);
+		stats.setX(globalX);
+		stats.setY(globalY);
 		
 		lastRight = 0;
 	}
@@ -96,9 +108,11 @@ public class ScreenEquip extends SagaScreen {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
-		itemsBG.renderAt(batch, globalX + ABILS_WIDTH - abilsBG.getBorderWidth(), globalY);
-		abilsBG.renderAt(batch, globalX, globalY);
-		headerBG.renderAt(batch, globalX, globalY + ABILS_HEIGHT);
+		stats.render(batch);
+		itemsBG.renderAt(batch, globalX + ABILS_WIDTH - abilsBG.getBorderWidth(),
+				globalY + STATS_HEIGHT);
+		abilsBG.renderAt(batch, globalX, globalY + STATS_HEIGHT);
+		headerBG.renderAt(batch, globalX, globalY + ABILS_HEIGHT + STATS_HEIGHT);
 		header.render(batch);
 		items.render(batch);
 		abils.render(batch);

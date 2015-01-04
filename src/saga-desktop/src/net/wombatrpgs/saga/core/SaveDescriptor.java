@@ -56,7 +56,7 @@ public class SaveDescriptor {
 //				"/" + leader.get(Stat.MHP);
 		save.location = SGlobal.heroes.getLocation();
 		save.lastSaved = new Date();
-		save.build = SConstants.BUILD;
+		save.build = SConstants.SAVE_BUILD;
 		save.fileName = save.getLeaderString().replace(' ', '_');
 		save.fileName += ("_" + save.getDateString());
 		save.fileName += ("_" + System.currentTimeMillis());
@@ -81,7 +81,7 @@ public class SaveDescriptor {
 	 */
 	@JsonIgnore
 	public boolean isOutdated() {
-		return build != SConstants.BUILD;
+		return build != SConstants.SAVE_BUILD;
 	}
 
 }

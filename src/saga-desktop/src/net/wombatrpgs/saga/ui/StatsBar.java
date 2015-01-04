@@ -34,22 +34,25 @@ public class StatsBar extends ScreenGraphic {
 	protected Nineslice statsBG;
 	protected TextFormat statFormat, labelFormat;
 	protected List<Stat> statDisplay;
+	protected boolean horizontal;
 	protected int x, y;
 	protected int width, height;
 	protected int padding;
 	
 	/**
-	 * Creates a stats bar with custom width, height, and padding. Vertical.
+	 * Creates a stats bar with custom width, height, and padding.
 	 * @param	chara			The chara to draw the bar for
 	 * @param	width			The width of the bar, in pixels
 	 * @param	height			The height of the bar, in pixels
 	 * @param	padding			The vertical padding between stats, in pixels
+	 * @param	horizontal		True to lay out horizontal, false for vertical
 	 */
-	public StatsBar(Chara chara, int width, int height, int padding) {
+	public StatsBar(Chara chara, int width, int height, int padding, boolean horizontal) {
 		this.chara = chara;
 		this.width = width;
 		this.height = height;
 		this.padding = padding;
+		this.horizontal = horizontal;
 		
 		statsBG = new Nineslice(width, height);
 		assets.add(statsBG);
@@ -66,7 +69,7 @@ public class StatsBar extends ScreenGraphic {
 	 * @param	chara			The chara to generate the bar for
 	 */
 	public StatsBar(Chara chara) {
-		this(chara, DEFAULT_STATS_WIDTH, DEFAULT_STATS_HEIGHT, DEFAULT_STATS_PADDING);
+		this(chara, DEFAULT_STATS_WIDTH, DEFAULT_STATS_HEIGHT, DEFAULT_STATS_PADDING, false);
 	}
 
 	/** @see net.wombatrpgs.mgne.graphics.ScreenGraphic#getWidth() */
@@ -98,9 +101,15 @@ public class StatsBar extends ScreenGraphic {
 		FontHolder font = MGlobal.ui.getFont();
 		for (int i = 0; i < statDisplay.size(); i += 1) {
 			Stat stat = statDisplay.get(i);
-			int offY = (int) (-i * (font.getLineHeight()*2 + padding));
-			font.draw(batch, labelFormat, stat.getLabel(), offY);
-			font.draw(batch, statFormat, (int) chara.get(stat) + "", offY);
+			int offY = 0;
+			int offX = 0;
+			if (horizontal) {
+				offX = (int) (i * padding);
+			} else {
+				offY = (int) (-i * (font.getLineHeight()*2 + padding));
+			}
+			font.draw(batch, labelFormat, stat.getLabel(), offX, offY);
+			font.draw(batch, statFormat, (int) chara.get(stat) + "", offX, offY);
 		}
 	}
 
@@ -124,7 +133,11 @@ public class StatsBar extends ScreenGraphic {
 		
 		statFormat = new TextFormat();
 		statFormat.align = HAlignment.RIGHT;
-		statFormat.width = width - statsBG.getBorderWidth()*5/2;
+		if (horizontal) {
+			statFormat.width  = padding * 2 / 3;
+		} else {
+			statFormat.width = width - statsBG.getBorderWidth()*5/2;
+		}
 		statFormat.height = 80;
 		statFormat.x = x + statsBG.getBorderWidth();
 		statFormat.y = y + (int) (height - (statsBG.getBorderHeight() / 2 +

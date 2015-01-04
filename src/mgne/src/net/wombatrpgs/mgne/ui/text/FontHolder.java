@@ -74,10 +74,25 @@ public class FontHolder implements Queueable {
 	 * @param	offY			Additional offset Y, to change lines (in px)
 	 */
 	public void draw(SpriteBatch batch, TextFormat format, String text, int offY) {
+		draw(batch, format, text, 0, offY);
+	}
+	
+	/**
+	 * Draws some text with a horizontal offset as well.
+	 * @param	batch			The batch to draw with
+	 * @param	format			The text box format to draw with
+	 * @param	text			The text to draw
+	 * @param	offX			The x-offset from textbox format, in pixels
+	 * @param	offY			The y-offset from textbox format, in pixels
+	 */
+	public void draw(SpriteBatch batch, TextFormat format, String text, int offX, int offY) {
 		batch.begin();
-		TextBounds bounds = font.drawWrapped(batch, text, 
-				format.x, format.y + offY, 
-				format.width, format.align);
+		TextBounds bounds = font.drawWrapped(batch,
+				text, 
+				format.x + offX,
+				format.y + offY, 
+				format.width,
+				format.align);
 		if (bounds.height > format.height + offY) {
 			MGlobal.reporter.warn("A string was oversized: \"" + text + "\"");
 		}

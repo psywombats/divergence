@@ -109,7 +109,7 @@ public class SagaGame extends MgnGame {
 	 */
 	@Override
 	public VersionInfo getVersionInfo() {
-		return new VersionInfo(SConstants.VERSION, SConstants.BUILD, SConstants.GAME_NAME) {
+		return new VersionInfo(SConstants.VERSION, SConstants.SAVE_BUILD, SConstants.GAME_NAME) {
 			@Override public String getUserName() {
 				return System.getProperty("user.name");
 			}
