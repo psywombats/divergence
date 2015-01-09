@@ -235,7 +235,6 @@ public class ScreenShop extends SagaScreen {
 	protected boolean onBuy() {
 		menu.unfocus();
 		sellMode = false;
-		headerString = "Buy what?";
 		shopSelector.awaitSelection(new SlotListener() {
 			@Override public boolean onSelection(int selected) {
 				if (selected == -1) {
@@ -258,6 +257,15 @@ public class ScreenShop extends SagaScreen {
 				return false;
 			}
 		}, true);
+		shopSelector.attachHoverListener(new SlotListener() {
+			@Override public boolean onSelection(int selected) {
+				CombatItem selectedItem = shop.get(selected);
+				if (selectedItem != null) {
+					headerString = selectedItem.getDescription();
+				}
+				return false;
+			}
+		});
 		return false;
 	}
 	

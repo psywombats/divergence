@@ -126,6 +126,9 @@ public class CombatItem extends AssetQueuer {
 	
 	/** @return The number of uses this item had when equipped */
 	public int getAddedUses() { return usesWhenAdded; }
+	
+	/** @return The item description (for noob mode) */
+	public String getDescription() { return mdo.itemDescription == null ? getName() : mdo.itemDescription; }
 
 	/**
 	 * @see java.lang.Object#toString()

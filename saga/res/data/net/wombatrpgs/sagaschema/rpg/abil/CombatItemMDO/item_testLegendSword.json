@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$EDUREND",
+	"itemDescription" : "DURENDAL",
 	"type" : "ITEM",
 	"uses" : 50,
 	"cost" : 0,

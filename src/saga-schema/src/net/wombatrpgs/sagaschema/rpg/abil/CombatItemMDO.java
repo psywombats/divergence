@@ -30,6 +30,9 @@ public class CombatItemMDO extends MainSchema {
 	@Desc("Ability name - displayed in-game, potentially with $A special char codes")
 	public String abilityName;
 	
+	@Desc("Description - used for noob mode")
+	public String itemDescription;
+	
 	@Desc("Type")
 	public AbilityType type;
 	

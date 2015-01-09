@@ -19,6 +19,7 @@ import net.wombatrpgs.saga.rpg.items.Inventory;
 import net.wombatrpgs.saga.ui.CharaSelector;
 import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
 import net.wombatrpgs.saga.ui.CollectionSelector;
+import net.wombatrpgs.saga.ui.DescriptionBox;
 import net.wombatrpgs.saga.ui.ItemSelector;
 import net.wombatrpgs.saga.ui.SlotListener;
 
@@ -34,11 +35,13 @@ public class ScreenInventory extends SagaScreen implements TargetSelectable {
 	protected static final int INSERTS_PADDING_X = 3;
 	protected static final int COLLECTION_WIDTH = 92;
 	protected static final int COLLECTION_PADDING = 3;
+	protected static final int DESCRIPTION_HEIGHT = 28;
 	
 	protected Inventory inventory;
 	protected ItemSelector items;
 	protected CharaSelector inserts;
 	protected CollectionSelector collection;
+	protected DescriptionBox description;
 	protected Nineslice bg, collectionBG;
 	protected int marked;
 	protected float collectionX, collectionY;
@@ -69,11 +72,15 @@ public class ScreenInventory extends SagaScreen implements TargetSelectable {
 		collectionBG = new Nineslice();
 		assets.add(collectionBG);
 		
+		description = new DescriptionBox(ITEMS_WIDTH + inserts.getWidth() -
+				collectionBG.getBorderWidth(), DESCRIPTION_HEIGHT);
+		assets.add(description);
+		
 		collectionHeight = collection.getHeight() +
 				collectionBG.getBorderHeight()*2 + COLLECTION_PADDING*2;
 		
 		globalX = (getWidth() - (ITEMS_WIDTH + inserts.getWidth())) / 2;
-		globalY = (getHeight() - ITEMS_HEIGHT) / 2;
+		globalY = (getHeight() - ITEMS_HEIGHT - (description.getHeight() - collectionBG.getBorderHeight())) / 2;
 		
 		items.setX(globalX + (ITEMS_WIDTH - items.getWidth()) / 2);
 		items.setY(globalY + (ITEMS_HEIGHT - items.getHeight()) / 2 - 7);
@@ -83,6 +90,17 @@ public class ScreenInventory extends SagaScreen implements TargetSelectable {
 				collectionHeight + collectionBG.getBorderHeight();
 		collection.setX(collectionX + collectionBG.getBorderWidth() + COLLECTION_PADDING);
 		collection.setY(collectionY - COLLECTION_PADDING + 3);
+		
+		description.setX(globalX);
+		description.setY(globalY + ITEMS_HEIGHT - collectionBG.getBorderHeight());
+		
+		items.attachHoverListener(new SlotListener() {
+			@Override public boolean onSelection(int selected) {
+				CombatItem item = inventory.get(selected);
+				description.describe(item);
+				return false;
+			}
+		});
 	}
 
 	/**
@@ -128,6 +146,7 @@ public class ScreenInventory extends SagaScreen implements TargetSelectable {
 			bg.renderAt(batch, globalX, globalY);
 		}
 		items.render(batch);
+		description.render(batch);
 		super.render(batch);
 	}
 	

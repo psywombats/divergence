@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$EDUMMY",
+	"itemDescription" : "dummy",
 	"type" : "ITEM",
 	"uses" : 50,
 	"cost" : 120,

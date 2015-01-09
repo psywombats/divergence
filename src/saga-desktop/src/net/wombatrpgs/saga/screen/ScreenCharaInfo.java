@@ -19,6 +19,7 @@ import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.saga.rpg.items.CombatItem;
 import net.wombatrpgs.saga.ui.CharaSelector;
 import net.wombatrpgs.saga.ui.CharaSelector.SelectionListener;
+import net.wombatrpgs.saga.ui.DescriptionBox;
 import net.wombatrpgs.saga.ui.ItemSelector;
 import net.wombatrpgs.saga.ui.CharaInsert;
 import net.wombatrpgs.saga.ui.CharaInsertFull;
@@ -32,16 +33,18 @@ public class ScreenCharaInfo extends SagaScreen implements TargetSelectable {
 	
 	protected static final int HEADER_WIDTH = 178;
 	protected static final int HEADER_HEIGHT = 52;
-	protected static final int ABILS_WIDTH = 128;
+	protected static final int ABILS_WIDTH = 130;
 	protected static final int ABILS_HEIGHT = 108;
 	protected static final int ABILS_EDGE_PADDING = 12;
 	protected static final int ABILS_LIST_PADDING = 4;
 	protected static final int INSERTS_PADDING = 3;
+	protected static final int DESCRIPTION_HEIGHT = 28;
 	
 	protected Chara chara;
 	
 	protected Nineslice headerBG, abilsBG;
 	protected StatsBar stats;
+	protected DescriptionBox description;
 	protected CharaInsert header;
 	protected ItemSelector abils;
 	protected CharaSelector inserts;
@@ -65,9 +68,11 @@ public class ScreenCharaInfo extends SagaScreen implements TargetSelectable {
 		abilsBG = new Nineslice(ABILS_WIDTH + stats.getBorderWidth(),
 				ABILS_HEIGHT + headerBG.getBorderHeight());
 		assets.add(abilsBG);
+		
 		header = new CharaInsertFull(chara, false);
 		assets.add(header);
 		addUChild(header);
+		
 		abils = new ItemSelector(chara.getInventory(), chara.getInventory().slotCount(),
 				ABILS_WIDTH - ABILS_EDGE_PADDING * 2, ABILS_LIST_PADDING,
 				false, false);
@@ -76,12 +81,18 @@ public class ScreenCharaInfo extends SagaScreen implements TargetSelectable {
 		assets.add(inserts);
 		addUChild(inserts);
 		
+		description = new DescriptionBox(HEADER_WIDTH, DESCRIPTION_HEIGHT);
+		assets.add(description);
+		
 		globalX = (getWidth() - HEADER_WIDTH) / 2;
-		globalY = -(getHeight() - (HEADER_HEIGHT + stats.getHeight())) / 2;
+		globalY = -(getHeight() - (DESCRIPTION_HEIGHT + HEADER_HEIGHT + stats.getHeight())) / 2;
 		
 		stats.setX(globalX);
 		stats.setY(globalY + getHeight() - HEADER_HEIGHT -
 				stats.getHeight() + headerBG.getBorderHeight());
+		
+		description.setX(globalX);
+		description.setY(stats.getY() - (description.getHeight() - headerBG.getBorderHeight()));
 		
 		showInserts = false;
 		createDisplay();
@@ -137,6 +148,7 @@ public class ScreenCharaInfo extends SagaScreen implements TargetSelectable {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
+		description.render(batch);
 		abilsBG.renderAt(batch, globalX + stats.getWidth() - stats.getBorderWidth(),
 				globalY + getHeight() - HEADER_HEIGHT - stats.getHeight() +
 				stats.getBorderHeight());
@@ -176,6 +188,13 @@ public class ScreenCharaInfo extends SagaScreen implements TargetSelectable {
 				return false;
 			}
 		}, true);
+		abils.attachHoverListener(new SlotListener() {
+			@Override public boolean onSelection(int selected) {
+				CombatItem selectedItem = chara.getInventory().get(selected);
+				description.describe(selectedItem);
+				return false;
+			}
+		});
 	}
 
 	/**

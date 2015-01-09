@@ -45,7 +45,7 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	protected int count;
 	
 	// cursor
-	protected SlotListener listener, selectListener;
+	protected SlotListener listener, selectListener, hoverListener;
 	protected boolean cursorOn;
 	protected boolean cancellable;
 	protected float cursorX, cursorY;
@@ -225,6 +225,16 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 	}
 	
 	/**
+	 * Also listens for when the user moves the cursor to a slot. Instantly
+	 * fires with the current selection.
+	 * @param	listener		The listener to call with current slot
+	 */
+	public void attachHoverListener(SlotListener listener) {
+		this.hoverListener = listener;
+		updateCursor();
+	}
+	
+	/**
 	 * Prompts the user to use or discard the selected item.
 	 * @param	screen			The screen that will be used for selecting chara
 	 */
@@ -313,6 +323,10 @@ public class ItemSelector extends ScreenGraphic implements CommandListener {
 		FontHolder font = MGlobal.ui.getFont();
 		cursorX = x - cursor.getWidth() - 3;
 		cursorY = y + height - (selected * (font.getLineHeight() + padding) + cursor.getHeight()/2);
+		
+		if (hoverListener != null) {
+			hoverListener.onSelection(selected);
+		}
 	}
 	
 	/**

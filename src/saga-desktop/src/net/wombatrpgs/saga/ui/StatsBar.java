@@ -35,7 +35,6 @@ public class StatsBar extends ScreenGraphic {
 	protected TextFormat statFormat, labelFormat;
 	protected List<Stat> statDisplay;
 	protected boolean horizontal;
-	protected int x, y;
 	protected int width, height;
 	protected int padding;
 	
@@ -83,12 +82,6 @@ public class StatsBar extends ScreenGraphic {
 	
 	/** @return The border height of the stats background */
 	public int getBorderHeight() { return statsBG.getBorderHeight(); }
-	
-	/** @param x The new x-coord of this bar, in pixels */
-	public void setX(int x) { this.x = x; }
-	
-	/** @param y The new y-coord of this bar, in pixels */
-	public void setY(int y) { this.y = y; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.ScreenGraphic#coreRender
@@ -127,9 +120,9 @@ public class StatsBar extends ScreenGraphic {
 		labelFormat.align = HAlignment.LEFT;
 		labelFormat.width = width - statsBG.getBorderWidth()*2;
 		labelFormat.height = 80;
-		labelFormat.x = x + statsBG.getBorderWidth();
-		labelFormat.y = y + getHeight() - (statsBG.getBorderHeight() / 2) -
-				statsBG.getBorderHeight();
+		labelFormat.x = (int) (x + statsBG.getBorderWidth());
+		labelFormat.y = (int) (y + getHeight() - (statsBG.getBorderHeight() / 2) -
+				statsBG.getBorderHeight());
 		
 		statFormat = new TextFormat();
 		statFormat.align = HAlignment.RIGHT;
@@ -139,9 +132,9 @@ public class StatsBar extends ScreenGraphic {
 			statFormat.width = width - statsBG.getBorderWidth()*5/2;
 		}
 		statFormat.height = 80;
-		statFormat.x = x + statsBG.getBorderWidth();
-		statFormat.y = y + (int) (height - (statsBG.getBorderHeight() / 2 +
-				font.getLineHeight() + statsBG.getBorderHeight()));
+		statFormat.x = (int) (x + statsBG.getBorderWidth());
+		statFormat.y = (int) (y + (int) (height - (statsBG.getBorderHeight() / 2 +
+				font.getLineHeight() + statsBG.getBorderHeight())));
 	}
 
 }
