@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$HPRAYER",
+	"itemDescription" : "Attacks an undead group with typeless damage",
 	"type" : "ITEM",
 	"uses" : 30,
 	"cost" : 1000,

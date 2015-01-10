@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$GSMG",
+	"itemDescription" : "Attacks a group with fixed damage aimed by strength (tier 4)",
 	"type" : "ITEM",
 	"uses" : 30,
 	"cost" : 1500,

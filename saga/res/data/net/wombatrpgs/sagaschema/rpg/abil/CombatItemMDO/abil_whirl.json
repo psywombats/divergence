@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "WHIRLWIND",
+	"itemDescription" : "Attacks a party with thunder damage",
 	"type" : "ABILITY",
 	"uses" : 5,
 	"cost" : 0,
@@ -13,6 +14,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
 		"key" : "anon_CombatItemMDO_-1422073606"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

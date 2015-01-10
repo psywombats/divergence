@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "MIRROR",
+	"itemDescription" : "Reflects earth, ice, fire, and thunder damage",
 	"type" : "ABILITY",
 	"uses" : 5,
 	"cost" : 0,
@@ -13,6 +14,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectDefendMDO",
 		"key" : "anon_CombatItemMDO_444398665"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

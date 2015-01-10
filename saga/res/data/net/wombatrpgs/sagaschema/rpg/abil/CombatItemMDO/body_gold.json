@@ -4,9 +4,10 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$AGOLD",
+	"itemDescription" : "Increases defense by 8",
 	"type" : "ITEM",
 	"uses" : 0,
-	"cost" : 280,
+	"cost" : 175,
 	"anim" : "None",
 	"equip" : [
 		"ARMOR"

@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$ELONG",
+	"itemDescription" : "Inflicts weapon damage (tier 2)",
 	"type" : "ITEM",
 	"uses" : 50,
 	"cost" : 120,

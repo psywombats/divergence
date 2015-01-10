@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$HSLEEP",
+	"itemDescription" : "Inflicts sleep",
 	"type" : "ABILITY",
 	"uses" : 30,
 	"cost" : 1000,

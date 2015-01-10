@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "AGILITY",
+	"itemDescription" : "Boosts user agility to 99",
 	"type" : "ABILITY",
 	"uses" : 3,
 	"cost" : 0,
@@ -13,6 +14,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectBoostMDO",
 		"key" : "anon_CombatItemMDO_568660212"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$LDAMAGE",
+	"itemDescription" : "Resists fire, ice, earth, thunder, and weapon damage",
 	"type" : "ABILITY",
 	"uses" : 0,
 	"cost" : 0,
@@ -13,6 +14,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectPassiveMDO",
 		"key" : "anon_CombatItemMDO_-2058436846"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

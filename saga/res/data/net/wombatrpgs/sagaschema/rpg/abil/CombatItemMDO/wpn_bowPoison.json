@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$SPOISON",
+	"itemDescription" : "Inflicts poison based on user agility",
 	"type" : "ITEM",
 	"uses" : 50,
 	"cost" : 330,

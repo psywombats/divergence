@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "RAPIER",
+	"itemDescription" : "Attacks with weapon damage based on user agility (tier 1)",
 	"type" : "ITEM",
 	"uses" : 50,
 	"cost" : 32,

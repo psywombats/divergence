@@ -4,11 +4,14 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "SHRINE KEY",
+	"itemDescription" : "Opens doors in Airseed Shrine",
 	"type" : "ITEM",
 	"uses" : 0,
 	"cost" : 0,
 	"anim" : "None",
 	"equip" : [ ],
+	"warhead" : null,
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "HYPNOSIS",
+	"itemDescription" : "Inflicts sleep",
 	"type" : "ABILITY",
 	"uses" : 20,
 	"cost" : 0,
@@ -13,6 +14,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
 		"key" : "anon_CombatItemMDO_-2136969597"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

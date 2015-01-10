@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$PBRONZE",
+	"itemDescription" : "Attacks with weapon damage (tier 1)",
 	"type" : "ITEM",
 	"uses" : 50,
 	"cost" : 22,

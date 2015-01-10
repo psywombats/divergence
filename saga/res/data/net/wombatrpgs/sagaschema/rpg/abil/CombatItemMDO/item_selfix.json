@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "SELFIX",
+	"itemDescription" : "Heals robot every turn",
 	"type" : "ITEM",
 	"uses" : 0,
 	"cost" : 0,

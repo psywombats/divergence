@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$SLONG",
+	"itemDescription" : "Attacks with fixed damage aimed by agility (tier 2)",
 	"type" : "ITEM",
 	"uses" : 50,
 	"cost" : 152,

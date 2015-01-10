@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "STONE GAZE",
+	"itemDescription" : "Inflicts stone on a group",
 	"type" : "ABILITY",
 	"uses" : 5,
 	"cost" : 0,

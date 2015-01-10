@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "DEATH GAZE",
+	"itemDescription" : "Inflicts death on a group",
 	"type" : "ABILITY",
 	"uses" : 5,
 	"cost" : 0,
@@ -13,6 +14,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
 		"key" : "anon_CombatItemMDO_583921524"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

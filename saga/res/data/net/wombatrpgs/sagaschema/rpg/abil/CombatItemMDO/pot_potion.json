@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$TPOTION",
+	"itemDescription" : "Heals by 50",
 	"type" : "ITEM",
 	"uses" : 3,
 	"cost" : 30,
@@ -13,7 +14,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectHealMDO",
 		"key" : "anon_CombatItemMDO_916236238"
 	},
-	"tier" : null,
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

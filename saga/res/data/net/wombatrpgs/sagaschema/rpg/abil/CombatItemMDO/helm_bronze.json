@@ -4,9 +4,10 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$FBRONZE",
+	"itemDescription" : "Increases defense by 3",
 	"type" : "ITEM",
 	"uses" : 0,
-	"cost" : 24,
+	"cost" : 40,
 	"anim" : "None",
 	"equip" : [
 		"HELMET"

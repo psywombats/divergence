@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "HP999",
+	"itemDescription" : "Raises human HP up to 999",
 	"type" : "ITEM",
 	"uses" : 1,
 	"cost" : 6400,
@@ -13,7 +14,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatCandyMDO",
 		"key" : "anon_CombatItemMDO_1378285029"
 	},
-	"tier" : null,
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$LPOISON",
+	"itemDescription" : "Resists poison",
 	"type" : "ABILITY",
 	"uses" : 0,
 	"cost" : 0,
@@ -13,6 +14,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectPassiveMDO",
 		"key" : "anon_CombatItemMDO_-1607074969"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

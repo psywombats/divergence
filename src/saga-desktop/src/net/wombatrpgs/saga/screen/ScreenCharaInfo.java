@@ -38,7 +38,7 @@ public class ScreenCharaInfo extends SagaScreen implements TargetSelectable {
 	protected static final int ABILS_EDGE_PADDING = 12;
 	protected static final int ABILS_LIST_PADDING = 4;
 	protected static final int INSERTS_PADDING = 3;
-	protected static final int DESCRIPTION_HEIGHT = 28;
+	protected static final int DESCRIPTION_HEIGHT = 36;
 	
 	protected Chara chara;
 	

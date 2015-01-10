@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "ELECTRO",
+	"itemDescription" : "Reduces agility of a group",
 	"type" : "ABILITY",
 	"uses" : 10,
 	"cost" : 0,
@@ -13,6 +14,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectDebuffMDO",
 		"key" : "anon_CombatItemMDO_692328074"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

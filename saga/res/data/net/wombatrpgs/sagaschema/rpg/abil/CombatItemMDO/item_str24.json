@@ -4,16 +4,17 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "STRENGTH24",
+	"itemDescription" : "Raises human strength by 2 up to 24",
 	"type" : "ITEM",
 	"uses" : 1,
 	"cost" : 200,
 	"anim" : "None",
-	"equip" : null,
+	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatCandyMDO",
 		"key" : "anon_CombatItemMDO_1176081973"
 	},
-	"tier" : null,
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

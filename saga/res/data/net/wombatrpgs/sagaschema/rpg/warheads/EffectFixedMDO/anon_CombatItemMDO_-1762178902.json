@@ -6,6 +6,7 @@
 	"projector" : "SINGLE_ENEMY",
 	"damType" : "PHYSICAL",
 	"sideEffects" : [ ],
+	"slayerFlags" : [ ],
 	"base" : 60,
 	"range" : 20,
 	"defenseStat" : "DEF",

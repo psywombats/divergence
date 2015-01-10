@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "AGILITY48",
+	"itemDescription" : "Raises human agility by 2 up to 48",
 	"type" : "ITEM",
 	"uses" : 1,
 	"cost" : 800,
@@ -13,7 +14,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatCandyMDO",
 		"key" : "anon_CombatItemMDO_-1675872297"
 	},
-	"tier" : null,
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

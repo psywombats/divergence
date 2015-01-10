@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$LTHUNDER",
+	"itemDescription" : "Resists thunder damage",
 	"type" : "ABILITY",
 	"uses" : 0,
 	"cost" : 0,

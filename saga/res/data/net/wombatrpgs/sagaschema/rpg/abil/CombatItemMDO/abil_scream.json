@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "SCREAM",
+	"itemDescription" : "Inflicts death",
 	"type" : "ABILITY",
 	"uses" : 10,
 	"cost" : 0,

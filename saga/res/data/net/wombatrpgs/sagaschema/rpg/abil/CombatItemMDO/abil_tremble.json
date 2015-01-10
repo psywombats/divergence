@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "TREMBLE",
+	"itemDescription" : "Reduces agility of a group",
 	"type" : "ABILITY",
 	"uses" : 15,
 	"cost" : 0,

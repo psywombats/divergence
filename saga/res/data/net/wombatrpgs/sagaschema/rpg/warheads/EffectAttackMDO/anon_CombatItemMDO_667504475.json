@@ -8,6 +8,7 @@
 	"sideEffects" : [
 		"DRAIN_LIFE"
 	],
+	"slayerFlags" : [ ],
 	"power" : 5,
 	"attackStat" : "MANA",
 	"defendStat" : "MANA",

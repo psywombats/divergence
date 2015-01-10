@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$GFIRE",
+	"itemDescription" : "Attacks with fixed fire damage aimed by strength (tier 2)",
 	"type" : "ITEM",
 	"uses" : 30,
 	"cost" : 240,

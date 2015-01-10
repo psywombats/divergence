@@ -12,7 +12,8 @@
 			"RESIST_SLEEP",
 			"RESIST_PARALYZE",
 			"RESIST_STONE",
-			"RESIST_DEATH"
+			"RESIST_DEATH",
+			"RESIST_POISON"
 		]
 	}
 }

@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "RECOVER",
+	"itemDescription" : "Heals user every turn",
 	"type" : "ABILITY",
 	"uses" : 0,
 	"cost" : 0,
@@ -13,6 +14,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectPassiveMDO",
 		"key" : "anon_CombatItemMDO_91530718"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

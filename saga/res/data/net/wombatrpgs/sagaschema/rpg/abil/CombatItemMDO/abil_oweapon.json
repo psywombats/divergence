@@ -4,13 +4,17 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$LWEAPON",
+	"itemDescription" : "Resists weapon damage",
 	"type" : "ABILITY",
 	"uses" : 0,
 	"cost" : 0,
+	"anim" : "None",
+	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectPassiveMDO",
 		"key" : "anon_CombatItemMDO_-1734124967"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

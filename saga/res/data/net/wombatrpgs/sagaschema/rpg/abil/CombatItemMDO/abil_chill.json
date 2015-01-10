@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "CHILL",
+	"itemDescription" : "Attacks with ice damage",
 	"type" : "ABILITY",
 	"uses" : 20,
 	"cost" : 0,

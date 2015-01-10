@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$HCURE",
+	"itemDescription" : "Heals",
 	"type" : "ITEM",
 	"uses" : 30,
 	"cost" : 1000,
@@ -13,6 +14,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectHealMDO",
 		"key" : "anon_CombatItemMDO_358875590"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

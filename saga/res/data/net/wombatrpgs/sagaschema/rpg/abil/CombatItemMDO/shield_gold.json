@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$BGOLD",
+	"itemDescription" : "Raises chance to dodge",
 	"type" : "ITEM",
 	"uses" : 50,
 	"cost" : 60,

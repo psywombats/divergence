@@ -6,6 +6,6 @@
 	"projector" : "GROUP_ENEMY",
 	"status" : "status_blind",
 	"hit" : 80,
-	"accStat" : null,
+	"accStat" : "MANA",
 	"evadeStat" : "MANA"
 }

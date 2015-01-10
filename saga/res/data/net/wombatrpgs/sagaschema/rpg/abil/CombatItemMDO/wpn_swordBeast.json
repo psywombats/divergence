@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$EBATTLE",
+	"itemDescription" : "Inflicts weapon damage that slays beasts (tier 4)",
 	"type" : "ITEM",
 	"uses" : 50,
 	"cost" : 2200,

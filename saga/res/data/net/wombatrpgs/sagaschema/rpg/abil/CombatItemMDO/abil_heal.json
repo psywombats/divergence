@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "HEAL",
+	"itemDescription" : "Heals significantly",
 	"type" : "ABILITY",
 	"uses" : 10,
 	"cost" : 0,
@@ -13,6 +14,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectHealMDO",
 		"key" : "anon_CombatItemMDO_1375894388"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

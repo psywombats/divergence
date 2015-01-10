@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "LULLABY",
+	"itemDescription" : "Inflicts sleep on a party",
 	"type" : "ABILITY",
 	"uses" : 25,
 	"cost" : 0,
@@ -13,6 +14,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatusMDO",
 		"key" : "anon_CombatItemMDO_47984166"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

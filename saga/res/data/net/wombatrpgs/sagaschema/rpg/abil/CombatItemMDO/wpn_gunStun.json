@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$GSTUN",
+	"itemDescription" : "Inflicts paralysis with a fixed chance",
 	"type" : "ITEM",
 	"uses" : 30,
 	"cost" : 0,

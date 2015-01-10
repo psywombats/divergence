@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "CONSTRICT",
+	"itemDescription" : "Inflicts paralysis based on user agility",
 	"type" : "ABILITY",
 	"uses" : 20,
 	"cost" : 0,

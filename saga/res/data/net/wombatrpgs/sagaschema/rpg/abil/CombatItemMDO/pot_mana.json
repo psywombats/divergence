@@ -4,16 +4,17 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$TMANA",
+	"itemDescription" : "Raises mana by 2",
 	"type" : "ITEM",
 	"uses" : 1,
 	"cost" : 2000,
 	"anim" : "None",
-	"equip" : null,
+	"equip" : [ ],
 	"warhead" : {
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectStatCandyMDO",
 		"key" : "anon_CombatItemMDO_-904163474"
 	},
-	"tier" : null,
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

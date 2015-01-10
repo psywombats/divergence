@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$GCOLT",
+	"itemDescription" : "Attacks with fixed damage aimed by user strength (tier 1)",
 	"type" : "ITEM",
 	"uses" : 30,
 	"cost" : 140,

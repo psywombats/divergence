@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "$LALL",
+	"itemDescription" : "Resists statuses, magic damage, and physical damage",
 	"type" : "ABILITY",
 	"uses" : 0,
 	"cost" : 0,
@@ -13,6 +14,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectPassiveMDO",
 		"key" : "anon_CombatItemMDO_1081534019"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

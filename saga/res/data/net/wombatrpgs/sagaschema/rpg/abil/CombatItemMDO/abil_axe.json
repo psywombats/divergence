@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "AXE",
+	"itemDescription" : "Attacks with high weapon damage",
 	"type" : "ABILITY",
 	"uses" : 20,
 	"cost" : 0,

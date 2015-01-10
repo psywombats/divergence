@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "TAIL",
+	"itemDescription" : "Attacks with high physical damage based on user agility",
 	"type" : "ABILITY",
 	"uses" : 15,
 	"cost" : 0,
@@ -13,6 +14,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectAttackMDO",
 		"key" : "anon_CombatItemMDO_-150489525"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

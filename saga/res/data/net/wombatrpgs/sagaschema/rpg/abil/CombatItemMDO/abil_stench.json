@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "STENCH",
+	"itemDescription" : "Reduces strength of a group",
 	"type" : "ABILITY",
 	"uses" : 15,
 	"cost" : 0,
@@ -13,6 +14,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectDebuffMDO",
 		"key" : "anon_CombatItemMDO_1218791561"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

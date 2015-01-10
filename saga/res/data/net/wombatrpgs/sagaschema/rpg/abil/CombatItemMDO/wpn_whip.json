@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "WHIP",
+	"itemDescription" : "Stuns with fixed damage aimed by agility (tier 1)",
 	"type" : "ITEM",
 	"uses" : 50,
 	"cost" : 88,

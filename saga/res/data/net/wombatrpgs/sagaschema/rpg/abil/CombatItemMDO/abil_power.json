@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "POWER",
+	"itemDescription" : "Boosts user strength to 99",
 	"type" : "ABILITY",
 	"uses" : 3,
 	"cost" : 0,
@@ -13,6 +14,7 @@
 		"clazz" : "net.wombatrpgs.sagaschema.rpg.warheads.EffectBoostMDO",
 		"key" : "anon_CombatItemMDO_-1963272400"
 	},
+	"tier" : 0,
 	"robostats" : {
 		"stats" : [ ]
 	}

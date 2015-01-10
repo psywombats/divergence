@@ -4,6 +4,7 @@
 	"name" : "",
 	"description" : "",
 	"abilityName" : "SAND",
+	"itemDescription" : "Reduces agility of a party",
 	"type" : "ABILITY",
 	"uses" : 5,
 	"cost" : 0,
