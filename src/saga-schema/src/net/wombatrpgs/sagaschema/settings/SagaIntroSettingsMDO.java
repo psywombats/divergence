@@ -28,5 +28,8 @@ public class SagaIntroSettingsMDO extends MainSchema {
 	@Desc("Member recruiting selection (x3)")
 	@SchemaLink(RecruitSelectionMDO.class)
 	public String recruitMember;
+	
+	@Desc("Race help text - use \\n")
+	public String raceText;
 
 }

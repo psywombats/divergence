@@ -27,14 +27,20 @@ import net.wombatrpgs.saga.core.SGlobal;
 import net.wombatrpgs.saga.rpg.chara.Chara;
 import net.wombatrpgs.sagaschema.rpg.chara.CharaMDO;
 import net.wombatrpgs.sagaschema.rpg.chara.RecruitSelectionMDO;
+import net.wombatrpgs.sagaschema.settings.SagaIntroSettingsMDO;
 
 /**
  * Screen to select from a bunch of different 
  */
 public class ScreenRecruit extends SagaScreen {
 	
+	protected static final String INTRO_MDO_KEY = "sagaintro_default";
+	
+	protected static final String TEXT_RACE_INFO = "Race information";
+	
 	protected static final int TITLE_HEIGHT = 38;
 	protected static final int MENU_WIDTH = 200;
+	protected static final int HELP_WIDTH = 260;
 	protected static final int PADDING_VERT = 1;
 	protected static final int PADDING_HORIZ = 8;
 	protected static final int PADDING_EDGE = 10;
@@ -48,9 +54,11 @@ public class ScreenRecruit extends SagaScreen {
 	protected FinishListener listener;
 	protected int selected;
 	protected boolean confirming;
+	protected boolean displayingHelp; // I hade this mode switches
 	
-	protected Nineslice titleBG, recruitBG;
-	protected TextFormat titleFormat, recruitFormat;
+	protected Nineslice titleBG, recruitBG, helpBG;
+	protected TextFormat titleFormat, recruitFormat, helpFormat;
+	protected String raceText;
 	protected int menuX, menuY;
 	protected int menuHeight;
 	protected int titleY;
@@ -62,6 +70,9 @@ public class ScreenRecruit extends SagaScreen {
 	 */
 	public ScreenRecruit(RecruitSelectionMDO mdo) {
 		this.mdo = mdo;
+		SagaIntroSettingsMDO introMDO =
+				MGlobal.data.getEntryFor(INTRO_MDO_KEY, SagaIntroSettingsMDO.class);
+		raceText = introMDO.raceText.replace("\\n", "\n");
 		
 		sprites = new ArrayList<FacesAnimation>();
 		names = new ArrayList<String>();
@@ -75,14 +86,17 @@ public class ScreenRecruit extends SagaScreen {
 			assets.add(anim);
 			addUChild(anim);
 		}
+		names.add("More information");
 		
-		menuHeight = PADDING_EDGE * 2 + mdo.options.length *
+		menuHeight = PADDING_EDGE * 2 + names.size() *
 				(sprites.get(0).getHeight() + PADDING_VERT) - PADDING_VERT;
 		
 		recruitBG = new Nineslice(MENU_WIDTH, menuHeight);
 		assets.add(recruitBG);
 		titleBG = new Nineslice(MENU_WIDTH, TITLE_HEIGHT);
 		assets.add(titleBG);
+		helpBG = new Nineslice(HELP_WIDTH, menuHeight);
+		assets.add(helpBG);
 		
 		menuX = (MGlobal.window.getViewportWidth() - recruitBG.getWidth()) / 2;
 		menuY = (MGlobal.window.getViewportHeight() - (recruitBG.getHeight() +
@@ -107,8 +121,16 @@ public class ScreenRecruit extends SagaScreen {
 		titleFormat.y = (int) (titleY + (titleBG.getHeight() - font.getLineHeight()) / 2 +
 				font.getLineHeight());
 		
+		helpFormat = new TextFormat();
+		helpFormat.align = HAlignment.CENTER;
+		helpFormat.height = getHeight();
+		helpFormat.width = HELP_WIDTH - recruitBG.getBorderWidth() * 3;
+		helpFormat.x = menuX + (MENU_WIDTH-HELP_WIDTH)/2 + recruitBG.getBorderWidth() * 3 / 2;
+		helpFormat.y = menuY + recruitBG.getHeight() - PADDING_EDGE;
+		
 		selected = 0;
 		context = new CMapMenu();
+		displayingHelp = false;
 	}
 	
 	/**
@@ -147,23 +169,35 @@ public class ScreenRecruit extends SagaScreen {
 	public void render(SpriteBatch batch) {
 		super.render(batch);
 		FontHolder font = MGlobal.ui.getFont();
-		recruitBG.renderAt(batch, menuX, menuY);
-		for (int i = 0; i < mdo.options.length; i += 1) {
-			int renderY = (menuY + recruitBG.getHeight()) - PADDING_EDGE - sprites.get(i).getHeight() -
-					(PADDING_VERT + sprites.get(i).getHeight()) * i;
-			sprites.get(i).renderAt(batch, menuX + PADDING_HORIZ + recruitBG.getBorderWidth(), renderY);			
-			if (i == selected) {
-				Graphic cursor = MGlobal.ui.getCursor();
-				cursor.renderAt(batch, menuX + PADDING_HORIZ - cursor.getWidth()/2,
-						renderY + (sprites.get(i).getHeight() - cursor.getHeight()) / 2 - 4);
+		if (displayingHelp) {
+			helpBG.renderAt(batch, menuX + (MENU_WIDTH-HELP_WIDTH)/2, menuY);
+			font.draw(batch, helpFormat, raceText, 0);
+		} else {
+			recruitBG.renderAt(batch, menuX, menuY);
+			for (int i = 0; i < names.size(); i += 1) {
+				int renderY = (menuY + recruitBG.getHeight()) - PADDING_EDGE - sprites.get(0).getHeight()
+						- (PADDING_VERT + sprites.get(0).getHeight()) * i;
+				if (i < sprites.size()) {
+					sprites.get(i).renderAt(batch,
+							menuX + PADDING_HORIZ + recruitBG.getBorderWidth(), renderY);
+				}
+				if (i == selected) {
+					Graphic cursor = MGlobal.ui.getCursor();
+					cursor.renderAt(batch, menuX + PADDING_HORIZ - cursor.getWidth()/2,
+							renderY + (sprites.get(0).getHeight() - cursor.getHeight()) / 2 - 4);
+				}
+				renderY -= (sprites.get(0).getHeight() - font.getLineHeight()) / 2;
+				renderY += font.getLineHeight()*2;
+				font.draw(batch, recruitFormat, names.get(i), renderY);
 			}
-			renderY -= (sprites.get(i).getHeight() - font.getLineHeight()) / 2;
-			renderY += font.getLineHeight()*2;
-			font.draw(batch, recruitFormat, names.get(i), renderY);
 		}
 		
 		titleBG.renderAt(batch, menuX, titleY);
-		font.draw(batch, titleFormat, mdo.title, 0);
+		if (displayingHelp) {
+			font.draw(batch, titleFormat, TEXT_RACE_INFO, 0);
+		} else {
+			font.draw(batch, titleFormat, mdo.title, 0);
+		}
 	}
 
 	/**
@@ -178,11 +212,11 @@ public class ScreenRecruit extends SagaScreen {
 		case UI_CONFIRM:		onConfirm();		break;
 		default:				return super.onCommand(command);
 		}
-		if (selected >= mdo.options.length) {
+		if (selected >= names.size()) {
 			selected = 0;
 		}
 		if (selected < 0) {
-			selected = mdo.options.length - 1;
+			selected = names.size() - 1;
 		}
 		return true;
 	}
@@ -232,16 +266,26 @@ public class ScreenRecruit extends SagaScreen {
 	 * Transitions to the name screen.
 	 */
 	protected void onConfirm() {
-		if (confirming) return;
-		confirming = true;
-		CharaMDO result = MGlobal.data.getEntryFor(mdo.options[selected], CharaMDO.class);
-		Chara chara = new Chara(result, false);
-		MGlobal.assets.loadAsset(chara, "recruited chara");
-		SGlobal.heroes.addHero(chara);
-		nameScreen = new ScreenName(chara, listener);
-		MGlobal.assets.loadAsset(nameScreen, "name screen");
-		MGlobal.screens.pop();
-		MGlobal.screens.push(nameScreen);
+		if (confirming) {
+			return;
+		}
+		if (displayingHelp) {
+			displayingHelp = false;
+			return;
+		}
+		if (selected >= mdo.options.length) {
+			displayingHelp = true;
+		} else {
+			confirming = true;
+			CharaMDO result = MGlobal.data.getEntryFor(mdo.options[selected], CharaMDO.class);
+			Chara chara = new Chara(result, false);
+			MGlobal.assets.loadAsset(chara, "recruited chara");
+			SGlobal.heroes.addHero(chara);
+			nameScreen = new ScreenName(chara, listener);
+			MGlobal.assets.loadAsset(nameScreen, "name screen");
+			MGlobal.screens.pop();
+			MGlobal.screens.push(nameScreen);
+		}
 	}
 	
 }
