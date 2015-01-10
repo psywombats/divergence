@@ -478,7 +478,7 @@ public class SchemaTree extends JTree {
 		for (File file : dir.listFiles()) {
 			if (file.isDirectory()) {
 				loadData(file);
-			} else {
+			} else if (file.getName().endsWith(".json")) {
 				toAdd.add(file);
 			}
 		}

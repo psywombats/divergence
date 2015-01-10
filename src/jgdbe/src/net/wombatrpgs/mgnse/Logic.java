@@ -59,7 +59,8 @@ public class Logic {
 		this.cfl = new ContextualFileLoader() {
 			@Override
 			public File getFile(String name) {
-				File parentDir = out.getProjectConfigFile().getParentFile();
+				File configFile = out.getProjectConfigFile().getAbsoluteFile();
+				File parentDir = configFile.getParentFile();
 				return in.getFile(parentDir, name);
 			}
 		};
