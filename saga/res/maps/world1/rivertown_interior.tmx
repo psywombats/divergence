@@ -11,7 +11,7 @@
    <property name="z" value="0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2XwQrEIAxE3Xs97TcJve3//83Sg2woqWZGs7WQgYEiGB50IklOKWXCFjF1pTfQCBdau9Y//AaNcKG1a/3DBTTChdau9YPr55fwE7mkr87Zd4LlOvdoUc40j3BZ/se5R4typtmby1OtHPTy4qlWDnp58VQrB728hEKhtcTOuf/g8pqlR7m0t20Frl3xrBmfzcgV16zZkM2INxe7b8m7H/F91+6RJ9wNrrW4etbmXisXu29Zelebey0a2bcsvavNvRax+9YX9EcZ+gATAAA=
+   H4sIAAAAAAAAC+2XsQ6DMAxEw14mvilSN/7/bxBDRIqOxHeJEW1z0i0erCdxDvYcQpgFW6T0zf0izXCxvVP/3QtphovtnfrvjqQZLrZ36j+4Dk+Zv5Er91VdfSdUrvOMRlBDbuGyfI/zjEZQQ/bm8lQpB7W8eKqUg1pePFXKQS0vQ0P/KnWfvIPLa2dt5UJvyBO43sA9dmkPrl47mJpdby41u3m+1vD5D+vBpd5bT7s9BtfvcdWM9l4rl3pvWWYX7b0WtdxbltlFe69F6r21AX2N56cAEwAA
   </data>
  </layer>
  <layer name="Tile Layer 2" width="38" height="32">
@@ -19,7 +19,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAXDHZThoOkNVgHxaiBeA+XX46BHOqjEIU6teESPB1Ll6QUGiztGwSgYBaNgFIyCUTAKBhr04mAPNgBrv6FjctpzkwjQAwVmE6CHIiAmfdE63Q3mdD0Khg8AAAqQ7boAEwAA
+   H4sIAAAAAAAAC2NgGAXDHZThoOkNVgHxaiBeA+XX46BHOqjEIU6teESPB1Ll6QUGiztGwSgYBaNgFIyCUTAKBhr04mAPNgBrv6FjctpzkwjQAwVmE6DxAWLicTDHLy3BSPX3KKAvAACKYLaPABMAAA==
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
@@ -78,39 +78,39 @@
     <property name="onInteract" value="speak('Eastern cities are a little reclusive. You won\'t find a place more hospitable than this!')"/>
    </properties>
   </object>
-  <object name="NPC" type="Character" x="192" y="416" width="16" height="16">
+  <object name="NPC" type="Character" x="192" y="400" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_demon"/>
     <property name="face" value="SOUTH"/>
     <property name="onInteract" value="speak('The champion of the plains town wields the everburning torch, a magical weapon that gives off light even without air.')"/>
    </properties>
   </object>
-  <object name="NPC" type="Character" x="208" y="432" width="16" height="16">
+  <object name="NPC" type="Character" x="208" y="416" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_demon"/>
     <property name="face" value="WEST"/>
     <property name="onInteract" value="speak('Here in the river city we built a shrine to the airseed, a magical artifact that lets you breathe where others suffocate.')"/>
    </properties>
   </object>
-  <object name="NPC" type="Character" x="192" y="448" width="16" height="16">
+  <object name="NPC" type="Character" x="192" y="432" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_demon"/>
     <property name="face" value="NORTH"/>
     <property name="onInteract" value="speak('In the city keep of the mountain town, their wiseman guards the magus eye, a magical talisman that guides the user away from invisible traps.')"/>
    </properties>
   </object>
-  <object name="NPC" type="Character" x="48" y="416" width="16" height="16">
+  <object name="NPC" type="Character" x="96" y="432" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_human_f"/>
-    <property name="face" value="SOUTH"/>
+    <property name="appearance" value="4dir_rat"/>
+    <property name="face" value="NORTH"/>
     <property name="onInteract" value="speak('A man named David stopped by here a few weeks ago. I hear he had one of the four artifacts that unseal Hero!')"/>
    </properties>
   </object>
   <object name="NPC" type="Character" x="80" y="368" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_mutant_m"/>
+    <property name="appearance" value="4dir_mutant_f"/>
     <property name="face" value="EAST"/>
-    <property name="onInteract" value="speak('Maybe you haven\'t noticed, but this bar is popular with treasure hunters. If you want my opinion... Hero is a deathtrap. What use are artifacts when the monsters inside will eat you alive?')"/>
+    <property name="onInteract" value="speak('This bar is popular with treasure hunters, like that silly group at the table. If you want my advice, you should be a well-balanced party and carefully consider who attacks what so as to defeat as many monsters as possible before they can hurt you.')"/>
    </properties>
   </object>
   <object name="mayor" type="Character" x="480" y="432" width="16" height="16">
@@ -135,6 +135,34 @@
     <property name="face" value="WEST"/>
     <property name="hide" value="return not getSwitch('shrine_done')"/>
     <property name="onInteract" value="speak('David came back from the shrine. He spoke very highly of you, I am impressed.')"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="48" y="432" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_human_m"/>
+    <property name="face" value="NORTH"/>
+    <property name="onInteract" value="speak('Strength is best! A strong human can crush a monster in one blow before it attacks.')"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="48" y="400" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_human_f"/>
+    <property name="face" value="SOUTH"/>
+    <property name="onInteract" value="speak('Agility is best! A fast human can stun or attack before a monster even moves.')"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="32" y="416" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_knight"/>
+    <property name="face" value="EAST"/>
+    <property name="onInteract" value="speak('Defense is best! A sturdy monster does not care if the enemy gets a few attacks in.')"/>
+   </properties>
+  </object>
+  <object name="NPC" type="Character" x="64" y="416" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_mutant_m"/>
+    <property name="face" value="WEST"/>
+    <property name="onInteract" value="speak('Mana is best! A powerful mutant can take down huge numbers of enemies.')"/>
    </properties>
   </object>
  </objectgroup>
