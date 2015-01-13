@@ -123,7 +123,7 @@ public class EnemyParty extends Party {
 			if (max == min) {
 				entryMDO.count = max;
 			} else {
-				entryMDO.count = MGlobal.rand.nextInt(max - min) + min;
+				entryMDO.count = MGlobal.rand.nextInt(max - min + 1) + min;
 			}
 			if (entryMDO.count > 0) {
 				partyMDOs.add(entryMDO);

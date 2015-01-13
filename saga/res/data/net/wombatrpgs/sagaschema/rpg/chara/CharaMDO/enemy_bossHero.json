@@ -20,8 +20,8 @@
 		"abil_opara"
 	],
 	"stats" : {
-		"hp" : 240,
-		"mhp" : 240,
+		"hp" : 262,
+		"mhp" : 262,
 		"str" : 15,
 		"def" : 7,
 		"agi" : 11,

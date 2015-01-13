@@ -2,6 +2,7 @@
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="16" tileheight="16">
  <properties>
   <property name="bgm" value="ffl1_cave"/>
+  <property name="encounter" value="encounterset_level00_danger05"/>
   <property name="name" value="Cave of Hero"/>
  </properties>
  <tileset firstgid="1" source="../tilesets/lower.tsx"/>
