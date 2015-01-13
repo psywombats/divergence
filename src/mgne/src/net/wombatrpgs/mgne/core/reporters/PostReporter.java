@@ -59,12 +59,13 @@ public class PostReporter implements Reporter {
 		// this, unfortunately, will never be closed
 		try {
 			if (errFile.exists()) {
+				errStream = new FileOutputStream(errFile, true);
 				errLog = new PrintWriter(errStream);
 				errLog.println();
 			} else {
+				errStream = new FileOutputStream(errFile, true);
 				errLog = new PrintWriter(errFile);
 			}
-			errStream = new FileOutputStream(errFile, true);
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			Calendar cal = Calendar.getInstance();
 			errLog.println("########################################");
