@@ -56,9 +56,6 @@ public class LoadedLevel extends Level {
 		mapPath = Constants.MAPS_DIR + mdo.file;
 	}
 	
-	/** Kryo constructor */
-	protected LoadedLevel() { }
-	
 	/** @return The class used to render this level */
 	public OrthogonalTiledMapRenderer getRenderer() { return renderer; }
 	

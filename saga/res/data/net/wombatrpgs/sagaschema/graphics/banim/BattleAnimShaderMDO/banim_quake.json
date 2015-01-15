@@ -1,9 +1,0 @@
-{
-	"key" : "banim_quake",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "",
-	"sound" : "ffl1_31_rumble.wav",
-	"shader" : "shader_quake",
-	"duration" : 0.7
-}

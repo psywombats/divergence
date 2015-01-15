@@ -1,8 +1,0 @@
-{
-	"key" : "shader_blinds",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "",
-	"vertexFile" : "blinds.vert",
-	"fragmentFile" : "blinds.frag"
-}

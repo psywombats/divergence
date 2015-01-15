@@ -1,0 +1,10 @@
+{
+	"key" : "4dir_nico",
+	"subfolder" : "charas",
+	"name" : "",
+	"description" : "",
+	"upAnim" : "anim_nico_up",
+	"rightAnim" : "anim_nico_right",
+	"downAnim" : "anim_nico_down",
+	"leftAnim" : "anim_nico_left"
+}

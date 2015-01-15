@@ -1,8 +1,0 @@
-{
-	"key" : "shader_wipe",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "",
-	"vertexFile" : "wipe.vert",
-	"fragmentFile" : "wipe.frag"
-}

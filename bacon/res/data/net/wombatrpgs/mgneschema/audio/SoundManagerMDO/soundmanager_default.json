@@ -1,0 +1,9 @@
+{
+	"key" : "soundmanager_default",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"soundEffectEntries" : [ ],
+	"emuMusicEntries" : [ ],
+	"loadedMusicEntries" : [ ]
+}

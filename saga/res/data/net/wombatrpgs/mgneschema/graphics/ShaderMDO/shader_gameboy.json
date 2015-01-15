@@ -1,8 +1,0 @@
-{
-	"key" : "shader_gameboy",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "",
-	"vertexFile" : "gameboy.vert",
-	"fragmentFile" : "gameboy.frag"
-}

@@ -1,0 +1,7 @@
+{
+	"name" : "Bacon database",
+	"data" : "data",
+	"schema" : [
+		"jar/BaconSchema.jar"
+	]
+}

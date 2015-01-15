@@ -38,8 +38,8 @@ import net.wombatrpgs.mgneschema.maps.data.MapMDO;
  */
 public abstract class Level extends ScreenObject implements Turnable, Disposable {
 	
-	public static final int TILE_WIDTH = 16;
-	public static final int TILE_HEIGHT = 16;
+	public static final int TILE_WIDTH = 32;
+	public static final int TILE_HEIGHT = 32;
 	
 	protected MapMDO mdo;
 	

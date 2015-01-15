@@ -143,7 +143,7 @@ public class LevelManager implements Disposable {
 			MGlobal.reporter.err("Generated maps not yet supported");
 			return null;
 		} else if (LoadedMapMDO.class.isAssignableFrom(mdo.getClass())) {
-			return new LoadedLevel((LoadedMapMDO) mdo, screen);
+			return MGlobal.game.loadMap((LoadedMapMDO) mdo, screen);
 		} else {
 			MGlobal.reporter.err("Unknown subtype of mapmdo :" + mdo.getClass());
 			return null;

@@ -1,8 +1,0 @@
-{
-	"key" : "shader_fadeout",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "",
-	"vertexFile" : "fadeout.vert",
-	"fragmentFile" : "fadeout.frag"
-}

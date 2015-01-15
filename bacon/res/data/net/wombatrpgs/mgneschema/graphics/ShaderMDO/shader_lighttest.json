@@ -1,0 +1,8 @@
+{
+	"key" : "shader_lighttest",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"vertexFile" : "lighttest.vert",
+	"fragmentFile" : "lighttest.frag"
+}

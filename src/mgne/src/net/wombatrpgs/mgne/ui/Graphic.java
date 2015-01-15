@@ -67,7 +67,7 @@ public class Graphic implements PosRenderable, Disposable {
 		texture = manager.get(filename, Texture.class);
 		if (width <= 0) width = texture.getWidth();
 		if (height <= 0) height = texture.getHeight();
-		appearance = new TextureRegion(texture, 0, 0, width, height);
+		appearance = new TextureRegion(texture, width, height);
 	}
 
 	/** @see net.wombatrpgs.mgne.graphics.interfaces.Boundable#getWidth() */
@@ -101,27 +101,7 @@ public class Graphic implements PosRenderable, Disposable {
 	 */
 	@Override
 	public void renderAt(SpriteBatch batch, float x, float y) {
-		batch.begin();
-		batch.draw(appearance, x, y, getWidth(), getHeight());
-		batch.end();
-	}
-	
-	/**
-	 * Renders this graphic at an angle.
-	 * @param	batch			The batch to render with
-	 * @param	x				The x-coord to render at (screen px)
-	 * @param	y				The y-coord to render at (screen px)
-	 * @param	angle			The angle to render at (in degrees?)
-	 */
-	public void renderAt(SpriteBatch batch, float x, float y, float angle) {
-		batch.begin();
-		batch.draw(appearance,
-				x, y,
-				getWidth() / 2, getHeight() / 2,
-				getWidth(), getHeight(),
-				1, 1,
-				angle);
-		batch.end();
+		renderAt(batch, x, y, getWidth(), getHeight());
 	}
 	
 	/**
@@ -134,7 +114,11 @@ public class Graphic implements PosRenderable, Disposable {
 	 */
 	public void renderAt(SpriteBatch batch, float x, float y, float width, float height) {
 		batch.begin();
-		batch.draw(appearance, x, y, width, height);
+		batch.draw(texture,
+				x - width/2,
+				y - height/2,
+				width,
+				height);
 		batch.end();
 	}
 

@@ -437,7 +437,7 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	 * Goes back to writing on the standard buffer. Should be called after all
 	 * buffer ends in screen drawing routines.
 	 */
-	protected void resumeNormalBuffer() {
+	public void resumeNormalBuffer() {
 		buffer.begin();
 	}
 

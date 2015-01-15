@@ -14,10 +14,12 @@ import org.luaj.vm2.lib.TwoArgFunction;
 import net.wombatrpgs.mgne.graphics.GraphicsSettings;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.maps.Level;
+import net.wombatrpgs.mgne.maps.LoadedLevel;
 import net.wombatrpgs.mgne.maps.events.Avatar;
 import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.instances.ScreenGame;
+import net.wombatrpgs.mgneschema.maps.LoadedMapMDO;
 import net.wombatrpgs.mgneschema.settings.IntroSettingsMDO;
 
 /**
@@ -159,13 +161,13 @@ public abstract class MgnGame implements Disposable {
 		}
 		Level level = MGlobal.levelManager.getLevel(mapName);
 		Avatar hero = new Avatar();
+		level.addEvent(hero);
 		
 		if (MGlobal.args.get("x") == null) {
-			hero.setTileX(mdo.mapX);
-			hero.setTileY(mdo.mapY);
+			hero.setTileLocation(mdo.mapX, level.getHeight() - mdo.mapY - 1);
 		} else {
-			hero.setTileX(Integer.valueOf(MGlobal.args.get("x")));
-			hero.setTileY(Integer.valueOf(MGlobal.args.get("y")));
+			hero.setTileLocation(Integer.valueOf(MGlobal.args.get("x")),
+					level.getHeight() - Integer.valueOf(MGlobal.args.get("y")) - 1);
 		}
 		
 		MGlobal.levelManager.setNewActiveSet(hero, level);
@@ -178,6 +180,11 @@ public abstract class MgnGame implements Disposable {
 	 * @return					The version information for the game
 	 */
 	public abstract VersionInfo getVersionInfo();
+	
+	// hack for bacon
+	public LoadedLevel loadMap(LoadedMapMDO mdo, Screen levelScreen) {
+		return new LoadedLevel((LoadedMapMDO) mdo, levelScreen);
+	}
 
 	/**
 	 * Called when the game is shutting down. Default is nothing.

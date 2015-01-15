@@ -1,7 +1,0 @@
-{
-	"name" : "Tactics database",
-	"data" : "data",
-	"schema" : [
-		"jar/TacticsSchema.jar"
-	]
-}

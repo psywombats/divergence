@@ -1,0 +1,10 @@
+{
+	"key" : "default_intro",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "engine searches for this mdo by name",
+	"map" : "test.tmx",
+	"mapX" : 10,
+	"mapY" : 8,
+	"titleBG" : "black.png"
+}

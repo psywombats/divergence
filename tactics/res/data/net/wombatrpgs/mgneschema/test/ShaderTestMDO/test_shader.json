@@ -1,9 +1,0 @@
-{
-	"key" : "test_shader",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "",
-	"enabled" : "DISABLED",
-	"vertexFile" : "standard.vert",
-	"fragmentFile" : "standard.frag"
-}

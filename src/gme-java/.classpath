@@ -2,9 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/saga-desktop/lib/gdx-backend-lwjgl-natives.jar"/>
-	<classpathentry kind="lib" path="/saga-desktop/lib/gdx-backend-lwjgl.jar" sourcepath="/saga-desktop/lib/gdx-backend-lwjgl-sources.jar"/>
-	<classpathentry kind="lib" path="/saga-desktop/lib/gdx-natives.jar"/>
 	<classpathentry kind="lib" path="/mgne/lib/gdx.jar" sourcepath="/mgne/lib/gdx-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

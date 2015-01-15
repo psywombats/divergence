@@ -1,8 +1,0 @@
-{
-	"key" : "shader_whirl",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "",
-	"vertexFile" : "whirl.vert",
-	"fragmentFile" : "whirl.frag"
-}

@@ -1,8 +1,0 @@
-{
-	"key" : "shader_quake",
-	"subfolder" : "",
-	"name" : "",
-	"description" : "",
-	"vertexFile" : "quake.vert",
-	"fragmentFile" : "quake.frag"
-}
