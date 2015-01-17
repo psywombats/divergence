@@ -18,7 +18,7 @@ void main() {
 		fromMid = fromMid * -1.0;
 	}
 	
-	float offY = 0;
+	float offY = 0.0;
 	float offX = sin(v_texCoords[1] * 24.0 + u_elapsedRatio * 8.0) / 28.0;
 	
 	if (u_elapsedRatio > start) {
