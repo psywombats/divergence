@@ -28,6 +28,8 @@ import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.MapMovable;
+import net.wombatrpgs.mgne.physics.Hitbox;
+import net.wombatrpgs.mgne.physics.NoHitbox;
 import net.wombatrpgs.mgne.scenes.SceneParser;
 import net.wombatrpgs.mgne.scenes.StringSceneParser;
 import net.wombatrpgs.mgneschema.graphics.DirMDO;
@@ -136,6 +138,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	public void setAppearance(FacesAnimation appearance) {
 		this.appearance = appearance;
 		appearance.startMoving();
+		appearance.setParent(this);
 	}
 	
 	/** @see net.wombatrpgs.mgne.core.lua.LuaConvertable#toLua() */
@@ -188,6 +191,20 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	public String getName() {
 		if (mdo == null) return null;
 		return mdo.name;
+	}
+	
+	/**
+	 * Gets the hitbox for this event. This usually corresponds to the hitbox
+	 * of the sprite, which is usually 16*16. No hitbox if no appearance.
+	 * @return					The hitbox of this event.
+	 */
+	public Hitbox getHitbox() {
+		if (appearance == null) { 
+			return NoHitbox.getInstance();
+		}
+		Hitbox box = appearance.getHitbox();
+		box.setParent(this);
+		return box;
 	}
 	
 	/**
@@ -261,6 +278,9 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	public void postProcessing(MAssets manager, int pass) {
 		super.postProcessing(manager, pass);
 		regenerateLua();
+		if (appearance != null) {
+			appearance.setParent(this);
+		}
 	}
 
 	/**

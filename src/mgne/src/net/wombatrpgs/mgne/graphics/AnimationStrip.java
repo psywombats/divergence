@@ -12,6 +12,8 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
+import net.wombatrpgs.mgne.physics.Hitbox;
+import net.wombatrpgs.mgne.physics.RectHitbox;
 import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
 import net.wombatrpgs.mgneschema.graphics.data.AnimationType;
 
@@ -37,6 +39,7 @@ public class AnimationStrip implements	PosRenderable,
 	protected transient Texture spritesheet;
 	protected transient TextureRegion[] frames;
 	protected transient TextureRegion currentFrame;
+	protected transient Hitbox hitbox;
 	
 	protected float time;
 	protected float maxTime;
@@ -62,12 +65,14 @@ public class AnimationStrip implements	PosRenderable,
 		if (mdo.hit1y == null) mdo.hit1y = 0;
 		if (mdo.hit2x == null) mdo.hit2x = mdo.frameWidth;
 		if (mdo.hit2y == null) mdo.hit2y = mdo.frameHeight;
+		hitbox = new RectHitbox(null,
+				mdo.hit1x,
+				mdo.frameHeight - mdo.hit1y,
+				mdo.hit2x,
+				mdo.frameHeight - mdo.hit2y);
 		
 		fileName = Constants.SPRITES_DIR + mdo.file;
 	}
-	
-	/** Kryo constructor */
-	protected AnimationStrip() { }
 	
 	/** @param bump Bump up animation time by some amount */
 	public void setBump(float bump) { this.bump = bump; }
@@ -93,6 +98,9 @@ public class AnimationStrip implements	PosRenderable,
 	
 	/** @return True if this animation is currently playing */
 	public boolean isMoving() { return moving; }
+	
+	/** @return The hitbox of this animation, never null */
+	public Hitbox getHitbox() { return hitbox; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()

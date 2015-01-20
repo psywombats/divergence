@@ -86,5 +86,13 @@ public class EffectLight extends Effect {
 		effectBatch.end();
 		original.end();
 	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.graphics.Effect#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		super.update(elapsed);
+	}
 	
 }

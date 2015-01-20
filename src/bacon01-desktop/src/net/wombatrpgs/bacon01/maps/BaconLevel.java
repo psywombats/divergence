@@ -55,9 +55,9 @@ public class BaconLevel extends LoadedLevel {
 		
 		super.render(batch);
 		
-//		batch.begin();
-//		batch.draw(buffer.getColorBufferTexture(), 0, 0);
-//		batch.end();
+//		getScreen().getUIBatch().begin();
+//		getScreen().getUIBatch().draw(buffer.getColorBufferTexture(), 0, 0);
+//		getScreen().getUIBatch().end();
 	}
 	
 	

@@ -9,9 +9,8 @@ uniform sampler2D u_light;
 
 void main() {
 	vec4 origColor = v_color * texture2D(u_texture, v_texCoords);
-	float r = (texture2D(u_light, v_texCoords)[0]);
-	origColor[0] *= r;
-	origColor[1] *= r;
-	origColor[2] *= r;
+	origColor[0] *= (1.0 - texture2D(u_light, v_texCoords)[0]);
+	origColor[1] *= (1.0 - texture2D(u_light, v_texCoords)[1]);
+	origColor[2] *= (1.0 - texture2D(u_light, v_texCoords)[2]);
 	gl_FragColor = origColor;
 }

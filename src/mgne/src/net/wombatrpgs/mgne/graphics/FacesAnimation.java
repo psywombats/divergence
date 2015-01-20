@@ -15,6 +15,8 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
+import net.wombatrpgs.mgne.maps.Positionable;
+import net.wombatrpgs.mgne.physics.Hitbox;
 import net.wombatrpgs.mgneschema.graphics.DirMDO;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 
@@ -73,6 +75,9 @@ public abstract class FacesAnimation implements	PosRenderable,
 	
 	/** @return True if the anim is playing, false otherwise */
 	public boolean isMoving() { return getStrip().isMoving(); }
+	
+	/** @return The currently playing hitbox, never null */
+	public Hitbox getHitbox() { return getStrip().getHitbox(); }
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.PosRenderable#renderAt
@@ -148,6 +153,16 @@ public abstract class FacesAnimation implements	PosRenderable,
 	 */
 	public float getDuration() {
 		return getStrip().getMaxTime();
+	}
+	
+	/**
+	 * Sets the position of all hitboxes of this animation.
+	 * @param	parent			The parent to associate location with
+	 */
+	public void setParent(Positionable parent) {
+		for (AnimationStrip strip : animations) {
+			strip.getHitbox().setParent(parent);
+		}
 	}
 	
 	/**
