@@ -11,6 +11,7 @@ import java.util.Iterator;
 
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.events.EventType;
+import net.wombatrpgs.mgne.physics.RectHitbox;
 import net.wombatrpgs.mgns.core.MainSchema;
 
 import com.badlogic.gdx.maps.MapObject;
@@ -59,7 +60,7 @@ public class TiledMapObject {
 	
 	/**	@param key The key of the property to fetch
 	 *	@return The integer value of the provided key */
-	public int getInt(String key) { return object.getProperties().get(key, Integer.class); }
+	public int getInt(String key) { return Integer.valueOf(object.getProperties().get(key, String.class)); }
 	
 	/**	@param key The key of the property to fetch
 	 *	@return The float value of the provided key */
@@ -118,6 +119,25 @@ public class TiledMapObject {
 			return ((PolygonMapObject) object).getPolygon();
 		} else {
 			MGlobal.reporter.err("Is not a polygon: " + object);
+			return null;
+		}
+	}
+	
+	/**
+	 * Added for bacon
+	 * @return
+	 */
+	public RectHitbox getRectHitbox() {
+		if (RectangleMapObject.class.isAssignableFrom(object.getClass())) {
+			RectangleMapObject rect = (RectangleMapObject) object;
+			RectHitbox box = new RectHitbox(null,
+					rect.getRectangle().x - getX(),
+					rect.getRectangle().y - getY(),
+					(rect.getRectangle().x + rect.getRectangle().width) - getX(),
+					(rect.getRectangle().y + rect.getRectangle().height) - getY());
+			return box;
+		} else {
+			MGlobal.reporter.err("No hitbox rect");
 			return null;
 		}
 	}

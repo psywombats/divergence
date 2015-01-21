@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.mgne.maps.layers;
 
+import net.wombatrpgs.bacon01.maps.BaconLevel;
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.LoadedLevel;
@@ -61,6 +62,12 @@ public class TiledGridLayer extends GridLayer {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
+		
+//		if (getProperty("alt").equals("true")) {
+//			BaconLevel level = (BaconLevel) parent;
+//			level.getAltBuffer().begin();
+//		}
+		
 		OrthogonalTiledMapRenderer renderer = parent.getRenderer();
 		renderer.setView(parent.getScreen().getCamera());
 		renderer.getSpriteBatch().begin();

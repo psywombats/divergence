@@ -177,5 +177,13 @@ public class EventLayer extends Layer {
 		}
 		return results;
 	}
+	
+	/**
+	 * Ugly public accessor.
+	 * @return					All events in the event layer
+	 */
+	public List<MapEvent> getAll() {
+		return events;
+	}
 
 }

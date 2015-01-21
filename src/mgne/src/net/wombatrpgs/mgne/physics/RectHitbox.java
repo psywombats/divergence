@@ -7,10 +7,8 @@
 package net.wombatrpgs.mgne.physics;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 
 import net.wombatrpgs.mgne.maps.Positionable;
@@ -275,8 +273,8 @@ public class RectHitbox extends Hitbox {
 			
 			Fin fin = result.new Fin();
 			fin.root = root;
-			fin.penumbra = new Vector2(root).mulAdd(toPenu, 250);
-			fin.umbra = new Vector2(root).mulAdd(toUmbra, 250);
+			fin.penumbra = new Vector2(root).mulAdd(toPenu, 500);
+			fin.umbra = new Vector2(root).mulAdd(toUmbra, 500);
 			
 			if (i == 0) {
 				result.fin1 = fin;
@@ -298,7 +296,7 @@ public class RectHitbox extends Hitbox {
 				toLight.sub(point);
 				toLight.nor();
 				
-				finalPoints.add(new Vector2(point).mulAdd(toLight, -250));
+				finalPoints.add(new Vector2(point).mulAdd(toLight, -500));
 			}
 		}
 		finalPoints.add(getWrapped(points, endIndex));

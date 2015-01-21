@@ -119,8 +119,8 @@ public abstract class Level extends ScreenObject implements Turnable, Disposable
 		super.render(batch);
 		
 		renderGrid(batch, false);
-		renderEvents(getScreen().getViewBatch());
 		renderGrid(batch, true);
+		renderEvents(getScreen().getViewBatch());
 	}
 
 	/**

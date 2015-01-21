@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="20" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="tilesets/test/lower.tsx"/>
+ <tileset firstgid="31" source="tilesets/test/upper.tsx"/>
+ <layer name="Tile Layer 1" width="25" height="20">
+  <properties>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACxNhYGAQoTKWRsPUNn/UjlE7Ru0YeDuGK2YEYiYgZqahHexAzAHEnDS0gxeI+YCYn4Z2iJKIR+2grR0AFosietAHAAA=
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="25" height="20">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMglFAbaBEgE8NoEWAP9QALcIIHQz1MMIHABwdcHzQBwAA
+  </data>
+ </layer>
+ <layer name="Tile Layer 3" width="25" height="20">
+  <properties>
+   <property name="z" value="1.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+NmYGDgphDDAKXmjNoxasdgs0OcChgGcMnLUgHDACH5oQ6oEdejdozaMVztAADi2uIe0AcAAA==
+  </data>
+ </layer>
+ <layer name="Tile Layer 4" width="25" height="20">
+  <properties>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBRQExhTSc0oGAWjYBSQAgDemF050AcAAA==
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" opacity="0.9">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <object name="light" type="light" x="416" y="288" width="32" height="32">
+   <properties>
+    <property name="radius" value="500"/>
+    <property name="size" value="14"/>
+   </properties>
+  </object>
+  <object name="geometry" type="geometry" x="0" y="384" width="480" height="256"/>
+  <object name="geometry" type="geometry" x="224" y="0" width="320" height="256"/>
+  <object name="geometry" type="geometry" x="608" y="0" width="224" height="256"/>
+  <object name="light" type="light" x="704" y="288" width="32" height="32">
+   <properties>
+    <property name="radius" value="500"/>
+    <property name="size" value="14"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

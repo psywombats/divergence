@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
 import net.wombatrpgs.bacon01.EffectLight;
-import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.LoadedLevel;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgneschema.maps.LoadedMapMDO;
@@ -39,7 +38,7 @@ public class BaconLevel extends LoadedLevel {
 		assets.add(effect);
 	}
 	
-	public FrameBuffer getLightBuffer() { return buffer; }
+	public FrameBuffer getAltBuffer() { return buffer; }
 	
 	/**
 	 * @see net.wombatrpgs.mgne.maps.Level#render(com.badlogic.gdx.graphics.g2d.SpriteBatch)
@@ -49,15 +48,15 @@ public class BaconLevel extends LoadedLevel {
 		
 		buffer.begin();
 		
-		Gdx.gl.glClearColor(0f, 0f, 0f, 0);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClearColor(.2f, .2f, .2f, 0f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		getScreen().resumeNormalBuffer();
 		
 		super.render(batch);
 		
-//		getScreen().getUIBatch().begin();
-//		getScreen().getUIBatch().draw(buffer.getColorBufferTexture(), 0, 0);
-//		getScreen().getUIBatch().end();
+//		batch.begin();
+//		batch.draw(buffer.getColorBufferTexture(), 0, 0);
+//		batch.end();
 	}
 	
 	

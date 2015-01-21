@@ -6,20 +6,24 @@
  */
 package net.wombatrpgs.bacon01.maps.events;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 import net.wombatrpgs.bacon01.maps.BaconLevel;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.Level;
+import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.physics.ShadowResult;
 import net.wombatrpgs.mgne.ui.Graphic;
@@ -31,20 +35,28 @@ import net.wombatrpgs.sagaschema.events.EventLightMDO;
 public class EventLight extends MapEvent {
 	
 	protected static String SHADER_MDO = "shader_lighttest";
+	protected static String PROPERTY_RADIUS = "radius";
+	protected static String PROPERTY_SIZE = "size";
 	
 	protected EventLightMDO mdo;
 	
+	protected FrameBuffer buffer;
 	protected BaconLevel level;
-	protected SpriteBatch effectBatch;
+	protected SpriteBatch effectBatch, copyBatch;
 	protected Graphic sprite, penumbraSprite;
 	protected ShapeRenderer shaper;
+	protected int radius, size;
 
-	public EventLight(EventLightMDO mdo) {
+	public EventLight(EventLightMDO mdo, TiledMapObject object) {
 		super(mdo);
 		sprite = new Graphic("res/sprites/", "textures/light.png"); // more hardcode hack
 		penumbraSprite = new Graphic("res/sprites/", "textures/penumbra.png");
-		sprite.setTextureWidth(512);
-		sprite.setTextureHeight(512);
+		
+		this.radius = object.getInt(PROPERTY_RADIUS);
+		this.size = object.getInt(PROPERTY_SIZE);
+		
+		sprite.setTextureWidth(radius);
+		sprite.setTextureHeight(radius);
 		assets.add(sprite);
 		assets.add(penumbraSprite);
 		
@@ -72,6 +84,12 @@ public class EventLight extends MapEvent {
 			matrix.setToOrtho2D(0, 0, level.getScreen().getWidth(), level.getScreen().getHeight());
 			effectBatch.setProjectionMatrix(matrix);
 			shaper.setProjectionMatrix(matrix);
+			buffer = new FrameBuffer(Format.RGB565,
+					getParent().getScreen().getWidth(),
+					getParent().getScreen().getHeight(),
+					false);
+			copyBatch = new SpriteBatch();
+			copyBatch.setProjectionMatrix(matrix);
 		}
 	}
 
@@ -80,56 +98,68 @@ public class EventLight extends MapEvent {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
-		FrameBuffer buffer = level.getLightBuffer();
+		
 		buffer.begin();
+		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		
+		effectBatch.setColor(Color.WHITE);
 		sprite.renderAt(effectBatch, x, y);
 		
-		ShadowResult shadow = MGlobal.getHero().getAppearance().getHitbox().shadowcast(
-				x + level.getTileWidth() / 2,
-				y + level.getTileHeight() / 2,
-				8);
-		
-		float[] vertices = shadow.umbraVertices;
-		shaper.setColor(Color.BLACK);
-		shaper.begin(ShapeType.Filled);
-		for (int i = 2; i < vertices.length-3; i += 2) {
-			shaper.triangle(
-					vertices[0], vertices[1],
-					vertices[i], vertices[i+1],
-					vertices[i+2], vertices[i+3]);
+		for (MapEvent event : level.getEventLayer().getAll()) {
+			
+			ShadowResult shadow = event.getHitbox().shadowcast(
+					x,
+					y,
+					size);
+			if (shadow == null) {
+				continue;
+			}
+			
+			float[] vertices = shadow.umbraVertices;
+			shaper.setColor(Color.BLACK);
+			shaper.begin(ShapeType.Filled);
+			for (int i = 2; i < vertices.length-3; i += 2) {
+				shaper.triangle(
+						vertices[0], vertices[1],
+						vertices[i], vertices[i+1],
+						vertices[i+2], vertices[i+3]);
+			}
+			shaper.end();
+			
+			float[] triVertices = createTriangle(
+					penumbraSprite.getGraphic(),
+					shadow.fin1.root,
+					shadow.fin1.umbra,
+					shadow.fin1.penumbra,
+					Color.BLACK);
+			float[] triVertices2 = createTriangle(
+					penumbraSprite.getGraphic(),
+					shadow.fin2.root,
+					shadow.fin2.umbra,
+					shadow.fin2.penumbra,
+					Color.BLACK);
+			effectBatch.begin();
+			effectBatch.draw(penumbraSprite.getTexture(), triVertices, 0, triVertices.length);
+			effectBatch.draw(penumbraSprite.getTexture(), triVertices2, 0, triVertices2.length);
+			effectBatch.end();
 		}
-		shaper.end();
 		
-//		float[] vertices = shadow.fin1.toVertices();
-//		shaper.setColor(Color.BLACK);
-//		shaper.begin(ShapeType.Filled);
-//		for (int i = 2; i < vertices.length-3; i += 2) {
-//			shaper.triangle(
-//					vertices[0], vertices[1],
-//					vertices[i], vertices[i+1],
-//					vertices[i+2], vertices[i+3]);
-//		}
-//		shaper.end();
-		
-		float[] triVertices = createTriangle(
-				penumbraSprite.getGraphic(),
-				shadow.fin1.root,
-				shadow.fin1.umbra,
-				shadow.fin1.penumbra,
-				Color.BLACK);
-		float[] triVertices2 = createTriangle(
-				penumbraSprite.getGraphic(),
-				shadow.fin2.root,
-				shadow.fin2.umbra,
-				shadow.fin2.penumbra,
-				Color.BLACK);
-		effectBatch.begin();
-		effectBatch.draw(penumbraSprite.getTexture(), triVertices, 0, triVertices.length);
-		effectBatch.draw(penumbraSprite.getTexture(), triVertices2, 0, triVertices2.length);
-		effectBatch.end();
-		
-		MGlobal.getHero().update(0);
-		MGlobal.getHero().render(effectBatch);
+		level.getAltBuffer().begin();
+		copyBatch.begin();
+		copyBatch.enableBlending();
+		copyBatch.setBlendFunction(GL20.GL_SRC_COLOR, GL20.GL_ONE);
+		copyBatch.draw(buffer.getColorBufferTexture(),
+				0, 0,
+				0, 0,
+				level.getScreen().getWidth(), level.getScreen().getHeight(),
+				1, 1,
+				0,
+				0, 0,
+				level.getScreen().getWidth(), level.getScreen().getHeight(),
+				false, true);
+		copyBatch.end();
+		level.getAltBuffer().end();
 		
 		level.getScreen().resumeNormalBuffer();
 	}
@@ -167,6 +197,8 @@ public class EventLight extends MapEvent {
 		super.dispose();
 		effectBatch.dispose();
 		shaper.dispose();
+		buffer.dispose();
+		copyBatch.dispose();
 	}
 
 }

@@ -9,6 +9,7 @@ package net.wombatrpgs.bacon01.maps.events;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
+import net.wombatrpgs.mgneschema.maps.EventMDO;
 import net.wombatrpgs.sagaschema.events.EventLightMDO;
 
 /**
@@ -17,6 +18,7 @@ import net.wombatrpgs.sagaschema.events.EventLightMDO;
 public class BaconEventFactory extends EventFactory {
 	
 	protected static final String TYPE_LIGHT = "light";
+	protected static final String TYPE_GEOMETRY = "geometry";
 
 	/**
 	 * @see net.wombatrpgs.mgne.maps.events.EventFactory#createEvent
@@ -26,7 +28,9 @@ public class BaconEventFactory extends EventFactory {
 	protected MapEvent createEvent(TiledMapObject object) {
 		String type = object.getString(TiledMapObject.PROPERTY_TYPE);
 		if (TYPE_LIGHT.equals(type)) {
-			return new EventLight(object.generateMDO(EventLightMDO.class));
+			return new EventLight(object.generateMDO(EventLightMDO.class), object);
+		} else if (TYPE_GEOMETRY.equals(type)) {
+			return new EventGeometry(object.generateMDO(EventMDO.class), object);
 		}
 		return super.createEvent(object);
 	}

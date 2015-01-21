@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="20" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="tilesets/test/lower.tsx"/>
+ <tileset firstgid="31" source="tilesets/test/upper.tsx"/>
+ <layer name="Tile Layer 1" width="25" height="20">
+  <properties>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACxNhYGAQoTKWRsPUNn+42yEGxOJQLEEjO2SAWBaK5YZwWI3aMXB2DFfMCMRMQMxMQzvYgZgDiDlpaAcvEPMBMT8N7RAlEY/aQVs7AGjmNiDQBwAA
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="25" height="20">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjADtQRqPR2dQA2mg0OnsUjIKBBkp0sEOLDnaMguEPAGSYWY7QBwAA
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" opacity="0.9">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <object name="light" type="light" x="288" y="384" width="32" height="32"/>
+ </objectgroup>
+</map>

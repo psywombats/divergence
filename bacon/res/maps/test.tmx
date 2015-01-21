@@ -2,20 +2,22 @@
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="20" tilewidth="32" tileheight="32">
  <tileset firstgid="1" source="tilesets/test/lower.tsx"/>
  <tileset firstgid="31" source="tilesets/test/upper.tsx"/>
+ <tileset firstgid="63" source="tilesets/test/lower_alt.tsx"/>
+ <layer name="Tile Layer 1 (alt)" width="25" height="20">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3SOQqAQBBE0b6Z+74yLqDO/c8xJXRkJlgKMsFLKvlJGRExD9suzi2GRKWkRgmVqkmNHgY1khozLGolNXY4lCU13viVb3zX+KsAQoiIjQxyKIiNBlroiI3pJt/gNhwJOTXg0AcAAA==
+  </data>
+ </layer>
  <layer name="Tile Layer 1" width="25" height="20">
   <properties>
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACxNhYGAQoTKWRsPUNn+42yEGxOJQLEEjO2SAWBaK5YZwWI3aMXB2DFfMCMRMQMxMQzvYgZgDiDlpaAcvEPMBMT8N7RAlEY/aQVs7AGjmNiDQBwAA
-  </data>
- </layer>
- <layer name="Tile Layer 2" width="25" height="20">
-  <properties>
-   <property name="z" value=".5"/>
-  </properties>
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjADtQRqPR2dQA2mg0OnsUjIKBBkp0sEOLDnaMguEPAGSYWY7QBwAA
+   H4sIAAAAAAAAC+3SOQqAQBBE0XbfV8YF1Ln/MaeEjswES0EmeEklPykjIuZh28W5xZColNQooVI1qdHDoEZSY4ZFraTGDoeypMYbv/KN7xp/FUAIEbGRQQ4FsdFACx2xMd3kG9yGA3agrc/QBwAA
   </data>
  </layer>
  <objectgroup name="Object Layer 1" opacity="0.9">
@@ -24,4 +26,21 @@
   </properties>
   <object name="light" type="light" x="288" y="384" width="32" height="32"/>
  </objectgroup>
+ <layer name="Tile Layer 2 (alt)" width="25" height="20">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value="0.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYGBBKA6amiAaBz0KRsEowA9okR/RwWh+pA4AACXdVWHQBwAA
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="25" height="20">
+  <properties>
+   <property name="z" value="0.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYGCBMg6amkAbBz0KRsEowA9okR/RwWh+pA4AACnG/u7QBwAA
+  </data>
+ </layer>
 </map>
