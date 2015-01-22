@@ -9,7 +9,7 @@
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3SOQqAQBBE0b6Z+74yLqDO/c8xJXRkJlgKMsFLKvlJGRExD9suzi2GRKWkRgmVqkmNHgY1khozLGolNXY4lCU13viVb3zX+KsAQoiIjQxyKIiNBlroiI3pJt/gNhwJOTXg0AcAAA==
+   H4sIAAAAAAAAC2NgIA1EQjEtwagdo3YQAwJJxDA7SNVHazsihwkmFQzWdEUPO8hNV4PNDnqkFXqlR3LcNNjsAAD+yMDb0AcAAA==
   </data>
  </layer>
  <layer name="Tile Layer 1" width="25" height="20">
@@ -17,14 +17,13 @@
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3SOQqAQBBE0XbfV8YF1Ln/MaeEjswES0EmeEklPykjIuZh28W5xZColNQooVI1qdHDoEZSY4ZFraTGDoeypMYbv/KN7xp/FUAIEbGRQQ4FsdFACx2xMd3kG9yGA3agrc/QBwAA
+   H4sIAAAAAAAAC2NgIA1IQzEtwagdo3YQA8RJwBJIdoiRoE+WBCyHZIcMCfqkhwkmFQzWdEUPO8hNu6QActMuKYAeaYVe6ZEcNw02OwCg7eh80AcAAA==
   </data>
  </layer>
  <objectgroup name="Object Layer 1" opacity="0.9">
   <properties>
    <property name="z" value=".5"/>
   </properties>
-  <object name="light" type="light" x="288" y="384" width="32" height="32"/>
  </objectgroup>
  <layer name="Tile Layer 2 (alt)" width="25" height="20">
   <properties>
@@ -32,7 +31,7 @@
    <property name="z" value="0.5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYGBBKA6amiAaBz0KRsEowA9okR/RwWh+pA4AACXdVWHQBwAA
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkbBUAcARPTJAtAHAAA=
   </data>
  </layer>
  <layer name="Tile Layer 2" width="25" height="20">
@@ -40,7 +39,7 @@
    <property name="z" value="0.5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYGCBMg6amkAbBz0KRsEowA9okR/RwWh+pA4AACnG/u7QBwAA
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkbBUAcARPTJAtAHAAA=
   </data>
  </layer>
 </map>

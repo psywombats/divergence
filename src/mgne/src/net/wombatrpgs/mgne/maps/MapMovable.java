@@ -24,9 +24,12 @@ import net.wombatrpgs.mgneschema.maps.data.EightDir;
  */
 public abstract class MapMovable extends MapThing implements PositionSetable {
 	
+	protected static float DEFAULT_VELOCITY = 102; // px/s
+	
 	/** Physics values */
 	protected float x, y;
 	protected float vx, vy;
+	protected float maxVelocity;
 	
 	/** Tracking values */
 	protected List<DirEnum> path;
@@ -44,6 +47,7 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 		zeroCoords();
 		trackingListeners = new ArrayList<FinishListener>();
 		path = new ArrayList<DirEnum>();
+		maxVelocity = DEFAULT_VELOCITY;
 	}
 	
 	/** @see net.wombatrpgs.mgne.maps.Positionable#getX() */

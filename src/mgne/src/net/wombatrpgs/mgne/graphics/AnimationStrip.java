@@ -44,6 +44,7 @@ public class AnimationStrip implements	PosRenderable,
 	protected float time;
 	protected float maxTime;
 	protected float bump;
+	protected float scale;
 	protected boolean moving;
 	protected boolean looping;
 	
@@ -72,6 +73,8 @@ public class AnimationStrip implements	PosRenderable,
 				mdo.frameHeight - mdo.hit2y);
 		
 		fileName = Constants.SPRITES_DIR + mdo.file;
+		
+		scale = 1;
 	}
 	
 	/** @param bump Bump up animation time by some amount */
@@ -91,16 +94,18 @@ public class AnimationStrip implements	PosRenderable,
 	public TextureRegion getFrame(int frame) { return frames[frame]; }
 	
 	/** @return The width (in px) of current frames */
-	public int getWidth() { return mdo.frameWidth; }
+	public int getWidth() { return (int) (mdo.frameWidth * scale); }
 	
 	/** @return The height (in px) of current frames */
-	public int getHeight() { return mdo.frameHeight; }
+	public int getHeight() { return (int) (mdo.frameHeight * scale); }
 	
 	/** @return True if this animation is currently playing */
 	public boolean isMoving() { return moving; }
 	
 	/** @return The hitbox of this animation, never null */
 	public Hitbox getHitbox() { return hitbox; }
+	
+	public void setScale(float scale) { this.scale = scale; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.graphics.interfaces.Disposable#dispose()
@@ -162,7 +167,9 @@ public class AnimationStrip implements	PosRenderable,
 				batch.setColor(cur);
 			}
 			batch.begin();
-			batch.draw(currentFrame, x, y);
+			batch.draw(currentFrame, x, y,
+					currentFrame.getRegionWidth() * scale,
+					currentFrame.getRegionHeight() * scale);
 			batch.end();
 			if (flashColor != null) {
 				batch.setColor(old);

@@ -1,0 +1,19 @@
+{
+	"key" : "anim_light",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"file" : "lightstrip.png",
+	"mode" : "DO_NOTHING",
+	"frameCount" : 4,
+	"frameWidth" : 128,
+	"frameHeight" : 128,
+	"offX" : 0,
+	"offY" : 0,
+	"animSpeed" : 1,
+	"hit1x" : 0,
+	"hit1y" : 0,
+	"hit2x" : 0,
+	"hit2y" : 0,
+	"attackBoxes" : [ ]
+}

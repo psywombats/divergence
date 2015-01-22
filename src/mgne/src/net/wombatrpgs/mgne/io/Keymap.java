@@ -93,7 +93,7 @@ public class Keymap implements	InputProcessor,
 	public void update(float elapsed) {
 		for (InputButton button : InputButton.values()) {
 			if (states.get(button) == KeyState.DOWN) {
-				if (!buttonDown(button)) {
+				if (!isButtonDown(button)) {
 					// this is to prevent loss-of-focus getting state unsync'd
 					states.put(button, KeyState.UP);
 					queue.add(new InputEvent(button, EventType.RELEASE));
@@ -287,7 +287,7 @@ public class Keymap implements	InputProcessor,
 	 * @param	button			The button to check
 	 * @return					True if any of that button's buttons are down
 	 */
-	protected boolean buttonDown(InputButton button) {
+	public boolean isButtonDown(InputButton button) {
 		for (Integer keycode : buttonToKey.get(button)) {
 			if (Gdx.input.isKeyPressed(keycode)) {
 				return true;

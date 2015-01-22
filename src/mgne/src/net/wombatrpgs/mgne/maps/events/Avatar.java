@@ -14,6 +14,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mgne.io.CommandListener;
+import net.wombatrpgs.mgneschema.io.data.InputButton;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.maps.EventMDO;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
@@ -77,19 +78,44 @@ public class Avatar extends MapEvent implements CommandListener {
 	 */
 	@Override
 	public boolean onCommand(InputCommand command) {
-		if (!tracking && !paused) {
-			switch (command) {
-			case MOVE_LEFT:			move(OrthoDir.WEST);	break;
-			case MOVE_UP:			move(OrthoDir.NORTH);	break;
-			case MOVE_RIGHT:		move(OrthoDir.EAST);	break;
-			case MOVE_DOWN:			move(OrthoDir.SOUTH);	break;
-			case WORLD_INTERACT:	interact();				break;
-			default:				return false;
+		if (MapEvent.PIXEL_MOVE) {
+
+			return true;
+		} else {
+			if (!tracking && !paused) {
+				switch (command) {
+				case MOVE_LEFT:			move(OrthoDir.WEST);	break;
+				case MOVE_UP:			move(OrthoDir.NORTH);	break;
+				case MOVE_RIGHT:		move(OrthoDir.EAST);	break;
+				case MOVE_DOWN:			move(OrthoDir.SOUTH);	break;
+				case WORLD_INTERACT:	interact();				break;
+				default:				return false;
+				}
 			}
+			return true;
 		}
-		return true;
 	}
 	
+	/**
+	 * @see net.wombatrpgs.mgne.maps.events.MapEvent#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		super.update(elapsed);
+		
+		if (MapEvent.PIXEL_MOVE) {
+			int targetVX = 0;
+			int targetVY = 0;
+			if (MGlobal.keymap.isButtonDown(InputButton.DOWN)) targetVY -= 1;
+			if (MGlobal.keymap.isButtonDown(InputButton.UP)) targetVY += 1;
+			if (MGlobal.keymap.isButtonDown(InputButton.LEFT)) targetVX -= 1;
+			if (MGlobal.keymap.isButtonDown(InputButton.RIGHT)) targetVX += 1;
+			targetVX *= maxVelocity;
+			targetVY *= maxVelocity;
+			setVelocity(targetVX, targetVY);
+		}
+	}
+
 	/**
 	 * Sets the paused state. Paused heroes can't move or interact.
 	 * @param	paused			True to pause, false to unpause

@@ -17,11 +17,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 
 import net.wombatrpgs.bacon01.maps.BaconLevel;
 import net.wombatrpgs.mgne.core.MAssets;
-import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
@@ -145,7 +143,7 @@ public class EventLight extends MapEvent {
 			effectBatch.end();
 		}
 		
-		level.getAltBuffer().begin();
+		level.getLightBuffer().begin();
 		copyBatch.begin();
 		copyBatch.enableBlending();
 		copyBatch.setBlendFunction(GL20.GL_SRC_COLOR, GL20.GL_ONE);
@@ -159,7 +157,7 @@ public class EventLight extends MapEvent {
 				level.getScreen().getWidth(), level.getScreen().getHeight(),
 				false, true);
 		copyBatch.end();
-		level.getAltBuffer().end();
+		level.getLightBuffer().end();
 		
 		level.getScreen().resumeNormalBuffer();
 	}

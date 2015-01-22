@@ -6,7 +6,9 @@
  */
 package net.wombatrpgs.mgne.maps.events;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
@@ -55,6 +57,7 @@ import net.wombatrpgs.mgneschema.maps.data.PassabilityType;
 public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	
 	protected static final float BEHAVIOR_MAX_DELAY = 7f;
+	protected static final boolean PIXEL_MOVE = true;
 	
 	/** General children and info */
 	protected EventMDO mdo;
@@ -395,6 +398,28 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 				this.tileX <= tileX  &&
 				this.tileY + tileHeight > tileY &&
 				this.tileY <= tileY;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.maps.MapMovable#setVelocity(float, float)
+	 */
+	@Override
+	public void setVelocity(float vx, float vy) {
+		super.setVelocity(vx, vy);
+		Map<OrthoDir, Boolean> facings = new HashMap<OrthoDir, Boolean>();
+		facings.put(OrthoDir.NORTH, vy > 0);
+		facings.put(OrthoDir.SOUTH, vy < 0);
+		facings.put(OrthoDir.EAST, vx > 0);
+		facings.put(OrthoDir.WEST, vx < 0);
+		
+		if (!facings.get(getFacing())) {
+			for (OrthoDir dir : OrthoDir.values()) {
+				if (facings.get(dir)) {
+					setFacing(dir);
+					break;
+				}
+			}
+		}
 	}
 
 	/**
