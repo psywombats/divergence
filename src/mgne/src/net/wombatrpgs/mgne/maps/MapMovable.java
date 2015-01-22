@@ -15,6 +15,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.interfaces.PosRenderable;
+import net.wombatrpgs.mgne.physics.CollisionResult;
+import net.wombatrpgs.mgne.physics.Hitbox;
+import net.wombatrpgs.mgne.physics.NoHitbox;
 import net.wombatrpgs.mgneschema.maps.data.DirEnum;
 import net.wombatrpgs.mgneschema.maps.data.DirVector;
 import net.wombatrpgs.mgneschema.maps.data.EightDir;
@@ -82,6 +85,15 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	
 	/** @param listener The listener to call when tracking is finished */
 	public void addTrackingListener(FinishListener listener) { trackingListeners.add(listener); }
+	
+	/**
+	 * Gets the hitbox for this event. This usually corresponds to the hitbox
+	 * of the sprite, which is usually 16*16. No hitbox if no appearance.
+	 * @return					The hitbox of this event.
+	 */
+	public Hitbox getHitbox() {
+		return NoHitbox.getInstance();
+	}
 	
 	/**
 	 * Updates the effective velocity of this map object.
@@ -273,6 +285,46 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	public void halt() {
 		vx = 0;
 		vy = 0;
+	}
+	
+	/**
+	 * Called once per collision with another object. Move everyone out of
+	 * collision if necessary. Override if you want to do something special
+	 * with this.
+	 * @param 	other			The villain in this little scenario
+	 * @param 	result			The result of colliding us with villain
+	 */
+	public void resolveCollision(MapMovable other, CollisionResult result) {
+		// default - just get out of here
+		applyMTV(other, result, 0f);
+	}
+	
+	/**
+	 * Called when this event collides with immovable terrain.
+	 * @param 	result			The result of the wall collision
+	 */
+	public void resolveWallCollision(CollisionResult result) {
+		applyMTV(null, result, 1f);
+	}
+	
+	/**
+	 * Moves objects out of collision with each other. Usually call this from
+	 * onCollide, as a collision result is needed.
+	 * @param 	other			The other object to bump
+	 * @param 	result			The result of the two objects' collisions
+	 * @param	ratio			Percent to apply to us, 1 = 100% move us
+	 */
+	protected void applyMTV(MapMovable other, CollisionResult result, float ratio) {
+		if (this.getHitbox() == result.collide2) {
+			result.mtvX *= -1;
+			result.mtvY *= -1;
+		}
+		this.moveX(result.mtvX * ratio);
+		this.moveY(result.mtvY * ratio);
+		if (other != null && ratio != 1) {
+			other.moveX(result.mtvX * -(1f - ratio));
+			other.moveY(result.mtvY * -(1f - ratio));
+		}
 	}
 	
 	/**

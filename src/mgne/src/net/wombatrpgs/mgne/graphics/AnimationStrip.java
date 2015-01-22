@@ -68,9 +68,9 @@ public class AnimationStrip implements	PosRenderable,
 		if (mdo.hit2y == null) mdo.hit2y = mdo.frameHeight;
 		hitbox = new RectHitbox(null,
 				mdo.hit1x,
-				mdo.frameHeight - mdo.hit1y,
+				mdo.frameHeight - mdo.hit2y,
 				mdo.hit2x,
-				mdo.frameHeight - mdo.hit2y);
+				mdo.frameHeight - mdo.hit1y);
 		
 		fileName = Constants.SPRITES_DIR + mdo.file;
 		

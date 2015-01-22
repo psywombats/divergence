@@ -102,7 +102,6 @@ public class Avatar extends MapEvent implements CommandListener {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
-		
 		if (MapEvent.PIXEL_MOVE) {
 			int targetVX = 0;
 			int targetVY = 0;
@@ -165,7 +164,7 @@ public class Avatar extends MapEvent implements CommandListener {
 			int targetY = (int) (getTileY() + dir.getVector().y);
 			for (MapEvent event : parent.getEventsAt(targetX, targetY)) {
 				if (event == this) continue;
-				event.onCollide(this);
+				event.onCollide(this, null);
 			}
 		}
 	}

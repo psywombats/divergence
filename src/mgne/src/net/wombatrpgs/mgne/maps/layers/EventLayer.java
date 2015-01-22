@@ -16,6 +16,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.MapThing;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
+import net.wombatrpgs.mgne.physics.CollisionResult;
 
 /**
  * A renderable collection of map events, grouped into a layer in a level.
@@ -184,6 +185,29 @@ public class EventLayer extends Layer {
 	 */
 	public List<MapEvent> getAll() {
 		return events;
+	}
+	
+	/**
+	 * Run collision detection for an individual event on this layer.
+	 * @param	event			The event to run the checks for
+	 */
+	public void detectCollisions(MapEvent event) {
+		// TODO: optimize these loops if it becomes an issue
+		//if (!event.isMobile()) return;
+		for (int i = 0; i < events.size(); i++) {
+			MapEvent other = events.get(i);
+			if (other != event) {
+				CollisionResult result = event.getHitbox().isColliding(other.getHitbox());
+				if (result.isColliding) {
+					boolean res1 = event.onCollide(other, result);
+					boolean res2 = other.onCollide(event, result);
+					if (!res1 && !res2) {
+						event.resolveCollision(other, result);
+					}
+					break;
+				}
+			}
+		}
 	}
 
 }

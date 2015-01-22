@@ -3,39 +3,40 @@
  <tileset firstgid="1" source="tilesets/test/lower.tsx"/>
  <tileset firstgid="31" source="tilesets/test/upper.tsx"/>
  <tileset firstgid="63" source="tilesets/test/lower_alt.tsx"/>
+ <layer name="Tile Layer 1" width="25" height="20">
+  <properties>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgIA1IQzEtwagdo3YQA8RJwBJIdoiRoE+WBCyHZIcMCfqkhwkmFQzWdEUtO9DTEj45YtMuOkBPS/jkiE276IAbDWPzO6VpZaDtIBUMpB34AACYIKwR0AcAAA==
+  </data>
+ </layer>
  <layer name="Tile Layer 1 (alt)" width="25" height="20">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgIA1EQjEtwagdo3YQAwJJxDA7SNVHazsihwkmFQzWdEUPO8hNV4PNDnqkFXqlR3LcNNjsAAD+yMDb0AcAAA==
-  </data>
- </layer>
- <layer name="Tile Layer 1" width="25" height="20">
-  <properties>
-   <property name="z" value="0.0"/>
-  </properties>
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgIA1IQzEtwagdo3YQA8RJwBJIdoiRoE+WBCyHZIcMCfqkhwkmFQzWdEUPO8hNu6QActMuKYAeaYVe6ZEcNw02OwCg7eh80AcAAA==
+   H4sIAAAAAAAAC2NgIA1EQjEtwagdo3YQAwJJxDA7SNVHazsihwkmFQzWdEUtO9DjGZ8ctdIVLewIRsPY/E4pHmg7SAW44pweduADAK5qUVvQBwAA
   </data>
  </layer>
  <objectgroup name="Object Layer 1" opacity="0.9">
   <properties>
    <property name="z" value=".5"/>
   </properties>
+  <object name="event" type="event" x="544" y="512" width="32" height="32"/>
  </objectgroup>
- <layer name="Tile Layer 2 (alt)" width="25" height="20">
+ <layer name="Tile Layer 2" width="25" height="20">
   <properties>
-   <property name="alt" value="true"/>
    <property name="z" value="0.5"/>
   </properties>
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC2NgGAWjYBSMglEwCkbBUAcARPTJAtAHAAA=
   </data>
  </layer>
- <layer name="Tile Layer 2" width="25" height="20">
+ <layer name="Tile Layer 2 (alt)" width="25" height="20">
   <properties>
+   <property name="alt" value="true"/>
    <property name="z" value="0.5"/>
   </properties>
   <data encoding="base64" compression="gzip">

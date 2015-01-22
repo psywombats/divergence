@@ -10,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
+import net.wombatrpgs.bacon01.maps.BaconLevel;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.Effect;
@@ -23,12 +24,11 @@ public class EffectAltLight extends Effect {
 	
 	protected static String SHADER_MDO = "shader_lighttest";
 	
-	protected FrameBuffer lightBuffer, altBuffer;
+	protected BaconLevel level;
 
-	public EffectAltLight(FrameBuffer lightBuffer, FrameBuffer altBuffer) {
+	public EffectAltLight(BaconLevel level) {
 		super(MGlobal.data.getEntryFor(SHADER_MDO, ShaderMDO.class));
-		this.lightBuffer = lightBuffer;
-		this.altBuffer = altBuffer;
+		this.level = level;
 	}
 
 	/**
@@ -72,8 +72,8 @@ public class EffectAltLight extends Effect {
 		// temp buffer back to original buffer
 		original.begin();
 		effectBatch.begin();
-		lightBuffer.getColorBufferTexture().bind(1);
-		altBuffer.getColorBufferTexture().bind(2);
+		level.getLightBuffer().getColorBufferTexture().bind(1);
+		level.getAltBuffer().getColorBufferTexture().bind(2);
 		Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
 		effectBatch.draw(
 				buffer.getColorBufferTexture(),			// texture

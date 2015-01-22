@@ -146,6 +146,13 @@ public abstract class Level extends ScreenObject implements Turnable, Disposable
 		reseting = false;
 		updating = false;
 		
+		if (MapEvent.PIXEL_MOVE) {
+			for (MapEvent event : eventLayer.getAll()) {
+				applyPhysicalCorrections(event);
+				detectCollisions(event);
+			}
+		}
+		
 		Collections.sort(gridLayers);
 	}
 	
@@ -439,6 +446,17 @@ public abstract class Level extends ScreenObject implements Turnable, Disposable
 	}
 	
 	/**
+	 * 
+	 * @param layer
+	 * @param tileX
+	 * @param tileY
+	 * @return true to ignore this tile for collisions
+	 */
+	public boolean excludeTile(GridLayer layer, MapEvent event, int tileX, int tileY) {
+		return false;
+	}
+	
+	/**
 	 * Internally removes an event from all lists and registries.
 	 * @param 	toRemove		The event to remove
 	 */
@@ -475,6 +493,29 @@ public abstract class Level extends ScreenObject implements Turnable, Disposable
 	 */
 	protected void renderEvents(SpriteBatch batch) {
 		eventLayer.render(batch);
+	}
+	
+	/**
+	 * Adjusts an event on the level based on its collisions. This usually
+	 * involves moving it out of said collisions. This only works on terrain
+	 * and is applying automatically to mobile events in the level.
+	 * @param 	event			The mobile event being pushed around
+	 */
+	protected void applyPhysicalCorrections(MapEvent event) {
+		for (GridLayer layer : gridLayers) {
+			if (layer.getZ() <= 1) {
+				layer.applyPhysicalCorrections(event);
+			}
+		}
+	}
+	
+	/**
+	 * Performs all collision detection between events, including collision
+	 * response and other things that happen when they collide
+	 * @param 	event			The event starring in the collisions
+	 */
+	protected void detectCollisions(MapEvent event) {
+		eventLayer.detectCollisions(event);
 	}
 
 }

@@ -30,6 +30,7 @@ import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.MapMovable;
+import net.wombatrpgs.mgne.physics.CollisionResult;
 import net.wombatrpgs.mgne.physics.Hitbox;
 import net.wombatrpgs.mgne.physics.NoHitbox;
 import net.wombatrpgs.mgne.scenes.SceneParser;
@@ -56,8 +57,9 @@ import net.wombatrpgs.mgneschema.maps.data.PassabilityType;
  */
 public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	
+	public static final boolean PIXEL_MOVE = true;
+	
 	protected static final float BEHAVIOR_MAX_DELAY = 7f;
-	protected static final boolean PIXEL_MOVE = true;
 	
 	/** General children and info */
 	protected EventMDO mdo;
@@ -197,10 +199,9 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	}
 	
 	/**
-	 * Gets the hitbox for this event. This usually corresponds to the hitbox
-	 * of the sprite, which is usually 16*16. No hitbox if no appearance.
-	 * @return					The hitbox of this event.
+	 * @see net.wombatrpgs.mgne.maps.MapMovable#getHitbox()
 	 */
+	@Override
 	public Hitbox getHitbox() {
 		if (appearance == null) { 
 			return NoHitbox.getInstance();
@@ -210,6 +211,22 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 		return box;
 	}
 	
+	public int getCenterX() {
+		if (getHitbox() == NoHitbox.getInstance()) {
+			return (int) getX();
+		} else {
+			return (int) (getHitbox().getX() + getHitbox().getWidth()/2);
+		}
+	}
+	
+	public int getCenterY() {
+		if (getHitbox() == NoHitbox.getInstance()) {
+			return (int) getY();
+		} else {
+			return (int) (getHitbox().getY() + getHitbox().getHeight()/2);
+		}
+	}
+
 	/**
 	 * Checks if this event's in a specific group. Events can belong to multiple
 	 * groups if their group name contains the separator character. Events that
@@ -427,9 +444,11 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	 * happens, but characters should be attacked, items should be auto-grabbed,
 	 * and so on. This will start evaluation when the hero stops moving.
 	 * @param	event			The jerk that ran into us
+	 * @param	result			The collision result, if it was physical
+	 * @return					True to not move these out of physical collision
 	 */
-	public void onCollide(MapEvent event) {
-		if (isHidden()) return;
+	public boolean onCollide(MapEvent event, CollisionResult result) {
+		if (isHidden()) return false;
 		if (event == MGlobal.getHero()) {
 			if (isPassable()) {
 				event.addTrackingListener(new FinishListener() {
@@ -441,6 +460,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 				runScene(onCollide);
 			}
 		}
+		return false;
 	}
 	
 	/**
@@ -530,7 +550,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 			List<MapEvent> events = parent.getEventsAt(targetX, targetY);
 			boolean colliding = false;
 			for (MapEvent event : events) {
-				event.onCollide(this);
+				event.onCollide(this, null);
 				if (!event.isPassable()) {
 					colliding = true;
 				}
@@ -545,7 +565,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 			List<MapEvent> events = parent.getEventsAt(getTileX(), getTileY());
 			for (MapEvent event : events) {
 				if (event != this) {
-					event.onCollide(this);
+					event.onCollide(this, null);
 				}
 			}
 		}

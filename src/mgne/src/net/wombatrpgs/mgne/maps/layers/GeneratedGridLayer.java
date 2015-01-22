@@ -99,6 +99,15 @@ public class GeneratedGridLayer extends GridLayer {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.maps.layers.GridLayer#getProperty(java.lang.String)
+	 */
+	@Override
+	public String getProperty(String key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
 	 * Checks if a tile at the given location is see-through. Does not check
 	 * for out of bounds.
 	 * @param	tileX			The x-coord of the tile to check (in tiles)

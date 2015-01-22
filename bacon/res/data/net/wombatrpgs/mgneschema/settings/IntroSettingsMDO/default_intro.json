@@ -4,7 +4,7 @@
 	"name" : "",
 	"description" : "engine searches for this mdo by name",
 	"map" : "test.tmx",
-	"mapX" : 10,
-	"mapY" : 8,
+	"mapX" : 12,
+	"mapY" : 10,
 	"titleBG" : "black.png"
 }

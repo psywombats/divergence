@@ -135,17 +135,16 @@ public class TiledGridLayer extends GridLayer {
 		MGlobal.reporter.warn("No tileset found with name " + tilesetName);
 		return null;
 	}
-
+	
 	/**
-	 * An easy way to keep track of properties.
-	 * @param 	key				The key of the desired property
-	 * @return					The value of that property
+	 * @see net.wombatrpgs.mgne.maps.layers.GridLayer#getProperty(java.lang.String)
 	 */
+	@Override
 	public String getProperty(String key) {
 		Object val = layer.getProperties().get(key);
 		return (val == null) ? null : val.toString();
 	}
-	
+
 	/**
 	 * Extracts the property from a tile at a given cell.
 	 * @param 	tileX			The x-coord of the tile to get from (in tiles)
