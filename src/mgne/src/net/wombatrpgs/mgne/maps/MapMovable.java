@@ -38,7 +38,7 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	protected List<DirEnum> path;
 	protected boolean tracking;
 	protected float targetX, targetY;
-	protected float lastX, lastY;
+	public float lastX, lastY;
 	
 	/** Misc */
 	protected List<FinishListener> trackingListeners;
@@ -165,6 +165,8 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	public void update(float elapsed) {
 		super.update(elapsed);
 		
+		storeXY();
+		
 		// integration
 		if (Float.isNaN(vx) || Float.isNaN(vy)) {
 			MGlobal.reporter.warn("NaN values in physics!! " + this);
@@ -197,7 +199,6 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 				}
 			}
 		}
-		storeXY();
 	}
 
 	/**
