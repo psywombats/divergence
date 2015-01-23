@@ -3,7 +3,12 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
-	"soundEffectEntries" : [ ],
+	"soundEffectEntries" : [
+		{
+			"key" : "type",
+			"file" : "02.wav"
+		}
+	],
 	"emuMusicEntries" : [ ],
 	"loadedMusicEntries" : [ ]
 }

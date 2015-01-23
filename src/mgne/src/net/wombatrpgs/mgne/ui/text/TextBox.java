@@ -140,7 +140,7 @@ public class TextBox extends ScreenGraphic {
 		
 		bodyFormat.x = mdo.marginWidth;
 		if (mdo.anchor != BoxAnchorType.BOTTOM) {
-			bodyFormat.y = boxHeight - mdo.marginTop;
+			bodyFormat.y = win.getViewportHeight() - mdo.marginTop;
 		} else {
 			bodyFormat.y = win.getViewportHeight() - mdo.marginTop;
 		}
@@ -171,18 +171,20 @@ public class TextBox extends ScreenGraphic {
 		if (expandingIn || expandingOut) {
 			elapsedExpand += elapsed;
 			float r = elapsedExpand / expandTime;
-			if (backer != null) {
-				if (r > 1) {
-					if (expandingOut) {
-						parent.removeChild(this);
-						outListener.onFinish();
-					}
-					expandingIn = false;
-					expandingOut = false;
+			if (r > 1) {
+				if (expandingOut) {
+					parent.removeChild(this);
+					outListener.onFinish();
+				}
+				expandingIn = false;
+				expandingOut = false;
+				if (backer != null) {
 					expandBackerHeight = boxHeight+2;
 					backer.resizeTo(boxWidth, boxHeight+2);
-				} else {
-					if (expandingOut) r = 1f - r;
+				}
+			} else {
+				if (expandingOut) r = 1f - r;
+				if (backer != null) {
 					int heightGain = (boxHeight+2) - backer.getBorderHeight()*2;
 					int backerHeight = (int) (backer.getBorderHeight()*2 + heightGain*r);
 					backerHeight -= backerHeight % 4;

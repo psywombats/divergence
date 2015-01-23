@@ -19,7 +19,9 @@ public class BaconUI extends UISettings {
 	public BaconUI(UISettingsMDO mdo) {
 		super(mdo);
 		boxMDO = MGlobal.data.getEntryFor(mdo.box, TextBoxMDO.class);
-		box = new RadioBox(boxMDO, font);
+		blockingBox = new RadioBox(boxMDO, font);
+		box = blockingBox;
+		assets.add(box);
 	}
 
 }

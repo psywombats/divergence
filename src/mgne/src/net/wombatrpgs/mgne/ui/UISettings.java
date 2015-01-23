@@ -65,9 +65,6 @@ public class UISettings extends AssetQueuer {
 	/** @return The blocking version of the text box */
 	public BlockingTextBox getBlockingBox() { return this.blockingBox; }
 	
-	/** @return The text box data associated with these settings */
-	public TextBoxMDO getBoxMDO() { return this.boxMDO; }
-	
 	/** @return The font associated with these settings */
 	public FontHolder getFont() { return this.font; }
 	

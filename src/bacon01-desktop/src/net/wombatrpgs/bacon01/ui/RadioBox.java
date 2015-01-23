@@ -8,6 +8,7 @@ package net.wombatrpgs.bacon01.ui;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgne.ui.text.BlockingTextBox;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
@@ -19,6 +20,7 @@ import net.wombatrpgs.mgneschema.ui.TextBoxMDO;
 public class RadioBox extends BlockingTextBox {
 	
 	Graphic backer;
+	float h;
 
 	public RadioBox(TextBoxMDO mdo, FontHolder font) {
 		super(mdo, font);
@@ -31,12 +33,16 @@ public class RadioBox extends BlockingTextBox {
 	 */
 	@Override
 	public void update(float elapsed) {
-		super.update(elapsed);
 		
 		if (expandingIn || expandingOut) {
 			elapsedExpand += elapsed;
 			float r = elapsedExpand / expandTime;
+			if (r > 1) r = 1;
+			if (expandingOut) r = 1f - r;
+			backer.setTextureHeight((int) (h * r));
 		}
+		
+		super.update(elapsed);
 	}
 
 	/**
@@ -45,8 +51,17 @@ public class RadioBox extends BlockingTextBox {
 	 */
 	@Override
 	public void coreRender(SpriteBatch batch) {
-		backer.renderAt(batch, 0, screen.getHeight() - backer.getHeight());
+		backer.renderAt(batch, backer.getWidth()/2, screen.getHeight() - h / 2);
 		super.coreRender(batch);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.ui.text.TextBox#postProcessing(net.wombatrpgs.mgne.core.MAssets, int)
+	 */
+	@Override
+	public void postProcessing(MAssets manager, int pass) {
+		super.postProcessing(manager, pass);
+		h = backer.getHeight();
 	}
 
 }

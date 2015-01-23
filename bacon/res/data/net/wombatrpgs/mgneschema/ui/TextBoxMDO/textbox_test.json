@@ -7,8 +7,8 @@
 	"scaling" : "FIXED_SIZE",
 	"nineslice" : "None",
 	"typeSpeed" : 32,
-	"typeRefKey" : "",
-	"lines" : 4,
+	"typeRefKey" : "type",
+	"lines" : 6,
 	"marginWidth" : 16,
 	"marginTop" : 16,
 	"marginBottom" : 16
