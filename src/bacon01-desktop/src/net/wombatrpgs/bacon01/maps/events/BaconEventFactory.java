@@ -19,6 +19,7 @@ public class BaconEventFactory extends EventFactory {
 	
 	protected static final String TYPE_LIGHT = "light";
 	protected static final String TYPE_GEOMETRY = "geometry";
+	protected static final String TYPE_WARPER = "warper";
 
 	/**
 	 * @see net.wombatrpgs.mgne.maps.events.EventFactory#createEvent
@@ -31,6 +32,8 @@ public class BaconEventFactory extends EventFactory {
 			return new EventLight(object.generateMDO(EventLightMDO.class), object);
 		} else if (TYPE_GEOMETRY.equals(type)) {
 			return new EventGeometry(object.generateMDO(EventMDO.class), object);
+		} else if (TYPE_WARPER.equals(type)) {
+			return new EventWarper(object.generateMDO(EventMDO.class), object);
 		}
 		return super.createEvent(object);
 	}

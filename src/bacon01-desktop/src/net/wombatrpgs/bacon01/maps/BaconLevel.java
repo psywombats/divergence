@@ -22,7 +22,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import net.wombatrpgs.bacon01.EffectAltLight;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
-import net.wombatrpgs.mgne.graphics.AnimationStrip;
 import net.wombatrpgs.mgne.graphics.ShaderFromData;
 import net.wombatrpgs.mgne.maps.LoadedLevel;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
@@ -30,7 +29,6 @@ import net.wombatrpgs.mgne.maps.layers.GridLayer;
 import net.wombatrpgs.mgne.maps.layers.LoadedGridLayer;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Graphic;
-import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
 import net.wombatrpgs.mgneschema.graphics.ShaderMDO;
 import net.wombatrpgs.mgneschema.maps.LoadedMapMDO;
 
@@ -42,28 +40,17 @@ public class BaconLevel extends LoadedLevel {
 	protected ShaderFromData shader;
 	protected FrameBuffer lightBuffer, altBuffer, normBuffer;
 	protected EffectAltLight effect;
-	protected Graphic finger;
+	protected Graphic light;
 	
 	protected int lastX, lastY;
-	
-	protected AnimationStrip light;
-	float total = 0;
 
 	public BaconLevel(LoadedMapMDO mdo, Screen screen) {
 		super(mdo, screen);
 		
-//		effect = new EffectAltLight(this);
-//		getScreen().addEffect(effect);
-//		assets.add(effect);
-		
 		shader = new ShaderFromData(MGlobal.data.getEntryFor("shader_lighttest", ShaderMDO.class));
 		
-		light = new AnimationStrip(MGlobal.data.getEntryFor("anim_light", AnimationMDO.class));
-		light.setScale(4);
+		light = new Graphic("light.png");
 		assets.add(light);
-		
-		finger = new Graphic("finger.png");
-		assets.add(finger);
 	}
 	
 	public FrameBuffer getLightBuffer() { return lightBuffer; }
@@ -74,21 +61,6 @@ public class BaconLevel extends LoadedLevel {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
-		
-		lightBuffer.begin();
-		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-		
-//		for (MapEvent event : getEventLayer().getAll()) {
-//			if (event == MGlobal.getHero()) continue;
-//			int screenX = event.getCenterX();
-//			int screenY = event.getCenterY();
-//			screenX -= light.getWidth() / 2;
-//			screenY -= light.getHeight() / 2;
-//			light.renderAt(getBatch(), screenX, screenY);
-//		}
-		
-		lightBuffer.end();
 		
 		altBuffer.begin();
 		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
@@ -101,18 +73,27 @@ public class BaconLevel extends LoadedLevel {
 		normBuffer.end();
 		
 		renderGrid(batch, false);
-		shader.begin();
+		getScreen().resumeNormalBuffer();
 		getScreen().getUIBatch().begin();
-		lightBuffer.getColorBufferTexture().bind(1);
+		getScreen().getUIBatch().setShader(shader);
 		altBuffer.getColorBufferTexture().bind(2);
+		lightBuffer.getColorBufferTexture().bind(1);
+		Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
 		getScreen().getUIBatch().draw(normBuffer.getColorBufferTexture(),
 				0, 0,
 				getScreen().getWidth(), getScreen().getHeight(),
 				0, 0,
 				getScreen().getWidth(), getScreen().getHeight(),
 				false, true);
-		Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
+		getScreen().getUIBatch().setShader(null);
 		getScreen().getUIBatch().end();
+		
+		lightBuffer.begin();
+		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		lightBuffer.end();
+		
+		getScreen().resumeNormalBuffer();
 		
 		renderEvents(getScreen().getViewBatch());
 		
@@ -128,10 +109,6 @@ public class BaconLevel extends LoadedLevel {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
-		light.update(elapsed);
-		total += elapsed;
-		float scale = (float) (6f + Math.sin(total / 3f) * 4f);
-		light.setScale(scale);
 		
 		MapEvent hero = MGlobal.getHero();
 		int x1 = (int) hero.getHitbox().getX();
