@@ -5,10 +5,11 @@
 	"description" : "         ",
 	"anchor" : "TOP",
 	"scaling" : "FIXED_SIZE",
-	"nineslice" : "nineslice_ffl",
+	"nineslice" : "None",
 	"typeSpeed" : 32,
+	"typeRefKey" : "",
 	"lines" : 4,
-	"marginWidth" : 11,
-	"marginTop" : 9,
-	"marginBottom" : 9
+	"marginWidth" : 16,
+	"marginTop" : 16,
+	"marginBottom" : 16
 }

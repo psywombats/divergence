@@ -13,6 +13,8 @@ import org.luaj.vm2.lib.TwoArgFunction;
 import net.wombatrpgs.bacon01.maps.BaconLevel;
 import net.wombatrpgs.bacon01.maps.events.BaconEventFactory;
 import net.wombatrpgs.bacon01.screens.ScreenWorld;
+import net.wombatrpgs.bacon01.ui.BaconUI;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.Memory;
 import net.wombatrpgs.mgne.core.MgnGame;
 import net.wombatrpgs.mgne.core.VersionInfo;
@@ -20,7 +22,9 @@ import net.wombatrpgs.mgne.graphics.GraphicsSettings;
 import net.wombatrpgs.mgne.maps.LoadedLevel;
 import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.screen.Screen;
+import net.wombatrpgs.mgne.ui.UISettings;
 import net.wombatrpgs.mgneschema.maps.LoadedMapMDO;
+import net.wombatrpgs.mgneschema.settings.UISettingsMDO;
 
 /**
  * One day, this class will tell MGNE how to run BACON.
@@ -65,6 +69,15 @@ public class BaconGame extends MgnGame {
 	@Override
 	public GraphicsSettings makeGraphics() {
 		return super.makeGraphics();
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.core.MgnGame#makeUI()
+	 */
+	@Override
+	public UISettings makeUI() {
+		return new BaconUI(MGlobal.data.getEntryFor(
+				UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
 	}
 
 	/**

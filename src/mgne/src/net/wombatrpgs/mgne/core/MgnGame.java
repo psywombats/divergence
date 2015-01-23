@@ -19,8 +19,10 @@ import net.wombatrpgs.mgne.maps.events.Avatar;
 import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.instances.ScreenGame;
+import net.wombatrpgs.mgne.ui.UISettings;
 import net.wombatrpgs.mgneschema.maps.LoadedMapMDO;
 import net.wombatrpgs.mgneschema.settings.IntroSettingsMDO;
+import net.wombatrpgs.mgneschema.settings.UISettingsMDO;
 
 /**
  * The MgnGame corresponds to all the game-specific stuff a game might want to
@@ -106,6 +108,15 @@ public abstract class MgnGame implements Disposable {
 	 */
 	public EventFactory makeEventFactory() {
 		return new EventFactory();
+	}
+	
+	/**
+	 * For bacon
+	 * @return
+	 */
+	public UISettings makeUI() {
+		return new UISettings(MGlobal.data.getEntryFor(
+				UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
 	}
 	
 	/**

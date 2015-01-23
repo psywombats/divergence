@@ -171,23 +171,25 @@ public class TextBox extends ScreenGraphic {
 		if (expandingIn || expandingOut) {
 			elapsedExpand += elapsed;
 			float r = elapsedExpand / expandTime;
-			if (r > 1) {
-				if (expandingOut) {
-					parent.removeChild(this);
-					outListener.onFinish();
-				}
-				expandingIn = false;
-				expandingOut = false;
-				expandBackerHeight = boxHeight+2;
-				backer.resizeTo(boxWidth, boxHeight+2);
-			} else {
-				if (expandingOut) r = 1f - r;
-				int heightGain = (boxHeight+2) - backer.getBorderHeight()*2;
-				int backerHeight = (int) (backer.getBorderHeight()*2 + heightGain*r);
-				backerHeight -= backerHeight % 4;
-				if (backerHeight != expandBackerHeight) {
-					expandBackerHeight = backerHeight;
-					backer.resizeTo(boxWidth, backerHeight);
+			if (backer != null) {
+				if (r > 1) {
+					if (expandingOut) {
+						parent.removeChild(this);
+						outListener.onFinish();
+					}
+					expandingIn = false;
+					expandingOut = false;
+					expandBackerHeight = boxHeight+2;
+					backer.resizeTo(boxWidth, boxHeight+2);
+				} else {
+					if (expandingOut) r = 1f - r;
+					int heightGain = (boxHeight+2) - backer.getBorderHeight()*2;
+					int backerHeight = (int) (backer.getBorderHeight()*2 + heightGain*r);
+					backerHeight -= backerHeight % 4;
+					if (backerHeight != expandBackerHeight) {
+						expandBackerHeight = backerHeight;
+						backer.resizeTo(boxWidth, backerHeight);
+					}
 				}
 			}
 		}

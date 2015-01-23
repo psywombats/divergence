@@ -25,6 +25,12 @@
    <property name="z" value=".5"/>
   </properties>
   <object name="event" type="event" x="416" y="320" width="32" height="32"/>
+  <object name="autostart" type="Event" x="384" y="192" width="32" height="32">
+   <properties>
+    <property name="appearance" value="4dir_nico"/>
+    <property name="onCollide" value="speak('Radio box test. Radio box test. 1 2 3. Radio box test.')"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Tile Layer 2" width="25" height="20">
   <properties>

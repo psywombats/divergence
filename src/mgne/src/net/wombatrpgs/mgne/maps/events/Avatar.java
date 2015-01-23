@@ -79,7 +79,12 @@ public class Avatar extends MapEvent implements CommandListener {
 	@Override
 	public boolean onCommand(InputCommand command) {
 		if (MapEvent.PIXEL_MOVE) {
-
+			if (!tracking && !paused) {
+				switch (command) {
+				case WORLD_INTERACT:	interact();				break;
+				default:				return false;
+				}
+			}
 			return true;
 		} else {
 			if (!tracking && !paused) {

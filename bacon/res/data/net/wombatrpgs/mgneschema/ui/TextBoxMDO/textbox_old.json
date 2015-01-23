@@ -1,0 +1,15 @@
+{
+	"key" : "textbox_old",
+	"subfolder" : "",
+	"name" : "  ",
+	"description" : "         ",
+	"anchor" : "TOP",
+	"scaling" : "FIXED_SIZE",
+	"nineslice" : "nineslice_ffl",
+	"typeSpeed" : 32,
+	"typeRefKey" : null,
+	"lines" : 4,
+	"marginWidth" : 11,
+	"marginTop" : 9,
+	"marginBottom" : 9
+}

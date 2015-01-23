@@ -23,6 +23,7 @@ import net.wombatrpgs.bacon01.EffectAltLight;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.AnimationStrip;
+import net.wombatrpgs.mgne.graphics.ShaderFromData;
 import net.wombatrpgs.mgne.maps.LoadedLevel;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.maps.layers.GridLayer;
@@ -30,6 +31,7 @@ import net.wombatrpgs.mgne.maps.layers.LoadedGridLayer;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
+import net.wombatrpgs.mgneschema.graphics.ShaderMDO;
 import net.wombatrpgs.mgneschema.maps.LoadedMapMDO;
 
 /**
@@ -37,7 +39,8 @@ import net.wombatrpgs.mgneschema.maps.LoadedMapMDO;
  */
 public class BaconLevel extends LoadedLevel {
 	
-	protected FrameBuffer lightBuffer, altBuffer;
+	protected ShaderFromData shader;
+	protected FrameBuffer lightBuffer, altBuffer, normBuffer;
 	protected EffectAltLight effect;
 	protected Graphic finger;
 	
@@ -49,9 +52,11 @@ public class BaconLevel extends LoadedLevel {
 	public BaconLevel(LoadedMapMDO mdo, Screen screen) {
 		super(mdo, screen);
 		
-		effect = new EffectAltLight(this);
-		getScreen().addEffect(effect);
-		assets.add(effect);
+//		effect = new EffectAltLight(this);
+//		getScreen().addEffect(effect);
+//		assets.add(effect);
+		
+		shader = new ShaderFromData(MGlobal.data.getEntryFor("shader_lighttest", ShaderMDO.class));
 		
 		light = new AnimationStrip(MGlobal.data.getEntryFor("anim_light", AnimationMDO.class));
 		light.setScale(4);
@@ -74,14 +79,14 @@ public class BaconLevel extends LoadedLevel {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		
-		for (MapEvent event : getEventLayer().getAll()) {
-			if (event == MGlobal.getHero()) continue;
-			int screenX = event.getCenterX();
-			int screenY = event.getCenterY();
-			screenX -= light.getWidth() / 2;
-			screenY -= light.getHeight() / 2;
-			light.renderAt(getBatch(), screenX, screenY);
-		}
+//		for (MapEvent event : getEventLayer().getAll()) {
+//			if (event == MGlobal.getHero()) continue;
+//			int screenX = event.getCenterX();
+//			int screenY = event.getCenterY();
+//			screenX -= light.getWidth() / 2;
+//			screenY -= light.getHeight() / 2;
+//			light.renderAt(getBatch(), screenX, screenY);
+//		}
 		
 		lightBuffer.end();
 		
@@ -90,15 +95,31 @@ public class BaconLevel extends LoadedLevel {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		altBuffer.end();
 		
-		getScreen().resumeNormalBuffer();
+		normBuffer.begin();
+		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		normBuffer.end();
 		
 		renderGrid(batch, false);
+		shader.begin();
+		getScreen().getUIBatch().begin();
+		lightBuffer.getColorBufferTexture().bind(1);
+		altBuffer.getColorBufferTexture().bind(2);
+		getScreen().getUIBatch().draw(normBuffer.getColorBufferTexture(),
+				0, 0,
+				getScreen().getWidth(), getScreen().getHeight(),
+				0, 0,
+				getScreen().getWidth(), getScreen().getHeight(),
+				false, true);
+		Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
+		getScreen().getUIBatch().end();
+		
 		renderEvents(getScreen().getViewBatch());
-		altBuffer.begin();
-		renderEvents(getScreen().getViewBatch());
-		altBuffer.end();
+		
+		//renderGrid(batch, true);
+		
 		getScreen().resumeNormalBuffer();
-		renderGrid(batch, true);
+		
 	}
 
 	/**
@@ -160,12 +181,16 @@ public class BaconLevel extends LoadedLevel {
 				LoadedGridLayer loadedLayer = (LoadedGridLayer) layer;
 				if ("true".equals(loadedLayer.getProperty("alt"))) {
 					altBuffer.begin();
+				} else {
+					normBuffer.begin();
 				}
 				layer.render(batch);
 				if ("true".equals(loadedLayer.getProperty("alt"))) {
 					altBuffer.end();
-					getScreen().resumeNormalBuffer();
+				} else {
+					normBuffer.end();
 				}
+				getScreen().resumeNormalBuffer();
 			}
 		}
 	}
@@ -199,10 +224,20 @@ public class BaconLevel extends LoadedLevel {
 				getScreen().getHeight(),
 				false);
 		
+		normBuffer = new FrameBuffer(Format.RGB565,
+				getScreen().getWidth(),
+				getScreen().getHeight(),
+				false);
+		
 		altBuffer = new FrameBuffer(Format.RGB565,
 				getScreen().getWidth(),
 				getScreen().getHeight(),
 				false);
+		
+		shader.begin();
+		shader.setUniformi("u_light", 1);
+		shader.setUniformi("u_textureAlt", 2);
+		shader.end();
 	}
 	
 	protected float sampleAt(int x, int y) {
@@ -220,4 +255,19 @@ public class BaconLevel extends LoadedLevel {
 		Color c = new Color(map.getPixel(0, 0));
 		return c.r;
 	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.maps.LoadedLevel#dispose()
+	 */
+	@Override
+	public void dispose() {
+		super.dispose();
+		shader.dispose();
+		lightBuffer.dispose();
+		altBuffer.dispose();
+		normBuffer.dispose();
+		effect.dispose();
+	}
+	
+	
 }

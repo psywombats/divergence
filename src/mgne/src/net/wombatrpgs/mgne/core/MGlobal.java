@@ -28,7 +28,6 @@ import net.wombatrpgs.mgne.screen.ScreenStack;
 import net.wombatrpgs.mgne.screen.WindowSettings;
 import net.wombatrpgs.mgne.ui.UISettings;
 import net.wombatrpgs.mgne.util.CharConverter;
-import net.wombatrpgs.mgneschema.settings.UISettingsMDO;
 import net.wombatrpgs.mgneschema.settings.WindowSettingsMDO;
 
 /**
@@ -125,8 +124,7 @@ public class MGlobal {
 			MGlobal.window = new WindowSettings(
 					MGlobal.data.getEntryFor(Constants.KEY_WINDOW, WindowSettingsMDO.class));
 			MGlobal.graphics = game.makeGraphics();
-			MGlobal.ui = new UISettings(MGlobal.data.getEntryFor(
-					UISettings.DEFAULT_MDO_KEY, UISettingsMDO.class));
+			MGlobal.ui = game.makeUI();
 			MGlobal.keymap = Keymap.initDefaultKeymap();
 			MGlobal.memory = game.makeMemory();
 			MGlobal.charConverter = new CharConverter();
