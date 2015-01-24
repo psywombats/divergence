@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="20" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="tilesets/test/lower.tsx"/>
+ <tileset firstgid="31" source="tilesets/test/upper.tsx"/>
+ <tileset firstgid="63" source="tilesets/test/lower_alt.tsx"/>
+ <layer name="Tile Layer 1" width="25" height="20">
+  <properties>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgIA1IQzEtwagdo3YQA8RJwBJIdoiRoE+WBCyHZIcMCfqkhwkmFQzWdEUtO9DTEj45YtMuOkBPS/jkiE276IAbDWPzO6VpZaDtIBUMpB34AACYIKwR0AcAAA==
+  </data>
+ </layer>
+ <layer name="Tile Layer 1 (alt)" width="25" height="20">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgIA1EQjEtwagdo3YQAwJJxDA7SNVHazsihwkmFQzWdEUtO9DjGZ8ctdIVLewIRsPY/E4pHmg7SAW44pweduADAK5qUVvQBwAA
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" opacity="0.9">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <object name="autostart" type="Event" x="352" y="192" width="32" height="32">
+   <properties>
+    <property name="hide" value="return getSwitch('auto_intro')"/>
+    <property name="onEnter" value="speak('Radio box test. Radio box test. 1 2 3. Radio box test.'); sceneSwitch('auto_intro', true)"/>
+   </properties>
+  </object>
+  <object name="test warp" type="warper" x="416" y="320" width="32" height="32"/>
+  <object name="npc" type="Character" x="640" y="480" width="32" height="32">
+   <properties>
+    <property name="appearance" value="4dir_nico"/>
+    <property name="onCollide" value="speak('Stop running into me you doofus')"/>
+    <property name="onInteract" value="speak('Thanks for talking to me.')"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="Tile Layer 2" width="25" height="20">
+  <properties>
+   <property name="z" value="0.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkbBUAcARPTJAtAHAAA=
+  </data>
+ </layer>
+ <layer name="Tile Layer 2 (alt)" width="25" height="20">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value="0.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkbBUAcARPTJAtAHAAA=
+  </data>
+ </layer>
+</map>

@@ -12,6 +12,7 @@ import org.luaj.vm2.lib.TwoArgFunction;
 
 import net.wombatrpgs.bacon01.maps.BaconLevel;
 import net.wombatrpgs.bacon01.maps.events.BaconEventFactory;
+import net.wombatrpgs.bacon01.screens.ScreenTitle;
 import net.wombatrpgs.bacon01.screens.ScreenWorld;
 import net.wombatrpgs.bacon01.ui.BaconUI;
 import net.wombatrpgs.mgne.core.MGlobal;
@@ -36,7 +37,7 @@ public class BaconGame extends MgnGame {
 	 */
 	@Override
 	public Screen makeStarterScreen() {
-		return super.makeStarterScreen();
+		return new ScreenTitle();
 	}
 
 	/**

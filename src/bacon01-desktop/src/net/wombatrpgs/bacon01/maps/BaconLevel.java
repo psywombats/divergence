@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Vector2;
@@ -200,16 +201,19 @@ public class BaconLevel extends LoadedLevel {
 				getScreen().getWidth(),
 				getScreen().getHeight(),
 				false);
+		//lightBuffer.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
 		normBuffer = new FrameBuffer(Format.RGB565,
 				getScreen().getWidth(),
 				getScreen().getHeight(),
 				false);
+		normBuffer.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
 		altBuffer = new FrameBuffer(Format.RGB565,
 				getScreen().getWidth(),
 				getScreen().getHeight(),
 				false);
+		altBuffer.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
 		shader.begin();
 		shader.setUniformi("u_light", 1);

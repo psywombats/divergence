@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
@@ -273,10 +274,12 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 					MGlobal.window.getWidth(),
 					MGlobal.window.getHeight(),
 					false);
+			buffer.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 			lastBuffer = new FrameBuffer(Format.RGB565, 
 					MGlobal.window.getWidth(),
 					MGlobal.window.getHeight(),
 					false);
+			lastBuffer.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 			
 			uiCam = new OrthographicCamera();
 			uiCam.zoom = MGlobal.window.getZoom();
