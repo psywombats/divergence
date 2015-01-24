@@ -8,8 +8,8 @@
 	"nineslice" : "None",
 	"typeSpeed" : 32,
 	"typeRefKey" : "type",
-	"lines" : 6,
-	"marginWidth" : 16,
-	"marginTop" : 16,
-	"marginBottom" : 16
+	"lines" : 4,
+	"marginWidth" : 12,
+	"marginTop" : 12,
+	"marginBottom" : 12
 }
