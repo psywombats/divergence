@@ -502,6 +502,7 @@ public abstract class Level extends ScreenObject implements Turnable, Disposable
 	 * @param 	event			The mobile event being pushed around
 	 */
 	protected void applyPhysicalCorrections(MapEvent event) {
+		if (event.isPassable()) return;
 		for (GridLayer layer : gridLayers) {
 			if (layer.getZ() <= 1) {
 				layer.applyPhysicalCorrections(event);

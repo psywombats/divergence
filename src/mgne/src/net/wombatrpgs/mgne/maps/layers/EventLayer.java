@@ -193,10 +193,10 @@ public class EventLayer extends Layer {
 	 */
 	public void detectCollisions(MapEvent event) {
 		// TODO: optimize these loops if it becomes an issue
-		//if (!event.isMobile()) return;
+		if (event.isPassable()) return;
 		for (int i = 0; i < events.size(); i++) {
 			MapEvent other = events.get(i);
-			if (other != event) {
+			if (other != event && !other.isPassable()) {
 				CollisionResult result = event.getHitbox().isColliding(other.getHitbox());
 				if (result.isColliding) {
 					boolean res1 = event.onCollide(other, result);
