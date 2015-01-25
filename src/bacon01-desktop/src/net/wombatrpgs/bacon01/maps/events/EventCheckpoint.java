@@ -6,12 +6,13 @@
  */
 package net.wombatrpgs.bacon01.maps.events;
 
+import net.wombatrpgs.bacon01.core.BMemory;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
-import net.wombatrpgs.mgne.physics.CollisionResult;
 import net.wombatrpgs.mgne.physics.Hitbox;
 import net.wombatrpgs.mgne.physics.RectHitbox;
+import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgneschema.maps.EventMDO;
 
 /**
@@ -20,6 +21,8 @@ import net.wombatrpgs.mgneschema.maps.EventMDO;
 public class EventCheckpoint extends MapEvent {
 	
 	protected RectHitbox rect;
+	protected Graphic graphic;
+	protected boolean collidedLast;
 
 	public EventCheckpoint(EventMDO mdo, TiledMapObject object) {
 		super(mdo);
@@ -36,15 +39,16 @@ public class EventCheckpoint extends MapEvent {
 	}
 
 	/**
-	 * @see net.wombatrpgs.mgne.maps.events.MapEvent#onCollide
-	 * (net.wombatrpgs.mgne.maps.events.MapEvent, net.wombatrpgs.mgne.physics.CollisionResult)
+	 * @see net.wombatrpgs.mgne.maps.events.MapEvent#update(float)
 	 */
 	@Override
-	public boolean onCollide(MapEvent event, CollisionResult result) {
-		if (event == MGlobal.getHero()) {
-			System.out.println("Hero!");
+	public void update(float elapsed) {
+		super.update(elapsed);
+		boolean colliding = MGlobal.getHero().getHitbox().isColliding(getHitbox()).isColliding;
+		if (colliding && !collidedLast) {
+			MGlobal.memory.save(BMemory.FILE_NAME);
 		}
-		return super.onCollide(event, result);
+		collidedLast = colliding;
 	}
 
 }

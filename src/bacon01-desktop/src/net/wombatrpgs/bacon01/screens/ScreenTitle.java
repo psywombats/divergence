@@ -7,6 +7,7 @@
 
 package net.wombatrpgs.bacon01.screens;
 
+import net.wombatrpgs.bacon01.core.BMemory;
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
@@ -18,6 +19,8 @@ import net.wombatrpgs.mgne.ui.text.TextFormat;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.settings.IntroSettingsMDO;
 
+import com.badlogic.gdx.Files.FileType;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 
@@ -147,7 +150,17 @@ public class ScreenTitle extends Screen {
 			});
 		} else {
 			// load
-			
+			if (Gdx.files.getFileHandle(BMemory.FILE_NAME, FileType.Internal).exists()) {
+				MGlobal.levelManager.getTele().getPre().run();
+				MGlobal.levelManager.getTele().getPre().addListener(new FinishListener() {
+					@Override public void onFinish() {
+						MGlobal.memory.loadAndSetScreen(BMemory.FILE_NAME);
+						Screen screen = MGlobal.levelManager.getScreen();
+						MGlobal.screens.push(screen);
+						MGlobal.levelManager.getTele().getPost().run();
+					};
+				});
+			}
 		}
 		return true;
 	}

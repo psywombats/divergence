@@ -1,0 +1,15 @@
+{
+	"switches" : {
+		"switches" : {
+			"auto_intro" : true
+		}
+	},
+	"levelKey" : "test.tmx",
+	"heroMemory" : {
+		"tileX" : 7,
+		"tileY" : 7,
+		"dir" : "EAST",
+		"animKey" : "4dir_sk"
+	},
+	"saveSlot" : -1
+}

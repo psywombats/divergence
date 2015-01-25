@@ -13,6 +13,8 @@ import net.wombatrpgs.mgne.core.Memory;
  */
 public class BMemory extends Memory {
 	
+	public static String FILE_NAME = "save.json";
+	
 	// fields to store/unload
 	public int saveSlot;
 
