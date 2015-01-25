@@ -58,6 +58,6 @@
     <property name="onInteract" value="speak('Thanks for talking to me.')"/>
    </properties>
   </object>
-  <object name="checkpoint" type="checkpoint" x="208" y="160" width="32" height="32"/>
+  <object name="checkpoint" type="checkpoint" x="64" y="384" width="32" height="32"/>
  </objectgroup>
 </map>

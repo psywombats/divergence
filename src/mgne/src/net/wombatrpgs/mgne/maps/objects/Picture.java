@@ -32,6 +32,7 @@ public class Picture extends ScreenGraphic implements Comparable<Picture> {
 	 */
 	public Picture(Graphic appearance, float x, float y, int z) {
 		super(x, y);
+		this.appearance = appearance;
 		this.z = z;
 	}
 	

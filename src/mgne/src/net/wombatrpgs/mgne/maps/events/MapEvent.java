@@ -134,7 +134,10 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	public int getTileX() { return (int) (!PIXEL_MOVE ? tileX : Math.round((float) getCenterX() / 16f)); }
 	
 	/** @return y-coord of this object, in tiles */
-	public int getTileY() { return (int) (!PIXEL_MOVE ? tileY : Math.round((float) getCenterY() / 16f)); }
+	public int getTileY() {
+		if (!PIXEL_MOVE) return tileY;
+		else return parent.getHeight() - (Math.round((float) getCenterY() / 16f)) - 1;
+	}
 	
 	/** @return The current appearance of this character */
 	public FacesAnimation getAppearance() { return appearance; }

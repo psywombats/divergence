@@ -156,6 +156,15 @@ public class Avatar extends MapEvent implements CommandListener {
 		this.vy = 0;
 		this.tracking = false;
 	}
+	
+	/**
+	 * bacon
+	 */
+	public void respawn() {
+		MGlobal.levelManager.getTele().teleportRaw(MGlobal.memory.levelKey,
+				MGlobal.memory.heroMemory.tileX,
+				MGlobal.memory.heroMemory.tileY);
+	}
 
 	/**
 	 * Moves in a certain dir on the map?

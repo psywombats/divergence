@@ -25,6 +25,7 @@ import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.ShaderFromData;
 import net.wombatrpgs.mgne.maps.LoadedLevel;
+import net.wombatrpgs.mgne.maps.events.Avatar;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.maps.layers.GridLayer;
 import net.wombatrpgs.mgne.maps.layers.LoadedGridLayer;
@@ -111,7 +112,7 @@ public class BaconLevel extends LoadedLevel {
 	public void update(float elapsed) {
 		super.update(elapsed);
 		
-		MapEvent hero = MGlobal.getHero();
+		Avatar hero = MGlobal.getHero();
 		int x1 = (int) hero.getHitbox().getX();
 		int x2 = (int) (x1 + hero.getHitbox().getWidth());
 		int y1 = (int) hero.getHitbox().getY();
@@ -142,9 +143,7 @@ public class BaconLevel extends LoadedLevel {
 			if (passed) break;
 		}
 		if (!passed) {
-			while (!isChipPassable(hero.getTileX(), hero.getTileY())) {
-				hero.setTileLocation(MGlobal.rand.nextInt(getWidth()), MGlobal.rand.nextInt(getHeight()));
-			}
+			hero.respawn();
 		}
 	}
 	

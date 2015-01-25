@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.maps.PositionSetable;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.ScreenObject;
@@ -26,6 +27,7 @@ public abstract class ScreenGraphic extends ScreenObject implements PositionSeta
 	protected float x, y;
 	protected boolean fadingOut;
 	
+	protected FinishListener listener;
 	protected boolean tweening;
 	protected float tweenTime;
 	protected float tweenEnd;
@@ -104,6 +106,9 @@ public abstract class ScreenGraphic extends ScreenObject implements PositionSeta
 			if (tweenTime > tweenEnd) {
 				r = 1;
 				tweening = false;
+				if (listener != null) {
+					listener.onFinish();
+				}
 			} else {
 				r = tweenTime / tweenEnd;
 			}
@@ -116,7 +121,7 @@ public abstract class ScreenGraphic extends ScreenObject implements PositionSeta
 			
 			// location
 			x = tweenBaseX * (1.f-r) + r * tweenTargetX;
-			y = tweenBaseX * (1.f-r) + r * tweenTargetX;
+			y = tweenBaseY * (1.f-r) + r * tweenTargetY;
 		}
 	}
 	
@@ -148,6 +153,10 @@ public abstract class ScreenGraphic extends ScreenObject implements PositionSeta
 		this.tweenEnd = time;
 		this.tweenTime = 0;
 		this.tweening = true;
+		tweenTargetX = x;
+		tweenTargetY = y;
+		tweenBaseX = x;
+		tweenBaseY = y;
 	}
 	
 	/**
@@ -155,8 +164,9 @@ public abstract class ScreenGraphic extends ScreenObject implements PositionSeta
 	 * @param	targetX			The location to move to (in screen px)
 	 * @param	targetY			The location to move to (in screen px)
 	 * @param	time			How long to take (in s)
+	 * @param	listener		The listener to call when done
 	 */
-	public void tweenTo(float targetX, float targetY, float time) {
+	public void tweenTo(float targetX, float targetY, float time, FinishListener listener) {
 		tweenTargetX = targetX;
 		tweenTargetY = targetY;
 		tweenEnd = time;
@@ -164,6 +174,7 @@ public abstract class ScreenGraphic extends ScreenObject implements PositionSeta
 		tweenBaseY = y;
 		tweening = true;
 		tweenTime = 0;
+		this.listener = listener;
 	}
 	
 	/**
