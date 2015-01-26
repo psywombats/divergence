@@ -39,6 +39,9 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	protected boolean tracking;
 	protected float targetX, targetY;
 	public float lastX, lastY;
+	public boolean corrected;
+	protected float lastElapsed;
+	protected float lastAttemptedVX, lastAttemptedVY;
 	
 	/** Misc */
 	protected List<FinishListener> trackingListeners;
@@ -184,21 +187,22 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 				vy = 0;
 			}
 			if (x == targetX && y == targetY) {
-				if (path.size() == 0) {
-					tracking = false;
-					List<FinishListener> oldListeners = new ArrayList<FinishListener>();
-					for (FinishListener listener : trackingListeners) {
-						oldListeners.add(listener);
-					}
-					trackingListeners.clear();
-					for (FinishListener listener : oldListeners) {
-						listener.onFinish();
-					}
-				} else {
-					targetNextTile();
-				}
+				halt();
+				tracking = false;
+			} else {
+				float dx = targetX - x;
+				float dy = targetY - y;
+//				if (corrected) {
+					vx = Math.signum(dx) * maxVelocity;
+					vy = Math.signum(dy) * maxVelocity;
+//				} else {
+//					float len = (float) Math.sqrt(dx*dx + dy*dy);
+//					vx = dx / len * maxVelocity;
+//					vy = dy / len * maxVelocity;
+//				}
 			}
 		}
+		lastElapsed = elapsed;
 	}
 
 	/**

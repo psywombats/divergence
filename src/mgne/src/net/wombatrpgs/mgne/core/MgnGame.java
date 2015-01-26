@@ -16,6 +16,7 @@ import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.LoadedLevel;
 import net.wombatrpgs.mgne.maps.events.Avatar;
+import net.wombatrpgs.mgne.maps.events.AvatarMemory;
 import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.instances.ScreenGame;
@@ -183,6 +184,10 @@ public abstract class MgnGame implements Disposable {
 		
 		MGlobal.levelManager.setNewActiveSet(hero, level);
 		MGlobal.assets.loadAsset(hero, "hero");
+		MGlobal.memory.heroMemory = new AvatarMemory();
+		MGlobal.memory.heroMemory.tileX = MGlobal.getHero().getTileX();
+		MGlobal.memory.heroMemory.tileY = MGlobal.getHero().getTileY();
+		MGlobal.memory.levelKey = level.getKeyName();
 	}
 	
 	/**

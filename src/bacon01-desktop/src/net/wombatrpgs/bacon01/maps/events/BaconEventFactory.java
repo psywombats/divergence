@@ -21,6 +21,7 @@ public class BaconEventFactory extends EventFactory {
 	protected static final String TYPE_GEOMETRY = "geometry";
 	protected static final String TYPE_WARPER = "warper";
 	protected static final String TYPE_CHECKPOINT = "checkpoint";
+	protected static final String TYPE_STALKER = "stalker";
 
 	/**
 	 * @see net.wombatrpgs.mgne.maps.events.EventFactory#createEvent
@@ -37,6 +38,8 @@ public class BaconEventFactory extends EventFactory {
 			return new EventWarper(object.generateMDO(EventMDO.class), object);
 		} else if (TYPE_CHECKPOINT.equals(type)) {
 			return new EventCheckpoint(object.generateMDO(EventMDO.class), object);
+		} else if (TYPE_STALKER.equals(type)) {
+			return new EventStalker(object.generateMDO(EventMDO.class));
 		}
 		return super.createEvent(object);
 	}

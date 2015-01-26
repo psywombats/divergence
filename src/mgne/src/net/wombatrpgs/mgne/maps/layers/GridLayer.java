@@ -94,6 +94,7 @@ public abstract class GridLayer extends Layer implements Comparable<GridLayer> {
 	 */
 	public void applyPhysicalCorrections(MapEvent event) {
 		Hitbox box = event.getHitbox();
+		event.corrected = false;
 		if (box == null || (box.getX() == 0 && box.getY() == 0)) return; // why?
 		int atX1 = (int) Math.floor((float) box.getX() / (float) parent.getTileWidth());
 		int atX2 = (int) Math.floor((float) (box.getX() + box.getWidth()) / (float) parent.getTileWidth());
@@ -133,6 +134,7 @@ public abstract class GridLayer extends Layer implements Comparable<GridLayer> {
 	private void bump(MapEvent event, final int tileX, final int tileY) {
 		// TODO: optimize this, remove the new
 		if (parent.excludeTile(this, event, tileX, tileY)) return;
+		event.corrected = true;
 		RectHitbox tileBox;
 		Positionable loc = new Positionable() {
 			@Override

@@ -108,15 +108,19 @@ public class Avatar extends MapEvent implements CommandListener {
 	public void update(float elapsed) {
 		super.update(elapsed);
 		if (MapEvent.PIXEL_MOVE) {
-			int targetVX = 0;
-			int targetVY = 0;
-			if (MGlobal.keymap.isButtonDown(InputButton.DOWN)) targetVY -= 1;
-			if (MGlobal.keymap.isButtonDown(InputButton.UP)) targetVY += 1;
-			if (MGlobal.keymap.isButtonDown(InputButton.LEFT)) targetVX -= 1;
-			if (MGlobal.keymap.isButtonDown(InputButton.RIGHT)) targetVX += 1;
-			targetVX *= maxVelocity;
-			targetVY *= maxVelocity;
-			setVelocity(targetVX, targetVY);
+			if (paused) {
+				halt();
+			} else {
+				int targetVX = 0;
+				int targetVY = 0;
+				if (MGlobal.keymap.isButtonDown(InputButton.DOWN)) targetVY -= 1;
+				if (MGlobal.keymap.isButtonDown(InputButton.UP)) targetVY += 1;
+				if (MGlobal.keymap.isButtonDown(InputButton.LEFT)) targetVX -= 1;
+				if (MGlobal.keymap.isButtonDown(InputButton.RIGHT)) targetVX += 1;
+				targetVX *= maxVelocity;
+				targetVY *= maxVelocity;
+				setVelocity(targetVX, targetVY);
+			}
 		}
 	}
 

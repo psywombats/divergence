@@ -59,10 +59,5 @@
    </properties>
   </object>
   <object name="checkpoint" type="checkpoint" x="64" y="384" width="32" height="32"/>
-  <object name="stalker" type="stalker" x="432" y="160" width="16" height="16">
-   <properties>
-    <property name="appearance" value="4dir_sk"/>
-   </properties>
-  </object>
  </objectgroup>
 </map>
