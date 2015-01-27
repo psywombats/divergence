@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.sagaschema.events;
+package net.wombatrpgs.baconschema.events;
 
 import net.wombatrpgs.mgneschema.maps.EventMDO;
 

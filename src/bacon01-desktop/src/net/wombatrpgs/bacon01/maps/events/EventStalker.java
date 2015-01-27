@@ -32,6 +32,12 @@ public class EventStalker extends MapEvent {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
+		
+		if (MGlobal.getHero().isPaused()) {
+			halt();
+			return;
+		}
+		
 		if (distanceTo(MGlobal.getHero()) < 300) {
 			wandering = false;
 			targetLocation(MGlobal.getHero().getX(), MGlobal.getHero().getY());

@@ -19,13 +19,13 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 
 import net.wombatrpgs.bacon01.maps.BaconLevel;
+import net.wombatrpgs.baconschema.events.EventLightMDO;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.physics.ShadowResult;
 import net.wombatrpgs.mgne.ui.Graphic;
-import net.wombatrpgs.sagaschema.events.EventLightMDO;
 
 /**
  * Hack for light test.

@@ -1,0 +1,10 @@
+{
+	"key" : "item_radio",
+	"subfolder" : "",
+	"name" : "Radio",
+	"description" : "",
+	"icon" : "icon_16.png",
+	"ingameDescription" : "The only way out.",
+	"type" : "RADIO",
+	"graphic" : "backer.png"
+}

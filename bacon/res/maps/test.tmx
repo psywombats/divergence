@@ -51,7 +51,7 @@
   </properties>
   <object name="autostart" type="Event" x="64" y="160" width="16" height="16">
    <properties>
-    <property name="hide" value="return getSwitch('auto_intro')"/>
+    <property name="hide" value="return true"/>
     <property name="onEnter" value="speak('Radio box test. Radio box test. 1 2 3. Radio box test.'); sceneSwitch('auto_intro', true)"/>
    </properties>
   </object>

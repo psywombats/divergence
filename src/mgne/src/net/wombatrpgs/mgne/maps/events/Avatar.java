@@ -71,6 +71,8 @@ public class Avatar extends MapEvent implements CommandListener {
 	public String getName() {
 		return "hero";
 	}
+	
+	public boolean isPaused() { return paused; }
 
 	/**
 	 * @see net.wombatrpgs.mgne.io.CommandListener#onCommand

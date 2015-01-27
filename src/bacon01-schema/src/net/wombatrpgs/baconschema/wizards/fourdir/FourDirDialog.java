@@ -4,7 +4,7 @@
  *  Author: psy_wombats
  *  Contact: psy_wombats@wombatrpgs.net
  */
-package net.wombatrpgs.sagaschema.wizards.fourdir;
+package net.wombatrpgs.baconschema.wizards.fourdir;
 
 import java.awt.Color;
 import java.awt.Dimension;

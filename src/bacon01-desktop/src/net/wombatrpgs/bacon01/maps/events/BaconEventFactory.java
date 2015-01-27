@@ -6,11 +6,11 @@
  */
 package net.wombatrpgs.bacon01.maps.events;
 
+import net.wombatrpgs.baconschema.events.EventLightMDO;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.maps.EventMDO;
-import net.wombatrpgs.sagaschema.events.EventLightMDO;
 
 /**
  * Generates bacon-specific events.

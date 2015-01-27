@@ -9,6 +9,7 @@ package net.wombatrpgs.bacon01.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.wombatrpgs.bacon01.rpg.Inventory;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Queueable;
 
@@ -20,6 +21,9 @@ public class BGlobal {
 	/** Miscellaneous globals */
 	public static int saveSlot;
 	
+	/** Hero's inventory */
+	public static Inventory items;
+	
 	/**
 	 * Sets up all the global variables. Called once when game is created.
 	 */
@@ -27,6 +31,8 @@ public class BGlobal {
 		
 		List<Queueable> toLoad;
 		toLoad = new ArrayList<Queueable>();
+		
+		items = new Inventory();
 		
 		// then everything else
 		MGlobal.assets.loadAssets(toLoad, "BGlobal");

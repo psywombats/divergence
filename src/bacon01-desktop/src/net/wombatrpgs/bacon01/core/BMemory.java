@@ -6,6 +6,10 @@
  */
 package net.wombatrpgs.bacon01.core;
 
+import java.util.List;
+
+import net.wombatrpgs.bacon01.rpg.Inventory;
+import net.wombatrpgs.bacon01.rpg.ItemMemory;
 import net.wombatrpgs.mgne.core.Memory;
 
 /**
@@ -17,6 +21,9 @@ public class BMemory extends Memory {
 	
 	// fields to store/unload
 	public int saveSlot;
+	
+	// serialzied items
+	public List<ItemMemory> items;
 
 	/**
 	 * @see net.wombatrpgs.mgne.core.Memory#storeFields()
@@ -25,6 +32,7 @@ public class BMemory extends Memory {
 	protected void storeFields() {
 		super.storeFields();
 		this.saveSlot = BGlobal.saveSlot;
+		this.items = BGlobal.items.toMemory();
 	}
 
 	/**
@@ -33,6 +41,7 @@ public class BMemory extends Memory {
 	@Override
 	protected void unloadFields() {
 		BGlobal.saveSlot = this.saveSlot;
+		BGlobal.items = new Inventory(this.items);
 		super.unloadFields();
 	}
 

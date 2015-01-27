@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.interfaces.Updateable;
 import net.wombatrpgs.mgne.graphics.interfaces.Renderable;
+import net.wombatrpgs.mgne.ui.Graphic;
 
 /**
  * Something that's both renderable and updateable. Can also be sorted.
@@ -67,6 +68,17 @@ public abstract class ScreenObject extends AssetQueuer implements	Renderable,
 	 */
 	public void onRemovedFromScreen(Screen screen) {
 		// noop
+	}
+	
+	/**
+	 * Initializes a graphic from file name and then adds it to assets.
+	 * @param 	fileName		The name of the file to load
+	 * @return					The created graphic
+	 */
+	protected Graphic startGraphic(String fileName) {
+		Graphic graphic = new Graphic(fileName);
+		assets.add(graphic);
+		return graphic;
 	}
 
 }
