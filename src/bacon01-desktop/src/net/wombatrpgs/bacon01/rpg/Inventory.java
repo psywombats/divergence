@@ -23,8 +23,6 @@ public class Inventory {
 	 */
 	public Inventory() {
 		this.items = new ArrayList<InventoryItem>();
-		pickUp("item_radio");
-		pickUp("item_scrap");
 	}
 	
 	/**

@@ -63,10 +63,20 @@
     <property name="onInteract" value="speak('Thanks for talking to me.')"/>
    </properties>
   </object>
-  <object name="checkpoint" type="checkpoint" x="64" y="384" width="32" height="32"/>
+  <object name="checkpoint" type="checkpoint" x="64" y="352" width="32" height="64"/>
   <object name="stalker" type="stalker" x="496" y="160" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_sk"/>
+   </properties>
+  </object>
+  <object name="scrap" type="item" x="64" y="384" width="16" height="16">
+   <properties>
+    <property name="key" value="item_scrap"/>
+   </properties>
+  </object>
+  <object name="radio" type="item" x="240" y="288" width="16" height="16">
+   <properties>
+    <property name="key" value="item_radio"/>
    </properties>
   </object>
  </objectgroup>

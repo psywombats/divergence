@@ -192,7 +192,7 @@ public class InventoryUI extends ScreenObject implements CommandListener {
 				selected = 0;
 			}
 			return true;
-		case UI_CANCEL:
+		case UI_CANCEL: case UI_FINISH:
 			hide();
 			return true;
 		case UI_CONFIRM:

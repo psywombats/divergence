@@ -1,15 +1,21 @@
 {
 	"switches" : {
 		"switches" : {
-			"auto_intro" : true
+			"collect_item_radio" : true
 		}
 	},
 	"levelKey" : "test.tmx",
 	"heroMemory" : {
-		"tileX" : 5,
-		"tileY" : 23,
-		"dir" : "SOUTH",
+		"tileX" : 6,
+		"tileY" : 21,
+		"dir" : "WEST",
 		"animKey" : "4dir_sk"
 	},
-	"saveSlot" : -1
+	"saveSlot" : -1,
+	"items" : [
+		{
+			"itemKey" : "item_radio",
+			"quantity" : 1
+		}
+	]
 }
