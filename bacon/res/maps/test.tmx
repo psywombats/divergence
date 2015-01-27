@@ -2,6 +2,11 @@
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="26" tilewidth="16" tileheight="16">
  <tileset firstgid="1" name="rtp" tilewidth="16" tileheight="16">
   <image source="tilesets/test/rtp.png" width="64" height="32"/>
+  <tile id="0">
+   <properties>
+    <property name="glow" value="glow_test.png"/>
+   </properties>
+  </tile>
   <tile id="1">
    <properties>
     <property name="x" value=""/>
@@ -29,15 +34,15 @@
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2UQQqAMAwECxHq/1/sxR5cEt1iEhWzMJeyMKWkae2YvvNUyl/+8udlAYYfz6NYgeHH8yj6z8Ew8xc5o+V/r9/aEVYPueu3doTVQ2b82v2tP8T2ZvzsrhKlJw5+Brngy372bqL0PN6f9Z/tcG9/RrL9G9+TcJIADQAA
+   H4sIAAAAAAAAC+2UQQrAIAwELSnY/7+4Fz10SdoNNbZCFuYSFkZEU8o1tfFV0p/+9M/LDnQ/zqM4gO7HeRTVwUbOVgLDvL/IN5r+//qtHWH1kLd+a0dYPcTj185v/SG25/Gzu0qUngzwM8gDK/vZs4nSG3H/rP9uh4/2z8hs/wmiNeZiAA0AAA==
   </data>
  </layer>
- <layer name="Tile Layer 1" width="32" height="26">
+ <layer name="Tile Layer 1" width="32" height="26" visible="0">
   <properties>
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2UMQoAIAwDVdD/P9lFB4MBi7SKNnCLFK5DTQhjcuNU3O9+99slAd2P71oUoPvxXYv8OZiV+9O8Ufff62cdweaQXT/rCDaHSPyz/Vf/UCRI/JKu0vDvdMgLfsluv/gtYu2v5sP65QANAAA=
+   H4sIAAAAAAAAC+2UQQ4AEAwERcL/n+zCwUbR0CK6yVykyfRQ61ydkDkV85vf/HrxQPHjuxQRKH58lyJ8Dmbm/iRv1Pz3+qmOoOaQVT/VEdQcwvG39uf+odFcz8/pKgn/jg552c/Z7Re/RrT9CYFbhzEADQAA
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
@@ -59,7 +64,7 @@
    </properties>
   </object>
   <object name="checkpoint" type="checkpoint" x="64" y="384" width="32" height="32"/>
-  <object name="stalker" type="stalker" x="432" y="160" width="16" height="16">
+  <object name="stalker" type="stalker" x="496" y="160" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_sk"/>
    </properties>

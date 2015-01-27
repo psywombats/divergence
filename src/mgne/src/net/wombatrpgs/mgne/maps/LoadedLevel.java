@@ -20,6 +20,7 @@ import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.maps.layers.EventLayer;
+import net.wombatrpgs.mgne.maps.layers.GridLayer;
 import net.wombatrpgs.mgne.maps.layers.LoadedGridLayer;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgneschema.maps.LoadedMapMDO;
@@ -91,6 +92,9 @@ public class LoadedLevel extends Level {
 			MGlobal.assets.requestLoading();
 		} else {
 			eventLayer.postProcessing(manager, pass-1);
+			for (GridLayer layer : gridLayers) {
+				layer.postProcessing(manager, pass - 1);
+			}
 		}
 	}
 	
@@ -172,6 +176,9 @@ public class LoadedLevel extends Level {
 			}
 		}
 		eventLayer.queueRequiredAssets(manager);
+		for (GridLayer layer : gridLayers) {
+			layer.queueRequiredAssets(manager);
+		}
 		
 		// get the background music
 		if (map.getProperties().containsKey(KEY_BGM)) {

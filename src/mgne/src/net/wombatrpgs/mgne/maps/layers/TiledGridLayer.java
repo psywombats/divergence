@@ -6,11 +6,19 @@
  */
 package net.wombatrpgs.mgne.maps.layers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.LoadedLevel;
+import net.wombatrpgs.mgne.ui.Graphic;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -24,6 +32,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 public class TiledGridLayer extends GridLayer {
 	
 	protected LoadedLevel parent;
+	protected List<Glower> glowers;
+	protected ShapeRenderer shaper;
 	protected transient TiledMapTileLayer layer;
 
 	/**
@@ -35,9 +45,25 @@ public class TiledGridLayer extends GridLayer {
 		super(parent, Float.valueOf((String) layer.getProperties().get(Constants.PROPERTY_Z)));
 		this.parent = parent;
 		this.layer = layer;
+		glowers = new ArrayList<TiledGridLayer.Glower>();
 		if (getProperty(Constants.PROPERTY_Z) == null) {
 			MGlobal.reporter.warn("Layer with no Z exists on map " + parent);
 		}
+		
+		for (int x = 0; x < layer.getWidth(); x += 1) {
+			for (int y = 0; y < layer.getHeight(); y += 1) {
+				Cell c = layer.getCell(x, y);
+				if (c!= null && c.getTile() != null && c.getTile().getProperties().containsKey("glow")) {
+					Graphic graphic = new Graphic("res/sprites/",
+							c.getTile().getProperties().get("glow").toString());
+					assets.add(graphic);
+					Glower glow = new Glower(x, y, graphic);
+					glowers.add(glow);
+				}
+			}
+		}
+		
+		shaper = new ShapeRenderer();
 	}
 	
 	/**
@@ -66,6 +92,23 @@ public class TiledGridLayer extends GridLayer {
 		renderer.getSpriteBatch().begin();
 		renderer.renderTileLayer(layer);
 		renderer.getSpriteBatch().end();
+		
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+	    Gdx.gl.glBlendFunc(GL20.GL_SRC_COLOR, GL20.GL_ONE_MINUS_SRC_ALPHA);
+//		if (layer.getProperties().get("alt") != null) {
+//
+//			shaper.setProjectionMatrix(parent.getScreen().getCamera().combined);
+//			shaper.begin(ShapeType.Filled);
+//			shaper.setColor(0, 0, 0, .5f);
+//			shaper.rect(0, 0, parent.getWidthPixels(), parent.getHeightPixels());
+//			shaper.end();
+//		}
+		
+//		for (Glower glow : glowers) {
+//			glow.graphic.renderAt(parent.getScreen().getViewBatch(),
+//					glow.x * parent.getTileWidth() + parent.getTileWidth()/2,
+//					glow.y * parent.getTileHeight() + parent.getTileHeight()/2);
+//		}
 	}
 
 	/**
@@ -118,6 +161,7 @@ public class TiledGridLayer extends GridLayer {
 	@Override
 	public void dispose() {
 		// the layer will be disposed as part of the map, maybe?
+		shaper.dispose();
 	}
 
 	/**
@@ -180,5 +224,15 @@ public class TiledGridLayer extends GridLayer {
 	 */
 	protected int relativeToAbsoluteTileID(String tilesetName, int relativeTileID) {
 		return relativeToAbsoluteTileID(parent.getMap(), tilesetName, relativeTileID);
+	}
+	
+	private class Glower {
+		public int x, y;
+		public Graphic graphic;
+		public Glower(int x, int y, Graphic g) {
+			this.x = x;
+			this.y = y;
+			this.graphic = g;
+		}
 	}
 }
