@@ -26,10 +26,10 @@ public class ItemMDO extends MainSchema {
 	public String icon;
 	
 	@Desc("In-game description")
-	public String ingameDescription;
+	public String gameDesc;
 	
 	@Desc("Item type")
-	public ItemType type;
+	public ItemType itemType;
 	
 	@Desc("Graphic - only used for graphic-type items, this is the image located in res/ui")
 	@FileLink("ui")

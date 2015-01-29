@@ -7,6 +7,7 @@
 package net.wombatrpgs.bacon01.maps.events;
 
 import net.wombatrpgs.baconschema.events.EventLightMDO;
+import net.wombatrpgs.baconschema.rpg.ItemMDO;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.EventFactory;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
@@ -42,7 +43,7 @@ public class BaconEventFactory extends EventFactory {
 		} else if (TYPE_STALKER.equals(type)) {
 			return new EventStalker(object.generateMDO(EventMDO.class));
 		} else if (TYPE_ITEM.equals(type)) {
-			return new EventItem(object.getString("key"));
+			return new EventItem(object.generateMDO(ItemMDO.class));
 		}
 		return super.createEvent(object);
 	}

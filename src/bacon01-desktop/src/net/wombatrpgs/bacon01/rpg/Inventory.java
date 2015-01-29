@@ -9,6 +9,7 @@ package net.wombatrpgs.bacon01.rpg;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.wombatrpgs.baconschema.rpg.ItemMDO;
 import net.wombatrpgs.mgne.core.MGlobal;
 
 /**
@@ -49,6 +50,18 @@ public class Inventory {
 		}
 		InventoryItem item = new InventoryItem(mdoKey);
 		MGlobal.assets.loadAsset(item, mdoKey);
+		items.add(item);
+	}
+	
+	public void pickUp(ItemMDO mdo) {
+		for (InventoryItem item : items) {
+			if (item.getKey().equals(mdo.key)) {
+				item.changeQuantity(1);
+				return;
+			}
+		}
+		InventoryItem item = new InventoryItem(mdo);
+		MGlobal.assets.loadAsset(item, mdo.key);
 		items.add(item);
 	}
 	

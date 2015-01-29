@@ -33,7 +33,7 @@ public class InventoryItem extends AssetQueuer {
 		assets.add(icon);
 		quantity = 1;
 		
-		if (mdo.type == ItemType.GRAPHIC) {
+		if (mdo.itemType == ItemType.GRAPHIC) {
 			graphic = new GraphicItem(mdo);
 			assets.add(graphic);
 		}
@@ -72,7 +72,7 @@ public class InventoryItem extends AssetQueuer {
 	public Graphic getIcon() { return icon; }
 	
 	/** @return The item description, if we're going to be using one */
-	public String getDescription() { return mdo.ingameDescription; }
+	public String getDescription() { return mdo.gameDesc; }
 	
 	/**
 	 * This method is going to be a mess... could it be a giant switch statement
@@ -80,7 +80,7 @@ public class InventoryItem extends AssetQueuer {
 	 */
 	public void onUse() {
 		MGlobal.reporter.inform("Used the " + getName());
-		switch(mdo.type) {
+		switch(mdo.itemType) {
 		case GRAPHIC:
 			graphic.show();
 			return;

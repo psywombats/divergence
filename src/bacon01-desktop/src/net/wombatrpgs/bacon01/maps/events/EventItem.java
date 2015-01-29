@@ -28,9 +28,9 @@ public class EventItem extends MapEvent {
 	protected ItemMDO itemMDO;
 	protected Hitbox box;
 
-	public EventItem(String key) {
-		super(generateMDO(key));
-		itemMDO = MGlobal.data.getEntryFor(key, ItemMDO.class);
+	public EventItem(ItemMDO mdo) {
+		super(generateEventMDO(mdo));
+		this.itemMDO = mdo;
 		appearance = new Graphic("res/sprites/", itemMDO.icon);
 		assets.add(appearance);
 		box = new RectHitbox(this, 0, 0, 16, 16);
@@ -64,7 +64,7 @@ public class EventItem extends MapEvent {
 			return false;
 		}
 		if (!isHidden()) {
-			BGlobal.items.pickUp(itemMDO.key);
+			BGlobal.items.pickUp(itemMDO);
 			MGlobal.memory.setSwitch("collect_" + itemMDO.key);
 			MGlobal.audio.playSFX("item_get");
 		}
@@ -79,15 +79,15 @@ public class EventItem extends MapEvent {
 		return box;
 	}
 
-	private static EventMDO generateMDO(String key) {
+	private static EventMDO generateEventMDO(ItemMDO itemMDO) {
 		EventMDO mdo = new EventMDO();
-		mdo.key = key + "_event";
+		mdo.key = itemMDO.key + "_event";
 		mdo.description = "generated";
 		mdo.face = OrthoDir.SOUTH;
 		mdo.width = 1f;
 		mdo.height = 1f;
 		// TODO: support multiple items of same key
-		mdo.hide = "return getSwitch('collect_" + key + "')";
+		mdo.hide = "return getSwitch('collect_" + itemMDO.key + "')";
 		return mdo;
 	}
 }

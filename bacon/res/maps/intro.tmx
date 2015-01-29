@@ -2,6 +2,11 @@
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="26" tilewidth="16" tileheight="16">
  <tileset firstgid="1" name="rtp" tilewidth="16" tileheight="16">
   <image source="tilesets/test/rtp.png" width="64" height="32"/>
+  <tile id="0">
+   <properties>
+    <property name="glow" value="glow_test.png"/>
+   </properties>
+  </tile>
   <tile id="1">
    <properties>
     <property name="x" value=""/>
@@ -23,13 +28,266 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Tile Layer 1 (alt)" width="32" height="26">
+ <tileset firstgid="9" name="artificial" tilewidth="16" tileheight="16">
+  <image source="tilesets/artificial.png" width="128" height="128"/>
+  <tile id="8">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="40">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="41">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="42">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="43">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="44">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="45">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="46">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="47">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="48">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="49">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="50">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="51">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="52">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="56">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="57">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="58">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="59">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="60">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Tile Layer 1 (alt)" width="32" height="26" visible="0">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2UQQqAMAwECxHq/1/sxR5cEt1iEhWzMJeyMKWkae2YvvNUyl/+8udlAYYfz6NYgeHH8yj6z8Ew8xc5o+V/r9/aEVYPueu3doTVQ2b82v2tP8T2ZvzsrhKlJw5+Brngy372bqL0PN6f9Z/tcG9/RrL9G9+TcJIADQAA
+   H4sIAAAAAAAAC+3BAQEAAACCIP+vbkhAAQAAfBiM/sTxAA0AAA==
   </data>
  </layer>
  <layer name="Tile Layer 1" width="32" height="26">
@@ -37,27 +295,36 @@
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2UMQoAIAwDVdD/P9lFB4MBi7SKNnCLFK5DTQhjcuNU3O9+99slAd2P71oUoPvxXYv8OZiV+9O8Ufff62cdweaQXT/rCDaHSPyz/Vf/UCRI/JKu0vDvdMgLfsluv/gtYu2v5sP65QANAAA=
+   H4sIAAAAAAAAC9WVW2/CMAyF8wrSKnEdiMvGZbAxxriN6/awwf7/X9qp5AgraoJb8CQifYpSOT521foYc1vrE3TP8KWo3QMVD/egBjpKNTRAFbQ8PIBHUAZ1Jf02ePIwBM+gqag/AG8e3sEU9BX1J+DDwxpswFhRfwVyIB/Yl4r657TtrqUv0c4p6t8JtCMl/SMoUQ2RU0vEnhfAr4K+raFIlMyp7wJ7rqXtLv49XOt9J/mLb5bz/8Gnz/NJPCHO6XpKJ6GmmJ459R+Ksbkk7yjWdz2lbJL9rsr6D8XYXFJ911OadP8FjMArndus/1CMzSXVdz2lT/dnYA4WdB6w/kMxNpdU3/WUMd3fgh3Y03nC+g/F2FxSfXeeLen+N/gBBzpzLwrFpPlH03hM2j1r/3y2XrJn7Z/P1kuQzOVGxrqvtbi//Ief/AGvYOYcAA0AAA==
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
   <properties>
-   <property name="z" value=".5"/>
+   <property name="z" value="0.5"/>
   </properties>
-  <object name="autostart" type="Event" x="64" y="160" width="16" height="16">
+  <object name="Autostart" type="event" x="208" y="96" width="16" height="16">
    <properties>
-    <property name="hide" value="return getSwitch('auto_intro')"/>
-    <property name="onEnter" value="speak('Radio box test. Radio box test. 1 2 3. Radio box test.'); sceneSwitch('auto_intro', true)"/>
+    <property name="hide" value="return getSwitch('intro_done')"/>
+    <property name="onEnter" value="wait(1.0); speak('Can you hear me? Get closer to the radio and listen to me, please.'); wait(0.5); speak('I know you\'re there. I promise you\'ll die without me. Now pick up the radio and keep listening.'); sceneSwitch('intro_done', true)"/>
    </properties>
   </object>
-  <object name="test warp" type="warper" x="192" y="304" width="16" height="16"/>
-  <object name="npc" type="Character" x="384" y="288" width="16" height="16">
+  <object name="Checkpoint" type="checkpoint" x="256" y="224" width="32" height="80"/>
+  <object name="Radio" type="item" x="336" y="160" width="16" height="16">
    <properties>
-    <property name="appearance" value="4dir_mono"/>
-    <property name="onCollide" value="speak('Stop running into me you doofus')"/>
-    <property name="onInteract" value="speak('Thanks for talking to me.')"/>
+    <property name="gameDesc" value="The key to escape."/>
+    <property name="icon" value="icon_16.png"/>
+    <property name="itemType" value="RADIO"/>
+    <property name="name" value="radio"/>
    </properties>
   </object>
-  <object name="checkpoint" type="checkpoint" x="64" y="384" width="32" height="32"/>
+  <object name="Radio" type="item" x="128" y="336" width="16" height="16">
+   <properties>
+    <property name="gameDesc" value="Page 4/5"/>
+    <property name="graphic" value="order01.png"/>
+    <property name="icon" value="icon_16.png"/>
+    <property name="itemType" value="GRAPHIC"/>
+    <property name="name" value="From High Command"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
