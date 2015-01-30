@@ -4,7 +4,7 @@
 	},
 	"levelKey" : "test/test.tmx",
 	"heroMemory" : {
-		"tileX" : 5,
+		"tileX" : 6,
 		"tileY" : 21,
 		"dir" : "SOUTH",
 		"animKey" : "4dir_sk"

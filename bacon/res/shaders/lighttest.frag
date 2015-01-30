@@ -17,7 +17,7 @@ void main() {
 	finalColor[0] = r * origColor[0] + (1.0-r) * altColor[0];
 	finalColor[1] = r * origColor[1] + (1.0-r) * altColor[1];
 	finalColor[2] = r * origColor[2] + (1.0-r) * altColor[2];
-	finalColor[3] = origColor[3] + altColor[3];
+	finalColor[3] = r * origColor[3] + (1.0-r) * altColor[3];
 	if (finalColor[3] > 1.0) {
 		finalColor[3] = 1.0;
 	}
