@@ -1,21 +1,14 @@
 {
 	"switches" : {
-		"switches" : {
-			"collect_intro.tmx.336.240" : true
-		}
+		"switches" : { }
 	},
-	"levelKey" : "intro.tmx",
+	"levelKey" : "test/test.tmx",
 	"heroMemory" : {
-		"tileX" : 17,
-		"tileY" : 13,
+		"tileX" : 5,
+		"tileY" : 21,
 		"dir" : "SOUTH",
 		"animKey" : "4dir_sk"
 	},
 	"saveSlot" : -1,
-	"items" : [
-		{
-			"itemKey" : "intro.tmx.336.240",
-			"quantity" : 1
-		}
-	]
+	"items" : [ ]
 }

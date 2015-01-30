@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="26" tilewidth="16" tileheight="16">
- <tileset firstgid="1" source="tilesets/artificial.tsx"/>
- <layer name="Tile Layer 1 (alt)" width="32" height="26" visible="0">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="92" height="16" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" source="../tilesets/artificial.tsx"/>
+ <tileset firstgid="65" source="../tilesets/natural.tsx"/>
+ <layer name="Tile Layer 1 (alt)" width="92" height="16" visible="0">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3BAQEAAACCIP+vbkhAAQAAfBiM/sTxAA0AAA==
+   H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ8HFAAAAAAA/BmS6PXHABcAAA==
   </data>
  </layer>
- <layer name="Tile Layer 1" width="32" height="26">
+ <layer name="Tile Layer 1" width="92" height="16">
   <properties>
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC9WVeW/CMAzFA9IqcQ7EsXEMNsYY1zi3PzbY9/9ae5UcYUVNcAueRKSfolSOn121fsbc1voE3TN8KWr3QMXDPaiBjlINDVAFLQ8P4BGUQV1Jvw2ePAzBM2gq6g/Am4d3MAV9Rf0J+PCwBhswVtRfgRzIB/alov45bbtr6Uu0c4r6dwLtSEn/CEpUQ+TUErHnBfCroG9rKBIlc+q7wJ5rabuLfw/Xet9J/uKb5fx/8OnzfBJPiHO6ntJJqCmmZ079h2JsLsk7ivVdTymbZL+rsv5DMTaXVN/1lCbdfwEj8ErnNus/FGNzSfVdT+nT/RmYgwWdB6z/UIzNJdV3PWVM97dgB/Z0nrD+QzE2l1TfnWdLuv8NfsCBztyLQjFp/tE0HpN2z9o/n62X7Fn757P1EiRzuZGx7mst7i//4Sd//X/qYwANAAA=
+   H4sIAAAAAAAAC+2V2QrDIBREk0AK6UrpU3e6051uD93+/7c6PghWYiRqFBIHDoJO9DLJNUHgJdIdDCQ8nFVXPvVAS0LX8Jn8O057n2X1kLzHElTyzuqbIZiBOViAfsU8KwkqeWf1TRtswQ7sQdOxp2O5nqME1bxF/TIBF3AFNzBy7JlarieUoJq3qF/W4Ale4A2Wjj0by/WQTCMBOnmL+uXE7E3Gg2PP2XI9IeNj0c2bPTvvWCUPP6eaN90jBjVujCTrZfYUlTd9PgF1hgZXA7+e1xMZ2sfWWUXcJ1n6cDV8NTy0/kRzH1tnsX1v8n/plS6Sdxz83y0hN+fzNie2B0i/0O+avXvS+sLLq6r6AVFkJQAAFwAA
   </data>
  </layer>
- <objectgroup name="Object Layer 1">
+ <objectgroup name="Object Layer 1" visible="0">
   <properties>
    <property name="z" value="0.5"/>
   </properties>
@@ -35,15 +36,6 @@
     <property name="icon" value="icon_16.png"/>
     <property name="itemType" value="RADIO"/>
     <property name="name" value="radio"/>
-   </properties>
-  </object>
-  <object name="Radio" type="item" x="128" y="336" width="16" height="16">
-   <properties>
-    <property name="gameDesc" value="Page 4/5"/>
-    <property name="graphic" value="order01.png"/>
-    <property name="icon" value="icon_16.png"/>
-    <property name="itemType" value="GRAPHIC"/>
-    <property name="name" value="From High Command"/>
    </properties>
   </object>
  </objectgroup>

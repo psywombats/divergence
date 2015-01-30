@@ -64,45 +64,18 @@ public class BaconLevel extends LoadedLevel {
 	@Override
 	public void render(SpriteBatch batch) {
 		
-		altBuffer.begin();
-		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-		altBuffer.end();
-		
-		normBuffer.begin();
-		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-		normBuffer.end();
-		
 		renderGrid(batch, false);
-		getScreen().resumeNormalBuffer();
-		getScreen().getUIBatch().begin();
-		getScreen().getUIBatch().setShader(shader);
-		altBuffer.getColorBufferTexture().bind(2);
-		lightBuffer.getColorBufferTexture().bind(1);
-		Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
-		getScreen().getUIBatch().draw(normBuffer.getColorBufferTexture(),
-				0, 0,
-				getScreen().getWidth(), getScreen().getHeight(),
-				0, 0,
-				getScreen().getWidth(), getScreen().getHeight(),
-				false, true);
-		getScreen().getUIBatch().setShader(null);
-		getScreen().getUIBatch().end();
 		
 		lightBuffer.begin();
 		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		lightBuffer.end();
 		
-		getScreen().resumeNormalBuffer();
-		
 		renderEvents(getScreen().getViewBatch());
 		
-		//renderGrid(batch, true);
+		renderGrid(batch, true);
 		
 		getScreen().resumeNormalBuffer();
-		
 	}
 
 	/**
@@ -153,6 +126,21 @@ public class BaconLevel extends LoadedLevel {
 	 */
 	@Override
 	protected void renderGrid(SpriteBatch batch, boolean upper) {
+		
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		Gdx.gl.glColorMask(true, true, true, true);
+		
+		altBuffer.begin();
+		Gdx.gl.glClearColor(0f, 0f, 0f, upper? 0f : 0f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		altBuffer.end();
+		
+		normBuffer.begin();
+		Gdx.gl.glClearColor(0f, 0f, 0f, upper? 0f : 0f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		normBuffer.end();
+		
 		for (GridLayer layer : gridLayers) {
 			if (layer.getZ() < 1.f ^ upper) {
 				LoadedGridLayer loadedLayer = (LoadedGridLayer) layer;
@@ -170,6 +158,23 @@ public class BaconLevel extends LoadedLevel {
 				getScreen().resumeNormalBuffer();
 			}
 		}
+		
+		getScreen().resumeNormalBuffer();
+		getScreen().getUIBatch().begin();
+		getScreen().getUIBatch().setShader(shader);
+		altBuffer.getColorBufferTexture().bind(2);
+		lightBuffer.getColorBufferTexture().bind(1);
+		Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
+		getScreen().getUIBatch().draw(normBuffer.getColorBufferTexture(),
+				0, 0,
+				getScreen().getWidth(), getScreen().getHeight(),
+				0, 0,
+				getScreen().getWidth(), getScreen().getHeight(),
+				false, true);
+		getScreen().getUIBatch().setShader(null);
+		getScreen().getUIBatch().end();
+		
+		getScreen().resumeNormalBuffer();
 	}
 
 	/**
@@ -202,13 +207,13 @@ public class BaconLevel extends LoadedLevel {
 				false);
 		//lightBuffer.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
-		normBuffer = new FrameBuffer(Format.RGB565,
+		normBuffer = new FrameBuffer(Format.RGBA4444,
 				getScreen().getWidth(),
 				getScreen().getHeight(),
 				false);
 		normBuffer.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
-		altBuffer = new FrameBuffer(Format.RGB565,
+		altBuffer = new FrameBuffer(Format.RGBA4444,
 				getScreen().getWidth(),
 				getScreen().getHeight(),
 				false);
