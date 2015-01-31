@@ -1,0 +1,8 @@
+{
+	"key" : "shader_static",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"vertexFile" : "static.vert",
+	"fragmentFile" : "static.frag"
+}

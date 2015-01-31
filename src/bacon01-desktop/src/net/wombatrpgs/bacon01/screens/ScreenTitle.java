@@ -135,16 +135,15 @@ public class ScreenTitle extends Screen {
 		if (selection == 0) {
 			// start
 			transitioning = true;
-			final Screen gameScreen = MGlobal.game.makeLevelScreen();
-			MGlobal.assets.loadAsset(gameScreen, "game screen");
-			MGlobal.game.readyLevelScreen(gameScreen);
+			final Screen introScreen = new ScreenIntro();
+			MGlobal.assets.loadAsset(introScreen, "intro screen");
 			MGlobal.levelManager.getTele().getPre().run();
 			MGlobal.levelManager.getTele().getPre().addListener(new FinishListener() {
 				@Override public void onFinish() {
-					gameScreen.getTint().r = 0;
-					gameScreen.getTint().g = 0;
-					gameScreen.getTint().b = 0;
-					MGlobal.screens.push(gameScreen);
+					introScreen.getTint().r = 0;
+					introScreen.getTint().g = 0;
+					introScreen.getTint().b = 0;
+					MGlobal.screens.push(introScreen);
 					MGlobal.levelManager.getTele().getPost().run();
 				};
 			});
