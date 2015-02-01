@@ -212,7 +212,8 @@ public class TiledMapObject {
 	 */
 	@Override
 	public String toString() {
-		return (object.getName() == null) ? "anon event" : object.getName();
+		return (object.getName() == null) ? "anon event" : object.getName() + 
+				"("+getX()+","+getY()+") " + parent.getKeyName();
 	}
 
 }

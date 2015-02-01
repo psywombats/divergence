@@ -10,6 +10,7 @@ import net.wombatrpgs.baconschema.rpg.data.ItemType;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.FileLink;
 import net.wombatrpgs.mgns.core.Annotations.Path;
+import net.wombatrpgs.mgns.core.Annotations.SchemaLink;
 import net.wombatrpgs.mgns.core.MainSchema;
 
 /**
@@ -31,8 +32,8 @@ public class ItemMDO extends MainSchema {
 	@Desc("Item type")
 	public ItemType itemType;
 	
-	@Desc("Graphic - only used for graphic-type items, this is the image located in res/ui")
-	@FileLink("ui")
-	public String graphic;
+	@Desc("Notes set")
+	@SchemaLink(NotesSetMDO.class)
+	public String set;
 
 }

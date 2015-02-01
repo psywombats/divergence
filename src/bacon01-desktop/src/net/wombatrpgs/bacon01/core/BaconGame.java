@@ -37,7 +37,14 @@ public class BaconGame extends MgnGame {
 	 */
 	@Override
 	public Screen makeStarterScreen() {
-		return new ScreenTitle();
+		if (MGlobal.args.get("map") == null) {
+			return new ScreenTitle();
+		} else {
+			Screen screen = new ScreenWorld();
+			readyLevelScreen(screen);
+			return screen;
+		}
+		
 	}
 
 	/**

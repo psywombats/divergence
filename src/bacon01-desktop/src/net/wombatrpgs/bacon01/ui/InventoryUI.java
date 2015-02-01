@@ -12,6 +12,7 @@ import net.wombatrpgs.bacon01.rpg.Inventory;
 import net.wombatrpgs.bacon01.rpg.InventoryItem;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.io.CommandMap;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
@@ -196,7 +197,11 @@ public class InventoryUI extends ScreenObject implements CommandListener {
 			hide();
 			return true;
 		case UI_CONFIRM:
-			items.at(selected + scroll).onUse();
+			items.at(selected + scroll).use(new FinishListener() {
+				@Override public void onFinish() {
+					hide();
+				}
+			});
 			return true;
 		default:
 			return false;

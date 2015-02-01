@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.wombatrpgs.bacon01.core.BGlobal;
 import net.wombatrpgs.baconschema.rpg.ItemMDO;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.physics.CollisionResult;
 import net.wombatrpgs.mgne.physics.Hitbox;
@@ -27,13 +28,19 @@ public class EventItem extends MapEvent {
 	protected Graphic appearance;
 	protected ItemMDO itemMDO;
 	protected Hitbox box;
+	protected String key;
 
-	public EventItem(ItemMDO mdo) {
-		super(generateEventMDO(mdo));
+	public EventItem(ItemMDO mdo, TiledMapObject object) {
+		super(generateEventMDO(mdo, object));
 		this.itemMDO = mdo;
 		appearance = new Graphic("res/sprites/", itemMDO.icon);
 		assets.add(appearance);
 		box = new RectHitbox(this, 0, 0, 16, 16);
+		key = "collect_" + object.toString();
+	}
+	
+	public EventItem(String key, TiledMapObject object) {
+		this(MGlobal.data.getEntryFor(key, ItemMDO.class), object);
 	}
 
 	/**
@@ -65,7 +72,7 @@ public class EventItem extends MapEvent {
 		}
 		if (!isHidden()) {
 			BGlobal.items.pickUp(itemMDO);
-			MGlobal.memory.setSwitch("collect_" + itemMDO.key);
+			MGlobal.memory.setSwitch(key);
 			MGlobal.audio.playSFX("item_get");
 		}
 		return super.onCollide(event, result);
@@ -79,7 +86,7 @@ public class EventItem extends MapEvent {
 		return box;
 	}
 
-	private static EventMDO generateEventMDO(ItemMDO itemMDO) {
+	private static EventMDO generateEventMDO(ItemMDO itemMDO, TiledMapObject object) {
 		EventMDO mdo = new EventMDO();
 		mdo.key = itemMDO.key + "_event";
 		mdo.description = "generated";
@@ -87,7 +94,7 @@ public class EventItem extends MapEvent {
 		mdo.width = 1f;
 		mdo.height = 1f;
 		// TODO: support multiple items of same key
-		mdo.hide = "return getSwitch('collect_" + itemMDO.key + "')";
+		mdo.hide = "return getSwitch('collect_" + object.toString() + "')";
 		return mdo;
 	}
 }

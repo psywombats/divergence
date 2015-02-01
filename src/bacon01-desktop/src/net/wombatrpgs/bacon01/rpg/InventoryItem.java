@@ -6,11 +6,12 @@
  */
 package net.wombatrpgs.bacon01.rpg;
 
-import net.wombatrpgs.bacon01.graphics.GraphicItem;
+import net.wombatrpgs.bacon01.graphics.ItemGraphicDisplayer;
 import net.wombatrpgs.baconschema.rpg.ItemMDO;
 import net.wombatrpgs.baconschema.rpg.data.ItemType;
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.ui.Graphic;
 
 /**
@@ -20,7 +21,6 @@ public class InventoryItem extends AssetQueuer {
 	
 	protected ItemMDO mdo;
 	protected Graphic icon;
-	protected GraphicItem graphic;
 	protected int quantity;
 
 	/**
@@ -32,11 +32,6 @@ public class InventoryItem extends AssetQueuer {
 		this.icon = new Graphic("res/sprites/", mdo.icon);
 		assets.add(icon);
 		quantity = 1;
-		
-		if (mdo.itemType == ItemType.GRAPHIC) {
-			graphic = new GraphicItem(mdo);
-			assets.add(graphic);
-		}
 	}
 	
 	/**
@@ -74,18 +69,23 @@ public class InventoryItem extends AssetQueuer {
 	/** @return The item description, if we're going to be using one */
 	public String getDescription() { return mdo.gameDesc; }
 	
+	public String getNotesKey() { return mdo.set; }
+	
 	/**
 	 * This method is going to be a mess... could it be a giant switch statement
 	 * based on type? That would be horrible.
 	 */
-	public void onUse() {
+	public void use(FinishListener listener) {
 		MGlobal.reporter.inform("Used the " + getName());
 		switch(mdo.itemType) {
 		case GRAPHIC:
-			graphic.show();
+			ItemGraphicDisplayer graphic = new ItemGraphicDisplayer(this);
+			MGlobal.assets.loadAsset(graphic, "item graphic displayer");
+			graphic.show(listener);
 			return;
 		case RADIO:
 			MGlobal.ui.getBlockingBox().blockText(MGlobal.screens.peek(), "Stop calling me on the radio dimwit");
+			listener.onFinish();
 			return;
 		}
 	}

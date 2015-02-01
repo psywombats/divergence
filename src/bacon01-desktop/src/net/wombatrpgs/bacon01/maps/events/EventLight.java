@@ -26,10 +26,12 @@ import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.physics.ShadowResult;
 import net.wombatrpgs.mgne.ui.Graphic;
+import net.wombatrpgs.mgns.core.Annotations.Path;
 
 /**
  * Hack for light test.
  */
+@Path("map/")
 public class EventLight extends MapEvent {
 	
 	protected static String SHADER_MDO = "shader_lighttest";

@@ -1,0 +1,14 @@
+{
+	"key" : "set_orders",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"notes" : [
+		{
+			"graphic" : "order_01.png"
+		},
+		{
+			"graphic" : "order_02.png"
+		}
+	]
+}

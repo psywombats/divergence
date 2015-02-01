@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="27" tilewidth="16" tileheight="16" nextobjectid="8">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="27" tilewidth="16" tileheight="16" nextobjectid="11">
  <tileset firstgid="1" name="rtp" tilewidth="16" tileheight="16">
   <image source="../tilesets/test/rtp.png" width="64" height="32"/>
   <tile id="0">
@@ -887,7 +887,7 @@
    H4sIAAAAAAAAC+1W7W3CQAy9G6AdhI89gO5B2yHorwB7hDIAP+gaLYU1KKET8CxiYZ1yjiPlQn/0SU8+OQ98vljv4twNBbgHv8CT6x7f4Bn8AXd3qP/f/337p/rcf9f1J965J/AD6w04wnrs09d9Ro0Xf42v4AG5T3Aq8injHFyUcQn+ovYRzEQ+ZVyB72Vci/PORT5ltOCt/df+Z/Dgr3wE++C2zA9EniNrnKJpGiXI//blOuZ/hVi37RHsP5r/8R5J07ZH03/T+Wv+n9Ij6/w/tUdq9x/tLeaRcq8Txevqzotq0PmHvXHfMY9krdRVeV3dvPBscW/h3RDzSKllXZXXWfo/i97CuyGGzKiz9M/+kyt3Q4jcoLN80/D8p4Dlm47nPxWs808YBD7dV85famM6i19q/k/PZpHf7QJdFSx+yfPvKrQ95Q4b+uY6xgVYL6jggA0AAA==
   </data>
  </layer>
- <objectgroup name="Object Layer" visible="0">
+ <objectgroup name="Object Layer">
   <properties>
    <property name="z" value=".5"/>
   </properties>
@@ -909,6 +909,16 @@
   <object id="5" name="stalker" type="stalker" x="496" y="160" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_sk"/>
+   </properties>
+  </object>
+  <object id="8" name="Orders" type="item" x="256" y="160" width="16" height="16">
+   <properties>
+    <property name="key" value="item_orders"/>
+   </properties>
+  </object>
+  <object id="9" name="Orders" type="item" x="64" y="336" width="16" height="16">
+   <properties>
+    <property name="key" value="item_orders"/>
    </properties>
   </object>
  </objectgroup>
