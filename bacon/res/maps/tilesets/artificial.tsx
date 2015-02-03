@@ -3,8 +3,14 @@
  <image source="artificial.png" width="300" height="500"/>
  <terraintypes>
   <terrain name="Ceiling" tile="0"/>
+  <terrain name="Groove" tile="42"/>
  </terraintypes>
  <tile id="0" terrain="0,0,0,0"/>
+ <tile id="3">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
  <tile id="18" terrain=",,,0">
   <properties>
    <property name="x" value=""/>
@@ -30,6 +36,11 @@
    <property name="x" value=""/>
   </properties>
  </tile>
+ <tile id="23" terrain=",,,1"/>
+ <tile id="24" terrain=",,1,1"/>
+ <tile id="25" terrain=",,1,"/>
+ <tile id="26" terrain=",1,1,1"/>
+ <tile id="27" terrain="1,,1,1"/>
  <tile id="28">
   <properties>
    <property name="x" value=""/>
@@ -75,6 +86,11 @@
    <property name="x" value=""/>
   </properties>
  </tile>
+ <tile id="41" terrain=",1,,1"/>
+ <tile id="42" terrain="1,1,1,1"/>
+ <tile id="43" terrain="1,,1,"/>
+ <tile id="44" terrain="1,1,,1"/>
+ <tile id="45" terrain="1,1,1,"/>
  <tile id="54" terrain=",0,,">
   <properties>
    <property name="x" value=""/>
@@ -90,6 +106,9 @@
    <property name="x" value=""/>
   </properties>
  </tile>
+ <tile id="59" terrain=",1,,"/>
+ <tile id="60" terrain="1,1,,"/>
+ <tile id="61" terrain="1,,,"/>
  <tile id="72">
   <properties>
    <property name="x" value=""/>
@@ -161,6 +180,21 @@
   </properties>
  </tile>
  <tile id="86">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="87">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="88">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="89">
   <properties>
    <property name="x" value=""/>
   </properties>
@@ -240,6 +274,21 @@
    <property name="x" value=""/>
   </properties>
  </tile>
+ <tile id="105">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="106">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="107">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
  <tile id="108">
   <properties>
    <property name="x" value=""/>
@@ -311,6 +360,21 @@
   </properties>
  </tile>
  <tile id="122">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="123">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="124">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="125">
   <properties>
    <property name="x" value=""/>
   </properties>
@@ -390,6 +454,21 @@
    <property name="x" value=""/>
   </properties>
  </tile>
+ <tile id="141">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="142">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="143">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
  <tile id="144">
   <properties>
    <property name="x" value=""/>
@@ -431,6 +510,21 @@
   </properties>
  </tile>
  <tile id="158">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="159">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="160">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="161">
   <properties>
    <property name="x" value=""/>
   </properties>
@@ -480,6 +574,21 @@
    <property name="x" value=""/>
   </properties>
  </tile>
+ <tile id="177">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="178">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="179">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
  <tile id="180">
   <properties>
    <property name="x" value=""/>
@@ -521,6 +630,16 @@
   </properties>
  </tile>
  <tile id="194">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="195">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="196">
   <properties>
    <property name="x" value=""/>
   </properties>
@@ -570,6 +689,16 @@
    <property name="x" value=""/>
   </properties>
  </tile>
+ <tile id="213">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="214">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
  <tile id="216">
   <properties>
    <property name="x" value=""/>
@@ -600,6 +729,21 @@
    <property name="x" value=""/>
   </properties>
  </tile>
+ <tile id="249">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="250">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="251">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
  <tile id="252">
   <properties>
    <property name="x" value=""/>
@@ -615,6 +759,21 @@
    <property name="x" value=""/>
   </properties>
  </tile>
+ <tile id="267">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="268">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="269">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
  <tile id="270">
   <properties>
    <property name="x" value=""/>
@@ -626,6 +785,66 @@
   </properties>
  </tile>
  <tile id="272">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="285">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="286">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="287">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="311">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="312">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="313">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="329">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="330">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="331">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="347">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="348">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="349">
   <properties>
    <property name="x" value=""/>
   </properties>
