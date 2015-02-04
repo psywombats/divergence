@@ -11,12 +11,14 @@ import java.util.Collections;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Turnable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.io.audio.BackgroundMusic;
+import net.wombatrpgs.mgne.maps.events.Avatar;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.maps.layers.EventLayer;
 import net.wombatrpgs.mgne.maps.layers.GridLayer;
@@ -145,8 +147,8 @@ public abstract class Level extends ScreenObject implements Turnable, Disposable
 		
 		if (MapEvent.PIXEL_MOVE) {
 			for (MapEvent event : eventLayer.getAll()) {
-				applyPhysicalCorrections(event);
 				detectCollisions(event);
+				applyPhysicalCorrections(event);
 			}
 		}
 		
@@ -451,6 +453,36 @@ public abstract class Level extends ScreenObject implements Turnable, Disposable
 	 */
 	public boolean excludeTile(GridLayer layer, MapEvent event, int tileX, int tileY) {
 		return false;
+	}
+	
+	public boolean willEventFit(MapEvent event, int tileX, int tileY) {
+
+		float oldX = event.getPreciseX();
+		float oldY = event.getPreciseY();
+		event.setTileLocation(tileX, tileY);
+		
+		int x1 = (int) event.getHitbox().getX();
+		int x2 = (int) (x1 + event.getHitbox().getWidth());
+		int y1 = (int) event.getHitbox().getY();
+		int y2 = (int) (y1 + event.getHitbox().getHeight());
+		List<Vector2> checks = new ArrayList<Vector2>();
+		checks.add(new Vector2(x1, y1));
+		checks.add(new Vector2(x1, y2));
+		checks.add(new Vector2(x2, y1));
+		checks.add(new Vector2(x2, y2));
+		
+		event.setX(oldX);
+		event.setY(oldY);
+		
+		for (Vector2 check : checks) {
+			int tx = (int) Math.floor(check.x / 16f);
+			int ty = (int) Math.floor((getHeightPixels() - check.y - 1) / 16f);
+			if (!isChipPassable(tx, ty)) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 	
 	/**

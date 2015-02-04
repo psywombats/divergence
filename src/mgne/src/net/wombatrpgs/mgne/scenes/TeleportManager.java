@@ -77,6 +77,7 @@ public class TeleportManager implements Queueable {
 			final FinishListener listener, final FinishListener midListener) {
 		final Level map = MGlobal.levelManager.getLevel(mapName);
 		preParser.run();
+		MGlobal.getHero().pause(true);
 		preParser.addListener(new FinishListener() {
 			@Override public void onFinish() {
 				if (midListener != null) {
@@ -87,6 +88,7 @@ public class TeleportManager implements Queueable {
 					postParser.addListener(listener);
 				}
 				postParser.run();
+				MGlobal.getHero().pause(false);
 				String entryDir = map.getProperty(KEY_ENTRY_DIR);
 				if (entryDir != null && !entryDir.isEmpty()) {
 					MGlobal.getHero().setFacing(OrthoDir.valueOf(entryDir));

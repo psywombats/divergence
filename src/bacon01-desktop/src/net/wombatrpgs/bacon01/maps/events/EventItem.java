@@ -83,6 +83,7 @@ public class EventItem extends MapEvent {
 	 */
 	@Override
 	public Hitbox getHitbox() {
+		if (isHidden()) return super.getHitbox();
 		return box;
 	}
 

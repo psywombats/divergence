@@ -132,6 +132,9 @@ public class Avatar extends MapEvent implements CommandListener {
 	 */
 	public void pause(boolean paused) {
 		this.paused = paused;
+		if (paused) {
+			halt();
+		}
 	}
 	
 	/**

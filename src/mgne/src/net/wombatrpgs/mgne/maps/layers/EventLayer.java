@@ -193,7 +193,7 @@ public class EventLayer extends Layer {
 	 */
 	public void detectCollisions(MapEvent event) {
 		// TODO: optimize these loops if it becomes an issue
-		if (event.isPassable()) return;
+		//if (event.isPassable()) return;
 		for (int i = 0; i < events.size(); i++) {
 			MapEvent other = events.get(i);
 			if (other != event && !other.isPassable()) {
@@ -201,7 +201,7 @@ public class EventLayer extends Layer {
 				if (result.isColliding) {
 					boolean res1 = event.onCollide(other, result);
 					boolean res2 = other.onCollide(event, result);
-					if (!res1 && !res2) {
+					if (!res1 && !res2 && !event.isPassable() && !other.isPassable()) {
 						event.resolveCollision(other, result);
 					}
 					break;

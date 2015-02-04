@@ -47,7 +47,7 @@ public class EventFactory {
 	 * @return					The created map event
 	 */
 	protected MapEvent createEvent(TiledMapObject object) {
-		return new MapEvent(object.generateMDO(EventMDO.class));
+		return new MapEvent(object.generateMDO(EventMDO.class), object);
 	}
 	
 }

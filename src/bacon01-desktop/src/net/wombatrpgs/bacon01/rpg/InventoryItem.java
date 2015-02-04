@@ -8,7 +8,6 @@ package net.wombatrpgs.bacon01.rpg;
 
 import net.wombatrpgs.bacon01.graphics.ItemGraphicDisplayer;
 import net.wombatrpgs.baconschema.rpg.ItemMDO;
-import net.wombatrpgs.baconschema.rpg.data.ItemType;
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;

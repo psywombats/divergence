@@ -30,16 +30,21 @@ public class SceneSpeak extends VarArgFunction {
 			
 			BlockingTextBox box;
 			String text;
+			boolean block;
 			
 			/* Initializer */ {
-				if (args.narg() == 1) {
-					text = args.checkjstring(1);
-				} else if (args.narg() == 2) {
-					text = args.checkjstring(1) + ":  " + args.checkjstring(2);
+				text = args.checkjstring(1);
+				if (args.narg() == 2) {
+					block = args.checkboolean(2);
+				} else {
+					block = true;
 				}
 			}
 			
 			@Override protected void internalRun() {
+				if (block) {
+					MGlobal.getHero().pause(true);
+				}
 				box = MGlobal.ui.getBlockingBox();
 				boolean animateOn = (index == 0);
 				boolean animateOff = (index == count-1);
@@ -48,6 +53,13 @@ public class SceneSpeak extends VarArgFunction {
 			
 			@Override protected boolean shouldFinish() {
 				return !box.isBlocking() && super.shouldFinish();
+			}
+
+			@Override protected void finish() {
+				super.finish();
+				if (block) {
+					MGlobal.getHero().pause(false);
+				}
 			}
 			
 		});

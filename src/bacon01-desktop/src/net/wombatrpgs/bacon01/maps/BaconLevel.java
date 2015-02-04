@@ -21,6 +21,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import net.wombatrpgs.bacon01.EffectAltLight;
+import net.wombatrpgs.bacon01.maps.events.EventStalker;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.ShaderFromData;
@@ -71,7 +72,15 @@ public class BaconLevel extends LoadedLevel {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		lightBuffer.end();
 		
+		getScreen().resumeNormalBuffer();
+		
 		renderEvents(getScreen().getViewBatch());
+		for (MapEvent event : getEventLayer().getAll()) {
+			if (event instanceof EventStalker) {
+				EventStalker stalker = (EventStalker) event;
+				stalker.trueRender(getScreen().getViewBatch());
+			}
+		}
 		
 		renderGrid(batch, true);
 		
@@ -88,8 +97,8 @@ public class BaconLevel extends LoadedLevel {
 		Avatar hero = MGlobal.getHero();
 		int x1 = (int) hero.getHitbox().getX();
 		int x2 = (int) (x1 + hero.getHitbox().getWidth());
-		int y1 = (int) hero.getHitbox().getY();
-		int y2 = (int) (x1 + hero.getHitbox().getHeight());
+		int y1 = (int) (getHeightPixels() - hero.getHitbox().getY());
+		int y2 = (int) (getHeightPixels() - (y1 + hero.getHitbox().getHeight()));
 		List<Vector2> checks = new ArrayList<Vector2>();
 		checks.add(new Vector2(x1, y1));
 		checks.add(new Vector2(x1, y2));
@@ -116,7 +125,7 @@ public class BaconLevel extends LoadedLevel {
 			if (passed) break;
 		}
 		if (!passed) {
-			hero.respawn();
+			//hero.respawn();
 		}
 	}
 	

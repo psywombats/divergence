@@ -30,6 +30,7 @@ import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.MapMovable;
+import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.physics.CollisionResult;
 import net.wombatrpgs.mgne.physics.Hitbox;
 import net.wombatrpgs.mgne.physics.NoHitbox;
@@ -64,6 +65,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	/** General children and info */
 	protected EventMDO mdo;
 	protected FacesAnimation appearance;
+	protected Hitbox hitbox;
 	protected float toNextBehavior;
 	protected boolean eventHidden;
 	protected boolean switchHidden;
@@ -120,8 +122,14 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 		}
 		
 		eventHidden = mdo.hidden == DisplayType.HIDDEN;
-		
 		toNextBehavior = MGlobal.rand.nextFloat() * BEHAVIOR_MAX_DELAY;
+		this.hitbox = NoHitbox.getInstance();
+	}
+	
+	public MapEvent(EventMDO mdo, TiledMapObject object) {
+		this(mdo);
+		hitbox = object.getRectHitbox();
+		hitbox.setParent(this);
 	}
 	
 	/** @param tileX The new x-coord of this event (in tiles) */
@@ -131,12 +139,12 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	public void setTileY(int tileY) { this.tileY = tileY; }
 	
 	/** @return x-coord of this object, in tiles */
-	public int getTileX() { return (int) (!PIXEL_MOVE ? tileX : Math.round((float) getCenterX() / 16f)); }
+	public int getTileX() { return (int) (!PIXEL_MOVE ? tileX : Math.floor((float) getCenterX() / 16f)); }
 	
 	/** @return y-coord of this object, in tiles */
 	public int getTileY() {
 		if (!PIXEL_MOVE) return tileY;
-		else return parent.getHeight() - (Math.round((float) getCenterY() / 16f)) - 1;
+		else return (int) Math.floor((float) (parent.getHeightPixels() - getCenterY()) / 16f);
 	}
 	
 	/** @return The current appearance of this character */
@@ -206,12 +214,16 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	 */
 	@Override
 	public Hitbox getHitbox() {
-		if (appearance == null) { 
+		if (isHidden()) {
 			return NoHitbox.getInstance();
 		}
-		Hitbox box = appearance.getHitbox();
-		box.setParent(this);
-		return box;
+		if (appearance != null) {
+			Hitbox box = appearance.getHitbox();
+			box.setParent(this);
+			return box;
+		} else {
+			return hitbox;
+		}
 	}
 	
 	public int getCenterX() {
@@ -454,12 +466,6 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 		if (isHidden()) return false;
 		if (event == MGlobal.getHero()) {
 			if (isPassable()) {
-				event.addTrackingListener(new FinishListener() {
-					@Override public void onFinish() {
-						runScene(onCollide);
-					}
-				});
-			} else {
 				runScene(onCollide);
 			}
 		}
@@ -595,8 +601,8 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	public void setTileLocation(int tileX, int tileY) {
 		setTileX(tileX);
 		setTileY(tileY);
-		setX(tileX * parent.getTileWidth() + parent.getTileWidth()*.5f);
-		setY(tileY * parent.getTileHeight() + parent.getTileHeight()*.5f);
+		setX(tileX * parent.getTileWidth());
+		setY(parent.getHeightPixels() - (tileY * parent.getTileHeight()) - 16);
 	}
 	
 	/**

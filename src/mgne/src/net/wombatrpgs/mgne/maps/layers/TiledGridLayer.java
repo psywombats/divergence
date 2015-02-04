@@ -52,7 +52,7 @@ public class TiledGridLayer extends GridLayer {
 		
 		for (int x = 0; x < layer.getWidth(); x += 1) {
 			for (int y = 0; y < layer.getHeight(); y += 1) {
-				Cell c = layer.getCell(x, y);
+				Cell c = getCell(x, y);
 				if (c!= null && c.getTile() != null && c.getTile().getProperties().containsKey("glow")) {
 					Graphic graphic = new Graphic("res/sprites/",
 							c.getTile().getProperties().get("glow").toString());
@@ -197,7 +197,7 @@ public class TiledGridLayer extends GridLayer {
 	 * @return					The tile's property at that cell
 	 */
 	protected String getTileProperty(int tileX, int tileY, String key) {
-		Cell cell = layer.getCell(tileX, tileY);
+		Cell cell = getCell(tileX, tileY);
 		if (cell == null) return null;
 		TiledMapTile tile = cell.getTile();
 		Object val = tile.getProperties().get(key);
@@ -211,7 +211,7 @@ public class TiledGridLayer extends GridLayer {
 	 * @return					The tile's ID at that cell
 	 */
 	protected int getTileID(int tileX, int tileY) {
-		Cell cell = layer.getCell(tileX, tileY);
+		Cell cell = getCell(tileX, tileY);
 		return (cell == null) ? 0 : cell.getTile().getId();
 	}
 	
@@ -224,6 +224,10 @@ public class TiledGridLayer extends GridLayer {
 	 */
 	protected int relativeToAbsoluteTileID(String tilesetName, int relativeTileID) {
 		return relativeToAbsoluteTileID(parent.getMap(), tilesetName, relativeTileID);
+	}
+	
+	protected Cell getCell(int x, int y) {
+		return layer.getCell(x, parent.getHeight() - y - 1);
 	}
 	
 	private class Glower {

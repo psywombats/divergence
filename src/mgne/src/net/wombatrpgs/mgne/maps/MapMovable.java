@@ -61,6 +61,10 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 
 	/** @see net.wombatrpgs.mgne.maps.Positionable#getY() */
 	@Override public float getY() { return (int) y; }
+	
+	public float getPreciseX() { return x; }
+	
+	public float getPreciseY() { return y; }
 
 	/** @see net.wombatrpgs.mgne.maps.PositionSetable#setX(float) */
 	@Override public void setX(float x) { this.x = x; }

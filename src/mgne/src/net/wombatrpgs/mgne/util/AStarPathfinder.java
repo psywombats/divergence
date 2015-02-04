@@ -7,14 +7,16 @@
 package net.wombatrpgs.mgne.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+import com.badlogic.gdx.math.Vector2;
+
 import net.wombatrpgs.mgne.maps.Level;
-import net.wombatrpgs.mgneschema.maps.data.DirEnum;
+import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgneschema.maps.data.DirVector;
-import net.wombatrpgs.mgneschema.maps.data.EightDir;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 
 /**
@@ -99,68 +101,135 @@ public class AStarPathfinder {
 		this.map = map;
 	}
 	
-	/**
-	 * Finds the path for an actor using all 8 directions.
-	 * @return					The resulting path, or null if none
-	 */
-	public List<EightDir> getEightPath() {
-		return getPath(EightDir.values());
-	}
+//	/**
+//	 * Finds the path for an actor using all 8 directions.
+//	 * @return					The resulting path, or null if none
+//	 */
+//	public List<EightDir> getEightPath() {
+//		return getPath(EightDir.values());
+//	}
 	
 	/**
 	 * Finds the path for an actor using cardinal directions.
 	 * @return					The resulting path, or null if none
 	 */
 	public List<OrthoDir> getOrthoPath() {
-		return getPath(OrthoDir.values());
-	}
-	
-	/**
-	 * Calculates the path to the location. Woo hoo!
-	 * @param	<T>				The type of direction enum to use
-	 * @param	directions		The set of all allowable directions to step
-	 * @return					The steps to get to destination, or null if none
-	 */
-	public <T extends DirEnum> List<T> getPath(T[] directions) {
-		Queue<Path<T>> queue = new PriorityQueue<Path<T>>();
-		queue.add(new Path<T>(toX, toY, fromX, fromY));
+		Queue<Path<OrthoDir>> queue = new PriorityQueue<Path<OrthoDir>>();
+		queue.add(new Path<OrthoDir>(toX, toY, fromX, fromY));
 		// I can't believe I'm making a 2D array like this
-		List<List<Boolean>> visited = new ArrayList<List<Boolean>>();
-		for (int y = 0; y < map.getHeight(); y++) {
-			visited.add(y, new ArrayList<Boolean>());
-			for (int x = 0; x < map.getWidth(); x++) {
-				visited.get(y).add(x, false);
-			}
-		}
-		@SuppressWarnings("unused")
-		int nodes = 0;
+		List<Vector2> visited = new ArrayList<Vector2>();
+		
 		while (queue.size() > 0) {
-			Path<T> node = queue.poll();
-			nodes++;
-			if (visited.get(node.getAtY()).get(node.getAtX())) {
+			Path<OrthoDir> node = queue.poll();
+			if (visited.contains(new Vector2(node.getAtX(), node.getAtY()))) {
 				// we've already been here
 				continue;
 			} else {
-				visited.get(node.getAtY()).set(node.getAtX(), true);
+				visited.add(new Vector2(node.getAtX(), node.getAtY()));
 				if (node.getAtX() == toX && node.getAtY() == toY) {
 					//MGlobal.reporter.inform("Path found, expanded " + nodes);
 					return node.getSteps();
 				}
-				for (T dir : directions) {
+				List<OrthoDir> dirSet = new ArrayList<OrthoDir>();
+				dirSet.add(dirTo(node.getAtX(), node.getAtY(), toX, toY));
+				dirSet.addAll(Arrays.asList(OrthoDir.values()));
+				for (OrthoDir dir : dirSet) {
 					DirVector vec = dir.getVector();
 					int nextX = (int) (vec.x + node.getAtX());
 					int nextY = (int) (vec.y + node.getAtY());
 					if (nextX >= 0 && nextX < map.getWidth() &&
 						nextY >= 0 && nextY < map.getHeight() &&
-						!visited.get(nextY).get(nextX) &&
+						!visited.contains(new Vector2(nextX, nextY)) &&
 						map.isChipPassable(nextX, nextY)) {
 						
-						queue.add(new Path<T>(node, dir));
+						queue.add(new Path<OrthoDir>(node, dir));
 					}
 				}
 			}
 		}
 		return null;
+	}
+	
+	public List<OrthoDir> getBigOrthoPath(int size) {
+		Queue<Path<OrthoDir>> queue = new PriorityQueue<Path<OrthoDir>>();
+		queue.add(new Path<OrthoDir>(toX, toY, fromX, fromY));
+		// I can't believe I'm making a 2D array like this
+		List<Vector2> visited = new ArrayList<Vector2>();
+		
+		while (queue.size() > 0) {
+			Path<OrthoDir> node = queue.poll();
+			if (visited.contains(new Vector2(node.getAtX(), node.getAtY()))) {
+				// we've already been here
+				continue;
+			} else {
+				visited.add(new Vector2(node.getAtX(), node.getAtY()));
+				if (node.getAtX() == toX && node.getAtY() == toY) {
+					//MGlobal.reporter.inform("Path found, expanded " + nodes);
+					return node.getSteps();
+				}
+				List<OrthoDir> dirSet = new ArrayList<OrthoDir>();
+				dirSet.add(dirTo(node.getAtX(), node.getAtY(), toX, toY));
+				dirSet.addAll(Arrays.asList(OrthoDir.values()));
+				for (OrthoDir dir : dirSet) {
+					DirVector vec = dir.getVector();
+					int nextX = (int) (vec.x + node.getAtX());
+					int nextY = (int) (vec.y + node.getAtY());
+					if (nextX >= 0 && nextX < map.getWidth() &&
+						nextY >= 0 && nextY < map.getHeight() &&
+						!visited.contains(new Vector2(nextX, nextY)) &&
+						map.isChipPassable(nextX, nextY) &&
+						map.isChipPassable(nextX+size, nextY-size)) {
+						
+						queue.add(new Path<OrthoDir>(node, dir));
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	public List<OrthoDir> getPixelPath(MapEvent event) {
+		Queue<Path<OrthoDir>> queue = new PriorityQueue<Path<OrthoDir>>();
+		queue.add(new Path<OrthoDir>(toX, toY, fromX, fromY));
+		// I can't believe I'm making a 2D array like this
+		List<Vector2> visited = new ArrayList<Vector2>();
+		
+		while (queue.size() > 0) {
+			Path<OrthoDir> node = queue.poll();
+			if (visited.contains(new Vector2(node.getAtX(), node.getAtY()))) {
+				// we've already been here
+				continue;
+			} else {
+				visited.add(new Vector2(node.getAtX(), node.getAtY()));
+				if (node.getAtX() == toX && node.getAtY() == toY) {
+					//MGlobal.reporter.inform("Path found, expanded " + nodes);
+					return node.getSteps();
+				}
+				for (OrthoDir dir : OrthoDir.values()) {
+					DirVector vec = dir.getVector();
+					int nextX = (int) (vec.x + node.getAtX());
+					int nextY = (int) (vec.y + node.getAtY());
+					if (nextX >= 0 && nextX < map.getWidth() &&
+						nextY >= 0 && nextY < map.getHeight() &&
+						!visited.contains(new Vector2(nextX, nextY)) &&
+						map.willEventFit(event, nextX, nextY)) {
+						
+						queue.add(new Path<OrthoDir>(node, dir));
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	protected OrthoDir dirTo(int fromX, int fromY, int toX, int toY) {
+		int dx = toX - fromX;
+		int dy = toY - fromY;
+		if (Math.abs(dx) > Math.abs(dy)) {
+			return Math.signum(dx) > 0 ? OrthoDir.EAST : OrthoDir.WEST;
+		} else {
+			return Math.signum(dy) > 0 ? OrthoDir.NORTH : OrthoDir.SOUTH;
+		}
 	}
 
 }
