@@ -12,14 +12,17 @@ import java.util.List;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+import net.wombatrpgs.bacon01.maps.BaconLevel;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.core.interfaces.Timer;
+import net.wombatrpgs.mgne.graphics.AnimationStrip;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.events.Avatar;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.physics.CollisionResult;
 import net.wombatrpgs.mgne.util.AStarPathfinder;
+import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
 import net.wombatrpgs.mgneschema.maps.EventMDO;
 import net.wombatrpgs.mgneschema.maps.data.DirEnum;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
@@ -29,14 +32,19 @@ import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
  */
 public class EventStalker extends MapEvent {
 	
-	protected AStarPathfinder pather;
-	
 	protected float vision = 500;
+	
+	protected AStarPathfinder pather;
+	protected AnimationStrip light;
 
 	public EventStalker(EventMDO mdo) {
 		super(mdo);
-		this.maxVelocity = 52;
+		this.maxVelocity = 96;
 		pather = new AStarPathfinder();
+		
+		light = new AnimationStrip(MGlobal.data.getEntryFor("anim_light", AnimationMDO.class));
+		light.setScale(4);
+		assets.add(light);
 	}
 
 	protected int getPathTileX() {
@@ -73,45 +81,26 @@ public class EventStalker extends MapEvent {
 		
 		vx = 0;
 		vy = 0;
-		int sources = 1;
+		
+		path(true);
+		path(false);
+		
 		delta.nor();
-//		vx += delta.x;
-//		vy += delta.y;
+		vx += delta.x;
+		vy += delta.y;
 		
-		List<Vector2> checks = new ArrayList<Vector2>();
-		int x1 = (int) Math.floor((float) getHitbox().getX() / 16f);
-		int y1 = (int) Math.floor((float) (parent.getHeightPixels() - getHitbox().getY()) / 16f);
-		int x2 = (int) Math.floor((float) (getHitbox().getX() + getHitbox().getWidth()) / 16f);
-		int y2 = (int) Math.floor((float) (parent.getHeightPixels() - 
-				(getHitbox().getY() + getHitbox().getHeight()) + 1) / 16f);
-		checks.add(new Vector2(x1, y1));
-		checks.add(new Vector2(x1, y2));
-		checks.add(new Vector2(x2, y2));
-		checks.add(new Vector2(x2, y1));
+		Vector2 vec = new Vector2(vx, vy);
+		vec.nor();
 		
-		AStarPathfinder pather = new AStarPathfinder();
-		for (Vector2 check : checks) {
-			pather.setInfo(getParent(), (int) check.x, (int) check.y, hero.getTileX(), hero.getTileY());
-			List<? extends DirEnum> path = pather.getOrthoPath();
-			if (path != null && path.size() > 0) {
-				DirEnum dir = path.get(0);
-				sources += 1;
-				Vector2 dv = new Vector2(dir.getVector().x, dir.getVector().y);
-				dv.nor();
-				vx += dv.x;
-				vy -= dv.y;
-			}
-		}
+		vx = v * vec.x;
+		vy = v * vec.y;
 		
-		vx *= v;
-		vy *= v;
-		vx /= sources;
-		vy /= sources;
-		
-		if (Math.abs(vx) > Math.abs(vy)) {
-			setFacing(vx > 0 ? OrthoDir.EAST : OrthoDir.WEST);
+		float dx = hero.getCenterX() - getCenterX();
+		float dy = hero.getCenterY() - getCenterY();
+		if (Math.abs(dx) > Math.abs(dy)) {
+			setFacing(dx > 0 ? OrthoDir.EAST : OrthoDir.WEST);
 		} else {
-			setFacing(vy > 0 ? OrthoDir.NORTH : OrthoDir.SOUTH);
+			setFacing(dy > 0 ? OrthoDir.NORTH : OrthoDir.SOUTH);
 		}
 	}
 
@@ -152,7 +141,16 @@ public class EventStalker extends MapEvent {
 	 */
 	@Override
 	public void render(SpriteBatch batch) {
-		
+		// aura
+		BaconLevel level = (BaconLevel) getParent();
+		level.getLightBuffer().begin();
+		int screenX = getCenterX();
+		int screenY = getCenterY();
+		screenX -= light.getWidth() / 2;
+		screenY -= light.getHeight() / 2;
+		light.renderAt(batch, screenX, screenY);
+		level.getLightBuffer().end();
+		parent.getScreen().resumeNormalBuffer();
 	}
 	
 	public void trueRender(SpriteBatch batch) {
@@ -213,6 +211,55 @@ public class EventStalker extends MapEvent {
 		super.onMapFocusGained(map);
 	}
 	
-	
+	private int path(boolean version) {
+		
+		int sources = 0;
+		
+		List<Vector2> checks = new ArrayList<Vector2>();
+		int x1 = (int) Math.floor((float) (getHitbox().getX()) / 16f);
+		int y2 = (int) Math.floor((float) (parent.getHeightPixels() - getHitbox().getY()) / 16f);
+		int x2 = (int) Math.floor((float) (getHitbox().getX() + getHitbox().getWidth()) / 16f);
+		int y1 = (int) Math.floor((float) (parent.getHeightPixels() - 
+				(getHitbox().getY() + getHitbox().getHeight())) / 16f);
+		
+		if (!parent.isChipPassable(x1, y1)) {
+			if (version) x1 += 1;
+			else y1 += 1;
+		}
+		if (!parent.isChipPassable(x2, y1)) {
+			if (version) x2 -= 1;
+			else y1 += 1;
+		}
+		if (!parent.isChipPassable(x2, y2)) {
+			if (version) x2 -= 1;
+			else y2 -= 1;
+		}
+		if (!parent.isChipPassable(x1, y2)) {
+			if (version) x1 += 1;
+			else y2 -= 1;
+		}
+		
+		checks.add(new Vector2(x1, y1));
+		checks.add(new Vector2(x1, y2));
+		checks.add(new Vector2(x2, y2));
+		checks.add(new Vector2(x2, y1));
+		
+		AStarPathfinder pather = new AStarPathfinder();
+		for (Vector2 check : checks) {
+			pather.setInfo(getParent(), (int) check.x, (int) check.y, 
+					MGlobal.getHero().getTileX(), MGlobal.getHero().getTileY());
+			List<? extends DirEnum> path = pather.getOrthoPath();
+			if (path != null && path.size() > 0) {
+				sources += 1;
+				DirEnum dir = path.get(0);
+				Vector2 dv = new Vector2(dir.getVector().x, dir.getVector().y);
+				dv.nor();
+				vx += dv.x;
+				vy -= dv.y;
+			}
+		}
+		
+		return sources;
+	}
 
 }
