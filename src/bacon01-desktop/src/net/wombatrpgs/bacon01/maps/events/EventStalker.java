@@ -17,6 +17,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.core.interfaces.Timer;
 import net.wombatrpgs.mgne.graphics.AnimationStrip;
+import net.wombatrpgs.mgne.graphics.ShaderFromData;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.events.Avatar;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
@@ -32,10 +33,12 @@ import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
  */
 public class EventStalker extends MapEvent {
 	
-	protected float vision = 500;
+	protected float vision = 400;
 	
 	protected AStarPathfinder pather;
 	protected AnimationStrip light;
+	protected ShaderFromData shader;
+	protected float totalElapsed;
 
 	public EventStalker(EventMDO mdo) {
 		super(mdo);
@@ -45,6 +48,8 @@ public class EventStalker extends MapEvent {
 		light = new AnimationStrip(MGlobal.data.getEntryFor("anim_light", AnimationMDO.class));
 		light.setScale(4);
 		assets.add(light);
+		
+		shader = new ShaderFromData("shader_stalker");
 	}
 
 	protected int getPathTileX() {
@@ -65,6 +70,7 @@ public class EventStalker extends MapEvent {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
+		totalElapsed += elapsed;
 		
 		Avatar hero = MGlobal.getHero();
 		if (hero.isPaused()) {
@@ -74,9 +80,9 @@ public class EventStalker extends MapEvent {
 		
 		Vector2 delta = new Vector2(hero.getCenterX() - getCenterX(), hero.getCenterY() - getCenterY());
 		float v = (1f - (delta.len() / vision)) * maxVelocity;
-		if (delta.len() > vision) {
-			halt();
-			return;
+		float len = delta.len();
+		if (len > vision) {
+			v = 0;
 		}
 		
 		vx = 0;
@@ -92,6 +98,8 @@ public class EventStalker extends MapEvent {
 		Vector2 vec = new Vector2(vx, vy);
 		vec.nor();
 		
+		if (len < 85) v *= 1.2;
+		if (len > 170) v *= .8;
 		vx = v * vec.x;
 		vy = v * vec.y;
 		
@@ -102,6 +110,16 @@ public class EventStalker extends MapEvent {
 		} else {
 			setFacing(dy > 0 ? OrthoDir.NORTH : OrthoDir.SOUTH);
 		}
+		
+		// SHADER
+		
+		float ratio = len / 150f;
+		ratio *= ratio;
+		
+		shader.begin();
+		shader.setUniformf("u_elapsed", totalElapsed);
+		shader.setUniformf("u_thresh",  ratio);
+		shader.end();
 	}
 
 	/**
@@ -154,7 +172,9 @@ public class EventStalker extends MapEvent {
 	}
 	
 	public void trueRender(SpriteBatch batch) {
+		batch.setShader(shader);
 		super.render(batch);
+		batch.setShader(null);
 	}
 
 	/**
@@ -248,7 +268,7 @@ public class EventStalker extends MapEvent {
 		for (Vector2 check : checks) {
 			pather.setInfo(getParent(), (int) check.x, (int) check.y, 
 					MGlobal.getHero().getTileX(), MGlobal.getHero().getTileY());
-			List<? extends DirEnum> path = pather.getOrthoPath();
+			List<? extends DirEnum> path = pather.getOrthoPath(this);
 			if (path != null && path.size() > 0) {
 				sources += 1;
 				DirEnum dir = path.get(0);
@@ -260,6 +280,16 @@ public class EventStalker extends MapEvent {
 		}
 		
 		return sources;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.maps.MapThing#dispose()
+	 */
+	@Override
+	public void dispose() {
+		super.dispose();
+		light.dispose();
+		shader.dispose();
 	}
 
 }

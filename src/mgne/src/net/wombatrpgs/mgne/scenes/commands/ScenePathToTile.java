@@ -44,7 +44,7 @@ public class ScenePathToTile extends VarArgFunction {
 						event.getTileX(),
 						event.getTileY(),
 						tileX, MGlobal.levelManager.getActive().getHeight() - tileY - 1);
-				List<OrthoDir> path = pather.getOrthoPath();
+				List<OrthoDir> path = pather.getOrthoPath(null);
 				if (path != null) {
 					event.followPath(path);
 				}

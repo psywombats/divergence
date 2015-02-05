@@ -95,10 +95,11 @@ public class BaconLevel extends LoadedLevel {
 		super.update(elapsed);
 		
 		Avatar hero = MGlobal.getHero();
-		int x1 = (int) hero.getHitbox().getX();
-		int x2 = (int) (x1 + hero.getHitbox().getWidth());
-		int y1 = (int) (getHeightPixels() - hero.getHitbox().getY());
-		int y2 = (int) (getHeightPixels() - (y1 + hero.getHitbox().getHeight()));
+		int x1 = (int) Math.floor((float) (hero.getHitbox().getX()) / 16f);
+		int y2 = (int) Math.floor((float) (getHeightPixels() - hero.getHitbox().getY()) / 16f);
+		int x2 = (int) Math.floor((float) (hero.getHitbox().getX() + hero.getHitbox().getWidth()) / 16f);
+		int y1 = (int) Math.floor((float) (getHeightPixels() - 
+				(hero.getHitbox().getY() + hero.getHitbox().getHeight())) / 16f);
 		List<Vector2> checks = new ArrayList<Vector2>();
 		checks.add(new Vector2(x1, y1));
 		checks.add(new Vector2(x1, y2));
@@ -107,8 +108,8 @@ public class BaconLevel extends LoadedLevel {
 		
 		boolean passed = false;
 		for (Vector2 check : checks) {
-			int tileX = (int) (check.x - check.x % getTileWidth()) / getTileWidth();
-			int tileY = (int) (check.y - check.y % getTileHeight()) / getTileHeight();
+			int tileX = (int) check.x;
+			int tileY = (int) check.y;
 			if (isTilePassable(tileX, tileY)) {
 				passed = true;
 				break;
@@ -125,7 +126,7 @@ public class BaconLevel extends LoadedLevel {
 			if (passed) break;
 		}
 		if (!passed) {
-			//hero.respawn();
+			hero.respawn();
 		}
 	}
 	
@@ -192,7 +193,7 @@ public class BaconLevel extends LoadedLevel {
 	 */
 	@Override
 	public boolean excludeTile(GridLayer layer, MapEvent event, int tileX, int tileY) {
-		float r = sampleAt(tileX * getTileWidth(), tileY * getTileHeight());
+		float r = sampleAt(tileX * getTileWidth(), getHeightPixels() - (tileY * getTileHeight()));
 		boolean alt = "true".equals(layer.getProperty("alt"));
 		if ((!alt && r > .5) || (alt && r < .5)) {
 			lastX = tileX;

@@ -86,6 +86,7 @@ public class FontHolder implements Queueable {
 	 * @param	offY			The y-offset from textbox format, in pixels
 	 */
 	public void draw(SpriteBatch batch, TextFormat format, String text, int offX, int offY) {
+		font.setColor(batch.getColor());
 		batch.begin();
 		TextBounds bounds = font.drawWrapped(batch,
 				text, 

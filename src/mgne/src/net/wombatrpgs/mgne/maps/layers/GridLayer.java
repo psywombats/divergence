@@ -98,8 +98,10 @@ public abstract class GridLayer extends Layer implements Comparable<GridLayer> {
 		if (box == null || (box.getX() == 0 && box.getY() == 0)) return; // why?
 		int atX1 = (int) Math.floor((float) box.getX() / (float) parent.getTileWidth());
 		int atX2 = (int) Math.floor((float) (box.getX() + box.getWidth()) / (float) parent.getTileWidth());
-		int atY2 = (int) Math.floor((float) ((parent.getHeightPixels() - box.getY()) / (float) parent.getTileHeight()));
-		int atY1 = (int) Math.floor((float) (parent.getHeightPixels() - (box.getY() + box.getHeight())) / (float) parent.getTileHeight());
+		int atY2 = (int) Math.floor((float) ((parent.getHeightPixels() - 
+				box.getY()) / (float) parent.getTileHeight()));
+		int atY1 = (int) Math.floor((float) (parent.getHeightPixels() - 
+				(box.getY() + box.getHeight())) / (float) parent.getTileHeight());
 		for (int atX = atX1; atX <= atX2; atX++) {
 			for (int atY = atY1; atY <= atY2; atY++) {
 				applyCorrectionsByTile(event, atX, atY);

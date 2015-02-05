@@ -113,7 +113,7 @@ public class AStarPathfinder {
 	 * Finds the path for an actor using cardinal directions.
 	 * @return					The resulting path, or null if none
 	 */
-	public List<OrthoDir> getOrthoPath() {
+	public List<OrthoDir> getOrthoPath(MapEvent event) {
 		Queue<Path<OrthoDir>> queue = new PriorityQueue<Path<OrthoDir>>();
 		queue.add(new Path<OrthoDir>(toX, toY, fromX, fromY));
 		// I can't believe I'm making a 2D array like this
@@ -121,6 +121,7 @@ public class AStarPathfinder {
 		
 		while (queue.size() > 0) {
 			Path<OrthoDir> node = queue.poll();
+			if (node.steps.size() > 20) continue;
 			if (visited.contains(new Vector2(node.getAtX(), node.getAtY()))) {
 				// we've already been here
 				continue;
@@ -140,7 +141,7 @@ public class AStarPathfinder {
 					if (nextX >= 0 && nextX < map.getWidth() &&
 						nextY >= 0 && nextY < map.getHeight() &&
 						!visited.contains(new Vector2(nextX, nextY)) &&
-						map.isChipPassable(nextX, nextY)) {
+						map.isChipPassable(event, nextX, nextY)) {
 						
 						queue.add(new Path<OrthoDir>(node, dir));
 					}
@@ -150,77 +151,6 @@ public class AStarPathfinder {
 		return null;
 	}
 	
-	public List<OrthoDir> getBigOrthoPath(int size) {
-		Queue<Path<OrthoDir>> queue = new PriorityQueue<Path<OrthoDir>>();
-		queue.add(new Path<OrthoDir>(toX, toY, fromX, fromY));
-		// I can't believe I'm making a 2D array like this
-		List<Vector2> visited = new ArrayList<Vector2>();
-		
-		while (queue.size() > 0) {
-			Path<OrthoDir> node = queue.poll();
-			if (visited.contains(new Vector2(node.getAtX(), node.getAtY()))) {
-				// we've already been here
-				continue;
-			} else {
-				visited.add(new Vector2(node.getAtX(), node.getAtY()));
-				if (node.getAtX() == toX && node.getAtY() == toY) {
-					//MGlobal.reporter.inform("Path found, expanded " + nodes);
-					return node.getSteps();
-				}
-				List<OrthoDir> dirSet = new ArrayList<OrthoDir>();
-				dirSet.add(dirTo(node.getAtX(), node.getAtY(), toX, toY));
-				dirSet.addAll(Arrays.asList(OrthoDir.values()));
-				for (OrthoDir dir : dirSet) {
-					DirVector vec = dir.getVector();
-					int nextX = (int) (vec.x + node.getAtX());
-					int nextY = (int) (vec.y + node.getAtY());
-					if (nextX >= 0 && nextX < map.getWidth() &&
-						nextY >= 0 && nextY < map.getHeight() &&
-						!visited.contains(new Vector2(nextX, nextY)) &&
-						map.isChipPassable(nextX, nextY) &&
-						map.isChipPassable(nextX+size, nextY-size)) {
-						
-						queue.add(new Path<OrthoDir>(node, dir));
-					}
-				}
-			}
-		}
-		return null;
-	}
-	
-	public List<OrthoDir> getPixelPath(MapEvent event) {
-		Queue<Path<OrthoDir>> queue = new PriorityQueue<Path<OrthoDir>>();
-		queue.add(new Path<OrthoDir>(toX, toY, fromX, fromY));
-		// I can't believe I'm making a 2D array like this
-		List<Vector2> visited = new ArrayList<Vector2>();
-		
-		while (queue.size() > 0) {
-			Path<OrthoDir> node = queue.poll();
-			if (visited.contains(new Vector2(node.getAtX(), node.getAtY()))) {
-				// we've already been here
-				continue;
-			} else {
-				visited.add(new Vector2(node.getAtX(), node.getAtY()));
-				if (node.getAtX() == toX && node.getAtY() == toY) {
-					//MGlobal.reporter.inform("Path found, expanded " + nodes);
-					return node.getSteps();
-				}
-				for (OrthoDir dir : OrthoDir.values()) {
-					DirVector vec = dir.getVector();
-					int nextX = (int) (vec.x + node.getAtX());
-					int nextY = (int) (vec.y + node.getAtY());
-					if (nextX >= 0 && nextX < map.getWidth() &&
-						nextY >= 0 && nextY < map.getHeight() &&
-						!visited.contains(new Vector2(nextX, nextY)) &&
-						map.willEventFit(event, nextX, nextY)) {
-						
-						queue.add(new Path<OrthoDir>(node, dir));
-					}
-				}
-			}
-		}
-		return null;
-	}
 	
 	protected OrthoDir dirTo(int fromX, int fromY, int toX, int toY) {
 		int dx = toX - fromX;

@@ -18,7 +18,6 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.Turnable;
 import net.wombatrpgs.mgne.graphics.interfaces.Disposable;
 import net.wombatrpgs.mgne.io.audio.BackgroundMusic;
-import net.wombatrpgs.mgne.maps.events.Avatar;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.maps.layers.EventLayer;
 import net.wombatrpgs.mgne.maps.layers.GridLayer;
@@ -251,6 +250,10 @@ public abstract class Level extends ScreenObject implements Turnable, Disposable
 			}
 		}
 		return true;
+	}
+	
+	public boolean isChipPassable(MapEvent event, int tileX, int tileY) {
+		return isChipPassable(tileX, tileY);
 	}
 	
 	/**

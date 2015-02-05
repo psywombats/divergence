@@ -43,7 +43,7 @@ public class ScenePathToEvent extends VarArgFunction {
 						MGlobal.levelManager.getActive(),
 						event.getTileX(), event.getTileY(),
 						other.getTileX(), other.getTileY());
-				List<OrthoDir> path = pather.getOrthoPath();
+				List<OrthoDir> path = pather.getOrthoPath(null);
 				if (path != null) {
 					event.followPath(path);
 				}

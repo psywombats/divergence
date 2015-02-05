@@ -21,6 +21,7 @@ import net.wombatrpgs.mgneschema.settings.IntroSettingsMDO;
 
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
 
@@ -29,10 +30,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont.HAlignment;
  */
 public class ScreenTitle extends Screen {
 	
-	protected static final int TEXT_Y = 32;
+	protected static final int TEXT_Y = 20;
 	protected static final int TEXT_WIDTH = 120;
-	protected static final int BEGIN_X = 70;
-	protected static final int CONTINUE_X = 196;
+	protected static final int BEGIN_X = 20;
+	protected static final int CONTINUE_X = 84;
 	
 	protected static final String STRING_BEGIN = "START";
 	protected static final String STRING_CONTINUE = "CONTINUE";
@@ -82,15 +83,17 @@ public class ScreenTitle extends Screen {
 	@Override
 	public void render(SpriteBatch batch) {
 		super.render(batch);
-		bg.renderAt(batch, getWidth() / 2, getHeight() / 2);
+		bg.renderAt(finalBatch, MGlobal.window.getWidth() / 2, MGlobal.window.getHeight() / 2);
 		
 		FontHolder font = MGlobal.ui.getFont();
+		batch.setColor(new Color(0, 0, 0, 1));
 		font.draw(batch, formatBegin, STRING_BEGIN, 0);
 		font.draw(batch, formatContinue, STRING_CONTINUE, 0);
+		batch.setColor(new Color(1, 1, 1, 1));
 		
 		Graphic cursor = MGlobal.ui.getCursor();
-		int offX = cursor.getWidth() * -1;
-		int offY = cursor.getHeight()/2 * -1;
+		int offX = cursor.getWidth() * -1 + 2;
+		int offY = cursor.getHeight()/2 * -1 - 2;
 		if (selection == 0) {
 			cursor.renderAt(batch, BEGIN_X + offX, TEXT_Y + offY);
 		} else if (selection == 1) {
