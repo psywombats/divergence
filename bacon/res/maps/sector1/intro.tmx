@@ -7,7 +7,7 @@
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2WyU7DMBRF60goQIEtdMEHMIs1swrsGApi2DEUxPDX5RegIAQLblSjPkU3ecGxKUhZHMl6dnwkP+XaHVOrdQivYCrK5y3jWx/E2H8GzII5sGCRtaEorH8FrII1sGGRtdD+PbAPDkDLImuh/RfgElyBtkXWQvufTD6Vv/KH8g9j7xfToyucz6ZfH/Hk17K2Ic5iMkAmxyJfGYvCP6+sdelJLPKVsSn868paV38rhyPwbnocKmtd/e0cbkDdcq2sdfXXPVHGPwGmHRn34B+L9MzJYvSP+LV8YDnB/DLnsugSv5YPLCeYv8g5yjvi26/lA8sJn34tH1hOMH+RPjaIX8sHlhPMv1Sgh8vE75ITzL9l+7QNdsBuapzMNQP6j22fTsEZOE+Nk7kT4i/y36TfDsx/a/t0Dx7AY2qczN0R/6Dz5z/7P03/nv8pH6a8f1D3r3zrlsXXm7jid/gCkGcrbwASAAA=
+   H4sIAAAAAAAAC+2WTU4CMRiG6SRmVH62yMIDqAtxDS7ENbpQ1+pC3csV8Ap6BTgWXEF+YnTBm2BD07zlGzutaDKLJ22aMk8yE552pEqlEWEG9pL1zB2/DUGK5x+AQ3AEnkHPWttK4vpboA1OQR+8WGux/V1wAS7BK3iz1mL7b8EduAcDMLTWYvvHaj2Fv/DH8m/j2RO1ZGo439VqfSeQX2ptw3gX9QhNTo2+ukbtl/b5fJPU6Ktr1H5pn69f99U1fqgl0j5fv+6rayx/I+3z9ZcDkcdfA/ueVAP4K4ncHBe7f8Qv9YF1gvnNzrmYEr/UB9YJ5s/yHs0zQvulPrBOhPRLfWCdYP4s37FB/FIfWCeY/xjzpsAJ8ft0gvnPMO8InEf0X2F+LXBD/Fn+N/bdgfkfMH8UeCL+TffnP/u/1Oqc/ymfKr9/U+evedfNS6g7ccHvsABxA8mmABIAAA==
   </data>
  </layer>
  <layer name="Natural Lower Chip" width="32" height="36">
@@ -33,7 +33,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBTgAkuYGBiWMg2c/duAdm8fQPtHwSgYBbQHecA8ng/FBSTkd3L1oYNJQL2ToXgKCeaQq28UjGzwkJG25l8DpsXreNIjre1/AbT75QDa/wto9+8BtJ8QGOn2j4JRgAwGuv4fBSMTAACmu8bAABIAAA==
+   H4sIAAAAAAAAC2NgGAWjYBTgAkuYGBiWMg2c/duAdm8fQPtHwSgYBbQHecA8ng/FBSTkd3L1oYNJQL2ToXgKCeaQq28UjGzwkJG25l8DpsXreNIjre1/AbT75QDa/wto928q2F8LNKMOiOuZUNmUAmLt7wfaNQGIJzKhsull/0KgXYuAeDETKpteYDPQri1AvJUJlT0KhhcY6Pp/FIxMAACW5bqRABIAAA==
   </data>
  </layer>
  <layer name="Natural Upper Chip" width="32" height="36">

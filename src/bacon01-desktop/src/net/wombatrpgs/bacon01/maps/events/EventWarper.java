@@ -9,6 +9,7 @@ package net.wombatrpgs.bacon01.maps.events;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import net.wombatrpgs.bacon01.maps.BaconLevel;
+import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.graphics.AnimationStrip;
 import net.wombatrpgs.mgne.maps.Level;
@@ -26,13 +27,19 @@ public class EventWarper extends MapEvent {
 	
 	protected AnimationStrip light;
 	protected float totalElapsed;
+	protected float period;
+	protected float r1, r2;
+	protected float origWidth;
 
 	public EventWarper(EventMDO mdo, TiledMapObject object) {
 		super(mdo);
 		
 		light = new AnimationStrip(MGlobal.data.getEntryFor("anim_light", AnimationMDO.class));
-		light.setScale(4);
 		assets.add(light);
+		
+		period = Float.valueOf(object.getString("period"));
+		r1 = Float.valueOf(object.getString("radius1"));
+		r2 = Float.valueOf(object.getString("radius2"));
 		
 		totalElapsed = 0;
 	}
@@ -47,6 +54,15 @@ public class EventWarper extends MapEvent {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.maps.events.MapEvent#postProcessing(net.wombatrpgs.mgne.core.MAssets, int)
+	 */
+	@Override
+	public void postProcessing(MAssets manager, int pass) {
+		super.postProcessing(manager, pass);
+		origWidth = light.getWidth();
+	}
+
+	/**
 	 * @see net.wombatrpgs.mgne.maps.events.MapEvent#render(com.badlogic.gdx.graphics.g2d.SpriteBatch)
 	 */
 	@Override
@@ -54,8 +70,8 @@ public class EventWarper extends MapEvent {
 		super.render(batch);
 		
 		level.getLightBuffer().begin();
-		int screenX = getCenterX();
-		int screenY = getCenterY();
+		int screenX = getCenterX() + 16;
+		int screenY = getCenterY() + 16;
 		screenX -= light.getWidth() / 2;
 		screenY -= light.getHeight() / 2;
 		light.renderAt(batch, screenX, screenY);
@@ -72,8 +88,10 @@ public class EventWarper extends MapEvent {
 		
 		light.update(elapsed);
 		totalElapsed += elapsed;
-		float scale = (float) (6f + Math.sin(totalElapsed / 3f) * 4f);
-		light.setScale(scale);
+		float ratio = (float) Math.sin(totalElapsed / period * Math.PI*2);
+		ratio = ratio/2f + .5f;
+		float newRadius = (float) (r1 + ratio * (r2 - r1));
+		light.setScale(2 * newRadius / origWidth);
 	}
 
 }

@@ -3,8 +3,8 @@
 	"subfolder" : "",
 	"name" : "",
 	"description" : "engine searches for this mdo by name",
-	"map" : "test/test_stalker.tmx",
+	"map" : "sector1/intro.tmx",
 	"mapX" : 11,
-	"mapY" : 21,
+	"mapY" : 7,
 	"titleBG" : "title.png"
 }
