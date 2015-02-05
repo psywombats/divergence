@@ -906,11 +906,6 @@
    </properties>
   </object>
   <object id="4" name="checkpoint" type="checkpoint" x="64" y="352" width="32" height="80"/>
-  <object id="5" name="stalker" type="stalker" x="496" y="160" width="16" height="16">
-   <properties>
-    <property name="appearance" value="4dir_sk"/>
-   </properties>
-  </object>
   <object id="8" name="Orders" type="item" x="256" y="160" width="16" height="16">
    <properties>
     <property name="key" value="item_orders"/>

@@ -1,22 +1,14 @@
 {
 	"switches" : {
-		"switches" : {
-			"collect_Orders(256,256) test/test.tmx" : true,
-			"collect_Orders(64,80) test/test.tmx" : true
-		}
+		"switches" : { }
 	},
 	"levelKey" : "test/test.tmx",
 	"heroMemory" : {
-		"tileX" : 4,
-		"tileY" : 22,
+		"tileX" : 5,
+		"tileY" : 21,
 		"dir" : "SOUTH",
 		"animKey" : "4dir_sk"
 	},
 	"saveSlot" : -1,
-	"items" : [
-		{
-			"itemKey" : "item_orders",
-			"quantity" : 2
-		}
-	]
+	"items" : [ ]
 }

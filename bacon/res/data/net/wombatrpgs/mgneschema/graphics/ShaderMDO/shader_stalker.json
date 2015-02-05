@@ -1,0 +1,8 @@
+{
+	"key" : "shader_stalker",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"vertexFile" : "stalker.vert",
+	"fragmentFile" : "stalker.frag"
+}

@@ -866,16 +866,16 @@
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3WwQ2AMAwEweCyqYEaqIG6UgUN5INkn+2wK/lLNC9ujH91mv4iukx/Ed2mv4ge019E89AfDhydHR3DUSsctdrZ0XHvrhwd9+7K0XHvrhzs3Vq7BAcOHPs7On1f9Q6OWu9kOjy3babDc9tmOjy3babDc9vyH8SBI99B9KUXD4PV40AfAAA=
+   H4sIAAAAAAAAC+3XsQ2AMBADQPI9YgTImszADMzAWrACRCL0aRDvfwK25Dq6JnGa5l8Zxb6ITGJfRGaxLyKL2BeRLdiXDjpqduy5B6jJ0NHmO2UNmHaG9xUddCAcfT5rADUaOmrcuyVHjXu35Khx75Yc3Lvv2iV00EHH9x1a/4/k7NDaidcmpOO5Q2vvRmeH5rb1dGhuW0+H5rb1dGhuW76DdNDh72CYOzkBW/h/ZkAfAAA=
   </data>
  </layer>
- <layer name="Natural Lower Chip" width="50" height="40">
+ <layer name="Natural Lower Chip" width="50" height="40" visible="0">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3W2wmAMAyF4WQIZ9RFdJE6qAXJBLG5yH+gJE89fE+tCCGEvNkSDg4cnR2d7o/qwVGrB0etHhz+nl1FDvVN2zMd5+y/1Ddtz3SM2X+rb9qe6Vh9cODAgeMrR6f7o3pw1OrB4e/hv8t/d4XjL+8gDhyEROYBnTSbVEAfAAA=
+   H4sIAAAAAAAAC+2WyQ2AMAwE7SKoERqBRkKh5JMK4hPNSJH98mpeWRHoyKkil8bMtXtwz7uPxsy1ezDm3Vdj5to9OBIeHnh09uh0PyoHj1o5eNTKwWM/x7LbZnpYdttMD8tum+nh/fDAAw88rDw63Y/KwaNWDh77OfRd+q6Hx1/+QTzwAIjkA/sdwqhAHwAA
   </data>
  </layer>
  <layer name="Natural Walls" width="50" height="40">
@@ -891,7 +891,7 @@
   <properties>
    <property name="z" value=".5"/>
   </properties>
-  <object id="5" name="stalker" type="stalker" x="304" y="304" width="64" height="64">
+  <object id="5" name="stalker" type="stalker" x="544" y="400" width="64" height="64">
    <properties>
     <property name="appearance" value="4dir_stalker"/>
     <property name="face" value="NORTH"/>
