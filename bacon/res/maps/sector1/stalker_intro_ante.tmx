@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="19" height="20" tilewidth="16" tileheight="16" nextobjectid="34">
+ <tileset firstgid="1" source="../tilesets/natural.tsx"/>
+ <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
+ <layer name="Artificial Lower Chip" width="19" height="20">
+  <properties>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+XSRw7CMBAFUNsIASu6gCVFcD7KDYDcgHIDyq0SjkBbUX6keMEwY5IIiQWLp1Gi5M+XbF8r5f+hCzSN7JogK4fvRzAWZtbE79CCGcyF2XB0pbsnsISVMIdMX9uN7vZgCzthTpm+NovuXsMB7wPNzwXT12bR3Xsj54Rzw/S1WQHD1Yv73pWVJMdm5dHvpF+dP/Q66vd/CsKdC+/qDfMOD1B41mAg47irUlYRSlCGClShBvWUWR3oQi/Sh0GKrHaURf0yizvbOGf2TU+ekUfs8AUAAA==
+  </data>
+ </layer>
+ <layer name="Natural Lower Chip" width="19" height="20">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwEgAAGNFNivAFAAA=
+  </data>
+ </layer>
+ <layer name="Natural Walls" width="19" height="20">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".1"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwEgAAGNFNivAFAAA=
+  </data>
+ </layer>
+ <layer name="Artificial Upper Chip" width="19" height="20">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWDDZQzMTBUAHEPEPcCcR8TQowQSGJmYEhmRvA7gXq6gHgeEM8H4gVMCDFSwWygnjlAvAGINwLxJiaE2FABAcyE1YyCwQOWANPWUiqlr21Ac7YPobRKCwAA+3bNkPAFAAA=
+  </data>
+ </layer>
+ <layer name="Natural Upper Chip" width="19" height="20">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwEgAAGNFNivAFAAA=
+  </data>
+ </layer>
+ <layer name="Natural Wall Sidings" width="19" height="20">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".2"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwEgAAGNFNivAFAAA=
+  </data>
+ </layer>
+ <objectgroup name="Object Layer">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <object id="26" name="Checkpoint" type="checkpoint" x="96" y="128" width="112" height="160"/>
+  <object id="28" name="arrow" type="Event" x="0" y="144" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="WEST"/>
+   </properties>
+  </object>
+  <object id="29" name="arrow" type="Event" x="0" y="160" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="WEST"/>
+   </properties>
+  </object>
+  <object id="30" name="tele" type="Event" x="0" y="160" width="16" height="32">
+   <properties>
+    <property name="onCollide" value="teleport('sector1/obstacle_maze.tmx', 32, 9)"/>
+   </properties>
+  </object>
+  <object id="31" name="arrow" type="Event" x="288" y="144" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="EAST"/>
+   </properties>
+  </object>
+  <object id="32" name="arrow" type="Event" x="288" y="160" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="EAST"/>
+   </properties>
+  </object>
+  <object id="33" name="tele" type="Event" x="288" y="160" width="16" height="32">
+   <properties>
+    <property name="onCollide" value="teleport('sector1/stalker_intro.tmx', 1, 57)"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="Artificial Overhead Chip" width="19" height="20">
+  <properties>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwEgAAGNFNivAFAAA=
+  </data>
+ </layer>
+ <layer name="Natural Overhead Chip" width="19" height="20">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwEgAAGNFNivAFAAA=
+  </data>
+ </layer>
+</map>

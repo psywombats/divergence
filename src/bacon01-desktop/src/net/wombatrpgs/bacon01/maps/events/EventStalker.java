@@ -39,6 +39,7 @@ public class EventStalker extends MapEvent {
 	protected AnimationStrip light;
 	protected ShaderFromData shader;
 	protected float totalElapsed;
+	protected float startX, startY;
 
 	public EventStalker(EventMDO mdo) {
 		super(mdo);
@@ -149,6 +150,8 @@ public class EventStalker extends MapEvent {
 		super.onAddedToMap(map);
 		x += getOffX();
 		y += getOffY();
+		startX = x;
+		startY = y;
 	}
 	
 	private float getOffX() { return -(getHitbox().getX() - getX()) / 2; }
@@ -198,7 +201,6 @@ public class EventStalker extends MapEvent {
 	 */
 	@Override
 	public void resolveWallCollision(CollisionResult result) {
-		
 		super.resolveWallCollision(result);
 		if (this.getHitbox() == result.collide2) {
 			result.mtvX *= -1;
@@ -220,7 +222,8 @@ public class EventStalker extends MapEvent {
 	@Override
 	public void onMapFocusLost(Level map) {
 		super.onMapFocusLost(map);
-		//map.removeEvent(this);
+		x = startX;
+		y = startY;
 	}
 
 	/**
