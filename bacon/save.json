@@ -7,7 +7,7 @@
 		"tileX" : 5,
 		"tileY" : 10,
 		"dir" : "EAST",
-		"animKey" : "4dir_sk"
+		"animKey" : "4dir_hero"
 	},
 	"saveSlot" : -1,
 	"items" : [ ]

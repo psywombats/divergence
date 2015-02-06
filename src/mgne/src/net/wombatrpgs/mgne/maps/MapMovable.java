@@ -30,7 +30,8 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	protected static float DEFAULT_VELOCITY = 102; // px/s
 	
 	/** Physics values */
-	protected float x, y;
+	protected float x;
+	protected float y;
 	protected float vx, vy;
 	protected float maxVelocity;
 	

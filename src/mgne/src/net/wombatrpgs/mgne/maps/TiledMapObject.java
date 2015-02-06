@@ -76,7 +76,7 @@ public class TiledMapObject {
 	public int getTileX() { return (int) (getX() / parent.getTileWidth()); }
 	
 	/** @return The y-coord of this object on the map (in tiles) */
-	public int getTileY() { return (int) (getY() / parent.getTileWidth()); }
+	public int getTileY() { return (int) ((parent.getHeightPixels() - getY() - 16) / parent.getTileWidth()); }
 	
 	/**
 	 * Checks if a property exists on this object, regardless of value.

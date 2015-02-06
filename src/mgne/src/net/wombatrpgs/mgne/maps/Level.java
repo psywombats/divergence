@@ -313,9 +313,9 @@ public abstract class Level extends ScreenObject implements Turnable, Disposable
 	 * @param 	tileY			The initial y-coord (in tiles) of this object
 	 */
 	public void addEvent(MapEvent newEvent, int tileX, int tileY) {
-		addEventAbsolute(newEvent, tileX * getTileWidth(), tileY * getTileHeight());
-		newEvent.setTileX(tileX);
-		newEvent.setTileY(tileY);
+		newEvent.parent = this;
+		newEvent.setTileLocation(tileX, tileY);
+		addEventAbsolute(newEvent, newEvent.getX(), newEvent.getY());
 	}
 	
 	/**

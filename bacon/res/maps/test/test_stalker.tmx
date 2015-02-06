@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="40" tilewidth="16" tileheight="16" nextobjectid="11">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="40" tilewidth="16" tileheight="16" nextobjectid="12">
  <tileset firstgid="1" name="rtp" tilewidth="16" tileheight="16">
   <image source="../tilesets/test/rtp.png" width="64" height="32"/>
   <tile id="0">
@@ -891,10 +891,9 @@
   <properties>
    <property name="z" value=".5"/>
   </properties>
-  <object id="5" name="stalker" type="stalker" x="544" y="400" width="64" height="64">
+  <object id="11" name="tele" type="Event" x="224" y="416" width="16" height="32">
    <properties>
-    <property name="appearance" value="4dir_stalker"/>
-    <property name="face" value="NORTH"/>
+    <property name="onCollide" value="teleport('sector1/stalker_intro_ante.tmx', 1, 10)"/>
    </properties>
   </object>
  </objectgroup>

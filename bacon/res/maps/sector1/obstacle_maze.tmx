@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="36" height="40" tilewidth="16" tileheight="16" nextobjectid="30">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="36" height="40" tilewidth="16" tileheight="16" nextobjectid="33">
  <properties>
   <property name="period" value="20"/>
  </properties>
@@ -93,6 +93,23 @@
    <properties>
     <property name="appearance" value="4dir_arrow"/>
     <property name="face" value="EAST"/>
+   </properties>
+  </object>
+  <object id="30" name="arrow" type="Event" x="0" y="480" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="WEST"/>
+   </properties>
+  </object>
+  <object id="31" name="arrow" type="Event" x="0" y="496" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="WEST"/>
+   </properties>
+  </object>
+  <object id="32" name="tele" type="Event" x="0" y="496" width="16" height="32">
+   <properties>
+    <property name="onCollide" value="teleport('sector1/obstacle_note.tmx', 17, 10)"/>
    </properties>
   </object>
  </objectgroup>

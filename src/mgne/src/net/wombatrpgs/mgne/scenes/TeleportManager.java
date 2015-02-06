@@ -131,7 +131,7 @@ public class TeleportManager implements Queueable {
 		if (old != null) {
 			old.onFocusLost();
 		}
-		map.addEvent(MGlobal.getHero(), tileX, map.getHeight() - tileY - 1);
+		map.addEvent(MGlobal.getHero(), tileX, tileY);
 		MGlobal.getHero().onAddedToMap(map);
 		MGlobal.levelManager.getScreen().getCamera().update(0);
 		MGlobal.levelManager.setActive(map);

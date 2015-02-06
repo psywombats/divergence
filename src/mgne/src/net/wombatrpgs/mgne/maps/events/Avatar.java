@@ -124,6 +124,13 @@ public class Avatar extends MapEvent implements CommandListener {
 				setVelocity(targetVX, targetVY);
 			}
 		}
+		if (appearance != null) {
+			if (vx != 0 || vy != 0) {
+				appearance.startMoving();
+			} else {
+				appearance.stopMoving();
+			}
+		}
 	}
 
 	/**
@@ -173,6 +180,16 @@ public class Avatar extends MapEvent implements CommandListener {
 		MGlobal.levelManager.getTele().teleportRaw(MGlobal.memory.levelKey,
 				MGlobal.memory.heroMemory.tileX,
 				MGlobal.memory.heroMemory.tileY);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.maps.events.MapEvent#setTileLocation(int, int)
+	 */
+	@Override
+	public void setTileLocation(int tileX, int tileY) {
+		super.setTileLocation(tileX, tileY);
+		x -= (getHitbox().getX() - getX());
+		y -= (getHitbox().getY() - getY());
 	}
 
 	/**

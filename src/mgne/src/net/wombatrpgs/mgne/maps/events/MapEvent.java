@@ -139,12 +139,13 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	public void setTileY(int tileY) { this.tileY = tileY; }
 	
 	/** @return x-coord of this object, in tiles */
-	public int getTileX() { return (int) (!PIXEL_MOVE ? tileX : Math.floor((float) getCenterX() / 16f)); }
+	public int getTileX() { return (int) (!PIXEL_MOVE ? tileX : 
+		Math.floor((float) (getCenterX() - .5f) / 16f)); }
 	
 	/** @return y-coord of this object, in tiles */
 	public int getTileY() {
 		if (!PIXEL_MOVE) return tileY;
-		else return (int) Math.floor((float) (parent.getHeightPixels() - getCenterY()) / 16f);
+		else return (int) Math.floor((float) (parent.getHeightPixels() - (getCenterY() - .5f)) / 16f);
 	}
 	
 	/** @return The current appearance of this character */
