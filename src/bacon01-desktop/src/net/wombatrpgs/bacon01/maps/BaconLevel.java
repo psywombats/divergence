@@ -44,6 +44,8 @@ public class BaconLevel extends LoadedLevel {
 	protected FrameBuffer lightBuffer, altBuffer, normBuffer;
 	protected EffectAltLight effect;
 	protected Graphic light;
+	protected Color clearColor;
+	protected float totalElapsed;
 	
 	protected int lastX, lastY;
 
@@ -54,6 +56,8 @@ public class BaconLevel extends LoadedLevel {
 		
 		light = new Graphic("light.png");
 		assets.add(light);
+		
+		clearColor = new Color(0, 0, 0, 1);
 	}
 	
 	public FrameBuffer getLightBuffer() { return lightBuffer; }
@@ -68,7 +72,7 @@ public class BaconLevel extends LoadedLevel {
 		renderGrid(batch, false);
 		
 		lightBuffer.begin();
-		Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
+		Gdx.gl.glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		lightBuffer.end();
 		
@@ -93,6 +97,7 @@ public class BaconLevel extends LoadedLevel {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
+		totalElapsed += elapsed;
 		
 		Avatar hero = MGlobal.getHero();
 		int x1 = (int) Math.floor((float) (hero.getHitbox().getX()) / 16f);
@@ -127,6 +132,16 @@ public class BaconLevel extends LoadedLevel {
 		}
 		if (!passed) {
 			hero.respawn();
+		}
+		
+		// periodic
+		if (getProperty("period") != null) {
+			float period = Float.valueOf(getProperty("period"));
+			float ratio = (float) Math.sin(totalElapsed / period * Math.PI*2);
+			ratio = ratio/2f + .5f;
+			clearColor.r = ratio;
+			clearColor.g = ratio;
+			clearColor.b = ratio;
 		}
 	}
 	
