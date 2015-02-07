@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="36" tilewidth="16" tileheight="16" nextobjectid="20">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="36" tilewidth="16" tileheight="16" nextobjectid="35">
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
  <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
  <layer name="Artificial Lower Chip" width="24" height="36">
@@ -7,7 +7,7 @@
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2VSQ6CQBBFaRKjbt0ox3S4gcMNHG7gcCvAGyi6tTrQyY+hoGiphUmTvNSC8NK/UtWkJorSjryIWVzy9vi+jSF5F8SSGMQ6/g2xVfQfiKOi/0JcFf2ZKQn+Epz5BPzTuJ9dwJlfgX/e0y7gzO/AvxbuAuavI4GZP4F/32EXXE6uupm/gf/cYRdcTq46J0eb3+XkqnXkpr5K/C4nVzPGnQv9bfl/Pb/E73v+Eb17Gp6iwS3tj/TO8e2/1O87n01g/wpwPqCH457uUpslqtC6/ycV//J/+fbflf32uSv77RP8wR/8PB+Ic1vmgA0AAA==
+   H4sIAAAAAAAAC+2TyQ3CMBBFY0uIQLhDDhRBDdRADZxZOmDpgKUDlq4SSoCAuDGIsTKxgmOwc5vD05di682SJBFBkDAMU8kd6MkiD4/eGJgCM5JdD3Wa6JoDS2BFcoK1GvL32RUxutbAFtiRXGCtKv8bfXaVA3TtgSNwIrnBWjZ+fXaVQ3SdgQvcS0WeB6xl49dnVzmSRWdZ2vj12VWOS/rW08afEtpwPwI6Mn/m2r/J79p/COc3UU7mqX/T/+Vj/ya/ye3qp7vLiPNKdthy8OuzPMUHl55N/gipy99H6vL7eKfs/4+QOH198wzzjRcelUXWgA0AAA==
   </data>
  </layer>
  <layer name="Natural Lower Chip" width="24" height="36" visible="0">
@@ -33,7 +33,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGJngPBME0wo8ZIJgWoHPTBA8CkYBJeAEMA2dBOJTNEpLt4Dm3gbiOzQy/w3Q3LdA/I4M868B9VwnoO8fUP4/SA0z6ea/AOp7ScM8+gto9u/RMoAisAQYfktpGIbbgGZvH42jUTAKRsEoGAVoAACpQ9hNgA0AAA==
+   H4sIAAAAAAAAC+3OPQqDQBRF4cHVuDpxCcEliMuJZgf+NNoabbRNtNHG06QzjfhA4R64zYP5GOeUUlfp6TmXsoy9vPP9HLNgJasM/BbzzTrWG/gfzC+b2HzQr3nXGPzt14A9GvoL9rrj+zu3gFto+JcHdiT/bzF2YugrpZS6Zxs8j0MRgA0AAA==
   </data>
  </layer>
  <layer name="Natural Upper Chip" width="24" height="36" visible="0">
@@ -66,10 +66,77 @@
     <property name="onCollide" value="teleport('sector1/intro.tmx', 29, 24)"/>
    </properties>
   </object>
-  <object id="17" name="checkpoint" type="checkpoint" x="176" y="208" width="128" height="208"/>
-  <object id="19" name="tele" type="Event" x="224" y="64" width="32" height="16">
+  <object id="17" name="checkpoint" type="checkpoint" x="160" y="224" width="128" height="112"/>
+  <object id="21" name="tele" type="Event" x="208" y="192" width="32" height="16">
    <properties>
-    <property name="onCollide" value="teleport('sector1/cave_intro.tmx', 18, 49)"/>
+    <property name="hide" value="return not hasItem('item_redkey')"/>
+    <property name="onCollide" value="teleport('sector1/obstacle_maze.tmx', 16, 38)"/>
+   </properties>
+  </object>
+  <object id="22" name="arrow" type="Event" x="192" y="112" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_unlocked_red"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return not hasItem('item_redkey')"/>
+   </properties>
+  </object>
+  <object id="23" name="tele" type="Event" x="208" y="464" width="32" height="16">
+   <properties>
+    <property name="hide" value="return not getSwitch('radio03')"/>
+    <property name="onCollide" value="teleport('sector1/cave_intro.tmx', 18, 10)"/>
+   </properties>
+  </object>
+  <object id="24" name="arrow" type="Event" x="208" y="464" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="SOUTH"/>
+   </properties>
+  </object>
+  <object id="25" name="arrow" type="Event" x="224" y="464" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="SOUTH"/>
+   </properties>
+  </object>
+  <object id="26" name="arrow" type="Event" x="224" y="112" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return not hasItem('item_redkey')"/>
+   </properties>
+  </object>
+  <object id="27" name="arrow" type="Event" x="208" y="112" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return not hasItem('item_redkey')"/>
+   </properties>
+  </object>
+  <object id="28" name="locked" type="Event" x="224" y="112" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_locked_red"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return hasItem('item_redkey')"/>
+   </properties>
+  </object>
+  <object id="29" name="locked" type="Event" x="208" y="112" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_locked_red"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return hasItem('item_redkey')"/>
+   </properties>
+  </object>
+  <object id="32" name="trigger" type="Event" x="192" y="208" width="16" height="128">
+   <properties>
+    <property name="hide" value="return getSwitch('radio03')"/>
+    <property name="onCollide" value="play('radio03.lua')"/>
+   </properties>
+  </object>
+  <object id="34" name="door" type="Event" x="208" y="192" width="16" height="16">
+   <properties>
+    <property name="appearance" value="anim_door_closed"/>
+    <property name="hide" value="return hasItem('item_redkey')"/>
+    <property name="passable" value="PASSABLE"/>
    </properties>
   </object>
  </objectgroup>

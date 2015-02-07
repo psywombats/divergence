@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="36" tilewidth="16" tileheight="16" nextobjectid="14">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="36" tilewidth="16" tileheight="16" nextobjectid="32">
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
  <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
  <layer name="Artificial Lower Chip" width="32" height="36">
@@ -7,7 +7,7 @@
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2WTU4CMRiG6SRmVH62yMIDqAtxDS7ENbpQ1+pC3csV8Ap6BTgWXEF+YnTBm2BD07zlGzutaDKLJ22aMk8yE552pEqlEWEG9pL1zB2/DUGK5x+AQ3AEnkHPWttK4vpboA1OQR+8WGux/V1wAS7BK3iz1mL7b8EduAcDMLTWYvvHaj2Fv/DH8m/j2RO1ZGo439VqfSeQX2ptw3gX9QhNTo2+ukbtl/b5fJPU6Ktr1H5pn69f99U1fqgl0j5fv+6rayx/I+3z9ZcDkcdfA/ueVAP4K4ncHBe7f8Qv9YF1gvnNzrmYEr/UB9YJ5s/yHs0zQvulPrBOhPRLfWCdYP4s37FB/FIfWCeY/xjzpsAJ8ft0gvnPMO8InEf0X2F+LXBD/Fn+N/bdgfkfMH8UeCL+TffnP/u/1Oqc/ymfKr9/U+evedfNS6g7ccHvsABxA8mmABIAAA==
+   H4sIAAAAAAAAC+2VO07EMBCG40EoLAFaQFq4AqKCFlFBi6igXVGBROAGBG5A4AYEbrVcgfejYKzVKqM/wbHNOsWyxSfbidafnP3H01dR1J8w4RdemSWy4y2AP+Z9N6aiaJNJeX5mWE9TGP8O773LZDy/NKxD+Q9470Mm5/mNYR3Kf8x7nzAFz+8N61D+DzUg4fkc86gGzPL8W5XvQ/kTAfrlu3HwY70vMyuCVeHvwrvFEdwH+rypqOlz4WviFO4Gn++h/Zmo6SsH/wXcDb7+XNT0rci/5lP43uH5NdwNvv5C1PSDZf708zu4G3z9sqa/lH3+E7grfP36twuQbZv8D5n/Qz3GNed8Yp4beFHV74L1KHHx25wjrvlf1qjs0Ti24d+iskfj2IZ/j8oejWMb/h6VPRrHNvy4j8TFb8qx7FOh/JjjlKp5Xq/xm+rWxY85zqia5+0a/6juH8xxTtU87wf0Y44Lqub5KKDflXHwyx7syrBn+/hnqLnX2dLx8P83fgBljXpoABIAAA==
   </data>
  </layer>
  <layer name="Natural Lower Chip" width="32" height="36">
@@ -33,7 +33,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBTgAkuYGBiWMg2c/duAdm8fQPtHwSgYBbQHecA8ng/FBSTkd3L1oYNJQL2ToXgKCeaQq28UjGzwkJG25l8DpsXreNIjre1/AbT75QDa/wto928q2F8LNKMOiOuZUNmUAmLt7wfaNQGIJzKhsull/0KgXYuAeDETKpteYDPQri1AvJUJlT0KhhcY6Pp/FIxMAACW5bqRABIAAA==
+   H4sIAAAAAAAAC+2UOwoCMRBAlz2NpxNrtRBr/1j7t/e3ehW9gl5BwVdYiIwyMMasOg8eJLOZTEiySRLHcZz8U0h1sRB1Zzi/1ZLaodexZf5d+rr9qzzu/z0x9l8Td76XIudZMpypNb9Gbv2P83vk9t+cv6d/iPifHql9Uta33h+JM/NdlHNaz89K7Pqa+1fmewWrH1xnm1od7GIDm9gKUP/Z/RsTm+AUBzjEkTAu1Pu3JrbBDBe4xJUwLvb7lcf3z3EkrqaWuQUAEgAA
   </data>
  </layer>
  <layer name="Natural Upper Chip" width="32" height="36">
@@ -49,21 +49,39 @@
   <properties>
    <property name="z" value=".5"/>
   </properties>
-  <object id="11" name="arrow" type="Event" x="480" y="384" width="16" height="16">
-   <properties>
-    <property name="appearance" value="4dir_arrow"/>
-    <property name="face" value="EAST"/>
-   </properties>
-  </object>
-  <object id="12" name="arrow" type="Event" x="480" y="368" width="16" height="16">
-   <properties>
-    <property name="appearance" value="4dir_arrow"/>
-    <property name="face" value="EAST"/>
-   </properties>
-  </object>
   <object id="13" name="tele" type="Event" x="480" y="384" width="16" height="32">
    <properties>
+    <property name="hide" value="return not getSwitch('radio02')"/>
     <property name="onCollide" value="teleport('sector1/elbow.tmx', 3, 16)"/>
+   </properties>
+  </object>
+  <object id="15" name="arrow" type="Event" x="480" y="368" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="EAST"/>
+   </properties>
+  </object>
+  <object id="24" name="trigger" type="Event" x="304" y="304" width="32" height="144">
+   <properties>
+    <property name="hide" value="return getSwitch('radio01')"/>
+    <property name="onCollide" value="play('radio01.lua')"/>
+   </properties>
+  </object>
+  <object id="26" name="Radio" type="item" x="352" y="352" width="16" height="16">
+   <properties>
+    <property name="key" value="item_radio"/>
+   </properties>
+  </object>
+  <object id="28" name="Autostart" type="Event" x="368" y="304" width="16" height="16">
+   <properties>
+    <property name="hide" value="return (getSwitch('radio02') or not hasItem('item_radio'))"/>
+    <property name="onEnter" value="play('radio02.lua')"/>
+   </properties>
+  </object>
+  <object id="30" name="arrow" type="Event" x="480" y="384" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="EAST"/>
    </properties>
   </object>
  </objectgroup>

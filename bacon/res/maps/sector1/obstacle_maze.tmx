@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="36" height="40" tilewidth="16" tileheight="16" nextobjectid="33">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="36" height="40" tilewidth="16" tileheight="16" nextobjectid="34">
  <properties>
   <property name="period" value="20"/>
  </properties>
@@ -31,7 +31,7 @@
    H4sIAAAAAAAAC+2X7XHCMAyGox9lkDbdo7R7pM0eoewRYKCySBmj1l18qC+WMLZD+OHnLucDFFt+/EnTVCqVOfmkpvmi5Upk4777puVKZOe+29NyZeU2npyzFf0vX8BjG4i5Vso6WiM2hhN8/kno5zHzfa0u5ncq311/Poy1K9s9Bd5PRfPDefbG2pX53MMP57k11q70cC8/B2MOvrnf1nQeV3w/FcuPRTfNJX56kc+cfiyGaS7xsy3kB10zsX7GaS7xcyjkh9vsIZ9YPxo5frhN6bqleD8auX401zF+/Nkizwu/7lLANrU9VyM0th2ljxm2Kf08B85aCbt5pct6BkofM8uPzwnHw4+RzwXX6DiTH8lRifG54BpN8RPae0JzEePwnOhhP2Ri/eCdAfvVKXcLGSdjfC54zsX6wTsD9mtQ7hYyTsaEcmFi/eCdAesalbuFjJMx2vmfe6aW5pHykfvSNW75zyDL0P6jxcbmkkPJ+2gJSt7XS1D92Dyanzn4A1J9IZyAFgAA
   </data>
  </layer>
- <layer name="Artificial Upper Chip" width="36" height="40" visible="0">
+ <layer name="Artificial Upper Chip" width="36" height="40">
   <properties>
    <property name="z" value=".5"/>
   </properties>
@@ -63,7 +63,7 @@
   </properties>
   <object id="23" name="tele" type="Event" x="256" y="624" width="32" height="16">
    <properties>
-    <property name="onCollide" value="teleport('sector1/cave_intro.tmx', 18, 10)"/>
+    <property name="onCollide" value="teleport('sector1/elbow.tmx', 13, 13)"/>
    </properties>
   </object>
   <object id="24" name="arrow" type="Event" x="272" y="624" width="16" height="16">
@@ -112,8 +112,15 @@
     <property name="onCollide" value="teleport('sector1/obstacle_note.tmx', 17, 10)"/>
    </properties>
   </object>
+  <object id="33" name="arrow" type="Event" x="240" y="624" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_unlocked_red"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return not hasItem('item_redkey')"/>
+   </properties>
+  </object>
  </objectgroup>
- <layer name="Artificial Overhead Chip" width="36" height="40" visible="0">
+ <layer name="Artificial Overhead Chip" width="36" height="40">
   <properties>
    <property name="z" value="1.5"/>
   </properties>

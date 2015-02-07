@@ -88,5 +88,14 @@ public class Inventory {
 		}
 		return memories;
 	}
+	
+	public boolean contains(String itemKey) {
+		for (InventoryItem item : items) {
+			if (item.getKey().equals(itemKey)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

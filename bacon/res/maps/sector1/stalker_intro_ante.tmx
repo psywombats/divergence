@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="19" height="20" tilewidth="16" tileheight="16" nextobjectid="34">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="19" height="20" tilewidth="16" tileheight="16" nextobjectid="36">
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
  <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
  <layer name="Artificial Lower Chip" width="19" height="20">
@@ -33,7 +33,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWDDZQzMTBUAHEPEPcCcR8TQowQSGJmYEhmRvA7gXq6gHgeEM8H4gVMCDFSwWygnjlAvAGINwLxJiaE2FABAcyE1YyCwQOWANPWUiqlr21Ac7YPobRKCwAA+3bNkPAFAAA=
+   H4sIAAAAAAAAC2NgGAWDDZQzMTBUAHEPEPcCcR8TQowQSGJmYEhmRvA7gXq6gHgeEM8H4gVMCDFSwWygnjlAvAGINwLxJiaE2FABAcyE1YyCwQOWANPWUiqkLw2gGduAePsQSqu0AACWyBsw8AUAAA==
   </data>
  </layer>
  <layer name="Natural Upper Chip" width="19" height="20">
@@ -90,7 +90,14 @@
   </object>
   <object id="33" name="tele" type="Event" x="288" y="160" width="16" height="32">
    <properties>
+    <property name="hide" value="return not getSwitch('radio04')"/>
     <property name="onCollide" value="teleport('sector1/stalker_intro.tmx', 1, 57)"/>
+   </properties>
+  </object>
+  <object id="35" name="trigger" type="Event" x="208" y="160" width="16" height="32">
+   <properties>
+    <property name="hide" value="return getSwitch('radio04')"/>
+    <property name="onCollide" value="play('radio04.lua')"/>
    </properties>
   </object>
  </objectgroup>

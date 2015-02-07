@@ -86,6 +86,9 @@ public class InventoryItem extends AssetQueuer {
 			MGlobal.ui.getBlockingBox().blockText(MGlobal.screens.peek(), "Stop calling me on the radio dimwit");
 			listener.onFinish();
 			return;
+		case KEY:
+			// nothing right now
+			return;
 		}
 	}
 }

@@ -1,0 +1,10 @@
+{
+	"key" : "item_redkey",
+	"subfolder" : "",
+	"name" : "Cardkey (red)",
+	"description" : "",
+	"icon" : "icon_16.png",
+	"gameDesc" : "Opens security doors in sector 1",
+	"itemType" : "KEY",
+	"set" : "set_orders"
+}

@@ -69,6 +69,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	protected float toNextBehavior;
 	protected boolean eventHidden;
 	protected boolean switchHidden;
+	protected boolean autoplay, autoplayed;
 	
 	/** Lua */
 	protected transient SceneParser onAdd, onRemove, onInteract, onCollide, onEnter;
@@ -294,6 +295,11 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 		}
 		if (hide != null) {
 			switchHidden = MGlobal.lua.run(hide, lua).checkboolean();
+			if (!isHidden() && autoplay && !autoplayed && onEnter != null) {
+				autoplay = false;
+				autoplayed = true;
+				onEnter.run();
+			}
 		}
 		if (!SceneParser.anyRunning()) {
 			toNextBehavior -= elapsed;
@@ -411,7 +417,10 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	@Override
 	public void onMapFocusGained(Level map) {
 		super.onMapFocusGained(map);
-		if (onEnter != null && !isHidden()) {
+		if (hide != null) {
+			autoplay = MGlobal.lua.run(hide, lua).checkboolean();
+		}
+		if (onEnter != null) {
 			MGlobal.levelManager.getTele().getPost().addListener(new FinishListener() {
 				@Override public void onFinish() {
 					if (!isHidden()) {
@@ -465,7 +474,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	 */
 	public boolean onCollide(MapEvent event, CollisionResult result) {
 		if (isHidden()) return false;
-		if (event == MGlobal.getHero()) {
+		if (event == MGlobal.getHero() && (onCollide == null || !onCollide.isRunning())) {
 			if (isPassable()) {
 				runScene(onCollide);
 			}

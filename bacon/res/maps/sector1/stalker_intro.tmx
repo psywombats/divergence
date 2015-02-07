@@ -7,10 +7,10 @@
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3X0QnCQAwG4LuAqBNUl+hwuoKuYFfQseoKKr6ao0bNEeFS0ar8gRBI+x0t9Li0jSG01xxTuMU+6hxRd8+E65HrlO5OUq6d4nNfkuk54OGH9jX19zXpfeT1EvIMfb2s8YpPMYRP7y1RcW+W5bnAyxoL7i1J19LvJ8WKe2vS1fP9bbjXkK4ev+XejnT1eCs/6Q+xOxse0zpDvmn/w8PDw8P/t8/nirnTW7OFx1uzhcdbs4XHW7OFx+f3WvlOn88V+P+Eh4f/BX8B9zBEL4ATAAA=
+   H4sIAAAAAAAAC+3W0QnCQAwG4GtAxAnUJRxOV9AV7Ao6Vl1BxVeThzwkptCcaKX+gZ+DcN/Rgyuka0rpXOZUyqWxmdHrvr7Aw0/Bb6jei5Wq9Vr6DbVez3jHS43h5d5aS+6tXB4DvJ6x5d6O7Dr0/UjtuXcgu2be35F7Ldk140/cO5NdMz7KN/2Vc3NZ9NzhV/5/eHh4ePhpez9XrJM+mi0yPpotMj6aLTI+mi0y3u+N8knv54p70o/9/uDh4f/TPwEliNQmgBMAAA==
   </data>
  </layer>
- <layer name="Natural Lower Chip" width="16" height="78">
+ <layer name="Natural Lower Chip" width="16" height="78" visible="0">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value="0.0"/>
@@ -19,7 +19,7 @@
    H4sIAAAAAAAAC+2W0Q0CIQyGWcBJdBF1EM9BPAdRB/FuEH1wDY0lQtKQCm0vIihf8r+QfBC4Fs6YRuM/mSmcHaR32Sv8A+TocqrQP0NuE/wczCELIlyWkBWRu8K/QDqXqxvj+tbdmled2mzcPH4s5a+RS+UdD2Jtic9ZOzYH3qNkXY9kPdzPfcKnwP3keyKnbxlQRoUf0vzf9TnvV8znvB+f9O37E9a6xA+hzkPbv34/OX18Hp6S6w/ftdL6o+7Kmnz8rQahyzn/mBvzU17JPtctpf6n+px/d079fsOn7iqJz6V2n5pDSvPr8J8oxA4VgBMAAA==
   </data>
  </layer>
- <layer name="Natural Walls" width="16" height="78">
+ <layer name="Natural Walls" width="16" height="78" visible="0">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value=".1"/>
@@ -36,7 +36,7 @@
    H4sIAAAAAAAAC+3BMQEAAADCoPVPbQo/oAAAAACAlwEIvZz5gBMAAA==
   </data>
  </layer>
- <layer name="Natural Upper Chip" width="16" height="78">
+ <layer name="Natural Upper Chip" width="16" height="78" visible="0">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value=".5"/>
@@ -45,7 +45,7 @@
    H4sIAAAAAAAAC+2XWxKCMAxFcR0q+3B0H4r7UPz1uQ0fuFDDX4cpTZPb0g9zZjoDQy8JTZqUqjIMQ8p1hunfgL6k7X9hTmNL40trtVDoO9LVzv1eqG881zdB3B6FY+xbsw/g00ovZTmTX5eAb5ztJ2lfAb0kbj52E2lcUJ81eyYX69IOgNwTxyJF/+DeweUf14PQ/FsK5+fsqfX4o2xI+82UcPV2iLt/+zhx9XaIu39icrcn1Ltjzk8l++8J0HYev9Fa3grnH0B7KUC/2T3rbBT6I2h/jBL/Dr6ckqDJ54afEgT12TBi+AE/pRzjgBMAAA==
   </data>
  </layer>
- <layer name="Natural Wall Sidings" width="16" height="78">
+ <layer name="Natural Wall Sidings" width="16" height="78" visible="0">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value=".2"/>
@@ -90,7 +90,7 @@
    H4sIAAAAAAAAC+3BMQEAAADCoPVPbQo/oAAAAACAlwEIvZz5gBMAAA==
   </data>
  </layer>
- <layer name="Natural Overhead Chip" width="16" height="78">
+ <layer name="Natural Overhead Chip" width="16" height="78" visible="0">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value="1.5"/>

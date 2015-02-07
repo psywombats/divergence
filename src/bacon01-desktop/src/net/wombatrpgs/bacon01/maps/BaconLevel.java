@@ -131,7 +131,7 @@ public class BaconLevel extends LoadedLevel {
 			if (passed) break;
 		}
 		if (!passed) {
-			//hero.respawn();
+			hero.respawn();
 		}
 		
 		// periodic

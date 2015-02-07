@@ -1,6 +1,12 @@
 {
 	"switches" : {
-		"switches" : { }
+		"switches" : {
+			"collect_Radio(352,208) sector1/intro.tmx" : true,
+			"radio03" : true,
+			"radio02" : true,
+			"radio01" : true,
+			"collect_Red Key(288,112) sector1/cave_intro.tmx" : true
+		}
 	},
 	"levelKey" : "sector1/stalker_intro_ante.tmx",
 	"heroMemory" : {
@@ -10,5 +16,14 @@
 		"animKey" : "4dir_hero"
 	},
 	"saveSlot" : -1,
-	"items" : [ ]
+	"items" : [
+		{
+			"itemKey" : "item_radio",
+			"quantity" : 1
+		},
+		{
+			"itemKey" : "item_redkey",
+			"quantity" : 1
+		}
+	]
 }

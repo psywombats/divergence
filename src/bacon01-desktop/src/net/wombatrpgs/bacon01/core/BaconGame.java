@@ -111,6 +111,7 @@ public class BaconGame extends MgnGame {
 	@Override
 	public List<Class<? extends TwoArgFunction>> getLuaLibs() {
 		List<Class<? extends TwoArgFunction>> libs = super.getLuaLibs();
+		libs.add(BaconLib.class);
 		return libs;
 	}
 

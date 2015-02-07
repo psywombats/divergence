@@ -5,7 +5,11 @@
   <terrain name="Ceiling" tile="0"/>
   <terrain name="Groove" tile="42"/>
  </terraintypes>
- <tile id="0" terrain="0,0,0,0"/>
+ <tile id="0" terrain="0,0,0,0">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
  <tile id="3">
   <properties>
    <property name="x" value=""/>
@@ -109,6 +113,11 @@
  <tile id="59" terrain=",1,,"/>
  <tile id="60" terrain="1,1,,"/>
  <tile id="61" terrain="1,,,"/>
+ <tile id="71">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
  <tile id="72">
   <properties>
    <property name="x" value=""/>
@@ -894,6 +903,16 @@
    <property name="x" value=""/>
   </properties>
  </tile>
+ <tile id="342">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="343">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
  <tile id="347">
   <properties>
    <property name="x" value=""/>
@@ -905,6 +924,36 @@
   </properties>
  </tile>
  <tile id="349">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="360">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="361">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="378">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="379">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="396">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
+ <tile id="397">
   <properties>
    <property name="x" value=""/>
   </properties>

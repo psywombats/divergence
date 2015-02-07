@@ -13,5 +13,6 @@ public enum ItemType {
 	
 	RADIO,
 	GRAPHIC,
+	KEY,
 
 }

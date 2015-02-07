@@ -88,8 +88,8 @@ public class EventWarper extends MapEvent {
 		
 		light.update(elapsed);
 		totalElapsed += elapsed;
-		float ratio = (float) Math.sin(totalElapsed / period * Math.PI*2);
-		ratio = ratio/2f + .5f;
+		float ratio = (float) Math.cos(totalElapsed / period * Math.PI*2);
+		ratio = 1f - (ratio/2f + .5f);
 		float newRadius = (float) (r1 + ratio * (r2 - r1));
 		light.setScale(2 * newRadius / origWidth);
 	}
