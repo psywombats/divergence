@@ -1,0 +1,19 @@
+{
+	"key" : "anim_warper",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"file" : "icon_16.png",
+	"mode" : "REPEAT",
+	"frameCount" : 1,
+	"frameWidth" : 16,
+	"frameHeight" : 16,
+	"offX" : 0,
+	"offY" : 0,
+	"animSpeed" : 0,
+	"hit1x" : 1,
+	"hit1y" : 1,
+	"hit2x" : 15,
+	"hit2y" : 15,
+	"attackBoxes" : [ ]
+}

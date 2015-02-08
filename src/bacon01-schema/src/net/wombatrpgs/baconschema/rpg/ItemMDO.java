@@ -22,8 +22,12 @@ public class ItemMDO extends MainSchema {
 	@Desc("Item name")
 	public String name;
 	
-	@Desc("Icon - how it appears on the floor and in inventory")
+	@Desc("Sprite - how it appears on the floor")
 	@FileLink("sprites")
+	public String sprite;
+	
+	@Desc("Inventory Icon - how it appears on the floor and in inventory")
+	@FileLink("ui")
 	public String icon;
 	
 	@Desc("In-game description")

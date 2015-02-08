@@ -70,6 +70,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	protected boolean eventHidden;
 	protected boolean switchHidden;
 	protected boolean autoplay, autoplayed;
+	protected boolean movable;
 	
 	/** Lua */
 	protected transient SceneParser onAdd, onRemove, onInteract, onCollide, onEnter;
@@ -131,6 +132,9 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 		this(mdo);
 		hitbox = object.getRectHitbox();
 		hitbox.setParent(this);
+		if (object.getString("movable") != null) {
+			movable = true;
+		}
 	}
 	
 	/** @param tileX The new x-coord of this event (in tiles) */
@@ -339,6 +343,14 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 		}
 	}
 	
+	/**
+	 * @see net.wombatrpgs.mgne.maps.MapMovable#isMovable()
+	 */
+	@Override
+	public boolean isMovable() {
+		return movable;
+	}
+
 	/**
 	 * @see net.wombatrpgs.mgne.core.interfaces.Turnable#onTurn()
 	 */

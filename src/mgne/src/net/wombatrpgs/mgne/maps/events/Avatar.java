@@ -193,6 +193,14 @@ public class Avatar extends MapEvent implements CommandListener {
 	}
 
 	/**
+	 * @see net.wombatrpgs.mgne.maps.MapMovable#isMovable()
+	 */
+	@Override
+	public boolean isMovable() {
+		return true;
+	}
+
+	/**
 	 * Moves in a certain dir on the map?
 	 * @param	dir				The direction to move
 	 */

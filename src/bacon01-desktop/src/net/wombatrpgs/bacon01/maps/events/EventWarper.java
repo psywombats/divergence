@@ -30,6 +30,7 @@ public class EventWarper extends MapEvent {
 	protected float period;
 	protected float r1, r2;
 	protected float origWidth;
+	protected float startX, startY;
 
 	public EventWarper(EventMDO mdo, TiledMapObject object) {
 		super(mdo);
@@ -51,6 +52,8 @@ public class EventWarper extends MapEvent {
 	public void onAddedToMap(Level map) {
 		super.onAddedToMap(map);
 		this.level = (BaconLevel) map;
+		startX = x;
+		startY = y;
 	}
 
 	/**
@@ -70,8 +73,8 @@ public class EventWarper extends MapEvent {
 		super.render(batch);
 		
 		level.getLightBuffer().begin();
-		int screenX = getCenterX() + 16;
-		int screenY = getCenterY() + 16;
+		int screenX = getCenterX();
+		int screenY = getCenterY();
 		screenX -= light.getWidth() / 2;
 		screenY -= light.getHeight() / 2;
 		light.renderAt(batch, screenX, screenY);
@@ -92,6 +95,24 @@ public class EventWarper extends MapEvent {
 		ratio = 1f - (ratio/2f + .5f);
 		float newRadius = (float) (r1 + ratio * (r2 - r1));
 		light.setScale(2 * newRadius / origWidth);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.maps.events.MapEvent#isMovable()
+	 */
+	@Override
+	public boolean isMovable() {
+		return true;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.maps.MapThing#onMapFocusLost(net.wombatrpgs.mgne.maps.Level)
+	 */
+	@Override
+	public void onMapFocusLost(Level map) {
+		super.onMapFocusLost(map);
+		x = startX;
+		y = startY;
 	}
 
 }

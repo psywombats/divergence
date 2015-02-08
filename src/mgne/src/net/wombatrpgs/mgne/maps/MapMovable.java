@@ -306,7 +306,17 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	 */
 	public void resolveCollision(MapMovable other, CollisionResult result) {
 		// default - just get out of here
-		applyMTV(other, result, 0f);
+		if (!other.isMovable() && isMovable()) {
+			applyMTV(other, result, 1f);
+		} else if (other.isMovable() && isMovable()) {
+			applyMTV(other, result, .5f);
+		} else if (other.isMovable() && !isMovable()){
+			applyMTV(other, result, 0f);
+		}
+	}
+	
+	public boolean isMovable() {
+		return false;
 	}
 	
 	/**

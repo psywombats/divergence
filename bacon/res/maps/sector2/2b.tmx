@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="55" tilewidth="16" tileheight="16" nextobjectid="51">
+ <tileset firstgid="1" source="../tilesets/natural.tsx"/>
+ <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
+ <layer name="Artificial Lower Chip" width="32" height="55">
+  <properties>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2YXU4CMRDHt03MAoqvSiKeQK+gV9Cj+HEDlRuo3EDxVrBvvvqBqA9Og2OGSbuzJbQNsZv8M0yh/fGnO22XsSqKcQSVuigmaq4NHYfJ+VVivmFX2X/2n/1n///U/3NCvmGbi/LfQbs6vHq6+Lt24PWUfLdzyC902HhJ+Gfs97+G/EaHjQNy/10x/h3k9zpsHJL6u2X8A8gPQY+g0W/EthFrXzY+Ef8PjH8E+TH5fhPShvmqI+WfAOeUsbAtBLsi7BYwXlV4vRH2C6jN5iDkOjBV8vpbNqzjZaLhSftP6VnPPhH5hu1a/0vPevaJyLet/5S/ijq3ReTj5eJvBtK68PdAfUFdMu52g8/39eL9V1d/+Hxapw7hbzXs07T+QvOz/+x/Xfx/gGagTw++q0+df9z3e3pxjC81Z3yzMW18qY/kH8/ndHxc27qMZeNLfaT5x/O5eQ/X4H1HbuNLfST/9Hye4v7H8/lMycI5pvMsSfIfat/l+6/Lfyy+zX+M839b8B9D+f+f7D/7T+e/RZj82T+lfgDdA4bngBsAAA==
+  </data>
+ </layer>
+ <layer name="Natural Lower Chip" width="32" height="55" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2WUQ7CIAyG8QCeRDyI20HEU88dRCNESbBpWSnFqOnD97bx/VCgrDvnVsMwDMMwjC/DuyfHyL7CCPc9jju9mDf82hlKN9evlQG6t/wH916nXj901/zJjdVJ4j0h3sQSuRB++M+t2Ksafugu19o7vFbSDOf4fQDAeVNrhGVonT9nf3P905/6U42uDPcyyM/NMA/yl3uVyiCZ+5afOi9YBolb4s/kOYcOd6+/5979BX9t7Hzf+Q/7Ye+T3rvSDFjvGXkGqJ6vmUGzB7TWgnv/tvQg7lpw3VJ/LUOLu8eP5Wh1m5//Bhnll2bQ2n9lhkDkyO927bNfywHf7T19wDCMsTwAKoYEc4AbAAA=
+  </data>
+ </layer>
+ <layer name="Natural Walls" width="32" height="55" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".1"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2WS04DMQyG08XQc1Ae1+B5DR7lGkDhHEN7DhBwAdhPBVyAHgNbTZBlZTxJnAoW/iQriyax/45n/DtnGIZhGMZ/43jk3AnEBcSlsB5CHI3q596HmELcQsyE9bxyDUH3KcQrxAPEXFhvKtZAdWPur4T72ko1cN0puWkNT8oa3t1a91Vm7sASzjwqali5te57xTPsyLN4yzyL+kt0c1r/P3xnnlvpU//SFeqvyV/qR0x/HkP6d6GnGogtiJ2B92QMv+8VvP9SbnrfRKiB702lT3/ffbEaSnRL9yFSH9H/rFR3IMwfTt+3nO/Xzl/UMo2cx2/5Nrubzmm6T1MDPv+7yFmcJwfkbj6nA5rZh6D+ReQczpMzf3fwfDF/0innr/T+X/u5ip7vGeKlxyPQ+ZtTQ1/vUVrv+T4gPoW91AuleORYL2lZ+hqGPDLtpVjvaWvgHpnPhNBL6PlivVeL4JF5/pnXrfF8OTXwb+l8w7o5uTO5NrmepCax+dQkeIlSxsSvNMJslLxEKbmzeMJq1a4aH2AYxub5AWvrasWAGwAA
+  </data>
+ </layer>
+ <layer name="Artificial Upper Chip" width="32" height="55">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3UywkCMRAG4GG2ma1CO9I9qyX41rPPBnysrWgL2oJe/I8GgiZRGAP/Bz8LYWYnhyEiREREZKVRiDQL61v8zllFLmo3/4rZN8P5d8x+GM6n/HWwP12kF7BHMbXvjNA/RiZIHxkgQ3XPU2pDrdGzQbbIAlkiK3XPU2pDHdFTIydkh+yRg7rnKbVEuWhhb9ueVJ59jqkNNUXvzJO5558xtTFK9X+/rf1nud6biGy9vh18R4iIPnsC+CicR4AbAAA=
+  </data>
+ </layer>
+ <layer name="Natural Upper Chip" width="32" height="55" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2WYW7CMAyFyzWg5W8FJyiDc7TAOWDb8ZmlvfFknBYWByTkT6pUOW6eU8eJqyoIgiAIgiCwaGfX9+0L9IefZzW7tcM2L6TbJXSfxZq0G7IjJuTipHw9OP/Oq+MQFolvxC819git0tsn/Hp6/3TQhXZNMZxoDPuhUf4cy9r4zgO9D0VX6mJJto2KwZta6THQ9KrJsTVIrrekBV/eN9+Z+pqjYRM9bfeqAT3nGFz/H5laOXmrM7X/y6HAnI/WUFcgBqHE2ryROji/Oggn9Dr0XWSBMyB1T3mwM2x8Fz2jT0FNfI34eMeh8wFtzotook4kxtwzEOtsKns9qT3BfUGpO1jgf2LFgl5ooPGpvEyd3dZ6cOa16h72OAvl/tYxI/di5z4Eue+MWFqjN7iX4Q4f67+iF/TsA6AzlvvcPddPu/yB/SL/nHNRov8JguD9uADgOLspgBsAAA==
+  </data>
+ </layer>
+ <layer name="Natural Wall Sidings" width="32" height="55" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".2"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3VMQqAMAyF4fb+J3Fx1wso6K4XUNBTKOhQnEx8ULD/N2VIeaSENgQAAACUbvhJfu88t2XOV82/Os8xv0bp83vlfn9yz//0Zo/Ud1YndWXsVxiTujP2K+xJvRj78Y16l6zUu9TEENr4vl+9S9OZPd/53j9JJXe+909UKX1+AMDlAFixmWKAGwAA
+  </data>
+ </layer>
+ <objectgroup name="Object Layer">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <object id="39" name="arrow" type="Event" x="480" y="288" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="EAST"/>
+   </properties>
+  </object>
+  <object id="40" name="arrow" type="Event" x="0" y="672" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="WEST"/>
+   </properties>
+  </object>
+  <object id="41" name="tele" type="Event" x="0" y="688" width="16" height="32">
+   <properties>
+    <property name="onCollide" value="teleport('sector2/2a.tmx', 22, 14)"/>
+   </properties>
+  </object>
+  <object id="42" name="arrow" type="Event" x="0" y="688" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="WEST"/>
+   </properties>
+  </object>
+  <object id="43" name="arrow" type="Event" x="480" y="304" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="EAST"/>
+   </properties>
+  </object>
+  <object id="48" name="Warper" type="warper" x="304" y="544" width="16" height="16">
+   <properties>
+    <property name="appearance" value="anim_warper"/>
+    <property name="movable" value=""/>
+    <property name="period" value=".6"/>
+    <property name="radius1" value="80"/>
+    <property name="radius2" value="82"/>
+   </properties>
+  </object>
+  <object id="49" name="arrow" type="Event" x="432" y="848" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="SOUTH"/>
+   </properties>
+  </object>
+  <object id="50" name="arrow" type="Event" x="448" y="848" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="SOUTH"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="Artificial Overhead Chip" width="32" height="55">
+  <properties>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3BMQEAAADCoPVPbQlPoAAAAAAAAICXAb+WEZ6AGwAA
+  </data>
+ </layer>
+ <layer name="Natural Overhead Chip" width="32" height="55" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2WSw6AIAxE65LIEbyIJ/EqHt+ViSFYBtICmnlLQpjpB6gIIYQQQsichGW0A5E14yG31kN3NDlP0dEneraVh5H9dmujHtJ9XnVIa6758+yFkqbVfUFiuLViZc2syOl55B45c0TN/wzziTPDfODFzLE939oec0rNm+xNeInd4t7GQl6Rnuj1fpS8BKN/WYsnLPqeo1HzzbMWS+rlOc/tjT40kLxuTjro7Hka6KPw3ySEfIELJYIlsoAbAAA=
+  </data>
+ </layer>
+</map>
