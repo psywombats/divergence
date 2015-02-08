@@ -31,7 +31,7 @@
    H4sIAAAAAAAAC2NgGN7AiZGBwZERwTdlQOVTarYzEAcA2YFAHATEwUDswEieHaeAOB6oL4ERQScCcR5QPB+IC4C4EIjjGDHVnSTC/BdAvBOodhcjgq4H4h6geC8Q9wFxPxDXMGKqe06k+68D1d5gRNBzsYTDLEZMdcS6n1xArPvJBSPB/UrAeGIFYmUS0rYKUC0bEKuSoEcJqgeXXSpI8qSYi8suViTzSHXrUAcAXPMG+AAGAAA=
   </data>
  </layer>
- <layer name="Artificial Upper Chip" width="24" height="16" opacity="0.43">
+ <layer name="Artificial Upper Chip" width="24" height="16">
   <properties>
    <property name="z" value=".5"/>
   </properties>
@@ -69,7 +69,7 @@
   </object>
   <object id="41" name="tele" type="Event" x="160" y="80" width="32" height="16">
    <properties>
-    <property name="onCollide" value="teleport('sector1/2b.tmx', 27, 52)"/>
+    <property name="onCollide" value="teleport('sector2/2b.tmx', 27, 52); setPlace('Warper', 25, 42)"/>
    </properties>
   </object>
   <object id="48" name="arrow" type="Event" x="160" y="0" width="16" height="16">

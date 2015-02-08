@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="26" height="40" tilewidth="16" tileheight="16" nextobjectid="75">
+ <tileset firstgid="1" source="../tilesets/natural.tsx"/>
+ <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
+ <layer name="Artificial Lower Chip" width="26" height="40">
+  <properties>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+1WUW7CMAyllRDjBINjwnYD2G4A4wYFbsXgBsD2u0TK0yzjxG6UsE1apSc31Xt9VlU/+dAMBod//Gp8OEzaND4L6EbuPHd4StRhe+vTV+f5S4eXRH0Uep0adNxn7fCWqLPQI+B7fTbouM/WYZeoi9Aj4Ht9Nei4z7H5xjuDf7YKPa5Jr5v2lssh+aT4XehxS3rdZ/ho/FxoPrFvWMrnGMHZ4Ur0/NzHJ+ZxCnzaDz/3+Q/oeyn8VcLnwd1fmjTGgo9VZ81CmjPwkXJIy1ItC2nOwGdm4KPiu2lZSHMGPgsDHxU+WhZKObMy8FHho2WhlDOdgY8Kn1qZA9zTxzIDAM8dq67PDPkZ4HNaaw+RcqfGHsLzoNYewvOg1h7C8yBnD9H+TT//PA9y9hCN3wl58Jf2kJ/ykeY/dw+x8nN19/KhWRrLyrHgk6uDFvcxTkldaXwBfOWgUkAQAAA=
+  </data>
+ </layer>
+ <layer name="Natural Lower Chip" width="26" height="40" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3TsQ0AIAwDwTAA+8+XTRgBkkBkoS++vsb2YeZElG7avi7nhnXqVK2IU7GiTtbC0XZIu8wOMpv5zSGq1rG317vu+g+O9g5+dRRbi4jOqEAQAAA=
+  </data>
+ </layer>
+ <layer name="Natural Walls" width="26" height="40" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".1"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2Wyw3CMAyG4wPsAQjWAARr8FyD5xwFBqKLtGPw52CJQ+Q6dcgB5ZN++dDK0dfKSZwrFPJSIztybk/hOkKWZF+nRS7oc6VwnSOLBGt5nwd6PClcN8g2gVfb8fyE3ucEXrXinerLqy9dPgx79UXjw1QZfKzE+FjI5TPGNx8gw4hakPdQqcYi7aFSjUXaQ6VaKORkppixt3GNFXqsFTPWGD0OyFExYxYf73FD7opZtfh4j5dyP7D4aDwYi08MFh8+Uyc//j+M5v5inR+P5v6Swkdzf5n+6Tn1Adm/mvJAEAAA
+  </data>
+ </layer>
+ <layer name="Artificial Upper Chip" width="26" height="40">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjABPsYWJg2AvE+4B4PxP5+uyYGRjsmTHVlQPlKoD4HBCfB+ILQHyRBHuI1dcJlOsC4gdA/BCIHwHxYxLsIVbfbKDcHCD+BMSfgfgLEH9FU+8DDAdfKPZDCxN8+kgFBUCzC6G4CEvYDzagQYF/84B686G4gMJwwwcagGY3QnHTMLBnEtDsyVA8hYb2jIJRMApGwVACN4Dl4U0ql4kngOadBOJTSOa+ArJfU9meW0DzbgPxHSRz/wDZf4mwRxjYVhBhxs1HBm+A5r0F4ndkuF8VaKYaM24+MvgHNP8/yA46t2NIbZMghxW+cEMGS4B2LCXRHuSwwhduMADyxzYg3j5ax6MAYuNosJk92AAALPP82kAQAAA=
+  </data>
+ </layer>
+ <layer name="Natural Upper Chip" width="26" height="40" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBQMJdDGiGDLDpwzaAKskdjlVDR3ISNhNdQE6G6PoKFduPzWQgU/zweasQCIF6OZRUv/jIJRQA9giUUsku6ugAD0/DUKRsFwBKVYxGhdN8PqMBhYQkX76J1v0cMKxKdGPQ8DNmh8mP/aaORPK9oYOwroBAAvCRZtQBAAAA==
+  </data>
+ </layer>
+ <layer name="Natural Wall Sidings" width="26" height="40" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".2"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3WsQkAMAwDQe8/WSB7GLJFJogLEVSIvwXE48ZVgN827RzTDj0aejRpPQCQYJl22rRDj4aet+l/+dkz/S+u+yS7swUQx0AQAAA=
+  </data>
+ </layer>
+ <objectgroup name="Object Layer">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <object id="41" name="tele" type="Event" x="0" y="352" width="16" height="32">
+   <properties>
+    <property name="onCollide" value="teleport('sector2/2b.tmx', 29, 20)"/>
+   </properties>
+  </object>
+  <object id="48" name="arrow" type="Event" x="0" y="336" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="WEST"/>
+   </properties>
+  </object>
+  <object id="49" name="arrow" type="Event" x="0" y="352" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="WEST"/>
+   </properties>
+  </object>
+  <object id="52" name="Checkpoint" type="checkpoint" x="160" y="208" width="96" height="304"/>
+  <object id="53" name="Warper" type="warper" x="40" y="231" width="16" height="16">
+   <properties>
+    <property name="period" value="10"/>
+    <property name="radius1" value="96"/>
+    <property name="radius2" value="48"/>
+   </properties>
+  </object>
+  <object id="54" name="Warper" type="warper" x="311" y="482" width="16" height="16">
+   <properties>
+    <property name="period" value="10"/>
+    <property name="radius1" value="96"/>
+    <property name="radius2" value="48"/>
+   </properties>
+  </object>
+  <object id="55" name="arrow" type="Event" x="80" y="48" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="57" name="arrow" type="Event" x="64" y="48" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_unlocked_blue"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="59" name="locked" type="Event" x="80" y="48" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_locked_blue"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="61" name="arrow" type="Event" x="96" y="48" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="62" name="arrow" type="Event" x="304" y="48" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="63" name="arrow" type="Event" x="320" y="48" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="64" name="locked" type="Event" x="96" y="48" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_locked_blue"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="65" name="locked" type="Event" x="304" y="48" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_locked_blue"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="66" name="locked" type="Event" x="320" y="48" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_locked_blue"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="67" name="arrow" type="Event" x="288" y="48" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_unlocked_blue"/>
+    <property name="face" value="NORTH"/>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="68" name="door" type="Event" x="80" y="128" width="16" height="16">
+   <properties>
+    <property name="appearance" value="anim_door_closed"/>
+    <property name="hide" value="return hasItem('item_bluekey')"/>
+    <property name="passable" value="PASSABLE"/>
+   </properties>
+  </object>
+  <object id="69" name="door" type="Event" x="304" y="128" width="16" height="16">
+   <properties>
+    <property name="appearance" value="anim_door_closed"/>
+    <property name="hide" value="return hasItem('item_bluekey')"/>
+    <property name="passable" value="PASSABLE"/>
+   </properties>
+  </object>
+  <object id="70" name="tele" type="Event" x="80" y="128" width="32" height="16">
+   <properties>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+    <property name="onCollide" value="teleport('sector2/1c.tmx', 31, 77)"/>
+   </properties>
+  </object>
+  <object id="71" name="tele" type="Event" x="304" y="128" width="32" height="16">
+   <properties>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+    <property name="onCollide" value="teleport('sector2/1c.tmx', 47, 77)"/>
+   </properties>
+  </object>
+  <object id="72" name="tele" type="Event" x="80" y="608" width="32" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('sector2/3d.tmx', 1, 9)"/>
+   </properties>
+  </object>
+  <object id="73" name="arrow" type="Event" x="80" y="608" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="SOUTH"/>
+   </properties>
+  </object>
+  <object id="74" name="arrow" type="Event" x="96" y="608" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="SOUTH"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="Artificial Overhead Chip" width="26" height="40">
+  <properties>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3RIQ4AIAwDwML+/2cUCWYOEsSdq6loEwAA4Cejkll9pnduZbf/vfhod/r/vgVMs9Q3QBAAAA==
+  </data>
+ </layer>
+ <layer name="Natural Overhead Chip" width="26" height="40" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3WMQ4AIAhDUTi6enFcXNybJs1/ByDQpVQBgMdp9wY6ytvWnb2DswMA+Ki7OanD/qyS/xrgGaTfUKdAEAAA
+  </data>
+ </layer>
+</map>

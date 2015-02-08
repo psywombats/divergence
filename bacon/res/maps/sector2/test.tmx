@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="27" tilewidth="16" tileheight="16" nextobjectid="8">
+ <tileset firstgid="1" name="rtp" tilewidth="16" tileheight="16">
+  <image source="../tilesets/test/rtp.png" width="64" height="32"/>
+  <tile id="0">
+   <properties>
+    <property name="glow" value="glow_test.png"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="x" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="9" source="../tilesets/artificial.tsx"/>
+ <tileset firstgid="73" source="../tilesets/natural.tsx"/>
+ <layer name="Artificial Lower Chip" width="32" height="27" visible="0">
+  <properties>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+WVyU4DMRBEfU0kIkHYkmHf932HHNj+/5doSylRKtlxGzHkwOHJkdvj7hpFb4YhhOGYxugaHWNA+39FM+7dnWL//5Z/i9im/JtSa4sFYpHyz0vtt1kylo1VYo3yr0jt0Dgyjgt7XtaNDWOX2KP8O1K7NK6M68Kel33jwDglzij/idQejSfjubDn5dy4MG6JO8p/I7VX4814L+x5uTceKO+01hmjRytqus8rns3Va9Y5ok93z0qNz2DG3Jkaav3XpqMn3f0Svh2JGeHIUeJcipGjfy5/rMGRmBGOHCTOpSi9L86v/o+54UjMCEdq/5zzPP1z/o+54UjMCEdq/5zzavKr/2NuOBIzwpHaP+e8mvzq/5gbjsSMcKT2zzmvJr/6n78NjP5XG+e5Un71P38bOvJb+3vOlfLnVr0z1z/1TE3+lK899zbBN2cpv7q9n7ivjfc/yX94D0wv0d9zrtb/HyH/Dfv8wTnwBSke+GSADQAA
+  </data>
+ </layer>
+ <layer name="Natural Lower Chip" width="32" height="27">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2VXQ6CMAyAt0fDQfQicoOdRFGuISDX8Pca6kX0DrZxJHMpcwXnHlyTL+kI7deQdAjxHkoTK5I/+ZM/rn/xY58JulfAmqAECqJGOWpclESfDdAAW4IWqHv8rro+2gD+E4PzF/1DsWMHHInnZoTcEaVniOn/1Dv5/9Pvu0O+74Xy4x2+tCiY/jHgHVYBUynETL7y2tN/AW66j5lz/ejuzjiDr/+uuVo5Zw70zw1/PsBv82D6Kz1Dzvz+nY8Kzj9kb3Hw9E9g3kyO83P27wkKU9GugA0AAA==
+  </data>
+ </layer>
+ <layer name="Natural Walls" width="32" height="27">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".1"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2VTW7CMBCF7ROUQq8BpZwDyhlgicQZqu5aEGLLz74FIba03UN7gf7saXsANqx5iIw6cjKxDQpZ0JE+jWW/5MVR8qzUX2W1UjmQAedaHb3S9i/C8woUwOW//0n5t+DXBmuMV+AO4/sjPMMjPEZ618fgApyBBzbPew/X9MEADFV43bcvwGvQ30AJ5MGczfM+g+cTeAYvKrzu27/BT9B/2ftesnne37H2AT7Blwqv+/ZTr4recQ3K7H1U2Tx1F41v5+WS/0meEWn7F4N7x+Vfkhlp8086I23+UkbyZ2hpOetsz0r+5t5o31JGkpbrorLO9r2QP+3NPBukjORa0kVlnc2fvm3am3k2SDV30Ln8L7R/2pt0Npi1FHQdNvb1P7S6uM8E1FLynwb3uQG3e/hvs53ndDnmWq6N0tU9/aO0WeHdmFpJ55KXcdna0PIZ1tT+OqoNjMsOYoANAAA=
+  </data>
+ </layer>
+ <objectgroup name="Object Layer" visible="0">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <object id="1" name="autostart" type="Event" x="64" y="160" width="16" height="16">
+   <properties>
+    <property name="hide" value="return true"/>
+    <property name="onEnter" value="speak('Radio box test. Radio box test. 1 2 3. Radio box test.'); sceneSwitch('auto_intro', true)"/>
+   </properties>
+  </object>
+  <object id="2" name="test warp" type="warper" x="192" y="304" width="16" height="16"/>
+  <object id="3" name="npc" type="Character" x="384" y="320" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_mono"/>
+    <property name="onCollide" value="speak('Stop running into me you doofus')"/>
+    <property name="onInteract" value="speak('Thanks for talking to me.')"/>
+   </properties>
+  </object>
+  <object id="4" name="checkpoint" type="checkpoint" x="64" y="352" width="32" height="80"/>
+  <object id="5" name="stalker" type="stalker" x="496" y="160" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_sk"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

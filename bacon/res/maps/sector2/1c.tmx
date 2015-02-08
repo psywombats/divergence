@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="80" tilewidth="16" tileheight="16" nextobjectid="68">
+ <properties>
+  <property name="period" value="4.2"/>
+ </properties>
+ <tileset firstgid="1" source="../tilesets/natural.tsx"/>
+ <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
+ <layer name="Artificial Lower Chip" width="80" height="80">
+  <properties>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2dW0rDQBhGkwGx9faqgroFcQniEsQliO+6BHUJ1SWoy6pb8H55cEIyEMu0yeSfTDLNeTgMKN8wOUhbv5+k0zRJplDJSCXJq17HqvuzLCPvmh0Fdfiw+FvVP7/UXLFWrivK7u9Gc8tauc7zd6e5Z61c5/l71DyxVq7z/D2nUAf84Q9/8YI//OEvXvAX1t+n5mtgfHv0t6Z/tz4wNhb4wF93/rY0+0vKZgB/2b4vad5lG94WvFbYkOZ97GHLz15nW/5m867v3dK8jz1sefzF4W9b/Z8H7DqeXZr3sYctH8rfocpnAWYecOR4dmnexx62fCh/xyqfBZh5wInj2aV5H3vY8qH8nap8FmDmAWeOZ5fmfexhy4fyd67yWYCZB1w4nl2a97GHLR/Kn+u1xgL+8Ie/eMEf/vAXL/jD3xD80Z/S/9GfxuuP/pT+lP6U/pT+lP6Uz8/u14k//OGvf+APf/iLF/zhbwj+6E/p/+hP4/VHf0p/KulPjfvyc0zoT+v7uy5y5b9D+tP6/iZFrqm/ofenD0Wuib/ftPt7I9viJ61/ndn9mU38gf1zHP7a87en2r3Xsck9ndK8lAMHf20g7SS67DTM/85j/DWiD8+PwB/+8Ic//OEPf/jDH/7wN1x/5vn4ocjmreb6Z2exIfIS+vAdAqPSGZqcR5qHfvAH+A/5OgBkAAA=
+  </data>
+ </layer>
+ <layer name="Natural Lower Chip" width="80" height="80">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2cbVIbMQyGvfzvSSiFa6Rf10iBXqPlIJCDAAdpA71GoPYQDUJI9tprW96NO/POdAA78rOSbMvOGmPMdujq6urqOlT5/mnb1nU4+mX97Xf3uSR9sNyurW720rZHUzfmvYYR/G6t/h04Qxj7o9Ud4eFj4vhRhpsDY4jZ3SMelCPX1uW9K9JGezza7LCwXw1C+w3TLqeNx7a/jyN0UuCzfboOsAPh+QHHJvx8IH6Ym92T1ecR2iGONflx/iP5oOS/ufMe+BRm98fqB6O/hOOXxvi59d3RwPO7M6+6z2T3ivEtx+5csG9NOIb45co1OP6uBNt88VtKK/Pe3yR2WNDOxw9y6QnTPsVWvM7jGGLfe6wUF5gDtcc3/vXeB338fH2n2osZunkA62io63t4jLs9p2PECxjtjMzwPMAP5wLc9xSbub0HluR7wLkEP/CTtXkbv5DvfDEt9U37WiFfhL9J8Us8D3Di2uC8OBTkx42Di+uYdQu0eWJiGftkifUsxy/nvhfzk9Z0sXHL8aOxTPuK8eup/HLOLZDjfGs6zk9iPoNy4p5JLX54/5KTIV4jU9/ixj9VXNzmnGMkfptCz6e2pLjl5pic/IahzN63trh4pXNMCX7gg7FzYGuS9jR4jkntG844fGvr3PmoBYa5xkTXKlSQA0vlWm0/nNon5Qd1flx7oc9r6rlc6fVDTd0KvHyi88sUfmP9em5nWD5+jnnqmRKXx3cBhjSnaLPJxTC2tirNg3g/HGK3JIaxuYtrS2sunZ+/r5Q68VzZleAn1fi0xzkHflJ/Je3/ZPs/3etM4TlJseYbfwvxBtyM/f8386LvlX1dqkPOgd9X88pNgx/dc3R+8fxSc1/nl3/eqK0La9/DntvW6tLqZ0P8tPmMZYi51bZ7zuy65qEauR7XuFPqXa2q1r4cnwcMw3IY1uDHnQ+kMoTnMDTAbiy/qfOHGzN39z+27orPFlJrt6X5jWEXyxCfQd2i8cf4ELSj3yHIdS+2hDArtxc/S+QHrPA9dIjpFFvmsJai7FwN45kwHNsXPYvH/rNEfhw7un+MtRvylfND54Ox559z5EfZbc20fRCee6U7/7EMtVn57MT1C8ouxXY4XwZf1B5nLX4cu1affQsCPlztorMbzy+UrzvPOIa+32vb26LG+J0GP1j7+ObwVp8rXRvCuSr8rpYd+K5d6L6YNjOJnea5aojdlO8/lOZH2WnwC91T5M5dW+GnfS6IbZH8rcU49vGD2oIGOyd6BxOYarw7IWQzxw98UMv/uDtd+O6Jtu+F/G9rXvYpWs/UlwO1uVGbKb9tYzbOQVpxuyS52sJl5bjF84Lm+3Vyjqf259F3mvi+y971lh1930TMO1Bo3nZrLrz/XLqkfcVYQT3T6YFhqT2+Gvxy6YLhuHSGPh64FoRFz6zHxLT2ODX4SXui5wBLqZ32WGvx476jIAmzPA20W+KaNsbvpmqJ/HyCeRVUu31XG/oPU/UErQBkAAA=
+  </data>
+ </layer>
+ <layer name="Natural Walls" width="80" height="80">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".1"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+1ca3ITMQzuzlByDkLgGgXKNRoarpFCOEda7gHtCegBePzkFz0G9nQ11SiS35a97X4znp2mWUcrf5Zkyd6joxkzZsyY8ZTxdzg6emfaB9POTXth2tvh/vMZfljdvTbtk2mfTTtBOnxKAD0Aj+j1jaCTW9Pem88vTbsy7WzU4Q/1J2gHq7vT4V4PwCN6XQs6vDPtI/psO+rwn+oTtAPwbjPc6wF4RK8Xow7p3LT8+0J0un1C/IP5txsO9YCxH3VI5+ad8P2S/PPZllBbUwMw/74G/N6emZu3wndL8Q90Z8f4u2nXAde1Iv+5+ecCnZu1+Ad6Ox91d2PaL9N+B1y/Kdpf6fldwLItjawvif5X5u9XmfMH7Mr1qLs/Ef399PDP9l1qzkvzzwUsm42T8RgsRt3lxs+2z5uRTzG6A7j4Z/vm4ouUOZ/LP6sny8Fj054j3eXqz45rit4APv5x8UXKnM/lXy2kjCuGj38U+0T+cfbLBWrbsC0pqdeUccXw8Y+D1TmsJah9dK1JrQ6fBehwMRz6BWxLSvo8bf5ZWJ1b3W6GQ/t44vExPh5KPhXbkpJxK8eRFbKzxw55ff5/KdxvdW51uxsO7eNZgI9ZEvnwVZIHj2XJuJXjCOUU9x1ujkigYwT849YS2wwfEypDyf45/tGx4b4T8/tc3OWyG6k+JlSGfcE5zNkTH/9i43Yad1n4/FZN/llIea4UUHtCdeP7fwp8fqs0/06JzFKeayqoyT/bN80XbYiOcJ5LM49UCjX5Z/umuekdox/Ic02Rh7X5R3PTUt5wW4CHXN609ni44uDcvFLsmiCHhzhvivnuGg+q79Rxk+LgEjm5WGAextgOyP/RmoxrHQD35OakamEprE18+Qcu7+8D1BW42pQUp8M9uTkpbYTkH2Jrcq66grQOoPfUWC/UQkgeLHVtFdpXyJq5Z/jsYyz/YvsKWTP3Csg7ulCKf1IcwfnNEJ/JxUmasT/ojq5FKCTOgNy0rsfZ1BK1PU4GGidp15A3wloEQ7JZIDeVN5VPsaB++1LZd0PO1reHQeIfyN3K1nO+XtN3SzlbCp/PbGXrNfbwpPw+hpRXxz6zJf84aPLPBZfN53LA2uiZfzH1nFbgfH0NPx/z+9oy5KJGLQCD1uVrxBql8k89gtbla9gGLv80tfy1BFqXr+GbuPxTbN6Q27/SA49pjEf5R+X27bmRfoPmn2Lzhtz+lR7yqNTHYnnwHn6Q+3MCdzg/Hps35Pav9JBHxTEe9qv47AiW+yqROxxi+6BroR7yqFycS8+OULlTuMOhRB+t+cch5OxIC/5xaM0/DiFnR2b+yQg5OxIjt7SOie2jxnmKGgjJu8TOG/r8Kc9eey1WCiH19JR500NORgM+/i3G2Abi6R5teEu4+LcaHmpKEE/3aMNbQrL3C6S7HYqntfkHtT0un0PXm63WyJy9x7rDsY22jFDbw/kcsCWw97OHXA+297iWSePC9Si31rs5oLaH8zlgS2DvZ06upwZctcyLUW4t/VH/tke2hO79TMn11ICrlrkf5dbkXwx6eG9DSEzdin8h6IF/PvTKP4uZfw+YIv960l/u2eYWcO3lXYxxjua7xVxnSjX2dqXAdb5WA9IZ8t5qcj7Q+aO9H1F6lxfU5KamQ+39iNK7vKAmt2Z46bu20DnMZy37ErIfEc45Svx08fax7ImQEBq3wHrOxVOOt1M9WxqK3HefuDDls6WhyH33iQ+pZ/qmgpr8A/SSr6mB2vwD9JCvqQEN/gEeI/+kc7Z0TbQKXNe57u9lzacFq1t4v17Ks+feP6MP/Af7zLXRAGQAAA==
+  </data>
+ </layer>
+ <layer name="Artificial Upper Chip" width="80" height="80" visible="0">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3ayU0EQQwF0FJPekAIQBysCcAACbAmwDJkAilACsMNXzgitWyNZGnek3zran/V8avGAID/fUxjfE7zvt1ZjLEbs7fw/Z+vuLvvmfe3H/85iDmcuX8bvl/H3f3MvD8AAAAAYLsdTWMcx5wkO8XTOHcWc17oJDtkyLqInZcxy+Tuqzh3HXNTyN4hQ9Zt7LyLuU/ufohzjzFPhewdMmQ9x86XmNfk7rc4t4p5L2TvkAEAAABgU6rdY7X77JIhq9o9VrvPLhmyqt1jtfvskiGr2j1Wu88uGQAAAAA2pcPbzw4Zsjq8/eyQIavD288OGbI6vP3skAEAAAAAAOjnF62iKHQAZAAA
+  </data>
+ </layer>
+ <layer name="Natural Upper Chip" width="80" height="80">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3bW27DIBBAUWc98TK7kqr/TZMuq1KzhJYPFIIgNg/DDNwjVWmkpMV4GJ5eFgAAAADI89W7ABjGenr8/p3wvcv/z/m0+bGhhdrh7HWS69K7AMqsyuLM5hZp7ePqvb91KUWYvcdn77VESo5PIeW+2jq7ee+NT+dzPwV/e3a59TDDmGHr+ka//hJ7xwBHzX/MvZGU/zVxcwIxvl+oH6Kf2S/Wv2M/tw6JPbRk+goTc/48rEUcjhLr9+X5Wn4b//+j5pSjc8e7jJnQ2lExx/5UPvJAPjuXGqVfT1E7bmaaS810rTWRq47BGmSemvtkrXx0LKumevL1rLfQekXOfqIEb8QfAAAAFGEMWWf9quT8tbZ9rFAZe5XbXatm3QeI05BbJOMZG/TGWcM6/PVny5y9IE8CYbF205PE9mrOdMb2UyXlbS1nN6SWU2LsvcIzWq/ZtskZzHmYPk1bO8aYiEPMaI2MS3g2Kp2k+cUIQvXJmOHBrYeteRqxGUa95NN6dngG78Q1gAJ/V2s4ugBkAAA=
+  </data>
+ </layer>
+ <layer name="Natural Wall Sidings" width="80" height="80">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".2"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2bzW3DMAxGs/8mvXSNFmjWaIBmisIHAYIgypYo/vp7p8RIKJl6ZOxEeTwAAAAAwOXTegLBeVaPv81mEZd39fhlNosc3M2/n4nX9nLz1zy/m3/t+Y/o5abNv7V/2uNn8097fK5/Usysa80V/1Zjc2Np1sbMutZcWeM2Nue8vOZP0z9OXXmt3yj+cdnZS3bE1faPy6onUnG5/kn5QHGM9yEUV4s6f9S6SdX4Md6XQNw6f9TcuTku7391jrVI1fgx3q9A3NoDau7c/PVc0/avnINEDReo/En0Xm3/yjlI1LAF2v6V754latgCSf96sZ+dY5Gh8rfDv57b786xyFD1u8M/qWvlu6B9bZ6NVf9WesdKH8q6viu9Y6UPZe0v8I+Hln9Z87fTvxHR65faB7PTv8xQ9yLee5b1b9hlfOpexPtnpvVv2Gc5GK2nh/x58Y/C+2emd/+k3rsL7/55J7J/AAB5So+T7K3R++iI0uMke2vmPhrFP68O9/Y6jFjJ8w7/vDo8O6+VOs/s3yzw75zRWsO/c0ZrDf/O2e3f3djt392Afzyu9mq42Odqr4aLPKzyF+laZoTk3ugRka5lRljtjfb6375ZrPZGe/1vXxSy+GcF/OMB/3jAPwD4oLfw0O4tWe7bCtiPE4ts/mkD/3jAPx7wjwf84wH/AAAgJ/9lppApAGQAAA==
+  </data>
+ </layer>
+ <objectgroup name="Object Layer">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <object id="49" name="tele" type="Event" x="1264" y="976" width="16" height="64">
+   <properties>
+    <property name="onCollide" value="teleport('sector2/2b.tmx', 27, 52)"/>
+   </properties>
+  </object>
+  <object id="51" name="arrow" type="Event" x="1264" y="976" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="EAST"/>
+   </properties>
+  </object>
+  <object id="52" name="arrow" type="Event" x="1264" y="992" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="EAST"/>
+   </properties>
+  </object>
+  <object id="53" name="arrow" type="Event" x="480" y="1248" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_unlocked_blue"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="55" name="arrow" type="Event" x="512" y="1248" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="57" name="locked" type="Event" x="496" y="1248" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_locked_blue"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="58" name="locked" type="Event" x="512" y="1248" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_locked_blue"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="59" name="arrow" type="Event" x="512" y="1248" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="60" name="arrow" type="Event" x="736" y="1248" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_unlocked_blue"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="61" name="locked" type="Event" x="752" y="1248" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_locked_blue"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="62" name="locked" type="Event" x="768" y="1248" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_locked_blue"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="63" name="arrow" type="Event" x="752" y="1248" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="64" name="arrow" type="Event" x="768" y="1248" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="66" name="tele" type="Event" x="752" y="1248" width="32" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('sector2/2c.tmx', 19, 9)"/>
+   </properties>
+  </object>
+  <object id="67" name="tele" type="Event" x="496" y="1248" width="32" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('sector2/2c.tmx', 5, 9)"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="Artificial Overhead Chip" width="80" height="80">
+  <properties>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3BMQEAAADCoPVPbQdvoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDXAF0TSAQAZAAA
+  </data>
+ </layer>
+ <layer name="Natural Overhead Chip" width="80" height="80">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3aSQ6DMAwAQP5/o9uzKrUv6rVKWYIass6cQELCKCy28TQBAMC4rqUDoEuPA8deTouiHZ7DdNxPfTvybsnpFuzfi0SRT63rkNrSOs5f289cgQBRYnOAM/Ou3t//1MV3KJ15/xCgQmEdRrx3sP/KfP5RasrU9Lzokb44Jail0hmplhrpWqmfHiTULexXyD0AAIAcUvSv/vkX5T9WGvo+AMCWtXk5sxewzpxpnFZmOluZ3Wglzhaok/fJA8bhmwZQ1lJe0koezVjkDMvUaeRmdhgAfn0AgIg9+ABkAAA=
+  </data>
+ </layer>
+</map>

@@ -15,6 +15,11 @@
    <property name="x" value=""/>
   </properties>
  </tile>
+ <tile id="9">
+  <properties>
+   <property name="x" value=""/>
+  </properties>
+ </tile>
  <tile id="18" terrain=",,,0">
   <properties>
    <property name="x" value=""/>

@@ -13,7 +13,7 @@ IF EXIST "C:\Program Files\Java\jre7\bin\java.exe" (
 ) ELSE IF EXIST "C:\Program Files (x86)\Java\jre7\bin\java.exe" (
 "C:\Program Files (x86)\Java\jre7\bin\java.exe" -jar game.jar party=party_playerTest debug=develop map=%map% x=%x% y=%y% encounters=off
 ) ELSE (
-PAUSE
 @echo on
-echo You don't appear to have Java installed, do that first!
+java -jar game.jar map=%map% x=%x% y=%y%
 )
+PAUSE

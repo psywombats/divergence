@@ -1,14 +1,12 @@
 {
 	"switches" : {
-		"switches" : {
-			"radio04" : true
-		}
+		"switches" : { }
 	},
 	"levelKey" : "sector2/2a.tmx",
 	"heroMemory" : {
-		"tileX" : 8,
-		"tileY" : 12,
-		"dir" : "EAST",
+		"tileX" : 10,
+		"tileY" : 10,
+		"dir" : "SOUTH",
 		"animKey" : "4dir_hero"
 	},
 	"saveSlot" : -1,
