@@ -114,6 +114,7 @@ public class Memory {
 	 */
 	public void load(String fileName) {
 		MGlobal.reporter.inform("Loading from " + fileName);
+		MGlobal.levelManager.reset();
 		InputStream input = MGlobal.files.getInputStream(fileName);
 		ObjectMapper mapper = new ObjectMapper();
 		Memory saved = null;
@@ -167,6 +168,7 @@ public class Memory {
 		// put the hero on the new map
 		Level level = MGlobal.levelManager.getLevel(levelKey);
 		Avatar hero = new Avatar(heroMemory);
+		hero.parent = level;
 		level.addEvent(hero, hero.getTileX(), hero.getTileY());
 		hero.setTileLocation(
 				hero.getTileX(),

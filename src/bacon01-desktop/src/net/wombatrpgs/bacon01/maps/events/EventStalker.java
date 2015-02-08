@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 import net.wombatrpgs.bacon01.maps.BaconLevel;
+import net.wombatrpgs.bacon01.screens.ScreenGameOver;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.core.interfaces.Timer;
@@ -22,6 +23,7 @@ import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.events.Avatar;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.physics.CollisionResult;
+import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.util.AStarPathfinder;
 import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
 import net.wombatrpgs.mgneschema.maps.EventMDO;
@@ -130,14 +132,15 @@ public class EventStalker extends MapEvent {
 	@Override
 	public boolean onCollide(MapEvent event, CollisionResult result) {
 		if (event == MGlobal.getHero()) {
-			new Timer(0f, new FinishListener() {
+			MGlobal.getHero().pause(true);
+			MGlobal.levelManager.getTele().getPre().addListener(new FinishListener() {
 				@Override public void onFinish() {
-					MGlobal.levelManager.getTele().teleport(
-							MGlobal.memory.levelKey,
-							MGlobal.memory.heroMemory.tileX,
-							MGlobal.memory.heroMemory.tileY);
+					Screen go = new ScreenGameOver();
+					MGlobal.assets.loadAsset(go, "game over");
+					MGlobal.screens.push(go);
 				}
 			});
+			MGlobal.levelManager.getTele().getPre().run();
 		}
 		return super.onCollide(event, result);
 	}

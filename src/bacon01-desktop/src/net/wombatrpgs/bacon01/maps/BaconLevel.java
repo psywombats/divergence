@@ -276,7 +276,6 @@ public class BaconLevel extends LoadedLevel {
 		lightBuffer.dispose();
 		altBuffer.dispose();
 		normBuffer.dispose();
-		effect.dispose();
 	}
 	
 	

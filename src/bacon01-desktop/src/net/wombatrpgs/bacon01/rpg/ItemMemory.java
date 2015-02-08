@@ -14,6 +14,10 @@ public class ItemMemory {
 	public String itemKey;
 	public int quantity;
 	
+	public ItemMemory() {
+		
+	}
+	
 	public ItemMemory(InventoryItem item) {
 		this.itemKey = item.getKey();
 		this.quantity = item.getQuantity();

@@ -36,13 +36,13 @@ public class InventoryUI extends ScreenObject implements CommandListener {
 	protected static final int ITEM_COUNT = 6;
 	
 	protected static final int ITEM_START_X = 28;
-	protected static final int ITEM_START_Y = 20;
+	protected static final int ITEM_START_Y = 24;
 	protected static final int ITEM_PADDING = 32;
 	
 	protected static final int AMT_OFF_X = 6;
 	
-	protected static final int TEXT_OFF_X = 12;
-	protected static final int TEXT_OFF_Y = 20;
+	protected static final int TEXT_OFF_X = 15;
+	protected static final int TEXT_OFF_Y = 16;
 	
 	protected static final float PULL_TIME = .5f;
 	
@@ -130,7 +130,7 @@ public class InventoryUI extends ScreenObject implements CommandListener {
 			InventoryItem item = items.at(i + scroll);
 			if (item != null) {
 				item.getIcon().renderAt(batch, atX, atY);
-				amtFormat.x = atX - TEXT_WIDTH / 2 + item.getIcon().getWidth() / 2 - 1;
+				amtFormat.x = atX - TEXT_WIDTH / 2;
 				amtFormat.y = atY - AMT_OFF_X;
 				font.draw(batch, amtFormat, "x"+ item.getQuantity(), 0);
 				if (selected == i) {

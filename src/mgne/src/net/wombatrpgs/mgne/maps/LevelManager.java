@@ -80,9 +80,7 @@ public class LevelManager implements Disposable {
 	 * Resets like it's a new game.
 	 */
 	public void reset() {
-		screen = null;
 		active = null;
-		teleport = null;
 		for (Level level : levels.values()) {
 			level.dispose();
 		}

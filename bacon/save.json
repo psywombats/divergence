@@ -2,6 +2,7 @@
 	"switches" : {
 		"switches" : {
 			"collect_Radio(352,208) sector1/intro.tmx" : true,
+			"radio04" : true,
 			"radio03" : true,
 			"radio02" : true,
 			"radio01" : true,

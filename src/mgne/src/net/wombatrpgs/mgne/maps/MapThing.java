@@ -24,7 +24,7 @@ public abstract class MapThing extends AssetQueuer implements	Renderable,
 																Disposable {
 	
 	/** Level this object exists on */
-	protected Level parent;
+	public Level parent;
 	/** How we respond to pausing */
 	protected PauseLevel pauseLevel;
 	
