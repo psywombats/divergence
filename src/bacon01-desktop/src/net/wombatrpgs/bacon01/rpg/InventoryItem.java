@@ -28,7 +28,7 @@ public class InventoryItem extends AssetQueuer {
 	 */
 	public InventoryItem(ItemMDO mdo) {
 		this.mdo = mdo;
-		this.icon = new Graphic("res/sprites/", mdo.icon);
+		this.icon = new Graphic("res/ui/", mdo.icon);
 		assets.add(icon);
 		quantity = 1;
 	}

@@ -27,8 +27,12 @@ public class ScreenGameOver extends Screen {
 	protected Graphic graphic;
 	protected boolean ended;
 	
-	public ScreenGameOver() {
-		graphic = new Graphic("GameOver01.png");
+	public ScreenGameOver(boolean frag) {
+		if (!frag) {
+			graphic = new Graphic("GameOver01.png");
+		} else {
+			graphic = new Graphic("GameOver02.png");
+		}
 		assets.add(graphic);
 	}
 

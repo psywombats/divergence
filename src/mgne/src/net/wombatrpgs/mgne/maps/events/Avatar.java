@@ -14,6 +14,7 @@ import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mgne.io.CommandListener;
+import net.wombatrpgs.mgne.physics.CollisionResult;
 import net.wombatrpgs.mgneschema.io.data.InputButton;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 import net.wombatrpgs.mgneschema.maps.EventMDO;
@@ -198,6 +199,16 @@ public class Avatar extends MapEvent implements CommandListener {
 	@Override
 	public boolean isMovable() {
 		return true;
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.maps.MapMovable#resolveWallCollision(net.wombatrpgs.mgne.physics.CollisionResult)
+	 */
+	@Override
+	public void resolveWallCollision(CollisionResult result) {
+		if (!paused) {
+			super.resolveWallCollision(result);
+		}
 	}
 
 	/**

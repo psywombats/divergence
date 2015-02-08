@@ -1,12 +1,14 @@
 {
 	"switches" : {
-		"switches" : { }
+		"switches" : {
+			"radio04" : true
+		}
 	},
-	"levelKey" : "sector1/stalker_intro_ante.tmx",
+	"levelKey" : "sector2/2a.tmx",
 	"heroMemory" : {
-		"tileX" : 9,
-		"tileY" : 11,
-		"dir" : "SOUTH",
+		"tileX" : 8,
+		"tileY" : 12,
+		"dir" : "EAST",
 		"animKey" : "4dir_hero"
 	},
 	"saveSlot" : -1,

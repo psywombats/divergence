@@ -58,7 +58,7 @@
   <properties>
    <property name="z" value=".5"/>
   </properties>
-  <object id="22" name="Warper" type="warper" x="296" y="528" width="16" height="16">
+  <object id="22" name="Warper" type="warper" x="304" y="528" width="16" height="16">
    <properties>
     <property name="period" value="10"/>
     <property name="radius1" value="96"/>

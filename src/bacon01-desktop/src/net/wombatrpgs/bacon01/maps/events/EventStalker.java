@@ -135,7 +135,7 @@ public class EventStalker extends MapEvent {
 			MGlobal.getHero().pause(true);
 			MGlobal.levelManager.getTele().getPre().addListener(new FinishListener() {
 				@Override public void onFinish() {
-					Screen go = new ScreenGameOver();
+					Screen go = new ScreenGameOver(false);
 					MGlobal.assets.loadAsset(go, "game over");
 					MGlobal.screens.push(go);
 				}

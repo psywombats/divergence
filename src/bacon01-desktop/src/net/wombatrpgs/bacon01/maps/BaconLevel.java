@@ -22,8 +22,10 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 import net.wombatrpgs.bacon01.EffectAltLight;
 import net.wombatrpgs.bacon01.maps.events.EventStalker;
+import net.wombatrpgs.bacon01.screens.ScreenGameOver;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.graphics.ShaderFromData;
 import net.wombatrpgs.mgne.maps.LoadedLevel;
 import net.wombatrpgs.mgne.maps.events.Avatar;
@@ -130,8 +132,16 @@ public class BaconLevel extends LoadedLevel {
 			if (excluded) passed = true;
 			if (passed) break;
 		}
-		if (!passed) {
-			hero.respawn();
+		if (!passed && !MGlobal.getHero().isPaused()) {
+			MGlobal.getHero().pause(true);
+			MGlobal.levelManager.getTele().getPre().addListener(new FinishListener() {
+				@Override public void onFinish() {
+					Screen go = new ScreenGameOver(true);
+					MGlobal.assets.loadAsset(go, "game over");
+					MGlobal.screens.push(go);
+				}
+			});
+			MGlobal.levelManager.getTele().getPre().run();
 		}
 		
 		// periodic

@@ -7,6 +7,7 @@
 package net.wombatrpgs.baconschema.rpg;
 
 import net.wombatrpgs.baconschema.rpg.data.ItemType;
+import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
 import net.wombatrpgs.mgns.core.Annotations.Desc;
 import net.wombatrpgs.mgns.core.Annotations.FileLink;
 import net.wombatrpgs.mgns.core.Annotations.Path;
@@ -23,7 +24,7 @@ public class ItemMDO extends MainSchema {
 	public String name;
 	
 	@Desc("Sprite - how it appears on the floor")
-	@FileLink("sprites")
+	@SchemaLink(AnimationMDO.class)
 	public String sprite;
 	
 	@Desc("Inventory Icon - how it appears on the floor and in inventory")

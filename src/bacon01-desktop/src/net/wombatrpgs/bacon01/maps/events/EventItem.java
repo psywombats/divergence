@@ -16,7 +16,6 @@ import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.physics.CollisionResult;
 import net.wombatrpgs.mgne.physics.Hitbox;
 import net.wombatrpgs.mgne.physics.RectHitbox;
-import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgneschema.maps.EventMDO;
 import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
 
@@ -25,7 +24,6 @@ import net.wombatrpgs.mgneschema.maps.data.OrthoDir;
  */
 public class EventItem extends MapEvent {
 	
-	protected Graphic appearance;
 	protected ItemMDO itemMDO;
 	protected Hitbox box;
 	protected String key;
@@ -33,7 +31,6 @@ public class EventItem extends MapEvent {
 	public EventItem(ItemMDO mdo, TiledMapObject object) {
 		super(generateEventMDO(mdo, object));
 		this.itemMDO = mdo;
-		appearance = new Graphic("res/sprites/", itemMDO.icon);
 		assets.add(appearance);
 		box = new RectHitbox(this, 0, 0, 16, 16);
 		key = "collect_" + object.toString();
@@ -94,6 +91,7 @@ public class EventItem extends MapEvent {
 		mdo.face = OrthoDir.SOUTH;
 		mdo.width = 1f;
 		mdo.height = 1f;
+		mdo.appearance = itemMDO.sprite;
 		// TODO: support multiple items of same key
 		mdo.hide = "return getSwitch('collect_" + object.toString() + "')";
 		return mdo;
