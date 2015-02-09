@@ -40,6 +40,7 @@ public class EventStalker extends MapEvent {
 	protected AStarPathfinder pather;
 	protected AnimationStrip light;
 	protected ShaderFromData shader;
+	protected float sinceSFX;
 	protected float totalElapsed;
 	protected float startX, startY;
 
@@ -53,6 +54,8 @@ public class EventStalker extends MapEvent {
 		assets.add(light);
 		
 		shader = new ShaderFromData("shader_stalker");
+		
+		sinceSFX = -.5f;
 	}
 
 	protected int getPathTileX() {
@@ -73,15 +76,29 @@ public class EventStalker extends MapEvent {
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
+		sinceSFX += elapsed;
 		totalElapsed += elapsed;
 		
 		Avatar hero = MGlobal.getHero();
+		Vector2 delta = new Vector2(hero.getCenterX() - getCenterX(), hero.getCenterY() - getCenterY());
 		if (hero.isPaused()) {
 			halt();
 			return;
 		}
 		
-		Vector2 delta = new Vector2(hero.getCenterX() - getCenterX(), hero.getCenterY() - getCenterY());
+		float toSFX = delta.len() / 100f;
+		String sfx = "stalker2";
+		if (delta.len() < 85) {
+			sfx = "stalker3";
+			toSFX = toSFX*2f/3f;
+		} else if (delta.len() > 170) {
+			sfx = "stalker1";
+		}
+		if (sinceSFX > toSFX) {
+			MGlobal.audio.playSFX(sfx);
+			sinceSFX = 0;
+		}
+		
 		float v = (1f - (delta.len() / vision)) * maxVelocity;
 		float len = delta.len();
 		if (len > vision) {

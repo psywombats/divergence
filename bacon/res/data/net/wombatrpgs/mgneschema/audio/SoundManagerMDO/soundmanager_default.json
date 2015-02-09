@@ -23,6 +23,18 @@
 		{
 			"key" : "swap",
 			"file" : "flip.wav"
+		},
+		{
+			"key" : "stalker1",
+			"file" : "stalker01.wav"
+		},
+		{
+			"key" : "stalker2",
+			"file" : "stalker02.wav"
+		},
+		{
+			"key" : "stalker3",
+			"file" : "stalker03.wav"
 		}
 	],
 	"emuMusicEntries" : [ ],
