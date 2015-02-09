@@ -81,7 +81,7 @@
   </object>
   <object id="41" name="tele" type="Event" x="0" y="144" width="16" height="32">
    <properties>
-    <property name="onCollide" value="teleport('sector2/2c.tmx', 6, 37)"/>
+    <property name="onCollide" value="teleport('sector2/3c.tmx', 28, 25)"/>
    </properties>
   </object>
   <object id="42" name="arrow" type="Event" x="0" y="144" width="16" height="16">
@@ -96,7 +96,7 @@
     <property name="face" value="EAST"/>
    </properties>
   </object>
-  <object id="47" name="tele" type="Event" x="1120" y="144" width="16" height="32">
+  <object id="47" name="tele" type="Event" x="1120" y="48" width="16" height="32">
    <properties>
     <property name="hide" value="return not getSwitch('radio05')"/>
     <property name="onCollide" value="teleport('sector2/2b.tmx', 1, 44)"/>

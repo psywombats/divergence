@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="84" height="71" tilewidth="16" tileheight="16" nextobjectid="46">
+ <tileset firstgid="1" source="../tilesets/natural.tsx"/>
+ <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
+ <layer name="Artificial Lower Chip" width="84" height="71">
+  <properties>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2czW4TMRDHE69Q+bpDJHgDmqonOIEqTiAhUVWcQJRL1RNIhdxBIuQOEiFvAOSt0vQN+BI3bLGjnZ2OP3bXydobH/5yI3u93l8mXo9n3EW/11skbaR+S10XZv0JYJxNnqfO+Ov0syXbvM71xlBeEO1zcpV6phM09lHN8WM2rhzUNeNcHwxlbDzfo7FPGvAcEz4uPKe5vhjK2Hh+RmOfNeA5JXxceH7L9d1QxsbzKxr7XOqa5f3AaYDYQF+2ftQ1VxwUG8/Tfll4PnUtR0w/O4b2SrsbwhPm07dZr/cuK94Nps8Tpp89oX/HKN3vKM+//bJgPv0oWX3KineD6fOM4Xkg9O8YpScd5XmTCM+nruWc4XlkaK903FGelINJywptbbq8oTyXmjLxrM5Tx9IH0xvMXMOpKzxXyRLrh9TPXL+Y+ph4XhTFs6xDNl7c9xsTzzZ+D4+ysihPU33SeZ6HWVnYLx2getX+MPG08gROUNL9QqgDJZ52nlh0v5DWJ55mntj+1N90vzDZZzWeJ1lZdL+Q1sfE0yUe5jMmplvvmta0MfGEuI9pb9NnTAzzdPUTYuNpi4f5jIlR+3RhGhtPWzzMZ0zMxT4p09h42vY2fcbEbP4t54+6xrNCyHtw3f9cl42o8VD73LHM7yHlPYTIk957zzK/h5T3EAPPA8v8HlLeQww8jyzze0h5DzHwBNniI/S91cb7qUs8aR5GG/bKjR/HH0CXIuCJ96nGAfFscx4yfb9qbWriifeppolnaTxDcX48Wxb7pHkYief/8Qzz+wNTV55XRfvPESJP/HkowuXJ7XUOAue56IfLU4n6vLsR8hwGxJP6vCoHk+Yrts3zNP8buMA6fUDmViVubbfONR71eVUOZkj5Qtx8DnnOI4PttiXq8x4H+Hvn9pfU7ynEWDKM8Xmeg/EiC58n5DlDDnTi2Ywn5DnjHGh4lhh41jkv40vc+g38dvr+joUn7NPclnV3Mj62AHX4jCGVrj3tD9+HO3cTKk8uFsbFv2Cf5oF8xocZH1uAOnzGkErXnvaH78OduwmVp26+0p2XeSqf8VnGxxagDp8xpNK1p/3h+3DnbmLjqTsv81I+46uMjy1AHT5jSKVrT/vD9+HO3bS9Zq/KU425Tm48vWZb9nVLFKVrPzaFZoM2nj5YKt2Tfd0VRbmpPH3Z577s67EoyqrcdHk3sfH0ZZ+4X18sl5HxdD0vw62rTO+JKtdBmy7YZxU7rjOvuVzHtYnVPpvwdPFLXfb/bb+R0NZEq+JJ8wc4f5PzH7tobz540vwBzt+cMP5X4snzpPkDnL85E3Gfv14nT5o/wPmbc8afTTzd1v3Y19w2vLMTT7d1P/Y1VXnGsOzq+se3fSp22NfcFzzLZJ/u9kmv2aT1eVX5/D8OXVyfJyUlJSUlrVr/ANIXpa8wXQAA
+  </data>
+ </layer>
+ <layer name="Natural Lower Chip" width="84" height="71" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2b7W3CQAxA0wE6SRGwRlPoGi3QNVoGKR2EdhKkDtKcFAvj+i6XkMR28I8nIYjA9/B9xLk73RXFyXEcx3Gcm6YsLpGOxzru031qgnpzn9e7xN5ei0vcaZ6/WB6+V68/avboc+o4h3nFOsFzQyyaaWo7XHcoznxVvFRsirPn4Pgx02fKZeCNXG+pP3DtvUdwPg8oV7HjXJ/bil0NdUmvfar/Mys+OafcNdQnpY3PmFual+Dz05DLa/J4DDYT9Tk20M9hTJGOxwqxcQb6OR5TpGPVTmo9EXweK75rpGO1QsxneD1DSMdphZTP1JrD0hpfymfKcxvXt0wbn+E+dRlZV0m3QzvY4aIG7qEWjFfpeLUDLnNrJtLxaqdMuORqJtLxaoeOj1ytxLLPnHttyXik/XSJv6l2PLQ77j2Yr6T9tCU4xLVjzu2QLrk1KJ6vpP20Jbjk6sm4Lj+2z7Vhnzl15DF9Libq82dEn/h9un6S9tOWI+MxtPFhxPFzSj5DzSw41VKPDA7xMz3peLrkyazQU5PE90croz41rZ9L99krUF+aG+7vmnxC3c7qfNTG5xjO8dy+m6jPPuskTd9D95RI++nbZ191p9zv0Tb+9Jkrfdbwpugz1aac/Bzqt3N9anPcxedQv90mRq25K+mzjxihxrw0EKtmn+CR7s/VGKsFn6vif91JQ6w58WuLJ7A15FPTnoyc/qPt/6fQPRl4/zAFP1Pi+mBsDxIA50b2Dddp9pXjE7uA/a5Nz5SCT3qOI+UTXOJzOTlnnKT9dPVJc5TuyaY+t8zYFvMJOc89R+Vyf4o+Q46G5x+/EZ90voA6Rswn9/9wZ8msn33MGcNwm7vMGWWGT5qzkK/SfiySGqulY7NILF8t9nfHcRzHcRzHcRzHcRzHwfwBXFy8JDBdAAA=
+  </data>
+ </layer>
+ <layer name="Natural Walls" width="84" height="71" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".1"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2bX24TMRDGNxK090gD56DAAVp4TwgHoPAOhAPQ8h7oCXoAoOoF6Dt/1Au0x2BGsVXLGv/ZzcbrWX0/aeQqibTer986M/akaQAAAOyaa4ojimOKFxQvKX4NOiPdsJ5vKE4o3lK8a6DnNtxRfKY4pTij+EJxO+iMdHMtvPZk0jSHk+JTUcNT0uYxxYLilQmr2Z3w+bn5zKLQqGV9YR2fmXk/p/hA8dHE3NyH5M/39N5PistCoxY92XtLo+Nriq8U30ywZreN7M81vfeX4l+hUYue7L2V0fGTtx6uI/4sjSY9zwPfK/v0+qPA+lkaLXpOSa8Hjp4z+vshxZ7RkoE/2zEVNHSBP/vF1bvEeCD8T8ekZ2mk9QV6prloNrmvWzsw0voCPdOwD5cmX7e1g33dB/VtGtbtyuTr3x09u9S38O9Gtxvjud+T+z2rLvUt9NzkDfa7fObkal3qW+i5YSrkvV3qB+gZpkv9oElP9kvOPmVf9zR2f7JfcvYp+7qnLv7UdP7CfsnZp+xLz1R9q70ezfVLqXvSXj/lrmd931OoHpXmo+l5z/Vn3/cUqkfhz+7XlepR7ftPQ/kzVI9K89H0vA/lz1A9OkZ/zoRcRjor2RapHh3j+jnk81XbfNpSmx9qm09bavPDGNdPaf5uL9RisrszCu3f76n52zqGNVyavZFLLwdvS6jXj9HsT+s5H3f+to7hnrKVsz9i+8naXivW68do86e/t7kU9HTn7/aUub1Q65Z65vT62ev51OxPf29zlfAn6+D35jG2nyyXnF4/ez2fms+T/b1Nqf/O9Z3UU9Ylv8/p9bOf84mdJ9fsXYs/R1vHbFMn5fT6MZI/Y+fJGvTc1fqf6vVjJH/GzpM16FlbfRRDg55Drf+h/C3G0LmUv28knX/NA2t/iVHK32LU5k/p+foRWPtLjFL+FmNof/pI6/+fwNpfYpRyKmk/dpf7sttQQ/98ito8GKOG33ekqG2NjAF/9gv82S+lfy8jjVLO5qLJnzWQWnM0+bMGUs9IbTkRAAAAAAAAAAAAAABt+A8Yyn5OMF0AAA==
+  </data>
+ </layer>
+ <layer name="Artificial Upper Chip" width="84" height="71">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3au07bUAAGYMuHwhsU+gYB3oCWNyB9BMITQMJCxX0FtbQJLFERdyYWKLQstCxUahmgXVqpZeCyUIl24LKARPktO5LtnBg7PoCd/J/0yzEJjv3Lju0jaxoRqdKra1of0m/FPh9HG1jvj8gnZDPENtQITXuE1CJ1wv//vcR3vkLGdPl83OxgvXeRb8j3ENvwGB3WIw3IkwB9TuE7p5EZXT4fN/tY7wPkEDkKsQ0JdNiINCHNAfpcxneuIO/04vl8DDs9xTqfIefIRYj1b0GHT5FnSGuAPr0sxbDPKFhAb4t68WsqrQcdvZD0lMDfPiDr1nuF1wl26mkE/YyW6Kiau8u7zhN+zxlv8blJH5+ttuPdOEfYzxOqzxk83omI6L4kfdw/+fkMmVLsiohICfc9bEY4pxSM+x6WyE42NllqvJJuJxub9BqvDMP9W1mJZGOTfscrie5amzDvl58L+TwF0y7Me+oOIZ+Pql/4PfqN7EXsdyktzGvn7oj2WTh/dWLaZSWNnCB/kX8R69PN3e9DK1zr5zAdtzKBXCP/jfcisp5EXs+SDGE/Hea+GojXsyRZdJljn8pUw72Xal7HO8epgpMd71Q++3M4fCaHiIiIqDIN4DpvEBlScL2ncllx9Rrb/gbJKuhA5bLiahbbPofMK+hA5bLiahXbvoa8L6MD+5iPMQ2zLHKO+XDsh4iIosz9nMIX5CuyXcHnr6RwhsJJCWcMW9h/PlfwPnSXZH3+QJc/2WdZZH0eo8s/7LMsGeGM4RJdXrFPIiIiIiKiqnADXcECNTBdAAA=
+  </data>
+ </layer>
+ <layer name="Natural Upper Chip" width="84" height="71" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3bC1LCMBCA4ZwDH9dQivdQz+GIXoOTeBNP4iGcHchYYhMXCOx2/b8ZplAKs90SmmzalAAAAAD/Xq0DCOTGOoCAnqwDwJ7riXUco7YhbfOWH6cg1ymti9dvB34+n/OuOsQSxUNl/fKiUQAAAAB9LHZLxk96mlwdOvbCNq85t0PxHvnUW1kHAMAVanr9vFsHADTkuZR70yjiYGzUF/ns59E6gKCerQOAG7fWAUzwGJPWqdd64Lc76wB2ovQ5F39vAqVcu63VJdfFEjpljXzsHH3s6Mcn+v6dk9TEatfKWWv1Nz4vFkVM5X0SXyZRxJHzuRmt20xt6IjMLXi/X+aj8twjj3M1c57z8Hb/0ZDafTfv5Hz60vH7etUwPbYbLc34Xfr0tetgZLxa239NvWWqfc85n2OttiZ5l9/yqthOci3ntGX6GUsdMz4Y537Obf4Y8r+b+wbU/AAAAAAAAAAA/9k3M53OqzBdAAA=
+  </data>
+ </layer>
+ <layer name="Natural Wall Sidings" width="84" height="71" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".2"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3au20DMRAFQPXfiRO3ocBuw4FchUIzIbi4ezA/mEkJSLzVuyUJ6vEAgP18zZ7AYV6zJ3CYNp8f02Zxjjafz2mzOEebz59ps9hDZa3RP+sq9bS+11WyJ59Z8pkln/BHf8nSX67p5dD59ppePZ1vr+m91863WfpnlvU9Sz6z5DNLPtmZfpClntdUzk/UVc731PVyKJ9Z8pkln1nymSWfWfKZJZ9Zu+fzczD+38+3ez6/B+OpelY/Z/d8/g7GU3mp1qn9PvfJfdXfpa27++T72rq7T75v9/65mt3X99YK/X+0f9vJCv1/tH9b3Wr/Jxrt31Z3Ur9agfU0Sz6z5DNLPgEAAAAA4L4344ZH9zBdAAA=
+  </data>
+ </layer>
+ <objectgroup name="Object Layer">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <object id="39" name="stalker" type="stalker" x="197" y="447" width="64" height="64">
+   <properties>
+    <property name="appearance" value="4dir_stalker"/>
+    <property name="face" value="SOUTH"/>
+   </properties>
+  </object>
+  <object id="40" name="tele" type="Event" x="96" y="688" width="16" height="64">
+   <properties>
+    <property name="onCollide" value="teleport('sector2/2c.tmx', 24, 23)"/>
+   </properties>
+  </object>
+  <object id="41" name="arrow" type="Event" x="96" y="704" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="WEST"/>
+   </properties>
+  </object>
+  <object id="42" name="arrow" type="Event" x="96" y="688" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="WEST"/>
+   </properties>
+  </object>
+  <object id="43" name="tele" type="Event" x="208" y="96" width="32" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('sector2/1d.tmx', 19, 20)"/>
+   </properties>
+  </object>
+  <object id="44" name="arrow" type="Event" x="208" y="16" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="NORTH"/>
+   </properties>
+  </object>
+  <object id="45" name="arrow" type="Event" x="224" y="16" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="NORTH"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="Artificial Overhead Chip" width="84" height="71">
+  <properties>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3BMQEAAADCoPVPbQwfoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPgZKE0D3MF0AAA==
+  </data>
+ </layer>
+ <layer name="Natural Overhead Chip" width="84" height="71" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3BMQEAAADCoPVPbQwfoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPgZKE0D3MF0AAA==
+  </data>
+ </layer>
+</map>

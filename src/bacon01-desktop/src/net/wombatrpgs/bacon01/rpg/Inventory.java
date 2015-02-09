@@ -10,12 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.wombatrpgs.baconschema.rpg.ItemMDO;
+import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
 
 /**
  * Contains items for the hero!
  */
-public class Inventory {
+public class Inventory extends AssetQueuer {
 	
 	protected List<InventoryItem> items;
 	
@@ -35,6 +36,7 @@ public class Inventory {
 		for (ItemMemory memory : memories) {
 			items.add(new InventoryItem(memory));
 		}
+		assets.addAll(items);
 	}
 	
 	/**

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="26" height="40" tilewidth="16" tileheight="16" nextobjectid="75">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="26" height="40" tilewidth="16" tileheight="16" nextobjectid="92">
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
  <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
  <layer name="Artificial Lower Chip" width="26" height="40">
@@ -33,7 +33,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjABPsYWJg2AvE+4B4PxP5+uyYGRjsmTHVlQPlKoD4HBCfB+ILQHyRBHuI1dcJlOsC4gdA/BCIHwHxYxLsIVbfbKDcHCD+BMSfgfgLEH9FU+8DDAdfKPZDCxN8+kgFBUCzC6G4CEvYDzagQYF/84B686G4gMJwwwcagGY3QnHTMLBnEtDsyVA8hYb2jIJRMApGwVACN4Dl4U0ql4kngOadBOJTSOa+ArJfU9meW0DzbgPxHSRz/wDZf4mwRxjYVhBhxs1HBm+A5r0F4ndkuF8VaKYaM24+MvgHNP8/yA46t2NIbZMghxW+cEMGS4B2LCXRHuSwwhduMADyxzYg3j5ax6MAYuNosJk92AAALPP82kAQAAA=
+   H4sIAAAAAAAAC2NgGAWjABPsYWJg2AvE+4B4PxP5+uyYGRjsmTHVlQPlKoD4HBCfB+ILQHyRBHuI1dcJlOsC4gdA/BCIHwHxYxLsIVbfbKDcHCD+BMSfgfgLEH9FU+8DDAdfKPZDCxN8+kgFBUCzC6G4CEvYDzagQYF/84B686G4gMJwwwcagGY3QnHTMLBnEtDsyVA8hYb2jIJRMApGwVACN4Dl4U0ql4kngOadBOJTSOa+ArJfU9meW0DzbgPxHSRz/wDZf4mwRxjYVhBhxs1HBm+A5r0F4ndkuF8VaKYaM24+MvgHNP8/yA46t2NIbZMghxW+cEMGS4B2LCXRHuSwwhduMADyxzYg3j5ax6MAYuNoFOAHAOaEqkVAEAAA
   </data>
  </layer>
  <layer name="Natural Upper Chip" width="26" height="40" visible="0">
@@ -174,33 +174,121 @@
     <property name="passable" value="PASSABLE"/>
    </properties>
   </object>
-  <object id="70" name="tele" type="Event" x="80" y="128" width="32" height="16">
-   <properties>
-    <property name="hide" value="return not hasItem('item_bluekey')"/>
-    <property name="onCollide" value="teleport('sector2/1c.tmx', 31, 77)"/>
-   </properties>
-  </object>
   <object id="71" name="tele" type="Event" x="304" y="128" width="32" height="16">
    <properties>
     <property name="hide" value="return not hasItem('item_bluekey')"/>
     <property name="onCollide" value="teleport('sector2/1c.tmx', 47, 77)"/>
    </properties>
   </object>
-  <object id="72" name="tele" type="Event" x="80" y="608" width="32" height="16">
+  <object id="75" name="tele" type="Event" x="80" y="128" width="32" height="16">
    <properties>
-    <property name="onCollide" value="teleport('sector2/3d.tmx', 1, 9)"/>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+    <property name="onCollide" value="teleport('sector2/1c.tmx', 31, 77)"/>
    </properties>
   </object>
-  <object id="73" name="arrow" type="Event" x="80" y="608" width="16" height="16">
+  <object id="76" name="arrow" type="Event" x="400" y="336" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="WEST"/>
+   </properties>
+  </object>
+  <object id="77" name="arrow" type="Event" x="400" y="336" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="EAST"/>
+   </properties>
+  </object>
+  <object id="78" name="arrow" type="Event" x="400" y="352" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="EAST"/>
+   </properties>
+  </object>
+  <object id="79" name="tele" type="Event" x="400" y="352" width="16" height="32">
+   <properties>
+    <property name="onCollide" value="teleport('sector2/2d.tmx', 7, 45)"/>
+   </properties>
+  </object>
+  <object id="80" name="arrow" type="Event" x="48" y="608" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_unlocked_blue"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="81" name="locked" type="Event" x="80" y="608" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_locked_blue"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="82" name="arrow" type="Event" x="96" y="608" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_arrow"/>
     <property name="face" value="SOUTH"/>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
    </properties>
   </object>
-  <object id="74" name="arrow" type="Event" x="96" y="608" width="16" height="16">
+  <object id="83" name="locked" type="Event" x="96" y="608" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_locked_blue"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="84" name="arrow" type="Event" x="80" y="608" width="16" height="16">
    <properties>
     <property name="appearance" value="4dir_arrow"/>
     <property name="face" value="SOUTH"/>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="85" name="tele" type="Event" x="80" y="608" width="32" height="16">
+   <properties>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+    <property name="onCollide" value="teleport('sector2/3c.tmx', 6, 6)"/>
+   </properties>
+  </object>
+  <object id="86" name="tele" type="Event" x="304" y="608" width="32" height="16">
+   <properties>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+    <property name="onCollide" value="teleport('sector2/3c.tmx', 20, 6)"/>
+   </properties>
+  </object>
+  <object id="87" name="arrow" type="Event" x="272" y="608" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_unlocked_blue"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="88" name="locked" type="Event" x="304" y="608" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_locked_blue"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="89" name="arrow" type="Event" x="320" y="608" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="90" name="arrow" type="Event" x="304" y="608" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return not hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="91" name="locked" type="Event" x="320" y="608" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_locked_blue"/>
+    <property name="face" value="SOUTH"/>
+    <property name="hide" value="return hasItem('item_bluekey')"/>
    </properties>
   </object>
  </objectgroup>
@@ -209,7 +297,7 @@
    <property name="z" value="1.5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3RIQ4AIAwDwML+/2cUCWYOEsSdq6loEwAA4Cejkll9pnduZbf/vfhod/r/vgVMs9Q3QBAAAA==
+   H4sIAAAAAAAAC+3RoREAMAwDMbfZf+fSksDcBUjM1J8AAACbnEpu9Zve/5Xf9ptopPucB7UZyO5AEAAA
   </data>
  </layer>
  <layer name="Natural Overhead Chip" width="26" height="40" visible="0">

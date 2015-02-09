@@ -176,7 +176,7 @@ public abstract class MgnGame implements Disposable {
 		level.addEvent(hero);
 		
 		if (MGlobal.args.get("x") == null) {
-			hero.setTileLocation(mdo.mapX, level.getHeight() - mdo.mapY - 1);
+			hero.setTileLocation(mdo.mapX, mdo.mapY);
 		} else {
 			hero.setTileLocation(Integer.valueOf(MGlobal.args.get("x")),
 					Integer.valueOf(MGlobal.args.get("y")));

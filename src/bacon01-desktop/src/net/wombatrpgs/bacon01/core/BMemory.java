@@ -10,6 +10,7 @@ import java.util.List;
 
 import net.wombatrpgs.bacon01.rpg.Inventory;
 import net.wombatrpgs.bacon01.rpg.ItemMemory;
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.Memory;
 
 /**
@@ -51,6 +52,7 @@ public class BMemory extends Memory {
 	@Override
 	protected void loadAssets() {
 		super.loadAssets();
+		MGlobal.assets.loadAsset(BGlobal.items, "items");
 	}
 
 }

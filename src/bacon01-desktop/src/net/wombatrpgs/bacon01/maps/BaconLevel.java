@@ -218,7 +218,12 @@ public class BaconLevel extends LoadedLevel {
 	 */
 	@Override
 	public boolean excludeTile(GridLayer layer, MapEvent event, int tileX, int tileY) {
-		float r = sampleAt(tileX * getTileWidth(), getHeightPixels() - (tileY * getTileHeight()));
+		float r;
+		if (MGlobal.getHero() == event) {
+			r = sampleAt(tileX * getTileWidth(), getHeightPixels() - (tileY * getTileHeight()));
+		} else {
+			r = 1f;
+		}
 		boolean alt = "true".equals(layer.getProperty("alt"));
 		if ((!alt && r > .5) || (alt && r < .5)) {
 			lastX = tileX;

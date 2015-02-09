@@ -84,6 +84,14 @@ public class EventItem extends MapEvent {
 		return box;
 	}
 
+	/**
+	 * @see net.wombatrpgs.mgne.maps.MapMovable#resolveWallCollision(net.wombatrpgs.mgne.physics.CollisionResult)
+	 */
+	@Override
+	public void resolveWallCollision(CollisionResult result) {
+		
+	}
+
 	private static EventMDO generateEventMDO(ItemMDO itemMDO, TiledMapObject object) {
 		EventMDO mdo = new EventMDO();
 		mdo.key = itemMDO.key + "_event";

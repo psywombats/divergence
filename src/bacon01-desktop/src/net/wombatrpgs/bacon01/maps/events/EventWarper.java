@@ -73,7 +73,7 @@ public class EventWarper extends MapEvent {
 		super.render(batch);
 		
 		level.getLightBuffer().begin();
-		int screenX = getCenterX();
+		int screenX = getCenterX() + (getAppearance() == null ? 16 : 0);
 		int screenY = getCenterY();
 		screenX -= light.getWidth() / 2;
 		screenY -= light.getHeight() / 2;

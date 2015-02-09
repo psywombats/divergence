@@ -6,6 +6,7 @@
  */
 package net.wombatrpgs.mgne.maps.layers;
 
+import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.Positionable;
 import net.wombatrpgs.mgne.maps.events.MapEvent;

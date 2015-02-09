@@ -16,6 +16,7 @@ import net.wombatrpgs.mgne.scenes.commands.SceneHideAvatar;
 import net.wombatrpgs.mgne.scenes.commands.ScenePathToEvent;
 import net.wombatrpgs.mgne.scenes.commands.ScenePathToTile;
 import net.wombatrpgs.mgne.scenes.commands.ScenePlayExternal;
+import net.wombatrpgs.mgne.scenes.commands.SceneSetPlace;
 import net.wombatrpgs.mgne.scenes.commands.SceneSound;
 import net.wombatrpgs.mgne.scenes.commands.SceneSpeak;
 import net.wombatrpgs.mgne.scenes.commands.SceneSwitch;
@@ -54,6 +55,7 @@ public class SceneLib extends TwoArgFunction {
 		env.set("path", new ScenePathToTile());
 		env.set("pathEvent", new ScenePathToEvent());
 		env.set("playSound", new SceneSound());
+		env.set("setPlace", new SceneSetPlace());
 		
 		env.set("scenelib", library);
 		return library;
