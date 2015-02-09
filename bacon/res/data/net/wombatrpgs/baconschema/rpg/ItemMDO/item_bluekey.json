@@ -3,7 +3,7 @@
 	"subfolder" : "",
 	"name" : "Cardkey (blue)",
 	"description" : "",
-	"sprite" : "anim_warper",
+	"sprite" : "anim_bluekey",
 	"icon" : "BlueKey.png",
 	"gameDesc" : "Opens security doors in sector 2",
 	"itemType" : "KEY",

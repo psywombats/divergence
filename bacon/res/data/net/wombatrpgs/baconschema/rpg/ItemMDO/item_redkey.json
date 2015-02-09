@@ -3,7 +3,7 @@
 	"subfolder" : "",
 	"name" : "Cardkey (red)",
 	"description" : "",
-	"sprite" : "anim_warper",
+	"sprite" : "anim_redkey",
 	"icon" : "RedKey.png",
 	"gameDesc" : "Opens security doors in sector 1",
 	"itemType" : "KEY",

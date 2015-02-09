@@ -3,7 +3,7 @@
 	"subfolder" : "",
 	"name" : "Radio",
 	"description" : "",
-	"sprite" : "anim_warper",
+	"sprite" : "anim_radio",
 	"icon" : "Radio.png",
 	"gameDesc" : "Who is that voice?",
 	"itemType" : "RADIO",

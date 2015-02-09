@@ -67,7 +67,7 @@
     <property name="onCollide" value="play('radio01.lua')"/>
    </properties>
   </object>
-  <object id="26" name="Radio" type="item" x="352" y="352" width="16" height="16">
+  <object id="26" name="Radio" type="item" x="336" y="368" width="16" height="16">
    <properties>
     <property name="key" value="item_radio"/>
    </properties>

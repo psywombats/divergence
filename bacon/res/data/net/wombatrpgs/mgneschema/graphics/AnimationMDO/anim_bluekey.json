@@ -1,9 +1,9 @@
 {
-	"key" : "anim_warper",
+	"key" : "anim_bluekey",
 	"subfolder" : "",
 	"name" : "",
 	"description" : "",
-	"file" : "EnergyBlock.png",
+	"file" : "BlueCard_Small.png",
 	"mode" : "REPEAT",
 	"frameCount" : 1,
 	"frameWidth" : 16,
