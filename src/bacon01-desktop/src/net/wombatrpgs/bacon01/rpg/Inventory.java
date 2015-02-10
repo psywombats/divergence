@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.wombatrpgs.baconschema.rpg.ItemMDO;
+import net.wombatrpgs.baconschema.rpg.data.ItemType;
 import net.wombatrpgs.mgne.core.AssetQueuer;
 import net.wombatrpgs.mgne.core.MGlobal;
 
@@ -98,6 +99,16 @@ public class Inventory extends AssetQueuer {
 			}
 		}
 		return false;
+	}
+	
+	public int countPages() {
+		int count = 0;
+		for (InventoryItem item : items) {
+			if (item.mdo.itemType == ItemType.GRAPHIC) {
+				count += item.getQuantity();
+			}
+		}
+		return count;
 	}
 
 }

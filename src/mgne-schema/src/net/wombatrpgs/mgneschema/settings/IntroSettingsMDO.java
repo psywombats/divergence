@@ -30,5 +30,34 @@ public class IntroSettingsMDO extends MainSchema {
 	@Desc("Title bg - title background image")
 	@FileLink("ui")
 	public String titleBG;
+	
+	@Desc("Glow cycles - moon will flash green this many times")
+	public Integer glowCycles;
+	
+	@Desc("Explode time - explosion effect happens at this time")
+	public Float timeExplode;
+	
+	@Desc("Skyrip time - static effect starts playing at this time")
+	public Float timeSkyrip;
+	
+	@Desc("Glow time - glowing effect starts playing at this time")
+	public Float timeGlow;
+	
+	@Desc("Wait2 time - glowing effect ends at this time")
+	public Float timeWait2;
+	
+	@Desc("Flying time - ship starts flying in at this time")
+	public Float timeFlyin;
+	
+	@Desc("Landing time - ship thrusters turn off at this time")
+	public Float timeLand;
+	
+	@Desc("Wait3 time - ship is on the ground at this time")
+	public Float timeWait3;
+	
+	@Desc("End time - screen starts fading out at this time")
+	public Float timeEnd;
+	
+	
 
 }

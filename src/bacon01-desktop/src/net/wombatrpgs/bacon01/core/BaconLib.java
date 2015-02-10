@@ -9,6 +9,8 @@ package net.wombatrpgs.bacon01.core;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.OneArgFunction;
 import org.luaj.vm2.lib.TwoArgFunction;
+import org.luaj.vm2.lib.ZeroArgFunction;
+import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 
 /**
  * goddamn bacon
@@ -26,6 +28,12 @@ public class BaconLib extends TwoArgFunction {
 				} else {
 					return LuaValue.FALSE;
 				}
+			}
+		});
+		
+		env.set("itemCount", new ZeroArgFunction() {
+			@Override public LuaValue call() {
+				return CoerceJavaToLua.coerce(BGlobal.items.countPages());
 			}
 		});
 

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="36" tilewidth="16" tileheight="16" nextobjectid="32">
+ <properties>
+  <property name="radio" value="I'm afraid the radio is one-way, but keep it with you. I'll point out dangers in each room. It's important to stay safe if you're to free me."/>
+ </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
  <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
  <layer name="Artificial Lower Chip" width="32" height="36">

@@ -16,8 +16,8 @@ void main() {
 	vec2 randCoords = vec2(gl_FragCoord[0], gl_FragCoord[1]);
 	float chunk = 2.0;
 	chunk += rand(vec2(v_texCoords[1], u_elapsed)) * 4.0;
-	randCoords[0] -= mod(int(randCoords[0]), int(chunk));
-	randCoords[1] -= mod(int(randCoords[1]), 2);
+	randCoords[0] -= mod(float(randCoords[0]), float(chunk));
+	randCoords[1] -= mod(float(randCoords[1]), 2);
 
 	vec4 texColor = v_color * texture2D(u_texture, v_texCoords);
 	float r = (u_elapsed * 4.0) + texColor[0];

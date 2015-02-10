@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="55" tilewidth="16" tileheight="16" nextobjectid="53">
+ <properties>
+  <property name="radio" value="The labs north and west of here are completely ruled by jungle."/>
+ </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
  <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
  <layer name="Artificial Lower Chip" width="32" height="55">

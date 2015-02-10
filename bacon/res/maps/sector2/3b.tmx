@@ -2,6 +2,7 @@
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="16" tilewidth="16" tileheight="16" nextobjectid="49">
  <properties>
   <property name="period" value="10"/>
+  <property name="radio" value="Tranquility. Where I'm trapped, there's only cold hard tiles. No life. All I can do is watch the beauty on the monitors."/>
  </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
  <tileset firstgid="481" source="../tilesets/artificial.tsx"/>

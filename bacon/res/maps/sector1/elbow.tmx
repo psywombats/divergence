@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="36" tilewidth="16" tileheight="16" nextobjectid="35">
+ <properties>
+  <property name="radio" value="I can't control that door from here, you'll have to find a key."/>
+ </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
  <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
  <layer name="Artificial Lower Chip" width="24" height="36">

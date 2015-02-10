@@ -2,6 +2,7 @@
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="80" tilewidth="16" tileheight="16" nextobjectid="68">
  <properties>
   <property name="period" value="4.2"/>
+  <property name="radio" value="Ahhh yes, the generator room. The cameras here are few and far between, but I think I spot something in the middle of the room."/>
  </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
  <tileset firstgid="481" source="../tilesets/artificial.tsx"/>

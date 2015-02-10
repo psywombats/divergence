@@ -9,6 +9,7 @@ package net.wombatrpgs.bacon01.screens;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
@@ -18,25 +19,19 @@ import net.wombatrpgs.mgne.maps.objects.Picture;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgneschema.graphics.AnimationMDO;
+import net.wombatrpgs.mgneschema.settings.IntroSettingsMDO;
 
 /**
  * bacon
  */
 public class ScreenIntro extends Screen {
 	
-	protected static final float TIME_EXPLODE = 3f;
-	protected static final float TIME_SKYRIP = 6f;
-	protected static final float TIME_GLOW = 13f;
-	protected static final float TIME_WAIT2 = 18f;
-	protected static final float TIME_FLYIN = 24f;
-	protected static final float TIME_LAND = 27f;
-	protected static final float TIME_WAIT3 = 28f;
-	protected static final float TIME_END = 31f;
-	
 	protected static final float SHIP_X = 94f;
 	protected static final float START_Y = 210f;
 	protected static final float SWITCH_Y = 40f;
 	protected static final float END_Y = 14f;
+	
+	protected IntroSettingsMDO mdo;
 	
 	protected Graphic black;
 	protected Picture moon, weirdMoon, moonFlash;
@@ -53,6 +48,7 @@ public class ScreenIntro extends Screen {
 	protected Color shipColor = Color.WHITE;
 	
 	public ScreenIntro() {
+		mdo = MGlobal.data.getEntryFor(Constants.KEY_INTRO, IntroSettingsMDO.class);
 		
 		moon = new Picture("moon.png", 0);
 		weirdMoon = new Picture("moon_weird.png", 1);
@@ -111,8 +107,8 @@ public class ScreenIntro extends Screen {
 		shader.end();
 		
 		float r;
-		if (totalElapsed > TIME_EXPLODE && totalElapsed < TIME_SKYRIP) {
-			r = (totalElapsed - TIME_EXPLODE) / (TIME_SKYRIP - TIME_EXPLODE);
+		if (totalElapsed > mdo.timeExplode && totalElapsed < mdo.timeSkyrip) {
+			r = (totalElapsed - mdo.timeExplode) / (mdo.timeSkyrip - mdo.timeExplode);
 			
 			if (!sfxd) {
 				sfxd = true;
@@ -125,8 +121,8 @@ public class ScreenIntro extends Screen {
 				moonFlash.setColor(new Color(1, 1, 1, 0));
 			}
 			
-		} else if (totalElapsed > TIME_SKYRIP && totalElapsed < TIME_GLOW) {
-			r = (totalElapsed - TIME_SKYRIP) / (TIME_GLOW - TIME_SKYRIP);
+		} else if (totalElapsed > mdo.timeSkyrip && totalElapsed < mdo.timeGlow) {
+			r = (totalElapsed - mdo.timeSkyrip) / (mdo.timeGlow - mdo.timeSkyrip);
 			
 			if (r < .32) {
 				thresh = r / .3f * .5f;
@@ -139,11 +135,11 @@ public class ScreenIntro extends Screen {
 			float c = 1f-(thresh*2f);
 			moon.setColor(new Color(c, c, c, 1));
 			
-		} else if (totalElapsed > TIME_GLOW && totalElapsed < TIME_WAIT2) {
-			r = (totalElapsed - TIME_GLOW) / (TIME_WAIT2 - TIME_GLOW);
+		} else if (totalElapsed > mdo.timeGlow && totalElapsed < mdo.timeWait2) {
+			r = (totalElapsed - mdo.timeGlow) / (mdo.timeWait2 - mdo.timeGlow);
 			
 			thresh = 0;
-			int glows = 2;
+			int glows = mdo.glowCycles;
 			float alpha = (float) (1f - (.5f + Math.cos(r * glows * Math.PI*2) * .5f));
 			if (alpha < .1f) {
 				mutateSFX = true;
@@ -152,8 +148,8 @@ public class ScreenIntro extends Screen {
 			}
 			weirdMoon.setColor(new Color(1f, 1f, 1f, alpha));
 			
-		} else if (totalElapsed > TIME_FLYIN && totalElapsed < TIME_LAND) {
-			r = (totalElapsed - TIME_FLYIN) / (TIME_LAND - TIME_FLYIN);
+		} else if (totalElapsed > mdo.timeFlyin && totalElapsed < mdo.timeLand) {
+			r = (totalElapsed - mdo.timeFlyin) / (mdo.timeLand - mdo.timeFlyin);
 			
 			animFly.update(elapsed);
 			showFly = true;
@@ -161,8 +157,8 @@ public class ScreenIntro extends Screen {
 			shipY = START_Y + (SWITCH_Y - START_Y) * r;
 			shipColor = new Color(1, 1, 1, Math.min(1f, r*2));
 			
-		} else if (totalElapsed > TIME_LAND && totalElapsed < TIME_WAIT3) {
-			r = (totalElapsed - TIME_LAND) / (TIME_WAIT3 - TIME_LAND);
+		} else if (totalElapsed > mdo.timeLand && totalElapsed < mdo.timeWait3) {
+			r = (totalElapsed - mdo.timeLand) / (mdo.timeWait3 - mdo.timeLand);
 			
 			animLand.update(elapsed);
 			showFly = false;
@@ -170,7 +166,7 @@ public class ScreenIntro extends Screen {
 			shipX = SHIP_X;
 			shipY = SWITCH_Y + (END_Y - SWITCH_Y) * r;
 			
-		} else if (totalElapsed > TIME_END) {
+		} else if (totalElapsed > mdo.timeEnd) {
 			if (!moving) {
 				moveToNext();
 			}

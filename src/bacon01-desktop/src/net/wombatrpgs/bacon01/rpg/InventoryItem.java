@@ -83,7 +83,9 @@ public class InventoryItem extends AssetQueuer {
 			graphic.show(listener);
 			return;
 		case RADIO:
-			MGlobal.ui.getBlockingBox().blockText(MGlobal.screens.peek(), "Stop calling me on the radio dimwit");
+			String message = MGlobal.levelManager.getActive().getProperty("radio");
+			if (message == null) message = "...can't... ..interference... ...later...";
+			MGlobal.ui.getBlockingBox().blockText(MGlobal.screens.peek(), message);
 			listener.onFinish();
 			return;
 		case KEY:
