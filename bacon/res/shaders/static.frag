@@ -17,7 +17,7 @@ void main() {
 	float chunk = 2.0;
 	chunk += rand(vec2(v_texCoords[1], u_elapsed)) * 4.0;
 	randCoords[0] -= mod(float(randCoords[0]), float(chunk));
-	randCoords[1] -= mod(float(randCoords[1]), 2);
+	randCoords[1] -= mod(float(randCoords[1]), 2.0);
 
 	vec4 texColor = v_color * texture2D(u_texture, v_texCoords);
 	float r = (u_elapsed * 4.0) + texColor[0];

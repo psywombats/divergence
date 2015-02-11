@@ -21,6 +21,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import net.wombatrpgs.bacon01.EffectAltLight;
+import net.wombatrpgs.bacon01.maps.events.EventGuide;
 import net.wombatrpgs.bacon01.maps.events.EventStalker;
 import net.wombatrpgs.bacon01.screens.ScreenGameOver;
 import net.wombatrpgs.mgne.core.MAssets;
@@ -85,6 +86,10 @@ public class BaconLevel extends LoadedLevel {
 			if (event instanceof EventStalker) {
 				EventStalker stalker = (EventStalker) event;
 				stalker.trueRender(getScreen().getViewBatch());
+			}
+			if (event instanceof EventGuide) {
+				EventGuide guide = (EventGuide) event;
+				guide.trueRender(getScreen().getViewBatch());
 			}
 		}
 		

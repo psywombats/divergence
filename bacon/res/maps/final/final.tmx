@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="35" tilewidth="16" tileheight="16" nextobjectid="55">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="35" tilewidth="16" tileheight="16" nextobjectid="57">
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
  <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
  <layer name="Artificial Lower Chip" width="30" height="35">
@@ -7,7 +7,7 @@
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC82XT05bMRDG8xwh/hTYAhJwAmDTSmUFmwiJCqqyIUitKBdo1YTcIJAbADkCcCu4QmkpXTHW86d8jGacfyyI9MmO33h+Hns8ebkrKpU7R5OhbCdCr4/v/FzbTATf5yDyuAvSXxQtjcH9W5Q+LC053Ib0m6KWw11w/EGPKaZT0cdqpbJZLf2h3yI/HFs79TtqD2DTcPw1EwtrPBftyvgn0Rn1O+SHY4u6VN/Zpu34O0sscK9EX2X8W7X0h36X/HRC/rzY5sLxd5lY4Opnmhv9dNNasWZmxu+wyXGvFfdG9EPGf4rWqM9+btMc3t+r0GthA3v4WFd95m6LtpyWuYg3jnHc54qLuf+k/0T6X5Tj4B6Ivjgtc58KX8zF3BnRnsS5L/osmk3jfOestWE/4/z7or9m1bnHecfC+y46qfaeM9da2yjcuugD+fwlvhrx7ma41tpGibeW2mVpV0irDlev7X3SqFzU09OklsH11jZOvG2671Edg4u1NdXaLC7/LuS4F6FXo6K6Bhd3rpbuLn8GiZXz6oi4sVasJVlc3LlaursWN+7/nOgdad45G45lJ7ysQ/p3lffI+mykHGNujHGDxL4Qy054WYeG5eKsNbdf3akpBriW/bDcXN3xuNo+5oZ39yxuPeTrjse17L27l4tX1526ym/NtWqod/e8eHN1Rwtcy966e9hPK16v7lj5Bq51jrqO4O553Jy9zh9wrXPUdeSgDzdnr/OH3+v0OUKHlB/ePvNznUNWvoFr1VBPXryerHwD13qXey2ulW/gWu9yr8W18i1yp0QPxWD643B/Dzgfmu6zVq1JJ6/G/b/7VrlTjv9h9y3qGQ2lmoloEAAA
+   H4sIAAAAAAAAC82XTW4TQRCFPWNF4SewDZGAE4RsQIJVsrEigQJKNgQJBFwAhB3fwIlvkMRHAG6VXIHwE1ZUa/rJL6V67Ym9wdJTt3uq6+ufqvL4rOp0zoSW66Zdqqd9fOfn3map1j7bSHFXrX/PtLYA91fV+Ii0Jrh96w9MQ8FdFf6g33lPB6an3U7nWbfxh/6Q/PDeRrk/dmcAm77wN8gsrPHI9NzGX5gOqT8mP7y3pBP3nW1Gwt9hZoF7anpr4++6jT/0J+RnXJfvi22Ohb+TzALXP/Pc5GeS14o1MzN9h02J+9Vxv5k+2fhn0zr12c/3PIfP97SetrCBPXw8cn3mbpk2Rctc7DeN8b6PHBdz/1j/kvS3asbB3TPtipa5l5UWczH3lmnH9vnS9Mq0ksc556K14TzT/PNqtlbcvad57433wfSxO33O3Ght83D3TU/I5xfz1U+5W+BGa5tnv73c3rf2Aemh4Pq1Pc6al4t6epA1DLhqbYvsd0T5njQOuFjbwK0t4vLvQol7XE9rVNIk4CLnejl3+dNmrxxXb4ibasV6VsRFzvVy7kbcdP53TLdJd8Xd8F6266t1yP+u8hlFn40cY8xNe9wgsS/sZbu+Woeuy8Vde+6sutNzDHAj++tyS3VHcb19ig2Ve5uOu5XtS3VHcSN7lXu7jos7i+rOvotvz41qqMq96JyT71Ld8QI3so9yD+cZ3a+qO1G8gavukesIck9xS/Y+fsBV98h1ZG8Gt2Tv44ff6/w9Qq8pPtQ583MfQ1G8gRvVUKUoj0r2UbyBG73LKak8UoriDdzoXU5J3W/pfHy8Je4N00XVTj8F90fL+dDNGWv1WhZxtej/3f+Vm+7En1E01kb/AAfVCuxoEAAA
   </data>
  </layer>
  <layer name="Natural Lower Chip" width="30" height="35" visible="0">
@@ -16,7 +16,7 @@
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3BMQEAAADCoPVPbQlPoAAAAAA+BjO3YgZoEAAA
+   H4sIAAAAAAAAC+2SwQmAMAxFs4CTqINYB1GnNosoJtBgDL0I6e0/eKdCf38aIgAAyGf4aWbuJrJYgqe4Vzkx03LVpZG7hvNMpupNbz8OuWM9z8TP9KBv98u9qXTKjTP1/8sdcu1u7arz9P3sLbZ3mbR6mjrnmfrsVdyduNP+jwEAAAAAIg9c4iGCaBAAAA==
   </data>
  </layer>
  <layer name="Natural Walls" width="30" height="35" visible="0">
@@ -25,7 +25,7 @@
    <property name="z" value=".1"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3BMQEAAADCoPVPbQlPoAAAAAA+BjO3YgZoEAAA
+   H4sIAAAAAAAAC+3S0QmDQBAE0J0C0pOaPuLZhzF9GC1EG0nKycgJegd+ZSME5sGwcAt7P2MmImeoYRYQZ8GUiO8V5xXpPsDv3ztvdYjztru/pEG67xz/ffLWgDhbZmamdT6Q7gfHf/d63n0zr3WOzMW2yPfy3nr390jeW+/+Hsl7+8v+ioiIiPyrD25UiFpoEAAA
   </data>
  </layer>
  <layer name="Artificial Upper Chip" width="30" height="35">
@@ -42,7 +42,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3BMQEAAADCoPVPbQlPoAAAAAA+BjO3YgZoEAAA
+   H4sIAAAAAAAAC2NgGAWjYBSMguEDtBghtCYjefKUAHVGBG0DpCOheAOaPLUBzC+vgVgaiC0ZIPYj20kL/w4E0ELzhweQ78kIoXGpoQVIA9qRzgihR8EoGAWjYBSMglEwCkYBKgAAZ27JZGgQAAA=
   </data>
  </layer>
  <layer name="Natural Wall Sidings" width="30" height="35" visible="0">
@@ -58,9 +58,15 @@
   <properties>
    <property name="z" value=".5"/>
   </properties>
-  <object id="54" name="trigger" type="Event" x="224" y="304" width="16" height="16">
+  <object id="54" name="trigger" type="Event" x="208" y="320" width="48" height="16">
    <properties>
     <property name="onCollide" value="play('finale01.lua')"/>
+   </properties>
+  </object>
+  <object id="56" name="Guide" type="guide" x="224" y="192" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_hero_gray"/>
+    <property name="face" value="SOUTH"/>
    </properties>
   </object>
  </objectgroup>
@@ -78,7 +84,7 @@
    <property name="z" value="1.5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3BMQEAAADCoPVPbQlPoAAAAAA+BjO3YgZoEAAA
+   H4sIAAAAAAAAC+3POwoAIAxEwaQUc3rv5Z0sxEIQCX4Q5E2zkKTIigDAeaY1o67tdwTts0kynp/SuuTJTzf6vmCOHp4bAAAA/KcAMUzRbGgQAAA=
   </data>
  </layer>
 </map>

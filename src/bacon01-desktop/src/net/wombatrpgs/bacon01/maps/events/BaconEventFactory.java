@@ -23,6 +23,7 @@ public class BaconEventFactory extends EventFactory {
 	protected static final String TYPE_CHECKPOINT = "checkpoint";
 	protected static final String TYPE_STALKER = "stalker";
 	protected static final String TYPE_ITEM = "item";
+	protected static final String TYPE_GUIDE = "guide";
 
 	/**
 	 * @see net.wombatrpgs.mgne.maps.events.EventFactory#createEvent
@@ -43,6 +44,8 @@ public class BaconEventFactory extends EventFactory {
 			return new EventStalker(object.generateMDO(EventMDO.class));
 		} else if (TYPE_ITEM.equals(type)) {
 			return new EventItem(object.getString("key"), object);
+		} else if (TYPE_GUIDE.equals(type)) {
+			return new EventGuide(object.generateMDO(EventMDO.class), object);
 		}
 		return super.createEvent(object);
 	}

@@ -40,12 +40,7 @@ public class SceneWalk extends VarArgFunction {
 			}
 
 			@Override protected boolean shouldFinish() {
-				if (!super.shouldFinish()) return false;
-				if (wait) {
-					return !argToLua(eventArg).get("isTracking").call().checkboolean();
-				} else {
-					return true;
-				}
+				return true;
 			}
 			
 		});

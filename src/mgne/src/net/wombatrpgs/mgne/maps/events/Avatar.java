@@ -113,7 +113,7 @@ public class Avatar extends MapEvent implements CommandListener {
 		if (MapEvent.PIXEL_MOVE) {
 			if (paused) {
 				halt();
-			} else {
+			} else if (!isTracking() && !MGlobal.memory.getSwitch("finale_stop")) {
 				int targetVX = 0;
 				int targetVY = 0;
 				if (MGlobal.keymap.isButtonDown(InputButton.DOWN)) targetVY -= 1;

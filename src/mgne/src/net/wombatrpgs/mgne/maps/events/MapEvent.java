@@ -707,13 +707,13 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 				@Override public LuaValue call(LuaValue stepsArg, LuaValue dirArg) {
 					OrthoDir dir = OrthoDir.valueOf(dirArg.checkjstring());
 					int steps = stepsArg.checkint();
-					int targetX = (int) (getTileX() + steps * dir.getVector().x);
-					int targetY = (int) (getTileY() + steps * dir.getVector().y);
+					x = getX();
+					y = getY();
+					int targetX = (int) (getX() + steps * dir.getVector().x * 16);
+					int targetY = (int) (getY() + steps * dir.getVector().y * 16);
 					step(dir);
 					setFacing(dir);
-					targetTile(targetX, targetY);
-					tileX = targetX;
-					tileY = targetY;
+					targetLocation(targetX, targetY);
 					return LuaValue.NIL;
 				}
 			});

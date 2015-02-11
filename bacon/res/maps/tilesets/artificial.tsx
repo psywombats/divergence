@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset name="artificial" tilewidth="16" tileheight="16">
- <image source="artificial.png" width="300" height="500"/>
+ <image source="artificial.png" width="300" height="700"/>
  <terraintypes>
   <terrain name="Ceiling" tile="0"/>
   <terrain name="Groove" tile="42"/>

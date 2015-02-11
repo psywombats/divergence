@@ -6,7 +6,7 @@
 	"soundEffectEntries" : [
 		{
 			"key" : "type",
-			"file" : "02.wav"
+			"file" : "01.wav"
 		},
 		{
 			"key" : "item_get",
@@ -35,6 +35,10 @@
 		{
 			"key" : "stalker3",
 			"file" : "stalker03.wav"
+		},
+		{
+			"key" : "switch",
+			"file" : "mutate01.wav"
 		}
 	],
 	"emuMusicEntries" : [ ],

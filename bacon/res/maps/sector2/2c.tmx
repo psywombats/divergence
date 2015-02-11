@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="26" height="40" tilewidth="16" tileheight="16" nextobjectid="92">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="26" height="40" tilewidth="16" tileheight="16" nextobjectid="93">
  <properties>
   <property name="radio" value="I can see the blue cardkey on the security feed from a hallway northeast of here."/>
  </properties>
@@ -164,13 +164,6 @@
    </properties>
   </object>
   <object id="68" name="door" type="Event" x="80" y="128" width="16" height="16">
-   <properties>
-    <property name="appearance" value="anim_door_closed"/>
-    <property name="hide" value="return hasItem('item_bluekey')"/>
-    <property name="passable" value="PASSABLE"/>
-   </properties>
-  </object>
-  <object id="69" name="door" type="Event" x="304" y="128" width="16" height="16">
    <properties>
     <property name="appearance" value="anim_door_closed"/>
     <property name="hide" value="return hasItem('item_bluekey')"/>

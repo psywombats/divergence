@@ -1,0 +1,5 @@
+speak("Impressive. You've made it to the collider. It's just behind that door, but I'm not opening it.")
+speak("The collider is not going to be destroyed today, no matter what you plan to do. Instead, we'll activate it. You and me. We'll bring our discovery back to earth.")
+speak("With your help, he will turn deserts to meadows! Cities to forests! Scarcity to abundance!")
+speak("It's not like you have a choice. The collider door is hardwired. It'll only open when you turn the generator on to power it up. It's a switch a few feet to your left. Are you ready to make history?")
+sceneSwitch('ante01', true)

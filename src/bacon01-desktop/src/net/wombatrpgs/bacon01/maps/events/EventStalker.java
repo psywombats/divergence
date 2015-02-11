@@ -16,7 +16,6 @@ import net.wombatrpgs.bacon01.maps.BaconLevel;
 import net.wombatrpgs.bacon01.screens.ScreenGameOver;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
-import net.wombatrpgs.mgne.core.interfaces.Timer;
 import net.wombatrpgs.mgne.graphics.AnimationStrip;
 import net.wombatrpgs.mgne.graphics.ShaderFromData;
 import net.wombatrpgs.mgne.maps.Level;
@@ -43,6 +42,7 @@ public class EventStalker extends MapEvent {
 	protected float sinceSFX;
 	protected float totalElapsed;
 	protected float startX, startY;
+	protected float delayAura;
 
 	public EventStalker(EventMDO mdo) {
 		super(mdo);
@@ -58,24 +58,19 @@ public class EventStalker extends MapEvent {
 		sinceSFX = -.5f;
 	}
 
-	protected int getPathTileX() {
-		float x = getHitbox().getX();
-		if (MGlobal.rand.nextBoolean()) x += getHitbox().getWidth();
-		return (int) Math.floor(x / 16f);
-	}
-
-	protected int getPathTileY() {
-		float y = getHitbox().getY();
-		if (MGlobal.rand.nextBoolean()) y += getHitbox().getHeight();
-		return (int) (parent.getHeight() - Math.floor(y / 16f) - 1);
-	}
-
 	/**
 	 * @see net.wombatrpgs.mgne.maps.events.MapEvent#update(float)
 	 */
 	@Override
 	public void update(float elapsed) {
 		super.update(elapsed);
+		
+		if (isHidden()) {
+			delayAura = .5f;
+			return;
+		}
+		
+		delayAura -= elapsed;
 		sinceSFX += elapsed;
 		totalElapsed += elapsed;
 		
@@ -135,6 +130,9 @@ public class EventStalker extends MapEvent {
 		
 		float ratio = len / 150f;
 		ratio *= ratio;
+		if (delayAura > 0) {
+			ratio += delayAura;
+		}
 		
 		shader.begin();
 		shader.setUniformf("u_elapsed", totalElapsed);
@@ -183,6 +181,12 @@ public class EventStalker extends MapEvent {
 	@Override
 	public void render(SpriteBatch batch) {
 		// aura
+		if (delayAura > 0) {
+			light.setScale(4 * (1f - delayAura));
+		}
+		if (isHidden()) {
+			return;
+		}
 		BaconLevel level = (BaconLevel) getParent();
 		level.getLightBuffer().begin();
 		int screenX = getCenterX();

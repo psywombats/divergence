@@ -1,0 +1,5 @@
+speak("I'm sorry, but it seems we were never meant to meet face to face. The collider is powering up and soon everything will be in motion, but... I detect you've had a change of heart.", true)
+speak("It was nice working with you, but you've served your purpose.", true)
+speak("May we meet in the next life!", true)
+sceneSwitch('ante03', true)
+sceneSwitch('final_stalker', true)
