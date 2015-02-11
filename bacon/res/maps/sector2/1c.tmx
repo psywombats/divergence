@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="80" tilewidth="16" tileheight="16" nextobjectid="68">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="80" height="80" tilewidth="16" tileheight="16" nextobjectid="70">
  <properties>
+  <property name="bgm" value="shape"/>
   <property name="period" value="4.2"/>
-  <property name="radio" value="Ahhh yes, the generator room. The cameras here are few and far between, but I think I spot something in the middle of the room."/>
+  <property name="radio" value="Ahhh yes, the generator room. The cameras here are few and far between, but I think I spot at least two items in the middle of the room."/>
  </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
  <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
@@ -29,7 +30,7 @@
    <property name="z" value=".1"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+1cW3ITMRD0VhF8DozhGjzCNWISruEEcw4H7gHJCcgBeHzyRY6BVNmpTLVn9JZ2l3VXqbYI9lrbao1GLWkXiyOOOOKII+aMP91i8daU96acm/LMlDfdw9+P8MNy99KUK1M+mvKKcTgnEA+kI7y+Vji5M+Wd+fu1KZ9NOes5/N78CYaD5e60e+CBdITXjcLhvSkf2N+2PYd/mz7BcCDdXXQPPJCO8HrZc4h90+rvE3C6nZH+qP/tukMeOPY9h9g375XPl9SfL7aExpoaoP73JeD39kLfvFM+W0p/xJ1t42+m3ARcNw31L/U/F7Bv1tIf8Xbec3dryk9TfgVcvzaMv9rzu8DrtjJ1fQ78r82/X2T2H4orNz13vyPu98OjP3vvUn1e638u8LrZPJm3wbLnLjd/tve87fUUwx3BpT97bym/SOnzufqzPFkNnpjylHGXy59t1xTeCD79SflFSp/P1V8tpLQrh09/iH2i/qT45QLGNh5LSvKa0q4cPv1JsJzTXALjo2tOajl8EsDhsjscF3gsKTnmtdafheXccnvRHcbHV54xxqdDbUzlsaRk3ippZM3i7Imjvr7xf6V833Juud11h/HxLGCMWUH9+FWrD2/LknmrpBHUlPQZqY9owDYi/UlziW3GGBNah5L3l/SHbSN9Jub3pbzLFTdSx5jQOuwL9mEpnvj0F5u3Y95l4Ru3aurPQvO5UoDxBLnx/X8KfONWaf2dQp01n2sqqKk/e2/0iy6AI+5ztfSRSqGm/uy90ZveCfyQzzVFHdbWH3rTmm+4LaBDyTet3R6uPDjXV4qdE+TokPumXO+u9kC+U9tNy4NLeHKx4DqMiR3k/+GajGseQN/J9aRqYaXMTXz+g+T7+0DrCtLalJan03dyPanWCPEfYtfkXOsK2jwAv1NjvlALIT5Y6twq9F4hc+YxwxcfY/UXe6+QOfNYQb6jC6X0p+UR0rhZYk5XG8QdzkUQmmYo38B1PSmmlljbGxvIs5XmIhxazKJ8A/mdqp5iQZ6tbw+Dpj/KN6YU60tC82wRvjFzKrG+NELmdZqvzsfMOevPBVfMlzzgucGlv5j1nLliTrlGKnBdvkauUcp/GiNwXb5GrJf8pyH8a8m3zW1LXJevkWtI/lOsbyjtX4l9dmzHqwJeIuZ4qD+st2/PjfYb6D/F+obS/pXYZ8d2vO7yvUQcY3l9+B5+qjftuYmtNyLWN5T2r8Q+u+Q95nqJPMfj4yo/O8LrTXtuYustIfYeOBeKffYae7qlPBfPjmC9U7QjofWz1z5TwH/Hd3ZkCP1JGFp/2u/4zo5MUX/SfKDGXCDk7EhuvVPuUeI8RY29SYgQ3yU2ZuDzj/XZSyBkPT0lZszFk/Hpb9nnNpRPz9Uf1eDS37p7XFOifHqu/qgGLd4vGXc7lk+31h+t7Ul+Ds43h/J6pHjPueO5Tes60toe93MoltDez6G9Hgse7/laJuaFm77erd7NQWt73M+hWEJ7P3O8nhpwrWVe9vVuxR+Ob3sWS3DvZ4rXUwOutcx9X++W+ovBGN7bEJJTD6W/EIxBfz6MVX8WR/09Yor6GxN/uWebh4BrL++yz3NavlvMdaZ0rHu7XOdrW0A7Q15yPbIFsP+0fKeNdIYc1+SmxmHLd9pIZ8hxTW4j6NJ3HYJz6s+t4kvIfkQ656jp06XbqZ3pi0Vo3kLzOZdOJd1O9WxpKHLffeLClM+WhiL33Sc+pJ7pmwpq6o8wFr+mBmrrjzAGv6YGWuiP8D/qTztni3OideC8zvX9scz5WsFyS+/XS3n23O8fMQ78A94WXuYAZAAA
+   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
   </data>
  </layer>
  <layer name="Artificial Upper Chip" width="80" height="80" visible="0">
@@ -55,7 +56,7 @@
    <property name="z" value=".2"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2cQW4CMQxFuf9Nuuk1Wqlco0jlFNUsIkVDEsb5tpM4/61gBE7GeTYzKHC7EUIIIQTlc/QEFueePf4eNot1eWaPH8NmEYPd/PsRvLaUm7/T8938O59/i1Juzvkf7Z/3+NH88x4f9c8KybrmXPGvNzYay7M2JOuac2WNz7GR85o1f57+IXU1a/2u4h+KZi/RiOvtH0qvJ1ZxUf+sfKhxjPdhFNeLPH+1dbOq8WO8L4O4ef5qc0dznN7/KBw7Y1Xjx3i/BnFzD2pzR/NXcs3bv3QOFjWcqOXPovd6+5fOwaKGR+DtX/ru2aKGR2DpXyn2vXBsZWr50/Cv5PazcGxlavWr4Z/VtfIueF+bR6PXv57e0dOHoq5vT+/o6UNR+wv9w/DyL2r+NP1rsXr91vbBaPoXmdq9yI49S0LKQe1eZMfPTAnvctDyj/l7X4M7fmZKQByif3QIhQ4RMjepx1nuFYncR1OPs9wrMksftdhTu4p/GjEs9tSW9jq06Mmzhn8aMSz8k86rZ80i+yeF/snHyaF/8nFyVvbPC23/dkPbv92gfxhXezVdLHO1V9NFjFH5i/J9hOXe6BYrXcu0GLU3etbf9kkZtTd61t/2rUIU/0ZB/zDoHwb9IwSHvQXDu7dEuW9LzPyfNuSVaP55Q/8w6B8G/cOgfxj0jxBCYvIPVHEe9gBkAAA=
+   H4sIAAAAAAAAC+2cQW4DIQxFc/+bdNNrtFJzjUZKTlFlgYSmMAPY3wbz3yqdtsCYZwdGJLcbIYQQQqR8eg9gce7Z62+3UazLK3v9cBtFDHbz76fjb0uxeR5+3s2/4/2fUYrNMf7e/ln3H80/6/6l/qHomdecFv9G25a2VRtbzxy0Mtpmyxwf25bkvEb8EFj6J8mrWfN3Ff+kaNYSjXat/ZOCqH2SdqX+oXyo8e7vA9SuFXn8avOGyvF3f1+AdvP41cYujXH6/0fh2hFUjr/7+wW0m3tQG7s0fiXXrP1L94DI4UQtfojaa+1fugdEDntg7V969ozIYQ+Q/pXavheurUwtfhr+ldx+Fa6tTC1/NfxDrZV3wXptHo1R/0Zqx0gdallzr8hI7RipQy1r7hWhfzI0/dsxfpr+Rc7f2jkYTf8iU9uLXOVcpFwbIeVabS9ylXMr5pomV7l25tfz4vc7cLUvOfOL+Sur9cxf7oul7LjWIGQlUo1DvldGrqOpxiHfK2c514M4U+vh38hcadw74kxt6azDGRrj9rp3hH+9axSNcUfyrxf6199PDv3r7ydnZf+s0PYP0cbMaPu3G2j/otO636KLZVrXhHRRhlf8ojyPQJ6NPiPKc12vs9GzfravF6+z0bN+tm8VovjnBf2TQf9k0D9C5LC2yLCuLVH2bYmZv9OG/Ceaf9bQPxn0T4aFf5HXFBb+Rd6vsP4RQkhM/gBMm6PyAGQAAA==
   </data>
  </layer>
  <objectgroup name="Object Layer">
@@ -157,6 +158,16 @@
   <object id="67" name="tele" type="Event" x="496" y="1248" width="32" height="16">
    <properties>
     <property name="onCollide" value="teleport('sector2/2c.tmx', 5, 9)"/>
+   </properties>
+  </object>
+  <object id="68" name="Guide Notes" type="item" x="672" y="784" width="16" height="16">
+   <properties>
+    <property name="key" value="item_guide"/>
+   </properties>
+  </object>
+  <object id="69" name="Expedition Log" type="item" x="400" y="528" width="16" height="16">
+   <properties>
+    <property name="key" value="item_expedition"/>
    </properties>
   </object>
  </objectgroup>

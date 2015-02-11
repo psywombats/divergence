@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="16" tileheight="16" nextobjectid="48">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="16" tileheight="16" nextobjectid="49">
  <properties>
+  <property name="bgm" value="shape"/>
   <property name="radio" value="Now wasn't that a life-changing experience?"/>
  </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
@@ -101,6 +102,11 @@
    <properties>
     <property name="hide" value="return not getSwitch('radio05')"/>
     <property name="onCollide" value="teleport('sector2/2b.tmx', 1, 44)"/>
+   </properties>
+  </object>
+  <object id="48" name="Orders" type="item" x="256" y="112" width="16" height="16">
+   <properties>
+    <property name="key" value="item_orders"/>
    </properties>
   </object>
  </objectgroup>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="84" height="71" tilewidth="16" tileheight="16" nextobjectid="46">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="84" height="71" tilewidth="16" tileheight="16" nextobjectid="47">
  <properties>
+  <property name="bgm" value="shape"/>
   <property name="radio" value="Keep moving!"/>
  </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
@@ -28,7 +29,7 @@
    <property name="z" value=".1"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   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
+   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
   </data>
  </layer>
  <layer name="Artificial Upper Chip" width="84" height="71">
@@ -45,7 +46,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3bC1LCMBCA4ZwDH9dQivdQz+GIXoOTeBNP4iGcHchYYhMXCOx2/b8ZplAKs90SmmzalAAAAAD/Xq0DCOTGOoCAnqwDwJ7riXUco7YhbfOWH6cg1ymti9dvB34+n/OuOsQSxUNl/fKiUQAAAAB9LHZLxk96mlwdOvbCNq85t0PxHvnUW1kHAMAVanr9vFsHADTkuZR70yjiYGzUF/ns59E6gKCerQOAG7fWAUzwGJPWqdd64Lc76wB2ovQ5F39vAqVcu63VJdfFEjpljXzsHH3s6Mcn+v6dk9TEatfKWWv1Nz4vFkVM5X0SXyZRxJHzuRmt20xt6IjMLXi/X+aj8twjj3M1c57z8Hb/0ZDafTfv5Hz60vH7etUwPbYbLc34Xfr0tetgZLxa239NvWWqfc85n2OttiZ5l9/yqthOci3ntGX6GUsdMz4Y537Obf4Y8r+b+wbU/AAAAAAAAAAA/9k3M53OqzBdAAA=
+   H4sIAAAAAAAAC+3bbVLCMBCA4XgN/LiGUryHeg5H9BqcxJt4B/97CGcHMtbYxAUCu915nxmmUAqz3RKabNqUAAAAAP9erAMI5No6gIAerQPAL1cT6zhGbUPa5i0/jkGuU1oXr1/3/Hw+5112iCWK+8r65VmjAAAAAPpY7JaMn/Q0udp37IVtXnNuh+I98qm3sg4AgCvU9Pp5sw4AaMhzKXemUcTB2Kgv8tnPg3UAQT1ZBwA3bqwDmOAxJq1jr/XAX7fWAexE6XMu/t8ESrl2W6tLrosldMoa+dgp+tjRj0/0/TslqYnVrpWz1upvfJwtipjK+yS+TKKII+dzM1q3mdrQEZlb8H6/zHvluUce52rmPOfh7f6jIbX7bt7J+fS54/f1qmF6bDdamvG79Olr18HIeLW2/5p6y1T7nnM+x1ptTfIuv+VVsZ3kWs5py/QzljpkfDDO/Zzb/CHkfzf3Daj5AQAAAPPzeWEdAQAAABDHN9CgoNwwXQAA
   </data>
  </layer>
  <layer name="Natural Wall Sidings" width="84" height="71" visible="0">
@@ -99,6 +100,11 @@
    <properties>
     <property name="appearance" value="4dir_arrow"/>
     <property name="face" value="NORTH"/>
+   </properties>
+  </object>
+  <object id="46" name="Orders" type="item" x="448" y="992" width="16" height="16">
+   <properties>
+    <property name="key" value="item_orders"/>
    </properties>
   </object>
  </objectgroup>

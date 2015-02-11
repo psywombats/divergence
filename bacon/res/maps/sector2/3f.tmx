@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="16" tileheight="16" nextobjectid="54">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="24" tilewidth="16" tileheight="16" nextobjectid="55">
  <properties>
+  <property name="bgm" value="shape"/>
   <property name="radio" value="I see him... He's up north, waiting for you. He knows you're coming. He's clever. He knows to guard me."/>
  </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
@@ -61,7 +62,7 @@
   <properties>
    <property name="z" value=".5"/>
   </properties>
-  <object id="44" name="Checkpoint" type="checkpoint" x="80" y="176" width="128" height="160"/>
+  <object id="44" name="Checkpoint" type="checkpoint" x="240" y="192" width="128" height="144"/>
   <object id="48" name="tele" type="Event" x="32" y="240" width="16" height="32">
    <properties>
     <property name="onCollide" value="teleport('sector2/3e.tmx', 27, 6)"/>
@@ -94,6 +95,11 @@
    <properties>
     <property name="appearance" value="4dir_arrow"/>
     <property name="face" value="NORTH"/>
+   </properties>
+  </object>
+  <object id="54" name="Orders" type="item" x="112" y="176" width="16" height="16">
+   <properties>
+    <property name="key" value="item_orders"/>
    </properties>
   </object>
  </objectgroup>

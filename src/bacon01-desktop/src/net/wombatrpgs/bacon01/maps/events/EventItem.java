@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.wombatrpgs.bacon01.core.BGlobal;
 import net.wombatrpgs.baconschema.rpg.ItemMDO;
 import net.wombatrpgs.mgne.core.MGlobal;
+import net.wombatrpgs.mgne.maps.Level;
 import net.wombatrpgs.mgne.maps.TiledMapObject;
 import net.wombatrpgs.mgne.maps.events.MapEvent;
 import net.wombatrpgs.mgne.physics.CollisionResult;
@@ -55,7 +56,7 @@ public class EventItem extends MapEvent {
 	@Override
 	public void render(SpriteBatch batch) {
 		if (isHidden()) return;
-		appearance.renderAt(batch, x + appearance.getWidth()/2, y + appearance.getHeight()/2);
+		appearance.renderAt(batch, x, y);
 	}
 
 	/**
@@ -104,4 +105,14 @@ public class EventItem extends MapEvent {
 		mdo.hide = "return getSwitch('collect_" + object.toString() + "')";
 		return mdo;
 	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.maps.events.MapEvent#onAddedToMap(net.wombatrpgs.mgne.maps.Level)
+	 */
+	@Override
+	public void onAddedToMap(Level map) {
+		super.onAddedToMap(map);
+	}
+	
+	
 }

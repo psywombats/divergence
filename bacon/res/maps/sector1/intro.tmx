@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="36" tilewidth="16" tileheight="16" nextobjectid="32">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="36" tilewidth="16" tileheight="16" nextobjectid="35">
  <properties>
-  <property name="radio" value="I'm afraid the radio is one-way, but keep it with you. I'll point out dangers in each room. It's important to stay safe if you're to free me."/>
+  <property name="bgm" value="obsolete"/>
+  <property name="radio" value="I'm afraid the radio is one-way, but keep it with you. I'll point out dangers in each room. If I see you fiddling with the radio, I'll call in, okay?"/>
  </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
  <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
@@ -64,13 +65,13 @@
     <property name="face" value="EAST"/>
    </properties>
   </object>
-  <object id="24" name="trigger" type="Event" x="304" y="304" width="32" height="144">
+  <object id="24" name="trigger" type="Event" x="304" y="272" width="16" height="48">
    <properties>
     <property name="hide" value="return getSwitch('radio01')"/>
     <property name="onCollide" value="play('radio01.lua')"/>
    </properties>
   </object>
-  <object id="26" name="Radio" type="item" x="336" y="368" width="16" height="16">
+  <object id="26" name="Radio" type="item" x="336" y="304" width="16" height="16">
    <properties>
     <property name="key" value="item_radio"/>
    </properties>
@@ -85,6 +86,17 @@
    <properties>
     <property name="appearance" value="4dir_arrow"/>
     <property name="face" value="EAST"/>
+   </properties>
+  </object>
+  <object id="33" name="Orders" type="item" x="96" y="480" width="16" height="16">
+   <properties>
+    <property name="key" value="item_orders"/>
+   </properties>
+  </object>
+  <object id="34" name="trigger" type="Event" x="304" y="352" width="64" height="16">
+   <properties>
+    <property name="hide" value="return getSwitch('radio01')"/>
+    <property name="onCollide" value="play('radio01.lua')"/>
    </properties>
   </object>
  </objectgroup>

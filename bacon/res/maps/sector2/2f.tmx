@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="52" tilewidth="16" tileheight="16" nextobjectid="64">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="52" tilewidth="16" tileheight="16" nextobjectid="65">
  <properties>
+  <property name="bgm" value="shape"/>
   <property name="radio" value="Our mutual friend guards the path to Sector 3. Embrace him!"/>
  </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
@@ -28,7 +29,7 @@
    <property name="z" value=".1"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2XSU4DMRBF7UVykIZwDqYDMOwT4AAM+wRyAIZ9AgcKFwnH4LdEKYW7yoMcO0j0l7686FK7X6XbP2VMr7+qT3hijbmy3XXt1J3B5/AFfAmvMvb9gmfY49F217VTdwvfwffwg/l9PVUtxxJ7vNvueggfwcfwCfyM2hf4FX4z+byaxqzn17Z7PZdX05T1/EnYtxTvgvX8oyJvSKV4Q+p54xXi3cf7NIT3Kr7PrYhJqivF27KOrF6Xw9v89HEgrCPW223zxmrbvLEq8ftq+bty6lzVyl9XNfL3oOL3y/P3dEf5e7Oj/J33+dvzJqjP341q5K/Ux5LnMynEUyp/QzyxvL5cpZwhxeRNLK8vV8dCtobyJoaX5lUtV6fCbCvljVsT4p0o8yppYTfZSrVS3qTOvzNlXuWibPXVps6/S2Ve5aJs9dWWnH9zVOP/s6T/zjtQznkuytVQbWr+hvI8dBa5dbHns+9ePFdbNQoPr5PuJ/E2Vp5ph86evnrfs7nPXlKcueY31DC+Wqw+fQPqHccyYBgAAA==
+   H4sIAAAAAAAAC+2XzU0DMRCF7UNSyEKoA1gKAHJPgAL4uSdAAUDuCVQAjYRGQhmMJawdvOMZG8fOAT/pyZF2tN432fWnUapK0jv4g1mlur/qEzzVSl3o/rpx6k7BZ+Bz8Bi8Ttj3CzyHPe51f904ddfgG/At+E79vh4rk2MFe7zq/nqou3628PsJ1mfwC3ih0vP6NEE9v9T966l5fZqhnj8Q++bKu0Q9fyuYV1KuvJJq3nBJeffhfRqC9wq+z0Y2E1WXK6/JOtL+upS8zU8fB8Q6Qr3ddt5QbTtvKH9z/L8+/q6dOlel+OsqN3+NDwp+v5i/Jzvi79WO+PtY+VvzRqjyt1MJ/lJ9zHk+W0l5QvNSPOVmVilPaF6Oq4YzR6ivx1rmTWhejqsTgq0Sb0LymudvCZ7adUbMthRvMH/bgO936plXrZa6Y6utpXgTO//OPfMqlmUrVxs7/6488yqWZStXm3P+TVHKeZWi/5534DnnsSxXpdpY/ko8l84ity70fObuhblq1Hjy4DrqflTexjPTDp09uXru2dxnzymcueQ31KB8pbJy+ga0myTRYBgAAA==
   </data>
  </layer>
  <layer name="Artificial Upper Chip" width="30" height="52">
@@ -124,7 +125,12 @@
   </object>
   <object id="63" name="tele" type="Event" x="400" y="80" width="32" height="16">
    <properties>
-    <property name="onCollide" value="teleport('final/final_ante.tmx', 18, 43)"/>
+    <property name="onCollide" value="teleport('sector3/4b.tmx', 35, 20)"/>
+   </properties>
+  </object>
+  <object id="64" name="Expedition Log" type="item" x="224" y="128" width="16" height="16">
+   <properties>
+    <property name="key" value="item_expedition"/>
    </properties>
   </object>
  </objectgroup>

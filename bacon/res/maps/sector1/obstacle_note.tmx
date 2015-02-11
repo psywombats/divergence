@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="19" height="20" tilewidth="16" tileheight="16" nextobjectid="34">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="19" height="20" tilewidth="16" tileheight="16" nextobjectid="35">
  <properties>
+  <property name="bgm" value="obsolete"/>
   <property name="radio" value="Unfortunately I can't read pages from the cameras."/>
  </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
@@ -76,6 +77,11 @@
   <object id="33" name="tele" type="Event" x="288" y="160" width="16" height="32">
    <properties>
     <property name="onCollide" value="teleport('sector1/obstacle_maze.tmx', 1, 31)"/>
+   </properties>
+  </object>
+  <object id="34" name="Guide Notes" type="item" x="112" y="192" width="16" height="16">
+   <properties>
+    <property name="key" value="item_guide"/>
    </properties>
   </object>
  </objectgroup>

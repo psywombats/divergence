@@ -1,14 +1,34 @@
 {
 	"switches" : {
-		"switches" : { }
+		"switches" : {
+			"radio03" : true,
+			"collect_Radio(336,256) sector1/intro.tmx" : true,
+			"radio02" : true,
+			"radio01" : true,
+			"collect_Red Key(288,112) sector1/cave_intro.tmx" : true,
+			"collect_Guide Notes(80,464) sector1/cave_intro.tmx" : true
+		}
 	},
-	"levelKey" : "final/final_ante.tmx",
+	"levelKey" : "sector1/elbow.tmx",
 	"heroMemory" : {
-		"tileX" : 18,
-		"tileY" : 34,
-		"dir" : "SOUTH",
+		"tileX" : 13,
+		"tileY" : 21,
+		"dir" : "NORTH",
 		"animKey" : "4dir_hero"
 	},
 	"saveSlot" : -1,
-	"items" : [ ]
+	"items" : [
+		{
+			"itemKey" : "item_radio",
+			"quantity" : 1
+		},
+		{
+			"itemKey" : "item_guide",
+			"quantity" : 1
+		},
+		{
+			"itemKey" : "item_redkey",
+			"quantity" : 1
+		}
+	]
 }

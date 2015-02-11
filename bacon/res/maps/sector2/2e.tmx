@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" nextobjectid="51">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" nextobjectid="52">
  <properties>
+  <property name="bgm" value="shape"/>
   <property name="period" value="10"/>
   <property name="radio" value="What is that you're reading? It looks... familiar. Almost like my old logbooks."/>
  </properties>
@@ -20,7 +21,7 @@
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2SwQ2AIAxFvwOwijqIMIi6tC6CNEDSEFCKHjjY5CVc/qOFAn99XVMGDICGxwh9OsPhOMPZOmahi/IbY3cskPcYXZQf8W7meL8JLp5Pkfjsg0vqq6EXH98TqW+F3w2ez71l/P+aUoU+095Ug4/vNO+51Uezlna51gfczyt5ux7rAtOx34RABgAA
+   H4sIAAAAAAAAC+2SwQ2AIBAE1wJoBS0ELURtGhpBiJBc0Mid8uDhYxJC2AkHawfA/jRlxBWE/RknC2S+nKPYgEtrH5iYTprfCHvAQH7H7Ip5/XFmQ87qIl8i8fmKS+rj0IuP9kTqW1M3aP7uLfP/c/qiUJ873k298NFOuwY+/9Blrq/2z5K365EDLxQXr0AGAAA=
   </data>
  </layer>
  <layer name="Natural Walls" width="20" height="20" visible="0">
@@ -55,7 +56,7 @@
    <property name="z" value=".2"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWnCcifING8lwTkn5Fo3joC8itJMAvktjME1BwnwTxQ2L0ioOYpCeYRCjtSAaG4JRWMNPfRAgz2/DYKiAcAp18BaUAGAAA=
+   H4sIAAAAAAAAC2NgoA9YDcRr0GgYe6DBaQLyJ0g07yUB+WckmreOgPxKEswCue0MATXHSTAPFHavCKh5SoJ5hMKOVEAobkkFI819tACDPb+NAuIBABoqbtdABgAA
   </data>
  </layer>
  <objectgroup name="Object Layer">
@@ -77,6 +78,11 @@
    <properties>
     <property name="appearance" value="4dir_arrow"/>
     <property name="face" value="EAST"/>
+   </properties>
+  </object>
+  <object id="51" name="Guide Notes" type="item" x="144" y="96" width="16" height="16">
+   <properties>
+    <property name="key" value="item_guide"/>
    </properties>
   </object>
  </objectgroup>

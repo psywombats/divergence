@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="71" height="32" tilewidth="16" tileheight="16" nextobjectid="51">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="71" height="32" tilewidth="16" tileheight="16" nextobjectid="52">
  <properties>
+  <property name="bgm" value="shape"/>
   <property name="radio" value="My friend is here! Be quick! I can make it out on the monitor, some notebook on the floor second room west."/>
  </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
@@ -22,16 +23,16 @@
    H4sIAAAAAAAAC+3YUQ4BMRDG8da7k+AgOAgOgoPgIDgIG+cgRjYjo9ldTXV1Z/s9/LMJHjo/TZptYY0pEEIoQUNTX+q1/dqGZtgGztfkotlnTese0HNPz0PAfPL7ETUWTZT77EzpcqPOAf+/dHlQM9Fduc+R1nvydJGzuZ9PHRdurtjGx8OnBXV1XC7UCjZvn6XIddFmE9unj+dVmzNqt2lzNtjABjawiTXbP8+5Lgcb2MSyeb3Lf7vj6GM8N89eZcPv8tbm4yPvdvh+p8kmBx/eK9LF10bekaU+X9vInZXvvnx/z3sn9RxdqMqybo/lFmxgAxvYwCZ9sPnsCYQ8fmiAIwAA
   </data>
  </layer>
- <layer name="Natural Walls" width="71" height="32">
+ <layer name="Natural Walls" width="71" height="32" visible="0">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value=".1"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2XbU7DMAyGux9wkMHuwcc9ynaPst0jlAPBLfYLjoEt5ZUGil27f5hbP5IVqTQTr/skSrouSebztOm6Z6oXqr0wPlA9bv77P/VjybZX8n1SHej5K9VRGPug/bFkO9Z8H43531Qn+tsb1SiMgzL/mrFkG2u+rz9z4dz7hA9FmH/tsDdT2ZjSWBe81g7GdVKCemOlr3sPc65r7eTYQyJ6Y2Wo/TjXGg3r6ZIle1NqP9AbL0v2BsztTTRvtpTxzpkTvbmlujGM+P1o3jBbY7b7+szrDdyM5o0FZMN39/YGe1pEb6ZANnx3T19wPmQi3hs0LrNJ35290u5jOB/2yjtRR2ST9gv2SruP4Xw4KO9EHZFN80a7j+F8WJR3oo7IpnmzdjRv1k56I5PeyHi84TO05T4RbWzdrzjrrvGcaXmzxDMw07pfSX1hWt4s8e40hzV54yW9kUlvZNIbmfRGJr2RSW9+8wNbpvnwgCMAAA==
+   H4sIAAAAAAAAC+2X0W3CQAyGw0MZhLZ7ULJHCnuksMc1TNAu0m7BUztGbcmWaHT2+RBIOPEnWUbhLtLv/Heymyaw8gHxOcr82zs5bedZYrNomhbiFWIr5DXEy+L2Gq6NRdtW0fcNsYPnbxB7IXdO62PRtid9X5n9vxAH+O8dYhByr+y/ZyzaBtL3M9rLnjsW/JCE/fcO+qakDUmZc4FnbWc8J8mpb6x0dPcgJzprh4o7xKNvrPRUjxPFYDhP50zZN4nqwbWpZcq+YS6tjTffrEDjY6VOrs0S4sGQ+f3efIOsjNqe6Fmtb9ib3nxjgbXxd6+tDd9pHn1TgrXxdx/XpTSLtbQe+6PSWm+5LdwX6CttHuP+sFPWeM2sTbov0FfaPMb9Ya+s8ZpZm+YbbR7j/jApa7xm1qb5Zu5ovpk74RuZ8I1MjW+wh7bME95ybr5Crc+Z50jON1PsgZHcfCXVBcn5Zoqz0yXMyTe1hG9kwjcy4RuZ8I1M+EYmfPOfP2uuDu2AIwAA
   </data>
  </layer>
- <layer name="Artificial Upper Chip" width="71" height="32" visible="0">
+ <layer name="Artificial Upper Chip" width="71" height="32">
   <properties>
    <property name="z" value=".5"/>
   </properties>
@@ -39,7 +40,7 @@
    H4sIAAAAAAAAC+3WQQ4BQRCF4U6fxg0JLjCCC5BhwR4LrsIVuALJvI1NW6iSKRnyf0ltpqv71XQyyaSEaMOc0kg1zu32RuR/21QzzVRzw2yW3r7WBo739OSXztpzCbzTWmevVGtDhqW30trEMa8nv3TVnlvg3ex09l51MGRYehdaWzrm9eSX7trz6OC3CAAAgP+00b/nVtXLr88icn7JUfOe8vtnn3reeZtnAgAAAAAAoLsaIu4uv4AjAAA=
   </data>
  </layer>
- <layer name="Natural Upper Chip" width="71" height="32">
+ <layer name="Natural Upper Chip" width="71" height="32" visible="0">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value=".5"/>
@@ -48,7 +49,7 @@
    H4sIAAAAAAAAC+3W7QmAIBCAYR2nTapByilrkdql7odwRGaZ9Pk+IJgfdyUmGgMAwHsU9u43uMZfvvMs1gkhNXsDAD6tm8/5nrPeVCtrMMxtY8La6FhSl1La9RyxOLF5vi80JiXvUptxf+hYUpfS2OM59szzfaExKXk1l2Fd9D1L6hLTt+nnvfcxPdZF5oX6fN6tMcCVcvxrOeM8NR8AAADwNRN7eXj5gCMAAA==
   </data>
  </layer>
- <layer name="Natural Wall Sidings" width="71" height="32">
+ <layer name="Natural Wall Sidings" width="71" height="32" visible="0">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value=".2"/>
@@ -57,7 +58,7 @@
    H4sIAAAAAAAAC+3YsQ2AIBBGYfffxMY1NNE1NNEpLLX54RSMl+N9LRQX8jDErgOA52bDnunzKXzaDXu2xNpQaxCHLN30ibWl1iAOWboZE2tHrUEcsnSzfj6FT5azaZXlTgF/iHxvS99+kc8m9faziPxNy3WT66LlbnJd0E2bSruJjG40utHoRqOb9+7dtPr/VLl3U/qGjoZuNLrR6EajG41uNLrR6OZyApy1EvOAIwAA
   </data>
  </layer>
- <layer name="Natural Wall Sidings 2" width="71" height="32">
+ <layer name="Natural Wall Sidings 2" width="71" height="32" visible="0">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value=".2"/>
@@ -110,8 +111,13 @@
     <property name="face" value="NORTH"/>
    </properties>
   </object>
+  <object id="51" name="Expedition Log" type="item" x="304" y="144" width="16" height="16">
+   <properties>
+    <property name="key" value="item_expedition"/>
+   </properties>
+  </object>
  </objectgroup>
- <layer name="Artificial Overhead Chip" width="71" height="32" visible="0">
+ <layer name="Artificial Overhead Chip" width="71" height="32">
   <properties>
    <property name="z" value="1.5"/>
   </properties>
@@ -119,7 +125,7 @@
    H4sIAAAAAAAAC+3BMQEAAADCoPVPbQdvoAAAAAAAAAAAgNcA8e1Dm4AjAAA=
   </data>
  </layer>
- <layer name="Natural Overhead Chip" width="71" height="32">
+ <layer name="Natural Overhead Chip" width="71" height="32" visible="0">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value="1.5"/>

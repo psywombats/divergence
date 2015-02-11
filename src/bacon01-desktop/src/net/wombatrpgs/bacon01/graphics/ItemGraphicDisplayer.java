@@ -78,7 +78,7 @@ public class ItemGraphicDisplayer extends ScreenObject implements CommandListene
 	@Override
 	public boolean onCommand(InputCommand command) {
 		switch (command) {
-		case UI_CANCEL: case UI_FINISH:
+		case UI_CANCEL: case UI_FINISH: case UI_CONFIRM:
 			hide();
 			break;
 		case MOVE_LEFT:

@@ -9,6 +9,15 @@
 		},
 		{
 			"graphic" : "order_02.png"
+		},
+		{
+			"graphic" : "order_03.png"
+		},
+		{
+			"graphic" : "order_04.png"
+		},
+		{
+			"graphic" : "order_05.png"
 		}
 	]
 }

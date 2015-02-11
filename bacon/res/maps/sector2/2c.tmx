@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="26" height="40" tilewidth="16" tileheight="16" nextobjectid="93">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="26" height="40" tilewidth="16" tileheight="16" nextobjectid="94">
  <properties>
+  <property name="bgm" value="shape"/>
   <property name="radio" value="I can see the blue cardkey on the security feed from a hallway northeast of here."/>
  </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
@@ -163,7 +164,7 @@
     <property name="hide" value="return not hasItem('item_bluekey')"/>
    </properties>
   </object>
-  <object id="68" name="door" type="Event" x="80" y="128" width="16" height="16">
+  <object id="68" name="door" type="Event" x="304" y="128" width="16" height="16">
    <properties>
     <property name="appearance" value="anim_door_closed"/>
     <property name="hide" value="return hasItem('item_bluekey')"/>
@@ -285,6 +286,13 @@
     <property name="appearance" value="4dir_locked_blue"/>
     <property name="face" value="SOUTH"/>
     <property name="hide" value="return hasItem('item_bluekey')"/>
+   </properties>
+  </object>
+  <object id="93" name="door" type="Event" x="80" y="128" width="16" height="16">
+   <properties>
+    <property name="appearance" value="anim_door_closed"/>
+    <property name="hide" value="return hasItem('item_bluekey')"/>
+    <property name="passable" value="PASSABLE"/>
    </properties>
   </object>
  </objectgroup>

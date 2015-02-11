@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="36" tilewidth="16" tileheight="16" nextobjectid="35">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="36" tilewidth="16" tileheight="16" nextobjectid="37">
  <properties>
+  <property name="bgm" value="obsolete"/>
   <property name="radio" value="I can't control that door from here, you'll have to find a key."/>
  </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
@@ -140,6 +141,11 @@
     <property name="appearance" value="anim_door_closed"/>
     <property name="hide" value="return hasItem('item_redkey')"/>
     <property name="passable" value="PASSABLE"/>
+   </properties>
+  </object>
+  <object id="36" name="Orders" type="item" x="256" y="272" width="16" height="16">
+   <properties>
+    <property name="key" value="item_orders"/>
    </properties>
   </object>
  </objectgroup>

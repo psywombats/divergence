@@ -6,7 +6,7 @@
 	"soundEffectEntries" : [
 		{
 			"key" : "type",
-			"file" : "01.wav"
+			"file" : "05.wav"
 		},
 		{
 			"key" : "item_get",
@@ -42,5 +42,14 @@
 		}
 	],
 	"emuMusicEntries" : [ ],
-	"loadedMusicEntries" : [ ]
+	"loadedMusicEntries" : [
+		{
+			"refKey" : "obsolete",
+			"path" : "memories_of_an_obsolete_world.mp3"
+		},
+		{
+			"refKey" : "shape",
+			"path" : "shape_of_things_to_come.mp3"
+		}
+	]
 }
