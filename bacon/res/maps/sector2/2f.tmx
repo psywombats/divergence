@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="52" tilewidth="16" tileheight="16" nextobjectid="65">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="52" tilewidth="16" tileheight="16" nextobjectid="66">
  <properties>
   <property name="bgm" value="shape"/>
   <property name="radio" value="Our mutual friend guards the path to Sector 3. Embrace him!"/>
@@ -131,6 +131,12 @@
   <object id="64" name="Expedition Log" type="item" x="224" y="128" width="16" height="16">
    <properties>
     <property name="key" value="item_expedition"/>
+   </properties>
+  </object>
+  <object id="65" name="Trigger" type="Event" x="368" y="704" width="80" height="16">
+   <properties>
+    <property name="hide" value="return getSwitch('grace')"/>
+    <property name="onCollide" value="speak('Stay on your guard. I see His gracefulness has already left its mark on this room.'); sceneSwitch('grace', true)"/>
    </properties>
   </object>
  </objectgroup>

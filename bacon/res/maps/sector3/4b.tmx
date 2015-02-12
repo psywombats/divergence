@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="47" height="25" tilewidth="16" tileheight="16" nextobjectid="65">
+ <properties>
+  <property name="bgm" value="obsolete"/>
+  <property name="radio" value="You've lived. Very nice, very nice... Welcome to Sector 3."/>
+ </properties>
+ <tileset firstgid="1" source="../tilesets/natural.tsx"/>
+ <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
+ <layer name="Artificial Lower Chip" width="47" height="25">
+  <properties>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2Wz04CMRDGd9sYQL0rRnwCPetJz/oK+gqaCN41ceGuicAbqLwVHr36N56cpp041LYM1AaIu8kvs12mX77MV1iGeZYNS0r+Ke/AupiOjxnrV6CnaWiZuiuzbE/qdYussQf7lsR47yn1lXYBXMLeK6nvD6EeAW2hwbXdt8aYXT1C3+Wd5qi0u8AN9N9KfX8M9QToCQ2u7b5za56uehGhT2dD/WOOSvvB8GjqKex9gZ5XwxtwJn96sO/azLQdqJ0IfZxN0/JeGH2l/ZT/RuW1Yah4eu7MTHuB2o/Qx9kUlveu0fdp07zqAe90nq4aq48+qXfMceDY95mP5qXO1ZdDW7EMn614WPV44ug/A/fkvFHvLk3qh+bVCfiYxjtHX13b8GxH6DqJd5pXP4H3cfrq2odnB0JX9F0Vo99xlzbNa5DAO0ef/hb53k32nk141rDY+kPvXH3OezV0fkLQufhw5colpXfu/5lU+vTsT0qN4d2nT/Pw5cfRnwU0D05+88Qie68Sv/N6NkoWn28pOE4sXBIAAA==
+  </data>
+ </layer>
+ <layer name="Natural Lower Chip" width="47" height="25" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3BMQEAAADCoPVPbQdvoAAAAADgM24ZPiBcEgAA
+  </data>
+ </layer>
+ <layer name="Natural Walls" width="47" height="25" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".1"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3BMQEAAADCoPVPbQdvoAAAAADgM24ZPiBcEgAA
+  </data>
+ </layer>
+ <layer name="Artificial Upper Chip" width="47" height="25">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2UOQ7CMBBFLR8Y6OAKcAMEJVT0pGFpoGVpoGVpoGVpoOGhKIoVQYiTOCA0T3rSOB47i7+ilCAIglA0A63UEEc4xglOtfv7NrVvlv4Z4zkucIkrXBs9HequDuso5lzX4ll62jdL/4bxFne4xwMejZ4+tafDOoo55xnzVeqao/MLzuCEZ7zgFW94z+GedfZoxOxj881frU2y3jYLAS3WtC0zkTfRLBSJi/dxje0/KCtpsvVuzac8l5grY0XHX0tKmmx9M4+/zDNzSc8iyGiRORUEQfgHHhTP2UdcEgAA
+  </data>
+ </layer>
+ <layer name="Natural Upper Chip" width="47" height="25" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3BMQEAAADCoPVPbQdvoAAAAADgM24ZPiBcEgAA
+  </data>
+ </layer>
+ <layer name="Natural Wall Sidings" width="47" height="25" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".2"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3BMQEAAADCoPVPbQdvoAAAAADgM24ZPiBcEgAA
+  </data>
+ </layer>
+ <objectgroup name="Object Layer">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <object id="54" name="tele" type="Event" x="560" y="336" width="32" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('sector2/2f.tmx', 25, 6)"/>
+   </properties>
+  </object>
+  <object id="55" name="tele" type="Event" x="368" y="160" width="32" height="16">
+   <properties>
+    <property name="onCollide" value="teleport('sector3/3b.tmx', 9, 57)"/>
+   </properties>
+  </object>
+  <object id="56" name="arrow" type="Event" x="368" y="80" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="NORTH"/>
+   </properties>
+  </object>
+  <object id="57" name="arrow" type="Event" x="384" y="80" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="NORTH"/>
+   </properties>
+  </object>
+  <object id="58" name="arrow" type="Event" x="560" y="336" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="SOUTH"/>
+   </properties>
+  </object>
+  <object id="59" name="arrow" type="Event" x="576" y="336" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="SOUTH"/>
+   </properties>
+  </object>
+  <object id="60" name="tele" type="Event" x="16" y="192" width="16" height="32">
+   <properties>
+    <property name="onCollide" value="teleport('sector3/4a.tmx', 39, 22)"/>
+   </properties>
+  </object>
+  <object id="61" name="arrow" type="Event" x="16" y="176" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="WEST"/>
+   </properties>
+  </object>
+  <object id="62" name="arrow" type="Event" x="16" y="192" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="WEST"/>
+   </properties>
+  </object>
+  <object id="64" name="Trigger" type="Event" x="464" y="240" width="80" height="16">
+   <properties>
+    <property name="hide" value="return getSwitch('meet')"/>
+    <property name="onCollide" value="speak('You\'ve made it to Sector 3. I\'ll be waiting for you at the collider.'); sceneSwitch('meet', true)"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="Artificial Overhead Chip" width="47" height="25">
+  <properties>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3TsQkAIAwEwOD+C7itWAhirajhrktIkS8+AgA4qZbbH+yTKUuXLQ/8qndx7eOY5/24012AtzSiKleuXBIAAA==
+  </data>
+ </layer>
+ <layer name="Natural Overhead Chip" width="47" height="25" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3BMQEAAADCoPVPbQdvoAAAAADgM24ZPiBcEgAA
+  </data>
+ </layer>
+</map>

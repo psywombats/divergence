@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="55" tilewidth="16" tileheight="16" nextobjectid="53">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="32" height="55" tilewidth="16" tileheight="16" nextobjectid="58">
  <properties>
   <property name="bgm" value="shape"/>
-  <property name="radio" value="The labs north and west of here are completely ruled by jungle."/>
+  <property name="radio" value="Focus on crossing the room. The labs north and west of here are completely ruled by jungle."/>
  </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
  <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
@@ -120,6 +120,18 @@
   <object id="52" name="tele" type="Event" x="480" y="304" width="16" height="32">
    <properties>
     <property name="onCollide" value="teleport('sector2/2c.tmx', 1, 23)"/>
+   </properties>
+  </object>
+  <object id="56" name="Trigger" type="Event" x="272" y="496" width="80" height="16">
+   <properties>
+    <property name="hide" value="return getSwitch('radio06')"/>
+    <property name="onCollide" value="play('radio06.lua')"/>
+   </properties>
+  </object>
+  <object id="57" name="Trigger" type="Event" x="256" y="576" width="96" height="16">
+   <properties>
+    <property name="hide" value="return getSwitch('radio06')"/>
+    <property name="onCollide" value="play('radio06.lua')"/>
    </properties>
   </object>
  </objectgroup>

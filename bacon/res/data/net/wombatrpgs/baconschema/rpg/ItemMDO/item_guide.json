@@ -1,0 +1,11 @@
+{
+	"key" : "item_guide",
+	"subfolder" : "",
+	"name" : "Research Notes",
+	"description" : "",
+	"sprite" : "anim_guide",
+	"icon" : "GuideNote.png",
+	"gameDesc" : "Pages from an unlabeled journal.",
+	"itemType" : "GRAPHIC",
+	"set" : "set_guide"
+}

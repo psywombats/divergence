@@ -75,6 +75,10 @@ public abstract class Level extends ScreenObject implements Turnable, Disposable
 		reseting = false;
 	}
 	
+	public void playBGM() { 
+		bgm.play();
+	}
+	
 	/** @return The batch used to render sprites on this map */
 	public SpriteBatch getBatch() { return MGlobal.levelManager.getScreen().getViewBatch(); }
 	

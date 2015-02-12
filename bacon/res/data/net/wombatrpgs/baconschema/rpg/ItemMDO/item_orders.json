@@ -3,8 +3,8 @@
 	"subfolder" : "",
 	"name" : "Mission Orders",
 	"description" : "",
-	"sprite" : "anim_warper",
-	"icon" : "GuideNotes.png",
+	"sprite" : "anim_order",
+	"icon" : "Order.png",
 	"gameDesc" : "A briefing, now in tatters.",
 	"itemType" : "GRAPHIC",
 	"set" : "set_orders"

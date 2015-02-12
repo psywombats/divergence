@@ -11,6 +11,7 @@ import net.wombatrpgs.bacon01.core.BMemory;
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
+import net.wombatrpgs.mgne.io.audio.BackgroundMusic;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
 import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.ui.Graphic;
@@ -42,7 +43,8 @@ public class ScreenTitle extends Screen {
 	protected Graphic bg;
 	protected TextFormat formatBegin, formatContinue;
 	protected int selection;
-	protected boolean transitioning;
+	protected boolean transitioning, bgmd;
+	protected BackgroundMusic bgm;
 	
 	/**
 	 * Creates the title screen!
@@ -66,6 +68,21 @@ public class ScreenTitle extends Screen {
 		formatContinue.width = TEXT_WIDTH;
 		formatContinue.x = CONTINUE_X;
 		formatContinue.y = TEXT_Y;
+		
+		bgm = MGlobal.audio.generateMusicForKey("dawn");
+		assets.add(bgm);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.screen.Screen#update(float)
+	 */
+	@Override
+	public void update(float elapsed) {
+		super.update(elapsed);
+		if (!bgmd) {
+			bgmd = true;
+			MGlobal.audio.playBGM(bgm);
+		}
 	}
 
 	/**
@@ -160,6 +177,7 @@ public class ScreenTitle extends Screen {
 						Screen screen = MGlobal.levelManager.getScreen();
 						MGlobal.screens.push(screen);
 						MGlobal.levelManager.getTele().getPost().run();
+						MGlobal.audio.playBGM(MGlobal.levelManager.getActive().getBGM());
 					};
 				});
 			}

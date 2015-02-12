@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="44" height="30" tilewidth="16" tileheight="16" nextobjectid="98">
+ <properties>
+  <property name="bgm" value="obsolete"/>
+  <property name="radio" value="I definitely see notes over at the far room. Be careful not to trap yourself."/>
+ </properties>
+ <tileset firstgid="1" source="../tilesets/natural.tsx"/>
+ <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
+ <layer name="Artificial Lower Chip" width="44" height="30">
+  <properties>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2WS0oDQRCGJ91IfO1VUPEAirjSlSKuFCOKuFKMG3Gl+LqBjxv4uIHRW8UrxPfKKmYKK5XqTkKnkwhZfFT3VM3w50/TVeVckpR79BB8AKNG57ML9EnyoOvcwYjjd4QS4gPqvXZwlum+UOK8TZIFm+5prdVpsc+E6b13cJXpvlHiKuhbs+me1lqdFkP1lhzcZboflLgL+vZsuqe1VqfFUL3fuWp+gFfgKdP9DEwDM1nE/THoO7FpntZaXUmJoXqHBMMm1ctZhGdLJo0y12xdTL1T2XoT4pZJI38uY7262HoJ/o7P30bqQvVOCCYzvRXgTfAufK8oOUJ7HxkI0Ntv9G+6vps3bq98uU7RiF7yXur19f5Y/R81rcPdVQA2bHP+Uu+P0fd8evdBZxE4sNUzxpjwV84fmPf1PV7fKq+lXpoxkEvhL88hc8bf92ZZbSx/acZAboW/PIesGL3fUVxmta3Ue4q+4mxm/2YM5FH4y3PIjnKvc7ZZbaz7gWYM5EX4y3PIEXv3K1c7txyy2lh6fdA9UmD3CeUGTW1f5cTQ65ohKNI5L7Lz3km99aBzfsbOe7v1+vp3Pfh8MW5q5xY+b4TMGO36b7ph3mjmv+kGT3v8D34BY+/JFKAUAAA=
+  </data>
+ </layer>
+ <layer name="Natural Lower Chip" width="44" height="30" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value="0.0"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2VwQ2DMAxFzT5V6RpFDXNUlDnaRWARmIRN8CGR0ihETUpig3x4B2MkniPyvVQAiyAIwoloIAy1X6xvLih9O+SF9M7zB6I0UJXzvepv3iLnML5twfM1rirBmcJXeeD8//7yvt17av71ypkpdu+N9Qe5H8R3wHpk5Nt47hx3X/e+2/0J65mZr7sX7N5F45slZ26EfEP5YHK3LpxzMb5beyIlqyl8O/jeL779xsnXPWPx3d83lb19c89K7XhkX4EvKxfBfOygFAAA
+  </data>
+ </layer>
+ <layer name="Natural Walls" width="44" height="30" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".1"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2WjQnCQAyFL6C4h+IELlDpHtbuYXUPqxPoInURHcNUBdN4P+rlzoL3QQjy9HiXCyZKJRKJ2FwwClBqCd2cYcwxDqgflWxuz/XxW+Hv19DNC9DfQyKfv7d781vjGTvo5hXo7yGRG0+/Oragv4dE9q1vbELUNySpvndG2GtDFhMwf2dg0WhMPf7PxoYzTeee2OfmTe1XfOLXp0+l4P3T9/pyv7SGrvq2um32hXgP7jcjPZ7DqzZTz8gdsy/Ee3C/dM8owawVD902+2LUl+4ZGzBrlUbnxPBL94w9mLVao3Ni9IMkMeorSaqvfX67gu8enD7MFwqfJ5w+zG+K62189rbEf3EFXzpWkKAUAAA=
+  </data>
+ </layer>
+ <layer name="Artificial Upper Chip" width="44" height="30">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3WMQqAMAyF4dBL6xX0BqKjTu56PQMaCEWKgrUd/g9KhywPCs0TAVBaE0TaUDrFc51m7SvPO2u+5co46j3pGSrOvGm2Pcq3VpwXefH2AHBKdaR4Znve73vfB/6Q6kjxzP56/+ff9YGcrCO9nQEA8LUDvKj+h6AUAAA=
+  </data>
+ </layer>
+ <layer name="Natural Upper Chip" width="44" height="30" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2WjQmDQAyFs8bRnz1sO0EXqA7Sn53skCVw0EdaY9Ce9uB9EBJJPN+dYiJCSP302Z7G18i3ffzCE1KabbBuD/EJ4i5QPxd9xi6bcjV53EMLcYK4cdYuyW0kvzHXx8Cal4laInh6H04ugf0bY++ALMtQ71+i93nfMJnPfW0BxKV0v0N0TsB+0EmsPwzVlOx7Cp5NMh7/GwdzXyPv+QK1n7OVQvXqGbfyqdfDaqwF1YozoJ0DCSHr8gKP3AUnoBQAAA==
+  </data>
+ </layer>
+ <layer name="Natural Wall Sidings" width="44" height="30" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value=".2"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2VbQpAQBBA9/43EbkGxTUoTsGPnWzbmGzNh6l5JeoV442SUhAEFizWAzRyKD5rZriHZt+d4R7R953oK4u3vhbAPrDdUs4K2Ae2W8pZATN56QszcfaVfD+Yqcvn/j6GfD0iDvM1kt8P9J0QtxKu9DUafTfEnYQrfY1GX040+nISfR+89ZXgT/+XL3jrGwQtXABAoH6gFAAA
+  </data>
+ </layer>
+ <objectgroup name="Object Layer">
+  <properties>
+   <property name="z" value=".5"/>
+  </properties>
+  <object id="91" name="Warper" type="warper" x="517.333" y="343.333" width="16" height="16">
+   <properties>
+    <property name="appearance" value="anim_warper"/>
+    <property name="movable" value=""/>
+    <property name="period" value=".6"/>
+    <property name="radius1" value="80"/>
+    <property name="radius2" value="82"/>
+   </properties>
+  </object>
+  <object id="92" name="Warper" type="warper" x="457.333" y="160" width="16" height="16">
+   <properties>
+    <property name="appearance" value="anim_warper"/>
+    <property name="movable" value=""/>
+    <property name="period" value=".6"/>
+    <property name="radius1" value="80"/>
+    <property name="radius2" value="82"/>
+   </properties>
+  </object>
+  <object id="93" name="tele" type="Event" x="640" y="336" width="16" height="48">
+   <properties>
+    <property name="onCollide" value="teleport('sector3/4b.tmx', 2, 13)"/>
+   </properties>
+  </object>
+  <object id="94" name="arrow" type="Event" x="640" y="320" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="EAST"/>
+   </properties>
+  </object>
+  <object id="95" name="arrow" type="Event" x="640" y="336" width="16" height="16">
+   <properties>
+    <property name="appearance" value="4dir_arrow"/>
+    <property name="face" value="EAST"/>
+   </properties>
+  </object>
+  <object id="97" name="Guide Notes" type="item" x="112" y="128" width="16" height="16">
+   <properties>
+    <property name="key" value="item_guide"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="Artificial Overhead Chip" width="44" height="30">
+  <properties>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3QsQkAAAjAMPH/B/zW1dVJkOSC0ggA+K3yuuC3+ddrAABgqwHxzZMKoBQAAA==
+  </data>
+ </layer>
+ <layer name="Natural Overhead Chip" width="44" height="30" visible="0">
+  <properties>
+   <property name="alt" value="true"/>
+   <property name="z" value="1.5"/>
+  </properties>
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3BMQEAAADCoPVPbQwfoAAAAAAAPgZLwxKkoBQAAA==
+  </data>
+ </layer>
+</map>

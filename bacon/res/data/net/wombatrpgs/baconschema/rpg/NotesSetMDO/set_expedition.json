@@ -1,0 +1,23 @@
+{
+	"key" : "set_expedition",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"notes" : [
+		{
+			"graphic" : "expedition_01.png"
+		},
+		{
+			"graphic" : "expedition_02.png"
+		},
+		{
+			"graphic" : "expedition_03.png"
+		},
+		{
+			"graphic" : "expedition_04.png"
+		},
+		{
+			"graphic" : "expedition_05.png"
+		}
+	]
+}

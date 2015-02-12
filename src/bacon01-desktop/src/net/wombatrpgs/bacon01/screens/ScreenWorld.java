@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.wombatrpgs.bacon01.ui.InventoryUI;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.io.command.CMapGame;
+import net.wombatrpgs.mgne.screen.Screen;
 import net.wombatrpgs.mgne.screen.instances.ScreenGame;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 
@@ -39,9 +40,13 @@ public class ScreenWorld extends ScreenGame {
 	public boolean onCommand(InputCommand command) {
 		if (super.onCommand(command)) return true;
 		switch (command) {
-		case WORLD_PAUSE:
+		case RAW_SELECT:
 			inventory.show();
 			return true;
+		case WORLD_PAUSE:
+			Screen pause = new ScreenPause();
+			MGlobal.assets.loadAsset(pause, "pause");
+			MGlobal.screens.push(pause);
 		default:
 			return MGlobal.getHero().onCommand(command);
 		}

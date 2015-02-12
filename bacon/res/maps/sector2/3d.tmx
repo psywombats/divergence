@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="71" height="32" tilewidth="16" tileheight="16" nextobjectid="52">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="71" height="32" tilewidth="16" tileheight="16" nextobjectid="56">
  <properties>
   <property name="bgm" value="shape"/>
-  <property name="radio" value="My friend is here! Be quick! I can make it out on the monitor, some notebook on the floor second room west."/>
+  <property name="radio" value="Be quick! I can make it out on the monitor, some notebook on the floor second room west."/>
  </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
  <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
@@ -114,6 +114,18 @@
   <object id="51" name="Expedition Log" type="item" x="304" y="144" width="16" height="16">
    <properties>
     <property name="key" value="item_expedition"/>
+   </properties>
+  </object>
+  <object id="53" name="Trigger" type="Event" x="384" y="144" width="32" height="32">
+   <properties>
+    <property name="hide" value="return getSwitch('trapped')"/>
+    <property name="onCollide" value="speak('I have a feeling you\'ve made a mistake. You need to get out, or I\'ll be trapped here forever as well!'); sceneSwitch('trapped', true)"/>
+   </properties>
+  </object>
+  <object id="55" name="Trigger" type="Event" x="48" y="176" width="160" height="16">
+   <properties>
+    <property name="hide" value="return getSwitch('interestblab')"/>
+    <property name="onCollide" value="speak('He seems to have taken an interest in you... Truly a fascinating creature. But you must hurry!'); sceneSwitch('interestblab', true)"/>
    </properties>
   </object>
  </objectgroup>

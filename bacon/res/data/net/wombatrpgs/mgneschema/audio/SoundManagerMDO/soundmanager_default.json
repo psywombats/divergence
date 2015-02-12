@@ -50,6 +50,10 @@
 		{
 			"refKey" : "shape",
 			"path" : "shape_of_things_to_come.mp3"
+		},
+		{
+			"refKey" : "dawn",
+			"path" : "dawn_of_a_new_machine.mp3"
 		}
 	]
 }

@@ -1,0 +1,11 @@
+{
+	"key" : "item_expedition",
+	"subfolder" : "",
+	"name" : "Expedition Log",
+	"description" : "",
+	"sprite" : "anim_expedition",
+	"icon" : "ExpeditionNote.png",
+	"gameDesc" : "A standard-issue mission log.",
+	"itemType" : "GRAPHIC",
+	"set" : "set_expedition"
+}

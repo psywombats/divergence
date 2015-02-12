@@ -14,12 +14,15 @@ import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.io.CommandListener;
-import net.wombatrpgs.mgne.io.CommandMap;
+import net.wombatrpgs.mgne.io.InputEvent;
+import net.wombatrpgs.mgne.io.InputEvent.EventType;
 import net.wombatrpgs.mgne.io.command.CMapMenu;
+import net.wombatrpgs.mgne.io.command.EasyCommandMap;
 import net.wombatrpgs.mgne.screen.ScreenObject;
 import net.wombatrpgs.mgne.ui.Graphic;
 import net.wombatrpgs.mgne.ui.text.FontHolder;
 import net.wombatrpgs.mgne.ui.text.TextFormat;
+import net.wombatrpgs.mgneschema.io.data.InputButton;
 import net.wombatrpgs.mgneschema.io.data.InputCommand;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -49,7 +52,7 @@ public class InventoryUI extends ScreenObject implements CommandListener {
 	protected Graphic backer, highlight, tab;
 	protected FontHolder font;
 	protected TextFormat amtFormat, descFormat;
-	protected CommandMap context;
+	protected EasyCommandMap context;
 	
 	protected Inventory items;
 	protected boolean active;
@@ -76,6 +79,7 @@ public class InventoryUI extends ScreenObject implements CommandListener {
 		descFormat.height = TEXT_HEIGHT;
 		
 		context = new CMapMenu();
+		context.bindings.put(new InputEvent(InputButton.BUTTON_SELECT, EventType.PRESS), InputCommand.RAW_SELECT);
 	}
 
 	@Override public int getWidth() {
@@ -193,7 +197,7 @@ public class InventoryUI extends ScreenObject implements CommandListener {
 				selected = 0;
 			}
 			return true;
-		case UI_CANCEL: case UI_FINISH:
+		case UI_CANCEL: case UI_FINISH: case RAW_SELECT:
 			hide();
 			return true;
 		case UI_CONFIRM:

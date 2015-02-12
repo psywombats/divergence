@@ -24,6 +24,7 @@ import net.wombatrpgs.mgneschema.io.data.InputCommand;
  */
 public class ScreenGameOver extends Screen {
 	
+	protected CMapMenu context;
 	protected Graphic graphic;
 	protected boolean ended;
 	
@@ -34,6 +35,8 @@ public class ScreenGameOver extends Screen {
 			graphic = new Graphic("GameOver02.png");
 		}
 		assets.add(graphic);
+		MGlobal.screens.peek().removeChild(MGlobal.ui.getBlockingBox());
+		context = new CMapMenu();
 	}
 
 	/**
@@ -61,7 +64,15 @@ public class ScreenGameOver extends Screen {
 				MGlobal.levelManager.getTele().getPost().run();
 			}
 		});
-		pushCommandContext(new CMapMenu());
+		pushCommandContext(context);
+	}
+
+	/**
+	 * @see net.wombatrpgs.mgne.screen.Screen#onFocusLost()
+	 */
+	@Override
+	public void onFocusLost() {
+		super.onFocusLost();
 	}
 
 	/**
@@ -78,6 +89,7 @@ public class ScreenGameOver extends Screen {
 					Screen screen = MGlobal.levelManager.getScreen();
 					MGlobal.screens.push(screen);
 					MGlobal.levelManager.getTele().getPost().run();
+					MGlobal.levelManager.getActive().playBGM();
 				};
 			});
 		} else {
@@ -85,6 +97,7 @@ public class ScreenGameOver extends Screen {
 					MGlobal.memory.levelKey,
 					MGlobal.memory.heroMemory.tileX,
 					MGlobal.memory.heroMemory.tileY);
+			MGlobal.audio.playBGM(MGlobal.levelManager.getActive().getBGM());
 		}
 		return super.onCommand(command);
 	}

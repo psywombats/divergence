@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="84" height="71" tilewidth="16" tileheight="16" nextobjectid="47">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="84" height="71" tilewidth="16" tileheight="16" nextobjectid="55">
  <properties>
   <property name="bgm" value="shape"/>
   <property name="radio" value="Keep moving!"/>
@@ -105,6 +105,36 @@
   <object id="46" name="Orders" type="item" x="448" y="992" width="16" height="16">
    <properties>
     <property name="key" value="item_orders"/>
+   </properties>
+  </object>
+  <object id="48" name="Trigger" type="Event" x="192" y="672" width="16" height="96">
+   <properties>
+    <property name="hide" value="return getSwitch('trig01')"/>
+    <property name="onCollide" value="speak('He\'s here!'); sceneSwitch('trig01', true)"/>
+   </properties>
+  </object>
+  <object id="50" name="Trigger" type="Event" x="416" y="976" width="16" height="64">
+   <properties>
+    <property name="hide" value="return getSwitch('trig02')"/>
+    <property name="onCollide" value="speak('Don\'t get greedy. He\'s smart, he\'ll make you pay.'); sceneSwitch('trig02', true)"/>
+   </properties>
+  </object>
+  <object id="51" name="Trigger" type="Event" x="768" y="480" width="64" height="16">
+   <properties>
+    <property name="hide" value="return getSwitch('trig03')"/>
+    <property name="onCollide" value="speak('Just a little farther!'); sceneSwitch('trig03', true)"/>
+   </properties>
+  </object>
+  <object id="52" name="Trigger" type="Event" x="480" y="160" width="64" height="16">
+   <properties>
+    <property name="hide" value="return getSwitch('trig05')"/>
+    <property name="onCollide" value="speak('No! No! That way\'s locked, keep going!'); sceneSwitch('trig05', true)"/>
+   </properties>
+  </object>
+  <object id="53" name="Trigger" type="Event" x="720" y="96" width="16" height="128">
+   <properties>
+    <property name="hide" value="return getSwitch('trig04')"/>
+    <property name="onCollide" value="speak('No! Where are you going?'); sceneSwitch('trig04', true)"/>
    </properties>
   </object>
  </objectgroup>

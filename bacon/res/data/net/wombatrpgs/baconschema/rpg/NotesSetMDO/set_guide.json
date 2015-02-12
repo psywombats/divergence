@@ -1,0 +1,32 @@
+{
+	"key" : "set_guide",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"notes" : [
+		{
+			"graphic" : "guide_01.png"
+		},
+		{
+			"graphic" : "guide_02.png"
+		},
+		{
+			"graphic" : "guide_03.png"
+		},
+		{
+			"graphic" : "guide_04.png"
+		},
+		{
+			"graphic" : "guide_05.png"
+		},
+		{
+			"graphic" : "guide_06.png"
+		},
+		{
+			"graphic" : "guide_07.png"
+		},
+		{
+			"graphic" : "guide_08.png"
+		}
+	]
+}

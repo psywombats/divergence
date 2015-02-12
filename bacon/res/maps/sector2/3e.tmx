@@ -6,7 +6,7 @@
  </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
  <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
- <layer name="Artificial Lower Chip" width="30" height="30">
+ <layer name="Artificial Lower Chip" width="30" height="30" visible="0">
   <properties>
    <property name="z" value="0.0"/>
   </properties>
@@ -14,25 +14,25 @@
    H4sIAAAAAAAAC82WSw6CMBCGpYnB1x5N9ArcDfUGqDdQvIHKrXDlXvEVF05jGxtSOm2FYpMvkzSlX9rwD2Req5U1xBUYEjfcCu4ZzE1JvZVSPPMS5hak3rqUeBOY25B6ayLxHmBuT+qtB4n36Ih/8Hbg/BcPJxeeP1uu70ruGsvxiHz3CTRy6gvr2xIfx0cyOBf2iZCsUo+JV5XBlbBPjGTV1KvK4BYI2V5rJKumXlUGU4AO6t4hWTX1YjngA1snekNSvTcU7r7MS4eO9w48gKfCjZ3fxtuD2gcGGufXuecmvCFx6w1Yf+PDlTdi/c21N2b9zcb7Yu+1CTwDa9bfbLymnLzPHfF+lhp6x1AnlpT1mV/7FQbvXxwdr+5/hy659+1lKm/V6H6PqqYjuGT/VU3wBsyGWSgQDgAA
   </data>
  </layer>
- <layer name="Natural Lower Chip" width="30" height="30" visible="0">
+ <layer name="Natural Lower Chip" width="30" height="30">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3VwQ2AIAxA0eLdsdVB0EHQSYwOYokeDCLQEiAaDv9k4kuxwVUArLVaolrIU3XLuNQd4OxMzO512FDAldj0M/dtJ/QZN/hciPOsfe+kuDarv9LmCGdTwL6Guj7rnp65B/fcVFdanLfMuXO5rm+d0rXZuVzzvL/mKmwv4HJmjnG5M2/YAk+He1+5bG3NVyEm9X5Wt/fPDIvi+v4PKaxamg5k4074EA4AAA==
+   H4sIAAAAAAAAC+3VTQ5AMBCA0am9Y6uD4CCtkwgHMQ0LoX8zaEO6+FYSL1OTmgTAVCq9VA1pKm4el7oDnJ25s3sN1mZwO2z4mevaCXPGFT4XYjvr0Dsprs2Se8bsYWuI2NdYN2QdMzNL8M9NdTuL4+o8dyrX963fdG12Kvd83l9zFbZkcDkz33G5M8/YCFeHe1/5bGPpvRiTej+rw/s1w6K4of8Dt1i39FwrPQtN3BAOAAA=
   </data>
  </layer>
- <layer name="Natural Walls" width="30" height="30" visible="0">
+ <layer name="Natural Walls" width="30" height="30">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value=".1"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2WaQ6CMBCF2x96D9druF5DXK4hiudAOYFeRC+ix7CT0ORlYumClR/4EjLNpPTxFWaKEO3UVV23H0SutRRiI+NHroPKHWX8yHVWuYuMH9uujtqDrqyOA9inYeD8EL1g/Iwwn4R1p8cLeN6pNNek1gPGd4vfXK03NtTeFnwTyPcMz+DKS57EtDTUXga+KeQnpT9ncuWlecS0M9ReAb455FelP2dy5aV5xHTy/O72pT+98xnc68NbeHqiEsbsw1tHKXvHPrx1lDfES2qCl9QUL/Yx7G+xebGPYX+r4u2zMyRE2McyR15S3b3ODf3Ndh59g/mTbLzam5/bIcJ/g5HHWtrf9l9hij5ef8XRG2VD4QsQDgAA
+   H4sIAAAAAAAAC+2WWw6CMBBF2w/dh89t+NyG+NiGKK4DZQW6Ed2ILsNOAsnNxNKWWvuBNyHTTAqXU5hphWinruq6/SByraUQGxk+ch1U7ijDR66zyl1k+Nh2ddQadGV9HMA6DRvOb6IXjJ8B5pOw7qrxAt53KvU1WekB47vBb66eN9bU3hZ8E8j3NO9gy0uexLTU1F4GvinkJ6U/Z7LlpXnEtNPUXgG+OeRXpT9nsuWlecR0cvzv9qU/ffMZ3OvCWzh6ohLG7MLro5R9YxdeH+WReEkxeEmxeLGPYX8LzYt9DPtbHW+f7SFNhH0ss+Ql+a51rulvpv3oG8yfZOKtvPm+7Svb/Rf9TecKXcTx6H+mi6I3vkRRuRAOAAA=
   </data>
  </layer>
- <layer name="Artificial Upper Chip" width="30" height="30">
+ <layer name="Artificial Upper Chip" width="30" height="30" visible="0">
   <properties>
    <property name="z" value=".5"/>
   </properties>
@@ -40,7 +40,7 @@
    H4sIAAAAAAAAC2NgGAUDCW4wMTDcZKK/va+Adr4eAHv/AO38OwD2joJRMNBAh5mBQZeZ/vbaAe20p9DemUwQDGMTUotLL6lgNRMEw9iE1OLSOwqGBtBgQqXpBSyA9lkCsRUTfe32AtrlDcQ+RNpJLbfFAM2JBeI4Ovt3FIyCUTB4AQDbuJXbEA4AAA==
   </data>
  </layer>
- <layer name="Natural Upper Chip" width="30" height="30" visible="0">
+ <layer name="Natural Upper Chip" width="30" height="30">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value=".5"/>
@@ -49,7 +49,7 @@
    H4sIAAAAAAAAC+2WUQ7DIAhA63G2epDNg2y9kj+edTWVjDFUsHNLM1/S2CigIhCmafCPXMz73JWZy+lKZSk3Ru8utBV1pbKR2WyfTeOS/mHNEluWzEUZh2zQdapPwfI12cEr84/8Be+9l7Da8MpY1VDKv1NH32ny75MsKReBQM7hzTPfa/TKRagxuTXXcDYaQ2fGRu3ekvu2+CQwNVQLp98zfkv7fkNXEp+5+++pSxCXmppU2ldzFs5fXBxjPIot3G84Rcy1vhP4Cvcb0tpCbURorcqBexUYtftKwL0M7pFsh70Gx+IBzEfe7RAOAAA=
   </data>
  </layer>
- <layer name="Natural Wall Sidings" width="30" height="30" visible="0">
+ <layer name="Natural Wall Sidings" width="30" height="30">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value=".2"/>
@@ -111,7 +111,7 @@
    </properties>
   </object>
  </objectgroup>
- <layer name="Artificial Overhead Chip" width="30" height="30">
+ <layer name="Artificial Overhead Chip" width="30" height="30" visible="0">
   <properties>
    <property name="z" value="1.5"/>
   </properties>
@@ -119,7 +119,7 @@
    H4sIAAAAAAAAC+3BAQEAAACCIP+vbkhAAQAA8Gh7blyXEA4AAA==
   </data>
  </layer>
- <layer name="Natural Overhead Chip" width="30" height="30" visible="0">
+ <layer name="Natural Overhead Chip" width="30" height="30">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value="1.5"/>

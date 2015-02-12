@@ -20,7 +20,7 @@ import net.wombatrpgs.mgneschema.io.data.InputCommand;
  */
 public abstract class EasyCommandMap extends CommandMap {
 	
-	protected Map<InputEvent, InputCommand> bindings;
+	public Map<InputEvent, InputCommand> bindings;
 	
 	/**
 	 * Initializes a new easy map. Tells the children to fill in the bindings.

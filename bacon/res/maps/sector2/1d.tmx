@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="28" height="24" tilewidth="16" tileheight="16" nextobjectid="57">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="28" height="24" tilewidth="16" tileheight="16" nextobjectid="58">
  <properties>
   <property name="bgm" value="shape"/>
-  <property name="radio" value="I'm afraid there's no going back."/>
+  <property name="radio" value="Keep moving to the generator room."/>
  </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
  <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
@@ -102,6 +102,12 @@
    </properties>
   </object>
   <object id="56" name="Checkpoint" type="checkpoint" x="80" y="128" width="160" height="112"/>
+  <object id="57" name="Autostart" type="Event" x="256" y="160" width="16" height="16">
+   <properties>
+    <property name="hide" value="return (getSwitch('blueblab') or not hasItem('item_bluekey'))"/>
+    <property name="onEnter" value="speak('That\'s the key we need, but there\'s no going back the same way. You\'ll be taken for sure, and as tempting as that is, I still need your help.'); sceneSwitch('blueblab', true)"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Artificial Overhead Chip" width="28" height="24">
   <properties>

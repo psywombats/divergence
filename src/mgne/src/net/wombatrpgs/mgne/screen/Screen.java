@@ -119,7 +119,11 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	public Color getTint() { return tint; }
 	
 	/** @param listener The listener to receive command updates */
-	public void pushCommandListener(CommandListener listener) { commandListeners.push(listener); }
+	public void pushCommandListener(CommandListener listener) {
+		if (!commandListeners.contains(listener)) {
+			commandListeners.push(listener);
+		}
+	}
 	
 	/** @param listener The listener to stop receiving command updates */
 	public void removeCommandListener(CommandListener listener) { commandListeners.remove(listener); }
@@ -171,7 +175,9 @@ public abstract class Screen extends AssetQueuer implements CommandListener,
 	 * @param 	map				The command map to use instead
 	 */
 	public void pushCommandContext(CommandMap map) {
-		commandContext.push(map);
+		if (!commandContext.contains(map)) {
+			commandContext.push(map);
+		}
 	}
 
 	/**

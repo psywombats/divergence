@@ -37,7 +37,7 @@ public class SceneSpeak extends VarArgFunction {
 				if (args.narg() == 2) {
 					block = args.checkboolean(2);
 				} else {
-					block = true;
+					block = false;
 				}
 			}
 			
@@ -46,9 +46,15 @@ public class SceneSpeak extends VarArgFunction {
 					MGlobal.getHero().pause(true);
 				}
 				box = MGlobal.ui.getBlockingBox();
-				boolean animateOn = (index == 0);
-				boolean animateOff = (index == count-1);
-				box.blockText(parent.getScreen(), text, animateOn, animateOff);
+				if (box.isBlocking()) {
+					box.hurryUp();
+					boolean animateOff = (index == count-1);
+					box.blockText(parent.getScreen(), text, false, animateOff);
+				} else {
+					boolean animateOn = (index == 0);
+					boolean animateOff = (index == count-1);
+					box.blockText(parent.getScreen(), text, animateOn, animateOff);
+				}
 			}
 			
 			@Override protected boolean shouldFinish() {

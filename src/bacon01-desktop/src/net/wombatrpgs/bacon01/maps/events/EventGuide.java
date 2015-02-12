@@ -25,7 +25,7 @@ public class EventGuide extends MapEvent {
 	
 	protected AnimationStrip light;
 	protected float total;
-	protected float fade;
+	protected float fade, fade2;
 
 	public EventGuide(EventMDO mdo, TiledMapObject object) {
 		super(mdo, object);
@@ -44,6 +44,9 @@ public class EventGuide extends MapEvent {
 		if (MGlobal.memory.getSwitch("finale_fade")) {
 			fade += elapsed;
 		}
+		if (MGlobal.memory.getSwitch("finale_fade2")) {
+			fade2 += elapsed;
+		}
 		
 		light.setScale((float) (.6 + Math.sin(total)/4f));
 	}
@@ -60,6 +63,7 @@ public class EventGuide extends MapEvent {
 		BaconLevel level = (BaconLevel) getParent();
 		level.getLightBuffer().begin();
 		float c = 1f - fade;
+		c -= fade2;
 		if (c < 0) c = 0;
 		batch.setColor(new Color(1, 1, 1, c));
 		int screenX = getCenterX() + 16;
