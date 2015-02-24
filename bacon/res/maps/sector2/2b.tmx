@@ -16,7 +16,7 @@
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2Wa1KDMBSF4wJYCVLdBsWug7bjNtSN4ELQhbRdSB1h4EwP15sQCRn9kR9nps985z7J5c6YS1JSUlJSUlLSP9O9GVR0yhyKxd+aQZW5vZaK6cHGhA6R82Dj1fQ6N9M6xeJrdc+Fv2rlPPRnnpQ8Q2WnTaeHTo+ddqNCPSAeGxs573/zRFyoWOhhb6aysTnnR4W/W8B2zTdLmwPNQwi/GfXuiH0z1hzv1+I3Dn5N/QYO+NwHp4X8RuhTxA0PHCd6n2uwpOclu1HY+K30gDwcF8Yu+R8Ue2k5jz08Ux1C5j4jLmJ3zTHYfcz7FdjafpvbI2vtXY1f/xH/tdOb8OLiX82wj9fit2MPYt9p/L43vsx0D14j1GBr8SDZrBD+y5h/1KAWHjhu7T4S4oFzzzuoNrfnYWmmPWfTb2sh/9+KXcAz6eLzvvTNReYRD88kzi1mvvfpCfhE/bj+2hxyXHw/ycmPzYP0obG155D0gPNlzg/i/Rxf3rE0tnYPgAfEW4pzSk++1nO+fI6xsnzuy8d9tjA/56+hs/G/Pvazwp9ja32Yie+R05bYWt9iJ5w9mD4zYNPc3MKHvLeHPAeSkpLi6ht35ae3gBsAAA==
+   H4sIAAAAAAAAC+2W21HDMBRERQGuxDjQhmNSh5MMbQCF4BQSKCRJIclgj73D+nIlC8sa+NDHzuSps/dpXe6MuSQlJSUlJSUl/TPdm15Fq8yhWPy16VWZ79dSMT3YmNAuch5svJpe52Zcp1h8re658FctnIfuzJOSZ6hstWr10Oqx1WZQqAfEY2Mj591vnogLFTM9bM1YNjbnfK/wNzPYrvlmaXOgeQjhN4MOjthXQ83xfil+4+DX1G/ggM99cJrJb4Q+RdzwwHGi97kGc3pesg8KG7+VHpCH/czYJf+DYi8t57GHZ6pDyNxnxEXsrjkGu4t5uwBb229Te2Spvavx6z/iv7Z6E15c/Kvp9/FS/OPQg9h3Gr/rjZsZ78FrhBqsLR4kmxXCfxnyjxrUwgPHrd1HQjxw7rELcD6eh6UZ95xNv62F/P9R7AKeSRef96VvLjKPeHgmcW4x8b1PT8An6sf11+aQ4+L7SU5+bB6kD40tn0ON4gHny5zvxPspvrxjvVv48h4AD4i3FOeUnnyt53z5HGNl+dyXj/tsYX7OX0Nn439d7GeFP8XW+jAT3yOnR2JrfYudcPZg+syATVNzCx/y3h7yHEhKSoqrLzBoliGAGwAA
   </data>
  </layer>
  <layer name="Natural Walls" width="32" height="55">
@@ -42,7 +42,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2X2w2DMAxF6wHCGnzAIKWDlKzFppUlrKbGCa84ViWfn0qI+nkTm8fDcRzHcRynzAS2/ufVfzSMozPyvQh++/XZYNyXFoQkx4XpAPNP66Ot01fGPsaAMc2N+pHWpMWZiPDNkSAN0rmgPuRqdBWuf/Q7sFgiyO/WAu2HQu9r+i7ZifCrefrtFTUg6auH7XON2u/ZHGF7J1iQ04Y2Gjmf7aNW3S37eRTpHNSm1e7F86A7hc+0Sbh3NWvQMR/zeuZzu89T8UyU8qR33lCnZ9wXzdX0rkef9DytyZk9ZGL2EL5XEbk50wk2jnImVmn/SBmFPu3Fs6dd6f+B9aLmDIpC7UPiR9p7MG9ejzs7wZE8pLqQFlvPw7u7x9VvO66zf5hZjuPY8gHyuJbFgBsAAA==
+   H4sIAAAAAAAAC+2XbQ6DIAyG5QB4DX7oQcYOMrmWN12a2KzpiqCjkCV9fhLt51up02QYhmEYhnFOdGP9b4f/NDCOeZDvXfAbjrNlcF964EmOO9MB5E/ro63TZ8Y+xAAxbZ36QWvSYyaS++TIwbnAPuRqdBeuf9D+wmJJTn62FWDfF2y38n1mJ7lvzWsj9TwIWtCIqWRz7TwHOUra0EIj56t91Kr7yH7WIs1Ba3rtXjwP3DH4nRaFmdOswcx8bMf3L7f7PBRn4ixPfObl2vSM+8J7NZBz8InntCZX9pDI7AG5OyZk7M6CjVquxEprIsWyCn0qxVPSrvS+Z72o0UctSai9J36kvQfy5vXI9ao2hhJSXVCLve/DX3ePu/92XGf/cGcZhjGWN9uuWvuAGwAA
   </data>
  </layer>
  <layer name="Natural Wall Sidings" width="32" height="55">
@@ -145,7 +145,7 @@
    <property name="z" value="1.5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3VsQ6AIAxFUUxc+G5+3MmEYKGgpXa4Z1ISeaUipgQAAICecjzHsjBm7XTIWCX1QhrzFqGG3do1tntwVw+0XI8aRu5Mq+yZedpMj/OgJuXt6P1KL2CDfs7z/u48RV6b9x6NdA7V76V0rt/S5pvZE3/0YeRrPaPns/G/X8ucqaV3by3SfyJCLRFqAADNBZllW2+AGwAA
+   H4sIAAAAAAAAC+3V3QqAIAwGUINuem5fvKsgan/aNgd956oE5za1WgMAAAAATt/eYwcx5m1PWGMU1QtqLFuFHKJpNUb14BlXOvsr98FrbUuckZ5EoNaL6P0f7lU16Lld9r3LVLm27DM6802Oct+XzjzP0uJZzsSKPki+5iPNv3LwrpmLZ8mFe/dW6T9RIZcKOQAAaE4/UuR5gBsAAA==
   </data>
  </layer>
 </map>

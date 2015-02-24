@@ -73,15 +73,6 @@ public class EventCheckpoint extends MapEvent {
 						});
 					}
 				});
-//				pic.setX(pic.getWidth()/2f);
-//				pic.setY(pic.getHeight()/2f);
-//				pic.fadeIn(MGlobal.screens.peek(), .5f);
-//				new Timer(2f, new FinishListener() {
-//					@Override public void onFinish() {
-//						pic.fadeOut(.5f);
-//						tweening = false;
-//					}
-//				});
 			}
 		}
 		collidedLast = colliding;

@@ -71,6 +71,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	protected boolean switchHidden;
 	protected boolean autoplay, autoplayed;
 	protected boolean movable;
+	public boolean dirFix;
 	
 	/** Lua */
 	protected transient SceneParser onAdd, onRemove, onInteract, onCollide, onEnter;
@@ -402,6 +403,12 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 		return euclideanTileDistanceTo(event.getTileX(), event.getTileY());
 	}
 	
+	public float distanceToCenter(MapEvent other) {
+		float dx = other.getCenterX() - getCenterX();
+		float dy = other.getCenterY() - getCenterY();
+		return (float) Math.sqrt(dx*dx + dy*dy);
+	}
+	
 	/**
 	 * @see net.wombatrpgs.mgne.maps.MapMovable#onAddedToMap
 	 * (net.wombatrpgs.mgne.maps.Level)
@@ -466,7 +473,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 		facings.put(OrthoDir.EAST, vx > 0);
 		facings.put(OrthoDir.WEST, vx < 0);
 		
-		if (!facings.get(getFacing())) {
+		if (!facings.get(getFacing()) && !dirFix) {
 			for (OrthoDir dir : OrthoDir.values()) {
 				if (facings.get(dir)) {
 					setFacing(dir);
@@ -516,7 +523,13 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	 * @param 	event			The object to face
 	 */
 	public void faceToward(MapEvent event) {
-		faceToward(event.getTileX(), event.getTileY());
+		int dx = event.getCenterX() - getCenterX();
+		int dy = event.getCenterY() - getCenterY();
+		if (Math.abs(dx) > Math.abs(dy)) {
+			setFacing(Math.signum(dx) > 0 ? OrthoDir.EAST : OrthoDir.WEST);
+		} else {
+			setFacing(Math.signum(dy) > 0 ? OrthoDir.NORTH : OrthoDir.SOUTH);
+		}
 	}
 	
 	/**

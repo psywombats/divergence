@@ -33,7 +33,7 @@ public abstract class MapMovable extends MapThing implements PositionSetable {
 	protected float x;
 	protected float y;
 	protected float vx, vy;
-	protected float maxVelocity;
+	public float maxVelocity;
 	
 	/** Tracking values */
 	protected List<DirEnum> path;
