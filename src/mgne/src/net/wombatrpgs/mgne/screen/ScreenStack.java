@@ -148,6 +148,7 @@ public class ScreenStack implements	Disposable,
 			AnimatedTiledMapTile.updateAnimationBaseTime();
 			
 			float elapsed = Gdx.graphics.getDeltaTime();
+			if (elapsed > .2f) elapsed = .2f;
 			MGlobal.keymap.update(elapsed);
 			if (screens.size() > 0) {
 				// this check is to ensure the stack wasn't removed from under us

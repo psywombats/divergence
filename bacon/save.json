@@ -8,42 +8,14 @@
 			"collect_Orders(96,80) sector1/intro.tmx" : true,
 			"collect_Orders(256,288) sector1/elbow.tmx" : true,
 			"collect_Red Key(288,112) sector1/cave_intro.tmx" : true,
-			"collect_Guide Notes(112,112) sector1/obstacle_note.tmx" : true,
-			"collect_Guide Notes(80,464) sector1/cave_intro.tmx" : true,
-			"radio04" : true,
-			"collect_Expedition Log(112,944) sector1/stalker_intro.tmx" : true,
-			"collect_Orders(256,256) sector2/2a.tmx" : true,
-			"radio05" : true,
-			"radio06" : true,
-			"collect_Expedition Log(96,112) sector2/3b.tmx" : true,
-			"trig01" : true,
-			"collect_Orders(448,128) sector2/2d.tmx" : true,
-			"trig02" : true,
-			"trig03" : true,
-			"trig05" : true,
-			"collect_Blue Key(320,128) sector2/1d.tmx" : true,
-			"blueblab" : true,
-			"rockblab" : true,
-			"collect_Guide Notes(672,480) sector2/1c.tmx" : true,
-			"interestblab" : true,
-			"collect_Expedition Log(304,352) sector2/3d.tmx" : true,
-			"trapped" : true,
-			"collect_Orders(112,192) sector2/3f.tmx" : true,
-			"collect_Guide Notes(128,160) sector2/3e.tmx" : true,
-			"grace" : true,
-			"collect_Guide Notes(144,208) sector2/2e.tmx" : true,
-			"collect_Expedition Log(224,688) sector2/2f.tmx" : true,
-			"meet" : true,
-			"collect_Guide Notes(112,336) sector3/4a.tmx" : true,
-			"welldone" : true,
-			"collect_Guide Notes(480,64) sector3/3b.tmx" : true
+			"collect_Guide Notes(80,464) sector1/cave_intro.tmx" : true
 		}
 	},
-	"levelKey" : "sector3/3c.tmx",
+	"levelKey" : "sector1/elbow.tmx",
 	"heroMemory" : {
-		"tileX" : 6,
-		"tileY" : 23,
-		"dir" : "NORTH",
+		"tileX" : 13,
+		"tileY" : 13,
+		"dir" : "SOUTH",
 		"animKey" : "4dir_hero"
 	},
 	"saveSlot" : -1,
@@ -54,22 +26,14 @@
 		},
 		{
 			"itemKey" : "item_orders",
-			"quantity" : 5
-		},
-		{
-			"itemKey" : "item_redkey",
-			"quantity" : 1
+			"quantity" : 2
 		},
 		{
 			"itemKey" : "item_guide",
-			"quantity" : 7
+			"quantity" : 1
 		},
 		{
-			"itemKey" : "item_expedition",
-			"quantity" : 5
-		},
-		{
-			"itemKey" : "item_bluekey",
+			"itemKey" : "item_redkey",
 			"quantity" : 1
 		}
 	]
