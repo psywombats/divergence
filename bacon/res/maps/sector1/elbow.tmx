@@ -14,7 +14,7 @@
    H4sIAAAAAAAAC+2TyQ3CMBBFY0uIQLhDDhRBDdRADZxZOmDpgKUDlq4SSoCAuDGIsTKxgmOwc5vD05di682SJBFBkDAMU8kd6MkiD4/eGJgCM5JdD3Wa6JoDS2BFcoK1GvL32RUxutbAFtiRXGCtKv8bfXaVA3TtgSNwIrnBWjZ+fXaVQ3SdgQvcS0WeB6xl49dnVzmSRWdZ2vj12VWOS/rW08afEtpwPwI6Mn/m2r/J79p/COc3UU7mqX/T/+Vj/ya/ye3qp7vLiPNKdthy8OuzPMUHl55N/gipy99H6vL7eKfs/4+QOH198wzzjRcelUXWgA0AAA==
   </data>
  </layer>
- <layer name="Natural Lower Chip" width="24" height="36" visible="0">
+ <layer name="Natural Lower Chip" width="24" height="36">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value="0.0"/>
@@ -23,7 +23,7 @@
    H4sIAAAAAAAAC+3BMQEAAADCoPVPbQsvoAAAAHgYHkvUGYANAAA=
   </data>
  </layer>
- <layer name="Natural Walls" width="24" height="36" visible="0">
+ <layer name="Natural Walls" width="24" height="36">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value=".1"/>
@@ -37,10 +37,10 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3OPQqDQBRF4cHVuDpxCcEliMuJZgf+NNoabbRNtNHG06QzjfhA4R64zYP5GOeUUlfp6TmXsoy9vPP9HLNgJasM/BbzzTrWG/gfzC+b2HzQr3nXGPzt14A9GvoL9rrj+zu3gFto+JcHdiT/bzF2YugrpZS6Zxs8j0MRgA0AAA==
+   H4sIAAAAAAAAC+2PMQqDQBQFF0/j6UKOIB4heBw1TWw1NrGNsTGtxiY2TmOnjfhB4Q1M8+ENu84JIY5C7DmXYIp3b/9+TrPAJ5YG/TfNGj/YbOw/2GUr2457jz8cNvZf7CqDv8+0tL+G/T/tcaHvL9wu3K6Gbwloh+qvcqMdGfaFEEKckwnFKKN0gA0AAA==
   </data>
  </layer>
- <layer name="Natural Upper Chip" width="24" height="36" visible="0">
+ <layer name="Natural Upper Chip" width="24" height="36">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value=".5"/>
@@ -149,7 +149,7 @@
    </properties>
   </object>
  </objectgroup>
- <layer name="Artificial Overhead Chip" width="24" height="36" visible="0">
+ <layer name="Artificial Overhead Chip" width="24" height="36">
   <properties>
    <property name="z" value="1.5"/>
   </properties>
@@ -157,7 +157,7 @@
    H4sIAAAAAAAAC+3BMQEAAADCoPVPbQsvoAAAAHgYHkvUGYANAAA=
   </data>
  </layer>
- <layer name="Natural Overhead Chip" width="24" height="36" visible="0">
+ <layer name="Natural Overhead Chip" width="24" height="36">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value="1.5"/>

@@ -8,11 +8,6 @@
   <terrain name="Dirt" tile="163"/>
  </terraintypes>
  <tile id="12" terrain="0,0,0,0"/>
- <tile id="24">
-  <properties>
-   <property name="x" value=""/>
-  </properties>
- </tile>
  <tile id="42" terrain="0,0,0,1"/>
  <tile id="43" terrain="0,0,1,1"/>
  <tile id="44" terrain="0,0,1,0"/>
@@ -51,11 +46,6 @@
   </properties>
  </tile>
  <tile id="82">
-  <properties>
-   <property name="x" value=""/>
-  </properties>
- </tile>
- <tile id="84">
   <properties>
    <property name="x" value=""/>
   </properties>

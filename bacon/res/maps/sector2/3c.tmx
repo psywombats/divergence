@@ -11,7 +11,7 @@
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC82VS04DMRBEY0sRJHy2gES4I5AbALkBkCW7ALcKV+Az/BY0EiXKnY497hFoFk+dUfq5IkuTWobBYNkDXoT9mNL8gaf3D4QT4ZTmXlw9U9PG49+xofanwrlwQfPYOFPPnIedYUxzeX8mXAnXNM+MM/XMedjRubw/F26FO5qXxpl65jzs6FzevxceQsrCOFPPH++GgYcdnatzWoCzqzwr91V4K/Bu5NZ4Vu5Y5laBbeNuarxc7q6wQw4/53LbeLncT/n8EX59fs7ltvH6dM+HMicFjozcGq8P79GmfH4KKc+0+xhWv19HyRvF9X2EboFvdVHTwbP6CEzJ507hXvF6Vh+BGfncKdwrXs/qIzAnnzuFe8Xj4e6bkPYR4E7iTuFe8Xi4e+97hNxaD3fv7SPOrfFw997/Sc6t8XD33j6ycmt6zNtHVm5Nj/33PeO/cxR9fTTs4HXpI+97VOqjEt/35PWQ+wUSRh6mEA4AAA==
+   H4sIAAAAAAAAC82WSU4DMRBFY0sRJAxbQCJcAXEExBEQR0CsIdyAwA0YluwYzgEHCVdgaKYFhZSSvysVu10tUC+eKhH1/JGlzu+x63TGLeCNWPUx1R94cn+NOCKGMFf89JmSOh7+H3OTvQfikTgmRsQpzEPlTDlTHu90fZyL+2fEBXEJ80Q5U86UxzsyF/eviFviDua5cqacKY93ZC7u3xNPLuZGOVPOiXeNsMc7Mlfm1IDPLvK03HfiI8Onklviabl9mgsZFpW7KfFSucvEEjj4PZVbx0vlftPnLxd8/J7KreO16Z7XaQ4ybCi5JV4bnqN5+vziYl5h99lN/30WOa/nZ/cRdwv7WhdVDTzZR0NgC/xNHzoFe8XqaX3E7IC/7UOnYK9YPa2PmD3wd33oFOwVi8d3X7m4j5gD8Pd96BTsFYvH7wHW54hzSz1+D7D2EeaWePweYP2dxNwSj98DrH2k5Zb0mLWPtNySHvvve+bfzp639VG3gdekj6zPUa6Pcvzek9Xj3B+IgSxTEA4AAA==
   </data>
  </layer>
  <layer name="Natural Lower Chip" width="30" height="30">
@@ -20,7 +20,7 @@
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3VwQ2AIAxA0ToAmzgJhj3cGhlEIwdNSIWUluKph39sXlXUtAAky5pcgG8e6DkvnKNcKum+NbfHo+K6GibH1fK4rqbNPdPmmjvLjbmdOa/huidzddzat9ihtM5ZuQv+D5y5FXX94M4Ou3/bUvd9vw/mXBhwN5Cdu9Bwe+0Rt3afe3eIAre8Vspt7YLfb+oZBwW3Z6+WWbo36Ky74BAOAAA=
+   H4sIAAAAAAAAC3vIyMDwcBSPYhpjXgbsmFb6COknFvtCMb3tHSj/jmR7qZGeR+0dHvZS025K7aW1vlF7aWcvNdMvKWltsNnbCsRtQNxOB3thdoHoJUiY2vYj24tuFzbcRgN7CdkJw8PFXnrhwZqPaG0vAHzxbbwQDgAA
   </data>
  </layer>
  <layer name="Natural Walls" width="30" height="30">
@@ -29,7 +29,7 @@
    <property name="z" value=".1"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+1WSxIBMRCVBQcZ4x7UXMBnj7mAzx5zAZ/94ARchItwDK+rpHQlMdJmKhte1ave5LW8bvLUar+NE3h2VKlWoiNcwS7YA/vgAGyr9/fRNVG27iL43Ds4AafgDJyDQ/Qcg6OCmipbdxP6XYMbcAvuwAV6rsBlQc2UrZP6NZGj5wHcF9SjsnVSv1WhrN9vIfEbYV5Nx8ykiNGjJexThWeJV40qdizZrcbfrxxl/dL3sg42PCr/HZT1K7m3ROfKroTd2yeLfHRmLtJMzXxJmd4ni3gmcZ15hs+eZmPmS8b0PlnEM4nrzDN89uTXzBeeLT5Z5Mqk3HGGZt9RL7+hoHdGqDL3PkHvjBDSr94ZIaRfjpB+OUL6jZ/vKSGkX/5uhPTL341IkDdlK/+/9QAuITuGEA4AAA==
+   H4sIAAAAAAAAC+VWy21CMRDEByiEXx0EKIAk9xAoIMAdAgWQcCdJBaGR0AiUwaz0VozeDy9YzoGRRisZj/GsjYdK5b7xC+5yqlVr0Qn24AB8BJ/AZ7Djivejteeyuj/D9x7BN3ACTsEZ+II1X8FhSR25rO5g9LsGP8BPcAPOseY7uCipS5fVWf2mscWa3+BXSf1xWZ3Vbyjc6vda/IffJvreyul9EUL5tXgVhPJrOVvBvfmt4y40DPehCFa/AvYs97IK1jwq79fqV8BnbNn3tTrOFoVPFvno0rnYdefP2km+jEjvk0WcSaxLz+HeS290vJ/ky5L0PlnEmcS69BzuvdwhHR8n+cLZ4pNFeZm0zZkjvX9wZ786vgrw+ymDnpn6jQU9M0HI3LsEPTNBTL+MmH4ZMf02k/dUENMvvxsx/fK7UTfkza2V/2+dAMNNoSgQDgAA
   </data>
  </layer>
  <layer name="Artificial Upper Chip" width="30" height="30" visible="0">
@@ -46,7 +46,7 @@
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYOSAcBLVR0JpGTLsiiDRDlqDcjxy6P6zpKVDaACsydAjS3VXDA0gR4He11RzBWXgDZHqyMm31ABRVDBjIPLgegr0UlKOgfLiBgr0kws2MpBeJ4CANBXs3kSmPlLybxmU3syA6mYrKL0FSpNSFpYRVoICkN1LrTIXW96ooJLZQwmQGhcfyNCDK1xJiUtY2+M9ifqQgTQWNrFtLPQ8jstPpUToh7kf1uaApUXkugbk33dIfGzuJDUe6AEAoSYbiBAOAAA=
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkbBSAcZjAwMOoz0t1ebEYLpDTSBdqrT2d5iBkgYa9HR3s0MkPDNgNoJsr8MSG+hg928aP5MHoB4zqCznaX0tW4UjAKqAABW//CcEA4AAA==
   </data>
  </layer>
  <layer name="Natural Wall Sidings" width="30" height="30">
@@ -55,7 +55,7 @@
    <property name="z" value=".2"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3BAQEAAACCIP+vbkhAAQAA8Gh7blyXEA4AAA==
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkYBOjg9QPa+BOJndLbzASMDwzogvZLOdoLwGSD7OFRsLyN97AWBV0D8FCp2mw72joJRMApGwWAFAOG8v30QDgAA
   </data>
  </layer>
  <objectgroup name="Object Layer">
@@ -185,7 +185,7 @@
    <property name="z" value="1.5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3OOxIAEBAEUffPfG9F4UQSQul2UfPCSXqcExGRl1T6wNboA5/yYDsAzQg0j2TYype9GH4Q3oT7A+5b6vSBhyys5KQWEA4AAA==
+   H4sIAAAAAAAAC+3QoREAIAxD0VRyZS1GhHlxddgG8Z+MSS4SAACAR4Y0wtM9G3v3Iz99E8oy/Q3gTxcArdIPEA4AAA==
   </data>
  </layer>
 </map>

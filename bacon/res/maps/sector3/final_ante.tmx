@@ -6,7 +6,7 @@
  </properties>
  <tileset firstgid="1" source="../tilesets/natural.tsx"/>
  <tileset firstgid="481" source="../tilesets/artificial.tsx"/>
- <layer name="Artificial Lower Chip" width="32" height="51">
+ <layer name="Artificial Lower Chip" width="32" height="51" visible="0">
   <properties>
    <property name="z" value="0.0"/>
   </properties>
@@ -14,51 +14,51 @@
    H4sIAAAAAAAAC+2Wy0rDQBSGmwSxXre6sL6BiJe9iNKdoIiXlboR19VHUB9BfQT1sSq+gddWF/6BGZw048nfOElomcXH34Sc+cicNCftoFZrezyegeQdzIZJPhyuv4z1VgRWwTm4MJKpYf2bquavbIIrcG0kU9OvvynkLbgzkqlhe7uPaw8EDsEDeDSSqWGekVFct2jpr5lL4ClIwtQw9x/71y39NXMDbEVJmBrWv2vpr5l74DhKwtSw/lNLf808A60oCVPD+nvvzeQkSvdecyTULVTsX6vQv401dyryP5PvPMn/gvOvDhgj9sDmHyH3zgXen363zITp7408sPOn97luqRkizRcmmX20+S/VDJHmC5N5/Tdqhkjzhcm8/ns1Q6T5wmRevyu8fzj8n6ArHBftn8M18+GvVx8X7de+ODvgC3yr390gex/+69f3GWcDTIFp9Vufl/bBdf/Hce0kmFBZdv91Nkrqf9b/oGw/+9wX5e+XQfDXw+zv6DfL2sw3OvP9zVC3rONqbY9n2PkBCDW2OYAZAAA=
   </data>
  </layer>
- <layer name="Natural Lower Chip" width="32" height="51" visible="0">
+ <layer name="Natural Lower Chip" width="32" height="51">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value="0.0"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2Xb06DQBDFF797Ev9xDSxyDStwDb2IehC9SMV4jbYOCZO+vs4WlhBRux9+SdO0+4Y3szNDkzjXRCKRSOTPce5sTkn/WrjpSGfQz4W7jmJCfZfsn+mjFD47/S140PIsvHQkgfrteY1QCxfCpXAFZ6vv6ZEYUL/lNcCbCrQ3wq2wAP2c9DAP+t2b8C58jdBXnazTblmDD6yn+eJaQB9C9NXzDegrC/JcafNVuZ13j8KTcJaE62ekuRKWHQ9QexXEwbXK+Q+pv3v5/Qc980/f7eyX6K/A8zn013D3T8l/rME59DWG5Uz5517Pc1Z7YN+MGrMjoLavt2r/qSnO1Ig5dEfgOdNQb7V2D/QD54MVe6g+e8y+4AwqwBuFe/QYffQ3J09QZ2t4zs8Rqo/Pp5/bs3RO6lwu3eEzszdj9H255B7FHvFsrifW5x6le0Hh9ncErp+h+taewbXMcyJ3ux1M/8+7aZ8+7px9d8nyQL3Ge1IE6Gfu+K6ldZVCDNinrfyN0VdPh8Rg9WrsEWP0sa65D2MMlp6v9ofoc06tu+SrS+5L1jvMkPrHnJbusP/7dnDUU/gdJnQG++C7wXfSencYoj00Pp4z9YTnRyL/mW+X8EhkgBkAAA==
+   H4sIAAAAAAAAC+2X4W3CMBCFnf7PJDQtazRA1wCarAEMQjpIYBIkBmks+cTryyVxQpSolX88IZB13zv77mxukTG3oKCgoKA/p9gYk1baVHpzn/a3KfkbUD4D/6tS5tjpxHzJOwWNxTcu/qfLL4P4Wt7swepcqXCKBuR2o/h7F3erMBP63a4rgW/13WNvJHcbawfsGDzsGrzh2vMT/FzhspiHOjyRP7NtrKPTiTiLSq9OSQO7L3/VkkdBfK0WeH3Rg221hVxsHd07YozdgzHsv83/JZp+tsmZW3YxUl59+NqZz8W/zsAvoW/iGfji4erJ59n4DF/6mPv8vdLSfV+b33Ma55V4aJqbXWyR9MDJPO4XjiVsnpHiAe+JZU++1EBBMXGNsGXdxYnnNfrv4gsjAQ9RVM+N2Vgr7H3hwccZindbCXkVkNuR2HIXSe3I/Wt76MOTv1fioNDLBXKW/PAeQj6+T9r4HEdmMd+7Wh1yXWj108bfm/r7CvdRPPD+oGd+L2kefGcI1uDdPGYhekyU3Pns8A3Sdv6cG/YM74HUJ+639hY+9OQ35YH7yH0tNaudAb5Bfe4xzgF9lORDexPzu5H70+ce0zywD9wHnL0o7FGf+dOkNflAD5qQKefnM3/alJl6bfEs4jnIPbIayOb+1GZAl9rmzlAv8j9UlI/MCAr6r/oBChk66oAZAAA=
   </data>
  </layer>
- <layer name="Natural Walls" width="32" height="51" visible="0">
+ <layer name="Natural Walls" width="32" height="51">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value=".1"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2WTW4CMQyFkwUcZErvUcoFCt3TcgFK97RcgJ/9lB6o3IIVcwyeF90MtiYeJRkB/qQnS5En9ouicZwzDMO4TiroBRpDE+gVOmWsf4Dm0Ae0gD6hv4z1yf8a2kBbaOfy+X/2zo385foT1obMuhY62zfs8+7lOGPqTIV8bV90tl/I//ZyXDH7LYV86ktzN8j/D77Zezn+MvVLIZ/60tyNSpEbQtnCf2y69E906X+A839U3n9ujx7UbxE1tQnOf+5/a53cs6XOvfuPNVtC4PxLs0UTQz1w/qXZoomhc4jzL80WTQydQyn+//8e2vqPRZf+CfPfjPlPh/lvxvynI8R/gTnxkOCtoXmHFw3vaq6/QeR3eFN/x5pi7m8Yt8wZNkCMf4AZAAA=
+   H4sIAAAAAAAAC+1WSU4CQRTtThTPIaLXQJEDOKwF5AAOa1r0AA77Fk+Ae8cL6N5x50qP4fuxKlaK/9vqqUhMv+SlgC7qj13vB0GFChUqZMMYvFQcG9994QtcA9fBDXAT/PRo/xHcAXfBPXAffPBkuxUGwRJ4jM8n4Cl4FhQbv7bRA7vgcvhTX/p9FWyHk/+hPSvhby9k6Qltt6tsDMEDsGP4sg32Gfsd9bxnrdovF1BftZVNsjECz8HI8OUQPGLOi9TzobWSX669QX3VVzZNG7Hhy4UQS6yej6yV/HLtDYqfiy0P4pTxl4E08ZeBacbfQP4XU/R/EuZwzixYM9aZMPm5q21CHXsXmP0NdR53Vj2jLQlcDnxriw3X/mmluOskZIlf3/WkDfM5fND3vw3pDrd1irShqe58U4dcbUva1mHO1PGaOkXasBVOapFLTqjukrZFlgaa8d5b2jAAr8Eb8Fb5pXOS5APVXdK22NBAfS6td+A7s/8Zv72Ar8ovnROpj3QdJW3TPoyMc2l9c+yzgfJfeo8o91zdi0Sc0AeUe67uRaMp5IDiL1r3OVwJ9svSXRtPQg+WNXdwmGb8BC5+SXfLQNI76APSHeSjBkmzmI8a/DVHmLMUN9/lRZY5qqi8pJmDOR/y5CGPbdMHXRNpRq4x9ZPm5ry+fFgs2kaFCv8V34zptIKAGQAA
   </data>
  </layer>
- <layer name="Artificial Upper Chip" width="32" height="51">
+ <layer name="Artificial Upper Chip" width="32" height="51" visible="0">
   <properties>
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2UyQ3CMBBFLdMDNVAXBQQaYG0ACDQAlADcWDoIcIMbyw1uLDeQ+IfkQDSOEjImUjRP+orGzp9vW5aVEgRB+J25VmoBLaGV/n++h8w1tIG2GeQfkHmETtA5g/wbMu/QA3payK+hZx1qaLq2TQc5Xain6ZrLY2IIzwgaQ0X9XcfxUHUSJvBMoZmmay6PIAhC3ikXePrs8JbuiffUNM7NBRlXIsc0zs0LGW8ixzSeB0rEvhyMVXxViXnKw5Eb4GKu72sQ8V/adTgRe+T0hAnW3cS3BbUT9Ap70pyBG+OMOTwCjdy/7O6f7TfMZg+OXEEQBG4+NF4SCYAZAAA=
+   H4sIAAAAAAAAC+2UOQ7CMBBFLXMHzsC5OEDgAqwXAAIXAI4AdCwddCwddCwddCwdSPwiKYjGKCFjItA86Suacb6/bVlWShAE4XOGWqkRNIYm+vv5c2QuoCW0SiB/i8wdtIcOCeSfkXmBrtDNQn4BcxahkqZr29SQU4camq65PCba8HSgLpTWr3UYD1VHoQdPHxpouubyCIIg/ApTvGUz4j0z9X2yKZ78NTI2RI6pz80RGScix9Tn5o6MB5Fj6v8DGWJfDno5T3linPJw5Pq4GGt6ar35L+46nDd75PQE8dddxrcCVSPMFfTEOQM3xBlzeAQauX/J3T/bb5jNOThyBUEQuHkCROsw6oAZAAA=
   </data>
  </layer>
- <layer name="Natural Upper Chip" width="32" height="51" visible="0">
+ <layer name="Natural Upper Chip" width="32" height="51">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value=".5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2XiQ3CMAxFwxoVMAe0zEGBOQplgbIHx6DEohZgVSFO00bAf5KlXvHPofowBgAAAAijsFZZy63NEujPW93M2jqBfiHmkgLe93oA3+wz73g3tXYUz2gPtpG06Tz3kXydJ5Ecjagv9xYAAP6RlbgvzHvulXAuplx0aK/75gDKhaV55D0tu55zkDl1GeBjEyat5uJYozzHb8G1pk80L2OHrhFvEesc3zquGbm2Oo2k54ovPnTtS4oeiaFaWhM3aqPrKa6Oc+EYrNHnWElxK1OMk1Tm6Ucbf+l77kG4v1x4juV/nb4vA7QBAL/LHTu89guAGQAA
+   H4sIAAAAAAAAC+1WXU4CMRBuDwAH8AYK7xrjAXTfxegBlHcW9ADiNXSBA5h4LDVwBGeyrbuQTme6ZUM29EsmTX+/9ut0pkolJCQkJCQ0wwhsoEv7aonjWtN9yDuDMgfrecY1xQ2s+Uis+w12V6vf759ePRltP2ttmdnPg6MtN/VxpBYTsLUquRGXZk2sS3SexdH/+9SU6A8932ng+F+wq7ApW4jV/0XIYfXBEu9l7NDsrMFeXHd8C3bimbNRlb/sA1kL77lLkPjAseD5wPyH8MW3GuewI28B3/872Efkfl1xpCDWPCfWeNVlTsZchPr9CLkxjvlyHObCeUAutJD60NqUMTmEmktpaIF5v624g1pxfozcvhwjwdzzb+DyE/5nrXbUWEpbbF+CrZhzbjz8rn+eBAtd6cv9vbhYmgu57RirB+p+obbvuakP94Tz+7r6K1oMtX/ehOEudtbsM3tY1Pozc/8UpPECuQtzp+jLoW/SdX7uHByoNyXFUvPxh8MocLz10V0fiQG+Dy6OWf2nZmzsuTkeLI/9v5yQ0CX8AfG3ClyAGQAA
   </data>
  </layer>
- <layer name="Natural Wall Sidings" width="32" height="51" visible="0">
+ <layer name="Natural Wall Sidings" width="32" height="51">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value=".2"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3BMQEAAADCoPVPbQlPoAAAAAAAAHgaVGK9PYAZAAA=
+   H4sIAAAAAAAAC+2WWQ6CMBCGy/1PYjTeALcXTPQGuPCiCZ7CaUKToakdxm5o5ktIWUqHYX7mRylBEIQwlrCtSj8EUFf5Y57Qfpso/qf320G8NTp+pgmvdhBn78hNxz+j48UwxtKDq54bOLdF51/oWjOMF7h+rcZzO2ZteuWup1nbxcMz98gLP9JVDLjx+8jxudqU/MsSO/9fBL+DVL3VB9YAV78xKJl/bXmb9pYD0cNtn+L2fExreVvzxXpm/g3GO+NeU3fsbdhbjK9x150K9e37PJCC0jFV41AoHYdoZgqUjlP3XUrHqX1H69ingRy+49NADt+dc/45oHpA6hpQ+f/zv0+J/whMae0JgiDMgTfExaI7gBkAAA==
   </data>
  </layer>
- <objectgroup name="Object Layer">
+ <objectgroup name="Object Layer" visible="0">
   <properties>
    <property name="z" value=".5"/>
   </properties>
@@ -137,7 +137,7 @@
    </properties>
   </object>
  </objectgroup>
- <layer name="Artificial Overhead Chip" width="32" height="51">
+ <layer name="Artificial Overhead Chip" width="32" height="51" visible="0">
   <properties>
    <property name="z" value="1.5"/>
   </properties>
@@ -145,13 +145,13 @@
    H4sIAAAAAAAAC+3BMQEAAADCoPVPbQlPoAAAAAAAAHgaVGK9PYAZAAA=
   </data>
  </layer>
- <layer name="Natural Overhead Chip" width="32" height="51" visible="0">
+ <layer name="Natural Overhead Chip" width="32" height="51">
   <properties>
    <property name="alt" value="true"/>
    <property name="z" value="1.5"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3USw6AIAxFUVi76wI/21DUpfiGTkkgNPSe5E1poaQhAAAA9LNE3/VR79DMNmVX0oD5vb+ap8P/c+vOj5KVdeD9L9UuDt9/NhZ2sIUeAMC6Hruy9syWPbD7AVjxAQbUm4SAGQAA
+   H4sIAAAAAAAAC+3W2w1AMBQG4PaZwTAIc9ANJPZhAIQJjIJ4cEkqvWpT//cm0nNJWwchAAAQgsZ1AZa1lJCOns+9whpVtX4IaZODnLZEknsw2inDidjA+RMxf5MGIGiLwfuqMn9085fb+uoSIzXUD3vETB5xM06egh7vBsE8It+xPWZO+Tl12Jy77KNZAHxv58vFfx7c+XJHfKnDpBB7EvHXvgHATyu35vhPgBkAAA==
   </data>
  </layer>
 </map>
