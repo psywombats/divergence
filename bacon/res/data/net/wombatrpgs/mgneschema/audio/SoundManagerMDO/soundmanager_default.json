@@ -39,6 +39,14 @@
 		{
 			"key" : "switch",
 			"file" : "mutate01.wav"
+		},
+		{
+			"key" : "death",
+			"file" : "death.wav"
+		},
+		{
+			"key" : "frag",
+			"file" : "frag.wav"
 		}
 	],
 	"emuMusicEntries" : [ ],

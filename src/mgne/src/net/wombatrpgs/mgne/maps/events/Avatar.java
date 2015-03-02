@@ -30,6 +30,7 @@ public class Avatar extends MapEvent implements CommandListener {
 	protected List<FinishListener> stepListeners;
 	protected String parentName;
 	protected boolean paused;
+	public boolean dying;
 
 	/**
 	 * For real hero constructor. Looks up the avatar in the database and

@@ -27,6 +27,7 @@ import net.wombatrpgs.bacon01.screens.ScreenGameOver;
 import net.wombatrpgs.mgne.core.MAssets;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
+import net.wombatrpgs.mgne.core.interfaces.Timer;
 import net.wombatrpgs.mgne.graphics.ShaderFromData;
 import net.wombatrpgs.mgne.maps.LoadedLevel;
 import net.wombatrpgs.mgne.maps.events.Avatar;
@@ -45,10 +46,11 @@ public class BaconLevel extends LoadedLevel {
 	
 	protected ShaderFromData shader;
 	protected FrameBuffer lightBuffer, altBuffer, normBuffer;
-	protected EffectAltLight effect;
 	protected Graphic light;
 	protected Color clearColor;
 	protected float totalElapsed;
+	protected float sinceDeath;
+	protected boolean fragged;
 	
 	protected int lastX, lastY;
 
@@ -139,25 +141,60 @@ public class BaconLevel extends LoadedLevel {
 		}
 		if (!passed && !MGlobal.getHero().isPaused()) {
 			MGlobal.getHero().pause(true);
-			MGlobal.levelManager.getTele().getPre().addListener(new FinishListener() {
+			fragged = true;
+			MGlobal.getHero().dying = true;
+			MGlobal.audio.playSFX("frag");
+			new Timer(1f, new FinishListener() {
 				@Override public void onFinish() {
-					Screen go = new ScreenGameOver(true);
-					MGlobal.assets.loadAsset(go, "game over");
-					MGlobal.screens.push(go);
+					MGlobal.levelManager.getTele().getPre().run();
+					MGlobal.levelManager.getTele().getPre().addListener(new FinishListener() {
+						@Override public void onFinish() {
+							Screen go = new ScreenGameOver(true);
+							MGlobal.assets.loadAsset(go, "game over");
+							MGlobal.screens.push(go);
+						}
+					});
 				}
 			});
-			MGlobal.levelManager.getTele().getPre().run();
 		}
 		
 		// periodic
 		if (getProperty("period") != null) {
 			float period = Float.valueOf(getProperty("period"));
 			float ratio = (float) Math.sin(totalElapsed / period * Math.PI*2);
+			ratio *= 1.6f;
+			if (ratio > 1f) ratio = 1f;
+			if (ratio < -1f) ratio = -1f;
 			ratio = ratio/2f + .5f;
 			clearColor.r = ratio;
 			clearColor.g = ratio;
 			clearColor.b = ratio;
 		}
+		
+		shader.begin();
+		float period = .16f;
+		if (hero.dying) {
+			sinceDeath += elapsed;
+			if (fragged) {
+				shader.setUniformi("u_fragged", 1);
+			} else {
+				shader.setUniformi("u_eaten", 1);
+			}
+			while (sinceDeath > period) {
+				sinceDeath -= period;
+			}
+			if (sinceDeath > period/2f) {
+				shader.setUniformi("u_black", 0);
+				
+			} else {
+				shader.setUniformi("u_black", 1);
+			}
+		} else {
+			shader.setUniformi("u_black", 0);
+			shader.setUniformi("u_fragged", 0);
+			shader.setUniformi("u_eaten", 0);
+		}
+		shader.end();
 	}
 	
 	/**

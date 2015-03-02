@@ -124,7 +124,9 @@ public class EventWarper extends MapEvent {
 			pic.setY(pic.getHeight() * (tween*2f - .5f));
 		}
 		
-		setVelocity(0, 0);
+		if (getAppearance() != null) {
+			setVelocity(0, 0);
+		}
 		if (distance < 20 && appearance != null && MGlobal.keymap.isButtonDown(InputButton.BUTTON_A)) {
 			MGlobal.getHero().faceToward(this);
 			MGlobal.getHero().dirFix = true; // super janky ughhhh
