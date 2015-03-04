@@ -9,9 +9,14 @@ package net.wombatrpgs.mgne.maps.events;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
+import net.wombatrpgs.mgne.core.interfaces.Timer;
+import net.wombatrpgs.mgne.graphics.AnimationStrip;
+import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mgne.io.CommandListener;
 import net.wombatrpgs.mgne.physics.CollisionResult;
@@ -31,6 +36,7 @@ public class Avatar extends MapEvent implements CommandListener {
 	protected String parentName;
 	protected boolean paused;
 	public boolean dying;
+	protected boolean fragging;
 
 	/**
 	 * For real hero constructor. Looks up the avatar in the database and
@@ -126,7 +132,7 @@ public class Avatar extends MapEvent implements CommandListener {
 				setVelocity(targetVX, targetVY);
 			}
 		}
-		if (appearance != null) {
+		if (appearance != null && !dying && !fragging) {
 			if (vx != 0 || vy != 0) {
 				appearance.startMoving();
 			} else {
@@ -166,6 +172,23 @@ public class Avatar extends MapEvent implements CommandListener {
 		stepListeners.remove(listener);
 	}
 	
+	/**
+	 * @see net.wombatrpgs.mgne.maps.events.MapEvent#render
+	 * (com.badlogic.gdx.graphics.g2d.SpriteBatch)
+	 */
+	@Override
+	public void render(SpriteBatch batch) {
+		if (fragging) {
+			x -= 12;
+			y -= 1;
+		}
+		super.render(batch);
+		if (fragging) {
+			x += 12;
+			y += 1;
+		}
+	}
+
 	/**
 	 * Called when this avatar is loaded from memory.
 	 */
@@ -210,6 +233,19 @@ public class Avatar extends MapEvent implements CommandListener {
 		if (!paused) {
 			super.resolveWallCollision(result);
 		}
+	}
+	
+	public void frag() {
+		FacesAnimation anim = FacesAnimationFactory.create("anim_fragged");
+		MGlobal.assets.loadAsset(anim, "frag anim");
+		setAppearance(anim);
+		anim.startMoving();
+		new Timer(.5f, new FinishListener() {
+			@Override public void onFinish() {
+				setAppearance(null);
+			}
+		});
+		fragging = true;
 	}
 
 	/**

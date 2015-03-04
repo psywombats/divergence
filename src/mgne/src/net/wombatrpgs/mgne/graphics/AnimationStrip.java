@@ -130,8 +130,8 @@ public class AnimationStrip implements	PosRenderable,
 				currentFrame = anim.getKeyFrame(0, looping);
 			} else {
 				// we're calculating seconds elapsed since the game started
-				float s = (System.nanoTime()) / 1000000000f;
-				currentFrame = anim.getKeyFrame(s, looping);
+				//float s = (System.nanoTime()) / 1000000000f;
+				currentFrame = anim.getKeyFrame(time, looping);
 			}
 		} else {
 			currentFrame = anim.getKeyFrame(time + bump, looping);

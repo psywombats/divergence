@@ -1,0 +1,19 @@
+{
+	"key" : "anim_fragged",
+	"subfolder" : "",
+	"name" : "",
+	"description" : "",
+	"file" : "Fragged_01.png",
+	"mode" : "PLAY_ONCE",
+	"frameCount" : 5,
+	"frameWidth" : 60,
+	"frameHeight" : 60,
+	"offX" : 0,
+	"offY" : 0,
+	"animSpeed" : 10,
+	"hit1x" : 0,
+	"hit1y" : 0,
+	"hit2x" : 0,
+	"hit2y" : 0,
+	"attackBoxes" : [ ]
+}

@@ -20,7 +20,6 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-import net.wombatrpgs.bacon01.EffectAltLight;
 import net.wombatrpgs.bacon01.maps.events.EventGuide;
 import net.wombatrpgs.bacon01.maps.events.EventStalker;
 import net.wombatrpgs.bacon01.screens.ScreenGameOver;
@@ -143,6 +142,7 @@ public class BaconLevel extends LoadedLevel {
 			MGlobal.getHero().pause(true);
 			fragged = true;
 			MGlobal.getHero().dying = true;
+			MGlobal.getHero().frag();
 			MGlobal.audio.playSFX("frag");
 			new Timer(1f, new FinishListener() {
 				@Override public void onFinish() {

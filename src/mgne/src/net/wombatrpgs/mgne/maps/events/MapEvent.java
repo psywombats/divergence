@@ -160,8 +160,10 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	/** @param appearance The new anim for this event */
 	public void setAppearance(FacesAnimation appearance) {
 		this.appearance = appearance;
-		appearance.startMoving();
-		appearance.setParent(this);
+		if (appearance != null) {
+			appearance.startMoving();
+			appearance.setParent(this);
+		}
 	}
 	
 	/** @see net.wombatrpgs.mgne.core.lua.LuaConvertable#toLua() */
@@ -467,6 +469,7 @@ public class MapEvent extends MapMovable implements	LuaConvertable, Turnable {
 	@Override
 	public void setVelocity(float vx, float vy) {
 		super.setVelocity(vx, vy);
+		if (appearance == null) return;
 		Map<OrthoDir, Boolean> facings = new HashMap<OrthoDir, Boolean>();
 		facings.put(OrthoDir.NORTH, vy > 0);
 		facings.put(OrthoDir.SOUTH, vy < 0);
