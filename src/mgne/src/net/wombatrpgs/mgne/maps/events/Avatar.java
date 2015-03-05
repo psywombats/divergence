@@ -15,7 +15,6 @@ import net.wombatrpgs.mgne.core.Constants;
 import net.wombatrpgs.mgne.core.MGlobal;
 import net.wombatrpgs.mgne.core.interfaces.FinishListener;
 import net.wombatrpgs.mgne.core.interfaces.Timer;
-import net.wombatrpgs.mgne.graphics.AnimationStrip;
 import net.wombatrpgs.mgne.graphics.FacesAnimation;
 import net.wombatrpgs.mgne.graphics.FacesAnimationFactory;
 import net.wombatrpgs.mgne.io.CommandListener;

@@ -34,7 +34,7 @@ public class ScreenIntro extends Screen {
 	protected IntroSettingsMDO mdo;
 	
 	protected Graphic black;
-	protected Picture moon, weirdMoon, moonFlash;
+	protected Picture moon, weirdMoon, moonFlash, moonOverlay;
 	protected AnimationStrip animFly, animLand;
 	protected ShaderFromData shader;
 	protected float totalElapsed;
@@ -53,15 +53,18 @@ public class ScreenIntro extends Screen {
 		moon = new Picture("moon.png", 0);
 		weirdMoon = new Picture("moon_weird.png", 1);
 		moonFlash = new Picture("moon_flash.png", 2);
+		moonOverlay = new Picture("moon_overlay.png", 3);
 		assets.add(moon);
 		assets.add(weirdMoon);
 		assets.add(moonFlash);
+		assets.add(moonOverlay);
 		moon.setColor(new Color(1, 1, 1, 1));
 		weirdMoon.setColor(new Color(1, 1, 1, 0));
 		moonFlash.setColor(new Color(1, 1, 1, 0));
 		addChild(moon);
 		addChild(weirdMoon);
 		addChild(moonFlash);
+		addChild(moonOverlay);
 		
 		black = new Graphic("black.png");
 		assets.add(black);
@@ -100,6 +103,14 @@ public class ScreenIntro extends Screen {
 	public void update(float elapsed) {
 		super.update(elapsed);
 		totalElapsed += elapsed;
+		
+		if (totalElapsed <= mdo.timeFlyin) {
+			moonOverlay.setX(-1000);
+			moonOverlay.setY(-1000);
+		} else {
+			moonOverlay.setX(moonFlash.getWidth() / 2);
+			moonOverlay.setY(moonFlash.getHeight() / 2);
+		}
 		
 		shader.begin();
 		shader.setUniformf("u_elapsed", totalElapsed);
@@ -191,6 +202,7 @@ public class ScreenIntro extends Screen {
 			animFly.renderAt(batch, shipX, shipY);
 		}
 		batch.setColor(oldColor);
+		moonOverlay.render(batch);
 	}
 
 	protected void moveToNext() {
