@@ -283,19 +283,19 @@ public class BaconLevel extends LoadedLevel {
 	public void postProcessing(MAssets manager, int pass) {
 		super.postProcessing(manager, pass);
 		
-		lightBuffer = new FrameBuffer(Format.RGB565,
+		lightBuffer = new FrameBuffer(Format.RGBA8888,
 				getScreen().getWidth(),
 				getScreen().getHeight(),
 				false);
 		//lightBuffer.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
-		normBuffer = new FrameBuffer(Format.RGBA4444,
+		normBuffer = new FrameBuffer(Format.RGBA8888,
 				getScreen().getWidth(),
 				getScreen().getHeight(),
 				false);
 		normBuffer.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		
-		altBuffer = new FrameBuffer(Format.RGBA4444,
+		altBuffer = new FrameBuffer(Format.RGBA8888,
 				getScreen().getWidth(),
 				getScreen().getHeight(),
 				false);

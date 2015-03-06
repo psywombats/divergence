@@ -84,7 +84,7 @@ public class EventLight extends MapEvent {
 			matrix.setToOrtho2D(0, 0, level.getScreen().getWidth(), level.getScreen().getHeight());
 			effectBatch.setProjectionMatrix(matrix);
 			shaper.setProjectionMatrix(matrix);
-			buffer = new FrameBuffer(Format.RGB565,
+			buffer = new FrameBuffer(Format.RGBA8888,
 					getParent().getScreen().getWidth(),
 					getParent().getScreen().getHeight(),
 					false);
