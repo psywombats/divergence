@@ -1,22 +1,21 @@
 {
 	"switches" : {
 		"switches" : {
-			"collect_Radio(336,256) sector1/intro.tmx" : true,
-			"radio02" : true,
-			"radio01" : true
+			"collect_Blue Key(320,128) sector2/1d.tmx" : true,
+			"blueblab" : true
 		}
 	},
-	"levelKey" : "sector1/elbow.tmx",
+	"levelKey" : "sector2/1d.tmx",
 	"heroMemory" : {
-		"tileX" : 9,
-		"tileY" : 16,
-		"dir" : "EAST",
+		"tileX" : 10,
+		"tileY" : 15,
+		"dir" : "NORTH",
 		"animKey" : "4dir_hero"
 	},
 	"saveSlot" : -1,
 	"items" : [
 		{
-			"itemKey" : "item_radio",
+			"itemKey" : "item_bluekey",
 			"quantity" : 1
 		}
 	]
