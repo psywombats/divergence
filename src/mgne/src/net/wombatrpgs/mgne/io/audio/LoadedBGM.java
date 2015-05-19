@@ -6,12 +6,18 @@
  */
 package net.wombatrpgs.mgne.io.audio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.wombatrpgs.mgneschema.audio.data.LoadedMusicEntryMDO;
 
 /**
  * Countainer for a music object that meets the BGM interface.
  */
 public class LoadedBGM extends BackgroundMusic {
+	
+	// idiot hack because apparently I suck at getting music to work
+	static List<BackgroundMusic> playing = new ArrayList<BackgroundMusic>();
 	
 	protected LoadedMusicEntryMDO mdo;
 	protected MusicObject music;
@@ -40,6 +46,11 @@ public class LoadedBGM extends BackgroundMusic {
 	 */
 	@Override
 	protected void playInternal() {
+		for (BackgroundMusic bgm : playing) {
+			bgm.stop();
+		}
+		playing.clear();
+		playing.add(this);
 		music.play();
 	}
 
@@ -56,6 +67,11 @@ public class LoadedBGM extends BackgroundMusic {
 	 */
 	@Override
 	protected void fadeInInternal(float seconds) {
+		for (BackgroundMusic bgm : playing) {
+			bgm.stop();
+		}
+		playing.clear();
+		playing.add(this);
 		music.fadeIn(seconds);
 	}
 

@@ -89,7 +89,6 @@ public class ScreenGameOver extends Screen {
 					Screen screen = MGlobal.levelManager.getScreen();
 					MGlobal.screens.push(screen);
 					MGlobal.levelManager.getTele().getPost().run();
-					MGlobal.levelManager.getActive().playBGM();
 				};
 			});
 		} else {

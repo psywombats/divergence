@@ -177,7 +177,6 @@ public class ScreenTitle extends Screen {
 						Screen screen = MGlobal.levelManager.getScreen();
 						MGlobal.screens.push(screen);
 						MGlobal.levelManager.getTele().getPost().run();
-						MGlobal.audio.playBGM(MGlobal.levelManager.getActive().getBGM());
 					};
 				});
 			}

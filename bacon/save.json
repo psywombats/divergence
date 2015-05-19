@@ -1,6 +1,21 @@
 {
 	"switches" : {
 		"switches" : {
+			"radio02" : true,
+			"radio01" : true,
+			"collect_Radio(353,237) sector1/intro.tmx" : true,
+			"radio03" : true,
+			"collect_Orders(256,288) sector1/elbow.tmx" : true,
+			"collect_Red Key(288,112) sector1/cave_intro.tmx" : true,
+			"radio04" : true,
+			"radio05" : true,
+			"collect_Orders(256,256) sector2/2a.tmx" : true,
+			"radio06" : true,
+			"collect_Orders(448,128) sector2/2d.tmx" : true,
+			"trig02" : true,
+			"trig01" : true,
+			"trig03" : true,
+			"trig05" : true,
 			"collect_Blue Key(320,128) sector2/1d.tmx" : true,
 			"blueblab" : true
 		}
@@ -9,11 +24,23 @@
 	"heroMemory" : {
 		"tileX" : 10,
 		"tileY" : 15,
-		"dir" : "NORTH",
+		"dir" : "WEST",
 		"animKey" : "4dir_hero"
 	},
 	"saveSlot" : -1,
 	"items" : [
+		{
+			"itemKey" : "item_radio",
+			"quantity" : 1
+		},
+		{
+			"itemKey" : "item_orders",
+			"quantity" : 3
+		},
+		{
+			"itemKey" : "item_redkey",
+			"quantity" : 1
+		},
 		{
 			"itemKey" : "item_bluekey",
 			"quantity" : 1

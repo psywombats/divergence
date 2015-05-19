@@ -41,6 +41,7 @@ public abstract class BackgroundMusic extends AssetQueuer implements	Disposable,
 					fadingOut = false;
 					if (listenerOut != null) {
 						listenerOut.onFinish();
+						listenerOut = null;
 					}
 					currentlyPlaying = false;
 					if (disposeWhenDone) {
