@@ -22,7 +22,7 @@
 	},
 	"levelKey" : "sector2/1d.tmx",
 	"heroMemory" : {
-		"tileX" : 10,
+		"tileX" : 9,
 		"tileY" : 15,
 		"dir" : "WEST",
 		"animKey" : "4dir_hero"
